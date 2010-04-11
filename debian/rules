@@ -49,14 +49,14 @@ clean:
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tellico.
 	$(MAKE) -C ${build_dir} install DESTDIR=$(CURDIR)/debian/tmp
 
 	# Remove  dead symlink from French translation
-	rm debian/tmp/usr/share/doc/kde/HTML/*/tellico/common
+	#rm debian/tmp/usr/share/doc/kde/HTML/fr/tellico/common
 
 
 # Build architecture-independent files here.

@@ -1,17 +1,25 @@
-tellico (2.1.1-2ubuntu2~ppa1) karmic; urgency=low
+tellico (2.2-3) unstable; urgency=low
 
-  * Rebase to latest version from Lucid, no more ppa-changes left over, so
-    this is now just a rebuild of the version from Lucid for Karmic.
+  * Bump build-depends from libyaz3-dev to libyaz4-dev. Don't bother about
+    about backportability for now. Closes: #576780
 
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 20 Dec 2009 20:32:19 +0100
+ -- Regis Boudin <regis@debian.org>  Sun, 11 Apr 2010 23:27:48 +0100
 
-tellico (2.1.1-2ubuntu1) lucid; urgency=low
+tellico (2.2-2) unstable; urgency=low
 
-  * Re-sync with Debian testing (LP: #434372).
-  * Install the HTML documentation under usr/share/doc/kde4/HTML.
-  * Remove dead symlink from all translated docs.
+  * Install the i18n files again, which were removed by mistake. Thanks to
+    Luigi Toscano. Closes: #572802 
 
- -- Alessio Treglia <quadrispro@ubuntu.com>  Fri, 18 Dec 2009 09:39:56 +0100
+ -- Regis Boudin <regis@debian.org>  Sat, 20 Mar 2010 13:10:30 +0000
+
+tellico (2.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Update debhelper compatibility level to 7.
+  * Bump Standards-Version to 3.8.4.
+  * Stop shipping now unused KDE3 desktop file for mime types.
+
+ -- Regis Boudin <regis@debian.org>  Thu, 18 Feb 2010 01:33:48 +0000
 
 tellico (2.1.1-2) unstable; urgency=low
 
@@ -51,48 +59,6 @@ tellico (2.0-1) unstable; urgency=low
   * Stop calling deprecated dh_desktop, which is unnecessary now.
 
  -- Regis Boudin <regis@debian.org>  Thu, 24 Sep 2009 00:05:45 +0100
-
-tellico (1.3.5-1ubuntu2) karmic; urgency=low
-
-  * src/translators/pilotdb/libflatfile/DB.cpp: declare pointer as const
-    to fix FTBFS (LP: #448697).
-
- -- Ilya Barygin <barygin@gmail.com>  Sun, 11 Oct 2009 17:26:51 +0400
-
-tellico (1.3.5-1ubuntu1) jaunty; urgency=low
-
-  [ Fabrice Coutadeur ]
-  * Merge from Debian unstable (LP: #330392). Remaining Ubuntu changes:
-    - debian/rules: delete libtool and config.log files in the cleaning part
-  * Upstream 1.3.5 also fix LP: #317822.
-  * debian/rules: added option --without-arts to get rid of arts library,
-    otherwise it FTBFS.
-
-  [ Alessio Treglia ]
-  * tellico Recommends khelpecenter4 instead of khelpcenter.
-
- -- Fabrice Coutadeur <coutadeurf@gmail.com>  Sun, 15 Feb 2009 23:33:01 +0100
-
-tellico (1.3.3-1ubuntu1) jaunty; urgency=low
-
-  * Merge from debian unstable, remaining changes:
-    - debian/control: Building without kdemultimedia-dev and libkcal2-dev
-    - debian/rules: delete libtool and config.log files in the cleaning part
-    - Drop khelpcenter recommends, as it no longer exists in intrepid
-
- -- Sarah Hobbs <hobbsee@ubuntu.com>  Mon, 08 Dec 2008 12:47:14 +1100
-
-tellico (1.3.2.1-1ubuntu1) intrepid; urgency=low
-
-  [ Fabrice Coutadeur ]
-  * debian/control: Building without kdemultimedia-dev and libkcal2-dev
-  * debian/rules: delete libtool and config.log files in the cleaning part
-  * Close LP: #264168
-
-  [ Sarah Hobbs ]
-  * Drop khelpcenter recommends, as it no longer exists in intrepid
-
- -- Sarah Hobbs <hobbsee@ubuntu.com>  Sat, 27 Sep 2008 23:52:00 +1000
 
 tellico (1.3.2-1) unstable; urgency=low
 

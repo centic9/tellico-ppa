@@ -1,3 +1,9 @@
+tellico (2.2-3ubuntu0~ppa1) karmic; urgency=low
+
+  * Rebase to latest Debian package.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 20:46:01 +0200
+
 tellico (2.2-3) unstable; urgency=low
 
   * Bump build-depends from libyaz3-dev to libyaz4-dev. Don't bother about
@@ -21,6 +27,12 @@ tellico (2.2-1) unstable; urgency=low
 
  -- Regis Boudin <regis@debian.org>  Thu, 18 Feb 2010 01:33:48 +0000
 
+tellico (2.2-0ubuntu0~ppa1) karmic; urgency=low
+
+  * New upstream version (LP: 530122)
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 01 Mar 2010 21:58:21 +0100
+
 tellico (2.1.1-2) unstable; urgency=low
 
   * Disable webcam support if libv4l is not present, fixing FTBFS on
@@ -43,6 +55,39 @@ tellico (2.1-1) unstable; urgency=low
   * Actually enable webcam when building.
 
  -- Regis Boudin <regis@debian.org>  Thu, 05 Nov 2009 19:00:06 +0000
+
+tellico (2.1-0ubuntu1~ppa5) karmic; urgency=low
+
+  * Try to enable experimental webcam support.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 21 Nov 2009 16:51:10 +0100
+
+tellico (2.1-0ubuntu1~ppa4) karmic; urgency=low
+
+  * Add libksane-dev to build-deps, this provides some more functionality.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 21 Nov 2009 00:09:55 +0100
+
+tellico (2.1-0ubuntu1~ppa3) karmic; urgency=low
+
+  * Try to enable locale so we get translations included.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 08 Nov 2009 09:40:10 +0100
+
+tellico (2.1-0ubuntu1~ppa2) karmic; urgency=low
+
+  * Increase version to re-upload.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Fri, 06 Nov 2009 14:44:40 +0100
+
+tellico (2.1-0ubuntu1~ppa1) karmic; urgency=low
+
+  * Rebase to version 2.1 of Tellico.
+  * Rebase Debian packaging to version 2.0-2 from Debian, only remaining
+    change:
+    - revert doc-directory to "kde" instead of "kde4" for Karmic.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Fri, 06 Nov 2009 14:34:59 +0100
 
 tellico (2.0-2) unstable; urgency=low
 

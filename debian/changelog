@@ -1,29 +1,13 @@
-tellico (2.3-0ubuntu0~ppa2) lucid; urgency=low
+tellico (2.3-1) experimental; urgency=low
 
-  * Try to fix search for qjson cmake config file.
+  * New upstream release.
+  * Build-depend on shared-desktop-ontologies and libqjson-dev.
+  * Force a check in /usr/share/apps/cmake/modules to find FindQJSON.cmake.
+  * Bump Standards-Version to 3.9.1.
+  * Follow Policy section 7.4 and use Breaks plus Replaces instead of Conflicts
+    plus Replaces.
 
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 22 Aug 2010 11:37:39 +0200
-
-tellico (2.3-0ubuntu0~ppa1) lucid; urgency=low
-
-  * New upstream release
-  * add dependency on libqjson-dev
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 21 Aug 2010 10:50:31 +0200
-
-tellico (2.2-5ubuntu0~ppa2) lucid; urgency=low
-
-  * Remove invalid dependencies on pkg-kde-tools and kdelibs5-dev.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 07 Jun 2010 23:07:10 +0200
-
-tellico (2.2-5ubuntu0~ppa1) lucid; urgency=low
-
-  * Import changes from debian 2.2-5, only remaining change:
-    - use libyaz3 instead of libyaz4 as the newer version is not yet available
-      on Lucid.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 05 Jun 2010 20:01:39 +0200
+ -- Regis Boudin <regis@debian.org>  Thu, 19 Aug 2010 12:52:35 +0100
 
 tellico (2.2-5) unstable; urgency=high
 
@@ -41,66 +25,6 @@ tellico (2.2-4) unstable; urgency=low
     depends.
 
  -- Regis Boudin <regis@debian.org>  Thu, 20 May 2010 00:29:34 +0100
-
-tellico (2.2-3ubuntu0~ppa5) lucid; urgency=low
-
-  * Rebuild against Lucid.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Wed, 02 Jun 2010 13:44:21 +0200
-
-tellico (2.2-3ubuntu0~ppa4lucid1) lucid; urgency=low
-
-  * Upport to Lucid
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 06 May 2010 20:09:09 +0200
-
-tellico (2.2-3ubuntu0~ppa4) karmic; urgency=low
-
-  * Fix doc-dir from kde4 to kde, for some reason I still need it differently.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 06 May 2010 20:06:06 +0200
-
-tellico (2.2-3ubuntu0~ppa3~lucid1) lucid; urgency=low
-
-  * Upport to Lucid
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 23:58:09 +0200
-
-tellico (2.2-3ubuntu0~ppa3~jaunty1) jaunty; urgency=low
-
-  * Backport for Jaunty.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 23:52:38 +0200
-
-tellico (2.2-3ubuntu0~ppa3) karmic; urgency=low
-
-  * Re-upload to distribution-specific-PPAs.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 21:36:01 +0200
-
-tellico (2.2-3ubuntu0~ppa2~lucid1) karmic; urgency=low
-
-  * Upport to Lucid.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 20:53:47 +0200
-
-tellico (2.2-3ubuntu0~ppa2~jaunty1) karmic; urgency=low
-
-  * Backport to Jaunty.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 20:52:42 +0200
-
-tellico (2.2-3ubuntu0~ppa2) karmic; urgency=low
-
-  * Keep libyaz3-dev for now as libyaz4-dev is not yet available in Ubuntu.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 20:50:14 +0200
-
-tellico (2.2-3ubuntu0~ppa1) karmic; urgency=low
-
-  * Rebase to latest Debian package.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 03 May 2010 20:46:01 +0200
 
 tellico (2.2-3) unstable; urgency=low
 
@@ -125,12 +49,6 @@ tellico (2.2-1) unstable; urgency=low
 
  -- Regis Boudin <regis@debian.org>  Thu, 18 Feb 2010 01:33:48 +0000
 
-tellico (2.2-0ubuntu0~ppa1) karmic; urgency=low
-
-  * New upstream version (LP: 530122)
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 01 Mar 2010 21:58:21 +0100
-
 tellico (2.1.1-2) unstable; urgency=low
 
   * Disable webcam support if libv4l is not present, fixing FTBFS on
@@ -153,39 +71,6 @@ tellico (2.1-1) unstable; urgency=low
   * Actually enable webcam when building.
 
  -- Regis Boudin <regis@debian.org>  Thu, 05 Nov 2009 19:00:06 +0000
-
-tellico (2.1-0ubuntu1~ppa5) karmic; urgency=low
-
-  * Try to enable experimental webcam support.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 21 Nov 2009 16:51:10 +0100
-
-tellico (2.1-0ubuntu1~ppa4) karmic; urgency=low
-
-  * Add libksane-dev to build-deps, this provides some more functionality.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 21 Nov 2009 00:09:55 +0100
-
-tellico (2.1-0ubuntu1~ppa3) karmic; urgency=low
-
-  * Try to enable locale so we get translations included.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 08 Nov 2009 09:40:10 +0100
-
-tellico (2.1-0ubuntu1~ppa2) karmic; urgency=low
-
-  * Increase version to re-upload.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Fri, 06 Nov 2009 14:44:40 +0100
-
-tellico (2.1-0ubuntu1~ppa1) karmic; urgency=low
-
-  * Rebase to version 2.1 of Tellico.
-  * Rebase Debian packaging to version 2.0-2 from Debian, only remaining
-    change:
-    - revert doc-directory to "kde" instead of "kde4" for Karmic.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Fri, 06 Nov 2009 14:34:59 +0100
 
 tellico (2.0-2) unstable; urgency=low
 

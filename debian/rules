@@ -22,13 +22,13 @@ ${build_dir}:
 		$(DEB_CMAKE_CUSTOM_FLAGS) \
 		-DENABLE_WEBCAM=true \
 		-DCMAKE_INSTALL_PREFIX="/usr" \
-		-DQJSON_DIR=/usr/share/apps/cmake/modules
+		-DCMAKE_MODULE_PATH="/usr/share/apps/cmake/modules"
 
 configure: ${build_dir}
 
 build: build-stamp
 
-build-stamp:${build_dir}
+build-stamp:${build_dir} 
 	dh_testdir
 
 	# Add here commands to compile the package.
@@ -39,7 +39,7 @@ build-stamp:${build_dir}
 clean:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp
+	rm -f build-stamp 
 
 	# Add here commands to clean up after the build process.
 	[ ! -d ${build_dir} ] || rm -rf ${build_dir}
@@ -98,4 +98,4 @@ binary-arch: build install
 	dh_builddeb -a
 
 binary: binary-arch binary-indep
-.PHONY: configure build clean binary-indep binary-arch binary install
+.PHONY: configure build clean binary-indep binary-arch binary install 

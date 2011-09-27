@@ -1,64 +1,27 @@
-tellico (2.3.3-1ubuntu0~ppa1) lucid; urgency=low
+tellico (2.3.4+dfsg.1-1) unstable; urgency=low
 
-  * Backport latest version from Debian/Oneiric, remaining changes:
-    - enable Webcam support
-    - change dependencies to compile against Lucid
+  * New upstream release
+  * Repack to remove the local KXmlRpc local copy.
+  * Drop patch for QJson, applied upstream.
+  * Convert debian/rules to dh.
+  * Bump debian/compat to 8, and update build-dependency accordingly.
 
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 29 Sep 2011 14:43:03 +0200
+ -- Regis Boudin <regis@debian.org>  Tue, 27 Sep 2011 21:58:23 +0100
+
+tellico (2.3.3-2) unstable; urgency=low
+
+  * Add 0001-Use-the-new-qjson-naming.patch to build with the new QJson cmake
+    naming scheme.
+  * Add build-arch and build-indep targets to debian/rules, to make lintian
+    happier.
+
+ -- Regis Boudin <regis@debian.org>  Wed, 14 Sep 2011 21:49:51 +0100
 
 tellico (2.3.3-1) unstable; urgency=low
 
   * New upstream release. Fixes FTBFS with kernel 2.6.38 (Closes: #622047) 
 
  -- Regis Boudin <regis@debian.org>  Mon, 11 Apr 2011 20:27:14 +0100
-
-tellico (2.3.3-0ubuntu0~ppa8) lucid; urgency=low
-
-  * Back to lucid again.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 29 Sep 2011 09:22:16 +0200
-
-tellico (2.3.3-0ubuntu0~ppa7) natty; urgency=low
-
-  * For Natty as well.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 21 Apr 2011 21:55:09 +0200
-
-tellico (2.3.3-0ubuntu0~ppa6) maverick; urgency=low
-
-  * Fix dependency for Maverick/Natty.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 21 Apr 2011 21:50:13 +0200
-
-tellico (2.3.3-0ubuntu0~ppa5) natty; urgency=low
-
-  * Upload to Natty.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 21 Apr 2011 21:19:26 +0200
-
-tellico (2.3.3-0ubuntu0~ppa4) lucid; urgency=low
-
-  * Upload with orig.tar.gz correctly.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 21 Apr 2011 20:52:27 +0200
-
-tellico (2.3.3-0ubuntu0~ppa3) maverick; urgency=low
-
-  * Upload for Maverick.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 17 Apr 2011 22:40:58 +0200
-
-tellico (2.3.3-0ubuntu0~ppa1) lucid; urgency=low
-
-  * New upstream release.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 17 Apr 2011 20:52:25 +0200
-
-tellico (2.3.2-0ubuntu0~ppa1) lucid; urgency=low
-
-  * New upstream version.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 19 Dec 2010 22:33:55 +0100
 
 tellico (2.3.2-1) experimental; urgency=low
 
@@ -68,37 +31,6 @@ tellico (2.3.2-1) experimental; urgency=low
   * Permissions for backup files should be fixed as well (Closes: #561238).
 
  -- Regis Boudin <regis@debian.org>  Mon, 03 Jan 2011 18:42:57 +0000
-
-tellico (2.3.1-0ubuntu0~ppa3) lucid; urgency=low
-
-  * Try again after strange build error in PPA.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 21 Nov 2010 20:59:32 +0100
-
-tellico (2.3.1-0ubuntu0~ppa2) lucid; urgency=low
-
-  * Apply hotifx patch to fix window position saving.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 21 Nov 2010 20:04:10 +0100
-
-tellico (2.3.1-0ubuntu0~ppa1) lucid; urgency=low
-
-  * New upstream version.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 07 Nov 2010 09:54:59 +0100
-
-tellico (2.3-1ubuntu0~ppa2) maverick; urgency=low
-
-  * Rebuild for Maverick.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Fri, 15 Oct 2010 18:17:19 +0200
-
-tellico (2.3-1ubuntu0~ppa1) lucid; urgency=low
-
-  * Rebase onto latest version from debian which fixes the qjson dependency
-    properly.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 22 Aug 2010 22:04:23 +0200
 
 tellico (2.3-1) experimental; urgency=low
 
@@ -110,33 +42,6 @@ tellico (2.3-1) experimental; urgency=low
     plus Replaces.
 
  -- Regis Boudin <regis@debian.org>  Thu, 19 Aug 2010 12:52:35 +0100
-
-tellico (2.3-0ubuntu0~ppa2) lucid; urgency=low
-
-  * Try to fix search for qjson cmake config file.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 22 Aug 2010 11:37:39 +0200
-
-tellico (2.3-0ubuntu0~ppa1) lucid; urgency=low
-
-  * New upstream release
-  * add dependency on libqjson-dev
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 21 Aug 2010 10:50:31 +0200
-
-tellico (2.2-5ubuntu0~ppa2) lucid; urgency=low
-
-  * Remove invalid dependencies on pkg-kde-tools and kdelibs5-dev.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 07 Jun 2010 23:07:10 +0200
-
-tellico (2.2-5ubuntu0~ppa1) lucid; urgency=low
-
-  * Import changes from debian 2.2-5, only remaining change:
-    - use libyaz3 instead of libyaz4 as the newer version is not yet available
-      on Lucid.
-
- -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sat, 05 Jun 2010 20:01:39 +0200
 
 tellico (2.2-5) unstable; urgency=high
 

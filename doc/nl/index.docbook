@@ -1,0 +1,349 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY appname '<application
+>Tellico</application
+>'>
+  <!ENTITY kappname "&appname;">
+  <!ENTITY package "extragear/office">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Dutch "INCLUDE"
+><!-- change language only here -->
+
+  <!ENTITY robby "Robby Stephenson">
+  <!ENTITY email "robby@periapsis.org">
+  <!ENTITY homepage "http://tellico-project.org">
+  <!ENTITY maillist "http://forge.novell.com/mailman/listinfo/tellico-users">
+  <!ENTITY xslt "<acronym
+>XSLT</acronym
+>">
+
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY importing-exporting-chapter SYSTEM "importing-exporting.docbook">
+  <!ENTITY configuration-chapter SYSTEM "configuration.docbook">
+  <!ENTITY fields-chapter SYSTEM "fields.docbook">
+  <!ENTITY menus-chapter SYSTEM "menus.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY hacking-chapter SYSTEM "hacking.docbook">
+  <!ENTITY faqs-chapter SYSTEM "faqs.docbook">
+  <!ENTITY details-chapter SYSTEM "details.docbook">
+
+]>
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+<date
+>28/08/2009</date>
+<releaseinfo
+>2.0</releaseinfo>
+
+<title
+>Het handboek van &appname;</title>
+
+<authorgroup>
+<author
+><firstname
+>Robby</firstname
+> <surname
+>Stephenson</surname
+> <affiliation
+> <address
+><email
+>&email;</email
+></address>
+</affiliation>
+</author>
+&Freek.de.Kruijf;<othercredit role="translator"
+><firstname
+>Dit document is nog maar gedeeltelijk vertaald.</firstname
+> <surname
+>Wilt u meehelpen, stuur een bericht naar:</surname
+><affiliation
+><address
+> <email
+>kde-i18n-nl@kde.org</email
+></address
+></affiliation
+> <contrib
+>Nieuwe vertaler</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2001</year>
+<year
+>2002</year>
+<year
+>2003</year>
+<year
+>2004</year>
+<year
+>2005</year>
+<year
+>2006</year>
+<year
+>2007</year>
+<year
+>2008</year>
+<year
+>2009</year>
+<holder
+>&robby;</holder>
+</copyright>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+&FDLNotice;
+
+<para
+>De auteur van deze documentatie heeft u ook toestemming gegeven om de inhoud onder de bepalingen van de <ulink url="freebsd-doc-license.html"
+>FreeBSD documentatielicentie</ulink
+> te gebruiken, als u dat verkiest. Zie de notitie in de <link linkend="gnu-fdl"
+>sectie licenties</link
+>.</para>
+</legalnotice>
+
+<legalnotice>
+<para
+>Dit programma is vrije software; u mag het opnieuw distribueren en/of wijzigen onder de bepalingen van de &GNU; General Public License zoals gepubliceerd door de Free Software Foundation; ofwel versie 2 van de licentie of (volgens uw keuze) versie 3 of elke latere versie die geaccepteerd is door het lidmaatschap van KDE e.V. (of zijn opvolger goedgekeurd door het lidmaatschap van KDE e.V.), die zal optreden als een proxy gedefinieerd in sectie 14 van versie 3 van de licentie. </para>
+
+<para
+>Dit programma is gedistribueerd in de hoop dat het bruikbaar is, maar ZONDER ENIGE VORM VAN GARANTIE, zelfs zonder de impliciete garantie op VERKOOPBAARHEID of GESCHIKTHEID VOOR EEN BEPAALD DOEL. Zie de licentie &GNU; General Public License voor meer informatie.</para>
+
+<para
+>Bij dit programma dient u een exemplaar van de &GNU; General Public License hebben ontvangen. Zo niet, schrijf dan naar  Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</para>
+</legalnotice>
+<!--<legalnotice
+>&GPLNotice;</legalnotice
+>-->
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>Dit document is een handboek voor het gebruiken van &appname;, een beheerder voor verzamelingen van software toepassingen. </para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>tellico</keyword>
+<keyword
+>boek</keyword>
+<keyword
+>bibliografie</keyword>
+<keyword
+>film</keyword>
+<keyword
+>collectie</keyword>
+<keyword
+>database</keyword>
+<keyword
+>catalogus</keyword>
+<keyword
+>extragear</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label each chapter
+so with the id attribute. This is necessary for two reasons: it allows
+you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files
+will vary from time to time making it hard to manage for maintainers
+and for the CVS system. Any chapter labelled (OPTIONAL) may be left
+out at the author's discretion. Other chapters should not be left out
+in order to maintain a consistent documentation style across all KDE
+apps. -->
+
+<chapter id="introduction">
+<title
+>Inleiding</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<sect1 id="tellico-intro">
+<title
+>&appname;</title>
+
+<para
+>&appname; is een programma voor het beheren van verzamelingen. Het begon als een eenvoudige beheerder voor een boekenverzameling en is uitgebreid met standaard verzamelingensjablonen voor bibliografieën, stripboeken, video's, muziek, penningen, stempels, visitekaartjes, videospellen, wijnen, bordspelen en lijsten van bestanden. Bovendien kunnen er eigen verzamelingen mee worden gebouwd voor iets anders om te verzamelen. </para>
+
+<sect2 id="what-tellico-is">
+<title
+>Wat &appname; is</title>
+
+<para
+>&appname; keeps track of the items in a collection, and offers an easy way to enter data for each entry. It provides several field types, and allows for an unlimited number of user-defined fields. The entries in a collection may be grouped by any field for easy organization, and customizable views show as much or as little information as you like. </para>
+
+<para
+>uitleningen kunnen worden gevolgd, met optionele integratie met &korganizer;. Verzamelingen kunnen worden geïmporteerd of geëxporteerd met een verscheidenheid aan formaten, om gemakkelijke uitwisseling of publicatie van gegevens mogelijk te maken. </para>
+
+</sect2>
+
+<sect2 id="what-tellico-is-not">
+<title
+>Wat &appname; niet is</title>
+
+<para
+>&appname; is geen geluid- of videospeler. Het biedt geen faciliteiten voor het lezen of wijzigen van multimedia-bestanden. Het biedt ook geen bewerking van afbeeldingen. Hoewel &appname; enige functionaliteit heeft voor beheer van bibliografische lijsten, is het geen volledige bibliografische beheerder van verwijzingen. &appname; heeft ook niet de pretentie van het hebben van alle mogelijkheden van een volledige relationele database. </para>
+
+<para
+>Bij wijze van waarschuwing, &appname; is een hobby van de auteur en er worden geen garanties gegeven over zijn functionaliteit, nut of anderszins. Het is erg ver weg van een professioneel softwarepakket. Meer informatie is beschikbaar in de <link linkend="gnu-fdl"
+>licentieverklaring</link
+>. </para>
+
+</sect2>
+</sect1>
+
+<sect1 id="terminology">
+<title
+>Terminologie</title>
+
+<sect2 id="collections">
+<title
+>Verzamelingen</title>
+<para
+>In &appname;, a collection is the document. Only one collection exists in each &appname; file. A collection contains any number of <link linkend="fields"
+>fields</link
+> and <link linkend="entries"
+>entries</link
+>. &appname; supports 12 specific collection types by default: books, bibliographic entries, comic books, videos, music, trading cards, coins, stamps, video games, wines, board games, and file listings. In addition, an empty generic collection template is available for any other type of collectibles or lists. </para>
+</sect2>
+
+<sect2 id="fields">
+<title
+>Verzamelingsvelden</title>
+<para
+>Elke verzameling kan een ongelimiteerd aantal velden hebben. &appname; ondersteunt elf typen velden, wat mogelijkheden biedt voor een reeks van verschillende gegevens. De velden kunnen bewerkt worden met de <link linkend="fields-dialog"
+><interface
+>Dialoog voor velden in de verzameling</interface
+>"</link
+> en worden verder verklaart in de sectie <link linkend="field-types"
+>Typen velden</link
+>. </para>
+</sect2>
+
+<sect2 id="entries">
+<title
+>Items in de verzameling</title>
+
+<para
+>An entry is the basic record in &appname;. Each entry contains a single value for each field in the collection. A collection may have an unlimited number of entries, in theory, although since the whole collection is always resident in memory, too many entries could slow down the application. </para>
+
+<para
+>&appname; has been tested with a collection of 10,000 entries, and the speed was satisfactory. However, if many large images are included in the collection, the loading and processing time does slow down greatly. Performance can be improved by having &appname; store images separate from the data file itself, either in the application-specific folder or a folder relative to the data file. More information can be found in the <link linkend="configuration"
+>configuration section</link
+>. </para>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+&fundamentals-chapter;
+
+&details-chapter;
+
+&importing-exporting-chapter;
+
+&advanced-chapter;
+
+&configuration-chapter;
+
+&hacking-chapter;
+
+&faqs-chapter;
+
+&menus-chapter;
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be
+included below the credits with a reference to the appropriate license
+file included in the KDE distribution. -->
+
+<title
+>Dankbetuigingen en licentie</title>
+
+<para
+>&appname; </para>
+<para
+>Programma copyright 2001-2009 &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Documentatie copyright 2001-2009 &robby; <email
+>&email;</email
+> </para>
+
+&meld.fouten;&vertaling.freek; 
+&underFDL; &underGPL; <para
+>The author of this documentation has also granted you permission to use the content under the terms of the <ulink url="freebsd-doc-license.html"
+>FreeBSD Documentation License</ulink
+>, if you so choose. If you wish to allow use of your version of this content only under the terms of the FreeBSD Documentation License, and not to allow others to use your version of this file under the terms of the GFDL, indicate your decision by deleting the GFDL notice and replacing it with the notice and other provisions required by the FreeBSD Documentation License. If you do not delete the GFDL notice above, a recipient may use your version of this file under the terms of either the GFDL or the FreeBSD Documentation License.</para>
+
+</chapter>
+
+<appendix id="installation">
+<title
+>Installatie</title>
+
+<sect1 id="getting-tellico">
+<title
+>Hoe &appname; te verkrijgen</title>
+
+<para
+>De homepagina van &appname; is <ulink url="&homepage;"
+>&homepage;</ulink
+>. Verbeteringen en nieuws kan daar worden gevonden.</para>
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Compilatie en installatie</title>
+&install.compile.documentation; </sect1>
+
+</appendix>
+
+&documentation.index;
+
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

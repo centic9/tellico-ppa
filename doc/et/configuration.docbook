@@ -1,0 +1,762 @@
+<chapter id="configuration">
+<title
+>Seadistamine</title>
+
+
+<para
+><interface
+>Seadistustedialoog</interface
+> sisaldab valikuid, mis võimaldavad muuta &appname; vaikimisi käitumist. </para>
+
+<para
+>Klõps nupule <guibutton
+>Rakenda</guibutton
+> <action
+>kehtestab muudatused otsekohe</action
+> ilma dialoogi sulgemata, nupule <guibutton
+>OK</guibutton
+> klõpsates aga <action
+>rakendatakse muudatused  ja dialoog suletakse</action
+>. Nupp <guibutton
+>Loobu</guibutton
+> sulgeb dialoogi, kuid eelnevalt juba rakendatud muudatused jäävad kehtima. Nupp <guibutton
+>Vaikeväärtused</guibutton
+> <action
+>lähtestab</action
+> aktiivse kaardi valikud ja kehtestab taas vaikimisi kehtivad väärtused, nupp <guibutton
+>Abi</guibutton
+> aga <action
+>avab &khelpcenter;e</action
+> &appname; käsiraamatu vastava osaga. </para>
+
+<para
+>Mõningaid peenemaid, aga ühtlasi ebaolulisemaid asju saab muuta ainult seadistustefaili otse redigeerides. Sellest kõneldakse lähemalt osas <link linkend="hidden-options"
+>Peidetud valikud</link
+>. </para>
+
+<sect1 id="general-options">
+<title
+><guilabel
+>Üldised valikud</guilabel
+></title>
+
+<screenshot>
+<screeninfo
+>Üldiste valikute dialoog</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="general-options.png"/></imageobject>
+<textobject
+><phrase
+>Üldiste valikute dialoog</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<para
+><guilabel
+>Üldised valikud</guilabel
+> määravad kindlaks üldise käitumise. Pildid võib näiteks salvestada andmefailidesse või ka eraldi &appname; rakendusekausta. Samuti võib lasta &appname; käivitamisel automaatselt avada andmefaili, mis oli avatud rakenduse viimase sulgemise ajal. <guilabel
+>Päeva nõuannete</guilabel
+> dialoog sisaldab mõningaid tulusaid näpunäiteid &appname; kasutamise kohta ning see võidakse avada samuti rakenduse käivitamisel. Eriti algajal ei teeks sugugi paha mõned nõuanded läbi lugeda, enne kui dialoog sulgeda. </para>
+
+<para
+><guilabel
+>Vormindamisvalikud</guilabel
+> võimaldavad määrata &appname; automaatse vormindamise ulatust. Vaata ka osa <link linkend="field-formatting"
+>Väljade vormindamine</link
+>. Tähesuurus ja vormindamine on eri valikud, sest välja teksti tähesuurust võib muuta ka ilma sõnade järjekorda muutmata ning vastupidi. Teatavate sõnade puhul võib välistada nende muutmise suurtäheliseks. Automaatse vormindamise alla käivad pealkirjades olevad artiklid, samuti isikunimede prefiksid ja sufiksid. Väärtuste enda puhul tähesuurust ei arvestata, küll tuleb eri väärtused eraldada semikooloniga. </para>
+
+<para
+>Vormindamise reeglite aluseks on inglise keeles levinud tavad, mis ei pruugi sobida teistele keeltele. Artiklid viiakse pealkirja lõppu ja eraldatakse komaga. Isikunimed vormindatakse nii, et kõigepealt seisab perekonnanimi ja siis koma järel eesnimi. Nimega kaasnevad sufiksid, näiteks Jr., jäetakse perekonnanime juurde. Ka prefiksid, näiteks <emphasis
+>von</emphasis
+> jäetakse perekonnanime juurde, kuid väärtuste sortimisel neid eiratakse.</para>
+
+<informalexample
+><para
+><emphasis
+>John Q. von Public, III</emphasis
+> asemele tuleb <emphasis
+>von Public, III, John Q.</emphasis
+> ning sortimisel võetakse aluseks <emphasis
+>Public</emphasis
+>.</para
+></informalexample>
+
+<para
+>Toetatud on ainult ühest sõnast koosnevad prefiksid. Kui nimeosaks on näiteks <emphasis
+>van der</emphasis
+>, siis tuleb perekonnanime prefiksite nimekirja lisada nii <emphasis
+>van</emphasis
+> kui ka <emphasis
+>der</emphasis
+>. Sortimisel on toetatud ka ülakomaga lõppevad artiklid. </para>
+
+<note
+><para
+>Tegelikke väärtusi kogus <emphasis
+>ei muudeta</emphasis
+>, muutub ainult liideses nähtav tekst. Sestap saab vormindusvalikuid mis tahes moel muuta, ilma et see mõjutaks kogu andmeid.</para
+></note>
+
+</sect1>
+
+<sect1 id="printing-options">
+<title
+><guilabel
+>Trükkimisvalikud</guilabel
+></title>
+
+<para
+>&appname; kasutab &xslt; malli &HTML;-i loomiseks ja edastab selle siis &kde; trükkimisteenusele. Trükitakse ainult väljad, mis on näha <link linkend="detailed-view"
+><interface
+>veeruvaates</interface
+></link
+>. Kui kogu on filtreeritud, trükitakse ainult nähtavad väljad. Samas näidatakse ka hoiatust, kui filter on parajasti aktiivne. </para>
+
+<screenshot>
+<screeninfo
+>Trükkimisvalikute dialoog</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="print-options.png"/></imageobject>
+<textobject
+><phrase
+>Trükkimisvalikute dialoog</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<para
+><guilabel
+>Trükkimisvalikud</guilabel
+> võimaldavad kogu trükkimisel muuta mõningal määral vormindust. Kui <guilabel
+>Pealkirjade ja nimede vormindamine</guilabel
+> on märgitud, siis trükkimisel <link linkend="field-formatting"
+>vormindatakse väljad automaatselt</link
+>. Vastasel juhul trükitakse need täpselt sellistena, nagu nad on sisestatud. </para>
+
+<para
+>Trükkimisel kasutatav vaikimisi laaditabel trükib kogu väljade väärtused veergudes. Valik <guilabel
+>Välja päiste trükkimine</guilabel
+> määrab, kas veeru kohal trükitakse ka välja pealkiri. </para>
+
+<para
+>Trükkimisel sorditakse kirjed nii, nagu nad esinevad <link linkend="detailed-view"
+><interface
+>veeruvaates</interface
+></link
+>. Lisaks võib neid lasta rühmitada sellisena, nagu neid näeb <link linkend="group-view"
+><interface
+>rühmavaates</interface
+></link
+>. </para>
+
+<para
+>Kui väljatrükki soovitakse kaasata ka pildid, võib lasta nende suurust muuta, säilitades samas proportsioonid. Pildi maksimumlaius ja maksimumkõrgus määravad kindlaks pildi maksimaalsed mõõtmed, kuid need võivad sõltuvalt pildist mõistagi reaalselt olla ka väiksemad. </para>
+</sect1>
+
+<sect1 id="template-options">
+<title
+><guilabel
+>Mallide valikud</guilabel
+></title>
+
+<para
+><link linkend="entry-view"
+><interface
+>Kirjevaade</interface
+></link
+> kasutab väljade väärtuste näitamiseks malle. Igale kogutüübile saab määrata omaette malli. Mõned mallid, näiteks <emphasis
+>album</emphasis
+> või <emphasis
+>video</emphasis
+>, on mõeldud konkreetsele kogutüübile ning <interface
+>kirjevaade</interface
+> näitab veateadet, kui neid kasutatakse mõnda teist tüüpi kogu puhul. Nupuga <guilabel
+>Eelvaatlus</guilabel
+> saab avada akna, mis näitab, milline mall välja näeb. Mallile võib määrata meelepärased fondid ja värvid ning kõik vaikimisi mallid arvestavad nende määrangutega. Kohandatud mallid aga ei pruugi nendega arvestada, sõltuvalt sellest, mida ja kuidas on kohandatud.</para>
+
+<para
+>Lisamalle saab paigaldada kas käsitsi või laadida alla aadressilt  <ulink url="http://kde-files.org/index.php?amp;xcontentmode=676"
+>kde-files.org</ulink
+>, milleks tuleb klõpsata nupule <guilabel
+>Laadi alla</guilabel
+>. Kõiki kasutaja paigaldatud malle saab ka kustutada. Kirjemallid salvestatakse kataloogi <filename class="directory"
+>$<envar
+>KDEHOME</envar
+>/share/apps/tellico/entry-templates/</filename
+>. </para>
+
+<para
+>Kui lood ise uue malli, võiksid kaaluda ka mõtet laadida see üles saidile <ulink url="http://kde-files.org/index.php?amp;xcontentmode=676"
+>kde-files.org</ulink
+>!</para>
+
+<screenshot>
+<screeninfo
+>Mallide valikute dialoog</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="template-options.png"/></imageobject>
+<textobject
+><phrase
+>Mallide valikute dialoog</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="data-sources-options">
+<title
+><guilabel
+>Andmeallikate valikud</guilabel
+></title>
+
+<para
+>&appname; võib andmete importimiseks kasutada eri allikaid, mida saab seadistada andmeallikate dialoogis. Võimalikke tüüpe ja allikaid on päris palju:</para>
+
+<itemizedlist>
+<listitem
+><para
+><link linkend="amazon-web-services"
+>Amazon.com-i veebiteenused</link
+></para
+></listitem>
+<listitem
+><para
+>the <link linkend="imdb"
+>Internet Movie Database</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="z3950"
+>z39.50 serverid</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="sru"
+>SRU serverid</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="entrez"
+>Entrezi (PubMed) andmebaasid</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="yahoo"
+>Yahoo! audiootsing</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="animenfo"
+>AnimeNfo.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="ibs"
+>Internet Bookshop Italia</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="isbndb"
+>ISBNdb.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="gcstarplugin"
+><application
+>GCstar</application
+>i pluginad</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>arxiv.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>bibsonomy.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>citebase.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>crossref.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="discogs"
+>Discogs.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="winecom"
+>Wine.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="tmdb"
+>TheMovieDB.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="musicbrainz"
+>MusicBrainz.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="giantbomb"
+>GiantBomb.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="openlibrary"
+>OpenLibrary.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="freebase"
+>Freebase.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="externalexec"
+>muud välised skriptid või rakendused</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="multiple-sources"
+>mis tahes mainitud allikate kombinatsioon</link
+>.</para
+></listitem>
+</itemizedlist>
+
+<screenshot>
+<screeninfo
+>Andmeallikate valikute dialoog</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="source-options.png"/></imageobject>
+<textobject
+><phrase
+>Andmeallikate valikute dialoog</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Uusi allikaid saab lisada nupule <guibutton
+>Uus...</guibutton
+> klõpsates, olemasolevaid saab aga muuda või kustutada vastavalt nuppudega <guibutton
+>Muuda...</guibutton
+> ja <guibutton
+>Kustuta</guibutton
+>. Samuti saab muuta allikate järjekorda, millega neid näidatakse kirje uuendamise menüüs. </para>
+
+<para
+>Lisamalle saab alla laadida autori võrguhoidlast, klõpsates nupule <guilabel
+>Laadi alla</guilabel
+>. Need skriptid on autori poolt gpg-allkirjastatud, et kaitsta kasutajaid tundmatutest allikatest pärit ohtlike skriptide eest, mis võivad tekitada sinu süsteemile kahju. </para>
+
+<warning>
+<para
+>Ära kunagi paigalda ja käivita skripti, mis on pärit ebausaldusväärsest allikast. Need käivitatakse kasutajaga võrdsetes õigustes, mistõttu võivad muuta või kustutada faile või muul moel süsteemi segi paisata. </para>
+</warning>
+
+<para
+>Paljud andmeallikad pakuvad rohkem teavet kui &appname; vaikimisi väljad. Neid muid välju näeb seadistustepaneelist paremal. Kui mõni neist väljadest märkida, lisatakse need kogusse, kui sellest andmeallikast lisatakse mõni kirje. </para>
+
+<!-- start book sources -->
+
+<sect2 id="book-sources">
+<title
+>Raamatute ja bibliograafiate andmeallikad</title>
+
+<sect3 id="z3950">
+<title
+>z39.50 serverid</title>
+
+<para
+><ulink url="http://www.cni.org/pub/NISO/docs/Z39.50-brochure/50.brochure.toc.html"
+>z39.50 protokolli</ulink
+> tarvitatakse raamatukogude ja biblioinfo pakkujate kasutamiseks kogu maailmas. Avalike z39.50 serverite nimekirjad leiab muu hulgas aadressilt <ulink url="http://www.indexdata.dk/targettest/"
+>indexdata.dk</ulink
+>. &appname; pakub mitmeid valmisseadistusi suuremate raamatukogude tarbeks, aga muidugi võib ka ühenduse teabe ise kirja panna.</para>
+
+<para
+>&appname; võib lugeda <acronym
+>MODS-i</acronym
+>, <acronym
+>USMARC-i</acronym
+>, <acronym
+>MARC21</acronym
+> ja <acronym
+>UNIMARC-i</acronym
+> vormingus andmeid, kasutades selleks <ulink url="http://www.indexdata.dk/yaz/"
+>yaz'i teeki</ulink
+>. Lisaks on piiratud määral toetatud <acronym
+>GRS-1</acronym
+> vorming. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="z3950-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Mõne eelnevalt seadistatud raamatukogu kasutamiseks märgi vastav ruuduke ja vali siis raamatukogu. Teised seadistusvalikud on sel juhul mitteaktiivsed. Kui tahad aga info käsitsi sisestada, jäta ruuduke märkimata. </para>
+
+<para
+>z39.50 kasutab vaikimisi porti 210, kuid mõned serverid võivad kasutada ka mõnda muud porti. &appname; eeldab, et server kasutab MARC-8 kodeeringut, kui see pole just teisiti määratud. Väära kodeeringu kasutamisel võib programmi väljundis näha veateadet ning ka kirjeid ei pruugi olla võimalik hankida. </para>
+
+<para
+>Mõned serverid nõuavad kasutamiseks kasutajanime ja parooli. &appname; võib parooli ka salvestada, aga pane tähele, et see kirjutatakse &appname; seadistustefaili klaartekstina ega ole sestap turvaline. Enamiku avalike serverite korral võib kasutajanime ja parooli välja tühjaks jätta. </para>
+
+</sect3>
+
+<sect3 id="sru">
+<title
+>SRU serverid</title>
+
+<para
+>SRU on lühend sõnadest <ulink url="http://www.loc.gov/standards/sru/"
+>Search/Retrieve via &URL;</ulink
+> (otsimine/hankimine URL-i vahendusel) ning see kujutab endast internetiotsingute standardprotokolli. Mõned raamatukogud tarvitavad seda ligipääsu võimaldamiseks oma andmekataloogidele. Tuntuim neist on arvatavasti <ulink url="http://www.loc.gov/z3950/lcserver.html#oppr"
+>USA Kongressi raamatukogu</ulink
+>. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="sru-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect3>
+
+<sect3 id="entrez">
+<title
+>Entrezi andmebaasid</title>
+<para
+><ulink url="http://www.ncbi.nlm.nih.gov/Entrez/"
+>Entrez</ulink
+> on lõimitud tekstipõhine otsingu- ja hankesüsteem, mida kasutab USA Riiklik Biotehnoloogiateabe Keskus (NCBI). Tuntuim Entrezi andmebaas on <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=PubMed"
+>PubMed</ulink
+>, paljudest bioloogiaajakirjadest artikleid koondab andmebaas. Praegu toetabki &appname; ainsa Entrezi andmebaasina PubMedi.</para>
+</sect3>
+
+<sect3 id="bib-sources">
+<title
+>Biblioandmebaasid</title>
+<para
+><ulink url="http://arxiv.org"
+>arXiv.org</ulink
+>, <ulink url="http://bibsonomy.org"
+>Bibsonomy</ulink
+>, <ulink url="http://citebase.org"
+>Citebase</ulink
+> ja <ulink url="http://crossref.org"
+>CrossRef</ulink
+> on teadusartiklite ja biblioteabe internetiandmebaasid. CrossRefi allika kasutamiseks tuleb <ulink url="http://www.crossref.org/requestaccount/"
+>luua konto</ulink
+> ja lisada oma konto teave andmeallika seadistusse.</para>
+</sect3>
+
+<sect3 id="ibs">
+<title
+>Internet Bookstore Italia</title>
+<para
+><ulink url="http://ibs.it"
+>IBS ehk Internet Bookstore Italia</ulink
+> on Itaalina internetiraamatupood. </para>
+</sect3>
+
+<sect3 id="isbndb">
+<title
+>ISBNdb.com</title>
+<para
+><ulink url="http://isbndb.com"
+>ISBNdb.com</ulink
+>on raamatute internetiandmebaas, mis koondab kogu maailma raamakogude andmekogusid. </para>
+</sect3>
+
+<sect3 id="openlibrary">
+<title
+>OpenLibrary.org</title>
+<para
+><ulink url="http://openlibrary.org"
+>OpenLibrary.org</ulink
+> on raamatute internetiandmebaas, mille eesmärk on luua omaette lehekülg igale raamatutele. </para>
+</sect3>
+
+</sect2>
+<!-- end of books -->
+
+<!-- start of movie sources -->
+<sect2 id="comicbook-sources">
+<title
+>Koomiksite andmeallikad</title>
+
+<sect3 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> on populaarne veebilehekülg teabe hankimiseks anime ehk Jaapani multifilmide kohta. </para>
+</sect3>
+
+
+</sect2>
+
+<!-- start of movie sources -->
+<sect2 id="movie-sources">
+<title
+>Filmide andmeallikad</title>
+
+<sect3 id="imdb">
+<title
+>Internet Movie Database (interneti filmide andmebaas)</title>
+
+<para
+><ulink url="http://www.imdb.com"
+>Internet Movie Database</ulink
+> pakub teavet filmide ja videode kohta. Kui otsida <emphasis
+>isikut</emphasis
+> ning saadakse enam kui üks võimalik vastus, avatakse dialoog, kus saab valida õige isiku. Seadistamisvalikutes on võimalik määrata veebiserveri aadress ja see, kas pildid samuti tõmmatakse või mitte. Kuna IMDb võib tagastada rohkelt osatäitjaid, saab nende arvu piirata. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="imdb-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect3>
+
+<sect3 id="tmdb">
+<title
+>TheMovieDB.org</title>
+<para
+><ulink url="http://themoviedb.org"
+>TheMovieDB.org</ulink
+> on vaba ja avatud filmide internetiandmebaas. Nõutav on siiski registreerimine vaba ja tasuta konto saamiseks. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of movie sources -->
+<sect2 id="music-sources">
+<title
+>Muusika andmeallikad</title>
+
+<sect3 id="discogs">
+<title
+>Discogs.com</title>
+<para
+><ulink url="http://discogs.com"
+>Discogs.com</ulink
+> on kasutajate loodav muusikaandmebaas, mis sisaldab teavet esitajate, firmade ja nende väljaannete kohta. Nõutav on registreerimine vaba ja tasuta konto saamiseks. </para>
+</sect3>
+
+<sect3 id="musicbrainz">
+<title
+>MusicBrainz.org</title>
+<para
+><ulink url="http://musicbrainz.org"
+>MusicBrainz.org</ulink
+> on kogukonna kujundatav muusika metaandmete andmebaas, mille sihiks on luua kõikehõlmav muusikateabe veebilehekülg. </para>
+</sect3>
+
+<sect3 id="yahoo">
+<title
+>Yahoo! audiootsing</title>
+<para
+><ulink url="http://audio.search.yahoo.com"
+>Yahoo! audiootsingut</ulink
+> võib kasutada muusikaalbumite teabe otsimiseks. See andmeallikas on sageli kättesaamatu või töötab tõrgetega. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of wine sources -->
+<sect2 id="wine-sources">
+<title
+>Veinide andmeallikad</title>
+
+<sect3 id="winecom">
+<title
+>Wine.com</title>
+<para
+><ulink url="http://wine.com"
+>Wine.com</ulink
+> müüb internetis veine ning võimaldab kasutada eri markide andmebaasi. Nõutav on registreerimine vaba ja tasuta konto saamiseks. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of video game sources -->
+<sect2 id="videogame-sources">
+<title
+>Videomängude andmeallikad</title>
+
+<sect3 id="giantbomb">
+<title
+>GiantBomb.com</title>
+<para
+><ulink url="http://giantbomb.com"
+>GiantBomb.com</ulink
+> on suur kogukonna hooldatav videomängude andmebaas. Nõutav on registreerimine vaba ja tasuta konto saamiseks. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of wine sources -->
+<sect2 id="variety-type-sources">
+<title
+>Andmeallikad mitmele kogutüübile</title>
+
+<sect3 id="amazon-web-services">
+<title
+>Amazon.com</title>
+
+<para
+>Amazoni veebiteenuste abil saab &appname; otsida kõigilt kuuelt rahvusvaheliselt saidilt, mida <ulink url="http://amazon.com"
+>Amazon.com</ulink
+> ülal peab: Ameerika Ühendriigid, Suurbritannia, Saksamaa, Jaapan, Prantsusmaa ja Kanada. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="amazon-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Iga Amazon.com-i allika seadistamisel on kolm valikut: serveri asukoht, piltide suurus ja kaastöötaja ID. Osa <ulink url="http://amazon.com"
+>Amazon.com-i</ulink
+> teabest võib sisaldada pilti, näiteks raamatu või video kaanepilti. Selline pilt võib olla sõltuvalt konkreetsest juhust kolmes suuruses. Kaastöötaja ID on vajalik Amazon.com-i veebiteenuste kasutamiseks ning see lisatakse hangitud objekti linkidesse, nagu näeb ette Amazon.com-i veebiteenuste kasutamise litsentsileping. </para>
+
+</sect3>
+
+<sect3 id="gcstarplugin">
+<title
+>GCstari pluginad</title>
+<para
+>Kui <application
+><ulink url="http://www.gcstar.org"
+>GCstar</ulink
+></application
+> on paigaldatud, võib &appname; ära kasutada suurt hulka GCstari otsingupluginaid. Sõltuvalt kogu tüübist on &appname; andmeallikana võimalik kasutada erinevaid internetiressursse. </para>
+</sect3>
+
+<sect3 id="freebase">
+<title
+>Freebase.com</title>
+<para
+><ulink url="http://freebase.com"
+>Freebase.com</ulink
+> on väga mitmesugustel teemadel teavet koguv internetiandmebaas. Tellico suudab Freebase'ist otsida teavet raamatute, koomiksite, muusika, filmide, videomängude ja lauamängude kohta. </para>
+</sect3>
+
+<sect3 id="externalexec">
+<title
+>Välised skriptid või rakendused</title>
+<para
+>Lihtne võimalus lõimida &appname; mujal loodud pluginatega on välised skriptid või rakendused, mille abil otsida muudest teabeallikatest. &appname; käivitab käsu ning edastab otsingusõna käsureavõtmena. </para>
+
+<para
+>Mõned skriptid on juba &appname;ga kaasas. <ulink url="http://www.allocine.fr"
+>Allocine.fr</ulink
+> on Prantsuse internetiraamatupood. See andmeallikas nõuab, et paigaldatud oleks <ulink url="http://python.org"
+>Python</ulink
+>. <ulink url="http://www.mcu.es"
+>Hispaania kultuuriministeerium</ulink
+> kujutab endast Hispaaniaraamatute internetiandmebaasi. Ka see andmeallikas nõuab, et paigaldatud oleks <ulink url="http://python.org"
+>Python</ulink
+>. <ulink url="http://darkhorse.com"
+>Dark Horse Comics</ulink
+> on koomiksite väljaandja. Ka see andmeallikas nõuab <ulink url="http://python.org"
+>Pythonit</ulink
+>. <ulink url="http://boardgamegeek.com"
+>BoardGameGeek</ulink
+> on väga rohkelt lauamängude kohta teavet pakkuv veebilehekülg. See skript nõuab <ulink url="http://www.ruby-lang.org"
+>ruby</ulink
+> olemasolu. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="externalexec-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Määratud peab olema nii skripti tagastav kogutüüp kui ka andmete vorming. &appname; võib andmeid importida nii skriptidelt, mis kasutavad <link linkend="file-format"
+>&appname; vaikimisi &XML; vormingut</link
+>, kui ka skriptidelt, mis kasutavad muid vorminguid, näiteks bibtex. </para>
+
+<para
+>Allika valikutes tuleb anda rakenduse täielik asukoht. Pane kindlasti tähele, et rakendus käivitatakse süsteemi samade õigustega nagu aktiivsel kasutajal, mistõttu ära kasuta skripte, mis on pärit ebausaldusväärsetest allikatest. Märgi vajalikud rakenduse toetatavad otsinguvõtmed ning sisesta nõutavad käsureavõtmed tekstikasti. Otsinguväärtus lisatakse <userinput
+>%1</userinput
+> asemele. </para>
+
+<para
+>Juba kogus leiduvate kirjete uuendamiseks on mõeldud viimane märkeruut ja tekstikast. Sisestada tuleb uuenduse leidmiseks kasutatavad kirje väljad samas vormingus, mida kasutatakse <link linkend="derived"
+>tuletatud väärtusega</link
+> väljade korral. </para>
+</sect3>
+
+</sect2>
+
+<sect2 id="multiple-sources">
+<title
+>Mitme andmeallika kombineerimine</title>
+<para
+>Ühise allikana võib kasutada kuni kaheksa olemasoleva andmeallika kombinatsiooni, mille korral liidetakse kõigist allikatest pärit otsingutulemused. Enne allikate lisamist tuleb määrata kogu tüüp. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="multiple-sources-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Kombineerimisel saab kasutada ainult olemasolevaid andmeallikaid. Otsingupäring saadetakse igale allikale ning tulemused kombineeritakse. Kuna ühendatud tulemused sõltuvad otsingutulemuste saamisest, võib kombineeritud tulemus olla sõltuvalt võrgu ja allika kiirusest erinev. </para>
+</sect2>
+
+</sect1>
+
+</chapter>

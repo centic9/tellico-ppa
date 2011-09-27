@@ -1,0 +1,229 @@
+<chapter id="advanced">
+<title
+>Edasijõudnutele</title>
+
+<sect1 id="command-line">
+<title
+>Käsurea võtmed</title>
+
+<para
+>&appname; käivitamisel käsurealt võib andmefailide avamiseks kasutada mitmeid võtmeid. Neid näeb käsuga <userinput
+>tellico --help</userinput
+>. </para>
+
+<programlisting
+>Kasutamine: tellico [Qt võtmed] [KDE võtmed] [võtmed] [failinimi]
+
+Tellico - KDE kogude haldur
+
+Võtmed:
+  --nofile                  Viimati avatud faili ei avata uuesti
+  --bibtex                  &lt;failinimi&gt; imporditakse bibtexi failina
+  --mods                    &lt;failinimi&gt; imporditakse MODS failina
+  --ris                     &lt;failinimi&gt; imporditakse RIS failina
+
+Argumendid:
+  failinimi                  Avatav fail
+</programlisting>
+
+</sect1>
+
+<sect1 id="dbus-interface">
+<title
+>&DBus;i liides</title>
+
+<para
+>&appname;l on minimaalne &DBus;i liides, mis on abiks skriptimisel või töötava rakendusega suhtlemisel käsurealt. Nagu kõigi &DBus;i väljakutsete puhul, tuleb määrata teenus, millega soovid suhelda, ja konkreetne liides. &DBus;i teenuse nimi on <constant
+>org.kde.tellico</constant
+>. </para>
+
+<sect2 id="dbus-commands">
+<title
+>&DBus;i käsud</title>
+
+<para
+>Tellico liidesele on olemas kaks &DBus;i primaarset objekti: <constant
+>Tellico</constant
+> ja <constant
+>Collections</constant
+>.</para>
+
+<sect3 id="dbus-tellico">
+<title
+>Objekt <constant
+>Tellico</constant
+></title>
+
+<para
+>Allpool on ära toodu täielik &DBus;i käskude loend objektis <constant
+>tellico</constant
+>:</para>
+
+<programlisting
+>bool importTellico(QString file, QString action)
+bool importBibtex(QString file, QString action)
+bool importMODS(QString file, QString action)
+bool importRIS(QString file, QString action)
+bool exportXML(QString file)
+bool exportZip(QString file)
+bool exportBibtex(QString file)
+bool exportHTML(QString file)
+bool exportCSV(QString file)
+bool exportPilotDB(QString file)
+QList&lt;int&gt; selectedEntries()
+QList&lt;int&gt; filteredEntries()
+void openFile(QString file)
+void setFilter(QString text)
+bool showEntry(int id)
+</programlisting>
+
+<para
+>Nelja importimiskäsu puhul on esimene argument imporditav fail ja teine importimistoiming. Kasutada saab kolme toimingut: <emphasis
+>replace</emphasis
+> (asendamine), <emphasis
+>append</emphasis
+> (lisamine) ja <emphasis
+>merge</emphasis
+> (liitmine). Importimisel on toetatud neli failivormingut: Tellico &XML;-failid, Bibtex-failid, MODS-failid ja RIS-failid. </para>
+
+<para
+>&appname;s parajasti avatud kogu võib eksportida failina kas Tellico &XML;-vormingus, Tellico ZIP-vormingus, Bibtexina, &HTML;-ina, komadega eraldatud väärtustena (CSV) või Pilot-DB vormingus. </para>
+
+<para
+>Parajasti valitud või filtreeritud kirjete ID-de nimekiri võib hõlbustada vaate kirjete näitamist või uuendamist.</para>
+
+<para
+>Uue andmefaili saab avada käsuga <command
+>openFile()</command
+>. Määrata tuleb täielik asukoht.</para>
+
+<para
+>Uue filtri võib kehtestada käsuga <command
+>setFilter()</command
+>, mis võrdub kirjutamisega peaakna filtrikasti.</para>
+
+<para
+>Kirje ID andmisel valib käsk <command
+>showEntry()</command
+> selle kirje ja näitab peaaknas kirje üksikasju.</para>
+</sect3>
+
+<sect3 id="dbus-collection">
+<title
+>Objekt <constant
+>Collections</constant
+></title>
+
+<para
+>Allpool on ära toodud täielik &DBus;i käskude loend objektis <constant
+>Collections</constant
+>:</para>
+
+<programlisting
+>int addEntry()
+bool removeEntry(int entryID)
+QStringList allValues(QString fieldName)
+QStringList entryValues(int entryID, QString fieldName)
+QStringList selectedBibtexKeys()
+QString entryBibtexKey(int entryID)
+bool setEntryValue(int entryID, QString fieldName, QString value)
+bool addEntryValue(int entryID, QString fieldName, QString value)
+</programlisting>
+
+<para
+>Uue tühja kirje saab aktiivses kogus luua käsuga <command
+>addEntry()</command
+>. Tagastatavaks väärtuseks on kirje ID, mida saab seejärel kasutada väljade väärtuste määramisel kirjes. Kirje saab kogust kustutada käsuga <command
+>removeEntry()</command
+>. </para>
+
+<para
+>Käsk <command
+>allValues()</command
+> lihtsalt välja nimega tagastab parajasti valitud kirjete kõik selle välja väärtused. Kui ühtegi kirjet pole valitud, on tagastatav nimekiri tühi. Kui käsus on määratud kirje ID, tagastatakse selle konkreetse kirje väljade väärtused. </para>
+
+<para
+>Kui aktiivne kogu on bibliograafia, tagastab käsk <command
+>selectedBibtexKeys()</command
+>kõigi valitud kirjete Bibtexi viitevõtme. Konkreetse kirje bibtexKey võib leida käsuga <command
+>entryBibtexKey()</command
+>. </para>
+
+<para
+>Kirjeid saab &DBus;i liidese vahendusel ka otse muuta. Kirje ID andmisel määrab <command
+>setEntryValue()</command
+> otse välja väärtuse. Väärtuse lisamiseks seniseid väärtusi puudutamata kasuta käsku <command
+>addEntryValue()</command
+>. Uus väärtus lisatakse seniste nimekirja lõppu. </para>
+</sect3>
+
+</sect2>
+
+<sect2 id="dbus-examples">
+<title
+>&DBus;i näited</title>
+
+<para
+>Siin on ära toodud mõned &appname; skriptimise näited &DBus;i liidese abil. Et <emphasis
+>pid</emphasis
+> peab olema teada, on lihtsaim viis see shellikäsku kaasata järgmine: <userinput
+>dbus $(dbus | grep tellico) tellico</userinput
+>. </para>
+
+<screen width="40"
+><emphasis
+>Bibtex-faili avamine</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Tellico org.kde.tellico.importBibtex "/home/robby/reference.bib" "replace"</userinput>
+<computeroutput
+>true</computeroutput
+>
+</screen>
+
+<screen width="40"
+><emphasis
+>Bibtex-faili eksport</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Tellico org.kde.tellico.exportBibtex ~/documents/reference.bib</userinput>
+<computeroutput
+>true</computeroutput
+>
+</screen>
+
+<screen width="40"
+><emphasis
+>Aktiivse valiku viitevõtme näitamine</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Collections org.kde.tellico.selectedBibtexKeys</userinput>
+<computeroutput
+>stephenson2004</computeroutput
+>
+</screen>
+
+<screen width="40"
+><emphasis
+>Uue kirje lisamine ja pealkirja määramine</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>myid=`qdbus org.kde.tellico /Collections org.kde.tellico.addEntry`</userinput>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Collections org.kde.tellico.setEntryValue $myid title "Minu uus raamat"</userinput>
+<computeroutput
+>true</computeroutput
+>
+</screen>
+
+</sect2>
+
+</sect1>
+
+</chapter>

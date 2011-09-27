@@ -44,7 +44,7 @@ Image::Image() : QImage(), m_linkOnly(false) {
 // I'm using the MD5 hash as the id. I consider it rather unlikely that two images in one
 // collection could ever have the same hash, and this lets me do a fast comparison of two images
 // simply by comparing their ids.
-Image::Image(const QString& filename_) : QImage(filename_), m_linkOnly(false) {
+Image::Image(const QString& filename_, const QString& id_) : QImage(filename_), m_id(idClean(id_)), m_linkOnly(false) {
   m_format = QImageReader::imageFormat(filename_);
   if(isNull()) {
     // Tellico had an earlier bug where images were written in PNG format with a GIF extension
@@ -55,7 +55,9 @@ Image::Image(const QString& filename_) : QImage(filename_), m_linkOnly(false) {
       m_format = "PNG";
     }
   }
-  calculateID();
+  if(m_id.isEmpty()) {
+    calculateID();
+  }
 }
 
 Image::Image(const QImage& img_, const QString& format_) : QImage(img_), m_format(format_.toLatin1()), m_linkOnly(false) {
@@ -131,8 +133,12 @@ void Image::setID(const QString& id_) {
 void Image::calculateID() {
   // the id will eventually be used as a filename
   if(!isNull()) {
-    KMD5 md5(byteArray());
-    m_id = QLatin1String(md5.hexDigest()) + QLatin1Char('.') + QLatin1String(m_format.toLower());
-    m_id = idClean(m_id);
+    m_id = calculateID(byteArray(), QLatin1String(m_format));
   }
+}
+
+QString Image::calculateID(const QByteArray& data_, const QString& format_) {
+  KMD5 md5(data_);
+  QString id = QLatin1String(md5.hexDigest()) + QLatin1Char('.') + format_.toLower();
+  return idClean(id);
 }

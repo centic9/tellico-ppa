@@ -60,7 +60,7 @@ void AmazonFetcherTest::initTestCase() {
   practicalRdf.insert(QLatin1String("title"), QLatin1String("Practical RDF"));
   practicalRdf.insert(QLatin1String("isbn"), QLatin1String("0-596-00263-7"));
   practicalRdf.insert(QLatin1String("author"), QLatin1String("Shelley Powers"));
-  practicalRdf.insert(QLatin1String("binding"), QLatin1String("Paperback"));
+//  practicalRdf.insert(QLatin1String("binding"), QLatin1String("Paperback"));
   practicalRdf.insert(QLatin1String("publisher"), QLatin1String("O'Reilly Media"));
   practicalRdf.insert(QLatin1String("pages"), QLatin1String("331"));
 
@@ -76,22 +76,28 @@ void AmazonFetcherTest::initTestCase() {
   incredibles.insert(QLatin1String("medium"), QLatin1String("DVD"));
 //  incredibles.insert(QLatin1String("certification"), QLatin1String("PG (USA)"));
 //  incredibles.insert(QLatin1String("studio"), QLatin1String("Walt Disney Home Entertainment"));
-  incredibles.insert(QLatin1String("year"), QLatin1String("2004"));
+//  incredibles.insert(QLatin1String("year"), QLatin1String("2004"));
   incredibles.insert(QLatin1String("widescreen"), QLatin1String("true"));
-  incredibles.insert(QLatin1String("director"), QLatin1String("Bud Luckey; Brad Bird; Roger Gould"));
+  incredibles.insert(QLatin1String("director"), QLatin1String("Brad Bird; Bud Luckey; Roger Gould"));
 
   QHash<QString, QString> pacteDesLoups;
   pacteDesLoups.insert(QLatin1String("title"), QLatin1String("Le Pacte des Loups"));
   pacteDesLoups.insert(QLatin1String("medium"), QLatin1String("Blu-ray"));
 //  pacteDesLoups.insert(QLatin1String("region"), QLatin1String("Region 2"));
-  pacteDesLoups.insert(QLatin1String("studio"), QLatin1String("Universal Studio Canal Video"));
+  pacteDesLoups.insert(QLatin1String("studio"), QLatin1String("StudioCanal"));
+//  pacteDesLoups.insert(QLatin1String("year"), QLatin1String("2001"));
   pacteDesLoups.insert(QLatin1String("director"), QLatin1String("Christophe Gans"));
 //  pacteDesLoups.insert(QLatin1String("format"), QLatin1String("PAL"));
+
+  QHash<QString, QString> petitPrinceCN;
+  petitPrinceCN.insert(QLatin1String("title"), QString::fromUtf8("小王子"));
+  petitPrinceCN.insert(QLatin1String("author"), QString::fromUtf8("圣埃克絮佩里 (Saint-Exupery)"));
 
   m_fieldValues.insert(QLatin1String("practicalRdf"), practicalRdf);
   m_fieldValues.insert(QLatin1String("gloryRevealed"), gloryRevealed);
   m_fieldValues.insert(QLatin1String("incredibles"), incredibles);
   m_fieldValues.insert(QLatin1String("pacteDesLoups"), pacteDesLoups);
+  m_fieldValues.insert(QLatin1String("petitPrinceCN"), petitPrinceCN);
 }
 
 void AmazonFetcherTest::testTitle() {
@@ -130,8 +136,10 @@ void AmazonFetcherTest::testTitle() {
     QString result = entry->field(i.key()).toLower();
     // CA and FR titles have edition info in the title
     if(collType == Tellico::Data::Collection::Video &&
-       (locale == QLatin1String("CA") || locale == QLatin1String("FR"))) {
-      QVERIFY(result.contains(i.value(), Qt::CaseInsensitive));
+       (locale == QLatin1String("CA") ||
+        locale == QLatin1String("FR") ||
+        locale == QLatin1String("DE"))) {
+      QVERIFY2(result.contains(i.value(), Qt::CaseInsensitive), i.key().toAscii());
     } else {
       QCOMPARE(result, i.value().toLower());
     }
@@ -160,7 +168,13 @@ void AmazonFetcherTest::testTitle_data() {
                                  << static_cast<int>(Tellico::Data::Collection::Book)
                                  << QString::fromLatin1("Practical RDF")
                                  << QString::fromLatin1("practicalRdf");
-    // a known bug is CA video titles result in music results, so only title matches
+/*
+  QTest::newRow("CN book title") << QString::fromLatin1("CN")
+                                  << static_cast<int>(Tellico::Data::Collection::Book)
+                                  << QString::fromLatin1("小王子")
+                                  << QString::fromLatin1("petitPrinceCN");
+*/
+  // a known bug is CA video titles result in music results, so only title matches
 //  QTest::newRow("CA video title") << QString::fromLatin1("CA")
 //                                  << static_cast<int>(Tellico::Data::Collection::Video)
 //                                  << QString::fromLatin1("Le Pacte des Loups")
@@ -169,6 +183,16 @@ void AmazonFetcherTest::testTitle_data() {
                                   << static_cast<int>(Tellico::Data::Collection::Video)
                                   << QString::fromLatin1("Le Pacte des Loups")
                                   << QString::fromLatin1("pacteDesLoups");
+/*
+  QTest::newRow("ES video title") << QString::fromLatin1("ES")
+                                  << static_cast<int>(Tellico::Data::Collection::Video)
+                                  << QString::fromLatin1("Le Pacte des Loups")
+                                  << QString::fromLatin1("pacteDesLoups");
+  QTest::newRow("IT video title") << QString::fromLatin1("IT")
+                                  << static_cast<int>(Tellico::Data::Collection::Video)
+                                  << QString::fromLatin1("Le Pacte des Loups")
+                                  << QString::fromLatin1("pacteDesLoups");
+*/
 }
 
 void AmazonFetcherTest::testIsbn() {
@@ -224,6 +248,11 @@ void AmazonFetcherTest::testIsbn_data() {
   QTest::newRow("CA isbn") << QString::fromLatin1("CA")
                            << QString::fromLatin1("0-596-00263-7; 978-1-59059-831-3")
                            << QString::fromLatin1("practicalRdf");
+/*
+  QTest::newRow("CN isbn") << QString::fromLatin1("CN")
+                           << QString::fromLatin1("7511305202")
+                           << QString::fromLatin1("petitPrinceCN");
+*/
 }
 
 void AmazonFetcherTest::testUpc() {
@@ -286,11 +315,11 @@ void AmazonFetcherTest::testUpc_data() {
                                 << QString::fromLatin1("gloryRevealed");
   QTest::newRow("UK music upc") << QString::fromLatin1("UK")
                                 << static_cast<int>(Tellico::Data::Collection::Album)
-                                << QString::fromLatin1("602341013727")
+                                << QString::fromLatin1("0602341013727")
                                 << QString::fromLatin1("gloryRevealed");
   QTest::newRow("CA music upc") << QString::fromLatin1("CA")
                                 << static_cast<int>(Tellico::Data::Collection::Album)
-                                << QString::fromLatin1("602341013727")
+                                << QString::fromLatin1("0602341013727")
                                 << QString::fromLatin1("gloryRevealed");
 
   QTest::newRow("US movie upc") << QString::fromLatin1("US")
@@ -299,11 +328,11 @@ void AmazonFetcherTest::testUpc_data() {
                                 << QString::fromLatin1("incredibles");
   QTest::newRow("UK movie upc") << QString::fromLatin1("UK")
                                 << static_cast<int>(Tellico::Data::Collection::Video)
-                                << QString::fromLatin1("786936244250")
+                                << QString::fromLatin1("0786936244250")
                                 << QString::fromLatin1("incredibles");
   QTest::newRow("CA movie upc") << QString::fromLatin1("CA")
                                 << static_cast<int>(Tellico::Data::Collection::Video)
-                                << QString::fromLatin1("786936244250")
+                                << QString::fromLatin1("0786936244250")
                                 << QString::fromLatin1("incredibles");
   QTest::newRow("FR movie upc") << QString::fromLatin1("FR")
                                 << static_cast<int>(Tellico::Data::Collection::Video)

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2008-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,42 +22,45 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_GROUPSORTMODEL_H
-#define TELLICO_GROUPSORTMODEL_H
+#undef QT_NO_CAST_FROM_ASCII
 
-#include "abstractsortmodel.h"
+#include "comparisontest.h"
+#include "comparisontest.moc"
+#include "qtest_kde.h"
 
-namespace Tellico {
-  namespace Data {
-    class EntryGroup;
-  }
+#include "../utils/stringcomparison.h"
 
-class StringComparison;
+QTEST_KDEMAIN_CORE( ComparisonTest )
 
-/**
- * @author Robby Stephenson
- */
-class GroupSortModel : public AbstractSortModel {
-Q_OBJECT
+void ComparisonTest::testNumber() {
+  QFETCH(QString, string1);
+  QFETCH(QString, string2);
+  QFETCH(int, res);
 
-public:
-  GroupSortModel(QObject* parent);
-  virtual ~GroupSortModel();
+  Tellico::NumberComparison comp;
 
-  virtual void setSourceModel(QAbstractItemModel* sourceModel);
+  QCOMPARE(comp.compare(string1, string2), res);
+}
 
-protected:
-  virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
+void ComparisonTest::testNumber_data() {
+  QTest::addColumn<QString>("string1");
+  QTest::addColumn<QString>("string2");
+  QTest::addColumn<int>("res");
 
-private slots:
-  void clearGroupComparison();
+  QTest::newRow("null") << QString() << QString() << 0;
+  QTest::newRow("empty") << QString("") << QString("") << 0;
+  QTest::newRow("< 0") << QString("") << QString("0") << -1;
+  QTest::newRow("> 0") << QString("0") << QString("") << 1;
+  QTest::newRow("=1 1") << QString("1") << QString("1") << 0;
+  QTest::newRow("< 1") << QString("0") << QString("1") << -1;
+  QTest::newRow("> 1") << QString("1") << QString("0") << 1;
+  QTest::newRow("> -1") << QString("0") << QString("-1") << 1;
+  QTest::newRow("< -1") << QString("-1") << QString("0") << -1;
+  QTest::newRow("> 10") << QString("10") << QString("5") << 5;
+  QTest::newRow("< 10") << QString("5") << QString("10") << -5;
+  QTest::newRow("multiple1") << QString("1; 2") << QString("2") << -1;
+  QTest::newRow("multiple2") << QString("3; 2") << QString("2") << 1;
+  QTest::newRow("multiple3") << QString("2") << QString("2; 3") << -1;
+  QTest::newRow("multiple4") << QString("1; 2") << QString("1; 3") << -1;
+}
 
-private:
-  StringComparison* getComparison(Data::EntryGroup* group) const;
-
-  StringComparison* m_titleComparison;
-  mutable StringComparison* m_groupComparison;
-};
-
-} // end namespace
-#endif

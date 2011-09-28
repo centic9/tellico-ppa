@@ -30,8 +30,8 @@
 <programlisting
 ><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tellico PUBLIC "-//Robby Stephenson/DTD Tellico V9.0//EN" "http://periapsis.org/tellico/dtd/v9/tellico.dtd">
-<tellico xmlns="http://periapsis.org/tellico/" syntaxVersion="9">
+<!DOCTYPE tellico PUBLIC "-//Robby Stephenson/DTD Tellico V11.0//EN" "http://periapsis.org/tellico/dtd/v11/tellico.dtd">
+<tellico xmlns="http://periapsis.org/tellico/" syntaxVersion="11">
  <collection title="My Books" type="2">
  </collection>
 </tellico>
@@ -71,7 +71,10 @@
   <fields>
    <field flags="8" title="Title" category="General" format="1" type="1" name="title" />
    <field flags="7" title="Author" category="General" format="2" type="1" name="author" />
-   <field flags="2" title="Binding" category="General" allowed="Hardback;Paperback;Trade Paperback;E-Book;Magazine;Journal" format="4" type="3" name="binding" />
+   <field flags="2" title="Binding" category="General" allowed="Hardback;Paperback;Trade Paperback;E-Book;Magazine;Journal" format="4" type="3" name="binding" >
+    <prop name="default"
+>Paperback</prop>
+   </field>
    <field flags="6" title="Publisher" category="Publishing" format="0" type="1" name="publisher" />
    <field flags="4" title="Edition" category="Publishing" format="0" type="1" name="edition" />
    <field flags="3" title="Copyright Year" category="Publishing" format="4" type="6" name="cr_year" />
@@ -81,6 +84,17 @@
    <field flags="7" title="Keywords" category="Classification" format="0" type="1" name="keyword" />
    <field flags="0" title="Front Cover" category="Front Cover" format="4" type="10" name="cover" />
    <field flags="0" title="Comments" category="Personal" format="4" type="1" name="comments" />
+   <field title="Rating" flags="2" category="Personal" format="4" type="14" name="rating">
+    <prop name="maximum"
+>5</prop>
+    <prop name="minimum"
+>1</prop>
+   </field>
+   <field title="ID" flags="32" category="Personal" format="4" type="6" name="id">
+    <prop name="template"
+>%{@id}</prop>
+   </field>
+
   </fields>
 ]]>
 </programlisting>
@@ -101,11 +115,10 @@
 >. </para>
 
 <para
->Ett element <markup
->&lt;field&gt;</markup
-> med ett namnattribut som är lika med <emphasis
->_default</emphasis
-> talar om för &appname; att inkludera alla förvalda fält för den samlingstypen. </para>
+>Fältegenskaper används för att ställa in förvalda fältvärden, intervall för betygsvärde, mallar för beroende värden, etc. Exemplen ovan inkluderar ett förvalt värde, ett maximalt betygsvärde, och en mall för ett beroende identifikationsfält. </para>
+
+ 
+
 </sect3>
 
 <sect3 id="entries-xml-data">
@@ -435,6 +448,24 @@
 >0x08</constant
 ></entry
 ></row>
+<row
+><entry
+><emphasis
+>Tillåt inte redigering</emphasis
+></entry
+><entry
+><constant
+>0x10</constant
+></entry
+></row>
+<row
+><entry
+>Beroende värde</entry
+><entry
+><constant
+>0x20</constant
+></entry
+></row>
 </tbody>
 </tgroup>
 </table>
@@ -446,7 +477,9 @@
 >People</emphasis
 > använder alla fält som har <emphasis
 >Name Formatting</emphasis
-> (namnformatering). </para>
+> (namnformatering). Att ange flaggan <emphasis
+>Derived Value</emphasis
+> (beroende värde) innebär att fältets värde skapas från mallegenskapen från andra fältvärden. </para>
 
 <table>
 <title
@@ -533,7 +566,7 @@
 <para
 >Den maximala storleken av ikonerna i <interface
 >ikonvyn</interface
-> kan ändras med den här inställningen. Förvalt värde är 96. Storleken måste vara i intervallet 32 till 128. </para>
+> kan ändras med den här inställningen. Förvalt värde är 96. Storleken måste vara i intervallet 32 till 256. </para>
 </sect3>
 
 <sect3>
@@ -542,7 +575,7 @@
 <informalexample>
 <para
 ><userinput
->Max Icon Size=72</userinput
+>Max Icon Size=128</userinput
 ></para>
 </informalexample>
 </sect3>

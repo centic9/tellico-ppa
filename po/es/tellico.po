@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-11-04 06:32+0100\n"
+"POT-Creation-Date: 2010-12-03 02:30+0100\n"
 "PO-Revision-Date: 2010-10-18 12:16+0200\n"
 "Last-Translator: Kira J. Fernandez <kirajfdez@gmail.com>\n"
 "Language-Team: Español <kde-l10n-es@kde.org>\n"
@@ -128,12 +128,12 @@ msgstr "Guardar enlace solamente"
 msgid "Opening the selected scanner failed."
 msgstr "Ha ocurrido un error al abrir el escáner seleccionado."
 
-#: src/gui/imagewidget.cpp:305
+#: src/gui/imagewidget.cpp:311
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "Abriendo imagen en %1..."
 
-#: src/gui/imagewidget.cpp:335
+#: src/gui/imagewidget.cpp:341
 msgid "Saving a link is only possible for newly added images."
 msgstr "Solo puede guardar un enlace para las imágenes nuevas."
 
@@ -1204,7 +1204,7 @@ msgstr "Resumen"
 msgid "Notes"
 msgstr "Notas"
 
-#: src/collections/bibtexcollection.cpp:469
+#: src/collections/bibtexcollection.cpp:478
 #: src/translators/xmlstatehandler.cpp:298
 msgid "Unknown"
 msgstr "Desconocido"
@@ -1219,8 +1219,8 @@ msgstr "Álbum"
 
 #: src/collections/musiccollection.cpp:54
 #: src/translators/freedbimporter.cpp:264
-#: src/translators/freedbimporter.cpp:376
-#: src/translators/freedbimporter.cpp:442
+#: src/translators/freedbimporter.cpp:378
+#: src/translators/freedbimporter.cpp:444
 msgid "Compact Disc"
 msgstr "CD (Disco Compacto)"
 
@@ -1389,11 +1389,11 @@ msgid "Institution"
 msgstr "Institución"
 
 #: src/fetch/entrezfetcher.cpp:475 src/fetch/yahoofetcher.cpp:394
-#: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:330
+#: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:332
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/ibsfetcher.cpp:413
 #: src/fetch/citebasefetcher.cpp:234 src/fetch/animenfofetcher.cpp:377
-#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:929
-#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:239
+#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:932
+#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:267
 msgid "This source has no options."
 msgstr "Esta fuente no tiene opciones."
 
@@ -1831,7 +1831,7 @@ msgstr ""
 msgid "Multiple Sources"
 msgstr "Múltiples fuentes"
 
-#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:614
+#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:616
 msgid "Freebase Link"
 msgstr "Enlace de Freebase"
 
@@ -2017,25 +2017,25 @@ msgstr "No se encontraron entradas válidas de BibTeX"
 msgid "No valid bibtex entries were found in file - %1"
 msgstr "No se encontraron entradas de BibTeX válidas en el archivo - %1"
 
-#: src/translators/bibteximporter.cpp:322
+#: src/translators/bibteximporter.cpp:327
 #: src/translators/bibtexexporter.cpp:214
 msgid "Bibtex Options"
 msgstr "Opciones de BibTeX"
 
-#: src/translators/bibteximporter.cpp:325
+#: src/translators/bibteximporter.cpp:330
 msgid "Use Unicode (UTF-8) encoding"
 msgstr "Usar codificación Unicode (UTF-8)"
 
-#: src/translators/bibteximporter.cpp:326
+#: src/translators/bibteximporter.cpp:331
 msgid "Read the imported file in Unicode (UTF-8)."
 msgstr "Codificar el archivo exportado en Unicode (UTF-8)."
 
-#: src/translators/bibteximporter.cpp:327
+#: src/translators/bibteximporter.cpp:332
 #, kde-format
 msgid "Use user locale (%1) encoding"
 msgstr "Usar codificación local del usuario (%1)"
 
-#: src/translators/bibteximporter.cpp:331
+#: src/translators/bibteximporter.cpp:336
 msgid "Read the imported file in the local encoding."
 msgstr "Leer el archivo importado utilizando la codificación local."
 
@@ -2189,11 +2189,11 @@ msgstr "<qt>El archivo no es un archivo de datos GCstar válido.</qt>"
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico se ha encontrado con un error en un proceso de XSLT."
 
-#: src/translators/tellicoimporter.cpp:176
+#: src/translators/tellicoimporter.cpp:177
 msgid "The file is empty."
 msgstr "El archivo está vacío."
 
-#: src/translators/tellicoimporter.cpp:193
+#: src/translators/tellicoimporter.cpp:194
 msgid "The file contains no collection data."
 msgstr "El archivo no contiene datos de una colección."
 
@@ -2205,7 +2205,7 @@ msgstr "PilotDB"
 msgid "*.pdb|Pilot Database Files (*.pdb)"
 msgstr "*.pdb|Base de datos de Pilot (*.pdb)"
 
-#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:551
+#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:556
 msgid "View Columns"
 msgstr "Ver las columnas"
 
@@ -2324,29 +2324,29 @@ msgstr ""
 "desde CrossRef.org. Sin embargo, usted deberá crear una cuenta CrossRef y "
 "añadir una nueva fuente de datos con la información de su cuenta."
 
-#: src/translators/filelistingimporter.cpp:73
+#: src/translators/filelistingimporter.cpp:80
 msgid "Scanning files..."
 msgstr "Explorando archivos..."
 
-#: src/translators/filelistingimporter.cpp:210
+#: src/translators/filelistingimporter.cpp:219
 msgid "File Listing Options"
 msgstr "Opciones para el listado de archivos"
 
-#: src/translators/filelistingimporter.cpp:213
+#: src/translators/filelistingimporter.cpp:222
 msgid "Recursive folder search"
 msgstr "Búsqueda recursiva en carpetas"
 
-#: src/translators/filelistingimporter.cpp:214
+#: src/translators/filelistingimporter.cpp:223
 msgid "If checked, folders are recursively searched for all files."
 msgstr ""
 "Si se marca, las carpetas serán exploradas recursivamente durante la "
 "búsqueda para todos los archivos."
 
-#: src/translators/filelistingimporter.cpp:218
+#: src/translators/filelistingimporter.cpp:227
 msgid "Generate file previews"
 msgstr "Generar previsualizaciones de archivos"
 
-#: src/translators/filelistingimporter.cpp:219
+#: src/translators/filelistingimporter.cpp:228
 msgid ""
 "If checked, previews of the file contents are generated, which can slow down "
 "the folder listing."
@@ -2421,27 +2421,27 @@ msgstr "<qt>No se encontró ningún registro que coincida con el CD</qt>"
 msgid "<qt>Tellico was unable to complete the CD lookup.</qt>"
 msgstr "<qt>Tellico no pudo completar la búsqueda del CD.</qt>"
 
-#: src/translators/freedbimporter.cpp:466
+#: src/translators/freedbimporter.cpp:468
 msgid "Various"
 msgstr "Varios"
 
-#: src/translators/freedbimporter.cpp:486
+#: src/translators/freedbimporter.cpp:488
 msgid "Audio CD Options"
 msgstr "Opciones de CD de audio"
 
-#: src/translators/freedbimporter.cpp:493
+#: src/translators/freedbimporter.cpp:495
 msgid "Read data from CD-ROM device"
 msgstr "Leer datos desde la unidad de CD-ROM"
 
-#: src/translators/freedbimporter.cpp:496
+#: src/translators/freedbimporter.cpp:498
 msgid "Select or input the CD-ROM device location."
 msgstr "Seleccione o introduzca la ubicación del dispositivo de CD-ROM."
 
-#: src/translators/freedbimporter.cpp:505
+#: src/translators/freedbimporter.cpp:507
 msgid "Read all CDDB cache files only"
 msgstr "Leer solamente todos los archivos de la caché de CDDB"
 
-#: src/translators/freedbimporter.cpp:506
+#: src/translators/freedbimporter.cpp:508
 msgid ""
 "Read data recursively from all the CDDB cache files contained in the default "
 "cache folders."
@@ -3188,20 +3188,20 @@ msgstr "Colección de Juegos de Mesa"
 msgid "Custom Collection"
 msgstr "Colección personalizada"
 
-#: src/detailedlistview.cpp:566
+#: src/detailedlistview.cpp:571
 msgctxt "Noun, Menu name"
 msgid "Columns"
 msgstr "Columnas"
 
-#: src/detailedlistview.cpp:571
+#: src/detailedlistview.cpp:576
 msgid "Show All Columns"
 msgstr "Mostrar todas las columnas"
 
-#: src/detailedlistview.cpp:573
+#: src/detailedlistview.cpp:578
 msgid "Hide All Columns"
 msgstr "Ocultar todas las columnas"
 
-#: src/detailedlistview.cpp:575
+#: src/detailedlistview.cpp:580
 msgid "Resize to Content"
 msgstr "Ajustar el tamaño al contenido"
 

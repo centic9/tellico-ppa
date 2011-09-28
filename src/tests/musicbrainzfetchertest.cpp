@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -24,12 +24,12 @@
 
 #undef QT_NO_CAST_FROM_ASCII
 
-#include "discogsfetchertest.h"
-#include "discogsfetchertest.moc"
+#include "musicbrainzfetchertest.h"
+#include "musicbrainzfetchertest.moc"
 #include "qtest_kde.h"
 
 #include "../fetch/fetcherjob.h"
-#include "../fetch/discogsfetcher.h"
+#include "../fetch/musicbrainzfetcher.h"
 #include "../collections/musiccollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
@@ -37,22 +37,80 @@
 
 #include <kstandarddirs.h>
 
-QTEST_KDEMAIN( DiscogsFetcherTest, GUI )
+QTEST_KDEMAIN( MusicBrainzFetcherTest, GUI )
 
-DiscogsFetcherTest::DiscogsFetcherTest() : m_loop(this) {
+MusicBrainzFetcherTest::MusicBrainzFetcherTest() : m_loop(this) {
 }
 
-void DiscogsFetcherTest::initTestCase() {
+void MusicBrainzFetcherTest::initTestCase() {
   Tellico::RegisterCollection<Tellico::Data::MusicCollection> registerMusic(Tellico::Data::Collection::Album, "album");
-  // since we use the Discogs importer
+  // since we use the importer
   KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
   Tellico::ImageFactory::init();
+
+  m_fieldValues.insert(QLatin1String("title"), QLatin1String("carried along"));
+  m_fieldValues.insert(QLatin1String("artist"), QLatin1String("Andrew Peterson"));
+  m_fieldValues.insert(QLatin1String("label"), QLatin1String("essential records"));
+  m_fieldValues.insert(QLatin1String("year"), QLatin1String("2000"));
+  m_fieldValues.insert(QLatin1String("medium"), QLatin1String("compact disc"));
 }
 
-void DiscogsFetcherTest::testTitle() {
+void MusicBrainzFetcherTest::testTitle() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Title,
-                                       QLatin1String("Fallen"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DiscogsFetcher(this));
+                                       m_fieldValues.value(QLatin1String("title")));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
+
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
+
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
+  QHashIterator<QString, QString> i(m_fieldValues);
+  while(i.hasNext()) {
+    i.next();
+    QString result = entry->field(i.key()).toLower();
+    QCOMPARE(result, i.value().toLower());
+  }
+  QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+}
+
+void MusicBrainzFetcherTest::testKeyword() {
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Keyword,
+                                       m_fieldValues.value(QLatin1String("title")));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
+
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
+
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
+  QHashIterator<QString, QString> i(m_fieldValues);
+  while(i.hasNext()) {
+    i.next();
+    QString result = entry->field(i.key()).toLower();
+    QCOMPARE(result, i.value().toLower());
+  }
+  QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+}
+
+void MusicBrainzFetcherTest::testPerson() {
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Person,
+                                       m_fieldValues.value(QLatin1String("artist")));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
 
   // don't use 'this' as job parent, it crashes
   Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
@@ -65,7 +123,7 @@ void DiscogsFetcherTest::testTitle() {
   Tellico::Data::EntryPtr entry;  //  results can be randomly ordered, loop until wee find the one we want
   for(int i = 0; i < m_results.size(); ++i) {
     Tellico::Data::EntryPtr test = m_results.at(i);
-    if(test->field(QLatin1String("artist")).toLower() == QLatin1String("evanescence")) {
+    if(test->field(QLatin1String("title")).toLower() == m_fieldValues.value(QLatin1String("title"))) {
       entry = test;
       break;
     } else {
@@ -74,60 +132,17 @@ void DiscogsFetcherTest::testTitle() {
   }
   QVERIFY(entry);
 
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Fallen"));
-  QVERIFY(!entry->field(QLatin1String("artist")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("label")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("year")).isEmpty());
+  QHashIterator<QString, QString> i(m_fieldValues);
+  while(i.hasNext()) {
+    i.next();
+    QString result = entry->field(i.key()).toLower();
+    QCOMPARE(result, i.value().toLower());
+  }
   QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 }
 
-void DiscogsFetcherTest::testPerson() {
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Person,
-                                       QLatin1String("Evanescence"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DiscogsFetcher(this));
-
-  // don't use 'this' as job parent, it crashes
-  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
-  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
-  job->setMaximumResults(1);
-
-  job->start();
-  m_loop.exec();
-
-  QCOMPARE(m_results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = m_results.at(0);
-  QCOMPARE(entry->field(QLatin1String("artist")), QLatin1String("Evanescence"));
-  QVERIFY(!entry->field(QLatin1String("title")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("label")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("year")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
-}
-
-void DiscogsFetcherTest::testKeyword() {
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Keyword,
-                                       QLatin1String("Fallen Evanescence"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DiscogsFetcher(this));
-
-  // don't use 'this' as job parent, it crashes
-  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
-  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
-  job->setMaximumResults(1);
-
-  job->start();
-  m_loop.exec();
-
-  QCOMPARE(m_results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = m_results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Fallen"));
-  QCOMPARE(entry->field(QLatin1String("artist")), QLatin1String("Evanescence"));
-  QVERIFY(!entry->field(QLatin1String("label")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("year")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
-}
-
-void DiscogsFetcherTest::slotResult(KJob* job_) {
+void MusicBrainzFetcherTest::slotResult(KJob* job_) {
   m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
   m_loop.quit();
 }

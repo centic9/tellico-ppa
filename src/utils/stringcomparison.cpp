@@ -43,6 +43,26 @@ namespace {
   }
 }
 
+Tellico::StringComparison* Tellico::StringComparison::create(Data::FieldPtr field_) {
+  if(!field_) {
+    return 0;
+  }
+  if(field_->type() == Data::Field::Number || field_->type() == Data::Field::Rating) {
+    return new NumberComparison();
+  } else if(field_->type() == Data::Field::Bool) {
+    return new BoolComparison();
+  } else if(field_->type() == Data::Field::Date || field_->formatType() == FieldFormat::FormatDate) {
+    return new ISODateComparison();
+  } else if(field_->formatType() == FieldFormat::FormatTitle) {
+    return new TitleComparison();
+  } else if(field_->property(QLatin1String("lcc")) == QLatin1String("true") ||
+            field_->name() == QLatin1String("lcc")) {
+    // allow LCC comparison if LCC property is set, or if the name is lcc
+    return new LCCComparison();
+  }
+  return new StringComparison();
+}
+
 Tellico::StringComparison::StringComparison() {
 }
 
@@ -71,18 +91,32 @@ Tellico::NumberComparison::NumberComparison() : StringComparison() {
 }
 
 int Tellico::NumberComparison::compare(const QString& str1_, const QString& str2_) {
-  // by default, an empty string would get sorted before "1" because toFloat() turns it into "0"
-  // I want the empty strings to be at the end
   bool ok1, ok2;
-  // use section in case of multiple values
-  float num1 = str1_.section(QLatin1Char(';'), 0, 0).toFloat(&ok1);
-  float num2 = str2_.section(QLatin1Char(';'), 0, 0).toFloat(&ok2);
-  if(ok1 && ok2) {
-    return static_cast<int>(num1 - num2);
-  } else if(ok1 && !ok2) {
-    return -1;
-  } else if(!ok1 && ok2) {
+  float num1, num2;
+
+  const QStringList values1 = FieldFormat::splitValue(str1_);
+  const QStringList values2 = FieldFormat::splitValue(str2_);
+  int index = 0;
+  do {
+    if((ok1 = index < values1.count())) {
+      num1 = values1.at(index).toFloat(&ok1);
+    }
+    if((ok2 = index < values2.count())) {
+      num2 = values2.at(index).toFloat(&ok2);
+    }
+    if(ok1 && ok2) {
+      int ret = static_cast<int>(num1 - num2);
+      if(ret != 0) {
+        return ret;
+      }
+    }
+    ++index;
+  } while(ok1 && ok2);
+
+  if(ok1 && !ok2) {
     return 1;
+  } else if(!ok1 && ok2) {
+    return -1;
   }
   return 0;
 }

@@ -74,12 +74,12 @@ Tellico::Data::FieldPtr Collection::createDefaultField(DefaultField fieldEnum) {
 }
 
 Collection::Collection(const QString& title_)
-    : QObject(), QSharedData(), m_nextEntryId(0), m_title(title_), m_trackGroups(false) {
+    : QObject(), QSharedData(), m_nextEntryId(1), m_title(title_), m_trackGroups(false) {
   m_id = getID();
 }
 
 Collection::Collection(bool addDefaultFields_, const QString& title_)
-    : QObject(), QSharedData(), m_nextEntryId(0), m_title(title_), m_trackGroups(false) {
+    : QObject(), QSharedData(), m_nextEntryId(1), m_title(title_), m_trackGroups(false) {
   if(m_title.isEmpty()) {
     m_title = i18n("My Collection");
   }
@@ -485,14 +485,14 @@ void Collection::addEntries(const Tellico::Data::EntryList& entries_) {
     }
 
     m_entries.append(entry);
-//  myDebug() << "added entry (" << entry->title() << ")";
+//    myDebug() << "added entry (" << entry->title() << ")" <<  entry->id();
 
     if(entry->id() >= m_nextEntryId) {
       m_nextEntryId = entry->id() + 1;
     } else if(entry->id() == -1) {
       entry->setId(m_nextEntryId);
       ++m_nextEntryId;
-    } else if(m_entryById.value(entry->id())) {
+    } else if(m_entryById.contains(entry->id())) {
       if(!foster) {
         myDebug() << "the collection already has an entry with id = " << entry->id();
       }

@@ -89,6 +89,7 @@ void Manager::registerFunction(int type_, const FetcherFunction& func_) {
 
 void Manager::loadFetchers() {
   m_fetchers.clear();
+  m_uuidHash.clear();
 
   KSharedConfigPtr config = KGlobal::config();
   if(config->hasGroup(QLatin1String("Data Sources"))) {
@@ -100,6 +101,7 @@ void Manager::loadFetchers() {
       if(f) {
         m_fetchers.append(f);
         f->setMessageHandler(m_messager);
+        m_uuidHash.insert(f->uuid(), f);
       }
     }
     m_loadDefaults = false;
@@ -117,6 +119,10 @@ Tellico::Fetch::FetcherVec Manager::fetchers(int type_) {
     }
   }
   return vec;
+}
+
+Tellico::Fetch::Fetcher::Ptr Manager::fetcherByUuid(const QString& uuid_) {
+  return m_uuidHash.contains(uuid_) ? m_uuidHash[uuid_] : Fetcher::Ptr();
 }
 
 Tellico::Fetch::KeyMap Manager::keyMap(const QString& source_) const {
@@ -270,7 +276,7 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
 #endif
   vec.append(SRUFetcher::libraryOfCongress(this));
   FETCHER_ADD(ISBNdb);
-  FETCHER_ADD(Yahoo);
+//  FETCHER_ADD(Yahoo);
   FETCHER_ADD(AnimeNfo);
   FETCHER_ADD(Arxiv);
   FETCHER_ADD(GoogleScholar);
@@ -281,6 +287,10 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   if(KGlobal::locale()->languageList().contains(QLatin1String("it"))) {
     FETCHER_ADD(IBS);
   }
+#ifdef HAVE_QJSON
+  FETCHER_ADD(OpenLibrary);
+  FETCHER_ADD(Freebase);
+#endif
   return vec;
 }
 

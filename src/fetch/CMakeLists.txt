@@ -19,6 +19,7 @@ SET(fetch_STAT_SRCS
    fetcherjob.cpp
    fetchmanager.cpp
    fetchresult.cpp
+   freebasefetcher.cpp
    gcstarpluginfetcher.cpp
    giantbombfetcher.cpp
    googlescholarfetcher.cpp
@@ -27,7 +28,9 @@ SET(fetch_STAT_SRCS
    imdbfetcher.cpp
    isbndbfetcher.cpp
    messagehandler.cpp
+   multifetcher.cpp
    musicbrainzfetcher.cpp
+   openlibraryfetcher.cpp
    sha2.c
    srufetcher.cpp
    themoviedbfetcher.cpp
@@ -44,9 +47,14 @@ TARGET_LINK_LIBRARIES(fetch
     newstuff
     btparse
     )
+
 IF( YAZ_FOUND )
   TARGET_LINK_LIBRARIES(fetch ${YAZ_LIBRARIES})
 ENDIF( YAZ_FOUND )
+
+IF( QJSON_FOUND )
+  TARGET_LINK_LIBRARIES(fetch ${QJSON_LIBRARIES})
+ENDIF( QJSON_FOUND )
 
 ########### install files ###############
 

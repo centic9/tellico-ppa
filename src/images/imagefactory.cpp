@@ -116,6 +116,7 @@ Tellico::ImageFactory::CacheDir ImageFactory::cacheDir() {
 }
 
 QString ImageFactory::addImage(const KUrl& url_, bool quiet_, const KUrl& refer_, bool link_) {
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
   return factory->addImageImpl(url_, quiet_, refer_, link_).id();
 }
 
@@ -156,10 +157,12 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const KUrl& url_, bool qu
 }
 
 QString ImageFactory::addImage(const QImage& image_, const QString& format_) {
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
   return factory->addImageImpl(image_, format_).id();
 }
 
 QString ImageFactory::addImage(const QPixmap& pix_, const QString& format_) {
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
   return factory->addImageImpl(pix_.toImage(), format_).id();
 }
 
@@ -182,6 +185,7 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const QImage& image_, con
 }
 
 QString ImageFactory::addImage(const QByteArray& data_, const QString& format_, const QString& id_) {
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
   return factory->addImageImpl(data_, format_, id_).id();
 }
 
@@ -271,8 +275,9 @@ bool ImageFactory::writeCachedImage(const QString& id_, CacheDir dir_, bool forc
   }
 //  myLog() << "dir =" << (dir_ == DataDir ? "DataDir" : "TmpDir" ) << "; id =" << id_;
   ImageDirectory* imgDir = dir_ == DataDir ? &factory->d->dataImageDir :
-                           dir_ == TempDir ? &factory->d->tempImageDir :
-                           &factory->d->localImageDir;
+                          (dir_ == TempDir ? &factory->d->tempImageDir :
+                                             &factory->d->localImageDir);
+  Q_ASSERT(imgDir);
   bool exists = imgDir->hasImage(id_);
   // only write if it doesn't exist
   bool success = (!force_ && exists);
@@ -286,17 +291,13 @@ bool ImageFactory::writeCachedImage(const QString& id_, CacheDir dir_, bool forc
   if(success) {
     // remove from dict and add to cache
     // it might not be in dict though
-    Data::Image* img = factory->d->imageDict.take(id_);
-    if(img && factory->d->imageCache.insert(img->id(), img, img->numBytes())) {
-      s_imageInfoMap.remove(id_);
-    } else if(img) {
-//      myLog() << "failed writing image to cache:" << id_;
-//      myLog() << "removed from dict, deleting:" << img->id();
-//      myLog() << "current dict size:" << d->imageDict.count();
-      // can't insert it in the cache, so put it back in the dict
-      // No, it's written to disk now, so we're safe
-//      d->imageDict.insert(img->id(), img);
-      delete img;
+    if(factory->d->imageDict.contains(id_)) {
+      Data::Image* img = factory->d->imageDict.take(id_);
+      Q_ASSERT(img);
+      // imageCache.insert will delete the image by itself if the cost exceeds the cache size
+      if(factory->d->imageCache.insert(img->id(), img, img->numBytes())) {
+        s_imageInfoMap.remove(id_);
+      }
     }
   }
   return success;

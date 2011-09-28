@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns="http://periapsis.org/tellico/"
-                xmlns:aws="http://webservices.amazon.com/AWSECommerceService/2007-10-29"
+                xmlns:aws="http://webservices.amazon.com/AWSECommerceService/2009-11-01"
                 xmlns:exsl="http://exslt.org/common"
                 extension-element-prefixes="exsl"
                 version="1.0">
@@ -356,6 +356,14 @@
      </xsl:if>
     </casts>
 
+    <writers>
+     <xsl:for-each select="aws:Creator[@Role='Writer']">
+      <writer>
+       <xsl:value-of select="."/>
+      </writer>
+     </xsl:for-each>
+    </writers>
+
     <year>
      <xsl:call-template name="year">
       <xsl:with-param name="value" select="aws:TheatricalReleaseDate"/>
@@ -400,6 +408,22 @@
      <widescreen>
       <xsl:text>true</xsl:text>
      </widescreen>
+    </xsl:if>
+
+    <xsl:if test="aws:Format[.='NTSC']">
+     <format i18n="true">
+      <xsl:text>NTSC</xsl:text>
+     </format>
+    </xsl:if>
+    <xsl:if test="aws:Format[.='PAL']">
+     <format i18n="true">
+      <xsl:text>PAL</xsl:text>
+     </format>
+    </xsl:if>
+    <xsl:if test="aws:Format[.='SECAM']">
+     <format i18n="true">
+      <xsl:text>SECAM</xsl:text>
+     </format>
     </xsl:if>
 
     <languages>

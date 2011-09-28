@@ -28,7 +28,6 @@
 #include "../entry.h"
 #include "../fieldformat.h"
 #include "../derivedvalue.h"
-#include "../translators/tellicoimporter.h"
 #include "../tellico_debug.h"
 #include "../gui/combobox.h"
 #include "../gui/lineedit.h"
@@ -106,6 +105,7 @@ void ExecExternalFetcher::readConfigHook(const KConfigGroup& config_) {
   if(config_.hasKey("ArgumentKeys")) {
     argKeys = config_.readEntry("ArgumentKeys", argKeys);
   } else {
+    myDebug() << "appending default keyword argument";
     argKeys.append(Keyword);
   }
   QStringList args = config_.readEntry("Arguments", QStringList());
@@ -132,6 +132,7 @@ void ExecExternalFetcher::search() {
   m_started = true;
 
   if(request().key != ExecUpdate && !m_args.contains(request().key)) {
+    myDebug() << "stopping: not an update and no matching argument for search key";
     stop();
     return;
   }
@@ -165,6 +166,7 @@ void ExecExternalFetcher::search() {
 
 void ExecExternalFetcher::startSearch(const QStringList& args_) {
   if(m_path.isEmpty()) {
+    Q_ASSERT(!m_path.isEmpty());
     stop();
     return;
   }
@@ -504,7 +506,7 @@ void ExecExternalFetcher::ConfigWidget::readConfig(const KConfigGroup& config_) 
 }
 
 void ExecExternalFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
-        KUrl u = m_pathEdit->url();
+  KUrl u = m_pathEdit->url();
   if(!u.isEmpty()) {
     config_.writePathEntry("ExecPath", u.path());
   }

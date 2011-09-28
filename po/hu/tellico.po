@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-08-05 05:22+0200\n"
+"POT-Creation-Date: 2010-11-04 06:32+0100\n"
 "PO-Revision-Date: 2009-12-30 13:30+0100\n"
 "Last-Translator: Csaba Zakarias <csaba.zakarias@gmail.com>\n"
 "Language-Team: Dokumentumok <kde-i18n-doc@kde.org>\n"
@@ -87,7 +87,7 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "&Törlés"
 
-#: src/gui/fieldwidget.cpp:109 src/gui/fieldwidget.cpp:221
+#: src/gui/fieldwidget.cpp:108 src/gui/fieldwidget.cpp:218
 #, kde-format
 msgctxt "Edit Label"
 msgid "%1:"
@@ -137,7 +137,7 @@ msgstr "Kép megnyitása %1-ben..."
 msgid "Saving a link is only possible for newly added images."
 msgstr "Hivatkozást csak újonnan hozzáadott képek esetében lehet elmenteni."
 
-#: src/commands/updateentries.cpp:61 src/commands/modifyentries.cpp:51
+#: src/commands/updateentries.cpp:69 src/commands/modifyentries.cpp:51
 #: src/commands/modifyentries.cpp:71
 #, kde-format
 msgctxt "Modify (Entry Title)"
@@ -145,7 +145,7 @@ msgid "Modify %1"
 msgstr "%1 módosítása"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:355
+#: src/entryeditdialog.cpp:368
 msgid "Modify Entries"
 msgstr "Bejegyzések szerkesztése"
 
@@ -250,9 +250,9 @@ msgstr "%1 visszavétele"
 #: src/collections/bibtexcollection.cpp:38
 #: src/collections/bibtexcollection.cpp:100
 #: src/collections/musiccollection.cpp:31
-#: src/collections/boardgamecollection.cpp:31 src/fetch/imdbfetcher.cpp:728
-#: src/fetch/imdbfetcher.cpp:1014 src/fetch/openlibraryfetcher.cpp:298
-#: src/fetch/freebasefetcher.cpp:395 src/translators/gcstarimporter.cpp:89
+#: src/collections/boardgamecollection.cpp:31 src/fetch/imdbfetcher.cpp:749
+#: src/fetch/imdbfetcher.cpp:1066 src/fetch/openlibraryfetcher.cpp:298
+#: src/fetch/freebasefetcher.cpp:397 src/translators/gcstarimporter.cpp:89
 #: src/field.cpp:37 src/field.cpp:78 src/collection.cpp:57
 #: src/configdialog.cpp:154 src/configdialog.cpp:177 src/configdialog.cpp:204
 #: src/configdialog.cpp:222
@@ -290,7 +290,6 @@ msgid "Description"
 msgstr "Leírás"
 
 #: src/collections/stampcollection.cpp:60
-#: src/collections/coincollection.cpp:61
 msgid "Denomination"
 msgstr "Névérték"
 
@@ -320,7 +319,7 @@ msgid "Superb,Extremely Fine,Very Fine,Fine,Average,Poor"
 msgstr "Kíváló,Igen nagyszerű,Meglehetősen nagyszerű,Nagyszerű,Átlagos,Gyenge"
 
 #: src/collections/stampcollection.cpp:89
-#: src/collections/coincollection.cpp:97
+#: src/collections/coincollection.cpp:103
 msgid "Grade"
 msgstr "Fajta"
 
@@ -341,7 +340,7 @@ msgid "Gummed"
 msgstr "Enyvezett hátú"
 
 #: src/collections/stampcollection.cpp:114
-#: src/collections/coincollection.cpp:111
+#: src/collections/coincollection.cpp:117
 #: src/collections/bookcollection.cpp:78 src/collections/winecollection.cpp:90
 #: src/collections/comicbookcollection.cpp:132
 #: src/collections/videocollection.cpp:198
@@ -353,7 +352,7 @@ msgid "Purchase Date"
 msgstr "Vásárlás dátuma"
 
 #: src/collections/stampcollection.cpp:119
-#: src/collections/coincollection.cpp:116
+#: src/collections/coincollection.cpp:122
 #: src/collections/bookcollection.cpp:83 src/collections/winecollection.cpp:95
 #: src/collections/comicbookcollection.cpp:137
 #: src/collections/videocollection.cpp:207
@@ -365,14 +364,14 @@ msgid "Purchase Price"
 msgstr "Vásárlási ár"
 
 #: src/collections/stampcollection.cpp:123
-#: src/collections/coincollection.cpp:120
+#: src/collections/coincollection.cpp:126
 #: src/collections/winecollection.cpp:99
 #: src/collections/cardcollection.cpp:102
 msgid "Location"
 msgstr "Hely"
 
 #: src/collections/stampcollection.cpp:129
-#: src/collections/coincollection.cpp:126
+#: src/collections/coincollection.cpp:132
 #: src/collections/bookcollection.cpp:169
 #: src/collections/winecollection.cpp:118
 #: src/collections/comicbookcollection.cpp:145
@@ -389,10 +388,10 @@ msgid "Image"
 msgstr "Kép"
 
 #: src/collections/stampcollection.cpp:136
-#: src/collections/coincollection.cpp:136
+#: src/collections/coincollection.cpp:142
 #: src/collections/bookcollection.cpp:185
 #: src/collections/winecollection.cpp:128
-#: src/collections/comicbookcollection.cpp:156
+#: src/collections/comicbookcollection.cpp:161
 #: src/collections/videocollection.cpp:223
 #: src/collections/cardcollection.cpp:126
 #: src/collections/gamecollection.cpp:126
@@ -409,6 +408,13 @@ msgstr "Érméim"
 msgid "Type"
 msgstr "Típus"
 
+#: src/collections/coincollection.cpp:61
+#, fuzzy
+#| msgid "Denomination"
+msgctxt "monetary denomination"
+msgid "Denomination"
+msgstr "Névérték"
+
 #: src/collections/coincollection.cpp:66 src/collections/cardcollection.cpp:77
 #: src/collections/bibtexcollection.cpp:157
 #: src/collections/musiccollection.cpp:72
@@ -420,10 +426,14 @@ msgid "Mint Mark"
 msgstr "Pénzverde jele"
 
 #: src/collections/coincollection.cpp:83
+msgid "Currency"
+msgstr ""
+
+#: src/collections/coincollection.cpp:89
 msgid "Coin Set"
 msgstr "Érme sorozat"
 
-#: src/collections/coincollection.cpp:92
+#: src/collections/coincollection.cpp:98
 msgctxt ""
 "Coin grade levels - Proof-65,Proof-60,Mint State-65,Mint State-60,Almost "
 "Uncirculated-55,Almost Uncirculated-50,Extremely Fine-40,Very Fine-30,Very "
@@ -437,20 +447,20 @@ msgstr ""
 "55,Majdnem kiváló-50,Kiváló-40,Nagyon szép-30,Nagyon szép-20,Szép-12, Nagyon "
 "jó-8,Jó-4,Gyenge"
 
-#: src/collections/coincollection.cpp:104
+#: src/collections/coincollection.cpp:110
 msgctxt "Coin grading services - PCGS,NGC,ANACS,ICG,ASA,PCI"
 msgid "PCGS,NGC,ANACS,ICG,ASA,PCI"
 msgstr "PCGS,NGC,ANACS,ICG,ASA,PCI"
 
-#: src/collections/coincollection.cpp:106
+#: src/collections/coincollection.cpp:112
 msgid "Grading Service"
 msgstr "Osztályozás"
 
-#: src/collections/coincollection.cpp:130
+#: src/collections/coincollection.cpp:136
 msgid "Obverse"
 msgstr "Fej"
 
-#: src/collections/coincollection.cpp:133
+#: src/collections/coincollection.cpp:139
 msgid "Reverse"
 msgstr "Irás"
 
@@ -486,7 +496,7 @@ msgstr "Szerző"
 msgid "Editor"
 msgstr "Szerkesztő"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:429
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:431
 #: src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Kemény tábla"
@@ -588,7 +598,7 @@ msgstr "Fajta"
 #: src/collections/videocollection.cpp:215
 #: src/collections/cardcollection.cpp:111
 #: src/collections/bibtexcollection.cpp:234
-#: src/collections/musiccollection.cpp:113 src/fetch/amazonfetcher.cpp:865
+#: src/collections/musiccollection.cpp:113 src/fetch/amazonfetcher.cpp:864
 msgid "Keywords"
 msgstr "Kulcsszavak"
 
@@ -632,13 +642,14 @@ msgstr "Kölcsön adva"
 
 #: src/collections/bookcollection.cpp:177
 #: src/collections/winecollection.cpp:113
+#: src/collections/comicbookcollection.cpp:153
 #: src/collections/musiccollection.cpp:91
 #: src/collections/boardgamecollection.cpp:88 src/field.cpp:204
 msgid "Rating"
 msgstr "Értékelés"
 
 #: src/collections/bookcollection.cpp:182
-#: src/collections/comicbookcollection.cpp:153 src/fetch/arxivfetcher.cpp:204
+#: src/collections/comicbookcollection.cpp:158 src/fetch/arxivfetcher.cpp:204
 #: src/fetch/crossreffetcher.cpp:195 src/translators/pdfimporter.cpp:229
 #: src/translators/referencerimporter.cpp:62
 msgid "Front Cover"
@@ -698,11 +709,11 @@ msgstr "Módosítva"
 msgid "Meta Info"
 msgstr "Meta információ"
 
-#: src/collections/filecatalog.cpp:107 src/collectionfieldsdialog.cpp:818
+#: src/collections/filecatalog.cpp:107 src/collectionfieldsdialog.cpp:841
 msgid "Property"
 msgstr "Tulajdonság"
 
-#: src/collections/filecatalog.cpp:108 src/collectionfieldsdialog.cpp:818
+#: src/collections/filecatalog.cpp:108 src/collectionfieldsdialog.cpp:841
 msgid "Value"
 msgstr "Érték"
 
@@ -795,11 +806,11 @@ msgid "My Videos"
 msgstr "Videóim"
 
 #: src/collections/videocollection.cpp:54
-#: src/collections/musiccollection.cpp:54 src/fetch/amazonfetcher.cpp:831
+#: src/collections/musiccollection.cpp:54 src/fetch/amazonfetcher.cpp:830
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:818
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:817
 msgid "VHS"
 msgstr "VHS"
 
@@ -811,11 +822,11 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:812
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:811
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:815
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:814
 msgid "HD DVD"
 msgstr "HD DVD"
 
@@ -877,11 +888,11 @@ msgstr "8 régió"
 msgid "Region"
 msgstr "Régió"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:219
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:218
 msgid "Nationality"
 msgstr "Nemzetiség"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:827
+#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:826
 msgid "NTSC"
 msgstr "NTSC"
 
@@ -919,7 +930,7 @@ msgstr "A szereplők táblázata az alakított szerepekkel"
 msgid "Director"
 msgstr "Rendező"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:218
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:217
 msgid "Producer"
 msgstr "Producer"
 
@@ -955,7 +966,7 @@ msgstr "Videó játékideje (percben)"
 msgid "Aspect Ratio"
 msgstr "Képarány"
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:801
+#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:800
 msgid "Widescreen"
 msgstr "Szélesvásznú"
 
@@ -967,7 +978,7 @@ msgstr "Fekete - fehér"
 msgid "Color Mode"
 msgstr "Szín mód"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:822
+#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:821
 msgid "Director's Cut"
 msgstr "Rendezői vágás"
 
@@ -1152,7 +1163,7 @@ msgstr "Könyv címe"
 msgid "Organization"
 msgstr "Szervezet"
 
-#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:534
+#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:538
 #: src/fetch/srufetcher.cpp:453
 msgid "Address"
 msgstr "Postacím"
@@ -1186,7 +1197,7 @@ msgid "Cross-Reference"
 msgstr "Keresztreferencia"
 
 #: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
-#: src/fetch/z3950fetcher.cpp:535 src/fetch/srufetcher.cpp:454
+#: src/fetch/z3950fetcher.cpp:539 src/fetch/srufetcher.cpp:454
 msgid "Abstract"
 msgstr "Összefoglalás"
 
@@ -1267,21 +1278,27 @@ msgid "Number of Players"
 msgstr "Játékosok száma"
 
 #: src/core/tellico_strings.cpp:29
-#, kde-format
-msgid "Tellico is unable to load the file - %1."
+#, fuzzy, kde-format
+#| msgid "Tellico is unable to load the file - %1."
+msgid "Tellico is unable to open the file - %1."
 msgstr "Nem sikerült a(z) %1 fájl betöltése."
 
 #: src/core/tellico_strings.cpp:30
 #, kde-format
+msgid "Tellico is unable to load the file - %1."
+msgstr "Nem sikerült a(z) %1 fájl betöltése."
+
+#: src/core/tellico_strings.cpp:31
+#, kde-format
 msgid "Tellico is unable to write the file - %1."
 msgstr "A Tellico nem tud a fájlba írni: %1."
 
-#: src/core/tellico_strings.cpp:31
+#: src/core/tellico_strings.cpp:32
 #, kde-format
 msgid "Tellico is unable to upload the file - %1."
 msgstr "Nem sikerült a(z) %1 fájl feltöltése."
 
-#: src/core/tellico_strings.cpp:32
+#: src/core/tellico_strings.cpp:33
 msgid ""
 "Only collections with the same type of entries as the current one can be "
 "appended. No changes are being made to the current collection."
@@ -1289,7 +1306,7 @@ msgstr ""
 "Csak a jelenlegivel azonos bejegyzés típusú gyűjtemények adhatók össze. A "
 "jelenlegi gyűjtemény nem változik."
 
-#: src/core/tellico_strings.cpp:35
+#: src/core/tellico_strings.cpp:36
 msgid ""
 "Only collections with the same type of entries as the current one can be "
 "merged. No changes are being made to the current collection."
@@ -1297,48 +1314,48 @@ msgstr ""
 "Csak a jelenlegivel azonos bejegyzés típusú gyűjtemények egyesíthetők. A "
 "jelenlegi gyűjtemény nem változik."
 
-#: src/core/tellico_strings.cpp:38
+#: src/core/tellico_strings.cpp:39
 #, kde-format
 msgid "Tellico is unable to load an image from the file - %1."
 msgstr "Nem sikerült a(z) %1 fájlból a kép betöltése."
 
-#: src/core/tellico_strings.cpp:40
+#: src/core/tellico_strings.cpp:41
 msgid "Untitled"
 msgstr "Cím nélküli"
 
-#: src/core/filehandler.cpp:136 src/translators/xmlimporter.cpp:54
+#: src/core/filehandler.cpp:149 src/translators/xmlimporter.cpp:54
 #: src/translators/xmlimporter.cpp:71
 #, kde-format
 msgid "There is an XML parsing error in line %1, column %2."
 msgstr "A %1 sor, %2 oszlopában XML hiba van."
 
-#: src/core/filehandler.cpp:138 src/translators/xmlimporter.cpp:56
+#: src/core/filehandler.cpp:151 src/translators/xmlimporter.cpp:56
 #: src/translators/xmlimporter.cpp:73
 msgid "The error message from Qt is:"
 msgstr "A Qt hibaüzenet a következő:"
 
-#: src/core/filehandler.cpp:175 src/core/filehandler.cpp:191
+#: src/core/filehandler.cpp:187 src/core/filehandler.cpp:203
 #, kde-format
 msgid "Tellico is unable to load the image - %1."
 msgstr "Nem sikerült a(z) %1 fájl betöltése."
 
-#: src/core/filehandler.cpp:207
+#: src/core/filehandler.cpp:219
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr "Egy \"%1\" nevű fájl már létezik. Felül akarja írni?"
 
-#: src/core/filehandler.cpp:210
+#: src/core/filehandler.cpp:222
 msgid "Overwrite File?"
 msgstr "Fájl felülírása?"
 
-#: src/core/filehandler.cpp:211
+#: src/core/filehandler.cpp:223
 msgid "Overwrite"
 msgstr "Felülírás"
 
-#: src/fetch/giantbombfetcher.cpp:205 src/fetch/themoviedbfetcher.cpp:349
-#: src/fetch/discogsfetcher.cpp:232 src/fetch/winecomfetcher.cpp:291
-#: src/fetch/isbndbfetcher.cpp:355 src/fetch/amazonfetcher.cpp:881
+#: src/fetch/giantbombfetcher.cpp:204 src/fetch/themoviedbfetcher.cpp:232
+#: src/fetch/discogsfetcher.cpp:231 src/fetch/winecomfetcher.cpp:291
+#: src/fetch/isbndbfetcher.cpp:355 src/fetch/amazonfetcher.cpp:880
 #: src/fetch/crossreffetcher.cpp:311
 #, kde-format
 msgid ""
@@ -1350,14 +1367,14 @@ msgstr ""
 "feltételekkel, <a href='%2'>kérjen hozzáférést</a>. Adja meg a hozzáférési "
 "információkat."
 
-#: src/fetch/giantbombfetcher.cpp:218 src/fetch/themoviedbfetcher.cpp:362
-#: src/fetch/discogsfetcher.cpp:245 src/fetch/winecomfetcher.cpp:304
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/amazonfetcher.cpp:894
+#: src/fetch/giantbombfetcher.cpp:217 src/fetch/themoviedbfetcher.cpp:245
+#: src/fetch/discogsfetcher.cpp:244 src/fetch/winecomfetcher.cpp:304
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/amazonfetcher.cpp:893
 msgid "Access key: "
 msgstr "Hozzáférési kulcs:"
 
-#: src/fetch/giantbombfetcher.cpp:224 src/fetch/themoviedbfetcher.cpp:368
-#: src/fetch/discogsfetcher.cpp:251 src/fetch/isbndbfetcher.cpp:374
+#: src/fetch/giantbombfetcher.cpp:223 src/fetch/themoviedbfetcher.cpp:251
+#: src/fetch/discogsfetcher.cpp:250 src/fetch/isbndbfetcher.cpp:374
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -1377,62 +1394,63 @@ msgstr "Állapot"
 #: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:330
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/ibsfetcher.cpp:413
 #: src/fetch/citebasefetcher.cpp:234 src/fetch/animenfofetcher.cpp:377
-#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:891
-#: src/fetch/googlescholarfetcher.cpp:239
+#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:929
+#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:239
 msgid "This source has no options."
 msgstr "A forrás nem rendelkezik beállításokkal."
 
-#: src/fetch/imdbfetcher.cpp:594
+#: src/fetch/imdbfetcher.cpp:611
 msgid "Select IMDb Result"
 msgstr "Válassza ki az IMDb eredmény"
 
-#: src/fetch/imdbfetcher.cpp:600
+#: src/fetch/imdbfetcher.cpp:617
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr "<qt>A keresés eredménye több értékű. Kérem válasszon közülük.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:617
+#: src/fetch/imdbfetcher.cpp:634
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>Válasszon a keresés eredményeiből.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:727 src/fetch/imdbfetcher.cpp:1190
-#: src/fetch/themoviedbfetcher.cpp:335
+#: src/fetch/imdbfetcher.cpp:748 src/fetch/imdbfetcher.cpp:1230
+#: src/fetch/themoviedbfetcher.cpp:219
 msgid "IMDb Link"
 msgstr "IMDb kapcsolat"
 
-#: src/fetch/imdbfetcher.cpp:793 src/fetch/imdbfetcher.cpp:1192
-#: src/fetch/animenfofetcher.cpp:261
+#: src/fetch/imdbfetcher.cpp:819 src/fetch/imdbfetcher.cpp:1232
+#: src/fetch/themoviedbfetcher.cpp:220 src/fetch/animenfofetcher.cpp:261
+#: src/fetch/dvdfrfetcher.cpp:165
 msgid "Alternative Titles"
 msgstr "Alternatív címek"
 
-#: src/fetch/imdbfetcher.cpp:1013 src/fetch/imdbfetcher.cpp:1191
+#: src/fetch/imdbfetcher.cpp:1065 src/fetch/imdbfetcher.cpp:1231
 msgid "IMDb Rating"
 msgstr "IMDb értékelés"
 
-#: src/fetch/imdbfetcher.cpp:1135 src/fetch/imdbfetcher.cpp:1193
+#: src/fetch/imdbfetcher.cpp:1192 src/fetch/imdbfetcher.cpp:1233
 msgid "Certifications"
 msgstr "Osztályozások"
 
-#: src/fetch/imdbfetcher.cpp:1181
+#: src/fetch/imdbfetcher.cpp:1221
 msgid "Internet Movie Database"
 msgstr "Internet Movie Database"
 
-#: src/fetch/imdbfetcher.cpp:1208 src/fetch/z3950fetcher.cpp:560
+#: src/fetch/imdbfetcher.cpp:1248 src/fetch/z3950fetcher.cpp:564
 #: src/fetch/srufetcher.cpp:469
 msgid "Hos&t: "
 msgstr "&Hoszt:"
 
-#: src/fetch/imdbfetcher.cpp:1213
+#: src/fetch/imdbfetcher.cpp:1253
 msgid ""
 "The Internet Movie Database uses several different servers. Choose the one "
 "you wish to use."
 msgstr "Az IMDb több szervert használ. Válasszon közülük. "
 
-#: src/fetch/imdbfetcher.cpp:1219
+#: src/fetch/imdbfetcher.cpp:1259
 msgid "&Maximum cast: "
 msgstr "&Maximális stáb:"
 
-#: src/fetch/imdbfetcher.cpp:1224
+#: src/fetch/imdbfetcher.cpp:1264
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -1440,11 +1458,11 @@ msgstr ""
 "A stáb tagjainak listája sok személyt tartalmazhat. Adja meg a keresési "
 "eredmény számának maximális értékét."
 
-#: src/fetch/imdbfetcher.cpp:1229
+#: src/fetch/imdbfetcher.cpp:1269
 msgid "Download cover &image"
 msgstr "&Fedlap kép letöltése"
 
-#: src/fetch/imdbfetcher.cpp:1233 src/fetch/amazonfetcher.cpp:941
+#: src/fetch/imdbfetcher.cpp:1273 src/fetch/amazonfetcher.cpp:940
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -1470,7 +1488,7 @@ msgstr "Rekord szintaxis hiba"
 msgid "Connection error %1: %2"
 msgstr "Csatlakozási hiba %1: %2"
 
-#: src/fetch/yahoofetcher.cpp:238 src/fetch/amazonfetcher.cpp:716
+#: src/fetch/yahoofetcher.cpp:238 src/fetch/amazonfetcher.cpp:715
 #: src/fetch/freebasefetcher.cpp:257
 msgid "The cover image could not be loaded."
 msgstr "Nem tölthető be a címlap kép."
@@ -1479,60 +1497,60 @@ msgstr "Nem tölthető be a címlap kép."
 msgid "Yahoo! Audio Search"
 msgstr "Yahoo! Audió keresés"
 
-#: src/fetch/themoviedbfetcher.cpp:334
+#: src/fetch/themoviedbfetcher.cpp:218
 msgid "TMDb Link"
 msgstr "TMDb kapcsolat"
 
-#: src/fetch/z3950fetcher.cpp:524 src/fetch/z3950fetcher.cpp:799
+#: src/fetch/z3950fetcher.cpp:528 src/fetch/z3950fetcher.cpp:803
 msgid "z39.50 Server"
 msgstr "z39.50 Szerver"
 
-#: src/fetch/z3950fetcher.cpp:536
+#: src/fetch/z3950fetcher.cpp:540
 msgid "Illustrator"
 msgstr "Illusztrátor"
 
-#: src/fetch/z3950fetcher.cpp:537
+#: src/fetch/z3950fetcher.cpp:541
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr ""
 
-#: src/fetch/z3950fetcher.cpp:538
+#: src/fetch/z3950fetcher.cpp:542
 #, fuzzy
 #| msgid "Classification"
 msgctxt "Library of Congress classificationn system"
 msgid "LoC Classification"
 msgstr "Besorolás"
 
-#: src/fetch/z3950fetcher.cpp:550
+#: src/fetch/z3950fetcher.cpp:554
 msgid "Use preset &server:"
 msgstr "&Használja az előre beállított szervert:"
 
-#: src/fetch/z3950fetcher.cpp:566 src/fetch/srufetcher.cpp:476
+#: src/fetch/z3950fetcher.cpp:570 src/fetch/srufetcher.cpp:476
 msgid "Enter the host name of the server."
 msgstr "Adja meg a szerver nevét."
 
-#: src/fetch/z3950fetcher.cpp:571 src/fetch/srufetcher.cpp:481
+#: src/fetch/z3950fetcher.cpp:575 src/fetch/srufetcher.cpp:481
 msgid "&Port: "
 msgstr "&Port szám:"
 
-#: src/fetch/z3950fetcher.cpp:576 src/fetch/srufetcher.cpp:486
+#: src/fetch/z3950fetcher.cpp:580 src/fetch/srufetcher.cpp:486
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Adja meg a szerver nevét. Az alapértelmezett: %1."
 
-#: src/fetch/z3950fetcher.cpp:581
+#: src/fetch/z3950fetcher.cpp:585
 msgid "&Database: "
 msgstr "&Adatbázis:"
 
-#: src/fetch/z3950fetcher.cpp:586
+#: src/fetch/z3950fetcher.cpp:590
 msgid "Enter the database name used by the server."
 msgstr "Adja meg a szerver által használt adatbázis nevét."
 
-#: src/fetch/z3950fetcher.cpp:591
+#: src/fetch/z3950fetcher.cpp:595
 msgid "Ch&aracter set: "
 msgstr "Karakter készlet:"
 
-#: src/fetch/z3950fetcher.cpp:600
+#: src/fetch/z3950fetcher.cpp:604
 msgid ""
 "Enter the character set encoding used by the z39.50 server. The most likely "
 "choice is MARC-8, although ISO-8859-1 is common as well."
@@ -1540,15 +1558,15 @@ msgstr ""
 "Adja meg a z39.50 szerver által használt karakter készlet kódolását. A "
 "legvalószínűbb választás a MARC-8, habár ISO-8859-1 az általános."
 
-#: src/fetch/z3950fetcher.cpp:606
+#: src/fetch/z3950fetcher.cpp:610
 msgid "&Format: "
 msgstr "&Formátum: "
 
-#: src/fetch/z3950fetcher.cpp:609
+#: src/fetch/z3950fetcher.cpp:613
 msgid "Auto-detect"
 msgstr "Automatikus detektálás"
 
-#: src/fetch/z3950fetcher.cpp:617
+#: src/fetch/z3950fetcher.cpp:621
 msgid ""
 "Enter the data format used by the z39.50 server. Tellico will attempt to "
 "automatically detect the best setting if <i>auto-detect</i> is selected."
@@ -1557,15 +1575,15 @@ msgstr ""
 "automatikusan a legjobb beállítást választja, ha az <i>Automatikus "
 "kijelölés</i>t kiválasztotta."
 
-#: src/fetch/z3950fetcher.cpp:623
+#: src/fetch/z3950fetcher.cpp:627
 msgid "&User: "
 msgstr "&Felhasználó: "
 
-#: src/fetch/z3950fetcher.cpp:626 src/fetch/z3950fetcher.cpp:638
+#: src/fetch/z3950fetcher.cpp:630 src/fetch/z3950fetcher.cpp:642
 msgid "Optional"
 msgstr "Opcionális"
 
-#: src/fetch/z3950fetcher.cpp:629
+#: src/fetch/z3950fetcher.cpp:633
 msgid ""
 "Enter the authentication user name used by the z39.50 database. Most servers "
 "do not need one."
@@ -1573,11 +1591,11 @@ msgstr ""
 "Adja meg a z39.50 adatbázishoz az érvényes felhasználó nevét. A legtöbb "
 "szervernél ez nem szükséges."
 
-#: src/fetch/z3950fetcher.cpp:635
+#: src/fetch/z3950fetcher.cpp:639
 msgid "Pass&word: "
 msgstr "&Jelszó: "
 
-#: src/fetch/z3950fetcher.cpp:642
+#: src/fetch/z3950fetcher.cpp:646
 msgid ""
 "Enter the authentication password used by the z39.50 database. Most servers "
 "do not need one. The password will be saved in plain text in the Tellico "
@@ -1587,11 +1605,11 @@ msgstr ""
 "nem szükséges. A jelszót nyílt szövegként a Tellico beállítási fáljba kerül "
 "elmentésre."
 
-#: src/fetch/discogsfetcher.cpp:209
+#: src/fetch/discogsfetcher.cpp:208
 msgid "Discogs Audio Search"
 msgstr "Discogs Audió keresés"
 
-#: src/fetch/discogsfetcher.cpp:220
+#: src/fetch/discogsfetcher.cpp:219
 msgid "Discogs Link"
 msgstr "Discogs kapcsolat"
 
@@ -1640,29 +1658,29 @@ msgstr "ISBNdb.com"
 msgid "OpenLibrary Link"
 msgstr ""
 
-#: src/fetch/gcstarpluginfetcher.cpp:336
+#: src/fetch/gcstarpluginfetcher.cpp:383
 msgid "GCstar Plugin"
 msgstr "GCstar beépülő modul"
 
-#: src/fetch/gcstarpluginfetcher.cpp:351 src/fetch/multifetcher.cpp:191
-#: src/fetch/execexternalfetcher.cpp:341 src/translators/csvimporter.cpp:181
+#: src/fetch/gcstarpluginfetcher.cpp:398 src/fetch/multifetcher.cpp:191
+#: src/fetch/execexternalfetcher.cpp:341 src/translators/csvimporter.cpp:185
 #: src/configdialog.cpp:441
 msgid "Collection &type:"
 msgstr "Gyű&jtemény típusa:"
 
-#: src/fetch/gcstarpluginfetcher.cpp:357
+#: src/fetch/gcstarpluginfetcher.cpp:404
 msgid "Set the collection type of the data returned from the plugin."
 msgstr "Állítsa be a beépülő modul által visszaadott adat gyűjtemény típusát."
 
-#: src/fetch/gcstarpluginfetcher.cpp:362
+#: src/fetch/gcstarpluginfetcher.cpp:409
 msgid "&Plugin: "
 msgstr "&Beépülő modul"
 
-#: src/fetch/gcstarpluginfetcher.cpp:368
+#: src/fetch/gcstarpluginfetcher.cpp:415
 msgid "Select the GCstar plugin used for the data source."
 msgstr "Válassza ki a GCstar beépülő modult az adat forráshoz."
 
-#: src/fetch/gcstarpluginfetcher.cpp:373
+#: src/fetch/gcstarpluginfetcher.cpp:420
 msgid "Author: "
 msgstr "Szerző : "
 
@@ -1718,7 +1736,7 @@ msgstr "Amazon (Franciaország)"
 msgid "Amazon (Canada)"
 msgstr "Amazon (Kanada)"
 
-#: src/fetch/amazonfetcher.cpp:180 src/fetch/amazonfetcher.cpp:899
+#: src/fetch/amazonfetcher.cpp:180 src/fetch/amazonfetcher.cpp:898
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
 "Key."
@@ -1730,43 +1748,43 @@ msgstr ""
 msgid "Those values must be entered in the data source settings."
 msgstr "Ezeket az értékeket meg kell adnia az adat forrás beállításoknál."
 
-#: src/fetch/amazonfetcher.cpp:856
+#: src/fetch/amazonfetcher.cpp:855
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com Web Szervízek"
 
-#: src/fetch/amazonfetcher.cpp:904
+#: src/fetch/amazonfetcher.cpp:903
 msgid "Secret key: "
 msgstr "Titkos kulcs:"
 
-#: src/fetch/amazonfetcher.cpp:914
+#: src/fetch/amazonfetcher.cpp:913
 msgid "Co&untry: "
 msgstr "&Ország:"
 
-#: src/fetch/amazonfetcher.cpp:917
+#: src/fetch/amazonfetcher.cpp:916
 msgid "United States"
 msgstr "Egyesült Államok"
 
-#: src/fetch/amazonfetcher.cpp:918
+#: src/fetch/amazonfetcher.cpp:917
 msgid "United Kingdom"
 msgstr "Nagy Britannia"
 
-#: src/fetch/amazonfetcher.cpp:919
+#: src/fetch/amazonfetcher.cpp:918
 msgid "Germany"
 msgstr "Németország"
 
-#: src/fetch/amazonfetcher.cpp:920
+#: src/fetch/amazonfetcher.cpp:919
 msgid "Japan"
 msgstr "Japán"
 
-#: src/fetch/amazonfetcher.cpp:921
+#: src/fetch/amazonfetcher.cpp:920
 msgid "France"
 msgstr "Franciaország"
 
-#: src/fetch/amazonfetcher.cpp:922
+#: src/fetch/amazonfetcher.cpp:921
 msgid "Canada"
 msgstr "Kanada"
 
-#: src/fetch/amazonfetcher.cpp:926
+#: src/fetch/amazonfetcher.cpp:925
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
 "one you wish to use for this data source."
@@ -1774,31 +1792,31 @@ msgstr ""
 "Az Amazon.com számos különböző helyi oldalról nyújt adatokat. Válasszon "
 "egyet, melyet az adatforráshoz használni akar."
 
-#: src/fetch/amazonfetcher.cpp:932
+#: src/fetch/amazonfetcher.cpp:931
 msgid "&Image size: "
 msgstr "&Kép méret: "
 
-#: src/fetch/amazonfetcher.cpp:935
+#: src/fetch/amazonfetcher.cpp:934
 msgid "Small Image"
 msgstr "Kis méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:936
+#: src/fetch/amazonfetcher.cpp:935
 msgid "Medium Image"
 msgstr "Közepes méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:937
+#: src/fetch/amazonfetcher.cpp:936
 msgid "Large Image"
 msgstr "Nagy méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:938
+#: src/fetch/amazonfetcher.cpp:937
 msgid "No Image"
 msgstr "Nincs kép"
 
-#: src/fetch/amazonfetcher.cpp:947
+#: src/fetch/amazonfetcher.cpp:946
 msgid "&Associate's ID: "
 msgstr "&Társított azonosító:"
 
-#: src/fetch/amazonfetcher.cpp:952
+#: src/fetch/amazonfetcher.cpp:951
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
 "Services, and is included in any links to the Amazon.com site."
@@ -1812,7 +1830,7 @@ msgstr ""
 msgid "Multiple Sources"
 msgstr "Források"
 
-#: src/fetch/freebasefetcher.cpp:394 src/fetch/freebasefetcher.cpp:601
+#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:614
 msgid "Freebase Link"
 msgstr ""
 
@@ -1880,6 +1898,12 @@ msgstr "Néhány előfizetéshez csak egy e-mail címre van szükség."
 #: src/fetch/crossreffetcher.cpp:346
 msgid "Email: "
 msgstr "E-mail: "
+
+#: src/fetch/dvdfrfetcher.cpp:164
+#, fuzzy
+#| msgid "IMDb Link"
+msgid "DVDFr Link"
+msgstr "IMDb kapcsolat"
 
 #: src/fetch/execexternalfetcher.cpp:326
 msgid "External Application"
@@ -1962,15 +1986,15 @@ msgstr "Aktív naptár"
 msgid "Default Calendar"
 msgstr "Alapértelmezett naptár"
 
-#: src/translators/gcstarexporter.cpp:57 src/importdialog.cpp:305
+#: src/translators/gcstarexporter.cpp:56 src/importdialog.cpp:305
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|GCstar adatfájlok (*.gcs)"
 
-#: src/translators/gcstarexporter.cpp:57
-#: src/translators/pilotdbexporter.cpp:58 src/translators/csvexporter.cpp:56
+#: src/translators/gcstarexporter.cpp:56
+#: src/translators/pilotdbexporter.cpp:58 src/translators/csvexporter.cpp:59
 #: src/translators/onixexporter.cpp:71 src/translators/xsltimporter.cpp:117
-#: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:98
-#: src/translators/bibtexmlexporter.cpp:54
+#: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
+#: src/translators/bibtexmlexporter.cpp:53
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/bibtexexporter.cpp:61 src/translators/htmlexporter.cpp:91
 #: src/translators/tellicozipexporter.cpp:56 src/reportdialog.cpp:215
@@ -1989,7 +2013,7 @@ msgid "No valid bibtex entries were found in file - %1"
 msgstr "Nem található érvényes bibtex bejegyzés a fájlban - %1"
 
 #: src/translators/bibteximporter.cpp:322
-#: src/translators/bibtexexporter.cpp:215
+#: src/translators/bibtexexporter.cpp:214
 msgid "Bibtex Options"
 msgstr "Bibtex beállítások"
 
@@ -2010,27 +2034,27 @@ msgstr "A felhasználói (%1) kódolás használata"
 msgid "Read the imported file in the local encoding."
 msgstr "Exportált fájl olvasása helyi kódolási formátumban."
 
-#: src/translators/csvimporter.cpp:176 src/translators/csvexporter.cpp:121
+#: src/translators/csvimporter.cpp:180 src/translators/csvexporter.cpp:131
 msgid "CSV Options"
 msgstr "CSV beállítások"
 
-#: src/translators/csvimporter.cpp:186
+#: src/translators/csvimporter.cpp:190
 msgid "Select the type of collection being imported."
 msgstr "Jelölje ki az importálandó gyűjtemény típusát."
 
-#: src/translators/csvimporter.cpp:189
+#: src/translators/csvimporter.cpp:193
 msgid "&First row contains field titles"
 msgstr "&Első sor a mező címeit tartalmazza"
 
-#: src/translators/csvimporter.cpp:190
+#: src/translators/csvimporter.cpp:194
 msgid "If checked, the first row is used as field titles."
 msgstr "Ha kijelöli, az első sormező címként kerül feldolgozásra."
 
-#: src/translators/csvimporter.cpp:199
+#: src/translators/csvimporter.cpp:203
 msgid "Delimiter:"
 msgstr "Határoló"
 
-#: src/translators/csvimporter.cpp:200 src/translators/csvexporter.cpp:132
+#: src/translators/csvimporter.cpp:204 src/translators/csvexporter.cpp:142
 msgid ""
 "In addition to a comma, other characters may be used as a delimiter, "
 "separating each value in the file."
@@ -2038,47 +2062,68 @@ msgstr ""
 "Vessző, vagy más karaktert határolóként alkalmazva a fájlban az egyes "
 "értékek megkülönböztethetők."
 
-#: src/translators/csvimporter.cpp:205
+#: src/translators/csvimporter.cpp:209
 msgid "&Comma"
 msgstr "&Vessző"
 
-#: src/translators/csvimporter.cpp:207 src/translators/csvexporter.cpp:138
+#: src/translators/csvimporter.cpp:211 src/translators/csvexporter.cpp:148
 msgid "Use a comma as the delimiter."
 msgstr "Vesszőt használja határolóként."
 
-#: src/translators/csvimporter.cpp:211
+#: src/translators/csvimporter.cpp:215
 msgid "&Semicolon"
 msgstr "&Pontos vessző"
 
-#: src/translators/csvimporter.cpp:212 src/translators/csvexporter.cpp:143
+#: src/translators/csvimporter.cpp:216 src/translators/csvexporter.cpp:153
 msgid "Use a semi-colon as the delimiter."
 msgstr "Pontos vesszőt használja határolóként."
 
-#: src/translators/csvimporter.cpp:216
+#: src/translators/csvimporter.cpp:220
 msgid "Ta&b"
 msgstr "&Tabulátor"
 
-#: src/translators/csvimporter.cpp:217 src/translators/csvexporter.cpp:148
+#: src/translators/csvimporter.cpp:221 src/translators/csvexporter.cpp:158
 msgid "Use a tab as the delimiter."
 msgstr "Tabulátort használja határolóként."
 
-#: src/translators/csvimporter.cpp:221
+#: src/translators/csvimporter.cpp:225
 msgid "Ot&her:"
 msgstr "&Más:"
 
-#: src/translators/csvimporter.cpp:222 src/translators/csvexporter.cpp:153
+#: src/translators/csvimporter.cpp:226 src/translators/csvexporter.cpp:163
 msgid "Use a custom string as the delimiter."
 msgstr "Az egyedi karaktert használja határolóként."
 
-#: src/translators/csvimporter.cpp:229 src/translators/csvexporter.cpp:158
+#: src/translators/csvimporter.cpp:233 src/translators/csvexporter.cpp:168
 msgid "A custom string, such as a colon, may be used as a delimiter."
 msgstr "Egyedi karakter, pl. vessző, használható határolóként."
 
-#: src/translators/csvimporter.cpp:250
+#: src/translators/csvimporter.cpp:251 src/translators/csvexporter.cpp:190
+msgid ""
+"The column delimiter separates values in each column of a <i>Table</i> field."
+msgstr ""
+
+#: src/translators/csvimporter.cpp:252 src/translators/csvexporter.cpp:185
+#, fuzzy
+#| msgid "New column name:"
+msgid "Table column delimiter:"
+msgstr "Új oszlop név:"
+
+#: src/translators/csvimporter.cpp:262 src/translators/csvexporter.cpp:199
+msgid "The row delimiter separates values in each row of a <i>Table</i> field."
+msgstr ""
+
+#: src/translators/csvimporter.cpp:263 src/translators/csvexporter.cpp:194
+#, fuzzy
+#| msgid "Delimiter:"
+msgid "Table row delimiter:"
+msgstr "Határoló"
+
+#: src/translators/csvimporter.cpp:281
 msgid "The table shows up to the first five lines of the CSV file."
 msgstr "A táblázat a CSV fájl első öt sorát mutatja."
 
-#: src/translators/csvimporter.cpp:257
+#: src/translators/csvimporter.cpp:288
 msgid ""
 "<qt>Set each column to correspond to a field in the collection by choosing a "
 "column, selecting the field, then clicking the <i>Assign Field</i> button.</"
@@ -2088,19 +2133,19 @@ msgstr ""
 "gyűjtemény mezőivel, válassza ki a mezőt, majd kattintson a <i>Mező "
 "hozzárendelése</i> gombra.</qt>"
 
-#: src/translators/csvimporter.cpp:259
+#: src/translators/csvimporter.cpp:290
 msgid "Co&lumn:"
 msgstr "&Oszlop:"
 
-#: src/translators/csvimporter.cpp:271
+#: src/translators/csvimporter.cpp:302
 msgid "&Data field in this column:"
 msgstr "&Adatmező az oszlopban:"
 
-#: src/translators/csvimporter.cpp:284
+#: src/translators/csvimporter.cpp:315
 msgid "&Assign Field"
 msgstr "&Kapcsolt mező"
 
-#: src/translators/csvimporter.cpp:318
+#: src/translators/csvimporter.cpp:351
 msgid ""
 "At least one column must be assigned to a field. Only assigned columns will "
 "be imported."
@@ -2108,7 +2153,7 @@ msgstr ""
 "Legalább egy oszlopot hozzá kell rendelnie a mezőhöz. Csak a hozzárendelt "
 "oszlopok importálódnak."
 
-#: src/translators/csvimporter.cpp:370 src/translators/csvimporter.cpp:492
+#: src/translators/csvimporter.cpp:400 src/translators/csvimporter.cpp:522
 msgid "New Field"
 msgstr "Új mező"
 
@@ -2130,12 +2175,12 @@ msgid "PDF"
 msgstr "PDF"
 
 #: src/translators/gcstarimporter.cpp:126
-#: src/translators/gcstarimporter.cpp:271
+#: src/translators/gcstarimporter.cpp:275
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>A fájl nem GCstar adat fájl.</qt>"
 
 #: src/translators/gcstarimporter.cpp:264 src/translators/xsltimporter.cpp:87
-#: src/mainwindow.cpp:1590
+#: src/mainwindow.cpp:1589
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Hiba keletkezett az XSLT feldolgozásakor."
 
@@ -2155,7 +2200,7 @@ msgstr "PilotDB"
 msgid "*.pdb|Pilot Database Files (*.pdb)"
 msgstr "*.pdb|Pilot Adatbázis fájlok (*.pdb)"
 
-#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:550
+#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:551
 msgid "View Columns"
 msgstr "Oszlopok megtekintése"
 
@@ -2219,39 +2264,39 @@ msgstr "&Bitráta tartalmazása"
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "Ha kijelöli, az egyes sávok bitrátái hozzáadódnak a bejegyzésekhez."
 
-#: src/translators/csvexporter.cpp:52
+#: src/translators/csvexporter.cpp:55
 msgid "CSV"
 msgstr "CSV"
 
-#: src/translators/csvexporter.cpp:56 src/importdialog.cpp:287
+#: src/translators/csvexporter.cpp:59 src/importdialog.cpp:287
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "*.csv|CSV fájlok (*.csv)"
 
-#: src/translators/csvexporter.cpp:124
+#: src/translators/csvexporter.cpp:134
 msgid "Include field titles as column headers"
 msgstr "Mező címek belefoglalása oszlop fejlécekként"
 
-#: src/translators/csvexporter.cpp:126
+#: src/translators/csvexporter.cpp:136
 msgid "If checked, a header row will be added with the field titles."
 msgstr "Ha kijelöli, a mező cimekkel együtt a fejléc sort is hozzáadja."
 
-#: src/translators/csvexporter.cpp:129
+#: src/translators/csvexporter.cpp:139
 msgid "Delimiter"
 msgstr "Határoló"
 
-#: src/translators/csvexporter.cpp:136
+#: src/translators/csvexporter.cpp:146
 msgid "Comma"
 msgstr "Vessző"
 
-#: src/translators/csvexporter.cpp:142
+#: src/translators/csvexporter.cpp:152
 msgid "Semicolon"
 msgstr "Pontos vessző"
 
-#: src/translators/csvexporter.cpp:147
+#: src/translators/csvexporter.cpp:157
 msgid "Tab"
 msgstr "Tabulátor"
 
-#: src/translators/csvexporter.cpp:152
+#: src/translators/csvexporter.cpp:162 xslt.cpp:46
 msgid "Other"
 msgstr "Más"
 
@@ -2305,15 +2350,15 @@ msgstr "ONIX archiv"
 msgid "*.zip|Zip Files (*.zip)"
 msgstr "*.zip|Zip fájlok (*.zip)"
 
-#: src/translators/onixexporter.cpp:180
+#: src/translators/onixexporter.cpp:181
 msgid "ONIX Archive Options"
 msgstr "ONIX archiv beállítások"
 
-#: src/translators/onixexporter.cpp:183
+#: src/translators/onixexporter.cpp:184
 msgid "Include images in archive"
 msgstr "Képek hozzáadása az archívumhoz"
 
-#: src/translators/onixexporter.cpp:185
+#: src/translators/onixexporter.cpp:186
 msgid ""
 "If checked, the images in the document will be included in the zipped ONIX "
 "archive."
@@ -2325,19 +2370,19 @@ msgstr ""
 msgid "A valid XSLT file is needed to import the file."
 msgstr "Érvényes XSLT fájlra van szükség az importáláshoz."
 
-#: src/translators/xsltimporter.cpp:109 src/translators/xsltexporter.cpp:85
+#: src/translators/xsltimporter.cpp:109 src/translators/xsltexporter.cpp:86
 msgid "XSLT Options"
 msgstr "XSLT beállítások"
 
-#: src/translators/xsltimporter.cpp:112 src/translators/xsltexporter.cpp:88
+#: src/translators/xsltimporter.cpp:112 src/translators/xsltexporter.cpp:89
 msgid "XSLT file:"
 msgstr "XSLT fájl:"
 
-#: src/translators/xsltimporter.cpp:114 src/translators/xsltexporter.cpp:90
+#: src/translators/xsltimporter.cpp:114 src/translators/xsltexporter.cpp:91
 msgid "Choose the XSLT file used to transform the data."
 msgstr "Válassza ki az adat transzformálásához az XSLT fájlt."
 
-#: src/translators/xsltimporter.cpp:117 src/translators/xsltexporter.cpp:98
+#: src/translators/xsltimporter.cpp:117 src/translators/xsltexporter.cpp:99
 #: src/configdialog.cpp:1123
 msgid "*.xsl|XSL Files (*.xsl)"
 msgstr "*.xsl|XSL fájlok (*.xsl)"
@@ -2404,11 +2449,11 @@ msgstr "Alexandria beállítások"
 msgid "&Library:"
 msgstr "&Könyvtár:"
 
-#: src/translators/bibtexmlexporter.cpp:50
+#: src/translators/bibtexmlexporter.cpp:49
 msgid "Bibtexml"
 msgstr "Bibtexml"
 
-#: src/translators/bibtexmlexporter.cpp:54
+#: src/translators/bibtexmlexporter.cpp:53
 msgid "*.xml|Bibtexml Files (*.xml)"
 msgstr "*.xml|Bibtexml fájlok (*.xml)"
 
@@ -2425,15 +2470,15 @@ msgstr "XML"
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|XML fájlok (*.xml)"
 
-#: src/translators/tellicoxmlexporter.cpp:500
+#: src/translators/tellicoxmlexporter.cpp:501
 msgid "Tellico XML Options"
 msgstr "Tellico XML beállítások"
 
-#: src/translators/tellicoxmlexporter.cpp:503
+#: src/translators/tellicoxmlexporter.cpp:504
 msgid "Include images in XML document"
 msgstr "Az XML dokumentum tartalmazza a képeket"
 
-#: src/translators/tellicoxmlexporter.cpp:505
+#: src/translators/tellicoxmlexporter.cpp:506
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "
 "base64 encoded elements."
@@ -2449,11 +2494,11 @@ msgstr "Bibtex"
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "*.bib|Bibtex fájlok (*.bib)"
 
-#: src/translators/bibtexexporter.cpp:218
+#: src/translators/bibtexexporter.cpp:217
 msgid "Expand string macros"
 msgstr "Karakterlánc makrók kibontása"
 
-#: src/translators/bibtexexporter.cpp:220
+#: src/translators/bibtexexporter.cpp:219
 msgid ""
 "If checked, the string macros will be expanded and no @string{} entries will "
 "be written."
@@ -2461,42 +2506,42 @@ msgstr ""
 "Ha kijelöli ezt az opciót, a karakterlánc makrók kibonthatók, @string{} "
 "bejegyzések nem kerülnek felülírásra."
 
-#: src/translators/bibtexexporter.cpp:223
+#: src/translators/bibtexexporter.cpp:222
 msgid "Use URL package"
 msgstr "Használja az URL csomagot"
 
-#: src/translators/bibtexexporter.cpp:225
+#: src/translators/bibtexexporter.cpp:224
 msgid "If checked, any URL fields will be wrapped in a \\url declaration."
 msgstr ""
 "Ha kijelöli ezt az opciót, akkor a mezőnevek fejlécként kinyomtatásra "
 "kerülnek"
 
-#: src/translators/bibtexexporter.cpp:228
+#: src/translators/bibtexexporter.cpp:227
 msgid "Skip entries with empty citation keys"
 msgstr "Hagyja figyelmen kívül az üres idézőjeleket."
 
-#: src/translators/bibtexexporter.cpp:230
+#: src/translators/bibtexexporter.cpp:229
 msgid "If checked, any entries without a bibtex citation key will be skipped."
 msgstr ""
 "Ha kijelöli az opciót, figyelmen kívül hagyjuk a bibtex idézőjelek nélküli "
 "bejegyzéseket."
 
-#: src/translators/bibtexexporter.cpp:236
+#: src/translators/bibtexexporter.cpp:235
 msgid "Bibtex quotation style:"
 msgstr "Bibtex idézőjel stílusa:"
 
-#: src/translators/bibtexexporter.cpp:238
-#: src/translators/bibtexexporter.cpp:245
-#: src/translators/bibtexexporter.cpp:284
+#: src/translators/bibtexexporter.cpp:237
+#: src/translators/bibtexexporter.cpp:244
+#: src/translators/bibtexexporter.cpp:283
 msgid "Braces"
 msgstr "Kapcsos zárójel"
 
-#: src/translators/bibtexexporter.cpp:239
-#: src/translators/bibtexexporter.cpp:247
+#: src/translators/bibtexexporter.cpp:238
+#: src/translators/bibtexexporter.cpp:246
 msgid "Quotes"
 msgstr "Idéző jelek"
 
-#: src/translators/bibtexexporter.cpp:240
+#: src/translators/bibtexexporter.cpp:239
 msgid ""
 "<qt>The quotation style used when exporting bibtex. All field values will  "
 "be escaped with either braces or quotation marks.</qt>"
@@ -2513,41 +2558,41 @@ msgstr "HTML"
 msgid "*.html|HTML Files (*.html)"
 msgstr "*.html|HTML fájlok (*.html)"
 
-#: src/translators/htmlexporter.cpp:328 src/groupview.cpp:417
+#: src/translators/htmlexporter.cpp:329 src/groupview.cpp:417
 #: src/mainwindow.cpp:872 src/mainwindow.cpp:1516 src/mainwindow.cpp:1543
 msgid "People"
 msgstr "Személy"
 
-#: src/translators/htmlexporter.cpp:332
+#: src/translators/htmlexporter.cpp:333
 #, kde-format
 msgid "(grouped by %1)"
 msgstr "(%1 szerint csoportosítva)"
 
-#: src/translators/htmlexporter.cpp:484
+#: src/translators/htmlexporter.cpp:487
 msgid "HTML Options"
 msgstr "HTML beállítások"
 
-#: src/translators/htmlexporter.cpp:487
+#: src/translators/htmlexporter.cpp:490
 msgid "Print field headers"
 msgstr "Mező fejlécek nyomtatása"
 
-#: src/translators/htmlexporter.cpp:488 src/configdialog.cpp:369
+#: src/translators/htmlexporter.cpp:491 src/configdialog.cpp:369
 msgid "If checked, the field names will be printed as table headers."
 msgstr "Ha kijelöli, a mezőnevek fejlécként nyomtatja ki."
 
-#: src/translators/htmlexporter.cpp:492
+#: src/translators/htmlexporter.cpp:495
 msgid "Group the entries"
 msgstr "Bejegyzések csoportosítása"
 
-#: src/translators/htmlexporter.cpp:493 src/configdialog.cpp:379
+#: src/translators/htmlexporter.cpp:496 src/configdialog.cpp:379
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr "Ha kijelöli, a kiválasztott mező alapján csoportosíthatja az elemeket."
 
-#: src/translators/htmlexporter.cpp:497
+#: src/translators/htmlexporter.cpp:500
 msgid "Export individual entry files"
 msgstr "Egyedi bejegyzés fájlok exportálása"
 
-#: src/translators/htmlexporter.cpp:498
+#: src/translators/htmlexporter.cpp:501
 msgid "If checked, individual files will be created for each entry."
 msgstr "Ha kijelöli, az egyes bejegyzésekhez egyedi fájlok készülnek."
 
@@ -2790,41 +2835,41 @@ msgstr "Szűrő neve:"
 msgid "&Save Filter"
 msgstr "&Szűrő mentése"
 
-#: src/entryeditdialog.cpp:63 src/entryeditdialog.cpp:376
-#: src/entryeditdialog.cpp:400 src/entryeditdialog.cpp:499
+#: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
 msgid "Edit Entry"
 msgstr "Bejegyzés szerkesztése"
 
-#: src/entryeditdialog.cpp:66
+#: src/entryeditdialog.cpp:67
 msgid "&New Entry"
 msgstr "&Új bejegyzés"
 
-#: src/entryeditdialog.cpp:73 src/entryeditdialog.cpp:108
-#: src/entryeditdialog.cpp:410 src/entryeditdialog.cpp:520
+#: src/entryeditdialog.cpp:74 src/entryeditdialog.cpp:120
+#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:530
 msgid "Sa&ve Entry"
 msgstr "B&ejegyzés mentése"
 
-#: src/entryeditdialog.cpp:306
+#: src/entryeditdialog.cpp:319
 msgid "Do you really want to modify these entries?"
 msgstr "Tényleg módosítani akarja ezeket a bejegyzéseket?"
 
-#: src/entryeditdialog.cpp:308
+#: src/entryeditdialog.cpp:321
 msgid "Modify Multiple Entries"
 msgstr "Többszörös bejegyzés módosítása"
 
-#: src/entryeditdialog.cpp:349
+#: src/entryeditdialog.cpp:362
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "A következő mezőknek értéket kell adnia. Folytatja?"
 
-#: src/entryeditdialog.cpp:449
+#: src/entryeditdialog.cpp:459
 msgid "Edit Entries"
 msgstr "Bejegyzések szerkesztése"
 
-#: src/entryeditdialog.cpp:475
+#: src/entryeditdialog.cpp:485
 msgid "Sa&ve Entries"
 msgstr "B&ejegyzések mentése"
 
-#: src/entryeditdialog.cpp:637
+#: src/entryeditdialog.cpp:647
 msgid ""
 "The current entry has been modified.\n"
 "Do you want to enter the changes?"
@@ -2832,11 +2877,11 @@ msgstr ""
 "A jelenlegi bejegyzés megváltozott.\n"
 "Menti a módosításokat?"
 
-#: src/entryeditdialog.cpp:640
+#: src/entryeditdialog.cpp:650
 msgid "Save Entry"
 msgstr "Bejegyzés mentése"
 
-#: src/entryeditdialog.cpp:641 src/mainwindow.cpp:962
+#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:962
 msgid "Unsaved Changes"
 msgstr "Nem mentett változások"
 
@@ -2922,20 +2967,20 @@ msgstr ""
 "Nagy méretű gyűjtemény esetén néhány riport létrehozása hosszabb időt is "
 "igénybe vehet."
 
-#: src/entryupdater.cpp:93
+#: src/entryupdater.cpp:96
 #, kde-format
 msgid "Updating %1..."
 msgstr "%1 frissítése..."
 
-#: src/entryupdater.cpp:95
+#: src/entryupdater.cpp:98
 msgid "Updating entries..."
 msgstr "Bejegyzések frissítése..."
 
-#: src/entryupdater.cpp:97
+#: src/entryupdater.cpp:100
 msgid "Update Entries"
 msgstr "Bejegyzések frissítése"
 
-#: src/entryupdater.cpp:111
+#: src/entryupdater.cpp:114
 #, kde-format
 msgid "Updating <b>%1</b>..."
 msgstr "<b>%1</b> frissítése..."
@@ -2999,7 +3044,7 @@ msgstr "%1 (Mennyiség szerint csoportosítva)"
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico nem találja az alapértelmezett bejegyzés stíluslapot."
 
-#: src/entryview.cpp:224 src/mainwindow.cpp:1591
+#: src/entryview.cpp:224 src/mainwindow.cpp:1590
 msgid "Please check your installation."
 msgstr "Kérem, ellenőrizze a rendszer beállításait."
 
@@ -3043,7 +3088,7 @@ msgstr ""
 
 #. i18n: file: src/tellicoui.rc:24
 #. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:120 src/mainwindow.cpp:312 rc.cpp:206
+#: src/importdialog.cpp:120 src/mainwindow.cpp:312 rc.cpp:280
 msgid "&Import"
 msgstr "&Importálás"
 
@@ -3129,24 +3174,24 @@ msgstr "Társasjáték gyűjtemény"
 msgid "Custom Collection"
 msgstr "Egyedi gyűjtemény"
 
-#: src/detailedlistview.cpp:565
+#: src/detailedlistview.cpp:566
 #, fuzzy
 #| msgid "Co&lumn:"
 msgctxt "Noun, Menu name"
 msgid "Columns"
 msgstr "&Oszlop:"
 
-#: src/detailedlistview.cpp:570
+#: src/detailedlistview.cpp:571
 #, fuzzy
 #| msgid "Hide All Columns"
 msgid "Show All Columns"
 msgstr "Oszlopok elrejtése"
 
-#: src/detailedlistview.cpp:572
+#: src/detailedlistview.cpp:573
 msgid "Hide All Columns"
 msgstr "Oszlopok elrejtése"
 
-#: src/detailedlistview.cpp:574
+#: src/detailedlistview.cpp:575
 #, fuzzy
 #| msgid "File to open"
 msgid "Resize to Content"
@@ -3505,7 +3550,7 @@ msgstr "Fájl importálása az XSL átalakító segítségével..."
 
 #. i18n: file: src/tellicoui.rc:49
 #. i18n: ectx: Menu (file_export)
-#: src/mainwindow.cpp:391 rc.cpp:209
+#: src/mainwindow.cpp:391 rc.cpp:283
 msgid "&Export"
 msgstr "&Exportálás"
 
@@ -3625,7 +3670,7 @@ msgstr "A gyüjteményben lévő összes mező kiválasztásának megszüntetés
 msgid "Internet Search..."
 msgstr "Internet keresés..."
 
-#: src/mainwindow.cpp:459 xslt.cpp:44
+#: src/mainwindow.cpp:459 xslt.cpp:47
 msgid "Search"
 msgstr "Keresés"
 
@@ -3638,7 +3683,7 @@ msgid "Advanced &Filter..."
 msgstr "&Finomított szűrés..."
 
 #: src/mainwindow.cpp:466 src/mainwindow.cpp:629 src/mainwindow.cpp:645
-#: src/filterview.cpp:206
+#: src/filterview.cpp:220
 msgid "Filter"
 msgstr "Szűrő"
 
@@ -3687,52 +3732,52 @@ msgid "Merge the selected entries"
 msgstr "Kiválasztott bejegyzések összefűzése"
 
 #: src/mainwindow.cpp:513
-msgid "&Generate Reports..."
-msgstr "&Riport létrehozása..."
-
-#: src/mainwindow.cpp:514
-msgid "Reports"
-msgstr "Riportok"
-
-#: src/mainwindow.cpp:516
-msgid "Generate collection reports"
-msgstr "Gyűjtemény riportok létrehozása"
-
-#: src/mainwindow.cpp:519
 msgid "Check-&out..."
 msgstr "Kölcsönadás..."
 
-#: src/mainwindow.cpp:521
+#: src/mainwindow.cpp:515
 msgid "Check-out the selected items"
 msgstr "Kiválasztott elem kölcsönadása"
 
-#: src/mainwindow.cpp:524
+#: src/mainwindow.cpp:518
 msgid "Check-&in"
 msgstr "Visszavétel"
 
-#: src/mainwindow.cpp:526
+#: src/mainwindow.cpp:520
 msgid "Check-in the selected items"
 msgstr "Kiválasztott elemek visszavétele"
 
-#: src/mainwindow.cpp:529
+#: src/mainwindow.cpp:523
 msgid "&Rename Collection..."
 msgstr "&Gyűjtemény átnevezése..."
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:526
 msgid "Rename the collection"
 msgstr "Gyűjtemény átnevezése"
 
-#: src/mainwindow.cpp:535
+#: src/mainwindow.cpp:529
 msgid "Collection &Fields..."
 msgstr "Gyűjtemény &mezői..."
 
-#: src/mainwindow.cpp:536
+#: src/mainwindow.cpp:530
 msgid "Fields"
 msgstr "Mezők"
 
-#: src/mainwindow.cpp:539
+#: src/mainwindow.cpp:533
 msgid "Modify the collection fields"
 msgstr "Gyűjtemény mezőinek módosítása"
+
+#: src/mainwindow.cpp:536
+msgid "&Generate Reports..."
+msgstr "&Riport létrehozása..."
+
+#: src/mainwindow.cpp:537
+msgid "Reports"
+msgstr "Riportok"
+
+#: src/mainwindow.cpp:539
+msgid "Generate collection reports"
+msgstr "Gyűjtemény riportok létrehozása"
 
 #: src/mainwindow.cpp:542
 msgid "Convert to &Bibliography"
@@ -3768,7 +3813,7 @@ msgstr "Kiválasztott bejegyzés idézése LyX-ben"
 
 #. i18n: file: src/tellicoui.rc:78
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/mainwindow.cpp:571 src/controller.cpp:576 rc.cpp:215
+#: src/mainwindow.cpp:571 src/controller.cpp:576 rc.cpp:289
 msgid "&Update Entry"
 msgstr "B&ejegyzés frissítése"
 
@@ -3948,47 +3993,47 @@ msgstr "(%1 szűrt)"
 msgid "(%1 selected)"
 msgstr "(%1 kiválasztott)"
 
-#: src/mainwindow.cpp:1716
+#: src/mainwindow.cpp:1713
 msgid "Importing data..."
 msgstr "Adat importálása..."
 
-#: src/mainwindow.cpp:1725
+#: src/mainwindow.cpp:1722
 msgid "Import File"
 msgstr "Fájl importálása..."
 
-#: src/mainwindow.cpp:1731
+#: src/mainwindow.cpp:1728
 msgid "Import Directory"
 msgstr "Könyvtár importálása"
 
-#: src/mainwindow.cpp:1752
+#: src/mainwindow.cpp:1749
 msgid "Exporting data..."
 msgstr "Adat exportálása..."
 
-#: src/mainwindow.cpp:1774
+#: src/mainwindow.cpp:1771
 msgid "Export As"
 msgstr "Exportálás mint"
 
-#: src/mainwindow.cpp:1799
+#: src/mainwindow.cpp:1796
 msgid "String Macros"
 msgstr "Karakterlánc makrók"
 
-#: src/mainwindow.cpp:1800
+#: src/mainwindow.cpp:1797
 msgid "Macro"
 msgstr "Makró"
 
-#: src/mainwindow.cpp:1800
+#: src/mainwindow.cpp:1797
 msgid "String"
 msgstr "Karakterlánc"
 
-#: src/mainwindow.cpp:1866
+#: src/mainwindow.cpp:1863
 msgid "Creating citations..."
 msgstr "Idézet létrehozása..."
 
-#: src/mainwindow.cpp:1971
+#: src/mainwindow.cpp:1968
 msgid "Filters"
 msgstr "Szűrők"
 
-#: src/mainwindow.cpp:1972
+#: src/mainwindow.cpp:1969
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
@@ -3996,11 +4041,11 @@ msgstr ""
 "<qt>A <i>Szűrő nézet</i> az adott szűrési feltételnek megfelelő "
 "bejegyzéseket mutatja.</qt>"
 
-#: src/mainwindow.cpp:1988
+#: src/mainwindow.cpp:1987
 msgid "Loans"
 msgstr "Kölcsön adva"
 
-#: src/mainwindow.cpp:1989
+#: src/mainwindow.cpp:1988
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
@@ -4008,7 +4053,7 @@ msgstr ""
 "<qt>A <i>Kölcsönadás nézet</i> azokat a személyeket mutatja, akik a "
 "gyűjteményből kölcsönöztek.</qt>"
 
-#: src/mainwindow.cpp:2061
+#: src/mainwindow.cpp:2060
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4016,12 +4061,12 @@ msgstr ""
 "Néhány képet nem mentett el a megadott elérési helyre. A jelenlegi fájlt el "
 "kell mentenie, a képek az új elérési helyre lesznek másolva."
 
-#: src/mainwindow.cpp:2109
+#: src/mainwindow.cpp:2098
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Bejegyzés frissítése innen: %1"
 
-#: src/mainwindow.cpp:2127
+#: src/mainwindow.cpp:2116
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -4034,7 +4079,7 @@ msgstr ""
 msgid "(Empty)"
 msgstr "(Üres)"
 
-#: src/filterview.cpp:208
+#: src/filterview.cpp:222
 msgid "Filter (Sort by Count)"
 msgstr "Szűrő (mennyiség szerint rendezve)"
 
@@ -4113,23 +4158,36 @@ msgid "If checked, only the currently selected entries will be exported."
 msgstr "Ha kijelöli, csak a kiválasztott bejegyzések exportálódnak."
 
 #: src/exportdialog.cpp:86
+#, fuzzy
+#| msgid "Export selected entries only"
+msgid "Export visible fields only"
+msgstr "Csak a kiválasztott bejegyzések exportálása"
+
+#: src/exportdialog.cpp:88
+#, fuzzy
+#| msgid "If checked, only the currently selected entries will be exported."
+msgid ""
+"If checked, only the fields currently visible in the view will be exported."
+msgstr "Ha kijelöli, csak a kiválasztott bejegyzések exportálódnak."
+
+#: src/exportdialog.cpp:92
 msgid "Encoding"
 msgstr "Kódolás"
 
-#: src/exportdialog.cpp:91
+#: src/exportdialog.cpp:97
 msgid "Encode in Unicode (UTF-8)"
 msgstr "Kódolás Unicode (UTF-8)-ban"
 
-#: src/exportdialog.cpp:93
+#: src/exportdialog.cpp:99
 msgid "Encode the exported file in Unicode (UTF-8)."
 msgstr "Exportált fájl kódolása Unicode (UTF-8)-ban."
 
-#: src/exportdialog.cpp:96
+#: src/exportdialog.cpp:102
 #, kde-format
 msgid "Encode in user locale (%1)"
 msgstr "Kódolás helyi felhasználóként (%1)"
 
-#: src/exportdialog.cpp:99
+#: src/exportdialog.cpp:105
 msgid "Encode the exported file in the local encoding."
 msgstr "Exportált fájl kódolása helyi formátumban."
 
@@ -4159,33 +4217,33 @@ msgstr "Bejegyzések összefűzése..."
 msgid "Total merged/scanned entries: %1/%2"
 msgstr "Összes összefűzött/átfutott bejegyzés: %1/%2"
 
-#: src/collectionfieldsdialog.cpp:82
+#: src/collectionfieldsdialog.cpp:83
 msgid "Collection Fields"
 msgstr "Gyűjtemény mezői"
 
-#: src/collectionfieldsdialog.cpp:90
+#: src/collectionfieldsdialog.cpp:91
 msgid "Current Fields"
 msgstr "Jelenlegi mezők"
 
-#: src/collectionfieldsdialog.cpp:110
+#: src/collectionfieldsdialog.cpp:111
 msgctxt "New Field"
 msgid "&New"
 msgstr "&Új"
 
-#: src/collectionfieldsdialog.cpp:112
+#: src/collectionfieldsdialog.cpp:113
 msgid "Add a new field to the collection"
 msgstr "Új mező hozzáadása a gyűjteményhez"
 
-#: src/collectionfieldsdialog.cpp:113
+#: src/collectionfieldsdialog.cpp:114
 msgctxt "Delete Field"
 msgid "&Delete"
 msgstr "&Törlés"
 
-#: src/collectionfieldsdialog.cpp:115
+#: src/collectionfieldsdialog.cpp:116
 msgid "Remove a field from the collection"
 msgstr "Mező eltávolítása a gyűjteményből"
 
-#: src/collectionfieldsdialog.cpp:125
+#: src/collectionfieldsdialog.cpp:126
 msgid ""
 "Move this field up in the list. The list order is important for the layout "
 "of the entry editor."
@@ -4193,7 +4251,7 @@ msgstr ""
 "Mező felfele mozgatása a listán. A lista sorrendje a bejegyzés szerkesztő "
 "megjelenésekor fontos."
 
-#: src/collectionfieldsdialog.cpp:129
+#: src/collectionfieldsdialog.cpp:130
 msgid ""
 "Move this field down in the list. The list order is important for the layout "
 "of the entry editor."
@@ -4201,83 +4259,83 @@ msgstr ""
 "Mező lefele mozgatása a listán. A lista sorrendje a bejegyzés szerkesztő "
 "megjelenésekor fontos."
 
-#: src/collectionfieldsdialog.cpp:139
+#: src/collectionfieldsdialog.cpp:140
 msgid "Field Properties"
 msgstr "Mező tulajdonságok"
 
-#: src/collectionfieldsdialog.cpp:148
+#: src/collectionfieldsdialog.cpp:149
 msgid "&Title:"
 msgstr "&Cím:"
 
-#: src/collectionfieldsdialog.cpp:153
+#: src/collectionfieldsdialog.cpp:154
 msgid "The title of the field"
 msgstr "Mező címe"
 
-#: src/collectionfieldsdialog.cpp:158
+#: src/collectionfieldsdialog.cpp:159
 msgid "T&ype:"
 msgstr "Tí&pus:"
 
-#: src/collectionfieldsdialog.cpp:164
+#: src/collectionfieldsdialog.cpp:165
 msgid "The type of the field determines what values may be used. "
 msgstr "A mező típusa meghatározza, milyen érték alkalmazható."
 
-#: src/collectionfieldsdialog.cpp:165
+#: src/collectionfieldsdialog.cpp:166
 msgid "<i>Simple Text</i> is used for most fields. "
 msgstr "<i>Egyszerű szöveg</i> használható a legtöbb mezőnél."
 
-#: src/collectionfieldsdialog.cpp:166
+#: src/collectionfieldsdialog.cpp:167
 msgid "<i>Paragraph</i> is for large text blocks. "
 msgstr "A <i>Bekezdés</i> a nagy szöveg blokkokhoz alkalmazható."
 
-#: src/collectionfieldsdialog.cpp:167
+#: src/collectionfieldsdialog.cpp:168
 msgid "<i>Choice</i> limits the field to certain values. "
 msgstr "A <i>Választás</i> csak adott értékekre korlátozza a mezőt."
 
-#: src/collectionfieldsdialog.cpp:168
+#: src/collectionfieldsdialog.cpp:169
 msgid "<i>Checkbox</i> is for a simple yes/no value. "
 msgstr "A <i>Kijelölés</i> egy egyszerű igen / nem érték."
 
-#: src/collectionfieldsdialog.cpp:169
+#: src/collectionfieldsdialog.cpp:170
 msgid "<i>Number</i> indicates that the field contains a numerical value. "
 msgstr "A <i>Szám</i> azt jelenti, hogy a mező csak szám értéket tartalmazhat."
 
-#: src/collectionfieldsdialog.cpp:170
+#: src/collectionfieldsdialog.cpp:171
 msgid ""
 "<i>URL</i> is for fields which refer to URLs, including references to other "
 "files. "
 msgstr "Az <i>URL</i> olyan mező, mely URL-re, vagy fájlra hivatkozik."
 
-#: src/collectionfieldsdialog.cpp:171
+#: src/collectionfieldsdialog.cpp:172
 msgid "A <i>Table</i> may hold one or more columns of values. "
 msgstr "A <i>Táblázat</i> egy vag ytöbb oszlopot tartalmazhat."
 
-#: src/collectionfieldsdialog.cpp:172
+#: src/collectionfieldsdialog.cpp:173
 msgid "An <i>Image</i> field holds a picture. "
 msgstr "A <i>Kép</i> mező képeket tárol."
 
-#: src/collectionfieldsdialog.cpp:173
+#: src/collectionfieldsdialog.cpp:174
 msgid ""
 "A <i>Date</i> field can be used for values with a day, month, and year. "
 msgstr "A <i>Dátum</i> év, hónap, nap adatot tárol."
 
-#: src/collectionfieldsdialog.cpp:174
+#: src/collectionfieldsdialog.cpp:175
 msgid "A <i>Rating</i> field uses stars to show a rating number. "
 msgstr ""
 "Az <i>Értékelés</i> mező csillagok segítségével mutatja az értékelés számát."
 
-#: src/collectionfieldsdialog.cpp:183
+#: src/collectionfieldsdialog.cpp:184
 msgid "Cate&gory:"
 msgstr "Kategória:"
 
-#: src/collectionfieldsdialog.cpp:188
+#: src/collectionfieldsdialog.cpp:189
 msgid "The field category determines where the field is placed in the editor."
 msgstr "A mező kategória határozza meg azt, hol van a mező a szerkesztőben."
 
-#: src/collectionfieldsdialog.cpp:205
+#: src/collectionfieldsdialog.cpp:206
 msgid "Set &properties..."
 msgstr "&Részletes tulajdonságok..."
 
-#: src/collectionfieldsdialog.cpp:209
+#: src/collectionfieldsdialog.cpp:210
 msgid ""
 "Extended field properties are used to specify things such as the "
 "corresponding bibtex field."
@@ -4285,11 +4343,11 @@ msgstr ""
 "Kíbővített mező tulajdonságokat használjuk például a bibtex mező "
 "specifikálásához."
 
-#: src/collectionfieldsdialog.cpp:214
+#: src/collectionfieldsdialog.cpp:215
 msgid "Description:"
 msgstr "Leírás:"
 
-#: src/collectionfieldsdialog.cpp:221
+#: src/collectionfieldsdialog.cpp:222
 msgid ""
 "The description is a useful reminder of what information is contained in the "
 "field."
@@ -4297,23 +4355,23 @@ msgstr ""
 "A leírás egy hasznos emlékeztető arról, hogy a mező milyen információt "
 "tartalmaz."
 
-#: src/collectionfieldsdialog.cpp:226
+#: src/collectionfieldsdialog.cpp:227
 msgid "Value Options"
 msgstr "Érték beállítások"
 
-#: src/collectionfieldsdialog.cpp:230
+#: src/collectionfieldsdialog.cpp:231
 msgid "&Default value:"
 msgstr "&Alapértelmezett érték:"
 
-#: src/collectionfieldsdialog.cpp:235
+#: src/collectionfieldsdialog.cpp:236
 msgid "<qt>A default value can be set for new entries.</qt>"
 msgstr "<qt>Egy alapértelmezett értéket meg kell adni az új bejegyzéshez.</qt>"
 
-#: src/collectionfieldsdialog.cpp:240
+#: src/collectionfieldsdialog.cpp:241
 msgid "Value template:"
 msgstr "Érték sablon:"
 
-#: src/collectionfieldsdialog.cpp:248
+#: src/collectionfieldsdialog.cpp:249
 msgid ""
 "Derived values are formed from the values of other fields according to the "
 "value template. Named fields, such as \"%{year} %{title}\", get substituted "
@@ -4323,15 +4381,15 @@ msgstr ""
 "sablonban szerepel. Adott mezők, például \"%{year} %{title}\" értékekkel "
 "lesznek helyettesítve."
 
-#: src/collectionfieldsdialog.cpp:254
+#: src/collectionfieldsdialog.cpp:255
 msgid "Use derived value"
 msgstr "Származott értékek használata"
 
-#: src/collectionfieldsdialog.cpp:260
+#: src/collectionfieldsdialog.cpp:261
 msgid "A&llowed values:"
 msgstr "&Engedélyezett értékek:"
 
-#: src/collectionfieldsdialog.cpp:265
+#: src/collectionfieldsdialog.cpp:266
 msgid ""
 "<qt>For <i>Choice</i>-type fields, these are the only values allowed. They "
 "are placed in a combo box. The possible values have to be separated by a "
@@ -4340,35 +4398,35 @@ msgstr ""
 "<qt>A <i>Választás</i> típusú mezők esetében csak az adott értékek léteznek. "
 "Ezek a combo boxban találhatók.</qt>"
 
-#: src/collectionfieldsdialog.cpp:272
+#: src/collectionfieldsdialog.cpp:273
 msgid "Format options:"
 msgstr "Formázási beállítások:"
 
-#: src/collectionfieldsdialog.cpp:278
+#: src/collectionfieldsdialog.cpp:279
 msgid "No formatting"
 msgstr "Nincs formázás"
 
-#: src/collectionfieldsdialog.cpp:279
+#: src/collectionfieldsdialog.cpp:280
 msgid "Allow auto-capitalization only"
 msgstr "Csak az automatikus nagybetűsítés engedélyezett"
 
-#: src/collectionfieldsdialog.cpp:280
+#: src/collectionfieldsdialog.cpp:281
 msgid "Format as a title"
 msgstr "Formázás címként"
 
-#: src/collectionfieldsdialog.cpp:281
+#: src/collectionfieldsdialog.cpp:282
 msgid "Format as a name"
 msgstr "Formázás névként"
 
-#: src/collectionfieldsdialog.cpp:284
+#: src/collectionfieldsdialog.cpp:285
 msgid "Field Options"
 msgstr "Mező beállítások"
 
-#: src/collectionfieldsdialog.cpp:286
+#: src/collectionfieldsdialog.cpp:287
 msgid "Enable auto-completion"
 msgstr "Automatikus kiegészítés engedélyezése"
 
-#: src/collectionfieldsdialog.cpp:287
+#: src/collectionfieldsdialog.cpp:288
 msgid ""
 "If checked, KDE auto-completion will be enabled in the text edit box for "
 "this field."
@@ -4376,11 +4434,11 @@ msgstr ""
 "Ha kijelöli, a szöveg szerkesztő mezőben a KDE automatikus kiegészítés "
 "engedélyezett lesz."
 
-#: src/collectionfieldsdialog.cpp:289
+#: src/collectionfieldsdialog.cpp:290
 msgid "Allow multiple values"
 msgstr "Többszörös érték engedélyezése"
 
-#: src/collectionfieldsdialog.cpp:290
+#: src/collectionfieldsdialog.cpp:291
 msgid ""
 "If checked, Tellico will parse the values in the field for multiple values, "
 "separated by a semi-colon."
@@ -4388,27 +4446,27 @@ msgstr ""
 "Ha kijelölt, a Tellico a mezőben megadott értékeket pontosvesszővel "
 "elválasztott többszörös értéké alakítja."
 
-#: src/collectionfieldsdialog.cpp:292
+#: src/collectionfieldsdialog.cpp:293
 msgid "Allow grouping"
 msgstr "Csoportosítás engedélyezése"
 
-#: src/collectionfieldsdialog.cpp:293
+#: src/collectionfieldsdialog.cpp:294
 msgid ""
 "If checked, this field may be used to group the entries in the group view."
 msgstr ""
 "Ha kijelöli, a mezőt használja a csoport nézetben a bejegyzések "
 "csoportosításához."
 
-#: src/collectionfieldsdialog.cpp:309
+#: src/collectionfieldsdialog.cpp:310
 msgid "Revert the selected field's properties to the default values."
 msgstr ""
 "A kiválaszott mező tulajdonságait visszaállítja az alapértelmezett értékekre."
 
-#: src/collectionfieldsdialog.cpp:358
+#: src/collectionfieldsdialog.cpp:363
 msgid "Modify Fields"
 msgstr "Mezők módosítása"
 
-#: src/collectionfieldsdialog.cpp:370
+#: src/collectionfieldsdialog.cpp:376
 #, kde-format
 msgid ""
 "<qt>Removing allowed values from the <i>%1</i> field which currently exist "
@@ -4419,20 +4477,20 @@ msgstr ""
 "sérüléséhez vezethet. Meg akarja tartani a módosított értékeket, vagy "
 "visszaállítja a jelenlegire?</qt>"
 
-#: src/collectionfieldsdialog.cpp:375
+#: src/collectionfieldsdialog.cpp:381
 msgid "Keep modified values"
 msgstr "Megváltozott értékek megtartása"
 
-#: src/collectionfieldsdialog.cpp:460 src/collectionfieldsdialog.cpp:463
+#: src/collectionfieldsdialog.cpp:479 src/collectionfieldsdialog.cpp:482
 #, kde-format
 msgid "New Field %1"
 msgstr "%1 új mező"
 
-#: src/collectionfieldsdialog.cpp:745
+#: src/collectionfieldsdialog.cpp:768
 msgid "Revert Field Properties"
 msgstr "Mező tulajdonságok visszaállítása"
 
-#: src/collectionfieldsdialog.cpp:746
+#: src/collectionfieldsdialog.cpp:769
 #, kde-format
 msgid ""
 "<qt><p>Do you really want to revert the properties for the <em>%1</em> field "
@@ -4441,23 +4499,23 @@ msgstr ""
 "<qt><p>Tényleg vissza akarja állítani a <em>%1</em> mező tulajdonságait az "
 "alapértelmezettre?</p></qt>"
 
-#: src/collectionfieldsdialog.cpp:749
+#: src/collectionfieldsdialog.cpp:772
 msgid "Revert"
 msgstr "Visszaállítás"
 
-#: src/collectionfieldsdialog.cpp:817
+#: src/collectionfieldsdialog.cpp:840
 msgid "Extended Field Properties"
 msgstr "Kibővített mező tulajdonságok"
 
-#: src/collectionfieldsdialog.cpp:850
+#: src/collectionfieldsdialog.cpp:873
 msgid "A field with this title already exists. Please enter a different title."
 msgstr "A mező ezzel a névvel már létezik. Adjon meg más nevet."
 
-#: src/collectionfieldsdialog.cpp:857
+#: src/collectionfieldsdialog.cpp:880
 msgid "<qt>The category may not be empty. Please enter a category.</qt>"
 msgstr "<qt>A kategória nem lehet üres. Adja meg a kategóriát.</qt>"
 
-#: src/collectionfieldsdialog.cpp:865
+#: src/collectionfieldsdialog.cpp:888
 msgid ""
 "<qt>A field may not be in the same category as a <em>Paragraph</em>, "
 "<em>Table</em> or <em>Image</em> field. Please enter a different category.</"
@@ -4466,7 +4524,7 @@ msgstr ""
 "<qt>A mező nem lehet azonos kategóriában, mint a <em>Bekezdés</em>, "
 "<em>Táblázat</em> vagy a <em>Kép</em>. Adjon meg másik kategóriát.</qt>"
 
-#: src/collectionfieldsdialog.cpp:873
+#: src/collectionfieldsdialog.cpp:896
 msgid ""
 "A field's title may not be the same as an existing category. Please enter a "
 "different title."
@@ -4474,7 +4532,7 @@ msgstr ""
 "A mező címe nem egyezhet meg egy létező kategóriával. Adjon meg egy másik "
 "címet."
 
-#: src/collectionfieldsdialog.cpp:885
+#: src/collectionfieldsdialog.cpp:908
 msgid ""
 "The range for a rating field must be between 1 and 10, and the lower bound "
 "must be less than the higher bound. Please enter different low and high "
@@ -4483,11 +4541,11 @@ msgstr ""
 "Az értékelés mező tartománya 1 és 10 közé essen, valamint az alsó határ "
 "alacsonyabb legyen, mint a felső. Adjon meg más alsó, felső értéket."
 
-#: src/collectionfieldsdialog.cpp:900
+#: src/collectionfieldsdialog.cpp:923
 msgid "Tables are limited to a maximum of ten columns."
 msgstr "A táblázatok maximum 10 oszlopot tartalmazhatnak."
 
-#: src/collectionfieldsdialog.cpp:906
+#: src/collectionfieldsdialog.cpp:929
 msgid "A field with a derived value must have a value template."
 msgstr "A származott értéket tartalmazó mezőnek érték sablonnak kell lennie."
 
@@ -5134,33 +5192,57 @@ msgstr "Sablon kiemelés színe"
 msgid "Template highlighted text color"
 msgstr "Sablon kiemelt szöveg színe"
 
+#. i18n: file: src/core/tellico_config.kcfg:99
+#: rc.cpp:199
+msgid ""
+"a,an,and,as,at,but,by,for,from,in,into,nor,of,off,on,onto,or,out,over,the,to,"
+"up,with"
+msgstr ""
+
+#. i18n: file: src/core/tellico_config.kcfg:102
+#: rc.cpp:201
+#, fuzzy
+#| msgid "Other"
+msgid "the"
+msgstr "Más"
+
+#. i18n: file: src/core/tellico_config.kcfg:105
+#: rc.cpp:203
+msgid "jr.,jr,iii,iv"
+msgstr ""
+
+#. i18n: file: src/core/tellico_config.kcfg:108
+#: rc.cpp:205
+msgid "de,van,der,van der,von"
+msgstr ""
+
 #. i18n: file: src/tellicoui.rc:6
 #. i18n: ectx: Menu (file)
-#: rc.cpp:200
+#: rc.cpp:274
 msgid "&File"
 msgstr "&Fájl"
 
 #. i18n: file: src/tellicoui.rc:8
 #. i18n: ectx: Menu (file_new_collection)
-#: rc.cpp:203
+#: rc.cpp:277
 msgid "&New"
 msgstr "&Új"
 
 #. i18n: file: src/tellicoui.rc:71
 #. i18n: ectx: Menu (collection)
-#: rc.cpp:212
+#: rc.cpp:286
 msgid "&Collection"
 msgstr "&Gyűjtemény"
 
 #. i18n: file: src/tellicoui.rc:108
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:218
+#: rc.cpp:292
 msgid "Main Toolbar"
 msgstr "Fő eszköztár"
 
 #. i18n: file: src/tellicoui.rc:117
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: rc.cpp:221
+#: rc.cpp:295
 msgid "Collection Toolbar"
 msgstr "Gyűjtemény eszköztár"
 
@@ -5379,7 +5461,7 @@ msgstr "Megjegyzés"
 msgid "Due Date"
 msgstr "Lejárat dátuma"
 
-#: xslt.cpp:25 xslt.cpp:39 xslt.cpp:46
+#: xslt.cpp:25 xslt.cpp:39 xslt.cpp:49
 msgid "Generated by Tellico"
 msgstr "Létrehozta Tellico-val"
 
@@ -5424,6 +5506,12 @@ msgid "Tri-Column XSL Template"
 msgstr "Három oszlopos XSL sablon"
 
 #: xslt.cpp:45
+#, fuzzy
+#| msgid "Group View XSL Template"
+msgid "Group Statistics XSL Template"
+msgstr "Csoport nézet XSL sablon"
+
+#: xslt.cpp:48
 msgid "Clear"
 msgstr "Törlés"
 
@@ -5490,6 +5578,11 @@ msgstr "Allocine.fr"
 #: scripts.cpp:10
 msgid "Spanish Ministry of Culture"
 msgstr "Spanyol Kultúrális Minisztérium"
+
+#, fuzzy
+#~| msgid "Collection Fields"
+#~ msgid "Collection Statistics"
+#~ msgstr "Gyűjtemény mezői"
 
 #~ msgid ""
 #~ "At the moment, Tellico only supports local calendar resources. The active "

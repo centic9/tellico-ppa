@@ -24,9 +24,9 @@
 
 #undef QT_NO_CAST_FROM_ASCII
 
-#include "qtest_kde.h"
 #include "boardgamegeekfetchertest.h"
 #include "boardgamegeekfetchertest.moc"
+#include "qtest_kde.h"
 
 #include "../fetch/fetcherjob.h"
 #include "../fetch/execexternalfetcher.h"
@@ -38,7 +38,7 @@
 #include <KStandardDirs>
 #include <KConfigGroup>
 
-QTEST_KDEMAIN( BoardGameGeekFetcherTest, GUI )
+QTEST_KDEMAIN( BoardGameGeekFetcherTest, NoGUI )
 
 BoardGameGeekFetcherTest::BoardGameGeekFetcherTest() : m_loop(this) {
 }

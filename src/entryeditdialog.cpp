@@ -45,6 +45,7 @@
 #include <QStyle>
 #include <QApplication>
 #include <QGridLayout>
+#include <QCloseEvent>
 
 namespace {
   // must be an even number
@@ -74,7 +75,8 @@ EntryEditDialog::EntryEditDialog(QWidget* parent_)
   setButtonGuiItem(m_saveBtn, save);
   enableButton(m_saveBtn, false);
 
-  connect(this, SIGNAL(closeClicked()), SLOT(slotClose()));
+  // close is handled by slotButtonClicked()
+//  connect(this, SIGNAL(closeClicked()), SLOT(slotClose()));
   connect(this, SIGNAL(applyClicked()), SLOT(slotHandleSave()));
   connect(this, SIGNAL(user1Clicked()), SLOT(slotHandleNew()));
 
@@ -84,14 +86,24 @@ EntryEditDialog::EntryEditDialog(QWidget* parent_)
   restoreDialogSize(config);
 }
 
+// we want to try the close button
+void EntryEditDialog::slotButtonClicked(int button_) {
+  if(button_ == KDialog::Close) {
+    slotClose();
+  } else {
+    KDialog::slotButtonClicked(button_);
+  }
+}
+
 void EntryEditDialog::slotClose() {
   // check to see if an entry should be saved before hiding
   // block signals so the entry view and selection isn't cleared
   if(queryModified()) {
     hide();
-//    blockSignals(true);
-//    slotHandleNew();
-//    blockSignals(false);
+    // make sure to reset values in the dialog
+    m_needReset = true;
+    setContents(m_currEntries);
+    slotSetModified(false);
     KConfigGroup config(KGlobal::config(), QLatin1String("Edit Dialog Options"));
     saveDialogSize(config);
   }
@@ -189,6 +201,7 @@ void EntryEditDialog::setLayout(Tellico::Data::CollPtr coll_) {
       if(!widget) {
         continue;
       }
+      widget->insertDefault();
       connect(widget, SIGNAL(valueChanged(Tellico::Data::FieldPtr)), SLOT(fieldValueChanged(Tellico::Data::FieldPtr)));
       if(!focusedFirst && widget->focusPolicy() != Qt::NoFocus) {
         widget->setFocus();
@@ -420,7 +433,6 @@ void EntryEditDialog::setContents(Tellico::Data::EntryList entries_) {
   }
 
   if(entries_.isEmpty()) {
-//    myDebug() << "empty list";
     if(queryModified()) {
       blockSignals(true);
       slotHandleNew();
@@ -428,8 +440,6 @@ void EntryEditDialog::setContents(Tellico::Data::EntryList entries_) {
     }
     return;
   }
-
-//  myDebug() << entries_.count() << " entries";
 
   // if some entries get selected in one view, then in another, don't reset
   if(!m_needReset && entries_ == m_currEntries) {
@@ -520,7 +530,7 @@ void EntryEditDialog::setContents(Tellico::Data::EntryPtr entry_) {
     setButtonText(m_saveBtn, i18n("Sa&ve Entry"));
     slotSetModified(false);
   } else {
-    // saving is necessary for unoqnwed entries
+    // saving is necessary for unowned entries
     slotSetModified(true);
   }
   m_isWorking = false;
@@ -627,7 +637,7 @@ void EntryEditDialog::slotSetModified(bool mod_/*=true*/) {
 }
 
 bool EntryEditDialog::queryModified() {
-//  myDebug() << "modified is " << (m_modified?"true":"false");
+//  myDebug() << "modified is" << m_modified;
   bool ok = true;
   // assume that if the dialog is hidden, we shouldn't ask the user to modify changes
   if(!isVisible()) {
@@ -657,6 +667,12 @@ bool EntryEditDialog::queryModified() {
     }
   }
   return ok;
+}
+
+void EntryEditDialog::addField(Tellico::Data::CollPtr coll_, Tellico::Data::FieldPtr field_) {
+  Q_ASSERT(coll_ == m_currColl);
+  Q_UNUSED(field_);
+  setLayout(coll_);
 }
 
 // modified fields will always have the same name
@@ -731,6 +747,16 @@ void EntryEditDialog::fieldValueChanged(Data::FieldPtr field_) {
     m_modifiedFields.append(field_);
   }
   slotSetModified();
+}
+
+void EntryEditDialog::closeEvent(QCloseEvent* event_) {
+  // check to see if an entry should be saved before hiding
+  // block signals so the entry view and selection isn't cleared
+  if(queryModified()) {
+    KDialog::closeEvent(event_);
+  } else {
+    event_->ignore();
+  }
 }
 
 #include "entryeditdialog.moc"

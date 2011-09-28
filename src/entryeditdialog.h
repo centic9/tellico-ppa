@@ -80,7 +80,7 @@ public:
   virtual void    addEntries(Data::EntryList entries);
   virtual void modifyEntries(Data::EntryList entries);
 
-  virtual void    addField(Data::CollPtr coll, Data::FieldPtr) { setLayout(coll); }
+  virtual void    addField(Data::CollPtr coll, Data::FieldPtr field);
   /**
    * Updates a widget when its field has been modified. The category may have changed, completions may have
    * been added or removed, or what-have-you.
@@ -123,6 +123,9 @@ public slots:
    */
   void slotSetModified(bool modified=true);
 
+protected slots:
+  virtual void slotButtonClicked(int button);
+
 private slots:
   void fieldValueChanged(Tellico::Data::FieldPtr field);
 
@@ -141,6 +144,7 @@ private:
    * @param entry A pointer to the entry
    */
   void updateCompletions(Data::EntryPtr entry);
+  virtual void closeEvent(QCloseEvent* event);
 
   Data::CollPtr m_currColl;
   Data::EntryList m_currEntries;

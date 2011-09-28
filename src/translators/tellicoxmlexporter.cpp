@@ -138,7 +138,7 @@ void TellicoXMLExporter::exportCollectionXML(QDomDocument& dom_, QDomElement& pa
   QDomElement fieldsElem = dom_.createElement(QLatin1String("fields"));
   collElem.appendChild(fieldsElem);
 
-  foreach(Data::FieldPtr field, coll->fields()) {
+  foreach(Data::FieldPtr field, fields()) {
     exportFieldXML(dom_, fieldsElem, field);
   }
 
@@ -170,10 +170,12 @@ void TellicoXMLExporter::exportCollectionXML(QDomDocument& dom_, QDomElement& pa
 
   if(!m_images.isEmpty() && (options() & Export::ExportImages)) {
     QDomElement imgsElem = dom_.createElement(QLatin1String("images"));
-    collElem.appendChild(imgsElem);
     const QStringList imageIds = m_images.toList();
-    for(QStringList::ConstIterator it = imageIds.begin(); it != imageIds.end(); ++it) {
-      exportImageXML(dom_, imgsElem, *it);
+    foreach(const QString& id, m_images) {
+      exportImageXML(dom_, imgsElem, id);
+    }
+    if(imgsElem.hasChildNodes()) {
+      collElem.appendChild(imgsElem);
     }
   }
 
@@ -241,8 +243,7 @@ void TellicoXMLExporter::exportEntryXML(QDomDocument& dom_, QDomElement& parent_
   entryElem.setAttribute(QLatin1String("id"), QString::number(entry_->id()));
 
   // iterate through every field for the entry
-  Data::FieldList fields = entry_->collection()->fields();
-  foreach(Data::FieldPtr fIt, fields) {
+  foreach(Data::FieldPtr fIt, fields()) {
     QString fieldName = fIt->name();
 
     // Date fields are special, don't format in export

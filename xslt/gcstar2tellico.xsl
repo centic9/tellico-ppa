@@ -22,6 +22,9 @@
             doctype-public="-//Robby Stephenson/DTD Tellico V11.0//EN"
             doctype-system="http://periapsis.org/tellico/dtd/v11/tellico.dtd"/>
 
+<!-- base url for gcstar file -->
+<xsl:param name="baseDir" select="''"/>
+
 <xsl:variable name="coll">
  <xsl:choose>
   <xsl:when test="/collection[1]/@type='GCbooks'">
@@ -32,6 +35,9 @@
   </xsl:when>
   <xsl:when test="/collection[1]/@type='GCmusics'">
    <xsl:text>4</xsl:text>
+  </xsl:when>
+  <xsl:when test="/collection[1]/@type='GCcomics'">
+   <xsl:text>6</xsl:text>
   </xsl:when>
   <xsl:when test="/collection[1]/@type='GCwines'">
    <xsl:text>7</xsl:text>
@@ -50,11 +56,11 @@
 
 <xsl:template match="/">
  <tc:tellico syntaxVersion="11">
-  <xsl:apply-templates select="collection"/>
+  <xsl:apply-templates select="collection" mode="top"/>
  </tc:tellico>
 </xsl:template>
 
-<xsl:template match="collection">
+<xsl:template match="collection" mode="top">
  <tc:collection title="GCstar Import" type="{$coll}">
   <tc:fields>
    <tc:field name="_default"/>
@@ -62,13 +68,13 @@
    <xsl:if test="item/@web or item/@webPage">
     <tc:field flags="0" title="URL" category="General" format="4" type="7" name="url" i18n="true"/>
    </xsl:if>
-   <xsl:if test="item/@location">
+   <xsl:if test="item/@location and $coll != 7 and $coll != 8">
      <tc:field flags="6" title="Location" category="Personal" format="4" type="1" name="location" i18n="true"/>
    </xsl:if>
    <xsl:if test="item/@composer">
     <tc:field flags="7" title="Composer" category="General" format="2" type="1" name="composer" i18n="true"/>
    </xsl:if>
-   <xsl:if test="item/@producer">
+   <xsl:if test="item/@producer and @type != 'GCwines'">
     <tc:field flags="7" title="Producer" category="General" format="2" type="1" name="producer" i18n="true"/>
    </xsl:if>
    <xsl:choose>
@@ -80,6 +86,40 @@
      <!-- gcstar includes way more coin grades than tellico -->
      <tc:field flags="2" title="Grade" category="General" format="4" type="3" name="grade"
                allowed="Proof-65;Proof-60;Mint State-70;Mint State-69;Mint State-68;Mint State-67;Mint State-66;Mint State-65;Mint State-64;Mint State-63;Mint State-62;Mint State-61;Mint State-60;Almost Uncirculated-58;Almost Uncirculated-55;Almost Uncirculated-53;Almost Uncirculated-50;Extremely Fine-45;Extremely Fine-40;Very Fine-35;Very Fine-30;Very Fine-25;Very Fine-20;Fine-15;Fine-12;Very Good-10;Very Good-8;Good-6;Good-4;Fair"/>
+     <tc:field flags="6" title="Diameter" category="General" format="4" type="1" name="diameter" i18n="true"/>
+     <tc:field flags="0" title="Estimate" category="Personal" format="4" type="1" name="estimate" i18n="true"/>
+     <xsl:if test="item/metal">
+      <tc:field title="Composition" flags="3" category="Composition" format="2" type="8" name="metal">
+       <tc:prop name="column1">Metal</tc:prop>
+       <tc:prop name="column2">Percentage</tc:prop>
+       <tc:prop name="columns">2</tc:prop>
+      </tc:field>
+     </xsl:if>
+    </xsl:when>
+    <xsl:when test="@type='GCwines'">
+     <tc:field title="Varietal" flags="7" category="General" format="0" type="1" name="varietal" i18n="true"/>
+     <tc:field flags="0" title="Tasted" category="Personal" format="4" type="4" name="tasted" i18n="true"/>
+     <tc:field flags="6" title="Distinction" category="General" format="4" type="1" name="distinction" i18n="true"/>
+     <tc:field flags="6" title="Soil" category="General" format="4" type="1" name="soil" i18n="true"/>
+     <tc:field flags="6" title="Alcohol" category="General" format="4" type="1" name="alcohol" i18n="true"/>
+     <tc:field flags="6" title="Volume" category="General" format="4" type="1" name="volume" i18n="true"/>
+     <tc:field title="Type" flags="2" category="General" format="4" type="3" name="type" i18n="yes">
+      <xsl:attribute name="allowed">
+       <xsl:text>Red Wine;White Wine;Sparkling Wine</xsl:text>
+       <xsl:for-each select="item[not(@type=preceding-sibling::item/@type)]/@type">
+        <xsl:value-of select="concat(';',.)"/>
+       </xsl:for-each>
+      </xsl:attribute>
+     </tc:field>
+    </xsl:when>
+    <xsl:when test="@type='GCcomics'">
+     <tc:field title="ISBN#" flags="0" category="Publishing" format="4" description="International Standard Book Number" type="1" name="isbn" i18n="true"/>
+     <tc:field title="Plot" flags="0" category="Plot" format="4" type="2" name="plot" i18n="true"/>
+     <tc:field flags="7" title="Colorist" category="General" format="2" type="1" name="colorist" i18n="true"/>
+     <tc:field flags="6" title="Format" category="Publishing" format="4" type="1" name="format" i18n="true"/>
+     <tc:field flags="6" title="Category" category="Publishing" format="4" type="1" name="category" i18n="true"/>
+     <tc:field flags="6" title="Collection" category="Personal" format="4" type="1" name="collection" i18n="true"/>
+     <tc:field title="Boards" flags="0" category="Publishing" format="4" type="6" name="numberboards"/>
     </xsl:when>
    </xsl:choose>
   </tc:fields>
@@ -116,7 +156,7 @@
 <xsl:template match="*"/>
 
 <!-- the easy one matches identical local names -->
-<xsl:template match="title|isbn|edition|pages|label|platform|location">
+<xsl:template match="title|isbn|edition|pages|label|platform|location|vintage|quantity|soil|alcohol|collection|series|currency|diameter|estimate">
  <xsl:element name="{concat('tc:',local-name())}">
   <xsl:value-of select="."/>
  </xsl:element>
@@ -126,11 +166,20 @@
  <tc:origtitle><xsl:value-of select="."/></tc:origtitle>
 </xsl:template>
 
-<xsl:template match="author|authors|language|genre|artist|composer|producer|developer">
+<xsl:template match="author|authors|language|genre|artist|composer|producer|developer|grapes|writer|illustrator|colourist|numberboards">
  <xsl:variable name="tag">
   <xsl:choose>
    <xsl:when test="local-name() = 'authors'">
     <xsl:text>author</xsl:text>
+   </xsl:when>
+   <xsl:when test="local-name() = 'grapes'">
+    <xsl:text>varietal</xsl:text>
+   </xsl:when>
+   <xsl:when test="local-name() = 'illustrator'">
+    <xsl:text>artist</xsl:text>
+   </xsl:when>
+   <xsl:when test="local-name() = 'colourist'">
+    <xsl:text>colorist</xsl:text>
    </xsl:when>
    <xsl:otherwise>
     <xsl:value-of select="local-name()"/>
@@ -139,6 +188,11 @@
  </xsl:variable>
 
  <xsl:choose>
+  <xsl:when test="$tag='producer' and $coll = 7">
+   <tc:producer>
+    <xsl:value-of select="normalize-space(.)"/>
+   </tc:producer>
+  </xsl:when>
   <xsl:when test="line">
    <xsl:element name="{concat('tc:',$tag,'s')}">
     <xsl:for-each select="line">
@@ -195,11 +249,14 @@
     </xsl:choose>
    </tc:medium>
   </xsl:when>
+  <xsl:when test="$coll = 6">
+   <tc:format i18n="true"><xsl:value-of select="."/></tc:format>
+  </xsl:when>
  </xsl:choose>
 </xsl:template>
 
 <xsl:template match="country">
- <xsl:if test="$coll != 8">
+ <xsl:if test="$coll != 7 and $coll != 8">
   <tc:nationalitys>
    <xsl:for-each select="str:tokenize(., ',/;')">
     <tc:nationality i18n="true">
@@ -208,8 +265,10 @@
    </xsl:for-each>
   </tc:nationalitys>
  </xsl:if>
- <xsl:if test="$coll = 8">
-  <tc:country><xsl:value-of select="."/></tc:country>
+ <xsl:if test="$coll = 7 or $coll = 8">
+  <tc:country>
+   <xsl:value-of select="."/>
+  </tc:country>
  </xsl:if>
 </xsl:template>
 
@@ -270,7 +329,20 @@
 </xsl:template>
 
 <xsl:template match="image|boxpic">
- <tc:cover><xsl:value-of select="."/></tc:cover>
+ <tc:cover>
+  <xsl:choose>
+   <!-- no.png means no image -->
+   <xsl:when test=". = 'images/no.png'">
+   </xsl:when>
+   <!-- is the image location relative or not? -->
+   <xsl:when test="starts-with(., 'file://') or starts-with(., 'http') or starts-with(., '/')">
+    <xsl:value-of select="."/>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:value-of select="concat($baseDir,.)"/>
+   </xsl:otherwise>
+  </xsl:choose>
+ </tc:cover>
 </xsl:template>
 
 <xsl:template match="web|webPage">
@@ -342,7 +414,7 @@
  </xsl:if>
 </xsl:template>
 
-<xsl:template match="publication">
+<xsl:template match="publication|publishdate">
  <tc:pub_year>
   <xsl:call-template name="year">
    <xsl:with-param name="value" select="."/>
@@ -350,7 +422,7 @@
  </tc:pub_year>
 </xsl:template>
 
-<xsl:template match="aquisition">
+<xsl:template match="aquisition|purchasedate">
  <tc:pur_date><xsl:value-of select="."/></tc:pur_date>
 </xsl:template>
 
@@ -359,12 +431,17 @@
   <tc:pur_date><xsl:value-of select="."/></tc:pur_date>
  </xsl:if>
  <xsl:variable name="numbers" select="str:tokenize(., '/-')"/>
- <xsl:if test="count($numbers)=3">
+ <xsl:if test="count($numbers) = 3">
   <tc:cdate calendar="gregorian" >
-    <tc:year><xsl:value-of  select="$numbers[3]"/></tc:year>
-    <tc:month><xsl:value-of  select="$numbers[2]"/></tc:month>
-    <tc:day><xsl:value-of  select="$numbers[1]"/></tc:day>
-   </tc:cdate>
+   <tc:year><xsl:value-of select="$numbers[3]"/></tc:year>
+   <tc:month><xsl:value-of select="$numbers[2]"/></tc:month>
+   <tc:day><xsl:value-of select="$numbers[1]"/></tc:day>
+  </tc:cdate>
+  <tc:mdate calendar="gregorian" >
+   <tc:year><xsl:value-of select="$numbers[3]"/></tc:year>
+   <tc:month><xsl:value-of select="$numbers[2]"/></tc:month>
+   <tc:day><xsl:value-of select="$numbers[1]"/></tc:day>
+  </tc:mdate>
  </xsl:if>
 </xsl:template>
 
@@ -383,9 +460,18 @@
  </tc:comments>
 </xsl:template>
 
-<xsl:template match="description">
+<xsl:template match="description|tasting">
  <xsl:if test="$coll != 2">
   <tc:description><xsl:value-of select="."/></tc:description>
+ </xsl:if>
+</xsl:template>
+
+<xsl:template match="volume">
+ <xsl:if test="$coll != 6">
+  <tc:volume><xsl:value-of select="."/></tc:volume>
+ </xsl:if>
+ <xsl:if test="$coll = 6">
+  <tc:issue><xsl:value-of select="."/></tc:issue>
  </xsl:if>
 </xsl:template>
 
@@ -455,15 +541,23 @@
  </tc:subtitles>
 </xsl:template>
 
-<xsl:template match="currency">
- <tc:type><xsl:value-of select="."/></tc:type>
+<xsl:template match="metal">
+ <tc:metals>
+  <xsl:for-each select="line">
+   <tc:metal>
+    <tc:column>
+     <xsl:value-of select="col[1]"/>
+    </tc:column>
+   </tc:metal>
+  </xsl:for-each>
+ </tc:metals>
 </xsl:template>
 
 <xsl:template match="value">
  <tc:denomination><xsl:value-of select="."/></tc:denomination>
 </xsl:template>
 
-<xsl:template match="estimate">
+<xsl:template match="purchaseprice|cost">
  <tc:pur_price><xsl:value-of select="."/></tc:pur_price>
 </xsl:template>
 
@@ -507,13 +601,18 @@
 </xsl:template>
 
 <xsl:template match="category">
- <tc:genres>
-  <xsl:for-each select="line">
-   <tc:genre>
-    <xsl:value-of select="col[1]"/>
-   </tc:genre>
-  </xsl:for-each>
- </tc:genres>
+ <xsl:if test="$coll = 6">
+  <tc:category><xsl:value-of select="."/></tc:category>
+ </xsl:if>
+ <xsl:if test="$coll != 6">
+  <tc:genres>
+   <xsl:for-each select="line">
+    <tc:genre>
+     <xsl:value-of select="col[1]"/>
+    </tc:genre>
+   </xsl:for-each>
+  </tc:genres>
+ </xsl:if>
 </xsl:template>
 
 <!-- coins -->
@@ -556,6 +655,57 @@
    <xsl:when test=".&lt;4">Fair</xsl:when>
   </xsl:choose>
  </tc:grade>
+ <!-- GCstar defaults to PCGS -->
+ <tc:service>PCGS</tc:service>
+</xsl:template>
+
+<xsl:template match="designation">
+ <tc:appellation><xsl:value-of select="."/></tc:appellation>
+</xsl:template>
+
+<xsl:template match="type">
+ <tc:type i18n="true">
+  <xsl:choose>
+   <xsl:when test="contains(.,'red')">Red Wine</xsl:when>
+   <xsl:when test="contains(.,'white')">White Wine</xsl:when>
+   <xsl:when test="contains(.,'champagne') or contains(.,'sparking')">Sparkling Wine</xsl:when>
+   <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+  </xsl:choose>
+ </tc:type>
+</xsl:template>
+
+<xsl:template match="medal">
+ <tc:distinction><xsl:value-of select="."/></tc:distinction>
+</xsl:template>
+
+<xsl:template match="bottlelabel">
+ <tc:label><xsl:value-of select="."/></tc:label>
+</xsl:template>
+
+<xsl:template match="gift">
+ <xsl:if test="string-length(.) &gt; 0 and . != 'false' and . != '0'">
+  <tc:gift>true</tc:gift>
+ </xsl:if>
+</xsl:template>
+
+<xsl:template match="tasted">
+ <xsl:if test="string-length(.) &gt; 0 and . != 'false' and . != '0'">
+  <tc:tasted>true</tc:tasted>
+ </xsl:if>
+</xsl:template>
+
+<xsl:template match="signing">
+ <xsl:if test="string-length(.) &gt; 0 and . != 'false' and . != '0'">
+  <tc:signed>true</tc:signed>
+ </xsl:if>
+</xsl:template>
+
+<xsl:template match="front">
+ <tc:obverse><xsl:value-of select="."/></tc:obverse>
+</xsl:template>
+
+<xsl:template match="back">
+ <tc:reverse><xsl:value-of select="."/></tc:reverse>
 </xsl:template>
 
 <xsl:template name="year">

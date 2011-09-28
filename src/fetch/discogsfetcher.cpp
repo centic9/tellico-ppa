@@ -103,7 +103,6 @@ KUrl DiscogsFetcher::searchUrl() {
 
     default:
       myWarning() << "key not recognized: " << request().key;
-      stop();
       return KUrl();
   }
 
@@ -114,7 +113,7 @@ KUrl DiscogsFetcher::searchUrl() {
   return u;
 }
 
-void DiscogsFetcher::parseData(const QByteArray& data_) {
+void DiscogsFetcher::parseData(QByteArray& data_) {
   Q_UNUSED(data_);
 #if 0
   if(m_total == -1) {
@@ -157,8 +156,8 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHookData(Data::EntryPtr entry_
 #endif
 //  myDebug() << "url: " << u;
 
-  // quiet, utf8
-  QString output = FileHandler::readTextFile(u, true, true);
+  // quiet
+  QString output = FileHandler::readXMLFile(u, true);
 
 #if 0
   myWarning() << "Remove output debug from discogsfetcher.cpp";

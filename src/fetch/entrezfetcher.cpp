@@ -340,8 +340,8 @@ Tellico::Data::EntryPtr EntrezFetcher::fetchEntryHook(uint uid_) {
   u.addQueryItem(QLatin1String("db"),         m_dbname);
   u.addQueryItem(QLatin1String("id"),         QString::number(id));
 #endif
-  // now it's sychronous, and we know that it's utf8
-  QString xmlOutput = FileHandler::readTextFile(u, false /*quiet*/, true /*utf8*/);
+  // now it's sychronous
+  QString xmlOutput = FileHandler::readXMLFile(u, false /*quiet*/);
   if(xmlOutput.isEmpty()) {
     myWarning() << "unable to download " << u;
     return Data::EntryPtr();
@@ -382,7 +382,7 @@ Tellico::Data::EntryPtr EntrezFetcher::fetchEntryHook(uint uid_) {
     link.addQueryItem(QLatin1String("dbfrom"), m_dbname);
     link.addQueryItem(QLatin1String("id"),     QString::number(id));
 
-    QDomDocument linkDom = FileHandler::readXMLFile(link, false /* namespace */, true /* quiet */);
+    QDomDocument linkDom = FileHandler::readXMLDocument(link, false /* namespace */, true /* quiet */);
     // need eLinkResult/LinkSet/IdUrlList/IdUrlSet/ObjUrl/Url
     QDomNode linkNode = linkDom.namedItem(QLatin1String("eLinkResult"))
                                .namedItem(QLatin1String("LinkSet"))

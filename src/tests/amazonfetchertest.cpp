@@ -24,9 +24,9 @@
 
 #undef QT_NO_CAST_FROM_ASCII
 
-#include "qtest_kde.h"
 #include "amazonfetchertest.h"
 #include "amazonfetchertest.moc"
+#include "qtest_kde.h"
 
 #include "../fetch/fetcherjob.h"
 #include "../fetch/amazonfetcher.h"
@@ -39,12 +39,11 @@
 
 #include <KStandardDirs>
 #include <KConfigGroup>
-#include <KDebug>
 
 QTEST_KDEMAIN( AmazonFetcherTest, GUI )
 
 AmazonFetcherTest::AmazonFetcherTest() : m_loop(this), m_hasConfigFile(false)
-    , m_config(QString::fromLatin1(KDESRCDIR)  + "/amazontestconfig.rc", KConfig::SimpleConfig) {
+    , m_config(QString::fromLatin1(KDESRCDIR)  + "/amazonfetchertest.config", KConfig::SimpleConfig) {
 }
 
 void AmazonFetcherTest::initTestCase() {
@@ -55,7 +54,7 @@ void AmazonFetcherTest::initTestCase() {
   KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
   Tellico::ImageFactory::init();
 
-  m_hasConfigFile = QFile::exists(QString::fromLatin1(KDESRCDIR)  + "/amazontestconfig.rc");
+  m_hasConfigFile = QFile::exists(QString::fromLatin1(KDESRCDIR)  + "/amazonfetchertest.config");
 
   QHash<QString, QString> practicalRdf;
   practicalRdf.insert(QLatin1String("title"), QLatin1String("Practical RDF"));
@@ -132,7 +131,6 @@ void AmazonFetcherTest::testTitle() {
     // CA and FR titles have edition info in the title
     if(collType == Tellico::Data::Collection::Video &&
        (locale == QLatin1String("CA") || locale == QLatin1String("FR"))) {
-      kDebug() << result << i.value();
       QVERIFY(result.contains(i.value(), Qt::CaseInsensitive));
     } else {
       QCOMPARE(result, i.value().toLower());

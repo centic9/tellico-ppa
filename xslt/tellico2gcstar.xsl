@@ -24,7 +24,8 @@
 <!-- bool attributes are special, and some only apply to certain collection types -->
 <a:attributes>
  <a:attribute name="isbn">isbn</a:attribute>
-  <a:attribute name="title">title</a:attribute>
+  <!-- titles for coins and wines are templated -->
+  <a:attribute name="title" skip="GCcoins, GCwines">title</a:attribute>
   <a:attribute name="publisher" skip="GCboardgames">publisher</a:attribute>
   <a:attribute name="publishedby" type="GCboardgames">publisher</a:attribute>
   <a:attribute name="publication">pub_year</a:attribute>
@@ -32,7 +33,8 @@
   <a:attribute name="serie">series</a:attribute>
   <a:attribute name="edition">edition</a:attribute>
   <a:attribute name="pages">pages</a:attribute>
-  <a:attribute name="added">pur_date</a:attribute>
+  <a:attribute name="added" skip="GCwines">pur_date</a:attribute>
+  <a:attribute name="purchasedate" type="GCwines">pur_date</a:attribute>
   <a:attribute name="acquisition">pur_date</a:attribute>
   <a:attribute name="location">location</a:attribute>
   <a:attribute name="translator">translator</a:attribute>
@@ -50,13 +52,37 @@
   <a:attribute name="seen" format="bool" type="GCfilms">seen</a:attribute>
   <a:attribute name="favourite" format="bool">favorite</a:attribute>
   <a:attribute name="label">label</a:attribute>
-  <a:attribute name="release">year</a:attribute>
+  <a:attribute name="release" type="GCfilms">year</a:attribute>
   <a:attribute name="composer">composer</a:attribute>
   <a:attribute name="producer">producer</a:attribute>
   <a:attribute name="platform">platform</a:attribute>
   <a:attribute name="designedby">designer</a:attribute>
   <a:attribute name="players">num-player</a:attribute>
   <a:attribute name="developer">developer</a:attribute>
+  <a:attribute name="designation">appellation</a:attribute>
+  <a:attribute name="vintage">vintage</a:attribute>
+  <a:attribute name="type">type</a:attribute>
+  <a:attribute name="country">country</a:attribute>
+  <a:attribute name="purchaseprice">pur_price</a:attribute>
+  <a:attribute name="quantity">quantity</a:attribute>
+  <a:attribute name="soil">soil</a:attribute>
+  <a:attribute name="alcohol">alcohol</a:attribute>
+  <a:attribute name="volume" skip="GCcomics">volume</a:attribute>
+  <a:attribute name="volume" type="GCcomics">issue</a:attribute>
+  <a:attribute name="tasting">description</a:attribute>
+  <a:attribute name="medal">distinction</a:attribute>
+  <a:attribute name="tasted" format="bool" type="GCwines">tasted</a:attribute>
+  <a:attribute name="gift" format="bool">gift</a:attribute>
+  <a:attribute name="writer">writer</a:attribute>
+  <a:attribute name="colourist">colorist</a:attribute>
+  <a:attribute name="category">category</a:attribute>
+  <a:attribute name="collection">collection</a:attribute>
+  <a:attribute name="numberboards">numberboards</a:attribute>
+  <a:attribute name="signing" format="bool">signed</a:attribute>
+  <a:attribute name="estimate">estimate</a:attribute>
+  <a:attribute name="currency">currency</a:attribute>
+  <a:attribute name="diameter">diameter</a:attribute>
+  <a:attribute name="value">denomination</a:attribute>
 </a:attributes>
 <xsl:variable name="collType">
  <xsl:choose>
@@ -68,6 +94,12 @@
   </xsl:when>
   <xsl:when test="tc:tellico/tc:collection/@type=4">
    <xsl:text>GCmusics</xsl:text>
+  </xsl:when>
+  <xsl:when test="tc:tellico/tc:collection/@type=6">
+   <xsl:text>GCcomics</xsl:text>
+  </xsl:when>
+  <xsl:when test="tc:tellico/tc:collection/@type=7">
+   <xsl:text>GCwines</xsl:text>
   </xsl:when>
   <xsl:when test="tc:tellico/tc:collection/@type=8">
    <xsl:text>GCcoins</xsl:text>
@@ -104,6 +136,8 @@
                                    @type=3 or
                                    @type=4 or
                                    @type=5 or
+                                   @type=6 or
+                                   @type=7 or
                                    @type=8 or
                                    @type=11 or
                                    @type=13]">
@@ -123,7 +157,12 @@
 
 <xsl:template match="tc:entry">
  <xsl:variable name="entry" select="."/>
- <item id="{@id}" rating="{tc:rating * 2}">
+ <item id="{@id}">
+  <xsl:if test="tc:rating">
+   <xsl:attribute name="rating">
+    <xsl:value-of select="2*tc:rating"/>
+   </xsl:attribute>
+  </xsl:if>
   <xsl:for-each select="$attributes">
    <xsl:call-template name="handle-attribute">
     <xsl:with-param name="att" select="."/>
@@ -191,11 +230,6 @@
     <xsl:with-param name="elem" select="tc:keywords"/>
    </xsl:call-template>
   </tags>
-  <xsl:if test="$collType  = 'GCbooks'">
-   <comments>
-    <xsl:value-of select="tc:comments"/>
-   </comments>
-  </xsl:if>
 
   <!-- for movies -->
   <synopsis>
@@ -218,10 +252,20 @@
     <xsl:with-param name="elem" select="tc:subtitles"/>
    </xsl:call-template>
   </subt>
-  <xsl:if test="$collType  = 'GCfilms' or $collType = 'GCboardgames'">
-   <comment> <!-- note the lack of an 's' -->
-    <xsl:value-of select="tc:comments"/>
-   </comment>
+  <xsl:choose>
+   <xsl:when test="$collType = 'GCfilms' or $collType = 'GCboardgames'">
+    <comment> <!-- note the lack of an 's' -->
+     <xsl:value-of select="tc:comments"/>
+    </comment>
+   </xsl:when>
+   <xsl:otherwise>
+    <comments>
+     <xsl:value-of select="tc:comments"/>
+    </comments>
+   </xsl:otherwise>
+  </xsl:choose>
+
+  <xsl:if test="$collType = 'GCfilms'">
    <xsl:apply-templates select="tc:languages"/>
   </xsl:if>
 
@@ -239,6 +283,16 @@
     <xsl:value-of select="tc:description"/>
    </description>
   </xsl:if>
+
+  <!-- for wines -->
+  <grapes>
+   <xsl:call-template name="multiline">
+    <xsl:with-param name="elem" select="tc:varietals"/>
+   </xsl:call-template>
+  </grapes>
+
+  <!-- for coins -->
+  <xsl:apply-templates select="tc:metals"/>
 
  </item>
 </xsl:template>
@@ -275,6 +329,18 @@
    </line>
   </xsl:for-each>
  </tracks>
+</xsl:template>
+
+<xsl:template match="tc:metals">
+ <metal>
+  <xsl:for-each select="tc:metal">
+   <line>
+    <col>
+     <xsl:value-of select="tc:column[1]"/>
+    </col>
+   </line>
+  </xsl:for-each>
+ </metal>
 </xsl:template>
 
 <xsl:template name="multiline">

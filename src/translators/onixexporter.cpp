@@ -129,7 +129,7 @@ QString ONIXExporter::text() {
   // do NOT do namespace processing, it messes up the XSL declaration since
   // QDom thinks there are no elements in the Tellico namespace and as a result
   // removes the namespace declaration
-  QDomDocument dom = FileHandler::readXMLFile(u, false);
+  QDomDocument dom = FileHandler::readXMLDocument(u, false);
   if(dom.isNull()) {
     myDebug() << "error loading xslt file: " << xsltfile;
     return QString();
@@ -154,6 +154,7 @@ QString ONIXExporter::text() {
   // now grab the XML
   TellicoXMLExporter exporter(coll);
   exporter.setEntries(entries());
+  exporter.setFields(fields());
   exporter.setIncludeImages(false); // do not include images in XML
 // yes, this should be in utf8, always
   exporter.setOptions(options() | Export::ExportUTF8);

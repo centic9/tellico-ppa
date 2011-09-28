@@ -23,6 +23,7 @@
  ***************************************************************************/
 
 #include "netaccess.h"
+#include "tellico_strings.h"
 #include "../gui/guiproxy.h"
 #include "../tellico_debug.h"
 
@@ -31,10 +32,13 @@
 #include <kio/previewjob.h>
 #include <kio/jobuidelegate.h>
 #include <ktemporaryfile.h>
+#include <klocale.h>
 
 #include <QEventLoop>
 
 static QStringList* tmpfiles = 0;
+
+QString Tellico::NetAccess::s_lastErrorMessage;
 
 using Tellico::NetAccess;
 
@@ -61,27 +65,29 @@ bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, b
   if(quiet_) {
     flags |= KIO::HideProgressInfo;
   }
-#if 0
-  // some http files get returned gzip'd and file_copy just copies the gzipd data
-  // but the FileRef can't handlle that  automatically
-  KIO::Job* getJob = KIO::file_copy(url_, dest, -1, flags);
-  if(KIO::NetAccess::synchronousRun(getJob, window_)) {
-    return true;
-  }
-#else
+
   // KIO::storedGet seems to handle Content-Encoding: gzip ok
-  KIO::StoredTransferJob* getJob = KIO::storedGet(url_, KIO::NoReload, flags);
-  if(KIO::NetAccess::synchronousRun(getJob, window_)) {
+  QByteArray data;
+//  KIO::StoredTransferJob* getJob = KIO::storedGet(url_, KIO::NoReload, flags);
+  KIO::TransferJob* getJob = KIO::get(url_, KIO::NoReload, flags);
+  if(KIO::NetAccess::synchronousRun(getJob, window_, &data)) {
     QFile f(target_);
     if(f.open(QIODevice::WriteOnly)) {
-      if(f.write(getJob->data()) > -1) {
+//      if(f.write(getJob->data()) > -1) {
+      if(f.write(data) > -1) {
         return true;
+      } else {
+        s_lastErrorMessage = i18n(errorWrite, target_);
+        myWarning() << "failed to write to" << target_;
       }
+    } else {
+      s_lastErrorMessage = i18n(errorOpen, target_);
     }
-    myWarning() << "failed to write to" << target_;
+  } else {
+    s_lastErrorMessage = QString::fromLatin1("Tellico was unable to download %1").arg(url_.url());
   }
-#endif
-  if(getJob->ui()) {
+
+  if(!quiet_ && getJob->ui()) {
     getJob->ui()->showErrorMessage();
   }
   return false;
@@ -127,6 +133,10 @@ void NetAccess::removeTempFile(const QString& name) {
   } else {
     KIO::NetAccess::removeTempFile(name);
   }
+}
+
+QString NetAccess::lastErrorString() {
+  return s_lastErrorMessage;
 }
 
 #include "netaccess.moc"

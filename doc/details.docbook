@@ -1,0 +1,559 @@
+<chapter id="details">
+<title>&appname; Details</title>
+
+<sect1 id="field-types">
+<title>Field Types</title>
+
+<para>
+Each collection may have an unlimited number of fields. &appname; supports
+eleven types of fields, which allow for a range of different data.
+</para>
+
+<sect2 id="line">
+<title>Simple Text</title>
+
+<para>
+The most basic field type is called <emphasis>Simple Text</emphasis>.
+No restrictions are placed on the field values, and the data entry
+widget is the standard line edit. This type is appropriate for fields
+which aren't expected to have long values, such as the author or the genre.
+</para>
+
+</sect2>
+<sect2 id="number">
+<title>Number</title>
+
+<para>
+The <emphasis>Number</emphasis> type is identical to the
+<emphasis>Simple Text</emphasis>, except that the data is restricted
+to being numerical. Entries will be sorted numerically in the column
+view if a <emphasis>Number</emphasis> field column is clicked. The
+standard line edit, with small arrow buttons for increasing or decreasing
+the value, is used for data entry. No formatting is ever
+applied.</para>
+
+</sect2>
+
+<sect2 id="url">
+<title>&URL;</title>
+
+<para>
+The <emphasis>&URL;</emphasis> type allows for links to other documents,
+using the standard &kde; file type associations for opening the linked
+documents. No validation is done on the actual value of a
+<emphasis>&URL;</emphasis> field, but non-valid links are not
+opened. The data entry is a line edit with a button for opening the
+standard File-Open dialog, but any &URL; may be used. Relative &URL;s are
+interpreted relative to the location of the data file, once it has been saved.
+</para>
+
+<para>
+In the <link linkend="entry-editor"><interface>Entry Editor</interface></link>,
+the label becomes the link, while in the <link linkend="entry-view"><interface>Entry View</interface></link>, an actual
+hyperlink is used. This field type is convenient for linking to <acronym>PDF</acronym>
+files of bibliographic entries, or to movie reviews, for example. No
+formatting is ever applied.</para>
+
+<para>
+Relative &URL;s may also be used. They are interpreted relative to the location of the
+&appname; data file. In the <link linkend="entry-editor"><interface>Entry Editor</interface></link>, the line
+edit provides auto-completion for local file locations. If you want the &URL; from the &kde;
+File Selector Dialog Box to be interpreted relative to the document location, then a
+property for the &URL; field should be set to <emphasis>relative</emphasis> : <emphasis>true</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="para">
+<title>Paragraph</title>
+
+<para>
+For longer text fields, the <emphasis>Paragraph</emphasis> type offers
+a larger text edit area, and is always in its own category. A
+<emphasis>Paragraph</emphasis> field may not have multiple values, nor
+is it automatically formatted. It cannot be used for grouping. Abstracts, plot
+summaries, or reviews should be entered using this field type.</para>
+
+</sect2>
+
+<sect2 id="choice">
+<title>Choice</title>
+
+<para>
+When a field should be limited to a few preset values, a
+<emphasis>Choice</emphasis> type is used. The acceptable values are
+presented in a drop down box for selection. Obviously, multiple values
+are not applicable. Fields such as bibliography type or personal rating
+are <emphasis>Choice</emphasis>-type fields.</para>
+
+<para>Semi-colons should be used to separated the allowed values.</para>
+
+</sect2>
+
+<sect2 id="bool">
+<title>Checkbox</title>
+
+<para>
+For fields which take a yes or no value, the
+<emphasis>Checkbox</emphasis> type is available. By default, the field
+is toggled off. <emphasis>Checkbox</emphasis> fields are not formatted
+and are limited to single values. Internally, the field values are
+carried as <emphasis><constant>true</constant></emphasis> or
+<emphasis><constant>false</constant></emphasis>. Some examples are gift or loaned
+fields.</para>
+
+</sect2>
+
+<sect2 id="date">
+<title>Date</title>
+
+<para>
+A <emphasis>Date</emphasis> field can include a day, month, and year. The date is shown in the standard format of YYYY-MM-DD, which allows for easy sorting. The standard &kde; Date Selector may be used to choose the date with the mouse, or it may be entered directly. The field is not required to have non-empty values for the year, month, and day; only the year may be entered, for example. Multiple values are not allowed.
+</para>
+
+</sect2>
+
+<sect2 id="table">
+<title>Table</title>
+
+<para>
+<emphasis>Table</emphasis> fields hold a one or more columns of values.
+In the <link linkend="entry-editor"><interface>Entry Editor</interface></link>, the field is presented using a
+spreadsheet-like view, with numbered rows. When the last row is selected, an additional
+row is then added.  Auto-completion is not available.
+This field is useful for a list of chapters in a book, scenes in a movie, or songs in an album.
+<emphasis>Table</emphasis> fields are always a category by themselves.
+</para>
+
+<para>
+The number of columns, up to a maximum of ten, is defined by adding a property to the field
+definition with the name <emphasis>columns</emphasis>. The columns may be labeled by right-clicking
+on the header, or by setting a field property named <emphasis>column1</emphasis>, etc.
+</para>
+
+<para>
+When using the <interface>Entry Editor</interface> for <emphasis>Table</emphasis> fields, rows may be rearranged by dragging
+the mouse while holding the &Ctrl; button. A popup menu is also available by right-clicking on the table,
+which allows rows to be inserted or removed.
+</para>
+
+</sect2>
+
+<sect2 id="image">
+<title>Image</title>
+
+<para>
+<emphasis>Image</emphasis> fields hold an image, of any format supported by &kde;.
+Some of the typical ones include <acronym>PNG</acronym> or <acronym>JPEG</acronym>.
+The image can be saved inside the &appname; data file itself or in the application data
+directory. The standard &kde; File Selector is used, so you can use a &URL; or just a
+file available locally. Images can also be dragged from a file manager or browser.
+</para>
+
+</sect2>
+
+<sect2 id="rating">
+<title>Rating</title>
+
+<para>
+<emphasis>Rating</emphasis> fields show a number of stars to represent a numerical rating
+for an entry. By default, the rating is a maximum of five. The minimum and maximum may be
+changed by setting properties in the field definition in the <interface>Collection Fields Dialog</interface>, named
+<emphasis>minimum</emphasis> and <emphasis>maximum</emphasis>, respectively.
+</para>
+
+</sect2>
+
+<sect2 id="derived">
+<title>Derived Value Fields</title>
+
+<para>
+Fields with derived values are a special case. The field type corresponds to the typical type of value
+contained in the field, but the value of the field is constructed from other fields using a format
+string in the field description. For example, if the field has
+a value template of <userinput>%{title} %{year}</userinput>, then the value of that field will
+be the title, followed by the year. This field type is used primarily for the title field in
+the coin, stamp, trading card, and wine collections. Either the internal field name or the field title
+may be used in the description for formatting.
+</para>
+
+<para>
+To select only a single value for a field with multiple values, add a position index to the template,
+such as <userinput>%{author:1}</userinput> for the first author. The position may be negative,
+counting from the end, so <userinput>%{author:-1}</userinput> would be the last author. Upper and
+lower-case values may be used by setting template flags, such as <userinput>%{author:1/l}</userinput>
+for lower-case first author and <userinput>%{author:1/u}</userinput> for upper-case.
+</para>
+
+</sect2>
+
+</sect1>
+
+<sect1 id="collection-types">
+<title>Collection Types</title>
+
+<para>
+&appname; supports twelve specific collection types by default: books, bibliographic entries, comic books, videos, music, video games, trading cards, coins, stamps, wines, board games, and file catalogs. In addition, an empty generic collection template is available for any other collectibles. The default collections are only meant to include a general set of fields. You should add, modify, or delete them to fit your needs. The only requirement is that a collection should always have a <emphasis>Title</emphasis> field, so that the <link linkend="group-view"><interface>Group View</interface></link> works correctly. For some collection types, that is just a <link linkend="derived">derived value</link> field combining two or more of the others.
+</para>
+
+<para>
+In general, there's no functional difference between the collection types. You could create a custom collection for your books just as easily as using the default book collection. But &appname; chooses icons based on collection type, and there may be some specialized functionality that is unique to a certain collection, so if you can, you should use the defaults. So, if you want to create a wine collection, but don't like any of the default fields, go ahead and create a default wine collection, then delete all the defaults. That way, &appname; still knows that it's a wine collection.
+</para>
+
+<para>
+By default, all the collection types include an <emphasis>ID</emphasis> field, which shows the ID number of the entry. In addition, except for the file catalog, each collection includes fields showing the date that the entry was created in the collection and the last time that it was modified.
+</para>
+
+<sect2 id="book-collection">
+<title>Book Collections</title>
+<para>
+Book collections have 26 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Subtitle</emphasis>,
+<emphasis>Author</emphasis>,
+<emphasis>Binding</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Publisher</emphasis>,
+<emphasis>Edition</emphasis>,
+<emphasis>Copyright Year</emphasis>,
+<emphasis>Publication Year</emphasis>,
+<emphasis>ISBN#</emphasis>,
+<emphasis>LCCN#</emphasis>,
+<emphasis>Pages</emphasis>,
+<emphasis>Language</emphasis>,
+<emphasis>Genre</emphasis>,
+<emphasis>Keywords</emphasis>,
+<emphasis>Series</emphasis>,
+<emphasis>Series Number</emphasis>,
+<emphasis>Condition</emphasis>,
+<emphasis>Signed</emphasis>,
+<emphasis>Read</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Loaned</emphasis>,
+<emphasis>Rating</emphasis>,
+<emphasis>Front Cover</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+<para>
+The <emphasis>ISBN#</emphasis> field is special, since <acronym>ISBN</acronym> numbers are automatically formatted and the check-digit is calculated. &appname; recognizes the <acronym>ISBN</acronym> field if its internal field name is <emphasis>isbn</emphasis>. If you have deleted it, or need to add it to another type of collection, create the field with the title as <emphasis>ISBN</emphasis> and apply the change, then you can return and modify the title as you want. &appname; creates the internal name based on the initial title, but never changes it if the title is later updated.
+</para>
+
+</sect2>
+
+<sect2 id="bibliography">
+<title>Bibliographies</title>
+<para>
+Bibliographies have 25 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Entry Type</emphasis>,
+<emphasis>Author</emphasis>,
+<emphasis>Bibtex Key</emphasis>,
+<emphasis>Book Title</emphasis>,
+<emphasis>Editor</emphasis>,
+<emphasis>Organization</emphasis>,
+<emphasis>Publisher</emphasis>,
+<emphasis>ISBN#</emphasis>,
+<emphasis>Address</emphasis>,
+<emphasis>Edition</emphasis>,
+<emphasis>Pages</emphasis>,
+<emphasis>Year</emphasis>,
+<emphasis>Journal</emphasis>,
+<emphasis>Month</emphasis>,
+<emphasis>Number</emphasis>,
+<emphasis>How Published</emphasis>,
+<emphasis>Chapter</emphasis>,
+<emphasis>Series</emphasis>,
+<emphasis>Series Number</emphasis>,
+<emphasis>Volume</emphasis>,
+<emphasis>Cross-Reference</emphasis>,
+<emphasis>Keywords</emphasis>,
+<emphasis>Abstract</emphasis>, and
+<emphasis>Notes</emphasis>.
+</para>
+
+<para>
+Although bibliographic collections are not specifically linked to bibtex, the default set of fields is taken from a typical set of bibtex fields. When exporting to bibtex, a property called <emphasis>bibtex</emphasis> is used for each field to define the corresponding bibtex field. If you add an additional field to a bibliography and want to export it to bibtex, be sure to set the <emphasis>bibtex</emphasis> property.
+</para>
+
+<para>
+&appname; does have some specialized functions for bibliographies. Bibtex string macros can be added, modified, or deleted from within &appname; and the bibtex export gives you the option of expanding the macros. Bibtex citations can be pushed to an external application such as <application>LyX</application> or <application>Kile</application> using the so-called <emphasis><link linkend="hidden-bibtex-options">lyxpipe</link></emphasis>.
+</para>
+
+<para>
+Book collections can be converted to bibliographies. Default bibtex fields are added, and the bibtex properties are set. This functionality exists primarily to convert old collections, before the bibliography type was separated from the book collection type.
+</para>
+</sect2>
+
+<sect2 id="comic-book-collection">
+<title>Comic Book Collections</title>
+<para>
+Comic book collections have 22 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Subtitle</emphasis>,
+<emphasis>Writer</emphasis>,
+<emphasis>Artist</emphasis>,
+<emphasis>Series</emphasis>,
+<emphasis>Issues</emphasis>,
+<emphasis>Publisher</emphasis>,
+<emphasis>Edition</emphasis>,
+<emphasis>Publication Year</emphasis>,
+<emphasis>Pages</emphasis>,
+<emphasis>Country</emphasis>,
+<emphasis>Language</emphasis>,
+<emphasis>Genre</emphasis>,
+<emphasis>Keywords</emphasis>,
+<emphasis>Condition</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Signed</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Loaned</emphasis>,
+<emphasis>Front Cover</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="video-collection">
+<title>Video Collections</title>
+<para>
+Video collections have 30 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Medium</emphasis>,
+<emphasis>Production Year</emphasis>,
+<emphasis>Certification</emphasis>,
+<emphasis>Genre</emphasis>,
+<emphasis>Region</emphasis>,
+<emphasis>Nationality</emphasis>,
+<emphasis>Format</emphasis>,
+<emphasis>Cast</emphasis>,
+<emphasis>Director</emphasis>,
+<emphasis>Producer</emphasis>,
+<emphasis>Writer</emphasis>,
+<emphasis>Composer</emphasis>,
+<emphasis>Studio</emphasis>,
+<emphasis>Language Tracks</emphasis>,
+<emphasis>Subtitle Languages</emphasis>,
+<emphasis>Audio Tracks</emphasis>,
+<emphasis>Running Time</emphasis>,
+<emphasis>Aspect Ratio</emphasis>,
+<emphasis>Widescreen</emphasis>,
+<emphasis>Color Mode</emphasis>,
+<emphasis>Director's Cut</emphasis>,
+<emphasis>Plot Summary</emphasis>,
+<emphasis>Personal Rating</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Loaned</emphasis>,
+<emphasis>Cover</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+<para>
+The <emphasis>Cast</emphasis> field is a <link linkend="table">table</link> with two columns, and the name of the actor is intended to be in the first column, with their role in the second. The <emphasis>Running Time</emphasis> is meant to be in minutes, though you can change that, of course.
+</para>
+</sect2>
+
+<sect2 id="music-collection">
+<title>Music Collections</title>
+<para>
+Music collections have 15 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Medium</emphasis>,
+<emphasis>Artist</emphasis>,
+<emphasis>Label</emphasis>,
+<emphasis>Year</emphasis>,
+<emphasis>Genre</emphasis>,
+<emphasis>Tracks</emphasis>,
+<emphasis>Rating</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Loaned</emphasis>,
+<emphasis>Keywords</emphasis>,
+<emphasis>Cover</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="game-collection">
+<title>Game Collections</title>
+<para>
+Video game collections have 16 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Platform</emphasis>,
+<emphasis>Genre</emphasis>,
+<emphasis>Release Year</emphasis>,
+<emphasis>Publisher</emphasis>,
+<emphasis>Developer</emphasis>,
+<emphasis>ESRB Rating</emphasis>,
+<emphasis>Description</emphasis>,
+<emphasis>Personal Rating</emphasis>,
+<emphasis>Completed</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Loaned</emphasis>,
+<emphasis>Cover</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="card-collection">
+<title>Card Collections</title>
+<para>
+Trading card collections have 17 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Player</emphasis>,
+<emphasis>Team</emphasis>,
+<emphasis>Brand</emphasis>,
+<emphasis>Card Number</emphasis>,
+<emphasis>Year</emphasis>,
+<emphasis>Series</emphasis>,
+<emphasis>Card Type</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Location</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Keywords</emphasis>,
+<emphasis>Quantity</emphasis>,
+<emphasis>Front Image</emphasis>,
+<emphasis>Back Image</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="coin-collection">
+<title>Coin Collections</title>
+<para>
+Coin collections have 16 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Type</emphasis>,
+<emphasis>Denomination</emphasis>,
+<emphasis>Year</emphasis>,
+<emphasis>Mint Mark</emphasis>,
+<emphasis>Country</emphasis>,
+<emphasis>Coin Set</emphasis>,
+<emphasis>Grade</emphasis>,
+<emphasis>Grading Service</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Location</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Obverse</emphasis>,
+<emphasis>Reverse</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="stamp-collection">
+<title>Stamp Collections</title>
+<para>
+Stamp ollections have 18 default fields:
+<emphasis>Title</emphasis>,
+<emphasis>Description</emphasis>,
+<emphasis>Denomination</emphasis>,
+<emphasis>Country</emphasis>,
+<emphasis>Issue Year</emphasis>,
+<emphasis>Color</emphasis>,
+<emphasis>Scott#</emphasis>,
+<emphasis>Grade</emphasis>,
+<emphasis>Cancelled</emphasis>,
+<emphasis>Hinged</emphasis>,
+<emphasis>Centering</emphasis>,
+<emphasis>Gummed</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Location</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Image</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="wine-collection">
+<title>Wine Collections</title>
+<para>
+Wine collections have 15 default fields.
+<emphasis>Title</emphasis>,
+<emphasis>Producer</emphasis>,
+<emphasis>Appellation</emphasis>,
+<emphasis>Varietal</emphasis>,
+<emphasis>Type</emphasis>,
+<emphasis>Country</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Location</emphasis>,
+<emphasis>Quantity</emphasis>,
+<emphasis>Drink By</emphasis>,
+<emphasis>Rating</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Label Image</emphasis>, and
+<emphasis>Comments</emphasis>.
+</para>
+
+</sect2>
+
+<sect2 id="board-game-collection">
+<title>Board Game Collections</title>
+<para>
+Board game collections have 15 default fields.
+<emphasis>Title</emphasis>,
+<emphasis>Genre</emphasis>,
+<emphasis>Mechanism</emphasis>,
+<emphasis>Release Year</emphasis>,
+<emphasis>Publisher</emphasis>,
+<emphasis>Designer</emphasis>,
+<emphasis>Number of Players</emphasis>,
+<emphasis>Description</emphasis>,
+<emphasis>Rating</emphasis>,
+<emphasis>Purchase Date</emphasis>,
+<emphasis>Purchase Price</emphasis>,
+<emphasis>Gift</emphasis>,
+<emphasis>Loaned</emphasis>,
+<emphasis>Cover</emphasis>, and
+<emphasis>Comments</emphasis>,
+</para>
+
+</sect2>
+
+<sect2 id="file-catalog">
+<title>File Catalogs</title>
+<para>
+File catalogs have 13 default fields.
+<emphasis>Name</emphasis>,
+<emphasis>&URL;</emphasis>,
+<emphasis>Description</emphasis>,
+<emphasis>Volume</emphasis>,
+<emphasis>Mimetype</emphasis>,
+<emphasis>Size</emphasis>,
+<emphasis>Permissions</emphasis>,
+<emphasis>Owner</emphasis>,
+<emphasis>Group</emphasis>,
+<emphasis>Created</emphasis>,
+<emphasis>Modified</emphasis>,
+<emphasis>Meta Info</emphasis>, and
+<emphasis>Icon</emphasis>,
+</para>
+
+</sect2>
+
+<sect2 id="custom-collection">
+<title>Custom Collections</title>
+<para>
+Custom collections have one default field, the <emphasis>Title</emphasis>. They should be used when the collectible item is not one of the default types.
+</para>
+
+</sect2>
+
+</sect1>
+
+</chapter>

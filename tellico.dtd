@@ -1,0 +1,271 @@
+<!--
+   ================================================================
+   Tellico XML DTD version 11.0
+
+   Copyright (c) 2006-2009 Robby Stephenson
+
+   This DTD describes the XML data files for the
+   Tellico application, which can be found at:
+   http://www.periapsis.org/tellico/
+
+   The formal public identifer for this DTD should be:
+
+      "-//Robby Stephenson/DTD Tellico V11.0//EN"
+
+   ================================================================
+-->
+<!ELEMENT tellico (collection+, borrowers?, filters?)>
+<!ATTLIST tellico syntaxVersion CDATA #FIXED "11">
+<!ATTLIST tellico xmlns CDATA #FIXED "http://periapsis.org/tellico/">
+
+<!ELEMENT collection (fields | bibtex-preamble | macros | entry |
+images | borrowers | filters)+>
+<!ATTLIST collection title CDATA #REQUIRED>
+<!ATTLIST collection type (1|2|3|4|5|6|7|8|9|10|11|12|13) #REQUIRED>
+<!ATTLIST collection entryTitle CDATA #IMPLIED>
+
+<!ELEMENT images (image+)>
+<!ELEMENT image (#PCDATA)>
+<!ATTLIST image id CDATA #REQUIRED>
+<!ATTLIST image format CDATA #REQUIRED>
+<!ATTLIST image width CDATA #REQUIRED>
+<!ATTLIST image height CDATA #REQUIRED>
+
+<!ELEMENT fields (field+)>
+<!ELEMENT field (prop*)>
+<!ATTLIST field i18n (true|false) "true">
+<!ATTLIST field name CDATA #REQUIRED>
+<!ATTLIST field title CDATA #REQUIRED>
+<!ATTLIST field category CDATA #REQUIRED>
+<!ATTLIST field allowed CDATA #IMPLIED>
+<!ATTLIST field flags CDATA #IMPLIED>
+<!ATTLIST field format CDATA #IMPLIED>
+<!ATTLIST field description CDATA #IMPLIED>
+<!-- no 5,  9, 11, or 13 -->
+<!ATTLIST field type (1|2|3|4|6|7|8|10|12|14) #REQUIRED>
+
+<!ELEMENT prop (#PCDATA)>
+<!ATTLIST prop name CDATA #REQUIRED>
+
+<!-- bibliography, or bibtex, collections may have a preamble and macros -->
+<!ELEMENT bibtex-preamble (#PCDATA)>
+<!ELEMENT macros (macro+)>
+<!ELEMENT macro (#PCDATA)>
+<!ATTLIST macro name CDATA #REQUIRED>
+
+<!-- general -->
+<!-- columns are used in 2-column tables to split the values -->
+<!ELEMENT column (#PCDATA)>
+<!-- year, month, day are used in dates -->
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT month (#PCDATA)>
+<!ELEMENT day (#PCDATA)>
+
+<!-- borrowing -->
+<!ELEMENT borrowers (borrower+)>
+<!ELEMENT borrower (loan)>
+<!ELEMENT loan (#PCDATA)>
+<!ATTLIST loan dueDate CDATA #IMPLIED>
+<!ATTLIST loan loanDate CDATA #REQUIRED>
+<!ATTLIST loan entryRef CDATA #REQUIRED>
+<!ATTLIST loan uid CDATA #REQUIRED>
+
+<!-- filters -->
+<!ELEMENT filters (filter+)>
+<!ELEMENT filter (rule)>
+<!ATTLIST filter name CDATA #REQUIRED>
+<!ATTLIST filter match CDATA #REQUIRED>
+<!ELEMENT rule (#PCDATA)>
+<!ATTLIST rule field CDATA #REQUIRED>
+<!ATTLIST rule function CDATA #REQUIRED>
+<!ATTLIST rule pattern CDATA #REQUIRED>
+
+<!ELEMENT entry (id | title | subtitle | authors | binding | pur_date |
+pur_price | publisher | edition | cr_years | pub_year | isbn | lccn |
+pages | languages | genres | keywords | series | series_num |
+condition | signed | read | gift | loaned | rating | comments |
+entry-type | bibtex-key | booktitle | editors | organization | year |
+journal | month | number | howpublished | chapter | volume | crossref
+| note | medium | artists | album | label | tracks | certification |
+region | nationalitys | format | casts | directors | producers |
+writers | composers | studios | subtitles | audio-tracks |
+running-time | aspect-ratios | widescreen | color | directors-cut |
+plot | player | team | brand | location | quantity | front | back |
+mintmark | set | grade | service | obverse | reverse | issue | cover |
+description | scott | cancelled | hinged | centering | gummed |
+producer | appellation | varietal | vintage | type | drink-by |
+platform | publishers | developers | completed |url |
+mimetype | size | permissions | owner | group | created | modified |
+metainfos | icon | amazon | imdb | imdb-rating | alttitle |
+allcertification | address | abstract | designer | bggid |
+mechanism | num-players | cdate | mdate )+>
+<!ATTLIST entry id CDATA #REQUIRED>
+
+<!-- general -->
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT mdate (#PCDATA)>
+<!ELEMENT cdate (#PCDATA)>
+
+<!-- books -->
+<!ELEMENT subtitle (#PCDATA)>
+<!ELEMENT authors (author+)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT binding (#PCDATA)>
+<!ELEMENT pur_date (#PCDATA)>
+<!ELEMENT pur_price (#PCDATA)>
+<!ELEMENT publisher (#PCDATA)>
+<!ELEMENT edition (#PCDATA)>
+<!ELEMENT cr_years (cr_year+)>
+<!ELEMENT cr_year (#PCDATA)>
+<!ELEMENT pub_year (#PCDATA)>
+<!ELEMENT isbn (#PCDATA)>
+<!ELEMENT lccn (#PCDATA)>
+<!ELEMENT pages (#PCDATA)>
+<!ELEMENT languages (language+)>
+<!ELEMENT language (#PCDATA)>
+<!ELEMENT genres (genre+)>
+<!ELEMENT genre (#PCDATA)>
+<!ELEMENT keywords (keyword+)>
+<!ELEMENT keyword (#PCDATA)>
+<!ELEMENT series (#PCDATA)>
+<!ELEMENT series_num (#PCDATA)>
+<!ELEMENT condition (#PCDATA)>
+<!ELEMENT signed (#PCDATA)>
+<!ELEMENT read (#PCDATA)>
+<!ELEMENT gift (#PCDATA)>
+<!ELEMENT rating (#PCDATA)>
+<!ELEMENT loaned (#PCDATA)>
+<!ELEMENT comments (#PCDATA)>
+
+<!-- bibtex -->
+<!ELEMENT entry-type (#PCDATA)>
+<!ELEMENT bibtex-key (#PCDATA)>
+<!ELEMENT booktitle (#PCDATA)>
+<!ELEMENT editors (editor+)>
+<!ELEMENT editor (#PCDATA)>
+<!ELEMENT organization (#PCDATA)>
+<!ELEMENT journal (#PCDATA)>
+<!ELEMENT number (#PCDATA)>
+<!ELEMENT howpublished (#PCDATA)>
+<!ELEMENT chapter (#PCDATA)>
+<!ELEMENT volume (#PCDATA)>
+<!ELEMENT crossref (#PCDATA)>
+<!ELEMENT note (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT abstract (#PCDATA)>
+
+<!-- music -->
+<!ELEMENT medium (#PCDATA)>
+<!ELEMENT artists (artist+)>
+<!ELEMENT artist (#PCDATA)>
+<!ELEMENT album (#PCDATA)>
+<!ELEMENT label (#PCDATA)>
+<!ELEMENT tracks (track+)>
+<!ELEMENT track (#PCDATA)>
+
+<!-- video -->
+<!ELEMENT certification (#PCDATA)>
+<!ELEMENT region (#PCDATA)>
+<!ELEMENT nationalitys (nationality+)>
+<!ELEMENT nationality (#PCDATA)>
+<!ELEMENT format (#PCDATA)>
+<!ELEMENT casts (cast+)>
+<!ELEMENT cast (column, column)>
+<!ELEMENT directors (director+)>
+<!ELEMENT director (#PCDATA)>
+<!ELEMENT producers (producer+)>
+<!ELEMENT producer (#PCDATA)>
+<!ELEMENT writers (writer+)>
+<!ELEMENT writer (#PCDATA)>
+<!ELEMENT composers (composer+)>
+<!ELEMENT composer (#PCDATA)>
+<!ELEMENT studios (studio+)>
+<!ELEMENT studio (#PCDATA)>
+<!ELEMENT subtitles (subtitle+)>
+<!-- subtitle element is defined above -->
+<!ELEMENT audio-tracks (audio-track+)>
+<!ELEMENT audio-track (#PCDATA)>
+<!ELEMENT running-time (#PCDATA)>
+<!ELEMENT aspect-ratios (aspect-ratio+)>
+<!ELEMENT aspect-ratio (#PCDATA)>
+<!ELEMENT widescreen (#PCDATA)>
+<!ELEMENT color (#PCDATA)>
+<!ELEMENT directors-cut (#PCDATA)>
+<!ELEMENT plot (#PCDATA)>
+
+<!-- cards -->
+<!ELEMENT player (#PCDATA)>
+<!ELEMENT team (#PCDATA)>
+<!ELEMENT brand (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
+<!ELEMENT quantity (#PCDATA)>
+<!ELEMENT front (#PCDATA)>
+<!ELEMENT back (#PCDATA)>
+
+<!-- coins -->
+<!ELEMENT mintmark (#PCDATA)>
+<!ELEMENT set (#PCDATA)>
+<!ELEMENT grade (#PCDATA)>
+<!ELEMENT service (#PCDATA)>
+<!ELEMENT obverse (#PCDATA)>
+<!ELEMENT reverse (#PCDATA)>
+
+<!-- comic book -->
+<!ELEMENT issue (#PCDATA)>
+<!ELEMENT cover (#PCDATA)>
+
+<!-- stamps -->
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT scott (#PCDATA)>
+<!ELEMENT cancelled (#PCDATA)>
+<!ELEMENT hinged (#PCDATA)>
+<!ELEMENT centering (#PCDATA)>
+<!ELEMENT gummed (#PCDATA)>
+
+<!-- wine -->
+<!ELEMENT appellation (#PCDATA)>
+<!ELEMENT varietal (#PCDATA)>
+<!ELEMENT vintage (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT drink-by (#PCDATA)>
+
+<!-- games -->
+<!ELEMENT platform (#PCDATA)>
+<!-- publisher is defined above -->
+<!ELEMENT publishers (publisher+)>
+<!ELEMENT developers (developer+)>
+<!ELEMENT developer (#PCDATA)>
+<!ELEMENT completed (#PCDATA)>
+
+<!-- file catalogs -->
+<!-- description is above -->
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT mimetype (#PCDATA)>
+<!ELEMENT size (#PCDATA)>
+<!ELEMENT permissions (#PCDATA)>
+<!ELEMENT owner (#PCDATA)>
+<!ELEMENT group (#PCDATA)>
+<!ELEMENT created (#PCDATA)>
+<!ELEMENT modified (#PCDATA)>
+<!ELEMENT metainfos (metainfo+)>
+<!ELEMENT metainfo (#PCDATA)>
+<!ELEMENT icon (#PCDATA)>
+
+<!-- boardgames -->
+<!-- publisher is defined above -->
+<!-- publishers is defined above -->
+<!ELEMENT designers (designer+)>
+<!ELEMENT designer (#PCDATA)>
+<!ELEMENT mechanisms (mechanism+)>
+<!ELEMENT mechanism (#PCDATA)>
+<!ELEMENT bggid (#PCDATA)>
+<!ELEMENT num-players (num-player+)>
+<!ELEMENT num-player (#PCDATA)>
+
+<!-- special -->
+<!ELEMENT amazon (#PCDATA)>
+<!ELEMENT imdb (#PCDATA)>
+<!ELEMENT imdb-rating (#PCDATA)>
+<!ELEMENT alttitle (#PCDATA)>
+<!ELEMENT allcertification (#PCDATA)>

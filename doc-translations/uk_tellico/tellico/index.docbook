@@ -1,0 +1,351 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY appname '<application
+>Tellico</application
+>'>
+  <!ENTITY kappname "&appname;">
+  <!ENTITY package "extragear/office">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Ukrainian "INCLUDE"
+><!-- change language only here -->
+
+  <!ENTITY robby "Robby Stephenson">
+  <!ENTITY email "robby@periapsis.org">
+  <!ENTITY homepage "http://tellico-project.org">
+  <!ENTITY maillist "http://forge.novell.com/mailman/listinfo/tellico-users">
+  <!ENTITY xslt "<acronym
+>XSLT</acronym
+>">
+
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY importing-exporting-chapter SYSTEM "importing-exporting.docbook">
+  <!ENTITY configuration-chapter SYSTEM "configuration.docbook">
+  <!ENTITY fields-chapter SYSTEM "fields.docbook">
+  <!ENTITY menus-chapter SYSTEM "menus.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY hacking-chapter SYSTEM "hacking.docbook">
+  <!ENTITY faqs-chapter SYSTEM "faqs.docbook">
+  <!ENTITY details-chapter SYSTEM "details.docbook">
+
+]>
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+<date
+>28/08/2009</date>
+<releaseinfo
+>2.0</releaseinfo>
+
+<title
+>Підручник з &appname;</title>
+
+<authorgroup>
+<author
+><firstname
+>Robby</firstname
+> <surname
+>Stephenson</surname
+> <affiliation
+> <address
+><email
+>&email;</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Юрій</firstname
+><surname
+>Чорноіван</surname
+><affiliation
+><address
+><email
+>yurchor@ukr.net</email
+></address
+></affiliation
+><contrib
+>Переклад українською</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2001</year>
+<year
+>2002</year>
+<year
+>2003</year>
+<year
+>2004</year>
+<year
+>2005</year>
+<year
+>2006</year>
+<year
+>2007</year>
+<year
+>2008</year>
+<year
+>2009</year>
+<holder
+>&robby;</holder>
+</copyright>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+&FDLNotice;
+
+<para
+>Автор цієї документації також надає вам право використовувати вміст цієї документації за умов дотримання <ulink url="freebsd-doc-license.html"
+>FreeBSD Documentation License</ulink
+>, якщо ви цього забажаєте. Див. зауваження у <link linkend="gnu-fdl"
+>розділі щодо ліцензування</link
+>.</para>
+</legalnotice>
+
+<legalnotice>
+<para
+>Ця програма є вільним програмним забезпеченням; ви можете поширювати та/або змінювати її за умов дотримання GNU General Public License  утому вигляді, що оприлюднений Free Software Foundation; версії 2 цієї Ліцензії, або (якщо забажаєте) версії 3 чи будь-якої випущеної пізніше, схваленої членами KDE e.V. (або наступника цієї компанії, схваленого членами KDE e.V.), які мають діяти як довірені особи, визначені у розділі 14 версії 3 цієї ліцензії. </para>
+
+<para
+>Ця програма поширюється у сподіванні, що вона буде корисною, але БЕЗ БУДЬ-ЯКИХ ГАРАНТІЙНИХ ЗОБОВ’ЯЗАНЬ; навіть без очевидної гарантії ПРАЦЕЗДАТНОСТІ або ПРИДАТНОСТІ ДЛЯ ВИКОРИСТАННЯ З ПЕВНОЮ МЕТОЮ. Докладніше про це можна дізнатися з &GNU; General Public License.</para>
+
+<para
+>Ви маєте отримати копію &GNU; General Public License разом з цією програмою; якщо це не так, повідомте про факт за адресою Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</para>
+</legalnotice>
+<!--<legalnotice
+>&GPLNotice;</legalnotice
+>-->
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>Цей документ є підручником з користування &appname;, програми, призначеної для полегшення керування збірками. </para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>tellico</keyword>
+<keyword
+>книга</keyword>
+<keyword
+>бібліографія</keyword>
+<keyword
+>фільм</keyword>
+<keyword
+>збірка</keyword>
+<keyword
+>база даних</keyword>
+<keyword
+>каталог</keyword>
+<keyword
+>extragear</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label each chapter
+so with the id attribute. This is necessary for two reasons: it allows
+you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files
+will vary from time to time making it hard to manage for maintainers
+and for the CVS system. Any chapter labelled (OPTIONAL) may be left
+out at the author's discretion. Other chapters should not be left out
+in order to maintain a consistent documentation style across all KDE
+apps. -->
+
+<chapter id="introduction">
+<title
+>Вступ</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<sect1 id="tellico-intro">
+<title
+>&appname;</title>
+
+<para
+>&appname; — це програма, призначена для керування збірками. Перша версія програми була простим інструментом керування збіркою книг, призначення програми було розширено включенням типових шаблонів збірок для бібліографій, коміксів, відео, музики, монет, марок, карток, відеоігор, вин, ігор на дошці, а також списків файлів. Крім того, за допомогою програми можна створювати нетипові збірки з будь-яких інших елементів колекціонування. </para>
+
+<sect2 id="what-tellico-is">
+<title
+>Що може робити &appname;</title>
+
+<para
+>У &appname; передбачено можливість стеження за всіма елементами збірки і полегшення введення даних для кожного з записів. У програмі можна використовувати декілька визначених типів полів, а також створювати необмежену кількість нетипових полів. Записи у збірці можна згрупувати за вмістом будь-якого з полів для спрощення впорядкування і показу точного переліку даних, які вам потрібні. </para>
+
+<para
+>Ви можете стежити за наданими у борг елементами, передбачено можливість інтеграції з &korganizer;. Збірки можна імпортувати або експортувати з використанням широкого діапазону форматі, що полегшує обмін і оприлюднення даних. </para>
+
+</sect2>
+
+<sect2 id="what-tellico-is-not">
+<title
+>Що не може робити &appname;</title>
+
+<para
+>&appname; не є програвачем звукових файлів або файлів відео. У програмі не передбачено можливості читання або зміни мультимедійних файлів. Також не передбачено можливості редагування зображень. Хоча у &appname; і передбачено певні можливості з керування списками бібліографій, програма не є повноцінним інструментом для керування бібліографічними посиланнями. &appname; також не претендує на роль повноцінної реляційної бази дани. </para>
+
+<para
+>Хочеться зауважити, що &appname; є просто одним з захоплень автора програми, отже він не надає жодних гарантій щодо функціональності, корисності програми та будь-яких інших гарантій. Програма дуже далека від професійного програмного забезпечення. Докладніші відомості можна знайти у <link linkend="gnu-fdl"
+>оголошенні про ліцензію</link
+>. </para>
+
+</sect2>
+</sect1>
+
+<sect1 id="terminology">
+<title
+>Термінологія</title>
+
+<sect2 id="collections">
+<title
+>Збірки</title>
+<para
+>У &appname; документом є збірка. У кожному з файлів &appname; може зберігатися лише одна збірка. У збірці може бути довільна кількість <link linkend="fields"
+>полів</link
+> і <link linkend="entries"
+>записів</link
+>. Типово, у &appname; підтримується 12 окремих типів збірок: книги, бібліографічні записи, комікси, відео, музика, картки, монети, марки, відеоігри, вина, ігри на дошці і списки файлів. Крім того, можна скористатися порожнім шаблоном для будь-яких інших елементів колекціонування або списків. </para>
+</sect2>
+
+<sect2 id="fields">
+<title
+>Поля збірок</title>
+<para
+>У кожній зі збірок може бути довільна кількість полів. &appname; підтримує одинадцять типів полів, за допомогою яких можна зберігати широкий діапазон різноманітних даних. Редагувати поля можна за допомогою  <link linkend="fields-dialog"
+>діалогового вікна полів збірки</link
+>, перелік полів можна знайти у розділі <link linkend="field-types"
+>Тип полів</link
+>. </para>
+</sect2>
+
+<sect2 id="entries">
+<title
+>Записи збірок</title>
+
+<para
+>Запис є базовим елементом &appname;. Кожен з записів містить по одному значенню для кожного з полів у збірці. Теоретично, збірка може містити необмежену кількість записів, але оскільки вся збірка завжди має залишатися у оперативній пам’яті комп’ютера, значне збільшення кількості записів може дуже сповільнити роботу програми. </para>
+
+<para
+>Роботу &appname; було перевірено на прикладі збірки з 10.000 записів, швидкість роботи програми залишалася задовільною. Але, якщо до збірки буде включено багато великих зображень, час завантаження і обробки збірки може значно зрости. Швидкодію можна покращити, якщо наказати &appname; зберігати зображення окремо від самого файла даних, або у каталозі програми або у певному каталозі відносно місця зберігання файла даних. Докладніше про це можна дізнатися з <link linkend="configuration"
+>розділу, присвяченого налаштуванню</link
+>. </para>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+&fundamentals-chapter;
+
+&details-chapter;
+
+&importing-exporting-chapter;
+
+&advanced-chapter;
+
+&configuration-chapter;
+
+&hacking-chapter;
+
+&faqs-chapter;
+
+&menus-chapter;
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be
+included below the credits with a reference to the appropriate license
+file included in the KDE distribution. -->
+
+<title
+>Подяки і ліцензія</title>
+
+<para
+>&appname; </para>
+<para
+>Авторські права на програму належать © 2001-2009 &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Авторські права на документацію до програми належать © 2001-2009 &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Переклад українською: Юрій Чорноіван<email
+>yurchor@ukr.net</email
+></para
+> 
+&underFDL; &underGPL; <para
+>Автор цієї документації надає вам дозвіл використовувати її вміст згідно до умов <ulink url="freebsd-doc-license.html"
+>FreeBSD Documentation License</ulink
+>, якщо ви цього бажаєте. Якщо ви бажаєте дозволити використання вашої версії вмісту цієї документації лише за умов дотримання FreeBSD Documentation License, і не бажаєте надавати дозвіл іншим особами використовувати версію цього файла згідно до умов GFDL, позначте це ваше рішення вилученням умов ліцензування GFDL з заміною їх повідомленням про ліцензування та іншими застереженнями FreeBSD Documentation License. Якщо ви не вилучите наведені вище умови ліцензування згідно GFDL, будь-хто матиме змогу використовувати вашу версію цього файла за умов дотримання однієї з ліцензій: GFDL або FreeBSD Documentation License.</para>
+
+</chapter>
+
+<appendix id="installation">
+<title
+>Встановлення</title>
+
+<sect1 id="getting-tellico">
+<title
+>Як отримати &appname;</title>
+
+<para
+>Домашню сторінку &appname; розташовано за адресою <ulink url="&homepage;"
+>&homepage;</ulink
+>. На цій сторінці ви знайдете оновлення і новини про програму.</para>
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Збирання і встановлення</title>
+&install.compile.documentation; </sect1>
+
+</appendix>
+
+&documentation.index;
+
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

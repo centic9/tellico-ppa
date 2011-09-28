@@ -1,0 +1,353 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY appname '<application
+>Tellico</application
+>'>
+  <!ENTITY kappname "&appname;">
+  <!ENTITY package "extragear/office">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Swedish "INCLUDE"
+><!-- change language only here -->
+
+  <!ENTITY robby "Robby Stephenson">
+  <!ENTITY email "robby@periapsis.org">
+  <!ENTITY homepage "http://tellico-project.org">
+  <!ENTITY maillist "http://forge.novell.com/mailman/listinfo/tellico-users">
+  <!ENTITY xslt "<acronym
+>XSLT</acronym
+>">
+
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY importing-exporting-chapter SYSTEM "importing-exporting.docbook">
+  <!ENTITY configuration-chapter SYSTEM "configuration.docbook">
+  <!ENTITY fields-chapter SYSTEM "fields.docbook">
+  <!ENTITY menus-chapter SYSTEM "menus.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY hacking-chapter SYSTEM "hacking.docbook">
+  <!ENTITY faqs-chapter SYSTEM "faqs.docbook">
+  <!ENTITY details-chapter SYSTEM "details.docbook">
+
+]>
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+<date
+>28/08/2009</date>
+<releaseinfo
+>2.0</releaseinfo>
+
+<title
+>Handbok &appname;</title>
+
+<authorgroup>
+<author
+><firstname
+>Robby</firstname
+> <surname
+>Stephenson</surname
+> <affiliation
+> <address
+><email
+>&email;</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+> <firstname
+>Stefan</firstname
+> <surname
+>Asserhäll</surname
+> <affiliation
+><address
+><email
+>stefan.asserhall@comhem.se</email
+></address
+></affiliation
+> <contrib
+>Översättare</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2001</year>
+<year
+>2002</year>
+<year
+>2003</year>
+<year
+>2004</year>
+<year
+>2005</year>
+<year
+>2006</year>
+<year
+>2007</year>
+<year
+>2008</year>
+<year
+>2009</year>
+<holder
+>&robby;</holder>
+</copyright>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+&FDLNotice;
+
+<para
+>Författaren av detta dokument har också beviljat dig rättighet att använda innehållet under villkoren i <ulink url="freebsd-doc-license.html"
+>FreeBSD Documentation License</ulink
+>, om du så önskar. Se anmärkningen i <link linkend="gnu-fdl"
+>licensavsnittet</link
+>.</para>
+</legalnotice>
+
+<legalnotice>
+<para
+>Detta program är fri programvara. Du kan distribuera det och/eller ändra det under villkoren i GNU General Public License, publicerad av Free Software Foundation, antingen version 2 av licensen, eller (om du så önskar) version 3 eller någon senare version accepterad av ledamöterna i KDE e.V. (eller deras efterföljare, godkända av ledamöterna i KDE e.V.), vilka ska fungera som ombud, enligt definitionen i avsnitt 14 av licensens tredje version. </para>
+
+<para
+>Detta program distribueras i hopp om att det ska vara användbart, men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se &GNU; General Public License för ytterligare information.</para>
+
+<para
+>Du ska ha fått en kopia av &GNU; General Public License tillsammans med detta program. Om inte, skriv till Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor, Boston, MA 02110-1301, USA.</para>
+</legalnotice>
+<!--<legalnotice
+>&GPLNotice;</legalnotice
+>-->
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>Detta dokument är en handbok om användning av &appname;, en programvara för samlingshantering. </para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>tellico</keyword>
+<keyword
+>bok</keyword>
+<keyword
+>bibliografi</keyword>
+<keyword
+>film</keyword>
+<keyword
+>samling</keyword>
+<keyword
+>databas</keyword>
+<keyword
+>katalog</keyword>
+<keyword
+>extragear</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label each chapter
+so with the id attribute. This is necessary for two reasons: it allows
+you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files
+will vary from time to time making it hard to manage for maintainers
+and for the CVS system. Any chapter labelled (OPTIONAL) may be left
+out at the author's discretion. Other chapters should not be left out
+in order to maintain a consistent documentation style across all KDE
+apps. -->
+
+<chapter id="introduction">
+<title
+>Inledning</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<sect1 id="tellico-intro">
+<title
+>&appname;</title>
+
+<para
+>&appname; är ett program för att hantera samlingar. Det började som en enkel hantering av boksamlingar, och har expanderat att omfatta standardmallar för bibliografier, serietidningar, videor, musik, mynt, frimärken, kort, videospel, viner, spel och fillistningar. Dessutom kan egna samlingar skapas för vilken sorts samlingsobjekt som helst. </para>
+
+<sect2 id="what-tellico-is">
+<title
+>Vad &appname; är</title>
+
+<para
+>&appname; håller reda på objekten i en samling, och erbjuder ett enkelt sätt att mata in information om varje post. Det tillhandahåller flera fälttyper, och tillåter ett obegränsat antal användardefinierade fält. Posterna i en samling kan grupperas enligt vilket fält som helst, för att enkelt kunna organisera dem, och användarändringsbara vyer visar så stor eller liten mängd information som önskas. </para>
+
+<para
+>Lån kan följas, med valfri integrering med &korganizer;. Samlingar kan importeras och exporteras med ett antal olika format, för att tillåta enkelt utbyte eller publicering av information. </para>
+
+</sect2>
+
+<sect2 id="what-tellico-is-not">
+<title
+>Vad &appname; inte är</title>
+
+<para
+>&appname; är inte en ljud- eller videospelare. Det tillhandahåller inga funktioner för att läsa eller ändra multimediafiler. Det tillhandahåller heller inte några bildredigeringsfunktioner. Även om &appname; har vissa funktioner för att hantera bibliografilistor, är det inte ett fullständigt bibliografiskt referensprogram. &appname; påstår sig inte heller ha alla möjligheter som tillhandahålls av en fullständig relationsdatabas. </para>
+
+<para
+>Som något av en friskrivning, är &appname; en hobby för upphovsmannen, och inga garantier ges om dess funktion, användbarhet, eller liknande. Det är mycket långt från att vara en professionell programvara. Mer information ingår i <link linkend="gnu-fdl"
+>licensdeklarationen</link
+>. </para>
+
+</sect2>
+</sect1>
+
+<sect1 id="terminology">
+<title
+>Terminologi</title>
+
+<sect2 id="collections">
+<title
+>Samlingar</title>
+<para
+>I &appname; är samlingen dokumentet. Det finns bara en samling i varje &appname;-fil. En samling innehåller ett godtyckligt antal <link linkend="fields"
+>fält</link
+> och <link linkend="entries"
+>poster</link
+>. &appname; stöder 12 specifika samlingstyper som standard: böcker, bibliografiska poster, serier, videor, musik, kort, mynt, frimärken, videospel, viner, brädspel och fillistningar. Dessutom finns en generell tom samlingsmall tillgänglig för vilken annan typ av samlingsobjekt eller listor som helst. </para>
+</sect2>
+
+<sect2 id="fields">
+<title
+>Samlingsfält</title>
+<para
+>Varje samling kan ha ett obegränsat antal fält. &appname; stöder elva fälttyper, som tillåter en mängd olika information. Fälten kan redigeras från <link linkend="fields-dialog"
+><interface
+>samlingsfältdialogrutan</interface
+></link
+> och förklaras vidare i avsnittet <link linkend="field-types"
+>Fälttyper</link
+>. </para>
+</sect2>
+
+<sect2 id="entries">
+<title
+>Samlingsposter</title>
+
+<para
+>En post är grunden i &appname;. Varje post innehåller ett enda värde för varje fält i samlingen. Teoretiskt kan en samling ha ett obegränsat antal poster, även om alltför många poster skulle kunna slöa ner programmet, eftersom hela samlingen alltid finns inläst i minnet. </para>
+
+<para
+>&appname; har provats med en samling av 10 000 poster, och hastigheten var tillfredsställande. Om många stora bilder ingår i samling blir inläsnings- och behandlingstiden dock mycket längre. Prestanda kan förbättras genom att låta &appname; lagra bilder separat från själva datafilen, antingen i den programspecifika katalogen eller i en katalog relativ till datafilen. Mer information finns i <link linkend="configuration"
+>inställningsavsnittet</link
+>. </para>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+&fundamentals-chapter;
+
+&details-chapter;
+
+&importing-exporting-chapter;
+
+&advanced-chapter;
+
+&configuration-chapter;
+
+&hacking-chapter;
+
+&faqs-chapter;
+
+&menus-chapter;
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be
+included below the credits with a reference to the appropriate license
+file included in the KDE distribution. -->
+
+<title
+>Tack till och licens</title>
+
+<para
+>&appname; </para>
+<para
+>Program copyright 2001-2009 &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Dokumentation copyright 2001-2009 &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Översättning Stefan Asserhäll <email
+>stefan.asserhall@comhem.se</email
+></para
+> 
+&underFDL; &underGPL; <para
+>Författaren av detta dokument har också beviljat dig rättighet att använda innehållet under villkoren i <ulink url="freebsd-doc-license.html"
+>FreeBSD Documentation License</ulink
+>, om du så önskar. Om du enbart önskar tillåta användning av din version av detta innehåll under villkoren i FreeBSD Documentation License, och inte tillåta andra att använda din version av filen under villkoren i GFDL, indikera ditt beslut genom att ta bort GFDL notisen och ersätt den med notisen och andra bestämmelser som krävs av FreeBSD Documentation License. Om du inte tar bort GFDL notisen ovan, kan en mottagare av filen antingen använda din version av filen under villkoren i GFDL eller FreeBSD Documentation License.</para>
+
+</chapter>
+
+<appendix id="installation">
+<title
+>Installation</title>
+
+<sect1 id="getting-tellico">
+<title
+>Hur man skaffar &appname;</title>
+
+<para
+>&appname;s hemsida är <ulink url="&homepage;"
+>&homepage;</ulink
+>. Uppdateringar och nyheter hittar du där.</para>
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Kompilering och installation</title>
+&install.compile.documentation; </sect1>
+
+</appendix>
+
+&documentation.index;
+
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

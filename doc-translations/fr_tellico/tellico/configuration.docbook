@@ -1,0 +1,573 @@
+<chapter id="configuration">
+<title
+>Configuration</title>
+
+
+<para
+>La <interface
+>boîte de dialogue de configuration</interface
+> contient toutes les options pour la modification des comportements par défaut de &appname;. </para>
+
+<para
+>Cliquer sur le bouton <guibutton
+>Appliquer</guibutton
+> <action
+> déclenche l'application immédiate des modifications</action
+> sans fermer la boîte de dialogue, tandis que le bouton <guibutton
+>Ok</guibutton
+> <action
+> applique les modifications et ferme la boîte de dialogue</action
+>. Le bouton <guibutton
+>Annuler</guibutton
+> ferme la boîte de dialogue, mais aucune modifications ne sont appliquées. Le bouton <guibutton
+>Par défaut</guibutton
+><action
+> annule les options</action
+> sur la page courante de la boîte de dialogue pour les valeurs par défaut, tandis que le bouton <guibutton
+>Aide</guibutton
+> <action
+> ouvre le&centreAide;</action
+> à la section relative du manuel de &appname;. </para>
+
+<para
+>Des paramètres mineurs peuvent seulement être modifiés en modifiant le fichier de configuration. Voir les <link linkend="hidden-options"
+>Options cachées</link
+>. </para>
+
+<sect1 id="general-options">
+<title
+><guilabel
+>Options générales</guilabel
+></title>
+
+<screenshot>
+<screeninfo
+>La boîte de dialogue des options générales</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="general-options.png"/></imageobject>
+<textobject
+><phrase
+>La boîte de dialogue des options générales</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Les <guilabel
+>Options générales</guilabel
+> contrôlent le comportement général. Les images doivent être incluses dans les fichiers de données, ou enregistrées séparément dans le dossier d'application &appname;. Aussi, quand &appname; est lancé, il peut automatiquement réouvrir le dernier fichier de données qui a été ouvert. La boîte de dialogue <guilabel
+>Astuce du jour</guilabel
+> contient des conseils sur l'utilisation de &appname; et apparaît au démarrage du programme. Vous devriez lire quelques conseils et ensuite désactiver la boîte de dialogue. </para>
+
+<para
+>Les <guilabel
+>Options de mise en forme</guilabel
+> contrôlent le niveau de mise en forme automatique que &appname; applique. Par exemple, lisez la <link linkend="field-formatting"
+>section de mise en forme du champ</link
+>. Les majuscules et la mise en forme sont des options distinctes, depuis qu'un champ doit être en majuscule sans avoir l'ordre des mots modifié, et vice-versa. La mise en majuscule automatique peut être modifiée pour ignorer certains mots. La mise en forme automatique inclut des articles grammaticaux dans les titres, accompagnés des préfixes et suffixes pour les noms de personne. Les valeurs sont des cases sensitives, et doivent être séparées par un point virgule. </para>
+
+<para
+>Les règles de mise en forme suivent la page générale anglaise, qui ne fonctionne pas pour les autres langues. Les articles sont fournis à la fin du titre avec une virgule. Les noms de personnes sont formatés pour afficher le dernier nom en premier, suivi d'une virgule, ensuite le premier nom. Les suffixes personnels, tels que Jr., sont conservés avec le dernier nom. Les préfixes, tel que <emphasis
+>von</emphasis
+>, sont conservés avec le dernier nom mais sont ignorés quand les valeurs sont triées.</para>
+
+<informalexample
+><para
+><emphasis
+>John Q. von Public, III</emphasis
+> deviendrait <emphasis
+>von Public, III, John Q.</emphasis
+> et <emphasis
+>Public</emphasis
+> devrait être utilisé en tant que clé de trie.</para
+></informalexample>
+
+<para
+>Seul les préfixes de mot simple sont gérés. Si un nom inclut <emphasis
+>van der</emphasis
+>, par exemple, les deux <emphasis
+>van</emphasis
+> et <emphasis
+>der</emphasis
+> doivent être inclus dans la liste de préfixe de surnom. Les fins d'articles avec une apostrophe sont également gérés par ordre de trie. </para>
+
+<note
+><para
+>Les valeurs actuelles dans la collection ne sont <emphasis
+>pas</emphasis
+> modifiées, seul le texte visible est utilisé pour l'interface. Les options de mise en forme peuvent donc être modifiées et rétablies sans affecter les données dans la collection.</para
+></note>
+
+</sect1>
+
+<sect1 id="printing-options">
+<title
+><guilabel
+>Options d'impression</guilabel
+></title>
+
+<para
+>&appname; utilise un modèle &xslt; pour la création &HTML; et ensuite l'envoie vers le service d'impression de &kde;. Seul les champs visibles dans la <link linkend="detailed-view"
+>Vue en colonne</link
+> sont imprimés. De plus, si la collection a été filtrée, seul les entrées visibles seront imprimées. Initialement, un message d'erreur est affiché si le filtrage est activé. </para>
+
+<screenshot>
+<screeninfo
+>La boîte de dialogue des options d'impression</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="print-options.png"/></imageobject>
+<textobject
+><phrase
+>La boîte de dialogue des options d'impression</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Les <guilabel
+>Options d'impression</guilabel
+> vous permettent de modifier des mises en forme à l'impression de la collection. Si <guilabel
+>Mise en forme des titres et des noms</guilabel
+> est coché, les champs sont ensuite <link linkend="field-formatting"
+>formatés automatiquement</link
+> quand ils sont imprimés, ils sont imprimés exactement comme ils sont saisis. </para>
+
+<para
+>La feuille de style d'impression par défaut imprime la collection avec les valeurs de champ dans les colonnes. <guilabel
+>Imprimer les libellés des champs</guilabel
+> contrôle si le titre du champ est imprimé en haut de la colonne. </para>
+
+<para
+>Dans la sortie d'impression, les entrées seront triées telles qu'elles sont dans la <link linkend="detailed-view"
+>Vue en colonne</link
+>. En plus, elles peuvent être groupées telles qu'elles sont dans la <link linkend="group-view"
+>Vue en groupe</link
+>. </para>
+
+<para
+>Finalement, quand les champs des images sont inclus dans l'impression de sortie, les images peuvent être redimensionnées, tout en conservant les proportions. La largeur maximale de l'image définit la taille la plus large possible de l'image, même si cette taille n'augmentera jamais. </para>
+</sect1>
+
+<sect1 id="template-options">
+<title
+><guilabel
+>Options des modèles</guilabel
+></title>
+
+<para
+>La <link linkend="entry-view"
+>Vue des entrées</link
+> utilise des modèles pour afficher les valeurs des champs. Vous pouvez spécifier un modèle différent pour chaque type de collection. Certains modèles, tel que les modèles <emphasis
+>Album</emphasis
+> ou <emphasis
+>Vidéo</emphasis
+> sont pour un type spécifique de collection, et un court message d'erreur apparaîtra dans la <interface
+>Vue des entrées</interface
+> si elles sont utilisées pour d'autres types. Le bouton <guilabel
+>Aperçu</guilabel
+> affiche une fenêtre d'aperçu de ce à quoi ressemble le modèle. Les polices et couleurs personnalisées peuvent être définies sans les modèles, et tous les modèles par défaut appliqueront ces paramètres. Cependant, le modèle personnalisé peut choisir de les ignorer.</para>
+
+<para
+>Les modèles additionnels peuvent être installés directement ou téléchargés depuis <ulink url="http://kde-files.org/index.php?amp;xcontentmode=676"
+>kde-files.org</ulink
+> en cliquant sur le bouton <guilabel
+>Télécharger</guilabel
+>. Les modèles installés par l'utilisateur peuvent aussi être supprimés. Les modèles d'entrée sont enregistrés dans <filename class="directory"
+>$<envar
+>KDEHOME</envar
+>/share/apps/tellico/entry-templates/</filename
+>. </para>
+
+<para
+>Si vous créez un nouveau modèle, vous pouvez le soumettre sur <ulink url="http://kde-files.org/index.php?amp;xcontentmode=676"
+>kde-files.org</ulink
+> !</para>
+
+<screenshot>
+<screeninfo
+>La boîte de dialogue des options des modèles</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="template-options.png"/></imageobject>
+<textobject
+><phrase
+>La boîte de dialogue des options des modèles</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+</sect1>
+
+<sect1 id="data-sources-options">
+<title
+><guilabel
+>Options des sources de données</guilabel
+></title>
+
+<para
+>&appname; peut utiliser de nombreuses sources pour importer des données, qui peuvent être configurées dans la boîte de dialogue des sources des données. Elles ont de nombreux types de sources disponibles : </para>
+
+<itemizedlist>
+<listitem
+><para
+><link linkend="amazon-web-services"
+>Services web Amazon.com</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="imdb"
+>Internet Movie Database (IMDB)</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="z3950"
+>serveurs z39.50</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="sru"
+>Serveurs SRU</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="entrez"
+>Base de données Entrez (PubMed)</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="yahoo"
+>Yahoo! Audio Search</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="animenfo"
+>AnimeNfo.com</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="ibs"
+>Internet Bookshop Italia</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="isbndb"
+>ISBNdb.com</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="gcstarplugin"
+>Module externe <application
+>GCstar</application
+></link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>arxiv.org</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>bibsonomy.org</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>citebase.org</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="bib-sources"
+>crossref.org</link
+>, </para
+></listitem>
+<listitem
+><para
+><link linkend="externalexec"
+>D'autres scripts ou applications externes</link
+></para
+></listitem>
+</itemizedlist>
+
+<screenshot>
+<screeninfo
+>La boîte de dialogue des options des sources de données</screeninfo>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="source-options.png"/></imageobject>
+<textobject
+><phrase
+>La boîte de dialogue des options des sources de données</phrase
+></textobject>
+</mediaobject>
+</screenshot>
+
+<para
+>De nouvelles sources peuvent être ajoutées en cliquant sur le bouton <guibutton
+>Nouveau...</guibutton
+>, tandis que des sources existantes peuvent être modifiées ou supprimées en utilisant les boutons <guibutton
+>Modifier...</guibutton
+> ou <guibutton
+>Supprimer</guibutton
+>. L'ordre des sources qui affiche dans les menus de mise à jour des entrées, peut aussi être modifié. </para>
+
+<para
+>Les modèles additionnels peuvent être téléchargés depuis le dépôt en ligne de l'auteur en cliquant sur le bouton <guilabel
+>Télécharger</guilabel
+>. Ces scripts sont signés avec GPG par l'auteur pour garantir contre des scripts dangereux de sources inconnues, qui peuvent causer des dégâts à votre système. </para>
+
+<warning>
+<para
+>N'installez et ne lancez jamais un script à partir de sources non vérifiées. Elles sont exécutées avec les mêmes droits d'accès que l'utilisateur, et à comme conséquence la possibilité de modifier ou supprimer des fichiers ou sinon mettre le bazar dans votre système. </para>
+</warning>
+
+<para
+>La plupart de ces sources offre plus d'informations que les champs par défaut dans &appname;. Ces autres champs sont affichés sur la droite de la boîte de dialogue de configuration. Si certains de ces champs sont cochés, ils seront ajoutés à la collection quand une entrée est ajoutées depuis cette source. </para>
+
+<sect2 id="amazon-web-services">
+<title
+>Amazon.com</title>
+
+<para
+>En utilisant les services web Amazon.com, &appname; peut rechercher dans six différents sites internationaux exploités par <ulink url="http://amazon.com"
+>Amazon.com</ulink
+>. Pour informations : United States, United Kingdom, Germany, Japan, France, et Canada. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="amazon-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Configurer chaque sources Amazon.com nécessite trois paramètres : l'emplacement du serveur, la taille de l'image et les ID associés. Des informations de <ulink url="http://amazon.com"
+>Amazon.com</ulink
+> peuvent inclure une image, tel qu'une couverture d'une vidéo ou d'un livre. Cette image peut être téléchargée dans trois différentes tailles, cela dépend de l'élément. Les ID associés doivent être utilisés pour accéder aux services web d'Amazon.com, et sont inclus dans les liens des éléments, selon le contrat de licence pour l'utilisation des services web d'Amazon.com. </para>
+
+</sect2>
+
+<sect2 id="imdb">
+<title
+>Internet Movie Database (IMDB)</title>
+
+<para
+><ulink url="http://www.imdb.com"
+>Internet Movie Database</ulink
+> fournit des informations sur les films et vidéos. Quand une recherche est lancée pour une <emphasis
+>Personne</emphasis
+>, si plus d'un résultat est affiché, une boîte de dialogue est ouverte vous permettant de sélectionner la bonne personne. Les options de configuration incluent la configuration d'adresse de serveur web et si des images sont ou non présentes. Depuis que IMDb peut afficher un grand nombre d'acteurs, vous pouvez limiter la recherche à un certain nombre. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="imdb-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="z3950">
+<title
+>Serveurs z39.50</title>
+
+<para
+>Le <ulink url="http://www.cni.org/pub/NISO/docs/Z39.50-brochure/50.brochure.toc.html"
+>protocole z39.50</ulink
+> est utilisé pour accéder aux fournisseurs d'informations bibliographiques et des bibliothèques de part le monde. Une liste des serveurs publiques z39.50 sont <ulink url="http://www.indexdata.dk/targettest/"
+>disponible depuis indexdata.dk</ulink
+>, parmi d'autres. &appname; vient avec de nombreuses configurations prédéfinies pour les bibliothèques importantes, ou vous pouvez spécifier les informations de connexion manuellement.</para>
+
+<para
+>&appname;peut lire les donnée dans le format <acronym
+>MODS</acronym
+>, <acronym
+>USMARC</acronym
+>/<acronym
+>MARC21</acronym
+>, ou <acronym
+>UNIMARC</acronym
+>, en utilisant la <ulink url="http://www.indexdata.dk/yaz/"
+>bibliothèque yaz</ulink
+>. En plus, il y a une prise en charge limitée pour le format <acronym
+>GRS-1</acronym
+>. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="z3950-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+
+<para
+>Pour utiliser une des bibliothèques prédéfinies, cochez la case, et sélectionnez ensuite la bibliothèque. Les autres entrées de configuration seront désactivées. Si vous avez besoin de définir les informations manuellement, décochez cette case. </para>
+
+<para
+>Le port par défaut pour l'accès z39.50 est 210, mais des serveurs peuvent utiliser un port différent. &appname; suppose que le serveur utilise le codage de caractères MARC-8, sauf s'il est configuré. Si un codage de caractères incorrect est utilisé, un message d'erreur peut apparaître sur la sortie du programme, ou aucune entrées n'est récupérée. </para>
+
+<para
+>Des serveurs requièrent un nom d'utilisateur et un mot de passe pour l'accès. &appname; peut utiliser et enregistrer ce mot de passe, mais gardez à l'esprit que ce mot de passe est écrit dans le fichier de configuration de &appname; en texte plein et n'est pas sécurisé. Pour la plupart des serveurs publiques, le champ du nom d'utilisateur et du mot de passe doit être laissé vide. </para>
+
+</sect2>
+
+<sect2 id="sru">
+<title
+>Serveurs SRU</title>
+
+<para
+>SRU veut dire <ulink url="http://www.loc.gov/standards/sru/"
+>Search/Retrieve via &URL; (recherche et réception à partir d'un &URL;)</ulink
+> et est un protocole de recherche standard pour les recherches Internet. Certaines bibliothèques l'utilisent fournissant un accès à leur catalogue de données. Parmi elles, <ulink url="http://www.loc.gov/z3950/lcserver.html#oppr"
+>US Library of Congress</ulink
+> est probablement la plus connue. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="sru-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect2>
+
+<sect2 id="entrez">
+<title
+>Bases de données Entrez</title>
+<para
+><ulink url="http://www.ncbi.nlm.nih.gov/Entrez/"
+>Entrez</ulink
+> est le système de reception et de recherche intégrée, fondée sur du texte utilisé par le National Center for Biotechnology Information (NCBI). La base de données Entrez la plus connue est <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=PubMed"
+>PubMed</ulink
+>, la base de donnée pour les articles de science à partir des journaux biologiques. Pour le moment, la seule base de données Entrez gérée par &appname; est PubMed.</para>
+</sect2>
+
+<sect2 id="yahoo">
+<title
+>Yahoo! Audio Search</title>
+<para
+><ulink url="http://audio.search.yahoo.com"
+>Yahoo! Audio Search</ulink
+> peut être utilisé pour rechercher des informations d'albums musicaux. </para>
+</sect2>
+
+<sect2 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> est un site populaire pour les informations sur les dessins animés japonais. </para>
+</sect2>
+
+<sect2 id="ibs">
+<title
+>Internet Bookstore Italia</title>
+<para
+><ulink url="http://ibs.it"
+>IBS, ou Internet Bookstore Italia</ulink
+> est un marchand de livres italien en ligne. </para>
+</sect2>
+
+<sect2 id="isbndb">
+<title
+>ISBNdb.com</title>
+<para
+><ulink url="http://isbndb.com"
+>ISBNdb.com</ulink
+> est une base de données de livres en ligne avec des bibliothèques de collection de données de part le monde. </para>
+</sect2>
+
+<sect2 id="gcstarplugin">
+<title
+>Modules externes GCstar</title>
+<para
+>Si <application
+><ulink url="http://www.gcstar.org"
+>GCstar</ulink
+></application
+> est installé, &appname; peut tirer parti d'une grande gamme de modules externes de recherche disponibles pour GCstar. En fonction du type de collection, les diverses ressources en ligne sont disponibles pour l'utilisation telle qu'une source de données dans &appname;. </para>
+</sect2>
+
+<sect2 id="bib-sources">
+<title
+>Bases de données bibliographiques</title>
+<para
+><ulink url="http://arxiv.org"
+>arXiv.org</ulink
+>, <ulink url="http://bibsonomy.org"
+>Bibsonomy</ulink
+>, <ulink url="http://citebase.org"
+>Citebase</ulink
+>, et <ulink url="http://crossref.org"
+>CrossRef</ulink
+> sont des base de données en ligne pour les articles académiques et les informations bibliographiques. Pour avoir accès aux sources de CrossRef, vous devez <ulink url="http://www.crossref.org/requestaccount/"
+>demander un compte </ulink
+> et ajouter les informations de votre compte à la configuration des sources de données.</para>
+</sect2>
+
+<sect2 id="externalexec">
+<title
+>Scripts externes ou applications</title>
+<para
+>Pour faciliter à &appname; l'intégration de modules externes, les scripts externes ou les applications peuvent être utilisés comme une interface pour rechercher d'autres sources d'informations. &appname; lancera une commande, et enverra les termes de commande comme des options de ligne de commande. </para>
+
+<para
+>Des scripts sont distribués avec &appname; lui même. <ulink url="http://www.allocine.fr"
+>Allocine.fr</ulink
+> est un marchand de livres français en ligne. Cette source de données requiert l'installation de <ulink url="http://python.org"
+>Python</ulink
+>. Le <ulink url="http://www.mcu.es"
+>Ministère de la Culture Espagnol</ulink
+> est une base de donnée espagnole de livres en ligne. Cette source de donnée requiert aussi l'installation de Python. <ulink url="http://darkhorse.com"
+>Dark Horse Comics</ulink
+> est un éditeur de BD. Cette source de données requiert aussi l'installation de Python. <ulink url="http://boardgamegeek.com"
+>BoardGameGeek</ulink
+> est un site web avec des données extensives pour les jeux de plateau, et le script requiert <ulink url="http://www.ruby-lang.org"
+>ruby</ulink
+>. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="externalexec-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Le type de collection retourné par le script doit être défini, en même temps que le format de données. &appname; ne peut pas seulement importer des données depuis des scripts qui utilisent le <link linkend="file-format"
+>format &XML; par défaut de &appname;</link
+>, mais il peut aussi importer d'autres formats tel que bibtex. </para>
+
+<para
+>L'emplacement complet vers l'application doit être saisi dans les options de source. Soyez attentif au fait que l'application est exécuté sur le système avec les mêmes droits d'accès que l'utilisateur courant, n'utilisez donc pas de scripts qui n'ont pas de sources vérifiées. Cochez les cases après les clés de recherche gérés par l'application, et saisissez les options de ligne de commande requises dans la boîte de modification. La valeur de recherche sera insérée où <userinput
+>%1</userinput
+> apparaît. </para>
+
+<para
+>Pour toujours mettre à jour des entrées dans la collection, les cases de vérification finale et les boîtes de modification sont utilisées pour déterminer les options de ligne de commande. Les champs d'entrée utilisés pour trouver la mise à jour doivent être saisi, dans le même format qu'utilisé pour les champs <emphasis
+><link linkend="dependent"
+> Dependant</link
+></emphasis
+>. </para>
+</sect2>
+
+</sect1>
+
+</chapter>

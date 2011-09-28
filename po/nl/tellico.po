@@ -5,13 +5,13 @@
 # Fred Marchee <fred@intercookie.com>, 2005.
 # Fred Marchee <fredmarchee@gmail.com>, 2005.
 # Antoon Tolboom <atolboo@gmail.com>, 2009.
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2010.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-12-03 02:30+0100\n"
-"PO-Revision-Date: 2010-11-06 12:43+0100\n"
+"POT-Creation-Date: 2011-04-06 03:33+0200\n"
+"PO-Revision-Date: 2011-03-17 07:50-0400\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,8 +70,8 @@ msgstr "Sjabloonvoorbeeld"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/gui/statusbar.cpp:95 src/fetchdialog.cpp:270 src/fetchdialog.cpp:362
-#: src/fetchdialog.cpp:452 src/fetchdialog.cpp:507 src/controller.cpp:139
+#: src/gui/statusbar.cpp:95 src/fetchdialog.cpp:274 src/fetchdialog.cpp:366
+#: src/fetchdialog.cpp:456 src/fetchdialog.cpp:525 src/controller.cpp:139
 msgid "Ready."
 msgstr "Klaar."
 
@@ -174,7 +174,7 @@ msgctxt "Add (Entry Title)"
 msgid "Add %1"
 msgstr "%1 toevoegen"
 
-#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:318
+#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:319
 msgid "Rename Collection"
 msgstr "Hernoem verzameling"
 
@@ -187,11 +187,11 @@ msgid "Add Filter"
 msgstr "Filter toevoegen"
 
 #: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:305
-#: src/filterview.cpp:148
+#: src/filterview.cpp:133
 msgid "Modify Filter"
 msgstr "Bewerk filter"
 
-#: src/commands/filtercommand.cpp:60 src/filterview.cpp:150
+#: src/commands/filtercommand.cpp:60 src/filterview.cpp:135
 msgid "Delete Filter"
 msgstr "Filter wissen"
 
@@ -205,11 +205,11 @@ msgctxt "Check-out (Entry Title)"
 msgid "Check-out %1"
 msgstr "%1 uitchecken"
 
-#: src/commands/removeentries.cpp:39
+#: src/commands/removeentries.cpp:41
 msgid "Delete Entries"
 msgstr "Wis items"
 
-#: src/commands/removeentries.cpp:40
+#: src/commands/removeentries.cpp:42
 #, kde-format
 msgctxt "Delete (Entry Title)"
 msgid "Delete %1"
@@ -250,12 +250,13 @@ msgstr "%1 inchecken"
 #: src/collections/bibtexcollection.cpp:38
 #: src/collections/bibtexcollection.cpp:100
 #: src/collections/musiccollection.cpp:31
-#: src/collections/boardgamecollection.cpp:31 src/fetch/imdbfetcher.cpp:749
-#: src/fetch/imdbfetcher.cpp:1066 src/fetch/openlibraryfetcher.cpp:298
-#: src/fetch/freebasefetcher.cpp:397 src/translators/gcstarimporter.cpp:89
-#: src/field.cpp:37 src/field.cpp:78 src/collection.cpp:57
-#: src/configdialog.cpp:154 src/configdialog.cpp:177 src/configdialog.cpp:204
-#: src/configdialog.cpp:222
+#: src/collections/boardgamecollection.cpp:31 src/fetch/imdbfetcher.cpp:753
+#: src/fetch/imdbfetcher.cpp:1071 src/fetch/filmasterfetcher.cpp:233
+#: src/fetch/animenfofetcher.cpp:294 src/fetch/animenfofetcher.cpp:298
+#: src/fetch/openlibraryfetcher.cpp:298 src/fetch/freebasefetcher.cpp:367
+#: src/translators/gcstarimporter.cpp:89 src/field.cpp:37 src/field.cpp:78
+#: src/collection.cpp:57 src/configdialog.cpp:159 src/configdialog.cpp:182
+#: src/configdialog.cpp:209 src/configdialog.cpp:227
 msgid "General"
 msgstr "Algemeen"
 
@@ -284,7 +285,7 @@ msgstr "Mijn postzegels"
 #: src/collections/stampcollection.cpp:54 src/collections/filecatalog.cpp:57
 #: src/collections/winecollection.cpp:125
 #: src/collections/gamecollection.cpp:94
-#: src/collections/boardgamecollection.cpp:85 src/fetchdialog.cpp:211
+#: src/collections/boardgamecollection.cpp:85 src/fetchdialog.cpp:212
 #: src/entrymatchdialog.cpp:86
 msgid "Description"
 msgstr "Omschrijving"
@@ -494,7 +495,7 @@ msgstr "Auteur"
 msgid "Editor"
 msgstr "Uitgever"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:431
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:401
 #: src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Gebonden"
@@ -596,7 +597,7 @@ msgstr "Genre"
 #: src/collections/videocollection.cpp:215
 #: src/collections/cardcollection.cpp:111
 #: src/collections/bibtexcollection.cpp:234
-#: src/collections/musiccollection.cpp:113 src/fetch/amazonfetcher.cpp:864
+#: src/collections/musiccollection.cpp:113 src/fetch/amazonfetcher.cpp:869
 msgid "Keywords"
 msgstr "Trefwoorden"
 
@@ -611,8 +612,8 @@ msgstr "Serie"
 msgid "Series Number"
 msgstr "Serienummer"
 
-#: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:229
-#: src/mainwindow.cpp:478
+#: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:231
+#: src/mainwindow.cpp:480
 msgid "New"
 msgstr "Nieuw"
 
@@ -790,11 +791,11 @@ msgctxt ""
 msgid "Mint,Near Mint,Very Fine,Fine,Very Good,Good,Fair,Poor"
 msgstr "Mooi,Bijna mooi,Heel fijn,Fijn,Heel goed,Goed,Redelijk,Slecht"
 
-#: src/collections/videocollection.cpp:32 src/fetch/animenfofetcher.cpp:266
+#: src/collections/videocollection.cpp:32 src/fetch/animenfofetcher.cpp:284
 msgid "Other People"
 msgstr "Overige medewerkers"
 
-#: src/collections/videocollection.cpp:33 src/fetch/animenfofetcher.cpp:272
+#: src/collections/videocollection.cpp:33 src/fetch/animenfofetcher.cpp:290
 msgid "Features"
 msgstr "Mogelijkheden"
 
@@ -803,11 +804,11 @@ msgid "My Videos"
 msgstr "Mijn films"
 
 #: src/collections/videocollection.cpp:54
-#: src/collections/musiccollection.cpp:54 src/fetch/amazonfetcher.cpp:830
+#: src/collections/musiccollection.cpp:54 src/fetch/amazonfetcher.cpp:835
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:817
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:822
 msgid "VHS"
 msgstr "VHS"
 
@@ -819,11 +820,11 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:811
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:816
 msgid "Blu-ray"
 msgstr "Blu-Ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:814
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:819
 msgid "HD DVD"
 msgstr "HD-DVD"
 
@@ -889,7 +890,7 @@ msgstr "Regio"
 msgid "Nationality"
 msgstr "Land"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:826
+#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:831
 msgid "NTSC"
 msgstr "NTSC"
 
@@ -963,7 +964,7 @@ msgstr "De speeltijd van de film (in minuten)"
 msgid "Aspect Ratio"
 msgstr "Beeldverhouding"
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:800
+#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:805
 msgid "Widescreen"
 msgstr "Breedbeeld"
 
@@ -975,7 +976,7 @@ msgstr "Zwart wit"
 msgid "Color Mode"
 msgstr "Kleur standaard"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:821
+#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:826
 msgid "Director's Cut"
 msgstr "Director's Cut"
 
@@ -1162,7 +1163,7 @@ msgstr "Boektitel"
 msgid "Organization"
 msgstr "Organisatie"
 
-#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:538
+#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:551
 #: src/fetch/srufetcher.cpp:453
 msgid "Address"
 msgstr "Adres"
@@ -1196,7 +1197,7 @@ msgid "Cross-Reference"
 msgstr "Verwijzingen"
 
 #: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
-#: src/fetch/z3950fetcher.cpp:539 src/fetch/srufetcher.cpp:454
+#: src/fetch/z3950fetcher.cpp:552 src/fetch/srufetcher.cpp:454
 msgid "Abstract"
 msgstr "Samenvatting"
 
@@ -1204,7 +1205,7 @@ msgstr "Samenvatting"
 msgid "Notes"
 msgstr "Notities"
 
-#: src/collections/bibtexcollection.cpp:478
+#: src/collections/bibtexcollection.cpp:479
 #: src/translators/xmlstatehandler.cpp:298
 msgid "Unknown"
 msgstr "Onbekend"
@@ -1249,7 +1250,7 @@ msgstr "Nummers"
 
 #: src/collections/musiccollection.cpp:86 src/fetch/fetchmanager.cpp:69
 #: src/translators/audiofileimporter.cpp:175
-#: src/translators/xmlstatehandler.cpp:409 src/fetchdialog.cpp:210
+#: src/translators/xmlstatehandler.cpp:409 src/fetchdialog.cpp:211
 #: src/entrymatchdialog.cpp:86 src/collection.cpp:56
 msgid "Title"
 msgstr "Titel"
@@ -1352,10 +1353,10 @@ msgstr "Bestand overschrijven?"
 msgid "Overwrite"
 msgstr "Overschrijven"
 
-#: src/fetch/giantbombfetcher.cpp:204 src/fetch/themoviedbfetcher.cpp:232
-#: src/fetch/discogsfetcher.cpp:231 src/fetch/winecomfetcher.cpp:291
-#: src/fetch/isbndbfetcher.cpp:355 src/fetch/amazonfetcher.cpp:880
-#: src/fetch/crossreffetcher.cpp:311
+#: src/fetch/giantbombfetcher.cpp:204 src/fetch/doubanfetcher.cpp:222
+#: src/fetch/themoviedbfetcher.cpp:237 src/fetch/discogsfetcher.cpp:231
+#: src/fetch/winecomfetcher.cpp:291 src/fetch/isbndbfetcher.cpp:355
+#: src/fetch/amazonfetcher.cpp:885 src/fetch/crossreffetcher.cpp:311
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -1366,13 +1367,14 @@ msgstr ""
 "met eisen en condities van <a href='%2'>vraag een account </a>, en voer "
 "hieronder de gegevens in."
 
-#: src/fetch/giantbombfetcher.cpp:217 src/fetch/themoviedbfetcher.cpp:245
-#: src/fetch/discogsfetcher.cpp:244 src/fetch/winecomfetcher.cpp:304
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/amazonfetcher.cpp:893
+#: src/fetch/giantbombfetcher.cpp:217 src/fetch/doubanfetcher.cpp:235
+#: src/fetch/themoviedbfetcher.cpp:250 src/fetch/discogsfetcher.cpp:244
+#: src/fetch/winecomfetcher.cpp:304 src/fetch/isbndbfetcher.cpp:368
+#: src/fetch/amazonfetcher.cpp:898
 msgid "Access key: "
 msgstr "Toegangsleutel: "
 
-#: src/fetch/giantbombfetcher.cpp:223 src/fetch/themoviedbfetcher.cpp:251
+#: src/fetch/giantbombfetcher.cpp:223 src/fetch/themoviedbfetcher.cpp:256
 #: src/fetch/discogsfetcher.cpp:250 src/fetch/isbndbfetcher.cpp:374
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
@@ -1389,59 +1391,61 @@ msgstr "Entrez-database"
 msgid "Institution"
 msgstr "Instelling"
 
-#: src/fetch/entrezfetcher.cpp:475 src/fetch/yahoofetcher.cpp:394
-#: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:332
-#: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/ibsfetcher.cpp:413
-#: src/fetch/citebasefetcher.cpp:234 src/fetch/animenfofetcher.cpp:377
-#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:932
-#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:267
+#: src/fetch/entrezfetcher.cpp:475 src/fetch/filmasterfetcher.cpp:319
+#: src/fetch/yahoofetcher.cpp:394 src/fetch/arxivfetcher.cpp:329
+#: src/fetch/musicbrainzfetcher.cpp:332 src/fetch/bibsonomyfetcher.cpp:183
+#: src/fetch/ibsfetcher.cpp:413 src/fetch/citebasefetcher.cpp:234
+#: src/fetch/animenfofetcher.cpp:488 src/fetch/openlibraryfetcher.cpp:434
+#: src/fetch/freebasefetcher.cpp:902 src/fetch/dvdfrfetcher.cpp:172
+#: src/fetch/googlescholarfetcher.cpp:267
 msgid "This source has no options."
 msgstr "Deze bron heeft geen opties."
 
-#: src/fetch/imdbfetcher.cpp:611
+#: src/fetch/imdbfetcher.cpp:615
 msgid "Select IMDb Result"
 msgstr "Kies IMDb-resultaat"
 
-#: src/fetch/imdbfetcher.cpp:617
+#: src/fetch/imdbfetcher.cpp:621
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr ""
 "<qt>Uw zoekopdracht heeft meerdere overeenkomsten gevonden. Kies een van de "
 "onderstaande.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:634
+#: src/fetch/imdbfetcher.cpp:638
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>Kies een zoekresultaat.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:748 src/fetch/imdbfetcher.cpp:1230
-#: src/fetch/themoviedbfetcher.cpp:219
+#: src/fetch/imdbfetcher.cpp:752 src/fetch/imdbfetcher.cpp:1266
+#: src/fetch/doubanfetcher.cpp:211 src/fetch/themoviedbfetcher.cpp:224
 msgid "IMDb Link"
 msgstr "IMDb-koppeling"
 
-#: src/fetch/imdbfetcher.cpp:819 src/fetch/imdbfetcher.cpp:1232
-#: src/fetch/themoviedbfetcher.cpp:220 src/fetch/animenfofetcher.cpp:261
+#: src/fetch/imdbfetcher.cpp:823 src/fetch/imdbfetcher.cpp:1268
+#: src/fetch/doubanfetcher.cpp:209 src/fetch/themoviedbfetcher.cpp:225
+#: src/fetch/animenfofetcher.cpp:279 src/fetch/animenfofetcher.cpp:479
 #: src/fetch/dvdfrfetcher.cpp:165
 msgid "Alternative Titles"
 msgstr "Alternatieve titels"
 
-#: src/fetch/imdbfetcher.cpp:1065 src/fetch/imdbfetcher.cpp:1231
+#: src/fetch/imdbfetcher.cpp:1070 src/fetch/imdbfetcher.cpp:1267
 msgid "IMDb Rating"
 msgstr "IMDb-classificatie"
 
-#: src/fetch/imdbfetcher.cpp:1192 src/fetch/imdbfetcher.cpp:1233
+#: src/fetch/imdbfetcher.cpp:1227 src/fetch/imdbfetcher.cpp:1269
 msgid "Certifications"
 msgstr "Leeftijdcategorie"
 
-#: src/fetch/imdbfetcher.cpp:1221
+#: src/fetch/imdbfetcher.cpp:1256
 msgid "Internet Movie Database"
 msgstr "Internet Movie database"
 
-#: src/fetch/imdbfetcher.cpp:1248 src/fetch/z3950fetcher.cpp:564
+#: src/fetch/imdbfetcher.cpp:1284 src/fetch/z3950fetcher.cpp:577
 #: src/fetch/srufetcher.cpp:469
 msgid "Hos&t: "
 msgstr "&Host: "
 
-#: src/fetch/imdbfetcher.cpp:1253
+#: src/fetch/imdbfetcher.cpp:1289
 msgid ""
 "The Internet Movie Database uses several different servers. Choose the one "
 "you wish to use."
@@ -1449,11 +1453,11 @@ msgstr ""
 "De Internet Movie database gebruikt verschillende servers. Kies welke u wilt "
 "gebruiken."
 
-#: src/fetch/imdbfetcher.cpp:1259
+#: src/fetch/imdbfetcher.cpp:1295
 msgid "&Maximum cast: "
 msgstr "&Maximaal aantal acteurs: "
 
-#: src/fetch/imdbfetcher.cpp:1264
+#: src/fetch/imdbfetcher.cpp:1300
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -1461,11 +1465,11 @@ msgstr ""
 "De lijst van acteurs kan veel personen bevatten. Stel het maximum resultaat "
 "voor het zoekresultaat in."
 
-#: src/fetch/imdbfetcher.cpp:1269
+#: src/fetch/imdbfetcher.cpp:1305
 msgid "Download cover &image"
 msgstr "Hoesafbeeld&ing ophalen"
 
-#: src/fetch/imdbfetcher.cpp:1273 src/fetch/amazonfetcher.cpp:940
+#: src/fetch/imdbfetcher.cpp:1309 src/fetch/amazonfetcher.cpp:945
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -1477,22 +1481,37 @@ msgstr ""
 msgid "Query error!"
 msgstr "Zoek fout!"
 
-#: src/fetch/z3950connection.cpp:215 src/fetch/z3950connection.cpp:324
+#: src/fetch/z3950connection.cpp:215 src/fetch/z3950connection.cpp:331
 #, kde-format
 msgid "Connection search error %1: %2"
 msgstr "Verbindings zoekfout %1: %2"
 
-#: src/fetch/z3950connection.cpp:290
+#: src/fetch/z3950connection.cpp:297
 msgid "Record syntax error"
 msgstr "Structuur syntaxisfout"
 
-#: src/fetch/z3950connection.cpp:396
+#: src/fetch/z3950connection.cpp:408
 #, kde-format
 msgid "Connection error %1: %2"
 msgstr "Verbindingsfout %1: %2"
 
-#: src/fetch/yahoofetcher.cpp:238 src/fetch/amazonfetcher.cpp:715
-#: src/fetch/freebasefetcher.cpp:257
+#: src/fetch/filmasterfetcher.cpp:69 src/fetch/amazonfetcher.cpp:118
+#, kde-format
+msgid "This data is licensed under <a href=%1>specific terms</a>."
+msgstr ""
+"Deze gegevens zijn in licentie gegeven onder <a href=%1>speciale "
+"voorwaarden</a>."
+
+#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+msgid "Filmaster Link"
+msgstr "Koppeling naar Filmaster"
+
+#: src/fetch/doubanfetcher.cpp:210
+msgid "Douban Link"
+msgstr "Koppeling naar Douban"
+
+#: src/fetch/yahoofetcher.cpp:238 src/fetch/amazonfetcher.cpp:720
+#: src/fetch/freebasefetcher.cpp:227
 msgid "The cover image could not be loaded."
 msgstr "De afbeelding van de voorzijde kon niet worden geladen."
 
@@ -1500,58 +1519,58 @@ msgstr "De afbeelding van de voorzijde kon niet worden geladen."
 msgid "Yahoo! Audio Search"
 msgstr "Yahoo! Audio zoeken"
 
-#: src/fetch/themoviedbfetcher.cpp:218
+#: src/fetch/themoviedbfetcher.cpp:223
 msgid "TMDb Link"
 msgstr "TMDb-koppeling"
 
-#: src/fetch/z3950fetcher.cpp:528 src/fetch/z3950fetcher.cpp:803
+#: src/fetch/z3950fetcher.cpp:541 src/fetch/z3950fetcher.cpp:817
 msgid "z39.50 Server"
 msgstr "z39.50 Server"
 
-#: src/fetch/z3950fetcher.cpp:540
+#: src/fetch/z3950fetcher.cpp:553
 msgid "Illustrator"
 msgstr "Illustrator"
 
-#: src/fetch/z3950fetcher.cpp:541
+#: src/fetch/z3950fetcher.cpp:554
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey decimaal"
 
-#: src/fetch/z3950fetcher.cpp:542
+#: src/fetch/z3950fetcher.cpp:555
 msgctxt "Library of Congress classificationn system"
 msgid "LoC Classification"
 msgstr "LoC classificatie"
 
-#: src/fetch/z3950fetcher.cpp:554
+#: src/fetch/z3950fetcher.cpp:567
 msgid "Use preset &server:"
 msgstr "Gebruik vooringestelde &server:"
 
-#: src/fetch/z3950fetcher.cpp:570 src/fetch/srufetcher.cpp:476
+#: src/fetch/z3950fetcher.cpp:583 src/fetch/srufetcher.cpp:476
 msgid "Enter the host name of the server."
 msgstr "Geef de hostnaam van de server."
 
-#: src/fetch/z3950fetcher.cpp:575 src/fetch/srufetcher.cpp:481
+#: src/fetch/z3950fetcher.cpp:588 src/fetch/srufetcher.cpp:481
 msgid "&Port: "
 msgstr "&Poort: "
 
-#: src/fetch/z3950fetcher.cpp:580 src/fetch/srufetcher.cpp:486
+#: src/fetch/z3950fetcher.cpp:593 src/fetch/srufetcher.cpp:486
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Geef het poortnummer van de server. Standaard is %1."
 
-#: src/fetch/z3950fetcher.cpp:585
+#: src/fetch/z3950fetcher.cpp:598
 msgid "&Database: "
 msgstr "&Database: "
 
-#: src/fetch/z3950fetcher.cpp:590
+#: src/fetch/z3950fetcher.cpp:603
 msgid "Enter the database name used by the server."
 msgstr "Geef de databasenaam die door de server gebruikt wordt."
 
-#: src/fetch/z3950fetcher.cpp:595
+#: src/fetch/z3950fetcher.cpp:608
 msgid "Ch&aracter set: "
 msgstr "&Teken set: "
 
-#: src/fetch/z3950fetcher.cpp:604
+#: src/fetch/z3950fetcher.cpp:617
 msgid ""
 "Enter the character set encoding used by the z39.50 server. The most likely "
 "choice is MARC-8, although ISO-8859-1 is common as well."
@@ -1559,15 +1578,15 @@ msgstr ""
 "Geef de tekenset codering die gebruikt wordt door de z39.50 server. De meest "
 "waarschijnlijke keuze is MARC-8 hoewel ISO-8859-1 ook veel gebruikt wordt."
 
-#: src/fetch/z3950fetcher.cpp:610
+#: src/fetch/z3950fetcher.cpp:623
 msgid "&Format: "
 msgstr "&Formaat: "
 
-#: src/fetch/z3950fetcher.cpp:613
+#: src/fetch/z3950fetcher.cpp:626
 msgid "Auto-detect"
 msgstr "Automatisch detecteren"
 
-#: src/fetch/z3950fetcher.cpp:621
+#: src/fetch/z3950fetcher.cpp:635
 msgid ""
 "Enter the data format used by the z39.50 server. Tellico will attempt to "
 "automatically detect the best setting if <i>auto-detect</i> is selected."
@@ -1576,15 +1595,15 @@ msgstr ""
 "probeert automatisch de beste instelling te vinden indien <i>Automatisch "
 "detecteren</i> geselecteerd is."
 
-#: src/fetch/z3950fetcher.cpp:627
+#: src/fetch/z3950fetcher.cpp:641
 msgid "&User: "
 msgstr "&Gebruiker: "
 
-#: src/fetch/z3950fetcher.cpp:630 src/fetch/z3950fetcher.cpp:642
+#: src/fetch/z3950fetcher.cpp:644 src/fetch/z3950fetcher.cpp:656
 msgid "Optional"
 msgstr "Optioneel"
 
-#: src/fetch/z3950fetcher.cpp:633
+#: src/fetch/z3950fetcher.cpp:647
 msgid ""
 "Enter the authentication user name used by the z39.50 database. Most servers "
 "do not need one."
@@ -1592,11 +1611,11 @@ msgstr ""
 "Geef de gebruikersnaam van de z39.50 database. De meeste server hebben er "
 "geen nodig."
 
-#: src/fetch/z3950fetcher.cpp:639
+#: src/fetch/z3950fetcher.cpp:653
 msgid "Pass&word: "
 msgstr "Wacht&woord: "
 
-#: src/fetch/z3950fetcher.cpp:646
+#: src/fetch/z3950fetcher.cpp:660
 msgid ""
 "Enter the authentication password used by the z39.50 database. Most servers "
 "do not need one. The password will be saved in plain text in the Tellico "
@@ -1623,20 +1642,28 @@ msgstr "Internet boekwinkel (ibs.it)"
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 staat niet toe dat er voor deze verzameling wordt gezocht."
 
-#: src/fetch/animenfofetcher.cpp:258
+#: src/fetch/animenfofetcher.cpp:276 src/fetch/animenfofetcher.cpp:478
 msgid "Original Title"
 msgstr "Oorspronkelijke titel"
 
-#: src/fetch/animenfofetcher.cpp:265
+#: src/fetch/animenfofetcher.cpp:283 src/fetch/animenfofetcher.cpp:476
 msgid "Distributor"
 msgstr "Verdeler"
 
-#: src/fetch/animenfofetcher.cpp:271
+#: src/fetch/animenfofetcher.cpp:289 src/fetch/animenfofetcher.cpp:477
 msgid "Episodes"
 msgstr "Episoden"
 
+#: src/fetch/animenfofetcher.cpp:293 src/fetch/animenfofetcher.cpp:481
+msgid "AnimeNfo Link"
+msgstr "AnimeNfo Link"
+
+#: src/fetch/animenfofetcher.cpp:297 src/fetch/animenfofetcher.cpp:480
+msgid "AnimeNfo Rating"
+msgstr "AnimeNfo waardering"
+
 #: src/fetch/winecomfetcher.cpp:224 src/fetch/isbndbfetcher.cpp:257
-#: src/fetch/amazonfetcher.cpp:553
+#: src/fetch/amazonfetcher.cpp:558
 #, kde-format
 msgid "Results from %1: %2/%3"
 msgstr "Resultaten van %1: %2/%3"
@@ -1665,7 +1692,7 @@ msgstr "GCstar-plugin"
 
 #: src/fetch/gcstarpluginfetcher.cpp:398 src/fetch/multifetcher.cpp:191
 #: src/fetch/execexternalfetcher.cpp:341 src/translators/csvimporter.cpp:185
-#: src/configdialog.cpp:441
+#: src/configdialog.cpp:446
 msgid "Collection &type:"
 msgstr "Verzameling &type:"
 
@@ -1739,7 +1766,7 @@ msgstr "Amazon (Frankrijk)"
 msgid "Amazon (Canada)"
 msgstr "Amazon (Canada)"
 
-#: src/fetch/amazonfetcher.cpp:180 src/fetch/amazonfetcher.cpp:898
+#: src/fetch/amazonfetcher.cpp:185 src/fetch/amazonfetcher.cpp:903
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
 "Key."
@@ -1747,48 +1774,48 @@ msgstr ""
 "Toegang tot gegevens van Amazon.com vereist een AWS-toegangsleutel-ID en een "
 "geheime sleutel."
 
-#: src/fetch/amazonfetcher.cpp:182
+#: src/fetch/amazonfetcher.cpp:187
 msgid "Those values must be entered in the data source settings."
 msgstr ""
 "Deze waarden dienen in de instellingen van de gegevensbron opgegeven worden."
 
-#: src/fetch/amazonfetcher.cpp:855
+#: src/fetch/amazonfetcher.cpp:860
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com web services"
 
-#: src/fetch/amazonfetcher.cpp:903
+#: src/fetch/amazonfetcher.cpp:908
 msgid "Secret key: "
 msgstr "Geheime sleutel: "
 
-#: src/fetch/amazonfetcher.cpp:913
+#: src/fetch/amazonfetcher.cpp:918
 msgid "Co&untry: "
 msgstr "&Land: "
 
-#: src/fetch/amazonfetcher.cpp:916
+#: src/fetch/amazonfetcher.cpp:921
 msgid "United States"
 msgstr "Verenigde Staten"
 
-#: src/fetch/amazonfetcher.cpp:917
+#: src/fetch/amazonfetcher.cpp:922
 msgid "United Kingdom"
 msgstr "Engeland"
 
-#: src/fetch/amazonfetcher.cpp:918
+#: src/fetch/amazonfetcher.cpp:923
 msgid "Germany"
 msgstr "Duitsland"
 
-#: src/fetch/amazonfetcher.cpp:919
+#: src/fetch/amazonfetcher.cpp:924
 msgid "Japan"
 msgstr "Japan"
 
-#: src/fetch/amazonfetcher.cpp:920
+#: src/fetch/amazonfetcher.cpp:925
 msgid "France"
 msgstr "Frankrijk"
 
-#: src/fetch/amazonfetcher.cpp:921
+#: src/fetch/amazonfetcher.cpp:926
 msgid "Canada"
 msgstr "Canada"
 
-#: src/fetch/amazonfetcher.cpp:925
+#: src/fetch/amazonfetcher.cpp:930
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
 "one you wish to use for this data source."
@@ -1796,31 +1823,31 @@ msgstr ""
 "Amazon geeft data van verschillende lokale websites. Kies welke u wilt "
 "gebruiken als data bron."
 
-#: src/fetch/amazonfetcher.cpp:931
+#: src/fetch/amazonfetcher.cpp:936
 msgid "&Image size: "
 msgstr "&Afbeelding grootte: "
 
-#: src/fetch/amazonfetcher.cpp:934
+#: src/fetch/amazonfetcher.cpp:939
 msgid "Small Image"
 msgstr "Kleine afbeelding"
 
-#: src/fetch/amazonfetcher.cpp:935
+#: src/fetch/amazonfetcher.cpp:940
 msgid "Medium Image"
 msgstr "Medium afbeelding"
 
-#: src/fetch/amazonfetcher.cpp:936
+#: src/fetch/amazonfetcher.cpp:941
 msgid "Large Image"
 msgstr "Grote afbeelding"
 
-#: src/fetch/amazonfetcher.cpp:937
+#: src/fetch/amazonfetcher.cpp:942
 msgid "No Image"
 msgstr "Geen afbeelding"
 
-#: src/fetch/amazonfetcher.cpp:946
+#: src/fetch/amazonfetcher.cpp:951
 msgid "&Associate's ID: "
 msgstr "&Associate's ID: "
 
-#: src/fetch/amazonfetcher.cpp:951
+#: src/fetch/amazonfetcher.cpp:956
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
 "Services, and is included in any links to the Amazon.com site."
@@ -1832,7 +1859,7 @@ msgstr ""
 msgid "Multiple Sources"
 msgstr "Meerdere bronnen"
 
-#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:616
+#: src/fetch/freebasefetcher.cpp:366 src/fetch/freebasefetcher.cpp:586
 msgid "Freebase Link"
 msgstr "Koppeling naar Freebase"
 
@@ -2003,8 +2030,8 @@ msgstr "*.gcs|GCstar-bestanden (*.gcs)"
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/bibtexexporter.cpp:61 src/translators/htmlexporter.cpp:91
 #: src/translators/tellicozipexporter.cpp:56 src/reportdialog.cpp:215
-#: src/importdialog.cpp:330 src/mainwindow.cpp:1037 src/mainwindow.cpp:1201
-#: src/configdialog.cpp:1125
+#: src/importdialog.cpp:330 src/mainwindow.cpp:1045 src/mainwindow.cpp:1209
+#: src/configdialog.cpp:1137
 msgid "*|All Files"
 msgstr "*|Alle bestanden"
 
@@ -2187,7 +2214,7 @@ msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>Het bestand in geen geldig GCstar-databestand.</qt>"
 
 #: src/translators/gcstarimporter.cpp:264 src/translators/xsltimporter.cpp:87
-#: src/mainwindow.cpp:1589
+#: src/mainwindow.cpp:1597
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico kreeg een fout bij de XSLT verwerking."
 
@@ -2397,7 +2424,7 @@ msgstr ""
 "Kies het XSLT bestand dat gebruikt wordt om de gegevens te om te zetten."
 
 #: src/translators/xsltimporter.cpp:117 src/translators/xsltexporter.cpp:99
-#: src/configdialog.cpp:1123
+#: src/configdialog.cpp:1135
 msgid "*.xsl|XSL Files (*.xsl)"
 msgstr "*.xsl|XSL bestanden (*.xsl)"
 
@@ -2482,7 +2509,7 @@ msgid "XML"
 msgstr "XML"
 
 #: src/translators/tellicoxmlexporter.cpp:70 src/importdialog.cpp:279
-#: src/importdialog.cpp:292 src/importdialog.cpp:297 src/mainwindow.cpp:1035
+#: src/importdialog.cpp:292 src/importdialog.cpp:297 src/mainwindow.cpp:1043
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|XML-bestanden (*.xml)"
 
@@ -2533,12 +2560,12 @@ msgstr ""
 
 #: src/translators/bibtexexporter.cpp:227
 msgid "Skip entries with empty citation keys"
-msgstr "Sla items over met lege citaat sleutels"
+msgstr "Sla items over met lege citaatsleutels"
 
 #: src/translators/bibtexexporter.cpp:229
 msgid "If checked, any entries without a bibtex citation key will be skipped."
 msgstr ""
-"Indien aangevinkt, zal ieder item zonder een bibtexcitaat sleutel worden "
+"Indien aangevinkt, zal ieder item zonder een bibtex-citaatsleutel worden "
 "overgeslagen."
 
 #: src/translators/bibtexexporter.cpp:235
@@ -2574,7 +2601,7 @@ msgid "*.html|HTML Files (*.html)"
 msgstr "*.html|HTML bestanden (*.html)"
 
 #: src/translators/htmlexporter.cpp:329 src/groupview.cpp:417
-#: src/mainwindow.cpp:872 src/mainwindow.cpp:1516 src/mainwindow.cpp:1543
+#: src/mainwindow.cpp:880 src/mainwindow.cpp:1524 src/mainwindow.cpp:1551
 msgid "People"
 msgstr "Mensen"
 
@@ -2591,7 +2618,7 @@ msgstr "HTML opties"
 msgid "Print field headers"
 msgstr "Veldnamen afdrukken"
 
-#: src/translators/htmlexporter.cpp:491 src/configdialog.cpp:369
+#: src/translators/htmlexporter.cpp:491 src/configdialog.cpp:374
 msgid "If checked, the field names will be printed as table headers."
 msgstr "Indien aangevinkt worden de veldnamen afgedrukt als tabel-kop."
 
@@ -2599,7 +2626,7 @@ msgstr "Indien aangevinkt worden de veldnamen afgedrukt als tabel-kop."
 msgid "Group the entries"
 msgstr "Groepeer de items"
 
-#: src/translators/htmlexporter.cpp:496 src/configdialog.cpp:379
+#: src/translators/htmlexporter.cpp:496 src/configdialog.cpp:384
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr ""
 "Indien aangevinkt zullen de items gegroepeerd worden onder het gekozen veld."
@@ -2618,7 +2645,7 @@ msgid "Tellico Zip File"
 msgstr "Tellico zip bestand"
 
 #: src/translators/tellicozipexporter.cpp:56 src/importdialog.cpp:278
-#: src/mainwindow.cpp:1033 src/mainwindow.cpp:1199
+#: src/mainwindow.cpp:1041 src/mainwindow.cpp:1207
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Tellico-bestanden (*.tc)"
 
@@ -2631,76 +2658,76 @@ msgstr "Data laden..."
 msgid "Loading %1..."
 msgstr "%1 wordt geladen..."
 
-#: src/document.cpp:192 src/mainwindow.cpp:1146
+#: src/document.cpp:192 src/mainwindow.cpp:1154
 msgid "Saving file..."
 msgstr "Bestand wordt opgeslagen..."
 
-#: src/fetchdialog.cpp:80
+#: src/fetchdialog.cpp:82
 msgid "&Search"
 msgstr "&Zoeken"
 
-#: src/fetchdialog.cpp:81
+#: src/fetchdialog.cpp:83
 msgid "&Stop"
 msgstr "&Stoppen"
 
-#: src/fetchdialog.cpp:126
+#: src/fetchdialog.cpp:128
 msgid "Internet Search"
 msgstr "Internet zoekopdracht"
 
-#: src/fetchdialog.cpp:135
+#: src/fetchdialog.cpp:137
 msgid "Search Query"
 msgstr "Zoek opdracht"
 
-#: src/fetchdialog.cpp:143
+#: src/fetchdialog.cpp:145
 msgctxt "Start the search"
 msgid "S&earch:"
 msgstr "&Zoeken:"
 
-#: src/fetchdialog.cpp:147
+#: src/fetchdialog.cpp:149
 msgid "Enter a search value. An ISBN search must include the full ISBN."
 msgstr ""
 "Geef een zoekwaarde.Een ISBN zoekopdracht moet het volledige ISBN bevatten."
 
-#: src/fetchdialog.cpp:154
+#: src/fetchdialog.cpp:156
 msgid "Choose the type of search"
 msgstr "Kies de wijze van zoeken"
 
-#: src/fetchdialog.cpp:160
+#: src/fetchdialog.cpp:162
 msgid "Click to start or stop the search"
 msgstr "Klik om het zoeken te starten of te stoppen"
 
-#: src/fetchdialog.cpp:178
+#: src/fetchdialog.cpp:180
 msgid "&Multiple ISBN/UPC search"
 msgstr "&Meervoudige ISBN/UPC-zoekopdracht"
 
-#: src/fetchdialog.cpp:179
+#: src/fetchdialog.cpp:181
 msgid "Check this box to search for multiple ISBN or UPC values."
 msgstr "Vink aan om meerdere ISBN of UPC-waarden te zoeken."
 
-#: src/fetchdialog.cpp:182
+#: src/fetchdialog.cpp:184
 msgid "Edit List..."
 msgstr "Lijst bewerken..."
 
-#: src/fetchdialog.cpp:184
+#: src/fetchdialog.cpp:186
 msgid ""
 "Click to open a text edit box for entering or editing multiple ISBN values."
 msgstr ""
 "Klik om een tekstvenster te open om meerdere ISBN waardes in te geven of te "
 "bewerken."
 
-#: src/fetchdialog.cpp:190
+#: src/fetchdialog.cpp:192
 msgid "Search s&ource:"
 msgstr "&Zoekbron:"
 
-#: src/fetchdialog.cpp:198
+#: src/fetchdialog.cpp:200
 msgid "Select the database to search"
 msgstr "Kies de database die doorzocht moet worden"
 
-#: src/fetchdialog.cpp:212
+#: src/fetchdialog.cpp:213
 msgid "Source"
 msgstr "Bron"
 
-#: src/fetchdialog.cpp:220
+#: src/fetchdialog.cpp:224
 msgid ""
 "As results are found, they are added to this list. Selecting one will fetch "
 "the complete entry and show it in the view below."
@@ -2709,7 +2736,7 @@ msgstr ""
 "Wanneer u een resultaat selecteert wordt het volledige item onderstaand "
 "getoond."
 
-#: src/fetchdialog.cpp:229
+#: src/fetchdialog.cpp:233
 msgid ""
 "An entry may be shown here before adding it to the current collection by "
 "selecting it in the list above"
@@ -2717,79 +2744,83 @@ msgstr ""
 "Een item kan hier worden getoond voordat u het aan de huidige verzameling "
 "toevoegt"
 
-#: src/fetchdialog.cpp:236
+#: src/fetchdialog.cpp:240
 msgid "&Add Entry"
 msgstr "Item &toevoegen"
 
-#: src/fetchdialog.cpp:240
+#: src/fetchdialog.cpp:244
 msgid "Add the selected entry to the current collection"
 msgstr "Voeg het geselecteerde toe aan de huidige verzameling"
 
-#: src/fetchdialog.cpp:242
+#: src/fetchdialog.cpp:246
 msgid "Get More Results"
 msgstr "Meer resultaten ophalen"
 
-#: src/fetchdialog.cpp:245
+#: src/fetchdialog.cpp:249
 msgid "Fetch more results from the current data source"
 msgstr "Haal meer resultaten op uit de huidige gegevensbron"
 
-#: src/fetchdialog.cpp:249
+#: src/fetchdialog.cpp:253
 msgid "Clear all search fields and results"
 msgstr "Wis alle zoekvelden en resultaten"
 
-#: src/fetchdialog.cpp:331
+#: src/fetchdialog.cpp:335
 msgid "Cancelling the search..."
 msgstr "Zoekopdracht beëindigen..."
 
-#: src/fetchdialog.cpp:342 src/fetchdialog.cpp:473
+#: src/fetchdialog.cpp:346 src/fetchdialog.cpp:480
 msgid "Searching..."
 msgstr "Zoeken..."
 
-#: src/fetchdialog.cpp:397
+#: src/fetchdialog.cpp:401
 msgid "The search returned no items."
 msgstr "De zoekopdracht gaf geen items."
 
-#: src/fetchdialog.cpp:400
+#: src/fetchdialog.cpp:404
 #, kde-format
 msgid "The search returned 1 item."
 msgid_plural "The search returned %1 items."
 msgstr[0] "De zoekopdracht gaf 1 item."
 msgstr[1] "De zoekopdracht gaf %1 items."
 
-#: src/fetchdialog.cpp:423
+#: src/fetchdialog.cpp:427
 msgid "No results were found for the following ISBN values:"
 msgstr "Geen items gevonden voor de volgende ISBN-waarden:"
 
-#: src/fetchdialog.cpp:424
+#: src/fetchdialog.cpp:428
 msgid "No Results"
 msgstr "Geen resultaat"
 
-#: src/fetchdialog.cpp:444 src/fetchdialog.cpp:496
+#: src/fetchdialog.cpp:448 src/fetchdialog.cpp:503
 #, kde-format
 msgid "Fetching %1..."
 msgstr "%1 ophalen..."
 
-#: src/fetchdialog.cpp:529 src/fetchdialog.cpp:731
+#: src/fetchdialog.cpp:515
+msgid "Attribution"
+msgstr "Toeschrijving"
+
+#: src/fetchdialog.cpp:547 src/fetchdialog.cpp:749
 msgid "No Internet sources are available for your current collection type."
 msgstr "Er zijn geen internet bronnen beschikbaar voor uw huidige verzameling."
 
-#: src/fetchdialog.cpp:611
+#: src/fetchdialog.cpp:629
 msgid "Edit ISBN/UPC Values"
 msgstr "ISBN/UPC-waarden bewerken"
 
-#: src/fetchdialog.cpp:616
+#: src/fetchdialog.cpp:634
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>Geef de ISBN of UPC-waarden, één per regel.</qt>"
 
-#: src/fetchdialog.cpp:628
+#: src/fetchdialog.cpp:646
 msgid "&Load From File..."
 msgstr "&Laad van bestand..."
 
-#: src/fetchdialog.cpp:629
+#: src/fetchdialog.cpp:647
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>Laad de lijst van een bestand.</qt>"
 
-#: src/fetchdialog.cpp:648
+#: src/fetchdialog.cpp:666
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
 "100 values in your list will be used.</qt>"
@@ -2899,7 +2930,7 @@ msgstr ""
 msgid "Save Entry"
 msgstr "Item opslaan"
 
-#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:962
+#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:970
 msgid "Unsaved Changes"
 msgstr "Niet opgeslagen veranderingen"
 
@@ -3002,42 +3033,42 @@ msgstr "Items bijwerken"
 msgid "Updating <b>%1</b>..."
 msgstr "Bijwerken <b>%1</b>..."
 
-#: src/tellico_kernel.cpp:280
+#: src/tellico_kernel.cpp:281
 msgid "Do you really want to delete this filter?"
 msgstr "Weet u zeker dat u dit item wilt verwijderen?"
 
-#: src/tellico_kernel.cpp:282
+#: src/tellico_kernel.cpp:283
 msgid "Delete Filter?"
 msgstr "Filter wissen?"
 
-#: src/tellico_kernel.cpp:318
+#: src/tellico_kernel.cpp:319
 msgid "New collection name:"
 msgstr "Nieuwe verzamelingsnaam:"
 
-#: src/tellico_kernel.cpp:367
+#: src/tellico_kernel.cpp:368
 msgid "Entry 1"
 msgstr "Item 1"
 
-#: src/tellico_kernel.cpp:368
+#: src/tellico_kernel.cpp:369
 msgid "Entry 2"
 msgstr "Item 2"
 
-#: src/tellico_kernel.cpp:377
+#: src/tellico_kernel.cpp:378
 #, kde-format
 msgid "Conflicting values for %1 were found while merging entries."
 msgstr ""
 "Tegenstrijdige waarden voor %1 zijn gevonden tijdens het samenvoegen van "
 "items."
 
-#: src/tellico_kernel.cpp:383
+#: src/tellico_kernel.cpp:384
 msgid "Please choose which value to keep."
 msgstr "Kies de waarde om te behouden."
 
-#: src/tellico_kernel.cpp:388 src/entrymerger.cpp:53
+#: src/tellico_kernel.cpp:389 src/entrymerger.cpp:53
 msgid "Merge Entries"
 msgstr "Items samenvoegen"
 
-#: src/tellico_kernel.cpp:389 src/tellico_kernel.cpp:390
+#: src/tellico_kernel.cpp:390 src/tellico_kernel.cpp:391
 #, kde-format
 msgid "Select value from %1"
 msgstr "Selecteer waarde van %1"
@@ -3063,7 +3094,7 @@ msgstr "%1 (Sorteer naar aantal)"
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico kan het standaard stylesheet niet vinden."
 
-#: src/entryview.cpp:224 src/mainwindow.cpp:1590
+#: src/entryview.cpp:224 src/mainwindow.cpp:1598
 msgid "Please check your installation."
 msgstr "Controleer uw installatie."
 
@@ -3108,7 +3139,7 @@ msgstr ""
 
 #. i18n: file: src/tellicoui.rc:24
 #. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:120 src/mainwindow.cpp:312 rc.cpp:280
+#: src/importdialog.cpp:120 src/mainwindow.cpp:314 rc.cpp:280
 msgid "&Import"
 msgstr "I&mporteren"
 
@@ -3144,6 +3175,31 @@ msgid ""
 msgstr ""
 "<qt><b>%1</b> geeft meerdere resultaten die overeenkomen met <b>%2</b>, het "
 "huidige item in de verzameling, Selecteer de juiste.</qt>"
+
+#: src/bibtexkeydialog.cpp:44
+msgid "Citation Key Manager"
+msgstr "Citaatsleutelbeheerder"
+
+#: src/bibtexkeydialog.cpp:48
+msgid "Filter for duplicates"
+msgstr "Filter op duplicaten"
+
+#: src/bibtexkeydialog.cpp:49
+msgid "Check for duplicates"
+msgstr "Controleren op duplicaten"
+
+#: src/bibtexkeydialog.cpp:57 src/bibtexkeydialog.cpp:86
+msgid "Checking for entries with duplicate citation keys..."
+msgstr "Controleren op items over dubbele citaatsleutels..."
+
+#: src/bibtexkeydialog.cpp:96
+msgid "There are no duplicate citation keys."
+msgstr "Er zijn geen dubbele citaatsleutels."
+
+#: src/bibtexkeydialog.cpp:100
+#, kde-format
+msgid "There are %1 duplicate citation keys."
+msgstr "Er zijn %1 dubbele citaatsleutels."
 
 #: src/collectionfactory.cpp:85
 msgid "Book Collection"
@@ -3285,605 +3341,613 @@ msgstr ""
 "aan uw actieve kalender toegevoegd welke kan worden bekeken in KOrganizer. "
 "Dit is alleen actief wanneer u een einddatum heeft opgegeven.</qt>"
 
-#: src/mainwindow.cpp:231
+#: src/mainwindow.cpp:233
 msgid "Create a new collection"
 msgstr "Maak een nieuwe verzameling"
 
-#: src/mainwindow.cpp:245
+#: src/mainwindow.cpp:247
 msgid "New &Book Collection"
 msgstr "Nieuwe &Boekenverzameling"
 
-#: src/mainwindow.cpp:246
+#: src/mainwindow.cpp:248
 msgid "Create a new book collection"
 msgstr "Maak een nieuwe boekenverzameling"
 
-#: src/mainwindow.cpp:248
+#: src/mainwindow.cpp:250
 msgid "New B&ibliography"
 msgstr "Nieuwe B&ibliografie"
 
-#: src/mainwindow.cpp:249
+#: src/mainwindow.cpp:251
 msgid "Create a new bibtex bibliography"
 msgstr "Maak een nieuwe BibTeX bibliografie"
 
-#: src/mainwindow.cpp:251
+#: src/mainwindow.cpp:253
 msgid "New &Comic Book Collection"
 msgstr "Nieuwe &Stripverzameling"
 
-#: src/mainwindow.cpp:252
+#: src/mainwindow.cpp:254
 msgid "Create a new comic book collection"
 msgstr "Maak een nieuwe stripverzameling"
 
-#: src/mainwindow.cpp:254
+#: src/mainwindow.cpp:256
 msgid "New &Video Collection"
 msgstr "Nieuwe &Filmverzameling"
 
-#: src/mainwindow.cpp:255
+#: src/mainwindow.cpp:257
 msgid "Create a new video collection"
 msgstr "Maak een nieuwe filmverzameling"
 
-#: src/mainwindow.cpp:257
+#: src/mainwindow.cpp:259
 msgid "New &Music Collection"
 msgstr "Nieuwe &Muziekverzameling"
 
-#: src/mainwindow.cpp:258
+#: src/mainwindow.cpp:260
 msgid "Create a new music collection"
 msgstr "Maak een nieuwe muziekverzameling"
 
-#: src/mainwindow.cpp:260
+#: src/mainwindow.cpp:262
 msgid "New C&oin Collection"
 msgstr "Nieuwe &Muntenverzameling"
 
-#: src/mainwindow.cpp:261
+#: src/mainwindow.cpp:263
 msgid "Create a new coin collection"
 msgstr "Maak een nieuwe muntenverzameling"
 
-#: src/mainwindow.cpp:263
+#: src/mainwindow.cpp:265
 msgid "New &Stamp Collection"
 msgstr "Nieuwe &Postzegelverzameling"
 
-#: src/mainwindow.cpp:264
+#: src/mainwindow.cpp:266
 msgid "Create a new stamp collection"
 msgstr "Maak een nieuwe postzegelverzameling"
 
-#: src/mainwindow.cpp:266
+#: src/mainwindow.cpp:268
 msgid "New C&ard Collection"
 msgstr "Nieuwe &Kaartenverzameling"
 
-#: src/mainwindow.cpp:267
+#: src/mainwindow.cpp:269
 msgid "Create a new trading card collection"
 msgstr "Maak een nieuwe kaartenverzameling"
 
-#: src/mainwindow.cpp:269
+#: src/mainwindow.cpp:271
 msgid "New &Wine Collection"
 msgstr "Nieuwe &Wijnverzameling"
 
-#: src/mainwindow.cpp:270
+#: src/mainwindow.cpp:272
 msgid "Create a new wine collection"
 msgstr "Maak een nieuwe wijnverzameling"
 
-#: src/mainwindow.cpp:272
+#: src/mainwindow.cpp:274
 msgid "New &Game Collection"
 msgstr "Nieuwe &spellen verzameling"
 
-#: src/mainwindow.cpp:273
+#: src/mainwindow.cpp:275
 msgid "Create a new game collection"
 msgstr "Maak een nieuwe spellenverzameling"
 
-#: src/mainwindow.cpp:275
+#: src/mainwindow.cpp:277
 msgid "New Boa&rd Game Collection"
 msgstr "Nieuwe bo&rdspellenverzameling"
 
-#: src/mainwindow.cpp:276
+#: src/mainwindow.cpp:278
 msgid "Create a new board game collection"
 msgstr "Maak een nieuwe bordspellenverzameling"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:280
 msgid "New &File Catalog"
 msgstr "Nieuwe &bestandencatalogus"
 
-#: src/mainwindow.cpp:279
+#: src/mainwindow.cpp:281
 msgid "Create a new file catalog"
 msgstr "Maak een nieuwe bestandencatalogus"
 
-#: src/mainwindow.cpp:282
+#: src/mainwindow.cpp:284
 msgid "New C&ustom Collection"
 msgstr "Nieuwe &Eigen verzameling"
 
-#: src/mainwindow.cpp:283
+#: src/mainwindow.cpp:285
 msgid "Create a new custom collection"
 msgstr "Maak een nieuwe eigen verzameling"
 
-#: src/mainwindow.cpp:294
+#: src/mainwindow.cpp:296
 msgid "Open an existing document"
 msgstr "Open een bestaand document"
 
-#: src/mainwindow.cpp:296
+#: src/mainwindow.cpp:298
 msgid "Open a recently used file"
 msgstr "Open een recent gebruikt bestand"
 
-#: src/mainwindow.cpp:298
+#: src/mainwindow.cpp:300
 msgid "Save the document"
 msgstr "Sla het huidige document op"
 
-#: src/mainwindow.cpp:300
+#: src/mainwindow.cpp:302
 msgid "Save the document as a different file..."
 msgstr "Sla het huidig document op als..."
 
-#: src/mainwindow.cpp:302
+#: src/mainwindow.cpp:304
 msgid "Print the contents of the document..."
 msgstr "Druk de inhoud van het document af..."
 
-#: src/mainwindow.cpp:304
+#: src/mainwindow.cpp:306
 msgid "Quit the application"
 msgstr "Sluit de toepassing"
 
-#: src/mainwindow.cpp:314
+#: src/mainwindow.cpp:316
 msgid "Import the collection data from other formats"
 msgstr "Importeer verzamelinggegevens uit andere formaten"
 
-#: src/mainwindow.cpp:326
+#: src/mainwindow.cpp:328
 msgid "Import Tellico Data..."
 msgstr "Importeer Tellico-data..."
 
-#: src/mainwindow.cpp:327
+#: src/mainwindow.cpp:329
 msgid "Import another Tellico data file"
 msgstr "Importeer een ander Tellico-databestand"
 
-#: src/mainwindow.cpp:329
+#: src/mainwindow.cpp:331
 msgid "Import CSV Data..."
 msgstr "Importeer CSV-data..."
 
-#: src/mainwindow.cpp:330
+#: src/mainwindow.cpp:332
 msgid "Import a CSV file"
 msgstr "Importeer een CSV bestand"
 
-#: src/mainwindow.cpp:332
+#: src/mainwindow.cpp:334
 msgid "Import MODS Data..."
 msgstr "Importeer MODS-data..."
 
-#: src/mainwindow.cpp:333
+#: src/mainwindow.cpp:335
 msgid "Import a MODS data file"
 msgstr "Importeer een MODS-data bestand"
 
-#: src/mainwindow.cpp:335
+#: src/mainwindow.cpp:337
 msgid "Import Alexandria Data..."
 msgstr "Importeer Alexandria-data..."
 
-#: src/mainwindow.cpp:336
+#: src/mainwindow.cpp:338
 msgid "Import data from the Alexandria book collection manager"
 msgstr "Importeer data van het Alexandria boekenverzameling programma"
 
-#: src/mainwindow.cpp:338
+#: src/mainwindow.cpp:340
 msgid "Import Delicious Library Data..."
 msgstr "Importeer Delicious Library data..."
 
-#: src/mainwindow.cpp:339
+#: src/mainwindow.cpp:341
 msgid "Import data from Delicious Library"
 msgstr "Importeer data van Delicious Library"
 
-#: src/mainwindow.cpp:341
+#: src/mainwindow.cpp:343
 msgid "Import Referencer Data..."
 msgstr "Importeer Referencer-data..."
 
-#: src/mainwindow.cpp:342
+#: src/mainwindow.cpp:344
 msgid "Import data from Referencer"
 msgstr "Importeer data van Referencer"
 
-#: src/mainwindow.cpp:344
+#: src/mainwindow.cpp:346
 msgid "Import Bibtex Data..."
 msgstr "Importeer BibTeX-data..."
 
-#: src/mainwindow.cpp:345
+#: src/mainwindow.cpp:347
 msgid "Import a bibtex bibliography file"
 msgstr "Importeer een BibTeX bibliografie bestand"
 
-#: src/mainwindow.cpp:347
+#: src/mainwindow.cpp:349
 msgid "Import Bibtexml Data..."
 msgstr "Importeer BibTeXML-data..."
 
-#: src/mainwindow.cpp:348
+#: src/mainwindow.cpp:350
 msgid "Import a Bibtexml bibliography file"
 msgstr "Importeer een BibTeXML bibliografie bestand"
 
-#: src/mainwindow.cpp:350
+#: src/mainwindow.cpp:352
 msgid "Import RIS Data..."
 msgstr "Importeer RIS-data..."
 
-#: src/mainwindow.cpp:351
+#: src/mainwindow.cpp:353
 msgid "Import an RIS reference file"
 msgstr "Importeer een RIS referentie bestand"
 
-#: src/mainwindow.cpp:353
+#: src/mainwindow.cpp:355
 msgid "Import PDF File..."
 msgstr "PDF-bestand importeren..."
 
-#: src/mainwindow.cpp:354
+#: src/mainwindow.cpp:356
 msgid "Import a PDF file"
 msgstr "Importeer een PDF-bestand"
 
-#: src/mainwindow.cpp:356
+#: src/mainwindow.cpp:358
 msgid "Import Audio File Metadata..."
 msgstr "Importeer audio file metadata..."
 
-#: src/mainwindow.cpp:357
+#: src/mainwindow.cpp:359
 msgid "Import meta-data from audio files"
 msgstr "Importeer metadata uit audiobestanden"
 
-#: src/mainwindow.cpp:362
+#: src/mainwindow.cpp:364
 msgid "Import Audio CD Data..."
 msgstr "Importeer audio-cd data..."
 
-#: src/mainwindow.cpp:363
+#: src/mainwindow.cpp:365
 msgid "Import audio CD information"
 msgstr "Importeer audio-cd informatie"
 
-#: src/mainwindow.cpp:368
+#: src/mainwindow.cpp:370
 msgid "Import GCstar Data..."
 msgstr "Importeer GCstar-data..."
 
-#: src/mainwindow.cpp:369
+#: src/mainwindow.cpp:371
 msgid "Import a GCstar data file"
 msgstr "Importeer een GStar-databestand"
 
-#: src/mainwindow.cpp:371
+#: src/mainwindow.cpp:373
 msgid "Import Griffith Data..."
 msgstr "Importeer CSV-data..."
 
-#: src/mainwindow.cpp:372
+#: src/mainwindow.cpp:374
 msgid "Import a Griffith database"
 msgstr "Exporteer naar een PilotDB-database"
 
-#: src/mainwindow.cpp:374
+#: src/mainwindow.cpp:376
 msgid "Import Ant Movie Catalog Data..."
 msgstr "Importeer audio-cd data..."
 
-#: src/mainwindow.cpp:375
+#: src/mainwindow.cpp:377
 msgid "Import an Ant Movie Catalog data file"
 msgstr "Importeer een ander Tellico-databestand"
 
-#: src/mainwindow.cpp:377
+#: src/mainwindow.cpp:379
 msgid "Import File Listing..."
 msgstr "Bestandopgave importeren..."
 
-#: src/mainwindow.cpp:378
+#: src/mainwindow.cpp:380
 msgid "Import information about files in a folder"
 msgstr "Importeer informatie over bestanden in een map"
 
-#: src/mainwindow.cpp:380
+#: src/mainwindow.cpp:382
 msgid "Import XSL Transform..."
 msgstr "Importeer XSL Transformatie..."
 
-#: src/mainwindow.cpp:381
+#: src/mainwindow.cpp:383
 msgid "Import using an XSL Transform"
 msgstr "Importeer een bestand met gebruik van een XSL-transformatie"
 
 #. i18n: file: src/tellicoui.rc:49
 #. i18n: ectx: Menu (file_export)
-#: src/mainwindow.cpp:391 rc.cpp:283
+#: src/mainwindow.cpp:393 rc.cpp:283
 msgid "&Export"
 msgstr "&Exporteer"
 
-#: src/mainwindow.cpp:393
+#: src/mainwindow.cpp:395
 msgid "Export the collection data to other formats"
 msgstr "Exporteer de verzameling data naar andere formaten"
 
-#: src/mainwindow.cpp:405
+#: src/mainwindow.cpp:407
 msgid "Export to XML..."
 msgstr "Exporteer naar XML..."
 
-#: src/mainwindow.cpp:406
+#: src/mainwindow.cpp:408
 msgid "Export to a Tellico XML file"
 msgstr "Exporteer naar een Tellico XML-bestand"
 
-#: src/mainwindow.cpp:408
+#: src/mainwindow.cpp:410
 msgid "Export to Zip..."
 msgstr "Exporteer naar Zip..."
 
-#: src/mainwindow.cpp:409
+#: src/mainwindow.cpp:411
 msgid "Export to a Tellico Zip file"
 msgstr "Exporteer naar een Tellico Zip-bestand"
 
-#: src/mainwindow.cpp:411
+#: src/mainwindow.cpp:413
 msgid "Export to HTML..."
 msgstr "Exporteer naar HTML..."
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:414
 msgid "Export to an HTML file"
 msgstr "Exporteer naar een HTML bestand"
 
-#: src/mainwindow.cpp:414
+#: src/mainwindow.cpp:416
 msgid "Export to CSV..."
 msgstr "Exporteer naar CSV..."
 
-#: src/mainwindow.cpp:415
+#: src/mainwindow.cpp:417
 msgid "Export to a comma-separated values file"
 msgstr "Exporteer naar een Comma Separated Value bestand"
 
-#: src/mainwindow.cpp:417
+#: src/mainwindow.cpp:419
 msgid "Export to PilotDB..."
 msgstr "Exporteer naar PilotDB..."
 
-#: src/mainwindow.cpp:418
+#: src/mainwindow.cpp:420
 msgid "Export to a PilotDB database"
 msgstr "Exporteer naar een PilotDB database"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:422
 msgid "Export to Alexandria..."
 msgstr "Exporteer naar Alexandria..."
 
-#: src/mainwindow.cpp:421
+#: src/mainwindow.cpp:423
 msgid "Export to an Alexandria library"
 msgstr "Exporteer naar een Alexandria bibliotheek"
 
-#: src/mainwindow.cpp:423
+#: src/mainwindow.cpp:425
 msgid "Export to Bibtex..."
 msgstr "Exporteer naar BibTeX..."
 
-#: src/mainwindow.cpp:424
+#: src/mainwindow.cpp:426
 msgid "Export to a bibtex file"
 msgstr "Exporteer naar een BibTeX bestand"
 
-#: src/mainwindow.cpp:426
+#: src/mainwindow.cpp:428
 msgid "Export to Bibtexml..."
 msgstr "Exporteer naar BibTeXML..."
 
-#: src/mainwindow.cpp:427
+#: src/mainwindow.cpp:429
 msgid "Export to a Bibtexml file"
 msgstr "Naar een BibTeXML-bestand exporteren"
 
-#: src/mainwindow.cpp:429
+#: src/mainwindow.cpp:431
 msgid "Export to ONIX..."
 msgstr "Naar ONIX exporteren..."
 
-#: src/mainwindow.cpp:430
+#: src/mainwindow.cpp:432
 msgid "Export to an ONIX file"
 msgstr "Naar een ONIX-bestand exporteren"
 
-#: src/mainwindow.cpp:432
+#: src/mainwindow.cpp:434
 msgid "Export to GCstar..."
 msgstr "Naar GCstar exporteren..."
 
-#: src/mainwindow.cpp:433
+#: src/mainwindow.cpp:435
 msgid "Export to a GCstar data file"
 msgstr "Naar een GCstar-databestand exporteren"
 
-#: src/mainwindow.cpp:435
+#: src/mainwindow.cpp:437
 msgid "Export XSL Transform..."
 msgstr "XSL-transformatie exporteren..."
 
-#: src/mainwindow.cpp:436
+#: src/mainwindow.cpp:438
 msgid "Export using an XSL Transform"
 msgstr "Een bestand exporteren met gebruik van een XSL-transformatie"
 
-#: src/mainwindow.cpp:447
+#: src/mainwindow.cpp:449
 msgid "Cut the selected text and puts it in the clipboard"
 msgstr "De geselecteerde tekst knippen en plaatsen het op het klembord"
 
-#: src/mainwindow.cpp:449
+#: src/mainwindow.cpp:451
 msgid "Copy the selected text to the clipboard"
 msgstr "De geselecteerde tekst naar het klembord kopiëren"
 
-#: src/mainwindow.cpp:451
+#: src/mainwindow.cpp:453
 msgid "Paste the clipboard contents"
 msgstr "De inhoud van het klembord plakken"
 
-#: src/mainwindow.cpp:453
+#: src/mainwindow.cpp:455
 msgid "Select all the entries in the collection"
 msgstr "Alle item in de verzameling selecteren"
 
-#: src/mainwindow.cpp:455
+#: src/mainwindow.cpp:457
 msgid "Deselect all the entries in the collection"
 msgstr "Alle item in de verzameling deselecteren"
 
-#: src/mainwindow.cpp:458
+#: src/mainwindow.cpp:460
 msgid "Internet Search..."
 msgstr "Internet zoekopdracht..."
 
-#: src/mainwindow.cpp:459 xslt.cpp:47
+#: src/mainwindow.cpp:461 xslt.cpp:47
 msgid "Search"
 msgstr "Zoeken"
 
-#: src/mainwindow.cpp:462
+#: src/mainwindow.cpp:464
 msgid "Search the internet..."
 msgstr "Op het internet zoeken..."
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:467
 msgid "Advanced &Filter..."
 msgstr "Uitgebreid &Filter..."
 
-#: src/mainwindow.cpp:466 src/mainwindow.cpp:629 src/mainwindow.cpp:645
-#: src/filterview.cpp:220
+#: src/mainwindow.cpp:468 src/mainwindow.cpp:636 src/mainwindow.cpp:652
+#: src/filterview.cpp:205
 msgid "Filter"
 msgstr "Filter"
 
-#: src/mainwindow.cpp:469 src/mainwindow.cpp:647
+#: src/mainwindow.cpp:471 src/mainwindow.cpp:654
 msgid "Filter the collection"
 msgstr "De verzameling filteren"
 
-#: src/mainwindow.cpp:476
+#: src/mainwindow.cpp:478
 msgid "&New Entry..."
 msgstr "&Nieuw item..."
 
-#: src/mainwindow.cpp:480
+#: src/mainwindow.cpp:482
 msgid "Create a new entry"
 msgstr "Een nieuw item aanmaken"
 
-#: src/mainwindow.cpp:484 src/controller.cpp:574
+#: src/mainwindow.cpp:486 src/controller.cpp:574
 msgid "&Edit Entry..."
 msgstr "Item bewerken..."
 
-#: src/mainwindow.cpp:487
+#: src/mainwindow.cpp:489
 msgid "Edit the selected entries"
 msgstr "De geselecteerde items bewerken"
 
-#: src/mainwindow.cpp:491 src/controller.cpp:575
+#: src/mainwindow.cpp:493 src/controller.cpp:575
 msgid "D&uplicate Entry"
 msgstr "Item d&upliceren"
 
-#: src/mainwindow.cpp:494
+#: src/mainwindow.cpp:496
 msgid "Copy the selected entries"
 msgstr "De geselecteerde items kopiëren"
 
-#: src/mainwindow.cpp:498 src/controller.cpp:577
+#: src/mainwindow.cpp:500 src/controller.cpp:577
 msgid "&Delete Entry"
 msgstr "&Wis item"
 
-#: src/mainwindow.cpp:501
+#: src/mainwindow.cpp:503
 msgid "Delete the selected entries"
 msgstr "Wis de geselecteerde items"
 
-#: src/mainwindow.cpp:505
+#: src/mainwindow.cpp:507
 msgid "&Merge Entries"
 msgstr "Items sa&menvoegen"
 
-#: src/mainwindow.cpp:509
+#: src/mainwindow.cpp:511
 msgid "Merge the selected entries"
 msgstr "De geselecteerde items samenvoegen"
 
-#: src/mainwindow.cpp:513
+#: src/mainwindow.cpp:515
 msgid "Check-&out..."
 msgstr "&Uitchecken..."
 
-#: src/mainwindow.cpp:515
+#: src/mainwindow.cpp:517
 msgid "Check-out the selected items"
 msgstr "Geselecteerde items uitchecken"
 
-#: src/mainwindow.cpp:518
+#: src/mainwindow.cpp:520
 msgid "Check-&in"
 msgstr "&Inchecken"
 
-#: src/mainwindow.cpp:520
+#: src/mainwindow.cpp:522
 msgid "Check-in the selected items"
 msgstr "Geselecteerde items inchecken"
 
-#: src/mainwindow.cpp:523
+#: src/mainwindow.cpp:525
 msgid "&Rename Collection..."
 msgstr "&Hernoem verzameling..."
 
-#: src/mainwindow.cpp:526
+#: src/mainwindow.cpp:528
 msgid "Rename the collection"
 msgstr "Hernoem de verzameling"
 
-#: src/mainwindow.cpp:529
+#: src/mainwindow.cpp:531
 msgid "Collection &Fields..."
 msgstr "Verzamelings&velden..."
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:532
 msgid "Fields"
 msgstr "Velden"
 
-#: src/mainwindow.cpp:533
+#: src/mainwindow.cpp:535
 msgid "Modify the collection fields"
 msgstr "Pas de verzamelingsvelden aan"
 
-#: src/mainwindow.cpp:536
+#: src/mainwindow.cpp:538
 msgid "&Generate Reports..."
 msgstr "&Maak lijsten..."
 
-#: src/mainwindow.cpp:537
+#: src/mainwindow.cpp:539
 msgid "Reports"
 msgstr "Rapporten"
 
-#: src/mainwindow.cpp:539
+#: src/mainwindow.cpp:541
 msgid "Generate collection reports"
 msgstr "Maak verzameling lijsten"
 
-#: src/mainwindow.cpp:542
+#: src/mainwindow.cpp:544
 msgid "Convert to &Bibliography"
 msgstr "Converteer naar een &Bibliografie"
 
-#: src/mainwindow.cpp:544
+#: src/mainwindow.cpp:546
 msgid "Convert a book collection to a bibliography"
 msgstr "Converteer een boekenverzameling naar een bibliografie"
 
-#: src/mainwindow.cpp:547
+#: src/mainwindow.cpp:549
 msgid "String &Macros..."
 msgstr "Tekenreeks &Macros..."
 
-#: src/mainwindow.cpp:549
+#: src/mainwindow.cpp:551
 msgid "Edit the bibtex string macros"
 msgstr "Bewerk de BibTeX tekenreeks macros"
 
+#: src/mainwindow.cpp:554
+msgid "Check for Duplicate Keys..."
+msgstr "Controleren op dubbele sleutels..."
+
 #: src/mainwindow.cpp:556
+msgid "Check for duplicate citation keys"
+msgstr "Controleren op dubbele citaatsleutels"
+
+#: src/mainwindow.cpp:563
 msgid "Copy Bibtex to Cli&pboard"
 msgstr "Kopieer Bibtex naar het &klembord"
 
-#: src/mainwindow.cpp:557
+#: src/mainwindow.cpp:564
 msgid "Copy bibtex citations to the clipboard"
 msgstr "Kopieer de bibtex citaten naar het klembord"
 
-#: src/mainwindow.cpp:562
+#: src/mainwindow.cpp:569
 msgid "Cite Entry in &LyX"
 msgstr "Item in &LyX aanhalen"
 
-#: src/mainwindow.cpp:563
+#: src/mainwindow.cpp:570
 msgid "Cite the selected entries in LyX"
 msgstr "De geselecteerde items in LyX aanhalen"
 
 #. i18n: file: src/tellicoui.rc:78
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/mainwindow.cpp:571 src/controller.cpp:576 rc.cpp:289
+#: src/mainwindow.cpp:578 src/controller.cpp:576 rc.cpp:289
 msgid "&Update Entry"
 msgstr "Item &bijwerken"
 
-#: src/mainwindow.cpp:573
+#: src/mainwindow.cpp:580
 msgctxt "Update Entry"
 msgid "Update"
 msgstr "Bijwerken"
 
-#: src/mainwindow.cpp:578
+#: src/mainwindow.cpp:585
 msgid "All Sources"
 msgstr "Alle bronnen"
 
-#: src/mainwindow.cpp:579
+#: src/mainwindow.cpp:586
 msgid "Update entry data from all available sources"
 msgstr "Itemgegevens van alle beschikbare bronnen bijwerken"
 
-#: src/mainwindow.cpp:591
+#: src/mainwindow.cpp:598
 msgid "Show Grou&p View"
 msgstr "Groe&psweergave"
 
-#: src/mainwindow.cpp:592
+#: src/mainwindow.cpp:599
 msgid "Enable/disable the group view"
 msgstr "Groepweergave aan/uitzetten"
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:603
 msgid "Show Entry &Editor"
 msgstr "Toon item &editor"
 
-#: src/mainwindow.cpp:598
+#: src/mainwindow.cpp:605
 msgid "Enable/disable the editor"
 msgstr "Item editor aan/uitzetten"
 
-#: src/mainwindow.cpp:601
+#: src/mainwindow.cpp:608
 msgid "Show Entry &View"
 msgstr "Toon item &weergave"
 
-#: src/mainwindow.cpp:602
+#: src/mainwindow.cpp:609
 msgid "Enable/disable the entry view"
 msgstr "Itemweergave aan/uitzetten"
 
-#: src/mainwindow.cpp:617
+#: src/mainwindow.cpp:624
 msgid "Change Grouping"
 msgstr "Verander groepering"
 
-#: src/mainwindow.cpp:620
+#: src/mainwindow.cpp:627
 msgid "&Group Selection"
 msgstr "&Groepering selectie"
 
-#: src/mainwindow.cpp:621
+#: src/mainwindow.cpp:628
 msgid "Change the grouping of the collection"
 msgstr "Verander de groepering van de verzameling"
 
-#: src/mainwindow.cpp:633
+#: src/mainwindow.cpp:640
 msgid "Filter here..."
 msgstr "Filter hier..."
 
-#: src/mainwindow.cpp:695
+#: src/mainwindow.cpp:703
 msgid "Groups"
 msgstr "Groepen"
 
-#: src/mainwindow.cpp:696
+#: src/mainwindow.cpp:704
 msgid ""
 "<qt>The <i>Group View</i> sorts the entries into groupings based on a "
 "selected field.</qt>"
@@ -3891,7 +3955,7 @@ msgstr ""
 "<qt>De <i>Groepweergave</i> sorteert de items in groepen gebaseerd op een "
 "geselecteerd veld.</qt>"
 
-#: src/mainwindow.cpp:703
+#: src/mainwindow.cpp:711
 msgid ""
 "<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
 "</qt>"
@@ -3899,11 +3963,11 @@ msgstr ""
 "<qt>De <i>Kolomweergave</i> toont de inhoud van meerdere velden voor ieder "
 "item.</qt>"
 
-#: src/mainwindow.cpp:758
+#: src/mainwindow.cpp:766
 msgid "Welcome to the Tellico Collection Manager"
 msgstr "Welkom bij de verzamelingbeheerder Tellico"
 
-#: src/mainwindow.cpp:760
+#: src/mainwindow.cpp:768
 msgid ""
 "<h3>Tellico is a tool for managing collections of books, videos, music, and "
 "whatever else you want to catalog.</h3><h3>New entries can be added to your "
@@ -3917,7 +3981,7 @@ msgstr ""
 "handmatige invoer</a> of door <a href=\"tc:///edit_search_internet\"> "
 "ophalen van gegevens</a> van internetbronnen.</h3>"
 
-#: src/mainwindow.cpp:960
+#: src/mainwindow.cpp:968
 msgid ""
 "The current file has been modified.\n"
 "Do you want to save it?"
@@ -3925,19 +3989,19 @@ msgstr ""
 "Het huidige bestand is aangepast.\n"
 "Wil U dit opslaan?"
 
-#: src/mainwindow.cpp:997
+#: src/mainwindow.cpp:1005
 msgid "Creating new document..."
 msgstr "Maak een nieuw document..."
 
-#: src/mainwindow.cpp:1030 src/mainwindow.cpp:1049 src/mainwindow.cpp:1067
+#: src/mainwindow.cpp:1038 src/mainwindow.cpp:1057 src/mainwindow.cpp:1075
 msgid "Opening file..."
 msgstr "Bestand wordt geopend..."
 
-#: src/mainwindow.cpp:1040
+#: src/mainwindow.cpp:1048
 msgid "Open File"
 msgstr "Open bestand"
 
-#: src/mainwindow.cpp:1157
+#: src/mainwindow.cpp:1165
 msgid ""
 "<qt><p>You are saving a file with many images, which causes Tellico to slow "
 "down significantly. Do you want to save the images separately in Tellico's "
@@ -3950,27 +4014,27 @@ msgstr ""
 "</p><p>De keuze kan altijd in de configuratiedialoog gewijzigd worden</p></"
 "qt>"
 
-#: src/mainwindow.cpp:1162
+#: src/mainwindow.cpp:1170
 msgid "Save Images Separately"
 msgstr "Afbeeldingen afzonderlijk opslaan"
 
-#: src/mainwindow.cpp:1163
+#: src/mainwindow.cpp:1171
 msgid "Save Images in File"
 msgstr "Afbeeldingen in bestand opslaan"
 
-#: src/mainwindow.cpp:1197
+#: src/mainwindow.cpp:1205
 msgid "Saving file with a new filename..."
 msgstr "Bestand wordt opgeslagen onder een nieuwe naam..."
 
-#: src/mainwindow.cpp:1204
+#: src/mainwindow.cpp:1212
 msgid "Save As"
 msgstr "Opslaan als"
 
-#: src/mainwindow.cpp:1232 src/mainwindow.cpp:1282
+#: src/mainwindow.cpp:1240 src/mainwindow.cpp:1290
 msgid "Printing..."
 msgstr "Bezig met afdrukken..."
 
-#: src/mainwindow.cpp:1241
+#: src/mainwindow.cpp:1249
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
@@ -3978,75 +4042,75 @@ msgstr ""
 "De verzameling wordt momenteel gefilterd en toont een selectie van alle "
 "items. Alleen de zichtbare items worden afgedrukt. Doorgaan?"
 
-#: src/mainwindow.cpp:1266
+#: src/mainwindow.cpp:1274
 msgid "Processing document..."
 msgstr "Document verwerken..."
 
-#: src/mainwindow.cpp:1289
+#: src/mainwindow.cpp:1297
 msgid "Exiting..."
 msgstr "Programma wordt afgesloten..."
 
-#: src/mainwindow.cpp:1428
+#: src/mainwindow.cpp:1436
 #, kde-format
 msgid "Total entries: %1"
 msgstr "Aantal items: %1"
 
-#: src/mainwindow.cpp:1435
+#: src/mainwindow.cpp:1443
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 gefilterd; %2 geselecteerd)"
 
-#: src/mainwindow.cpp:1438
+#: src/mainwindow.cpp:1446
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 gefilterd)"
 
-#: src/mainwindow.cpp:1441
+#: src/mainwindow.cpp:1449
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 geselecteerd)"
 
-#: src/mainwindow.cpp:1713
+#: src/mainwindow.cpp:1721
 msgid "Importing data..."
 msgstr "Data importeren..."
 
-#: src/mainwindow.cpp:1722
+#: src/mainwindow.cpp:1730
 msgid "Import File"
 msgstr "Bestand importeren"
 
-#: src/mainwindow.cpp:1728
+#: src/mainwindow.cpp:1736
 msgid "Import Directory"
 msgstr "Map importeren"
 
-#: src/mainwindow.cpp:1749
+#: src/mainwindow.cpp:1757
 msgid "Exporting data..."
 msgstr "Data exporteren..."
 
-#: src/mainwindow.cpp:1771
+#: src/mainwindow.cpp:1779
 msgid "Export As"
 msgstr "Exporteer als"
 
-#: src/mainwindow.cpp:1796
+#: src/mainwindow.cpp:1804
 msgid "String Macros"
 msgstr "Tekenreeks macros"
 
-#: src/mainwindow.cpp:1797
+#: src/mainwindow.cpp:1805
 msgid "Macro"
 msgstr "Macro"
 
-#: src/mainwindow.cpp:1797
+#: src/mainwindow.cpp:1805
 msgid "String"
 msgstr "Tekenreeks"
 
-#: src/mainwindow.cpp:1863
+#: src/mainwindow.cpp:1894
 msgid "Creating citations..."
 msgstr "Citaten aanmake..."
 
-#: src/mainwindow.cpp:1968
+#: src/mainwindow.cpp:1999
 msgid "Filters"
 msgstr "Filters"
 
-#: src/mainwindow.cpp:1969
+#: src/mainwindow.cpp:2000
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
@@ -4054,11 +4118,11 @@ msgstr ""
 "<qt>De <i>Filter weergave</i> toont de items die voldoen aan bepaalde "
 "filterregels.</qt>"
 
-#: src/mainwindow.cpp:1987
+#: src/mainwindow.cpp:2018
 msgid "Loans"
 msgstr "Uitgeleend"
 
-#: src/mainwindow.cpp:1988
+#: src/mainwindow.cpp:2019
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
@@ -4066,7 +4130,7 @@ msgstr ""
 "<qt>De <i>Uitleen weergave</i> toont een lijst van mensen die items van u "
 "hebben geleend.</qt>"
 
-#: src/mainwindow.cpp:2060
+#: src/mainwindow.cpp:2091
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4075,12 +4139,12 @@ msgstr ""
 "opslaan van het huidige bestand worden de afbeeldingen naar de nieuw locatie "
 "verplaatst."
 
-#: src/mainwindow.cpp:2098
+#: src/mainwindow.cpp:2129
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Itemgegevens van %1 bijwerken"
 
-#: src/mainwindow.cpp:2116
+#: src/mainwindow.cpp:2147
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -4093,7 +4157,7 @@ msgstr ""
 msgid "(Empty)"
 msgstr "(Leeg)"
 
-#: src/filterview.cpp:222
+#: src/filterview.cpp:207
 msgid "Filter (Sort by Count)"
 msgstr "Filter (gesorteerd naar aantal)"
 
@@ -4105,7 +4169,7 @@ msgstr "Weet u zeker dat u dit item wilt verwijderen?"
 msgid "Delete Entry"
 msgstr "Wis item"
 
-#: src/controller.cpp:375 src/controller.cpp:391 src/configdialog.cpp:655
+#: src/controller.cpp:375 src/controller.cpp:391 src/configdialog.cpp:660
 msgid "&Delete"
 msgstr "&Wissen"
 
@@ -4679,33 +4743,33 @@ msgstr "Importeer <filename> als een RIS-bestand"
 msgid "File to open"
 msgstr "Te openen bestand"
 
-#: src/configdialog.cpp:121
+#: src/configdialog.cpp:126
 msgid "Configure Tellico"
 msgstr "Tellico instellen"
 
-#: src/configdialog.cpp:156 src/configdialog.cpp:179 src/configdialog.cpp:206
-#: src/configdialog.cpp:349
+#: src/configdialog.cpp:161 src/configdialog.cpp:184 src/configdialog.cpp:211
+#: src/configdialog.cpp:354
 msgid "Printing"
 msgstr "Afdrukken"
 
-#: src/configdialog.cpp:158 src/configdialog.cpp:181 src/configdialog.cpp:208
-#: src/configdialog.cpp:427
+#: src/configdialog.cpp:163 src/configdialog.cpp:186 src/configdialog.cpp:213
+#: src/configdialog.cpp:432
 msgid "Templates"
 msgstr "Sjablonen"
 
-#: src/configdialog.cpp:160 src/configdialog.cpp:183 src/configdialog.cpp:603
+#: src/configdialog.cpp:165 src/configdialog.cpp:188 src/configdialog.cpp:608
 msgid "Data Sources"
 msgstr "Databronnen"
 
-#: src/configdialog.cpp:223
+#: src/configdialog.cpp:228
 msgid "General Options"
 msgstr "Algemene opties"
 
-#: src/configdialog.cpp:234
+#: src/configdialog.cpp:239
 msgid "&Reopen file at startup"
 msgstr "He&ropen het bestand bij het opstarten"
 
-#: src/configdialog.cpp:235
+#: src/configdialog.cpp:240
 msgid ""
 "If checked, the file that was last open will be re-opened at program start-"
 "up."
@@ -4713,20 +4777,20 @@ msgstr ""
 "Indien aangevinkt wordt het laatst geopende bestand bij het opstarten "
 "opnieuw geopend."
 
-#: src/configdialog.cpp:240
+#: src/configdialog.cpp:245
 msgid "&Show \"Tip of the Day\" at startup"
 msgstr "&Toon \"Tip van de dag\" bij het opstarten"
 
-#: src/configdialog.cpp:241
+#: src/configdialog.cpp:246
 msgid "If checked, the \"Tip of the Day\" will be shown at program start-up."
 msgstr ""
 "Indien aangevinkt wordt de \"Tip van de dag\" getoond bij het opstarten."
 
-#: src/configdialog.cpp:246
+#: src/configdialog.cpp:251
 msgid "&Enable webcam for barcode scanning"
 msgstr "Schakel de webcam &in voor het scannen van een barcode"
 
-#: src/configdialog.cpp:247
+#: src/configdialog.cpp:252
 msgid ""
 "If checked, the input from a webcam will be used to scan barcodes for "
 "searching."
@@ -4734,23 +4798,23 @@ msgstr ""
 "Indien geactiveerd wordt de invoer van een webcam gebruikt bij het scannen "
 "van barcodes voor het zoeken."
 
-#: src/configdialog.cpp:252
+#: src/configdialog.cpp:257
 msgid "Image Storage Options"
 msgstr "Opties voor afbeeldingopslag"
 
-#: src/configdialog.cpp:254
+#: src/configdialog.cpp:259
 msgid "Store images in data file"
 msgstr "Afbeeldingen opslaan in gegevensbestand"
 
-#: src/configdialog.cpp:255
+#: src/configdialog.cpp:260
 msgid "Store images in common application directory"
 msgstr "Afbeeldingen opslaan in gezamenlijk toepassingenmap"
 
-#: src/configdialog.cpp:256
+#: src/configdialog.cpp:261
 msgid "Store images in directory relative to data file"
 msgstr "Afbeeldingen opslaan in map relatief naar gegevensbestand"
 
-#: src/configdialog.cpp:257
+#: src/configdialog.cpp:262
 msgid ""
 "Images may be saved in the data file itself, which can cause Tellico to run "
 "slowly, stored in the Tellico application directory, or stored in a "
@@ -4760,32 +4824,32 @@ msgstr ""
 "Tellico langzaam kan worden, opgeslagen in de toepassingmap van Tellico, of "
 "opgeslagen in een map in dezelfde locatie als het gegevensbestand."
 
-#: src/configdialog.cpp:273 src/configdialog.cpp:358
+#: src/configdialog.cpp:278 src/configdialog.cpp:363
 msgid "Formatting Options"
 msgstr "Opmaakopties"
 
-#: src/configdialog.cpp:278
+#: src/configdialog.cpp:283
 msgid "Auto capitalize &titles and names"
 msgstr "Automatisch hoofdletters voor &titels en namen"
 
-#: src/configdialog.cpp:279
+#: src/configdialog.cpp:284
 msgid "If checked, titles and names will be automatically capitalized."
 msgstr ""
 "Indien aangevinkt zullen titels en namen automatisch hoofdletters krijgen."
 
-#: src/configdialog.cpp:284
+#: src/configdialog.cpp:289
 msgid "Auto &format titles and names"
 msgstr "Automatische &opmaak titels en namen"
 
-#: src/configdialog.cpp:285 src/configdialog.cpp:364
+#: src/configdialog.cpp:290 src/configdialog.cpp:369
 msgid "If checked, titles and names will be automatically formatted."
 msgstr "Indien aangevinkt zullen titels en namen automatisch opgemaakt worden."
 
-#: src/configdialog.cpp:295
+#: src/configdialog.cpp:300
 msgid "No capitali&zation:"
 msgstr "Geen &hoofdletters:"
 
-#: src/configdialog.cpp:300
+#: src/configdialog.cpp:305
 msgid ""
 "<qt>A list of words which should not be capitalized. Multiple values should "
 "be separated by a semi-colon.</qt>"
@@ -4793,11 +4857,11 @@ msgstr ""
 "<qt>Een lijst van woorden zonder hoofdletters. Meerdere woorden dienen door "
 "een puntkomma gescheiden te worden.</qt>"
 
-#: src/configdialog.cpp:306
+#: src/configdialog.cpp:311
 msgid "Artic&les:"
 msgstr "&Lidwoorden:"
 
-#: src/configdialog.cpp:311
+#: src/configdialog.cpp:316
 msgid ""
 "<qt>A list of words which should be considered as articles if they are the "
 "first word in a title. Multiple values should be separated by a semi-colon.</"
@@ -4807,11 +4871,11 @@ msgstr ""
 "het eerste woord in een titel zijn. Meerdere waarden dienen door een "
 "puntkomma gescheiden te worden.</qt>"
 
-#: src/configdialog.cpp:318
+#: src/configdialog.cpp:323
 msgid "Personal suffi&xes:"
 msgstr "&Achtervoegsels:"
 
-#: src/configdialog.cpp:323
+#: src/configdialog.cpp:328
 msgid ""
 "<qt>A list of suffixes which might be used in personal names. Multiple "
 "values should be separated by a semi-colon.</qt>"
@@ -4819,11 +4883,11 @@ msgstr ""
 "<qt>Een lijst van achtervoegsels. Meerdere waardes dienen door een puntkomma "
 "gescheiden te worden.</qt>"
 
-#: src/configdialog.cpp:329
+#: src/configdialog.cpp:334
 msgid "Surname &prefixes:"
 msgstr "&Voorvoegsels:"
 
-#: src/configdialog.cpp:334
+#: src/configdialog.cpp:339
 msgid ""
 "<qt>A list of prefixes which might be used in surnames. Multiple values "
 "should be separated by a semi-colon.</qt>"
@@ -4831,35 +4895,35 @@ msgstr ""
 "<qt>Een lijst van voorvoegsels. Meerdere waardes dienen door een puntkomma "
 "gescheiden te worden.</qt>"
 
-#: src/configdialog.cpp:350
+#: src/configdialog.cpp:355
 msgid "Printing Options"
 msgstr "Afdrukopties"
 
-#: src/configdialog.cpp:363
+#: src/configdialog.cpp:368
 msgid "&Format titles and names"
 msgstr "Titels en namen &opmaken"
 
-#: src/configdialog.cpp:368
+#: src/configdialog.cpp:373
 msgid "&Print field headers"
 msgstr "Veldnamen &afdrukken"
 
-#: src/configdialog.cpp:373
+#: src/configdialog.cpp:378
 msgid "Grouping Options"
 msgstr "Groeperingsopties"
 
-#: src/configdialog.cpp:378
+#: src/configdialog.cpp:383
 msgid "&Group the entries"
 msgstr "&Groepeer de items"
 
-#: src/configdialog.cpp:383
+#: src/configdialog.cpp:388
 msgid "Image Options"
 msgstr "Afbeeldingsopties"
 
-#: src/configdialog.cpp:389
+#: src/configdialog.cpp:394
 msgid "Maximum image &width:"
 msgstr "Maximale &breedte van afbeelding:"
 
-#: src/configdialog.cpp:395
+#: src/configdialog.cpp:400
 msgid ""
 "The maximum width of the images in the printout. The aspect ratio is "
 "preserved."
@@ -4867,11 +4931,11 @@ msgstr ""
 "De maximale breedte van de afbeeldingen in de afdruk. De verhoudingen "
 "blijven behouden."
 
-#: src/configdialog.cpp:403
+#: src/configdialog.cpp:408
 msgid "&Maximum image height:"
 msgstr "&Maximale hoogte van afbeelding:"
 
-#: src/configdialog.cpp:409
+#: src/configdialog.cpp:414
 msgid ""
 "The maximum height of the images in the printout. The aspect ratio is "
 "preserved."
@@ -4879,15 +4943,15 @@ msgstr ""
 "De maximale hoogte van de afbeeldingen in de afdruk. De verhoudingen blijven "
 "behouden."
 
-#: src/configdialog.cpp:428
+#: src/configdialog.cpp:433
 msgid "Template Options"
 msgstr "Sjabloonopties"
 
-#: src/configdialog.cpp:448
+#: src/configdialog.cpp:453
 msgid "Template:"
 msgstr "Sjabloon:"
 
-#: src/configdialog.cpp:452
+#: src/configdialog.cpp:457
 msgid ""
 "Select the template to use for the current type of collections. Not all "
 "templates will use the font and color settings."
@@ -4895,95 +4959,95 @@ msgstr ""
 "Selecteer het sjabloon voor het huidige type collectie. Niet alle sjablonen "
 "gebruiken de instellingen voor lettertypen en kleuren."
 
-#: src/configdialog.cpp:459
+#: src/configdialog.cpp:464
 msgid "&Preview..."
 msgstr "&Voorbeeld..."
 
-#: src/configdialog.cpp:460
+#: src/configdialog.cpp:465
 msgid "Show a preview of the template"
 msgstr "Toon een voorbeeld van het sjabloon"
 
-#: src/configdialog.cpp:477
+#: src/configdialog.cpp:482
 msgid "Font Options"
 msgstr "Lettertype-opties"
 
-#: src/configdialog.cpp:484
+#: src/configdialog.cpp:489
 msgid "Font:"
 msgstr "Lettertype:"
 
-#: src/configdialog.cpp:490
+#: src/configdialog.cpp:495
 msgid "This font is passed to the template used in the Entry View."
 msgstr ""
 "Dit lettertype is doorgegeven aan het sjabloon dat gebruikt wordt in de "
 "itemweergave."
 
-#: src/configdialog.cpp:494
+#: src/configdialog.cpp:499
 msgid "Size:"
 msgstr "Grootte:"
 
-#: src/configdialog.cpp:504
+#: src/configdialog.cpp:509
 msgid "Color Options"
 msgstr "Kleuropties"
 
-#: src/configdialog.cpp:511
+#: src/configdialog.cpp:516
 msgid "Background color:"
 msgstr "Achtergrondkleur:"
 
-#: src/configdialog.cpp:517
+#: src/configdialog.cpp:522
 msgid "This color is passed to the template used in the Entry View."
 msgstr ""
 "Deze kleur is doorgegeven aanhet sjabloon dat gebruikt wordt in de "
 "itemweergave."
 
-#: src/configdialog.cpp:521
+#: src/configdialog.cpp:526
 msgid "Text color:"
 msgstr "Tekstkleur:"
 
-#: src/configdialog.cpp:530
+#: src/configdialog.cpp:535
 msgid "Highlight color:"
 msgstr "Accentueerkleur:"
 
-#: src/configdialog.cpp:539
+#: src/configdialog.cpp:544
 msgid "Highlighted text color:"
 msgstr "Geaccentueerde tekstkleur:"
 
-#: src/configdialog.cpp:548
+#: src/configdialog.cpp:553
 msgid "Manage Templates"
 msgstr "Sjablonen beheren"
 
-#: src/configdialog.cpp:557
+#: src/configdialog.cpp:562
 msgid "Install..."
 msgstr "Installeren..."
 
-#: src/configdialog.cpp:560
+#: src/configdialog.cpp:565
 msgid "Click to install a new template directly."
 msgstr "Klik voor het onmiddellijk installeren van een nieuw sjabloon."
 
-#: src/configdialog.cpp:563 src/configdialog.cpp:658
+#: src/configdialog.cpp:568 src/configdialog.cpp:663
 msgid "Download..."
 msgstr "Downloaden..."
 
-#: src/configdialog.cpp:566
+#: src/configdialog.cpp:571
 msgid "Click to download additional templates."
 msgstr "Klik om additionele sjablonen te downloaden."
 
-#: src/configdialog.cpp:569
+#: src/configdialog.cpp:574
 msgid "Delete..."
 msgstr "Verwijderen..."
 
-#: src/configdialog.cpp:572
+#: src/configdialog.cpp:577
 msgid "Click to select and remove installed templates."
 msgstr "Klik voor het selecteren en verwijderen van geïnstalleerde sjablonen."
 
-#: src/configdialog.cpp:604
+#: src/configdialog.cpp:609
 msgid "Data Sources Options"
 msgstr "Databronopties"
 
-#: src/configdialog.cpp:623
+#: src/configdialog.cpp:628
 msgid "Move &Up"
 msgstr "&Omhoog"
 
-#: src/configdialog.cpp:625 src/configdialog.cpp:629
+#: src/configdialog.cpp:630 src/configdialog.cpp:634
 msgid ""
 "The order of the data sources sets the order that Tellico uses when entries "
 "are automatically updated."
@@ -4991,47 +5055,47 @@ msgstr ""
 "De volgorde van gegevensbronnen bepaalt de volgorde waarin Tellico ze "
 "automatisch bijwerkt."
 
-#: src/configdialog.cpp:627
+#: src/configdialog.cpp:632
 msgid "Move &Down"
 msgstr "Om&laag"
 
-#: src/configdialog.cpp:634
+#: src/configdialog.cpp:639
 msgid "Filter by type:"
 msgstr "Op type filteren:"
 
-#: src/configdialog.cpp:649
+#: src/configdialog.cpp:654
 msgid "&New..."
 msgstr "&Nieuw..."
 
-#: src/configdialog.cpp:651
+#: src/configdialog.cpp:656
 msgid "Click to add a new data source."
 msgstr "Klik voor het toevoegen van een nieuwe gegevensbron."
 
-#: src/configdialog.cpp:652
+#: src/configdialog.cpp:657
 msgid "&Modify..."
 msgstr "&Wijzig..."
 
-#: src/configdialog.cpp:654
+#: src/configdialog.cpp:659
 msgid "Click to modify the selected data source."
 msgstr "Klik voor het wijzigen van de geselecteerde gegevensbron."
 
-#: src/configdialog.cpp:657
+#: src/configdialog.cpp:662
 msgid "Click to delete the selected data source."
 msgstr "Klik voor het verwijderen van de geselecteerde gegevensbron."
 
-#: src/configdialog.cpp:660
+#: src/configdialog.cpp:665
 msgid "Click to download additional data sources."
 msgstr "Klik voor het downloaden van additionele gegevensbronnen."
 
-#: src/configdialog.cpp:1124
+#: src/configdialog.cpp:1136
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|Sjabloonpakketten (*.tar.gz)"
 
-#: src/configdialog.cpp:1149
+#: src/configdialog.cpp:1168
 msgid "Delete Template"
 msgstr "Sjabloon verwijderen"
 
-#: src/configdialog.cpp:1150
+#: src/configdialog.cpp:1169
 msgid "Select template to delete:"
 msgstr "Selecteer sjabloon om te verwijderen:"
 
@@ -5217,6 +5281,7 @@ msgstr "Sjabloon-accentueertekstkleur"
 
 #. i18n: file: src/core/tellico_config.kcfg:99
 #: rc.cpp:199
+msgctxt "comma-separated list of words ignored by auto-capitalize"
 msgid ""
 "a,an,and,as,at,but,by,for,from,in,into,nor,of,off,on,onto,or,out,over,the,to,"
 "up,with"
@@ -5226,16 +5291,19 @@ msgstr ""
 
 #. i18n: file: src/core/tellico_config.kcfg:102
 #: rc.cpp:201
+msgctxt "comma-separated list of articles ignored for title sorting"
 msgid "the"
-msgstr "de"
+msgstr "de,het"
 
 #. i18n: file: src/core/tellico_config.kcfg:105
 #: rc.cpp:203
+msgctxt "comma-separated list of common surname suffixes, used for sorting"
 msgid "jr.,jr,iii,iv"
 msgstr "jr.,jr,iii,iv"
 
 #. i18n: file: src/core/tellico_config.kcfg:108
 #: rc.cpp:205
+msgctxt "comma-separated list of common surname prefixes, used for sorting"
 msgid "de,van,der,van der,von"
 msgstr "de,van,der,van der,von"
 
@@ -5257,15 +5325,21 @@ msgstr "&Nieuw"
 msgid "&Collection"
 msgstr "&Verzameling"
 
-#. i18n: file: src/tellicoui.rc:108
-#. i18n: ectx: ToolBar (mainToolBar)
+#. i18n: file: src/tellicoui.rc:92
+#. i18n: ectx: Menu (coll_bibliography)
 #: rc.cpp:292
+msgid "&Bibliography"
+msgstr "&Bibliografie"
+
+#. i18n: file: src/tellicoui.rc:112
+#. i18n: ectx: ToolBar (mainToolBar)
+#: rc.cpp:295
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#. i18n: file: src/tellicoui.rc:117
+#. i18n: file: src/tellicoui.rc:121
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: rc.cpp:295
+#: rc.cpp:298
 msgid "Collection Toolbar"
 msgstr "Verzameling werkbalk"
 

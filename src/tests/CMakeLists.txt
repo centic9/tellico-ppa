@@ -75,6 +75,9 @@ set(TELLICO_TEST_LIBS
 KDE4_ADD_UNIT_TEST(collectiontest NOGUI collectiontest.cpp)
 TARGET_LINK_LIBRARIES(collectiontest ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(adstest NOGUI adstest.cpp)
+TARGET_LINK_LIBRARIES(adstest ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(alexandriatest NOGUI alexandriatest.cpp ../progressmanager.cpp)
 TARGET_LINK_LIBRARIES(alexandriatest ${TELLICO_TEST_LIBS})
 
@@ -105,6 +108,9 @@ TARGET_LINK_LIBRARIES(allocinefetchertest fetch ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(amazonfetchertest NOGUI amazonfetchertest.cpp)
 TARGET_LINK_LIBRARIES(amazonfetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(animenfofetchertest NOGUI animenfofetchertest.cpp)
+TARGET_LINK_LIBRARIES(animenfofetchertest fetch ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(arxivfetchertest NOGUI arxivfetchertest.cpp)
 TARGET_LINK_LIBRARIES(arxivfetchertest fetch ${TELLICO_TEST_LIBS})
 
@@ -117,12 +123,18 @@ TARGET_LINK_LIBRARIES(citebasefetchertest fetch ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(discogsfetchertest NOGUI discogsfetchertest.cpp)
 TARGET_LINK_LIBRARIES(discogsfetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(doubanfetchertest NOGUI doubanfetchertest.cpp)
+TARGET_LINK_LIBRARIES(doubanfetchertest fetch ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(dvdfrfetchertest NOGUI dvdfrfetchertest.cpp)
 TARGET_LINK_LIBRARIES(dvdfrfetchertest fetch ${TELLICO_TEST_LIBS})
 
 IF( QJSON_FOUND )
     KDE4_ADD_UNIT_TEST(freebasefetchertest NOGUI freebasefetchertest.cpp)
     TARGET_LINK_LIBRARIES(freebasefetchertest fetch ${TELLICO_TEST_LIBS})
+
+    KDE4_ADD_UNIT_TEST(filmasterfetchertest NOGUI filmasterfetchertest.cpp)
+    TARGET_LINK_LIBRARIES(filmasterfetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( QJSON_FOUND )
 
 # running gcstar in the fetcher is really unreliable

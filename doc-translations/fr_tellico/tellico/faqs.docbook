@@ -17,46 +17,13 @@ application work. -->
 <qandaentry>
 <question>
 <para
->Comment démarrer le programme ?</para>
-</question>
-<answer>
-
-<para
->Après le téléchargement et la décompression de &appname;, lancez <userinput
-><command
->configure</command
-> <option
->--disable-debug</option
-> <option
->--enable-final</option
-></userinput
-> pour tout configurer. Vous pouvez avoir besoin de modifier des options de ligne de commande. Après ça, lancer <userinput
-><command
->make</command
-></userinput
-> compilera &appname;. Ensuite, en tant que superutilisateur, lancez <userinput
-><command
->make install</command
-></userinput
-> pour installer le programme. Être superutilisateur est nécessaire seulement si vous installez dans un emplacement où vous n'avez pas les droits d'accès. La ligne de commande pour lancer &appname; est <userinput
-><command
->tellico</command
-></userinput
->. Si vous installez un des binaires prépaquetagés, un élément menu sera inséré pour &appname;. </para>
-
-</answer>
-</qandaentry>
-
-<qandaentry>
-<question>
-<para
 >Comment saisir plusieurs auteurs ?</para>
 </question>
 <answer>
 
 <para
 >Les noms des auteurs doivent être séparés par un point-virgule, comme ceci : <userinput
->Brian W. Kernighan; Dennis M. Ritchie</userinput
+>Brian W. Kernighan;Dennis M. Ritchie</userinput
 >. N'incluez pas le mot « et » ou quelque chose de similaire, même si vous avez vingt auteurs. Si vous avez l'option de formatage automatique cochée, le dernier nom sera ensuite automatiquement affiché en premier pour chaque auteur.</para>
 
 <para
@@ -79,12 +46,10 @@ application work. -->
 >KDEDIR</envar
 >/share/apps/tellico/. Vous pouvez le copier dans le dossier $<envar
 >KDEHOME</envar
->/share/apps/tellico/ pour les modifications personnelles. Vous devez connaître <ulink url="http://www.w3.org/TR/xslt"
+>/share/apps/tellico/ pour appliquer des modifications personnelles. Vous devrez maîtriser <ulink url="http://www.w3.org/TR/xslt"
 >&xslt;</ulink
->, mais modifier ce fichier indique la manière de modifier l'affichage d'impression. &HTML; est généré depuis le fichier et la manière la plus simple de modifier l'apparence d'impression est de modifier le &CSS; dans la partie du haut. Vous pouvez m'envoyer un courrier électronique avec vos questions. Des fichiers d'impression &xslt; alternatifs seront disponibles sur le <ulink url="&homepage;"
->site web de &appname;</ulink
->.</para>
- 
+>, mais modifier ce fichier est la seule manière de modifier la présentation de l'impression. Le code &HTML; est généré depuis le fichier et la manière la plus simple de modifier la présentation est de modifier le &CSS; dans la partie du haut.</para>
+
 <para
 >Faites attention que le fichier <filename
 >tellico-printing.xsl</filename
@@ -128,7 +93,7 @@ application work. -->
 >QCheckBox::property( "title" ) failed: property invalid
 or does not exist</computeroutput>
 </screen
-> sont des informations de déboguage. Á l'étape de compilation, vous pouvez configurer pour désactiver cette option avec l'option <userinput
+> sont des informations de débogage. À l'étape de compilation, vous pouvez configurer pour désactiver cette option avec l'option <userinput
 ><option
 >--disable-debug</option
 ></userinput
@@ -246,17 +211,17 @@ or does not exist</computeroutput>
 ></question>
 <answer>
 <para
->&appname;utilise la propriété <emphasis
+>&appname; utilise la propriété <emphasis
 >bibtex</emphasis
-> pour connaître la manière d'exporter les champs bibtex. Si vous voulez ajouter des champs additionnels à exporter, tel qu'un résumé, ouvrez la <interface
->Boîte de dialogue des chamsp de collection</interface
+> pour connaître la manière d'exporter les champs bibtex. Si vous voulez ajouter des champs additionnels à exporter, tel qu'un résumé, ouvrez la boîte de dialogue <interface
+>Champs de collection</interface
 >, et cliquez sur le bouton <guibutton
 >Propriétés étendues</guibutton
 >. Ajoutez une propriété <emphasis
 >bibtex</emphasis
 > avec la valeur <emphasis
 >abstract</emphasis
->. Ensuite, quand vous exportez vers bibtex ou bibtexml, cette propriété sera utilisée pour le nom du champ bibtex.</para>
+>. Ensuite, lorsque vous exporterez vers bibtex ou bibtexml, cette propriété sera utilisée pour le nom du champ bibtex.</para>
 </answer>
 </qandaentry>
 
@@ -296,7 +261,7 @@ or does not exist</computeroutput>
 <para
 >Les <ulink url="http://www.amazon.com/gp/browse.html/002-0927720-5265623?node=3440661"
 >termes du contrat pour l'accès aux services web Amazon.com</ulink
-> requièrent que toutes les images affichés depuis le site doivent être liées depuis Amazon.com, comme un lien additionnel. L'ID associé à Amazon.com est nécessairement inclu, les paiements référencés sont dûment collectés. </para>
+> requièrent que toutes les images affichés depuis le site doivent être liées depuis Amazon.com, comme un lien additionnel. L'ID associé à Amazon.com est nécessairement inclus, les paiements référencés sont dûment collectés. </para>
 </answer>
 </qandaentry>
 
@@ -311,7 +276,7 @@ or does not exist</computeroutput>
 >Quand j'ai commencé &appname;, j'apprenais le C++. Je ne connaissais pas SQL à ce moment la, et je n'avais seulement qu'une faible connaissance sur la façon de l'utiliser. Tout simplement, &appname; ne fonctionnait pas comme une base de données relationnelle, et cela ne changera pas quelque part dans le futur tant que je n'aurais pas appris SQL, et que je n'ai pas le temps et la motivation de modifier le modèle de données. Si cela vous ennuie, et bien n'utilisez pas &appname;. </para>
 
 <para
->Bien sûr, n'importe qui est le bienvenu pour appliquer des modifications qu'ils veulent au code source. </para>
+>Bien entendu, toute personne souhaitant contribuer au code source est la bienvenue. </para>
 </answer>
 </qandaentry>
 

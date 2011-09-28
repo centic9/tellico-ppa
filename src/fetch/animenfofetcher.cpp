@@ -25,6 +25,7 @@
 #include "animenfofetcher.h"
 #include "../gui/guiproxy.h"
 #include "../tellico_utils.h"
+#include "../collections/bookcollection.h"
 #include "../collections/videocollection.h"
 #include "../entry.h"
 #include "../fieldformat.h"
@@ -42,8 +43,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-
-//#define ANIMENFO_TEST
 
 namespace {
   static const char* ANIMENFO_BASE_URL = "http://www.animenfo.com/search.php";
@@ -64,7 +63,8 @@ QString AnimeNfoFetcher::source() const {
 }
 
 bool AnimeNfoFetcher::canFetch(int type) const {
-  return type == Data::Collection::Video;
+  return type == Data::Collection::Book ||
+         type == Data::Collection::Video;
 }
 
 void AnimeNfoFetcher::readConfigHook(const KConfigGroup& config_) {
@@ -75,13 +75,24 @@ void AnimeNfoFetcher::search() {
   m_started = true;
   m_matches.clear();
 
-#ifdef ANIMENFO_TEST
-  KUrl u = KUrl("/home/robby/animenfo.html");
-#else
   KUrl u(ANIMENFO_BASE_URL);
   u.addQueryItem(QLatin1String("action"),   QLatin1String("Go"));
   u.addQueryItem(QLatin1String("option"),   QLatin1String("keywords"));
-  u.addQueryItem(QLatin1String("queryin"),  QLatin1String("anime_titles"));
+
+  switch(request().collectionType) {
+    case Data::Collection::Book:
+      u.addQueryItem(QLatin1String("queryin"),  QLatin1String("manga_titles"));
+      break;
+
+    case Data::Collection::Video:
+      u.addQueryItem(QLatin1String("queryin"),  QLatin1String("anime_titles"));
+      break;
+      
+    default:
+      myWarning() << "collection type not valid:" << request().collectionType;
+      stop();
+      return;
+  }
 
   switch(request().key) {
     case Keyword:
@@ -93,8 +104,7 @@ void AnimeNfoFetcher::search() {
       stop();
       return;
   }
-#endif
-//  myDebug() << "url: " << u.url();
+//  myDebug() << "url:" << u.url();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   m_job->ui()->setWindow(GUI::Proxy::widget());
@@ -149,15 +159,11 @@ void AnimeNfoFetcher::slotComplete(KJob*) {
   for(int pos = infoRx.indexIn(s); m_started && pos > -1; pos = infoRx.indexIn(s, pos+1)) {
     if(n == 0 && !u.isEmpty()) {
       FetchResult* r = new FetchResult(Fetcher::Ptr(this), t, y);
-      emit signalResultFound(r);
-
-#ifdef ANIMENFO_TEST
-      KUrl url = KUrl(QLatin1String("/home/robby/animetitle.html"));
-#else
       KUrl url(KUrl(ANIMENFO_BASE_URL), u);
       url.setQuery(QString());
-#endif
       m_matches.insert(r->uid, url);
+      // don't emit signal until after putting url in matches hash
+      emit signalResultFound(r);
 
       u.clear();
       t.clear();
@@ -186,15 +192,15 @@ void AnimeNfoFetcher::slotComplete(KJob*) {
   }
 
   // grab last response
-#ifndef ANIMENFO_TEST
   if(!u.isEmpty()) {
     FetchResult* r = new FetchResult(Fetcher::Ptr(this), t, y, QString());
-    emit signalResultFound(r);
     KUrl url(KUrl(ANIMENFO_BASE_URL), u);
     url.setQuery(QString());
     m_matches.insert(r->uid, url);
+    // don't emit signal until after putting url in matches hash
+    emit signalResultFound(r);
   }
-#endif
+
   stop();
 }
 
@@ -211,7 +217,7 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::fetchEntryHook(uint uid_) {
     return Data::EntryPtr();
   }
 
-  QString results = Tellico::decodeHTML(FileHandler::readTextFile(url, true));
+  QString results = Tellico::decodeHTML(FileHandler::readTextFile(url, true, true));
   if(results.isEmpty()) {
     myDebug() << "no text results";
     return Data::EntryPtr();
@@ -228,7 +234,7 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::fetchEntryHook(uint uid_) {
   f.close();
 #endif
 
-  entry = parseEntry(results);
+  entry = parseEntry(results, url);
   if(!entry) {
     myDebug() << "error in processing entry";
     return Data::EntryPtr();
@@ -237,7 +243,7 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::fetchEntryHook(uint uid_) {
   return entry;
 }
 
-Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_) {
+Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_, const KUrl& url_) {
  // myDebug();
  // class might be anime_info_top
   QRegExp infoRx(QLatin1String("<td\\s+[^>]*class\\s*=\\s*[\"']anime_info[^>]*>(.*)</td>"), Qt::CaseInsensitive);
@@ -252,8 +258,20 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_) {
   QString s = str_;
   s.remove(jsRx);
 
-  Data::CollPtr coll(new Data::VideoCollection(true));
+  Data::CollPtr coll;
+  switch(request().collectionType) {
+    case Data::Collection::Book:
+      coll = Data::CollPtr(new Data::BookCollection(true));
+      break;
 
+    case Data::Collection::Video:
+      coll = Data::CollPtr(new Data::VideoCollection(true));
+      break;
+
+    default:
+      return Data::EntryPtr();   
+  }
+     
   // add new fields
   Data::FieldPtr f(new Data::Field(QLatin1String("origtitle"), i18n("Original Title")));
   coll->addField(f);
@@ -272,30 +290,91 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_) {
   f->setCategory(i18n("Features"));
   coll->addField(f);
 
+  f = new Data::Field(QLatin1String("animenfo"), i18n("AnimeNfo Link"), Data::Field::URL);
+  f->setCategory(i18n("General"));
+  coll->addField(f);
+
+  f = new Data::Field(QLatin1String("animenfo-rating"), i18n("AnimeNfo Rating"), Data::Field::Rating);
+  f->setCategory(i18n("General"));
+  f->setProperty(QLatin1String("maximum"), QLatin1String("10"));
+  coll->addField(f);
+
  // map captions in HTML to field names
-  QMap<QString, QString> fieldMap;
+  QHash<QString, QString> fieldMap;
   fieldMap.insert(QLatin1String("Title"), QLatin1String("title"));
   fieldMap.insert(QLatin1String("Japanese Title"), QLatin1String("origtitle"));
   fieldMap.insert(QLatin1String("Total Episodes"), QLatin1String("episodes"));
+  fieldMap.insert(QLatin1String("Category"), QLatin1String("keyword"));
   fieldMap.insert(QLatin1String("Genres"), QLatin1String("genre"));
-  fieldMap.insert(QLatin1String("Year Published"), QLatin1String("year"));
+  fieldMap.insert(QLatin1String("Genre"), QLatin1String("genre"));
   fieldMap.insert(QLatin1String("Studio"), QLatin1String("studio"));
   fieldMap.insert(QLatin1String("US Distribution"), QLatin1String("distributor"));
+  fieldMap.insert(QLatin1String("Author"), QLatin1String("author"));
+  fieldMap.insert(QLatin1String("Publisher"), QLatin1String("publisher"));
+  fieldMap.insert(QLatin1String("Director"), QLatin1String("director"));
+  fieldMap.insert(QLatin1String("Script"), QLatin1String("writer"));
+  fieldMap.insert(QLatin1String("Music"), QLatin1String("composer"));
+  fieldMap.insert(QLatin1String("User Rating"), QLatin1String("animenfo-rating"));
+
+  switch(request().collectionType) {
+    case Data::Collection::Book:
+      fieldMap.insert(QLatin1String("Year Published"), QLatin1String("pub_year"));
+      break;
+    case Data::Collection::Video:
+      fieldMap.insert(QLatin1String("Year Published"), QLatin1String("year"));
+      break;
+    default:
+      break;   
+  }
 
   Data::EntryPtr entry(new Data::Entry(coll));
 
+  QString fullTitle;
+  
   int n = 0;
   QString key, value;
-  int oldpos = -1;
   for(int pos = infoRx.indexIn(s); pos > -1; pos = infoRx.indexIn(s, pos+1)) {
     if(n == 0 && !key.isEmpty()) {
       if(fieldMap.contains(key)) {
         value = value.simplified();
-        if(value.length() > 2) { // might be "-"
-          if(key == QLatin1String("Genres")) {
-            entry->setField(fieldMap[key], value.split(QRegExp(QLatin1String("\\s*,\\s*"))).join(FieldFormat::delimiterString()));
+        if(value.endsWith(QLatin1Char(';'))) {
+          value.chop(1);
+        }
+        if(!value.isEmpty() && value != QLatin1String("-")) {
+          const QString fieldName = fieldMap.value(key);
+          if(key == QLatin1String("Title")) {
+            // strip possible trailing year, etc.
+            fullTitle = value;
+            value.remove(QRegExp(QLatin1String("\\s*\\([^)]*\\)$")));
+            entry->setField(fieldName, value);
+          } else if(key == QLatin1String("Total Episodes")) {
+            // strip possible trailing text
+            value.remove(QRegExp(QLatin1String("[\\D].*$")));
+            entry->setField(fieldName, value);
+          } else if(key == QLatin1String("User Rating")) {
+            QRegExp rating(QLatin1String("^(.*)/10"));
+            if(rating.indexIn(value) > -1) {
+              const double d = rating.cap(1).toDouble();
+              entry->setField(fieldName, QString::number(static_cast<int>(d+0.5)));
+            }
+          } else if(key == QLatin1String("Year Published")) {
+            // strip possible trailing text
+            value.remove(QRegExp(QLatin1String("[\\D;].*$")));
+            entry->setField(fieldName, value);
           } else {
-            entry->setField(fieldMap[key], value);
+            entry->setField(fieldName, value);
+          }
+          if(fieldName == QLatin1String("studio") ||
+             fieldName == QLatin1String("genre") ||
+             fieldName == QLatin1String("script") ||
+             fieldName == QLatin1String("distributor") ||
+             fieldName == QLatin1String("director") ||
+             fieldName == QLatin1String("writer") ||
+             fieldName == QLatin1String("author") ||
+             fieldName == QLatin1String("publisher") ||
+             fieldName == QLatin1String("composer")) {
+            QStringList values = entry->field(fieldName).split(QRegExp(QLatin1String("\\s*,\\s*")));
+            entry->setField(fieldName, values.join(FieldFormat::delimiterString()));
           }
         }
       }
@@ -307,16 +386,16 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_) {
         key = infoRx.cap(1).remove(tagRx);
         break;
       case 1:
-        value = infoRx.cap(1).remove(tagRx);
+        value = infoRx.cap(1).replace(QLatin1String("<br />"), QLatin1String("; ")).remove(tagRx);
         break;
     }
     n = (n+1)%2;
-    oldpos = pos;
   }
+  entry->setField(QLatin1String("animenfo"), url_.url());
 
   // image
   QRegExp imgRx(QString::fromLatin1("<img\\s+[^>]*src\\s*=\\s*[\"']([^>]*)[\"']\\s+[^>]*alt\\s*=\\s*[\"']%1[\"']")
-                                    .arg(entry->field(QLatin1String("title"))), Qt::CaseInsensitive);
+                                    .arg(QRegExp::escape(fullTitle)), Qt::CaseInsensitive);
   imgRx.setMinimal(true);
   int pos = imgRx.indexIn(s);
   if(pos > -1) {
@@ -324,28 +403,48 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_) {
     QString id = ImageFactory::addImage(imgURL, true);
     if(!id.isEmpty()) {
       entry->setField(QLatin1String("cover"), id);
+    } else {
+      myDebug() << "bad cover" << imgURL.url();
     }
   }
 
   // now look for alternative titles and plot
   const QString a = QLatin1String("Alternative titles");
-  pos = s.indexOf(a, oldpos+1, Qt::CaseInsensitive);
+  pos = s.indexOf(a, 0, Qt::CaseInsensitive);
   if(pos > -1) {
     pos += a.length();
-  }
-  int pos2 = -1;
-  if(pos > -1) {
-    pos2 = s.indexOf(QLatin1String("Description"), pos+1, Qt::CaseInsensitive);
+    int pos2 = s.indexOf(QLatin1String("<td class=\"anime_cat_left"), pos+1);
     if(pos2 > -1) {
-      value = s.mid(pos, pos2-pos).remove(tagRx).simplified();
+      value = s.mid(pos, pos2-pos).simplified();
+      value.replace(QLatin1String("<br />"), FieldFormat::rowDelimiterString());
+      value = value.remove(tagRx).trimmed();
       entry->setField(QLatin1String("alttitle"), value);
     }
   }
-  QRegExp descRx(QLatin1String("class\\s*=\\s*[\"']description[\"'][^>]*>(.*)<"), Qt::CaseInsensitive);
-  descRx.setMinimal(true);
-  pos = descRx.indexIn(s, qMax(pos, pos2));
+
+  pos = s.indexOf(QLatin1String("Description"), pos > -1 ? pos : 0);
   if(pos > -1) {
-    entry->setField(QLatin1String("plot"), descRx.cap(1).simplified());
+    QRegExp descRx(QLatin1String("<td\\s[^>]*class\\s*=\\s*[\"']description[\"'].*>(.*)</td"), Qt::CaseInsensitive);
+    descRx.setMinimal(true);
+    pos = descRx.indexIn(s, pos+1);
+    if(pos > -1) {
+      entry->setField(QLatin1String("plot"), descRx.cap(1).remove(tagRx).simplified());
+    }
+  }
+
+  pos = s.indexOf(QLatin1String("Voice Talent"));
+  if(pos > -1) {
+    QRegExp charRx(QLatin1String("<a href=['\"]/anime/character/display.php.*>(.*)</a>"), Qt::CaseInsensitive);
+    charRx.setMinimal(true);
+    QRegExp voiceRx(QLatin1String("<a href=['\"]animeseiyuu.*>(.*)</a>"), Qt::CaseInsensitive);
+    voiceRx.setMinimal(true);
+    QStringList castLines;
+    for(pos = s.indexOf(charRx, pos); pos > -1; pos = s.indexOf(charRx, pos+1)) {
+      if(voiceRx.indexIn(s, pos) > -1) {
+        castLines << voiceRx.cap(1) + FieldFormat::columnDelimiterString() + charRx.cap(1);
+      }
+    }
+    entry->setField(QLatin1String("cast"), castLines.join(FieldFormat::rowDelimiterString()));
   }
 
   return entry;
@@ -360,7 +459,7 @@ Tellico::Fetch::FetchRequest AnimeNfoFetcher::updateRequest(Data::EntryPtr entry
 }
 
 Tellico::Fetch::ConfigWidget* AnimeNfoFetcher::configWidget(QWidget* parent_) const {
-  return new AnimeNfoFetcher::ConfigWidget(parent_);
+  return new AnimeNfoFetcher::ConfigWidget(parent_, this);
 }
 
 QString AnimeNfoFetcher::defaultName() {
@@ -371,11 +470,26 @@ QString AnimeNfoFetcher::defaultIcon() {
   return favIcon("http://animenfo.com");
 }
 
-AnimeNfoFetcher::ConfigWidget::ConfigWidget(QWidget* parent_)
+//static
+Tellico::StringHash AnimeNfoFetcher::allOptionalFields() {
+  StringHash hash;
+  hash[QLatin1String("distributor")]     = i18n("Distributor");
+  hash[QLatin1String("episodes")]        = i18n("Episodes");
+  hash[QLatin1String("origtitle")]       = i18n("Original Title");
+  hash[QLatin1String("alttitle")]        = i18n("Alternative Titles");
+  hash[QLatin1String("animenfo-rating")] = i18n("AnimeNfo Rating");
+  hash[QLatin1String("animenfo")]        = i18n("AnimeNfo Link");
+  return hash;
+}
+
+AnimeNfoFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AnimeNfoFetcher* fetcher_)
     : Fetch::ConfigWidget(parent_) {
   QVBoxLayout* l = new QVBoxLayout(optionsWidget());
   l->addWidget(new QLabel(i18n("This source has no options."), optionsWidget()));
   l->addStretch();
+
+  // now add additional fields widget
+  addFieldsWidget(AnimeNfoFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 }
 
 QString AnimeNfoFetcher::ConfigWidget::preferredName() const {

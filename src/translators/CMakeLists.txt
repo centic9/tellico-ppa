@@ -2,6 +2,7 @@
 ########### next target ###############
 
 SET(translators_STAT_SRCS
+   adsimporter.cpp
    alexandriaexporter.cpp
    alexandriaimporter.cpp
    amcimporter.cpp
@@ -43,7 +44,6 @@ SET(translators_STAT_SRCS
    xsltexporter.cpp
    xslthandler.cpp
    xsltimporter.cpp
-   ../entryupdatejob.cpp
    )
 
 KDE4_ADD_LIBRARY(translators STATIC ${translators_STAT_SRCS})
@@ -62,6 +62,7 @@ TARGET_LINK_LIBRARIES(translators
     )
 
 IF( NEPOMUK_FOUND )
+  ADD_DEFINITIONS( -DDISABLE_NEPOMUK_LEGACY )
   TARGET_LINK_LIBRARIES(translators ${NEPOMUK_LIBRARIES})
 ENDIF( NEPOMUK_FOUND)
 

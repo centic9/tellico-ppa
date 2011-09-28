@@ -76,6 +76,10 @@ int FilterModel::rowCount(const QModelIndex& index_) const {
   }
   Node* node = static_cast<Node*>(index_.internalPointer());
   Q_ASSERT(node);
+  // node may not be populated yet
+  if(node->childCount() == 0) {
+    populateFilterNode(node, m_filters.at(index_.row()));
+  }
   return node->childCount();
 }
 
@@ -186,11 +190,6 @@ void FilterModel::addFilters(const Tellico::FilterList& filters_) {
   foreach(FilterPtr filter, filters_) {
     Node* filterNode = new Node(m_rootNode);
     m_rootNode->addChild(filterNode);
-    Data::EntryList entries = Data::Document::self()->filteredEntries(filter);
-    foreach(Data::EntryPtr entry, entries) {
-      Node* childNode = new Node(filterNode, entry->id());
-      filterNode->addChild(childNode);
-    }
   }
   endInsertRows();
 }
@@ -264,6 +263,37 @@ void FilterModel::invalidate(const QModelIndex& index_) {
   endInsertRows();
 
   emit dataChanged(index_, index_);
+}
+
+bool FilterModel::indexContainsEntry(const QModelIndex& parent_, Data::EntryPtr entry_) const {
+  Q_ASSERT(entry_);
+  if(!entry_) {
+    return false;
+  }
+
+  QModelIndex entryIndex = index(0, 0, parent_);
+  while(entryIndex.isValid()) {
+    Node* node = static_cast<Node*>(entryIndex.internalPointer());
+    if(node && node->id() == entry_->id()) {
+      return true;
+    }
+    entryIndex = entryIndex.sibling(entryIndex.row()+1, 0);
+  }
+  return false;
+}
+
+void FilterModel::populateFilterNode(Node* node_, const FilterPtr filter_) const {
+  Q_ASSERT(node_);
+  Q_ASSERT(filter_);
+  if(!node_ || !filter_) {
+    return;
+  }
+  
+  Data::EntryList entries = Data::Document::self()->filteredEntries(filter_);
+  foreach(Data::EntryPtr entry, entries) {
+    Node* childNode = new Node(node_, entry->id());
+    node_->addChild(childNode);
+  }
 }
 
 #include "filtermodel.moc"

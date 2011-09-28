@@ -51,8 +51,10 @@
 #include "multifetcher.h"
 #ifdef HAVE_QJSON
 #include "freebasefetcher.h"
+#include "filmasterfetcher.h"
 #endif
 #include "dvdfrfetcher.h"
+#include "doubanfetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -90,6 +92,8 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::MultiFetcher> registerMulti(Multiple);
 #ifdef HAVE_QJSON
   RegisterFetcher<Fetch::FreebaseFetcher> registerFreebase(Freebase);
+  RegisterFetcher<Fetch::FilmasterFetcher> registerFilmaster(Filmaster);
 #endif
   RegisterFetcher<Fetch::DVDFrFetcher> registerDVDFr(DVDFr);
+  RegisterFetcher<Fetch::DoubanFetcher> registerDouban(Douban);
 }

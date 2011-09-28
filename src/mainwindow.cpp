@@ -50,6 +50,7 @@
 #include "translators/bibtexhandler.h" // needed for bibtex options
 #include "fetchdialog.h"
 #include "reportdialog.h"
+#include "bibtexkeydialog.h"
 #include "tellico_strings.h"
 #include "filterview.h"
 #include "loanview.h"
@@ -140,6 +141,7 @@ MainWindow::MainWindow(QWidget* parent_/*=0*/) : KXmlGuiWindow(parent_),
     m_filterDlg(0),
     m_collFieldsDlg(0),
     m_stringMacroDlg(0),
+    m_bibtexKeyDlg(0),
     m_fetchDlg(0),
     m_reportDlg(0),
     m_queuedFilters(0),
@@ -193,6 +195,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::slotInit() {
+  MARK;
   if(m_editDialog) {
     return;
   }
@@ -548,6 +551,11 @@ void MainWindow::initActions() {
   action->setIcon(KIcon(QLatin1String("fileview-text")));
   action->setToolTip(i18n("Edit the bibtex string macros"));
 
+  action = actionCollection()->addAction(QLatin1String("coll_key_manager"), this, SLOT(slotShowBibtexKeyDialog()));
+  action->setText(i18n("Check for Duplicate Keys..."));
+  action->setIcon(KIcon(QLatin1String("text/x-bibtex")));
+  action->setToolTip(i18n("Check for duplicate citation keys"));
+
   QSignalMapper* citeMapper = new QSignalMapper(this);
   connect(citeMapper, SIGNAL(mapped(int)),
           this, SLOT(slotCiteEntry(int)));
@@ -690,6 +698,7 @@ void MainWindow::initView() {
 
   m_viewTabs = new KTabWidget(m_split);
   m_viewTabs->setTabBarHidden(true);
+  m_viewTabs->setDocumentMode(true);
   m_groupView = new GroupView(m_viewTabs);
   Controller::self()->addObserver(m_groupView);
   m_viewTabs->addTab(m_groupView, KIcon(QLatin1String("folder")), i18n("Groups"));
@@ -1090,6 +1099,7 @@ void MainWindow::openFile(const QString& file_) {
 }
 
 bool MainWindow::openURL(const KUrl& url_) {
+  MARK;
   // try to open document
   GUI::CursorSaver cs(Qt::WaitCursor);
 
@@ -1535,7 +1545,6 @@ void MainWindow::slotUpdateCollectionToolBar(Tellico::Data::CollPtr coll_) {
 }
 
 void MainWindow::slotChangeGrouping() {
-//  DEBUG_LINE;
   QString title = m_entryGrouping->currentText();
 
   QString groupName = Kernel::self()->fieldNameByTitle(title);
@@ -1815,6 +1824,29 @@ void MainWindow::slotStringMacroDialogOk() {
   if(m_stringMacroDlg) {
     static_cast<Data::BibtexCollection*>(Data::Document::self()->collection().data())->setMacroList(m_stringMacroDlg->stringMap());
     Data::Document::self()->slotSetModified(true);
+  }
+}
+
+void MainWindow::slotShowBibtexKeyDialog() {
+  if(Data::Document::self()->collection()->type() != Data::Collection::Bibtex) {
+    return;
+  }
+
+  if(!m_bibtexKeyDlg) {
+    m_bibtexKeyDlg = new BibtexKeyDialog(Data::Document::self()->collection(), this);
+    connect(m_bibtexKeyDlg, SIGNAL(finished()), SLOT(slotHideBibtexKeyDialog()));
+    connect(m_bibtexKeyDlg, SIGNAL(signalUpdateFilter(Tellico::FilterPtr)),
+            this, SLOT(slotUpdateFilter(Tellico::FilterPtr)));
+  } else {
+    KWindowSystem::activateWindow(m_bibtexKeyDlg->winId());
+  }
+  m_bibtexKeyDlg->show();
+}
+
+void MainWindow::slotHideBibtexKeyDialog() {
+  if(m_bibtexKeyDlg) {
+    m_bibtexKeyDlg->delayedDestruct();
+    m_bibtexKeyDlg = 0;
   }
 }
 

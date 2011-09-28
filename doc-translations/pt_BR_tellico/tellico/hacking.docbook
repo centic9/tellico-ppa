@@ -30,8 +30,8 @@
 <programlisting
 ><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tellico PUBLIC "-//Robby Stephenson/DTD Tellico V9.0//EN" "http://periapsis.org/tellico/dtd/v9/tellico.dtd">
-<tellico xmlns="http://periapsis.org/tellico/" syntaxVersion="9">
+<!DOCTYPE tellico PUBLIC "-//Robby Stephenson/DTD Tellico V11.0//EN" "http://periapsis.org/tellico/dtd/v11/tellico.dtd">
+<tellico xmlns="http://periapsis.org/tellico/" syntaxVersion="11">
  <collection title="Meus Livros" type="2">
  </collection>
 </tellico>
@@ -69,18 +69,32 @@
 <programlisting
 ><![CDATA[
   <fields>
-   <field flags="8" title="Título" category="Geral" format="1" type="1" name="title" />
-   <field flags="7" title="Autor" category="Geral" format="2" type="1" name="author" />
-   <field flags="2" title="Encadernamento" category="Geral" allowed="Capa Dura;Capa de Papel;Capa de Papel Comercial;E-Book;Revista;Jornal" format="4" type="3" name="binding" />
-   <field flags="6" title="Publicação" category="Publicação" format="0" type="1" name="publisher" />
-   <field flags="4" title="Edição" category="Publicação" format="0" type="1" name="edition" />
-   <field flags="3" title="Ano de Copyright" category="Publicação" format="4" type="6" name="cr_year" />
-   <field flags="2" title="Ano de Publicação" category="Publicação" format="4" type="6" name="pub_year" />
-   <field flags="0" title="ISBN#" category="Publicação" format="4" type="1" name="isbn" description="Número-Padrão Internacional para Livros" />
-   <field flags="7" title="Gênero" category="Classificação" format="0" type="1" name="genre" />
-   <field flags="7" title="Palavras-Chave" category="Classificação" format="0" type="1" name="keyword" />
-   <field flags="0" title="Capa Frontal" category="Capa Frontal" format="4" type="10" name="cover" />
-   <field flags="0" title="Comentários" category="Pessoal" format="4" type="1" name="comments" />
+   <field flags="8" title="Título" category="Geral" format="1" type="1" name="titulo" />
+   <field flags="7" title="Autor" category="Geral" format="2" type="1" name="autor" />
+   <field flags="2" title="Formato" category="Geral" allowed="Capa Dura;Capa de Papel;Capa de Papel Comercial;E-Book;Revista;Jornal" format="4" type="3" name="formato" >
+    <prop name="default"
+>Revista</prop>
+   </field>
+   <field flags="6" title="Publicação" category="Publicação" format="0" type="1" name="publicacao" />
+   <field flags="4" title="Edição" category="Publicação" format="0" type="1" name="edicao" />
+   <field flags="3" title="Ano do 'Copyright'" category="Publicação" format="4" type="6" name="ano_copyright" />
+   <field flags="2" title="Ano de Publicação" category="Publicação" format="4" type="6" name="ano_publicacao" />
+   <field flags="0" title="ISBN#" category="Publicação" format="4" type="1" name="isbn" description="International Standard Book Number" />
+   <field flags="7" title="Gênero" category="Classificação" format="0" type="1" name="genero" />
+   <field flags="7" title="Palavras-Chave" category="Classificação" format="0" type="1" name="palavraschave" />
+   <field flags="0" title="Capa" category="Capa" format="4" type="10" name="capa" />
+   <field flags="0" title="Comentários" category="Pessoal" format="4" type="1" name="comentarios" />
+   <field title="Classificação" flags="2" category="Pessoal" format="4" type="14" name="classificacao">
+    <prop name="maximum"
+>5</prop>
+    <prop name="minimum"
+>1</prop>
+   </field>
+   <field title="ID" flags="32" category="Pessoal" format="4" type="6" name="id">
+    <prop name="template"
+>%{@id}</prop>
+   </field>
+
   </fields>
 ]]>
 </programlisting>
@@ -101,11 +115,10 @@
 >. </para>
 
 <para
->Um elemento <markup
->&lt;field&gt;</markup
->, com um atributo de nome igual a <emphasis
->_default</emphasis
->, diz ao &appname; para incluir todos os campos padrão para esse tipo de coleção. </para>
+>As propriedades dos campos são usadas para definir os valores padrão para os campos, os intervalos dos valores de classificações, os modelos dos valores derivados, etc. Os exemplos acima incluem um valor padrão, um valor máximo de classificação e um modelo para um campo de ID derivado. </para>
+
+ 
+
 </sect3>
 
 <sect3 id="entries-xml-data">
@@ -435,6 +448,24 @@
 >0x08</constant
 ></entry
 ></row>
+<row
+><entry
+><emphasis
+>Proibir a edição</emphasis
+></entry
+><entry
+><constant
+>0x10</constant
+></entry
+></row>
+<row
+><entry
+>Valor derivado</entry
+><entry
+><constant
+>0x20</constant
+></entry
+></row>
 </tbody>
 </tgroup>
 </table>
@@ -446,7 +477,9 @@
 >Pessoas</emphasis
 > usa todos os campos que usam a <emphasis
 >Formatação de Nomes</emphasis
->. </para>
+>. Atribuir a opção <emphasis
+>Valor derivado</emphasis
+>, implica que o valor do campo seja gerado a partir da propriedade do modelo e dos valores dos outros campos. </para>
 
 <table>
 <title

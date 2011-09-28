@@ -62,7 +62,7 @@ public:
   virtual bool isSearching() const { return m_started; }
   virtual void continueSearch();
   // imdb can search title, person
-  virtual bool canSearch(FetchKey k) const { return k == Title || k == Person; }
+  virtual bool canSearch(FetchKey k) const { return k == Title || k == Person || k == Raw; }
   virtual void stop();
   virtual Data::EntryPtr fetchEntryHook(uint uid);
   virtual Type type() const { return IMDB; }
@@ -107,6 +107,7 @@ private:
   void doAspectRatio(const QString& s, Data::EntryPtr e);
   void doAlsoKnownAs(const QString& s, Data::EntryPtr e);
   void doPlot(const QString& s, Data::EntryPtr e, const KUrl& baseURL_);
+  void doStudio(const QString& s, Data::EntryPtr e);
   void doPerson(const QString& s, Data::EntryPtr e,
                 const QString& imdbHeader, const QString& fieldName);
   void doCast(const QString& s, Data::EntryPtr e, const KUrl& baseURL_);

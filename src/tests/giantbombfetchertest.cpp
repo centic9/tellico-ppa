@@ -24,9 +24,9 @@
 
 #undef QT_NO_CAST_FROM_ASCII
 
-#include "qtest_kde.h"
 #include "giantbombfetchertest.h"
 #include "giantbombfetchertest.moc"
+#include "qtest_kde.h"
 
 #include "../fetch/fetcherjob.h"
 #include "../fetch/giantbombfetcher.h"
@@ -69,7 +69,7 @@ void GiantBombFetcherTest::testKeyword() {
   QCOMPARE(entry->field(QLatin1String("developer")), QLatin1String("Bungie Studios"));
   QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("2009"));
   QCOMPARE(entry->field(QLatin1String("platform")), QLatin1String("Xbox 360"));
-  QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("First-Person Shooter; Action; Shooter"));
+  QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("First-Person Shooter; Action"));
   QCOMPARE(entry->field(QLatin1String("publisher")), QLatin1String("Microsoft Game Studios"));
 }
 

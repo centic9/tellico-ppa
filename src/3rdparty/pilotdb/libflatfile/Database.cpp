@@ -3,16 +3,15 @@
  * Copyright (C) 1999-2000 by Tom Dyas (tdyas@users.sourceforge.net)
  */
 
+#include "Database.h"
+
 #include <iostream>
-#include <sstream>
 #include <stdexcept>
 #include <sstream>
 #include <utility>
 #include <cctype>
 
 #include <kdebug.h>
-
-#include "Database.h"
 
 PalmLib::FlatFile::Database::Database(std::string p_Type, const PalmLib::Database& pdb)
     : m_Type(p_Type)

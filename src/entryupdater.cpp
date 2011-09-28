@@ -49,7 +49,10 @@ using Tellico::EntryUpdater;
 // for each entry, we loop over all available fetchers
 // then we loop over all entries
 EntryUpdater::EntryUpdater(Tellico::Data::CollPtr coll_, Tellico::Data::EntryList entries_, QObject* parent_)
-    : QObject(parent_), m_coll(coll_), m_entriesToUpdate(entries_), m_cancelled(false) {
+    : QObject(parent_)
+    , m_coll(coll_)
+    , m_entriesToUpdate(entries_)
+    , m_cancelled(false) {
   // for now, we're assuming all entries are same collection type
   m_fetchers = Fetch::Manager::self()->createUpdateFetchers(m_coll->type());
   foreach(Fetch::Fetcher::Ptr fetcher, m_fetchers) {
@@ -154,9 +157,9 @@ void EntryUpdater::slotResult(Tellico::Fetch::FetchResult* result_) {
 //  myDebug() << result_->title << " [" << result_->fetcher->source() << "]";
   m_results.append(UpdateResult(result_, m_fetchers[m_fetchIndex]->updateOverwrite()));
   Data::EntryPtr e = result_->fetchEntry();
-  if(e) {
+  if(e && !m_entriesToUpdate.isEmpty()) {
     m_fetchedEntries.append(e);
-    int match = m_coll->sameEntry(m_entriesToUpdate.front(), e);
+    const int match = m_coll->sameEntry(m_entriesToUpdate.front(), e);
     if(match > EntryComparison::ENTRY_PERFECT_MATCH) {
       result_->fetcher->stop();
     }
@@ -165,7 +168,6 @@ void EntryUpdater::slotResult(Tellico::Fetch::FetchResult* result_) {
 }
 
 void EntryUpdater::slotCancel() {
-//  myDebug();
   m_cancelled = true;
   Fetch::Fetcher::Ptr f = m_fetchers[m_fetchIndex];
   if(f) {
@@ -187,19 +189,30 @@ void EntryUpdater::handleResults() {
     m_fetchedEntries.append(e);
     int match = m_coll->sameEntry(entry, e);
     if(match) {
-//      myDebug() << e->title() << " matches by " << match;
+//      myDebug() << e->title() << "matches by" << match;
     }
-    if(match > best) {
+    // if the match is GOOD but not PERFECT, keep all of them
+    if(match >= EntryComparison::ENTRY_PERFECT_MATCH) {
+      if(match > best) {
+        best = match;
+        matches.clear();
+        matches.append(res);
+      } else if(match == best) {
+        matches.append(res);
+      }
+    } else if(match >= EntryComparison::ENTRY_GOOD_MATCH) {
+      best = qMax(best, match);
+      // keep all the results that don't exceed the perfect match
+      matches.append(res);
+    } else if(match > best) {
       best = match;
       matches.clear();
-      matches.append(res);
-    } else if(match == best && best > 0) {
       matches.append(res);
     }
   }
   if(best < EntryComparison::ENTRY_GOOD_MATCH) {
     if(best > 0) {
-      myDebug() << "no good match (score > 10), best match = " << best << " (" << matches.count() << " matches)";
+      myDebug() << "no good match (score > 10), best match =" << best << "(" << matches.count() << "matches)";
     }
     return;
   }

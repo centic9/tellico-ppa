@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-08-05 05:22+0200\n"
+"POT-Creation-Date: 2010-11-04 06:32+0100\n"
 "PO-Revision-Date: 2009-09-23 16:53-0500\n"
 "Last-Translator: Teuvo Eloranta <teuvo@piketa.fi>\n"
 "Language-Team:  <fi@li.org>\n"
@@ -87,7 +87,7 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "&Tuhoa"
 
-#: src/gui/fieldwidget.cpp:109 src/gui/fieldwidget.cpp:221
+#: src/gui/fieldwidget.cpp:108 src/gui/fieldwidget.cpp:218
 #, kde-format
 msgctxt "Edit Label"
 msgid "%1:"
@@ -140,7 +140,7 @@ msgid "Saving a link is only possible for newly added images."
 msgstr ""
 "Linkin tallentaminen on mahdollista vain uusimmille lisätyille kuville."
 
-#: src/commands/updateentries.cpp:61 src/commands/modifyentries.cpp:51
+#: src/commands/updateentries.cpp:69 src/commands/modifyentries.cpp:51
 #: src/commands/modifyentries.cpp:71
 #, kde-format
 msgctxt "Modify (Entry Title)"
@@ -148,7 +148,7 @@ msgid "Modify %1"
 msgstr "Muokkaa %1"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:355
+#: src/entryeditdialog.cpp:368
 msgid "Modify Entries"
 msgstr "Muokkaa tietueita"
 
@@ -253,9 +253,9 @@ msgstr "Check-in %1"
 #: src/collections/bibtexcollection.cpp:38
 #: src/collections/bibtexcollection.cpp:100
 #: src/collections/musiccollection.cpp:31
-#: src/collections/boardgamecollection.cpp:31 src/fetch/imdbfetcher.cpp:728
-#: src/fetch/imdbfetcher.cpp:1014 src/fetch/openlibraryfetcher.cpp:298
-#: src/fetch/freebasefetcher.cpp:395 src/translators/gcstarimporter.cpp:89
+#: src/collections/boardgamecollection.cpp:31 src/fetch/imdbfetcher.cpp:749
+#: src/fetch/imdbfetcher.cpp:1066 src/fetch/openlibraryfetcher.cpp:298
+#: src/fetch/freebasefetcher.cpp:397 src/translators/gcstarimporter.cpp:89
 #: src/field.cpp:37 src/field.cpp:78 src/collection.cpp:57
 #: src/configdialog.cpp:154 src/configdialog.cpp:177 src/configdialog.cpp:204
 #: src/configdialog.cpp:222
@@ -293,7 +293,6 @@ msgid "Description"
 msgstr "Kuvaus"
 
 #: src/collections/stampcollection.cpp:60
-#: src/collections/coincollection.cpp:61
 msgid "Denomination"
 msgstr "Nimellisarvo"
 
@@ -323,7 +322,7 @@ msgid "Superb,Extremely Fine,Very Fine,Fine,Average,Poor"
 msgstr "Superb,Extremely Fine,Very Fine,Fine,Average,Poor"
 
 #: src/collections/stampcollection.cpp:89
-#: src/collections/coincollection.cpp:97
+#: src/collections/coincollection.cpp:103
 msgid "Grade"
 msgstr "Luokitus"
 
@@ -344,7 +343,7 @@ msgid "Gummed"
 msgstr "Liimattu"
 
 #: src/collections/stampcollection.cpp:114
-#: src/collections/coincollection.cpp:111
+#: src/collections/coincollection.cpp:117
 #: src/collections/bookcollection.cpp:78 src/collections/winecollection.cpp:90
 #: src/collections/comicbookcollection.cpp:132
 #: src/collections/videocollection.cpp:198
@@ -356,7 +355,7 @@ msgid "Purchase Date"
 msgstr "Ostopäivämäärä"
 
 #: src/collections/stampcollection.cpp:119
-#: src/collections/coincollection.cpp:116
+#: src/collections/coincollection.cpp:122
 #: src/collections/bookcollection.cpp:83 src/collections/winecollection.cpp:95
 #: src/collections/comicbookcollection.cpp:137
 #: src/collections/videocollection.cpp:207
@@ -368,14 +367,14 @@ msgid "Purchase Price"
 msgstr "Ostohinta"
 
 #: src/collections/stampcollection.cpp:123
-#: src/collections/coincollection.cpp:120
+#: src/collections/coincollection.cpp:126
 #: src/collections/winecollection.cpp:99
 #: src/collections/cardcollection.cpp:102
 msgid "Location"
 msgstr "Sijainti"
 
 #: src/collections/stampcollection.cpp:129
-#: src/collections/coincollection.cpp:126
+#: src/collections/coincollection.cpp:132
 #: src/collections/bookcollection.cpp:169
 #: src/collections/winecollection.cpp:118
 #: src/collections/comicbookcollection.cpp:145
@@ -392,10 +391,10 @@ msgid "Image"
 msgstr "Kuva"
 
 #: src/collections/stampcollection.cpp:136
-#: src/collections/coincollection.cpp:136
+#: src/collections/coincollection.cpp:142
 #: src/collections/bookcollection.cpp:185
 #: src/collections/winecollection.cpp:128
-#: src/collections/comicbookcollection.cpp:156
+#: src/collections/comicbookcollection.cpp:161
 #: src/collections/videocollection.cpp:223
 #: src/collections/cardcollection.cpp:126
 #: src/collections/gamecollection.cpp:126
@@ -412,6 +411,13 @@ msgstr "Omat kolikot"
 msgid "Type"
 msgstr "Tyyppi"
 
+#: src/collections/coincollection.cpp:61
+#, fuzzy
+#| msgid "Denomination"
+msgctxt "monetary denomination"
+msgid "Denomination"
+msgstr "Nimellisarvo"
+
 #: src/collections/coincollection.cpp:66 src/collections/cardcollection.cpp:77
 #: src/collections/bibtexcollection.cpp:157
 #: src/collections/musiccollection.cpp:72
@@ -423,10 +429,14 @@ msgid "Mint Mark"
 msgstr "Rahapajan merkki"
 
 #: src/collections/coincollection.cpp:83
+msgid "Currency"
+msgstr ""
+
+#: src/collections/coincollection.cpp:89
 msgid "Coin Set"
 msgstr "Kolikkoryhmä"
 
-#: src/collections/coincollection.cpp:92
+#: src/collections/coincollection.cpp:98
 msgctxt ""
 "Coin grade levels - Proof-65,Proof-60,Mint State-65,Mint State-60,Almost "
 "Uncirculated-55,Almost Uncirculated-50,Extremely Fine-40,Very Fine-30,Very "
@@ -440,20 +450,20 @@ msgstr ""
 "Uncirculated-50,Extremely Fine-40,Very Fine-30,Very Fine-20,Fine-12,Very "
 "Good-8,Good-4,Fair"
 
-#: src/collections/coincollection.cpp:104
+#: src/collections/coincollection.cpp:110
 msgctxt "Coin grading services - PCGS,NGC,ANACS,ICG,ASA,PCI"
 msgid "PCGS,NGC,ANACS,ICG,ASA,PCI"
 msgstr "PCGS,NGC,ANACS,ICG,ASA,PCI"
 
-#: src/collections/coincollection.cpp:106
+#: src/collections/coincollection.cpp:112
 msgid "Grading Service"
 msgstr "Luokituspalvelu"
 
-#: src/collections/coincollection.cpp:130
+#: src/collections/coincollection.cpp:136
 msgid "Obverse"
 msgstr "Kuvapuoli"
 
-#: src/collections/coincollection.cpp:133
+#: src/collections/coincollection.cpp:139
 msgid "Reverse"
 msgstr "Takapuoli"
 
@@ -489,7 +499,7 @@ msgstr "Kirjailija"
 msgid "Editor"
 msgstr "Kirjoittaja"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:429
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:431
 #: src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Kovakantinen"
@@ -591,7 +601,7 @@ msgstr "Tyylilaji"
 #: src/collections/videocollection.cpp:215
 #: src/collections/cardcollection.cpp:111
 #: src/collections/bibtexcollection.cpp:234
-#: src/collections/musiccollection.cpp:113 src/fetch/amazonfetcher.cpp:865
+#: src/collections/musiccollection.cpp:113 src/fetch/amazonfetcher.cpp:864
 msgid "Keywords"
 msgstr "Avainsanat"
 
@@ -635,13 +645,14 @@ msgstr "Lainattu"
 
 #: src/collections/bookcollection.cpp:177
 #: src/collections/winecollection.cpp:113
+#: src/collections/comicbookcollection.cpp:153
 #: src/collections/musiccollection.cpp:91
 #: src/collections/boardgamecollection.cpp:88 src/field.cpp:204
 msgid "Rating"
 msgstr "Arvosana"
 
 #: src/collections/bookcollection.cpp:182
-#: src/collections/comicbookcollection.cpp:153 src/fetch/arxivfetcher.cpp:204
+#: src/collections/comicbookcollection.cpp:158 src/fetch/arxivfetcher.cpp:204
 #: src/fetch/crossreffetcher.cpp:195 src/translators/pdfimporter.cpp:229
 #: src/translators/referencerimporter.cpp:62
 msgid "Front Cover"
@@ -701,11 +712,11 @@ msgstr "Muokkattu"
 msgid "Meta Info"
 msgstr "Metatieto"
 
-#: src/collections/filecatalog.cpp:107 src/collectionfieldsdialog.cpp:818
+#: src/collections/filecatalog.cpp:107 src/collectionfieldsdialog.cpp:841
 msgid "Property"
 msgstr "Ominaisuus"
 
-#: src/collections/filecatalog.cpp:108 src/collectionfieldsdialog.cpp:818
+#: src/collections/filecatalog.cpp:108 src/collectionfieldsdialog.cpp:841
 msgid "Value"
 msgstr "Arvo"
 
@@ -797,11 +808,11 @@ msgid "My Videos"
 msgstr "Omat elokuvat"
 
 #: src/collections/videocollection.cpp:54
-#: src/collections/musiccollection.cpp:54 src/fetch/amazonfetcher.cpp:831
+#: src/collections/musiccollection.cpp:54 src/fetch/amazonfetcher.cpp:830
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:818
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:817
 msgid "VHS"
 msgstr "VHS"
 
@@ -813,11 +824,11 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:812
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:811
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:815
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:814
 msgid "HD DVD"
 msgstr "HD DVD"
 
@@ -879,11 +890,11 @@ msgstr "Alue 8"
 msgid "Region"
 msgstr "Alue"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:219
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:218
 msgid "Nationality"
 msgstr "Kansallisuus"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:827
+#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:826
 msgid "NTSC"
 msgstr "NTSC"
 
@@ -921,7 +932,7 @@ msgstr "Taulukko näyttelijöistä rooleineen"
 msgid "Director"
 msgstr "Ohjaaja"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:218
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:217
 msgid "Producer"
 msgstr "Tuottaja"
 
@@ -957,7 +968,7 @@ msgstr "Elokuvan kesto (minuutteina)"
 msgid "Aspect Ratio"
 msgstr "Kuvasuhde"
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:801
+#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:800
 msgid "Widescreen"
 msgstr "Laajakuva"
 
@@ -969,7 +980,7 @@ msgstr "Mustavalkoinen"
 msgid "Color Mode"
 msgstr "Väritila"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:822
+#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:821
 msgid "Director's Cut"
 msgstr "Ohjaajan leikkaus"
 
@@ -1154,7 +1165,7 @@ msgstr "Kirjan nimi"
 msgid "Organization"
 msgstr "Organisaatio"
 
-#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:534
+#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:538
 #: src/fetch/srufetcher.cpp:453
 msgid "Address"
 msgstr "Osoite"
@@ -1188,7 +1199,7 @@ msgid "Cross-Reference"
 msgstr "Ristiviite"
 
 #: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
-#: src/fetch/z3950fetcher.cpp:535 src/fetch/srufetcher.cpp:454
+#: src/fetch/z3950fetcher.cpp:539 src/fetch/srufetcher.cpp:454
 msgid "Abstract"
 msgstr "Tiivistelmä"
 
@@ -1269,21 +1280,27 @@ msgid "Number of Players"
 msgstr "Pelaajien lukumäärä"
 
 #: src/core/tellico_strings.cpp:29
-#, kde-format
-msgid "Tellico is unable to load the file - %1."
+#, fuzzy, kde-format
+#| msgid "Tellico is unable to load the file - %1."
+msgid "Tellico is unable to open the file - %1."
 msgstr "Tellico ei pysty lataamaan tiedostoa - %1."
 
 #: src/core/tellico_strings.cpp:30
 #, kde-format
+msgid "Tellico is unable to load the file - %1."
+msgstr "Tellico ei pysty lataamaan tiedostoa - %1."
+
+#: src/core/tellico_strings.cpp:31
+#, kde-format
 msgid "Tellico is unable to write the file - %1."
 msgstr "Tellico ei pysty kirjoittamaan tiedostoa - %1."
 
-#: src/core/tellico_strings.cpp:31
+#: src/core/tellico_strings.cpp:32
 #, kde-format
 msgid "Tellico is unable to upload the file - %1."
 msgstr "Tellico ei pysty siirtämään tiedostoa - %1."
 
-#: src/core/tellico_strings.cpp:32
+#: src/core/tellico_strings.cpp:33
 msgid ""
 "Only collections with the same type of entries as the current one can be "
 "appended. No changes are being made to the current collection."
@@ -1291,7 +1308,7 @@ msgstr ""
 "Vain aktiivisen kokoelman kanssa samanlaisen tietuerakenteen omaavia "
 "kokoelmia voidaan lisätä. Muutoksia ei tehdä nykyiseen kokoelmaan. "
 
-#: src/core/tellico_strings.cpp:35
+#: src/core/tellico_strings.cpp:36
 msgid ""
 "Only collections with the same type of entries as the current one can be "
 "merged. No changes are being made to the current collection."
@@ -1299,48 +1316,48 @@ msgstr ""
 "Vain aktiivisen kokoelman kanssa samanlaisen tietuerakenteen omaavia "
 "kokoelmia voidaan yhdistää. Muutoksia ei tehdä nykyiseen kokoelmaan. "
 
-#: src/core/tellico_strings.cpp:38
+#: src/core/tellico_strings.cpp:39
 #, kde-format
 msgid "Tellico is unable to load an image from the file - %1."
 msgstr "Tellico ei pysty lataamaan kuvaa tiedostosta - %1."
 
-#: src/core/tellico_strings.cpp:40
+#: src/core/tellico_strings.cpp:41
 msgid "Untitled"
 msgstr "Nimeämätön"
 
-#: src/core/filehandler.cpp:136 src/translators/xmlimporter.cpp:54
+#: src/core/filehandler.cpp:149 src/translators/xmlimporter.cpp:54
 #: src/translators/xmlimporter.cpp:71
 #, kde-format
 msgid "There is an XML parsing error in line %1, column %2."
 msgstr "Virhe XML:n tulkkauksessa. Virhe rivillä %1, sarakkeessa %2."
 
-#: src/core/filehandler.cpp:138 src/translators/xmlimporter.cpp:56
+#: src/core/filehandler.cpp:151 src/translators/xmlimporter.cpp:56
 #: src/translators/xmlimporter.cpp:73
 msgid "The error message from Qt is:"
 msgstr "Qt:n virheilmoitus:"
 
-#: src/core/filehandler.cpp:175 src/core/filehandler.cpp:191
+#: src/core/filehandler.cpp:187 src/core/filehandler.cpp:203
 #, kde-format
 msgid "Tellico is unable to load the image - %1."
 msgstr "Tellico ei pysty lataamaan kuvatiedostoa - %1."
 
-#: src/core/filehandler.cpp:207
+#: src/core/filehandler.cpp:219
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr "Tiedosto \"%1\" on jo olemassa. Haluatko varmasti ylikirjoittaa sen?"
 
-#: src/core/filehandler.cpp:210
+#: src/core/filehandler.cpp:222
 msgid "Overwrite File?"
 msgstr "Ylikirjoita tiedosto?"
 
-#: src/core/filehandler.cpp:211
+#: src/core/filehandler.cpp:223
 msgid "Overwrite"
 msgstr "Ylikirjoita"
 
-#: src/fetch/giantbombfetcher.cpp:205 src/fetch/themoviedbfetcher.cpp:349
-#: src/fetch/discogsfetcher.cpp:232 src/fetch/winecomfetcher.cpp:291
-#: src/fetch/isbndbfetcher.cpp:355 src/fetch/amazonfetcher.cpp:881
+#: src/fetch/giantbombfetcher.cpp:204 src/fetch/themoviedbfetcher.cpp:232
+#: src/fetch/discogsfetcher.cpp:231 src/fetch/winecomfetcher.cpp:291
+#: src/fetch/isbndbfetcher.cpp:355 src/fetch/amazonfetcher.cpp:880
 #: src/fetch/crossreffetcher.cpp:311
 #, fuzzy, kde-format
 #| msgid ""
@@ -1358,16 +1375,16 @@ msgstr ""
 "program.amazon.com/gp/flex/advertising/api/sign-in.html'>luoitsellesi tili</"
 "a>, ja anna sen tiedot alle."
 
-#: src/fetch/giantbombfetcher.cpp:218 src/fetch/themoviedbfetcher.cpp:362
-#: src/fetch/discogsfetcher.cpp:245 src/fetch/winecomfetcher.cpp:304
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/amazonfetcher.cpp:894
+#: src/fetch/giantbombfetcher.cpp:217 src/fetch/themoviedbfetcher.cpp:245
+#: src/fetch/discogsfetcher.cpp:244 src/fetch/winecomfetcher.cpp:304
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/amazonfetcher.cpp:893
 #, fuzzy
 #| msgid "Access key &ID: "
 msgid "Access key: "
 msgstr "Avaintunn&iste:"
 
-#: src/fetch/giantbombfetcher.cpp:224 src/fetch/themoviedbfetcher.cpp:368
-#: src/fetch/discogsfetcher.cpp:251 src/fetch/isbndbfetcher.cpp:374
+#: src/fetch/giantbombfetcher.cpp:223 src/fetch/themoviedbfetcher.cpp:251
+#: src/fetch/discogsfetcher.cpp:250 src/fetch/isbndbfetcher.cpp:374
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -1385,58 +1402,59 @@ msgstr "Instituutio"
 #: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:330
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/ibsfetcher.cpp:413
 #: src/fetch/citebasefetcher.cpp:234 src/fetch/animenfofetcher.cpp:377
-#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:891
-#: src/fetch/googlescholarfetcher.cpp:239
+#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:929
+#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:239
 msgid "This source has no options."
 msgstr "Tällä lähteellä ei ole valintoja."
 
-#: src/fetch/imdbfetcher.cpp:594
+#: src/fetch/imdbfetcher.cpp:611
 #, fuzzy
 #| msgid "Select IMDB Result"
 msgid "Select IMDb Result"
 msgstr "Valitse IMDB-hakutulos"
 
-#: src/fetch/imdbfetcher.cpp:600
+#: src/fetch/imdbfetcher.cpp:617
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr "<qt>Hakusi tuotti useita tuloksia. Valitse niistä yksi alta.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:617
+#: src/fetch/imdbfetcher.cpp:634
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>Valitse hakutulos.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:727 src/fetch/imdbfetcher.cpp:1190
-#: src/fetch/themoviedbfetcher.cpp:335
+#: src/fetch/imdbfetcher.cpp:748 src/fetch/imdbfetcher.cpp:1230
+#: src/fetch/themoviedbfetcher.cpp:219
 #, fuzzy
 #| msgid "IMDB Link"
 msgid "IMDb Link"
 msgstr "IMDB-linkki"
 
-#: src/fetch/imdbfetcher.cpp:793 src/fetch/imdbfetcher.cpp:1192
-#: src/fetch/animenfofetcher.cpp:261
+#: src/fetch/imdbfetcher.cpp:819 src/fetch/imdbfetcher.cpp:1232
+#: src/fetch/themoviedbfetcher.cpp:220 src/fetch/animenfofetcher.cpp:261
+#: src/fetch/dvdfrfetcher.cpp:165
 msgid "Alternative Titles"
 msgstr "Vaihtoehtoiset otsikot"
 
-#: src/fetch/imdbfetcher.cpp:1013 src/fetch/imdbfetcher.cpp:1191
+#: src/fetch/imdbfetcher.cpp:1065 src/fetch/imdbfetcher.cpp:1231
 #, fuzzy
 #| msgid "IMDB Rating"
 msgid "IMDb Rating"
 msgstr "IMDB-arvosana"
 
-#: src/fetch/imdbfetcher.cpp:1135 src/fetch/imdbfetcher.cpp:1193
+#: src/fetch/imdbfetcher.cpp:1192 src/fetch/imdbfetcher.cpp:1233
 msgid "Certifications"
 msgstr "Ikärajat"
 
-#: src/fetch/imdbfetcher.cpp:1181
+#: src/fetch/imdbfetcher.cpp:1221
 msgid "Internet Movie Database"
 msgstr "Internet Movie Database"
 
-#: src/fetch/imdbfetcher.cpp:1208 src/fetch/z3950fetcher.cpp:560
+#: src/fetch/imdbfetcher.cpp:1248 src/fetch/z3950fetcher.cpp:564
 #: src/fetch/srufetcher.cpp:469
 msgid "Hos&t: "
 msgstr "&Isäntä: "
 
-#: src/fetch/imdbfetcher.cpp:1213
+#: src/fetch/imdbfetcher.cpp:1253
 msgid ""
 "The Internet Movie Database uses several different servers. Choose the one "
 "you wish to use."
@@ -1444,11 +1462,11 @@ msgstr ""
 "Interned Movie Database käyttää useita palvelimia. Valitse mitä niistä "
 "haluat käyttää."
 
-#: src/fetch/imdbfetcher.cpp:1219
+#: src/fetch/imdbfetcher.cpp:1259
 msgid "&Maximum cast: "
 msgstr "&Näyttelijöiden maksimimäärä:"
 
-#: src/fetch/imdbfetcher.cpp:1224
+#: src/fetch/imdbfetcher.cpp:1264
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -1456,11 +1474,11 @@ msgstr ""
 "Lista näyttelijöistä voi sisältää varsin monta nimeä. Aseta haun palauttama "
 "suurin näyttelijämäärä."
 
-#: src/fetch/imdbfetcher.cpp:1229
+#: src/fetch/imdbfetcher.cpp:1269
 msgid "Download cover &image"
 msgstr "Lataa &kansikuva"
 
-#: src/fetch/imdbfetcher.cpp:1233 src/fetch/amazonfetcher.cpp:941
+#: src/fetch/imdbfetcher.cpp:1273 src/fetch/amazonfetcher.cpp:940
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -1486,7 +1504,7 @@ msgstr "Syntaksivirhe"
 msgid "Connection error %1: %2"
 msgstr "Yhteysvirhe %1: %2"
 
-#: src/fetch/yahoofetcher.cpp:238 src/fetch/amazonfetcher.cpp:716
+#: src/fetch/yahoofetcher.cpp:238 src/fetch/amazonfetcher.cpp:715
 #: src/fetch/freebasefetcher.cpp:257
 msgid "The cover image could not be loaded."
 msgstr "Kansikuvaa ei voitu ladata."
@@ -1495,62 +1513,62 @@ msgstr "Kansikuvaa ei voitu ladata."
 msgid "Yahoo! Audio Search"
 msgstr "Yahoo! Äänihaku"
 
-#: src/fetch/themoviedbfetcher.cpp:334
+#: src/fetch/themoviedbfetcher.cpp:218
 #, fuzzy
 #| msgid "IMDB Link"
 msgid "TMDb Link"
 msgstr "IMDB-linkki"
 
-#: src/fetch/z3950fetcher.cpp:524 src/fetch/z3950fetcher.cpp:799
+#: src/fetch/z3950fetcher.cpp:528 src/fetch/z3950fetcher.cpp:803
 msgid "z39.50 Server"
 msgstr "z39.50-palvelin"
 
-#: src/fetch/z3950fetcher.cpp:536
+#: src/fetch/z3950fetcher.cpp:540
 msgid "Illustrator"
 msgstr "Kuvittaja"
 
-#: src/fetch/z3950fetcher.cpp:537
+#: src/fetch/z3950fetcher.cpp:541
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr ""
 
-#: src/fetch/z3950fetcher.cpp:538
+#: src/fetch/z3950fetcher.cpp:542
 #, fuzzy
 #| msgid "Classification"
 msgctxt "Library of Congress classificationn system"
 msgid "LoC Classification"
 msgstr "Luokitus"
 
-#: src/fetch/z3950fetcher.cpp:550
+#: src/fetch/z3950fetcher.cpp:554
 msgid "Use preset &server:"
 msgstr "Käytä &esiasetettua palvelinta:"
 
-#: src/fetch/z3950fetcher.cpp:566 src/fetch/srufetcher.cpp:476
+#: src/fetch/z3950fetcher.cpp:570 src/fetch/srufetcher.cpp:476
 msgid "Enter the host name of the server."
 msgstr "Anna palvelimen isäntänimi."
 
-#: src/fetch/z3950fetcher.cpp:571 src/fetch/srufetcher.cpp:481
+#: src/fetch/z3950fetcher.cpp:575 src/fetch/srufetcher.cpp:481
 msgid "&Port: "
 msgstr "&Portti: "
 
-#: src/fetch/z3950fetcher.cpp:576 src/fetch/srufetcher.cpp:486
+#: src/fetch/z3950fetcher.cpp:580 src/fetch/srufetcher.cpp:486
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Anna palvelimen porttinumero. Oletusnumero on %1."
 
-#: src/fetch/z3950fetcher.cpp:581
+#: src/fetch/z3950fetcher.cpp:585
 msgid "&Database: "
 msgstr "&Tietokanta: "
 
-#: src/fetch/z3950fetcher.cpp:586
+#: src/fetch/z3950fetcher.cpp:590
 msgid "Enter the database name used by the server."
 msgstr "Anna palvelimen käyttämän tietokannan nimi."
 
-#: src/fetch/z3950fetcher.cpp:591
+#: src/fetch/z3950fetcher.cpp:595
 msgid "Ch&aracter set: "
 msgstr "Ki&rjainmerkistö:"
 
-#: src/fetch/z3950fetcher.cpp:600
+#: src/fetch/z3950fetcher.cpp:604
 msgid ""
 "Enter the character set encoding used by the z39.50 server. The most likely "
 "choice is MARC-8, although ISO-8859-1 is common as well."
@@ -1558,15 +1576,15 @@ msgstr ""
 "Anna z39.50-palvelimen kirjainmerkistön koodaustapa. Todennäköisin "
 "vaihtoehto on MARC-8, tosin myös ISO-8859-1 on yleinen."
 
-#: src/fetch/z3950fetcher.cpp:606
+#: src/fetch/z3950fetcher.cpp:610
 msgid "&Format: "
 msgstr "&Formaatti:"
 
-#: src/fetch/z3950fetcher.cpp:609
+#: src/fetch/z3950fetcher.cpp:613
 msgid "Auto-detect"
 msgstr "Automaattinen tunnistaminen"
 
-#: src/fetch/z3950fetcher.cpp:617
+#: src/fetch/z3950fetcher.cpp:621
 msgid ""
 "Enter the data format used by the z39.50 server. Tellico will attempt to "
 "automatically detect the best setting if <i>auto-detect</i> is selected."
@@ -1575,15 +1593,15 @@ msgstr ""
 "tunnistaa parhaan asetuksen jos <i>Automaattinen tunnistaminen</i> on "
 "valittu."
 
-#: src/fetch/z3950fetcher.cpp:623
+#: src/fetch/z3950fetcher.cpp:627
 msgid "&User: "
 msgstr "&Käyttäjä: "
 
-#: src/fetch/z3950fetcher.cpp:626 src/fetch/z3950fetcher.cpp:638
+#: src/fetch/z3950fetcher.cpp:630 src/fetch/z3950fetcher.cpp:642
 msgid "Optional"
 msgstr "Valinnainen"
 
-#: src/fetch/z3950fetcher.cpp:629
+#: src/fetch/z3950fetcher.cpp:633
 msgid ""
 "Enter the authentication user name used by the z39.50 database. Most servers "
 "do not need one."
@@ -1591,11 +1609,11 @@ msgstr ""
 "Anna z39.50-tietokannan käyttämä sisäänkirjautumistunnus. Useimmat "
 "palvelimet eivät tarvitse tunnusta ollenkaan."
 
-#: src/fetch/z3950fetcher.cpp:635
+#: src/fetch/z3950fetcher.cpp:639
 msgid "Pass&word: "
 msgstr "&Salasana: "
 
-#: src/fetch/z3950fetcher.cpp:642
+#: src/fetch/z3950fetcher.cpp:646
 msgid ""
 "Enter the authentication password used by the z39.50 database. Most servers "
 "do not need one. The password will be saved in plain text in the Tellico "
@@ -1605,11 +1623,11 @@ msgstr ""
 "palvelimet eivät tarvitse salasanaa ollenkaan. Salasana tallennetaan "
 "normaalina näkyvänä tekstinä Tellicon asetustiedostoon."
 
-#: src/fetch/discogsfetcher.cpp:209
+#: src/fetch/discogsfetcher.cpp:208
 msgid "Discogs Audio Search"
 msgstr "Discogs äänihaku"
 
-#: src/fetch/discogsfetcher.cpp:220
+#: src/fetch/discogsfetcher.cpp:219
 msgid "Discogs Link"
 msgstr "Discogs linkki"
 
@@ -1655,29 +1673,29 @@ msgstr "ISBNdb.com"
 msgid "OpenLibrary Link"
 msgstr ""
 
-#: src/fetch/gcstarpluginfetcher.cpp:336
+#: src/fetch/gcstarpluginfetcher.cpp:383
 msgid "GCstar Plugin"
 msgstr "GCstar Liitännäinen"
 
-#: src/fetch/gcstarpluginfetcher.cpp:351 src/fetch/multifetcher.cpp:191
-#: src/fetch/execexternalfetcher.cpp:341 src/translators/csvimporter.cpp:181
+#: src/fetch/gcstarpluginfetcher.cpp:398 src/fetch/multifetcher.cpp:191
+#: src/fetch/execexternalfetcher.cpp:341 src/translators/csvimporter.cpp:185
 #: src/configdialog.cpp:441
 msgid "Collection &type:"
 msgstr "Kokoelman tyyppi:"
 
-#: src/fetch/gcstarpluginfetcher.cpp:357
+#: src/fetch/gcstarpluginfetcher.cpp:404
 msgid "Set the collection type of the data returned from the plugin."
 msgstr "Aseta liitännäisen palauttamalle tiedolle kokoelman tyyppi."
 
-#: src/fetch/gcstarpluginfetcher.cpp:362
+#: src/fetch/gcstarpluginfetcher.cpp:409
 msgid "&Plugin: "
 msgstr "&Liitännäinen:"
 
-#: src/fetch/gcstarpluginfetcher.cpp:368
+#: src/fetch/gcstarpluginfetcher.cpp:415
 msgid "Select the GCstar plugin used for the data source."
 msgstr "Valitse GCstar-liitännäinen tiedon lähteeksi."
 
-#: src/fetch/gcstarpluginfetcher.cpp:373
+#: src/fetch/gcstarpluginfetcher.cpp:420
 msgid "Author: "
 msgstr "Tekijä: "
 
@@ -1733,7 +1751,7 @@ msgstr "Amazon (Ranska)"
 msgid "Amazon (Canada)"
 msgstr "Amazon (Kanada)"
 
-#: src/fetch/amazonfetcher.cpp:180 src/fetch/amazonfetcher.cpp:899
+#: src/fetch/amazonfetcher.cpp:180 src/fetch/amazonfetcher.cpp:898
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
 "Key."
@@ -1745,45 +1763,45 @@ msgstr ""
 msgid "Those values must be entered in the data source settings."
 msgstr "Arvot on annettava tietolähteiden asetuksissa."
 
-#: src/fetch/amazonfetcher.cpp:856
+#: src/fetch/amazonfetcher.cpp:855
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com"
 
-#: src/fetch/amazonfetcher.cpp:904
+#: src/fetch/amazonfetcher.cpp:903
 #, fuzzy
 #| msgid "Secret &key: "
 msgid "Secret key: "
 msgstr "Salainen &avain: "
 
-#: src/fetch/amazonfetcher.cpp:914
+#: src/fetch/amazonfetcher.cpp:913
 msgid "Co&untry: "
 msgstr "Alkup&erämaa"
 
-#: src/fetch/amazonfetcher.cpp:917
+#: src/fetch/amazonfetcher.cpp:916
 msgid "United States"
 msgstr "Yhdysvallat"
 
-#: src/fetch/amazonfetcher.cpp:918
+#: src/fetch/amazonfetcher.cpp:917
 msgid "United Kingdom"
 msgstr "Iso-Britannia"
 
-#: src/fetch/amazonfetcher.cpp:919
+#: src/fetch/amazonfetcher.cpp:918
 msgid "Germany"
 msgstr "Saksa"
 
-#: src/fetch/amazonfetcher.cpp:920
+#: src/fetch/amazonfetcher.cpp:919
 msgid "Japan"
 msgstr "Japani"
 
-#: src/fetch/amazonfetcher.cpp:921
+#: src/fetch/amazonfetcher.cpp:920
 msgid "France"
 msgstr "Ranska"
 
-#: src/fetch/amazonfetcher.cpp:922
+#: src/fetch/amazonfetcher.cpp:921
 msgid "Canada"
 msgstr "Kanada"
 
-#: src/fetch/amazonfetcher.cpp:926
+#: src/fetch/amazonfetcher.cpp:925
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
 "one you wish to use for this data source."
@@ -1791,31 +1809,31 @@ msgstr ""
 "Amazon.com tarjoaa tietoa monista lokalisoiduista lähteistä. Valitse "
 "käytettävä lähde."
 
-#: src/fetch/amazonfetcher.cpp:932
+#: src/fetch/amazonfetcher.cpp:931
 msgid "&Image size: "
 msgstr "&Kuvan koko: "
 
-#: src/fetch/amazonfetcher.cpp:935
+#: src/fetch/amazonfetcher.cpp:934
 msgid "Small Image"
 msgstr "Pieni kuva"
 
-#: src/fetch/amazonfetcher.cpp:936
+#: src/fetch/amazonfetcher.cpp:935
 msgid "Medium Image"
 msgstr "Keskikokoinen kuva"
 
-#: src/fetch/amazonfetcher.cpp:937
+#: src/fetch/amazonfetcher.cpp:936
 msgid "Large Image"
 msgstr "Iso kuva"
 
-#: src/fetch/amazonfetcher.cpp:938
+#: src/fetch/amazonfetcher.cpp:937
 msgid "No Image"
 msgstr "Ei kuvaa"
 
-#: src/fetch/amazonfetcher.cpp:947
+#: src/fetch/amazonfetcher.cpp:946
 msgid "&Associate's ID: "
 msgstr "Käyttäjän tunnus:"
 
-#: src/fetch/amazonfetcher.cpp:952
+#: src/fetch/amazonfetcher.cpp:951
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
 "Services, and is included in any links to the Amazon.com site."
@@ -1830,7 +1848,7 @@ msgstr ""
 msgid "Multiple Sources"
 msgstr "Kaikki lähteet"
 
-#: src/fetch/freebasefetcher.cpp:394 src/fetch/freebasefetcher.cpp:601
+#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:614
 msgid "Freebase Link"
 msgstr ""
 
@@ -1898,6 +1916,12 @@ msgstr ""
 #: src/fetch/crossreffetcher.cpp:346
 msgid "Email: "
 msgstr ""
+
+#: src/fetch/dvdfrfetcher.cpp:164
+#, fuzzy
+#| msgid "IMDB Link"
+msgid "DVDFr Link"
+msgstr "IMDB-linkki"
 
 #: src/fetch/execexternalfetcher.cpp:326
 msgid "External Application"
@@ -1977,15 +2001,15 @@ msgstr "Aktiivinen kalenteri"
 msgid "Default Calendar"
 msgstr "Oletuskalenteri"
 
-#: src/translators/gcstarexporter.cpp:57 src/importdialog.cpp:305
+#: src/translators/gcstarexporter.cpp:56 src/importdialog.cpp:305
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|GCstar-tiedostot (*.gcs) "
 
-#: src/translators/gcstarexporter.cpp:57
-#: src/translators/pilotdbexporter.cpp:58 src/translators/csvexporter.cpp:56
+#: src/translators/gcstarexporter.cpp:56
+#: src/translators/pilotdbexporter.cpp:58 src/translators/csvexporter.cpp:59
 #: src/translators/onixexporter.cpp:71 src/translators/xsltimporter.cpp:117
-#: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:98
-#: src/translators/bibtexmlexporter.cpp:54
+#: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
+#: src/translators/bibtexmlexporter.cpp:53
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/bibtexexporter.cpp:61 src/translators/htmlexporter.cpp:91
 #: src/translators/tellicozipexporter.cpp:56 src/reportdialog.cpp:215
@@ -2004,7 +2028,7 @@ msgid "No valid bibtex entries were found in file - %1"
 msgstr "Säännönmukaisia Bibtex-tietueita ei löytynyt tiedostosta - %1"
 
 #: src/translators/bibteximporter.cpp:322
-#: src/translators/bibtexexporter.cpp:215
+#: src/translators/bibtexexporter.cpp:214
 msgid "Bibtex Options"
 msgstr "Bibtex asetukset"
 
@@ -2025,27 +2049,27 @@ msgstr "Käytä käyttäjän omaa muotoa (%1) enkoodauksessa"
 msgid "Read the imported file in the local encoding."
 msgstr "Lue tuotu tiedosto paikallisella enkoodauksella."
 
-#: src/translators/csvimporter.cpp:176 src/translators/csvexporter.cpp:121
+#: src/translators/csvimporter.cpp:180 src/translators/csvexporter.cpp:131
 msgid "CSV Options"
 msgstr "CSV-asetukset"
 
-#: src/translators/csvimporter.cpp:186
+#: src/translators/csvimporter.cpp:190
 msgid "Select the type of collection being imported."
 msgstr "Valitse tuotavan kokoelman tyyppi."
 
-#: src/translators/csvimporter.cpp:189
+#: src/translators/csvimporter.cpp:193
 msgid "&First row contains field titles"
 msgstr "&Kenttien nimet ensimmäisessä rivissä"
 
-#: src/translators/csvimporter.cpp:190
+#: src/translators/csvimporter.cpp:194
 msgid "If checked, the first row is used as field titles."
 msgstr "Jos valittu, ensimmäistä riviä käytetään kenttien niminä."
 
-#: src/translators/csvimporter.cpp:199
+#: src/translators/csvimporter.cpp:203
 msgid "Delimiter:"
 msgstr "Erotin:"
 
-#: src/translators/csvimporter.cpp:200 src/translators/csvexporter.cpp:132
+#: src/translators/csvimporter.cpp:204 src/translators/csvexporter.cpp:142
 msgid ""
 "In addition to a comma, other characters may be used as a delimiter, "
 "separating each value in the file."
@@ -2053,47 +2077,68 @@ msgstr ""
 "Pilkun lisäksi muitakin merkkejä voidaan käyttää erottimina jotka erottavat "
 "kentän arvot toisistaan."
 
-#: src/translators/csvimporter.cpp:205
+#: src/translators/csvimporter.cpp:209
 msgid "&Comma"
 msgstr "Pil&kku"
 
-#: src/translators/csvimporter.cpp:207 src/translators/csvexporter.cpp:138
+#: src/translators/csvimporter.cpp:211 src/translators/csvexporter.cpp:148
 msgid "Use a comma as the delimiter."
 msgstr "Käytä pilkkua erottimena."
 
-#: src/translators/csvimporter.cpp:211
+#: src/translators/csvimporter.cpp:215
 msgid "&Semicolon"
 msgstr "&Puolipiste"
 
-#: src/translators/csvimporter.cpp:212 src/translators/csvexporter.cpp:143
+#: src/translators/csvimporter.cpp:216 src/translators/csvexporter.cpp:153
 msgid "Use a semi-colon as the delimiter."
 msgstr "Käytä puolipistettä erottimena."
 
-#: src/translators/csvimporter.cpp:216
+#: src/translators/csvimporter.cpp:220
 msgid "Ta&b"
 msgstr "Sa&rkain"
 
-#: src/translators/csvimporter.cpp:217 src/translators/csvexporter.cpp:148
+#: src/translators/csvimporter.cpp:221 src/translators/csvexporter.cpp:158
 msgid "Use a tab as the delimiter."
 msgstr "Käytä sarkainta erottimena."
 
-#: src/translators/csvimporter.cpp:221
+#: src/translators/csvimporter.cpp:225
 msgid "Ot&her:"
 msgstr "&Muu:"
 
-#: src/translators/csvimporter.cpp:222 src/translators/csvexporter.cpp:153
+#: src/translators/csvimporter.cpp:226 src/translators/csvexporter.cpp:163
 msgid "Use a custom string as the delimiter."
 msgstr "Käytä muuta merkkijonoa erottimena."
 
-#: src/translators/csvimporter.cpp:229 src/translators/csvexporter.cpp:158
+#: src/translators/csvimporter.cpp:233 src/translators/csvexporter.cpp:168
 msgid "A custom string, such as a colon, may be used as a delimiter."
 msgstr "Muuta merkkijonoa, kuten välilyöntiä, voidaan käyttää erottimena."
 
-#: src/translators/csvimporter.cpp:250
+#: src/translators/csvimporter.cpp:251 src/translators/csvexporter.cpp:190
+msgid ""
+"The column delimiter separates values in each column of a <i>Table</i> field."
+msgstr ""
+
+#: src/translators/csvimporter.cpp:252 src/translators/csvexporter.cpp:185
+#, fuzzy
+#| msgid "New column name:"
+msgid "Table column delimiter:"
+msgstr "Uusi sarakkeen nimi:"
+
+#: src/translators/csvimporter.cpp:262 src/translators/csvexporter.cpp:199
+msgid "The row delimiter separates values in each row of a <i>Table</i> field."
+msgstr ""
+
+#: src/translators/csvimporter.cpp:263 src/translators/csvexporter.cpp:194
+#, fuzzy
+#| msgid "Delimiter:"
+msgid "Table row delimiter:"
+msgstr "Erotin:"
+
+#: src/translators/csvimporter.cpp:281
 msgid "The table shows up to the first five lines of the CSV file."
 msgstr "Taulukossa näkyy ensimmäiset viisi riviä CSV-tiedostosta."
 
-#: src/translators/csvimporter.cpp:257
+#: src/translators/csvimporter.cpp:288
 msgid ""
 "<qt>Set each column to correspond to a field in the collection by choosing a "
 "column, selecting the field, then clicking the <i>Assign Field</i> button.</"
@@ -2103,19 +2148,19 @@ msgstr ""
 "sarake, sitten kenttä ja klikkaamalla lopuksi<i>Määritä kenttä</i>-nappulaa."
 "</qt>"
 
-#: src/translators/csvimporter.cpp:259
+#: src/translators/csvimporter.cpp:290
 msgid "Co&lumn:"
 msgstr "&Sarake:"
 
-#: src/translators/csvimporter.cpp:271
+#: src/translators/csvimporter.cpp:302
 msgid "&Data field in this column:"
 msgstr "&Tietokenttä tässä sarakkeessa:"
 
-#: src/translators/csvimporter.cpp:284
+#: src/translators/csvimporter.cpp:315
 msgid "&Assign Field"
 msgstr "&Määritä kenttä"
 
-#: src/translators/csvimporter.cpp:318
+#: src/translators/csvimporter.cpp:351
 msgid ""
 "At least one column must be assigned to a field. Only assigned columns will "
 "be imported."
@@ -2123,7 +2168,7 @@ msgstr ""
 "Ainakin yksi sarake pitää olla määritetty johonkin kenttään. Vain määritetyt "
 "sarakkeet voidaan tuoda."
 
-#: src/translators/csvimporter.cpp:370 src/translators/csvimporter.cpp:492
+#: src/translators/csvimporter.cpp:400 src/translators/csvimporter.cpp:522
 msgid "New Field"
 msgstr "Uusi kenttä"
 
@@ -2145,12 +2190,12 @@ msgid "PDF"
 msgstr "PDF"
 
 #: src/translators/gcstarimporter.cpp:126
-#: src/translators/gcstarimporter.cpp:271
+#: src/translators/gcstarimporter.cpp:275
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>Tiedosto ei ole validi GCstar-tiedosto</qt>"
 
 #: src/translators/gcstarimporter.cpp:264 src/translators/xsltimporter.cpp:87
-#: src/mainwindow.cpp:1590
+#: src/mainwindow.cpp:1589
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "XSLT:n käsittelyssä tapahtui virhe."
 
@@ -2170,7 +2215,7 @@ msgstr "PilotDB"
 msgid "*.pdb|Pilot Database Files (*.pdb)"
 msgstr "*.pdb|Pilot-tietokantatiedostot (*.pdb)"
 
-#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:550
+#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:551
 msgid "View Columns"
 msgstr "Näytä sarakkeet"
 
@@ -2235,39 +2280,39 @@ msgstr "Sisällytä &bittinopeus"
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "Jos valittu, jokaisen raidan bittinopeus lisätään tietueisiin."
 
-#: src/translators/csvexporter.cpp:52
+#: src/translators/csvexporter.cpp:55
 msgid "CSV"
 msgstr "CSV"
 
-#: src/translators/csvexporter.cpp:56 src/importdialog.cpp:287
+#: src/translators/csvexporter.cpp:59 src/importdialog.cpp:287
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "*.csv|CSV-tiedostot (*.csv)"
 
-#: src/translators/csvexporter.cpp:124
+#: src/translators/csvexporter.cpp:134
 msgid "Include field titles as column headers"
 msgstr "Sisällytä kenttien nimet sarakkeiden otsikkoina."
 
-#: src/translators/csvexporter.cpp:126
+#: src/translators/csvexporter.cpp:136
 msgid "If checked, a header row will be added with the field titles."
 msgstr "Jos valittu, otsikokkorivi lisätään kenttien nimien kanssa."
 
-#: src/translators/csvexporter.cpp:129
+#: src/translators/csvexporter.cpp:139
 msgid "Delimiter"
 msgstr "Erotin"
 
-#: src/translators/csvexporter.cpp:136
+#: src/translators/csvexporter.cpp:146
 msgid "Comma"
 msgstr "Pilkku"
 
-#: src/translators/csvexporter.cpp:142
+#: src/translators/csvexporter.cpp:152
 msgid "Semicolon"
 msgstr "Puolipiste"
 
-#: src/translators/csvexporter.cpp:147
+#: src/translators/csvexporter.cpp:157
 msgid "Tab"
 msgstr "Sarkain"
 
-#: src/translators/csvexporter.cpp:152
+#: src/translators/csvexporter.cpp:162 xslt.cpp:46
 msgid "Other"
 msgstr "Muu"
 
@@ -2321,15 +2366,15 @@ msgstr "ONIX-paketti"
 msgid "*.zip|Zip Files (*.zip)"
 msgstr "*.zip|Zip-tiedostot (*.zip)"
 
-#: src/translators/onixexporter.cpp:180
+#: src/translators/onixexporter.cpp:181
 msgid "ONIX Archive Options"
 msgstr "ONIX-paketin asetukset"
 
-#: src/translators/onixexporter.cpp:183
+#: src/translators/onixexporter.cpp:184
 msgid "Include images in archive"
 msgstr "Sisällytä kuvat pakettiin"
 
-#: src/translators/onixexporter.cpp:185
+#: src/translators/onixexporter.cpp:186
 msgid ""
 "If checked, the images in the document will be included in the zipped ONIX "
 "archive."
@@ -2339,19 +2384,19 @@ msgstr "Jos valittu, dokumentin kuvat sisällytetään zipattuun ONIX-pakettiin.
 msgid "A valid XSLT file is needed to import the file."
 msgstr "Tiedoston tuomiseen tarvitaan säännönmukainen XSLT-tiedosto."
 
-#: src/translators/xsltimporter.cpp:109 src/translators/xsltexporter.cpp:85
+#: src/translators/xsltimporter.cpp:109 src/translators/xsltexporter.cpp:86
 msgid "XSLT Options"
 msgstr "XSLT-asetukset"
 
-#: src/translators/xsltimporter.cpp:112 src/translators/xsltexporter.cpp:88
+#: src/translators/xsltimporter.cpp:112 src/translators/xsltexporter.cpp:89
 msgid "XSLT file:"
 msgstr "XSLT-tiedosto:"
 
-#: src/translators/xsltimporter.cpp:114 src/translators/xsltexporter.cpp:90
+#: src/translators/xsltimporter.cpp:114 src/translators/xsltexporter.cpp:91
 msgid "Choose the XSLT file used to transform the data."
 msgstr "Valitse tiedon muuttamiseen käytettävä XSLT-tiedosto."
 
-#: src/translators/xsltimporter.cpp:117 src/translators/xsltexporter.cpp:98
+#: src/translators/xsltimporter.cpp:117 src/translators/xsltexporter.cpp:99
 #: src/configdialog.cpp:1123
 msgid "*.xsl|XSL Files (*.xsl)"
 msgstr "*.xsl|XSL-tiedostot (*.xsl)"
@@ -2418,11 +2463,11 @@ msgstr "Alexandria-asetukset"
 msgid "&Library:"
 msgstr "&Kirjasto:"
 
-#: src/translators/bibtexmlexporter.cpp:50
+#: src/translators/bibtexmlexporter.cpp:49
 msgid "Bibtexml"
 msgstr "Bibtexml"
 
-#: src/translators/bibtexmlexporter.cpp:54
+#: src/translators/bibtexmlexporter.cpp:53
 msgid "*.xml|Bibtexml Files (*.xml)"
 msgstr "*.xml|Bibtexml-tiedostot (*.xml)"
 
@@ -2439,15 +2484,15 @@ msgstr "XML"
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|XML-tiedostot (*.xml)"
 
-#: src/translators/tellicoxmlexporter.cpp:500
+#: src/translators/tellicoxmlexporter.cpp:501
 msgid "Tellico XML Options"
 msgstr "Tellico XML-asetukset"
 
-#: src/translators/tellicoxmlexporter.cpp:503
+#: src/translators/tellicoxmlexporter.cpp:504
 msgid "Include images in XML document"
 msgstr "Sisällytä kuvat XML-dokumenttiin"
 
-#: src/translators/tellicoxmlexporter.cpp:505
+#: src/translators/tellicoxmlexporter.cpp:506
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "
 "base64 encoded elements."
@@ -2463,11 +2508,11 @@ msgstr "Bibtex"
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "*.bib|Bibtex-tiedostot (*.bib)"
 
-#: src/translators/bibtexexporter.cpp:218
+#: src/translators/bibtexexporter.cpp:217
 msgid "Expand string macros"
 msgstr "Laajenna merkkijonomakrot"
 
-#: src/translators/bibtexexporter.cpp:220
+#: src/translators/bibtexexporter.cpp:219
 msgid ""
 "If checked, the string macros will be expanded and no @string{} entries will "
 "be written."
@@ -2475,40 +2520,40 @@ msgstr ""
 "Jos valittu, merkkijonomakrot laajennetaan eikä @sring{} -esiintymiä "
 "kirjoiteta."
 
-#: src/translators/bibtexexporter.cpp:223
+#: src/translators/bibtexexporter.cpp:222
 msgid "Use URL package"
 msgstr "Käytä verkko-osoite (URL) -pakettia"
 
-#: src/translators/bibtexexporter.cpp:225
+#: src/translators/bibtexexporter.cpp:224
 msgid "If checked, any URL fields will be wrapped in a \\url declaration."
 msgstr ""
 "Jos valittu, kaikki verkko-osoite -kentät sijoitetaan \\url määritykseen."
 
-#: src/translators/bibtexexporter.cpp:228
+#: src/translators/bibtexexporter.cpp:227
 msgid "Skip entries with empty citation keys"
 msgstr "Ohita tietueet joissa on tyhjä sitaattiavain"
 
-#: src/translators/bibtexexporter.cpp:230
+#: src/translators/bibtexexporter.cpp:229
 msgid "If checked, any entries without a bibtex citation key will be skipped."
 msgstr ""
 "Jos valittu, kaikki tietueet joissa ei ole bibtex-sitaattiavainta ohitetaan."
 
-#: src/translators/bibtexexporter.cpp:236
+#: src/translators/bibtexexporter.cpp:235
 msgid "Bibtex quotation style:"
 msgstr "Bibtex:in sitaatin tyyli:"
 
-#: src/translators/bibtexexporter.cpp:238
-#: src/translators/bibtexexporter.cpp:245
-#: src/translators/bibtexexporter.cpp:284
+#: src/translators/bibtexexporter.cpp:237
+#: src/translators/bibtexexporter.cpp:244
+#: src/translators/bibtexexporter.cpp:283
 msgid "Braces"
 msgstr "Sulkumerkit"
 
-#: src/translators/bibtexexporter.cpp:239
-#: src/translators/bibtexexporter.cpp:247
+#: src/translators/bibtexexporter.cpp:238
+#: src/translators/bibtexexporter.cpp:246
 msgid "Quotes"
 msgstr "Lainausmerkit"
 
-#: src/translators/bibtexexporter.cpp:240
+#: src/translators/bibtexexporter.cpp:239
 msgid ""
 "<qt>The quotation style used when exporting bibtex. All field values will  "
 "be escaped with either braces or quotation marks.</qt>"
@@ -2524,41 +2569,41 @@ msgstr "HTML"
 msgid "*.html|HTML Files (*.html)"
 msgstr "*.html|HTML-tiedostot (*.html)"
 
-#: src/translators/htmlexporter.cpp:328 src/groupview.cpp:417
+#: src/translators/htmlexporter.cpp:329 src/groupview.cpp:417
 #: src/mainwindow.cpp:872 src/mainwindow.cpp:1516 src/mainwindow.cpp:1543
 msgid "People"
 msgstr "Ihmiset"
 
-#: src/translators/htmlexporter.cpp:332
+#: src/translators/htmlexporter.cpp:333
 #, kde-format
 msgid "(grouped by %1)"
 msgstr "(lajiteltu %1 mukaan)"
 
-#: src/translators/htmlexporter.cpp:484
+#: src/translators/htmlexporter.cpp:487
 msgid "HTML Options"
 msgstr "HTML-asetukset"
 
-#: src/translators/htmlexporter.cpp:487
+#: src/translators/htmlexporter.cpp:490
 msgid "Print field headers"
 msgstr "Tulosta kenttien otsikot"
 
-#: src/translators/htmlexporter.cpp:488 src/configdialog.cpp:369
+#: src/translators/htmlexporter.cpp:491 src/configdialog.cpp:369
 msgid "If checked, the field names will be printed as table headers."
 msgstr "Jos valittu, kentän nimet tulostetaan taulun otsikkotietoina."
 
-#: src/translators/htmlexporter.cpp:492
+#: src/translators/htmlexporter.cpp:495
 msgid "Group the entries"
 msgstr "Ryhmittele tietueet"
 
-#: src/translators/htmlexporter.cpp:493 src/configdialog.cpp:379
+#: src/translators/htmlexporter.cpp:496 src/configdialog.cpp:379
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr "Jos valittu, tietueet ryhmitellään valitun kentän perusteella."
 
-#: src/translators/htmlexporter.cpp:497
+#: src/translators/htmlexporter.cpp:500
 msgid "Export individual entry files"
 msgstr "Vie yksittäisiä tietue-tiedostoja"
 
-#: src/translators/htmlexporter.cpp:498
+#: src/translators/htmlexporter.cpp:501
 msgid "If checked, individual files will be created for each entry."
 msgstr "Jos valittu, jokaiselle tietueelle luodaan yksittäiset tiedostot."
 
@@ -2801,41 +2846,41 @@ msgstr "Suodattimen nimi:"
 msgid "&Save Filter"
 msgstr "Tallenna &suodatin"
 
-#: src/entryeditdialog.cpp:63 src/entryeditdialog.cpp:376
-#: src/entryeditdialog.cpp:400 src/entryeditdialog.cpp:499
+#: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
 msgid "Edit Entry"
 msgstr "Muokkaa tietuetta"
 
-#: src/entryeditdialog.cpp:66
+#: src/entryeditdialog.cpp:67
 msgid "&New Entry"
 msgstr "&Uusi tietue"
 
-#: src/entryeditdialog.cpp:73 src/entryeditdialog.cpp:108
-#: src/entryeditdialog.cpp:410 src/entryeditdialog.cpp:520
+#: src/entryeditdialog.cpp:74 src/entryeditdialog.cpp:120
+#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:530
 msgid "Sa&ve Entry"
 msgstr "&Tallenna tietue"
 
-#: src/entryeditdialog.cpp:306
+#: src/entryeditdialog.cpp:319
 msgid "Do you really want to modify these entries?"
 msgstr "Haluatko todella muokata valittuja tietueita?"
 
-#: src/entryeditdialog.cpp:308
+#: src/entryeditdialog.cpp:321
 msgid "Modify Multiple Entries"
 msgstr "Muokkaa useita tietueita"
 
-#: src/entryeditdialog.cpp:349
+#: src/entryeditdialog.cpp:362
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Seuraavat kentät vaativat arvon, haluatko jatkaa?"
 
-#: src/entryeditdialog.cpp:449
+#: src/entryeditdialog.cpp:459
 msgid "Edit Entries"
 msgstr "Muokkaa tietueita"
 
-#: src/entryeditdialog.cpp:475
+#: src/entryeditdialog.cpp:485
 msgid "Sa&ve Entries"
 msgstr "T&allenna tietueet"
 
-#: src/entryeditdialog.cpp:637
+#: src/entryeditdialog.cpp:647
 msgid ""
 "The current entry has been modified.\n"
 "Do you want to enter the changes?"
@@ -2843,11 +2888,11 @@ msgstr ""
 "Nykyistä tietuetta on muokattu.\n"
 "Haluatko tallettaa muutokset?"
 
-#: src/entryeditdialog.cpp:640
+#: src/entryeditdialog.cpp:650
 msgid "Save Entry"
 msgstr "Tallenna tietue"
 
-#: src/entryeditdialog.cpp:641 src/mainwindow.cpp:962
+#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:962
 msgid "Unsaved Changes"
 msgstr "Tallentamattomat muutokset"
 
@@ -2932,20 +2977,20 @@ msgid ""
 "Some reports may take several seconds to generate for large collections."
 msgstr "Isojen kokoelmien raporttien luomiseen voi mennä vähän pidempi aika."
 
-#: src/entryupdater.cpp:93
+#: src/entryupdater.cpp:96
 #, kde-format
 msgid "Updating %1..."
 msgstr "Päivitetään %1..."
 
-#: src/entryupdater.cpp:95
+#: src/entryupdater.cpp:98
 msgid "Updating entries..."
 msgstr "Päivitetään tietueita..."
 
-#: src/entryupdater.cpp:97
+#: src/entryupdater.cpp:100
 msgid "Update Entries"
 msgstr "Päivitä tietueet"
 
-#: src/entryupdater.cpp:111
+#: src/entryupdater.cpp:114
 #, kde-format
 msgid "Updating <b>%1</b>..."
 msgstr "Päivitetään <b>%1</b>..."
@@ -3009,7 +3054,7 @@ msgstr "%1 (Järjestetty lukumäärän mukaan)"
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico ei pysty paikantamaan tietueen oletusmuotoilutyylipohjaa."
 
-#: src/entryview.cpp:224 src/mainwindow.cpp:1591
+#: src/entryview.cpp:224 src/mainwindow.cpp:1590
 msgid "Please check your installation."
 msgstr "Tarkista asennuksesi."
 
@@ -3053,7 +3098,7 @@ msgstr ""
 
 #. i18n: file: src/tellicoui.rc:24
 #. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:120 src/mainwindow.cpp:312 rc.cpp:206
+#: src/importdialog.cpp:120 src/mainwindow.cpp:312 rc.cpp:280
 msgid "&Import"
 msgstr "T&uo"
 
@@ -3138,24 +3183,24 @@ msgstr "Lautapelikokoelma"
 msgid "Custom Collection"
 msgstr "Muokattu kokoelma"
 
-#: src/detailedlistview.cpp:565
+#: src/detailedlistview.cpp:566
 #, fuzzy
 #| msgid "Co&lumn:"
 msgctxt "Noun, Menu name"
 msgid "Columns"
 msgstr "&Sarake:"
 
-#: src/detailedlistview.cpp:570
+#: src/detailedlistview.cpp:571
 #, fuzzy
 #| msgid "Hide All Columns"
 msgid "Show All Columns"
 msgstr "Piilota kaikki sarakkeet"
 
-#: src/detailedlistview.cpp:572
+#: src/detailedlistview.cpp:573
 msgid "Hide All Columns"
 msgstr "Piilota kaikki sarakkeet"
 
-#: src/detailedlistview.cpp:574
+#: src/detailedlistview.cpp:575
 #, fuzzy
 #| msgid "File to open"
 msgid "Resize to Content"
@@ -3513,7 +3558,7 @@ msgstr "Tuo käyttäen XSL-muunnosta"
 
 #. i18n: file: src/tellicoui.rc:49
 #. i18n: ectx: Menu (file_export)
-#: src/mainwindow.cpp:391 rc.cpp:209
+#: src/mainwindow.cpp:391 rc.cpp:283
 msgid "&Export"
 msgstr "&Vie"
 
@@ -3633,7 +3678,7 @@ msgstr "Poista kokoelman kaikkien tietueiden valinta"
 msgid "Internet Search..."
 msgstr "Internethaku..."
 
-#: src/mainwindow.cpp:459 xslt.cpp:44
+#: src/mainwindow.cpp:459 xslt.cpp:47
 msgid "Search"
 msgstr "Etsi"
 
@@ -3646,7 +3691,7 @@ msgid "Advanced &Filter..."
 msgstr "&Tarkempi suodatin..."
 
 #: src/mainwindow.cpp:466 src/mainwindow.cpp:629 src/mainwindow.cpp:645
-#: src/filterview.cpp:206
+#: src/filterview.cpp:220
 msgid "Filter"
 msgstr "Suodatin"
 
@@ -3695,52 +3740,52 @@ msgid "Merge the selected entries"
 msgstr "Yhdistä valitut tietueet"
 
 #: src/mainwindow.cpp:513
-msgid "&Generate Reports..."
-msgstr "&Luo raportteja..."
-
-#: src/mainwindow.cpp:514
-msgid "Reports"
-msgstr "Raportit"
-
-#: src/mainwindow.cpp:516
-msgid "Generate collection reports"
-msgstr "Tee kokoelmaraportteja"
-
-#: src/mainwindow.cpp:519
 msgid "Check-&out..."
 msgstr "&Lainaa..."
 
-#: src/mainwindow.cpp:521
+#: src/mainwindow.cpp:515
 msgid "Check-out the selected items"
 msgstr "Lainaa valitut nimikkeet"
 
-#: src/mainwindow.cpp:524
+#: src/mainwindow.cpp:518
 msgid "Check-&in"
 msgstr "&Palautus"
 
-#: src/mainwindow.cpp:526
+#: src/mainwindow.cpp:520
 msgid "Check-in the selected items"
 msgstr "Palauta valitut nimikkeet"
 
-#: src/mainwindow.cpp:529
+#: src/mainwindow.cpp:523
 msgid "&Rename Collection..."
 msgstr "&Uudelleennimeä kokoelma..."
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:526
 msgid "Rename the collection"
 msgstr "Uudelleennimeä kokoelma"
 
-#: src/mainwindow.cpp:535
+#: src/mainwindow.cpp:529
 msgid "Collection &Fields..."
 msgstr "&Kokoelman kentät..."
 
-#: src/mainwindow.cpp:536
+#: src/mainwindow.cpp:530
 msgid "Fields"
 msgstr "Kentät"
 
-#: src/mainwindow.cpp:539
+#: src/mainwindow.cpp:533
 msgid "Modify the collection fields"
 msgstr "Muuta kokoelman kenttiä"
+
+#: src/mainwindow.cpp:536
+msgid "&Generate Reports..."
+msgstr "&Luo raportteja..."
+
+#: src/mainwindow.cpp:537
+msgid "Reports"
+msgstr "Raportit"
+
+#: src/mainwindow.cpp:539
+msgid "Generate collection reports"
+msgstr "Tee kokoelmaraportteja"
 
 #: src/mainwindow.cpp:542
 msgid "Convert to &Bibliography"
@@ -3776,7 +3821,7 @@ msgstr "Lähetä valitut sitaatit LyX:iin"
 
 #. i18n: file: src/tellicoui.rc:78
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/mainwindow.cpp:571 src/controller.cpp:576 rc.cpp:215
+#: src/mainwindow.cpp:571 src/controller.cpp:576 rc.cpp:289
 msgid "&Update Entry"
 msgstr "&Päivitä tietue"
 
@@ -3958,47 +4003,47 @@ msgstr "(%1 suodatettu)"
 msgid "(%1 selected)"
 msgstr "(%1 valittu)"
 
-#: src/mainwindow.cpp:1716
+#: src/mainwindow.cpp:1713
 msgid "Importing data..."
 msgstr "Tuodaan tietoja..."
 
-#: src/mainwindow.cpp:1725
+#: src/mainwindow.cpp:1722
 msgid "Import File"
 msgstr "Tuo tiedosto"
 
-#: src/mainwindow.cpp:1731
+#: src/mainwindow.cpp:1728
 msgid "Import Directory"
 msgstr "Tuo hakemisto"
 
-#: src/mainwindow.cpp:1752
+#: src/mainwindow.cpp:1749
 msgid "Exporting data..."
 msgstr "Viedään tietoja..."
 
-#: src/mainwindow.cpp:1774
+#: src/mainwindow.cpp:1771
 msgid "Export As"
 msgstr "Vie muodossa"
 
-#: src/mainwindow.cpp:1799
+#: src/mainwindow.cpp:1796
 msgid "String Macros"
 msgstr "Merkkijonomakrot"
 
-#: src/mainwindow.cpp:1800
+#: src/mainwindow.cpp:1797
 msgid "Macro"
 msgstr "Makro"
 
-#: src/mainwindow.cpp:1800
+#: src/mainwindow.cpp:1797
 msgid "String"
 msgstr "Merkkijono"
 
-#: src/mainwindow.cpp:1866
+#: src/mainwindow.cpp:1863
 msgid "Creating citations..."
 msgstr "Luodaan sitaatteja..."
 
-#: src/mainwindow.cpp:1971
+#: src/mainwindow.cpp:1968
 msgid "Filters"
 msgstr "Suodattimet"
 
-#: src/mainwindow.cpp:1972
+#: src/mainwindow.cpp:1969
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
@@ -4006,11 +4051,11 @@ msgstr ""
 "<qt><i>Suodatinnäkymä</i>näyttää tietueet jotka sopivat suodatussääntöön.</"
 "qt>"
 
-#: src/mainwindow.cpp:1988
+#: src/mainwindow.cpp:1987
 msgid "Loans"
 msgstr "Lainaukset"
 
-#: src/mainwindow.cpp:1989
+#: src/mainwindow.cpp:1988
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
@@ -4018,7 +4063,7 @@ msgstr ""
 "<qt><i>Lainausnäkymä</i> näyttää listan ihmisistä jotka ovat lainanneet "
 "kokoelmastasi.</qt>"
 
-#: src/mainwindow.cpp:2061
+#: src/mainwindow.cpp:2060
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4026,12 +4071,12 @@ msgstr ""
 "Joitain kuvia ei talleteta asetuksissa määritettyyn sijaintiin. Nykyinen "
 "tiedosto pitää tallettaa ja kuvat viedään uuteen sijaintiin."
 
-#: src/mainwindow.cpp:2109
+#: src/mainwindow.cpp:2098
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Päivitä tietue täältä: %1"
 
-#: src/mainwindow.cpp:2127
+#: src/mainwindow.cpp:2116
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -4044,7 +4089,7 @@ msgstr ""
 msgid "(Empty)"
 msgstr "(Tyhjä)"
 
-#: src/filterview.cpp:208
+#: src/filterview.cpp:222
 msgid "Filter (Sort by Count)"
 msgstr "Suodata (Järjestetty lukumäärän mukaan)"
 
@@ -4122,23 +4167,36 @@ msgid "If checked, only the currently selected entries will be exported."
 msgstr "Jos valittu, vain tällä hetkellä valittuna olevat tietueet viedään."
 
 #: src/exportdialog.cpp:86
+#, fuzzy
+#| msgid "Export selected entries only"
+msgid "Export visible fields only"
+msgstr "Vie vain valitut tietueet"
+
+#: src/exportdialog.cpp:88
+#, fuzzy
+#| msgid "If checked, only the currently selected entries will be exported."
+msgid ""
+"If checked, only the fields currently visible in the view will be exported."
+msgstr "Jos valittu, vain tällä hetkellä valittuna olevat tietueet viedään."
+
+#: src/exportdialog.cpp:92
 msgid "Encoding"
 msgstr "Koodaus"
 
-#: src/exportdialog.cpp:91
+#: src/exportdialog.cpp:97
 msgid "Encode in Unicode (UTF-8)"
 msgstr "Koodaa Unicode-muotoon (UTF-8)"
 
-#: src/exportdialog.cpp:93
+#: src/exportdialog.cpp:99
 msgid "Encode the exported file in Unicode (UTF-8)."
 msgstr "Koodaa viety tiedosto Unicode-muotoon (UTF-8)."
 
-#: src/exportdialog.cpp:96
+#: src/exportdialog.cpp:102
 #, kde-format
 msgid "Encode in user locale (%1)"
 msgstr "Koodaa käyttäjän paikallisella muotoon (%1)"
 
-#: src/exportdialog.cpp:99
+#: src/exportdialog.cpp:105
 msgid "Encode the exported file in the local encoding."
 msgstr "Koodaa viety tiedosto paikalliseen muotoon."
 
@@ -4168,33 +4226,33 @@ msgstr "Yhdistetään tietueita..."
 msgid "Total merged/scanned entries: %1/%2"
 msgstr "Yhdistettyjä/läpikäytyjä tietueita yhteensä: %1/%2"
 
-#: src/collectionfieldsdialog.cpp:82
+#: src/collectionfieldsdialog.cpp:83
 msgid "Collection Fields"
 msgstr "Kokoelman kentät"
 
-#: src/collectionfieldsdialog.cpp:90
+#: src/collectionfieldsdialog.cpp:91
 msgid "Current Fields"
 msgstr "Nykyiset kentät"
 
-#: src/collectionfieldsdialog.cpp:110
+#: src/collectionfieldsdialog.cpp:111
 msgctxt "New Field"
 msgid "&New"
 msgstr "&Uusi"
 
-#: src/collectionfieldsdialog.cpp:112
+#: src/collectionfieldsdialog.cpp:113
 msgid "Add a new field to the collection"
 msgstr "Lisää uusi kenttä kokoelmaan"
 
-#: src/collectionfieldsdialog.cpp:113
+#: src/collectionfieldsdialog.cpp:114
 msgctxt "Delete Field"
 msgid "&Delete"
 msgstr "&Tuhoa..."
 
-#: src/collectionfieldsdialog.cpp:115
+#: src/collectionfieldsdialog.cpp:116
 msgid "Remove a field from the collection"
 msgstr "Poista kenttä kokoelmasta"
 
-#: src/collectionfieldsdialog.cpp:125
+#: src/collectionfieldsdialog.cpp:126
 msgid ""
 "Move this field up in the list. The list order is important for the layout "
 "of the entry editor."
@@ -4202,7 +4260,7 @@ msgstr ""
 "Siirrä tämä kenttä ylös listassa. Listan järjestys vaikuttaa tietue-editorin "
 "kenttien asetteluun."
 
-#: src/collectionfieldsdialog.cpp:129
+#: src/collectionfieldsdialog.cpp:130
 msgid ""
 "Move this field down in the list. The list order is important for the layout "
 "of the entry editor."
@@ -4210,47 +4268,47 @@ msgstr ""
 "Siirrä tämä kenttä alas listassa. Listan järjestys vaikuttaa tietue-editorin "
 "kenttien asetteluun."
 
-#: src/collectionfieldsdialog.cpp:139
+#: src/collectionfieldsdialog.cpp:140
 msgid "Field Properties"
 msgstr "Kentän ominaisuudet"
 
-#: src/collectionfieldsdialog.cpp:148
+#: src/collectionfieldsdialog.cpp:149
 msgid "&Title:"
 msgstr "&Otsikko:"
 
-#: src/collectionfieldsdialog.cpp:153
+#: src/collectionfieldsdialog.cpp:154
 msgid "The title of the field"
 msgstr "Kentän otsikko"
 
-#: src/collectionfieldsdialog.cpp:158
+#: src/collectionfieldsdialog.cpp:159
 msgid "T&ype:"
 msgstr "&Tyyppi:"
 
-#: src/collectionfieldsdialog.cpp:164
+#: src/collectionfieldsdialog.cpp:165
 msgid "The type of the field determines what values may be used. "
 msgstr "Kentän tyyppi määrittää millaisia arvoja siinä voidaan käyttää. "
 
-#: src/collectionfieldsdialog.cpp:165
+#: src/collectionfieldsdialog.cpp:166
 msgid "<i>Simple Text</i> is used for most fields. "
 msgstr "<i>Yksinkertaista tekstiä</i> käytetään useimmissa kentissä. "
 
-#: src/collectionfieldsdialog.cpp:166
+#: src/collectionfieldsdialog.cpp:167
 msgid "<i>Paragraph</i> is for large text blocks. "
 msgstr "<i>Kappale</i> on isoille tekstilohkoille. "
 
-#: src/collectionfieldsdialog.cpp:167
+#: src/collectionfieldsdialog.cpp:168
 msgid "<i>Choice</i> limits the field to certain values. "
 msgstr "<i>Valinta</i> rajaa kentän arvot tiettyihin arvoihin. "
 
-#: src/collectionfieldsdialog.cpp:168
+#: src/collectionfieldsdialog.cpp:169
 msgid "<i>Checkbox</i> is for a simple yes/no value. "
 msgstr "<i>Valintaruutu</i> on yksinkertaisille kyllä/ei -arvoille. "
 
-#: src/collectionfieldsdialog.cpp:169
+#: src/collectionfieldsdialog.cpp:170
 msgid "<i>Number</i> indicates that the field contains a numerical value. "
 msgstr "<i>Numero</i> kertoo että kenttä sisältää numeerison arvon. "
 
-#: src/collectionfieldsdialog.cpp:170
+#: src/collectionfieldsdialog.cpp:171
 msgid ""
 "<i>URL</i> is for fields which refer to URLs, including references to other "
 "files. "
@@ -4258,38 +4316,38 @@ msgstr ""
 "<i>URL</i> on kentille jotka viittaavat verkko-osoitteisiin, mukaanlukien "
 "viitteet toisiin tiedostoihin. "
 
-#: src/collectionfieldsdialog.cpp:171
+#: src/collectionfieldsdialog.cpp:172
 msgid "A <i>Table</i> may hold one or more columns of values. "
 msgstr "<i>Taulu</i> voi sisältää yhden tai useampia arvosarakkeita. "
 
-#: src/collectionfieldsdialog.cpp:172
+#: src/collectionfieldsdialog.cpp:173
 msgid "An <i>Image</i> field holds a picture. "
 msgstr "<i>Kuva</i>-kenttä sisältää kuvan. "
 
-#: src/collectionfieldsdialog.cpp:173
+#: src/collectionfieldsdialog.cpp:174
 msgid ""
 "A <i>Date</i> field can be used for values with a day, month, and year. "
 msgstr ""
 "<i>Päivämäärä</i>-kenttää voidaan käyttää ilmaistaessa päivää, kuukautta ja "
 "vuotta. "
 
-#: src/collectionfieldsdialog.cpp:174
+#: src/collectionfieldsdialog.cpp:175
 msgid "A <i>Rating</i> field uses stars to show a rating number. "
 msgstr "A <i>Arvosana</i>-kenttä käyttää tähtiä kertomaan arvosanan. "
 
-#: src/collectionfieldsdialog.cpp:183
+#: src/collectionfieldsdialog.cpp:184
 msgid "Cate&gory:"
 msgstr "&Kategoria:"
 
-#: src/collectionfieldsdialog.cpp:188
+#: src/collectionfieldsdialog.cpp:189
 msgid "The field category determines where the field is placed in the editor."
 msgstr "Kategoria-kenttä määrittää kentän välilehden tietue-editorissa."
 
-#: src/collectionfieldsdialog.cpp:205
+#: src/collectionfieldsdialog.cpp:206
 msgid "Set &properties..."
 msgstr "&Aseta ominaisuudet..."
 
-#: src/collectionfieldsdialog.cpp:209
+#: src/collectionfieldsdialog.cpp:210
 msgid ""
 "Extended field properties are used to specify things such as the "
 "corresponding bibtex field."
@@ -4297,33 +4355,33 @@ msgstr ""
 "Laajennennettuja kentän ominaisuuksia käytetään määrittämään asioita kuten "
 "kentän vastaavuus bibtex-tietueessa."
 
-#: src/collectionfieldsdialog.cpp:214
+#: src/collectionfieldsdialog.cpp:215
 msgid "Description:"
 msgstr "Kuvaus:"
 
-#: src/collectionfieldsdialog.cpp:221
+#: src/collectionfieldsdialog.cpp:222
 msgid ""
 "The description is a useful reminder of what information is contained in the "
 "field."
 msgstr "Kuvaus kertoo minkälaista tietoa kentässä on."
 
-#: src/collectionfieldsdialog.cpp:226
+#: src/collectionfieldsdialog.cpp:227
 msgid "Value Options"
 msgstr "Arvon asetukset"
 
-#: src/collectionfieldsdialog.cpp:230
+#: src/collectionfieldsdialog.cpp:231
 msgid "&Default value:"
 msgstr "&Oletusarvo:"
 
-#: src/collectionfieldsdialog.cpp:235
+#: src/collectionfieldsdialog.cpp:236
 msgid "<qt>A default value can be set for new entries.</qt>"
 msgstr "<qt>Uusille tietueille voidaan asettaa oletusarvo</qt>"
 
-#: src/collectionfieldsdialog.cpp:240
+#: src/collectionfieldsdialog.cpp:241
 msgid "Value template:"
 msgstr "Arvon mallipohja:"
 
-#: src/collectionfieldsdialog.cpp:248
+#: src/collectionfieldsdialog.cpp:249
 msgid ""
 "Derived values are formed from the values of other fields according to the "
 "value template. Named fields, such as \"%{year} %{title}\", get substituted "
@@ -4333,15 +4391,15 @@ msgstr ""
 "mallipohjan mukaan. Nimetyt kentät, kuten \"%{year} %{title}\", korvataan "
 "arvolla."
 
-#: src/collectionfieldsdialog.cpp:254
+#: src/collectionfieldsdialog.cpp:255
 msgid "Use derived value"
 msgstr "Käytä perittyä arvoa"
 
-#: src/collectionfieldsdialog.cpp:260
+#: src/collectionfieldsdialog.cpp:261
 msgid "A&llowed values:"
 msgstr "&Sallitut arvot:"
 
-#: src/collectionfieldsdialog.cpp:265
+#: src/collectionfieldsdialog.cpp:266
 msgid ""
 "<qt>For <i>Choice</i>-type fields, these are the only values allowed. They "
 "are placed in a combo box. The possible values have to be separated by a "
@@ -4351,46 +4409,46 @@ msgstr ""
 "Ne sijoitetaan yhdistelmäruutuun. Arvot pitää erotella puolipoisteella, "
 "tähän tyyliin: \"koira; kissa; hiiri\"</qt>"
 
-#: src/collectionfieldsdialog.cpp:272
+#: src/collectionfieldsdialog.cpp:273
 msgid "Format options:"
 msgstr "Muotoiluasetukset:"
 
-#: src/collectionfieldsdialog.cpp:278
+#: src/collectionfieldsdialog.cpp:279
 msgid "No formatting"
 msgstr "Ei muotoilua"
 
-#: src/collectionfieldsdialog.cpp:279
+#: src/collectionfieldsdialog.cpp:280
 msgid "Allow auto-capitalization only"
 msgstr "Salli vain automaattinen isojen kirjainten käyttö"
 
-#: src/collectionfieldsdialog.cpp:280
+#: src/collectionfieldsdialog.cpp:281
 msgid "Format as a title"
 msgstr "Muotoile kuten otsikko"
 
-#: src/collectionfieldsdialog.cpp:281
+#: src/collectionfieldsdialog.cpp:282
 msgid "Format as a name"
 msgstr "Muotoile kuten nimi"
 
-#: src/collectionfieldsdialog.cpp:284
+#: src/collectionfieldsdialog.cpp:285
 msgid "Field Options"
 msgstr "Kentän asetukset"
 
-#: src/collectionfieldsdialog.cpp:286
+#: src/collectionfieldsdialog.cpp:287
 msgid "Enable auto-completion"
 msgstr "Aktivoi automaattinen tekstintäydennys"
 
-#: src/collectionfieldsdialog.cpp:287
+#: src/collectionfieldsdialog.cpp:288
 msgid ""
 "If checked, KDE auto-completion will be enabled in the text edit box for "
 "this field."
 msgstr ""
 "Jos valittu, tässä kentässä käytetään KDE:n automaattista tekstintäydennystä."
 
-#: src/collectionfieldsdialog.cpp:289
+#: src/collectionfieldsdialog.cpp:290
 msgid "Allow multiple values"
 msgstr "Salli monta arvoa"
 
-#: src/collectionfieldsdialog.cpp:290
+#: src/collectionfieldsdialog.cpp:291
 msgid ""
 "If checked, Tellico will parse the values in the field for multiple values, "
 "separated by a semi-colon."
@@ -4398,25 +4456,25 @@ msgstr ""
 "Jos valittu, Tellico luetteloi kentän kaikki puolipisteellä erotellut arvot "
 "omina arvoinaan."
 
-#: src/collectionfieldsdialog.cpp:292
+#: src/collectionfieldsdialog.cpp:293
 msgid "Allow grouping"
 msgstr "Salli ryhmittely"
 
-#: src/collectionfieldsdialog.cpp:293
+#: src/collectionfieldsdialog.cpp:294
 msgid ""
 "If checked, this field may be used to group the entries in the group view."
 msgstr ""
 "Jos valittu, kenttää voidaan käyttää ryhmittelemään ryhmänäkymän tietueet."
 
-#: src/collectionfieldsdialog.cpp:309
+#: src/collectionfieldsdialog.cpp:310
 msgid "Revert the selected field's properties to the default values."
 msgstr "Palauta valittujen kenttien ominaisuudet oletusarvoihin."
 
-#: src/collectionfieldsdialog.cpp:358
+#: src/collectionfieldsdialog.cpp:363
 msgid "Modify Fields"
 msgstr "Muokkaa kenttiä"
 
-#: src/collectionfieldsdialog.cpp:370
+#: src/collectionfieldsdialog.cpp:376
 #, kde-format
 msgid ""
 "<qt>Removing allowed values from the <i>%1</i> field which currently exist "
@@ -4428,20 +4486,20 @@ msgstr ""
 "muokatut arvot vai keskeyttää toiminnon ja palata takaisiin nykyisiin "
 "arvoihin?</qt>"
 
-#: src/collectionfieldsdialog.cpp:375
+#: src/collectionfieldsdialog.cpp:381
 msgid "Keep modified values"
 msgstr "Pidä muokatut arvot"
 
-#: src/collectionfieldsdialog.cpp:460 src/collectionfieldsdialog.cpp:463
+#: src/collectionfieldsdialog.cpp:479 src/collectionfieldsdialog.cpp:482
 #, kde-format
 msgid "New Field %1"
 msgstr "Uusi kenttä %1"
 
-#: src/collectionfieldsdialog.cpp:745
+#: src/collectionfieldsdialog.cpp:768
 msgid "Revert Field Properties"
 msgstr "Palauta kentän asetukset"
 
-#: src/collectionfieldsdialog.cpp:746
+#: src/collectionfieldsdialog.cpp:769
 #, kde-format
 msgid ""
 "<qt><p>Do you really want to revert the properties for the <em>%1</em> field "
@@ -4450,23 +4508,23 @@ msgstr ""
 "<qt><p>Haluatko todella palauttaa kentän <em>%1</em> asetukset "
 "oletusarvoihin?</p></qt>"
 
-#: src/collectionfieldsdialog.cpp:749
+#: src/collectionfieldsdialog.cpp:772
 msgid "Revert"
 msgstr "Palauta"
 
-#: src/collectionfieldsdialog.cpp:817
+#: src/collectionfieldsdialog.cpp:840
 msgid "Extended Field Properties"
 msgstr "Kentän laajennetut ominaisuudet"
 
-#: src/collectionfieldsdialog.cpp:850
+#: src/collectionfieldsdialog.cpp:873
 msgid "A field with this title already exists. Please enter a different title."
 msgstr "Tämän niminen kenttä on jo olemassa. Anna joku muu nimi."
 
-#: src/collectionfieldsdialog.cpp:857
+#: src/collectionfieldsdialog.cpp:880
 msgid "<qt>The category may not be empty. Please enter a category.</qt>"
 msgstr "<qt>Kategoria ei voi olla tyhjä. Anna kategorian nimi.</qt>"
 
-#: src/collectionfieldsdialog.cpp:865
+#: src/collectionfieldsdialog.cpp:888
 msgid ""
 "<qt>A field may not be in the same category as a <em>Paragraph</em>, "
 "<em>Table</em> or <em>Image</em> field. Please enter a different category.</"
@@ -4475,7 +4533,7 @@ msgstr ""
 "<qt>Kenttä ei voi olla samassa kategoriassa kuin <em>Kappale-</em>, "
 "<em>Taulu-</em> tai <em>Kuva</em>-kenttä. Anna joku muu kategoria."
 
-#: src/collectionfieldsdialog.cpp:873
+#: src/collectionfieldsdialog.cpp:896
 msgid ""
 "A field's title may not be the same as an existing category. Please enter a "
 "different title."
@@ -4483,7 +4541,7 @@ msgstr ""
 "Kentän otsikko ei voi olla sama kuin joku jo olemassa oleva kategoria. Anna "
 "joku muu otsikko "
 
-#: src/collectionfieldsdialog.cpp:885
+#: src/collectionfieldsdialog.cpp:908
 msgid ""
 "The range for a rating field must be between 1 and 10, and the lower bound "
 "must be less than the higher bound. Please enter different low and high "
@@ -4492,11 +4550,11 @@ msgstr ""
 "Arvosanan arvoalue täytyy olla väliltä 1-10.Alempi raja pitää olla ylempää "
 "pienempi. Syötä uudet ala- ja yläraja-arvot."
 
-#: src/collectionfieldsdialog.cpp:900
+#: src/collectionfieldsdialog.cpp:923
 msgid "Tables are limited to a maximum of ten columns."
 msgstr "Tauluissa on kymmenen sarakkeen maksimirajoitus."
 
-#: src/collectionfieldsdialog.cpp:906
+#: src/collectionfieldsdialog.cpp:929
 msgid "A field with a derived value must have a value template."
 msgstr "Kentässä jossa on peritty arvo täytyy olla mallipohja."
 
@@ -5153,33 +5211,57 @@ msgstr "Mallipohjan korostusväri"
 msgid "Template highlighted text color"
 msgstr "Mallipohjan korostetun tekstin väri"
 
+#. i18n: file: src/core/tellico_config.kcfg:99
+#: rc.cpp:199
+msgid ""
+"a,an,and,as,at,but,by,for,from,in,into,nor,of,off,on,onto,or,out,over,the,to,"
+"up,with"
+msgstr ""
+
+#. i18n: file: src/core/tellico_config.kcfg:102
+#: rc.cpp:201
+#, fuzzy
+#| msgid "Other"
+msgid "the"
+msgstr "Muu"
+
+#. i18n: file: src/core/tellico_config.kcfg:105
+#: rc.cpp:203
+msgid "jr.,jr,iii,iv"
+msgstr ""
+
+#. i18n: file: src/core/tellico_config.kcfg:108
+#: rc.cpp:205
+msgid "de,van,der,van der,von"
+msgstr ""
+
 #. i18n: file: src/tellicoui.rc:6
 #. i18n: ectx: Menu (file)
-#: rc.cpp:200
+#: rc.cpp:274
 msgid "&File"
 msgstr "&Tiedosto"
 
 #. i18n: file: src/tellicoui.rc:8
 #. i18n: ectx: Menu (file_new_collection)
-#: rc.cpp:203
+#: rc.cpp:277
 msgid "&New"
 msgstr "&Uusi"
 
 #. i18n: file: src/tellicoui.rc:71
 #. i18n: ectx: Menu (collection)
-#: rc.cpp:212
+#: rc.cpp:286
 msgid "&Collection"
 msgstr "&Kokoelma"
 
 #. i18n: file: src/tellicoui.rc:108
 #. i18n: ectx: ToolBar (mainToolBar)
-#: rc.cpp:218
+#: rc.cpp:292
 msgid "Main Toolbar"
 msgstr "Päätyökalupalkki"
 
 #. i18n: file: src/tellicoui.rc:117
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: rc.cpp:221
+#: rc.cpp:295
 msgid "Collection Toolbar"
 msgstr "Kokoelmatyökalupalkki"
 
@@ -5416,7 +5498,7 @@ msgstr "Muistiinpanot"
 msgid "Due Date"
 msgstr "Palautuspäivämäärä"
 
-#: xslt.cpp:25 xslt.cpp:39 xslt.cpp:46
+#: xslt.cpp:25 xslt.cpp:39 xslt.cpp:49
 msgid "Generated by Tellico"
 msgstr "Luonut Tellico"
 
@@ -5461,6 +5543,12 @@ msgid "Tri-Column XSL Template"
 msgstr "Kolmisarake XSL-mallipohja"
 
 #: xslt.cpp:45
+#, fuzzy
+#| msgid "Group View XSL Template"
+msgid "Group Statistics XSL Template"
+msgstr "Ryhmänäkymän XSL-mallipohja"
+
+#: xslt.cpp:48
 msgid "Clear"
 msgstr "Tyhjennä"
 
@@ -5527,6 +5615,11 @@ msgstr "Allocine.fr"
 #: scripts.cpp:10
 msgid "Spanish Ministry of Culture"
 msgstr "Spanish Ministry of Culture"
+
+#, fuzzy
+#~| msgid "Collection Fields"
+#~ msgid "Collection Statistics"
+#~ msgstr "Kokoelman kentät"
 
 #~ msgid ""
 #~ "At the moment, Tellico only supports local calendar resources. The active "

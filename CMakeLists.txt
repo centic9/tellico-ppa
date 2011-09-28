@@ -1,5 +1,5 @@
 project(Tellico)
-set(TELLICO_VERSION "2.3")
+set(TELLICO_VERSION "2.3.1")
 
 cmake_minimum_required(VERSION 2.6.2)
 
@@ -162,13 +162,14 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY
 ########### install files ###############
 
 install(FILES tellico.dtd tellico.tips DESTINATION ${TELLICO_DATA_INSTALL_DIR})
-install(FILES tellico.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(PROGRAMS tellico.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES tellico.xml DESTINATION  ${XDG_MIME_INSTALL_DIR})
 install(FILES x-tellico.desktop DESTINATION ${MIME_INSTALL_DIR}/application)
 
 if(CMAKE_SOURCE_DIR STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
     macro_display_feature_log()
 endif(CMAKE_SOURCE_DIR STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
+
 find_package(Msgfmt REQUIRED)
 find_package(Gettext REQUIRED)
 add_subdirectory( po )

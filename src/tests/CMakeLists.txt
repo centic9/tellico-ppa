@@ -94,7 +94,7 @@ KDE4_ADD_UNIT_TEST(ristest NOGUI ristest.cpp)
 TARGET_LINK_LIBRARIES(ristest ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(tellicoreadtest NOGUI tellicoreadtest.cpp)
-TARGET_LINK_LIBRARIES(tellicoreadtest models ${TELLICO_TEST_LIBS})
+TARGET_LINK_LIBRARIES(tellicoreadtest tellicomodels ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(allocinefetchertest NOGUI allocinefetchertest.cpp)
 TARGET_LINK_LIBRARIES(allocinefetchertest fetch ${TELLICO_TEST_LIBS})
@@ -114,10 +114,17 @@ TARGET_LINK_LIBRARIES(citebasefetchertest fetch ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(discogsfetchertest NOGUI discogsfetchertest.cpp)
 TARGET_LINK_LIBRARIES(discogsfetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(dvdfrfetchertest NOGUI dvdfrfetchertest.cpp)
+TARGET_LINK_LIBRARIES(dvdfrfetchertest fetch ${TELLICO_TEST_LIBS})
+
 IF( QJSON_FOUND )
     KDE4_ADD_UNIT_TEST(freebasefetchertest NOGUI freebasefetchertest.cpp)
     TARGET_LINK_LIBRARIES(freebasefetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( QJSON_FOUND )
+
+# running gcstar in the fetcher is really unreliable
+#KDE4_ADD_UNIT_TEST(gcstarfetchertest NOGUI gcstarfetchertest.cpp)
+#TARGET_LINK_LIBRARIES(gcstarfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(giantbombfetchertest NOGUI giantbombfetchertest.cpp)
 TARGET_LINK_LIBRARIES(giantbombfetchertest fetch ${TELLICO_TEST_LIBS})
@@ -128,6 +135,9 @@ TARGET_LINK_LIBRARIES(googlescholarfetchertest fetch ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(imdbfetchertest NOGUI imdbfetchertest.cpp)
 TARGET_LINK_LIBRARIES(imdbfetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(isbndbfetchertest NOGUI isbndbfetchertest.cpp)
+TARGET_LINK_LIBRARIES(isbndbfetchertest fetch ${TELLICO_TEST_LIBS})
+
 IF( QJSON_FOUND )
     KDE4_ADD_UNIT_TEST(openlibraryfetchertest NOGUI openlibraryfetchertest.cpp)
     TARGET_LINK_LIBRARIES(openlibraryfetchertest fetch ${TELLICO_TEST_LIBS})
@@ -135,6 +145,9 @@ ENDIF( QJSON_FOUND )
 
 KDE4_ADD_UNIT_TEST(srufetchertest NOGUI srufetchertest.cpp)
 TARGET_LINK_LIBRARIES(srufetchertest fetch ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(themoviedbfetchertest NOGUI themoviedbfetchertest.cpp)
+TARGET_LINK_LIBRARIES(themoviedbfetchertest fetch ${TELLICO_TEST_LIBS})
 
 IF( YAZ_FOUND )
     KDE4_ADD_UNIT_TEST(z3950fetchertest NOGUI z3950fetchertest.cpp)

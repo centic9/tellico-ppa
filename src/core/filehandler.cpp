@@ -23,12 +23,13 @@
  ***************************************************************************/
 
 #include "filehandler.h"
-#include "../images/image.h"
 #include "tellico_strings.h"
-#include "../tellico_debug.h"
 #include "netaccess.h"
+#include "../images/image.h"
 #include "../gui/cursorsaver.h"
 #include "../gui/guiproxy.h"
+#include "../utils/xmlhandler.h"
+#include "../tellico_debug.h"
 
 #include <kurl.h>
 #include <klocale.h>
@@ -55,12 +56,12 @@ FileHandler::FileRef::FileRef(const KUrl& url_, bool quiet_) : m_device(0), m_is
 
   if(!Tellico::NetAccess::download(url_, m_filename, GUI::Proxy::widget(), quiet_)) {
     myDebug() << "can't download" << url_;
-    QString s = KIO::NetAccess::lastErrorString();
+    QString s = Tellico::NetAccess::lastErrorString();
     if(!s.isEmpty()) {
       myDebug() << s;
     }
     if(!quiet_) {
-      GUI::Proxy::sorry(i18n(errorLoad, url_.fileName()));
+      GUI::Proxy::sorry(s.isEmpty() ? i18n(errorLoad, url_.fileName()) : s);
     }
     return;
   }
@@ -119,7 +120,19 @@ QString FileHandler::readTextFile(const KUrl& url_, bool quiet_/*=false*/, bool 
   return QString();
 }
 
-QDomDocument FileHandler::readXMLFile(const KUrl& url_, bool processNamespace_, bool quiet_) {
+QString FileHandler::readXMLFile(const KUrl& url_, bool quiet_/*=false*/) {
+  FileRef f(url_, quiet_);
+  if(!f.isValid()) {
+    return QString();
+  }
+
+  if(f.open(quiet_)) {
+    return XMLHandler::readXMLData(f.file()->readAll());
+  }
+  return QString();
+}
+
+QDomDocument FileHandler::readXMLDocument(const KUrl& url_, bool processNamespace_, bool quiet_) {
   FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return QDomDocument();
@@ -165,7 +178,6 @@ Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, bool quiet_, 
   tempFile.setAutoRemove(true);
   KUrl tempURL;
   tempURL.setPath(tempFile.fileName());
-  myDebug() << "Temp file:" << tempURL;
 
   KIO::Job* job = KIO::file_copy(url_, tempURL, -1, KIO::Overwrite);
   job->addMetaData(QLatin1String("referrer"), referrer_.url());

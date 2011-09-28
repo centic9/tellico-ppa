@@ -419,6 +419,7 @@ private slots:
    * text is interpreted as a regexp.
    */
   void slotUpdateFilter();
+  void slotUpdateFilter(Tellico::FilterPtr filter);
   /**
    * Updates the collection toolbar.
    */
@@ -456,7 +457,6 @@ private slots:
    * Show the report window.
    */
   void slotShowReportDialog();
-  void slotGroupLabelActivated();
   /**
    * Show the report window.
    */
@@ -464,9 +464,9 @@ private slots:
   /**
    * Focus the filter
    */
+  void slotGroupLabelActivated();
   void slotFilterLabelActivated();
   void slotClearFilter();
-  void slotClearFilterNow();
   void slotRenameCollection();
   void slotImageLocationChanged();
 

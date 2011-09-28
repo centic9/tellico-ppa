@@ -102,6 +102,7 @@ DetailedListView::DetailedListView(QWidget* parent_) : GUI::TreeView(parent_), m
   ModelManager::self()->setEntryModel(sortModel);
 
   connect(model(), SIGNAL(headerDataChanged(Qt::Orientation, int, int)), SLOT(updateHeaderMenu()));
+  connect(model(), SIGNAL(columnsInserted(const QModelIndex&, int, int)), SLOT(hideNewColumn(const QModelIndex&, int, int)));
   connect(header(), SIGNAL(sectionCountChanged(int, int)), SLOT(updateHeaderMenu()));
 }
 
@@ -379,7 +380,7 @@ void DetailedListView::addField(Tellico::Data::CollPtr, Tellico::Data::FieldPtr 
 
 void DetailedListView::modifyField(Tellico::Data::CollPtr, Tellico::Data::FieldPtr oldField_, Tellico::Data::FieldPtr newField_) {
   Q_UNUSED(oldField_)
-  sourceModel()->modifyFields(Data::FieldList() << newField_);
+  sourceModel()->modifyField(oldField_, newField_);
 }
 
 void DetailedListView::removeField(Tellico::Data::CollPtr, Tellico::Data::FieldPtr field_) {
@@ -598,6 +599,14 @@ void DetailedListView::resizeColumnsToContents() {
       resizeColumnToContents(ncol);
     }
   }
+}
+
+void DetailedListView::hideNewColumn(const QModelIndex& index_, int start_, int end_) {
+  Q_UNUSED(index_);
+  for(int ncol = start_; ncol <= end_; ++ncol) {
+    hideColumn(ncol);
+  }
+  updateHeaderMenu(); // make sure to update checkable actions
 }
 
 void DetailedListView::checkHeader() {

@@ -10,7 +10,7 @@
  *   the License or (at your option) version 3 or any later version        *
  *   accepted by the membership of KDE e.V. (or its successor approved     *
  *   by the membership of KDE e.V.), which shall act as a proxy            *
- *   defined in Section 14 of version 3 of the license.                    *
+ *   defined in Section 14 of version 3 of the license.                     *
  *                                                                         *
  *   This program is distributed in the hope that it will be useful,       *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
@@ -275,7 +275,7 @@ void MainWindow::initActions() {
   COLL_ACTION(BoardGame, "new_boardgame_collection", i18n("New Boa&rd Game Collection"),
               i18n("Create a new board game collection"), "boardgame");
 
-  COLL_ACTION(File, "BoardGame", i18n("New &File Catalog"),
+  COLL_ACTION(File, "new_file_catalog", i18n("New &File Catalog"),
               i18n("Create a new file catalog"), "file");
 
   action = actionCollection()->addAction(QLatin1String("new_custom_collection"), collectionMapper, SLOT(map()));
@@ -324,7 +324,7 @@ void MainWindow::initActions() {
   importMapper->setMapping(action, TYPE);
 
   IMPORT_ACTION(Import::TellicoXML, "file_import_tellico", i18n("Import Tellico Data..."),
-                i18n("Import another Tellico data file"), KIcon(QLatin1String("tellico")));
+                i18n("Import another Tellico data file"), BarIcon(QLatin1String("tellico")));
 
   IMPORT_ACTION(Import::CSV, "file_import_csv", i18n("Import CSV Data..."),
                 i18n("Import a CSV file"), mimeIcon("text/csv", "text/x-csv"));
@@ -333,13 +333,13 @@ void MainWindow::initActions() {
                 i18n("Import a MODS data file"), mimeIcon("text/xml"));
 
   IMPORT_ACTION(Import::Alexandria, "file_import_alexandria", i18n("Import Alexandria Data..."),
-                i18n("Import data from the Alexandria book collection manager"), KIcon(QLatin1String("alexandria")));
+                i18n("Import data from the Alexandria book collection manager"), BarIcon(QLatin1String("alexandria")));
 
   IMPORT_ACTION(Import::Delicious, "file_import_delicious", i18n("Import Delicious Library Data..."),
-                i18n("Import data from Delicious Library"), mimeIcon("text/xml"));
+                i18n("Import data from Delicious Library"), BarIcon(QLatin1String("deliciouslibrary")));
 
   IMPORT_ACTION(Import::Referencer, "file_import_referencer", i18n("Import Referencer Data..."),
-                i18n("Import data from Referencer"), KIcon(QLatin1String("referencer")));
+                i18n("Import data from Referencer"), BarIcon(QLatin1String("referencer")));
 
   IMPORT_ACTION(Import::Bibtex, "file_import_bibtex", i18n("Import Bibtex Data..."),
                 i18n("Import a bibtex bibliography file"), mimeIcon("text/x-bibtex"));
@@ -348,13 +348,13 @@ void MainWindow::initActions() {
                 i18n("Import a Bibtexml bibliography file"), mimeIcon("text/xml"));
 
   IMPORT_ACTION(Import::RIS, "file_import_ris", i18n("Import RIS Data..."),
-                i18n("Import an RIS reference file"), mimeIcon("application/x-research-info-systems"));
+                i18n("Import an RIS reference file"), BarIcon(QLatin1String("cite")));
 
   IMPORT_ACTION(Import::PDF, "file_import_pdf", i18n("Import PDF File..."),
                 i18n("Import a PDF file"), mimeIcon("application/pdf"));
 
   IMPORT_ACTION(Import::AudioFile, "file_import_audiofile", i18n("Import Audio File Metadata..."),
-                i18n("Import meta-data from audio files"), mimeIcon("audio/mp3", "audioaudio/x-mp3"));
+                i18n("Import meta-data from audio files"), mimeIcon("audio/mp3", "audio/x-mp3"));
 #ifndef HAVE_TAGLIB
   action->setEnabled(false);
 #endif
@@ -366,13 +366,13 @@ void MainWindow::initActions() {
 #endif
 
   IMPORT_ACTION(Import::GCstar, "file_import_gcstar", i18n("Import GCstar Data..."),
-                i18n("Import a GCstar data file"), KIcon(QLatin1String("gcstar")));
+                i18n("Import a GCstar data file"), BarIcon(QLatin1String("gcstar")));
 
   IMPORT_ACTION(Import::Griffith, "file_import_griffith", i18n("Import Griffith Data..."),
-                i18n("Import a Griffith database"), KIcon(QLatin1String("griffith")));
+                i18n("Import a Griffith database"), BarIcon(QLatin1String("griffith")));
 
   IMPORT_ACTION(Import::AMC, "file_import_amc", i18n("Import Ant Movie Catalog Data..."),
-                i18n("Import an Ant Movie Catalog data file"), mimeIcon("application/x-crossover-amc"));
+                i18n("Import an Ant Movie Catalog data file"), BarIcon(QLatin1String("amc")));
 
   IMPORT_ACTION(Import::FileListing, "file_import_filelisting", i18n("Import File Listing..."),
                 i18n("Import information about files in a folder"), mimeIcon("inode/directory"));
@@ -403,10 +403,10 @@ void MainWindow::initActions() {
   exportMapper->setMapping(action, TYPE);
 
   EXPORT_ACTION(Export::TellicoXML, "file_export_xml", i18n("Export to XML..."),
-                i18n("Export to a Tellico XML file"), KIcon(QLatin1String("tellico")));
+                i18n("Export to a Tellico XML file"), BarIcon(QLatin1String("tellico")));
 
   EXPORT_ACTION(Export::TellicoZip, "file_export_zip", i18n("Export to Zip..."),
-                i18n("Export to a Tellico Zip file"), KIcon(QLatin1String("tellico")));
+                i18n("Export to a Tellico Zip file"), BarIcon(QLatin1String("tellico")));
 
   EXPORT_ACTION(Export::HTML, "file_export_html", i18n("Export to HTML..."),
                 i18n("Export to an HTML file"), mimeIcon("text/html"));
@@ -415,10 +415,10 @@ void MainWindow::initActions() {
                 i18n("Export to a comma-separated values file"), mimeIcon("text/csv", "text/x-csv"));
 
   EXPORT_ACTION(Export::PilotDB, "file_export_pilotdb", i18n("Export to PilotDB..."),
-                i18n("Export to a PilotDB database"), mimeIcon("application/vnd.palm"));
+                i18n("Export to a PilotDB database"), BarIcon(QLatin1String("palm")));
 
   EXPORT_ACTION(Export::Alexandria, "file_export_alexandria", i18n("Export to Alexandria..."),
-                i18n("Export to an Alexandria library"), KIcon(QLatin1String("alexandria")));
+                i18n("Export to an Alexandria library"), BarIcon(QLatin1String("alexandria")));
 
   EXPORT_ACTION(Export::Bibtex, "file_export_bibtex", i18n("Export to Bibtex..."),
                 i18n("Export to a bibtex file"), mimeIcon("text/x-bibtex"));
@@ -430,7 +430,7 @@ void MainWindow::initActions() {
                 i18n("Export to an ONIX file"), mimeIcon("text/xml"));
 
   EXPORT_ACTION(Export::GCstar, "file_export_gcstar", i18n("Export to GCstar..."),
-                i18n("Export to a GCstar data file"), KIcon(QLatin1String("gcstar")));
+                i18n("Export to a GCstar data file"), BarIcon(QLatin1String("gcstar")));
 
   EXPORT_ACTION(Export::XSLT, "file_export_xslt", i18n("Export XSL Transform..."),
                 i18n("Export using an XSL Transform"), mimeIcon("application/xslt+xml", "text/x-xslt"));
@@ -509,12 +509,6 @@ void MainWindow::initActions() {
   m_mergeEntry->setToolTip(i18n("Merge the selected entries"));
   m_mergeEntry->setEnabled(false); // gets enabled when more than 1 entry is selected
 
-  action = actionCollection()->addAction(QLatin1String("coll_reports"), this, SLOT(slotShowReportDialog()));
-  action->setText(i18n("&Generate Reports..."));
-  action->setIconText(i18n("Reports"));
-  action->setIcon(KIcon(QLatin1String("text-rdf")));
-  action->setToolTip(i18n("Generate collection reports"));
-
   m_checkOutEntry = actionCollection()->addAction(QLatin1String("coll_checkout"), Controller::self(), SLOT(slotCheckOut()));
   m_checkOutEntry->setText(i18n("Check-&out..."));
   m_checkOutEntry->setIcon(KIcon(QLatin1String("arrow-up-double")));
@@ -537,6 +531,12 @@ void MainWindow::initActions() {
   action->setIcon(KIcon(QLatin1String("preferences-other")));
   action->setShortcut(Qt::CTRL + Qt::Key_U);
   action->setToolTip(i18n("Modify the collection fields"));
+
+  action = actionCollection()->addAction(QLatin1String("coll_reports"), this, SLOT(slotShowReportDialog()));
+  action->setText(i18n("&Generate Reports..."));
+  action->setIconText(i18n("Reports"));
+  action->setIcon(KIcon(QLatin1String("text-rdf")));
+  action->setToolTip(i18n("Generate collection reports"));
 
   action = actionCollection()->addAction(QLatin1String("coll_convert_bibliography"), this, SLOT(slotConvertToBibliography()));
   action->setText(i18n("Convert to &Bibliography"));
@@ -720,7 +720,7 @@ void MainWindow::initConnections() {
 
   // let the group view call filters, too
   connect(m_groupView, SIGNAL(signalUpdateFilter(Tellico::FilterPtr)),
-          Controller::self(), SLOT(slotUpdateFilter(Tellico::FilterPtr)));
+          this, SLOT(slotUpdateFilter(Tellico::FilterPtr)));
 }
 
 void MainWindow::initFileOpen(bool nofile_) {
@@ -1551,7 +1551,6 @@ void MainWindow::slotChangeGrouping() {
 }
 
 void MainWindow::slotShowReportDialog() {
-//  DEBUG_LINE;
   if(!m_reportDlg) {
     m_reportDlg = new ReportDialog(this);
     connect(m_reportDlg, SIGNAL(finished()),
@@ -1599,9 +1598,7 @@ void MainWindow::slotShowFilterDialog() {
     connect(m_filterDlg, SIGNAL(signalCollectionModified()),
             Data::Document::self(), SLOT(slotSetModified()));
     connect(m_filterDlg, SIGNAL(signalUpdateFilter(Tellico::FilterPtr)),
-            this, SLOT(slotClearFilterNow()));
-    connect(m_filterDlg, SIGNAL(signalUpdateFilter(Tellico::FilterPtr)),
-            Controller::self(), SLOT(slotUpdateFilter(Tellico::FilterPtr)));
+            this, SLOT(slotUpdateFilter(Tellico::FilterPtr)));
     connect(m_filterDlg, SIGNAL(finished()),
             SLOT(slotHideFilterDialog()));
   } else {
@@ -1621,7 +1618,7 @@ void MainWindow::slotHideFilterDialog() {
 }
 
 void MainWindow::slotQueueFilter() {
-  if (m_dontQueueFilter) {
+  if(m_dontQueueFilter) {
     return;
   }
   m_queuedFilters++;
@@ -1637,11 +1634,11 @@ void MainWindow::slotUpdateFilter() {
   setFilter(m_quickFilter->text());
 }
 
-void MainWindow::slotClearFilterNow() {
+void MainWindow::slotUpdateFilter(FilterPtr filter_) {
   // Can't just block signals because clear button won't show then
   m_dontQueueFilter = true;
   m_quickFilter->setText(QLatin1String(" ")); // To be able to clear custom filter
-  setFilter(QString());
+  Controller::self()->slotUpdateFilter(filter_);
   m_dontQueueFilter = false;
 }
 
@@ -1971,6 +1968,8 @@ void MainWindow::addFilterView() {
   m_viewTabs->insertTab(1, m_filterView, KIcon(QLatin1String("view-filter")), i18n("Filters"));
   m_filterView->setWhatsThis(i18n("<qt>The <i>Filter View</i> shows the entries which meet certain "
                                   "filter rules.</qt>"));
+  connect(m_filterView, SIGNAL(signalUpdateFilter(Tellico::FilterPtr)),
+          this, SLOT(slotUpdateFilter(Tellico::FilterPtr)));
 
   // sort by count if column = 1
   int sortRole = Config::filterViewSortColumn() == 0 ? static_cast<int>(Qt::DisplayRole) : static_cast<int>(RowCountRole);
@@ -2071,20 +2070,10 @@ void MainWindow::updateCollectionActions() {
   }
 
   stateChanged(QLatin1String("collection_reset"));
+
   Data::Collection::Type type = Data::Document::self()->collection()->type();
-  switch(type) {
-    case Data::Collection::Book:
-      stateChanged(QLatin1String("is_book"));
-      break;
-    case Data::Collection::Bibtex:
-      stateChanged(QLatin1String("is_bibliography"));
-      break;
-    case Data::Collection::Video:
-      stateChanged(QLatin1String("is_video"));
-      break;
-    default:
-      break;
-  }
+  stateChanged(QLatin1String("is_") + CollectionFactory::typeName(type));
+
   Controller::self()->updateActions();
   // special case when there are no available data sources
   if(m_fetchActions.isEmpty() && m_updateAll) {

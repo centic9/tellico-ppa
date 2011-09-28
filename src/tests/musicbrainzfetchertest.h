@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2008-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,42 +22,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_GROUPSORTMODEL_H
-#define TELLICO_GROUPSORTMODEL_H
+#ifndef MUSICBRAINZFETCHERTEST_H
+#define MUSICBRAINZFETCHERTEST_H
 
-#include "abstractsortmodel.h"
+#include <QObject>
+#include <QEventLoop>
 
-namespace Tellico {
-  namespace Data {
-    class EntryGroup;
-  }
+#include "../datavectors.h"
 
-class StringComparison;
+class KJob;
 
-/**
- * @author Robby Stephenson
- */
-class GroupSortModel : public AbstractSortModel {
+class MusicBrainzFetcherTest : public QObject {
 Q_OBJECT
-
 public:
-  GroupSortModel(QObject* parent);
-  virtual ~GroupSortModel();
+  MusicBrainzFetcherTest();
 
-  virtual void setSourceModel(QAbstractItemModel* sourceModel);
+private Q_SLOTS:
+  void initTestCase();
+  void testTitle();
+  void testPerson();
+  void testKeyword();
 
-protected:
-  virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
-
-private slots:
-  void clearGroupComparison();
+  void slotResult(KJob* job);
 
 private:
-  StringComparison* getComparison(Data::EntryGroup* group) const;
-
-  StringComparison* m_titleComparison;
-  mutable StringComparison* m_groupComparison;
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
+  QHash<QString, QString> m_fieldValues;
 };
 
-} // end namespace
 #endif

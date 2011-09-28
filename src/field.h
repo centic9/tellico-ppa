@@ -92,7 +92,7 @@ public:
     AllowGrouped    = 1 << 1,   // this field can be used to group entries
     AllowCompletion = 1 << 2,   // allow auto-completion
     NoDelete        = 1 << 3,   // don't allow user to delete this field
-    NoEdit          = 1 << 4,   // don't allow user to delete this field
+    NoEdit          = 1 << 4,   // don't allow user to edit this field
     Derived         = 1 << 5    // dependent value
   };
 
@@ -288,7 +288,7 @@ public:
    * @param key The property key
    * @returnThe property value
    */
-  QString property(const QString& key) const { return m_properties[key]; }
+  QString property(const QString& key) const;
   /**
    * Return the list of properties.
    *

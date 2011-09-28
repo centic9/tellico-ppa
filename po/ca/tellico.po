@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-11-04 06:32+0100\n"
+"POT-Creation-Date: 2010-12-03 02:30+0100\n"
 "PO-Revision-Date: 2010-10-11 15:29+0200\n"
 "Last-Translator: Josep Ma. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -133,12 +133,12 @@ msgstr "Desa només l'enllaç"
 msgid "Opening the selected scanner failed."
 msgstr "Ha fallat en obri l'escàner seleccionat."
 
-#: src/gui/imagewidget.cpp:305
+#: src/gui/imagewidget.cpp:311
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "S'està obrint una imatge en %1..."
 
-#: src/gui/imagewidget.cpp:335
+#: src/gui/imagewidget.cpp:341
 msgid "Saving a link is only possible for newly added images."
 msgstr "Només és possible desar un enllaç per a imatges afegides recentment."
 
@@ -1214,7 +1214,7 @@ msgstr "Resum"
 msgid "Notes"
 msgstr "Notes"
 
-#: src/collections/bibtexcollection.cpp:469
+#: src/collections/bibtexcollection.cpp:478
 #: src/translators/xmlstatehandler.cpp:298
 msgid "Unknown"
 msgstr "Desconegut"
@@ -1229,8 +1229,8 @@ msgstr "Àlbum"
 
 #: src/collections/musiccollection.cpp:54
 #: src/translators/freedbimporter.cpp:264
-#: src/translators/freedbimporter.cpp:376
-#: src/translators/freedbimporter.cpp:442
+#: src/translators/freedbimporter.cpp:378
+#: src/translators/freedbimporter.cpp:444
 msgid "Compact Disc"
 msgstr "Disc compacte"
 
@@ -1401,11 +1401,11 @@ msgid "Institution"
 msgstr "Institució"
 
 #: src/fetch/entrezfetcher.cpp:475 src/fetch/yahoofetcher.cpp:394
-#: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:330
+#: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:332
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/ibsfetcher.cpp:413
 #: src/fetch/citebasefetcher.cpp:234 src/fetch/animenfofetcher.cpp:377
-#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:929
-#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:239
+#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:932
+#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:267
 msgid "This source has no options."
 msgstr "Aquesta font no té opcions."
 
@@ -1846,7 +1846,7 @@ msgstr ""
 msgid "Multiple Sources"
 msgstr "Totes les fonts"
 
-#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:614
+#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:616
 msgid "Freebase Link"
 msgstr ""
 
@@ -2034,25 +2034,25 @@ msgstr "No s'han trobat entrades bibtex vàlides"
 msgid "No valid bibtex entries were found in file - %1"
 msgstr "No s'han trobat entrades bibtex vàlides en el fitxer - %1"
 
-#: src/translators/bibteximporter.cpp:322
+#: src/translators/bibteximporter.cpp:327
 #: src/translators/bibtexexporter.cpp:214
 msgid "Bibtex Options"
 msgstr "Opcions de Bibtex"
 
-#: src/translators/bibteximporter.cpp:325
+#: src/translators/bibteximporter.cpp:330
 msgid "Use Unicode (UTF-8) encoding"
 msgstr "Usa codificació Unicode (UTF-8)"
 
-#: src/translators/bibteximporter.cpp:326
+#: src/translators/bibteximporter.cpp:331
 msgid "Read the imported file in Unicode (UTF-8)."
 msgstr "Llegeix el fitxer importat en Unicode (UTF-8)."
 
-#: src/translators/bibteximporter.cpp:327
+#: src/translators/bibteximporter.cpp:332
 #, kde-format
 msgid "Use user locale (%1) encoding"
 msgstr "Usa la codificació local de l'usuari (%1)"
 
-#: src/translators/bibteximporter.cpp:331
+#: src/translators/bibteximporter.cpp:336
 msgid "Read the imported file in the local encoding."
 msgstr "Llegeix el fitxer importat en la codificació local."
 
@@ -2207,11 +2207,11 @@ msgstr "<qt>El fitxer no és un fitxer de dades GCstar vàlid.</qt>"
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico ha trobat un error en processar el XSLT."
 
-#: src/translators/tellicoimporter.cpp:176
+#: src/translators/tellicoimporter.cpp:177
 msgid "The file is empty."
 msgstr "L'arxiu és buit."
 
-#: src/translators/tellicoimporter.cpp:193
+#: src/translators/tellicoimporter.cpp:194
 msgid "The file contains no collection data."
 msgstr "L'arxiu no conté dades de col·lecció."
 
@@ -2223,7 +2223,7 @@ msgstr "PilotDB"
 msgid "*.pdb|Pilot Database Files (*.pdb)"
 msgstr "*.pdb|Fitxers de base de dades pilot (*.pdb)"
 
-#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:551
+#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:556
 msgid "View Columns"
 msgstr "Mostra les columnes"
 
@@ -2343,29 +2343,29 @@ msgstr ""
 "org. No obstant això, heu de crear un compte CrossRef i afegir una nova font "
 "de dades amb la informació del compte."
 
-#: src/translators/filelistingimporter.cpp:73
+#: src/translators/filelistingimporter.cpp:80
 msgid "Scanning files..."
 msgstr "S'estan explorant els fitxers..."
 
-#: src/translators/filelistingimporter.cpp:210
+#: src/translators/filelistingimporter.cpp:219
 msgid "File Listing Options"
 msgstr "Opcions de llistat de fitxers"
 
-#: src/translators/filelistingimporter.cpp:213
+#: src/translators/filelistingimporter.cpp:222
 msgid "Recursive folder search"
 msgstr "Cerca recursiva a les carpetes"
 
-#: src/translators/filelistingimporter.cpp:214
+#: src/translators/filelistingimporter.cpp:223
 msgid "If checked, folders are recursively searched for all files."
 msgstr ""
 "Si està marcat les carpetes són explorades recursivament per cercar tots els "
 "fitxers."
 
-#: src/translators/filelistingimporter.cpp:218
+#: src/translators/filelistingimporter.cpp:227
 msgid "Generate file previews"
 msgstr "Genera vistes prèvies dels fitxers"
 
-#: src/translators/filelistingimporter.cpp:219
+#: src/translators/filelistingimporter.cpp:228
 msgid ""
 "If checked, previews of the file contents are generated, which can slow down "
 "the folder listing."
@@ -2440,27 +2440,27 @@ msgstr "<qt>No s'han trobat registres que coincideixin amb el CD.</qt>"
 msgid "<qt>Tellico was unable to complete the CD lookup.</qt>"
 msgstr "<qt>Tellico no pot completar la cerca del CD.</qt>"
 
-#: src/translators/freedbimporter.cpp:466
+#: src/translators/freedbimporter.cpp:468
 msgid "Various"
 msgstr "Varis"
 
-#: src/translators/freedbimporter.cpp:486
+#: src/translators/freedbimporter.cpp:488
 msgid "Audio CD Options"
 msgstr "Opcions de CD d'àudio"
 
-#: src/translators/freedbimporter.cpp:493
+#: src/translators/freedbimporter.cpp:495
 msgid "Read data from CD-ROM device"
 msgstr "Llegeix dades des del dispositiu de CD-ROM"
 
-#: src/translators/freedbimporter.cpp:496
+#: src/translators/freedbimporter.cpp:498
 msgid "Select or input the CD-ROM device location."
 msgstr "Seleccioneu o introduïu la ubicació del dispositiu de CD-ROM."
 
-#: src/translators/freedbimporter.cpp:505
+#: src/translators/freedbimporter.cpp:507
 msgid "Read all CDDB cache files only"
 msgstr "Llegeix només tots els fitxers del cau CDDB"
 
-#: src/translators/freedbimporter.cpp:506
+#: src/translators/freedbimporter.cpp:508
 msgid ""
 "Read data recursively from all the CDDB cache files contained in the default "
 "cache folders."
@@ -3206,24 +3206,24 @@ msgstr "Col·lecció de jocs de taula"
 msgid "Custom Collection"
 msgstr "Col·lecció personalitzada"
 
-#: src/detailedlistview.cpp:566
+#: src/detailedlistview.cpp:571
 #, fuzzy
 #| msgid "Co&lumn:"
 msgctxt "Noun, Menu name"
 msgid "Columns"
 msgstr "Co&lumna:"
 
-#: src/detailedlistview.cpp:571
+#: src/detailedlistview.cpp:576
 #, fuzzy
 #| msgid "Hide All Columns"
 msgid "Show All Columns"
 msgstr "Oculta totes les columnes"
 
-#: src/detailedlistview.cpp:573
+#: src/detailedlistview.cpp:578
 msgid "Hide All Columns"
 msgstr "Oculta totes les columnes"
 
-#: src/detailedlistview.cpp:575
+#: src/detailedlistview.cpp:580
 #, fuzzy
 #| msgid "File to open"
 msgid "Resize to Content"

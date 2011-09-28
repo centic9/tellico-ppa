@@ -299,7 +299,7 @@ bool BibtexCollection::modifyField(Tellico::Data::FieldPtr newField_) {
   return success;
 }
 
-bool BibtexCollection::deleteField(Tellico::Data::FieldPtr field_, bool force_) {
+bool BibtexCollection::removeField(Tellico::Data::FieldPtr field_, bool force_) {
   if(!field_) {
     return false;
   }
@@ -312,8 +312,12 @@ bool BibtexCollection::deleteField(Tellico::Data::FieldPtr field_, bool force_) 
   return success && Collection::removeField(field_, force_);
 }
 
+bool BibtexCollection::removeField(const QString& name_, bool force_) {
+  return removeField(fieldByName(name_), force_);
+}
+
 Tellico::Data::FieldPtr BibtexCollection::fieldByBibtexName(const QString& bibtex_) const {
-  return FieldPtr(m_bibtexFieldDict.isEmpty() ? 0 : m_bibtexFieldDict[bibtex_]);
+  return FieldPtr(m_bibtexFieldDict.contains(bibtex_) ? m_bibtexFieldDict.value(bibtex_) : 0);
 }
 
 Tellico::Data::EntryPtr BibtexCollection::entryByBibtexKey(const QString& key_) const {
@@ -436,8 +440,13 @@ Tellico::Data::CollPtr BibtexCollection::convertBookCollection(Tellico::Data::Co
 }
 
 bool BibtexCollection::setFieldValue(Data::EntryPtr entry_, const QString& bibtexField_, const QString& value_, Data::CollPtr existingColl_) {
+  Q_ASSERT(entry_->collection()->type() == Collection::Bibtex);
   BibtexCollection* c = static_cast<BibtexCollection*>(entry_->collection().data());
   FieldPtr field = c->fieldByBibtexName(bibtexField_);
+  // special-case: "keyword" and "keywords" should be the same field.
+  if(!field && bibtexField_ == QLatin1String("keyword")) {
+    field = c->fieldByBibtexName(QLatin1String("keywords"));
+  }
   if(!field) {
     // it was the case that the default bibliography did not have a bibtex property for keywords
     // so a "keywords" field would get created in the imported collection
@@ -446,7 +455,7 @@ bool BibtexCollection::setFieldValue(Data::EntryPtr entry_, const QString& bibte
     // use it instead of creating a new one
     BibtexCollection* existingColl = dynamic_cast<BibtexCollection*>(existingColl_.data());
     FieldPtr existingField;
-    if(existingColl) {
+    if(existingColl && existingColl->type() == Collection::Bibtex) {
       existingField = existingColl->fieldByBibtexName(bibtexField_);
     }
     if(existingField) {
@@ -455,19 +464,20 @@ bool BibtexCollection::setFieldValue(Data::EntryPtr entry_, const QString& bibte
       // arbitrarily say if the value has more than 100 chars, then it's a paragraph
       QString vlower = value_.toLower();
       // special case, try to detect URLs
-      // In qt 3.1, QString::startsWith() is always case-sensitive
       if(bibtexField_ == QLatin1String("url")
          || vlower.startsWith(QLatin1String("http")) // may also be https
          || vlower.startsWith(QLatin1String("ftp:/"))
          || vlower.startsWith(QLatin1String("file:/"))
          || vlower.startsWith(QLatin1String("/"))) { // assume this indicates a local path
-        myDebug() << "creating a URL field for " << bibtexField_;
+        myDebug() << "creating a URL field for" << bibtexField_;
         field = new Field(bibtexField_, KStringHandler::capwords(bibtexField_), Field::URL);
       } else {
+        myDebug() << "creating a LINE field for" << bibtexField_;
         field = new Field(bibtexField_, KStringHandler::capwords(bibtexField_), Field::Line);
       }
       field->setCategory(i18n("Unknown"));
     } else {
+      myDebug() << "creating a PARA field for" << bibtexField_;
       field = new Field(bibtexField_, KStringHandler::capwords(bibtexField_), Field::Para);
     }
     field->setProperty(QLatin1String("bibtex"), bibtexField_);
@@ -475,12 +485,22 @@ bool BibtexCollection::setFieldValue(Data::EntryPtr entry_, const QString& bibte
   }
   // special case keywords, replace commas with semi-colons so they get separated
   QString value = value_;
-  if(field->property(QLatin1String("bibtex")).startsWith(QLatin1String("keyword"))) {
+  Q_ASSERT(field);
+  if(bibtexField_.startsWith(QLatin1String("keyword"))) {
     value.replace(QRegExp(QLatin1String("\\s*,\\s*")), FieldFormat::delimiterString());
     // special case refbase bibtex export, with multiple keywords fields
     QString oValue = entry_->field(field);
     if(!oValue.isEmpty()) {
       value = oValue + FieldFormat::delimiterString() + value;
+    }
+  // special case for tilde, since it's a non-breaking space in LateX
+  // replace it EXCEPT for URL or DOI fields
+  } else if(bibtexField_ != QLatin1String("doi") && field->type() != Field::URL) {
+    value.replace(QLatin1Char('~'), QChar(0xA0));
+  } else if(field->type() == Field::URL || bibtexField_ == QLatin1String("url")) {
+    // special case for url package
+    if(value.startsWith(QLatin1String("\\url{")) && value.endsWith(QLatin1Char('}'))) {
+      value.remove(0, 5).chop(1);
     }
   }
   return entry_->setField(field, value);

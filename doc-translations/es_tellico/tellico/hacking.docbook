@@ -30,8 +30,8 @@
 <programlisting
 ><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE tellico PUBLIC "-//Robby Stephenson/DTD Tellico V9.0//EN" "http://periapsis.org/tellico/dtd/v9/tellico.dtd">
-<tellico xmlns="http://periapsis.org/tellico/" syntaxVersion="9">
+<!DOCTYPE tellico PUBLIC "-//Robby Stephenson/DTD Tellico V11.0//EN" "http://periapsis.org/tellico/dtd/v11/tellico.dtd">
+<tellico xmlns="http://periapsis.org/tellico/" syntaxVersion="11">
  <collection title="My Books" type="2">
  </collection>
 </tellico>
@@ -71,7 +71,10 @@
   <fields>
    <field flags="8" title="Title" category="General" format="1" type="1" name="title" />
    <field flags="7" title="Author" category="General" format="2" type="1" name="author" />
-   <field flags="2" title="Binding" category="General" allowed="Hardback;Paperback;Trade Paperback;E-Book;Magazine;Journal" format="4" type="3" name="binding" />
+   <field flags="2" title="Binding" category="General" allowed="Hardback;Paperback;Trade Paperback;E-Book;Magazine;Journal" format="4" type="3" name="binding" >
+    <prop name="default"
+>Paperback</prop>
+   </field>
    <field flags="6" title="Publisher" category="Publishing" format="0" type="1" name="publisher" />
    <field flags="4" title="Edition" category="Publishing" format="0" type="1" name="edition" />
    <field flags="3" title="Copyright Year" category="Publishing" format="4" type="6" name="cr_year" />
@@ -81,6 +84,17 @@
    <field flags="7" title="Keywords" category="Classification" format="0" type="1" name="keyword" />
    <field flags="0" title="Front Cover" category="Front Cover" format="4" type="10" name="cover" />
    <field flags="0" title="Comments" category="Personal" format="4" type="1" name="comments" />
+   <field title="Rating" flags="2" category="Personal" format="4" type="14" name="rating">
+    <prop name="maximum"
+>5</prop>
+    <prop name="minimum"
+>1</prop>
+   </field>
+   <field title="ID" flags="32" category="Personal" format="4" type="6" name="id">
+    <prop name="template"
+>%{@id}</prop>
+   </field>
+
   </fields>
 ]]>
 </programlisting>
@@ -101,11 +115,10 @@
 >. </para>
 
 <para
->Un elemento de<markup
->&lt;campo&gt;</markup
-> con un atributo de nombre igual a <emphasis
->_default</emphasis
-> le dice a &appname; que incluya todos los campos predeterminados para ese tipo de colección. </para>
+>Las propiedades del campo se usan para establecer valores predeterminados para el campo, intervalos de valores de clasificación, plantillas de valores derivados, etc. Los ejemplos de arriba incluyen un valor por defecto, un valor máximo de clasificación  y una plantilla por un campo ID derivado. </para>
+
+ 
+
 </sect3>
 
 <sect3 id="entries-xml-data">
@@ -433,6 +446,24 @@
 >0x08</constant
 ></entry
 ></row>
+<row
+><entry
+><emphasis
+>No permitir la edición</emphasis
+></entry
+><entry
+><constant
+>0x10</constant
+></entry
+></row>
+<row
+><entry
+>Valor derivado</entry
+><entry
+><constant
+>0x20</constant
+></entry
+></row>
 </tbody>
 </tgroup>
 </table>
@@ -444,7 +475,9 @@
 >personas</emphasis
 > usa todos los campos que utilizan <emphasis
 >formateo de nombres</emphasis
->. </para>
+>. Establecer el marcador de <emphasis
+>Valor derivado</emphasis
+> implica que el valor de ese campo se genera desde la propiedad de plantilla de otros valores de campo. </para>
 
 <table>
 <title
@@ -531,7 +564,7 @@
 <para
 >El tamaño máximo de los iconos en la <interface
 >Vista de iconos</interface
-> se puede cambiar mediante este ajuste. El valor por defecto es de 96. El tamaño debe estar entre 32 y 128. </para>
+> se puede cambiar mediante este ajuste. El valor por defecto es de 96. El tamaño debe estar entre 32 y 256. </para>
 </sect3>
 
 <sect3>
@@ -540,7 +573,7 @@
 <informalexample>
 <para
 ><userinput
->Max Icon Size=72</userinput
+>Max Icon Size=128</userinput
 ></para>
 </informalexample>
 </sect3>

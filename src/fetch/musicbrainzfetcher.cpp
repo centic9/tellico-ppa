@@ -171,7 +171,7 @@ void MusicBrainzFetcher::slotComplete(KJob* ) {
     QDomElement e = n.toElement();
     if(!e.isNull()) {
       m_total = e.attribute(QLatin1String("count")).toInt();
-      myDebug() << "total = " << m_total;
+//      myDebug() << "total = " << m_total;
     }
   }
 
@@ -242,7 +242,7 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
   KUrl u(MUSICBRAINZ_API_URL);
   u.addPath(QLatin1String("/release/") + mbid);
   u.addQueryItem(QLatin1String("type"), QLatin1String("xml"));
-  u.addQueryItem(QLatin1String("inc"), QLatin1String("artist tracks release-events release-groups labels tags"));
+  u.addQueryItem(QLatin1String("inc"), QLatin1String("artist tracks release-events release-groups labels tags url-rels"));
 
   // quiet
   QString output = FileHandler::readXMLFile(u, true);
@@ -258,6 +258,8 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
 #endif
 
   Import::TellicoImporter imp(m_xsltHandler->applyStylesheet(output));
+  // hide image errors
+  imp.setOptions(imp.options() & ~Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
 //  getTracks(entry);
   if(!coll) {

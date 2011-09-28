@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2008-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,42 +22,17 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_GROUPSORTMODEL_H
-#define TELLICO_GROUPSORTMODEL_H
+#ifndef COMPARISONTEST_H
+#define COMPARISONTEST_H
 
-#include "abstractsortmodel.h"
+#include <QObject>
 
-namespace Tellico {
-  namespace Data {
-    class EntryGroup;
-  }
-
-class StringComparison;
-
-/**
- * @author Robby Stephenson
- */
-class GroupSortModel : public AbstractSortModel {
+class ComparisonTest : public QObject {
 Q_OBJECT
 
-public:
-  GroupSortModel(QObject* parent);
-  virtual ~GroupSortModel();
-
-  virtual void setSourceModel(QAbstractItemModel* sourceModel);
-
-protected:
-  virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const;
-
-private slots:
-  void clearGroupComparison();
-
-private:
-  StringComparison* getComparison(Data::EntryGroup* group) const;
-
-  StringComparison* m_titleComparison;
-  mutable StringComparison* m_groupComparison;
+private Q_SLOTS:
+  void testNumber();
+  void testNumber_data();
 };
 
-} // end namespace
 #endif

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2010-11-04 06:32+0100\n"
+"POT-Creation-Date: 2010-12-03 02:30+0100\n"
 "PO-Revision-Date: 2009-09-23 16:53-0500\n"
 "Last-Translator: Teuvo Eloranta <teuvo@piketa.fi>\n"
 "Language-Team:  <fi@li.org>\n"
@@ -130,12 +130,12 @@ msgstr "Tallenna vain linkki"
 msgid "Opening the selected scanner failed."
 msgstr "Valitun skannerin avaus epäonnistui."
 
-#: src/gui/imagewidget.cpp:305
+#: src/gui/imagewidget.cpp:311
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "Avaa ohjelmalla %1..."
 
-#: src/gui/imagewidget.cpp:335
+#: src/gui/imagewidget.cpp:341
 msgid "Saving a link is only possible for newly added images."
 msgstr ""
 "Linkin tallentaminen on mahdollista vain uusimmille lisätyille kuville."
@@ -1207,7 +1207,7 @@ msgstr "Tiivistelmä"
 msgid "Notes"
 msgstr "Muistiinpanot"
 
-#: src/collections/bibtexcollection.cpp:469
+#: src/collections/bibtexcollection.cpp:478
 #: src/translators/xmlstatehandler.cpp:298
 msgid "Unknown"
 msgstr "Tuntematon"
@@ -1222,8 +1222,8 @@ msgstr "Albumi"
 
 #: src/collections/musiccollection.cpp:54
 #: src/translators/freedbimporter.cpp:264
-#: src/translators/freedbimporter.cpp:376
-#: src/translators/freedbimporter.cpp:442
+#: src/translators/freedbimporter.cpp:378
+#: src/translators/freedbimporter.cpp:444
 msgid "Compact Disc"
 msgstr "CD-levy"
 
@@ -1399,11 +1399,11 @@ msgid "Institution"
 msgstr "Instituutio"
 
 #: src/fetch/entrezfetcher.cpp:475 src/fetch/yahoofetcher.cpp:394
-#: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:330
+#: src/fetch/arxivfetcher.cpp:329 src/fetch/musicbrainzfetcher.cpp:332
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/ibsfetcher.cpp:413
 #: src/fetch/citebasefetcher.cpp:234 src/fetch/animenfofetcher.cpp:377
-#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:929
-#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:239
+#: src/fetch/openlibraryfetcher.cpp:434 src/fetch/freebasefetcher.cpp:932
+#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/googlescholarfetcher.cpp:267
 msgid "This source has no options."
 msgstr "Tällä lähteellä ei ole valintoja."
 
@@ -1848,7 +1848,7 @@ msgstr ""
 msgid "Multiple Sources"
 msgstr "Kaikki lähteet"
 
-#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:614
+#: src/fetch/freebasefetcher.cpp:396 src/fetch/freebasefetcher.cpp:616
 msgid "Freebase Link"
 msgstr ""
 
@@ -2027,25 +2027,25 @@ msgstr "Valideja bibtex-tietueita ei löytynyt"
 msgid "No valid bibtex entries were found in file - %1"
 msgstr "Säännönmukaisia Bibtex-tietueita ei löytynyt tiedostosta - %1"
 
-#: src/translators/bibteximporter.cpp:322
+#: src/translators/bibteximporter.cpp:327
 #: src/translators/bibtexexporter.cpp:214
 msgid "Bibtex Options"
 msgstr "Bibtex asetukset"
 
-#: src/translators/bibteximporter.cpp:325
+#: src/translators/bibteximporter.cpp:330
 msgid "Use Unicode (UTF-8) encoding"
 msgstr "Käytä Unicode-muotoa (UTF-8)"
 
-#: src/translators/bibteximporter.cpp:326
+#: src/translators/bibteximporter.cpp:331
 msgid "Read the imported file in Unicode (UTF-8)."
 msgstr "Lue tuotu tiedosto Unicodena (UTF-8)."
 
-#: src/translators/bibteximporter.cpp:327
+#: src/translators/bibteximporter.cpp:332
 #, kde-format
 msgid "Use user locale (%1) encoding"
 msgstr "Käytä käyttäjän omaa muotoa (%1) enkoodauksessa"
 
-#: src/translators/bibteximporter.cpp:331
+#: src/translators/bibteximporter.cpp:336
 msgid "Read the imported file in the local encoding."
 msgstr "Lue tuotu tiedosto paikallisella enkoodauksella."
 
@@ -2199,11 +2199,11 @@ msgstr "<qt>Tiedosto ei ole validi GCstar-tiedosto</qt>"
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "XSLT:n käsittelyssä tapahtui virhe."
 
-#: src/translators/tellicoimporter.cpp:176
+#: src/translators/tellicoimporter.cpp:177
 msgid "The file is empty."
 msgstr "Tiedosto on tyhjä"
 
-#: src/translators/tellicoimporter.cpp:193
+#: src/translators/tellicoimporter.cpp:194
 msgid "The file contains no collection data."
 msgstr "Tiedosto ei sisällä kokoelma-tietoa."
 
@@ -2215,7 +2215,7 @@ msgstr "PilotDB"
 msgid "*.pdb|Pilot Database Files (*.pdb)"
 msgstr "*.pdb|Pilot-tietokantatiedostot (*.pdb)"
 
-#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:551
+#: src/translators/pilotdbexporter.cpp:153 src/detailedlistview.cpp:556
 msgid "View Columns"
 msgstr "Näytä sarakkeet"
 
@@ -2330,27 +2330,27 @@ msgstr ""
 "kuitenkin, että sinun pitää luota CrossRef-tili ja lisätä uusi tietolähde "
 "tilisi tiedoilla."
 
-#: src/translators/filelistingimporter.cpp:73
+#: src/translators/filelistingimporter.cpp:80
 msgid "Scanning files..."
 msgstr "Selataan tiedostoja..."
 
-#: src/translators/filelistingimporter.cpp:210
+#: src/translators/filelistingimporter.cpp:219
 msgid "File Listing Options"
 msgstr "Tiedostojen listausasetukset"
 
-#: src/translators/filelistingimporter.cpp:213
+#: src/translators/filelistingimporter.cpp:222
 msgid "Recursive folder search"
 msgstr "Rekursiivinen hakemistoetsintä"
 
-#: src/translators/filelistingimporter.cpp:214
+#: src/translators/filelistingimporter.cpp:223
 msgid "If checked, folders are recursively searched for all files."
 msgstr "Jos valittu, tiedostoja etsitään kansioista rekursiivisesti"
 
-#: src/translators/filelistingimporter.cpp:218
+#: src/translators/filelistingimporter.cpp:227
 msgid "Generate file previews"
 msgstr "Luo tiedostoille esikatselut"
 
-#: src/translators/filelistingimporter.cpp:219
+#: src/translators/filelistingimporter.cpp:228
 msgid ""
 "If checked, previews of the file contents are generated, which can slow down "
 "the folder listing."
@@ -2423,27 +2423,27 @@ msgstr "<qt>CD-levyä vastaavia hakutuloksia ei löytynyt.</qt>"
 msgid "<qt>Tellico was unable to complete the CD lookup.</qt>"
 msgstr "<qt>Tellico ei pystynyt suorittamaan CD-hakua loppuun.</qt>"
 
-#: src/translators/freedbimporter.cpp:466
+#: src/translators/freedbimporter.cpp:468
 msgid "Various"
 msgstr "Sekalaisia"
 
-#: src/translators/freedbimporter.cpp:486
+#: src/translators/freedbimporter.cpp:488
 msgid "Audio CD Options"
 msgstr "Ääni-CD:n asetukset"
 
-#: src/translators/freedbimporter.cpp:493
+#: src/translators/freedbimporter.cpp:495
 msgid "Read data from CD-ROM device"
 msgstr "Lue tietoa CD-ROM:lta"
 
-#: src/translators/freedbimporter.cpp:496
+#: src/translators/freedbimporter.cpp:498
 msgid "Select or input the CD-ROM device location."
 msgstr "Valitse tai syötä CD-ROM-laitteen sijainti."
 
-#: src/translators/freedbimporter.cpp:505
+#: src/translators/freedbimporter.cpp:507
 msgid "Read all CDDB cache files only"
 msgstr "Lue vain kaikki CDDB-välimuistitiedostot"
 
-#: src/translators/freedbimporter.cpp:506
+#: src/translators/freedbimporter.cpp:508
 msgid ""
 "Read data recursively from all the CDDB cache files contained in the default "
 "cache folders."
@@ -3183,24 +3183,24 @@ msgstr "Lautapelikokoelma"
 msgid "Custom Collection"
 msgstr "Muokattu kokoelma"
 
-#: src/detailedlistview.cpp:566
+#: src/detailedlistview.cpp:571
 #, fuzzy
 #| msgid "Co&lumn:"
 msgctxt "Noun, Menu name"
 msgid "Columns"
 msgstr "&Sarake:"
 
-#: src/detailedlistview.cpp:571
+#: src/detailedlistview.cpp:576
 #, fuzzy
 #| msgid "Hide All Columns"
 msgid "Show All Columns"
 msgstr "Piilota kaikki sarakkeet"
 
-#: src/detailedlistview.cpp:573
+#: src/detailedlistview.cpp:578
 msgid "Hide All Columns"
 msgstr "Piilota kaikki sarakkeet"
 
-#: src/detailedlistview.cpp:575
+#: src/detailedlistview.cpp:580
 #, fuzzy
 #| msgid "File to open"
 msgid "Resize to Content"

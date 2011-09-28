@@ -52,14 +52,12 @@
 #include <kinputdialog.h>
 #include <klocale.h>
 #include <kundostack.h>
-#include <kwallet.h>
 
 using Tellico::Kernel;
 Kernel* Kernel::s_self = 0;
 
 Kernel::Kernel(Tellico::MainWindow* parent) : m_widget(parent)
-    , m_commandHistory(new KUndoStack(parent))
-    , m_wallet(0) {
+    , m_commandHistory(new KUndoStack(parent)) {
 }
 
 KUrl Kernel::URL() const {
@@ -180,12 +178,12 @@ void Kernel::addEntries(Tellico::Data::EntryList entries_, bool checkFields_) {
   }
 }
 
-void Kernel::modifyEntries(Tellico::Data::EntryList oldEntries_, Tellico::Data::EntryList newEntries_) {
+void Kernel::modifyEntries(Tellico::Data::EntryList oldEntries_, Tellico::Data::EntryList newEntries_, const QStringList& modifiedFields_) {
   if(newEntries_.isEmpty()) {
     return;
   }
 
-  doCommand(new Command::ModifyEntries(Data::Document::self()->collection(), oldEntries_, newEntries_));
+  doCommand(new Command::ModifyEntries(Data::Document::self()->collection(), oldEntries_, newEntries_, modifiedFields_));
 }
 
 void Kernel::updateEntry(Tellico::Data::EntryPtr oldEntry_, Tellico::Data::EntryPtr newEntry_, bool overWrite_) {
@@ -396,51 +394,4 @@ int Kernel::askAndMerge(Tellico::Data::EntryPtr entry1_, Tellico::Data::EntryPtr
     case KMessageBox::No: return MergeConflictResolver::KeepSecond; // use newer value
   }
   return MergeConflictResolver::CancelMerge;
-}
-
-bool Kernel::prepareWallet() {
-  if(!m_wallet || !m_wallet->isOpen()) {
-    delete m_wallet;
-    m_wallet = KWallet::Wallet::openWallet(KWallet::Wallet::NetworkWallet(), m_widget->effectiveWinId());
-  }
-  if(!m_wallet || !m_wallet->isOpen()) {
-    delete m_wallet;
-    m_wallet = 0;
-    return false;
-  }
-
-  if(!m_wallet->hasFolder(KWallet::Wallet::PasswordFolder()) &&
-     !m_wallet->createFolder(KWallet::Wallet::PasswordFolder())) {
-    return false;
-  }
-
-  return m_wallet->setFolder(KWallet::Wallet::PasswordFolder());
-}
-
-QByteArray Kernel::readWalletEntry(const QString& key_) {
-  QByteArray value;
-
-  if(!prepareWallet()) {
-    return value;
-  }
-
-  if(m_wallet->readEntry(key_, value) != 0) {
-    return QByteArray();
-  }
-
-  return value;
-}
-
-QMap<QString, QString> Kernel::readWalletMap(const QString& key_) {
-  QMap<QString, QString> map;
-
-  if(!prepareWallet()) {
-    return map;
-  }
-
-  if(m_wallet->readMap(key_, map) != 0) {
-    return QMap<QString, QString>();
-  }
-
-  return map;
 }

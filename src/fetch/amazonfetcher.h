@@ -79,7 +79,7 @@ public:
     NoImage=3
   };
 
-  AmazonFetcher(Site site, QObject* parent);
+  AmazonFetcher(QObject* parent);
   virtual ~AmazonFetcher();
 
   virtual QString source() const;
@@ -88,7 +88,7 @@ public:
   // amazon can search title, person, isbn, or keyword. No Raw for now.
   virtual bool canSearch(FetchKey k) const { return k == Title || k == Person || k == ISBN || k == UPC || k == Keyword; }
   virtual void stop();
-  virtual Data::EntryPtr fetchEntry(uint uid);
+  virtual Data::EntryPtr fetchEntryHook(uint uid);
   virtual Type type() const { return Amazon; }
   virtual bool canFetch(int type) const;
   virtual void readConfigHook(const KConfigGroup& config);
@@ -104,12 +104,12 @@ public:
    */
   virtual Fetch::ConfigWidget* configWidget(QWidget* parent) const ;
 
-  static StringMap customFields();
-
   class ConfigWidget;
   friend class ConfigWidget;
 
   static QString defaultName();
+  static QString defaultIcon();
+  static StringHash allOptionalFields();
 
 private slots:
   void slotComplete(KJob* job);
@@ -142,7 +142,6 @@ private:
   QPointer<KIO::StoredTransferJob> m_job;
 
   bool m_started;
-  QStringList m_fields;
 };
 
 class AmazonFetcher::ConfigWidget : public Fetch::ConfigWidget {
@@ -151,7 +150,7 @@ Q_OBJECT
 public:
   explicit ConfigWidget(QWidget* parent_, const AmazonFetcher* fetcher = 0);
 
-  virtual void saveConfig(KConfigGroup& config);
+  virtual void saveConfigHook(KConfigGroup& config);
   virtual QString preferredName() const;
 
 private slots:

@@ -47,6 +47,8 @@ namespace {
   static const char* CITEBASE_BASE_URL = "http://www.citebase.org/openurl/?url_ver=Z39.88-2004&svc_id=bibtex";
 }
 
+using namespace Tellico;
+using namespace Tellico::Fetch;
 using Tellico::Fetch::CitebaseFetcher;
 
 CitebaseFetcher::CitebaseFetcher(QObject* parent_)
@@ -54,10 +56,6 @@ CitebaseFetcher::CitebaseFetcher(QObject* parent_)
 }
 
 CitebaseFetcher::~CitebaseFetcher() {
-}
-
-QString CitebaseFetcher::defaultName() {
-  return QLatin1String("Citebase");
 }
 
 QString CitebaseFetcher::source() const {
@@ -169,7 +167,7 @@ void CitebaseFetcher::slotComplete(KJob*) {
   stop(); // required
 }
 
-Tellico::Data::EntryPtr CitebaseFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr CitebaseFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   QRegExp versionRx(QLatin1String("v\\d+$"));
   // if the original search was not for a versioned ID, remove it
@@ -222,6 +220,14 @@ Tellico::Fetch::ConfigWidget* CitebaseFetcher::configWidget(QWidget* parent_) co
   return new CitebaseFetcher::ConfigWidget(parent_, this);
 }
 
+QString CitebaseFetcher::defaultName() {
+  return QLatin1String("Citebase");
+}
+
+QString CitebaseFetcher::defaultIcon() {
+  return favIcon("http://citebase.org");
+}
+
 CitebaseFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CitebaseFetcher*)
     : Fetch::ConfigWidget(parent_) {
   QVBoxLayout* l = new QVBoxLayout(optionsWidget());
@@ -229,7 +235,7 @@ CitebaseFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CitebaseFetc
   l->addStretch();
 }
 
-void CitebaseFetcher::ConfigWidget::saveConfig(KConfigGroup&) {
+void CitebaseFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
 }
 
 QString CitebaseFetcher::ConfigWidget::preferredName() const {

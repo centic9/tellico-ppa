@@ -42,6 +42,7 @@ bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, b
   if(url_.isLocalFile()) {
     return KIO::NetAccess::download(url_, target_, window_);
   }
+  Q_ASSERT(target_.isEmpty());
   // copied from KIO::NetAccess::download() apidox except for quiet part
   if(target_.isEmpty()) {
     KTemporaryFile tmpFile;
@@ -60,11 +61,29 @@ bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, b
   if(quiet_) {
     flags |= KIO::HideProgressInfo;
   }
+#if 0
+  // some http files get returned gzip'd and file_copy just copies the gzipd data
+  // but the FileRef can't handlle that  automatically
   KIO::Job* getJob = KIO::file_copy(url_, dest, -1, flags);
   if(KIO::NetAccess::synchronousRun(getJob, window_)) {
     return true;
   }
-  getJob->ui()->showErrorMessage();
+#else
+  // KIO::storedGet seems to handle Content-Encoding: gzip ok
+  KIO::StoredTransferJob* getJob = KIO::storedGet(url_, KIO::NoReload, flags);
+  if(KIO::NetAccess::synchronousRun(getJob, window_)) {
+    QFile f(target_);
+    if(f.open(QIODevice::WriteOnly)) {
+      if(f.write(getJob->data()) > -1) {
+        return true;
+      }
+    }
+    myWarning() << "failed to write to" << target_;
+  }
+#endif
+  if(getJob->ui()) {
+    getJob->ui()->showErrorMessage();
+  }
   return false;
 }
 

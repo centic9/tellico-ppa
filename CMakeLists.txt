@@ -1,5 +1,5 @@
 project(Tellico)
-set(TELLICO_VERSION "2.1.1")
+set(TELLICO_VERSION "2.2")
 
 cmake_minimum_required(VERSION 2.6.2)
 
@@ -45,13 +45,16 @@ find_package(LibXslt REQUIRED)
 # The taglib cmake script is broken, this works around the issue
 set(TAGLIB_INCLUDES)
 
-macro_optional_find_package(Kabc)
-macro_log_feature(KABC_FOUND "kabc" "Support for reading address book" "http://pim.kde.org" FALSE "4.2.0" "")
+# Tellico used to use its own FindKcal and FindKabs cmake modules
+# now we just ust the kdepimlibs one
+#macro_optional_find_package(Kabc)
+#macro_log_feature(KABC_FOUND "kabc" "Support for reading address book" "http://pim.kde.org" FALSE "4.2.0" "")
 
-macro_optional_find_package(Kcal)
-macro_log_feature(KCAL_FOUND "kcal" "Support for adding loans to calendar" "http://pim.kde.org" FALSE "4.2.0" "")
-# for now, kcal doesn't compile
-set(KCAL_FOUND FALSE)
+#macro_optional_find_package(Kcal)
+#macro_log_feature(KCAL_FOUND "kcal" "Support for adding loans to calendar" "http://pim.kde.org" FALSE "4.2.0" "")
+
+macro_optional_find_package(KdepimLibs)
+macro_log_feature(KDEPIMLIBS_FOUND "kdepimlibs" "Support for using the address book and calendar for loans" "http://pim.kde.org" FALSE "4.2.0" "")
 
 macro_optional_find_package(Kcddb)
 macro_log_feature(KCDDB_FOUND "libkcddb" "Support for CDDB searches" "http://multimedia.kde.org" FALSE "4.2.0" "")
@@ -88,6 +91,8 @@ if(ENABLE_WEBCAM)
     macro_log_feature(LIBV4L_FOUND "libv4l" "Support for barcode scanning with a webcam" "http://hansdegoede.livejournal.com/3636.html" FALSE "" "Required for using a webcam")
     if(LIBV4L_FOUND)
         include_directories(${LIBV4L_INCLUDE_DIR})
+    else(LIBV4L_FOUND)
+        set(ENABLE_WEBCAM FALSE)
     endif(LIBV4L_FOUND)
 endif(ENABLE_WEBCAM)
 
@@ -141,8 +146,8 @@ macro_bool_to_01(LIBEXEMPI_FOUND HAVE_EXEMPI)
 macro_bool_to_01(YAZ_FOUND HAVE_YAZ)
 macro_bool_to_01(KSANE_FOUND HAVE_KSANE)
 macro_bool_to_01(KCDDB_FOUND HAVE_KCDDB)
-macro_bool_to_01(KABC_FOUND HAVE_KABC)
-macro_bool_to_01(KCAL_FOUND HAVE_KCAL)
+macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KABC)
+macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KCAL)
 macro_bool_to_01(LIBV4L_FOUND HAVE_V4L)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)

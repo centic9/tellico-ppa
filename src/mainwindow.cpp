@@ -126,6 +126,7 @@ KIcon mimeIcon(const char* s1, const char* s2) {
 
 }
 
+using namespace Tellico;
 using Tellico::MainWindow;
 
 MainWindow::MainWindow(QWidget* parent_/*=0*/) : KXmlGuiWindow(parent_),
@@ -630,8 +631,9 @@ void MainWindow::initActions() {
   m_quickFilter = new GUI::LineEdit(this);
   m_quickFilter->setClickMessage(i18n("Filter here...")); // same text as kdepim and amarok
   m_quickFilter->setClearButtonShown(true);
-  // about 10 characters wide
-  m_quickFilter->setFixedWidth(m_quickFilter->fontMetrics().maxWidth()*10);
+  // same as Dolphin text edit
+  m_quickFilter->setMinimumWidth(150);
+  m_quickFilter->setMaximumWidth(300);
   // want to update every time the filter text changes
   connect(m_quickFilter, SIGNAL(textChanged(const QString&)),
           this, SLOT(slotQueueFilter()));
@@ -1593,7 +1595,6 @@ void MainWindow::XSLTError() {
 void MainWindow::slotShowFilterDialog() {
   if(!m_filterDlg) {
     m_filterDlg = new FilterDialog(FilterDialog::CreateFilter, this); // allow saving
-    m_filterDlg->setFilter(m_detailedView->filter());
     m_quickFilter->setEnabled(false);
     connect(m_filterDlg, SIGNAL(signalCollectionModified()),
             Data::Document::self(), SLOT(slotSetModified()));
@@ -1606,6 +1607,7 @@ void MainWindow::slotShowFilterDialog() {
   } else {
     KWindowSystem::activateWindow(m_filterDlg->winId());
   }
+  m_filterDlg->setFilter(m_detailedView->filter());
   m_filterDlg->show();
 }
 
@@ -1651,39 +1653,39 @@ void MainWindow::setFilter(const QString& text_) {
     QString fieldName; // empty field name means match on any field
     // if the text contains '=' assume it's a field name or title
     if(text.indexOf(QLatin1Char('=')) > -1) {
-        fieldName = text.section(QLatin1Char('='), 0, 0).trimmed();
-        text = text.section(QLatin1Char('='), 1).trimmed();
-        // check that the field name might be a title
-        if(!Data::Document::self()->collection()->hasField(fieldName)) {
+      fieldName = text.section(QLatin1Char('='), 0, 0).trimmed();
+      text = text.section(QLatin1Char('='), 1).trimmed();
+      // check that the field name might be a title
+      if(!Data::Document::self()->collection()->hasField(fieldName)) {
         fieldName = Data::Document::self()->collection()->fieldNameByTitle(fieldName);
-        }
+      }
     }
     // if the text contains any non-word characters, assume it's a regexp
     // but \W in qt is letter, number, or '_', I want to be a bit less strict
     QRegExp rx(QLatin1String("[^\\w\\s-']"));
     if(rx.indexIn(text) == -1) {
-    // split by whitespace, and add rules for each word
-        const QStringList tokens = text.split(QRegExp(QLatin1String("\\s")));
-        foreach(const QString& token, tokens) {
+      // split by whitespace, and add rules for each word
+      const QStringList tokens = text.split(QRegExp(QLatin1String("\\s")));
+      foreach(const QString& token, tokens) {
         // an empty field string means check every field
         filter->append(new FilterRule(fieldName, token, FilterRule::FuncContains));
-        }
+      }
     } else {
-        // if it isn't valid, hold off on applying the filter
-        QRegExp tx(text);
-        if(!tx.isValid()) {
+      // if it isn't valid, hold off on applying the filter
+      QRegExp tx(text);
+      if(!tx.isValid()) {
         text = QRegExp::escape(text);
         tx.setPattern(text);
-        }
-        if(!tx.isValid()) {
+      }
+      if(!tx.isValid()) {
         myDebug() << "invalid regexp:" << text;
         return;
-        }
-        filter->append(new FilterRule(fieldName, text, FilterRule::FuncRegExp));
+      }
+      filter->append(new FilterRule(fieldName, text, FilterRule::FuncRegExp));
     }
     // also want to update the line edit in case the filter was set by DBUS
     if(m_quickFilter->text() != text_) {
-        m_quickFilter->setText(text_);
+      m_quickFilter->setText(text_);
     }
   }
   // only update filter if one exists or did exist

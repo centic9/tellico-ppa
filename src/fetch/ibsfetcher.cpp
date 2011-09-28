@@ -49,14 +49,14 @@ namespace {
   static const char* IBS_BASE_URL = "http://www.internetbookshop.it/ser/serpge.asp";
 }
 
+using namespace Tellico;
 using Tellico::Fetch::IBSFetcher;
 
 IBSFetcher::IBSFetcher(QObject* parent_)
     : Fetcher(parent_), m_started(false) {
 }
 
-QString IBSFetcher::defaultName() {
-  return i18n("Internet Bookshop (ibs.it)");
+IBSFetcher::~IBSFetcher() {
 }
 
 QString IBSFetcher::source() const {
@@ -239,7 +239,7 @@ void IBSFetcher::slotCompleteISBN(KJob* job_) {
   stop();
 }
 
-Tellico::Data::EntryPtr IBSFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr IBSFetcher::fetchEntryHook(uint uid_) {
   // if we already grabbed this one, then just pull it out of the dict
   Data::EntryPtr entry = m_entries[uid_];
   if(entry) {
@@ -397,6 +397,14 @@ Tellico::Fetch::FetchRequest IBSFetcher::updateRequest(Data::EntryPtr entry_) {
 
 Tellico::Fetch::ConfigWidget* IBSFetcher::configWidget(QWidget* parent_) const {
   return new IBSFetcher::ConfigWidget(parent_);
+}
+
+QString IBSFetcher::defaultName() {
+  return i18n("Internet Bookshop (ibs.it)");
+}
+
+QString IBSFetcher::defaultIcon() {
+  return favIcon("http://internetbookshop.it");
 }
 
 IBSFetcher::ConfigWidget::ConfigWidget(QWidget* parent_)

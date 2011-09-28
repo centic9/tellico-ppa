@@ -68,6 +68,7 @@ namespace {
   static const QString Z3950_DEFAULT_ESN = QLatin1String("F");
 }
 
+using namespace Tellico;
 using Tellico::Fetch::Z3950Fetcher;
 
 Z3950Fetcher::Z3950Fetcher(QObject* parent_)
@@ -116,10 +117,6 @@ Z3950Fetcher::~Z3950Fetcher() {
   }
 }
 
-QString Z3950Fetcher::defaultName() {
-  return i18n("z39.50 Server");
-}
-
 QString Z3950Fetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
@@ -164,8 +161,6 @@ void Z3950Fetcher::readConfigHook(const KConfigGroup& config_) {
       myDebug() << "z3950-servers.cfg not found";
     }
   }
-
-  m_fields = config_.readEntry("Custom Fields", QStringList());
 }
 
 void Z3950Fetcher::saveConfigHook(KConfigGroup& config_) {
@@ -451,13 +446,6 @@ void Z3950Fetcher::handleResult(const QString& result_) {
     return;
   }
 
-  const StringMap customFields = Z3950Fetcher::customFields();
-  for(StringMap::ConstIterator it = customFields.begin(); it != customFields.end(); ++it) {
-    if(!m_fields.contains(it.key())) {
-      coll->removeField(it.key());
-    }
-  }
-
   Data::EntryList entries = coll->entries();
   foreach(Data::EntryPtr entry, entries) {
     FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
@@ -471,7 +459,7 @@ void Z3950Fetcher::done() {
   stop();
 }
 
-Tellico::Data::EntryPtr Z3950Fetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr Z3950Fetcher::fetchEntryHook(uint uid_) {
   return m_entries[uid_];
 }
 
@@ -530,6 +518,23 @@ Tellico::Fetch::FetchRequest Z3950Fetcher::updateRequest(Data::EntryPtr entry_) 
 
 Tellico::Fetch::ConfigWidget* Z3950Fetcher::configWidget(QWidget* parent_) const {
   return new Z3950Fetcher::ConfigWidget(parent_, this);
+}
+
+QString Z3950Fetcher::defaultName() {
+  return i18n("z39.50 Server");
+}
+
+QString Z3950Fetcher::defaultIcon() {
+  return QLatin1String("network-wired"); // rather arbitrary
+}
+
+// static
+Tellico::StringHash Z3950Fetcher::allOptionalFields() {
+  StringHash hash;
+  hash[QLatin1String("address")]  = i18n("Address");
+  hash[QLatin1String("abstract")] = i18n("Abstract");
+  hash[QLatin1String("illustrator")] = i18n("Illustrator");
+  return hash;
 }
 
 Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* fetcher_/*=0*/)
@@ -642,7 +647,7 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   l->setRowStretch(++row, 1);
 
   // now add additional fields widget
-  addFieldsWidget(Z3950Fetcher::customFields(), fetcher_ ? fetcher_->m_fields : QStringList());
+  addFieldsWidget(Z3950Fetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 
   loadPresets(fetcher_ ? fetcher_->m_preset : QString());
   if(fetcher_) {
@@ -669,7 +674,7 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
 Z3950Fetcher::ConfigWidget::~ConfigWidget() {
 }
 
-void Z3950Fetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
+void Z3950Fetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   if(m_usePreset->isChecked()) {
     QString presetID = m_serverCombo->currentData().toString();
     config_.writeEntry("Preset", presetID);
@@ -706,18 +711,6 @@ void Z3950Fetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
     m_syntax = s;
   }
   config_.writeEntry("Syntax", m_syntax);
-
-  saveFieldsConfig(config_);
-  slotSetModified(false);
-}
-
-// static
-Tellico::StringMap Z3950Fetcher::customFields() {
-  StringMap map;
-  map[QLatin1String("address")]  = i18n("Address");
-  map[QLatin1String("abstract")] = i18n("Abstract");
-  map[QLatin1String("illustrator")] = i18n("Illustrator");
-  return map;
 }
 
 void Z3950Fetcher::ConfigWidget::slotTogglePreset(bool on) {

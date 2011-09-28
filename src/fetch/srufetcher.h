@@ -45,8 +45,6 @@ namespace Tellico {
   }
   namespace Fetch {
 
-class SRUConfigWidget;
-
 /**
  * A fetcher for SRU servers.
  * Right now, only MODS is supported.
@@ -55,8 +53,6 @@ class SRUConfigWidget;
  */
 class SRUFetcher : public Fetcher {
 Q_OBJECT
-
-friend class SRUConfigWidget;
 
 public:
   /**
@@ -75,16 +71,19 @@ public:
   // only search title, person, isbn, or keyword. No Raw for now.
   virtual bool canSearch(FetchKey k) const { return k == Title || k == Person || k == ISBN || k == Keyword || k == LCCN; }
   virtual void stop();
-  virtual Data::EntryPtr fetchEntry(uint uid);
+  virtual Data::EntryPtr fetchEntryHook(uint uid);
   virtual Type type() const { return SRU; }
   virtual bool canFetch(int type) const;
   virtual void readConfigHook(const KConfigGroup& config);
 
-  static StringMap customFields();
+  virtual Fetch::ConfigWidget* configWidget(QWidget* parent) const;
 
-  virtual ConfigWidget* configWidget(QWidget* parent) const;
+  class ConfigWidget;
+  friend class ConfigWidget;
 
   static QString defaultName();
+  static QString defaultIcon();
+  static StringHash allOptionalFields();
 
   static Fetcher::Ptr libraryOfCongress(QObject* parent);
 
@@ -109,17 +108,14 @@ private:
   XSLTHandler* m_MODSHandler;
   XSLTHandler* m_SRWHandler;
   bool m_started;
-  QStringList m_fields;
 };
 
-class SRUConfigWidget : public ConfigWidget {
+class SRUFetcher::ConfigWidget : public Fetch::ConfigWidget {
 Q_OBJECT
 
-friend class SRUFetcher;
-
 public:
-  explicit SRUConfigWidget(QWidget* parent_, const SRUFetcher* fetcher = 0);
-  virtual void saveConfig(KConfigGroup& config);
+  explicit ConfigWidget(QWidget* parent_, const SRUFetcher* fetcher = 0);
+  virtual void saveConfigHook(KConfigGroup& config);
   virtual QString preferredName() const;
 
 private slots:

@@ -14,11 +14,13 @@ SET(XSLT_FILES
     discogs2tellico.xsl
     dvd-logo.png
     gcstar2tellico.xsl
+    giantbomb2tellico.xsl
     hddvd-logo.png
     isbndb2tellico.xsl
     MARC21slim2MODS3.xsl
     MARC21slimUtils.xsl
     mods2tellico.xsl
+    musicbrainz2tellico.xsl
     pubmed2tellico.xsl
     record-logo.png
     referencer2tellico.xsl
@@ -32,6 +34,7 @@ SET(XSLT_FILES
     tellico-by-title.xsl
     tellico-common.xsl
     tellico-printing.xsl
+    tmdb2tellico.xsl
     UNIMARC2MODS3.xsl
     vhs-logo.png
     welcome.html

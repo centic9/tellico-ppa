@@ -28,6 +28,7 @@
 
 #include <klocale.h>
 
+using namespace Tellico;
 using Tellico::CollectionFactory;
 
 CollectionFactory::CollectionFactory() {
@@ -36,7 +37,6 @@ CollectionFactory::CollectionFactory() {
 void CollectionFactory::registerFunction(int type_, const QString& typeName_, CREATE_COLL_FN func_) {
   functionRegistry.insert(type_, func_);
   nameRegistry.insert(type_, typeName_);
-  titleRegistry.insert(type_, QString());
 }
 
 Tellico::Data::CollPtr CollectionFactory::create(int type_, bool addDefaultFields_) const {

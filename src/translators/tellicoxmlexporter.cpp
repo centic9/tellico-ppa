@@ -54,6 +54,7 @@
 
 #include <algorithm>
 
+using namespace Tellico;
 using Tellico::Export::TellicoXMLExporter;
 
 TellicoXMLExporter::TellicoXMLExporter(Tellico::Data::CollPtr coll) : Exporter(coll),
@@ -529,14 +530,30 @@ Tellico::Data::EntryList TellicoXMLExporter::sortEntries(const Data::EntryList& 
   EntrySortModel* model = static_cast<EntrySortModel*>(ModelManager::self()->entryModel());
   // have to go in reverse for sorting
   Data::FieldList fields;
+  Data::FieldPtr field;
   if(model->tertiarySortColumn() > -1) {
-    fields << model->headerData(model->tertiarySortColumn(), Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    field = model->headerData(model->tertiarySortColumn(), Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    if(field) {
+      fields << field;
+    } else {
+      myDebug() << "no field for tertiary sort column" << model->tertiarySortColumn();
+    }
   }
   if(model->secondarySortColumn() > -1) {
-    fields << model->headerData(model->secondarySortColumn(), Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    field = model->headerData(model->secondarySortColumn(), Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    if(field) {
+      fields << field;
+    } else {
+      myDebug() << "no field for secondary sort column" << model->secondarySortColumn();
+    }
   }
   if(model->sortColumn() > -1) {
-    fields << model->headerData(model->sortColumn(), Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    field = model->headerData(model->sortColumn(), Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    if(field) {
+      fields << field;
+    } else {
+      myDebug() << "no field for primary sort column" << model->sortColumn();
+    }
   }
 
   // now sort

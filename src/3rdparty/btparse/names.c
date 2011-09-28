@@ -96,7 +96,7 @@ bt_split_list (char *   string,
                char *   delim,
                char *   filename,
                int      line,
-               char *   description)
+               const char *   description)
 {
    int    depth;                        /* brace depth */
    int    i, j;                         /* offset into string and delim */
@@ -767,7 +767,7 @@ split_general_name (name_loc * loc,
               dump core on such things as leading whitespace, or more than
               one space in a row inside the string.  This could probably be
               alleviated with a call to bt_postprocess_string(), possibly
-              preceded by a check for any of those occurences.  Before
+              preceded by a check for any of those occurrences.  Before
               doing that, though, I want to examine the code carefully to
               determine just what assumptions it makes -- so I can
               check/correct for all of them.

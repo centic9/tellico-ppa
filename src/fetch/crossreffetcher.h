@@ -59,7 +59,7 @@ public:
 
   virtual bool canSearch(FetchKey k) const { return k == DOI; }
   virtual void stop();
-  virtual Data::EntryPtr fetchEntry(uint uid);
+  virtual Data::EntryPtr fetchEntryHook(uint uid);
   virtual Type type() const { return CrossRef; }
   virtual bool canFetch(int type) const;
   virtual void readConfigHook(const KConfigGroup& config);
@@ -69,15 +69,18 @@ public:
   class ConfigWidget : public Fetch::ConfigWidget {
   public:
     explicit ConfigWidget(QWidget* parent_, const CrossRefFetcher* fetcher = 0);
-    virtual void saveConfig(KConfigGroup& config);
+    virtual void saveConfigHook(KConfigGroup& config);
     virtual QString preferredName() const;
   private:
     KLineEdit* m_userEdit;
     KLineEdit* m_passEdit;
+    KLineEdit* m_emailEdit;
   };
   friend class ConfigWidget;
 
   static QString defaultName();
+  static QString defaultIcon();
+  static StringHash allOptionalFields() { return StringHash(); }
 
 private slots:
   void slotComplete(KJob* job);
@@ -94,6 +97,7 @@ private:
   // mutable so they can be changed in readWallet()
   mutable QString m_user;
   mutable QString m_password;
+  QString m_email;
 
   QHash<int, Data::EntryPtr> m_entries;
   QPointer<KIO::StoredTransferJob> m_job;

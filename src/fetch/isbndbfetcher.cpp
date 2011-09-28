@@ -52,6 +52,7 @@ namespace {
   static const char* ISBNDB_APP_ID = "3B9S3BQS";
 }
 
+using namespace Tellico;
 using Tellico::Fetch::ISBNdbFetcher;
 
 ISBNdbFetcher::ISBNdbFetcher(QObject* parent_)
@@ -63,10 +64,6 @@ ISBNdbFetcher::ISBNdbFetcher(QObject* parent_)
 ISBNdbFetcher::~ISBNdbFetcher() {
   delete m_xsltHandler;
   m_xsltHandler = 0;
-}
-
-QString ISBNdbFetcher::defaultName() {
-  return i18n("ISBNdb.com");
 }
 
 QString ISBNdbFetcher::source() const {
@@ -270,7 +267,7 @@ void ISBNdbFetcher::slotComplete(KJob*) {
   }
 }
 
-Tellico::Data::EntryPtr ISBNdbFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr ISBNdbFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   if(!entry) {
     myWarning() << "no entry in dict";
@@ -340,6 +337,14 @@ Tellico::Fetch::ConfigWidget* ISBNdbFetcher::configWidget(QWidget* parent_) cons
   return new ISBNdbFetcher::ConfigWidget(parent_, this);
 }
 
+QString ISBNdbFetcher::defaultName() {
+  return i18n("ISBNdb.com");
+}
+
+QString ISBNdbFetcher::defaultIcon() {
+  return favIcon("http://isbndb.com");
+}
+
 ISBNdbFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ISBNdbFetcher* fetcher_)
     : Fetch::ConfigWidget(parent_) {
   QGridLayout* l = new QGridLayout(optionsWidget());
@@ -349,9 +354,9 @@ ISBNdbFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ISBNdbFetcher*
   int row = -1;
   QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
                                "If you agree to the terms and conditions, <a href='%2'>sign "
-                               "up for an account</a>, and enter your information below.")
-                                .arg(preferredName(),
-                                     QLatin1String("http://isbndb.com/docs/api/30-keys.html")),
+                               "up for an account</a>, and enter your information below.",
+                                preferredName(),
+                                QLatin1String("http://isbndb.com/docs/api/30-keys.html")),
                           optionsWidget());
   al->setOpenExternalLinks(true);
   al->setWordWrap(true);
@@ -382,14 +387,11 @@ ISBNdbFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ISBNdbFetcher*
   }
 }
 
-void ISBNdbFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
+void ISBNdbFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   QString apiKey = m_apiKeyEdit->text().trimmed();
   if(!apiKey.isEmpty()) {
     config_.writeEntry("API Key", apiKey);
   }
-
-  saveFieldsConfig(config_);
-  slotSetModified(false);
 }
 
 QString ISBNdbFetcher::ConfigWidget::preferredName() const {

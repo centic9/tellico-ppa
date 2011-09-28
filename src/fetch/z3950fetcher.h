@@ -71,7 +71,7 @@ public:
   // can search title, person, isbn, or keyword. No UPC or Raw for now.
   virtual bool canSearch(FetchKey k) const { return k == Title || k == Person || k == ISBN || k == Keyword || k == LCCN; }
   virtual void stop();
-  virtual Data::EntryPtr fetchEntry(uint uid);
+  virtual Data::EntryPtr fetchEntryHook(uint uid);
   virtual Type type() const { return Z3950; }
   virtual bool canFetch(int type) const;
   virtual void readConfigHook(const KConfigGroup& config);
@@ -79,14 +79,14 @@ public:
 
   const QString& host() const { return m_host; }
 
-  static StringMap customFields();
-
   virtual Fetch::ConfigWidget* configWidget(QWidget* parent) const;
 
   class ConfigWidget;
   friend class ConfigWidget;
 
   static QString defaultName();
+  static QString defaultIcon();
+  static StringHash allOptionalFields();
 
 protected:
   virtual void customEvent(QEvent* event);
@@ -121,7 +121,6 @@ private:
   XSLTHandler* m_MARC21XMLHandler;
   XSLTHandler* m_UNIMARCXMLHandler;
   XSLTHandler* m_MODSHandler;
-  QStringList m_fields;
 
   friend class Z3950Connection;
 };
@@ -132,7 +131,7 @@ Q_OBJECT
 public:
   explicit ConfigWidget(QWidget* parent, const Z3950Fetcher* fetcher = 0);
   virtual ~ConfigWidget();
-  virtual void saveConfig(KConfigGroup& config_);
+  virtual void saveConfigHook(KConfigGroup& config_);
   virtual QString preferredName() const;
 
 private slots:

@@ -37,7 +37,7 @@
 #include <ktemporaryfile.h>
 #include <ksavefile.h>
 #include <kfileitem.h>
-#include <kio/chmodjob.h>
+#include <kio/job.h>
 #include <kfilterdev.h>
 #include <kdeversion.h>
 
@@ -48,7 +48,7 @@
 
 using Tellico::FileHandler;
 
-FileHandler::FileRef::FileRef(const KUrl& url_, bool quiet_, bool allowCompressed_) : m_device(0), m_isValid(false) {
+FileHandler::FileRef::FileRef(const KUrl& url_, bool quiet_) : m_device(0), m_isValid(false) {
   if(url_.isEmpty()) {
     return;
   }
@@ -65,11 +65,7 @@ FileHandler::FileRef::FileRef(const KUrl& url_, bool quiet_, bool allowCompresse
     return;
   }
 
-  if(allowCompressed_) {
-    m_device = KFilterDev::deviceForFile(m_filename);
-  } else {
-    m_device = new QFile(m_filename);
-  }
+  m_device = new QFile(m_filename);
   m_isValid = true;
 }
 
@@ -107,8 +103,8 @@ FileHandler::FileRef* FileHandler::fileRef(const KUrl& url_, bool quiet_) {
   return new FileRef(url_, quiet_);
 }
 
-QString FileHandler::readTextFile(const KUrl& url_, bool quiet_/*=false*/, bool useUTF8_ /*false*/, bool compress_/*=false*/) {
-  FileRef f(url_, quiet_, compress_);
+QString FileHandler::readTextFile(const KUrl& url_, bool quiet_/*=false*/, bool useUTF8_ /*false*/) {
+  FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return QString();
   }
@@ -221,25 +217,8 @@ bool FileHandler::queryExists(const KUrl& url_) {
 }
 
 bool FileHandler::writeBackupFile(const KUrl& url_) {
-  KUrl backup(url_);
-  backup.setPath(backup.path() + QLatin1Char('~'));
-
   bool success = true;
   if(url_.isLocalFile()) {
-    // KSaveFile messes up users and groups
-    // the user is always reset to the current user
-    KFileItemList list;
-    int perm = -1;
-    QString grp;
-    if(KIO::NetAccess::exists(url_, KIO::NetAccess::SourceSide, GUI::Proxy::widget())) {
-      KFileItem item(KFileItem::Unknown, KFileItem::Unknown, url_, true);
-      perm = item.permissions();
-      grp = item.group();
-
-      KFileItem backupItem(KFileItem::Unknown, KFileItem::Unknown, backup, true);
-      list.append(backupItem);
-    }
-
     // KDE bug 178640, for versions prior to KDE 4.2RC1, backup file was not deleted first
     // this might fail if a different backup scheme is being used
     if(KDE::version() < KDE_MAKE_VERSION(4, 1, 90)) {
@@ -249,11 +228,9 @@ bool FileHandler::writeBackupFile(const KUrl& url_) {
     if(KDE::version() < KDE_MAKE_VERSION(4, 1, 90)) {
       success = true; // ignore error for old version because of bug
     }
-    if(!list.isEmpty()) {
-      // have to leave the user alone
-      KIO::chmod(list, perm, 0, QString(), grp, true, KIO::HideProgressInfo);
-    }
   } else {
+    KUrl backup(url_);
+    backup.setPath(backup.path() + QLatin1Char('~'));
     KIO::NetAccess::del(backup, GUI::Proxy::widget()); // might fail if backup doesn't exist, that's ok
     KIO::FileCopyJob* job = KIO::file_copy(url_, backup, -1, KIO::Overwrite);
     success = KIO::NetAccess::synchronousRun(job, GUI::Proxy::widget());
@@ -273,18 +250,6 @@ bool FileHandler::writeTextURL(const KUrl& url_, const QString& text_, bool enco
   }
 
   if(url_.isLocalFile()) {
-    // KSaveFile messes up users and groups
-    // the user is always reset to the current user
-    KFileItemList list;
-    int perm = -1;
-    QString grp;
-    if(KIO::NetAccess::exists(url_, KIO::NetAccess::SourceSide, GUI::Proxy::widget())) {
-      KFileItem item(KFileItem::Unknown, KFileItem::Unknown, url_, true);
-      list.append(item);
-      perm = item.permissions();
-      grp = item.group();
-    }
-
     KSaveFile f(url_.path());
     f.open();
     if(f.error() != QFile::NoError) {
@@ -294,10 +259,6 @@ bool FileHandler::writeTextURL(const KUrl& url_, const QString& text_, bool enco
       return false;
     }
     bool success = FileHandler::writeTextFile(f, text_, encodeUTF8_);
-    if(!list.isEmpty()) {
-      // have to leave the user alone
-      KIO::chmod(list, perm, 0, QString(), grp, true, KIO::HideProgressInfo);
-    }
     return success;
   }
 
@@ -351,18 +312,6 @@ bool FileHandler::writeDataURL(const KUrl& url_, const QByteArray& data_, bool f
   }
 
   if(url_.isLocalFile()) {
-    // KSaveFile messes up users and groups
-    // the user is always reset to the current user
-    KFileItemList list;
-    int perm = -1;
-    QString grp;
-    if(KIO::NetAccess::exists(url_, KIO::NetAccess::SourceSide, GUI::Proxy::widget())) {
-      KFileItem item(KFileItem::Unknown, KFileItem::Unknown, url_, true);
-      list.append(item);
-      perm = item.permissions();
-      grp = item.group();
-    }
-
     KSaveFile f(url_.path());
     f.open();
     if(f.error() != QFile::NoError) {
@@ -371,12 +320,7 @@ bool FileHandler::writeDataURL(const KUrl& url_, const QByteArray& data_, bool f
       }
       return false;
     }
-    bool success = FileHandler::writeDataFile(f, data_);
-    if(success && !list.isEmpty()) {
-      // have to leave the user alone
-      KIO::chmod(list, perm, 0, QString(), grp, true, KIO::HideProgressInfo);
-    }
-    return success;
+    return FileHandler::writeDataFile(f, data_);
   }
 
   // save to remote file

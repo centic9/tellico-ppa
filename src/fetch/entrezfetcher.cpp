@@ -56,6 +56,8 @@ namespace {
   static const char* ENTREZ_DEFAULT_DATABASE = "pubmed";
 }
 
+using namespace Tellico;
+using namespace Tellico::Fetch;
 using Tellico::Fetch::EntrezFetcher;
 
 EntrezFetcher::EntrezFetcher(QObject* parent_) : Fetcher(parent_), m_xsltHandler(0),
@@ -63,10 +65,6 @@ EntrezFetcher::EntrezFetcher(QObject* parent_) : Fetcher(parent_), m_xsltHandler
 }
 
 EntrezFetcher::~EntrezFetcher() {
-}
-
-QString EntrezFetcher::defaultName() {
-  return i18n("Entrez Database");
 }
 
 QString EntrezFetcher::source() const {
@@ -86,7 +84,6 @@ void EntrezFetcher::readConfigHook(const KConfigGroup& config_) {
   if(!s.isEmpty()) {
     m_dbname = s;
   }
-  m_fields = config_.readEntry("Custom Fields", QStringList());
 }
 
 void EntrezFetcher::search() {
@@ -312,7 +309,7 @@ void EntrezFetcher::summaryResults(const QByteArray& data_) {
   stop(); // done searching
 }
 
-Tellico::Data::EntryPtr EntrezFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr EntrezFetcher::fetchEntryHook(uint uid_) {
   // if we already grabbed this one, then just pull it out of the dict
   Data::EntryPtr entry = m_entries[uid_];
   if(entry) {
@@ -376,7 +373,7 @@ Tellico::Data::EntryPtr EntrezFetcher::fetchEntry(uint uid_) {
   Data::EntryPtr e = coll->entries().front();
 
   // try to get a link, but only if necessary
-  if(m_fields.contains(QLatin1String("url"))) {
+  if(optionalFields().contains(QLatin1String("url"))) {
     KUrl link(ENTREZ_BASE_URL);
     link.addPath(QLatin1String(ENTREZ_LINK_CGI));
     link.addQueryItem(QLatin1String("tool"),   QLatin1String("Tellico"));
@@ -404,13 +401,6 @@ Tellico::Data::EntryPtr EntrezFetcher::fetchEntry(uint uid_) {
         }
         e->setField(QLatin1String("url"), u);
       }
-    }
-  }
-
-  const StringMap customFields = EntrezFetcher::customFields();
-  for(StringMap::ConstIterator it = customFields.begin(); it != customFields.end(); ++it) {
-    if(!m_fields.contains(it.key())) {
-      coll->removeField(it.key());
     }
   }
 
@@ -458,6 +448,23 @@ Tellico::Fetch::FetchRequest EntrezFetcher::updateRequest(Data::EntryPtr entry_)
   return FetchRequest();
 }
 
+QString EntrezFetcher::defaultName() {
+  return i18n("Entrez Database");
+}
+
+QString EntrezFetcher::defaultIcon() {
+  return favIcon("http://www.ncbi.nlm.nih.gov");
+}
+
+//static
+Tellico::StringHash EntrezFetcher::allOptionalFields() {
+  StringHash hash;
+  hash[QLatin1String("institution")] = i18n("Institution");
+  hash[QLatin1String("abstract")]    = i18n("Abstract");
+  hash[QLatin1String("url")]         = i18n("URL");
+  return hash;
+}
+
 Tellico::Fetch::ConfigWidget* EntrezFetcher::configWidget(QWidget* parent_) const {
   return new EntrezFetcher::ConfigWidget(parent_, this);
 }
@@ -469,25 +476,11 @@ EntrezFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const EntrezFetcher*
   l->addStretch();
 
   // now add additional fields widget
-  addFieldsWidget(EntrezFetcher::customFields(), fetcher_ ? fetcher_->m_fields : QStringList());
-}
-
-void EntrezFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
-  saveFieldsConfig(config_);
-  slotSetModified(false);
+  addFieldsWidget(EntrezFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 }
 
 QString EntrezFetcher::ConfigWidget::preferredName() const {
   return EntrezFetcher::defaultName();
-}
-
-//static
-Tellico::StringMap EntrezFetcher::customFields() {
-  StringMap map;
-  map[QLatin1String("institution")] = i18n("Institution");
-  map[QLatin1String("abstract")]    = i18n("Abstract");
-  map[QLatin1String("url")]         = i18n("URL");
-  return map;
 }
 
 #include "entrezfetcher.moc"

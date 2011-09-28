@@ -33,8 +33,10 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 
 class KConfigGroup;
+class KUrl;
 
 namespace Tellico {
   namespace Fetch {
@@ -87,6 +89,7 @@ public:
    */
   bool updateOverwrite() const;
   const FetchRequest& request() const;
+  QStringList optionalFields() const { return m_fields; }
   /**
    * Starts a search, using a key and value. Calls search()
    */
@@ -109,7 +112,7 @@ public:
   /**
    * Fetches an entry, given the uid of the search result.
    */
-  virtual Data::EntryPtr fetchEntry(uint uid) = 0;
+  Data::EntryPtr fetchEntry(uint uid);
 
   void setMessageHandler(MessageHandler* handler) { m_messager = handler; }
   MessageHandler* messageHandler() const { return m_messager; }
@@ -126,6 +129,9 @@ public:
    * Returns a widget for modifying the fetcher's config.
    */
   virtual ConfigWidget* configWidget(QWidget* parent) const = 0;
+
+  static QString favIcon(const char* url);
+  static QString favIcon(const KUrl& url);
 
 signals:
 //  void signalStatus(const QString& status);
@@ -146,9 +152,11 @@ private:
   virtual FetchRequest updateRequest(Data::EntryPtr entry) = 0;
   virtual void readConfigHook(const KConfigGroup&) = 0;
   virtual void saveConfigHook(KConfigGroup&) {}
+  virtual Data::EntryPtr fetchEntryHook(uint uid) = 0;
 
   MessageHandler* m_messager;
   QString m_configGroup;
+  QStringList m_fields;
 };
 
   } // end namespace

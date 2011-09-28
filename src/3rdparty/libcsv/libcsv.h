@@ -49,7 +49,7 @@ Copyright (C) 2007  Robert Gamble
 #define CSV_STRICT 1    /* enable strict mode */
 #define CSV_REPALL_NL 2 /* report all unquoted carriage returns and linefeeds */
 #define CSV_STRICT_FINI 4 /* causes csv_fini to return CSV_EPARSE if last
-                             field is quoted and doesn't containg ending
+                             field is quoted and doesn't contain ending
                              quote */
 
 /* Character values */
@@ -79,7 +79,7 @@ int csv_init(struct csv_parser **p, unsigned char options);
 int csv_fini(struct csv_parser *p, void (*cb1)(char *, size_t, void *), void (*cb2)(char, void *), void *data);
 void csv_free(struct csv_parser *p);
 int csv_error(struct csv_parser *p);
-char * csv_strerror(int error);
+const char * csv_strerror(int error);
 size_t csv_parse(struct csv_parser *p, const char *s, size_t len, void (*cb1)(char *, size_t, void *), void (*cb2)(char, void *), void *data);
 size_t csv_write(char *dest, size_t dest_size, const char *src, size_t src_size);
 int csv_fwrite(FILE *fp, const char *src, size_t src_size);

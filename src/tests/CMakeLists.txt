@@ -28,6 +28,9 @@ TARGET_LINK_LIBRARIES(formattest core ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} 
 KDE4_ADD_UNIT_TEST(fieldtest NOGUI fieldtest.cpp ../field.cpp ../fieldformat.cpp ../tellico_utils.cpp)
 TARGET_LINK_LIBRARIES(fieldtest core ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} )
 
+KDE4_ADD_UNIT_TEST(imagetest NOGUI imagetest.cpp ../tellico_utils.cpp)
+TARGET_LINK_LIBRARIES(imagetest images core ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} )
+
 SET(tellicotest_SRCS
    ../collection.cpp
    ../entry.cpp
@@ -53,10 +56,6 @@ set(TELLICO_TEST_LIBS
    ${QT_QTTEST_LIBRARY}
    ${KDE4_KDEUI_LIBS}
    ${KDE4_KIO_LIBS}
-   ${QIMAGEBLITZ_LIBRARIES}
-   ${LIBXML2_LIBRARIES}
-   ${LIBXSLT_LIBRARIES}
-   ${LIBEXSLT_LIBRARIES}
    tellicotest
    collections
    translators
@@ -80,7 +79,7 @@ KDE4_ADD_UNIT_TEST(amctest NOGUI amctest.cpp)
 TARGET_LINK_LIBRARIES(amctest ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(bibtextest NOGUI bibtextest.cpp)
-TARGET_LINK_LIBRARIES(bibtextest ${TELLICO_TEST_LIBS} btparse)
+TARGET_LINK_LIBRARIES(bibtextest ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(bibtexmltest NOGUI bibtexmltest.cpp)
 TARGET_LINK_LIBRARIES(bibtexmltest ${TELLICO_TEST_LIBS})
@@ -101,10 +100,16 @@ KDE4_ADD_UNIT_TEST(arxivfetchertest NOGUI arxivfetchertest.cpp)
 TARGET_LINK_LIBRARIES(arxivfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(citebasefetchertest NOGUI citebasefetchertest.cpp)
-TARGET_LINK_LIBRARIES(citebasefetchertest fetch ${TELLICO_TEST_LIBS} btparse)
+TARGET_LINK_LIBRARIES(citebasefetchertest fetch ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(discogsfetchertest NOGUI discogsfetchertest.cpp)
+TARGET_LINK_LIBRARIES(discogsfetchertest fetch ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(giantbombfetchertest NOGUI giantbombfetchertest.cpp)
+TARGET_LINK_LIBRARIES(giantbombfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(googlescholarfetchertest NOGUI googlescholarfetchertest.cpp)
-TARGET_LINK_LIBRARIES(googlescholarfetchertest fetch ${TELLICO_TEST_LIBS} btparse)
+TARGET_LINK_LIBRARIES(googlescholarfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(imdbfetchertest NOGUI imdbfetchertest.cpp)
 TARGET_LINK_LIBRARIES(imdbfetchertest fetch ${TELLICO_TEST_LIBS})
@@ -114,7 +119,7 @@ TARGET_LINK_LIBRARIES(srufetchertest fetch ${TELLICO_TEST_LIBS})
 
 IF( YAZ_FOUND )
     KDE4_ADD_UNIT_TEST(z3950fetchertest NOGUI z3950fetchertest.cpp)
-    TARGET_LINK_LIBRARIES(z3950fetchertest fetch ${TELLICO_TEST_LIBS} ${YAZ_LIBRARIES})
+    TARGET_LINK_LIBRARIES(z3950fetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( YAZ_FOUND )
 
 #KDE4_ADD_UNIT_TEST(entryupdatejobtest NOGUI entryupdatejobtest.cpp ../entryupdatejob.cpp ../entrymerger.cpp)

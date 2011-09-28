@@ -28,6 +28,7 @@
 #include "fetch/fetchmanager.h"
 #include "fetch/fetcher.h"
 #include "fetch/fetchresult.h"
+#include "core/tellico_config.h"
 #include "entryview.h"
 #include "utils/isbnvalidator.h"
 #include "utils/upcvalidator.h"
@@ -331,11 +332,7 @@ void FetchDialog::slotSearchClicked() {
     Fetch::Manager::self()->stop();
     slotFetchDone();
   } else {
-    QString value = m_valueLineEdit->text().simplified();
-    if(value != m_oldSearch) {
-      m_treeWidget->clear();
-      m_entryView->clear();
-    }
+    const QString value = m_valueLineEdit->text().simplified();
     m_resultCount = 0;
     m_oldSearch = value;
     m_started = true;
@@ -744,6 +741,9 @@ void FetchDialog::slotBarcodeGotImage(const QImage& img_)  {
 }
 
 void FetchDialog::openBarcodePreview() {
+  if(!Config::enableWebcam()) {
+    return;
+  }
 #ifdef ENABLE_WEBCAM
   if(m_barcodePreview) {
     m_barcodePreview->show();
@@ -769,7 +769,7 @@ void FetchDialog::openBarcodePreview() {
 
 void FetchDialog::closeBarcodePreview() {
 #ifdef ENABLE_WEBCAM
-  if(!m_barcodePreview) {
+  if(!m_barcodePreview || !m_barcodeRecognitionThread) {
     return;
   }
 

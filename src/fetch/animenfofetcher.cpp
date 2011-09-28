@@ -49,14 +49,14 @@ namespace {
   static const char* ANIMENFO_BASE_URL = "http://www.animenfo.com/search.php";
 }
 
+using namespace Tellico;
 using Tellico::Fetch::AnimeNfoFetcher;
 
 AnimeNfoFetcher::AnimeNfoFetcher(QObject* parent_)
     : Fetcher(parent_), m_started(false) {
 }
 
-QString AnimeNfoFetcher::defaultName() {
-  return QLatin1String("AnimeNfo.com");
+AnimeNfoFetcher::~AnimeNfoFetcher() {
 }
 
 QString AnimeNfoFetcher::source() const {
@@ -198,7 +198,7 @@ void AnimeNfoFetcher::slotComplete(KJob*) {
   stop();
 }
 
-Tellico::Data::EntryPtr AnimeNfoFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr AnimeNfoFetcher::fetchEntryHook(uint uid_) {
   // if we already grabbed this one, then just pull it out of the dict
   Data::EntryPtr entry = m_entries[uid_];
   if(entry) {
@@ -361,6 +361,14 @@ Tellico::Fetch::FetchRequest AnimeNfoFetcher::updateRequest(Data::EntryPtr entry
 
 Tellico::Fetch::ConfigWidget* AnimeNfoFetcher::configWidget(QWidget* parent_) const {
   return new AnimeNfoFetcher::ConfigWidget(parent_);
+}
+
+QString AnimeNfoFetcher::defaultName() {
+  return QLatin1String("AnimeNfo.com");
+}
+
+QString AnimeNfoFetcher::defaultIcon() {
+  return favIcon("http://animenfo.com");
 }
 
 AnimeNfoFetcher::ConfigWidget::ConfigWidget(QWidget* parent_)

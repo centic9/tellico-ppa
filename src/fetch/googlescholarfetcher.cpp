@@ -46,6 +46,7 @@ namespace {
   static const char* SCHOLAR_SET_BIBTEX_URL = "http://scholar.google.com/scholar_setprefs?num=100&scis=yes&scisf=4&submit=Save+Preferences";
 }
 
+using namespace Tellico;
 using Tellico::Fetch::GoogleScholarFetcher;
 
 GoogleScholarFetcher::GoogleScholarFetcher(QObject* parent_)
@@ -57,11 +58,6 @@ GoogleScholarFetcher::GoogleScholarFetcher(QObject* parent_)
 }
 
 GoogleScholarFetcher::~GoogleScholarFetcher() {
-}
-
-QString GoogleScholarFetcher::defaultName() {
-  // no i18n
-  return QLatin1String("Google Scholar");
 }
 
 QString GoogleScholarFetcher::source() const {
@@ -212,7 +208,7 @@ void GoogleScholarFetcher::slotComplete(KJob*) {
   stop(); // required
 }
 
-Tellico::Data::EntryPtr GoogleScholarFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr GoogleScholarFetcher::fetchEntryHook(uint uid_) {
   return m_entries[uid_];
 }
 
@@ -226,6 +222,15 @@ Tellico::Fetch::FetchRequest GoogleScholarFetcher::updateRequest(Data::EntryPtr 
 
 Tellico::Fetch::ConfigWidget* GoogleScholarFetcher::configWidget(QWidget* parent_) const {
   return new GoogleScholarFetcher::ConfigWidget(parent_, this);
+}
+
+QString GoogleScholarFetcher::defaultName() {
+  // no i18n
+  return QLatin1String("Google Scholar");
+}
+
+QString GoogleScholarFetcher::defaultIcon() {
+  return favIcon("http://scholar.google.com");
 }
 
 GoogleScholarFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const GoogleScholarFetcher* /*=0*/)

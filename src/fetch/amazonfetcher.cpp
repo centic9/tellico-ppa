@@ -36,8 +36,8 @@
 #include "../field.h"
 #include "../fieldformat.h"
 #include "../tellico_utils.h"
-#include "../tellico_kernel.h"
 #include "../utils/isbnvalidator.h"
+#include "../utils/wallet.h"
 #include "../gui/combobox.h"
 #include "../tellico_debug.h"
 
@@ -68,6 +68,7 @@ namespace {
   static const char* linkText = I18N_NOOP("Amazon Link");
 }
 
+using namespace Tellico;
 using Tellico::Fetch::AmazonFetcher;
 
 // static
@@ -97,21 +98,16 @@ const AmazonFetcher::SiteData& AmazonFetcher::siteData(int site_) {
   return dataVector[site_];
 }
 
-AmazonFetcher::AmazonFetcher(Site site_, QObject* parent_)
-    : Fetcher(parent_), m_xsltHandler(0), m_site(site_), m_imageSize(MediumImage),
+AmazonFetcher::AmazonFetcher(QObject* parent_)
+    : Fetcher(parent_), m_xsltHandler(0), m_site(Unknown), m_imageSize(MediumImage),
       m_assoc(QLatin1String(AMAZON_ASSOC_TOKEN)), m_addLinkField(true), m_limit(AMAZON_MAX_RETURNS_TOTAL),
       m_countOffset(0), m_page(1), m_total(-1), m_numResults(0), m_job(0), m_started(false) {
-  m_name = siteData(site_).title;
   (void)linkText; // just to shut up the compiler
 }
 
 AmazonFetcher::~AmazonFetcher() {
   delete m_xsltHandler;
   m_xsltHandler = 0;
-}
-
-QString AmazonFetcher::defaultName() {
-  return i18n("Amazon.com Web Services");
 }
 
 QString AmazonFetcher::source() const {
@@ -129,6 +125,12 @@ bool AmazonFetcher::canFetch(int type) const {
 }
 
 void AmazonFetcher::readConfigHook(const KConfigGroup& config_) {
+  const int site = config_.readEntry("Site", int(Unknown));
+  Q_ASSERT(site != Unknown);
+  m_site = static_cast<Site>(site);
+  if(m_name.isEmpty()) {
+    m_name = siteData(m_site).title;
+  }
   QString s = config_.readEntry("AccessKey");
   if(!s.isEmpty()) {
     m_access = s;
@@ -145,7 +147,6 @@ void AmazonFetcher::readConfigHook(const KConfigGroup& config_) {
   if(imageSize > -1) {
     m_imageSize = static_cast<ImageSize>(imageSize);
   }
-  m_fields = config_.readEntry("Custom Fields", QStringList() << QLatin1String("keyword"));
 }
 
 void AmazonFetcher::search() {
@@ -561,18 +562,11 @@ void AmazonFetcher::slotComplete(KJob*) {
   }
 }
 
-Tellico::Data::EntryPtr AmazonFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   if(!entry) {
     myWarning() << "no entry in dict";
     return entry;
-  }
-
-  QStringList defaultFields = customFields().keys();
-  for(QStringList::Iterator it = defaultFields.begin(); it != defaultFields.end(); ++it) {
-    if(!m_fields.contains(*it)) {
-      entry->setField(*it, QString());
-    }
   }
 
   // do what we can to remove useless keywords
@@ -749,21 +743,27 @@ void AmazonFetcher::initXSLTHandler() {
 }
 
 Tellico::Fetch::FetchRequest AmazonFetcher::updateRequest(Data::EntryPtr entry_) {
-  int type = entry_->collection()->type();
+  const int type = entry_->collection()->type();
+  const QString t = entry_->field(QLatin1String("title"));
   if(type == Data::Collection::Book || type == Data::Collection::ComicBook || type == Data::Collection::Bibtex) {
-    QString isbn = entry_->field(QLatin1String("isbn"));
+    const QString isbn = entry_->field(QLatin1String("isbn"));
     if(!isbn.isEmpty()) {
       return FetchRequest(Fetch::ISBN, isbn);
     }
-  } else if(type == Data::Collection::Album) {
-    QString a = entry_->field(QLatin1String("artist"));
+    const QString a = entry_->field(QLatin1String("author"));
     if(!a.isEmpty()) {
-      return FetchRequest(Fetch::Person, a);
+      return t.isEmpty() ? FetchRequest(Fetch::Person, a)
+                         : FetchRequest(Fetch::Keyword, t + QLatin1Char('-') + a);
+    }
+  } else if(type == Data::Collection::Album) {
+    const QString a = entry_->field(QLatin1String("artist"));
+    if(!a.isEmpty()) {
+      return t.isEmpty() ? FetchRequest(Fetch::Person, a)
+                         : FetchRequest(Fetch::Keyword, t + QLatin1Char('-') + a);
     }
   }
 
   // optimistically try searching for title and rely on Collection::sameEntry() to figure things out
-  QString t = entry_->field(QLatin1String("title"));
   if(!t.isEmpty()) {
     return FetchRequest(Fetch::Title, t);
   }
@@ -816,7 +816,7 @@ bool AmazonFetcher::parseTitleToken(Tellico::Data::EntryPtr entry, const QString
 
 QString AmazonFetcher::secretKey() const {
   if(m_amazonKey.isEmpty()) {
-    QByteArray maybeKey = Kernel::self()->readWalletEntry(m_access);
+    QByteArray maybeKey = Wallet::self()->readWalletEntry(m_access);
     if(!maybeKey.isNull()) {
       m_amazonKey = maybeKey;
     } else {
@@ -824,6 +824,21 @@ QString AmazonFetcher::secretKey() const {
     }
   }
   return QString::fromUtf8(m_amazonKey);
+}
+
+//static
+QString AmazonFetcher::defaultName() {
+  return i18n("Amazon.com Web Services");
+}
+
+QString AmazonFetcher::defaultIcon() {
+  return favIcon("http://amazon.com");
+}
+
+Tellico::StringHash AmazonFetcher::allOptionalFields() {
+  StringHash hash;
+  hash[QLatin1String("keyword")] = i18n("Keywords");
+  return hash;
 }
 
 Tellico::Fetch::ConfigWidget* AmazonFetcher::configWidget(QWidget* parent_) const {
@@ -840,9 +855,9 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
 
   QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
                                "If you agree to the terms and conditions, <a href='%2'>sign "
-                               "up for an account</a>, and enter your information below.")
-                                .arg(AmazonFetcher::defaultName(),
-                                     QLatin1String("https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html")),
+                               "up for an account</a>, and enter your information below.",
+                                AmazonFetcher::defaultName(),
+                                QLatin1String("https://affiliate-program.amazon.com/gp/flex/advertising/api/sign-in.html")),
                           optionsWidget());
   al->setOpenExternalLinks(true);
   al->setWordWrap(true);
@@ -928,21 +943,21 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
     m_imageCombo->setCurrentData(MediumImage);
   }
 
-  addFieldsWidget(AmazonFetcher::customFields(), fetcher_ ? fetcher_->m_fields : QStringList());
+  addFieldsWidget(AmazonFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 
   KAcceleratorManager::manage(optionsWidget());
 }
 
-void AmazonFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
+void AmazonFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   int n = m_siteCombo->currentData().toInt();
   config_.writeEntry("Site", n);
   QString s = m_accessEdit->text().trimmed();
   if(!s.isEmpty()) {
     config_.writeEntry("AccessKey", s);
   }
-  s = m_secretKeyEdit->text().trimmed();
-  if(!s.isEmpty()) {
-    config_.writeEntry("SecretKey", s);
+  QByteArray b = m_secretKeyEdit->text().trimmed().toUtf8();
+  if(!b.isEmpty()) {
+    config_.writeEntry("SecretKey", b);
   }
   s = m_assocEdit->text().trimmed();
   if(!s.isEmpty()) {
@@ -950,9 +965,6 @@ void AmazonFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
   }
   n = m_imageCombo->currentData().toInt();
   config_.writeEntry("Image Size", n);
-
-  saveFieldsConfig(config_);
-  slotSetModified(false);
 }
 
 QString AmazonFetcher::ConfigWidget::preferredName() const {
@@ -961,13 +973,6 @@ QString AmazonFetcher::ConfigWidget::preferredName() const {
 
 void AmazonFetcher::ConfigWidget::slotSiteChanged() {
   emit signalName(preferredName());
-}
-
-//static
-Tellico::StringMap AmazonFetcher::customFields() {
-  StringMap map;
-  map[QLatin1String("keyword")] = i18n("Keywords");
-  return map;
 }
 
 #include "amazonfetcher.moc"

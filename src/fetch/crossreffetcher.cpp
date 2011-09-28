@@ -27,11 +27,11 @@
 #include "../translators/tellicoimporter.h"
 #include "../gui/guiproxy.h"
 #include "../tellico_utils.h"
-#include "../tellico_kernel.h"
 #include "../collection.h"
 #include "../entry.h"
 #include "../core/netaccess.h"
 #include "../images/imagefactory.h"
+#include "../utils/wallet.h"
 #include "../tellico_debug.h"
 
 #include <klocale.h>
@@ -46,15 +46,18 @@
 #include <QTextStream>
 #include <QGridLayout>
 #include <QPixmap>
+#include <QTextCodec>
 
 // #define CROSSREF_TEST
 
 #define CROSSREF_USE_UNIXREF
 
 namespace {
-  static const char* CROSSREF_BASE_URL = "http://www.crossref.org/openurl/?url_ver=Z39.88-2004&noredirect=true";
+  static const char* CROSSREF_BASE_URL = "http://www.crossref.org/openurl/";
 }
 
+using namespace Tellico;
+using namespace Tellico::Fetch;
 using Tellico::Fetch::CrossRefFetcher;
 
 CrossRefFetcher::CrossRefFetcher(QObject* parent_)
@@ -64,10 +67,6 @@ CrossRefFetcher::CrossRefFetcher(QObject* parent_)
 CrossRefFetcher::~CrossRefFetcher() {
   delete m_xsltHandler;
   m_xsltHandler = 0;
-}
-
-QString CrossRefFetcher::defaultName() {
-  return QLatin1String("CrossRef");
 }
 
 QString CrossRefFetcher::source() const {
@@ -81,13 +80,14 @@ bool CrossRefFetcher::canFetch(int type) const {
 void CrossRefFetcher::readConfigHook(const KConfigGroup& config_) {
   m_user = config_.readEntry("User");
   m_password = config_.readEntry("Password");
+  m_email = config_.readEntry("Email");
 }
 
 void CrossRefFetcher::search() {
   m_started = true;
 
   readWallet();
-  if(m_user.isEmpty() || m_password.isEmpty()) {
+  if(m_email.isEmpty() && (m_user.isEmpty() || m_password.isEmpty())) {
     message(i18n("%1 requires a username and password.", source()), MessageHandler::Error);
     stop();
     return;
@@ -143,7 +143,7 @@ void CrossRefFetcher::slotComplete(KJob*) {
   QFile f(QLatin1String("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setEncoding(QTextStream::UnicodeUTF8);
+    t.setCodec(QTextCodec::codecForName("UTF-8"));
     t << data;
   }
   f.close();
@@ -183,7 +183,7 @@ void CrossRefFetcher::slotComplete(KJob*) {
   stop(); // required
 }
 
-Tellico::Data::EntryPtr CrossRefFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr CrossRefFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   // if URL but no cover image, fetch it
   if(!entry->field(QLatin1String("url")).isEmpty()) {
@@ -234,10 +234,16 @@ void CrossRefFetcher::initXSLTHandler() {
 
 KUrl CrossRefFetcher::searchURL(FetchKey key_, const QString& value_) const {
   KUrl u(CROSSREF_BASE_URL);
+  u.addQueryItem(QLatin1String("noredirect"), QLatin1String("true"));
+  u.addQueryItem(QLatin1String("multihit"), QLatin1String("true"));
 #ifdef CROSSREF_USE_UNIXREF
   u.addQueryItem(QLatin1String("format"), QLatin1String("unixref"));
 #endif
-  u.addQueryItem(QLatin1String("req_dat"), QString::fromLatin1("ourl_%1:%2").arg(m_user, m_password));
+  if(m_email.isEmpty()) {
+    u.addQueryItem(QLatin1String("pid"), QString::fromLatin1("%1:%2").arg(m_user, m_password));
+  } else {
+    u.addQueryItem(QLatin1String("pid"), m_email);
+  }
 
   switch(key_) {
     case DOI:
@@ -274,7 +280,7 @@ Tellico::Fetch::FetchRequest CrossRefFetcher::updateRequest(Data::EntryPtr entry
 
 void CrossRefFetcher::readWallet() const {
   if(m_user.isEmpty() || m_password.isEmpty()) {
-    QMap<QString, QString> map = Kernel::self()->readWalletMap(QLatin1String("crossref.org"));
+    QMap<QString, QString> map = Wallet::self()->readWalletMap(QLatin1String("crossref.org"));
     if(!map.isEmpty()) {
       m_user = map.value(QLatin1String("username"));
       m_password = map.value(QLatin1String("password"));
@@ -284,6 +290,14 @@ void CrossRefFetcher::readWallet() const {
 
 Tellico::Fetch::ConfigWidget* CrossRefFetcher::configWidget(QWidget* parent_) const {
   return new CrossRefFetcher::ConfigWidget(parent_, this);
+}
+
+QString CrossRefFetcher::defaultName() {
+  return QLatin1String("CrossRef"); // no translation
+}
+
+QString CrossRefFetcher::defaultIcon() {
+  return favIcon("http://crossref.org");
 }
 
 CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetcher* fetcher_)
@@ -296,13 +310,12 @@ CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetc
 
   QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
                                "If you agree to the terms and conditions, <a href='%2'>sign "
-                               "up for an account</a>, and enter your information below.")
-                                .arg(preferredName(),
-                                     QLatin1String("http://www.crossref.org/requestaccount/")),
+                               "up for an account</a>, and enter your information below.",
+                                preferredName(),
+                                QLatin1String("http://www.crossref.org/requestaccount/")),
                           optionsWidget());
   al->setOpenExternalLinks(true);
   al->setWordWrap(true);
-  ++row;
   l->addWidget(al, row, 0, 1, 2);
   // richtext gets weird with size
   al->setMinimumWidth(al->sizeHint().width());
@@ -327,14 +340,25 @@ CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetc
   m_passEdit->setWhatsThis(w);
   label->setBuddy(m_passEdit);
 
+  label = new QLabel(i18n("For some accounts, only an email address is required."), optionsWidget());
+  l->addWidget(label, ++row, 0, 1, 2);
+
+  label = new QLabel(i18n("Email: "), optionsWidget());
+  l->addWidget(label, ++row, 0);
+  m_emailEdit = new KLineEdit(optionsWidget());
+  connect(m_emailEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  l->addWidget(m_emailEdit, row, 1);
+  label->setBuddy(m_emailEdit);
+
   if(fetcher_) {
     fetcher_->readWallet(); // make sure that the wallet values are read
     m_userEdit->setText(fetcher_->m_user);
     m_passEdit->setText(fetcher_->m_password);
+    m_emailEdit->setText(fetcher_->m_email);
   }
 }
 
-void CrossRefFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
+void CrossRefFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   QString s = m_userEdit->text().trimmed();
   if(!s.isEmpty()) {
     config_.writeEntry("User", s);
@@ -342,6 +366,10 @@ void CrossRefFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
   s = m_passEdit->text().trimmed();
   if(!s.isEmpty()) {
     config_.writeEntry("Password", s);
+  }
+  s = m_emailEdit->text().trimmed();
+  if(!s.isEmpty()) {
+    config_.writeEntry("Email", s);
   }
 
   slotSetModified(false);

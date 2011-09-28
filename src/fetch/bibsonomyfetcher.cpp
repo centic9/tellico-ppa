@@ -45,6 +45,7 @@ namespace {
   static const int BIBSONOMY_MAX_RESULTS = 20;
 }
 
+using namespace Tellico;
 using Tellico::Fetch::BibsonomyFetcher;
 
 BibsonomyFetcher::BibsonomyFetcher(QObject* parent_)
@@ -52,10 +53,6 @@ BibsonomyFetcher::BibsonomyFetcher(QObject* parent_)
 }
 
 BibsonomyFetcher::~BibsonomyFetcher() {
-}
-
-QString BibsonomyFetcher::defaultName() {
-  return QLatin1String("Bibsonomy");
 }
 
 QString BibsonomyFetcher::source() const {
@@ -156,7 +153,7 @@ void BibsonomyFetcher::slotComplete(KJob*) {
   stop(); // required
 }
 
-Tellico::Data::EntryPtr BibsonomyFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr BibsonomyFetcher::fetchEntryHook(uint uid_) {
   return m_entries[uid_];
 }
 
@@ -172,6 +169,14 @@ Tellico::Fetch::ConfigWidget* BibsonomyFetcher::configWidget(QWidget* parent_) c
   return new BibsonomyFetcher::ConfigWidget(parent_, this);
 }
 
+QString BibsonomyFetcher::defaultName() {
+  return QLatin1String("Bibsonomy");
+}
+
+QString BibsonomyFetcher::defaultIcon() {
+  return favIcon("http://bibsonomy.org");
+}
+
 BibsonomyFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BibsonomyFetcher*)
     : Fetch::ConfigWidget(parent_) {
   QVBoxLayout* l = new QVBoxLayout(optionsWidget());
@@ -179,7 +184,7 @@ BibsonomyFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BibsonomyFe
   l->addStretch();
 }
 
-void BibsonomyFetcher::ConfigWidget::saveConfig(KConfigGroup&) {
+void BibsonomyFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
 }
 
 QString BibsonomyFetcher::ConfigWidget::preferredName() const {

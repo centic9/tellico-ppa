@@ -28,7 +28,6 @@
 #include "../entry.h"
 #include "../fieldformat.h"
 #include "../derivedvalue.h"
-#include "../importdialog.h"
 #include "../translators/tellicoimporter.h"
 #include "../tellico_debug.h"
 #include "../gui/combobox.h"
@@ -36,6 +35,11 @@
 #include "../gui/collectiontypecombo.h"
 #include "../gui/cursorsaver.h"
 #include "../newstuff/manager.h"
+#include "../translators/translators.h"
+#include "../translators/tellicoimporter.h"
+#include "../translators/bibteximporter.h"
+#include "../translators/xsltimporter.h"
+#include "../translators/risimporter.h"
 
 #include <klocale.h>
 #include <kprocess.h>
@@ -43,12 +47,14 @@
 #include <kacceleratormanager.h>
 #include <kshell.h>
 #include <KConfigGroup>
+#include <KStandardDirs>
 
 #include <QLabel>
 #include <QRegExp>
 #include <QGroupBox>
 #include <QGridLayout>
 
+using namespace Tellico;
 using Tellico::Fetch::ExecExternalFetcher;
 
 QStringList ExecExternalFetcher::parseArguments(const QString& str_) {
@@ -81,10 +87,6 @@ ExecExternalFetcher::ExecExternalFetcher(QObject* parent_) : Fetcher(parent_),
 
 ExecExternalFetcher::~ExecExternalFetcher() {
   stop();
-}
-
-QString ExecExternalFetcher::defaultName() {
-  return i18n("External Application");
 }
 
 QString ExecExternalFetcher::source() const {
@@ -229,14 +231,47 @@ void ExecExternalFetcher::slotProcessExited() {
     return;
   }
 
+  const QString text = QString::fromUtf8(m_data, m_data.size());
   Import::Format format = static_cast<Import::Format>(m_formatType > -1 ? m_formatType : Import::TellicoXML);
-  Import::Importer* imp = ImportDialog::importer(format, KUrl::List());
+  Import::Importer* imp = 0;
+  // only 4 formats re supported here
+  switch(format) {
+    case Import::TellicoXML:
+      imp = new Import::TellicoImporter(text);
+      break;
+
+    case Import::Bibtex:
+      imp = new Import::BibtexImporter(text);
+      break;
+
+    case Import::MODS:
+      imp = new Import::XSLTImporter(text);
+      {
+        QString xsltFile = KStandardDirs::locate("appdata", QLatin1String("mods2tellico.xsl"));
+        if(!xsltFile.isEmpty()) {
+          KUrl u;
+          u.setPath(xsltFile);
+          static_cast<Import::XSLTImporter*>(imp)->setXSLTURL(u);
+        } else {
+          myWarning() << "unable to find mods2tellico.xml!";
+          delete imp;
+          imp = 0;
+        }
+      }
+      break;
+
+    case Import::RIS:
+      imp = new Import::RISImporter(text);
+      break;
+
+    default:
+      break;
+  }
   if(!imp) {
     stop();
     return;
   }
 
-  imp->setText(QString::fromUtf8(m_data, m_data.size()));
   Data::CollPtr coll = imp->collection();
   if(!coll) {
     if(!imp->statusMessage().isEmpty()) {
@@ -264,7 +299,7 @@ void ExecExternalFetcher::slotProcessExited() {
   stop(); // be sure to call this
 }
 
-Tellico::Data::EntryPtr ExecExternalFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr ExecExternalFetcher::fetchEntryHook(uint uid_) {
   return m_entries[uid_];
 }
 
@@ -283,6 +318,14 @@ Tellico::Fetch::FetchRequest ExecExternalFetcher::updateRequest(Data::EntryPtr e
 
 Tellico::Fetch::ConfigWidget* ExecExternalFetcher::configWidget(QWidget* parent_) const {
   return new ExecExternalFetcher::ConfigWidget(parent_, this);
+}
+
+QString ExecExternalFetcher::defaultName() {
+  return i18n("External Application");
+}
+
+QString ExecExternalFetcher::defaultIcon() {
+  return QLatin1String("application-x-executable");
 }
 
 ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExternalFetcher* fetcher_/*=0*/)
@@ -306,12 +349,10 @@ ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExte
   label = new QLabel(i18n("&Result type: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_formatCombo = new GUI::ComboBox(optionsWidget());
-  Import::FormatMap formatMap = ImportDialog::formatMap();
-  for(Import::FormatMap::Iterator it = formatMap.begin(); it != formatMap.end(); ++it) {
-    if(ImportDialog::formatImportsText(it.key())) {
-      m_formatCombo->addItem(it.value(), it.key());
-    }
-  }
+  m_formatCombo->addItem(QLatin1String("Tellico"), Import::TellicoXML);
+  m_formatCombo->addItem(QLatin1String("Bibtex"), Import::Bibtex);
+  m_formatCombo->addItem(QLatin1String("MODS"), Import::MODS);
+  m_formatCombo->addItem(QLatin1String("RIS"), Import::RIS);
   connect(m_formatCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
   l->addWidget(m_formatCombo, row, 1);
   w = i18n("Set the result type of the data returned from the external application.");
@@ -399,9 +440,9 @@ ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExte
     m_collCombo->setCurrentType(Data::Collection::Book);
   }
   if(fetcher_ && fetcher_->m_formatType > -1) {
-    m_formatCombo->setCurrentItem(formatMap[static_cast<Import::Format>(fetcher_->m_formatType)]);
+    m_formatCombo->setCurrentData(fetcher_->m_formatType);
   } else {
-    m_formatCombo->setCurrentItem(formatMap[Import::TellicoXML]);
+    m_formatCombo->setCurrentData(Import::TellicoXML);
   }
   m_deleteOnRemove = fetcher_ && fetcher_->m_deleteOnRemove;
   KAcceleratorManager::manage(optionsWidget());
@@ -455,15 +496,14 @@ void ExecExternalFetcher::ConfigWidget::readConfig(const KConfigGroup& config_) 
   int collType = config_.readEntry("CollectionType", -1);
   m_collCombo->setCurrentType(collType);
 
-  Import::FormatMap formatMap = ImportDialog::formatMap();
   int formatType = config_.readEntry("FormatType", -1);
-  m_formatCombo->setCurrentItem(formatMap[static_cast<Import::Format>(formatType)]);
+  m_formatCombo->setCurrentData(static_cast<Import::Format>(formatType));
   m_deleteOnRemove = config_.readEntry("DeleteOnRemove", false);
   m_name = config_.readEntry("Name");
   m_newStuffName = config_.readEntry("NewStuffName");
 }
 
-void ExecExternalFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
+void ExecExternalFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
         KUrl u = m_pathEdit->url();
   if(!u.isEmpty()) {
     config_.writePathEntry("ExecPath", u.path());

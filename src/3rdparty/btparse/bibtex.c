@@ -21,7 +21,7 @@
 /*#include "my_dmalloc.h"*/
 #include "bt_debug.h"
 
-extern char * InputFilename;            /* for zzcr_ast call in pccts/ast.c */
+extern const char * InputFilename;       /* for zzcr_ast call in pccts/ast.c */
 #define GENAST
 
 #include "ast.h"
@@ -47,7 +47,7 @@ bibfile(AST**_root)
 	zzBLOCK(zztasp1);
 	zzMake0;
 	{
-	AST *last; (*_root) = NULL;
+	AST *last = NULL; (*_root) = NULL;
 	{
 		zzBLOCK(zztasp2);
 		zzMake0;

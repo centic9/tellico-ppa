@@ -173,7 +173,7 @@ void LoanDialog::init() {
   m_addEvent->setEnabled(false); // gets enabled when valid due date is entered
   m_addEvent->setWhatsThis(i18n("<qt>Checking this box will add a <em>To-do</em> item "
                                    "to your active calendar, which can be viewed using KOrganizer. "
-                                   "The box is only active if you set a due date."));
+                                   "The box is only active if you set a due date.</qt>"));
 
   KConfigGroup config(KGlobal::config(), QLatin1String("Loan Dialog Options"));
   restoreDialogSize(config);
@@ -218,7 +218,12 @@ void LoanDialog::slotLoadAddressBook() {
   const KABC::AddressBook* const abook = KABC::StdAddressBook::self(true);
   for(KABC::AddressBook::ConstIterator it = abook->begin(), end = abook->end();
       it != end; ++it) {
-    m_borrowerEdit->completionObject()->addItem((*it).realName());
+    // skip people with no name
+    const QString name = (*it).realName().trimmed();
+    if(name.isEmpty()) {
+      continue;
+    }
+    m_borrowerEdit->completionObject()->addItem(name);
   }
 #endif
 

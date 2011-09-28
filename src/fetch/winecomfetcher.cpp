@@ -52,6 +52,7 @@ namespace {
   static const char* WINECOM_BASE_URL = "http://services.wine.com";
 }
 
+using namespace Tellico;
 using Tellico::Fetch::WineComFetcher;
 
 WineComFetcher::WineComFetcher(QObject* parent_)
@@ -63,10 +64,6 @@ WineComFetcher::WineComFetcher(QObject* parent_)
 WineComFetcher::~WineComFetcher() {
   delete m_xsltHandler;
   m_xsltHandler = 0;
-}
-
-QString WineComFetcher::defaultName() {
-  return i18n("Wine.com");
 }
 
 QString WineComFetcher::source() const {
@@ -233,7 +230,7 @@ void WineComFetcher::slotComplete(KJob*) {
   }
 }
 
-Tellico::Data::EntryPtr WineComFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr WineComFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   if(!entry) {
     myWarning() << "no entry in dict";
@@ -276,6 +273,14 @@ Tellico::Fetch::ConfigWidget* WineComFetcher::configWidget(QWidget* parent_) con
   return new WineComFetcher::ConfigWidget(parent_, this);
 }
 
+QString WineComFetcher::defaultName() {
+  return QLatin1String("Wine.com"); // no translation
+}
+
+QString WineComFetcher::defaultIcon() {
+  return favIcon("http://www.wine.com");
+}
+
 WineComFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const WineComFetcher* fetcher_)
     : Fetch::ConfigWidget(parent_) {
   QGridLayout* l = new QGridLayout(optionsWidget());
@@ -285,9 +290,9 @@ WineComFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const WineComFetche
   int row = -1;
   QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
                                "If you agree to the terms and conditions, <a href='%2'>sign "
-                               "up for an account</a>, and enter your information below.")
-                                .arg(preferredName(),
-                                     QLatin1String("http://api.wine.com/plans")),
+                               "up for an account</a>, and enter your information below.",
+                                preferredName(),
+                                QLatin1String("http://api.wine.com/plans")),
                           optionsWidget());
   al->setOpenExternalLinks(true);
   al->setWordWrap(true);
@@ -311,14 +316,11 @@ WineComFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const WineComFetche
   }
 }
 
-void WineComFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
+void WineComFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   QString apiKey = m_apiKeyEdit->text().trimmed();
   if(!apiKey.isEmpty()) {
     config_.writeEntry("API Key", apiKey);
   }
-
-  saveFieldsConfig(config_);
-  slotSetModified(false);
 }
 
 QString WineComFetcher::ConfigWidget::preferredName() const {

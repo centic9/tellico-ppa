@@ -53,6 +53,8 @@ namespace {
   static const char* ARXIV_BASE_URL = "http://export.arxiv.org/api/query";
 }
 
+using namespace Tellico;
+using namespace Tellico::Fetch;
 using Tellico::Fetch::ArxivFetcher;
 
 ArxivFetcher::ArxivFetcher(QObject* parent_)
@@ -62,10 +64,6 @@ ArxivFetcher::ArxivFetcher(QObject* parent_)
 ArxivFetcher::~ArxivFetcher() {
   delete m_xsltHandler;
   m_xsltHandler = 0;
-}
-
-QString ArxivFetcher::defaultName() {
-  return i18n("arXiv.org");
 }
 
 QString ArxivFetcher::source() const {
@@ -194,7 +192,7 @@ void ArxivFetcher::slotComplete(KJob*) {
   stop(); // required
 }
 
-Tellico::Data::EntryPtr ArxivFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr ArxivFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   // if URL but no cover image, fetch it
   if(!entry->field(QLatin1String("url")).isEmpty()) {
@@ -317,6 +315,14 @@ Tellico::Fetch::ConfigWidget* ArxivFetcher::configWidget(QWidget* parent_) const
   return new ArxivFetcher::ConfigWidget(parent_, this);
 }
 
+QString ArxivFetcher::defaultName() {
+  return QLatin1String("arXiv.org"); // no translation
+}
+
+QString ArxivFetcher::defaultIcon() {
+  return favIcon("http://arxiv.org");
+}
+
 ArxivFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ArxivFetcher*)
     : Fetch::ConfigWidget(parent_) {
   QVBoxLayout* l = new QVBoxLayout(optionsWidget());
@@ -324,7 +330,7 @@ ArxivFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ArxivFetcher*)
   l->addStretch();
 }
 
-void ArxivFetcher::ConfigWidget::saveConfig(KConfigGroup&) {
+void ArxivFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
 }
 
 QString ArxivFetcher::ConfigWidget::preferredName() const {

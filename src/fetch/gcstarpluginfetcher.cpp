@@ -45,6 +45,7 @@
 #include <QShowEvent>
 #include <QGridLayout>
 
+using namespace Tellico;
 using Tellico::Fetch::GCstarPluginFetcher;
 
 GCstarPluginFetcher::CollectionPlugins GCstarPluginFetcher::collectionPlugins;
@@ -196,10 +197,6 @@ GCstarPluginFetcher::~GCstarPluginFetcher() {
   stop();
 }
 
-QString GCstarPluginFetcher::defaultName() {
-  return i18n("GCstar Plugin");
-}
-
 QString GCstarPluginFetcher::source() const {
   return m_name;
 }
@@ -318,7 +315,7 @@ void GCstarPluginFetcher::slotProcessExited() {
   stop(); // be sure to call this
 }
 
-Tellico::Data::EntryPtr GCstarPluginFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr GCstarPluginFetcher::fetchEntryHook(uint uid_) {
   return m_entries[uid_];
 }
 
@@ -333,6 +330,14 @@ Tellico::Fetch::FetchRequest GCstarPluginFetcher::updateRequest(Data::EntryPtr e
 
 Tellico::Fetch::ConfigWidget* GCstarPluginFetcher::configWidget(QWidget* parent_) const {
   return new GCstarPluginFetcher::ConfigWidget(parent_, this);
+}
+
+QString GCstarPluginFetcher::defaultName() {
+  return i18n("GCstar Plugin");
+}
+
+QString GCstarPluginFetcher::defaultIcon() {
+  return QLatin1String("gcstar");
 }
 
 GCstarPluginFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const GCstarPluginFetcher* fetcher_/*=0*/)
@@ -393,7 +398,7 @@ GCstarPluginFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const GCstarPl
 GCstarPluginFetcher::ConfigWidget::~ConfigWidget() {
 }
 
-void GCstarPluginFetcher::ConfigWidget::saveConfig(KConfigGroup& config_) {
+void GCstarPluginFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   config_.writeEntry("CollectionType", m_collCombo->currentType());
   config_.writeEntry("Plugin", m_pluginCombo->currentText());
 }

@@ -29,6 +29,7 @@
 #include "configwidget.h"
 
 #include <kurl.h>
+
 #include <QPointer>
 
 class KLineEdit;
@@ -63,19 +64,17 @@ public:
   // imdb can search title, person
   virtual bool canSearch(FetchKey k) const { return k == Title || k == Person; }
   virtual void stop();
-  virtual Data::EntryPtr fetchEntry(uint uid);
+  virtual Data::EntryPtr fetchEntryHook(uint uid);
   virtual Type type() const { return IMDB; }
   virtual bool canFetch(int type) const;
   virtual void readConfigHook(const KConfigGroup& config);
 
   virtual Fetch::ConfigWidget* configWidget(QWidget* parent) const;
 
-  static StringMap customFields();
-
   class ConfigWidget : public Fetch::ConfigWidget {
   public:
     explicit ConfigWidget(QWidget* parent_, const IMDBFetcher* fetcher = 0);
-    virtual void saveConfig(KConfigGroup& config);
+    virtual void saveConfigHook(KConfigGroup& config);
     virtual QString preferredName() const;
 
   private:
@@ -86,6 +85,8 @@ public:
   friend class ConfigWidget;
 
   static QString defaultName();
+  static QString defaultIcon();
+  static StringHash allOptionalFields();
 
 private slots:
   void slotComplete(KJob* job);
@@ -133,7 +134,6 @@ private:
   KUrl m_url;
   bool m_redirected;
   int m_limit;
-  QStringList m_fields;
 
   QString m_popularTitles;
   QString m_exactTitles;

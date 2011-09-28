@@ -15,25 +15,38 @@ SET(fetch_STAT_SRCS
    entrezfetcher.cpp
    execexternalfetcher.cpp
    fetcher.cpp
+   fetcherinitializer.cpp
    fetcherjob.cpp
    fetchmanager.cpp
    fetchresult.cpp
    gcstarpluginfetcher.cpp
+   giantbombfetcher.cpp
    googlescholarfetcher.cpp
    hmac_sha2.c
    ibsfetcher.cpp
    imdbfetcher.cpp
    isbndbfetcher.cpp
    messagehandler.cpp
+   musicbrainzfetcher.cpp
    sha2.c
    srufetcher.cpp
+   themoviedbfetcher.cpp
    winecomfetcher.cpp
+   xmlfetcher.cpp
    yahoofetcher.cpp
    z3950connection.cpp
    z3950fetcher.cpp
    )
 
 KDE4_ADD_LIBRARY(fetch STATIC ${fetch_STAT_SRCS})
+
+TARGET_LINK_LIBRARIES(fetch
+    newstuff
+    btparse
+    )
+IF( YAZ_FOUND )
+  TARGET_LINK_LIBRARIES(fetch ${YAZ_LIBRARIES})
+ENDIF( YAZ_FOUND )
 
 ########### install files ###############
 

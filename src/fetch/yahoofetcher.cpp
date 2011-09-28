@@ -51,6 +51,7 @@ namespace {
   static const char* YAHOO_APP_ID = "tellico-robby";
 }
 
+using namespace Tellico;
 using Tellico::Fetch::YahooFetcher;
 
 YahooFetcher::YahooFetcher(QObject* parent_)
@@ -224,7 +225,7 @@ void YahooFetcher::slotComplete(KJob*) {
   stop(); // required
 }
 
-Tellico::Data::EntryPtr YahooFetcher::fetchEntry(uint uid_) {
+Tellico::Data::EntryPtr YahooFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   if(!entry) {
     myWarning() << "no entry in dict";

@@ -124,6 +124,15 @@ bool AmazonFetcher::canFetch(int type) const {
          || type == Data::Collection::BoardGame;
 }
 
+bool AmazonFetcher::canSearch(FetchKey k) const {
+  // no UPC in Canada
+  return k == Title
+         || k == Person
+         || k == ISBN
+         || (k == UPC && m_site != CA)
+         || k == Keyword;
+}
+
 void AmazonFetcher::readConfigHook(const KConfigGroup& config_) {
   const int site = config_.readEntry("Site", int(Unknown));
   Q_ASSERT(site != Unknown);
@@ -185,7 +194,7 @@ void AmazonFetcher::doSearch() {
   params.insert(QLatin1String("Operation"),      QLatin1String("ItemSearch"));
   params.insert(QLatin1String("ResponseGroup"),  QLatin1String("Large"));
   params.insert(QLatin1String("ItemPage"),       QString::number(m_page));
-  params.insert(QLatin1String("Version"),        QLatin1String("2007-10-29"));
+  params.insert(QLatin1String("Version"),        QLatin1String("2009-11-02"));
 
   const int type = collectionType();
   switch(type) {
@@ -201,7 +210,13 @@ void AmazonFetcher::doSearch() {
       break;
 
     case Data::Collection::Video:
-      params.insert(QLatin1String("SearchIndex"), QLatin1String("Video"));
+      // CA and JP appear to have a bug where Video only returns VHS or Music results
+      // DVD will return DVD, Blu-ray, etc. so just ignore VHS for those users
+      if(m_site == CA || m_site == JP) {
+        params.insert(QLatin1String("SearchIndex"), QLatin1String("DVD"));
+      } else {
+        params.insert(QLatin1String("SearchIndex"), QLatin1String("Video"));
+      }
       params.insert(QLatin1String("SortIndex"), QLatin1String("relevancerank"));
       break;
 
@@ -224,16 +239,7 @@ void AmazonFetcher::doSearch() {
       return;
   }
 
-  // I have not been able to find any documentation about what character set to use
-  // when URL encoding the search term in the Amazon REST interface. But I do know
-  // that utf8 DOES NOT WORK. So I'm arbitrarily using iso-8859-1, except for JP.
-  // Why different for JP? Well, I've not received any bug reports from that direction yet
-
-//  QString value = KUrl::decode_string(value_, 106);
-//  QString value = QString::fromLocal8Bit(value_.toUtf8());
   QString value = request().value;
-  // a mibenum of 106 is utf-8, 4 is iso-8859-1, 0 means use user's locale,
-//  int mib = m_site == AmazonFetcher::JP ? 106 : 4;
 
   switch(request().key) {
     case Title:
@@ -576,25 +582,24 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
     case Data::Collection::ComicBook:
     case Data::Collection::Bibtex:
       {
-        const QString keywords = QLatin1String("keyword");
-        QStringList oldWords = FieldFormat::splitValue(entry->field(keywords));
-        StringSet words;
-        for(QStringList::Iterator it = oldWords.begin(); it != oldWords.end(); ++it) {
+        StringSet newWords;
+        const QStringList keywords = FieldFormat::splitValue(entry->field(QLatin1String("keyword")));
+        foreach(const QString& keyword, keywords) {
           // the amazon2tellico stylesheet separates keywords with '/'
-          QStringList nodes = (*it).split(QLatin1Char('/'));
-          for(QStringList::Iterator it2 = nodes.begin(); it2 != nodes.end(); ++it2) {
-            if(*it2 == QLatin1String("General") ||
-               *it2 == QLatin1String("Subjects") ||
-               *it2 == QLatin1String("Par prix") || // french stuff
-               *it2 == QLatin1String("Divers") || // french stuff
-               (*it2).startsWith(QLatin1Char('(')) ||
-               (*it2).startsWith(QLatin1String("Authors"))) {
+          const QStringList words = keyword.split(QLatin1Char('/'));
+          foreach(const QString& word, words) {
+            if(word == QLatin1String("General") ||
+               word == QLatin1String("Subjects") ||
+               word == QLatin1String("Par prix") || // french stuff
+               word == QLatin1String("Divers") || // french stuff
+               word.startsWith(QLatin1Char('(')) ||
+               word.startsWith(QLatin1String("Authors"))) {
               continue;
             }
-            words.add(*it2);
+            newWords.add(word);
           }
         }
-        entry->setField(keywords, words.toList().join(FieldFormat::delimiterString()));
+        entry->setField(QLatin1String("keyword"), newWords.toList().join(FieldFormat::delimiterString()));
       }
       entry->setField(QLatin1String("comments"), Tellico::decodeHTML(entry->field(QLatin1String("comments"))));
       break;
@@ -789,6 +794,7 @@ void AmazonFetcher::parseTitle(Tellico::Data::EntryPtr entry, int collType) {
 }
 
 bool AmazonFetcher::parseTitleToken(Tellico::Data::EntryPtr entry, const QString& token) {
+//  myDebug() << "title token:" << token;
   // if res = true, then the token gets removed from the title
   bool res = false;
   if(token.indexOf(QLatin1String("widescreen"), 0, Qt::CaseInsensitive) > -1 ||
@@ -798,6 +804,9 @@ bool AmazonFetcher::parseTitleToken(Tellico::Data::EntryPtr entry, const QString
   } else if(token.indexOf(QLatin1String("full screen"), 0, Qt::CaseInsensitive) > -1) {
     // skip, but go ahead and remove from title
     res = true;
+  } else if(token.indexOf(QLatin1String("import"), 0, Qt::CaseInsensitive) > -1) {
+    // skip, but go ahead and remove from title
+    res = true;
   }
   if(token.indexOf(QLatin1String("blu-ray"), 0, Qt::CaseInsensitive) > -1) {
     entry->setField(QLatin1String("medium"), i18n("Blu-ray"));
@@ -805,11 +814,27 @@ bool AmazonFetcher::parseTitleToken(Tellico::Data::EntryPtr entry, const QString
   } else if(token.indexOf(QLatin1String("hd dvd"), 0, Qt::CaseInsensitive) > -1) {
     entry->setField(QLatin1String("medium"), i18n("HD DVD"));
     res = true;
+  } else if(token.indexOf(QLatin1String("vhs"), 0, Qt::CaseInsensitive) > -1) {
+    entry->setField(QLatin1String("medium"), i18n("VHS"));
+    res = true;
   }
   if(token.indexOf(QLatin1String("director's cut"), 0, Qt::CaseInsensitive) > -1 ||
      token.indexOf(i18n("Director's Cut"), 0, Qt::CaseInsensitive) > -1) {
     entry->setField(QLatin1String("directors-cut"), QLatin1String("true"));
     // res = true; leave it in the title
+  }
+  if(token.toLower() == QLatin1String("ntsc")) {
+    entry->setField(QLatin1String("format"), i18n("NTSC"));
+    res = true;
+  }
+  if(token.toLower() == QLatin1String("dvd")) {
+    entry->setField(QLatin1String("medium"), i18n("DVD"));
+    res = true;
+  }
+  static QRegExp regionRx(QLatin1String("Region [1-9]"));
+  if(regionRx.indexIn(token) > -1) {
+    entry->setField(QLatin1String("region"), i18n(regionRx.cap(0).toUtf8()));
+    res = true;
   }
   return res;
 }

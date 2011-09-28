@@ -187,7 +187,12 @@ void IMDBFetcher::continueSearch() {
 
   if(m_currentTitleBlock == Partial) {
     parseTitleBlock(m_partialTitles);
-    m_currentTitleBlock = m_countOffset == 0 ? Unknown : Partial;
+    m_currentTitleBlock = m_countOffset == 0 ? Approx : Partial;
+  }
+
+  if(m_currentTitleBlock == Approx) {
+    parseTitleBlock(m_approxTitles);
+    m_currentTitleBlock = m_countOffset == 0 ? Unknown : Approx;
   }
 
   if(m_currentTitleBlock == SinglePerson) {
@@ -227,6 +232,7 @@ void IMDBFetcher::slotComplete(KJob*) {
 
   m_text = Tellico::fromHtmlData(m_job->data());
   if(m_text.isEmpty()) {
+    myDebug() << "No data returned";
     stop();
     return;
   }
@@ -286,13 +292,19 @@ void IMDBFetcher::parseMultipleTitleResults() {
   int pos_popular = output.indexOf(QLatin1String("Popular Titles"),  0,                    Qt::CaseInsensitive);
   int pos_exact   = output.indexOf(QLatin1String("Exact Matches"),   qMax(pos_popular, 0), Qt::CaseInsensitive);
   int pos_partial = output.indexOf(QLatin1String("Partial Matches"), qMax(pos_exact, 0),   Qt::CaseInsensitive);
+  int pos_approx  = output.indexOf(QLatin1String("Approx Matches"),  qMax(pos_partial, 0), Qt::CaseInsensitive);
+
   int end_popular = pos_exact; // keep track of where to end
   if(end_popular == -1) {
-    end_popular = pos_partial == -1 ? output.length() : pos_partial;
+    end_popular = pos_partial == -1 ? (pos_approx == -1 ? output.length() : pos_approx) : pos_partial;
   }
   int end_exact = pos_partial; // keep track of where to end
   if(end_exact == -1) {
-    end_exact = output.length();
+    end_exact = pos_approx == -1 ? output.length() : pos_approx;
+  }
+  int end_partial = pos_approx; // keep track of where to end
+  if(end_partial == -1) {
+    end_partial = output.length();
   }
 
   // if found popular matches
@@ -304,7 +316,10 @@ void IMDBFetcher::parseMultipleTitleResults() {
     m_exactTitles = output.mid(pos_exact, end_exact-pos_exact);
   }
   if(pos_partial > -1) {
-    m_partialTitles = output.mid(pos_partial);
+    m_partialTitles = output.mid(pos_partial-end_partial);
+  }
+  if(pos_approx > -1) {
+    m_approxTitles = output.mid(pos_approx);
   }
 
   parseTitleBlock(m_popularTitles);
@@ -318,7 +333,12 @@ void IMDBFetcher::parseMultipleTitleResults() {
 
   if(m_matches.size() < m_limit) {
     parseTitleBlock(m_partialTitles);
-    m_currentTitleBlock = m_countOffset == 0 ? Unknown : Partial;
+    m_currentTitleBlock = m_countOffset == 0 ? Approx : Partial;
+  }
+
+  if(m_matches.size() < m_limit) {
+    parseTitleBlock(m_approxTitles);
+    m_currentTitleBlock = m_countOffset == 0 ? Unknown : Approx;
   }
 
   if(m_matches.size() == 0) {
@@ -703,7 +723,7 @@ Tellico::Data::EntryPtr IMDBFetcher::parseEntry(const QString& str_) {
   }
 
   const QString imdb = QLatin1String("imdb");
-  if(!coll->hasField(imdb) && allOptionalFields().contains(imdb)) {
+  if(!coll->hasField(imdb) && optionalFields().contains(imdb)) {
     Data::FieldPtr field(new Data::Field(imdb, i18n("IMDb Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
@@ -758,13 +778,13 @@ void IMDBFetcher::doAspectRatio(const QString& str_, Tellico::Data::EntryPtr ent
 }
 
 void IMDBFetcher::doAlsoKnownAs(const QString& str_, Tellico::Data::EntryPtr entry_) {
-  if(!allOptionalFields().contains(QLatin1String("alttitle"))) {
+  if(!optionalFields().contains(QLatin1String("alttitle"))) {
     return;
   }
 
   // match until next b tag
 //  QRegExp akaRx(QLatin1String("also known as(.*)<b(?:\\s.*)?>"));
-  QRegExp akaRx(QLatin1String("also known as(.*)<(b[>\\s/]|div)"), Qt::CaseInsensitive);
+  QRegExp akaRx(QLatin1String("also known as(.*)<h5[>\\s/]"), Qt::CaseInsensitive);
   akaRx.setMinimal(true);
 
   if(akaRx.indexIn(str_) > -1 && !akaRx.cap(1).isEmpty()) {
@@ -792,7 +812,7 @@ void IMDBFetcher::doAlsoKnownAs(const QString& str_, Tellico::Data::EntryPtr ent
       s.remove(*s_tagRx);
       s.remove(brackRx);
       s = s.trimmed();
-      // the first value ends up being or starting with the colon after "Also know as"
+      // the first value ends up being or starting with the colon after "Also known as"
       // I'm too lazy to figure out a better regexp
       if(s.startsWith(QLatin1Char(':'))) {
         s = s.mid(1);
@@ -804,6 +824,8 @@ void IMDBFetcher::doAlsoKnownAs(const QString& str_, Tellico::Data::EntryPtr ent
     if(!values.isEmpty()) {
       entry_->setField(QLatin1String("alttitle"), values.join(FieldFormat::rowDelimiterString()));
     }
+  } else {
+    myDebug() << "No alternative titles found";
   }
 }
 
@@ -976,7 +998,7 @@ void IMDBFetcher::doCast(const QString& str_, Tellico::Data::EntryPtr entry_, co
 }
 
 void IMDBFetcher::doRating(const QString& str_, Tellico::Data::EntryPtr entry_) {
-  if(!allOptionalFields().contains(QLatin1String("imdb-rating"))) {
+  if(!optionalFields().contains(QLatin1String("imdb-rating"))) {
     return;
   }
 
@@ -1046,9 +1068,9 @@ void IMDBFetcher::doLists(const QString& str_, Tellico::Data::EntryPtr entry_) {
   const QString genre = QLatin1String("/Genres/");
   const QString country = QLatin1String("/Countries/");
   const QString lang = QLatin1String("/Languages/");
-  const QString colorInfo = QLatin1String("color-info");
+  const QString colorInfo = QLatin1String("colors=");
   const QString cert = QLatin1String("certificates=");
-  const QString soundMix = QLatin1String("sound-mix=");
+  const QString soundMix = QLatin1String("sound_mixes=");
   const QString year = QLatin1String("/Years/");
   const QString company = QLatin1String("/company/");
 
@@ -1107,7 +1129,7 @@ void IMDBFetcher::doLists(const QString& str_, Tellico::Data::EntryPtr entry_) {
 
     // now add new field for all certifications
     const QString allc = QLatin1String("allcertification");
-    if(allOptionalFields().contains(allc)) {
+    if(optionalFields().contains(allc)) {
       Data::FieldPtr f = entry_->collection()->fieldByName(allc);
       if(!f) {
         f = new Data::Field(allc, i18n("Certifications"), Data::Field::Table);

@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
   KAboutData aboutData("tellico", 0, ki18n("Tellico"),
                        TELLICO_VERSION, ki18n("Tellico - a collection manager for KDE"),
                        KAboutData::License_GPL_V2,
-                       ki18n("(c) 2001-2009, Robby Stephenson"), KLocalizedString(),
+                       ki18n("(c) 2001-2010, Robby Stephenson"), KLocalizedString(),
                        "http://tellico-project.org", "tellico-users@kde.org");
   aboutData.addAuthor(ki18n("Robby Stephenson"), KLocalizedString(), "robby@periapsis.org");
   aboutData.addAuthor(ki18n("Mathias Monnerville"), ki18n("Data source scripts"));
@@ -55,9 +55,9 @@ int main(int argc, char* argv[]) {
 
   KCmdLineOptions options;
   options.add("nofile", ki18n("Do not reopen the last open file"));
-  options.add("bibtex", ki18n("Import <filename> as a bibtex file"));
-  options.add("mods", ki18n("Import <filename> as a MODS file"));
-  options.add("ris", ki18n("Import <filename> as a RIS file"));
+  options.add("bibtex", ki18n("Import <filename> as a bibtex file")); // krazy:exclude=i18ncheckarg
+  options.add("mods", ki18n("Import <filename> as a MODS file")); // krazy:exclude=i18ncheckarg
+  options.add("ris", ki18n("Import <filename> as a RIS file")); // krazy:exclude=i18ncheckarg
   options.add("+[filename]", ki18n("File to open"));
 
   KCmdLineArgs::init(argc, argv, &aboutData);

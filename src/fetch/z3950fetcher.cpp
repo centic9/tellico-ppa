@@ -534,6 +534,8 @@ Tellico::StringHash Z3950Fetcher::allOptionalFields() {
   hash[QLatin1String("address")]  = i18n("Address");
   hash[QLatin1String("abstract")] = i18n("Abstract");
   hash[QLatin1String("illustrator")] = i18n("Illustrator");
+  hash[QLatin1String("dewey")] = i18nc("Dewey Decimal classification system", "Dewey Decimal");
+  hash[QLatin1String("lcc")] = i18nc("Library of Congress classificationn system", "LoC Classification");
   return hash;
 }
 

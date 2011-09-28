@@ -71,7 +71,10 @@ enum Type {
   WineCom,
   TheMovieDB,
   MusicBrainz,
-  GiantBomb
+  GiantBomb,
+  OpenLibrary,
+  Multiple,
+  Freebase
 };
 
   }

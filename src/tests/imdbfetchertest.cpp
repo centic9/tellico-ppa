@@ -36,6 +36,8 @@
 #include "../images/imagefactory.h"
 #include "../fieldformat.h"
 
+#include <KConfigGroup>
+
 QTEST_KDEMAIN( ImdbFetcherTest, GUI )
 
 ImdbFetcherTest::ImdbFetcherTest() : m_loop(this) {
@@ -69,10 +71,43 @@ void ImdbFetcherTest::testSnowyRiver() {
   QCOMPARE(entry->field("nationality"), QLatin1String("Australia"));
   QCOMPARE(entry->field("studio"), QLatin1String("Cambridge Productions"));
   QCOMPARE(entry->field("running-time"), QLatin1String("102"));
+  QCOMPARE(entry->field("audio-track"), QLatin1String("Dolby"));
+  QCOMPARE(entry->field("aspect-ratio"), QLatin1String("2.35 : 1"));
+  QCOMPARE(entry->field("color"), QLatin1String("Color"));
   QCOMPARE(entry->field("director"), QLatin1String("George Miller"));
   QCOMPARE(entry->field("writer"), QLatin1String("Cul Cullen; A.B. 'Banjo' Paterson"));
   QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
   QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
+}
+
+void ImdbFetcherTest::testAsterix() {
+  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotestconfig.rc", KConfig::SimpleConfig);
+  QString groupName = QLatin1String("IMDB");
+  if(!config.hasGroup(groupName)) {
+    QSKIP("This test requires a config file.", SkipAll);
+  }
+  KConfigGroup cg(&config, groupName);
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "Astérix aux jeux olympiques");
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
+  fetcher->readConfig(cg, cg.name());
+
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  job->setMaximumResults(1);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
+
+  // the first entry had better be the right one
+  Tellico::Data::EntryPtr entry = m_results.at(0);
+
+  QCOMPARE(entry->field("title"), QString::fromUtf8("Astérix aux jeux olympiques"));
+  QStringList altTitleList = Tellico::FieldFormat::splitTable(entry->field("alttitle"));
+  QVERIFY(altTitleList.size() > 1);
 }
 
 void ImdbFetcherTest::slotResult(KJob* job_) {

@@ -445,6 +445,7 @@ void Controller::slotCopySelectedEntries() {
     entries.append(Data::EntryPtr(new Data::Entry(*it)));
   }
   Kernel::self()->addEntries(entries, false);
+  m_widgetWithSelection = 0; // KDE bug 231125: probably should figure out how to really fix it...
   slotUpdateSelection(0, old);
 }
 

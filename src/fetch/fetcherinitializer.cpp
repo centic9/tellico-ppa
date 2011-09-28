@@ -33,6 +33,7 @@
 #include "entrezfetcher.h"
 #include "execexternalfetcher.h"
 #include "animenfofetcher.h"
+#include "yahoofetcher.h"
 #include "ibsfetcher.h"
 #include "isbndbfetcher.h"
 #include "gcstarpluginfetcher.h"
@@ -46,6 +47,11 @@
 #include "themoviedbfetcher.h"
 #include "musicbrainzfetcher.h"
 #include "giantbombfetcher.h"
+#include "openlibraryfetcher.h"
+#include "multifetcher.h"
+#ifdef HAVE_QJSON
+#include "freebasefetcher.h"
+#endif
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -65,6 +71,7 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::EntrezFetcher> registerEntrez(Entrez);
   RegisterFetcher<Fetch::ExecExternalFetcher> registerExternal(ExecExternal);
   RegisterFetcher<Fetch::AnimeNfoFetcher> registerAnimeNfo(AnimeNfo);
+//  RegisterFetcher<Fetch::YahooFetcher> registerYahoo(Yahoo);
   RegisterFetcher<Fetch::IBSFetcher> registerIBS(IBS);
   RegisterFetcher<Fetch::ISBNdbFetcher> registerISBNdb(ISBNdb);
   RegisterFetcher<Fetch::GCstarPluginFetcher> registerGCstar(GCstarPlugin);
@@ -78,4 +85,9 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::TheMovieDBFetcher> registerTMDB(TheMovieDB);
   RegisterFetcher<Fetch::MusicBrainzFetcher> registerMB(MusicBrainz);
   RegisterFetcher<Fetch::GiantBombFetcher> registerBomb(GiantBomb);
+  RegisterFetcher<Fetch::OpenLibraryFetcher> registerOpenLibrary(OpenLibrary);
+  RegisterFetcher<Fetch::MultiFetcher> registerMulti(Multiple);
+#ifdef HAVE_QJSON
+  RegisterFetcher<Fetch::FreebaseFetcher> registerFreebase(Freebase);
+#endif
 }

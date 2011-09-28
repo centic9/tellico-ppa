@@ -38,6 +38,7 @@
 #include "core/tellico_config.h"
 #include "images/imagefactory.h"
 #include "gui/combobox.h"
+#include "gui/collectiontypecombo.h"
 #include "gui/previewdialog.h"
 #include "newstuff/manager.h"
 #include "fieldformat.h"
@@ -628,6 +629,20 @@ void ConfigDialog::initFetchPage(QFrame* frame) {
   m_moveDownSourceBtn->setWhatsThis(i18n("The order of the data sources sets the order "
                                          "that Tellico uses when entries are automatically updated."));
 
+  KHBox* hb2 = new KHBox(frame);
+  leftLayout->addWidget(hb2);
+  m_cbFilterSource = new QCheckBox(i18n("Filter by type:"), hb2);
+  connect(m_cbFilterSource, SIGNAL(clicked()), SLOT(slotSourceFilterChanged()));
+  m_sourceTypeCombo = new GUI::CollectionTypeCombo(hb2);
+  connect(m_sourceTypeCombo, SIGNAL(currentIndexChanged(int)), SLOT(slotSourceFilterChanged()));
+  // we want to remove the item for a custom collection
+  int index = m_sourceTypeCombo->findData(Data::Collection::Base);
+  if(index > -1) {
+    m_sourceTypeCombo->removeItem(index);
+  }
+  // disable until check box is checked
+  m_sourceTypeCombo->setEnabled(false);
+
   // these icons are rather arbitrary, but seem to vaguely fit
   QVBoxLayout* vlay = new QVBoxLayout();
   l->addLayout(vlay);
@@ -739,9 +754,11 @@ void ConfigDialog::readFetchConfig() {
   m_sourceListWidget->clear();
   m_configWidgets.clear();
 
+  m_sourceListWidget->setUpdatesEnabled(false);
   Fetch::FetcherVec fetchers = Fetch::Manager::self()->fetchers();
   foreach(Fetch::Fetcher::Ptr fetcher, fetchers) {
-    GeneralFetcherInfo info(fetcher->type(), fetcher->source(), fetcher->updateOverwrite());
+    GeneralFetcherInfo info(fetcher->type(), fetcher->source(),
+                            fetcher->updateOverwrite(), fetcher->uuid());
     SourceListItem* item = new SourceListItem(m_sourceListWidget, info);
     item->setFetcher(fetcher);
     // grab the config widget, taking ownership
@@ -753,6 +770,7 @@ void ConfigDialog::readFetchConfig() {
     }
     kapp->processEvents();
   }
+  m_sourceListWidget->setUpdatesEnabled(true);
 
   if(m_sourceListWidget->count() == 0) {
     m_modifySourceBtn->setEnabled(false);
@@ -841,6 +859,7 @@ void ConfigDialog::saveFetchConfig() {
     configGroup.writeEntry("Name", item->data(Qt::DisplayRole).toString());
     configGroup.writeEntry("Type", int(item->fetchType()));
     configGroup.writeEntry("UpdateOverwrite", item->updateOverwrite());
+    configGroup.writeEntry("Uuid", item->uuid());
     cw->saveConfig(configGroup);
     item->setNewSource(false);
     // in case the ordering changed
@@ -860,16 +879,19 @@ void ConfigDialog::saveFetchConfig() {
 
   Config::self()->writeConfig();
 
-  QString s = m_sourceListWidget->currentItem() ? m_sourceListWidget->currentItem()->data(Qt::DisplayRole).toString() : QString();
   if(reloadFetchers) {
     Fetch::Manager::self()->loadFetchers();
     Controller::self()->updatedFetchers();
     // reload fetcher items if OK was not clicked
     // meaning apply was clicked
     if(!m_okClicked) {
+      QString currentSource;
+      if(m_sourceListWidget->currentItem()) {
+        currentSource = m_sourceListWidget->currentItem()->data(Qt::DisplayRole).toString();
+      }
       readFetchConfig();
-      if(!s.isEmpty()) {
-        QList<QListWidgetItem*> items = m_sourceListWidget->findItems(s, Qt::MatchExactly);
+      if(!currentSource.isEmpty()) {
+        QList<QListWidgetItem*> items = m_sourceListWidget->findItems(currentSource, Qt::MatchExactly);
         if(!items.isEmpty()) {
           m_sourceListWidget->setCurrentItem(items.first());
           m_sourceListWidget->scrollToItem(items.first());
@@ -984,6 +1006,16 @@ void ConfigDialog::slotMoveDownSourceClicked() {
   m_sourceListWidget->insertItem(row+1, item);
   m_sourceListWidget->setCurrentItem(item);
   slotModified(); // toggle apply button
+}
+
+void ConfigDialog::slotSourceFilterChanged() {
+  m_sourceTypeCombo->setEnabled(m_cbFilterSource->isChecked());
+  const bool showAll = !m_sourceTypeCombo->isEnabled();
+  const int type = m_sourceTypeCombo->currentType();
+  for(int count = 0; count < m_sourceListWidget->count(); ++count) {
+    SourceListItem* item = static_cast<SourceListItem*>(m_sourceListWidget->item(count));
+    item->setHidden(!showAll && item->fetcher() && !item->fetcher()->canFetch(type));
+  }
 }
 
 void ConfigDialog::slotSelectedSourceChanged(QListWidgetItem* item_) {

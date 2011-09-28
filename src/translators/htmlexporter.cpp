@@ -36,6 +36,7 @@
 #include "../core/tellico_config.h"
 #include "../core/tellico_strings.h"
 #include "../gui/cursorsaver.h"
+#include "../newstuff/manager.h"
 #include "../tellico_debug.h"
 
 #include <kstandarddirs.h>
@@ -70,6 +71,7 @@ HTMLExporter::HTMLExporter(Tellico::Data::CollPtr coll_) : Tellico::Export::Expo
     m_cancelled(false),
     m_parseDOM(true),
     m_checkCreateDir(true),
+    m_checkCommonFile(true),
     m_imageWidth(0),
     m_imageHeight(0),
     m_widget(0),
@@ -187,6 +189,12 @@ bool HTMLExporter::loadXSLTFile() {
 
   delete m_handler;
   m_handler = new XSLTHandler(dom, QFile::encodeName(xsltfile), true /*translate*/);
+  if(m_checkCommonFile && !m_handler->isValid()) {
+    NewStuff::Manager::checkCommonFile();
+    m_checkCommonFile = false;
+    delete m_handler;
+    m_handler = new XSLTHandler(dom, QFile::encodeName(xsltfile), true /*translate*/);
+  }
   if(!m_handler->isValid()) {
     delete m_handler;
     m_handler = 0;
@@ -313,14 +321,16 @@ void HTMLExporter::setFormattingOptions(Tellico::Data::CollPtr coll) {
   // but still use "grouped by"
   QString sortString;
   if(m_printGrouped) {
-    QString s;
-    // if more than one, then it's the People pseudo-group
-    if(m_groupBy.count() > 1) {
-      s = i18n("People");
-    } else {
-      s = coll->fieldTitleByName(m_groupBy[0]);
+    if(!m_groupBy.isEmpty()) {
+      QString s;
+      // if more than one, then it's the People pseudo-group
+      if(m_groupBy.count() > 1) {
+        s = i18n("People");
+      } else {
+        s = coll->fieldTitleByName(m_groupBy[0]);
+      }
+      sortString = i18n("(grouped by %1)", s);
     }
-    sortString = i18n("(grouped by %1)", s);
 
     QString groupFields;
     for(QStringList::ConstIterator it = m_groupBy.constBegin(); it != m_groupBy.constEnd(); ++it) {

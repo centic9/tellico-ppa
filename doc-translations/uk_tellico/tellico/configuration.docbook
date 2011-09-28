@@ -207,7 +207,7 @@
 ></title>
 
 <para
->&appname; може використовувати різноманітні джерела імпортування даних, які можна налаштувати за допомогою діалогового вікна джерел даних. Існує декілька типів джерел:</para>
+>&appname; може використовувати різноманітні джерела імпортування даних, які можна налаштувати за допомогою діалогового вікна джерел даних. Існує багато типів і окремих джерел:</para>
 
 <itemizedlist>
 <listitem
@@ -298,9 +298,57 @@
 ></listitem>
 <listitem
 ><para
+><link linkend="discogs"
+>Discogs.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="winecom"
+>Wine.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="tmdb"
+>TheMovieDB.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="musicbrainz"
+>MusicBrainz.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="giantbomb"
+>GiantBomb.com</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="openlibrary"
+>OpenLibrary.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="freebase"
+>Freebase.com</link
+>,</para
+></listitem>
+<listitem
+><para
 ><link linkend="externalexec"
 >інші зовнішні скрипти або програми</link
-></para
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="multiple-sources"
+>комбінації будь-яких зі згаданих вище джерел</link
+>.</para
 ></listitem>
 </itemizedlist>
 
@@ -339,50 +387,13 @@
 <para
 >Перелік даних багатьох джерел перевищує діапазон типових полів у &appname;. Ці додаткові поля буде показано праворуч від панелі налаштування. Якщо ви позначите будь-яке з цих полів, це поле буде додано до збірки під час додавання запису з джерела даних. </para>
 
-<sect2 id="amazon-web-services">
+<!-- start book sources -->
+
+<sect2 id="book-sources">
 <title
->Amazon.com</title>
+>Бібліографічні джерела даних</title>
 
-<para
->За допомогою мережевих служб Amazon Web &appname; може виконувати пошук даних на шести різних міжнародних сайтах, якими керує <ulink url="http://amazon.com"
->Amazon.com</ulink
->: у США, Великобританії, Німеччині, Японії, Франції і Канаді. </para>
-
-<screenshot>
-<mediaobject>
-<imageobject
-><imagedata format="PNG" fileref="amazon-options.png"/></imageobject>
-</mediaobject>
-</screenshot>
-
-<para
->Для налаштування кожного джерела Amazon.com слід вказати три параметри: адресу сервера, розмір зображення і ідентифікатор партнерства. Серед даних, які можна отримати з <ulink url="http://amazon.com"
->Amazon.com</ulink
->, зображення, зокрема обкладинки книг і відеодисків. Ви можете звантажити зображення трьох різних розмірів, залежно від елемента. Для доступу до мережевих служб Amazon.com слід використовувати ідентифікатор партнерства, його слід включати у зворотні посилання на елемент, оскільки цього вимагає ліцензійна угода з використання мережевих служб Amazon.com. </para>
-
-</sect2>
-
-<sect2 id="imdb">
-<title
->База даних кінофільмів в Інтернет</title>
-
-<para
->У <ulink url="http://www.imdb.com"
->Internet Movie Database</ulink
-> можна знайти дані щодо фільмів і відео. Якщо пошук за <emphasis
->Особою</emphasis
-> повертає декілька результатів, програма відкриває діалогове вікно, у якому ви зможете обрати належну особу. Серед параметрів налаштування адреса веб-сервера та параметр, що визначає те, чи слід отримувати зображення. Оскільки IMDb може повертати великі списки виконавців ролей, ви можете обмежити кількість позицій у списку певним числом. </para>
-
-<screenshot>
-<mediaobject>
-<imageobject
-><imagedata format="PNG" fileref="imdb-options.png"/></imageobject>
-</mediaobject>
-</screenshot>
-
-</sect2>
-
-<sect2 id="z3950">
+<sect3 id="z3950">
 <title
 >Сервери z39.50</title>
 
@@ -415,7 +426,6 @@
 </mediaobject>
 </screenshot>
 
-
 <para
 >Щоб скористатися однією з бібліотек з типового набору, позначте пункт, а потім оберіть бібліотеку. Інші записи налаштувань буде вимкнено. Якщо ви бажаєте вказати дані вручну, зніміть позначку з пункту. </para>
 
@@ -425,9 +435,9 @@
 <para
 >Для доступу до деяких з серверів потрібно вказати ім’я користувача і пароль. Ви можете скористатися програмою &appname; для зберігання пароля, але зважайте на те, що пароль буде записано до файла налаштувань &appname; у незашифрованому вигляді, а це може становити певну небезпеку. Для доступу до більшості публічних серверів поля користувача і пароля можна не заповнювати. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="sru">
+<sect3 id="sru">
 <title
 >Сервери SRU</title>
 
@@ -445,9 +455,9 @@
 </mediaobject>
 </screenshot>
 
-</sect2>
+</sect3>
 
-<sect2 id="entrez">
+<sect3 id="entrez">
 <title
 >Бази даних Entrez</title>
 <para
@@ -456,56 +466,9 @@
 > — це комплексна система, заснована на текстовому пошуку і отриманні даних, яка використовується Національним центром біотехнологічної інформації (NCBI). Найвідомішою базою даних Entrez є <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=PubMed"
 >PubMed</ulink
 >, база даних статей, пов’язаних з природничими науками, які було надруковано у журналах з біології. У поточній версії програми єдиною базою даних Entrez, яку підтримує &appname; є PubMed.</para>
-</sect2>
+</sect3>
 
-<sect2 id="yahoo">
-<title
->Аудіо-пошук Yahoo!</title>
-<para
->Джерелом <ulink url="http://audio.search.yahoo.com"
->Yahoo! Audio Search</ulink
-> можна скористатися для пошуку даних щодо музичного альбому. </para>
-</sect2>
-
-<sect2 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> є популярним сайтом, присвяченим аніме або японській мультиплікації. </para>
-</sect2>
-
-<sect2 id="ibs">
-<title
->Internet Bookstore Italia</title>
-<para
-><ulink url="http://ibs.it"
->IBS або Internet Bookshop Italia</ulink
-> є італійським мережевим книжковим магазином. </para>
-</sect2>
-
-<sect2 id="isbndb">
-<title
->ISBNdb.com</title>
-<para
-><ulink url="http://isbndb.com"
->ISBNdb.com</ulink
-> — це мережева база даних книг, у якій зібрано дані з бібліотек всього світу. </para>
-</sect2>
-
-<sect2 id="gcstarplugin">
-<title
->Додатки GCstar</title>
-<para
->Якщо встановлено програму <application
-><ulink url="http://www.gcstar.org"
->GCstar</ulink
-></application
->, &appname; може використовувати широкий діапазон додатків, доступних за допомогою GCstar. Залежно від типу збірки, як джерела даних &appname; доступними стануть різноманітні мережеві ресурси. </para>
-</sect2>
-
-<sect2 id="bib-sources">
+<sect3 id="bib-sources">
 <title
 >Бібліографічні бази даних</title>
 <para
@@ -520,9 +483,206 @@
 > є мережевими базами даних щодо академічних статей і бібліографічних даних. Для доступу до джерела CrossRef вам слід <ulink url="http://www.crossref.org/requestaccount/"
 >створити обліковий запис</ulink
 >, а потім вказати реєстраційні дані у налаштуваннях джерела даних.</para>
+</sect3>
+
+<sect3 id="ibs">
+<title
+>Internet Bookstore Italia</title>
+<para
+><ulink url="http://ibs.it"
+>IBS або Internet Bookshop Italia</ulink
+> є італійським мережевим книжковим магазином. </para>
+</sect3>
+
+<sect3 id="isbndb">
+<title
+>ISBNdb.com</title>
+<para
+><ulink url="http://isbndb.com"
+>ISBNdb.com</ulink
+> — це мережева база даних книг, у якій зібрано дані з бібліотек всього світу. </para>
+</sect3>
+
+<sect3 id="openlibrary">
+<title
+>OpenLibrary.org</title>
+<para
+><ulink url="http://openlibrary.org"
+>OpenLibrary.org</ulink
+> — інтернет-база даних, у якій зберігається по сторінці для кожної з книг. </para>
+</sect3>
+
+</sect2>
+<!-- end of books -->
+
+<!-- start of movie sources -->
+<sect2 id="comicbook-sources">
+<title
+>Джерела даних щодо коміксів</title>
+
+<sect3 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> є популярним сайтом, присвяченим аніме або японській мультиплікації. </para>
+</sect3>
+
+
 </sect2>
 
-<sect2 id="externalexec">
+<!-- start of movie sources -->
+<sect2 id="movie-sources">
+<title
+>Джерела даних щодо фільмів</title>
+
+<sect3 id="imdb">
+<title
+>База даних кінофільмів в Інтернет</title>
+
+<para
+>У <ulink url="http://www.imdb.com"
+>Internet Movie Database</ulink
+> можна знайти дані щодо фільмів і відео. Якщо пошук за <emphasis
+>Особою</emphasis
+> повертає декілька результатів, програма відкриває діалогове вікно, у якому ви зможете обрати належну особу. Серед параметрів налаштування адреса веб-сервера та параметр, що визначає те, чи слід отримувати зображення. Оскільки IMDb може повертати великі списки виконавців ролей, ви можете обмежити кількість позицій у списку певним числом. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="imdb-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+</sect3>
+
+<sect3 id="tmdb">
+<title
+>TheMovieDB.org</title>
+<para
+><ulink url="http://themoviedb.org"
+>TheMovieDB.org</ulink
+> — вільна і відкрити інтернет-база даних фільмів. Для отримання безкоштовного облікового запису слід зареєструватися. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of movie sources -->
+<sect2 id="music-sources">
+<title
+>Джерела даних щодо музичних творів</title>
+
+<sect3 id="discogs">
+<title
+>Discogs.com</title>
+<para
+><ulink url="http://discogs.com"
+>Discogs.com</ulink
+> — створена користувачами база даних музичних творів, у якій містяться дані щодо виконавців, компаній звукозапису та записів. Для отримання безкоштовного облікового запису слід зареєструватися. </para>
+</sect3>
+
+<sect3 id="musicbrainz">
+<title
+>MusicBrainz.org</title>
+<para
+><ulink url="http://musicbrainz.org"
+>MusicBrainz.org</ulink
+> — база метаданих спільноти, у якій ентузіасти намагаються зібрати дані щодо всіх музичних записів. </para>
+</sect3>
+
+<sect3 id="yahoo">
+<title
+>Аудіо-пошук Yahoo!</title>
+<para
+>Джерелом <ulink url="http://audio.search.yahoo.com"
+>Yahoo! Audio Search</ulink
+> можна скористатися для пошуку даних щодо музичного альбому. Це джерело даних часто не є доступним, дані може бути пошкоджено. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of wine sources -->
+<sect2 id="wine-sources">
+<title
+>Джерела даних щодо вин</title>
+
+<sect3 id="winecom">
+<title
+>Wine.com</title>
+<para
+><ulink url="http://wine.com"
+>Wine.com</ulink
+> — сайт з продажу вин, на якому передбачено базу даних з інформацією щодо сортових вин. Для отримання безкоштовного облікового запису слід зареєструватися. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of video game sources -->
+<sect2 id="videogame-sources">
+<title
+>Джерела даних щодо відеоігор</title>
+
+<sect3 id="giantbomb">
+<title
+>GiantBomb.com</title>
+<para
+><ulink url="http://giantbomb.com"
+>GiantBomb.com</ulink
+> — велика база даних відеоігор, створена ентузіастами. Для отримання безкоштовного облікового запису слід зареєструватися. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of wine sources -->
+<sect2 id="variety-type-sources">
+<title
+>Джерела даних для збірок різних типів</title>
+
+<sect3 id="amazon-web-services">
+<title
+>Amazon.com</title>
+
+<para
+>За допомогою мережевих служб Amazon Web &appname; може виконувати пошук даних на шести різних міжнародних сайтах, якими керує <ulink url="http://amazon.com"
+>Amazon.com</ulink
+>: у США, Великобританії, Німеччині, Японії, Франції і Канаді. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="amazon-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Для налаштування кожного джерела Amazon.com слід вказати три параметри: адресу сервера, розмір зображення і ідентифікатор партнерства. Серед даних, які можна отримати з <ulink url="http://amazon.com"
+>Amazon.com</ulink
+>, зображення, зокрема обкладинки книг і відеодисків. Ви можете звантажити зображення трьох різних розмірів, залежно від елемента. Для доступу до мережевих служб Amazon.com слід використовувати ідентифікатор партнерства, його слід включати у зворотні посилання на елемент, оскільки цього вимагає ліцензійна угода з використання мережевих служб Amazon.com. </para>
+
+</sect3>
+
+<sect3 id="gcstarplugin">
+<title
+>Додатки GCstar</title>
+<para
+>Якщо встановлено програму <application
+><ulink url="http://www.gcstar.org"
+>GCstar</ulink
+></application
+>, &appname; може використовувати широкий діапазон додатків, доступних за допомогою GCstar. Залежно від типу збірки, як джерела даних &appname; доступними стануть різноманітні мережеві ресурси. </para>
+</sect3>
+
+<sect3 id="freebase">
+<title
+>Freebase.com</title>
+<para
+><ulink url="http://freebase.com"
+>Freebase.com</ulink
+> — інтернет-база даних, у якій зібрано відомості з найрізноманітніших тем. Tellico може виконувати пошук у Freebase даних щодо книг, коміксів, музики, фільмів, відеоігор та ігор на дошці. </para>
+</sect3>
+
+<sect3 id="externalexec">
 <title
 >Зовнішні скрипти або програми</title>
 <para
@@ -568,6 +728,25 @@
 >Для оновлення записів, які вже є у збірці використовується останній пункт і поле редагування: у ньому визначаються параметри командного рядка. Вам слід ввести поля запису, які буде використано для пошуку, у тому самому форматі, який використовується для полів <link linkend="derived"
 >похідних значень</link
 >. </para>
+</sect3>
+
+</sect2>
+
+<sect2 id="multiple-sources">
+<title
+>Комбінації джерел даних</title>
+<para
+>Ви можете використовувати довільні комбінації згаданих вище восьми джерел як єдине джерело, у якому результати пошуків об’єднуватимуться. Перш ніж додавати джерела, слід встановити тип збірки, який буде використано для отримання даних. </para>
+
+<screenshot>
+<mediaobject>
+<imageobject
+><imagedata format="PNG" fileref="multiple-sources-options.png"/></imageobject>
+</mediaobject>
+</screenshot>
+
+<para
+>Комбінації можна створювати лише з вже вказаних джерел даних. Запити щодо пошуку даних буде надіслано до кожного з джерел окремо, результати буде об’єднано. Оскільки результати об’єднання залежать від порядку надходження відповідей на запити, комбінований результат може залежать від параметрів мережі та параметрів роботи джерела даних. </para>
 </sect2>
 
 </sect1>

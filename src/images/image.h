@@ -64,11 +64,13 @@ public:
   static QByteArray outputFormat(const QByteArray& inputFormat);
   static QByteArray byteArray(const QImage& img, const QByteArray& outputFormat);
   static QString idClean(const QString& id);
+  static QString calculateID(const QByteArray& data, const QString& format);
 
   static const Image null;
+
 private:
   Image();
-  explicit Image(const QString& filename);
+  explicit Image(const QString& filename, const QString& id = QString());
   Image(const QImage& image, const QString& format);
   Image(const QByteArray& data, const QString& format, const QString& id);
 

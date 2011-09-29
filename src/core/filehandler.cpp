@@ -168,9 +168,9 @@ QByteArray FileHandler::readDataFile(const KUrl& url_, bool quiet_) {
   return f.file()->readAll();
 }
 
-Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, bool quiet_, const KUrl& referrer_) {
+Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, const QString& id_, bool quiet_, const KUrl& referrer_) {
   if(referrer_.isEmpty() || url_.isLocalFile()) {
-    return readImageFile(url_, quiet_);
+    return readImageFile(url_, id_, quiet_);
   }
 
   KTemporaryFile tempFile;
@@ -179,7 +179,12 @@ Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, bool quiet_, 
   KUrl tempURL;
   tempURL.setPath(tempFile.fileName());
 
-  KIO::Job* job = KIO::file_copy(url_, tempURL, -1, KIO::Overwrite);
+  KIO::JobFlags flags = KIO::Overwrite;
+  if(quiet_) {
+    flags |= KIO::HideProgressInfo;
+  }
+
+  KIO::Job* job = KIO::file_copy(url_, tempURL, -1, flags);
   job->addMetaData(QLatin1String("referrer"), referrer_.url());
 
   if(!KIO::NetAccess::synchronousRun(job, GUI::Proxy::widget())) {
@@ -189,16 +194,16 @@ Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, bool quiet_, 
     }
     return 0;
   }
-  return readImageFile(tempURL, quiet_);
+  return readImageFile(tempURL, id_, quiet_);
 }
 
-Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, bool quiet_) {
+Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, const QString& id_, bool quiet_) {
   FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return 0;
   }
 
-  Data::Image* img = new Data::Image(f.fileName());
+  Data::Image* img = new Data::Image(f.fileName(), id_);
   if(img->isNull() && !quiet_) {
     QString str = i18n("Tellico is unable to load the image - %1.", url_.fileName());
     GUI::Proxy::sorry(str);
@@ -206,7 +211,7 @@ Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, bool quiet_) 
   return img;
 }
 
-// really, this hsould be decoupled from the writeBackupFile() function
+// really, this should be decoupled from the writeBackupFile() function
 // but every other function that calls it would need to be updated
 bool FileHandler::queryExists(const KUrl& url_) {
   if(url_.isEmpty() || !KIO::NetAccess::exists(url_, KIO::NetAccess::SourceSide, GUI::Proxy::widget())) {
@@ -216,11 +221,15 @@ bool FileHandler::queryExists(const KUrl& url_) {
   // no need to check if we're actually overwriting the current url
   // the TellicoImporter forces the write
   GUI::CursorSaver cs(Qt::ArrowCursor);
+  KGuiItem guiItem(i18n("Overwrite"));
+  guiItem.setIcon(KIcon(QLatin1String("document-save-as"),
+                                      KIconLoader::global(),
+                                      QStringList() << QLatin1String("emblem-important")));
   QString str = i18n("A file named \"%1\" already exists. "
                      "Are you sure you want to overwrite it?", url_.fileName());
   int want_continue = KMessageBox::warningContinueCancel(GUI::Proxy::widget(), str,
                                                          i18n("Overwrite File?"),
-                                                         KGuiItem(i18n("Overwrite")));
+                                                         guiItem);
 
   if(want_continue == KMessageBox::Cancel) {
     return false;

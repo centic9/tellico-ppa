@@ -45,7 +45,8 @@ namespace Tellico {
       Griffith,
       PDF,
       Referencer,
-      Delicious
+      Delicious,
+      Goodreads
     };
 
     enum Action {

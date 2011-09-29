@@ -7,6 +7,7 @@ SET(fetch_STAT_SRCS
    amazonrequest.cpp
    animenfofetcher.cpp
    arxivfetcher.cpp
+   bibliosharefetcher.cpp
    bibsonomyfetcher.cpp
    citebasefetcher.cpp
    configwidget.cpp
@@ -26,12 +27,14 @@ SET(fetch_STAT_SRCS
    gcstarpluginfetcher.cpp
    gcstarthread.cpp
    giantbombfetcher.cpp
+   googlebookfetcher.cpp
    googlescholarfetcher.cpp
    hmac_sha2.c
    ibsfetcher.cpp
    imdbfetcher.cpp
    isbndbfetcher.cpp
    messagehandler.cpp
+   moviemeterfetcher.cpp
    multifetcher.cpp
    musicbrainzfetcher.cpp
    openlibraryfetcher.cpp
@@ -52,12 +55,14 @@ TARGET_LINK_LIBRARIES(fetch
     btparse
     )
 
+TARGET_LINK_LIBRARIES(fetch ${KDEPIMLIBS_KXMLRPCCLIENT_LIBS})
+
 IF( YAZ_FOUND )
   TARGET_LINK_LIBRARIES(fetch ${YAZ_LIBRARIES})
 ENDIF( YAZ_FOUND )
 
 IF( QJSON_FOUND )
-  TARGET_LINK_LIBRARIES(fetch ${QJSON_LIBRARIES})
+  TARGET_LINK_LIBRARIES(fetch ${QJSON_LIBRARIES} ${qjson_LIBRARIES})
 ENDIF( QJSON_FOUND )
 
 ########### install files ###############

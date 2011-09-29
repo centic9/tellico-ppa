@@ -49,21 +49,6 @@
 
 namespace {
   static const char* OPENLIBRARY_QUERY_URL = "http://openlibrary.org/query.json";
-
-  QString value(const QVariantMap& map, const char* name) {
-    const QVariant v = map.value(QLatin1String(name));
-    if(v.isNull())  {
-      return QString();
-    } else if(v.canConvert(QVariant::String)) {
-      return v.toString();
-    } else if(v.canConvert(QVariant::StringList)) {
-      return v.toStringList().join(Tellico::FieldFormat::delimiterString());
-    } else if(v.canConvert(QVariant::Map)) {
-      return v.toMap().value(QLatin1String("value")).toString();
-    } else {
-      return QString();
-    }
-  }
 }
 
 using namespace Tellico;
@@ -311,9 +296,14 @@ void OpenLibraryFetcher::slotComplete(KJob* job_) {
     entry->setField(QLatin1String("title"), value(resultMap, "title"));
     entry->setField(QLatin1String("subtitle"), value(resultMap, "subtitle"));
     entry->setField(QLatin1String("pub_year"), value(resultMap, "publish_date"));
-    entry->setField(QLatin1String("isbn"), value(resultMap, "isbn_10"));
-    if(entry->field(QLatin1String("isbn")).isEmpty()) {
-      entry->setField(QLatin1String("isbn"), value(resultMap, "isbn_13"));
+    QString isbn = value(resultMap, "isbn_10");
+    if(isbn.isEmpty()) {
+      isbn = value(resultMap, "isbn_13");
+    }
+    if(!isbn.isEmpty()) {
+      ISBNValidator val(this);
+      val.fixup(isbn);
+      entry->setField(QLatin1String("isbn"), isbn);
     }
     entry->setField(QLatin1String("lccn"), value(resultMap, "lccn"));
     entry->setField(QLatin1String("genre"), value(resultMap, "genres"));
@@ -443,6 +433,22 @@ void OpenLibraryFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
 
 QString OpenLibraryFetcher::ConfigWidget::preferredName() const {
   return OpenLibraryFetcher::defaultName();
+}
+
+// static
+QString OpenLibraryFetcher::value(const QVariantMap& map, const char* name) {
+  const QVariant v = map.value(QLatin1String(name));
+  if(v.isNull())  {
+    return QString();
+  } else if(v.canConvert(QVariant::String)) {
+    return v.toString();
+  } else if(v.canConvert(QVariant::StringList)) {
+    return v.toStringList().join(Tellico::FieldFormat::delimiterString());
+  } else if(v.canConvert(QVariant::Map)) {
+    return v.toMap().value(QLatin1String("value")).toString();
+  } else {
+    return QString();
+  }
 }
 
 #include "openlibraryfetcher.moc"

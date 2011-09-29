@@ -64,6 +64,7 @@ public:
 
 protected:
   void setXSLTFilename(const QString& filename);
+  int limit() const { return m_limit; }
   void setLimit(int limit);
   XSLTHandler* xsltHandler();
 

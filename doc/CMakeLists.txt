@@ -1,5 +1,9 @@
-
-KDE4_CREATE_HANDBOOK( index.docbook
-  INSTALL_DESTINATION ${HTML_INSTALL_DIR}/en
-  SUBDIR tellico
-  )
+add_subdirectory(es)
+add_subdirectory(et)
+add_subdirectory(fr)
+add_subdirectory(nl)
+add_subdirectory(pt)
+add_subdirectory(pt_BR)
+add_subdirectory(sv)
+add_subdirectory(uk)
+add_subdirectory(en_US)

@@ -1,0 +1,353 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY appname '<application
+>Tellico</application
+>'>
+  <!ENTITY kappname "&appname;">
+  <!ENTITY package "extragear/office">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % Estonian  "INCLUDE"
+><!-- change language only here -->
+
+  <!ENTITY robby "Robby Stephenson">
+  <!ENTITY email "robby@periapsis.org">
+  <!ENTITY homepage "http://tellico-project.org">
+  <!ENTITY maillist "http://forge.novell.com/mailman/listinfo/tellico-users">
+  <!ENTITY xslt "<acronym
+>XSLT</acronym
+>">
+
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY importing-exporting-chapter SYSTEM "importing-exporting.docbook">
+  <!ENTITY configuration-chapter SYSTEM "configuration.docbook">
+  <!ENTITY fields-chapter SYSTEM "fields.docbook">
+  <!ENTITY menus-chapter SYSTEM "menus.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY hacking-chapter SYSTEM "hacking.docbook">
+  <!ENTITY faqs-chapter SYSTEM "faqs.docbook">
+  <!ENTITY details-chapter SYSTEM "details.docbook">
+
+]>
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+<date
+>28/08/2009</date>
+<releaseinfo
+>2.0</releaseinfo>
+
+<title
+>&appname; käsiraamat</title>
+
+<authorgroup>
+<author
+><firstname
+>Robby</firstname
+> <surname
+>Stephenson</surname
+> <affiliation
+> <address
+><email
+>&email;</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Marek</firstname
+><surname
+>Laane</surname
+><affiliation
+><address
+><email
+>bald@smail.ee</email
+></address
+></affiliation
+><contrib
+>Tõlge eesti keelde</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2001</year>
+<year
+>2002</year>
+<year
+>2003</year>
+<year
+>2004</year>
+<year
+>2005</year>
+<year
+>2006</year>
+<year
+>2007</year>
+<year
+>2008</year>
+<year
+>2009</year>
+<holder
+>&robby;</holder>
+</copyright>
+
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+&FDLNotice;
+
+<para
+>Käesoleva käsiraamatu autor on andnud sulle ka loa kasutada selle sisu vastavalt <ulink url="freebsd-doc-license.html"
+>FreeBSD dokumentatsiooni litsentsi</ulink
+> tingimustele, kui sa nii soovid. Vaata ka märget <link linkend="gnu-fdl"
+>litsentsisektsioonis</link
+>.</para>
+</legalnotice>
+
+<legalnotice>
+<para
+>Käesolev rakendust on vaba tarkvara, mida võib levitada ja/või muuta vastavalt &GNU; Üldise Avaliku Litsentsi tingimustele, nagu selle on avaldanud Free Software Foundation, kas litsentsi versioonis 2 või (kui soovid) versioonis 3 või uuemas, mida tunnustab KDE e.V. (või KDE e.V. tunnustatud järeltulija), mis toimib litsentsi versiooni 3 sektsioonis 14 defineeritud vahendajana. </para>
+
+<para
+>Seda programmi levitatakse lootuses, et see on kasulik, kuid ILMA IGASUGUSE GARANTIITA; isegi KESKMISE/TAVALISE KVALITEEDI GARANTIITA või SOBIVUSELE TEATUD KINDLAKS EESMÄRGIKS. Üksikasjade suhtes vaata &GNU; Üldist Avalikku Litsentsi.</para>
+
+<para
+>Te peaks olema saanud &GNU; Üldise Avaliku Litsentsi koopia koos selle programmiga; kui ei, siis kontakteeruge Free Software Foundationiga, 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</para>
+</legalnotice>
+<!--<legalnotice
+>&GPLNotice;</legalnotice
+>-->
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>Käesolev käsiraamat tutvustab kogude haldamise rakenduse &appname; kasutamist. </para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>tellico</keyword>
+<keyword
+>raamat</keyword>
+<keyword
+>bibliograafia</keyword>
+<keyword
+>film</keyword>
+<keyword
+>kogu</keyword>
+<keyword
+>andmebaas</keyword>
+<keyword
+>kataloog</keyword>
+<keyword
+>extragear</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label each chapter
+so with the id attribute. This is necessary for two reasons: it allows
+you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files
+will vary from time to time making it hard to manage for maintainers
+and for the CVS system. Any chapter labelled (OPTIONAL) may be left
+out at the author's discretion. Other chapters should not be left out
+in order to maintain a consistent documentation style across all KDE
+apps. -->
+
+<chapter id="introduction">
+<title
+>Sissejuhatus</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<sect1 id="tellico-intro">
+<title
+>&appname;</title>
+
+<para
+>&appname; on kogude haldamise rakendus. Algselt oli see lihtne koduse raamatukogu haldur, kuid hiljem laienes, võimaldades nüüd hallata ka bibliograafiaid, koomikseid, videoid, muusikat, münte, marke, kogumiskaarte, videomänge, veine, lauamänge ja isegi failinimekirju. Lisaks saab luua kohandatud kogusid mis tahes laadi kogutavate asjade haldamiseks. </para>
+
+<sect2 id="what-tellico-is">
+<title
+>Mida &appname; endast kujutab</title>
+
+<para
+>&appname; hoiab silma peal kogusse kuuluvatel asjadel ning pakub hõlpsat viisi sisestada iga kogu elemendi kohta teavet. Selleks on olemas mitut tüüpi väljad, samuti on võimalik lisada piiramatul hulgal kasutaja defineeritud välju. Kogu kirjeid saab rühmitada iga välja järgi, mis hõlbustab nende korraldamist, ning kohandavate vaadetega saab lasta näidata just nii palju või nii vähe teavet, kui seda parajasti vaja läheb. </para>
+
+<para
+>Võimalik on jälgida esemete laenutusi, seda saab soovi korral seostada ka &korganizer;iga. Kogusid võib importida või eksportida väga paljudes vormingutes, mis lubab hõlpsasti andmeid vahetada või neid avaldada. </para>
+
+</sect2>
+
+<sect2 id="what-tellico-is-not">
+<title
+>Mida &appname; endast ei kujuta</title>
+
+<para
+>&appname; ei ole muusika- või videomängija. See ei paku võimalusi multimeediafailide esitamiseks või muutmiseks. Samuti ei paku see mingeid võimalusi pilditöötluseks. Kuigi &appname; suudab teataval määral hallata bibliograafiaid, ei ole see samas kõigi võimalustega bibliograafiarakendus. Samuti ei pretendeeri &appname; sugugi sellele, et olla kõigi võimalustega relatsiooniline andmebaas. </para>
+
+<para
+>Omamoodi lahtiütlusena võib sõnada, et &appname; on selle autori hobi, mistõttu ei ole garanteeritud ükski selle funktsioon, kasulikkus ega midagi muud. See ei ole veel kaugeltki professionaalne tarkvara. Täpsemat teavet võib leida <link linkend="gnu-fdl"
+>litsentsideklaratsioonist</link
+>. </para>
+
+</sect2>
+</sect1>
+
+<sect1 id="terminology">
+<title
+>Terminoloogia</title>
+
+<sect2 id="collections">
+<title
+>Kogud</title>
+<para
+>&appname; seisukohalt on kogu dokument. Igas &appname; failis sisaldub ainult üks kogu. Kogu sisaldab suvalise arvu <link linkend="fields"
+>välju</link
+> ja <link linkend="entries"
+>kirjeid</link
+>. &appname; toetab vaikimisi 12 konkreetset kogutüüpi: raamatud, bibliograafiakirjed, koomiksid, videod, muusika, kogumiskaardid, mündid, margid, videomängud, veinid, lauamängud ja failinimekirjad. Lisaks on mis tahes laadi kogumisobjektide või nimekirjade tarbeks mõeldud üldine tühi kogumall. </para>
+</sect2>
+
+<sect2 id="fields">
+<title
+>Kogu väljad</title>
+<para
+>Igas kogus võib olla piiramatul hulgal välju. &appname; toetab 11 väljatüüpi, mis võimaldavad kasutada väga erinevaid andmeid. Välju saab redigeerida <link linkend="fields-dialog"
+><interface
+>kogu väljade dialoogis</interface
+></link
+> ning neist kõneleb lähemalt <link linkend="field-types"
+>väljatüüpide osa</link
+>. </para>
+</sect2>
+
+<sect2 id="entries">
+<title
+>Kogu kirjed</title>
+
+<para
+>Kirje on &appname; põhielement. Iga kirje sisaldab kogu konkreetse välja konkreetset väärtust. Kogus võib teoreetiliselt olla piiramatul hulgal kirjeid, ehkki arvestades seda, et terve kogu on alati mälus, võib liiga suur kirjete arv aeglustada rakenduse tööd. </para>
+
+<para
+>&appname;t on testitud koguga, mis sisaldas 10 000 kirjet, ja selle puhul oli kiirus rahuldav. Aga kui kogus on palju suuri pilte, võib laadimis- ja töötlemisaeg tunduvalt suureneda. Jõudlust saab parandada, kui lasta &appname;l salvestada pildid andmefailist eraldi kas rakendusepõhisesse kataloogi või andmefailiga seotud kataloogi. Täpsemat teavet selle kohta leiab <link linkend="configuration"
+>seadistamissektsioonist</link
+>. </para>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+&fundamentals-chapter;
+
+&details-chapter;
+
+&importing-exporting-chapter;
+
+&advanced-chapter;
+
+&configuration-chapter;
+
+&hacking-chapter;
+
+&faqs-chapter;
+
+&menus-chapter;
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be
+included below the credits with a reference to the appropriate license
+file included in the KDE distribution. -->
+
+<title
+>Autorid ja litsents</title>
+
+<para
+>&appname; </para>
+<para
+>Rakenduse autoriõigus 2001-2009: &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Dokumentatsiooni autoriõigus 2001-2009: &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Tõlge eesti keelde: Marek Laane <email
+>bald@smail.ee</email
+></para
+> 
+&underFDL; &underGPL; <para
+>Käesoleva käsiraamatu autor on andnud sulle ka loa kasutada selle sisu vastavalt <ulink url="freebsd-doc-license.html"
+>FreeBSD dokumentatsiooni litsentsi</ulink
+> tingimustele, kui sa nii soovid. Kui sa soovid lubada käesoleva sisu enda versiooni kasutada ainult FreeBSD dokumentatsiooni litsentsi alusel, mitte aga GFDL alusel, siis anna sellest otsusest teada, kustutades GFDL märke ja asendades selle märke ja muude vajalike elementidega, mida nõuab FreeBSD dokumentatsiooni litsents. Kui sa ei kustuta mainitud GFDL märget, võib käesoleva faili sinu versiooni kasutaja kasutada seda kas GFDL või FreeBSD dokumentatsiooni litsentsi alusel.</para>
+
+</chapter>
+
+<appendix id="installation">
+<title
+>Paigaldamine</title>
+
+<sect1 id="getting-tellico">
+<title
+>&appname; hankimine</title>
+
+<para
+>&appname; kodulehekülg on <ulink url="&homepage;"
+>&homepage;</ulink
+>. Siit leiab uuendusi ja uudiseid.</para>
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Kompileerimine ja paigaldamine</title>
+&install.compile.documentation; </sect1>
+
+</appendix>
+
+&documentation.index;
+
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

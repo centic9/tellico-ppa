@@ -1,0 +1,282 @@
+<chapter id="faqs">
+<title
+>Vragen en antwoorden</title>
+
+<!-- (OPTIONAL but recommended) This chapter should include all of the silly
+(and not-so-silly) newbie questions that fill up your mailbox. This chapter
+should be reserved for BRIEF questions and answers! If one question uses more
+than a page or so then it should probably be part of the
+"Using this Application" chapter instead. You should use links to
+cross-reference questions to the parts of your documentation that answer them.
+This is also a great place to provide pointers to other FAQ's if your users
+must do some complicated configuration on other programs in order for your
+application work. -->
+
+<qandaset id="faqlist">
+
+<qandaentry>
+<question>
+<para
+>Hoe voer ik meervoudige auteurs in?</para>
+</question>
+<answer>
+
+<para
+>Namen van auteurs zouden door een puntkomma moeten worden gescheiden, zoals: <userinput
+>Brian W. Kernighan; Dennis M. Ritchie</userinput
+>. Voeg het woord "en", of iets soortgelijks, niet toe, zelfs als u 20 auteurs hebt. Als u de optie Automatische opmaak hebt geactiveerd, wordt de achternaam automatisch als eerste getoond voor elke auteur.</para>
+
+<para
+>Andere eigenschappen die meervoudige waarden toestaan, zoals "genre" en "sleutelwoorden", worden op dezelfde manier ingevoerd, met een puntkomma (;) die elke waarde scheidt.</para>
+
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Kan ik, hoe de afgedrukte pagina er uitziet, wijzigen?</para>
+</question>
+<answer>
+
+<para
+>Zeker. Zoek het bestand <filename
+>tellico-printing.xsl</filename
+>, die zich in de map $<envar
+>KDEDIR</envar
+>/share/apps/tellico/ zou moeten bevinden. U kunt die kopiëren naar $<envar
+>KDEHOME</envar
+>/share/apps/tellico/ voor persoonlijke wijzigingen. U moet kennis hebben van <ulink url="http://www.w3.org/TR/xslt"
+>&xslt;</ulink
+>, maar dat bestand wijzigen is nodig om de opmaak van het afdrukken te wijzigen. Er wordt &HTML; gegenereerd uit het bestand en de gemakkelijkste manier om het uiterlijk van de afdruk te wijzigen is de &CSS; aan het begin te wijzigen.</para>
+
+<para
+>Be aware that the <filename
+>tellico-printing.xsl</filename
+> references another file, <filename
+>tellico-common.xsl</filename
+>, that contains some common &xslt; templates. If you copy <filename
+>tellico-printing.xsl</filename
+> to $<envar
+>KDEHOME</envar
+>, you must either modify the &lt;xsl:import&gt; element to point to the actual location of the <filename
+>tellico-common.xsl</filename
+> file or copy the common file as well. </para>
+</answer>
+</qandaentry>
+<qandaentry>
+<question>
+<para
+>Hoe groepeer ik per eigenschap anders dan die in de werkbalk staan?</para>
+</question>
+<answer>
+<para
+>To allow grouping by a field which doesn't allow grouping by default, check the "Allow Grouping" box for that particular field in the "Collection Fields" dialog. </para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question
+><para
+>Waarom verschijnt niet al dat 'gobbledy-gook' wanneer ik &appname; start?</para
+></question>
+<answer>
+<para
+>Stuff like: <screen width="40"
+>
+<computeroutput>Tellico::updateCollectionToolBar</computeroutput>
+<computeroutput>GroupView::setGroupAttribute - author</computeroutput>
+<computeroutput>GroupView::slotAddCollection</computeroutput>
+<computeroutput>QCheckBox::property( "title" ) failed: property invalid
+or does not exist</computeroutput>
+</screen
+> is debug info. At compile time, this can be stopped by compiling with the <userinput
+><option
+>--disable-debug</option
+></userinput
+> flag. You might also want to use <userinput
+><option
+>--enable-final</option
+></userinput
+>, too, which takes a bit more memory when compiling, but is more efficient when running the application.</para>
+
+<para
+>Het laatste bericht is enigszins verschillend, het betekent gewoon dat uw &Qt;-installatie gecompileerd is met enige debugging-informatie.</para>
+
+<para
+>Or, if &appname; is already installed, run <userinput
+><command
+>kdebugdialog</command
+></userinput
+> and make sure that "0 (generic)" is unchecked. That turns off debug messages from all generic &kde; apps &ie; those not distributed officially by &kde;.</para>
+
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question
+><para
+>How do I change which columns are shown?</para
+></question>
+<answer>
+<para
+>Right-click on the header bar. You can also drag the headers to re-order the columns, and click on them to sort by that field.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question
+><para
+>How do I filter by something like the "Read" field?</para
+></question>
+<answer>
+<para
+>Internally, the checkbox fields in &appname; are saved as "true", so if you'd like to filter to show only the science fiction books which you've not read, for example, then you have two rules. Make sure the "Match all of the following" button is checked. Set the first rule to have "Genre" "contains" "Science Fiction" (no quotes) and the second rule to have "Read" "does not contain" "true" (no quotes).</para>
+
+<para
+>Also, the quick filter in the toolbar will match any field, and if there is a non-word character, the text is interpreted as a regular expression. So if you quickly want to filter your books to show those by Weber or Bujold, then type "weber|bujold" (no quotes) in the toolbar.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question
+><para
+>How do I add new entry templates?</para
+></question>
+
+<answer>
+<para
+>Entry templates should be saved in <filename class="directory"
+>$<envar
+>KDEHOME</envar
+>/share/apps/tellico/entry-templates/</filename
+> for access for a single user or <filename class="directory"
+>$<envar
+>KDEDIR</envar
+>/share/apps/tellico/entry-templates/</filename
+> for access by everyone. Templates in $<envar
+>KDEHOME</envar
+> will override any files by the same name in $<envar
+>KDEDIRS</envar
+>. The entry templates can be set on a per collection-type basis in the settings dialog.</para>
+
+<para
+>Templates for the <interface
+>Report Dialog</interface
+> are saved in <filename class="directory"
+>$<envar
+>KDEHOME</envar
+>/share/apps/tellico/report-templates/</filename
+>. </para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question
+><para
+>Compiling and installing went fine, but when &appname; starts up, the window is blank. What's wrong?</para
+></question>
+
+<answer>
+<para
+>&kde; programs look for data in the locations defined in the $<envar
+>KDEDIRS</envar
+> environmental variable. If you install in <filename class="directory"
+>/usr/local</filename
+> for example, but $<envar
+>KDEDIRS</envar
+> is empty or just <filename class="directory"
+>/usr</filename
+>, then &appname; won't be able to find the files it needs. This is particularly true for &SuSE;, for which you should compile with <userinput
+><option
+>--prefix</option
+>=<filename class="directory"
+>/opt/kde3</filename
+></userinput
+>. Alternatively, you could add a line to your <filename
+>.profile</filename
+> file to set $<envar
+>KDEDIRS</envar
+>. Check the documentation for your shell.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question
+><para
+>How do I export additional bibtex fields?</para
+></question>
+<answer>
+<para
+>&appname; uses the <emphasis
+>bibtex</emphasis
+> property to know how to export bibtex fields. If you want to add additional fields to export, such as an abstract, open up the <interface
+>Collection Fields Dialog</interface
+>, and click the <guibutton
+>Set Properties</guibutton
+> button. Add a <emphasis
+>bibtex</emphasis
+> property with value <emphasis
+>abstract</emphasis
+>. Then, when you export to bibtex or bibtexml, that property will be used for the bibtex field name.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>What happened to Bookcase?</para>
+</question>
+
+<answer>
+<para
+>Due to a trademark conflict, Bookcase was renamed Tellico in September 2004. Tellico 0.12 was then released, which was identical to Bookcase 0.11, except for the name change.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>What does the name Tellico have to do with anything?</para>
+</question>
+
+<answer>
+<para
+>I thought about <ulink url="http://www.periapsis.org/archives/2004/09/13/renaming_bookcase.html"
+>several other names</ulink
+>, a few of which were connected with book collections. However, Tellico can handle more than just books, and besides, this is a hobby, so I chose a neat-sounding (to me) name, one taken from a town close to where I grew up.</para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>What do you include those links to Amazon.com in the search results?</para>
+</question>
+
+<answer>
+<para
+>The <ulink url="http://www.amazon.com/gp/browse.html/002-0927720-5265623?node=3440661"
+>terms of agreement for accessing the Amazon.com Web Services</ulink
+> require all images pulled from the service to be linked back to Amazon.com, as well as an additional link. The Amazon.com associate's ID is necessarily included, so any referral payments are duly collected. </para>
+</answer>
+</qandaentry>
+
+<qandaentry>
+<question>
+<para
+>Why don't you use a real database?</para>
+</question>
+
+<answer>
+<para
+>Part of the reason I started &appname; was to learn C++. I didn't know SQL at the time, and at the moment, I only have a faint knowledge of how to use it. Simply put, &appname; didn't start out as a relational database, and that won't change until sometime in the future when I get around to learning SQL and have the time and motivation to change the data model. If that bothers you, well, don't use &appname; then. </para>
+
+<para
+>Of course, anyone is welcome to make any changes they want to with the source code. </para>
+</answer>
+</qandaentry>
+
+</qandaset>
+
+</chapter>

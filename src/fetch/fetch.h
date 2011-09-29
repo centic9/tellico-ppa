@@ -77,7 +77,10 @@ enum Type {
   Freebase,
   DVDFr,
   Filmaster,
-  Douban
+  Douban,
+  BiblioShare,
+  MovieMeter,
+  GoogleBook
 };
 
   }

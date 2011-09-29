@@ -12,6 +12,7 @@ SET(fetch_STAT_SRCS
    configwidget.cpp
    crossreffetcher.cpp
    discogsfetcher.cpp
+   doubanfetcher.cpp
    dvdfrfetcher.cpp
    entrezfetcher.cpp
    execexternalfetcher.cpp
@@ -20,6 +21,7 @@ SET(fetch_STAT_SRCS
    fetcherjob.cpp
    fetchmanager.cpp
    fetchresult.cpp
+   filmasterfetcher.cpp
    freebasefetcher.cpp
    gcstarpluginfetcher.cpp
    gcstarthread.cpp

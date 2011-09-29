@@ -1,6 +1,6 @@
 <?xml version = '1.0'?>
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui version="28" name="tellico">
+<kpartgui version="30" name="tellico">
  <MenuBar>
   <Menu name="file">
    <text>&amp;File</text>
@@ -88,10 +88,14 @@
    <Action name="coll_fields"/>
    <Action name="coll_reports"/>
    <Separator/>
-   <Action name="coll_convert_bibliography"/>
-   <Action name="coll_string_macros"/>
-   <Action name="cite_clipboard"/>
-   <Action name="cite_lyxpipe"/>
+   <Menu name="coll_bibliography">
+    <text>&amp;Bibliography</text>
+    <Action name="coll_convert_bibliography"/>
+    <Action name="coll_string_macros"/>
+    <Action name="coll_key_manager"/>
+    <Action name="cite_clipboard"/>
+    <Action name="cite_lyxpipe"/>
+   </Menu>
   </Menu>
   <Menu name="settings">
    <Action append="show_merge" name="toggle_collection_bar"/>
@@ -134,6 +138,7 @@
   <Action name="file_export_amc"/>
   <Action name="coll_convert_bibliography"/>
   <Action name="coll_string_macros"/>
+  <Action name="coll_key_manager"/>
   <Action name="cite_clipboard"/>
   <Action name="cite_lyxpipe"/>
  </Disable>
@@ -152,6 +157,7 @@
   <Action name="file_export_bibtex"/>
   <Action name="file_export_bibtexml"/>
   <Action name="coll_string_macros"/>
+  <Action name="coll_key_manager"/>
  </Enable>
 </State>
 

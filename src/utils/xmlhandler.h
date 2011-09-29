@@ -42,7 +42,7 @@ public:
    */
   static bool setUtf8XmlEncoding(QString& text);
   /**
-   * Read XML data iinto a string, respecting the encoding in the string
+   * Read XML data into a string, respecting the encoding in the string
    */
   static QString readXMLData(const QByteArray& data);
 };

@@ -75,7 +75,9 @@ enum Type {
   OpenLibrary,
   Multiple,
   Freebase,
-  DVDFr
+  DVDFr,
+  Filmaster,
+  Douban
 };
 
   }

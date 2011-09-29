@@ -336,7 +336,7 @@
 ></link
 > ouvrira le lien utilisant l'association de fichiers par défaut de &kde;. Le bouton de <guiicon
 >sélecteur d'&URL;</guiicon
-> à coté de l'entrée texte ouvrira la boîte de dialogue d'ouverture de fichiers par défaut de &kde;, mais le champ n'est pas limité aux fichiers locaux. </para>
+> à côté de l'entrée texte ouvrira la boîte de dialogue d'ouverture de fichiers par défaut de &kde;, mais le champ n'est pas limité aux fichiers locaux. </para>
 
 <para
 >Pour les champs <link linkend="image"
@@ -525,23 +525,23 @@
 >Propriétés des champs</title>
 
 <para
->Un champ est défini par son titre, son type, sa catégorie, sa description et éventuellement une valeur par défaut ou des valeurs autorisées. Le titre est utilisé partout pour renvoyer le champ dans l'interface utilisateur. <interface
->L'éditeur d'entrées</interface
-> l'utilise pour se rappeler les valeurs. La <interface
+>Un champ est défini par son titre, son type, sa catégorie, sa description et éventuellement une valeur par défaut ou des valeurs autorisées. Le titre est employé partout comme référence au champ dans l'interface utilisateur. <interface
+>L'éditeur d'entrée</interface
+> l'utilise pour appeler des valeurs. La <interface
 >Vue en colonnes</interface
-> l'utilise comme une en-tête de colonne. Les différents types de champs sont <link linkend="field-types"
->expliqués dans la section des types de champ</link
->. La description est utilisée comme une infobulle dans <interface
->L'éditeur d'entrées</interface
-> pour fournir une explication du contenu des champs. En plus, pour les champs <link linkend="dependent"
-><emphasis
->Dépendant</emphasis
+> l'utilise comme en-tête de colonne. Les différents types de champs sont <link linkend="field-types"
+>expliqués dans la section Types de champ</link
+>. La description correspond à une infobulle dans <interface
+>L'éditeur d'entrée</interface
+> pour fournir une explication sur le contenu du champ. De plus, pour les <link linkend="derived"
+>les champs avec une valeurs <emphasis
+>dérivées</emphasis
 ></link
->, la description est utilisée pour formater la valeur du champ. La valeur par défaut est automatiquement ajoutée à la création d'une nouvelle entrée. La liste des valeurs autorisées pour les champs <link linkend="choice"
+>, un modèle de valeur est utilisé pour formater la valeur du champ. La valeur par défaut est automatiquement ajoutée à la création d'une nouvelle entrée. Les valeurs autorisées, listées dans les champs <link linkend="choice"
 ><emphasis
 >Choix</emphasis
 ></link
-> doit être séparée par un point-virgule. </para>
+>, doivent être séparées par un point-virgule. </para>
 
 <para
 >Les nouveaux champs peuvent être de n'importe quels types, mais modifier le type des champs existants est restreint aux types compatibles, comme affiché dans le tableau ci-dessous :  </para>
@@ -711,16 +711,6 @@
 >Choix</emphasis
 >, <emphasis
 >Note</emphasis
-></entry>
-</row>
-<row>
-<entry
-><emphasis
->Dépendant</emphasis
-></entry>
-<entry
-><emphasis
->Dépendant</emphasis
 ></entry>
 </row>
 </tbody>
@@ -1077,9 +1067,9 @@
 
 <tip>
 <para
->Vous pouvez utiliser les champs « Dépendant » pour combiner plusieurs champs séparés dans un champ simple. Sélectionnez simplement le type « Dépendant » et utilisez la description identique à <userinput
->Valeur: %{champa}%{champb}</userinput
->, où %{...} est remplacé avec la valeur appropriée. C'est utile pour collecter de nombreuses valeurs dans le champ simple, &pex; pour de meilleurs groupements, et pour combiner des champs ou différents types en respectant le trie approprié en même temps. Envisagez par exemple qu'un champ de nombre est suivi par un sous-champ de texte avec des entrées 3b, 14a. </para>
+>Vous pouvez utiliser les valeurs dérivées pour combiner des données provenant de plusieurs champs. Pour cela, cochez la case « valeur dérivée » et utilisez un modèle de valeur semblable à « <userinput
+>Value: %{fielda}%{fieldb}</userinput
+> » ou %{...} sera remplacé par la valeur de champ appropriée. Ceci est utile pour collecter de nombreuses valeurs et les réunir dans seul champ, &pex; pour de meilleurs groupements et pour combiner des champs de différents types en respectant le trie approprié en même temps. Considérez comme exemple un champ « nombre » suivi d'un sous-champ de texte avec des entrées 3b, 14a. </para>
 </tip>
 
 </sect1>

@@ -1,5 +1,5 @@
 project(Tellico)
-set(TELLICO_VERSION "2.3.2")
+set(TELLICO_VERSION "2.3.3")
 
 cmake_minimum_required(VERSION 2.6.2)
 
@@ -86,15 +86,27 @@ endif(LIBEXEMPI_FOUND)
 macro_optional_find_package(QJSON)
 macro_log_feature(QJSON_FOUND "QJSON" "Support for searching OpenLibrary and Freebase" "http://qjson.sourceforge.net" FALSE "" "")
 
-# once we make webcam support enabled by default, we can remove this logic
+# webcam uses libv4l, which only works on Linux for now
+# Linux 2.6.38 removed the videodev.h header
+# libv4l 0.8.3 includes a compat header for videodev.h
 if(ENABLE_WEBCAM)
-    macro_optional_find_package(V4l)
-    macro_log_feature(LIBV4L_FOUND "libv4l" "Support for barcode scanning with a webcam" "http://hansdegoede.livejournal.com/3636.html" FALSE "" "Required for using a webcam")
-    if(LIBV4L_FOUND)
-        include_directories(${LIBV4L_INCLUDE_DIR})
-    else(LIBV4L_FOUND)
-        set(ENABLE_WEBCAM FALSE)
-    endif(LIBV4L_FOUND)
+    if(NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
+        message("WARNING: Webcam support is not available on your platform")
+        set( ENABLE_WEBCAM FALSE )
+    else(NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
+        pkg_check_modules(LIBV4L libv4l1>=0.6)
+        macro_log_feature(LIBV4L_FOUND "libv4l" "Support for barcode scanning with a webcam" "http://hansdegoede.livejournal.com/3636.html"  FALSE "" "")                                                           
+        if(LIBV4L_FOUND)
+            if(LIBV4L_VERSION VERSION_LESS "0.8.3" AND CMAKE_SYSTEM_VERSION VERSION_GREATER "2.6.37") 
+                message("WARNING: libv4l 0.8.3 or later is required for Linux kernel 2.6.38 or later")
+                set( ENABLE_WEBCAM FALSE )
+            else(LIBV4L_VERSION VERSION_LESS "0.8.3" AND CMAKE_SYSTEM_VERSION VERSION_GREATER "2.6.37")
+                include_directories(${LIBV4L_INCLUDE_DIR})
+            endif(LIBV4L_VERSION VERSION_LESS "0.8.3" AND CMAKE_SYSTEM_VERSION VERSION_GREATER "2.6.37")
+        else(LIBV4L_FOUND)
+            set(ENABLE_WEBCAM FALSE)
+        endif(LIBV4L_FOUND)
+    endif(NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
 endif(ENABLE_WEBCAM)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -115,6 +127,12 @@ include_directories(${KDE4_INCLUDES}
                     ${Tellico_SOURCE_DIR}/src/core
                     ${Tellico_SOURCE_DIR}/src/3rdparty)
 
+if(KDE_VERSION VERSION_GREATER 4.4)
+    set(ENABLE_KNEWSTUFF3 TRUE)
+else(KDE_VERSION VERSION_GREATER 4.4)
+    set(ENABLE_KNEWSTUFF3 FALSE)
+endif(KDE_VERSION VERSION_GREATER 4.4)
+
 # is there a better way to disable qt3support library?
 get_directory_property(include_dirs INCLUDE_DIRECTORIES)
 if(QT_QT3SUPPORT_FOUND)
@@ -132,11 +150,6 @@ if(NOT CMAKE_SYSTEM_NAME MATCHES "FreeBSD|Linux|kFreeBSD|NetBSD|OpenBSD|SunOS|Da
     message("WARNING: CDDB Lookup is not supported on your platform")
 endif(NOT CMAKE_SYSTEM_NAME MATCHES "FreeBSD|Linux|kFreeBSD|NetBSD|OpenBSD|SunOS|Darwin")
 
-if(ENABLE_WEBCAM AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
-    message("WARNING: Webcam support is not available on your platform")
-    set( ENABLE_WEBCAM FALSE )
-endif(ENABLE_WEBCAM AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
-
 ########## Wrap tests results around the tests done within the source
 
 macro_bool_to_01(TAGLIB_FOUND HAVE_TAGLIB)
@@ -150,6 +163,7 @@ macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KCAL)
 macro_bool_to_01(LIBV4L_FOUND HAVE_V4L)
 macro_bool_to_01(QJSON_FOUND HAVE_QJSON)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
+macro_bool_to_01(ENABLE_KNEWSTUFF3 ENABLE_KNEWSTUFF3)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 

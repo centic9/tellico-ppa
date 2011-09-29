@@ -1,5 +1,6 @@
 /***************************************************************************
     Copyright (C) 2001-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2011 Pedro Miguel Carvalho <kde@pmc.com.pt>
  ***************************************************************************/
 
 /***************************************************************************
@@ -478,6 +479,18 @@ private slots:
   void slotClearFilter();
   void slotRenameCollection();
   void slotImageLocationChanged();
+  /**
+   * Called when the viewStack's current widget changes
+   */
+  void slotCurrentViewWidgetChanged();
+  /**
+   * Toggle full screen mode
+   */
+  void slotToggleFullScreen();
+  /**
+   * Toggle menubar visibility
+   */
+  void slotToggleMenuBarVisibility();
 
 private:
   void importFile(Import::Format format, const KUrl::List& kurls);

@@ -1,5 +1,6 @@
 /***************************************************************************
     Copyright (C) 2001-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2011 Pedro Miguel Carvalho <kde@pmc.com.pt>
  ***************************************************************************/
 
 /***************************************************************************
@@ -353,6 +354,9 @@ void MainWindow::initActions() {
   IMPORT_ACTION(Import::RIS, "file_import_ris", i18n("Import RIS Data..."),
                 i18n("Import an RIS reference file"), BarIcon(QLatin1String("cite")));
 
+  IMPORT_ACTION(Import::Goodreads, "file_import_goodreads", i18n("Import Goodreads Collection..."),
+                i18n("Import a collection from Goodreads.com"), BarIcon(QLatin1String("goodreads")));
+
   IMPORT_ACTION(Import::PDF, "file_import_pdf", i18n("Import PDF File..."),
                 i18n("Import a PDF file"), mimeIcon("application/pdf"));
 
@@ -461,7 +465,7 @@ void MainWindow::initActions() {
   action->setText(i18n("Internet Search..."));
   action->setIconText(i18n("Search"));  // find a better word for this?
   action->setIcon(KIcon(QLatin1String("tools-wizard")));
-  action->setShortcut(Qt::CTRL + Qt::Key_M);
+  action->setShortcut(Qt::CTRL + Qt::Key_I);
   action->setToolTip(i18n("Search the internet..."));
 
   action = actionCollection()->addAction(QLatin1String("filter_dialog"), this, SLOT(slotShowFilterDialog()));
@@ -619,6 +623,17 @@ void MainWindow::initActions() {
   KStandardAction::tipOfDay(this, SLOT(slotShowTipOfDay()), actionCollection());
 
   /*************************************************
+   * Short cuts
+   *************************************************/
+  KAction* toggleFullScreenAction = KStandardAction::create(KStandardAction::FullScreen, this,
+                                                            SLOT(slotToggleFullScreen()), this);
+  actionCollection()->addAction(toggleFullScreenAction->text(), toggleFullScreenAction);
+
+  KAction* toggleMenubarAction = KStandardAction::create(KStandardAction::ShowMenubar, this,
+                                                         SLOT(slotToggleMenuBarVisibility()), this);
+  actionCollection()->addAction(toggleMenubarAction->text(), toggleMenubarAction);
+
+  /*************************************************
    * Collection Toolbar
    *************************************************/
   action = actionCollection()->addAction(QLatin1String("change_entry_grouping_accel"), this, SLOT(slotGroupLabelActivated()));
@@ -718,6 +733,10 @@ void MainWindow::initView() {
   Controller::self()->addObserver(m_viewStack->iconView());
   connect(m_viewStack->entryView(), SIGNAL(signalAction(const KUrl&)),
           SLOT(slotURLAction(const KUrl&)));
+
+  connect(m_statusBar, SIGNAL(requestIconSizeChange(int)),
+          m_viewStack->iconView(), SLOT(setMaxAllowedIconWidth(int)));
+  connect(m_viewStack, SIGNAL(currentChanged(int)), SLOT(slotCurrentViewWidgetChanged()));
 
   setMinimumWidth(MAIN_WINDOW_MIN_WIDTH);
 }
@@ -2096,6 +2115,10 @@ void MainWindow::slotImageLocationChanged() {
   m_savingImageLocationChange = false;
 }
 
+void MainWindow::slotCurrentViewWidgetChanged() {
+  m_statusBar->setIconSizeInterfaceVisible(m_viewStack->currentWidget() == m_viewStack->iconView());
+}
+
 void MainWindow::updateCollectionActions() {
   if(!Data::Document::self()->collection()) {
     return;
@@ -2235,6 +2258,16 @@ bool MainWindow::eventFilter(QObject* obj_, QEvent* ev_) {
     }
   }
   return false;
+}
+
+void MainWindow::slotToggleFullScreen() {
+  Qt::WindowStates ws = windowState();
+  setWindowState((ws & Qt::WindowFullScreen) ? (ws & ~Qt::WindowFullScreen) : (ws | Qt::WindowFullScreen));
+}
+
+void MainWindow::slotToggleMenuBarVisibility() {
+  KMenuBar* mb = menuBar();
+  mb->isHidden() ? mb->show() : mb->hide();
 }
 
 #include "mainwindow.moc"

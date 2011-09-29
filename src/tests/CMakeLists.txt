@@ -20,7 +20,7 @@ KDE4_ADD_UNIT_TEST(lcctest NOGUI lcctest.cpp ../field.cpp ../fieldformat.cpp ../
 TARGET_LINK_LIBRARIES(lcctest utils core ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} )
 
 KDE4_ADD_UNIT_TEST(csvtest NOGUI csvtest.cpp ../translators/csvparser.cpp)
-TARGET_LINK_LIBRARIES(csvtest csv ${QT_AND_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} )
+TARGET_LINK_LIBRARIES(csvtest csv ${QT_AND_KDECORE_LIBS} ${QT_QTCORE_LIBRARY} ${QT_QTTEST_LIBRARY} )
 
 KDE4_ADD_UNIT_TEST(formattest NOGUI formattest.cpp ../fieldformat.cpp)
 TARGET_LINK_LIBRARIES(formattest core ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} )
@@ -75,6 +75,9 @@ set(TELLICO_TEST_LIBS
 KDE4_ADD_UNIT_TEST(collectiontest NOGUI collectiontest.cpp)
 TARGET_LINK_LIBRARIES(collectiontest ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(filtertest NOGUI filtertest.cpp)
+TARGET_LINK_LIBRARIES(filtertest ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(adstest NOGUI adstest.cpp)
 TARGET_LINK_LIBRARIES(adstest ${TELLICO_TEST_LIBS})
 
@@ -114,6 +117,9 @@ TARGET_LINK_LIBRARIES(animenfofetchertest fetch ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(arxivfetchertest NOGUI arxivfetchertest.cpp)
 TARGET_LINK_LIBRARIES(arxivfetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(bibliosharefetchertest NOGUI bibliosharefetchertest.cpp)
+TARGET_LINK_LIBRARIES(bibliosharefetchertest fetch ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(boardgamegeekfetchertest NOGUI boardgamegeekfetchertest.cpp)
 TARGET_LINK_LIBRARIES(boardgamegeekfetchertest fetch ${TELLICO_TEST_LIBS})
 
@@ -144,6 +150,9 @@ ENDIF( QJSON_FOUND )
 KDE4_ADD_UNIT_TEST(giantbombfetchertest NOGUI giantbombfetchertest.cpp)
 TARGET_LINK_LIBRARIES(giantbombfetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(googlebookfetchertest NOGUI googlebookfetchertest.cpp)
+TARGET_LINK_LIBRARIES(googlebookfetchertest fetch ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(googlescholarfetchertest NOGUI googlescholarfetchertest.cpp)
 TARGET_LINK_LIBRARIES(googlescholarfetchertest fetch ${TELLICO_TEST_LIBS})
 
@@ -152,6 +161,9 @@ TARGET_LINK_LIBRARIES(imdbfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(isbndbfetchertest NOGUI isbndbfetchertest.cpp)
 TARGET_LINK_LIBRARIES(isbndbfetchertest fetch ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(moviemeterfetchertest NOGUI moviemeterfetchertest.cpp)
+TARGET_LINK_LIBRARIES(moviemeterfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(musicbrainzfetchertest NOGUI musicbrainzfetchertest.cpp)
 TARGET_LINK_LIBRARIES(musicbrainzfetchertest fetch ${TELLICO_TEST_LIBS})

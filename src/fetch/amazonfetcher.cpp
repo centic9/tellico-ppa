@@ -92,6 +92,15 @@ const AmazonFetcher::SiteData& AmazonFetcher::siteData(int site_) {
     }, {
       i18n("Amazon (Canada)"),
       KUrl("http://webservices.amazon.ca/onca/xml")
+#if 0
+      // TODO: update after string freeze
+    }, {
+      KUrl("http://webservices.amazon.cn/onca/xml")
+    }, {
+      KUrl("http://webservices.amazon.es/onca/xml")
+    }, {
+      KUrl("http://webservices.amazon.it/onca/xml")
+#endif
     }
   };
 
@@ -101,7 +110,7 @@ const AmazonFetcher::SiteData& AmazonFetcher::siteData(int site_) {
 AmazonFetcher::AmazonFetcher(QObject* parent_)
     : Fetcher(parent_), m_xsltHandler(0), m_site(Unknown), m_imageSize(MediumImage),
       m_assoc(QLatin1String(AMAZON_ASSOC_TOKEN)), m_addLinkField(true), m_limit(AMAZON_MAX_RETURNS_TOTAL),
-      m_countOffset(0), m_page(1), m_total(-1), m_numResults(0), m_job(0), m_started(false) {
+      m_countOffset(0), m_page(1), m_total(-1), m_numResults(0), m_job(0), m_started(false), m_keyFoundInWallet(false) {
   (void)linkText; // just to shut up the compiler
 }
 
@@ -148,6 +157,8 @@ void AmazonFetcher::readConfigHook(const KConfigGroup& config_) {
   QString s = config_.readEntry("AccessKey");
   if(!s.isEmpty()) {
     m_access = s;
+  } else {
+    myWarning() << "No Amazon access key";
   }
   s = config_.readEntry("AssocToken");
   if(!s.isEmpty()) {
@@ -156,10 +167,21 @@ void AmazonFetcher::readConfigHook(const KConfigGroup& config_) {
   s = config_.readEntry("SecretKey");
   if(!s.isEmpty()) {
     m_amazonKey = s.toUtf8();
+  } else {
+    myWarning() << "No Amazon secret key";
   }
   int imageSize = config_.readEntry("Image Size", -1);
   if(imageSize > -1) {
     m_imageSize = static_cast<ImageSize>(imageSize);
+  }
+}
+
+// just in case the secret key was once saved in the wallet
+// be sure to save it back in the rc file
+void AmazonFetcher::saveConfigHook(KConfigGroup& config_) {
+  if(!secretKey().isEmpty() && m_keyFoundInWallet) {
+    config_.writeEntry("SecretKey", m_amazonKey);
+    config_.sync();
   }
 }
 
@@ -181,6 +203,9 @@ void AmazonFetcher::continueSearch() {
 void AmazonFetcher::doSearch() {
   // calling secretKey() ensures that we try to read it first
   if(secretKey().isEmpty() || m_access.isEmpty()) {
+    if(m_access.isEmpty()) {
+      myWarning() << "No Amazon access key";
+    }
     // this message is split in two since the first half is reused later
     message(i18n("Access to data from Amazon.com requires an AWS Access Key ID and a Secret Key.") +
             QLatin1Char(' ') +
@@ -199,7 +224,8 @@ void AmazonFetcher::doSearch() {
   params.insert(QLatin1String("Operation"),      QLatin1String("ItemSearch"));
   params.insert(QLatin1String("ResponseGroup"),  QLatin1String("Large"));
   params.insert(QLatin1String("ItemPage"),       QString::number(m_page));
-  params.insert(QLatin1String("Version"),        QLatin1String("2009-11-02"));
+  // this should match the namespace in amazon2tellico.xsl
+  params.insert(QLatin1String("Version"),        QLatin1String("2011-08-01"));
 
   const int type = collectionType();
   switch(type) {
@@ -218,6 +244,7 @@ void AmazonFetcher::doSearch() {
       // CA and JP appear to have a bug where Video only returns VHS or Music results
       // DVD will return DVD, Blu-ray, etc. so just ignore VHS for those users
       if(m_site == CA || m_site == JP) {
+//      if(m_site == CA || m_site == JP || m_site == IT || m_site == ES) {
         params.insert(QLatin1String("SearchIndex"), QLatin1String("DVD"));
       } else {
         params.insert(QLatin1String("SearchIndex"), QLatin1String("Video"));
@@ -324,7 +351,7 @@ void AmazonFetcher::doSearch() {
         }
         QString cleanValue = value;
         cleanValue.remove(QLatin1Char('-'));
-        // limit to first 10
+        // limit to first 10 values
         cleanValue.replace(FieldFormat::delimiterString(), QLatin1String(","));
         cleanValue = cleanValue.section(QLatin1Char(','), 0, 9);
         params.insert(QLatin1String("ItemId"), cleanValue);
@@ -845,11 +872,13 @@ bool AmazonFetcher::parseTitleToken(Tellico::Data::EntryPtr entry, const QString
 
 QString AmazonFetcher::secretKey() const {
   if(m_amazonKey.isEmpty()) {
+    myWarning() << "Looking for the Amazon key in kwallet...";
     QByteArray maybeKey = Wallet::self()->readWalletEntry(m_access);
-    if(!maybeKey.isNull()) {
+    if(!maybeKey.isEmpty()) {
       m_amazonKey = maybeKey;
+      m_keyFoundInWallet = true;
     } else {
-      myDebug() << "no amazon secret key found for" << source();
+      myWarning() << "No Amazon secret key found for" << source();
     }
   }
   return QString::fromUtf8(m_amazonKey);
@@ -915,7 +944,7 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
   m_secretKeyEdit->setWhatsThis(w);
   label->setBuddy(m_secretKeyEdit);
 
-  label = new QLabel(i18n("Co&untry: "), optionsWidget());
+  label = new QLabel(i18n("Country: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_siteCombo = new GUI::ComboBox(optionsWidget());
   m_siteCombo->addItem(i18n("United States"), US);

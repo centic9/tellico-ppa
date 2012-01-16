@@ -22,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h>
 #include "moviemeterfetcher.h"
 #include "../collections/videocollection.h"
 #include "../images/imagefactory.h"
@@ -39,7 +40,15 @@
 #include <QGridLayout>
 #include <QTextCodec>
 
+// we use an internal copy of kxmlrpc for versions before 4.7
+// since it doesn't handle character encoding correctly
+// see https://git.reviewboard.kde.org/r/101838/
+#include <kdeversion.h>
+#if defined(HAVE_KXMLRPC) && KDE_IS_VERSION(4,7,0)
 #include <kxmlrpcclient/client.h>
+#else
+#include "xmlrpc/client.h"
+#endif
 
 namespace {
   static const char* MOVIEMETER_API_KEY = "t80a06uf736d0yd00jpynpdsgea255yk";

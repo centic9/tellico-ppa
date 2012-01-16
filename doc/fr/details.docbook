@@ -16,7 +16,7 @@
 <para
 >Le type de champ le plus basique est appelé <emphasis
 >Texte simple</emphasis
->. Aucune restrictions ne sont placées sur les valeurs de champ, et l'élément graphique d'entrée des données est la modification de ligne standard. Ce type est approprié pour les champs qui n'attendent pas de valeurs longues, tel que l'auteur ou le genre. </para>
+>. Aucune restriction n'est placée sur les valeurs du champ, et le composant graphique de saisie des données sert à la modification d'une ligne standard. Ce type est approprié pour les champs qui n'attendent pas de valeurs longues, tel que l'auteur ou le genre. </para>
 
 </sect2>
 <sect2 id="number">
@@ -28,9 +28,9 @@
 >Nombre</emphasis
 > est identique au <emphasis
 >Texte simple</emphasis
->, excepté que la donnée doit être numérique. Les entrées seront triées numériquement dans la colonne de vue si une colonne de champ <emphasis
+>, excepté que les données doivent être numérique. Les entrées seront triées numériquement dans la colonne de vue si une colonne de champ <emphasis
 >Nombre</emphasis
-> est cliquée. La modification de ligne standard, avec les petits boutons fléchés pour augmenter ou diminuer la valeur, est utilisé pour les entrées des données. Aucun formatage n'est appliqué.</para>
+> est sélectionnée. La modification de ligne standard, avec les petits boutons fléchés pour augmenter ou diminuer la valeur, est utilisé pour les entrées des données. Aucun formatage n'est appliqué.</para>
 
 </sect2>
 
@@ -50,14 +50,16 @@
 >L'éditeur d'entrées</link
 >, la légende devient le lien, tandis que dans la <link linkend="entry-view"
 >Vue des entrées</link
->, un hyper-lien réel est utilisé. Le type de champ est pratique pour lier les fichiers <acronym
+>, un lien hypertexte réel est utilisé. Le type de champ est pratique pour lier les fichiers <acronym
 >PDF</acronym
 > des entrées bibliographiques, ou les analyses de films par exemple. Aucun formatage n'est appliqué.</para>
 
 <para
->Les &URL; relatifs peuvent être aussi utilisés. Ils sont interprétés relativement à l'emplacement du fichier de données de &appname;. Dans <link linkend="entry-editor"
->L'éditeur d'entrée</link
->, la modification de ligne fournit un complètement automatique pour les emplacement de fichiers locaux. Si vous voulez que l'&URL; de la boîte de dialogue du sélecteur de fichiers de &kde; est interprété relativement à l'emplacement du document, une propriété étendue pour le champ d'&URL; doit être définie pour <emphasis
+>Les &URL; relatives peuvent aussi être utilisées. Elles sont interprétées relativement à l'emplacement du fichier de données de &appname;. Dans <link linkend="entry-editor"
+><interface
+>L'éditeur d'entrée</interface
+></link
+>, la modification de ligne fournit un complètement automatique pour les emplacement de fichiers locaux. Si vous voulez que l'&URL; de la boîte de dialogue du sélecteur de fichiers de &kde; soit interprétée relativement à l'emplacement du document, une propriété étendue pour le champ d'&URL; doit être définie comme <emphasis
 >relatif</emphasis
 > : <emphasis
 >true</emphasis
@@ -90,7 +92,7 @@
 >.</para>
 
 <para
->Les point-virgules doivent être utilisés pour séparer les valeurs autorisées.</para>
+>Les points-virgules doivent être utilisés pour séparer les valeurs autorisées.</para>
 
 </sect2>
 
@@ -103,7 +105,7 @@
 >Case à cocher</emphasis
 > est disponible. Par défaut, le champ est désactivé. Les champs <emphasis
 >Case à cocher</emphasis
-> ne sont pas formatés et sont limités à des valeurs simples. Á l'intérieur, les valeurs de champ sont marquées comme <emphasis
+> ne sont pas formatés et sont limités à des valeurs simples. À l'intérieur, les valeurs de champ sont marquées comme <emphasis
 ><constant
 >true</constant
 ></emphasis
@@ -189,18 +191,24 @@
 
 <sect2 id="derived">
 <title
->Dépendant</title>
+>Champs de valeur dérivée</title>
 
 <para
->Le dernier champ est le champ <emphasis
->Dépendant</emphasis
->. Vous ne l'utiliserez probablement pas très souvent. Il est utilisé pour combiner des valeurs d'autres champs en utilisant une entrée de format dans la description du champ. Par exemple, si un champ <emphasis
->Dépendant</emphasis
-> a une description <userinput
+>Les champs utilisant des valeurs dérivées sont un cas à part. Le type de champ correspond au type de valeur habituellement renseignée dans le champ sauf que cette valeur est construite à partir d'autres champs en utilisant une entrée de format dans la description du champ. Par exemple, si un champ à comme valeur modèle <userinput
 >%{titre} %{année}</userinput
->, la valeur de ce champ sera ensuite le titre, suivi de l'année. Ce type de champ est utilisé initialement pour le champ de titre dans les pièces, les timbres, les échanges de cartes et les collections de vins. Le nom du champ interne ou le titre du champ peut être utilisé dans la description pour le formatage. L'entrée ID est aussi disponible en utilisant <userinput
->%{id}</userinput
->. </para>
+>, alors la valeur de ce champ deviendra le titre, suivi de l'année. Ce type de champ est principalement utilisé pour le champ de titre des collections de pièces, timbres, cartes à échanger et de vins. Le nom du champ interne ou le titre du champ peut être utilisé dans la description pour le formatage. </para>
+
+<para
+>Pour sélectionner une seule valeur d'un champs en contenant plusieurs, ajouter un index de position au modèle, tel que <userinput
+>%{auteur:1}</userinput
+> pour le premier auteur. La position peut être négative, décomptée à partir de la fin, <userinput
+>%{auteur:-1}</userinput
+> serait alors le dernier auteur. Des valeurs de majuscule ou minuscule peuvent être employé pour définir les transformer le modèle, comme <userinput
+>%{auteur:1/l}</userinput
+> renvoyant le premier auteur en minuscule ou <userinput
+>%{auteur:1/u}</userinput
+> en majuscule. </para>
+
 </sect2>
 
 </sect1>
@@ -213,15 +221,20 @@
 >&appname; gère douze types de collections spécifiques par défaut : livres, entrées bibliographiques, BD, films, musique, jeux vidéo, cartes, pièces, timbres, vins, jeux de plateau et catalogues de fichiers. En plus, un modèle de collection générique vide est disponible pour d'autres collections. Les collections par défaut prévues seulement pour inclure un ensemble général de champs. Vous devez les ajouter, les modifier ou les supprimer pour les adapter à vos besoins. Le seul prérequis est qu'une collection doit toujours avoir un champ <emphasis
 >Titre</emphasis
 >, pour que la <link linkend="group-view"
->Vue en groupe</link
-> fonctionne correctement. Pour certains types de collection, c'est simplement un champ <emphasis
-><link linkend="derived"
+><interface
+>Vue en groupe</interface
+></link
+> fonctionne correctement. Pour certains types de collection, c'est simplement un champ <link linkend="derived"
 >Dépendant</link
-></emphasis
 > combinant deux ou plus des autres champs. </para>
 
 <para
 >En général, il n'y pas de différences fonctionnelles entre les types de collection. Vous pouvez créer une collection personnalisée pour vos livres aussi simplement en utilisant la collection de livres par défaut. Mais &appname; choisit des icônes fondées sur le type de collection et il peut avoir des fonctionnalités spécialisées qui sont propres à un type de collection. Donc si vous le pouvez, vous devez utiliser les collections par défaut. Si vous voulez créer une collection de vins, mais que vous n'aimez pas les champs par défaut, créez une collection de vins par défaut, et supprimez ensuite tous les champs par défaut. De cette façon, &appname; sait toujours que c'est une collection de vins. </para>
+
+<para
+>Par défaut, tous les types de collection inclus un champ <emphasis
+>ID</emphasis
+> affichant le numéro d'indexation de l'entrée. En plus, à l'exception des catalogues de fichiers, chaque collection inclut des champs affichant la date à laquelle l'entrée a été créée dans la collection ainsi que la date de la dernière modification. </para>
 
 <sect2 id="book-collection">
 <title
@@ -353,9 +366,9 @@
 >. </para>
 
 <para
->Bien que les collections bibliographiques ne sont pas liées spécifiquement à bibtex, le réglage par défaut des champs est pris d'un réglage typique des champs bibtex. Á l'exportation de bibtex, une propriété étendue appelée <emphasis
+>Bien que les collections bibliographiques ne soient pas liées spécifiquement à bibtex, les champs par défauts sont ceux habituellement utilisés par bibtex. Á l'exportation en bibtex, une propriété étendue appelée <emphasis
 >bibtex</emphasis
-> est utilisée pour chaque champs pour définir le champ bibtex correspondant. Si vous ajoutez un champ additionnel à une bibliographie et que vous l'exportez au format bibtex, n'oubliez pas de définir la propriété étendue <emphasis
+> est utilisée pour chaque champs afin de définir le champ bibtex correspondant. Si vous ajoutez un champ à une bibliographie et que vous l'exportez au format bibtex, n'oubliez pas de définir la propriété étendue <emphasis
 >bibtex</emphasis
 >. </para>
 
@@ -371,7 +384,7 @@
 >. </para>
 
 <para
->Les collections de livres peuvent être converties en bibliographies. Les champs bibtex par défaut sont ajoutés et les propriétés étendues sont définies. Cette fonctionnalité existe initialement pour convertir de vieilles collections, avant que le type bibliographie n'a été séparé du type de collection de livres. </para>
+>Les collections de livres peuvent être converties en bibliographies. Les champs bibtex par défaut sont ajoutés et les propriétés étendues sont définies. Cette fonctionnalité existe principalement pour convertir d'anciennes collections ; avant que le type bibliographie ai été séparé du type de collection de livres. </para>
 </sect2>
 
 <sect2 id="comic-book-collection">
@@ -700,7 +713,7 @@
 >Cadeau</emphasis
 >, <emphasis
 >Image</emphasis
->, et <emphasis
+> et <emphasis
 >Commentaires</emphasis
 >. </para>
 
@@ -786,7 +799,7 @@
 <title
 >Catalogues de fichiers</title>
 <para
->Les catalogues de fichiers ont treize champs par défaut : <emphasis
+>Les catalogues de fichiers ont quatorze champs par défaut : <emphasis
 >Nom</emphasis
 >, <emphasis
 >&URL;</emphasis
@@ -794,6 +807,8 @@
 >Description</emphasis
 >, <emphasis
 >Volume</emphasis
+>, <emphasis
+>Dossier</emphasis
 >, <emphasis
 >Type MIME</emphasis
 >, <emphasis
@@ -810,7 +825,7 @@
 >Modifié</emphasis
 >, <emphasis
 >Informations additionnelles</emphasis
->, et <emphasis
+> et <emphasis
 >Icône</emphasis
 >. </para>
 
@@ -822,7 +837,7 @@
 <para
 >Les collections personnalisées ont un champ par défaut, le champ <emphasis
 >Titre</emphasis
->. Elles doivent être utilisées quand un élément collectionnable n'est pas un des types par défaut. </para>
+>. Elles doivent être utilisées quand un élément collectible n'est pas un des types par défaut. </para>
 
 </sect2>
 

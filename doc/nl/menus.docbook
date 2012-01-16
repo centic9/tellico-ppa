@@ -418,14 +418,14 @@ or menu bars.
  <menuchoice
 ><shortcut
 > <keycombo
->&Ctrl;<keycap
->M</keycap
+> &Ctrl;<keycap
+>I</keycap
 ></keycombo
 > </shortcut
 > <guimenu
->Edit</guimenu
+>Bewerken</guimenu
 > <guimenuitem
->Internet Search...</guimenuitem
+>Zoeken in het internet...</guimenuitem
 > </menuchoice>
 </term>
 
@@ -728,9 +728,11 @@ or menu bars.
 <term>
  <menuchoice
 ><guimenu
->Collection</guimenu
+>Verzameling</guimenu
+> <guisubmenu
+>Bibliografie</guisubmenu
 > <guimenuitem
->Convert to Bibliography</guimenuitem
+>Naar bibliografie converteren</guimenuitem
 > </menuchoice>
 </term>
 
@@ -746,9 +748,11 @@ or menu bars.
 <term>
  <menuchoice
 ><guimenu
->Collection</guimenu
+>Verzameling</guimenu
+> <guisubmenu
+>Bibliografie</guisubmenu
 > <guimenuitem
->String Macros...</guimenuitem
+>Macro's voor tekenreeksen...</guimenuitem
 > </menuchoice>
 </term>
 
@@ -764,9 +768,31 @@ or menu bars.
 <term>
  <menuchoice
 ><guimenu
->Collection</guimenu
+>Verzameling</guimenu
+> <guisubmenu
+>Bibliografie</guisubmenu
 > <guimenuitem
->Copy Bibtex to Clipboard</guimenuitem
+>Op dubbele sleutelwoorden controleren</guimenuitem
+> </menuchoice>
+</term>
+
+<listitem>
+<para
+>This command <action
+>checks for duplicate Bibtex keys</action
+> and can filter the collection to show the entries with duplicated keys.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+ <menuchoice
+><guimenu
+>Verzameling</guimenu
+> <guisubmenu
+>Bibliografie</guisubmenu
+> <guimenuitem
+>Bibtex naar klembord kopiëren</guimenuitem
 > </menuchoice>
 </term>
 
@@ -782,9 +808,11 @@ or menu bars.
 <term>
  <menuchoice
 ><guimenu
->Collection</guimenu
+>Verzameling</guimenu
+> <guisubmenu
+>Bibliografie</guisubmenu
 > <guimenuitem
->Cite Entry in Lyx</guimenuitem
+>Item in Lyx citeren</guimenuitem
 > </menuchoice>
 </term>
 
@@ -825,14 +853,14 @@ or menu bars.
 ><guimenu
 >Instellingen</guimenu
 > <guimenuitem
->Werkbalken</guimenuitem
+>Getoonde werkbalken</guimenuitem
 > </menuchoice>
 </term>
 
 <listitem>
 <para
->This command <action
->toggles the display of the toolbars</action
+>Dit commando <action
+>schakelt het tonen van werkbalken om</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -849,8 +877,8 @@ or menu bars.
 
 <listitem>
 <para
->This command <action
->toggles the display of the statusbar</action
+>Dit commando <action
+>schakelt het tonen van de statusbalk om</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -859,18 +887,18 @@ or menu bars.
 <term>
  <menuchoice
 ><guimenu
->Settings</guimenu
+>Instellingen</guimenu
 > <guimenuitem
->Show Group View</guimenuitem
+>Groepsweergave tonen</guimenuitem
 > </menuchoice>
 </term>
 
 <listitem>
 <para
->This command <action
->toggles the display of the <interface
->Group View</interface
-></action
+>Dit commando <action
+>schakelt het tonen van de <interface
+>Groepsweergave</interface
+> om</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -879,18 +907,18 @@ or menu bars.
 <term>
  <menuchoice
 ><guimenu
->Settings</guimenu
+>Instellingen</guimenu
 > <guimenuitem
->Show Entry Editor</guimenuitem
+>Itembewerker tonen</guimenuitem
 > </menuchoice>
 </term>
 
 <listitem>
 <para
->This command <action
->toggles the display of the <interface
->Entry Editor</interface
-></action
+>Dit commando <action
+>schakelt het tonen van de <interface
+>Itembewerker</interface
+> om</action
 >.</para>
 </listitem>
 </varlistentry>

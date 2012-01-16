@@ -24,9 +24,20 @@
 >ISBN</guilabel
 >, <guilabel
 >UPC/EAN</guilabel
->, ou <guilabel
+>, <guilabel
+>LCCN</guilabel
+> ou <guilabel
 >Mots-clés</guilabel
->.</para>
+>. Pour certains types de données, tous les critères ne sont pas disponibles. Les valeurs <acronym
+>ISBN</acronym
+> et <acronym
+>LCCN
+></acronym
+> ne concernent que les livres, tandis que les valeurs <acronym
+>UPC</acronym
+> ou <acronym
+>EAN</acronym
+> peuvent s'appliquer à tout type d'élément.</para>
 
 <para
 >Une fois que la recherche est lancée, le bouton <guibutton
@@ -97,7 +108,7 @@
 >Importer des données &appname;</title>
 
 <para
->D'autres fichiers de données &appname; peuvent être importés. Remplacer la collection courante en important un fichier &appname; est la même chose qu'ouvrir simplement le fichier lui même. La valeur d'importation des données &appname; est d'abord pour ajouter ou fusionner deux connexions ensemble. </para>
+>D'autres fichiers de données &appname; peuvent être importés. Remplacer la collection courante en important un fichier &appname; est la même chose qu'ouvrir simplement le fichier lui-même. La valeur d'importation des données &appname; est d'abord pour ajouter ou fusionner deux connexions ensemble. </para>
 </sect2>
 
 <sect2 id="importing-csv">
@@ -128,7 +139,7 @@
 <para
 >Afin que &appname; importe proprement le fichier, l'application doit connaître quel champ correspond à chaque colonne. <emphasis
 >Si la colonne a seulement un numéro dans l'en-tête, les données dans cette colonne ne seront pas importées</emphasis
->. Vous devez assigner les champs pour chaque numéro de colonne en sélectionnant une colonne, soit en cliquant dessus ou en modifiant le numéro de colonne lui même, en sélectionnant ensuite le champ à assigner à partir de la boîte déroulante et en cliquant sur le bouton <guibutton
+>. Vous devez assigner les champs pour chaque numéro de colonne en sélectionnant une colonne, soit en cliquant dessus ou en modifiant le numéro de colonne lui-même, en sélectionnant ensuite le champ à assigner à partir de la boîte déroulante et en cliquant sur le bouton <guibutton
 >Associer</guibutton
 >. Si vous avez besoin d'ajouter un nouveau champ à la collection, le dernier élément dans la boîte déroulante ouvre la <link linkend="fields-dialog"
 ><interface
@@ -148,7 +159,7 @@
 <para
 >&appname;peut utiliser le service <ulink url="http://freedb.org"
 >freedb.org</ulink
-> pour rechercher des informations à propos d'un &CD; incluant la liste de pistes. En fonction de votre distribution, les paramètres pour accéder à ce service peut être défini dans le Centre de Contrôle de &kde;. L'artiste, le titre, le genre, l'année et la liste des pistes du &CD; sont tous ajoutés. </para>
+> pour rechercher des informations à propos d'un &CD; incluant la liste de pistes. En fonction de votre distribution, les paramètres pour accéder à ce service peut être défini dans la &configurationDuSysteme; de &kde;. L'artiste, le titre, le genre, l'année et la liste des pistes du &CD; sont tous ajoutés. </para>
 
 <para
 >En plus, si le disque contient du texte, cette information est lisible et ajoutée à l'entrée importée. </para>
@@ -320,6 +331,17 @@
 >, les méta-données des fichiers PDF peuvent être importées. Les méta-données peuvent inclure le titre, l'auteur et la date, aussi bien que les identifiants bibliographiques qui sont ensuite utilisés pour mettre à jour les autres informations. </para>
 </sect2>
 
+<sect2 id="importing-referencer">
+<title
+>Importer des données Referencer</title>
+<para
+><application
+><ulink url="http://icculus.org/referencer/"
+>Referencer</ulink
+></application
+> est un gestionnaire bibliographique et d'organisation de documents pour le bureau GNOME. &appname; importera la plupart des données trouvées dans la base de données Referencer. </para>
+</sect2>
+
 <sect2 id="importing-ris">
 <title
 >Importer des données RIS</title>
@@ -333,15 +355,13 @@
 > et les autres. &appname; importe des fichiers RIS comme une collection bibliographique. </para>
 </sect2>
 
-<sect2 id="importing-referencer">
+<sect2 id="importing-goodreads">
 <title
->Importer des données Referencer</title>
+>Importer une collection Goodreads</title>
 <para
-><application
-><ulink url="http://icculus.org/referencer/"
->Referencer</ulink
-></application
-> est un gestionnaire bibliographique et d'organisation de documents pour le bureau GNOME. &appname; importera la plupart des données trouvées dans la base de données Referencer. </para>
+><ulink url="http://www.goodreads.com"
+>Goodreads</ulink
+> est un réseau social en ligne permettant aux lecteurs de suivre des collections de livres. &appname; peut importer la liste des livres de la collection d' un utilisateur, d'après le nom de l'utilisateur ou son identifiant, du moment que la collection est publique. </para>
 </sect2>
 
 <sect2 id="importing-file-listing">

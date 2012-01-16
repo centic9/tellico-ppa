@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-09-24 11:18+0200\n"
+"POT-Creation-Date: 2012-01-09 10:07+0100\n"
 "PO-Revision-Date: 2009-09-18 16:56+0300\n"
 "Last-Translator: Yasen Pramatarov <yasen@lindeas.com>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -74,35 +74,35 @@ msgstr "ИДЕНТИФИКАТОР"
 #: src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34
-#: src/collections/winecollection.cpp:31 src/document.cpp:455
+#: src/collections/winecollection.cpp:31 src/document.cpp:457
 msgid "Personal"
 msgstr "Лични"
 
 #: src/collection.cpp:56 src/collections/musiccollection.cpp:86
 #: src/entrymatchdialog.cpp:86 src/fetch/fetchmanager.cpp:69
-#: src/fetchdialog.cpp:211 src/translators/audiofileimporter.cpp:175
-#: src/translators/xmlstatehandler.cpp:409
+#: src/translators/audiofileimporter.cpp:175
+#: src/translators/xmlstatehandler.cpp:409 src/fetchdialog.cpp:214
 msgid "Title"
 msgstr "Заглавие"
 
-#: src/collection.cpp:57 src/collections/bibtexcollection.cpp:38
-#: src/collections/bibtexcollection.cpp:100
-#: src/collections/boardgamecollection.cpp:31
+#: src/collection.cpp:57 src/collections/boardgamecollection.cpp:31
 #: src/collections/bookcollection.cpp:31 src/collections/cardcollection.cpp:30
 #: src/collections/coincollection.cpp:30
 #: src/collections/comicbookcollection.cpp:30
-#: src/collections/filecatalog.cpp:31 src/collections/gamecollection.cpp:31
+#: src/collections/gamecollection.cpp:31
 #: src/collections/musiccollection.cpp:31
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31
-#: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
-#: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/googlebookfetcher.cpp:235 src/fetch/animenfofetcher.cpp:294
-#: src/fetch/animenfofetcher.cpp:298 src/fetch/filmasterfetcher.cpp:233
-#: src/fetch/freebasefetcher.cpp:367 src/fetch/imdbfetcher.cpp:753
-#: src/fetch/imdbfetcher.cpp:1071 src/fetch/moviemeterfetcher.cpp:246
-#: src/fetch/openlibraryfetcher.cpp:283 src/field.cpp:37 src/field.cpp:78
-#: src/translators/gcstarimporter.cpp:89
+#: src/collections/winecollection.cpp:30
+#: src/collections/bibtexcollection.cpp:38
+#: src/collections/bibtexcollection.cpp:100 src/collections/filecatalog.cpp:31
+#: src/configdialog.cpp:159 src/configdialog.cpp:182 src/configdialog.cpp:209
+#: src/configdialog.cpp:227 src/fetch/googlebookfetcher.cpp:235
+#: src/fetch/animenfofetcher.cpp:294 src/fetch/animenfofetcher.cpp:298
+#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:367
+#: src/fetch/imdbfetcher.cpp:753 src/fetch/imdbfetcher.cpp:1071
+#: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
+#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Общи"
 
@@ -516,170 +516,6 @@ msgstr ""
 msgid "A field with a derived value must have a value template."
 msgstr ""
 
-#: src/collections/bibtexcollection.cpp:39
-#: src/collections/bookcollection.cpp:32
-#: src/collections/comicbookcollection.cpp:31
-#: src/fetch/citebasefetcher.cpp:155 src/translators/grs1importer.cpp:71
-#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:200
-msgid "Publishing"
-msgstr "Издателски"
-
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
-#: src/translators/risimporter.cpp:338
-msgid "Miscellaneous"
-msgstr "Разни"
-
-#: src/collections/bibtexcollection.cpp:84
-#, fuzzy
-msgid "Entry Type"
-msgstr "Поредица"
-
-#: src/collections/bibtexcollection.cpp:88
-msgid "These entry types are specific to bibtex. See the bibtex documentation."
-msgstr ""
-
-#: src/collections/bibtexcollection.cpp:91
-#: src/collections/bookcollection.cpp:58
-msgid "Author"
-msgstr "Автор"
-
-#: src/collections/bibtexcollection.cpp:98
-#, fuzzy
-msgid "Bibtex Key"
-msgstr "Настройки на полето"
-
-#: src/collections/bibtexcollection.cpp:104
-#, fuzzy
-msgid "Book Title"
-msgstr "Заглавие"
-
-#: src/collections/bibtexcollection.cpp:110
-#: src/collections/bookcollection.cpp:64
-#, fuzzy
-msgid "Editor"
-msgstr "Издание"
-
-#: src/collections/bibtexcollection.cpp:117
-msgid "Organization"
-msgstr "Организация"
-
-#: src/collections/bibtexcollection.cpp:132
-#: src/collections/boardgamecollection.cpp:68
-#: src/collections/bookcollection.cpp:87
-#: src/collections/comicbookcollection.cpp:80
-msgid "Publisher"
-msgstr "Издател"
-
-#: src/collections/bibtexcollection.cpp:139 src/fetch/srufetcher.cpp:453
-#: src/fetch/z3950fetcher.cpp:551
-msgid "Address"
-msgstr "Адрес"
-
-#: src/collections/bibtexcollection.cpp:145
-#: src/collections/bookcollection.cpp:93
-#: src/collections/comicbookcollection.cpp:86
-msgid "Edition"
-msgstr "Издание"
-
-#: src/collections/bibtexcollection.cpp:152
-#: src/collections/bookcollection.cpp:119
-#: src/collections/comicbookcollection.cpp:97
-msgid "Pages"
-msgstr "Страници"
-
-#: src/collections/bibtexcollection.cpp:157
-#: src/collections/cardcollection.cpp:77 src/collections/coincollection.cpp:66
-#: src/collections/musiccollection.cpp:72
-msgid "Year"
-msgstr "Година"
-
-#: src/collections/bibtexcollection.cpp:163
-#: src/collections/bookcollection.cpp:109 src/translators/grs1importer.cpp:70
-msgid "ISBN#"
-msgstr "ISBN"
-
-#: src/collections/bibtexcollection.cpp:166
-#: src/collections/bookcollection.cpp:111 src/translators/grs1importer.cpp:72
-msgid "International Standard Book Number"
-msgstr "Международен стандартен книжен номер"
-
-#: src/collections/bibtexcollection.cpp:169
-#: src/collections/bookcollection.cpp:72
-msgid "Journal"
-msgstr "Журнал"
-
-#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
-msgid "DOI"
-msgstr "DOI"
-
-#: src/collections/bibtexcollection.cpp:179
-msgid "Digital Object Identifier"
-msgstr "Digital Object Identifier"
-
-#: src/collections/bibtexcollection.cpp:184
-msgid "Month"
-msgstr "Месец"
-
-#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
-msgid "Number"
-msgstr "Номер"
-
-#: src/collections/bibtexcollection.cpp:195
-#, fuzzy
-msgid "How Published"
-msgstr "Издател"
-
-#: src/collections/bibtexcollection.cpp:207
-#, fuzzy
-msgid "Chapter"
-msgstr "Категория:"
-
-#: src/collections/bibtexcollection.cpp:212
-#: src/collections/bookcollection.cpp:146
-#: src/collections/cardcollection.cpp:82
-#: src/collections/comicbookcollection.cpp:69
-msgid "Series"
-msgstr "Поредица"
-
-#: src/collections/bibtexcollection.cpp:219 src/collections/filecatalog.cpp:62
-#, fuzzy
-msgid "Volume"
-msgstr "Показва колони"
-
-#: src/collections/bibtexcollection.cpp:224
-msgid "Cross-Reference"
-msgstr ""
-
-#: src/collections/bibtexcollection.cpp:234
-#: src/collections/bookcollection.cpp:141
-#: src/collections/cardcollection.cpp:111
-#: src/collections/comicbookcollection.cpp:119
-#: src/collections/musiccollection.cpp:113
-#: src/collections/videocollection.cpp:215 src/fetch/amazonfetcher.cpp:898
-msgid "Keywords"
-msgstr "Ключови думи"
-
-#: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
-#: src/fetch/entrezfetcher.cpp:398 src/fetch/entrezfetcher.cpp:464
-#: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
-msgid "URL"
-msgstr "URL"
-
-#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
-#: src/fetch/srufetcher.cpp:454 src/fetch/z3950fetcher.cpp:552
-msgid "Abstract"
-msgstr "Резюме"
-
-#: src/collections/bibtexcollection.cpp:249
-#, fuzzy
-msgid "Notes"
-msgstr "Е&кспортиране"
-
-#: src/collections/bibtexcollection.cpp:479
-#: src/translators/xmlstatehandler.cpp:298
-msgid "Unknown"
-msgstr "Непознат"
-
 #: src/collections/boardgamecollection.cpp:38
 #, fuzzy
 msgid "My Board Games"
@@ -703,6 +539,13 @@ msgstr ""
 msgid "Release Year"
 msgstr "Година на издаване"
 
+#: src/collections/boardgamecollection.cpp:68
+#: src/collections/bookcollection.cpp:87
+#: src/collections/comicbookcollection.cpp:80
+#: src/collections/bibtexcollection.cpp:132
+msgid "Publisher"
+msgstr "Издател"
+
 #: src/collections/boardgamecollection.cpp:74
 msgid "Designer"
 msgstr ""
@@ -713,10 +556,10 @@ msgid "Number of Players"
 msgstr "Изтриване на поле"
 
 #: src/collections/boardgamecollection.cpp:85
-#: src/collections/filecatalog.cpp:57 src/collections/gamecollection.cpp:94
+#: src/collections/gamecollection.cpp:94
 #: src/collections/stampcollection.cpp:54
-#: src/collections/winecollection.cpp:125 src/entrymatchdialog.cpp:86
-#: src/fetchdialog.cpp:212
+#: src/collections/winecollection.cpp:125 src/collections/filecatalog.cpp:57
+#: src/entrymatchdialog.cpp:86 src/fetchdialog.cpp:215
 #, fuzzy
 msgid "Description"
 msgstr "Описание:"
@@ -771,7 +614,7 @@ msgstr "Цена"
 #: src/collections/comicbookcollection.cpp:149
 #: src/collections/gamecollection.cpp:119
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:453
+#: src/collections/videocollection.cpp:211 src/document.cpp:455
 msgid "Loaned"
 msgstr "Дадена"
 
@@ -796,6 +639,14 @@ msgstr "Е&кспортиране"
 msgid "Comments"
 msgstr "Коментар"
 
+#: src/collections/bookcollection.cpp:32
+#: src/collections/comicbookcollection.cpp:31
+#: src/collections/bibtexcollection.cpp:39 src/fetch/citebasefetcher.cpp:155
+#: src/translators/grs1importer.cpp:71 src/translators/grs1importer.cpp:76
+#: src/translators/pdfimporter.cpp:200
+msgid "Publishing"
+msgstr "Издателски"
+
 #: src/collections/bookcollection.cpp:33
 #: src/collections/comicbookcollection.cpp:32
 msgid "Classification"
@@ -809,6 +660,17 @@ msgstr "Моите книги"
 #: src/collections/comicbookcollection.cpp:52
 msgid "Subtitle"
 msgstr "Подзаглавие"
+
+#: src/collections/bookcollection.cpp:58
+#: src/collections/bibtexcollection.cpp:91
+msgid "Author"
+msgstr "Автор"
+
+#: src/collections/bookcollection.cpp:64
+#: src/collections/bibtexcollection.cpp:110
+#, fuzzy
+msgid "Editor"
+msgstr "Издание"
 
 #: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:401
 #: src/translators/alexandriaimporter.cpp:158
@@ -831,9 +693,20 @@ msgstr "Електронна книга"
 msgid "Magazine"
 msgstr "Списание"
 
+#: src/collections/bookcollection.cpp:72
+#: src/collections/bibtexcollection.cpp:169
+msgid "Journal"
+msgstr "Журнал"
+
 #: src/collections/bookcollection.cpp:73
 msgid "Binding"
 msgstr "Корица"
+
+#: src/collections/bookcollection.cpp:93
+#: src/collections/comicbookcollection.cpp:86
+#: src/collections/bibtexcollection.cpp:145
+msgid "Edition"
+msgstr "Издание"
 
 #: src/collections/bookcollection.cpp:99
 msgid "Copyright Year"
@@ -844,6 +717,18 @@ msgstr "Авторско право (година)"
 msgid "Publication Year"
 msgstr "Година на публикуване"
 
+#: src/collections/bookcollection.cpp:109
+#: src/collections/bibtexcollection.cpp:163
+#: src/translators/grs1importer.cpp:70
+msgid "ISBN#"
+msgstr "ISBN"
+
+#: src/collections/bookcollection.cpp:111
+#: src/collections/bibtexcollection.cpp:166
+#: src/translators/grs1importer.cpp:72
+msgid "International Standard Book Number"
+msgstr "Международен стандартен книжен номер"
+
 #: src/collections/bookcollection.cpp:114
 msgid "LCCN#"
 msgstr "LCCN"
@@ -851,6 +736,12 @@ msgstr "LCCN"
 #: src/collections/bookcollection.cpp:116
 msgid "Library of Congress Control Number"
 msgstr "Библиотека на конгреса,контролен номер"
+
+#: src/collections/bookcollection.cpp:119
+#: src/collections/comicbookcollection.cpp:97
+#: src/collections/bibtexcollection.cpp:152
+msgid "Pages"
+msgstr "Страници"
 
 #: src/collections/bookcollection.cpp:123
 msgid "Translator"
@@ -862,12 +753,28 @@ msgstr "Преводач"
 msgid "Language"
 msgstr "Език"
 
+#: src/collections/bookcollection.cpp:141
+#: src/collections/cardcollection.cpp:111
+#: src/collections/comicbookcollection.cpp:119
+#: src/collections/musiccollection.cpp:113
+#: src/collections/videocollection.cpp:215
+#: src/collections/bibtexcollection.cpp:234 src/fetch/amazonfetcher.cpp:899
+msgid "Keywords"
+msgstr "Ключови думи"
+
+#: src/collections/bookcollection.cpp:146
+#: src/collections/cardcollection.cpp:82
+#: src/collections/comicbookcollection.cpp:69
+#: src/collections/bibtexcollection.cpp:212
+msgid "Series"
+msgstr "Поредица"
+
 #: src/collections/bookcollection.cpp:151
 msgid "Series Number"
 msgstr "Номер от поредица"
 
-#: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:233
-#: src/mainwindow.cpp:485
+#: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:235
+#: src/mainwindow.cpp:487
 msgid "New"
 msgstr "Нова"
 
@@ -920,6 +827,12 @@ msgstr "Жанр"
 #, fuzzy
 msgid "Card Number"
 msgstr "Номер от поредица"
+
+#: src/collections/cardcollection.cpp:77 src/collections/coincollection.cpp:66
+#: src/collections/musiccollection.cpp:72
+#: src/collections/bibtexcollection.cpp:157
+msgid "Year"
+msgstr "Година"
 
 #: src/collections/cardcollection.cpp:88
 #, fuzzy
@@ -1049,59 +962,6 @@ msgctxt ""
 msgid "Mint,Near Mint,Very Fine,Fine,Very Good,Good,Fair,Poor"
 msgstr ""
 
-#: src/collections/filecatalog.cpp:37
-#, fuzzy
-msgid "My Files"
-msgstr "Моите клипове"
-
-#: src/collections/filecatalog.cpp:67
-#, fuzzy
-msgid "Folder"
-msgstr "Изтрий книга"
-
-#: src/collections/filecatalog.cpp:72
-msgid "Mimetype"
-msgstr "Програмни видове (MIME)"
-
-#: src/collections/filecatalog.cpp:77
-#, fuzzy
-msgid "Size"
-msgstr "С автограф"
-
-#: src/collections/filecatalog.cpp:81
-#, fuzzy
-msgid "Permissions"
-msgstr "Лични"
-
-#: src/collections/filecatalog.cpp:86
-#, fuzzy
-msgid "Owner"
-msgstr " "
-
-#: src/collections/filecatalog.cpp:91
-#, fuzzy
-msgid "Group"
-msgstr "Групирай по:"
-
-#: src/collections/filecatalog.cpp:97
-#, fuzzy
-msgid "Created"
-msgstr "Коментар"
-
-#: src/collections/filecatalog.cpp:101
-#, fuzzy
-msgid "Modified"
-msgstr "Бърз филтър"
-
-#: src/collections/filecatalog.cpp:105
-msgid "Meta Info"
-msgstr ""
-
-#: src/collections/filecatalog.cpp:111
-#, fuzzy
-msgid "Icon"
-msgstr "съдържа"
-
 #: src/collections/gamecollection.cpp:38
 #, fuzzy
 msgid "My Games"
@@ -1225,7 +1085,7 @@ msgid "Compact Disc"
 msgstr ""
 
 #: src/collections/musiccollection.cpp:54
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:862
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:863
 msgid "DVD"
 msgstr "DVD"
 
@@ -1327,7 +1187,7 @@ msgstr "Свойства"
 msgid "My Videos"
 msgstr "Моите клипове"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:849
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:850
 msgid "VHS"
 msgstr "VHS"
 
@@ -1339,11 +1199,11 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:843
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:844
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:846
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:847
 msgid "HD DVD"
 msgstr "HD DVD"
 
@@ -1404,11 +1264,11 @@ msgstr ""
 msgid "Region"
 msgstr "Област"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:218
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:219
 msgid "Nationality"
 msgstr "Националност"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:858
+#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:859
 msgid "NTSC"
 msgstr "NTSC"
 
@@ -1449,7 +1309,7 @@ msgstr ""
 msgid "Director"
 msgstr "Режисьор"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:217
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:218
 #, fuzzy
 msgid "Producer"
 msgstr "Година на публикуване"
@@ -1488,7 +1348,7 @@ msgstr ""
 msgid "Aspect Ratio"
 msgstr ""
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:832
+#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:833
 msgid "Widescreen"
 msgstr ""
 
@@ -1500,7 +1360,7 @@ msgstr "Черно-бяло"
 msgid "Color Mode"
 msgstr "Цветови режим"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:853
+#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:854
 msgid "Director's Cut"
 msgstr ""
 
@@ -1554,6 +1414,155 @@ msgstr ""
 #, fuzzy
 msgid "Label Image"
 msgstr "Заглавие"
+
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
+#: src/translators/risimporter.cpp:338
+msgid "Miscellaneous"
+msgstr "Разни"
+
+#: src/collections/bibtexcollection.cpp:84
+#, fuzzy
+msgid "Entry Type"
+msgstr "Поредица"
+
+#: src/collections/bibtexcollection.cpp:88
+msgid "These entry types are specific to bibtex. See the bibtex documentation."
+msgstr ""
+
+#: src/collections/bibtexcollection.cpp:98
+#, fuzzy
+msgid "Bibtex Key"
+msgstr "Настройки на полето"
+
+#: src/collections/bibtexcollection.cpp:104
+#, fuzzy
+msgid "Book Title"
+msgstr "Заглавие"
+
+#: src/collections/bibtexcollection.cpp:117
+msgid "Organization"
+msgstr "Организация"
+
+#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:564
+#: src/fetch/srufetcher.cpp:453
+msgid "Address"
+msgstr "Адрес"
+
+#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
+msgid "DOI"
+msgstr "DOI"
+
+#: src/collections/bibtexcollection.cpp:179
+msgid "Digital Object Identifier"
+msgstr "Digital Object Identifier"
+
+#: src/collections/bibtexcollection.cpp:184
+msgid "Month"
+msgstr "Месец"
+
+#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
+msgid "Number"
+msgstr "Номер"
+
+#: src/collections/bibtexcollection.cpp:195
+#, fuzzy
+msgid "How Published"
+msgstr "Издател"
+
+#: src/collections/bibtexcollection.cpp:207
+#, fuzzy
+msgid "Chapter"
+msgstr "Категория:"
+
+#: src/collections/bibtexcollection.cpp:219
+#, fuzzy
+msgctxt "A number field in a bibliography"
+msgid "Volume"
+msgstr "Показва колони"
+
+#: src/collections/bibtexcollection.cpp:224
+msgid "Cross-Reference"
+msgstr ""
+
+#: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
+#: src/fetch/entrezfetcher.cpp:398 src/fetch/entrezfetcher.cpp:464
+#: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
+msgid "URL"
+msgstr "URL"
+
+#: src/collections/bibtexcollection.cpp:245 src/fetch/z3950fetcher.cpp:565
+#: src/fetch/entrezfetcher.cpp:463 src/fetch/srufetcher.cpp:454
+msgid "Abstract"
+msgstr "Резюме"
+
+#: src/collections/bibtexcollection.cpp:249
+#, fuzzy
+msgid "Notes"
+msgstr "Е&кспортиране"
+
+#: src/collections/bibtexcollection.cpp:479
+#: src/translators/xmlstatehandler.cpp:298
+msgid "Unknown"
+msgstr "Непознат"
+
+#: src/collections/filecatalog.cpp:37
+#, fuzzy
+msgid "My Files"
+msgstr "Моите клипове"
+
+#: src/collections/filecatalog.cpp:62
+#, fuzzy
+msgctxt "File catalog"
+msgid "Volume"
+msgstr "Показва колони"
+
+#: src/collections/filecatalog.cpp:67
+#, fuzzy
+msgid "Folder"
+msgstr "Изтрий книга"
+
+#: src/collections/filecatalog.cpp:72
+msgid "Mimetype"
+msgstr "Програмни видове (MIME)"
+
+#: src/collections/filecatalog.cpp:77
+#, fuzzy
+msgid "Size"
+msgstr "С автограф"
+
+#: src/collections/filecatalog.cpp:81
+#, fuzzy
+msgid "Permissions"
+msgstr "Лични"
+
+#: src/collections/filecatalog.cpp:86
+#, fuzzy
+msgid "Owner"
+msgstr " "
+
+#: src/collections/filecatalog.cpp:91
+#, fuzzy
+msgid "Group"
+msgstr "Групирай по:"
+
+#: src/collections/filecatalog.cpp:97
+#, fuzzy
+msgid "Created"
+msgstr "Коментар"
+
+#: src/collections/filecatalog.cpp:101
+#, fuzzy
+msgid "Modified"
+msgstr "Бърз филтър"
+
+#: src/collections/filecatalog.cpp:105
+msgid "Meta Info"
+msgstr ""
+
+#: src/collections/filecatalog.cpp:111
+#, fuzzy
+msgid "Icon"
+msgstr "съдържа"
 
 #: src/commands/addentries.cpp:41
 #, fuzzy
@@ -1612,8 +1621,8 @@ msgstr "Изтриване на поле?"
 msgid "Add Filter"
 msgstr "Разширен филтър"
 
-#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:305
-#: src/filterview.cpp:133
+#: src/commands/filtercommand.cpp:58 src/filterview.cpp:133
+#: src/filterdialog.cpp:355
 #, fuzzy
 msgid "Modify Filter"
 msgstr "Бърз филтър"
@@ -1630,7 +1639,7 @@ msgid "Modify Entries"
 msgstr "Изтрий книга"
 
 #: src/commands/modifyentries.cpp:51 src/commands/modifyentries.cpp:71
-#: src/commands/updateentries.cpp:69
+#: src/commands/updateentries.cpp:89
 #, fuzzy, kde-format
 msgctxt "Modify (Entry Title)"
 msgid "Modify %1"
@@ -2032,7 +2041,7 @@ msgstr "&Редактиране..."
 msgid "Click to modify the selected data source."
 msgstr "Изтриване на няколко книги ?"
 
-#: src/configdialog.cpp:660 src/controller.cpp:376 src/controller.cpp:392
+#: src/configdialog.cpp:660 src/controller.cpp:378 src/controller.cpp:394
 msgid "&Delete"
 msgstr "&Изтриване"
 
@@ -2056,16 +2065,16 @@ msgstr "*.xml|XML файлове (*.xml)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr ""
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:337 src/mainwindow.cpp:1065
-#: src/mainwindow.cpp:1230 src/reportdialog.cpp:215
+#: src/configdialog.cpp:1137 src/importdialog.cpp:337 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
-#: src/translators/gcstarexporter.cpp:56 src/translators/htmlexporter.cpp:91
-#: src/translators/onixexporter.cpp:71 src/translators/pilotdbexporter.cpp:58
-#: src/translators/tellicoxmlexporter.cpp:70
+#: src/translators/htmlexporter.cpp:91 src/translators/onixexporter.cpp:71
+#: src/translators/pilotdbexporter.cpp:58
 #: src/translators/tellicozipexporter.cpp:56
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:117
+#: src/translators/xsltimporter.cpp:117 src/translators/gcstarexporter.cpp:60
+#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1067
+#: src/mainwindow.cpp:1232
 msgid "*|All Files"
 msgstr "*|Всички файлове"
 
@@ -2076,80 +2085,6 @@ msgstr "Изтриване на поле?"
 
 #: src/configdialog.cpp:1169
 msgid "Select template to delete:"
-msgstr ""
-
-#: src/controller.cpp:140 src/fetchdialog.cpp:273 src/fetchdialog.cpp:365
-#: src/fetchdialog.cpp:455 src/fetchdialog.cpp:524 src/gui/statusbar.cpp:125
-msgid "Ready."
-msgstr "Готово."
-
-#: src/controller.cpp:373
-#, fuzzy
-msgid "Do you really want to delete this entry?"
-msgstr "Наистина ли жалете да изтриете тези книги ?"
-
-#: src/controller.cpp:375
-#, fuzzy
-msgid "Delete Entry"
-msgstr "Изтриване на поле"
-
-#: src/controller.cpp:387
-#, fuzzy
-msgid "Do you really want to delete these entries?"
-msgstr "Наистина ли жалете да изтриете тези книги ?"
-
-#: src/controller.cpp:391
-#, fuzzy
-msgid "Delete Multiple Entries"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/controller.cpp:575 src/mainwindow.cpp:491
-#, fuzzy
-msgid "&Edit Entry..."
-msgstr "Изтрий книга"
-
-#: src/controller.cpp:576 src/mainwindow.cpp:498
-#, fuzzy
-msgid "D&uplicate Entry"
-msgstr "Дуплициране на книга"
-
-#. i18n: file: src/tellicoui.rc:79
-#. i18n: ectx: Menu (coll_update_entry)
-#: src/controller.cpp:577 src/mainwindow.cpp:583 rc.cpp:289
-#, fuzzy
-msgid "&Update Entry"
-msgstr "Изтрий книга"
-
-#: src/controller.cpp:578 src/mainwindow.cpp:505
-#, fuzzy
-msgid "&Delete Entry"
-msgstr "Изтриване на поле"
-
-#: src/controller.cpp:581
-#, fuzzy
-msgid "&Edit Entries..."
-msgstr "Изтрий книга"
-
-#: src/controller.cpp:582
-#, fuzzy
-msgid "D&uplicate Entries"
-msgstr "Дуплициране на книга"
-
-#: src/controller.cpp:583
-#, fuzzy
-msgid "&Update Entries"
-msgstr "Изтрий книга"
-
-#: src/controller.cpp:584
-#, fuzzy
-msgid "&Delete Entries"
-msgstr "Изтриване на поле"
-
-#: src/controller.cpp:641
-msgid ""
-"The following items are already loaned, but Tellico does not currently "
-"support lending an item multiple times. They will be removed from the list "
-"of items to lend."
 msgstr ""
 
 #: src/core/tellico_strings.cpp:29
@@ -2254,10 +2189,6 @@ msgstr "Показва колони"
 msgid "Resize to Content"
 msgstr "Файл за отваряне"
 
-#: src/document.cpp:193 src/mainwindow.cpp:1175
-msgid "Saving file..."
-msgstr "Записва файл..."
-
 #: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
 #: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
 #, fuzzy
@@ -2313,7 +2244,7 @@ msgstr ""
 msgid "Save Entry"
 msgstr "Дуплициране на книга"
 
-#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:990
+#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:992
 msgid "Unsaved Changes"
 msgstr "Незаписани промени"
 
@@ -2336,21 +2267,6 @@ msgid ""
 "<qt><b>%1</b> returned multiple results which could match <b>%2</b>, the "
 "entry currently in the collection. Please select the correct match.</qt>"
 msgstr ""
-
-#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:389
-#, fuzzy
-msgid "Merge Entries"
-msgstr "Изтриване на поле"
-
-#: src/entrymerger.cpp:55
-#, fuzzy
-msgid "Merging entries..."
-msgstr "Изтрий книга"
-
-#: src/entrymerger.cpp:73
-#, fuzzy, kde-format
-msgid "Total merged/scanned entries: %1/%2"
-msgstr "Изтриване на поле"
 
 #: src/entryupdater.cpp:96
 #, kde-format
@@ -2377,7 +2293,7 @@ msgstr ""
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico не може да зареди файла %1."
 
-#: src/entryview.cpp:224 src/mainwindow.cpp:1618
+#: src/entryview.cpp:224 src/mainwindow.cpp:1620
 msgid "Please check your installation."
 msgstr "Моля проверете инсталацията си."
 
@@ -2456,14 +2372,51 @@ msgstr ""
 
 #: src/fetch/googlebookfetcher.cpp:320 src/fetch/animenfofetcher.cpp:488
 #: src/fetch/arxivfetcher.cpp:329 src/fetch/bibsonomyfetcher.cpp:183
-#: src/fetch/citebasefetcher.cpp:234 src/fetch/dvdfrfetcher.cpp:172
-#: src/fetch/entrezfetcher.cpp:475 src/fetch/filmasterfetcher.cpp:319
+#: src/fetch/citebasefetcher.cpp:234 src/fetch/filmasterfetcher.cpp:319
+#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/entrezfetcher.cpp:475
 #: src/fetch/freebasefetcher.cpp:902 src/fetch/googlescholarfetcher.cpp:267
 #: src/fetch/ibsfetcher.cpp:413 src/fetch/musicbrainzfetcher.cpp:332
-#: src/fetch/yahoofetcher.cpp:394 src/fetch/moviemeterfetcher.cpp:366
+#: src/fetch/yahoofetcher.cpp:394 src/fetch/moviemeterfetcher.cpp:367
 #: src/fetch/openlibraryfetcher.cpp:424
 msgid "This source has no options."
 msgstr ""
+
+#: src/fetch/fetchmanager.cpp:70
+#, fuzzy
+msgid "Person"
+msgstr "Лични"
+
+#: src/fetch/fetchmanager.cpp:71
+#, fuzzy
+msgid "ISBN"
+msgstr "ISBN"
+
+#: src/fetch/fetchmanager.cpp:72
+msgid "UPC/EAN"
+msgstr "UPC/EAN"
+
+#: src/fetch/fetchmanager.cpp:73
+msgid "Keyword"
+msgstr "Ключова дума"
+
+#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
+msgid "arXiv ID"
+msgstr "arXiv ID"
+
+#: src/fetch/fetchmanager.cpp:76
+msgid "PubMed ID"
+msgstr "PubMed ID"
+
+#: src/fetch/fetchmanager.cpp:77
+#, fuzzy
+#| msgid "LCCN#"
+msgid "LCCN"
+msgstr "LCCN"
+
+#: src/fetch/fetchmanager.cpp:78
+#, fuzzy
+msgid "Raw Query"
+msgstr "Търси в :"
 
 #: src/fetch/animenfofetcher.cpp:276 src/fetch/animenfofetcher.cpp:478
 msgid "Original Title"
@@ -2472,8 +2425,8 @@ msgstr "Оригинално заглавие"
 #: src/fetch/animenfofetcher.cpp:279 src/fetch/animenfofetcher.cpp:479
 #: src/fetch/dvdfrfetcher.cpp:165 src/fetch/imdbfetcher.cpp:823
 #: src/fetch/imdbfetcher.cpp:1268 src/fetch/doubanfetcher.cpp:209
-#: src/fetch/themoviedbfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:252
-#: src/fetch/moviemeterfetcher.cpp:359
+#: src/fetch/themoviedbfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:253
+#: src/fetch/moviemeterfetcher.cpp:360
 msgid "Alternative Titles"
 msgstr "Алтернативни заглавия"
 
@@ -2495,10 +2448,10 @@ msgid "AnimeNfo Rating"
 msgstr "Лични"
 
 #: src/fetch/bibliosharefetcher.cpp:160 src/fetch/crossreffetcher.cpp:311
-#: src/fetch/discogsfetcher.cpp:231 src/fetch/giantbombfetcher.cpp:204
-#: src/fetch/isbndbfetcher.cpp:355 src/fetch/amazonfetcher.cpp:914
-#: src/fetch/winecomfetcher.cpp:291 src/fetch/doubanfetcher.cpp:222
-#: src/fetch/themoviedbfetcher.cpp:257
+#: src/fetch/discogsfetcher.cpp:232 src/fetch/winecomfetcher.cpp:296
+#: src/fetch/giantbombfetcher.cpp:204 src/fetch/isbndbfetcher.cpp:355
+#: src/fetch/doubanfetcher.cpp:222 src/fetch/themoviedbfetcher.cpp:257
+#: src/fetch/amazonfetcher.cpp:915
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2506,14 +2459,14 @@ msgid ""
 "your information below."
 msgstr ""
 
-#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:244
-#: src/fetch/giantbombfetcher.cpp:217 src/fetch/isbndbfetcher.cpp:368
-#: src/fetch/amazonfetcher.cpp:927 src/fetch/winecomfetcher.cpp:304
-#: src/fetch/doubanfetcher.cpp:235 src/fetch/themoviedbfetcher.cpp:270
+#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:245
+#: src/fetch/winecomfetcher.cpp:309 src/fetch/giantbombfetcher.cpp:217
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/doubanfetcher.cpp:235
+#: src/fetch/themoviedbfetcher.cpp:270 src/fetch/amazonfetcher.cpp:928
 msgid "Access key: "
 msgstr ""
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:250
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:251
 #: src/fetch/giantbombfetcher.cpp:223 src/fetch/isbndbfetcher.cpp:374
 #: src/fetch/themoviedbfetcher.cpp:276
 msgid ""
@@ -2558,12 +2511,116 @@ msgstr ""
 msgid "Email: "
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:208
-msgid "Discogs Audio Search"
+#: src/fetch/filmasterfetcher.cpp:69 src/fetch/amazonfetcher.cpp:129
+#, kde-format
+msgid "This data is licensed under <a href=%1>specific terms</a>."
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:219
-msgid "Discogs Link"
+#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+#, fuzzy
+msgid "Filmaster Link"
+msgstr "Изтрий книга"
+
+#: src/fetch/z3950fetcher.cpp:554 src/fetch/z3950fetcher.cpp:830
+msgid "z39.50 Server"
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:566
+msgid "Illustrator"
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:567
+msgctxt "Dewey Decimal classification system"
+msgid "Dewey Decimal"
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:568
+#, fuzzy
+#| msgid "Classification"
+msgctxt "Library of Congress classification system"
+msgid "LoC Classification"
+msgstr "Класификация"
+
+#: src/fetch/z3950fetcher.cpp:580
+msgid "Use preset &server:"
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:590 src/fetch/imdbfetcher.cpp:1284
+#: src/fetch/srufetcher.cpp:469
+#, fuzzy
+msgid "Hos&t: "
+msgstr "Е&кспортиране"
+
+#: src/fetch/z3950fetcher.cpp:596 src/fetch/srufetcher.cpp:476
+msgid "Enter the host name of the server."
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:601 src/fetch/srufetcher.cpp:481
+msgid "&Port: "
+msgstr "&Порт"
+
+#: src/fetch/z3950fetcher.cpp:606 src/fetch/srufetcher.cpp:486
+#, kde-format
+msgid "Enter the port number of the server. The default is %1."
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:611
+msgid "&Database: "
+msgstr "&База от данни:"
+
+#: src/fetch/z3950fetcher.cpp:616
+msgid "Enter the database name used by the server."
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:621
+msgid "Ch&aracter set: "
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:630
+msgid ""
+"Enter the character set encoding used by the z39.50 server. The most likely "
+"choice is MARC-8, although ISO-8859-1 is common as well."
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:636
+#, fuzzy
+msgid "&Format: "
+msgstr "Опции за форматиране"
+
+#: src/fetch/z3950fetcher.cpp:639
+msgid "Auto-detect"
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:648
+msgid ""
+"Enter the data format used by the z39.50 server. Tellico will attempt to "
+"automatically detect the best setting if <i>auto-detect</i> is selected."
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:654
+msgid "&User: "
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:657 src/fetch/z3950fetcher.cpp:669
+#, fuzzy
+msgid "Optional"
+msgstr "Настройки на полето"
+
+#: src/fetch/z3950fetcher.cpp:660
+msgid ""
+"Enter the authentication user name used by the z39.50 database. Most servers "
+"do not need one."
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:666
+msgid "Pass&word: "
+msgstr ""
+
+#: src/fetch/z3950fetcher.cpp:673
+msgid ""
+"Enter the authentication password used by the z39.50 database. Most servers "
+"do not need one. The password will be saved in plain text in the Tellico "
+"configuration file."
 msgstr ""
 
 #: src/fetch/dvdfrfetcher.cpp:164
@@ -2639,18 +2696,22 @@ msgstr ""
 msgid "%1 does not allow searching for this collection type."
 msgstr ""
 
-#: src/fetch/filmasterfetcher.cpp:69 src/fetch/amazonfetcher.cpp:127
-#, kde-format
-msgid "This data is licensed under <a href=%1>specific terms</a>."
+#: src/fetch/discogsfetcher.cpp:209
+msgid "Discogs Audio Search"
 msgstr ""
 
-#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
-#, fuzzy
-msgid "Filmaster Link"
-msgstr "Изтрий книга"
+#: src/fetch/discogsfetcher.cpp:220
+msgid "Discogs Link"
+msgstr ""
 
-#: src/fetch/freebasefetcher.cpp:227 src/fetch/amazonfetcher.cpp:747
-#: src/fetch/yahoofetcher.cpp:238
+#: src/fetch/winecomfetcher.cpp:229 src/fetch/isbndbfetcher.cpp:257
+#: src/fetch/amazonfetcher.cpp:586
+#, kde-format
+msgid "Results from %1: %2/%3"
+msgstr ""
+
+#: src/fetch/freebasefetcher.cpp:227 src/fetch/yahoofetcher.cpp:238
+#: src/fetch/amazonfetcher.cpp:748
 msgid "The cover image could not be loaded."
 msgstr ""
 
@@ -2717,12 +2778,6 @@ msgstr "Класификация"
 msgid "Internet Movie Database"
 msgstr "Тип:"
 
-#: src/fetch/imdbfetcher.cpp:1284 src/fetch/srufetcher.cpp:469
-#: src/fetch/z3950fetcher.cpp:577
-#, fuzzy
-msgid "Hos&t: "
-msgstr "Е&кспортиране"
-
 #: src/fetch/imdbfetcher.cpp:1289
 msgid ""
 "The Internet Movie Database uses several different servers. Choose the one "
@@ -2743,7 +2798,7 @@ msgstr ""
 msgid "Download cover &image"
 msgstr ""
 
-#: src/fetch/imdbfetcher.cpp:1309 src/fetch/amazonfetcher.cpp:974
+#: src/fetch/imdbfetcher.cpp:1309 src/fetch/amazonfetcher.cpp:978
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2756,12 +2811,6 @@ msgid ""
 "may have entered the access key incorrectly.</qt>"
 msgstr ""
 
-#: src/fetch/isbndbfetcher.cpp:257 src/fetch/amazonfetcher.cpp:585
-#: src/fetch/winecomfetcher.cpp:224
-#, kde-format
-msgid "Results from %1: %2/%3"
-msgstr ""
-
 #: src/fetch/isbndbfetcher.cpp:341
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
@@ -2772,121 +2821,6 @@ msgstr "ISBNdb.com"
 msgid "Multiple Sources"
 msgstr "Всички източници"
 
-#: src/fetch/amazonfetcher.cpp:68
-msgid "Amazon Link"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:78
-msgid "Amazon (US)"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:81
-msgid "Amazon (UK)"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:84
-msgid "Amazon (Germany)"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:87
-msgid "Amazon (Japan)"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:90
-msgid "Amazon (France)"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:93
-msgid "Amazon (Canada)"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:210 src/fetch/amazonfetcher.cpp:932
-msgid ""
-"Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
-"Key."
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:212
-msgid "Those values must be entered in the data source settings."
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:889
-msgid "Amazon.com Web Services"
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:937
-msgid "Secret key: "
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:947
-#, fuzzy
-msgid "Country: "
-msgstr "Показва колони"
-
-#: src/fetch/amazonfetcher.cpp:950
-msgid "United States"
-msgstr "САЩ"
-
-#: src/fetch/amazonfetcher.cpp:951
-msgid "United Kingdom"
-msgstr "Великобритания"
-
-#: src/fetch/amazonfetcher.cpp:952
-msgid "Germany"
-msgstr "Германия"
-
-#: src/fetch/amazonfetcher.cpp:953
-msgid "Japan"
-msgstr "Япония"
-
-#: src/fetch/amazonfetcher.cpp:954
-msgid "France"
-msgstr "Франция"
-
-#: src/fetch/amazonfetcher.cpp:955
-msgid "Canada"
-msgstr "Канада"
-
-#: src/fetch/amazonfetcher.cpp:959
-msgid ""
-"Amazon.com provides data from several different localized sites. Choose the "
-"one you wish to use for this data source."
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:965
-msgid "&Image size: "
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:968
-#, fuzzy
-msgid "Small Image"
-msgstr "Заглавие"
-
-#: src/fetch/amazonfetcher.cpp:969
-#, fuzzy
-msgid "Medium Image"
-msgstr "Медия"
-
-#: src/fetch/amazonfetcher.cpp:970
-#, fuzzy
-msgid "Large Image"
-msgstr "Заглавие"
-
-#: src/fetch/amazonfetcher.cpp:971
-#, fuzzy
-msgid "No Image"
-msgstr "Страници"
-
-#: src/fetch/amazonfetcher.cpp:980
-msgid "&Associate's ID: "
-msgstr ""
-
-#: src/fetch/amazonfetcher.cpp:985
-msgid ""
-"The associate's id identifies the person accessing the Amazon.com Web "
-"Services, and is included in any links to the Amazon.com site."
-msgstr ""
-
 #: src/fetch/srufetcher.cpp:438 z3950.cpp:2
 #, fuzzy
 msgid "Library of Congress (US)"
@@ -2894,19 +2828,6 @@ msgstr "Библиотека на конгреса,контролен номер
 
 #: src/fetch/srufetcher.cpp:443
 msgid "SRU Server"
-msgstr ""
-
-#: src/fetch/srufetcher.cpp:476 src/fetch/z3950fetcher.cpp:583
-msgid "Enter the host name of the server."
-msgstr ""
-
-#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:588
-msgid "&Port: "
-msgstr "&Порт"
-
-#: src/fetch/srufetcher.cpp:486 src/fetch/z3950fetcher.cpp:593
-#, kde-format
-msgid "Enter the port number of the server. The default is %1."
 msgstr ""
 
 #: src/fetch/srufetcher.cpp:491
@@ -2958,89 +2879,6 @@ msgstr ""
 msgid "Connection error %1: %2"
 msgstr "Летна \"Колекция\""
 
-#: src/fetch/z3950fetcher.cpp:541 src/fetch/z3950fetcher.cpp:817
-msgid "z39.50 Server"
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:553
-msgid "Illustrator"
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:554
-msgctxt "Dewey Decimal classification system"
-msgid "Dewey Decimal"
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:555
-#, fuzzy
-#| msgid "Classification"
-msgctxt "Library of Congress classificationn system"
-msgid "LoC Classification"
-msgstr "Класификация"
-
-#: src/fetch/z3950fetcher.cpp:567
-msgid "Use preset &server:"
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:598
-msgid "&Database: "
-msgstr "&База от данни:"
-
-#: src/fetch/z3950fetcher.cpp:603
-msgid "Enter the database name used by the server."
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:608
-msgid "Ch&aracter set: "
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:617
-msgid ""
-"Enter the character set encoding used by the z39.50 server. The most likely "
-"choice is MARC-8, although ISO-8859-1 is common as well."
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:623
-#, fuzzy
-msgid "&Format: "
-msgstr "Опции за форматиране"
-
-#: src/fetch/z3950fetcher.cpp:626
-msgid "Auto-detect"
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:635
-msgid ""
-"Enter the data format used by the z39.50 server. Tellico will attempt to "
-"automatically detect the best setting if <i>auto-detect</i> is selected."
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:641
-msgid "&User: "
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:644 src/fetch/z3950fetcher.cpp:656
-#, fuzzy
-msgid "Optional"
-msgstr "Настройки на полето"
-
-#: src/fetch/z3950fetcher.cpp:647
-msgid ""
-"Enter the authentication user name used by the z39.50 database. Most servers "
-"do not need one."
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:653
-msgid "Pass&word: "
-msgstr ""
-
-#: src/fetch/z3950fetcher.cpp:660
-msgid ""
-"Enter the authentication password used by the z39.50 database. Most servers "
-"do not need one. The password will be saved in plain text in the Tellico "
-"configuration file."
-msgstr ""
-
 #: src/fetch/doubanfetcher.cpp:210
 #, fuzzy
 msgid "Douban Link"
@@ -3086,218 +2924,152 @@ msgstr ""
 msgid "TheMovieDB (%1)"
 msgstr ""
 
-#: src/fetch/fetchmanager.cpp:70
+#: src/fetch/amazonfetcher.cpp:68
+msgid "Amazon Link"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:80
+msgid "Amazon (US)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:83
+msgid "Amazon (UK)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:86
+msgid "Amazon (Germany)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:89
+msgid "Amazon (Japan)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:92
+msgid "Amazon (France)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:95
+msgid "Amazon (Canada)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:98
+msgid "Amazon (China)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:101
+msgid "Amazon (Spain)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:104
+msgid "Amazon (Italy)"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:212 src/fetch/amazonfetcher.cpp:933
+msgid ""
+"Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
+"Key."
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:214
+msgid "Those values must be entered in the data source settings."
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:890
+msgid "Amazon.com Web Services"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:938
+msgid "Secret key: "
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:948
 #, fuzzy
-msgid "Person"
-msgstr "Лични"
+msgid "Country: "
+msgstr "Показва колони"
 
-#: src/fetch/fetchmanager.cpp:71
+#: src/fetch/amazonfetcher.cpp:951
+msgid "United States"
+msgstr "САЩ"
+
+#: src/fetch/amazonfetcher.cpp:952
+msgid "United Kingdom"
+msgstr "Великобритания"
+
+#: src/fetch/amazonfetcher.cpp:953
+msgid "Germany"
+msgstr "Германия"
+
+#: src/fetch/amazonfetcher.cpp:954
+msgid "Japan"
+msgstr "Япония"
+
+#: src/fetch/amazonfetcher.cpp:955
+msgid "France"
+msgstr "Франция"
+
+#: src/fetch/amazonfetcher.cpp:956
+msgid "Canada"
+msgstr "Канада"
+
+#: src/fetch/amazonfetcher.cpp:957
+msgid "China"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:958
+msgid "Spain"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:959
+msgid "Italy"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:963
+msgid ""
+"Amazon.com provides data from several different localized sites. Choose the "
+"one you wish to use for this data source."
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:969
+msgid "&Image size: "
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:972
 #, fuzzy
-msgid "ISBN"
-msgstr "ISBN"
+msgid "Small Image"
+msgstr "Заглавие"
 
-#: src/fetch/fetchmanager.cpp:72
-msgid "UPC/EAN"
-msgstr "UPC/EAN"
-
-#: src/fetch/fetchmanager.cpp:73
-msgid "Keyword"
-msgstr "Ключова дума"
-
-#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
-msgid "arXiv ID"
-msgstr "arXiv ID"
-
-#: src/fetch/fetchmanager.cpp:76
-msgid "PubMed ID"
-msgstr "PubMed ID"
-
-#: src/fetch/fetchmanager.cpp:77
+#: src/fetch/amazonfetcher.cpp:973
 #, fuzzy
-#| msgid "LCCN#"
-msgid "LCCN"
-msgstr "LCCN"
+msgid "Medium Image"
+msgstr "Медия"
 
-#: src/fetch/fetchmanager.cpp:78
+#: src/fetch/amazonfetcher.cpp:974
 #, fuzzy
-msgid "Raw Query"
-msgstr "Търси в :"
+msgid "Large Image"
+msgstr "Заглавие"
 
-#: src/fetch/moviemeterfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:358
+#: src/fetch/amazonfetcher.cpp:975
+#, fuzzy
+msgid "No Image"
+msgstr "Страници"
+
+#: src/fetch/amazonfetcher.cpp:984
+msgid "&Associate's ID: "
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:989
+msgid ""
+"The associate's id identifies the person accessing the Amazon.com Web "
+"Services, and is included in any links to the Amazon.com site."
+msgstr ""
+
+#: src/fetch/moviemeterfetcher.cpp:246 src/fetch/moviemeterfetcher.cpp:359
 #, fuzzy
 msgid "MovieMeter Link"
 msgstr "Изтрий книга"
 
 #: src/fetch/openlibraryfetcher.cpp:282 src/fetch/openlibraryfetcher.cpp:417
 msgid "OpenLibrary Link"
-msgstr ""
-
-#: src/fetchdialog.cpp:82
-#, fuzzy
-msgid "&Search"
-msgstr "Търси в :"
-
-#: src/fetchdialog.cpp:83
-msgid "&Stop"
-msgstr "&Стоп"
-
-#: src/fetchdialog.cpp:128
-msgid "Internet Search"
-msgstr "Търсене в Интернет"
-
-#: src/fetchdialog.cpp:137
-#, fuzzy
-msgid "Search Query"
-msgstr "Търси в :"
-
-#: src/fetchdialog.cpp:145
-#, fuzzy
-msgctxt "Start the search"
-msgid "S&earch:"
-msgstr "Търси в :"
-
-#: src/fetchdialog.cpp:149
-msgid "Enter a search value. An ISBN search must include the full ISBN."
-msgstr ""
-
-#: src/fetchdialog.cpp:156
-msgid "Choose the type of search"
-msgstr ""
-
-#: src/fetchdialog.cpp:162
-msgid "Click to start or stop the search"
-msgstr ""
-
-#: src/fetchdialog.cpp:180
-msgid "&Multiple ISBN/UPC search"
-msgstr ""
-
-#: src/fetchdialog.cpp:181
-msgid "Check this box to search for multiple ISBN or UPC values."
-msgstr ""
-
-#: src/fetchdialog.cpp:184
-#, fuzzy
-msgid "Edit List..."
-msgstr "Редакция..."
-
-#: src/fetchdialog.cpp:186
-msgid ""
-"Click to open a text edit box for entering or editing multiple ISBN values."
-msgstr ""
-
-#: src/fetchdialog.cpp:192
-#, fuzzy
-msgid "Search s&ource:"
-msgstr "Търси в :"
-
-#: src/fetchdialog.cpp:200
-msgid "Select the database to search"
-msgstr ""
-
-#: src/fetchdialog.cpp:213
-msgid "Source"
-msgstr "Източник"
-
-#: src/fetchdialog.cpp:223
-msgid ""
-"As results are found, they are added to this list. Selecting one will fetch "
-"the complete entry and show it in the view below."
-msgstr ""
-
-#: src/fetchdialog.cpp:232
-msgid ""
-"An entry may be shown here before adding it to the current collection by "
-"selecting it in the list above"
-msgstr ""
-
-#: src/fetchdialog.cpp:239
-#, fuzzy
-msgid "&Add Entry"
-msgstr "Изтрий книга"
-
-#: src/fetchdialog.cpp:243
-#, fuzzy
-msgid "Add the selected entry to the current collection"
-msgstr "Създава нов документ"
-
-#: src/fetchdialog.cpp:245
-msgid "Get More Results"
-msgstr ""
-
-#: src/fetchdialog.cpp:248
-msgid "Fetch more results from the current data source"
-msgstr ""
-
-#: src/fetchdialog.cpp:252
-msgid "Clear all search fields and results"
-msgstr ""
-
-#: src/fetchdialog.cpp:334
-msgid "Cancelling the search..."
-msgstr ""
-
-#: src/fetchdialog.cpp:345 src/fetchdialog.cpp:479
-#, fuzzy
-msgid "Searching..."
-msgstr "Търси в :"
-
-#: src/fetchdialog.cpp:400
-#, fuzzy
-msgid "The search returned no items."
-msgstr "Стринг за търсене"
-
-#: src/fetchdialog.cpp:403
-#, fuzzy, kde-format
-msgid "The search returned 1 item."
-msgid_plural "The search returned %1 items."
-msgstr[0] "Стринг за търсене"
-msgstr[1] "Стринг за търсене"
-
-#: src/fetchdialog.cpp:426
-msgid "No results were found for the following ISBN values:"
-msgstr ""
-
-#: src/fetchdialog.cpp:427
-msgid "No Results"
-msgstr ""
-
-#: src/fetchdialog.cpp:447 src/fetchdialog.cpp:502
-#, kde-format
-msgid "Fetching %1..."
-msgstr ""
-
-#: src/fetchdialog.cpp:514
-#, fuzzy
-#| msgid "Institution"
-msgid "Attribution"
-msgstr "Институция"
-
-#: src/fetchdialog.cpp:546 src/fetchdialog.cpp:748
-msgid "No Internet sources are available for your current collection type."
-msgstr ""
-
-#: src/fetchdialog.cpp:628
-msgid "Edit ISBN/UPC Values"
-msgstr ""
-
-#: src/fetchdialog.cpp:633
-msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
-msgstr ""
-
-#: src/fetchdialog.cpp:645
-#, fuzzy
-msgid "&Load From File..."
-msgstr "Импортира Bibtex файл..."
-
-#: src/fetchdialog.cpp:646
-msgid "<qt>Load the list from a text file.</qt>"
-msgstr ""
-
-#: src/fetchdialog.cpp:665
-msgid ""
-"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
-"100 values in your list will be used.</qt>"
 msgstr ""
 
 #: src/fetcherconfigdialog.cpp:72
@@ -3355,66 +3127,23 @@ msgstr "Таблица"
 msgid "Date"
 msgstr "Дата"
 
-#: src/filterdialog.cpp:72
-msgid "Any Field"
-msgstr "Някое поле"
-
-#: src/filterdialog.cpp:82
-msgid "contains"
-msgstr "съдържа"
-
-#: src/filterdialog.cpp:83
-msgid "does not contain"
-msgstr "не съдържа"
-
-#: src/filterdialog.cpp:84
-msgid "equals"
-msgstr "е равно на"
-
-#: src/filterdialog.cpp:85
-msgid "does not equal"
-msgstr "не е равно на"
-
-#: src/filterdialog.cpp:86
-msgid "matches regexp"
-msgstr "пасва на регул. израз"
-
-#: src/filterdialog.cpp:87
-msgid "does not match regexp"
-msgstr "не пасва на регул. израз"
-
-#: src/filterdialog.cpp:104
-msgid "Edit..."
-msgstr "Редакция..."
-
-#: src/filterdialog.cpp:305
-msgid "Advanced Filter"
-msgstr "Разширен филтър"
-
-#: src/filterdialog.cpp:317
-msgid "Filter Criteria"
-msgstr "Критерии за филтриране"
-
-#: src/filterdialog.cpp:321
-msgid "Match a&ll of the following"
-msgstr "Съдържа в&сички :"
-
-#: src/filterdialog.cpp:322
-msgid "Match an&y of the following"
-msgstr "Съдържа н&якое от :"
-
-#: src/filterdialog.cpp:341
+#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:389
 #, fuzzy
-msgid "Filter name:"
+msgid "Merge Entries"
+msgstr "Изтриване на поле"
+
+#: src/entrymerger.cpp:55
+#, fuzzy
+msgid "Merging entries..."
 msgstr "Изтрий книга"
 
-#: src/filterdialog.cpp:350
-#, fuzzy
-msgid "&Save Filter"
-msgstr "Разширен филтър"
+#: src/entrymerger.cpp:73
+#, fuzzy, kde-format
+msgid "Total merged/scanned entries: %1/%2"
+msgstr "Изтриване на поле"
 
-#: src/filterview.cpp:205 src/mainwindow.cpp:473 src/mainwindow.cpp:652
-#: src/mainwindow.cpp:668
+#: src/filterview.cpp:205 src/mainwindow.cpp:475 src/mainwindow.cpp:654
+#: src/mainwindow.cpp:670
 #, fuzzy
 msgid "Filter"
 msgstr "Изтрий книга"
@@ -3445,8 +3174,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Група"
 
-#: src/groupview.cpp:415 src/mainwindow.cpp:900 src/mainwindow.cpp:1545
-#: src/mainwindow.cpp:1571 src/translators/htmlexporter.cpp:329
+#: src/groupview.cpp:415 src/translators/htmlexporter.cpp:329
+#: src/mainwindow.cpp:902 src/mainwindow.cpp:1547 src/mainwindow.cpp:1573
 msgid "People"
 msgstr "Хора"
 
@@ -3528,6 +3257,11 @@ msgstr ""
 msgid "Increase the maximum icon size in the icon list view"
 msgstr ""
 
+#: src/gui/statusbar.cpp:125 src/fetchdialog.cpp:276 src/fetchdialog.cpp:368
+#: src/fetchdialog.cpp:458 src/fetchdialog.cpp:527 src/controller.cpp:142
+msgid "Ready."
+msgstr "Готово."
+
 #: src/gui/stringmapdialog.cpp:66
 #, fuzzy
 #| msgid "&Set"
@@ -3579,6 +3313,82 @@ msgstr "Преместване на реда нагоре"
 msgid "Move Row Down"
 msgstr "Преместване на реда надолу"
 
+#: src/gui/kdatecombobox.cpp:145
+#, fuzzy
+#| msgid "Year"
+msgctxt "@option next year"
+msgid "Next Year"
+msgstr "Година"
+
+#: src/gui/kdatecombobox.cpp:146
+#, fuzzy
+#| msgid "Month"
+msgctxt "@option next month"
+msgid "Next Month"
+msgstr "Месец"
+
+#: src/gui/kdatecombobox.cpp:147
+msgctxt "@option next week"
+msgid "Next Week"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:148
+msgctxt "@option tomorrow"
+msgid "Tomorrow"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:149
+msgctxt "@option today"
+msgid "Today"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:150
+msgctxt "@option yesterday"
+msgid "Yesterday"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:151
+msgctxt "@option last week"
+msgid "Last Week"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:152
+#, fuzzy
+#| msgid "Month"
+msgctxt "@option last month"
+msgid "Last Month"
+msgstr "Месец"
+
+#: src/gui/kdatecombobox.cpp:153
+#, fuzzy
+#| msgid "Release Year"
+msgctxt "@option last year"
+msgid "Last Year"
+msgstr "Година на издаване"
+
+#: src/gui/kdatecombobox.cpp:155
+#, fuzzy
+msgctxt "@option do not specify a date"
+msgid "No Date"
+msgstr "Дадена"
+
+#: src/gui/kdatecombobox.cpp:241
+msgctxt "@info"
+msgid "The date you entered is invalid"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:244
+#, kde-format
+msgctxt "@info"
+msgid "Date cannot be earlier than %1"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:251
+#, kde-format
+msgctxt "@info"
+msgid "Date cannot be later than %1"
+msgstr ""
+
 #: src/importdialog.cpp:68 src/importdialog.cpp:74
 #, fuzzy
 msgid "Import Options"
@@ -3618,19 +3428,19 @@ msgstr ""
 
 #. i18n: file: src/tellicoui.rc:24
 #. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:121 src/mainwindow.cpp:316 rc.cpp:280
+#: src/importdialog.cpp:121 src/mainwindow.cpp:318 rc.cpp:280
 #, fuzzy
 msgid "&Import"
 msgstr "И&мпортиране"
 
-#: src/importdialog.cpp:284 src/mainwindow.cpp:1061 src/mainwindow.cpp:1228
-#: src/translators/tellicozipexporter.cpp:56
+#: src/importdialog.cpp:284 src/translators/tellicozipexporter.cpp:56
+#: src/mainwindow.cpp:1063 src/mainwindow.cpp:1230
 #, fuzzy
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Tellico файлове (*.tc)"
 
 #: src/importdialog.cpp:285 src/importdialog.cpp:298 src/importdialog.cpp:303
-#: src/mainwindow.cpp:1063 src/translators/tellicoxmlexporter.cpp:70
+#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1065
 #, fuzzy
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|XML файлове (*.xml)"
@@ -3650,7 +3460,7 @@ msgstr "*.xsl|XSLT файлове (*.xsl)"
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "*.xsl|XSLT файлове (*.xsl)"
 
-#: src/importdialog.cpp:311 src/translators/gcstarexporter.cpp:56
+#: src/importdialog.cpp:311 src/translators/gcstarexporter.cpp:60
 #, fuzzy
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.xsl|XSLT файлове (*.xsl)"
@@ -3674,68 +3484,6 @@ msgstr "*.tc *.bc|Tellico файлове (*.tc)"
 #, fuzzy
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "*.xsl|XSLT файлове (*.xsl)"
-
-#: src/loandialog.cpp:53
-msgid "Loan Dialog"
-msgstr ""
-
-#: src/loandialog.cpp:97
-msgid "The following items are being checked out:"
-msgstr ""
-
-#: src/loandialog.cpp:103
-msgid "The following item is on-loan:"
-msgstr ""
-
-#: src/loandialog.cpp:113
-msgid "&Lend to:"
-msgstr ""
-
-#: src/loandialog.cpp:125
-msgid ""
-"Enter the name of the person borrowing the items from you. Clicking the "
-"button allows you to select from your address book."
-msgstr ""
-
-#: src/loandialog.cpp:134
-msgid "&Loan date:"
-msgstr ""
-
-#: src/loandialog.cpp:140
-msgid ""
-"The check-out date is the date that you lent the items. By default, today's "
-"date is used."
-msgstr ""
-
-#: src/loandialog.cpp:149
-msgid "D&ue date:"
-msgstr ""
-
-#: src/loandialog.cpp:156
-msgid ""
-"The due date is when the items are due to be returned. The due date is not "
-"required, unless you want to add the loan to your active calendar."
-msgstr ""
-
-#: src/loandialog.cpp:161
-#, fuzzy
-msgid "&Note:"
-msgstr "Е&кспортиране"
-
-#: src/loandialog.cpp:167
-msgid "You can add notes about the loan."
-msgstr ""
-
-#: src/loandialog.cpp:171
-msgid "&Add a reminder to the active calendar"
-msgstr ""
-
-#: src/loandialog.cpp:174
-msgid ""
-"<qt>Checking this box will add a <em>To-do</em> item to your active "
-"calendar, which can be viewed using KOrganizer. The box is only active if "
-"you set a due date.</qt>"
-msgstr ""
 
 #: src/loanview.cpp:118
 #, fuzzy
@@ -3857,921 +3605,6 @@ msgstr "Импортира Bibtexml файл ..."
 msgid "File to open"
 msgstr "Файл за отваряне"
 
-#: src/mainwindow.cpp:235
-#, fuzzy
-msgid "Create a new collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:249
-#, fuzzy
-msgid "New &Book Collection"
-msgstr "Колекция от книги"
-
-#: src/mainwindow.cpp:250
-#, fuzzy
-msgid "Create a new book collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:252
-#, fuzzy
-msgid "New B&ibliography"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:253
-#, fuzzy
-msgid "Create a new bibtex bibliography"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:255
-#, fuzzy
-msgid "New &Comic Book Collection"
-msgstr "Колекция от книги"
-
-#: src/mainwindow.cpp:256
-#, fuzzy
-msgid "Create a new comic book collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:258
-#, fuzzy
-msgid "New &Video Collection"
-msgstr "Видео колекция"
-
-#: src/mainwindow.cpp:259
-#, fuzzy
-msgid "Create a new video collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:261
-#, fuzzy
-msgid "New &Music Collection"
-msgstr "Ново име за колекция"
-
-#: src/mainwindow.cpp:262
-#, fuzzy
-msgid "Create a new music collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:264
-#, fuzzy
-msgid "New C&oin Collection"
-msgstr "Ново име за колекция"
-
-#: src/mainwindow.cpp:265
-#, fuzzy
-msgid "Create a new coin collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:267
-#, fuzzy
-msgid "New &Stamp Collection"
-msgstr "Ново име за колекция"
-
-#: src/mainwindow.cpp:268
-#, fuzzy
-msgid "Create a new stamp collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:270
-#, fuzzy
-msgid "New C&ard Collection"
-msgstr "Видео колекция"
-
-#: src/mainwindow.cpp:271
-#, fuzzy
-msgid "Create a new trading card collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:273
-#, fuzzy
-msgid "New &Wine Collection"
-msgstr "Видео колекция"
-
-#: src/mainwindow.cpp:274
-#, fuzzy
-msgid "Create a new wine collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:276
-#, fuzzy
-msgid "New &Game Collection"
-msgstr "Ново име за колекция"
-
-#: src/mainwindow.cpp:277
-#, fuzzy
-msgid "Create a new game collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:279
-#, fuzzy
-msgid "New Boa&rd Game Collection"
-msgstr "Ново име за колекция"
-
-#: src/mainwindow.cpp:280
-#, fuzzy
-msgid "Create a new board game collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:282
-#, fuzzy
-msgid "New &File Catalog"
-msgstr "Ново поле"
-
-#: src/mainwindow.cpp:283
-#, fuzzy
-msgid "Create a new file catalog"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:286
-#, fuzzy
-msgid "New C&ustom Collection"
-msgstr "Ново име за колекция"
-
-#: src/mainwindow.cpp:287
-#, fuzzy
-msgid "Create a new custom collection"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:298
-msgid "Open an existing document"
-msgstr "Отваря съществуващ документ"
-
-#: src/mainwindow.cpp:300
-msgid "Open a recently used file"
-msgstr "Отваря наскоро използван файл"
-
-#: src/mainwindow.cpp:302
-#, fuzzy
-msgid "Save the document"
-msgstr "Записва текущия документ"
-
-#: src/mainwindow.cpp:304
-#, fuzzy
-msgid "Save the document as a different file..."
-msgstr "Записва текущия документ като ..."
-
-#: src/mainwindow.cpp:306
-msgid "Print the contents of the document..."
-msgstr "Отпечатва съдържанието на документа..."
-
-#: src/mainwindow.cpp:308
-msgid "Quit the application"
-msgstr "Изход от приложението"
-
-#: src/mainwindow.cpp:318
-#, fuzzy
-msgid "Import the collection data from other formats"
-msgstr "Филтриране на колекцията за показване само на дадени книги..."
-
-#: src/mainwindow.cpp:330
-#, fuzzy
-msgid "Import Tellico Data..."
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:331
-#, fuzzy
-msgid "Import another Tellico data file"
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:333
-#, fuzzy
-msgid "Import CSV Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:334
-#, fuzzy
-msgid "Import a CSV file"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:336
-#, fuzzy
-msgid "Import MODS Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:337
-#, fuzzy
-msgid "Import a MODS data file"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:339
-#, fuzzy
-msgid "Import Alexandria Data..."
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:340
-msgid "Import data from the Alexandria book collection manager"
-msgstr ""
-
-#: src/mainwindow.cpp:342
-#, fuzzy
-msgid "Import Delicious Library Data..."
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:343
-#, fuzzy
-msgid "Import data from Delicious Library"
-msgstr "Импортиране от Bibtexml..."
-
-#: src/mainwindow.cpp:345
-#, fuzzy
-msgid "Import Referencer Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:346
-#, fuzzy
-msgid "Import data from Referencer"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:348
-#, fuzzy
-msgid "Import Bibtex Data..."
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:349
-#, fuzzy
-msgid "Import a bibtex bibliography file"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:351
-#, fuzzy
-msgid "Import Bibtexml Data..."
-msgstr "Импортира Bibtexml файл..."
-
-#: src/mainwindow.cpp:352
-#, fuzzy
-msgid "Import a Bibtexml bibliography file"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:354
-#, fuzzy
-msgid "Import RIS Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:355
-#, fuzzy
-msgid "Import an RIS reference file"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:357
-#, fuzzy
-msgid "Import Goodreads Collection..."
-msgstr "Преименувай колекцията"
-
-#: src/mainwindow.cpp:358
-#, fuzzy
-msgid "Import a collection from Goodreads.com"
-msgstr "Филтриране на колекцията за показване само на дадени книги..."
-
-#: src/mainwindow.cpp:360
-#, fuzzy
-msgid "Import PDF File..."
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:361
-#, fuzzy
-msgid "Import a PDF file"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:363
-#, fuzzy
-msgid "Import Audio File Metadata..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:364
-#, fuzzy
-msgid "Import meta-data from audio files"
-msgstr "Импортиране от Bibtexml..."
-
-#: src/mainwindow.cpp:369
-#, fuzzy
-msgid "Import Audio CD Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:370
-#, fuzzy
-msgid "Import audio CD information"
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:375
-#, fuzzy
-msgid "Import GCstar Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:376
-#, fuzzy
-msgid "Import a GCstar data file"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:378
-#, fuzzy
-msgid "Import Griffith Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:379
-#, fuzzy
-msgid "Import a Griffith database"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:381
-#, fuzzy
-msgid "Import Ant Movie Catalog Data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:382
-#, fuzzy
-msgid "Import an Ant Movie Catalog data file"
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:384
-#, fuzzy
-msgid "Import File Listing..."
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:385
-msgid "Import information about files in a folder"
-msgstr ""
-
-#: src/mainwindow.cpp:387
-#, fuzzy
-msgid "Import XSL Transform..."
-msgstr "Експортира,използвайки XSL Transform..."
-
-#: src/mainwindow.cpp:388
-#, fuzzy
-msgid "Import using an XSL Transform"
-msgstr "Експортира файл,използвайки XSL transform..."
-
-#. i18n: file: src/tellicoui.rc:50
-#. i18n: ectx: Menu (file_export)
-#: src/mainwindow.cpp:398 rc.cpp:283
-#, fuzzy
-msgid "&Export"
-msgstr "Експортиране..."
-
-#: src/mainwindow.cpp:400
-#, fuzzy
-msgid "Export the collection data to other formats"
-msgstr "Филтриране на колекцията за показване само на дадени книги..."
-
-#: src/mainwindow.cpp:412
-#, fuzzy
-msgid "Export to XML..."
-msgstr "Е&кспортиране"
-
-#: src/mainwindow.cpp:413
-#, fuzzy
-msgid "Export to a Tellico XML file"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:415
-#, fuzzy
-msgid "Export to Zip..."
-msgstr "Е&кспортиране"
-
-#: src/mainwindow.cpp:416
-#, fuzzy
-msgid "Export to a Tellico Zip file"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:418
-#, fuzzy
-msgid "Export to HTML..."
-msgstr "Е&кспортиране"
-
-#: src/mainwindow.cpp:419
-#, fuzzy
-msgid "Export to an HTML file"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:421
-#, fuzzy
-msgid "Export to CSV..."
-msgstr "Е&кспортиране"
-
-#: src/mainwindow.cpp:422
-#, fuzzy
-msgid "Export to a comma-separated values file"
-msgstr "Експортира към Bibtexml файл..."
-
-#: src/mainwindow.cpp:424
-#, fuzzy
-msgid "Export to PilotDB..."
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:425
-#, fuzzy
-msgid "Export to a PilotDB database"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:427
-#, fuzzy
-msgid "Export to Alexandria..."
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:428
-msgid "Export to an Alexandria library"
-msgstr ""
-
-#: src/mainwindow.cpp:430
-#, fuzzy
-msgid "Export to Bibtex..."
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:431
-#, fuzzy
-msgid "Export to a bibtex file"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:433
-#, fuzzy
-msgid "Export to Bibtexml..."
-msgstr "Експортира към Bibtexml файл"
-
-#: src/mainwindow.cpp:434
-#, fuzzy
-msgid "Export to a Bibtexml file"
-msgstr "Експортира към Bibtexml файл..."
-
-#: src/mainwindow.cpp:436
-#, fuzzy
-msgid "Export to ONIX..."
-msgstr "Е&кспортиране"
-
-#: src/mainwindow.cpp:437
-#, fuzzy
-msgid "Export to an ONIX file"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:439
-#, fuzzy
-msgid "Export to GCstar..."
-msgstr "Е&кспортиране"
-
-#: src/mainwindow.cpp:440
-#, fuzzy
-msgid "Export to a GCstar data file"
-msgstr "Експортира към Bibtex файл..."
-
-#: src/mainwindow.cpp:442
-#, fuzzy
-msgid "Export XSL Transform..."
-msgstr "Експортира,използвайки XSL Transform..."
-
-#: src/mainwindow.cpp:443
-#, fuzzy
-msgid "Export using an XSL Transform"
-msgstr "Експортира файл,използвайки XSL transform..."
-
-#: src/mainwindow.cpp:454
-msgid "Cut the selected text and puts it in the clipboard"
-msgstr ""
-
-#: src/mainwindow.cpp:456
-#, fuzzy
-msgid "Copy the selected text to the clipboard"
-msgstr "Копиране на избраното в буфера за обмен..."
-
-#: src/mainwindow.cpp:458
-#, fuzzy
-msgid "Paste the clipboard contents"
-msgstr "Поставяне на съдържанието на буфера"
-
-#: src/mainwindow.cpp:460
-#, fuzzy
-msgid "Select all the entries in the collection"
-msgstr "Няма избрани полета в тази колекция"
-
-#: src/mainwindow.cpp:462
-#, fuzzy
-msgid "Deselect all the entries in the collection"
-msgstr "Няма избрани полета в тази колекция"
-
-#: src/mainwindow.cpp:465
-msgid "Internet Search..."
-msgstr "Търсене в Интернет..."
-
-#: src/mainwindow.cpp:466 xslt.cpp:47
-msgid "Search"
-msgstr "Търсене"
-
-#: src/mainwindow.cpp:469
-msgid "Search the internet..."
-msgstr "Търсене в Интернет..."
-
-#: src/mainwindow.cpp:472
-#, fuzzy
-msgid "Advanced &Filter..."
-msgstr "Разширен филтър..."
-
-#: src/mainwindow.cpp:476 src/mainwindow.cpp:670
-#, fuzzy
-msgid "Filter the collection"
-msgstr "Редакция на полетата на колекцията..."
-
-#: src/mainwindow.cpp:483
-#, fuzzy
-msgid "&New Entry..."
-msgstr "Дуплициране на книга"
-
-#: src/mainwindow.cpp:487
-#, fuzzy
-msgid "Create a new entry"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:494
-#, fuzzy
-msgid "Edit the selected entries"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/mainwindow.cpp:501
-#, fuzzy
-msgid "Copy the selected entries"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/mainwindow.cpp:508
-#, fuzzy
-msgid "Delete the selected entries"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/mainwindow.cpp:512
-#, fuzzy
-msgid "&Merge Entries"
-msgstr "Изтриване на поле"
-
-#: src/mainwindow.cpp:516
-#, fuzzy
-msgid "Merge the selected entries"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/mainwindow.cpp:520
-msgid "Check-&out..."
-msgstr ""
-
-#: src/mainwindow.cpp:522
-#, fuzzy
-msgid "Check-out the selected items"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/mainwindow.cpp:525
-msgid "Check-&in"
-msgstr ""
-
-#: src/mainwindow.cpp:527
-#, fuzzy
-msgid "Check-in the selected items"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/mainwindow.cpp:530
-#, fuzzy
-msgid "&Rename Collection..."
-msgstr "Преименувай колекцията"
-
-#: src/mainwindow.cpp:533
-#, fuzzy
-msgid "Rename the collection"
-msgstr "Преименувай колекцията"
-
-#: src/mainwindow.cpp:536
-#, fuzzy
-msgid "Collection &Fields..."
-msgstr "Полета на колекцията..."
-
-#: src/mainwindow.cpp:537
-#, fuzzy
-msgid "Fields"
-msgstr "Полета"
-
-#: src/mainwindow.cpp:540
-msgid "Modify the collection fields"
-msgstr "Редакция на полетата на колекцията..."
-
-#: src/mainwindow.cpp:543
-msgid "&Generate Reports..."
-msgstr ""
-
-#: src/mainwindow.cpp:544
-#, fuzzy
-msgid "Reports"
-msgstr "Експортиране..."
-
-#: src/mainwindow.cpp:546
-#, fuzzy
-msgid "Generate collection reports"
-msgstr "Създава нов документ"
-
-#: src/mainwindow.cpp:549
-#, fuzzy
-msgid "Convert to &Bibliography"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:551
-#, fuzzy
-msgid "Convert a book collection to a bibliography"
-msgstr "Импортира Bibtexml файл ..."
-
-#: src/mainwindow.cpp:554
-#, fuzzy
-msgid "String &Macros..."
-msgstr "Оценка"
-
-#: src/mainwindow.cpp:556
-msgid "Edit the bibtex string macros"
-msgstr ""
-
-#: src/mainwindow.cpp:559
-msgid "Check for Duplicate Keys..."
-msgstr ""
-
-#: src/mainwindow.cpp:561
-msgid "Check for duplicate citation keys"
-msgstr ""
-
-#: src/mainwindow.cpp:568
-#, fuzzy
-msgid "Copy Bibtex to Cli&pboard"
-msgstr "Копиране на избраното в буфера за обмен..."
-
-#: src/mainwindow.cpp:569
-#, fuzzy
-msgid "Copy bibtex citations to the clipboard"
-msgstr "Копиране на избраното в буфера за обмен..."
-
-#: src/mainwindow.cpp:574
-#, fuzzy
-msgid "Cite Entry in &LyX"
-msgstr "Изтрий книга"
-
-#: src/mainwindow.cpp:575
-#, fuzzy
-msgid "Cite the selected entries in LyX"
-msgstr "Изтриване на няколко книги ?"
-
-#: src/mainwindow.cpp:585
-#, fuzzy
-#| msgid "Update"
-msgctxt "Update Entry"
-msgid "Update"
-msgstr "Обновяване"
-
-#: src/mainwindow.cpp:590
-msgid "All Sources"
-msgstr "Всички източници"
-
-#: src/mainwindow.cpp:591
-msgid "Update entry data from all available sources"
-msgstr ""
-
-#: src/mainwindow.cpp:603
-#, fuzzy
-msgid "Show Grou&p View"
-msgstr "BCGroupView"
-
-#: src/mainwindow.cpp:604
-#, fuzzy
-msgid "Enable/disable the group view"
-msgstr "Показва/скрива тази лента"
-
-#: src/mainwindow.cpp:608
-msgid "Show Entry &Editor"
-msgstr ""
-
-#: src/mainwindow.cpp:610
-#, fuzzy
-msgid "Enable/disable the editor"
-msgstr "Показва/скрива тази лента"
-
-#: src/mainwindow.cpp:613
-#, fuzzy
-msgid "Show Entry &View"
-msgstr "BCGroupView"
-
-#: src/mainwindow.cpp:614
-#, fuzzy
-msgid "Enable/disable the entry view"
-msgstr "Показва/скрива тази лента"
-
-#: src/mainwindow.cpp:640
-msgid "Change Grouping"
-msgstr ""
-
-#: src/mainwindow.cpp:643
-#, fuzzy
-msgid "&Group Selection"
-msgstr "Опции за групиране"
-
-#: src/mainwindow.cpp:644
-msgid "Change the grouping of the collection"
-msgstr "Промяна на групирането на колекцията"
-
-#: src/mainwindow.cpp:656
-#, fuzzy
-msgid "Filter here..."
-msgstr "Критерии за филтриране"
-
-#: src/mainwindow.cpp:719
-#, fuzzy
-msgid "Groups"
-msgstr "Групирай по:"
-
-#: src/mainwindow.cpp:720
-msgid ""
-"<qt>The <i>Group View</i> sorts the entries into groupings based on a "
-"selected field.</qt>"
-msgstr ""
-
-#: src/mainwindow.cpp:727
-msgid ""
-"<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
-"</qt>"
-msgstr ""
-
-#: src/mainwindow.cpp:786
-#, fuzzy
-msgid "Welcome to the Tellico Collection Manager"
-msgstr "Tellico (Лавица) - програма за картотекиране на книги"
-
-#: src/mainwindow.cpp:788
-msgid ""
-"<h3>Tellico is a tool for managing collections of books, videos, music, and "
-"whatever else you want to catalog.</h3><h3>New entries can be added to your "
-"collection by <a href=\"tc:///coll_new_entry\">entering data manually</a> or "
-"by <a href=\"tc:///edit_search_internet\">downloading data</a> from various "
-"Internet sources.</h3>"
-msgstr ""
-
-#: src/mainwindow.cpp:988
-msgid ""
-"The current file has been modified.\n"
-"Do you want to save it?"
-msgstr ""
-"Текущият файл бе променен.\n"
-"Желаете ли да го запишете?"
-
-#: src/mainwindow.cpp:1025
-msgid "Creating new document..."
-msgstr "Създаване на нов документ..."
-
-#: src/mainwindow.cpp:1058 src/mainwindow.cpp:1077 src/mainwindow.cpp:1095
-msgid "Opening file..."
-msgstr "Отваряне на файл..."
-
-#: src/mainwindow.cpp:1068
-msgid "Open File"
-msgstr "Отваряне на файл"
-
-#: src/mainwindow.cpp:1186
-msgid ""
-"<qt><p>You are saving a file with many images, which causes Tellico to slow "
-"down significantly. Do you want to save the images separately in Tellico's "
-"data directory to improve performance?</p><p>Your choice can always be "
-"changed in the configuration dialog.</p></qt>"
-msgstr ""
-
-#: src/mainwindow.cpp:1191
-msgid "Save Images Separately"
-msgstr ""
-
-#: src/mainwindow.cpp:1192
-msgid "Save Images in File"
-msgstr ""
-
-#: src/mainwindow.cpp:1226
-msgid "Saving file with a new filename..."
-msgstr "Записва файла с ново име ..."
-
-#: src/mainwindow.cpp:1233
-msgid "Save As"
-msgstr "Записване като"
-
-#: src/mainwindow.cpp:1261 src/mainwindow.cpp:1311
-msgid "Printing..."
-msgstr "Отпечатване..."
-
-#: src/mainwindow.cpp:1270
-msgid ""
-"The collection is currently being filtered to show a limited subset of the "
-"entries. Only the visible entries will be printed. Continue?"
-msgstr ""
-
-#: src/mainwindow.cpp:1295
-msgid "Processing document..."
-msgstr "Процедирам с документа..."
-
-#: src/mainwindow.cpp:1318
-msgid "Exiting..."
-msgstr "Излизам..."
-
-#: src/mainwindow.cpp:1457
-#, fuzzy, kde-format
-msgid "Total entries: %1"
-msgstr "Изтриване на поле"
-
-#: src/mainwindow.cpp:1464
-#, kde-format
-msgid "(%1 filtered; %2 selected)"
-msgstr ""
-
-#: src/mainwindow.cpp:1467
-#, kde-format
-msgid "(%1 filtered)"
-msgstr ""
-
-#: src/mainwindow.cpp:1470
-#, kde-format
-msgid "(%1 selected)"
-msgstr ""
-
-#: src/mainwindow.cpp:1617 src/translators/gcstarimporter.cpp:264
-#: src/translators/goodreadsimporter.cpp:97
-#: src/translators/xsltimporter.cpp:87
-#, fuzzy
-msgid "Tellico encountered an error in XSLT processing."
-msgstr "Програмата се натъкна на грешка при XSLT процедирането.\n"
-
-#: src/mainwindow.cpp:1741
-#, fuzzy
-msgid "Importing data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:1750
-#, fuzzy
-msgid "Import File"
-msgstr "Импортира Bibtex файл..."
-
-#: src/mainwindow.cpp:1756
-#, fuzzy
-msgid "Import Directory"
-msgstr "И&мпортиране"
-
-#: src/mainwindow.cpp:1777
-#, fuzzy
-msgid "Exporting data..."
-msgstr "Експортирам..."
-
-#: src/mainwindow.cpp:1799
-#, fuzzy
-msgid "Export As"
-msgstr "Е&кспортиране"
-
-#: src/mainwindow.cpp:1824
-#, fuzzy
-msgid "String Macros"
-msgstr "Оценка"
-
-#: src/mainwindow.cpp:1825
-msgid "Macro"
-msgstr "Макрос"
-
-#: src/mainwindow.cpp:1825
-#, fuzzy
-msgid "String"
-msgstr "Оценка"
-
-#: src/mainwindow.cpp:1914
-#, fuzzy
-msgid "Creating citations..."
-msgstr "Отрязване на избраното..."
-
-#: src/mainwindow.cpp:2019
-#, fuzzy
-msgid "Filters"
-msgstr "Изтрий книга"
-
-#: src/mainwindow.cpp:2020
-msgid ""
-"<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
-"</qt>"
-msgstr ""
-
-#: src/mainwindow.cpp:2038
-#, fuzzy
-msgid "Loans"
-msgstr "Дадена"
-
-#: src/mainwindow.cpp:2039
-msgid ""
-"<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
-"items from your collection.</qt>"
-msgstr ""
-
-#: src/mainwindow.cpp:2111
-msgid ""
-"Some images are not saved in the configured location. The current file must "
-"be saved and the images will be transferred to the new location."
-msgstr ""
-
-#: src/mainwindow.cpp:2153
-#, kde-format
-msgid "Update entry data from %1"
-msgstr ""
-
-#: src/mainwindow.cpp:2171
-#, kde-format
-msgid ""
-"Tellico can only import one file of this type at a time. Only %1 will be "
-"imported."
-msgstr ""
-
 #: src/reportdialog.cpp:67
 #, fuzzy
 msgid "Collection Report"
@@ -4839,26 +3672,9 @@ msgstr ""
 msgid "Select value from %1"
 msgstr ""
 
-#: src/translators/alexandriaexporter.cpp:60
-#, fuzzy
-msgid "Alexandria"
-msgstr "Общи настройки"
-
-#: src/translators/alexandriaexporter.cpp:99
-#, kde-format
-msgid ""
-"<qt>An Alexandria library called <i>%1</i> already exists. Any existing "
-"books in that library could be overwritten.</qt>"
-msgstr ""
-
-#: src/translators/alexandriaimporter.cpp:217
-#, fuzzy
-msgid "Alexandria Options"
-msgstr "Общи настройки"
-
-#: src/translators/alexandriaimporter.cpp:220
-msgid "&Library:"
-msgstr "&Библиотека:"
+#: src/document.cpp:195 src/mainwindow.cpp:1177
+msgid "Saving file..."
+msgstr "Записва файл..."
 
 #: src/translators/audiofileimporter.cpp:78
 #, fuzzy
@@ -4882,7 +3698,7 @@ msgstr "Настройки на полето"
 msgid "Tracks (Disc %1)"
 msgstr ""
 
-#: src/translators/audiofileimporter.cpp:242 xslt.cpp:4
+#: src/translators/audiofileimporter.cpp:242 xslt.cpp:6
 msgid "(Various)"
 msgstr ""
 
@@ -5264,6 +4080,13 @@ msgstr ""
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr ""
 
+#: src/translators/gcstarimporter.cpp:264
+#: src/translators/goodreadsimporter.cpp:97
+#: src/translators/xsltimporter.cpp:87 src/mainwindow.cpp:1619
+#, fuzzy
+msgid "Tellico encountered an error in XSLT processing."
+msgstr "Програмата се натъкна на грешка при XSLT процедирането.\n"
+
 #: src/translators/goodreadsimporter.cpp:75
 #: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
 msgid "A valid XSLT file is needed to import the file."
@@ -5394,34 +4217,10 @@ msgstr "Файлът е празен."
 msgid "The file contains no collection data."
 msgstr ""
 
-#: src/translators/tellicoxmlexporter.cpp:66
-msgid "XML"
-msgstr "XML"
-
-#: src/translators/tellicoxmlexporter.cpp:501
-#, fuzzy
-msgid "Tellico XML Options"
-msgstr "TellicoDoc"
-
-#: src/translators/tellicoxmlexporter.cpp:504
-msgid "Include images in XML document"
-msgstr ""
-
-#: src/translators/tellicoxmlexporter.cpp:506
-#, fuzzy
-msgid ""
-"If checked, the images in the document will be included in the XML stream as "
-"base64 encoded elements."
-msgstr "Ако е избрано,броя на книгите в груптата ще бъде добавен към името й."
-
 #: src/translators/tellicozipexporter.cpp:52
 #, fuzzy
 msgid "Tellico Zip File"
 msgstr "Лавица"
-
-#: src/translators/xmlstatehandler.cpp:130
-msgid "It is from a future version of Tellico."
-msgstr "Това е бъдеща версия на Tellico."
 
 #: src/translators/xsltexporter.cpp:50
 msgid "XSLT"
@@ -5440,6 +4239,51 @@ msgstr "Заглавие:"
 #: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:114
 msgid "Choose the XSLT file used to transform the data."
 msgstr ""
+
+#: src/translators/tellicoxmlexporter.cpp:66
+msgid "XML"
+msgstr "XML"
+
+#: src/translators/tellicoxmlexporter.cpp:509
+#, fuzzy
+msgid "Tellico XML Options"
+msgstr "TellicoDoc"
+
+#: src/translators/tellicoxmlexporter.cpp:512
+msgid "Include images in XML document"
+msgstr ""
+
+#: src/translators/tellicoxmlexporter.cpp:514
+#, fuzzy
+msgid ""
+"If checked, the images in the document will be included in the XML stream as "
+"base64 encoded elements."
+msgstr "Ако е избрано,броя на книгите в груптата ще бъде добавен към името й."
+
+#: src/translators/xmlstatehandler.cpp:130
+msgid "It is from a future version of Tellico."
+msgstr "Това е бъдеща версия на Tellico."
+
+#: src/translators/alexandriaexporter.cpp:60
+#, fuzzy
+msgid "Alexandria"
+msgstr "Общи настройки"
+
+#: src/translators/alexandriaexporter.cpp:99
+#, kde-format
+msgid ""
+"<qt>An Alexandria library called <i>%1</i> already exists. Any existing "
+"books in that library could be overwritten.</qt>"
+msgstr ""
+
+#: src/translators/alexandriaimporter.cpp:235
+#, fuzzy
+msgid "Alexandria Options"
+msgstr "Общи настройки"
+
+#: src/translators/alexandriaimporter.cpp:238
+msgid "&Library:"
+msgstr "&Библиотека:"
 
 #: src/utils/calendarhandler.cpp:197
 #, fuzzy, kde-format
@@ -5464,6 +4308,1281 @@ msgstr ""
 msgid ""
 "<qt>The <i>Icon View</i> shows each entry in the collection or group using "
 "an icon, which may be an image in the entry.</qt>"
+msgstr ""
+
+#: src/filterdialog.cpp:83
+msgid "Any Field"
+msgstr "Някое поле"
+
+#: src/filterdialog.cpp:113
+msgid "Edit..."
+msgstr "Редакция..."
+
+#: src/filterdialog.cpp:255 src/filterdialog.cpp:264
+msgid "equals"
+msgstr "е равно на"
+
+#: src/filterdialog.cpp:256 src/filterdialog.cpp:265
+msgid "does not equal"
+msgstr "не е равно на"
+
+#: src/filterdialog.cpp:257 src/filterdialog.cpp:266
+msgid "matches regexp"
+msgstr "пасва на регул. израз"
+
+#: src/filterdialog.cpp:258 src/filterdialog.cpp:267
+msgid "does not match regexp"
+msgstr "не пасва на регул. израз"
+
+#: src/filterdialog.cpp:259
+msgctxt "is before a date"
+msgid "is before"
+msgstr ""
+
+#: src/filterdialog.cpp:260
+msgctxt "is after a date"
+msgid "is after"
+msgstr ""
+
+#: src/filterdialog.cpp:262
+msgid "contains"
+msgstr "съдържа"
+
+#: src/filterdialog.cpp:263
+msgid "does not contain"
+msgstr "не съдържа"
+
+#: src/filterdialog.cpp:355
+msgid "Advanced Filter"
+msgstr "Разширен филтър"
+
+#: src/filterdialog.cpp:367
+msgid "Filter Criteria"
+msgstr "Критерии за филтриране"
+
+#: src/filterdialog.cpp:371
+msgid "Match a&ll of the following"
+msgstr "Съдържа в&сички :"
+
+#: src/filterdialog.cpp:372
+msgid "Match an&y of the following"
+msgstr "Съдържа н&якое от :"
+
+#: src/filterdialog.cpp:391
+#, fuzzy
+msgid "Filter name:"
+msgstr "Изтрий книга"
+
+#: src/filterdialog.cpp:400
+#, fuzzy
+msgid "&Save Filter"
+msgstr "Разширен филтър"
+
+#: src/mainwindow.cpp:237
+#, fuzzy
+msgid "Create a new collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:251
+#, fuzzy
+msgid "New &Book Collection"
+msgstr "Колекция от книги"
+
+#: src/mainwindow.cpp:252
+#, fuzzy
+msgid "Create a new book collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:254
+#, fuzzy
+msgid "New B&ibliography"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:255
+#, fuzzy
+msgid "Create a new bibtex bibliography"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:257
+#, fuzzy
+msgid "New &Comic Book Collection"
+msgstr "Колекция от книги"
+
+#: src/mainwindow.cpp:258
+#, fuzzy
+msgid "Create a new comic book collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:260
+#, fuzzy
+msgid "New &Video Collection"
+msgstr "Видео колекция"
+
+#: src/mainwindow.cpp:261
+#, fuzzy
+msgid "Create a new video collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:263
+#, fuzzy
+msgid "New &Music Collection"
+msgstr "Ново име за колекция"
+
+#: src/mainwindow.cpp:264
+#, fuzzy
+msgid "Create a new music collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:266
+#, fuzzy
+msgid "New C&oin Collection"
+msgstr "Ново име за колекция"
+
+#: src/mainwindow.cpp:267
+#, fuzzy
+msgid "Create a new coin collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:269
+#, fuzzy
+msgid "New &Stamp Collection"
+msgstr "Ново име за колекция"
+
+#: src/mainwindow.cpp:270
+#, fuzzy
+msgid "Create a new stamp collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:272
+#, fuzzy
+msgid "New C&ard Collection"
+msgstr "Видео колекция"
+
+#: src/mainwindow.cpp:273
+#, fuzzy
+msgid "Create a new trading card collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:275
+#, fuzzy
+msgid "New &Wine Collection"
+msgstr "Видео колекция"
+
+#: src/mainwindow.cpp:276
+#, fuzzy
+msgid "Create a new wine collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:278
+#, fuzzy
+msgid "New &Game Collection"
+msgstr "Ново име за колекция"
+
+#: src/mainwindow.cpp:279
+#, fuzzy
+msgid "Create a new game collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:281
+#, fuzzy
+msgid "New Boa&rd Game Collection"
+msgstr "Ново име за колекция"
+
+#: src/mainwindow.cpp:282
+#, fuzzy
+msgid "Create a new board game collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:284
+#, fuzzy
+msgid "New &File Catalog"
+msgstr "Ново поле"
+
+#: src/mainwindow.cpp:285
+#, fuzzy
+msgid "Create a new file catalog"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:288
+#, fuzzy
+msgid "New C&ustom Collection"
+msgstr "Ново име за колекция"
+
+#: src/mainwindow.cpp:289
+#, fuzzy
+msgid "Create a new custom collection"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:300
+msgid "Open an existing document"
+msgstr "Отваря съществуващ документ"
+
+#: src/mainwindow.cpp:302
+msgid "Open a recently used file"
+msgstr "Отваря наскоро използван файл"
+
+#: src/mainwindow.cpp:304
+#, fuzzy
+msgid "Save the document"
+msgstr "Записва текущия документ"
+
+#: src/mainwindow.cpp:306
+#, fuzzy
+msgid "Save the document as a different file..."
+msgstr "Записва текущия документ като ..."
+
+#: src/mainwindow.cpp:308
+msgid "Print the contents of the document..."
+msgstr "Отпечатва съдържанието на документа..."
+
+#: src/mainwindow.cpp:310
+msgid "Quit the application"
+msgstr "Изход от приложението"
+
+#: src/mainwindow.cpp:320
+#, fuzzy
+msgid "Import the collection data from other formats"
+msgstr "Филтриране на колекцията за показване само на дадени книги..."
+
+#: src/mainwindow.cpp:332
+#, fuzzy
+msgid "Import Tellico Data..."
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:333
+#, fuzzy
+msgid "Import another Tellico data file"
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:335
+#, fuzzy
+msgid "Import CSV Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:336
+#, fuzzy
+msgid "Import a CSV file"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:338
+#, fuzzy
+msgid "Import MODS Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:339
+#, fuzzy
+msgid "Import a MODS data file"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:341
+#, fuzzy
+msgid "Import Alexandria Data..."
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:342
+msgid "Import data from the Alexandria book collection manager"
+msgstr ""
+
+#: src/mainwindow.cpp:344
+#, fuzzy
+msgid "Import Delicious Library Data..."
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:345
+#, fuzzy
+msgid "Import data from Delicious Library"
+msgstr "Импортиране от Bibtexml..."
+
+#: src/mainwindow.cpp:347
+#, fuzzy
+msgid "Import Referencer Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:348
+#, fuzzy
+msgid "Import data from Referencer"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:350
+#, fuzzy
+msgid "Import Bibtex Data..."
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:351
+#, fuzzy
+msgid "Import a bibtex bibliography file"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:353
+#, fuzzy
+msgid "Import Bibtexml Data..."
+msgstr "Импортира Bibtexml файл..."
+
+#: src/mainwindow.cpp:354
+#, fuzzy
+msgid "Import a Bibtexml bibliography file"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:356
+#, fuzzy
+msgid "Import RIS Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:357
+#, fuzzy
+msgid "Import an RIS reference file"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:359
+#, fuzzy
+msgid "Import Goodreads Collection..."
+msgstr "Преименувай колекцията"
+
+#: src/mainwindow.cpp:360
+#, fuzzy
+msgid "Import a collection from Goodreads.com"
+msgstr "Филтриране на колекцията за показване само на дадени книги..."
+
+#: src/mainwindow.cpp:362
+#, fuzzy
+msgid "Import PDF File..."
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:363
+#, fuzzy
+msgid "Import a PDF file"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:365
+#, fuzzy
+msgid "Import Audio File Metadata..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:366
+#, fuzzy
+msgid "Import meta-data from audio files"
+msgstr "Импортиране от Bibtexml..."
+
+#: src/mainwindow.cpp:371
+#, fuzzy
+msgid "Import Audio CD Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:372
+#, fuzzy
+msgid "Import audio CD information"
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:377
+#, fuzzy
+msgid "Import GCstar Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:378
+#, fuzzy
+msgid "Import a GCstar data file"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:380
+#, fuzzy
+msgid "Import Griffith Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:381
+#, fuzzy
+msgid "Import a Griffith database"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:383
+#, fuzzy
+msgid "Import Ant Movie Catalog Data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:384
+#, fuzzy
+msgid "Import an Ant Movie Catalog data file"
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:386
+#, fuzzy
+msgid "Import File Listing..."
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:387
+msgid "Import information about files in a folder"
+msgstr ""
+
+#: src/mainwindow.cpp:389
+#, fuzzy
+msgid "Import XSL Transform..."
+msgstr "Експортира,използвайки XSL Transform..."
+
+#: src/mainwindow.cpp:390
+#, fuzzy
+msgid "Import using an XSL Transform"
+msgstr "Експортира файл,използвайки XSL transform..."
+
+#. i18n: file: src/tellicoui.rc:50
+#. i18n: ectx: Menu (file_export)
+#: src/mainwindow.cpp:400 rc.cpp:283
+#, fuzzy
+msgid "&Export"
+msgstr "Експортиране..."
+
+#: src/mainwindow.cpp:402
+#, fuzzy
+msgid "Export the collection data to other formats"
+msgstr "Филтриране на колекцията за показване само на дадени книги..."
+
+#: src/mainwindow.cpp:414
+#, fuzzy
+msgid "Export to XML..."
+msgstr "Е&кспортиране"
+
+#: src/mainwindow.cpp:415
+#, fuzzy
+msgid "Export to a Tellico XML file"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:417
+#, fuzzy
+msgid "Export to Zip..."
+msgstr "Е&кспортиране"
+
+#: src/mainwindow.cpp:418
+#, fuzzy
+msgid "Export to a Tellico Zip file"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:420
+#, fuzzy
+msgid "Export to HTML..."
+msgstr "Е&кспортиране"
+
+#: src/mainwindow.cpp:421
+#, fuzzy
+msgid "Export to an HTML file"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:423
+#, fuzzy
+msgid "Export to CSV..."
+msgstr "Е&кспортиране"
+
+#: src/mainwindow.cpp:424
+#, fuzzy
+msgid "Export to a comma-separated values file"
+msgstr "Експортира към Bibtexml файл..."
+
+#: src/mainwindow.cpp:426
+#, fuzzy
+msgid "Export to PilotDB..."
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:427
+#, fuzzy
+msgid "Export to a PilotDB database"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:429
+#, fuzzy
+msgid "Export to Alexandria..."
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:430
+msgid "Export to an Alexandria library"
+msgstr ""
+
+#: src/mainwindow.cpp:432
+#, fuzzy
+msgid "Export to Bibtex..."
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:433
+#, fuzzy
+msgid "Export to a bibtex file"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:435
+#, fuzzy
+msgid "Export to Bibtexml..."
+msgstr "Експортира към Bibtexml файл"
+
+#: src/mainwindow.cpp:436
+#, fuzzy
+msgid "Export to a Bibtexml file"
+msgstr "Експортира към Bibtexml файл..."
+
+#: src/mainwindow.cpp:438
+#, fuzzy
+msgid "Export to ONIX..."
+msgstr "Е&кспортиране"
+
+#: src/mainwindow.cpp:439
+#, fuzzy
+msgid "Export to an ONIX file"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:441
+#, fuzzy
+msgid "Export to GCstar..."
+msgstr "Е&кспортиране"
+
+#: src/mainwindow.cpp:442
+#, fuzzy
+msgid "Export to a GCstar data file"
+msgstr "Експортира към Bibtex файл..."
+
+#: src/mainwindow.cpp:444
+#, fuzzy
+msgid "Export XSL Transform..."
+msgstr "Експортира,използвайки XSL Transform..."
+
+#: src/mainwindow.cpp:445
+#, fuzzy
+msgid "Export using an XSL Transform"
+msgstr "Експортира файл,използвайки XSL transform..."
+
+#: src/mainwindow.cpp:456
+msgid "Cut the selected text and puts it in the clipboard"
+msgstr ""
+
+#: src/mainwindow.cpp:458
+#, fuzzy
+msgid "Copy the selected text to the clipboard"
+msgstr "Копиране на избраното в буфера за обмен..."
+
+#: src/mainwindow.cpp:460
+#, fuzzy
+msgid "Paste the clipboard contents"
+msgstr "Поставяне на съдържанието на буфера"
+
+#: src/mainwindow.cpp:462
+#, fuzzy
+msgid "Select all the entries in the collection"
+msgstr "Няма избрани полета в тази колекция"
+
+#: src/mainwindow.cpp:464
+#, fuzzy
+msgid "Deselect all the entries in the collection"
+msgstr "Няма избрани полета в тази колекция"
+
+#: src/mainwindow.cpp:467
+msgid "Internet Search..."
+msgstr "Търсене в Интернет..."
+
+#: src/mainwindow.cpp:468 xslt.cpp:47
+msgid "Search"
+msgstr "Търсене"
+
+#: src/mainwindow.cpp:471
+msgid "Search the internet..."
+msgstr "Търсене в Интернет..."
+
+#: src/mainwindow.cpp:474
+#, fuzzy
+msgid "Advanced &Filter..."
+msgstr "Разширен филтър..."
+
+#: src/mainwindow.cpp:478 src/mainwindow.cpp:672
+#, fuzzy
+msgid "Filter the collection"
+msgstr "Редакция на полетата на колекцията..."
+
+#: src/mainwindow.cpp:485
+#, fuzzy
+msgid "&New Entry..."
+msgstr "Дуплициране на книга"
+
+#: src/mainwindow.cpp:489
+#, fuzzy
+msgid "Create a new entry"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:493 src/controller.cpp:577
+#, fuzzy
+msgid "&Edit Entry..."
+msgstr "Изтрий книга"
+
+#: src/mainwindow.cpp:496
+#, fuzzy
+msgid "Edit the selected entries"
+msgstr "Изтриване на няколко книги ?"
+
+#: src/mainwindow.cpp:500 src/controller.cpp:578
+#, fuzzy
+msgid "D&uplicate Entry"
+msgstr "Дуплициране на книга"
+
+#: src/mainwindow.cpp:503
+#, fuzzy
+msgid "Copy the selected entries"
+msgstr "Изтриване на няколко книги ?"
+
+#: src/mainwindow.cpp:507 src/controller.cpp:580
+#, fuzzy
+msgid "&Delete Entry"
+msgstr "Изтриване на поле"
+
+#: src/mainwindow.cpp:510
+#, fuzzy
+msgid "Delete the selected entries"
+msgstr "Изтриване на няколко книги ?"
+
+#: src/mainwindow.cpp:514
+#, fuzzy
+msgid "&Merge Entries"
+msgstr "Изтриване на поле"
+
+#: src/mainwindow.cpp:518
+#, fuzzy
+msgid "Merge the selected entries"
+msgstr "Изтриване на няколко книги ?"
+
+#: src/mainwindow.cpp:522
+msgid "Check-&out..."
+msgstr ""
+
+#: src/mainwindow.cpp:524
+#, fuzzy
+msgid "Check-out the selected items"
+msgstr "Изтриване на няколко книги ?"
+
+#: src/mainwindow.cpp:527
+msgid "Check-&in"
+msgstr ""
+
+#: src/mainwindow.cpp:529
+#, fuzzy
+msgid "Check-in the selected items"
+msgstr "Изтриване на няколко книги ?"
+
+#: src/mainwindow.cpp:532
+#, fuzzy
+msgid "&Rename Collection..."
+msgstr "Преименувай колекцията"
+
+#: src/mainwindow.cpp:535
+#, fuzzy
+msgid "Rename the collection"
+msgstr "Преименувай колекцията"
+
+#: src/mainwindow.cpp:538
+#, fuzzy
+msgid "Collection &Fields..."
+msgstr "Полета на колекцията..."
+
+#: src/mainwindow.cpp:539
+#, fuzzy
+msgid "Fields"
+msgstr "Полета"
+
+#: src/mainwindow.cpp:542
+msgid "Modify the collection fields"
+msgstr "Редакция на полетата на колекцията..."
+
+#: src/mainwindow.cpp:545
+msgid "&Generate Reports..."
+msgstr ""
+
+#: src/mainwindow.cpp:546
+#, fuzzy
+msgid "Reports"
+msgstr "Експортиране..."
+
+#: src/mainwindow.cpp:548
+#, fuzzy
+msgid "Generate collection reports"
+msgstr "Създава нов документ"
+
+#: src/mainwindow.cpp:551
+#, fuzzy
+msgid "Convert to &Bibliography"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:553
+#, fuzzy
+msgid "Convert a book collection to a bibliography"
+msgstr "Импортира Bibtexml файл ..."
+
+#: src/mainwindow.cpp:556
+#, fuzzy
+msgid "String &Macros..."
+msgstr "Оценка"
+
+#: src/mainwindow.cpp:558
+msgid "Edit the bibtex string macros"
+msgstr ""
+
+#: src/mainwindow.cpp:561
+msgid "Check for Duplicate Keys..."
+msgstr ""
+
+#: src/mainwindow.cpp:563
+msgid "Check for duplicate citation keys"
+msgstr ""
+
+#: src/mainwindow.cpp:570
+#, fuzzy
+msgid "Copy Bibtex to Cli&pboard"
+msgstr "Копиране на избраното в буфера за обмен..."
+
+#: src/mainwindow.cpp:571
+#, fuzzy
+msgid "Copy bibtex citations to the clipboard"
+msgstr "Копиране на избраното в буфера за обмен..."
+
+#: src/mainwindow.cpp:576
+#, fuzzy
+msgid "Cite Entry in &LyX"
+msgstr "Изтрий книга"
+
+#: src/mainwindow.cpp:577
+#, fuzzy
+msgid "Cite the selected entries in LyX"
+msgstr "Изтриване на няколко книги ?"
+
+#. i18n: file: src/tellicoui.rc:79
+#. i18n: ectx: Menu (coll_update_entry)
+#: src/mainwindow.cpp:585 src/controller.cpp:579 rc.cpp:289
+#, fuzzy
+msgid "&Update Entry"
+msgstr "Изтрий книга"
+
+#: src/mainwindow.cpp:587
+#, fuzzy
+#| msgid "Update"
+msgctxt "Update Entry"
+msgid "Update"
+msgstr "Обновяване"
+
+#: src/mainwindow.cpp:592
+msgid "All Sources"
+msgstr "Всички източници"
+
+#: src/mainwindow.cpp:593
+msgid "Update entry data from all available sources"
+msgstr ""
+
+#: src/mainwindow.cpp:605
+#, fuzzy
+msgid "Show Grou&p View"
+msgstr "BCGroupView"
+
+#: src/mainwindow.cpp:606
+#, fuzzy
+msgid "Enable/disable the group view"
+msgstr "Показва/скрива тази лента"
+
+#: src/mainwindow.cpp:610
+msgid "Show Entry &Editor"
+msgstr ""
+
+#: src/mainwindow.cpp:612
+#, fuzzy
+msgid "Enable/disable the editor"
+msgstr "Показва/скрива тази лента"
+
+#: src/mainwindow.cpp:615
+#, fuzzy
+msgid "Show Entry &View"
+msgstr "BCGroupView"
+
+#: src/mainwindow.cpp:616
+#, fuzzy
+msgid "Enable/disable the entry view"
+msgstr "Показва/скрива тази лента"
+
+#: src/mainwindow.cpp:642
+msgid "Change Grouping"
+msgstr ""
+
+#: src/mainwindow.cpp:645
+#, fuzzy
+msgid "&Group Selection"
+msgstr "Опции за групиране"
+
+#: src/mainwindow.cpp:646
+msgid "Change the grouping of the collection"
+msgstr "Промяна на групирането на колекцията"
+
+#: src/mainwindow.cpp:658
+#, fuzzy
+msgid "Filter here..."
+msgstr "Критерии за филтриране"
+
+#: src/mainwindow.cpp:721
+#, fuzzy
+msgid "Groups"
+msgstr "Групирай по:"
+
+#: src/mainwindow.cpp:722
+msgid ""
+"<qt>The <i>Group View</i> sorts the entries into groupings based on a "
+"selected field.</qt>"
+msgstr ""
+
+#: src/mainwindow.cpp:729
+msgid ""
+"<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
+"</qt>"
+msgstr ""
+
+#: src/mainwindow.cpp:788
+#, fuzzy
+msgid "Welcome to the Tellico Collection Manager"
+msgstr "Tellico (Лавица) - програма за картотекиране на книги"
+
+#: src/mainwindow.cpp:790
+msgid ""
+"<h3>Tellico is a tool for managing collections of books, videos, music, and "
+"whatever else you want to catalog.</h3><h3>New entries can be added to your "
+"collection by <a href=\"tc:///coll_new_entry\">entering data manually</a> or "
+"by <a href=\"tc:///edit_search_internet\">downloading data</a> from various "
+"Internet sources.</h3>"
+msgstr ""
+
+#: src/mainwindow.cpp:990
+msgid ""
+"The current file has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Текущият файл бе променен.\n"
+"Желаете ли да го запишете?"
+
+#: src/mainwindow.cpp:1027
+msgid "Creating new document..."
+msgstr "Създаване на нов документ..."
+
+#: src/mainwindow.cpp:1060 src/mainwindow.cpp:1079 src/mainwindow.cpp:1097
+msgid "Opening file..."
+msgstr "Отваряне на файл..."
+
+#: src/mainwindow.cpp:1070
+msgid "Open File"
+msgstr "Отваряне на файл"
+
+#: src/mainwindow.cpp:1188
+msgid ""
+"<qt><p>You are saving a file with many images, which causes Tellico to slow "
+"down significantly. Do you want to save the images separately in Tellico's "
+"data directory to improve performance?</p><p>Your choice can always be "
+"changed in the configuration dialog.</p></qt>"
+msgstr ""
+
+#: src/mainwindow.cpp:1193
+msgid "Save Images Separately"
+msgstr ""
+
+#: src/mainwindow.cpp:1194
+msgid "Save Images in File"
+msgstr ""
+
+#: src/mainwindow.cpp:1228
+msgid "Saving file with a new filename..."
+msgstr "Записва файла с ново име ..."
+
+#: src/mainwindow.cpp:1235
+msgid "Save As"
+msgstr "Записване като"
+
+#: src/mainwindow.cpp:1263 src/mainwindow.cpp:1313
+msgid "Printing..."
+msgstr "Отпечатване..."
+
+#: src/mainwindow.cpp:1272
+msgid ""
+"The collection is currently being filtered to show a limited subset of the "
+"entries. Only the visible entries will be printed. Continue?"
+msgstr ""
+
+#: src/mainwindow.cpp:1297
+msgid "Processing document..."
+msgstr "Процедирам с документа..."
+
+#: src/mainwindow.cpp:1320
+msgid "Exiting..."
+msgstr "Излизам..."
+
+#: src/mainwindow.cpp:1459
+#, fuzzy, kde-format
+msgid "Total entries: %1"
+msgstr "Изтриване на поле"
+
+#: src/mainwindow.cpp:1466
+#, kde-format
+msgid "(%1 filtered; %2 selected)"
+msgstr ""
+
+#: src/mainwindow.cpp:1469
+#, kde-format
+msgid "(%1 filtered)"
+msgstr ""
+
+#: src/mainwindow.cpp:1472
+#, kde-format
+msgid "(%1 selected)"
+msgstr ""
+
+#: src/mainwindow.cpp:1743
+#, fuzzy
+msgid "Importing data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:1752
+#, fuzzy
+msgid "Import File"
+msgstr "Импортира Bibtex файл..."
+
+#: src/mainwindow.cpp:1758
+#, fuzzy
+msgid "Import Directory"
+msgstr "И&мпортиране"
+
+#: src/mainwindow.cpp:1779
+#, fuzzy
+msgid "Exporting data..."
+msgstr "Експортирам..."
+
+#: src/mainwindow.cpp:1801
+#, fuzzy
+msgid "Export As"
+msgstr "Е&кспортиране"
+
+#: src/mainwindow.cpp:1826
+#, fuzzy
+msgid "String Macros"
+msgstr "Оценка"
+
+#: src/mainwindow.cpp:1827
+msgid "Macro"
+msgstr "Макрос"
+
+#: src/mainwindow.cpp:1827
+#, fuzzy
+msgid "String"
+msgstr "Оценка"
+
+#: src/mainwindow.cpp:1916
+#, fuzzy
+msgid "Creating citations..."
+msgstr "Отрязване на избраното..."
+
+#: src/mainwindow.cpp:2021
+#, fuzzy
+msgid "Filters"
+msgstr "Изтрий книга"
+
+#: src/mainwindow.cpp:2022
+msgid ""
+"<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
+"</qt>"
+msgstr ""
+
+#: src/mainwindow.cpp:2040
+#, fuzzy
+msgid "Loans"
+msgstr "Дадена"
+
+#: src/mainwindow.cpp:2041
+msgid ""
+"<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
+"items from your collection.</qt>"
+msgstr ""
+
+#: src/mainwindow.cpp:2113
+msgid ""
+"Some images are not saved in the configured location. The current file must "
+"be saved and the images will be transferred to the new location."
+msgstr ""
+
+#: src/mainwindow.cpp:2155
+#, kde-format
+msgid "Update entry data from %1"
+msgstr ""
+
+#: src/mainwindow.cpp:2173
+#, kde-format
+msgid ""
+"Tellico can only import one file of this type at a time. Only %1 will be "
+"imported."
+msgstr ""
+
+#: src/loandialog.cpp:53
+msgid "Loan Dialog"
+msgstr ""
+
+#: src/loandialog.cpp:97
+msgid "The following items are being checked out:"
+msgstr ""
+
+#: src/loandialog.cpp:103
+msgid "The following item is on-loan:"
+msgstr ""
+
+#: src/loandialog.cpp:113
+msgid "&Lend to:"
+msgstr ""
+
+#: src/loandialog.cpp:125
+msgid ""
+"Enter the name of the person borrowing the items from you. Clicking the "
+"button allows you to select from your address book."
+msgstr ""
+
+#: src/loandialog.cpp:134
+msgid "&Loan date:"
+msgstr ""
+
+#: src/loandialog.cpp:140
+msgid ""
+"The check-out date is the date that you lent the items. By default, today's "
+"date is used."
+msgstr ""
+
+#: src/loandialog.cpp:149
+msgid "D&ue date:"
+msgstr ""
+
+#: src/loandialog.cpp:156
+msgid ""
+"The due date is when the items are due to be returned. The due date is not "
+"required, unless you want to add the loan to your active calendar."
+msgstr ""
+
+#: src/loandialog.cpp:161
+#, fuzzy
+msgid "&Note:"
+msgstr "Е&кспортиране"
+
+#: src/loandialog.cpp:167
+msgid "You can add notes about the loan."
+msgstr ""
+
+#: src/loandialog.cpp:171
+msgid "&Add a reminder to the active calendar"
+msgstr ""
+
+#: src/loandialog.cpp:174
+msgid ""
+"<qt>Checking this box will add a <em>To-do</em> item to your active "
+"calendar, which can be viewed using KOrganizer. The box is only active if "
+"you set a due date.</qt>"
+msgstr ""
+
+#: src/fetchdialog.cpp:82
+#, fuzzy
+msgid "&Search"
+msgstr "Търси в :"
+
+#: src/fetchdialog.cpp:83
+msgid "&Stop"
+msgstr "&Стоп"
+
+#: src/fetchdialog.cpp:128
+msgid "Internet Search"
+msgstr "Търсене в Интернет"
+
+#: src/fetchdialog.cpp:137
+#, fuzzy
+msgid "Search Query"
+msgstr "Търси в :"
+
+#: src/fetchdialog.cpp:145
+#, fuzzy
+msgctxt "Start the search"
+msgid "S&earch:"
+msgstr "Търси в :"
+
+#: src/fetchdialog.cpp:149
+msgid "Enter a search value. An ISBN search must include the full ISBN."
+msgstr ""
+
+#: src/fetchdialog.cpp:156
+msgid "Choose the type of search"
+msgstr ""
+
+#: src/fetchdialog.cpp:162
+msgid "Click to start or stop the search"
+msgstr ""
+
+#: src/fetchdialog.cpp:180
+msgid "&Multiple ISBN/UPC search"
+msgstr ""
+
+#: src/fetchdialog.cpp:181
+msgid "Check this box to search for multiple ISBN or UPC values."
+msgstr ""
+
+#: src/fetchdialog.cpp:184
+msgid "Edit ISBN/UPC values..."
+msgstr ""
+
+#: src/fetchdialog.cpp:186
+msgid ""
+"Click to open a text edit box for entering or editing multiple ISBN or UPC "
+"values."
+msgstr ""
+
+#: src/fetchdialog.cpp:192
+#, fuzzy
+msgid "Search s&ource:"
+msgstr "Търси в :"
+
+#: src/fetchdialog.cpp:200
+msgid "Select the database to search"
+msgstr ""
+
+#: src/fetchdialog.cpp:216
+msgid "Source"
+msgstr "Източник"
+
+#: src/fetchdialog.cpp:226
+msgid ""
+"As results are found, they are added to this list. Selecting one will fetch "
+"the complete entry and show it in the view below."
+msgstr ""
+
+#: src/fetchdialog.cpp:235
+msgid ""
+"An entry may be shown here before adding it to the current collection by "
+"selecting it in the list above"
+msgstr ""
+
+#: src/fetchdialog.cpp:242
+#, fuzzy
+msgid "&Add Entry"
+msgstr "Изтрий книга"
+
+#: src/fetchdialog.cpp:246
+#, fuzzy
+msgid "Add the selected entry to the current collection"
+msgstr "Създава нов документ"
+
+#: src/fetchdialog.cpp:248
+msgid "Get More Results"
+msgstr ""
+
+#: src/fetchdialog.cpp:251
+msgid "Fetch more results from the current data source"
+msgstr ""
+
+#: src/fetchdialog.cpp:255
+msgid "Clear all search fields and results"
+msgstr ""
+
+#: src/fetchdialog.cpp:337
+msgid "Cancelling the search..."
+msgstr ""
+
+#: src/fetchdialog.cpp:348 src/fetchdialog.cpp:482
+#, fuzzy
+msgid "Searching..."
+msgstr "Търси в :"
+
+#: src/fetchdialog.cpp:403
+#, fuzzy
+msgid "The search returned no items."
+msgstr "Стринг за търсене"
+
+#: src/fetchdialog.cpp:406
+#, fuzzy, kde-format
+msgid "The search returned 1 item."
+msgid_plural "The search returned %1 items."
+msgstr[0] "Стринг за търсене"
+msgstr[1] "Стринг за търсене"
+
+#: src/fetchdialog.cpp:429
+msgid "No results were found for the following ISBN values:"
+msgstr ""
+
+#: src/fetchdialog.cpp:430
+msgid "No Results"
+msgstr ""
+
+#: src/fetchdialog.cpp:450 src/fetchdialog.cpp:505
+#, kde-format
+msgid "Fetching %1..."
+msgstr ""
+
+#: src/fetchdialog.cpp:517
+#, fuzzy
+#| msgid "Institution"
+msgid "Attribution"
+msgstr "Институция"
+
+#: src/fetchdialog.cpp:549 src/fetchdialog.cpp:751
+msgid "No Internet sources are available for your current collection type."
+msgstr ""
+
+#: src/fetchdialog.cpp:631
+msgid "Edit ISBN/UPC Values"
+msgstr ""
+
+#: src/fetchdialog.cpp:636
+msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
+msgstr ""
+
+#: src/fetchdialog.cpp:648
+#, fuzzy
+msgid "&Load From File..."
+msgstr "Импортира Bibtex файл..."
+
+#: src/fetchdialog.cpp:649
+msgid "<qt>Load the list from a text file.</qt>"
+msgstr ""
+
+#: src/fetchdialog.cpp:668
+msgid ""
+"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
+"100 values in your list will be used.</qt>"
+msgstr ""
+
+#: src/controller.cpp:375
+#, fuzzy
+msgid "Do you really want to delete this entry?"
+msgstr "Наистина ли жалете да изтриете тези книги ?"
+
+#: src/controller.cpp:377
+#, fuzzy
+msgid "Delete Entry"
+msgstr "Изтриване на поле"
+
+#: src/controller.cpp:389
+#, fuzzy
+msgid "Do you really want to delete these entries?"
+msgstr "Наистина ли жалете да изтриете тези книги ?"
+
+#: src/controller.cpp:393
+#, fuzzy
+msgid "Delete Multiple Entries"
+msgstr "Изтриване на няколко книги ?"
+
+#: src/controller.cpp:583
+#, fuzzy
+msgid "&Edit Entries..."
+msgstr "Изтрий книга"
+
+#: src/controller.cpp:584
+#, fuzzy
+msgid "D&uplicate Entries"
+msgstr "Дуплициране на книга"
+
+#: src/controller.cpp:585
+#, fuzzy
+msgid "&Update Entries"
+msgstr "Изтрий книга"
+
+#: src/controller.cpp:586
+#, fuzzy
+msgid "&Delete Entries"
+msgstr "Изтриване на поле"
+
+#: src/controller.cpp:643
+msgid ""
+"The following items are already loaned, but Tellico does not currently "
+"support lending an item multiple times. They will be removed from the list "
+"of items to lend."
 msgstr ""
 
 #: rc.cpp:1
@@ -5713,7 +5832,7 @@ msgstr ""
 
 #: tips.cpp:11
 msgid ""
-"<p>...that you can change which fields are shown in the list view by\n"
+"<p>...that you can change which fields are shown in the column view by\n"
 "right-clicking on the column header.\n"
 msgstr ""
 
@@ -5799,8 +5918,8 @@ msgstr ""
 
 #: tips.cpp:80
 msgid ""
-"<p>...that in the Detailed View, you can press a letter on the\n"
-"keyboard to skip to the next entry that starts with that letter.</p>\n"
+"<p>...that when the Column View is focused, you can press a letter on the\n"
+"keyboard to scroll to the next entry that starts with that letter.</p>\n"
 msgstr ""
 
 #: tips.cpp:85
@@ -5818,35 +5937,44 @@ msgstr ""
 
 #: xslt.cpp:2
 #, fuzzy
-msgid "Album XSL Template"
-msgstr "Изтриване на поле?"
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "Коментар"
 
-#: xslt.cpp:3
+#: xslt.cpp:4
+#, fuzzy
+#| msgid "Album"
+msgctxt "Album XSL Template"
+msgid "Album"
+msgstr "Албум"
+
+#: xslt.cpp:5
 #, fuzzy
 msgid "This template is meant for music collections only."
 msgstr "Създава нов документ"
 
-#: xslt.cpp:5
+#: xslt.cpp:7
 msgid "Total:"
 msgstr "Общо:"
 
-#: xslt.cpp:7
-msgid "Compact XSL Template"
-msgstr ""
-
 #: xslt.cpp:9
 #, fuzzy
-msgid "Default XSL Template"
-msgstr "Изтриване на поле?"
+#| msgid "Default Calendar"
+msgctxt "Default XSL Template"
+msgid "Default"
+msgstr "Календар по подразбиране"
 
 #: xslt.cpp:11
-msgid "Fancy XSL Template"
+msgctxt "Fancy XSL Template"
+msgid "Fancy"
 msgstr ""
 
 #: xslt.cpp:13
 #, fuzzy
-msgid "Video XSL Template"
-msgstr "Изтриване на поле?"
+#| msgid "My Videos"
+msgctxt "Video XSL Template"
+msgid "Video"
+msgstr "Моите клипове"
 
 #: xslt.cpp:14 xslt.cpp:46
 #, fuzzy
@@ -5854,16 +5982,21 @@ msgid "This template is meant for video collections only."
 msgstr "Създава нов документ"
 
 #: xslt.cpp:16
-msgid "Column View XSL Template"
-msgstr ""
+#, fuzzy
+#| msgid "Column %1"
+msgctxt "Column View XSL Template"
+msgid "Column View"
+msgstr "Колона %1"
 
 #: xslt.cpp:18
 #, fuzzy
-msgid "Group Statistics XSL Template"
+msgctxt "Group Statistics XSL Template"
+msgid "Group Statistics"
 msgstr "Изтриване на поле?"
 
 #: xslt.cpp:21
-msgid "Group Summary XSL Template"
+msgctxt "Group Summary XSL Template"
+msgid "Group Summary"
 msgstr ""
 
 #: xslt.cpp:22
@@ -5890,16 +6023,22 @@ msgid "Distinct values: "
 msgstr ""
 
 #: xslt.cpp:28
-msgid "Group View XSL Template"
-msgstr ""
+#, fuzzy
+msgctxt "Group View XSL Template"
+msgid "Group View"
+msgstr "BCGroupView"
 
 #: xslt.cpp:30
-msgid "Image List XSL Template"
-msgstr ""
+#, fuzzy
+msgctxt "Image List XSL Template"
+msgid "Image List"
+msgstr "Опции за форматиране"
 
 #: xslt.cpp:32
-msgid "Loan View XSL Template"
-msgstr ""
+#, fuzzy
+msgctxt "Loan View XSL Template"
+msgid "Loan View"
+msgstr "Дадена"
 
 #: xslt.cpp:34 xslt.cpp:36
 #, fuzzy
@@ -5917,16 +6056,22 @@ msgid "Due Date"
 msgstr "Дата на покупка"
 
 #: xslt.cpp:41
-msgid "Title Listing (Horizontal) XSL Template"
-msgstr ""
+#, fuzzy
+msgctxt "Title Listing (Horizontal) XSL Template"
+msgid "Title Listing (Horizontal)"
+msgstr "Настройки за печат"
 
 #: xslt.cpp:43
-msgid "Title Listing (Vertical) XSL Template"
-msgstr ""
+#, fuzzy
+msgctxt "Title Listing (Vertical) XSL Template"
+msgid "Title Listing (Vertical)"
+msgstr "Настройки за печат"
 
 #: xslt.cpp:45
-msgid "Tri-Column XSL Template"
-msgstr ""
+#, fuzzy
+msgctxt "Tri-Column XSL Template"
+msgid "Tri-Column"
+msgstr "Показва колони"
 
 #: xslt.cpp:48
 msgid "Clear"
@@ -6000,6 +6145,22 @@ msgstr ""
 #: scripts.cpp:10
 msgid "Spanish Ministry of Culture"
 msgstr ""
+
+#, fuzzy
+
+
+
+#, fuzzy
+
+
+
+#, fuzzy
+
+
+
+#, fuzzy
+
+
 
 #, fuzzy
 

@@ -1,5 +1,5 @@
 project(Tellico)
-set(TELLICO_VERSION "2.3.4")
+set(TELLICO_VERSION "2.3.5")
 
 cmake_minimum_required(VERSION 2.6.2)
 
@@ -161,6 +161,7 @@ macro_bool_to_01(KSANE_FOUND HAVE_KSANE)
 macro_bool_to_01(KDEMULTIMEDIA_FOUND HAVE_KCDDB)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KABC)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KCAL)
+macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KXMLRPC)
 macro_bool_to_01(LIBV4L_FOUND HAVE_V4L)
 macro_bool_to_01(QJSON_FOUND HAVE_QJSON)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)

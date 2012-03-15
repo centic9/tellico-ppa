@@ -1,0 +1,337 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!ENTITY appname '<application
+>Tellico</application
+>'>
+  <!ENTITY kappname "&appname;">
+  <!ENTITY package "extragear/office">
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % German "INCLUDE"
+><!-- change language only here -->
+
+  <!ENTITY robby "Robby Stephenson">
+  <!ENTITY email "robby@periapsis.org">
+  <!ENTITY homepage "http://tellico-project.org">
+  <!ENTITY maillist "http://tellico-project.org/mailing-list">
+  <!ENTITY xslt "<acronym
+>XSLT</acronym
+>">
+
+  <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
+  <!ENTITY importing-exporting-chapter SYSTEM "importing-exporting.docbook">
+  <!ENTITY configuration-chapter SYSTEM "configuration.docbook">
+  <!ENTITY fields-chapter SYSTEM "fields.docbook">
+  <!ENTITY menus-chapter SYSTEM "menus.docbook">
+  <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
+  <!ENTITY hacking-chapter SYSTEM "hacking.docbook">
+  <!ENTITY faqs-chapter SYSTEM "faqs.docbook">
+  <!ENTITY details-chapter SYSTEM "details.docbook">
+
+]>
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+
+<!-- Date and version information of the documentation
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (DD/MM/YYYY) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+<date
+>28.08.2009</date>
+<releaseinfo
+>2.0</releaseinfo>
+
+<title
+>Das Handbuch zu &appname;</title>
+
+<authorgroup>
+<author
+><firstname
+>Robby</firstname
+> <surname
+>Stephenson</surname
+> <affiliation
+> <address
+><email
+>&email;</email
+></address>
+</affiliation>
+</author>
+<othercredit role="translator"
+><firstname
+>Burkhard</firstname
+><surname
+>Lück</surname
+><affiliation
+><address
+><email
+>lueck@hube-lueck.de</email
+></address
+></affiliation
+><contrib
+>Übersetzung</contrib
+></othercredit
+> 
+</authorgroup>
+
+<copyright>
+<year
+>2001</year>
+<year
+>2002</year>
+<year
+>2003</year>
+<year
+>2004</year>
+<year
+>2005</year>
+<year
+>2006</year>
+<year
+>2007</year>
+<year
+>2008</year>
+<year
+>2009</year>
+<year
+>2010</year>
+<year
+>2011</year>
+<holder
+>&robby;</holder>
+</copyright>
+
+<!-- Translators: put here the copyright notice of the translation -->
+
+<legalnotice>
+<para
+>Informationen über die Lizenz des Programms und der Dokumentation finden Sie im Kapitel <link linkend="credits"
+>Danksagungen und Lizenz</link
+>. </para>
+</legalnotice>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para
+>Dieses Dokument ist eine Anleitung für &appname;, ein Sammlungsverwaltungs-Programm. </para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword
+>KDE</keyword>
+<keyword
+>tellico</keyword>
+<keyword
+>Buch</keyword>
+<keyword
+>Literaturverzeichnis</keyword>
+<keyword
+>Film</keyword>
+<keyword
+>Sammlung</keyword>
+<keyword
+>Datenbank</keyword>
+<keyword
+>Katalog</keyword>
+<keyword
+>extragear</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label each chapter
+so with the id attribute. This is necessary for two reasons: it allows
+you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files
+will vary from time to time making it hard to manage for maintainers
+and for the CVS system. Any chapter labelled (OPTIONAL) may be left
+out at the author's discretion. Other chapters should not be left out
+in order to maintain a consistent documentation style across all KDE
+apps. -->
+
+<chapter id="introduction">
+<title
+>Einführung</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<sect1 id="tellico-intro">
+<title
+>&appname;</title>
+
+<para
+>&appname; ist ein Programm zur Verwaltung von Sammlungen. Es entstand als einfaches Programm für Büchersammlungen. Es wurde erweitert und enthält Standardvorlagen für Sammlungen wie Literaturverzeichnisse, Comicbücher, Videos, Musik, Karten, Münzen, Briefmarken, Videospiele, Wein, Brettspiele und Dateikataloge. Zusätzlich können benutzerdefinierte Sammlungen für beliebige andere Arten von Sammlerstücken erstellt werden. </para>
+
+<sect2 id="what-tellico-is">
+<title
+>Was ist &appname;</title>
+
+<para
+>&appname; ermöglicht die Verwaltung von Elementen einer Sammlung und erlaubt die einfache Eingabe von Daten für jeden Eintrag. Es gibt verschiedene Arten von Feldern für Einträge, außerdem kann eine unbegrenzte Anzahl von benutzerdefinierten Feldern hinzugefügt werden. Die Einträge einer Sammlung können zur einfacheren Verwaltung nach jedem Feld gruppiert werden. Die Ansichten können vom Benutzer so angepasst werden, dass immer die gewünschte Information angezeigt wird. </para>
+
+<para
+>Ausleihen können mit der optionalen Einbindung in &korganizer; verwaltet werden. Sammlungen können in verschiedenen Formaten importiert und exportiert werden, damit Daten problemlos auszutauschen oder zu veröffentlichen sind. </para>
+
+</sect2>
+
+<sect2 id="what-tellico-is-not">
+<title
+>Was &appname; nicht ist</title>
+
+<para
+>&appname; ist kein Programm zum Abspielen von Audio- oder Videodateien. Es kann keine Multimediadateien lesen oder bearbeiten. Es kann auch keine Grafikdateien bearbeiten. Obwohl &appname; einige Funktionen zur Verwaltung von Literaturverzeichnissen enthält, ist es kein vollständiges Programm für diese Aufgabe. &appname; hat auch nicht alle Fähigkeiten einer richtigen relationalen Datenbank. </para>
+
+<para
+>Als eine Art von Ausschlussklausel soll hier festgestellt werden, dass &appname; ein Hobby des Autors ist, es gibt keine Garantien über die Funktionalität, Gebrauchsfähigkeit und so weiter. Weitere Informationen finden Sie im Abschnitt <link linkend="credits"
+>Lizenzen</link
+>. </para>
+
+</sect2>
+</sect1>
+
+<sect1 id="terminology">
+<title
+>Fachbegriffe</title>
+
+<sect2 id="collections">
+<title
+>Sammlungen</title>
+<para
+>In &appname; ist jede Sammlung ein Dokument. Jede &appname;-Datei enthält nur eine Sammlung. Eine Sammlung besteht aus einer beliebigen Anzahl von <link linkend="fields"
+>Feldern</link
+> und <link linkend="entries"
+>Einträgen</link
+>. &appname; unterstützt als Voreinstellung 12 besondere Arten von Sammlungen: Bücher, Literaturverzeichnisse, Comicbücher, Videos, Musik, Karten, Münzen, Briefmarken, Videospiele, Wein, Brettspiele und Dateikataloge. Zusätzlich gibt es noch eine Vorlage für allgemeine Sammlungen für beliebige andere Arten von Sammlerstücken oder Listen. </para>
+</sect2>
+
+<sect2 id="fields">
+<title
+>Sammlungsfelder</title>
+<para
+>Jede Sammlung kann eine unbegrenzte Anzahl von Feldern enthalten. In &appname; gibt es elf Feldtypen, die für einen großen Bereich von unterschiedlichen Daten geeignet ist. Die Felder können mit dem Dialog <link linkend="fields-dialog"
+><interface
+>Sammlungsfelder</interface
+></link
+> bearbeitet werden. Weitere Informationen dazu finden Sie im Kapitel <link linkend="field-types"
+>Feldtypen</link
+>. </para>
+</sect2>
+
+<sect2 id="entries">
+<title
+>Sammlungseinträge</title>
+
+<para
+>Ein Eintrag ist der grundlegende Datensatz in &appname;. Jeder Eintrag enthält einen einzelnen Wert für jedes Feld in der Sammlung. Eine Sammlung kann theoretisch eine unbegrenzte Anzahl von Einträgen enthalten. Da jedoch die gesamte Sammlung immer vollständig in den Arbeitsspeicher geladen wird, können zu viele Einträge das Programm verlangsamen. </para>
+
+<para
+>&appname; wurde mit Sammlungen mit etwa 10.000 Einträgen getestet und die Arbeitsgeschwindigkeit war zufriedenstellend. Wenn jedoch viele große Bilder in der Sammlung enthalten sind, steigt die Zeit zum Laden der Sammlung und die Reaktionszeit des Programms stark an. Dies lässt sich vermeiden, wenn in &appname; die Bilder getrennt von den Daten der Sammlung gespeichert werden, entweder in einem Ordner des Programms oder der Sammlung. Weitere Informationen dazu finden Sie im Abschnitt <link linkend="configuration"
+>Einstellungen</link
+>. </para>
+
+</sect2>
+
+</sect1>
+
+</chapter>
+
+&fundamentals-chapter;
+
+&details-chapter;
+
+&importing-exporting-chapter;
+
+&advanced-chapter;
+
+&configuration-chapter;
+
+&hacking-chapter;
+
+&faqs-chapter;
+
+&menus-chapter;
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be
+included below the credits with a reference to the appropriate license
+file included in the KDE distribution. -->
+
+<title
+>Danksagungen und Lizenz</title>
+
+<para
+>&appname; </para>
+<para
+>Programm Copyright 2001-2011 &robby; <email
+>&email;</email
+> </para>
+<para
+>Dokumentation Copyright 2001-2011 &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Übersetzung Burkhard Lück<email
+>lueck@hube-lueck.de</email
+></para
+> 
+&underFDL; &underGPL; <para
+>Der Autor dieser Dokumentation gibt Ihnen auch die Erlaubnis, den Inhalt auf Wunsch unter den Bedingungen der <ulink url="http://www.freebsd.org/copyright/freebsd-doc-license.html"
+>FreeBSD Documentation License</ulink
+> zu verwenden. Möchten Sie, dass Ihre Version dieses Inhalts nur unter den Bedingungen der „FreeBSD Documentation License“, aber nicht unter den Bedingungen der GFDL benutzt wird, löschen Sie den Hinweis auf die GFDL-Lizenz und ersetzen Sie ihn durch die erforderlichen Angaben für die „FreeBSD Documentation License“. Wenn Sie den Hinweis auf die GFDL-Lizenz beibehalten, kann jede Person Ihre Version dieser Datei entweder unter den Bedingungen der GFDL-Lizenz oder der „FreeBSD Documentation License“ verwenden.</para>
+
+</chapter>
+
+<appendix id="installation">
+<title
+>Installation</title>
+
+<sect1 id="getting-tellico">
+<title
+>Bezugsquellen von &appname;</title>
+
+<para
+>Die Webseite von &appname; finden Sie unter <ulink url="&homepage;"
+>&homepage;</ulink
+>. Dort gibt es auch aktuelle Versionen des Programms und Neuigkeiten.</para>
+</sect1>
+
+<sect1 id="compilation">
+<title
+>Kompilierung und Installation</title>
+&install.compile.documentation; </sect1>
+
+</appendix>
+
+&documentation.index;
+
+</book>
+<!--
+Local Variables:
+mode: sgml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+-->

@@ -22,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h>
 #include "moviemeterfetcher.h"
 #include "../collections/videocollection.h"
 #include "../images/imagefactory.h"

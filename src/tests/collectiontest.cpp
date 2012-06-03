@@ -50,8 +50,6 @@ public:
                                                  Tellico::Data::FieldPtr,
                                                  const QString& value1 = QString(),
                                                  const QString& value2 = QString()) {
-    Q_UNUSED(value1);
-    Q_UNUSED(value2);
     return m_ret;
   }
 

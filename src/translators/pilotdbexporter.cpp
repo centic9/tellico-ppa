@@ -160,6 +160,7 @@ bool PilotDBExporter::exec() {
   }
   db.doneWithSchema();
 
+  Data::FieldList::ConstIterator fIt, end = outputFields.constEnd();
   FieldFormat::Request format = (options() & Export::ExportFormatted ?
                                                 FieldFormat::ForceFormat :
                                                 FieldFormat::AsIsFormat);

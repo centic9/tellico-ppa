@@ -76,93 +76,12 @@ void ImdbFetcherTest::testSnowyRiver() {
   QCOMPARE(entry->field("aspect-ratio"), QLatin1String("2.35 : 1"));
   QCOMPARE(entry->field("color"), QLatin1String("Color"));
   QCOMPARE(entry->field("language"), QLatin1String("English"));
-  QCOMPARE(entry->field("certification"), QLatin1String("PG (USA)"));
   QCOMPARE(entry->field("director"), QLatin1String("George Miller"));
   QCOMPARE(entry->field("writer"), QLatin1String("Cul Cullen; A.B. 'Banjo' Paterson"));
   QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
   QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
   QCOMPARE(entry->field("imdb"), QLatin1String("http://akas.imdb.com/title/tt0084296/"));
   QVERIFY(!entry->field("plot").isEmpty());
-  QVERIFY(!entry->field("cover").isEmpty());
-}
-
-void ImdbFetcherTest::testSnowyRiverFr() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
-  QString groupName = QLatin1String("IMDB FR");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "The Man From Snowy River");
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
-
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QCOMPARE(results.size(), 1);
-
-  // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
-
-  QCOMPARE(entry->field("title"), QString::fromUtf8("L'homme de la rivière d'argent"));
-  QCOMPARE(entry->field("year"), QLatin1String("1982"));
-  QCOMPARE(entry->field("genre"), QLatin1String("Aventure; Drame; Famille; Romance; Western"));
-  QCOMPARE(entry->field("nationality"), QLatin1String("Australie"));
-  QCOMPARE(entry->field("studio"), QLatin1String("Cambridge Productions; Michael Edgley International; Snowy River Investment Pty. Ltd."));
-  QCOMPARE(entry->field("running-time"), QLatin1String("102"));
-  QCOMPARE(entry->field("audio-track"), QLatin1String("Dolby"));
-  QCOMPARE(entry->field("aspect-ratio"), QLatin1String("2,35 : 1"));
-  QCOMPARE(entry->field("color"), QLatin1String("Color"));
-  QCOMPARE(entry->field("language"), QLatin1String("Anglais"));
-  QCOMPARE(entry->field("director"), QLatin1String("George Miller"));
-  QCOMPARE(entry->field("certification"), QLatin1String("PG (USA)"));
-  QCOMPARE(entry->field("writer"), QLatin1String("Cul Cullen; A.B. 'Banjo' Paterson"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
-  QCOMPARE(entry->field("imdb"), QLatin1String("http://www.imdb.fr/title/tt0084296/"));
-  // no french plot on imdb yet
-//  QVERIFY(!entry->field("plot").isEmpty());
-  QVERIFY(!entry->field("cover").isEmpty());
-}
-
-void ImdbFetcherTest::testSnowyRiverEs() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
-  QString groupName = QLatin1String("IMDB ES");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "The Man From Snowy River");
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
-
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QCOMPARE(results.size(), 1);
-
-  // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
-
-  QCOMPARE(entry->field("title"), QString::fromUtf8("El hombre de río Nevado"));
-  QCOMPARE(entry->field("year"), QLatin1String("1982"));
-  QCOMPARE(entry->field("genre"), QLatin1String("Aventura; Drama; Familia; Romance; Del Oeste"));
-  QCOMPARE(entry->field("nationality"), QLatin1String("Australia"));
-  QCOMPARE(entry->field("studio"), QLatin1String("Cambridge Productions; Michael Edgley International; Snowy River Investment Pty. Ltd."));
-  QCOMPARE(entry->field("running-time"), QLatin1String("102"));
-  QCOMPARE(entry->field("audio-track"), QLatin1String("Dolby"));
-  QCOMPARE(entry->field("aspect-ratio"), QLatin1String("2,35 : 1"));
-  QCOMPARE(entry->field("color"), QLatin1String("Color"));
-  QCOMPARE(entry->field("language"), QString::fromUtf8("Inglés"));
-  QCOMPARE(entry->field("director"), QLatin1String("George Miller"));
-//  QCOMPARE(entry->field("certification"), QLatin1String("PG (USA)"));
-  QCOMPARE(entry->field("writer"), QLatin1String("Cul Cullen; A.B. 'Banjo' Paterson"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
-  QCOMPARE(entry->field("imdb"), QLatin1String("http://www.imdb.es/title/tt0084296/"));
-  // no spanish plot on imdb yet
-//  QVERIFY(!entry->field("plot").isEmpty());
   QVERIFY(!entry->field("cover").isEmpty());
 }
 
@@ -174,7 +93,7 @@ void ImdbFetcherTest::testAsterix() {
   }
   KConfigGroup cg(&config, groupName);
 
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, QString::fromUtf8("Astérix aux jeux olympiques"));
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "Astérix aux jeux olympiques");
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
   fetcher->readConfig(cg, cg.name());
 
@@ -189,8 +108,7 @@ void ImdbFetcherTest::testAsterix() {
   QCOMPARE(entry->field("director"), QString::fromUtf8("Thomas Langmann; Frédéric Forestier"));
   QCOMPARE(entry->field("writer"), QString::fromUtf8("René Goscinny; Albert Uderzo"));
   QStringList altTitleList = Tellico::FieldFormat::splitTable(entry->field("alttitle"));
-  QVERIFY(altTitleList.contains(QString::fromUtf8("Astérix en los juegos olímpicos")));
-  QVERIFY(altTitleList.contains(QLatin1String("Asterix alle olimpiadi")));
+  QVERIFY(altTitleList.size() > 1);
 }
 
 // https://bugs.kde.org/show_bug.cgi?id=249096
@@ -237,7 +155,7 @@ void ImdbFetcherTest::testOkunen() {
   Tellico::Data::EntryPtr entry = results.at(0);
 
   QCOMPARE(entry->field("year"), QLatin1String("2006"));
-  QCOMPARE(entry->field("genre"), QLatin1String("Drama; Fantasy"));
+  QCOMPARE(entry->field("genre"), QLatin1String("Drama"));
   QCOMPARE(entry->field("director"), QLatin1String("Takashi Miike"));
   QCOMPARE(entry->field("writer"), QLatin1String("Ikki Kajiwara; Hisao Maki"));
   QVERIFY(!entry->field("plot").isEmpty());

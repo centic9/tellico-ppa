@@ -148,7 +148,7 @@ Tellico::Data::FieldList BibtexCollection::defaultFields() {
   field->setFlags(Field::AllowCompletion);
   list.append(field);
 
-  // don't make it a number, it could have latex processing commands in it
+  // don't make it a nuumber, it could have latex processing commands in it
   field = new Field(QLatin1String("pages"), i18n("Pages"));
   field->setProperty(QLatin1String("bibtex"), QLatin1String("pages"));
   field->setCategory(i18n(bibtex_publishing));
@@ -269,6 +269,7 @@ bool BibtexCollection::addField(Tellico::Data::FieldPtr field_) {
   if(!field_) {
     return false;
   }
+//  myDebug();
   bool success = Collection::addField(field_);
   if(success) {
     QString bibtex = field_->property(QLatin1String("bibtex"));
@@ -509,7 +510,7 @@ bool BibtexCollection::setFieldValue(Data::EntryPtr entry_, const QString& bibte
 Tellico::Data::EntryList BibtexCollection::duplicateBibtexKeys() const {
   QSet<EntryPtr> dupes;
   QHash<QString, EntryPtr> keyHash;
-
+  
   const QString keyField = QLatin1String("bibtex-key");
   QString keyValue;
   foreach(EntryPtr entry, entries()) {

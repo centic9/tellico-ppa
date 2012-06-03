@@ -147,8 +147,8 @@ class BasicTellicoDOM:
 		castsNode = self.__doc.createElement('casts')
 		i = 0
 		while i < len(d['actors']):
-			g = d['actors'][i]
-			h = d['actors'][i+1]
+			h = d['actors'][i]
+			g = d['actors'][i+1]
 			castNode = self.__doc.createElement('cast')
 			col1Node = self.__doc.createElement('column')
 			col2Node = self.__doc.createElement('column')
@@ -235,11 +235,11 @@ class AlloCineParser:
 
 		# Define some regexps
 		self.__regExps = {
-			'title' 	: '<div id="title.*?<span.*?>(?P<title>.+?)</span>',
+			'title' 	: '<div class="titlebar.*?<span.*?>(?P<title>.+?)</span>',
 			'dirs'		: """alis.*?par.*?<a.*?><span.*?>(?P<step1>.+?)</span></a>""",
 			'nat'		: 'Nationalit.*?</span>(?P<nat>.+?)</div',
 			'genres' 	: 'Genre</span>(?P<step1>.+?)</div>',
-			'studio' 	: 'Distributeur</div>(?P<step1>.+?)</td',
+			'studio' 	: 'Distributeur</th>(?P<step1>.+?)<td',
 			'time' 		: 'Dur.*?e *?:*?.*?(?P<hours>[0-9])h *(?P<mins>[0-9]*).*?Ann',
 			'year' 		: 'Ann.*?e de production.*?<span.*?>(?P<year>[0-9]{4})</span>',
 			'otitle' 	: 'Titre original *?:*?.*?<td>(?P<otitle>.+?)</td>',
@@ -248,8 +248,7 @@ class AlloCineParser:
 		}
 
 		self.__castRegExps = {
-#			'roleactor'		: '<li.*?itemprop="actors".*?>.*?<span itemprop="name">(.*?)</span>.*?<p>.*?R.*?le : (?P<role>.*?)</p>.*?</li>',
-			'roleactor'		: '<li[^>]*?itemprop="actors".*?>.*?<span itemprop="name">(.*?)</span>.*?<p.*?R.*?le : (?P<role>.*?)</p>.*?</li>',
+			'roleactor'		: '<li.*?itemprop="actors".*?>.*?<span itemprop="name">(.*?)</span>.*?<p>.*?R.*?le : (?P<role>.*?)</p>.*?</li>',
 			'prods'			  : '<td>[\r\n\t]*Producteur[\r\n\t]*</td>.*?<span.*?>(.*?)</span>',
 			'scens'			  : '<td>[\r\n\t]*Sc.*?nariste[\r\n\t]*</td>.*?<span.*?>(.*?)</span>',
 			'comps'			  : '<td>[\r\n\t]*Compositeur[\r\n\t]*</td>.*?<span.*?>(.*?)</span>',

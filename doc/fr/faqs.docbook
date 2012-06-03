@@ -27,7 +27,7 @@ application work. -->
 >. N'incluez pas le mot « et » ou quelque chose de similaire, même si vous avez vingt auteurs. Si vous avez l'option de formatage automatique cochée, le dernier nom sera ensuite automatiquement affiché en premier pour chaque auteur.</para>
 
 <para
->D'autres propriétés qui permettent des valeurs multiples, comme « genre » et « mots clés », sont saisies de la même manière, avec un point-virgule (;) séparant chaque valeur.</para>
+>D'autres propriétés qui permettent de nombreuses valeurs comme « genre », « mot clé », sont saisies de la même manière, avec un point-virgule séparant chaque valeur.</para>
 
 </answer>
 </qandaentry>
@@ -35,7 +35,7 @@ application work. -->
 <qandaentry>
 <question>
 <para
->Puis-je modifier l'apparence de l'impression ?</para>
+>Puis-je modifier la façon dont s'affiche la page d'impression ?</para>
 </question>
 <answer>
 
@@ -48,30 +48,30 @@ application work. -->
 >KDEHOME</envar
 >/share/apps/tellico/ pour appliquer des modifications personnelles. Vous devrez maîtriser <ulink url="http://www.w3.org/TR/xslt"
 >&xslt;</ulink
-> mais modifier ce fichier est la seule manière de modifier la présentation de l'impression. Le code &HTML; est généré depuis ce fichier et la manière la plus simple de modifier la présentation est de modifier le &CSS; dans la partie haute.</para>
+>, mais modifier ce fichier est la seule manière de modifier la présentation de l'impression. Le code &HTML; est généré depuis le fichier et la manière la plus simple de modifier la présentation est de modifier le &CSS; dans la partie du haut.</para>
 
 <para
->Soyez attentif au fait que le fichier <filename
+>Faites attention que le fichier <filename
 >tellico-printing.xsl</filename
-> référence un autre fichier, <filename
+> référence l'autre fichier, <filename
 >tellico-common.xsl</filename
->, lequel contient des modèles &xslt; courant. Si vous copiez <filename
+>, lequel contient des modèles &xslt; communs. Si vous copiez <filename
 >tellico-printing.xsl</filename
 > vers $<envar
 >KDEHOME</envar
 >, vous devez soit modifier l'élément &lt;xsl:import&gt; pour le diriger vers l'emplacement actuel du fichier <filename
 >tellico-common.xsl</filename
-> ou copier également ce dernier. </para>
+> ou copier également le fichier commun. </para>
 </answer>
 </qandaentry>
 <qandaentry>
 <question>
 <para
->De quelle manière puis-je grouper à partir d'une propriété autre que celle listée dans la barre d'outils ?</para>
+>De quelle manière puis-je grouper une propriété autre que celle listée dans la barre d'outils ?</para>
 </question>
 <answer>
 <para
->Pour permettre le groupement par champ ne le permettant pas par défaut, cochez la case « Autoriser le regroupement » pour ce champ particulier dans la boîte de dialogue « Champs de la collection ». </para>
+>Pour permettre le groupement par champ qui n'appartient pas au groupe par défaut, cochez la case « Autoriser le regroupement » pour ce champ particulier dans la boîte de dialogue « Champs de la collection ». </para>
 </answer>
 </qandaentry>
 
@@ -93,7 +93,7 @@ application work. -->
 >QCheckBox::property( "title" ) failed: property invalid
 or does not exist</computeroutput>
 </screen
-> sont des informations de débogage. Au moment de la compilation, vous pouvez désactiver cette option avec l'option <userinput
+> sont des informations de débogage. À l'étape de compilation, vous pouvez configurer pour désactiver cette option avec l'option <userinput
 ><option
 >--disable-debug</option
 ></userinput
@@ -101,17 +101,17 @@ or does not exist</computeroutput>
 ><option
 >--enable-final</option
 ></userinput
-> qui occupe un peu plus de mémoire durant la compilation mais améliore le lancement de l'application.</para>
+>, qui prend un peut plus de mémoire à la compilation, mais qui est plus efficace au lancement de l'application.</para>
 
 <para
->Le dernier message est légèrement différent, cela veut simplement dire que votre installation &Qt; a été compilée avec des informations de débogage.</para>
+>Le dernier message est légèrement différent, cela veut simplement dire que votre installation &Qt; a été compilée avec des informations de déboguage.</para>
 
 <para
 >Ou, si &appname; est déjà installé, lancez <userinput
 ><command
 >kdebugdialog</command
 ></userinput
-> et vérifiez que « 0 (generic) » est décoché. Cela désactive les messages de débogage de toutes les applications génériques de &kde; ; &cad; de celles qui ne sont pas officiellement distribuées par &kde;.</para>
+> et vérifiez que « 0 (generic) » est décoché. Cela désactive les messages de déboguage de toutes les applications génériques de &kde; &cad; de celles qui ne sont pas officiellement distribuées par &kde;.</para>
 
 </answer>
 </qandaentry>
@@ -119,53 +119,53 @@ or does not exist</computeroutput>
 <qandaentry>
 <question
 ><para
->Comment puis-je choisir quelle colonne afficher ?</para
+>Comment puis-je modifier quelle colonne est affichée ?</para
 ></question>
 <answer>
 <para
->Avec un clic-droit sur la barre d'en-tête. Vous pouvez aussi glisser les en-têtes pour réarranger les colonnes, et cliquez dessus pour les trier par ce champ.</para>
+>Faites un clic-droit sur la barre d'en-tête. Vous pouvez aussi glisser les en-têtes pour réarranger les colonnes, et cliquez dessus pour les trier par ce champ.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question
 ><para
->Comment filtrer avec quelque chose comme le champ « Lu » ?</para
+>Comment filtrer quelque chose comme le champ « lu » ?</para
 ></question>
 <answer>
 <para
->Dans le logiciel, les champs à cocher sont enregistrés comme « true » (vrai), ainsi, si vous souhaitez filtrer pour n'afficher que les livres de science fiction que vous n'avez pas lu, par exemple, vous aurez besoin de deux règles. Vérifiez bien que le bouton « Vérifie toutes les règles suivantes » est coché. Définissez la première règle pour avoir « Genre » « contenant » « Science Fiction » (sans guillemet) et la deuxième règle « Lu » « ne contenant pas » « true » (sans guillemet).</para>
+>Dans le logiciel, les champs à cocher sont enregistrés comme « true », si vous aimeriez filtrer pour afficher seulement les livres de science fiction que vous n'avez pas lu, par exemple, vous avez ensuite deux règles. Vérifiez bien que le bouton « Match all of the following » est coché. Définissez la première règle pour avoir « Genre » « contient » « Science Fiction » (sans guillemets) et la deuxième règle « Lu » « ne contient pas » « true » (sans guillemets).</para>
 
 <para
->Le filtre rapide dans la barre d'outils correspondra à tous les champs et, s'il contient des caractères spéciaux, le texte sera interprété comme une expression rationnelle. Si vous voulez rapidement filtrer vos livres pour afficher ceux de Weber ou Bujold, alors saisissez « weber|bujold » (sans guillemet) dans la barre d'outils.</para>
+>Le filtre rapide dans la barre d'outils correspondra aussi à des champs, et s'il y a des caractères autres que des mots, le texte est interprété comme une expression rationnelle. Si vous voulez rapidement filtrer vos livres pour afficher ceux de Weber ou Bujold, saisissez ensuite « weber|bujold » (sans guillemets) dans la barre d'outils.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question
 ><para
->Comment ajouter de nouveaux modèles d'entrées ?</para
+>Comment ajouter de nouveaux modèles d'entrée ?</para
 ></question>
 
 <answer>
 <para
->Il est conseillé d'enregistrer les modèles d'entrées dans <filename class="directory"
+>Les modèles d'entrée doivent être enregistrés dans <filename class="directory"
 >$<envar
 >KDEHOME</envar
 >/share/apps/tellico/entry-templates/</filename
-> pour un seul utilisateur ou <filename class="directory"
+> autorisé pour un seul utilisateur ou <filename class="directory"
 >$<envar
 >KDEDIR</envar
 >/share/apps/tellico/entry-templates/</filename
-> pour tout le monde. Les modèles dans $<envar
+> autorisé pour tous les utilisateurs. Les modèles dans $<envar
 >KDEHOME</envar
 > annulent les fichiers du même nom dans $<envar
 >KDEDIRS</envar
->. Les modèles d'entrées peuvent être limité à un type collection grâce à la boîte de dialogue de configuration.</para>
+>. Les modèles d'entrée peuvent être définis sur une base de type par-collection dans la boîte de dialogue de configuration.</para>
 
 <para
->Les modèles pour la boîte de dialogue de <interface
->Rapport de collection</interface
+>Les modèles pour la <interface
+>Boîte de dialogue de rapport</interface
 > sont enregistrés dans <filename class="directory"
 >$<envar
 >KDEHOME</envar
@@ -177,7 +177,7 @@ or does not exist</computeroutput>
 <qandaentry>
 <question
 ><para
->La compilation et l'installation se sont déroulées correctement mais quand &appname; démarre, la fenêtre est vide. Que se passe t-il ?</para
+>La compilation et l'installation fonctionnent bien, mais quand &appname; démarre, la fenêtre est vide. Que se passe t-il ?</para
 ></question>
 
 <answer>
@@ -186,11 +186,11 @@ or does not exist</computeroutput>
 >KDEDIRS</envar
 >. Si vous installez dans <filename class="directory"
 >/usr/local</filename
-> par exemple, alors que $<envar
+> par exemple, mais $<envar
 >KDEDIRS</envar
-> est vide ou contient uniquement <filename class="directory"
+> est vide ou simplement <filename class="directory"
 >/usr</filename
->, &appname; ne trouvera pas les fichiers dont il a besoin. C'est particulièrement vrai pour &SuSE; pour laquelle vous devez compiler avec <userinput
+>, &appname; ne pourra pas ensuite trouver les fichiers dont il a besoin. C'est particulièrement vrai pour &SuSE; pour laquelle vous devez compiler avec <userinput
 ><option
 >--prefix</option
 >=<filename class="directory"
@@ -200,40 +200,40 @@ or does not exist</computeroutput>
 >.profile</filename
 > pour définir $<envar
 >KDEDIRS</envar
->. Reportez-vous à la documentation de votre shell.</para>
+>. Lisez la documentation de votre shell.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question
 ><para
->Comment exporter les champs BibTeX additionnels ?</para
+>Comment exporter les champs bibtex additionnels ?</para
 ></question>
 <answer>
 <para
 >&appname; utilise la propriété <emphasis
 >bibtex</emphasis
-> pour savoir comment exporter les champs BibTeX. Si vous souhaiter ajouter des champs à exporter, tel qu'un résumé, ouvrez la boîte de dialogue <interface
->Champs de la collection</interface
+> pour connaître la manière d'exporter les champs bibtex. Si vous voulez ajouter des champs additionnels à exporter, tel qu'un résumé, ouvrez la boîte de dialogue <interface
+>Champs de collection</interface
 >, et cliquez sur le bouton <guibutton
->Régler les propriétés</guibutton
+>Propriétés étendues</guibutton
 >. Ajoutez une propriété <emphasis
 >bibtex</emphasis
-> ayant la valeur <emphasis
+> avec la valeur <emphasis
 >abstract</emphasis
-> (résumé). Ensuite, lorsque vous exporterez vers BibTeX ou BibTeXML, cette propriété sera utilisée comme nom de champ BibTeX.</para>
+>. Ensuite, lorsque vous exporterez vers bibtex ou bibtexml, cette propriété sera utilisée pour le nom du champ bibtex.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question>
 <para
->Où est passé Bookcase ?</para>
+>Que se passe t-il avec Bookcase ?</para>
 </question>
 
 <answer>
 <para
->Suite à un conflit de marque, Bookcase a été renommé Tellico en septembre 2004. Tellico 0.12 est ensuite sorti, identique à Bookcase 0.11, excepté le changement de nom.</para>
+>Á cause du conflit de trademark, Bookcase a été renommé Tellico en septembre 2004. Tellico 0.12 est ensuite sorti, identique à Bookcase 0.11, excepté pour la modification de nom.</para>
 </answer>
 </qandaentry>
 
@@ -247,7 +247,7 @@ or does not exist</computeroutput>
 <para
 >Je pensais à <ulink url="http://www.periapsis.org/archives/2004/09/13/renaming_bookcase.html"
 >plein d'autres noms</ulink
->, certain était en rapport avec les collections de livres. Cependant, Tellico peut prendre en charge bien plus que les livres, et d'ailleurs c'est un loisir, j'ai donc choisi un nom qui sonne bien (pour moi), un nom emprunté à une ville proche d'où j'ai grandi.</para>
+>, certain était en rapport avec les collections de livres. Cependant, Tellico peut prendre en charge bien plus que les livres, et d'ailleurs c'est une occupation, j'ai donc choisi un nom qui sonne bien (pour moi), un nom emprunté à une ville proche d'où j'ai grandi.</para>
 </answer>
 </qandaentry>
 
@@ -261,7 +261,7 @@ or does not exist</computeroutput>
 <para
 >Les <ulink url="http://www.amazon.com/gp/browse.html/002-0927720-5265623?node=3440661"
 >termes du contrat pour l'accès aux services web Amazon.com</ulink
-> requièrent que toutes les images réceptionnées depuis le site doivent être liées à Amazon.com, en plus d'un autre lien. L'identifiant d'associé Amazon.com est nécessairement inclus pour que les paiements référencés soient dûment collectés. </para>
+> requièrent que toutes les images affichés depuis le site doivent être liées depuis Amazon.com, comme un lien additionnel. L'ID associé à Amazon.com est nécessairement inclus, les paiements référencés sont dûment collectés. </para>
 </answer>
 </qandaentry>
 
@@ -273,7 +273,7 @@ or does not exist</computeroutput>
 
 <answer>
 <para
->Quand j'ai commencé &appname;, j'apprenais le C++. Je ne connaissais pas SQL à ce moment-là et, encore aujourd'hui, je n'ai qu'une vague idée sur la façon de l'utiliser. Tout simplement, &appname; ne fonctionnait pas comme une base de données relationnelle et cela ne changera pas tant que je n'aurais pas appris SQL, ou simplement le temps et la motivation de modifier le modèle de données. Si cela vous ennuie, et bien, n'utilisez pas &appname;. </para>
+>Quand j'ai commencé &appname;, j'apprenais le C++. Je ne connaissais pas SQL à ce moment la, et je n'avais seulement qu'une faible connaissance sur la façon de l'utiliser. Tout simplement, &appname; ne fonctionnait pas comme une base de données relationnelle, et cela ne changera pas quelque part dans le futur tant que je n'aurais pas appris SQL, et que je n'ai pas le temps et la motivation de modifier le modèle de données. Si cela vous ennuie, et bien n'utilisez pas &appname;. </para>
 
 <para
 >Bien entendu, toute personne souhaitant contribuer au code source est la bienvenue. </para>

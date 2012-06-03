@@ -87,8 +87,7 @@ void FreebaseFetcherTest::testBookTitle() {
     QString result = entry->field(i.key()).toLower();
     QCOMPARE(result, i.value().toLower());
   }
-  // freebase cover went missing
-  //   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 }
 
 void FreebaseFetcherTest::testBookAuthor() {
@@ -107,8 +106,7 @@ void FreebaseFetcherTest::testBookAuthor() {
     QString result = entry->field(i.key()).toLower();
     QCOMPARE(result, i.value().toLower());
   }
-  // freebase cover went missing
-  //   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 }
 
 void FreebaseFetcherTest::testISBN() {
@@ -127,8 +125,7 @@ void FreebaseFetcherTest::testISBN() {
     QString result = entry->field(i.key()).toLower();
     QCOMPARE(result, i.value().toLower());
   }
-  // freebase cover went missing
-  //   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 }
 
 void FreebaseFetcherTest::testMultipleISBN() {
@@ -157,8 +154,7 @@ void FreebaseFetcherTest::testLCCN() {
     QString result = entry->field(i.key()).toLower();
     QCOMPARE(result, i.value().toLower());
   }
-  // freebase cover went missing
-  //   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 }
 
 void FreebaseFetcherTest::testComicBookTitle() {
@@ -217,8 +213,7 @@ void FreebaseFetcherTest::testMovieTitle() {
   QVERIFY(genres.contains(QLatin1String("Western")));
   QVERIFY(genres.contains(QLatin1String("Action/Adventure")));
   QCOMPARE(entry->field(QLatin1String("nationality")), QLatin1String("Australia"));
-  // freebase cover went missing
-  //   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
   QVERIFY(!entry->field(QLatin1String("plot")).isEmpty());
   QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
   QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
@@ -262,8 +257,7 @@ void FreebaseFetcherTest::testMusicTitle() {
   QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("1999"));
   QStringList genres = Tellico::FieldFormat::splitValue(entry->field(QLatin1String("genre")));
   QVERIFY(genres.contains(QLatin1String("Christian music")));
-  // freebase cover went missing
-  //   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field("track"));
   QCOMPARE(trackList.at(0), QLatin1String("Goodbye, Goodnight::Jars of Clay::2:54"));
   QCOMPARE(trackList.size(), 11);
@@ -297,9 +291,8 @@ void FreebaseFetcherTest::testGameTitle() {
   QCOMPARE(entry->field(QLatin1String("developer")), QLatin1String("Bungie Studios"));
   QCOMPARE(entry->field(QLatin1String("publisher")), QLatin1String("Microsoft Game Studios"));
   QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("2009"));
-  QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("First-person Shooter; Shooter game; Action game; Racing game"));
-  // freebase cover went missing
-  //   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("First-person Shooter"));
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
   QVERIFY(!entry->field(QLatin1String("description")).isEmpty());
 }
 

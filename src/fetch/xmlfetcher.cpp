@@ -136,8 +136,6 @@ void XMLFetcher::slotComplete(KJob* ) {
   f2.close();
 #endif
   Import::TellicoImporter imp(str);
-  // be quiet when loading images
-  imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
   if(!coll) {
     myDebug() << "no collection pointer";
@@ -166,7 +164,6 @@ void XMLFetcher::slotComplete(KJob* ) {
     ++count;
   }
 
-  checkMoreResults(m_entries.count());
   stop(); // required
 }
 

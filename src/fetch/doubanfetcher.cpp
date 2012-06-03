@@ -69,7 +69,6 @@ bool DoubanFetcher::canSearch(FetchKey k) const {
 
 bool DoubanFetcher::canFetch(int type) const {
   return type == Data::Collection::Book
-      || type == Data::Collection::Bibtex
       || type == Data::Collection::Video
       || type == Data::Collection::Album;
 }
@@ -86,7 +85,6 @@ KUrl DoubanFetcher::searchUrl() {
 
   switch(request().collectionType) {
     case Data::Collection::Book:
-    case Data::Collection::Bibtex:
       u.addPath(QString::fromLatin1("book/"));
       break;
 
@@ -141,7 +139,7 @@ Tellico::Data::EntryPtr DoubanFetcher::fetchEntryHookData(Data::EntryPtr entry_)
 
   const QString image = entry_->field(QLatin1String("cover"));
   if(image.contains(QLatin1Char('/'))) {
-    const QString id = ImageFactory::addImage(KUrl(image), true /* quiet */);
+    const QString id = ImageFactory::addImage(KUrl(image), true);
     if(!id.isEmpty()) {
       entry_->setField(QLatin1String("cover"), id);
     }
@@ -163,10 +161,8 @@ Tellico::Data::EntryPtr DoubanFetcher::fetchEntryHookData(Data::EntryPtr entry_)
 //  myDebug() << id;
 
   // quiet
-  const QString output = FileHandler::readXMLFile(KUrl(id), true /* true */);
+  const QString output = FileHandler::readXMLFile(KUrl(id), true);
   Import::TellicoImporter imp(xsltHandler()->applyStylesheet(output));
-  // be quiet when loading images
-  imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
 //  getTracks(entry);
   if(!coll) {

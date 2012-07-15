@@ -5,24 +5,25 @@
 # Zakariás, Csaba <csaba.zakarias@gmail.com>, 2008.
 # Csaba Zakarias <csaba.zakarias@gmail.com>, 2009.
 # Kristóf Kiszel <ulysses@kubuntu.org>, 2011.
+# Balázs Úr <urbalazs@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-01-09 10:07+0100\n"
-"PO-Revision-Date: 2011-11-27 15:31+0100\n"
-"Last-Translator: Kristóf Kiszel <ulysses@kubuntu.org>\n"
+"POT-Creation-Date: 2012-07-14 05:05+0200\n"
+"PO-Revision-Date: 2012-07-13 14:28+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/bibtexkeydialog.cpp:44
 msgid "Citation Key Manager"
-msgstr ""
+msgstr "Idézet kulcskezelő"
 
 #: src/bibtexkeydialog.cpp:48
 msgid "Filter for duplicates"
@@ -34,16 +35,16 @@ msgstr "Kettőzések ellenőrzése"
 
 #: src/bibtexkeydialog.cpp:57 src/bibtexkeydialog.cpp:86
 msgid "Checking for entries with duplicate citation keys..."
-msgstr ""
+msgstr "Kettőzött idézet kulcsú bejegyzések ellenőrzése…"
 
 #: src/bibtexkeydialog.cpp:96
 msgid "There are no duplicate citation keys."
-msgstr ""
+msgstr "Nincs kettőzött idézet kulcs."
 
 #: src/bibtexkeydialog.cpp:100
 #, kde-format
 msgid "There are %1 duplicate citation keys."
-msgstr ""
+msgstr "%1 kettőzött idézet kulcs található."
 
 #: src/borrowerdialog.cpp:68
 msgid "Select Borrower"
@@ -78,8 +79,8 @@ msgstr "Személyes"
 
 #: src/collection.cpp:56 src/collections/musiccollection.cpp:86
 #: src/entrymatchdialog.cpp:86 src/fetch/fetchmanager.cpp:69
-#: src/translators/audiofileimporter.cpp:175
-#: src/translators/xmlstatehandler.cpp:409 src/fetchdialog.cpp:214
+#: src/fetchdialog.cpp:216 src/translators/audiofileimporter.cpp:175
+#: src/translators/xmlstatehandler.cpp:409
 msgid "Title"
 msgstr "Cím"
 
@@ -91,16 +92,16 @@ msgstr "Cím"
 #: src/collections/musiccollection.cpp:31
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31
-#: src/collections/winecollection.cpp:30
+#: src/collections/winecollection.cpp:30 src/collections/filecatalog.cpp:31
 #: src/collections/bibtexcollection.cpp:38
-#: src/collections/bibtexcollection.cpp:100 src/collections/filecatalog.cpp:31
-#: src/configdialog.cpp:159 src/configdialog.cpp:182 src/configdialog.cpp:209
-#: src/configdialog.cpp:227 src/fetch/googlebookfetcher.cpp:235
+#: src/collections/bibtexcollection.cpp:100 src/configdialog.cpp:159
+#: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
 #: src/fetch/animenfofetcher.cpp:294 src/fetch/animenfofetcher.cpp:298
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:367
-#: src/fetch/imdbfetcher.cpp:753 src/fetch/imdbfetcher.cpp:1071
-#: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
-#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
+#: src/fetch/freebasefetcher.cpp:368 src/fetch/googlebookfetcher.cpp:249
+#: src/fetch/imdbfetcher.cpp:946 src/fetch/imdbfetcher.cpp:1277
+#: src/fetch/filmasterfetcher.cpp:233 src/fetch/moviemeterfetcher.cpp:247
+#: src/fetch/openlibraryfetcher.cpp:283 src/field.cpp:37 src/field.cpp:78
+#: src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Általános"
 
@@ -549,7 +550,7 @@ msgstr "Játékosok száma"
 #: src/collections/gamecollection.cpp:94
 #: src/collections/stampcollection.cpp:54
 #: src/collections/winecollection.cpp:125 src/collections/filecatalog.cpp:57
-#: src/entrymatchdialog.cpp:86 src/fetchdialog.cpp:215
+#: src/entrymatchdialog.cpp:86 src/fetchdialog.cpp:217
 msgid "Description"
 msgstr "Leírás"
 
@@ -660,11 +661,11 @@ msgid "Editor"
 msgstr "Szerkesztő"
 
 #: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:401
-#: src/translators/alexandriaimporter.cpp:158
+#: src/fetch/ibsfetcher.cpp:338 src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Kemény tábla"
 
-#: src/collections/bookcollection.cpp:71
+#: src/collections/bookcollection.cpp:71 src/fetch/ibsfetcher.cpp:336
 msgid "Paperback"
 msgstr "Kartonált"
 
@@ -745,7 +746,7 @@ msgstr "Nyelv"
 #: src/collections/comicbookcollection.cpp:119
 #: src/collections/musiccollection.cpp:113
 #: src/collections/videocollection.cpp:215
-#: src/collections/bibtexcollection.cpp:234 src/fetch/amazonfetcher.cpp:899
+#: src/collections/bibtexcollection.cpp:234 src/fetch/amazonfetcher.cpp:913
 msgid "Keywords"
 msgstr "Kulcsszavak"
 
@@ -1055,7 +1056,7 @@ msgid "Compact Disc"
 msgstr "CD lemez"
 
 #: src/collections/musiccollection.cpp:54
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:863
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:877
 msgid "DVD"
 msgstr "DVD"
 
@@ -1106,7 +1107,7 @@ msgid "Issue Year"
 msgstr "Kiadás éve"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180
+#: src/collections/videocollection.cpp:180 src/fetch/imdbfetcher.cpp:1389
 msgid "Color"
 msgstr "Színes"
 
@@ -1152,7 +1153,7 @@ msgstr "Jellemzők"
 msgid "My Videos"
 msgstr "Videóim"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:850
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:864
 msgid "VHS"
 msgstr "VHS"
 
@@ -1164,11 +1165,11 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:844
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:858
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:847
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:861
 msgid "HD DVD"
 msgstr "HD DVD"
 
@@ -1225,11 +1226,11 @@ msgstr "8 régió"
 msgid "Region"
 msgstr "Régió"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:219
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:221
 msgid "Nationality"
 msgstr "Nemzetiség"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:859
+#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:873
 msgid "NTSC"
 msgstr "NTSC"
 
@@ -1267,7 +1268,7 @@ msgstr "A szereplők táblázata az alakított szerepekkel"
 msgid "Director"
 msgstr "Rendező"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:218
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:220
 msgid "Producer"
 msgstr "Producer"
 
@@ -1303,7 +1304,7 @@ msgstr "Videó játékideje (percben)"
 msgid "Aspect Ratio"
 msgstr "Képarány"
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:833
+#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:847
 msgid "Widescreen"
 msgstr "Szélesvásznú"
 
@@ -1315,11 +1316,11 @@ msgstr "Fekete - fehér"
 msgid "Color Mode"
 msgstr "Szín mód"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:854
+#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:868
 msgid "Director's Cut"
 msgstr "Rendezői vágás"
 
-#: src/collections/videocollection.cpp:190 src/fetch/ibsfetcher.cpp:360
+#: src/collections/videocollection.cpp:190 src/fetch/ibsfetcher.cpp:387
 msgid "Plot Summary"
 msgstr "Tartalom összefoglalója"
 
@@ -1364,92 +1365,15 @@ msgstr "Kóstolta"
 msgid "Label Image"
 msgstr "Címke kép"
 
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
-#: src/translators/risimporter.cpp:338
-msgid "Miscellaneous"
-msgstr "Különféle"
+#: src/collections/filecatalog.cpp:37
+msgid "My Files"
+msgstr "Fájljaim"
 
-#: src/collections/bibtexcollection.cpp:84
-msgid "Entry Type"
-msgstr "Bejegyzés típusa"
-
-#: src/collections/bibtexcollection.cpp:88
-msgid "These entry types are specific to bibtex. See the bibtex documentation."
-msgstr "Ez a bejegyzés típus bibtex formátumú. Lásd a bibtex dokumentációt."
-
-#: src/collections/bibtexcollection.cpp:98
-msgid "Bibtex Key"
-msgstr "Bibtex kulcs"
-
-#: src/collections/bibtexcollection.cpp:104
-msgid "Book Title"
-msgstr "Könyv címe"
-
-#: src/collections/bibtexcollection.cpp:117
-msgid "Organization"
-msgstr "Szervezet"
-
-#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:564
-#: src/fetch/srufetcher.cpp:453
-msgid "Address"
-msgstr "Postacím"
-
-#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
-msgid "DOI"
-msgstr "DOI"
-
-#: src/collections/bibtexcollection.cpp:179
-msgid "Digital Object Identifier"
-msgstr "Digitális objektum azonosító"
-
-#: src/collections/bibtexcollection.cpp:184
-msgid "Month"
-msgstr "Hónap"
-
-#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
-msgid "Number"
-msgstr "Szám"
-
-#: src/collections/bibtexcollection.cpp:195
-msgid "How Published"
-msgstr "Kiadás módja"
-
-#: src/collections/bibtexcollection.cpp:207
-msgid "Chapter"
-msgstr "Fejezet"
-
-#: src/collections/bibtexcollection.cpp:219
-msgctxt "A number field in a bibliography"
-msgid "Volume"
-msgstr "Mennyiség"
-
-#: src/collections/bibtexcollection.cpp:224
-msgid "Cross-Reference"
-msgstr "Keresztreferencia"
-
-#: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
+#: src/collections/filecatalog.cpp:53 src/collections/bibtexcollection.cpp:240
 #: src/fetch/entrezfetcher.cpp:398 src/fetch/entrezfetcher.cpp:464
 #: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
 msgid "URL"
 msgstr "URL"
-
-#: src/collections/bibtexcollection.cpp:245 src/fetch/z3950fetcher.cpp:565
-#: src/fetch/entrezfetcher.cpp:463 src/fetch/srufetcher.cpp:454
-msgid "Abstract"
-msgstr "Összefoglalás"
-
-#: src/collections/bibtexcollection.cpp:249
-msgid "Notes"
-msgstr "Megjegyzések"
-
-#: src/collections/bibtexcollection.cpp:479
-#: src/translators/xmlstatehandler.cpp:298
-msgid "Unknown"
-msgstr "Ismeretlen"
-
-#: src/collections/filecatalog.cpp:37
-msgid "My Files"
-msgstr "Fájljaim"
 
 #: src/collections/filecatalog.cpp:62
 msgctxt "File catalog"
@@ -1495,6 +1419,84 @@ msgstr "Meta információ"
 #: src/collections/filecatalog.cpp:111
 msgid "Icon"
 msgstr "Ikon"
+
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
+#: src/translators/risimporter.cpp:338
+msgid "Miscellaneous"
+msgstr "Különféle"
+
+#: src/collections/bibtexcollection.cpp:84
+msgid "Entry Type"
+msgstr "Bejegyzés típusa"
+
+#: src/collections/bibtexcollection.cpp:88
+msgid "These entry types are specific to bibtex. See the bibtex documentation."
+msgstr "Ez a bejegyzés típus bibtex formátumú. Lásd a bibtex dokumentációt."
+
+#: src/collections/bibtexcollection.cpp:98
+msgid "Bibtex Key"
+msgstr "Bibtex kulcs"
+
+#: src/collections/bibtexcollection.cpp:104
+msgid "Book Title"
+msgstr "Könyv címe"
+
+#: src/collections/bibtexcollection.cpp:117
+msgid "Organization"
+msgstr "Szervezet"
+
+#: src/collections/bibtexcollection.cpp:139 src/fetch/srufetcher.cpp:453
+#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:565
+msgid "Address"
+msgstr "Postacím"
+
+#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
+msgid "DOI"
+msgstr "DOI"
+
+#: src/collections/bibtexcollection.cpp:179
+msgid "Digital Object Identifier"
+msgstr "Digitális objektum azonosító"
+
+#: src/collections/bibtexcollection.cpp:184
+msgid "Month"
+msgstr "Hónap"
+
+#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
+msgid "Number"
+msgstr "Szám"
+
+#: src/collections/bibtexcollection.cpp:195
+msgid "How Published"
+msgstr "Kiadás módja"
+
+#: src/collections/bibtexcollection.cpp:207
+msgid "Chapter"
+msgstr "Fejezet"
+
+#: src/collections/bibtexcollection.cpp:219
+msgctxt "A number field in a bibliography"
+msgid "Volume"
+msgstr "Mennyiség"
+
+#: src/collections/bibtexcollection.cpp:224
+msgid "Cross-Reference"
+msgstr "Keresztreferencia"
+
+#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
+#: src/fetch/srufetcher.cpp:454 src/fetch/hathitrustfetcher.cpp:305
+#: src/fetch/z3950fetcher.cpp:566
+msgid "Abstract"
+msgstr "Összefoglalás"
+
+#: src/collections/bibtexcollection.cpp:249
+msgid "Notes"
+msgstr "Megjegyzések"
+
+#: src/collections/bibtexcollection.cpp:479
+#: src/translators/xmlstatehandler.cpp:298
+msgid "Unknown"
+msgstr "Ismeretlen"
 
 #: src/commands/addentries.cpp:41
 msgid "Add Entries"
@@ -1548,7 +1550,7 @@ msgid "Add Filter"
 msgstr "Szűrő hozzáadása"
 
 #: src/commands/filtercommand.cpp:58 src/filterview.cpp:133
-#: src/filterdialog.cpp:355
+#: src/filterdialog.cpp:370
 msgid "Modify Filter"
 msgstr "Szűrő módosítása"
 
@@ -1562,7 +1564,7 @@ msgid "Modify Entries"
 msgstr "Bejegyzések szerkesztése"
 
 #: src/commands/modifyentries.cpp:51 src/commands/modifyentries.cpp:71
-#: src/commands/updateentries.cpp:89
+#: src/commands/updateentries.cpp:91
 #, kde-format
 msgctxt "Modify (Entry Title)"
 msgid "Modify %1"
@@ -1961,7 +1963,7 @@ msgstr "*.xsl|XSL fájlok (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|Sablon csomagok (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:337 src/reportdialog.cpp:215
+#: src/configdialog.cpp:1137 src/importdialog.cpp:346 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
 #: src/translators/htmlexporter.cpp:91 src/translators/onixexporter.cpp:71
@@ -1981,6 +1983,96 @@ msgstr "Sablon törlése"
 #: src/configdialog.cpp:1169
 msgid "Select template to delete:"
 msgstr "Adatbázis kiválasztása törléshez:"
+
+#: src/importdialog.cpp:69 src/importdialog.cpp:75
+msgid "Import Options"
+msgstr "Importálás beállításai"
+
+#: src/importdialog.cpp:79
+msgid "&Replace current collection"
+msgstr "&Jelenlegi gyűjtemény kicserélése"
+
+#: src/importdialog.cpp:80
+msgid "Replace the current collection with the contents of the imported file."
+msgstr "A jelenlegi gyűjtemény kicserélése az importált fájl tartalmával."
+
+#: src/importdialog.cpp:82
+msgid "A&ppend to current collection"
+msgstr "&Hozzáfűzés a jelenlegi gyűtményhez"
+
+#: src/importdialog.cpp:83
+msgid ""
+"Append the contents of the imported file to the current collection. This is "
+"only possible when the collection types match."
+msgstr ""
+"Az importált fájl tartalmának hozzáfűzése a jelenlegi gyűjteményhez. Ez csak "
+"akkor lehetséges, ha egyezik a gyűjtemény típusa."
+
+#: src/importdialog.cpp:86
+msgid "&Merge with current collection"
+msgstr "Össze&fésülés a jelenlegi gyűjteménnyel"
+
+#: src/importdialog.cpp:87
+msgid ""
+"Merge the contents of the imported file to the current collection. This is "
+"only possible when the collection types match. Entries must match exactly in "
+"order to be merged."
+msgstr ""
+"Az importált fájl tartalmának összefésülése a jelenlegi gyűjteményhez. Ez "
+"csak akkor lehetséges, ha egyezik a gyűjtemény típusa. A bejegyzéseknek "
+"pontosan egyezniük kell az összefésüléshez."
+
+#. i18n: file: src/tellicoui.rc:24
+#. i18n: ectx: Menu (file_import)
+#: src/importdialog.cpp:122 src/mainwindow.cpp:318 rc.cpp:280
+msgid "&Import"
+msgstr "&Importálás"
+
+#: src/importdialog.cpp:289 src/translators/tellicozipexporter.cpp:56
+#: src/mainwindow.cpp:1063 src/mainwindow.cpp:1230
+msgid "*.tc *.bc|Tellico Files (*.tc)"
+msgstr "*.tc *.bc|Tellico fájlok (*.tc)"
+
+#: src/importdialog.cpp:290 src/importdialog.cpp:303 src/importdialog.cpp:308
+#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1065
+msgid "*.xml|XML Files (*.xml)"
+msgstr "*.xml|XML fájlok (*.xml)"
+
+#: src/importdialog.cpp:294 src/translators/bibtexexporter.cpp:61
+msgid "*.bib|Bibtex Files (*.bib)"
+msgstr "*.bib|Bibtex fájlok (*.bib)"
+
+#: src/importdialog.cpp:298 src/translators/csvexporter.cpp:59
+msgid "*.csv|CSV Files (*.csv)"
+msgstr "*.csv|CSV fájlok (*.csv)"
+
+#: src/importdialog.cpp:312
+msgid "*.ris|RIS Files (*.ris)"
+msgstr "*.ris|RIS fájlok (*.ris)"
+
+#: src/importdialog.cpp:316 src/translators/gcstarexporter.cpp:60
+msgid "*.gcs|GCstar Data Files (*.gcs)"
+msgstr "*.gcs|GCstar adatfájlok (*.gcs)"
+
+#: src/importdialog.cpp:317
+msgid "*.gcf|GCfilms Data Files (*.gcf)"
+msgstr "*.gcf|GCFilm adatfájlok (*.gcf)"
+
+#: src/importdialog.cpp:321
+msgid "*.amc|AMC Data Files (*.amc)"
+msgstr "*.amc|ANC adatfájlok (*.amc)"
+
+#: src/importdialog.cpp:325
+msgid "*.pdf|PDF Files (*.pdf)"
+msgstr "*.pdf|PDF fájlok (*.pdf)"
+
+#: src/importdialog.cpp:329
+msgid "*.reflib|Referencer Files (*.reflib)"
+msgstr "*.rflib|Referencia fájlok (*.rflib)"
+
+#: src/importdialog.cpp:333
+msgid "*.ciw|CIW Files (*.ciw)"
+msgstr "*.ciw|CIW fájlok (*.ciw)"
 
 #: src/core/tellico_strings.cpp:29
 #, kde-format
@@ -2077,56 +2169,6 @@ msgstr "Oszlopok elrejtése"
 #: src/detailedlistview.cpp:580
 msgid "Resize to Content"
 msgstr "Átméretezés a tartalomhoz"
-
-#: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
-#: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
-msgid "Edit Entry"
-msgstr "Bejegyzés szerkesztése"
-
-#: src/entryeditdialog.cpp:67
-msgid "&New Entry"
-msgstr "&Új bejegyzés"
-
-#: src/entryeditdialog.cpp:74 src/entryeditdialog.cpp:120
-#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:530
-msgid "Sa&ve Entry"
-msgstr "B&ejegyzés mentése"
-
-#: src/entryeditdialog.cpp:319
-msgid "Do you really want to modify these entries?"
-msgstr "Tényleg módosítani akarja ezeket a bejegyzéseket?"
-
-#: src/entryeditdialog.cpp:321
-msgid "Modify Multiple Entries"
-msgstr "Többszörös bejegyzés módosítása"
-
-#: src/entryeditdialog.cpp:362
-msgid "A value is required for the following fields. Do you want to continue?"
-msgstr "A következő mezőknek értéket kell adnia. Folytatja?"
-
-#: src/entryeditdialog.cpp:459
-msgid "Edit Entries"
-msgstr "Bejegyzések szerkesztése"
-
-#: src/entryeditdialog.cpp:485
-msgid "Sa&ve Entries"
-msgstr "B&ejegyzések mentése"
-
-#: src/entryeditdialog.cpp:647
-msgid ""
-"The current entry has been modified.\n"
-"Do you want to enter the changes?"
-msgstr ""
-"A jelenlegi bejegyzés megváltozott.\n"
-"Menti a módosításokat?"
-
-#: src/entryeditdialog.cpp:650
-msgid "Save Entry"
-msgstr "Bejegyzés mentése"
-
-#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:992
-msgid "Unsaved Changes"
-msgstr "Nem mentett változások"
 
 #: src/entrygroup.cpp:32
 msgid "(Empty)"
@@ -2234,65 +2276,17 @@ msgstr "Kódolás helyi felhasználóként (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Exportált fájl kódolása helyi formátumban."
 
-#: src/fetch/googlebookfetcher.cpp:234 src/fetch/googlebookfetcher.cpp:313
-msgid "Google Book Link"
-msgstr "Google Book kapcsolat"
-
-#: src/fetch/googlebookfetcher.cpp:304
-msgid "Google Book Search"
-msgstr "Google Book keresés"
-
-#: src/fetch/googlebookfetcher.cpp:320 src/fetch/animenfofetcher.cpp:488
-#: src/fetch/arxivfetcher.cpp:329 src/fetch/bibsonomyfetcher.cpp:183
-#: src/fetch/citebasefetcher.cpp:234 src/fetch/filmasterfetcher.cpp:319
-#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/entrezfetcher.cpp:475
-#: src/fetch/freebasefetcher.cpp:902 src/fetch/googlescholarfetcher.cpp:267
-#: src/fetch/ibsfetcher.cpp:413 src/fetch/musicbrainzfetcher.cpp:332
-#: src/fetch/yahoofetcher.cpp:394 src/fetch/moviemeterfetcher.cpp:367
-#: src/fetch/openlibraryfetcher.cpp:424
-msgid "This source has no options."
-msgstr "A forrás nem rendelkezik beállításokkal."
-
-#: src/fetch/fetchmanager.cpp:70
-msgid "Person"
-msgstr "Személy"
-
-#: src/fetch/fetchmanager.cpp:71
-msgid "ISBN"
-msgstr "ISBN"
-
-#: src/fetch/fetchmanager.cpp:72
-msgid "UPC/EAN"
-msgstr "UPC/EAN"
-
-#: src/fetch/fetchmanager.cpp:73
-msgid "Keyword"
-msgstr "Kulcsszó"
-
-#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
-msgid "arXiv ID"
-msgstr "arXiv azonosító"
-
-#: src/fetch/fetchmanager.cpp:76
-msgid "PubMed ID"
-msgstr "PubMed azonosító"
-
-#: src/fetch/fetchmanager.cpp:77
-msgid "LCCN"
-msgstr "LCCN"
-
-#: src/fetch/fetchmanager.cpp:78
-msgid "Raw Query"
-msgstr "Nyers lekérdezés"
-
 #: src/fetch/animenfofetcher.cpp:276 src/fetch/animenfofetcher.cpp:478
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
+#: src/fetch/allocinefetcher.cpp:224 src/fetch/beyazperdefetcher.cpp:58
+#: src/fetch/filmstartsfetcher.cpp:58
 msgid "Original Title"
 msgstr "Eredeti cím"
 
 #: src/fetch/animenfofetcher.cpp:279 src/fetch/animenfofetcher.cpp:479
-#: src/fetch/dvdfrfetcher.cpp:165 src/fetch/imdbfetcher.cpp:823
-#: src/fetch/imdbfetcher.cpp:1268 src/fetch/doubanfetcher.cpp:209
-#: src/fetch/themoviedbfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:253
+#: src/fetch/doubanfetcher.cpp:211 src/fetch/imdbfetcher.cpp:1016
+#: src/fetch/imdbfetcher.cpp:1550 src/fetch/dvdfrfetcher.cpp:167
+#: src/fetch/themoviedbfetcher.cpp:252 src/fetch/moviemeterfetcher.cpp:253
 #: src/fetch/moviemeterfetcher.cpp:360
 msgid "Alternative Titles"
 msgstr "Alternatív címek"
@@ -2313,11 +2307,23 @@ msgstr "AnimeNfo kapcsolat"
 msgid "AnimeNfo Rating"
 msgstr "AnimeNfo értékelés"
 
+#: src/fetch/animenfofetcher.cpp:488 src/fetch/arxivfetcher.cpp:329
+#: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
+#: src/fetch/entrezfetcher.cpp:475 src/fetch/freebasefetcher.cpp:902
+#: src/fetch/yahoofetcher.cpp:396 src/fetch/googlescholarfetcher.cpp:267
+#: src/fetch/googlebookfetcher.cpp:334 src/fetch/dvdfrfetcher.cpp:174
+#: src/fetch/musicbrainzfetcher.cpp:334 src/fetch/filmasterfetcher.cpp:319
+#: src/fetch/masfetcher.cpp:328 src/fetch/hathitrustfetcher.cpp:315
+#: src/fetch/moviemeterfetcher.cpp:367 src/fetch/openlibraryfetcher.cpp:424
+#: src/fetch/springerfetcher.cpp:179 src/fetch/ibsfetcher.cpp:445
+msgid "This source has no options."
+msgstr "A forrás nem rendelkezik beállításokkal."
+
 #: src/fetch/bibliosharefetcher.cpp:160 src/fetch/crossreffetcher.cpp:311
-#: src/fetch/discogsfetcher.cpp:232 src/fetch/winecomfetcher.cpp:296
-#: src/fetch/giantbombfetcher.cpp:204 src/fetch/isbndbfetcher.cpp:355
-#: src/fetch/doubanfetcher.cpp:222 src/fetch/themoviedbfetcher.cpp:257
-#: src/fetch/amazonfetcher.cpp:915
+#: src/fetch/discogsfetcher.cpp:234 src/fetch/giantbombfetcher.cpp:206
+#: src/fetch/doubanfetcher.cpp:224 src/fetch/isbndbfetcher.cpp:357
+#: src/fetch/winecomfetcher.cpp:297 src/fetch/themoviedbfetcher.cpp:264
+#: src/fetch/amazonfetcher.cpp:929
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2328,16 +2334,16 @@ msgstr ""
 "feltételekkel, <a href='%2'>kérjen hozzáférést</a>. Adja meg a hozzáférési "
 "információkat."
 
-#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:245
-#: src/fetch/winecomfetcher.cpp:309 src/fetch/giantbombfetcher.cpp:217
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/doubanfetcher.cpp:235
-#: src/fetch/themoviedbfetcher.cpp:270 src/fetch/amazonfetcher.cpp:928
+#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:247
+#: src/fetch/giantbombfetcher.cpp:219 src/fetch/doubanfetcher.cpp:237
+#: src/fetch/isbndbfetcher.cpp:370 src/fetch/winecomfetcher.cpp:310
+#: src/fetch/themoviedbfetcher.cpp:277 src/fetch/amazonfetcher.cpp:942
 msgid "Access key: "
 msgstr "Hozzáférési kulcs:"
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:251
-#: src/fetch/giantbombfetcher.cpp:223 src/fetch/isbndbfetcher.cpp:374
-#: src/fetch/themoviedbfetcher.cpp:276
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:253
+#: src/fetch/giantbombfetcher.cpp:225 src/fetch/isbndbfetcher.cpp:376
+#: src/fetch/themoviedbfetcher.cpp:283
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2378,125 +2384,13 @@ msgstr "Néhány előfizetéshez csak egy e-mail címre van szükség."
 msgid "Email: "
 msgstr "E-mail: "
 
-#: src/fetch/filmasterfetcher.cpp:69 src/fetch/amazonfetcher.cpp:129
-#, kde-format
-msgid "This data is licensed under <a href=%1>specific terms</a>."
-msgstr ""
+#: src/fetch/discogsfetcher.cpp:211
+msgid "Discogs Audio Search"
+msgstr "Discogs Audió keresés"
 
-#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
-msgid "Filmaster Link"
-msgstr "Filmaster kapcsolat"
-
-#: src/fetch/z3950fetcher.cpp:554 src/fetch/z3950fetcher.cpp:830
-msgid "z39.50 Server"
-msgstr "z39.50 Szerver"
-
-#: src/fetch/z3950fetcher.cpp:566
-msgid "Illustrator"
-msgstr "Illusztrátor"
-
-#: src/fetch/z3950fetcher.cpp:567
-msgctxt "Dewey Decimal classification system"
-msgid "Dewey Decimal"
-msgstr "Dewey decimális"
-
-#: src/fetch/z3950fetcher.cpp:568
-msgctxt "Library of Congress classification system"
-msgid "LoC Classification"
-msgstr "LoC besorolás"
-
-#: src/fetch/z3950fetcher.cpp:580
-msgid "Use preset &server:"
-msgstr "&Használja az előre beállított szervert:"
-
-#: src/fetch/z3950fetcher.cpp:590 src/fetch/imdbfetcher.cpp:1284
-#: src/fetch/srufetcher.cpp:469
-msgid "Hos&t: "
-msgstr "&Hoszt:"
-
-#: src/fetch/z3950fetcher.cpp:596 src/fetch/srufetcher.cpp:476
-msgid "Enter the host name of the server."
-msgstr "Adja meg a szerver nevét."
-
-#: src/fetch/z3950fetcher.cpp:601 src/fetch/srufetcher.cpp:481
-msgid "&Port: "
-msgstr "&Port szám:"
-
-#: src/fetch/z3950fetcher.cpp:606 src/fetch/srufetcher.cpp:486
-#, kde-format
-msgid "Enter the port number of the server. The default is %1."
-msgstr "Adja meg a szerver nevét. Az alapértelmezett: %1."
-
-#: src/fetch/z3950fetcher.cpp:611
-msgid "&Database: "
-msgstr "&Adatbázis:"
-
-#: src/fetch/z3950fetcher.cpp:616
-msgid "Enter the database name used by the server."
-msgstr "Adja meg a szerver által használt adatbázis nevét."
-
-#: src/fetch/z3950fetcher.cpp:621
-msgid "Ch&aracter set: "
-msgstr "Karakter készlet:"
-
-#: src/fetch/z3950fetcher.cpp:630
-msgid ""
-"Enter the character set encoding used by the z39.50 server. The most likely "
-"choice is MARC-8, although ISO-8859-1 is common as well."
-msgstr ""
-"Adja meg a z39.50 szerver által használt karakter készlet kódolását. A "
-"legvalószínűbb választás a MARC-8, habár ISO-8859-1 az általános."
-
-#: src/fetch/z3950fetcher.cpp:636
-msgid "&Format: "
-msgstr "&Formátum: "
-
-#: src/fetch/z3950fetcher.cpp:639
-msgid "Auto-detect"
-msgstr "Automatikus detektálás"
-
-#: src/fetch/z3950fetcher.cpp:648
-msgid ""
-"Enter the data format used by the z39.50 server. Tellico will attempt to "
-"automatically detect the best setting if <i>auto-detect</i> is selected."
-msgstr ""
-"Adja meg a z39.50 szerver által használt adat formátumot. A Tellico "
-"automatikusan a legjobb beállítást választja, ha az <i>Automatikus "
-"kijelölés</i>t kiválasztotta."
-
-#: src/fetch/z3950fetcher.cpp:654
-msgid "&User: "
-msgstr "&Felhasználó: "
-
-#: src/fetch/z3950fetcher.cpp:657 src/fetch/z3950fetcher.cpp:669
-msgid "Optional"
-msgstr "Opcionális"
-
-#: src/fetch/z3950fetcher.cpp:660
-msgid ""
-"Enter the authentication user name used by the z39.50 database. Most servers "
-"do not need one."
-msgstr ""
-"Adja meg a z39.50 adatbázishoz az érvényes felhasználó nevét. A legtöbb "
-"szervernél ez nem szükséges."
-
-#: src/fetch/z3950fetcher.cpp:666
-msgid "Pass&word: "
-msgstr "&Jelszó: "
-
-#: src/fetch/z3950fetcher.cpp:673
-msgid ""
-"Enter the authentication password used by the z39.50 database. Most servers "
-"do not need one. The password will be saved in plain text in the Tellico "
-"configuration file."
-msgstr ""
-"Adja meg a z39.50 adatbázishoz az érvényes jelszót. A legtöbb szervernél ez "
-"nem szükséges. A jelszót nyílt szövegként a Tellico beállítási fáljba kerül "
-"elmentésre."
-
-#: src/fetch/dvdfrfetcher.cpp:164
-msgid "DVDFr Link"
-msgstr "DVDFr kapcsolat"
+#: src/fetch/discogsfetcher.cpp:222
+msgid "Discogs Link"
+msgstr "Discogs kapcsolat"
 
 #: src/fetch/entrezfetcher.cpp:452
 msgid "Entrez Database"
@@ -2574,28 +2468,27 @@ msgstr ""
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 nem engedi meg, hogy ezt a típusú gyűjteményben keressen."
 
-#: src/fetch/discogsfetcher.cpp:209
-msgid "Discogs Audio Search"
-msgstr "Discogs Audió keresés"
-
-#: src/fetch/discogsfetcher.cpp:220
-msgid "Discogs Link"
-msgstr "Discogs kapcsolat"
-
-#: src/fetch/winecomfetcher.cpp:229 src/fetch/isbndbfetcher.cpp:257
-#: src/fetch/amazonfetcher.cpp:586
-#, kde-format
-msgid "Results from %1: %2/%3"
-msgstr "Eredmény %1 -ből: %2/%3"
-
-#: src/fetch/freebasefetcher.cpp:227 src/fetch/yahoofetcher.cpp:238
-#: src/fetch/amazonfetcher.cpp:748
+#: src/fetch/freebasefetcher.cpp:228 src/fetch/yahoofetcher.cpp:240
+#: src/fetch/googlebookfetcher.cpp:183 src/fetch/amazonfetcher.cpp:762
 msgid "The cover image could not be loaded."
 msgstr "Nem tölthető be a címlap kép."
 
-#: src/fetch/freebasefetcher.cpp:366 src/fetch/freebasefetcher.cpp:586
+#: src/fetch/freebasefetcher.cpp:367 src/fetch/freebasefetcher.cpp:586
 msgid "Freebase Link"
 msgstr "Freebase kapcsolat"
+
+#: src/fetch/doubanfetcher.cpp:212
+msgid "Douban Link"
+msgstr "Douban kapcsolat"
+
+#: src/fetch/doubanfetcher.cpp:213 src/fetch/imdbfetcher.cpp:945
+#: src/fetch/imdbfetcher.cpp:1548 src/fetch/themoviedbfetcher.cpp:251
+msgid "IMDb Link"
+msgstr "IMDb kapcsolat"
+
+#: src/fetch/yahoofetcher.cpp:377
+msgid "Yahoo! Audio Search"
+msgstr "Yahoo! Audió keresés"
 
 #: src/fetch/gcstarpluginfetcher.cpp:383
 msgid "GCstar Plugin"
@@ -2617,71 +2510,7 @@ msgstr "Válassza ki a GCstar beépülő modult az adat forráshoz."
 msgid "Author: "
 msgstr "Szerző : "
 
-#: src/fetch/ibsfetcher.cpp:403
-msgid "Internet Bookshop (ibs.it)"
-msgstr "Internet Bookshop (ibs.it)"
-
-#: src/fetch/imdbfetcher.cpp:615
-msgid "Select IMDb Result"
-msgstr "Válassza ki az IMDb eredmény"
-
-#: src/fetch/imdbfetcher.cpp:621
-msgid ""
-"<qt>Your search returned multiple matches. Please select one below.</qt>"
-msgstr "<qt>A keresés eredménye több értékű. Kérem válasszon közülük.</qt>"
-
-#: src/fetch/imdbfetcher.cpp:638
-msgid "<qt>Select a search result.</qt>"
-msgstr "<qt>Válasszon a keresés eredményeiből.</qt>"
-
-#: src/fetch/imdbfetcher.cpp:752 src/fetch/imdbfetcher.cpp:1266
-#: src/fetch/doubanfetcher.cpp:211 src/fetch/themoviedbfetcher.cpp:244
-msgid "IMDb Link"
-msgstr "IMDb kapcsolat"
-
-#: src/fetch/imdbfetcher.cpp:1070 src/fetch/imdbfetcher.cpp:1267
-msgid "IMDb Rating"
-msgstr "IMDb értékelés"
-
-#: src/fetch/imdbfetcher.cpp:1227 src/fetch/imdbfetcher.cpp:1269
-msgid "Certifications"
-msgstr "Osztályozások"
-
-#: src/fetch/imdbfetcher.cpp:1256
-msgid "Internet Movie Database"
-msgstr "Internet Movie Database"
-
-#: src/fetch/imdbfetcher.cpp:1289
-msgid ""
-"The Internet Movie Database uses several different servers. Choose the one "
-"you wish to use."
-msgstr "Az IMDb több szervert használ. Válasszon közülük. "
-
-#: src/fetch/imdbfetcher.cpp:1295
-msgid "&Maximum cast: "
-msgstr "&Maximális stáb:"
-
-#: src/fetch/imdbfetcher.cpp:1300
-msgid ""
-"The list of cast members may include many people. Set the maximum number "
-"returned from the search."
-msgstr ""
-"A stáb tagjainak listája sok személyt tartalmazhat. Adja meg a keresési "
-"eredmény számának maximális értékét."
-
-#: src/fetch/imdbfetcher.cpp:1305
-msgid "Download cover &image"
-msgstr "&Fedlap kép letöltése"
-
-#: src/fetch/imdbfetcher.cpp:1309 src/fetch/amazonfetcher.cpp:978
-msgid ""
-"The cover image may be downloaded as well. However, too many large images in "
-"the collection may degrade performance."
-msgstr ""
-"A fedlap kép feltehetőleg megfelelően töltődött be. Azonban a gyűjteményben "
-"lévő túl sok nagyméretű kép csökkenti a teljesítményt."
-
-#: src/fetch/isbndbfetcher.cpp:222
+#: src/fetch/isbndbfetcher.cpp:224
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
@@ -2691,13 +2520,147 @@ msgstr ""
 "p>Lehet, hogy elérte a maximális napi keresési számot ezzel a kulccsal, vagy "
 "esetleg rosszul adta meg a hozzáférési kulcsot.</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:341
+#: src/fetch/isbndbfetcher.cpp:259 src/fetch/winecomfetcher.cpp:230
+#: src/fetch/amazonfetcher.cpp:600
+#, kde-format
+msgid "Results from %1: %2/%3"
+msgstr "Eredmény %1 -ből: %2/%3"
+
+#: src/fetch/isbndbfetcher.cpp:343
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
+
+#: src/fetch/googlebookfetcher.cpp:248 src/fetch/googlebookfetcher.cpp:327
+msgid "Google Book Link"
+msgstr "Google Book kapcsolat"
+
+#: src/fetch/googlebookfetcher.cpp:318
+msgid "Google Book Search"
+msgstr "Google Book keresés"
+
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1538
+msgid "Internet Movie Database"
+msgstr "Internet Movie Database"
+
+#: src/fetch/imdbfetcher.cpp:123
+msgid "Internet Movie Database (French)"
+msgstr "Internetes Filmadatbázis (IMDB - francia)"
+
+#: src/fetch/imdbfetcher.cpp:150
+msgid "Internet Movie Database (Spanish)"
+msgstr "Internetes Filmadatbázis (IMDB - spanyol)"
+
+#: src/fetch/imdbfetcher.cpp:177
+msgid "Internet Movie Database (German)"
+msgstr "Internetes Filmadatbázis (IMDB - német)"
+
+#: src/fetch/imdbfetcher.cpp:204
+msgid "Internet Movie Database (Italian)"
+msgstr "Internetes Filmadatbázis (IMDB - olasz)"
+
+#: src/fetch/imdbfetcher.cpp:231
+msgid "Internet Movie Database (Portuguese)"
+msgstr "Internetes Filmadatbázis (IMDB - portugál)"
+
+#: src/fetch/imdbfetcher.cpp:804
+msgid "Select IMDb Result"
+msgstr "Válassza ki az IMDb eredmény"
+
+#: src/fetch/imdbfetcher.cpp:810
+msgid ""
+"<qt>Your search returned multiple matches. Please select one below.</qt>"
+msgstr "<qt>A keresés eredménye több értékű. Kérem válasszon közülük.</qt>"
+
+#: src/fetch/imdbfetcher.cpp:827
+msgid "<qt>Select a search result.</qt>"
+msgstr "<qt>Válasszon a keresés eredményeiből.</qt>"
+
+#: src/fetch/imdbfetcher.cpp:1276 src/fetch/imdbfetcher.cpp:1549
+msgid "IMDb Rating"
+msgstr "IMDb értékelés"
+
+#: src/fetch/imdbfetcher.cpp:1421 src/fetch/imdbfetcher.cpp:1509
+#: src/fetch/imdbfetcher.cpp:1551
+msgid "Certifications"
+msgstr "Tanúsítványok"
+
+#: src/fetch/imdbfetcher.cpp:1566 src/fetch/amazonfetcher.cpp:962
+msgid "Country: "
+msgstr "Ország: "
+
+#: src/fetch/imdbfetcher.cpp:1569 src/fetch/amazonfetcher.cpp:965
+msgid "United States"
+msgstr "Egyesült Államok"
+
+#: src/fetch/imdbfetcher.cpp:1570 src/fetch/amazonfetcher.cpp:969
+msgid "France"
+msgstr "Franciaország"
+
+#: src/fetch/imdbfetcher.cpp:1571 src/fetch/amazonfetcher.cpp:972
+msgid "Spain"
+msgstr "Spanyol"
+
+#: src/fetch/imdbfetcher.cpp:1572 src/fetch/amazonfetcher.cpp:967
+msgid "Germany"
+msgstr "Németország"
+
+#: src/fetch/imdbfetcher.cpp:1573 src/fetch/amazonfetcher.cpp:973
+msgid "Italy"
+msgstr "Olaszország"
+
+#: src/fetch/imdbfetcher.cpp:1574
+msgid "Portugal"
+msgstr "Portugália"
+
+#: src/fetch/imdbfetcher.cpp:1578
+msgid ""
+"The Internet Movie Database provides data from several different localized "
+"sites. Choose the one you wish to use for this data source."
+msgstr ""
+"Az Internetes Filmadatbázis (IMDB) számos különböző helyi oldalról nyújt "
+"adatokat. Válasszon egyet, melyet az adatforráshoz használni akar."
+
+#: src/fetch/imdbfetcher.cpp:1584 src/fetch/allocinefetcher.cpp:181
+msgid "&Maximum cast: "
+msgstr "&Maximális stáb:"
+
+#: src/fetch/imdbfetcher.cpp:1589 src/fetch/allocinefetcher.cpp:186
+msgid ""
+"The list of cast members may include many people. Set the maximum number "
+"returned from the search."
+msgstr ""
+"A stáb tagjainak listája sok személyt tartalmazhat. Adja meg a keresési "
+"eredmény számának maximális értékét."
+
+#: src/fetch/imdbfetcher.cpp:1594
+msgid "Download cover &image"
+msgstr "&Fedlap kép letöltése"
+
+#: src/fetch/imdbfetcher.cpp:1598 src/fetch/amazonfetcher.cpp:992
+msgid ""
+"The cover image may be downloaded as well. However, too many large images in "
+"the collection may degrade performance."
+msgstr ""
+"A fedlap kép feltehetőleg megfelelően töltődött be. Azonban a gyűjteményben "
+"lévő túl sok nagyméretű kép csökkenti a teljesítményt."
 
 #: src/fetch/multifetcher.cpp:172
 msgid "Multiple Sources"
 msgstr "Többszörös források"
+
+#: src/fetch/dvdfrfetcher.cpp:166
+msgid "DVDFr Link"
+msgstr "DVDFr kapcsolat"
+
+#: src/fetch/filmasterfetcher.cpp:69 src/fetch/masfetcher.cpp:74
+#: src/fetch/amazonfetcher.cpp:129 src/fetch/springerfetcher.cpp:60
+#, kde-format
+msgid "This data is licensed under <a href=%1>specific terms</a>."
+msgstr "Ez az adat a <a href=%1>megadott feltételek</a> alatt van licencelve."
+
+#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+msgid "Filmaster Link"
+msgstr "Filmaster kapcsolat"
 
 #: src/fetch/srufetcher.cpp:438 z3950.cpp:2
 msgid "Library of Congress (US)"
@@ -2706,6 +2669,23 @@ msgstr "Kongresszusi könyvtár (Egyesült Államok)"
 #: src/fetch/srufetcher.cpp:443
 msgid "SRU Server"
 msgstr "SRU szerver"
+
+#: src/fetch/srufetcher.cpp:469 src/fetch/z3950fetcher.cpp:591
+msgid "Hos&t: "
+msgstr "&Hoszt:"
+
+#: src/fetch/srufetcher.cpp:476 src/fetch/z3950fetcher.cpp:597
+msgid "Enter the host name of the server."
+msgstr "Adja meg a szerver nevét."
+
+#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:602
+msgid "&Port: "
+msgstr "&Port szám:"
+
+#: src/fetch/srufetcher.cpp:486 src/fetch/z3950fetcher.cpp:607
+#, kde-format
+msgid "Enter the port number of the server. The default is %1."
+msgstr "Adja meg a szerver nevét. Az alapértelmezett: %1."
 
 #: src/fetch/srufetcher.cpp:491
 msgid "Path: "
@@ -2732,10 +2712,6 @@ msgstr "Érvénytelen XML jelölés: %1 %2.%3 helyen"
 msgid "Unknown type of XML markup received"
 msgstr "Ismeretlen típusú XML jelölés"
 
-#: src/fetch/yahoofetcher.cpp:375
-msgid "Yahoo! Audio Search"
-msgstr "Yahoo! Audió keresés"
-
 #: src/fetch/z3950connection.cpp:175
 msgid "Query error!"
 msgstr "Lekérdezési hiba!"
@@ -2754,39 +2730,35 @@ msgstr "Rekord szintaxis hiba"
 msgid "Connection error %1: %2"
 msgstr "Csatlakozási hiba %1: %2"
 
-#: src/fetch/doubanfetcher.cpp:210
-msgid "Douban Link"
-msgstr "Douban kapcsolat"
-
-#: src/fetch/themoviedbfetcher.cpp:243
+#: src/fetch/themoviedbfetcher.cpp:250
 msgid "TMDb Link"
 msgstr "TMDb kapcsolat"
 
-#: src/fetch/themoviedbfetcher.cpp:281
+#: src/fetch/themoviedbfetcher.cpp:288
 msgid "Language: "
 msgstr "Nyelv: "
 
-#: src/fetch/themoviedbfetcher.cpp:284
+#: src/fetch/themoviedbfetcher.cpp:291
 msgctxt "Language"
 msgid "English"
 msgstr "Angol"
 
-#: src/fetch/themoviedbfetcher.cpp:285
+#: src/fetch/themoviedbfetcher.cpp:292
 msgctxt "Language"
 msgid "French"
 msgstr "Francia"
 
-#: src/fetch/themoviedbfetcher.cpp:286
+#: src/fetch/themoviedbfetcher.cpp:293
 msgctxt "Language"
 msgid "German"
 msgstr "Német"
 
-#: src/fetch/themoviedbfetcher.cpp:287
+#: src/fetch/themoviedbfetcher.cpp:294
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Spanyol"
 
-#: src/fetch/themoviedbfetcher.cpp:318
+#: src/fetch/themoviedbfetcher.cpp:325
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
@@ -2831,7 +2803,7 @@ msgstr "Amazon (Spanyol)"
 msgid "Amazon (Italy)"
 msgstr "Amazon (Olaszország)"
 
-#: src/fetch/amazonfetcher.cpp:212 src/fetch/amazonfetcher.cpp:933
+#: src/fetch/amazonfetcher.cpp:212 src/fetch/amazonfetcher.cpp:947
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
 "Key."
@@ -2843,55 +2815,31 @@ msgstr ""
 msgid "Those values must be entered in the data source settings."
 msgstr "Ezeket az értékeket meg kell adnia az adat forrás beállításoknál."
 
-#: src/fetch/amazonfetcher.cpp:890
+#: src/fetch/amazonfetcher.cpp:904
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com Web Szervízek"
 
-#: src/fetch/amazonfetcher.cpp:938
+#: src/fetch/amazonfetcher.cpp:952
 msgid "Secret key: "
 msgstr "Titkos kulcs:"
 
-#: src/fetch/amazonfetcher.cpp:948
-msgid "Country: "
-msgstr "Ország: "
-
-#: src/fetch/amazonfetcher.cpp:951
-msgid "United States"
-msgstr "Egyesült Államok"
-
-#: src/fetch/amazonfetcher.cpp:952
+#: src/fetch/amazonfetcher.cpp:966
 msgid "United Kingdom"
 msgstr "Nagy Britannia"
 
-#: src/fetch/amazonfetcher.cpp:953
-msgid "Germany"
-msgstr "Németország"
-
-#: src/fetch/amazonfetcher.cpp:954
+#: src/fetch/amazonfetcher.cpp:968
 msgid "Japan"
 msgstr "Japán"
 
-#: src/fetch/amazonfetcher.cpp:955
-msgid "France"
-msgstr "Franciaország"
-
-#: src/fetch/amazonfetcher.cpp:956
+#: src/fetch/amazonfetcher.cpp:970
 msgid "Canada"
 msgstr "Kanada"
 
-#: src/fetch/amazonfetcher.cpp:957
+#: src/fetch/amazonfetcher.cpp:971
 msgid "China"
 msgstr "Kína"
 
-#: src/fetch/amazonfetcher.cpp:958
-msgid "Spain"
-msgstr "Spanyol"
-
-#: src/fetch/amazonfetcher.cpp:959
-msgid "Italy"
-msgstr "Olaszország"
-
-#: src/fetch/amazonfetcher.cpp:963
+#: src/fetch/amazonfetcher.cpp:977
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
 "one you wish to use for this data source."
@@ -2899,37 +2847,51 @@ msgstr ""
 "Az Amazon.com számos különböző helyi oldalról nyújt adatokat. Válasszon "
 "egyet, melyet az adatforráshoz használni akar."
 
-#: src/fetch/amazonfetcher.cpp:969
+#: src/fetch/amazonfetcher.cpp:983
 msgid "&Image size: "
 msgstr "&Kép méret: "
 
-#: src/fetch/amazonfetcher.cpp:972
+#: src/fetch/amazonfetcher.cpp:986
 msgid "Small Image"
 msgstr "Kis méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:973
+#: src/fetch/amazonfetcher.cpp:987
 msgid "Medium Image"
 msgstr "Közepes méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:974
+#: src/fetch/amazonfetcher.cpp:988
 msgid "Large Image"
 msgstr "Nagy méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:975
+#: src/fetch/amazonfetcher.cpp:989
 msgid "No Image"
 msgstr "Nincs kép"
 
-#: src/fetch/amazonfetcher.cpp:984
+#: src/fetch/amazonfetcher.cpp:998
 msgid "&Associate's ID: "
 msgstr "&Társított azonosító:"
 
-#: src/fetch/amazonfetcher.cpp:989
+#: src/fetch/amazonfetcher.cpp:1003
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
 "Services, and is included in any links to the Amazon.com site."
 msgstr ""
 "A kisegítő azonosító az Amazon.com web szolgáltatást igénybevevő személyt "
 "azonosítja, ez benne van minden Amazon.com webehlyre mutató linkben."
+
+#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/z3950fetcher.cpp:567
+msgid "Illustrator"
+msgstr "Illusztrátor"
+
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/z3950fetcher.cpp:568
+msgctxt "Dewey Decimal classification system"
+msgid "Dewey Decimal"
+msgstr "Dewey decimális"
+
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/z3950fetcher.cpp:569
+msgctxt "Library of Congress classification system"
+msgid "LoC Classification"
+msgstr "LoC besorolás"
 
 #: src/fetch/moviemeterfetcher.cpp:246 src/fetch/moviemeterfetcher.cpp:359
 msgid "MovieMeter Link"
@@ -2938,6 +2900,121 @@ msgstr "MovieMeter kapcsolat"
 #: src/fetch/openlibraryfetcher.cpp:282 src/fetch/openlibraryfetcher.cpp:417
 msgid "OpenLibrary Link"
 msgstr "OpenLibrary kapcsolat"
+
+#: src/fetch/ibsfetcher.cpp:435
+msgid "Internet Bookshop (ibs.it)"
+msgstr "Internet Bookshop (ibs.it)"
+
+#: src/fetch/z3950fetcher.cpp:555 src/fetch/z3950fetcher.cpp:839
+msgid "z39.50 Server"
+msgstr "z39.50 Szerver"
+
+#: src/fetch/z3950fetcher.cpp:581
+msgid "Use preset &server:"
+msgstr "&Használja az előre beállított szervert:"
+
+#: src/fetch/z3950fetcher.cpp:612
+msgid "&Database: "
+msgstr "&Adatbázis:"
+
+#: src/fetch/z3950fetcher.cpp:617
+msgid "Enter the database name used by the server."
+msgstr "Adja meg a szerver által használt adatbázis nevét."
+
+#: src/fetch/z3950fetcher.cpp:622
+msgid "Ch&aracter set: "
+msgstr "Karakter készlet:"
+
+#: src/fetch/z3950fetcher.cpp:631
+msgid ""
+"Enter the character set encoding used by the z39.50 server. The most likely "
+"choice is MARC-8, although ISO-8859-1 is common as well."
+msgstr ""
+"Adja meg a z39.50 szerver által használt karakter készlet kódolását. A "
+"legvalószínűbb választás a MARC-8, habár ISO-8859-1 az általános."
+
+#: src/fetch/z3950fetcher.cpp:637
+msgid "&Format: "
+msgstr "&Formátum: "
+
+#: src/fetch/z3950fetcher.cpp:640
+msgid "Auto-detect"
+msgstr "Automatikus detektálás"
+
+#: src/fetch/z3950fetcher.cpp:649
+msgid ""
+"Enter the data format used by the z39.50 server. Tellico will attempt to "
+"automatically detect the best setting if <i>auto-detect</i> is selected."
+msgstr ""
+"Adja meg a z39.50 szerver által használt adat formátumot. A Tellico "
+"automatikusan a legjobb beállítást választja, ha az <i>Automatikus "
+"kijelölés</i>t kiválasztotta."
+
+#: src/fetch/z3950fetcher.cpp:655
+msgid "&User: "
+msgstr "&Felhasználó: "
+
+#: src/fetch/z3950fetcher.cpp:658 src/fetch/z3950fetcher.cpp:670
+msgid "Optional"
+msgstr "Opcionális"
+
+#: src/fetch/z3950fetcher.cpp:661
+msgid ""
+"Enter the authentication user name used by the z39.50 database. Most servers "
+"do not need one."
+msgstr ""
+"Adja meg a z39.50 adatbázishoz az érvényes felhasználó nevét. A legtöbb "
+"szervernél ez nem szükséges."
+
+#: src/fetch/z3950fetcher.cpp:667
+msgid "Pass&word: "
+msgstr "&Jelszó: "
+
+#: src/fetch/z3950fetcher.cpp:674
+msgid ""
+"Enter the authentication password used by the z39.50 database. Most servers "
+"do not need one. The password will be saved in plain text in the Tellico "
+"configuration file."
+msgstr ""
+"Adja meg a z39.50 adatbázishoz az érvényes jelszót. A legtöbb szervernél ez "
+"nem szükséges. A jelszót nyílt szövegként a Tellico beállítási fáljba kerül "
+"elmentésre."
+
+#: src/fetch/allocinefetcher.cpp:225
+msgid "Allocine Link"
+msgstr "Allocine hivatkozás"
+
+#: src/fetch/fetchmanager.cpp:70
+msgid "Person"
+msgstr "Személy"
+
+#: src/fetch/fetchmanager.cpp:71
+msgid "ISBN"
+msgstr "ISBN"
+
+#: src/fetch/fetchmanager.cpp:72
+msgid "UPC/EAN"
+msgstr "UPC/EAN"
+
+#: src/fetch/fetchmanager.cpp:73
+msgid "Keyword"
+msgstr "Kulcsszó"
+
+#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
+msgid "arXiv ID"
+msgstr "arXiv azonosító"
+
+#: src/fetch/fetchmanager.cpp:76
+msgid "PubMed ID"
+msgstr "PubMed azonosító"
+
+#: src/fetch/fetchmanager.cpp:77
+msgid "LCCN"
+msgstr "LCCN"
+
+#: src/fetch/fetchmanager.cpp:78
+msgid "Raw Query"
+msgstr "Nyers lekérdezés"
 
 #: src/fetcherconfigdialog.cpp:72
 msgid "Data Source Properties"
@@ -3049,40 +3126,6 @@ msgctxt "Edit Label"
 msgid "%1:"
 msgstr "%1:"
 
-#: src/gui/imagewidget.cpp:93
-msgid "Select Image..."
-msgstr "Kép kiválasztása..."
-
-#: src/gui/imagewidget.cpp:97
-msgid "Scan Image..."
-msgstr "Kép beolvasása..."
-
-#: src/gui/imagewidget.cpp:105
-msgid "Open With..."
-msgstr "Fájl megnyitása ezzel..."
-
-#: src/gui/imagewidget.cpp:136
-msgctxt "Clear image"
-msgid "Clear"
-msgstr "Kép eltávolítása"
-
-#: src/gui/imagewidget.cpp:142
-msgid "Save link only"
-msgstr "Csak a hivatkozás mentése"
-
-#: src/gui/imagewidget.cpp:250
-msgid "Opening the selected scanner failed."
-msgstr "A kiválasztott szkenner megnyitása sikertelen."
-
-#: src/gui/imagewidget.cpp:311
-#, kde-format
-msgid "Opening image in %1..."
-msgstr "Kép megnyitása %1-ben..."
-
-#: src/gui/imagewidget.cpp:341
-msgid "Saving a link is only possible for newly added images."
-msgstr "Hivatkozást csak újonnan hozzáadott képek esetében lehet elmenteni."
-
 #: src/gui/kwidgetlister.cpp:63
 msgctxt "more widgets"
 msgid "More"
@@ -3096,32 +3139,6 @@ msgstr "Kevesebb"
 #: src/gui/previewdialog.cpp:40
 msgid "Template Preview"
 msgstr "Sablon előnézet"
-
-#: src/gui/statusbar.cpp:69
-msgid "Cancel"
-msgstr "Visszavonás"
-
-#: src/gui/statusbar.cpp:74
-msgid "Decrease the maximum icon size in the icon list view"
-msgstr "Csökkenti a maximális ikon méretet az ikon lista nézetben"
-
-#: src/gui/statusbar.cpp:85 src/gui/statusbar.cpp:176
-#, kde-format
-msgid ""
-"The current maximum icon size is %1.\n"
-"Move the slider to change it."
-msgstr ""
-"A jelenlegi maximális ikon méret %1.\n"
-"Mozgassa a csúszkát a megváltoztatásához."
-
-#: src/gui/statusbar.cpp:91
-msgid "Increase the maximum icon size in the icon list view"
-msgstr "Növeli a maximális ikon méretet az ikon lista nézetben"
-
-#: src/gui/statusbar.cpp:125 src/fetchdialog.cpp:276 src/fetchdialog.cpp:368
-#: src/fetchdialog.cpp:458 src/fetchdialog.cpp:527 src/controller.cpp:142
-msgid "Ready."
-msgstr "Kész."
 
 #: src/gui/stringmapdialog.cpp:66
 msgctxt "set a value"
@@ -3170,170 +3187,132 @@ msgstr "Sor mozgatása felfelé"
 msgid "Move Row Down"
 msgstr "Sor mozgatása lefelé"
 
+#: src/gui/imagewidget.cpp:95
+msgid "Select Image..."
+msgstr "Kép kiválasztása..."
+
+#: src/gui/imagewidget.cpp:100
+msgid "Scan Image..."
+msgstr "Kép beolvasása..."
+
+#: src/gui/imagewidget.cpp:109
+msgid "Open With..."
+msgstr "Fájl megnyitása ezzel..."
+
+#: src/gui/imagewidget.cpp:143
+msgctxt "Clear image"
+msgid "Clear"
+msgstr "Kép eltávolítása"
+
+#: src/gui/imagewidget.cpp:150
+msgid "Save link only"
+msgstr "Csak a hivatkozás mentése"
+
+#: src/gui/imagewidget.cpp:269
+msgid "Opening the selected scanner failed."
+msgstr "A kiválasztott szkenner megnyitása sikertelen."
+
+#: src/gui/imagewidget.cpp:322
+#, kde-format
+msgid "Opening image in %1..."
+msgstr "Kép megnyitása %1-ben..."
+
+#: src/gui/imagewidget.cpp:352
+msgid "Saving a link is only possible for newly added images."
+msgstr "Hivatkozást csak újonnan hozzáadott képek esetében lehet elmenteni."
+
+#: src/gui/statusbar.cpp:69
+msgid "Cancel"
+msgstr "Visszavonás"
+
+#: src/gui/statusbar.cpp:74
+msgid "Decrease the maximum icon size in the icon list view"
+msgstr "Csökkenti a maximális ikon méretet az ikon lista nézetben"
+
+#: src/gui/statusbar.cpp:85 src/gui/statusbar.cpp:176
+#, kde-format
+msgid ""
+"The current maximum icon size is %1.\n"
+"Move the slider to change it."
+msgstr ""
+"A jelenlegi maximális ikon méret %1.\n"
+"Mozgassa a csúszkát a megváltoztatásához."
+
+#: src/gui/statusbar.cpp:91
+msgid "Increase the maximum icon size in the icon list view"
+msgstr "Növeli a maximális ikon méretet az ikon lista nézetben"
+
+#: src/gui/statusbar.cpp:125 src/fetchdialog.cpp:279 src/fetchdialog.cpp:371
+#: src/fetchdialog.cpp:491 src/fetchdialog.cpp:560 src/controller.cpp:142
+msgid "Ready."
+msgstr "Kész."
+
 #: src/gui/kdatecombobox.cpp:145
-#, fuzzy
-#| msgid "Issue Year"
 msgctxt "@option next year"
 msgid "Next Year"
-msgstr "Kiadás éve"
+msgstr "Következő év"
 
 #: src/gui/kdatecombobox.cpp:146
-#, fuzzy
-#| msgid "Month"
 msgctxt "@option next month"
 msgid "Next Month"
-msgstr "Hónap"
+msgstr "Következő hónap"
 
 #: src/gui/kdatecombobox.cpp:147
 msgctxt "@option next week"
 msgid "Next Week"
-msgstr ""
+msgstr "Következő hét"
 
 #: src/gui/kdatecombobox.cpp:148
-#, fuzzy
-#| msgid "Borrower"
 msgctxt "@option tomorrow"
 msgid "Tomorrow"
-msgstr "Kölcsönvevő"
+msgstr "Holnap"
 
 #: src/gui/kdatecombobox.cpp:149
 msgctxt "@option today"
 msgid "Today"
-msgstr ""
+msgstr "Ma"
 
 #: src/gui/kdatecombobox.cpp:150
 msgctxt "@option yesterday"
 msgid "Yesterday"
-msgstr ""
+msgstr "Tegnap"
 
 #: src/gui/kdatecombobox.cpp:151
 msgctxt "@option last week"
 msgid "Last Week"
-msgstr ""
+msgstr "Előző hét"
 
 #: src/gui/kdatecombobox.cpp:152
-#, fuzzy
-#| msgid "Month"
 msgctxt "@option last month"
 msgid "Last Month"
-msgstr "Hónap"
+msgstr "Előző hónap"
 
 #: src/gui/kdatecombobox.cpp:153
-#, fuzzy
-#| msgid "Release Year"
 msgctxt "@option last year"
 msgid "Last Year"
-msgstr "Kiadás éve"
+msgstr "Előző év"
 
 #: src/gui/kdatecombobox.cpp:155
-#, fuzzy
-#| msgid "Loan Date"
 msgctxt "@option do not specify a date"
 msgid "No Date"
-msgstr "Kölcsönadás dátuma"
+msgstr "Nincs dátum"
 
 #: src/gui/kdatecombobox.cpp:241
 msgctxt "@info"
 msgid "The date you entered is invalid"
-msgstr ""
+msgstr "A megadott dátum érvénytelen"
 
 #: src/gui/kdatecombobox.cpp:244
 #, kde-format
 msgctxt "@info"
 msgid "Date cannot be earlier than %1"
-msgstr ""
+msgstr "A dátum nem lehet korábbi mint %1"
 
 #: src/gui/kdatecombobox.cpp:251
 #, kde-format
 msgctxt "@info"
 msgid "Date cannot be later than %1"
-msgstr ""
-
-#: src/importdialog.cpp:68 src/importdialog.cpp:74
-msgid "Import Options"
-msgstr "Importálás beállításai"
-
-#: src/importdialog.cpp:78
-msgid "&Replace current collection"
-msgstr "&Jelenlegi gyűjtemény kicserélése"
-
-#: src/importdialog.cpp:79
-msgid "Replace the current collection with the contents of the imported file."
-msgstr "A jelenlegi gyűjtemény kicserélése az importált fájl tartalmával."
-
-#: src/importdialog.cpp:81
-msgid "A&ppend to current collection"
-msgstr "&Hozzáfűzés a jelenlegi gyűtményhez"
-
-#: src/importdialog.cpp:82
-msgid ""
-"Append the contents of the imported file to the current collection. This is "
-"only possible when the collection types match."
-msgstr ""
-"Az importált fájl tartalmának hozzáfűzése a jelenlegi gyűjteményhez. Ez csak "
-"akkor lehetséges, ha egyezik a gyűjtemény típusa."
-
-#: src/importdialog.cpp:85
-msgid "&Merge with current collection"
-msgstr "Össze&fésülés a jelenlegi gyűjteménnyel"
-
-#: src/importdialog.cpp:86
-msgid ""
-"Merge the contents of the imported file to the current collection. This is "
-"only possible when the collection types match. Entries must match exactly in "
-"order to be merged."
-msgstr ""
-"Az importált fájl tartalmának összefésülése a jelenlegi gyűjteményhez. Ez "
-"csak akkor lehetséges, ha egyezik a gyűjtemény típusa. A bejegyzéseknek "
-"pontosan egyezniük kell az összefésüléshez."
-
-#. i18n: file: src/tellicoui.rc:24
-#. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:121 src/mainwindow.cpp:318 rc.cpp:280
-msgid "&Import"
-msgstr "&Importálás"
-
-#: src/importdialog.cpp:284 src/translators/tellicozipexporter.cpp:56
-#: src/mainwindow.cpp:1063 src/mainwindow.cpp:1230
-msgid "*.tc *.bc|Tellico Files (*.tc)"
-msgstr "*.tc *.bc|Tellico fájlok (*.tc)"
-
-#: src/importdialog.cpp:285 src/importdialog.cpp:298 src/importdialog.cpp:303
-#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1065
-msgid "*.xml|XML Files (*.xml)"
-msgstr "*.xml|XML fájlok (*.xml)"
-
-#: src/importdialog.cpp:289 src/translators/bibtexexporter.cpp:61
-msgid "*.bib|Bibtex Files (*.bib)"
-msgstr "*.bib|Bibtex fájlok (*.bib)"
-
-#: src/importdialog.cpp:293 src/translators/csvexporter.cpp:59
-msgid "*.csv|CSV Files (*.csv)"
-msgstr "*.csv|CSV fájlok (*.csv)"
-
-#: src/importdialog.cpp:307
-msgid "*.ris|RIS Files (*.ris)"
-msgstr "*.ris|RIS fájlok (*.ris)"
-
-#: src/importdialog.cpp:311 src/translators/gcstarexporter.cpp:60
-msgid "*.gcs|GCstar Data Files (*.gcs)"
-msgstr "*.gcs|GCstar adatfájlok (*.gcs)"
-
-#: src/importdialog.cpp:312
-msgid "*.gcf|GCfilms Data Files (*.gcf)"
-msgstr "*.gcf|GCFilm adatfájlok (*.gcf)"
-
-#: src/importdialog.cpp:316
-msgid "*.amc|AMC Data Files (*.amc)"
-msgstr "*.amc|ANC adatfájlok (*.amc)"
-
-#: src/importdialog.cpp:320
-msgid "*.pdf|PDF Files (*.pdf)"
-msgstr "*.pdf|PDF fájlok (*.pdf)"
-
-#: src/importdialog.cpp:324
-msgid "*.reflib|Referencer Files (*.reflib)"
-msgstr "*.rflib|Referencia fájlok (*.rflib)"
+msgstr "A dátum nem lehet későbbi mint %1"
 
 #: src/loanview.cpp:118
 msgid "Check-in"
@@ -3360,7 +3339,9 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico -  gyűjtemény kezelő program KDE-hez"
 
 #: src/main.cpp:39
-msgid "(c) 2001-2010, Robby Stephenson"
+#, fuzzy
+#| msgid "(c) 2001-2010, Robby Stephenson"
+msgid "(c) 2001-2012, Robby Stephenson"
 msgstr "(c) 2001-2010, Robby Stephenson"
 
 #: src/main.cpp:41
@@ -3512,6 +3493,173 @@ msgstr "Érték kiválasztása %1 -ből"
 msgid "Saving file..."
 msgstr "Fájl mentése..."
 
+#: src/fetchdialog.cpp:82
+msgid "&Search"
+msgstr "&Keresés"
+
+#: src/fetchdialog.cpp:83
+msgid "&Stop"
+msgstr "&Állj"
+
+#: src/fetchdialog.cpp:129
+msgid "Internet Search"
+msgstr "Internet keresés"
+
+#: src/fetchdialog.cpp:138
+msgid "Search Query"
+msgstr "Keresés itt:"
+
+#: src/fetchdialog.cpp:146
+msgctxt "Start the search"
+msgid "S&earch:"
+msgstr "&Keresés:"
+
+#: src/fetchdialog.cpp:150
+msgid "Enter a search value. An ISBN search must include the full ISBN."
+msgstr ""
+"Adja meg a keresendő értéket. Az ISBN keresésnek a teljes ISBN-t "
+"tartalmaznia kell."
+
+#: src/fetchdialog.cpp:157
+msgid "Choose the type of search"
+msgstr "Keresés típusának kiválasztása"
+
+#: src/fetchdialog.cpp:163
+msgid "Click to start or stop the search"
+msgstr "Kattintson a keresés elindításához, leállításához"
+
+#: src/fetchdialog.cpp:181
+msgid "&Multiple ISBN/UPC search"
+msgstr "&Többszörös ISBN/UPC keresés"
+
+#: src/fetchdialog.cpp:182
+msgid "Check this box to search for multiple ISBN or UPC values."
+msgstr "Jelölje ki a többszörös ISBN vagy UPC értékek kereséséhez."
+
+#: src/fetchdialog.cpp:185
+msgid "Edit ISBN/UPC values..."
+msgstr "ISBN/UPC értékek szerkesztése..."
+
+#: src/fetchdialog.cpp:187
+msgid ""
+"Click to open a text edit box for entering or editing multiple ISBN or UPC "
+"values."
+msgstr ""
+"Kattintson a szöveg szerkesztési ablak kinyitásához, ahol a többszörös ISBN "
+"vagy UPC értékeket megadhatja, vagy megváltoztathatja."
+
+#: src/fetchdialog.cpp:193
+msgid "Search s&ource:"
+msgstr "Forrás keresése:"
+
+#: src/fetchdialog.cpp:201
+msgid "Select the database to search"
+msgstr "Adatbázis kiválasztása kereséshez"
+
+#: src/fetchdialog.cpp:218
+msgid "Source"
+msgstr "Forrás"
+
+#: src/fetchdialog.cpp:229
+msgid ""
+"As results are found, they are added to this list. Selecting one will fetch "
+"the complete entry and show it in the view below."
+msgstr ""
+"A találati eredmények hozzáadódnak a listához. Egyet kiválasztva a teljes "
+"bejegyzés bekerül és az alábbi nézetben látható."
+
+#: src/fetchdialog.cpp:238
+msgid ""
+"An entry may be shown here before adding it to the current collection by "
+"selecting it in the list above"
+msgstr ""
+"A fenti listából kiválasztott bejegyzés itt látható mielőtt a jelenlegi "
+"gyűjteményhez hozzáadná."
+
+#: src/fetchdialog.cpp:245
+msgid "&Add Entry"
+msgstr "Bejegyzés hozzáadása"
+
+#: src/fetchdialog.cpp:249
+msgid "Add the selected entry to the current collection"
+msgstr "Kiválasztott bejegyzés hozzáadása a jelenlegi gyűjteményhez"
+
+#: src/fetchdialog.cpp:251
+msgid "Get More Results"
+msgstr "Több eredmény kérése"
+
+#: src/fetchdialog.cpp:254
+msgid "Fetch more results from the current data source"
+msgstr "Több eredmény lekérése az aktuális adatforrásból"
+
+#: src/fetchdialog.cpp:258
+msgid "Clear all search fields and results"
+msgstr "Az összes keresési mező és az eredmények törlése"
+
+#: src/fetchdialog.cpp:340
+msgid "Cancelling the search..."
+msgstr "A keresés leállítása..."
+
+#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:515
+msgid "Searching..."
+msgstr "Keresés..."
+
+#: src/fetchdialog.cpp:406
+msgid "The search returned no items."
+msgstr "A keresés nem talált semmit."
+
+#: src/fetchdialog.cpp:409
+#, kde-format
+msgid "The search returned 1 item."
+msgid_plural "The search returned %1 items."
+msgstr[0] "1 keresési találat."
+msgstr[1] "%1 keresési találat."
+
+#: src/fetchdialog.cpp:433
+msgid "No results were found for the following ISBN values:"
+msgstr "A következő ISBN számban nem található az érték:"
+
+#: src/fetchdialog.cpp:435
+msgid "No Results"
+msgstr "Nincs eredmény"
+
+#: src/fetchdialog.cpp:483 src/fetchdialog.cpp:538
+#, kde-format
+msgid "Fetching %1..."
+msgstr "%1 feldolgozása..."
+
+#: src/fetchdialog.cpp:550
+msgid "Attribution"
+msgstr "Jellemző"
+
+#: src/fetchdialog.cpp:582 src/fetchdialog.cpp:793
+msgid "No Internet sources are available for your current collection type."
+msgstr "A jelenlegi gyűjtemény típusához nincs elérhető internet forrás."
+
+#: src/fetchdialog.cpp:664
+msgid "Edit ISBN/UPC Values"
+msgstr "ISBN/UPC értékek szerkesztése"
+
+#: src/fetchdialog.cpp:669
+msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
+msgstr "<qt>Soronként egy ISBN vagy UPC érték megadása.</qt>"
+
+#: src/fetchdialog.cpp:681
+msgid "&Load From File..."
+msgstr "&Betöltés fájlból..."
+
+#: src/fetchdialog.cpp:682
+msgid "<qt>Load the list from a text file.</qt>"
+msgstr "<qt>Szöveg fájlból lista betöltése.</qt>"
+
+#: src/fetchdialog.cpp:701
+msgid ""
+"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
+"100 values in your list will be used.</qt>"
+msgstr ""
+"<qt>Az ISBN keresés maximum 100 ISBN értéket tartalmazhat. A listából csak "
+"az első 100 értéket használhatja.</qt>"
+
 #: src/translators/audiofileimporter.cpp:78
 msgid "Scanning audio files..."
 msgstr "Hang fájlok átvizsgálása"
@@ -3531,7 +3679,7 @@ msgstr "Bitráta"
 msgid "Tracks (Disc %1)"
 msgstr "Sávok (lemez %1)"
 
-#: src/translators/audiofileimporter.cpp:242 xslt.cpp:6
+#: src/translators/audiofileimporter.cpp:242 xslt.cpp:4
 msgid "(Various)"
 msgstr "(Különböző)"
 
@@ -3894,17 +4042,6 @@ msgstr ""
 "Az alapértelmezett gyorstár könyvtárban lévő CDDB gyorstár fájlok rekurzív "
 "olvasása."
 
-#: src/translators/gcstarimporter.cpp:126
-#: src/translators/gcstarimporter.cpp:275
-msgid "<qt>The file is not a valid GCstar data file.</qt>"
-msgstr "<qt>A fájl nem GCstar adat fájl.</qt>"
-
-#: src/translators/gcstarimporter.cpp:264
-#: src/translators/goodreadsimporter.cpp:97
-#: src/translators/xsltimporter.cpp:87 src/mainwindow.cpp:1619
-msgid "Tellico encountered an error in XSLT processing."
-msgstr "Hiba keletkezett az XSLT feldolgozásakor."
-
 #: src/translators/goodreadsimporter.cpp:75
 #: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
 msgid "A valid XSLT file is needed to import the file."
@@ -3913,6 +4050,12 @@ msgstr "Érvényes XSLT fájlra van szükség az importáláshoz."
 #: src/translators/goodreadsimporter.cpp:91
 msgid "A valid Goodreads user ID must be entered."
 msgstr "Érvényes Goodreads felhasználói adatot kell megadni."
+
+#: src/translators/goodreadsimporter.cpp:97
+#: src/translators/xsltimporter.cpp:87 src/translators/gcstarimporter.cpp:262
+#: src/mainwindow.cpp:1619
+msgid "Tellico encountered an error in XSLT processing."
+msgstr "Hiba keletkezett az XSLT feldolgozásakor."
 
 #: src/translators/goodreadsimporter.cpp:123
 msgid "Goodreads Options"
@@ -3998,23 +4141,6 @@ msgstr ""
 "létre kell hoznia egy CrossRef hozzáférést, valamint egy adatforrást a "
 "hozzáférési információival."
 
-#: src/translators/pilotdbexporter.cpp:54
-msgid "PilotDB"
-msgstr "PilotDB"
-
-#: src/translators/pilotdbexporter.cpp:58
-msgid "*.pdb|Pilot Database Files (*.pdb)"
-msgstr "*.pdb|Pilot Adatbázis fájlok (*.pdb)"
-
-#: src/translators/pilotdbexporter.cpp:223
-msgid "PilotDB Options"
-msgstr "PilotDB beállítások"
-
-#: src/translators/pilotdbexporter.cpp:226
-#: src/translators/pilotdbexporter.cpp:228
-msgid "Set PDA backup flag for database"
-msgstr "PDA mentési jel beállítása az adatbázishoz"
-
 #: src/translators/risimporter.cpp:336
 msgid "PDF"
 msgstr "PDF"
@@ -4026,6 +4152,23 @@ msgstr "A fájl üres."
 #: src/translators/tellicoimporter.cpp:193
 msgid "The file contains no collection data."
 msgstr "A fájl nem tartalmaz gyűjtemény adatot."
+
+#: src/translators/pilotdbexporter.cpp:54
+msgid "PilotDB"
+msgstr "PilotDB"
+
+#: src/translators/pilotdbexporter.cpp:58
+msgid "*.pdb|Pilot Database Files (*.pdb)"
+msgstr "*.pdb|Pilot Adatbázis fájlok (*.pdb)"
+
+#: src/translators/pilotdbexporter.cpp:222
+msgid "PilotDB Options"
+msgstr "PilotDB beállítások"
+
+#: src/translators/pilotdbexporter.cpp:225
+#: src/translators/pilotdbexporter.cpp:227
+msgid "Set PDA backup flag for database"
+msgstr "PDA mentési jel beállítása az adatbázishoz"
 
 #: src/translators/tellicozipexporter.cpp:52
 msgid "Tellico Zip File"
@@ -4092,6 +4235,11 @@ msgstr "Alexandria beállítások"
 msgid "&Library:"
 msgstr "&Könyvtár:"
 
+#: src/translators/gcstarimporter.cpp:125
+#: src/translators/gcstarimporter.cpp:273
+msgid "<qt>The file is not a valid GCstar data file.</qt>"
+msgstr "<qt>A fájl nem GCstar adat fájl.</qt>"
+
 #: src/utils/calendarhandler.cpp:197
 #, kde-format
 msgid "Tellico: %1 is due to return \"%2\""
@@ -4120,72 +4268,6 @@ msgid ""
 msgstr ""
 "<qt>Az <i>Ikon nézet</i> a gyűjtemény vagy csoport egyes elemeit ikonként "
 "mutatja.</qt>"
-
-#: src/filterdialog.cpp:83
-msgid "Any Field"
-msgstr "Bármelyik mező"
-
-#: src/filterdialog.cpp:113
-msgid "Edit..."
-msgstr "Szerkesztés..."
-
-#: src/filterdialog.cpp:255 src/filterdialog.cpp:264
-msgid "equals"
-msgstr "egyenlő"
-
-#: src/filterdialog.cpp:256 src/filterdialog.cpp:265
-msgid "does not equal"
-msgstr "nem egyenlő"
-
-#: src/filterdialog.cpp:257 src/filterdialog.cpp:266
-msgid "matches regexp"
-msgstr "egyező reguláris kifejezés"
-
-#: src/filterdialog.cpp:258 src/filterdialog.cpp:267
-msgid "does not match regexp"
-msgstr "nem egyező reguláris kifejezés"
-
-#: src/filterdialog.cpp:259
-msgctxt "is before a date"
-msgid "is before"
-msgstr "előtte"
-
-#: src/filterdialog.cpp:260
-msgctxt "is after a date"
-msgid "is after"
-msgstr "utána"
-
-#: src/filterdialog.cpp:262
-msgid "contains"
-msgstr "tartalmaz"
-
-#: src/filterdialog.cpp:263
-msgid "does not contain"
-msgstr "nem tartalmaz"
-
-#: src/filterdialog.cpp:355
-msgid "Advanced Filter"
-msgstr "Finomított szűrő"
-
-#: src/filterdialog.cpp:367
-msgid "Filter Criteria"
-msgstr "Szűrés kritériuma"
-
-#: src/filterdialog.cpp:371
-msgid "Match a&ll of the following"
-msgstr "&Minden alábbival egyező"
-
-#: src/filterdialog.cpp:372
-msgid "Match an&y of the following"
-msgstr "&Az alábbiakkal nem egyező"
-
-#: src/filterdialog.cpp:391
-msgid "Filter name:"
-msgstr "Szűrő neve:"
-
-#: src/filterdialog.cpp:400
-msgid "&Save Filter"
-msgstr "&Szűrő mentése"
 
 #: src/mainwindow.cpp:237
 msgid "Create a new collection"
@@ -4715,7 +4797,7 @@ msgstr "Kettőzött kulcsok ellenőrzése..."
 
 #: src/mainwindow.cpp:563
 msgid "Check for duplicate citation keys"
-msgstr ""
+msgstr "Kettőzött idézet kulcsok ellenőrzése"
 
 #: src/mainwindow.cpp:570
 msgid "Copy Bibtex to Cli&pboard"
@@ -4834,6 +4916,10 @@ msgid ""
 "The current file has been modified.\n"
 "Do you want to save it?"
 msgstr "A jelenlegi fájl megváltozott. Menti a módosításokat?"
+
+#: src/mainwindow.cpp:992 src/entryeditdialog.cpp:650
+msgid "Unsaved Changes"
+msgstr "Nem mentett változások"
 
 #: src/mainwindow.cpp:1027
 msgid "Creating new document..."
@@ -4988,7 +5074,7 @@ msgstr ""
 msgid "Update entry data from %1"
 msgstr "Bejegyzés frissítése innen: %1"
 
-#: src/mainwindow.cpp:2173
+#: src/mainwindow.cpp:2174
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -5067,173 +5153,6 @@ msgstr ""
 "a KOrganizer-ben láthatja. Ez csak akkor aktív, ha beállította a lejárat "
 "napját.</qt>"
 
-#: src/fetchdialog.cpp:82
-msgid "&Search"
-msgstr "&Keresés"
-
-#: src/fetchdialog.cpp:83
-msgid "&Stop"
-msgstr "&Állj"
-
-#: src/fetchdialog.cpp:128
-msgid "Internet Search"
-msgstr "Internet keresés"
-
-#: src/fetchdialog.cpp:137
-msgid "Search Query"
-msgstr "Keresés itt:"
-
-#: src/fetchdialog.cpp:145
-msgctxt "Start the search"
-msgid "S&earch:"
-msgstr "&Keresés:"
-
-#: src/fetchdialog.cpp:149
-msgid "Enter a search value. An ISBN search must include the full ISBN."
-msgstr ""
-"Adja meg a keresendő értéket. Az ISBN keresésnek a teljes ISBN-t "
-"tartalmaznia kell."
-
-#: src/fetchdialog.cpp:156
-msgid "Choose the type of search"
-msgstr "Keresés típusának kiválasztása"
-
-#: src/fetchdialog.cpp:162
-msgid "Click to start or stop the search"
-msgstr "Kattintson a keresés elindításához, leállításához"
-
-#: src/fetchdialog.cpp:180
-msgid "&Multiple ISBN/UPC search"
-msgstr "&Többszörös ISBN/UPC keresés"
-
-#: src/fetchdialog.cpp:181
-msgid "Check this box to search for multiple ISBN or UPC values."
-msgstr "Jelölje ki a többszörös ISBN vagy UPC értékek kereséséhez."
-
-#: src/fetchdialog.cpp:184
-msgid "Edit ISBN/UPC values..."
-msgstr "ISBN/UPC értékek szerkesztése..."
-
-#: src/fetchdialog.cpp:186
-msgid ""
-"Click to open a text edit box for entering or editing multiple ISBN or UPC "
-"values."
-msgstr ""
-"Kattintson a szöveg szerkesztési ablak kinyitásához, ahol a többszörös ISBN "
-"vagy UPC értékeket megadhatja, vagy megváltoztathatja."
-
-#: src/fetchdialog.cpp:192
-msgid "Search s&ource:"
-msgstr "Forrás keresése:"
-
-#: src/fetchdialog.cpp:200
-msgid "Select the database to search"
-msgstr "Adatbázis kiválasztása kereséshez"
-
-#: src/fetchdialog.cpp:216
-msgid "Source"
-msgstr "Forrás"
-
-#: src/fetchdialog.cpp:226
-msgid ""
-"As results are found, they are added to this list. Selecting one will fetch "
-"the complete entry and show it in the view below."
-msgstr ""
-"A találati eredmények hozzáadódnak a listához. Egyet kiválasztva a teljes "
-"bejegyzés bekerül és az alábbi nézetben látható."
-
-#: src/fetchdialog.cpp:235
-msgid ""
-"An entry may be shown here before adding it to the current collection by "
-"selecting it in the list above"
-msgstr ""
-"A fenti listából kiválasztott bejegyzés itt látható mielőtt a jelenlegi "
-"gyűjteményhez hozzáadná."
-
-#: src/fetchdialog.cpp:242
-msgid "&Add Entry"
-msgstr "Bejegyzés hozzáadása"
-
-#: src/fetchdialog.cpp:246
-msgid "Add the selected entry to the current collection"
-msgstr "Kiválasztott bejegyzés hozzáadása a jelenlegi gyűjteményhez"
-
-#: src/fetchdialog.cpp:248
-msgid "Get More Results"
-msgstr "Több eredmény kérése"
-
-#: src/fetchdialog.cpp:251
-msgid "Fetch more results from the current data source"
-msgstr "Több eredmény lekérése az aktuális adatforrásból"
-
-#: src/fetchdialog.cpp:255
-msgid "Clear all search fields and results"
-msgstr "Az összes keresési mező és az eredmények törlése"
-
-#: src/fetchdialog.cpp:337
-msgid "Cancelling the search..."
-msgstr "A keresés leállítása..."
-
-#: src/fetchdialog.cpp:348 src/fetchdialog.cpp:482
-msgid "Searching..."
-msgstr "Keresés..."
-
-#: src/fetchdialog.cpp:403
-msgid "The search returned no items."
-msgstr "A keresés nem talált semmit."
-
-#: src/fetchdialog.cpp:406
-#, kde-format
-msgid "The search returned 1 item."
-msgid_plural "The search returned %1 items."
-msgstr[0] "1 keresési találat."
-msgstr[1] "%1 keresési találat."
-
-#: src/fetchdialog.cpp:429
-msgid "No results were found for the following ISBN values:"
-msgstr "A következő ISBN számban nem található az érték:"
-
-#: src/fetchdialog.cpp:430
-msgid "No Results"
-msgstr "Nincs eredmény"
-
-#: src/fetchdialog.cpp:450 src/fetchdialog.cpp:505
-#, kde-format
-msgid "Fetching %1..."
-msgstr "%1 feldolgozása..."
-
-#: src/fetchdialog.cpp:517
-msgid "Attribution"
-msgstr "Jellemző"
-
-#: src/fetchdialog.cpp:549 src/fetchdialog.cpp:751
-msgid "No Internet sources are available for your current collection type."
-msgstr "A jelenlegi gyűjtemény típusához nincs elérhető internet forrás."
-
-#: src/fetchdialog.cpp:631
-msgid "Edit ISBN/UPC Values"
-msgstr "ISBN/UPC értékek szerkesztése"
-
-#: src/fetchdialog.cpp:636
-msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
-msgstr "<qt>Soronként egy ISBN vagy UPC érték megadása.</qt>"
-
-#: src/fetchdialog.cpp:648
-msgid "&Load From File..."
-msgstr "&Betöltés fájlból..."
-
-#: src/fetchdialog.cpp:649
-msgid "<qt>Load the list from a text file.</qt>"
-msgstr "<qt>Szöveg fájlból lista betöltése.</qt>"
-
-#: src/fetchdialog.cpp:668
-msgid ""
-"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
-"100 values in your list will be used.</qt>"
-msgstr ""
-"<qt>Az ISBN keresés maximum 100 ISBN értéket tartalmazhat. A listából csak "
-"az első 100 értéket használhatja.</qt>"
-
 #: src/controller.cpp:375
 msgid "Do you really want to delete this entry?"
 msgstr "Tényleg törölni akarja a bejegyzést?"
@@ -5275,6 +5194,118 @@ msgstr ""
 "Az alábbi elem már kölcsön van adva, a Tellico jelenleg nem támogatja az "
 "elem kölcsönadását több időpontra. Ezeket eltávolítja a kölcsönadott elemek "
 "listájáról."
+
+#: src/filterdialog.cpp:83
+msgid "Any Field"
+msgstr "Bármelyik mező"
+
+#: src/filterdialog.cpp:114
+msgid "Edit..."
+msgstr "Szerkesztés..."
+
+#: src/filterdialog.cpp:270 src/filterdialog.cpp:279
+msgid "equals"
+msgstr "egyenlő"
+
+#: src/filterdialog.cpp:271 src/filterdialog.cpp:280
+msgid "does not equal"
+msgstr "nem egyenlő"
+
+#: src/filterdialog.cpp:272 src/filterdialog.cpp:281
+msgid "matches regexp"
+msgstr "egyező reguláris kifejezés"
+
+#: src/filterdialog.cpp:273 src/filterdialog.cpp:282
+msgid "does not match regexp"
+msgstr "nem egyező reguláris kifejezés"
+
+#: src/filterdialog.cpp:274
+msgctxt "is before a date"
+msgid "is before"
+msgstr "előtte"
+
+#: src/filterdialog.cpp:275
+msgctxt "is after a date"
+msgid "is after"
+msgstr "utána"
+
+#: src/filterdialog.cpp:277
+msgid "contains"
+msgstr "tartalmaz"
+
+#: src/filterdialog.cpp:278
+msgid "does not contain"
+msgstr "nem tartalmaz"
+
+#: src/filterdialog.cpp:370
+msgid "Advanced Filter"
+msgstr "Finomított szűrő"
+
+#: src/filterdialog.cpp:382
+msgid "Filter Criteria"
+msgstr "Szűrés kritériuma"
+
+#: src/filterdialog.cpp:386
+msgid "Match a&ll of the following"
+msgstr "&Minden alábbival egyező"
+
+#: src/filterdialog.cpp:387
+msgid "Match an&y of the following"
+msgstr "&Az alábbiakkal nem egyező"
+
+#: src/filterdialog.cpp:406
+msgid "Filter name:"
+msgstr "Szűrő neve:"
+
+#: src/filterdialog.cpp:415
+msgid "&Save Filter"
+msgstr "&Szűrő mentése"
+
+#: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
+msgid "Edit Entry"
+msgstr "Bejegyzés szerkesztése"
+
+#: src/entryeditdialog.cpp:67
+msgid "&New Entry"
+msgstr "&Új bejegyzés"
+
+#: src/entryeditdialog.cpp:74 src/entryeditdialog.cpp:120
+#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:530
+msgid "Sa&ve Entry"
+msgstr "B&ejegyzés mentése"
+
+#: src/entryeditdialog.cpp:319
+msgid "Do you really want to modify these entries?"
+msgstr "Tényleg módosítani akarja ezeket a bejegyzéseket?"
+
+#: src/entryeditdialog.cpp:321
+msgid "Modify Multiple Entries"
+msgstr "Többszörös bejegyzés módosítása"
+
+#: src/entryeditdialog.cpp:362
+msgid "A value is required for the following fields. Do you want to continue?"
+msgstr "A következő mezőknek értéket kell adnia. Folytatja?"
+
+#: src/entryeditdialog.cpp:459
+msgid "Edit Entries"
+msgstr "Bejegyzések szerkesztése"
+
+#: src/entryeditdialog.cpp:485
+msgid "Sa&ve Entries"
+msgstr "B&ejegyzések mentése"
+
+#: src/entryeditdialog.cpp:646
+msgid ""
+"The current entry has been modified.\n"
+"Do you want to enter the changes?"
+msgstr ""
+"A jelenlegi bejegyzés megváltozott.\n"
+"Menti a módosításokat?"
+
+#: src/entryeditdialog.cpp:649
+msgid "Save Entry"
+msgstr "Bejegyzés mentése"
 
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
@@ -5669,41 +5700,41 @@ msgstr ""
 "Ez jól használható több érték egy mezőben kezelésekor.</p>\n"
 
 #: xslt.cpp:2
-msgctxt "Compact XSL Template"
-msgid "Compact"
-msgstr "Tömörítés"
-
-#: xslt.cpp:4
 msgctxt "Album XSL Template"
 msgid "Album"
 msgstr "Album"
 
-#: xslt.cpp:5
+#: xslt.cpp:3
 msgid "This template is meant for music collections only."
 msgstr "Ez a sablon csak zene gyűjteményhez használható."
 
-#: xslt.cpp:7
+#: xslt.cpp:5
 msgid "Total:"
 msgstr "Teljes:"
 
-#: xslt.cpp:9
+#: xslt.cpp:7
 msgctxt "Default XSL Template"
 msgid "Default"
 msgstr "Alapértelmezett érték"
 
-#: xslt.cpp:11
+#: xslt.cpp:9
 msgctxt "Fancy XSL Template"
 msgid "Fancy"
 msgstr "Képzelt"
 
-#: xslt.cpp:13
+#: xslt.cpp:11
 msgctxt "Video XSL Template"
 msgid "Video"
 msgstr "Videó"
 
-#: xslt.cpp:14 xslt.cpp:46
+#: xslt.cpp:12 xslt.cpp:46
 msgid "This template is meant for video collections only."
 msgstr "Ez a sablon csak film gyűjteményhez használható."
+
+#: xslt.cpp:14
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "Tömörítés"
 
 #: xslt.cpp:16
 msgctxt "Column View XSL Template"
@@ -5853,6 +5884,11 @@ msgstr "Allocine.fr"
 #: scripts.cpp:10
 msgid "Spanish Ministry of Culture"
 msgstr "Spanyol Kultúrális Minisztérium"
+
+
+
+
+
 
 
 

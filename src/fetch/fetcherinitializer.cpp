@@ -52,12 +52,20 @@
 #ifdef HAVE_QJSON
 #include "freebasefetcher.h"
 #include "filmasterfetcher.h"
+#include "masfetcher.h"
+#include "hathitrustfetcher.h"
 #endif
 #include "dvdfrfetcher.h"
 #include "doubanfetcher.h"
 #include "bibliosharefetcher.h"
 #include "moviemeterfetcher.h"
 #include "googlebookfetcher.h"
+#include "springerfetcher.h"
+#include "allocinefetcher.h"
+#include "screenrushfetcher.h"
+#include "filmstartsfetcher.h"
+#include "sensacinefetcher.h"
+#include "beyazperdefetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -97,9 +105,17 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::FreebaseFetcher> registerFreebase(Freebase);
   RegisterFetcher<Fetch::FilmasterFetcher> registerFilmaster(Filmaster);
   RegisterFetcher<Fetch::GoogleBookFetcher> registerGoogleBook(GoogleBook);
+  RegisterFetcher<Fetch::MASFetcher> registerMAS(MAS);
+  RegisterFetcher<Fetch::HathiTrustFetcher> registerHathiTrust(HathiTrust);
 #endif
   RegisterFetcher<Fetch::DVDFrFetcher> registerDVDFr(DVDFr);
   RegisterFetcher<Fetch::DoubanFetcher> registerDouban(Douban);
   RegisterFetcher<Fetch::BiblioShareFetcher> registerBiblioShare(BiblioShare);
   RegisterFetcher<Fetch::MovieMeterFetcher> registerMovieMeter(MovieMeter);
+  RegisterFetcher<Fetch::SpringerFetcher> registerSpringer(Springer);
+  RegisterFetcher<Fetch::AllocineFetcher> registerAllocine(Allocine);
+  RegisterFetcher<Fetch::ScreenRushFetcher> registerScreenRush(ScreenRush);
+  RegisterFetcher<Fetch::FilmStartsFetcher> registerFilmStarts(FilmStarts);
+  RegisterFetcher<Fetch::SensaCineFetcher> registerSensaCine(SensaCine);
+  RegisterFetcher<Fetch::BeyazperdeFetcher> registerBeyazperde(Beyazperde);
 }

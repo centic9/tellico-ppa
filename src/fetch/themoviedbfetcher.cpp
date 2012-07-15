@@ -135,6 +135,11 @@ void TheMovieDBFetcher::parseData(QByteArray& data_) {
       m_total = e.text().toInt();
 //      myDebug() << "total = " << m_total;
     }
+    if(m_total == 0) {
+      myDebug() << "no results";
+      stop();
+      return;
+    }
 
     if(m_needPersonId) {
       m_total = -1;
@@ -153,7 +158,7 @@ void TheMovieDBFetcher::parseData(QByteArray& data_) {
         if(total > bestTotal) {
           bestTotal = total;
           finalPerson = person;
-          myDebug() << "New total:" << total;
+//          myDebug() << "New total:" << total;
         }
         person = person.nextSibling();
       }
@@ -203,6 +208,8 @@ Tellico::Data::EntryPtr TheMovieDBFetcher::fetchEntryHookData(Data::EntryPtr ent
 #endif
 
   Import::TellicoImporter imp(xsltHandler()->applyStylesheet(output));
+  // be quiet when loading images
+  imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
   if(!coll) {
     myWarning() << "no collection pointer";
@@ -315,7 +322,7 @@ void TheMovieDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
 }
 
 QString TheMovieDBFetcher::ConfigWidget::preferredName() const {
-  return i18n("TheMovieDB (%1)").arg(m_langCombo->currentText());
+  return i18n("TheMovieDB (%1)", m_langCombo->currentText());
 }
 
 void TheMovieDBFetcher::ConfigWidget::slotLangChanged() {

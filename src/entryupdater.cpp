@@ -40,6 +40,8 @@
 
 #include <QTimer>
 
+#include <valgrind/memcheck.h>
+
 namespace {
   static const int CHECK_COLLECTION_IMAGES_STEP_SIZE = 10;
 }
@@ -85,7 +87,12 @@ EntryUpdater::~EntryUpdater() {
   foreach(const UpdateResult& res, m_results) {
     delete res.first;
   }
+  
   m_results.clear();
+
+	myLog() << "destructed, running leak check";
+    VALGRIND_DO_LEAK_CHECK;
+
 }
 
 void EntryUpdater::init() {

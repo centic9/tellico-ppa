@@ -91,7 +91,7 @@ EntryUpdater::~EntryUpdater() {
   m_results.clear();
 
 	myLog() << "destructed, running leak check";
-    VALGRIND_DO_LEAK_CHECK;
+    //VALGRIND_DO_LEAK_CHECK;
 
 }
 

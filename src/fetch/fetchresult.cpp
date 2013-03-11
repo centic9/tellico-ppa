@@ -64,6 +64,10 @@ FetchResult::FetchResult(Fetcher::Ptr fetcher_, const QString& title_, const QSt
    , isbn(isbn_) {
 }
 
+FetchResult::~FetchResult() {
+	myDebug() << "destroying fetchresult";
+}
+
 Tellico::Data::EntryPtr FetchResult::fetchEntry() {
   return fetcher->fetchEntry(uid);
 }

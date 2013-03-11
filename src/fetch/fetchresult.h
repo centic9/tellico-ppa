@@ -40,6 +40,7 @@ class FetchResult {
 public:
   FetchResult(KSharedPtr<Fetcher> f, Data::EntryPtr entry);
   FetchResult(KSharedPtr<Fetcher> f, const QString& t, const QString& d, const QString& i = QString());
+  ~FetchResult();
 
   Data::EntryPtr fetchEntry();
 

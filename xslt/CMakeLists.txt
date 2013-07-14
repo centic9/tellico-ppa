@@ -12,6 +12,7 @@ SET(XSLT_FILES
     cassette-logo.png
     cd-logo.png
     crossref2tellico.xsl
+    dblp2tellico.xsl
     delicious2tellico.xsl
     discogs2tellico.xsl
     douban2tellico.xsl
@@ -40,9 +41,11 @@ SET(XSLT_FILES
     tellico-by-title.xsl
     tellico-common.xsl
     tellico-printing.xsl
+    thegamesdb2tellico.xsl
     tmdb2tellico.xsl
     UNIMARC2MODS3.xsl
     vhs-logo.png
+    vinoxml2tellico.xsl
     welcome.html
     winecom2tellico.xsl
     xmp2tellico.xsl

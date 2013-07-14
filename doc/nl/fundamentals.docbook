@@ -45,35 +45,35 @@
 > is not already open, you can double click an entry to open the editor and start editing. </para>
 
 <para
->If you want to include an image in the entry, you can use the standard &kde; File Selector by clicking the <guibutton
->Select Image...</guibutton
-> button in the <link linkend="entry-editor"
+>Als u een afbeelding in het item wilt invoegen, dan kunt u de standaard &kde; Bestandsselectie gebruiken door te klikken op de knop <guibutton
+>Afbeelding selecteren...</guibutton
+> in de <link linkend="entry-editor"
 ><interface
->Entry Editor</interface
+>Itembewerker</interface
 ></link
->, or you can drag an image from the file manager or web browser into the <interface
->Entry Editor</interface
+> of u kunt een afbeelding vanuit de bestandsbeheeder of webbrowser naar de <interface
+>Itembewerker</interface
 >. </para>
 
 <para
->When you select an entry, the <link linkend="entry-view"
+>Wanneer u een item selecteert, toont de <link linkend="entry-view"
 ><interface
->Entry View</interface
+>Itemweergave</interface
 ></link
-> shows a formatted view of the entry's contents. You can change the template used for showing the entry in the <link linkend="configuration"
+> een geformatteerde weergave van de inhoud van het item. U kunt het gebruikte sjabloon wijzigen voor het weergeven van het item in de <link linkend="configuration"
 ><interface
->Configuration Dialog</interface
+>Instellingendialoog</interface
 ></link
 >. </para>
 
 <para
->The entries in the collection are grouped together when they share the same values for certain fields, such as the author or director. You can change the field used for grouping by using the combo box in the toolbar or the <menuchoice
+>De items in de verzameling worden gegroepeerd wanneer ze dezelfde waarden in bepaalde velden delen, zoals de auteur of dirigent. U kunt het veld dat wordt gebruikt voor groepering wijzigen door het afrolvak in de werkbalk te gebruiken of het menu-item <menuchoice
 ><guimenu
->Settings</guimenu
+>Instellingen</guimenu
 ><guimenuitem
->Group Selection</guimenuitem
+>Groepsselectie</guimenuitem
 ></menuchoice
-> menu item. </para>
+>. </para>
 
 <para
 >You can use the <interface
@@ -161,7 +161,7 @@
 >Group View</interface
 > groups the entries in a tree-view by any field which <link linkend="field-options"
 >allows grouping</link
->. The number of entries in each group is shown next to the group name. Groups may be expanded or collapsed by clicking the plus sign, or by double-clicking the item. Expanding and contracting all the groups are options in the right-click context menu. The tree may be sorted either by the group name, or by the count, by clicking on the header. A group may also be used as a filter for the <link linkend="detailed-view"
+>. The number of entries in each group is shown next to the group name. Groups may be expanded or collapsed by clicking the arrow sign, or by double-clicking the item. Expanding and contracting all the groups are options in the right-click context menu. The tree may be sorted either by the group name, or by the count, by clicking on the header. A group may also be used as a filter for the <link linkend="detailed-view"
 ><interface
 >Column View</interface
 ></link
@@ -171,7 +171,7 @@
 >When more than one field in the collection has the <emphasis
 ><link linkend="fields-dialog"
 ><guilabel
->Format as name</guilabel
+>Format as a name</guilabel
 ></link
 ></emphasis
 > option turned on, an additional group is added to combine all those fields into one single <emphasis
@@ -199,16 +199,16 @@
 
 <screenshot>
 <screeninfo
->The <interface
->Filter View</interface
+>De <interface
+>Filterweergave</interface
 ></screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="filter-view.png"/></imageobject>
 <textobject
 ><phrase
->The <interface
->Filter View</interface
+>De <interface
+>Filterweergave</interface
 ></phrase
 ></textobject>
 </mediaobject>
@@ -219,7 +219,7 @@
 <sect2 id="loan-view">
 <title
 ><interface
->Loan View</interface
+>Uitleenweergave</interface
 ></title>
 
 <para
@@ -231,8 +231,8 @@
 
 <screenshot>
 <screeninfo
->The <interface
->Loan View</interface
+>De <interface
+>Uitleenweergave</interface
 ></screeninfo>
 <mediaobject>
 <imageobject
@@ -305,9 +305,6 @@
 > menu, the toolbar icon, or the button in the <interface
 >Entry Editor</interface
 > itself.</para>
-
-<para
->The arrow buttons on the bottom will move to the previous or next entries in the current list. </para>
 
 <para
 >Closing the <interface
@@ -842,7 +839,7 @@
 <para
 >Each row contains a single filter rule. Select the field to match in the first box in the row, then select a matching rule in the center. Rules may match values that contain a certain word, or are exactly equal. A regular expression may also be used to match entries, in which case the <guibutton
 >Edit...</guibutton
-> button becomes active for editing the expression. Finally, the word or string to match should be entered in the text box. </para>
+> button becomes active for editing the expression, if &kregexpeditor; is installed on your computer. Finally, the word or string to match should be entered in the text box. </para>
 
 <para
 >Up to eight (8) rules may be used in the filter. The <guibutton

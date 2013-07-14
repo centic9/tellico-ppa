@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2011-09-24 11:18+0200\n"
+"POT-Creation-Date: 2012-01-09 10:07+0100\n"
 "PO-Revision-Date: 2011-06-08 03:05+0300\n"
 "Last-Translator: Stelios <sstavra@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
@@ -74,35 +74,35 @@ msgstr "Ταυτότητα"
 #: src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34
-#: src/collections/winecollection.cpp:31 src/document.cpp:455
+#: src/collections/winecollection.cpp:31 src/document.cpp:457
 msgid "Personal"
 msgstr "Ατομικά στοιχεία"
 
 #: src/collection.cpp:56 src/collections/musiccollection.cpp:86
 #: src/entrymatchdialog.cpp:86 src/fetch/fetchmanager.cpp:69
-#: src/fetchdialog.cpp:211 src/translators/audiofileimporter.cpp:175
-#: src/translators/xmlstatehandler.cpp:409
+#: src/translators/audiofileimporter.cpp:175
+#: src/translators/xmlstatehandler.cpp:409 src/fetchdialog.cpp:214
 msgid "Title"
 msgstr "Τίτλος"
 
-#: src/collection.cpp:57 src/collections/bibtexcollection.cpp:38
-#: src/collections/bibtexcollection.cpp:100
-#: src/collections/boardgamecollection.cpp:31
+#: src/collection.cpp:57 src/collections/boardgamecollection.cpp:31
 #: src/collections/bookcollection.cpp:31 src/collections/cardcollection.cpp:30
 #: src/collections/coincollection.cpp:30
 #: src/collections/comicbookcollection.cpp:30
-#: src/collections/filecatalog.cpp:31 src/collections/gamecollection.cpp:31
+#: src/collections/gamecollection.cpp:31
 #: src/collections/musiccollection.cpp:31
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31
-#: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
-#: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/googlebookfetcher.cpp:235 src/fetch/animenfofetcher.cpp:294
-#: src/fetch/animenfofetcher.cpp:298 src/fetch/filmasterfetcher.cpp:233
-#: src/fetch/freebasefetcher.cpp:367 src/fetch/imdbfetcher.cpp:753
-#: src/fetch/imdbfetcher.cpp:1071 src/fetch/moviemeterfetcher.cpp:246
-#: src/fetch/openlibraryfetcher.cpp:283 src/field.cpp:37 src/field.cpp:78
-#: src/translators/gcstarimporter.cpp:89
+#: src/collections/winecollection.cpp:30
+#: src/collections/bibtexcollection.cpp:38
+#: src/collections/bibtexcollection.cpp:100 src/collections/filecatalog.cpp:31
+#: src/configdialog.cpp:159 src/configdialog.cpp:182 src/configdialog.cpp:209
+#: src/configdialog.cpp:227 src/fetch/googlebookfetcher.cpp:235
+#: src/fetch/animenfofetcher.cpp:294 src/fetch/animenfofetcher.cpp:298
+#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:367
+#: src/fetch/imdbfetcher.cpp:753 src/fetch/imdbfetcher.cpp:1071
+#: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
+#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Γενικά"
 
@@ -526,164 +526,6 @@ msgstr "Οι πίνακες μπορούν να έχουν μέγιστο αρι
 msgid "A field with a derived value must have a value template."
 msgstr "Ένα πεδίο με μια παράγωγη τιμή πρέπει να διαθέτει ένα πρότυπο τιμής."
 
-#: src/collections/bibtexcollection.cpp:39
-#: src/collections/bookcollection.cpp:32
-#: src/collections/comicbookcollection.cpp:31
-#: src/fetch/citebasefetcher.cpp:155 src/translators/grs1importer.cpp:71
-#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:200
-msgid "Publishing"
-msgstr "Έκδοση"
-
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
-#: src/translators/risimporter.cpp:338
-msgid "Miscellaneous"
-msgstr "Διάφορα"
-
-#: src/collections/bibtexcollection.cpp:84
-msgid "Entry Type"
-msgstr "Τύπος καταχώρησης"
-
-#: src/collections/bibtexcollection.cpp:88
-msgid "These entry types are specific to bibtex. See the bibtex documentation."
-msgstr ""
-"Αυτά τα είδη καταχωρήσεων προορίζονται για το bibtex. Διαβάστε την "
-"τεκμηρίωση για το bibtex."
-
-#: src/collections/bibtexcollection.cpp:91
-#: src/collections/bookcollection.cpp:58
-msgid "Author"
-msgstr "Συγγραφέας"
-
-#: src/collections/bibtexcollection.cpp:98
-msgid "Bibtex Key"
-msgstr "Κλειδί Bibtex"
-
-#: src/collections/bibtexcollection.cpp:104
-msgid "Book Title"
-msgstr "Τίτλος βιβλίου"
-
-#: src/collections/bibtexcollection.cpp:110
-#: src/collections/bookcollection.cpp:64
-msgid "Editor"
-msgstr "Επεξεργαστής"
-
-#: src/collections/bibtexcollection.cpp:117
-msgid "Organization"
-msgstr "Οργανισμός"
-
-#: src/collections/bibtexcollection.cpp:132
-#: src/collections/boardgamecollection.cpp:68
-#: src/collections/bookcollection.cpp:87
-#: src/collections/comicbookcollection.cpp:80
-msgid "Publisher"
-msgstr "Εκδότης"
-
-#: src/collections/bibtexcollection.cpp:139 src/fetch/srufetcher.cpp:453
-#: src/fetch/z3950fetcher.cpp:551
-msgid "Address"
-msgstr "Διεύθυνση"
-
-#: src/collections/bibtexcollection.cpp:145
-#: src/collections/bookcollection.cpp:93
-#: src/collections/comicbookcollection.cpp:86
-msgid "Edition"
-msgstr "Έκδοση"
-
-#: src/collections/bibtexcollection.cpp:152
-#: src/collections/bookcollection.cpp:119
-#: src/collections/comicbookcollection.cpp:97
-msgid "Pages"
-msgstr "Σελίδες"
-
-#: src/collections/bibtexcollection.cpp:157
-#: src/collections/cardcollection.cpp:77 src/collections/coincollection.cpp:66
-#: src/collections/musiccollection.cpp:72
-msgid "Year"
-msgstr "Έτος"
-
-#: src/collections/bibtexcollection.cpp:163
-#: src/collections/bookcollection.cpp:109 src/translators/grs1importer.cpp:70
-msgid "ISBN#"
-msgstr "ISBN#"
-
-#: src/collections/bibtexcollection.cpp:166
-#: src/collections/bookcollection.cpp:111 src/translators/grs1importer.cpp:72
-msgid "International Standard Book Number"
-msgstr "International Standard Book Number"
-
-#: src/collections/bibtexcollection.cpp:169
-#: src/collections/bookcollection.cpp:72
-msgid "Journal"
-msgstr "Χρονικό"
-
-#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
-msgid "DOI"
-msgstr "DOI"
-
-#: src/collections/bibtexcollection.cpp:179
-msgid "Digital Object Identifier"
-msgstr "Αναγνωριστικό ψηφιακού αντικειμένου"
-
-#: src/collections/bibtexcollection.cpp:184
-msgid "Month"
-msgstr "Μήνας"
-
-#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
-msgid "Number"
-msgstr "Αριθμός"
-
-#: src/collections/bibtexcollection.cpp:195
-msgid "How Published"
-msgstr "Πώς εκδόθηκε"
-
-#: src/collections/bibtexcollection.cpp:207
-msgid "Chapter"
-msgstr "Κεφάλαιο"
-
-#: src/collections/bibtexcollection.cpp:212
-#: src/collections/bookcollection.cpp:146
-#: src/collections/cardcollection.cpp:82
-#: src/collections/comicbookcollection.cpp:69
-msgid "Series"
-msgstr "Σειρά"
-
-#: src/collections/bibtexcollection.cpp:219 src/collections/filecatalog.cpp:62
-msgid "Volume"
-msgstr "Ένταση"
-
-#: src/collections/bibtexcollection.cpp:224
-msgid "Cross-Reference"
-msgstr "Αντι-Παραπομπή"
-
-#: src/collections/bibtexcollection.cpp:234
-#: src/collections/bookcollection.cpp:141
-#: src/collections/cardcollection.cpp:111
-#: src/collections/comicbookcollection.cpp:119
-#: src/collections/musiccollection.cpp:113
-#: src/collections/videocollection.cpp:215 src/fetch/amazonfetcher.cpp:898
-msgid "Keywords"
-msgstr "Λέξεις κλειδιά"
-
-#: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
-#: src/fetch/entrezfetcher.cpp:398 src/fetch/entrezfetcher.cpp:464
-#: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
-msgid "URL"
-msgstr "URL"
-
-#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
-#: src/fetch/srufetcher.cpp:454 src/fetch/z3950fetcher.cpp:552
-msgid "Abstract"
-msgstr "Περίληψη"
-
-#: src/collections/bibtexcollection.cpp:249
-msgid "Notes"
-msgstr "Σημειώσεις"
-
-#: src/collections/bibtexcollection.cpp:479
-#: src/translators/xmlstatehandler.cpp:298
-msgid "Unknown"
-msgstr "Άγνωστο"
-
 #: src/collections/boardgamecollection.cpp:38
 msgid "My Board Games"
 msgstr "Τα επιτραπέζια παιχνίδια μου"
@@ -706,6 +548,13 @@ msgstr "Μηχανισμός"
 msgid "Release Year"
 msgstr "Έτος κυκλοφορίας"
 
+#: src/collections/boardgamecollection.cpp:68
+#: src/collections/bookcollection.cpp:87
+#: src/collections/comicbookcollection.cpp:80
+#: src/collections/bibtexcollection.cpp:132
+msgid "Publisher"
+msgstr "Εκδότης"
+
 #: src/collections/boardgamecollection.cpp:74
 msgid "Designer"
 msgstr "Σχεδιαστής"
@@ -715,10 +564,10 @@ msgid "Number of Players"
 msgstr "Αριθμός παικτών"
 
 #: src/collections/boardgamecollection.cpp:85
-#: src/collections/filecatalog.cpp:57 src/collections/gamecollection.cpp:94
+#: src/collections/gamecollection.cpp:94
 #: src/collections/stampcollection.cpp:54
-#: src/collections/winecollection.cpp:125 src/entrymatchdialog.cpp:86
-#: src/fetchdialog.cpp:212
+#: src/collections/winecollection.cpp:125 src/collections/filecatalog.cpp:57
+#: src/entrymatchdialog.cpp:86 src/fetchdialog.cpp:215
 msgid "Description"
 msgstr "Περιγραφή"
 
@@ -772,7 +621,7 @@ msgstr "Τιμή αγοράς"
 #: src/collections/comicbookcollection.cpp:149
 #: src/collections/gamecollection.cpp:119
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:453
+#: src/collections/videocollection.cpp:211 src/document.cpp:455
 msgid "Loaned"
 msgstr "Δανεισμένο"
 
@@ -796,6 +645,14 @@ msgstr "Εξώφυλλο"
 msgid "Comments"
 msgstr "Σχόλια"
 
+#: src/collections/bookcollection.cpp:32
+#: src/collections/comicbookcollection.cpp:31
+#: src/collections/bibtexcollection.cpp:39 src/fetch/citebasefetcher.cpp:155
+#: src/translators/grs1importer.cpp:71 src/translators/grs1importer.cpp:76
+#: src/translators/pdfimporter.cpp:200
+msgid "Publishing"
+msgstr "Έκδοση"
+
 #: src/collections/bookcollection.cpp:33
 #: src/collections/comicbookcollection.cpp:32
 msgid "Classification"
@@ -809,6 +666,16 @@ msgstr "Τα βιβλία μου"
 #: src/collections/comicbookcollection.cpp:52
 msgid "Subtitle"
 msgstr "Υπότιτλος"
+
+#: src/collections/bookcollection.cpp:58
+#: src/collections/bibtexcollection.cpp:91
+msgid "Author"
+msgstr "Συγγραφέας"
+
+#: src/collections/bookcollection.cpp:64
+#: src/collections/bibtexcollection.cpp:110
+msgid "Editor"
+msgstr "Επεξεργαστής"
 
 #: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:401
 #: src/translators/alexandriaimporter.cpp:158
@@ -831,9 +698,20 @@ msgstr "Ηλεκτρονικό βιβλίο"
 msgid "Magazine"
 msgstr "Περιοδικό"
 
+#: src/collections/bookcollection.cpp:72
+#: src/collections/bibtexcollection.cpp:169
+msgid "Journal"
+msgstr "Χρονικό"
+
 #: src/collections/bookcollection.cpp:73
 msgid "Binding"
 msgstr "Βιβλιοδεσία"
+
+#: src/collections/bookcollection.cpp:93
+#: src/collections/comicbookcollection.cpp:86
+#: src/collections/bibtexcollection.cpp:145
+msgid "Edition"
+msgstr "Έκδοση"
 
 #: src/collections/bookcollection.cpp:99
 msgid "Copyright Year"
@@ -843,6 +721,18 @@ msgstr "Έτος πνευματικών δικαιωμάτων"
 #: src/collections/comicbookcollection.cpp:92
 msgid "Publication Year"
 msgstr "Έτος έκδοσης"
+
+#: src/collections/bookcollection.cpp:109
+#: src/collections/bibtexcollection.cpp:163
+#: src/translators/grs1importer.cpp:70
+msgid "ISBN#"
+msgstr "ISBN#"
+
+#: src/collections/bookcollection.cpp:111
+#: src/collections/bibtexcollection.cpp:166
+#: src/translators/grs1importer.cpp:72
+msgid "International Standard Book Number"
+msgstr "International Standard Book Number"
 
 #: src/collections/bookcollection.cpp:114
 msgid "LCCN#"
@@ -854,6 +744,12 @@ msgstr ""
 "Ο αριθμός ταξινόμησης του βιβλίου σύμφωνα με το σύστημα της βιβλιοθήκης του "
 "κογκρέσου"
 
+#: src/collections/bookcollection.cpp:119
+#: src/collections/comicbookcollection.cpp:97
+#: src/collections/bibtexcollection.cpp:152
+msgid "Pages"
+msgstr "Σελίδες"
+
 #: src/collections/bookcollection.cpp:123
 msgid "Translator"
 msgstr "Μεταφραστής"
@@ -864,12 +760,28 @@ msgstr "Μεταφραστής"
 msgid "Language"
 msgstr "Γλώσσα"
 
+#: src/collections/bookcollection.cpp:141
+#: src/collections/cardcollection.cpp:111
+#: src/collections/comicbookcollection.cpp:119
+#: src/collections/musiccollection.cpp:113
+#: src/collections/videocollection.cpp:215
+#: src/collections/bibtexcollection.cpp:234 src/fetch/amazonfetcher.cpp:899
+msgid "Keywords"
+msgstr "Λέξεις κλειδιά"
+
+#: src/collections/bookcollection.cpp:146
+#: src/collections/cardcollection.cpp:82
+#: src/collections/comicbookcollection.cpp:69
+#: src/collections/bibtexcollection.cpp:212
+msgid "Series"
+msgstr "Σειρά"
+
 #: src/collections/bookcollection.cpp:151
 msgid "Series Number"
 msgstr "Αριθμός σειράς"
 
-#: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:233
-#: src/mainwindow.cpp:485
+#: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:235
+#: src/mainwindow.cpp:487
 msgid "New"
 msgstr "Νέο"
 
@@ -918,6 +830,12 @@ msgstr "Μάρκα"
 #: src/collections/cardcollection.cpp:73
 msgid "Card Number"
 msgstr "Αριθμός κάρτας"
+
+#: src/collections/cardcollection.cpp:77 src/collections/coincollection.cpp:66
+#: src/collections/musiccollection.cpp:72
+#: src/collections/bibtexcollection.cpp:157
+msgid "Year"
+msgstr "Έτος"
 
 #: src/collections/cardcollection.cpp:88
 msgid "Card Type"
@@ -1035,50 +953,6 @@ msgctxt ""
 "Poor"
 msgid "Mint,Near Mint,Very Fine,Fine,Very Good,Good,Fair,Poor"
 msgstr "Άψογη,Σχεδόν άψογη,Πολύ Καλή,Καλή,Μέτρια,Κακή"
-
-#: src/collections/filecatalog.cpp:37
-msgid "My Files"
-msgstr "Τα αρχεία μου"
-
-#: src/collections/filecatalog.cpp:67
-msgid "Folder"
-msgstr "Φάκελος"
-
-#: src/collections/filecatalog.cpp:72
-msgid "Mimetype"
-msgstr "Mimetype"
-
-#: src/collections/filecatalog.cpp:77
-msgid "Size"
-msgstr "Μέγεθος"
-
-#: src/collections/filecatalog.cpp:81
-msgid "Permissions"
-msgstr "Άδειες"
-
-#: src/collections/filecatalog.cpp:86
-msgid "Owner"
-msgstr "Ιδιοκτήτης"
-
-#: src/collections/filecatalog.cpp:91
-msgid "Group"
-msgstr "Ομάδα"
-
-#: src/collections/filecatalog.cpp:97
-msgid "Created"
-msgstr "Δημιουργήθηκε"
-
-#: src/collections/filecatalog.cpp:101
-msgid "Modified"
-msgstr "Τροποποιήθηκε"
-
-#: src/collections/filecatalog.cpp:105
-msgid "Meta Info"
-msgstr "Μεταπληροφορίες"
-
-#: src/collections/filecatalog.cpp:111
-msgid "Icon"
-msgstr "Εικονίδιο"
 
 #: src/collections/gamecollection.cpp:38
 msgid "My Games"
@@ -1201,7 +1075,7 @@ msgid "Compact Disc"
 msgstr "CD"
 
 #: src/collections/musiccollection.cpp:54
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:862
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:863
 msgid "DVD"
 msgstr "DVD"
 
@@ -1298,7 +1172,7 @@ msgstr "Χαρακτηριστικά"
 msgid "My Videos"
 msgstr "Τα βίντεο μου"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:849
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:850
 msgid "VHS"
 msgstr "VHS"
 
@@ -1310,11 +1184,11 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:843
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:844
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:846
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:847
 msgid "HD DVD"
 msgstr "HD DVD"
 
@@ -1371,11 +1245,11 @@ msgstr "Περιοχή 8"
 msgid "Region"
 msgstr "Περιοχή"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:218
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:219
 msgid "Nationality"
 msgstr "Εθνικότητα"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:858
+#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:859
 msgid "NTSC"
 msgstr "NTSC"
 
@@ -1413,7 +1287,7 @@ msgstr "Πίνακας με τα μέλη της διανομής, μαζί με
 msgid "Director"
 msgstr "Σκηνοθέτης"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:217
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:218
 msgid "Producer"
 msgstr "Παραγωγός"
 
@@ -1449,7 +1323,7 @@ msgstr "Ο χρόνος της ταινίας (σε λεπτά)"
 msgid "Aspect Ratio"
 msgstr "Αναλογία"
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:832
+#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:833
 msgid "Widescreen"
 msgstr "Ευρεία οθόνη"
 
@@ -1461,7 +1335,7 @@ msgstr "Ασπρόμαυρο"
 msgid "Color Mode"
 msgstr "Λειτουργία χρώματος"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:853
+#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:854
 msgid "Director's Cut"
 msgstr "Director's Cut"
 
@@ -1509,6 +1383,144 @@ msgstr "Δοκιμάστηκε από"
 #: src/collections/winecollection.cpp:122
 msgid "Label Image"
 msgstr "Εικόνα ετικέτας"
+
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
+#: src/translators/risimporter.cpp:338
+msgid "Miscellaneous"
+msgstr "Διάφορα"
+
+#: src/collections/bibtexcollection.cpp:84
+msgid "Entry Type"
+msgstr "Τύπος καταχώρησης"
+
+#: src/collections/bibtexcollection.cpp:88
+msgid "These entry types are specific to bibtex. See the bibtex documentation."
+msgstr ""
+"Αυτά τα είδη καταχωρήσεων προορίζονται για το bibtex. Διαβάστε την "
+"τεκμηρίωση για το bibtex."
+
+#: src/collections/bibtexcollection.cpp:98
+msgid "Bibtex Key"
+msgstr "Κλειδί Bibtex"
+
+#: src/collections/bibtexcollection.cpp:104
+msgid "Book Title"
+msgstr "Τίτλος βιβλίου"
+
+#: src/collections/bibtexcollection.cpp:117
+msgid "Organization"
+msgstr "Οργανισμός"
+
+#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:564
+#: src/fetch/srufetcher.cpp:453
+msgid "Address"
+msgstr "Διεύθυνση"
+
+#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
+msgid "DOI"
+msgstr "DOI"
+
+#: src/collections/bibtexcollection.cpp:179
+msgid "Digital Object Identifier"
+msgstr "Αναγνωριστικό ψηφιακού αντικειμένου"
+
+#: src/collections/bibtexcollection.cpp:184
+msgid "Month"
+msgstr "Μήνας"
+
+#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
+msgid "Number"
+msgstr "Αριθμός"
+
+#: src/collections/bibtexcollection.cpp:195
+msgid "How Published"
+msgstr "Πώς εκδόθηκε"
+
+#: src/collections/bibtexcollection.cpp:207
+msgid "Chapter"
+msgstr "Κεφάλαιο"
+
+#: src/collections/bibtexcollection.cpp:219
+#, fuzzy
+#| msgid "Volume"
+msgctxt "A number field in a bibliography"
+msgid "Volume"
+msgstr "Ένταση"
+
+#: src/collections/bibtexcollection.cpp:224
+msgid "Cross-Reference"
+msgstr "Αντι-Παραπομπή"
+
+#: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
+#: src/fetch/entrezfetcher.cpp:398 src/fetch/entrezfetcher.cpp:464
+#: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
+msgid "URL"
+msgstr "URL"
+
+#: src/collections/bibtexcollection.cpp:245 src/fetch/z3950fetcher.cpp:565
+#: src/fetch/entrezfetcher.cpp:463 src/fetch/srufetcher.cpp:454
+msgid "Abstract"
+msgstr "Περίληψη"
+
+#: src/collections/bibtexcollection.cpp:249
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: src/collections/bibtexcollection.cpp:479
+#: src/translators/xmlstatehandler.cpp:298
+msgid "Unknown"
+msgstr "Άγνωστο"
+
+#: src/collections/filecatalog.cpp:37
+msgid "My Files"
+msgstr "Τα αρχεία μου"
+
+#: src/collections/filecatalog.cpp:62
+#, fuzzy
+#| msgid "Volume"
+msgctxt "File catalog"
+msgid "Volume"
+msgstr "Ένταση"
+
+#: src/collections/filecatalog.cpp:67
+msgid "Folder"
+msgstr "Φάκελος"
+
+#: src/collections/filecatalog.cpp:72
+msgid "Mimetype"
+msgstr "Mimetype"
+
+#: src/collections/filecatalog.cpp:77
+msgid "Size"
+msgstr "Μέγεθος"
+
+#: src/collections/filecatalog.cpp:81
+msgid "Permissions"
+msgstr "Άδειες"
+
+#: src/collections/filecatalog.cpp:86
+msgid "Owner"
+msgstr "Ιδιοκτήτης"
+
+#: src/collections/filecatalog.cpp:91
+msgid "Group"
+msgstr "Ομάδα"
+
+#: src/collections/filecatalog.cpp:97
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+#: src/collections/filecatalog.cpp:101
+msgid "Modified"
+msgstr "Τροποποιήθηκε"
+
+#: src/collections/filecatalog.cpp:105
+msgid "Meta Info"
+msgstr "Μεταπληροφορίες"
+
+#: src/collections/filecatalog.cpp:111
+msgid "Icon"
+msgstr "Εικονίδιο"
 
 #: src/commands/addentries.cpp:41
 msgid "Add Entries"
@@ -1561,8 +1573,8 @@ msgstr "Διαγραφή %1 πεδίου"
 msgid "Add Filter"
 msgstr "Προσθήκη φίλτρου"
 
-#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:305
-#: src/filterview.cpp:133
+#: src/commands/filtercommand.cpp:58 src/filterview.cpp:133
+#: src/filterdialog.cpp:355
 msgid "Modify Filter"
 msgstr "Τροποποίηση φίλτρου"
 
@@ -1576,7 +1588,7 @@ msgid "Modify Entries"
 msgstr "Τροποποίηση εισαγωγών"
 
 #: src/commands/modifyentries.cpp:51 src/commands/modifyentries.cpp:71
-#: src/commands/updateentries.cpp:69
+#: src/commands/updateentries.cpp:89
 #, kde-format
 msgctxt "Modify (Entry Title)"
 msgid "Modify %1"
@@ -1966,7 +1978,7 @@ msgstr "&Τροποποίηση..."
 msgid "Click to modify the selected data source."
 msgstr "Κάντε κλικ για να τροποποιήσετε τις επιλεγμένες πηγές δεδομένων."
 
-#: src/configdialog.cpp:660 src/controller.cpp:376 src/controller.cpp:392
+#: src/configdialog.cpp:660 src/controller.cpp:378 src/controller.cpp:394
 msgid "&Delete"
 msgstr "&Διαγραφή"
 
@@ -1987,16 +1999,16 @@ msgstr "*.xsl|Αρχεία XSL (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|Πακέτα προτύπων (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:337 src/mainwindow.cpp:1065
-#: src/mainwindow.cpp:1230 src/reportdialog.cpp:215
+#: src/configdialog.cpp:1137 src/importdialog.cpp:337 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
-#: src/translators/gcstarexporter.cpp:56 src/translators/htmlexporter.cpp:91
-#: src/translators/onixexporter.cpp:71 src/translators/pilotdbexporter.cpp:58
-#: src/translators/tellicoxmlexporter.cpp:70
+#: src/translators/htmlexporter.cpp:91 src/translators/onixexporter.cpp:71
+#: src/translators/pilotdbexporter.cpp:58
 #: src/translators/tellicozipexporter.cpp:56
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:117
+#: src/translators/xsltimporter.cpp:117 src/translators/gcstarexporter.cpp:60
+#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1067
+#: src/mainwindow.cpp:1232
 msgid "*|All Files"
 msgstr "*|Όλα τα αρχεία"
 
@@ -2007,71 +2019,6 @@ msgstr "Διαγραφή προτύπου"
 #: src/configdialog.cpp:1169
 msgid "Select template to delete:"
 msgstr "Επιλέξτε πρότυπο για να το διαγράψετε:"
-
-#: src/controller.cpp:140 src/fetchdialog.cpp:273 src/fetchdialog.cpp:365
-#: src/fetchdialog.cpp:455 src/fetchdialog.cpp:524 src/gui/statusbar.cpp:125
-msgid "Ready."
-msgstr "Έτοιμο"
-
-#: src/controller.cpp:373
-msgid "Do you really want to delete this entry?"
-msgstr "Θέλετε οπωσδήποτε να διαγράψετε αυτή την καταχώρηση;"
-
-#: src/controller.cpp:375
-msgid "Delete Entry"
-msgstr "Διαγραφή καταχώρησης"
-
-#: src/controller.cpp:387
-msgid "Do you really want to delete these entries?"
-msgstr "Θέλετε οπωσδήποτε να διαγράψετε αυτές τις καταχωρήσεις;"
-
-#: src/controller.cpp:391
-msgid "Delete Multiple Entries"
-msgstr "Διαγραφή πολλαπλών καταχωρήσεων"
-
-#: src/controller.cpp:575 src/mainwindow.cpp:491
-msgid "&Edit Entry..."
-msgstr "&Επεξεργασία καταχώρησης..."
-
-#: src/controller.cpp:576 src/mainwindow.cpp:498
-msgid "D&uplicate Entry"
-msgstr "Α&ντίγραφο καταχώρησης"
-
-#. i18n: file: src/tellicoui.rc:79
-#. i18n: ectx: Menu (coll_update_entry)
-#: src/controller.cpp:577 src/mainwindow.cpp:583 rc.cpp:289
-msgid "&Update Entry"
-msgstr "&Ενημέρωση καταχώρησης"
-
-#: src/controller.cpp:578 src/mainwindow.cpp:505
-msgid "&Delete Entry"
-msgstr "&Διαγραφή καταχώρησης"
-
-#: src/controller.cpp:581
-msgid "&Edit Entries..."
-msgstr "&Επεξεργασία καταχωρήσεων..."
-
-#: src/controller.cpp:582
-msgid "D&uplicate Entries"
-msgstr "Δ&ιπλοεγγραφές καταχωρήσεων"
-
-#: src/controller.cpp:583
-msgid "&Update Entries"
-msgstr "&Ενημέρωση καταχωρήσεων"
-
-#: src/controller.cpp:584
-msgid "&Delete Entries"
-msgstr "&Διαγραφή καταχωρήσεων"
-
-#: src/controller.cpp:641
-msgid ""
-"The following items are already loaned, but Tellico does not currently "
-"support lending an item multiple times. They will be removed from the list "
-"of items to lend."
-msgstr ""
-"Τα παρακάτω αντικείμενα είναι ήδη δανεισμένα, αλλά το Tellico δεν "
-"υποστηρίζει ακόμη τον δανεισμό ενός αντικειμένου πολλές φορές. Θα διαγραφούν "
-"από τη λίστα των δανεισμένων αντικειμένων."
 
 #: src/core/tellico_strings.cpp:29
 #, kde-format
@@ -2171,10 +2118,6 @@ msgstr "Απόκρυψη όλων των στηλών"
 msgid "Resize to Content"
 msgstr "Προσαρμογή μεγέθους στα περιεχόμενα"
 
-#: src/document.cpp:193 src/mainwindow.cpp:1175
-msgid "Saving file..."
-msgstr "Αποθήκευση αρχείου..."
-
 #: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
 #: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
 msgid "Edit Entry"
@@ -2221,7 +2164,7 @@ msgstr ""
 msgid "Save Entry"
 msgstr "Αποθήκευση εισαγωγών"
 
-#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:990
+#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:992
 msgid "Unsaved Changes"
 msgstr "Μη αποθηκευμένες αλλαγές"
 
@@ -2247,19 +2190,6 @@ msgstr ""
 "b> στην τρέχουσα καταχώρηση της συλλογής. Παρακαλώ επιλέξτε το αποτέλεσμα "
 "που ταιριάζει.</qt>"
 
-#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:389
-msgid "Merge Entries"
-msgstr "Συγχώνευση καταχωρήσεων"
-
-#: src/entrymerger.cpp:55
-msgid "Merging entries..."
-msgstr "Συγχώνευση καταχωρήσεων..."
-
-#: src/entrymerger.cpp:73
-#, kde-format
-msgid "Total merged/scanned entries: %1/%2"
-msgstr "Σύνολο συγχωνευμένων/σαρωμένων καταχωρήσεων: %1/%2"
-
 #: src/entryupdater.cpp:96
 #, kde-format
 msgid "Updating %1..."
@@ -2284,7 +2214,7 @@ msgstr ""
 "Το Tellico δεν μπορεί να εντοπίσει το προκαθορισμένο στυλ φύλλου για τις "
 "καταχωρήσεις."
 
-#: src/entryview.cpp:224 src/mainwindow.cpp:1618
+#: src/entryview.cpp:224 src/mainwindow.cpp:1620
 msgid "Please check your installation."
 msgstr "Παρακαλώ ελέγξτε την εγκατάστασή σας."
 
@@ -2358,14 +2288,46 @@ msgstr ""
 
 #: src/fetch/googlebookfetcher.cpp:320 src/fetch/animenfofetcher.cpp:488
 #: src/fetch/arxivfetcher.cpp:329 src/fetch/bibsonomyfetcher.cpp:183
-#: src/fetch/citebasefetcher.cpp:234 src/fetch/dvdfrfetcher.cpp:172
-#: src/fetch/entrezfetcher.cpp:475 src/fetch/filmasterfetcher.cpp:319
+#: src/fetch/citebasefetcher.cpp:234 src/fetch/filmasterfetcher.cpp:319
+#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/entrezfetcher.cpp:475
 #: src/fetch/freebasefetcher.cpp:902 src/fetch/googlescholarfetcher.cpp:267
 #: src/fetch/ibsfetcher.cpp:413 src/fetch/musicbrainzfetcher.cpp:332
-#: src/fetch/yahoofetcher.cpp:394 src/fetch/moviemeterfetcher.cpp:366
+#: src/fetch/yahoofetcher.cpp:394 src/fetch/moviemeterfetcher.cpp:367
 #: src/fetch/openlibraryfetcher.cpp:424
 msgid "This source has no options."
 msgstr "Αυτή η πηγή δεν έχει επιλογές"
+
+#: src/fetch/fetchmanager.cpp:70
+msgid "Person"
+msgstr "Άτομο"
+
+#: src/fetch/fetchmanager.cpp:71
+msgid "ISBN"
+msgstr "ISBN"
+
+#: src/fetch/fetchmanager.cpp:72
+msgid "UPC/EAN"
+msgstr "UPC/EAN"
+
+#: src/fetch/fetchmanager.cpp:73
+msgid "Keyword"
+msgstr "Λέξη κλειδί"
+
+#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
+msgid "arXiv ID"
+msgstr "arXiv ID"
+
+#: src/fetch/fetchmanager.cpp:76
+msgid "PubMed ID"
+msgstr "PubMed ID"
+
+#: src/fetch/fetchmanager.cpp:77
+msgid "LCCN"
+msgstr "LCCN"
+
+#: src/fetch/fetchmanager.cpp:78
+msgid "Raw Query"
+msgstr "Ακατέργαστο ερώτημα"
 
 #: src/fetch/animenfofetcher.cpp:276 src/fetch/animenfofetcher.cpp:478
 msgid "Original Title"
@@ -2374,8 +2336,8 @@ msgstr "Αυθεντικός τίτλος"
 #: src/fetch/animenfofetcher.cpp:279 src/fetch/animenfofetcher.cpp:479
 #: src/fetch/dvdfrfetcher.cpp:165 src/fetch/imdbfetcher.cpp:823
 #: src/fetch/imdbfetcher.cpp:1268 src/fetch/doubanfetcher.cpp:209
-#: src/fetch/themoviedbfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:252
-#: src/fetch/moviemeterfetcher.cpp:359
+#: src/fetch/themoviedbfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:253
+#: src/fetch/moviemeterfetcher.cpp:360
 msgid "Alternative Titles"
 msgstr "Εναλλακτικοί τίτλοι"
 
@@ -2396,10 +2358,10 @@ msgid "AnimeNfo Rating"
 msgstr "Βαθμολογία AnimeNfo"
 
 #: src/fetch/bibliosharefetcher.cpp:160 src/fetch/crossreffetcher.cpp:311
-#: src/fetch/discogsfetcher.cpp:231 src/fetch/giantbombfetcher.cpp:204
-#: src/fetch/isbndbfetcher.cpp:355 src/fetch/amazonfetcher.cpp:914
-#: src/fetch/winecomfetcher.cpp:291 src/fetch/doubanfetcher.cpp:222
-#: src/fetch/themoviedbfetcher.cpp:257
+#: src/fetch/discogsfetcher.cpp:232 src/fetch/winecomfetcher.cpp:296
+#: src/fetch/giantbombfetcher.cpp:204 src/fetch/isbndbfetcher.cpp:355
+#: src/fetch/doubanfetcher.cpp:222 src/fetch/themoviedbfetcher.cpp:257
+#: src/fetch/amazonfetcher.cpp:915
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2411,14 +2373,14 @@ msgstr ""
 "αποκτήσετε έναν λογαριασμό</a>, εισάγοντας τις προσωπικές σας πληροφορίες "
 "παρακάτω."
 
-#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:244
-#: src/fetch/giantbombfetcher.cpp:217 src/fetch/isbndbfetcher.cpp:368
-#: src/fetch/amazonfetcher.cpp:927 src/fetch/winecomfetcher.cpp:304
-#: src/fetch/doubanfetcher.cpp:235 src/fetch/themoviedbfetcher.cpp:270
+#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:245
+#: src/fetch/winecomfetcher.cpp:309 src/fetch/giantbombfetcher.cpp:217
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/doubanfetcher.cpp:235
+#: src/fetch/themoviedbfetcher.cpp:270 src/fetch/amazonfetcher.cpp:928
 msgid "Access key: "
 msgstr "Κλειδί πρόσβασης: "
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:250
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:251
 #: src/fetch/giantbombfetcher.cpp:223 src/fetch/isbndbfetcher.cpp:374
 #: src/fetch/themoviedbfetcher.cpp:276
 msgid ""
@@ -2463,13 +2425,129 @@ msgstr "Για μερικούς λογαριασμούς, μόνο η διεύθ
 msgid "Email: "
 msgstr "Ηλ. ταχυδρομείο: "
 
-#: src/fetch/discogsfetcher.cpp:208
-msgid "Discogs Audio Search"
-msgstr "Αναζήτηση δισκογραφίας"
+#: src/fetch/filmasterfetcher.cpp:69 src/fetch/amazonfetcher.cpp:129
+#, kde-format
+msgid "This data is licensed under <a href=%1>specific terms</a>."
+msgstr ""
+"Αυτά τα δεδομένα έχουν αδειοδοτηθεί με <a href=%1>συγκεκριμένους όρους</a>."
 
-#: src/fetch/discogsfetcher.cpp:219
-msgid "Discogs Link"
-msgstr "Δεσμός δισκογραφίας"
+#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+msgid "Filmaster Link"
+msgstr "Σύνδεσμος Filmaster"
+
+#: src/fetch/z3950fetcher.cpp:554 src/fetch/z3950fetcher.cpp:830
+msgid "z39.50 Server"
+msgstr "z39.50 Διακομιστής"
+
+#: src/fetch/z3950fetcher.cpp:566
+msgid "Illustrator"
+msgstr "Εικονογράφος"
+
+#: src/fetch/z3950fetcher.cpp:567
+msgctxt "Dewey Decimal classification system"
+msgid "Dewey Decimal"
+msgstr "Δεκαδική Ταξινόμηση Dewey"
+
+#: src/fetch/z3950fetcher.cpp:568
+#, fuzzy
+#| msgctxt "Library of Congress classificationn system"
+#| msgid "LoC Classification"
+msgctxt "Library of Congress classification system"
+msgid "LoC Classification"
+msgstr "Ταξινόμηση LoC"
+
+#: src/fetch/z3950fetcher.cpp:580
+msgid "Use preset &server:"
+msgstr "Χρήση προκαθορισμένου &διακομιστή:"
+
+#: src/fetch/z3950fetcher.cpp:590 src/fetch/imdbfetcher.cpp:1284
+#: src/fetch/srufetcher.cpp:469
+msgid "Hos&t: "
+msgstr "Υπολογισ&τής: "
+
+#: src/fetch/z3950fetcher.cpp:596 src/fetch/srufetcher.cpp:476
+msgid "Enter the host name of the server."
+msgstr "Εισάγετε το όνομα του εξυπηρετητή."
+
+#: src/fetch/z3950fetcher.cpp:601 src/fetch/srufetcher.cpp:481
+msgid "&Port: "
+msgstr "&Θύρα: "
+
+#: src/fetch/z3950fetcher.cpp:606 src/fetch/srufetcher.cpp:486
+#, kde-format
+msgid "Enter the port number of the server. The default is %1."
+msgstr "Εισάγετε τον αριθμό θύρας του εξυπηρετητή. Προεπιλεγμένη είναι η %1."
+
+#: src/fetch/z3950fetcher.cpp:611
+msgid "&Database: "
+msgstr "&Βάση δεδομένων:"
+
+#: src/fetch/z3950fetcher.cpp:616
+msgid "Enter the database name used by the server."
+msgstr ""
+"Εισάγετε το όνομα της βάσης δεδομένων που χρησιμοποιείται από τον "
+"εξυπηρετητή."
+
+#: src/fetch/z3950fetcher.cpp:621
+msgid "Ch&aracter set: "
+msgstr "Σύνολο &χαρακτήρων: "
+
+#: src/fetch/z3950fetcher.cpp:630
+msgid ""
+"Enter the character set encoding used by the z39.50 server. The most likely "
+"choice is MARC-8, although ISO-8859-1 is common as well."
+msgstr ""
+"Εισάγετε την κωδικοποίηση του συνόλου χαρακτήρων που χρησιμοποιείται από τον "
+"διακομιστή z39.50. Η πιο πιθανή επιλογή είναι η MARC-8, αλλά και η "
+"ISO-8859-1 είναι επίσης συνηθισμένη."
+
+#: src/fetch/z3950fetcher.cpp:636
+msgid "&Format: "
+msgstr "&Τύπος: "
+
+#: src/fetch/z3950fetcher.cpp:639
+msgid "Auto-detect"
+msgstr "Αυτόματος εντοπισμός"
+
+#: src/fetch/z3950fetcher.cpp:648
+msgid ""
+"Enter the data format used by the z39.50 server. Tellico will attempt to "
+"automatically detect the best setting if <i>auto-detect</i> is selected."
+msgstr ""
+"Εισάγετε τη μορφοποίηση δεδομένων που χρησιμοποιείται από τον διακομιστή "
+"z39.50. Το Tellico θα προσπαθήσει αυτόματα να προσδιορίσει την καλύτερη "
+"ρύθμιση εάν επιλεγεί ο <i>Αυτόματος εντοπισμός</i>."
+
+#: src/fetch/z3950fetcher.cpp:654
+msgid "&User: "
+msgstr "&Χρήστης: "
+
+#: src/fetch/z3950fetcher.cpp:657 src/fetch/z3950fetcher.cpp:669
+msgid "Optional"
+msgstr "Προαιρετικό"
+
+#: src/fetch/z3950fetcher.cpp:660
+msgid ""
+"Enter the authentication user name used by the z39.50 database. Most servers "
+"do not need one."
+msgstr ""
+"Εισάγετε το πιστοποιημένο όνομα χρήστη που χρησιμοποιείται από τη βάση "
+"δεδομένων z39.50. Στους περισσότερους διακομιστές δεν είναι απαραίτητο."
+
+#: src/fetch/z3950fetcher.cpp:666
+msgid "Pass&word: "
+msgstr "&Κωδικός:"
+
+#: src/fetch/z3950fetcher.cpp:673
+msgid ""
+"Enter the authentication password used by the z39.50 database. Most servers "
+"do not need one. The password will be saved in plain text in the Tellico "
+"configuration file."
+msgstr ""
+"Εισάγετε τον πιστοποιημένο κωδικό πρόσβασης που χρησιμοποιείται από τη βάση "
+"δεδομένων z39.50. Στους περισσότερους διακομιστές δεν είναι απαραίτητο. Ο "
+"κωδικός πρόσβασης θα αποθηκευτεί σε απλό κείμενο στο αρχείο ρυθμίσεων του "
+"Tellico."
 
 #: src/fetch/dvdfrfetcher.cpp:164
 msgid "DVDFr Link"
@@ -2556,18 +2634,22 @@ msgstr ""
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 δεν επιτρέπει την αναζήτηση για αυτόν τον τύπο συλλογής."
 
-#: src/fetch/filmasterfetcher.cpp:69 src/fetch/amazonfetcher.cpp:127
+#: src/fetch/discogsfetcher.cpp:209
+msgid "Discogs Audio Search"
+msgstr "Αναζήτηση δισκογραφίας"
+
+#: src/fetch/discogsfetcher.cpp:220
+msgid "Discogs Link"
+msgstr "Δεσμός δισκογραφίας"
+
+#: src/fetch/winecomfetcher.cpp:229 src/fetch/isbndbfetcher.cpp:257
+#: src/fetch/amazonfetcher.cpp:586
 #, kde-format
-msgid "This data is licensed under <a href=%1>specific terms</a>."
-msgstr ""
-"Αυτά τα δεδομένα έχουν αδειοδοτηθεί με <a href=%1>συγκεκριμένους όρους</a>."
+msgid "Results from %1: %2/%3"
+msgstr "Αποτελέσματα από %1: %2/%3"
 
-#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
-msgid "Filmaster Link"
-msgstr "Σύνδεσμος Filmaster"
-
-#: src/fetch/freebasefetcher.cpp:227 src/fetch/amazonfetcher.cpp:747
-#: src/fetch/yahoofetcher.cpp:238
+#: src/fetch/freebasefetcher.cpp:227 src/fetch/yahoofetcher.cpp:238
+#: src/fetch/amazonfetcher.cpp:748
 msgid "The cover image could not be loaded."
 msgstr "Το εξώφυλλο δεν ήταν δυνατό να φορτωθεί."
 
@@ -2635,11 +2717,6 @@ msgstr "Πιστοποιήσεις"
 msgid "Internet Movie Database"
 msgstr "Βάση δεδομένων ταινιών διαδικτύου"
 
-#: src/fetch/imdbfetcher.cpp:1284 src/fetch/srufetcher.cpp:469
-#: src/fetch/z3950fetcher.cpp:577
-msgid "Hos&t: "
-msgstr "Υπολογισ&τής: "
-
 #: src/fetch/imdbfetcher.cpp:1289
 msgid ""
 "The Internet Movie Database uses several different servers. Choose the one "
@@ -2664,7 +2741,7 @@ msgstr ""
 msgid "Download cover &image"
 msgstr "Λήψη &εικόνας εξώφυλλου "
 
-#: src/fetch/imdbfetcher.cpp:1309 src/fetch/amazonfetcher.cpp:974
+#: src/fetch/imdbfetcher.cpp:1309 src/fetch/amazonfetcher.cpp:978
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2680,12 +2757,6 @@ msgstr ""
 "b></p>Πιθανόν να έχετε συμπληρώσει τον μέγιστο αριθμό αναζητήσεων για σήμερα "
 "με αυτό το κλειδί, ή έχετε εισάγει λανθασμένα το κλειδί πρόσβασης.</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:257 src/fetch/amazonfetcher.cpp:585
-#: src/fetch/winecomfetcher.cpp:224
-#, kde-format
-msgid "Results from %1: %2/%3"
-msgstr "Αποτελέσματα από %1: %2/%3"
-
 #: src/fetch/isbndbfetcher.cpp:341
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
@@ -2694,123 +2765,6 @@ msgstr "ISBNdb.com"
 msgid "Multiple Sources"
 msgstr "Πολλαπλές πηγές"
 
-#: src/fetch/amazonfetcher.cpp:68
-msgid "Amazon Link"
-msgstr "Amazon Link"
-
-#: src/fetch/amazonfetcher.cpp:78
-msgid "Amazon (US)"
-msgstr "Amazon (Η.Π.Α.)"
-
-#: src/fetch/amazonfetcher.cpp:81
-msgid "Amazon (UK)"
-msgstr "Amazon (Η.Β.)"
-
-#: src/fetch/amazonfetcher.cpp:84
-msgid "Amazon (Germany)"
-msgstr "Amazon (Γερμανία)"
-
-#: src/fetch/amazonfetcher.cpp:87
-msgid "Amazon (Japan)"
-msgstr "Amazon (Ιαπωνία)"
-
-#: src/fetch/amazonfetcher.cpp:90
-msgid "Amazon (France)"
-msgstr "Amazon (Γαλλία)"
-
-#: src/fetch/amazonfetcher.cpp:93
-msgid "Amazon (Canada)"
-msgstr "Amazon (Καναδάς)"
-
-#: src/fetch/amazonfetcher.cpp:210 src/fetch/amazonfetcher.cpp:932
-msgid ""
-"Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
-"Key."
-msgstr ""
-"Η πρόσβαση στα δεδομένα του Amazon.com απαιτεί ένα AWS κλειδί πρόσβασης ID "
-"και ένα μυστικό κλειδί."
-
-#: src/fetch/amazonfetcher.cpp:212
-msgid "Those values must be entered in the data source settings."
-msgstr "Αυτές οι τιμές πρέπει να εισαχθούν στις ρυθμίσεις της πηγής δεδομένων."
-
-#: src/fetch/amazonfetcher.cpp:889
-msgid "Amazon.com Web Services"
-msgstr "Amazon.com Υπηρεσίες Web"
-
-#: src/fetch/amazonfetcher.cpp:937
-msgid "Secret key: "
-msgstr "Κρυφό κλειδί:"
-
-#: src/fetch/amazonfetcher.cpp:947
-msgid "Country: "
-msgstr "Χώρα: "
-
-#: src/fetch/amazonfetcher.cpp:950
-msgid "United States"
-msgstr "Ηνωμένες Πολιτείες"
-
-#: src/fetch/amazonfetcher.cpp:951
-msgid "United Kingdom"
-msgstr "Ηνωμένο Βασίλειο"
-
-#: src/fetch/amazonfetcher.cpp:952
-msgid "Germany"
-msgstr "Γερμανία"
-
-#: src/fetch/amazonfetcher.cpp:953
-msgid "Japan"
-msgstr "Ιαπωνία"
-
-#: src/fetch/amazonfetcher.cpp:954
-msgid "France"
-msgstr "Γαλλία"
-
-#: src/fetch/amazonfetcher.cpp:955
-msgid "Canada"
-msgstr "Καναδάς"
-
-#: src/fetch/amazonfetcher.cpp:959
-msgid ""
-"Amazon.com provides data from several different localized sites. Choose the "
-"one you wish to use for this data source."
-msgstr ""
-"Το Amazon.com παρέχει δεδομένα από πολλούς διαφορετικούς ιστότοπους. "
-"Επιλέξτε αυτόν που επιθυμείτε να χρησιμοποιήσετε γι' αυτή την πηγή δεδομένων."
-
-#: src/fetch/amazonfetcher.cpp:965
-msgid "&Image size: "
-msgstr "&Μέγεθος εικόνας"
-
-#: src/fetch/amazonfetcher.cpp:968
-msgid "Small Image"
-msgstr "Μικρή εικόνα"
-
-#: src/fetch/amazonfetcher.cpp:969
-msgid "Medium Image"
-msgstr "Μεσαία εικόνα"
-
-#: src/fetch/amazonfetcher.cpp:970
-msgid "Large Image"
-msgstr "Μεγάλη εικόνα"
-
-#: src/fetch/amazonfetcher.cpp:971
-msgid "No Image"
-msgstr "Χωρίς εικόνα"
-
-#: src/fetch/amazonfetcher.cpp:980
-msgid "&Associate's ID: "
-msgstr "&Ταυτότητα συσχετιζόμενου"
-
-#: src/fetch/amazonfetcher.cpp:985
-msgid ""
-"The associate's id identifies the person accessing the Amazon.com Web "
-"Services, and is included in any links to the Amazon.com site."
-msgstr ""
-"Η ταυτότητα του συσχετιζόμενου ταυτοποιεί το άτομο που έχει πρόσβαση στις "
-"υπηρεσίες ιστού του Amazon.com  και συμπεριλαμβάνεται σε κάθε σύνδεσμο στην "
-"ιστοσελίδα Amazon.com "
-
 #: src/fetch/srufetcher.cpp:438 z3950.cpp:2
 msgid "Library of Congress (US)"
 msgstr "Βιβλιοθήκη του Κογκρέσου (ΗΠΑ)"
@@ -2818,19 +2772,6 @@ msgstr "Βιβλιοθήκη του Κογκρέσου (ΗΠΑ)"
 #: src/fetch/srufetcher.cpp:443
 msgid "SRU Server"
 msgstr "Διακομιστής SRU"
-
-#: src/fetch/srufetcher.cpp:476 src/fetch/z3950fetcher.cpp:583
-msgid "Enter the host name of the server."
-msgstr "Εισάγετε το όνομα του εξυπηρετητή."
-
-#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:588
-msgid "&Port: "
-msgstr "&Θύρα: "
-
-#: src/fetch/srufetcher.cpp:486 src/fetch/z3950fetcher.cpp:593
-#, kde-format
-msgid "Enter the port number of the server. The default is %1."
-msgstr "Εισάγετε τον αριθμό θύρας του εξυπηρετητή. Προεπιλεγμένη είναι η %1."
 
 #: src/fetch/srufetcher.cpp:491
 msgid "Path: "
@@ -2883,99 +2824,6 @@ msgstr "Καταγραφή συντακτικού λάθους"
 msgid "Connection error %1: %2"
 msgstr "Σφάλμα σύνδεσης %1: %2"
 
-#: src/fetch/z3950fetcher.cpp:541 src/fetch/z3950fetcher.cpp:817
-msgid "z39.50 Server"
-msgstr "z39.50 Διακομιστής"
-
-#: src/fetch/z3950fetcher.cpp:553
-msgid "Illustrator"
-msgstr "Εικονογράφος"
-
-#: src/fetch/z3950fetcher.cpp:554
-msgctxt "Dewey Decimal classification system"
-msgid "Dewey Decimal"
-msgstr "Δεκαδική Ταξινόμηση Dewey"
-
-#: src/fetch/z3950fetcher.cpp:555
-msgctxt "Library of Congress classificationn system"
-msgid "LoC Classification"
-msgstr "Ταξινόμηση LoC"
-
-#: src/fetch/z3950fetcher.cpp:567
-msgid "Use preset &server:"
-msgstr "Χρήση προκαθορισμένου &διακομιστή:"
-
-#: src/fetch/z3950fetcher.cpp:598
-msgid "&Database: "
-msgstr "&Βάση δεδομένων:"
-
-#: src/fetch/z3950fetcher.cpp:603
-msgid "Enter the database name used by the server."
-msgstr ""
-"Εισάγετε το όνομα της βάσης δεδομένων που χρησιμοποιείται από τον "
-"εξυπηρετητή."
-
-#: src/fetch/z3950fetcher.cpp:608
-msgid "Ch&aracter set: "
-msgstr "Σύνολο &χαρακτήρων: "
-
-#: src/fetch/z3950fetcher.cpp:617
-msgid ""
-"Enter the character set encoding used by the z39.50 server. The most likely "
-"choice is MARC-8, although ISO-8859-1 is common as well."
-msgstr ""
-"Εισάγετε την κωδικοποίηση του συνόλου χαρακτήρων που χρησιμοποιείται από τον "
-"διακομιστή z39.50. Η πιο πιθανή επιλογή είναι η MARC-8, αλλά και η "
-"ISO-8859-1 είναι επίσης συνηθισμένη."
-
-#: src/fetch/z3950fetcher.cpp:623
-msgid "&Format: "
-msgstr "&Τύπος: "
-
-#: src/fetch/z3950fetcher.cpp:626
-msgid "Auto-detect"
-msgstr "Αυτόματος εντοπισμός"
-
-#: src/fetch/z3950fetcher.cpp:635
-msgid ""
-"Enter the data format used by the z39.50 server. Tellico will attempt to "
-"automatically detect the best setting if <i>auto-detect</i> is selected."
-msgstr ""
-"Εισάγετε τη μορφοποίηση δεδομένων που χρησιμοποιείται από τον διακομιστή "
-"z39.50. Το Tellico θα προσπαθήσει αυτόματα να προσδιορίσει την καλύτερη "
-"ρύθμιση εάν επιλεγεί ο <i>Αυτόματος εντοπισμός</i>."
-
-#: src/fetch/z3950fetcher.cpp:641
-msgid "&User: "
-msgstr "&Χρήστης: "
-
-#: src/fetch/z3950fetcher.cpp:644 src/fetch/z3950fetcher.cpp:656
-msgid "Optional"
-msgstr "Προαιρετικό"
-
-#: src/fetch/z3950fetcher.cpp:647
-msgid ""
-"Enter the authentication user name used by the z39.50 database. Most servers "
-"do not need one."
-msgstr ""
-"Εισάγετε το πιστοποιημένο όνομα χρήστη που χρησιμοποιείται από τη βάση "
-"δεδομένων z39.50. Στους περισσότερους διακομιστές δεν είναι απαραίτητο."
-
-#: src/fetch/z3950fetcher.cpp:653
-msgid "Pass&word: "
-msgstr "&Κωδικός:"
-
-#: src/fetch/z3950fetcher.cpp:660
-msgid ""
-"Enter the authentication password used by the z39.50 database. Most servers "
-"do not need one. The password will be saved in plain text in the Tellico "
-"configuration file."
-msgstr ""
-"Εισάγετε τον πιστοποιημένο κωδικό πρόσβασης που χρησιμοποιείται από τη βάση "
-"δεδομένων z39.50. Στους περισσότερους διακομιστές δεν είναι απαραίτητο. Ο "
-"κωδικός πρόσβασης θα αποθηκευτεί σε απλό κείμενο στο αρχείο ρυθμίσεων του "
-"Tellico."
-
 #: src/fetch/doubanfetcher.cpp:210
 msgid "Douban Link"
 msgstr "Σύνδεσμος Douban"
@@ -3013,39 +2861,154 @@ msgstr "Ισπανικά"
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/fetchmanager.cpp:70
-msgid "Person"
-msgstr "Άτομο"
+#: src/fetch/amazonfetcher.cpp:68
+msgid "Amazon Link"
+msgstr "Amazon Link"
 
-#: src/fetch/fetchmanager.cpp:71
-msgid "ISBN"
-msgstr "ISBN"
+#: src/fetch/amazonfetcher.cpp:80
+msgid "Amazon (US)"
+msgstr "Amazon (Η.Π.Α.)"
 
-#: src/fetch/fetchmanager.cpp:72
-msgid "UPC/EAN"
-msgstr "UPC/EAN"
+#: src/fetch/amazonfetcher.cpp:83
+msgid "Amazon (UK)"
+msgstr "Amazon (Η.Β.)"
 
-#: src/fetch/fetchmanager.cpp:73
-msgid "Keyword"
-msgstr "Λέξη κλειδί"
+#: src/fetch/amazonfetcher.cpp:86
+msgid "Amazon (Germany)"
+msgstr "Amazon (Γερμανία)"
 
-#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
-msgid "arXiv ID"
-msgstr "arXiv ID"
+#: src/fetch/amazonfetcher.cpp:89
+msgid "Amazon (Japan)"
+msgstr "Amazon (Ιαπωνία)"
 
-#: src/fetch/fetchmanager.cpp:76
-msgid "PubMed ID"
-msgstr "PubMed ID"
+#: src/fetch/amazonfetcher.cpp:92
+msgid "Amazon (France)"
+msgstr "Amazon (Γαλλία)"
 
-#: src/fetch/fetchmanager.cpp:77
-msgid "LCCN"
-msgstr "LCCN"
+#: src/fetch/amazonfetcher.cpp:95
+msgid "Amazon (Canada)"
+msgstr "Amazon (Καναδάς)"
 
-#: src/fetch/fetchmanager.cpp:78
-msgid "Raw Query"
-msgstr "Ακατέργαστο ερώτημα"
+#: src/fetch/amazonfetcher.cpp:98
+#, fuzzy
+#| msgid "Amazon (Canada)"
+msgid "Amazon (China)"
+msgstr "Amazon (Καναδάς)"
 
-#: src/fetch/moviemeterfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:358
+#: src/fetch/amazonfetcher.cpp:101
+#, fuzzy
+#| msgid "Amazon (Japan)"
+msgid "Amazon (Spain)"
+msgstr "Amazon (Ιαπωνία)"
+
+#: src/fetch/amazonfetcher.cpp:104
+#, fuzzy
+#| msgid "Amazon (Germany)"
+msgid "Amazon (Italy)"
+msgstr "Amazon (Γερμανία)"
+
+#: src/fetch/amazonfetcher.cpp:212 src/fetch/amazonfetcher.cpp:933
+msgid ""
+"Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
+"Key."
+msgstr ""
+"Η πρόσβαση στα δεδομένα του Amazon.com απαιτεί ένα AWS κλειδί πρόσβασης ID "
+"και ένα μυστικό κλειδί."
+
+#: src/fetch/amazonfetcher.cpp:214
+msgid "Those values must be entered in the data source settings."
+msgstr "Αυτές οι τιμές πρέπει να εισαχθούν στις ρυθμίσεις της πηγής δεδομένων."
+
+#: src/fetch/amazonfetcher.cpp:890
+msgid "Amazon.com Web Services"
+msgstr "Amazon.com Υπηρεσίες Web"
+
+#: src/fetch/amazonfetcher.cpp:938
+msgid "Secret key: "
+msgstr "Κρυφό κλειδί:"
+
+#: src/fetch/amazonfetcher.cpp:948
+msgid "Country: "
+msgstr "Χώρα: "
+
+#: src/fetch/amazonfetcher.cpp:951
+msgid "United States"
+msgstr "Ηνωμένες Πολιτείες"
+
+#: src/fetch/amazonfetcher.cpp:952
+msgid "United Kingdom"
+msgstr "Ηνωμένο Βασίλειο"
+
+#: src/fetch/amazonfetcher.cpp:953
+msgid "Germany"
+msgstr "Γερμανία"
+
+#: src/fetch/amazonfetcher.cpp:954
+msgid "Japan"
+msgstr "Ιαπωνία"
+
+#: src/fetch/amazonfetcher.cpp:955
+msgid "France"
+msgstr "Γαλλία"
+
+#: src/fetch/amazonfetcher.cpp:956
+msgid "Canada"
+msgstr "Καναδάς"
+
+#: src/fetch/amazonfetcher.cpp:957
+msgid "China"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:958
+msgid "Spain"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:959
+msgid "Italy"
+msgstr ""
+
+#: src/fetch/amazonfetcher.cpp:963
+msgid ""
+"Amazon.com provides data from several different localized sites. Choose the "
+"one you wish to use for this data source."
+msgstr ""
+"Το Amazon.com παρέχει δεδομένα από πολλούς διαφορετικούς ιστότοπους. "
+"Επιλέξτε αυτόν που επιθυμείτε να χρησιμοποιήσετε γι' αυτή την πηγή δεδομένων."
+
+#: src/fetch/amazonfetcher.cpp:969
+msgid "&Image size: "
+msgstr "&Μέγεθος εικόνας"
+
+#: src/fetch/amazonfetcher.cpp:972
+msgid "Small Image"
+msgstr "Μικρή εικόνα"
+
+#: src/fetch/amazonfetcher.cpp:973
+msgid "Medium Image"
+msgstr "Μεσαία εικόνα"
+
+#: src/fetch/amazonfetcher.cpp:974
+msgid "Large Image"
+msgstr "Μεγάλη εικόνα"
+
+#: src/fetch/amazonfetcher.cpp:975
+msgid "No Image"
+msgstr "Χωρίς εικόνα"
+
+#: src/fetch/amazonfetcher.cpp:984
+msgid "&Associate's ID: "
+msgstr "&Ταυτότητα συσχετιζόμενου"
+
+#: src/fetch/amazonfetcher.cpp:989
+msgid ""
+"The associate's id identifies the person accessing the Amazon.com Web "
+"Services, and is included in any links to the Amazon.com site."
+msgstr ""
+"Η ταυτότητα του συσχετιζόμενου ταυτοποιεί το άτομο που έχει πρόσβαση στις "
+"υπηρεσίες ιστού του Amazon.com  και συμπεριλαμβάνεται σε κάθε σύνδεσμο στην "
+"ιστοσελίδα Amazon.com "
+
+#: src/fetch/moviemeterfetcher.cpp:246 src/fetch/moviemeterfetcher.cpp:359
 #, fuzzy
 #| msgid "Filmaster Link"
 msgid "MovieMeter Link"
@@ -3054,178 +3017,6 @@ msgstr "Σύνδεσμος Filmaster"
 #: src/fetch/openlibraryfetcher.cpp:282 src/fetch/openlibraryfetcher.cpp:417
 msgid "OpenLibrary Link"
 msgstr "Σύνδεσμος OpenLibrary"
-
-#: src/fetchdialog.cpp:82
-msgid "&Search"
-msgstr "&Αναζήτηση"
-
-#: src/fetchdialog.cpp:83
-msgid "&Stop"
-msgstr "&Σταμάτημα"
-
-#: src/fetchdialog.cpp:128
-msgid "Internet Search"
-msgstr "Αναζήτηση στο Διαδίκτυο"
-
-#: src/fetchdialog.cpp:137
-msgid "Search Query"
-msgstr "Ερώτημα αναζήτησης"
-
-#: src/fetchdialog.cpp:145
-msgctxt "Start the search"
-msgid "S&earch:"
-msgstr "Αναζήτηση:"
-
-#: src/fetchdialog.cpp:149
-msgid "Enter a search value. An ISBN search must include the full ISBN."
-msgstr ""
-"Εισάγετε μια έγκυρη τιμή. Μια αναζήτηση ISBN πρέπει να περιλαμβάνει το "
-"πλήρες ISBN."
-
-#: src/fetchdialog.cpp:156
-msgid "Choose the type of search"
-msgstr "Επιλέξτε το είδος της αναζήτησης"
-
-#: src/fetchdialog.cpp:162
-msgid "Click to start or stop the search"
-msgstr "Κάντε κλικ για να ξεκινήσετε ή να σταματήσετε την αναζήτηση"
-
-#: src/fetchdialog.cpp:180
-msgid "&Multiple ISBN/UPC search"
-msgstr "Πολλαπλή ISBN/UPC αναζήτηση"
-
-#: src/fetchdialog.cpp:181
-msgid "Check this box to search for multiple ISBN or UPC values."
-msgstr ""
-"Επιλέξτε αυτό το πλαίσιο για να κάνετε αναζήτηση σε πολλαπλές τιμές ISBN ή "
-"UPC."
-
-#: src/fetchdialog.cpp:184
-msgid "Edit List..."
-msgstr "Επεξεργασία λίστας..."
-
-#: src/fetchdialog.cpp:186
-msgid ""
-"Click to open a text edit box for entering or editing multiple ISBN values."
-msgstr ""
-"Κάντε κλικ για να ανοίξετε ένα πλαίσιο επεξεργασίας κειμένου, ώστε να "
-"εισάγετε ή να επεξεργαστείτε πολλαπλές τιμές ISBN."
-
-#: src/fetchdialog.cpp:192
-msgid "Search s&ource:"
-msgstr "Πηγή προς αναζήτη&ση:"
-
-#: src/fetchdialog.cpp:200
-msgid "Select the database to search"
-msgstr "Επιλέξτε τη βάση δεδομένων για αναζήτηση"
-
-#: src/fetchdialog.cpp:213
-msgid "Source"
-msgstr "Πηγή"
-
-#: src/fetchdialog.cpp:223
-msgid ""
-"As results are found, they are added to this list. Selecting one will fetch "
-"the complete entry and show it in the view below."
-msgstr ""
-"Τα αποτελέσματα που βρέθηκαν, μπορούν να εισαχθούν στη λίστα. Επιλέγοντας "
-"ένα θα ανακτηθεί η πλήρης καταχώρηση και θα προβληθεί στην παρακάτω προβολή."
-
-#: src/fetchdialog.cpp:232
-msgid ""
-"An entry may be shown here before adding it to the current collection by "
-"selecting it in the list above"
-msgstr ""
-"Μια καταχώρηση μπορεί να εμφανιστεί εδώ πριν την προσθέσετε στην τρέχουσα "
-"συλλογή επιλέγοντάς την από την παραπάνω λίστα."
-
-#: src/fetchdialog.cpp:239
-msgid "&Add Entry"
-msgstr "&Προσθήκη καταχώρησης"
-
-#: src/fetchdialog.cpp:243
-msgid "Add the selected entry to the current collection"
-msgstr ""
-"Προσθήκη της επιλεγμένης ή των επιλεγμένων καταχωρήσεων στην τρέχουσα "
-"συλλογή."
-
-#: src/fetchdialog.cpp:245
-msgid "Get More Results"
-msgstr "Λήψη περισσότερων αποτελεσμάτων"
-
-#: src/fetchdialog.cpp:248
-msgid "Fetch more results from the current data source"
-msgstr "Ανάκτηση περισσότερων αποτελεσμάτων από την τρέχουσα πηγή δεδομένων."
-
-#: src/fetchdialog.cpp:252
-msgid "Clear all search fields and results"
-msgstr "Καθαρισμός όλων των πεδίων αναζήτησης και αποτελεσμάτων"
-
-#: src/fetchdialog.cpp:334
-msgid "Cancelling the search..."
-msgstr "Ακύρωση της αναζήτησης..."
-
-#: src/fetchdialog.cpp:345 src/fetchdialog.cpp:479
-msgid "Searching..."
-msgstr "Αναζήτηση..."
-
-#: src/fetchdialog.cpp:400
-msgid "The search returned no items."
-msgstr "Η αναζήτηση δεν επέστρεψε αποτελέσματα."
-
-#: src/fetchdialog.cpp:403
-#, kde-format
-msgid "The search returned 1 item."
-msgid_plural "The search returned %1 items."
-msgstr[0] "Η αναζήτηση επέστρεψε μόνο ένα αντικείμενο."
-msgstr[1] "Η αναζήτηση επέστρεψε %1 αντικείμενα."
-
-#: src/fetchdialog.cpp:426
-msgid "No results were found for the following ISBN values:"
-msgstr "Δεν βρέθηκαν αποτελέσματα για τις ακόλουθες τιμές ISBN:"
-
-#: src/fetchdialog.cpp:427
-msgid "No Results"
-msgstr "Δεν υπάρχουν αποτελέσματα"
-
-#: src/fetchdialog.cpp:447 src/fetchdialog.cpp:502
-#, kde-format
-msgid "Fetching %1..."
-msgstr "Ανάκτηση %1..."
-
-#: src/fetchdialog.cpp:514
-msgid "Attribution"
-msgstr "Γνωρίσματα"
-
-#: src/fetchdialog.cpp:546 src/fetchdialog.cpp:748
-msgid "No Internet sources are available for your current collection type."
-msgstr ""
-"Δεν υπάρχουν διαθέσιμες διαδικτυακές πηγές για το είδος της τρέχουσας "
-"συλλογής."
-
-#: src/fetchdialog.cpp:628
-msgid "Edit ISBN/UPC Values"
-msgstr "Επεξεργασία τιμών ISBN/UPC"
-
-#: src/fetchdialog.cpp:633
-msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
-msgstr "<qt>Εισάγετε τις τιμές ISBN ή UPC, μία σε κάθε γραμμή.</qt>"
-
-#: src/fetchdialog.cpp:645
-msgid "&Load From File..."
-msgstr "Φόρτωση από αρχείο..."
-
-#: src/fetchdialog.cpp:646
-msgid "<qt>Load the list from a text file.</qt>"
-msgstr "<qt>Φόρτωση της λίστας από ένα αρχείο κειμένου.</qt>"
-
-#: src/fetchdialog.cpp:665
-msgid ""
-"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
-"100 values in your list will be used.</qt>"
-msgstr ""
-"<qt>Μια αναζήτηση ISBN μπορεί να περιέχει περισσότερες από 100 τιμές. Μόνο "
-"οι πρώτες 100 τιμές της λίστας θα χρησιμοποιηθούν.</qt>"
 
 #: src/fetcherconfigdialog.cpp:72
 msgid "Data Source Properties"
@@ -3285,64 +3076,21 @@ msgstr "Πίνακας"
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: src/filterdialog.cpp:72
-msgid "Any Field"
-msgstr "Οποιοδήποτε πεδίο"
+#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:389
+msgid "Merge Entries"
+msgstr "Συγχώνευση καταχωρήσεων"
 
-#: src/filterdialog.cpp:82
-msgid "contains"
-msgstr "περιέχει"
+#: src/entrymerger.cpp:55
+msgid "Merging entries..."
+msgstr "Συγχώνευση καταχωρήσεων..."
 
-#: src/filterdialog.cpp:83
-msgid "does not contain"
-msgstr "δεν περιέχει"
+#: src/entrymerger.cpp:73
+#, kde-format
+msgid "Total merged/scanned entries: %1/%2"
+msgstr "Σύνολο συγχωνευμένων/σαρωμένων καταχωρήσεων: %1/%2"
 
-#: src/filterdialog.cpp:84
-msgid "equals"
-msgstr "ίσο με"
-
-#: src/filterdialog.cpp:85
-msgid "does not equal"
-msgstr "δεν είναι ίσο με"
-
-#: src/filterdialog.cpp:86
-msgid "matches regexp"
-msgstr "ταιριάζει με απλές εκφράσεις"
-
-#: src/filterdialog.cpp:87
-msgid "does not match regexp"
-msgstr "δεν ταιριάζει με απλές εκφράσεις"
-
-#: src/filterdialog.cpp:104
-msgid "Edit..."
-msgstr "Επεξεργασία..."
-
-#: src/filterdialog.cpp:305
-msgid "Advanced Filter"
-msgstr "Προσαρμοσμένο φίλτρο"
-
-#: src/filterdialog.cpp:317
-msgid "Filter Criteria"
-msgstr "Κριτήρια φίλτρων"
-
-#: src/filterdialog.cpp:321
-msgid "Match a&ll of the following"
-msgstr "Ταιριάζει με ό&λα τα παρακάτω"
-
-#: src/filterdialog.cpp:322
-msgid "Match an&y of the following"
-msgstr "Ταιριάζει σε κάπο&ιο από τα παρακάτω"
-
-#: src/filterdialog.cpp:341
-msgid "Filter name:"
-msgstr "Όνομα φίλτρου:"
-
-#: src/filterdialog.cpp:350
-msgid "&Save Filter"
-msgstr "&Αποθήκευση φίλτρου"
-
-#: src/filterview.cpp:205 src/mainwindow.cpp:473 src/mainwindow.cpp:652
-#: src/mainwindow.cpp:668
+#: src/filterview.cpp:205 src/mainwindow.cpp:475 src/mainwindow.cpp:654
+#: src/mainwindow.cpp:670
 msgid "Filter"
 msgstr "Φίλτρο"
 
@@ -3372,8 +3120,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Ομάδα"
 
-#: src/groupview.cpp:415 src/mainwindow.cpp:900 src/mainwindow.cpp:1545
-#: src/mainwindow.cpp:1571 src/translators/htmlexporter.cpp:329
+#: src/groupview.cpp:415 src/translators/htmlexporter.cpp:329
+#: src/mainwindow.cpp:902 src/mainwindow.cpp:1547 src/mainwindow.cpp:1573
 msgid "People"
 msgstr "Άτομα"
 
@@ -3454,6 +3202,11 @@ msgstr ""
 msgid "Increase the maximum icon size in the icon list view"
 msgstr "Αυξήστε το μέγιστο μέγεθος εικονιδίου στη λίστα προβολής εικονιδίων"
 
+#: src/gui/statusbar.cpp:125 src/fetchdialog.cpp:276 src/fetchdialog.cpp:368
+#: src/fetchdialog.cpp:458 src/fetchdialog.cpp:527 src/controller.cpp:142
+msgid "Ready."
+msgstr "Έτοιμο"
+
 #: src/gui/stringmapdialog.cpp:66
 msgctxt "set a value"
 msgid "&Set"
@@ -3501,6 +3254,85 @@ msgstr "Μετακίνηση γραμμής πάνω"
 msgid "Move Row Down"
 msgstr "Μετακίνηση γραμμής κάτω"
 
+#: src/gui/kdatecombobox.cpp:145
+#, fuzzy
+#| msgid "Issue Year"
+msgctxt "@option next year"
+msgid "Next Year"
+msgstr "Έτος διάθεσης"
+
+#: src/gui/kdatecombobox.cpp:146
+#, fuzzy
+#| msgid "Month"
+msgctxt "@option next month"
+msgid "Next Month"
+msgstr "Μήνας"
+
+#: src/gui/kdatecombobox.cpp:147
+msgctxt "@option next week"
+msgid "Next Week"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:148
+#, fuzzy
+#| msgid "Borrower"
+msgctxt "@option tomorrow"
+msgid "Tomorrow"
+msgstr "Δανειζόμενος"
+
+#: src/gui/kdatecombobox.cpp:149
+msgctxt "@option today"
+msgid "Today"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:150
+msgctxt "@option yesterday"
+msgid "Yesterday"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:151
+msgctxt "@option last week"
+msgid "Last Week"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:152
+#, fuzzy
+#| msgid "Month"
+msgctxt "@option last month"
+msgid "Last Month"
+msgstr "Μήνας"
+
+#: src/gui/kdatecombobox.cpp:153
+#, fuzzy
+#| msgid "Release Year"
+msgctxt "@option last year"
+msgid "Last Year"
+msgstr "Έτος κυκλοφορίας"
+
+#: src/gui/kdatecombobox.cpp:155
+#, fuzzy
+#| msgid "Loan Date"
+msgctxt "@option do not specify a date"
+msgid "No Date"
+msgstr "Ημερομηνία δανεισμού"
+
+#: src/gui/kdatecombobox.cpp:241
+msgctxt "@info"
+msgid "The date you entered is invalid"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:244
+#, kde-format
+msgctxt "@info"
+msgid "Date cannot be earlier than %1"
+msgstr ""
+
+#: src/gui/kdatecombobox.cpp:251
+#, kde-format
+msgctxt "@info"
+msgid "Date cannot be later than %1"
+msgstr ""
+
 #: src/importdialog.cpp:68 src/importdialog.cpp:74
 msgid "Import Options"
 msgstr "Εισαγωγή ιδιοτήτων"
@@ -3544,17 +3376,17 @@ msgstr ""
 
 #. i18n: file: src/tellicoui.rc:24
 #. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:121 src/mainwindow.cpp:316 rc.cpp:280
+#: src/importdialog.cpp:121 src/mainwindow.cpp:318 rc.cpp:280
 msgid "&Import"
 msgstr "Ει&σαγωγή"
 
-#: src/importdialog.cpp:284 src/mainwindow.cpp:1061 src/mainwindow.cpp:1228
-#: src/translators/tellicozipexporter.cpp:56
+#: src/importdialog.cpp:284 src/translators/tellicozipexporter.cpp:56
+#: src/mainwindow.cpp:1063 src/mainwindow.cpp:1230
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Αρχεία Tellico (*.tc)"
 
 #: src/importdialog.cpp:285 src/importdialog.cpp:298 src/importdialog.cpp:303
-#: src/mainwindow.cpp:1063 src/translators/tellicoxmlexporter.cpp:70
+#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1065
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|Αρχεία XML (*.xml)"
 
@@ -3570,7 +3402,7 @@ msgstr "*.csv|Αρχεία CSV (*.csv)"
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "*.ris|Αρχεία RIS (*.ris)"
 
-#: src/importdialog.cpp:311 src/translators/gcstarexporter.cpp:56
+#: src/importdialog.cpp:311 src/translators/gcstarexporter.cpp:60
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|Αρχεία δεδομένων GCstar (*.gcs)"
 
@@ -3589,78 +3421,6 @@ msgstr "*.pdf|Αρχεία PDF (*.pdf)"
 #: src/importdialog.cpp:324
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "*.reflib|Αρχεία Referencer (*.reflib)"
-
-#: src/loandialog.cpp:53
-msgid "Loan Dialog"
-msgstr "Παράθυρο δανεισμού"
-
-#: src/loandialog.cpp:97
-msgid "The following items are being checked out:"
-msgstr "Τα παρακάτω αντικείμενα πρόκειται να εξαχθούν:"
-
-#: src/loandialog.cpp:103
-msgid "The following item is on-loan:"
-msgstr "Τα παρακάτω αντικείμενα είναι προς δανεισμό:"
-
-#: src/loandialog.cpp:113
-msgid "&Lend to:"
-msgstr "&Δανείζεται στον:"
-
-#: src/loandialog.cpp:125
-msgid ""
-"Enter the name of the person borrowing the items from you. Clicking the "
-"button allows you to select from your address book."
-msgstr ""
-"Εισάγετε το όνομα του ατόμου που δανείστηκε τα αντικείμενα. Κάνοντας κλικ "
-"στο πλήκτρο, μπορείτε να επιλέξετε από το βιβλίο διευθύνσεων."
-
-#: src/loandialog.cpp:134
-msgid "&Loan date:"
-msgstr "Ημερομηνία δανεισμού:"
-
-#: src/loandialog.cpp:140
-msgid ""
-"The check-out date is the date that you lent the items. By default, today's "
-"date is used."
-msgstr ""
-"Η ημερομηνία ελέγχου εξόδου είναι αυτή κατά την οποία δανείσατε αντικείμενα. "
-"Ως προκαθορισμένη ημερομηνία, χρησιμοποιείται η σημερινή."
-
-#: src/loandialog.cpp:149
-msgid "D&ue date:"
-msgstr "Ημερομηνία &λήξης δανεισμού:"
-
-#: src/loandialog.cpp:156
-msgid ""
-"The due date is when the items are due to be returned. The due date is not "
-"required, unless you want to add the loan to your active calendar."
-msgstr ""
-"Η ημερομηνία λήξης είναι αυτή κατά την οποία τα αντικείμενα πρέπει να "
-"επιστραφούν. Η ημερομηνία αυτή δεν είναι απαραίτητη, παρά μόνο εάν θέλετε να "
-"προσθέσετε τον δανεισμό στο ενεργό σας ημερολόγιο."
-
-#: src/loandialog.cpp:161
-msgid "&Note:"
-msgstr "&Σημείωση:"
-
-#: src/loandialog.cpp:167
-msgid "You can add notes about the loan."
-msgstr "Μπορείτε να προσθέσετε σημειώσεις για τον δανεισμό."
-
-#: src/loandialog.cpp:171
-msgid "&Add a reminder to the active calendar"
-msgstr "Προσθέστε μι&α υπενθύμιση στο ενεργό ημερολόγιο."
-
-#: src/loandialog.cpp:174
-msgid ""
-"<qt>Checking this box will add a <em>To-do</em> item to your active "
-"calendar, which can be viewed using KOrganizer. The box is only active if "
-"you set a due date.</qt>"
-msgstr ""
-"<qt>Η επιλογή αυτού του πλαισίου θα προσθέσει ένα αντικείμενο "
-"<em>Σχεδιαζόμενες βελτιώσεις</em> στο ενεργό σας ημερολόγιο, το οποίο "
-"μπορείτε να δείτε με το KOrganizer. Το πλαίσιο είναι ενεργό μόνον εάν "
-"ορίσετε μια ημερομηνία επιστροφής.</qt>"
 
 #: src/loanview.cpp:118
 msgid "Check-in"
@@ -3774,812 +3534,6 @@ msgstr "Εισαγωγή <filename> ως αρχείο RIS"
 msgid "File to open"
 msgstr "Αρχείο προς άνοιγμα"
 
-#: src/mainwindow.cpp:235
-msgid "Create a new collection"
-msgstr "Δημιουργία μιας νέας συλλογής"
-
-#: src/mainwindow.cpp:249
-msgid "New &Book Collection"
-msgstr "Νέα συλλογή &βιβλίων"
-
-#: src/mainwindow.cpp:250
-msgid "Create a new book collection"
-msgstr "Δημιουργία μιας νέας συλλογής βιβλίων"
-
-#: src/mainwindow.cpp:252
-msgid "New B&ibliography"
-msgstr "Νέα β&ιβλιογραφία"
-
-#: src/mainwindow.cpp:253
-msgid "Create a new bibtex bibliography"
-msgstr "Δημιουργία μιας νέας βιβλιογραφίας bibtex"
-
-#: src/mainwindow.cpp:255
-msgid "New &Comic Book Collection"
-msgstr "Νέα συλλογή &βιβλίων κόμικ"
-
-#: src/mainwindow.cpp:256
-msgid "Create a new comic book collection"
-msgstr "Δημιουργία μιας νέας συλλογής βιβλίων κόμικ"
-
-#: src/mainwindow.cpp:258
-msgid "New &Video Collection"
-msgstr "Νέα συλλογή &ταινιών"
-
-#: src/mainwindow.cpp:259
-msgid "Create a new video collection"
-msgstr "Δημιουργία μιας νέας συλλογής ταινιών"
-
-#: src/mainwindow.cpp:261
-msgid "New &Music Collection"
-msgstr "Νέα συλλογή &μουσικής"
-
-#: src/mainwindow.cpp:262
-msgid "Create a new music collection"
-msgstr "Δημιουργία μιας νέας συλλογής μουσικής"
-
-#: src/mainwindow.cpp:264
-msgid "New C&oin Collection"
-msgstr "Νέα συλλογή &νομισμάτων"
-
-#: src/mainwindow.cpp:265
-msgid "Create a new coin collection"
-msgstr "Δημιουργία μιας νέας συλλογής νομισμάτων"
-
-#: src/mainwindow.cpp:267
-msgid "New &Stamp Collection"
-msgstr "Νέα &συλλογή γραμματοσήμων"
-
-#: src/mainwindow.cpp:268
-msgid "Create a new stamp collection"
-msgstr "Δημιουργία μιας νέας συλλογής γραμματοσήμων"
-
-#: src/mainwindow.cpp:270
-msgid "New C&ard Collection"
-msgstr "Νέα συλλογή κ&αρτών"
-
-#: src/mainwindow.cpp:271
-msgid "Create a new trading card collection"
-msgstr "Δημιουργία μιας νέας συλλογής καρτών"
-
-#: src/mainwindow.cpp:273
-msgid "New &Wine Collection"
-msgstr "Νέα &συλλογή κρασιών"
-
-#: src/mainwindow.cpp:274
-msgid "Create a new wine collection"
-msgstr "Δημιουργία μιας νέας συλλογής κρασιών"
-
-#: src/mainwindow.cpp:276
-msgid "New &Game Collection"
-msgstr "Νέα συλλογή &ηλεκτρονικών παιχνιδιών"
-
-#: src/mainwindow.cpp:277
-msgid "Create a new game collection"
-msgstr "Δημιουργία μιας νέας συλλογής ηλεκτρονικών παιχνιδιών"
-
-#: src/mainwindow.cpp:279
-msgid "New Boa&rd Game Collection"
-msgstr "Νέα συλλογή επιτ&ραπέζιων παιχνιδιών"
-
-#: src/mainwindow.cpp:280
-msgid "Create a new board game collection"
-msgstr "Δημιουργία μιας νέας συλλογής επιτραπέζιων παιχνιδιών"
-
-#: src/mainwindow.cpp:282
-msgid "New &File Catalog"
-msgstr "Νέος κατάλογος αρ&χείων"
-
-#: src/mainwindow.cpp:283
-msgid "Create a new file catalog"
-msgstr "Δημιουργία ενός νέου καταλόγου αρχείων"
-
-#: src/mainwindow.cpp:286
-msgid "New C&ustom Collection"
-msgstr "Νέα προσαρμοσ&μένη συλλογή"
-
-#: src/mainwindow.cpp:287
-msgid "Create a new custom collection"
-msgstr "Δημιουργία μιας νέας προσαρμοσμένης συλλογής"
-
-#: src/mainwindow.cpp:298
-msgid "Open an existing document"
-msgstr "Άνοιγμα ενός υπάρχοντος αρχείου"
-
-#: src/mainwindow.cpp:300
-msgid "Open a recently used file"
-msgstr "Άνοιγμα ενός πρόσφατα χρησιμοποιημένου αρχείου"
-
-#: src/mainwindow.cpp:302
-msgid "Save the document"
-msgstr "Αποθήκευση εγγράφου"
-
-#: src/mainwindow.cpp:304
-msgid "Save the document as a different file..."
-msgstr "Αποθήκευση εγγράφου ως διαφορετικό αρχείο..."
-
-#: src/mainwindow.cpp:306
-msgid "Print the contents of the document..."
-msgstr "Εκτύπωση περιεχομένων εγγράφου..."
-
-#: src/mainwindow.cpp:308
-msgid "Quit the application"
-msgstr "Έξοδος από την εφαρμογή"
-
-#: src/mainwindow.cpp:318
-msgid "Import the collection data from other formats"
-msgstr "Εισαγωγή δεδομένων άλλης μορφοποίησης"
-
-#: src/mainwindow.cpp:330
-msgid "Import Tellico Data..."
-msgstr "Εισαγωγή δεδομένων Tellico..."
-
-#: src/mainwindow.cpp:331
-msgid "Import another Tellico data file"
-msgstr "Εισαγωγή ενός άλλου αρχείου δεδομένων Tellico"
-
-#: src/mainwindow.cpp:333
-msgid "Import CSV Data..."
-msgstr "Εισαγωγή δεδομένων CVS..."
-
-#: src/mainwindow.cpp:334
-msgid "Import a CSV file"
-msgstr "Εισαγωγή αρχείου CVS"
-
-#: src/mainwindow.cpp:336
-msgid "Import MODS Data..."
-msgstr "Εισαγωγή δεδομένων MODS..."
-
-#: src/mainwindow.cpp:337
-msgid "Import a MODS data file"
-msgstr "Εισαγωγή αρχείου δεδομένων MODS"
-
-#: src/mainwindow.cpp:339
-msgid "Import Alexandria Data..."
-msgstr "Εισαγωγή δεδομένων Alexandria..."
-
-#: src/mainwindow.cpp:340
-msgid "Import data from the Alexandria book collection manager"
-msgstr "Εισαγωγή δεδομένων από τον διαχειριστή συλλογών βιβλίων Alexandria"
-
-#: src/mainwindow.cpp:342
-msgid "Import Delicious Library Data..."
-msgstr "Εισαγωγή δεδομένων Delicious..."
-
-#: src/mainwindow.cpp:343
-msgid "Import data from Delicious Library"
-msgstr "Εισαγωγή δεδομένων από μια βιβλιοθήκη Delicious"
-
-#: src/mainwindow.cpp:345
-msgid "Import Referencer Data..."
-msgstr "Εισαγωγή δεδομένων Referencer..."
-
-#: src/mainwindow.cpp:346
-msgid "Import data from Referencer"
-msgstr "Εισαγωγή δεδομένων από Referencer"
-
-#: src/mainwindow.cpp:348
-msgid "Import Bibtex Data..."
-msgstr "Εισαγωγή δεδομένων Bibtex..."
-
-#: src/mainwindow.cpp:349
-msgid "Import a bibtex bibliography file"
-msgstr "Εισαγωγή αρχείου βιβλιογραφίας Bibtex"
-
-#: src/mainwindow.cpp:351
-msgid "Import Bibtexml Data..."
-msgstr "Εισαγωγή δεδομένων Bibtexml..."
-
-#: src/mainwindow.cpp:352
-msgid "Import a Bibtexml bibliography file"
-msgstr "Εισαγωγή αρχείου βιβλιογραφίας Bibtexml"
-
-#: src/mainwindow.cpp:354
-msgid "Import RIS Data..."
-msgstr "Εισαγωγή δεδομένων RIS..."
-
-#: src/mainwindow.cpp:355
-msgid "Import an RIS reference file"
-msgstr "Εισαγωγή αρχείου αναφοράς RIS"
-
-#: src/mainwindow.cpp:357
-msgid "Import Goodreads Collection..."
-msgstr "Εισαγωγή συλλογής Goodreads..."
-
-#: src/mainwindow.cpp:358
-msgid "Import a collection from Goodreads.com"
-msgstr "Εισαγωγή συλλογής από Goodreads.com"
-
-#: src/mainwindow.cpp:360
-msgid "Import PDF File..."
-msgstr "Εισαγωγή αρχείου PDF..."
-
-#: src/mainwindow.cpp:361
-msgid "Import a PDF file"
-msgstr "Εισαγωγή ενός αρχείου PDF"
-
-#: src/mainwindow.cpp:363
-msgid "Import Audio File Metadata..."
-msgstr "Εισαγωγή αρχείου μεταδεδομένων ήχου..."
-
-#: src/mainwindow.cpp:364
-msgid "Import meta-data from audio files"
-msgstr "Εισαγωγή μεταδεδομένων από αρχεία ήχου"
-
-#: src/mainwindow.cpp:369
-msgid "Import Audio CD Data..."
-msgstr "Εισαγωγή δεδομένων Audio CD..."
-
-#: src/mainwindow.cpp:370
-msgid "Import audio CD information"
-msgstr "Εισαγωγή πληροφοριών Audio CD"
-
-#: src/mainwindow.cpp:375
-msgid "Import GCstar Data..."
-msgstr "Εισαγωγή δεδομένων GCstar..."
-
-#: src/mainwindow.cpp:376
-msgid "Import a GCstar data file"
-msgstr "Εισαγωγή αρχείου δεδομένων GCstar"
-
-#: src/mainwindow.cpp:378
-msgid "Import Griffith Data..."
-msgstr "Εισαγωγή δεδομένων Griffith..."
-
-#: src/mainwindow.cpp:379
-msgid "Import a Griffith database"
-msgstr "Εισαγωγή βάσης δεδομένων Griffith"
-
-#: src/mainwindow.cpp:381
-msgid "Import Ant Movie Catalog Data..."
-msgstr "Εισαγωγή καταλόγου δεδομένων Ant Movie..."
-
-#: src/mainwindow.cpp:382
-msgid "Import an Ant Movie Catalog data file"
-msgstr "Εισαγωγή καταλόγου δεδομένων Ant Movie"
-
-#: src/mainwindow.cpp:384
-msgid "Import File Listing..."
-msgstr "Εισαγωγή πληροφοριών αρχείων φακέλου..."
-
-#: src/mainwindow.cpp:385
-msgid "Import information about files in a folder"
-msgstr "Εισαγωγή πληροφοριών για αρχεία που περιέχονται σε έναν φάκελο"
-
-#: src/mainwindow.cpp:387
-msgid "Import XSL Transform..."
-msgstr "Εισαγωγή XSL Transform..."
-
-#: src/mainwindow.cpp:388
-msgid "Import using an XSL Transform"
-msgstr "Εισαγωγή με χρήση του XSL Transform"
-
-#. i18n: file: src/tellicoui.rc:50
-#. i18n: ectx: Menu (file_export)
-#: src/mainwindow.cpp:398 rc.cpp:283
-msgid "&Export"
-msgstr "&Εξαγωγή"
-
-#: src/mainwindow.cpp:400
-msgid "Export the collection data to other formats"
-msgstr "Εξαγωγή των δεδομένων της συλλογής σε άλλες μορφοποιήσεις"
-
-#: src/mainwindow.cpp:412
-msgid "Export to XML..."
-msgstr "Εξαγωγή σε XML..."
-
-#: src/mainwindow.cpp:413
-msgid "Export to a Tellico XML file"
-msgstr "Εξαγωγή σε ένα αρχείο XML του Tellico"
-
-#: src/mainwindow.cpp:415
-msgid "Export to Zip..."
-msgstr "Εξαγωγή σε Zip..."
-
-#: src/mainwindow.cpp:416
-msgid "Export to a Tellico Zip file"
-msgstr "Εξαγωγή σε ένα αρχείο Zip του Tellico"
-
-#: src/mainwindow.cpp:418
-msgid "Export to HTML..."
-msgstr "Εξαγωγή σε HTML..."
-
-#: src/mainwindow.cpp:419
-msgid "Export to an HTML file"
-msgstr "Εξαγωγή σε ένα αρχείο HTML"
-
-#: src/mainwindow.cpp:421
-msgid "Export to CSV..."
-msgstr "Εξαγωγή σε CVS..."
-
-#: src/mainwindow.cpp:422
-msgid "Export to a comma-separated values file"
-msgstr "Εξαγωγή σε ένα αρχείο τιμών διαχωρισμένων με κόμμα"
-
-#: src/mainwindow.cpp:424
-msgid "Export to PilotDB..."
-msgstr "Εξαγωγή σε PilotDB..."
-
-#: src/mainwindow.cpp:425
-msgid "Export to a PilotDB database"
-msgstr "Εξαγωγή σε μια βάση δεδομένων PilotDB"
-
-#: src/mainwindow.cpp:427
-msgid "Export to Alexandria..."
-msgstr "Εξαγωγή σε Alexandria..."
-
-#: src/mainwindow.cpp:428
-msgid "Export to an Alexandria library"
-msgstr "Εξαγωγή σε μια βιβλιοθήκη Alexandria"
-
-#: src/mainwindow.cpp:430
-msgid "Export to Bibtex..."
-msgstr "Εξαγωγή σε Bibtex..."
-
-#: src/mainwindow.cpp:431
-msgid "Export to a bibtex file"
-msgstr "Εξαγωγή σε ένα αρχείο bibtex"
-
-#: src/mainwindow.cpp:433
-msgid "Export to Bibtexml..."
-msgstr "Εξαγωγή σε Bibtexml..."
-
-#: src/mainwindow.cpp:434
-msgid "Export to a Bibtexml file"
-msgstr "Εξαγωγή σε ένα αρχείο Bibtexml"
-
-#: src/mainwindow.cpp:436
-msgid "Export to ONIX..."
-msgstr "Εξαγωγή σε ONIX..."
-
-#: src/mainwindow.cpp:437
-msgid "Export to an ONIX file"
-msgstr "Εξαγωγή σε ένα αρχείο ONIX"
-
-#: src/mainwindow.cpp:439
-msgid "Export to GCstar..."
-msgstr "Εξαγωγή σε GCstar..."
-
-#: src/mainwindow.cpp:440
-msgid "Export to a GCstar data file"
-msgstr "Εξαγωγή σε ένα αρχείο δεδομένων GCstar"
-
-#: src/mainwindow.cpp:442
-msgid "Export XSL Transform..."
-msgstr "Εξαγωγή σε XSL Transform..."
-
-#: src/mainwindow.cpp:443
-msgid "Export using an XSL Transform"
-msgstr "Εισαγωγή με χρήση του XSL Transform"
-
-#: src/mainwindow.cpp:454
-msgid "Cut the selected text and puts it in the clipboard"
-msgstr "Αποκοπή του επιλεγμένου κειμένου και τοποθέτησή του στο πρόχειρο"
-
-#: src/mainwindow.cpp:456
-msgid "Copy the selected text to the clipboard"
-msgstr "Αντιγραφή του επιλεγμένου κειμένου στο πρόχειρο"
-
-#: src/mainwindow.cpp:458
-msgid "Paste the clipboard contents"
-msgstr "Επικόλληση των περιεχομένων του πρόχειρου"
-
-#: src/mainwindow.cpp:460
-msgid "Select all the entries in the collection"
-msgstr "Επιλογή όλων των καταχωρήσεων της συλλογής"
-
-#: src/mainwindow.cpp:462
-msgid "Deselect all the entries in the collection"
-msgstr "Αποεπιλογή όλων των καταχωρήσεων της συλλογής"
-
-#: src/mainwindow.cpp:465
-msgid "Internet Search..."
-msgstr "Διαδικτυακή αναζήτηση..."
-
-#: src/mainwindow.cpp:466 xslt.cpp:47
-msgid "Search"
-msgstr "Αναζήτηση"
-
-#: src/mainwindow.cpp:469
-msgid "Search the internet..."
-msgstr "Αναζήτηση στο Διαδίκτυο..."
-
-#: src/mainwindow.cpp:472
-msgid "Advanced &Filter..."
-msgstr "Προσαρμοσμένο &φίλτρο..."
-
-#: src/mainwindow.cpp:476 src/mainwindow.cpp:670
-msgid "Filter the collection"
-msgstr "Φιλτράρισμα της συλλογής"
-
-#: src/mainwindow.cpp:483
-msgid "&New Entry..."
-msgstr "&Νέα καταχώρηση..."
-
-#: src/mainwindow.cpp:487
-msgid "Create a new entry"
-msgstr "Δημιουργία νέας καταχώρησης"
-
-#: src/mainwindow.cpp:494
-msgid "Edit the selected entries"
-msgstr "Επεξεργασία των επιλεγμένων καταχωρήσεων"
-
-#: src/mainwindow.cpp:501
-msgid "Copy the selected entries"
-msgstr "Αντιγραφή των επιλεγμένων καταχωρήσεων"
-
-#: src/mainwindow.cpp:508
-msgid "Delete the selected entries"
-msgstr "Διαγραφή των επιλεγμένων καταχωρήσεων"
-
-#: src/mainwindow.cpp:512
-msgid "&Merge Entries"
-msgstr "&Συγχώνευση καταχωρήσεων"
-
-#: src/mainwindow.cpp:516
-msgid "Merge the selected entries"
-msgstr "Συγχώνευση των επιλεγμένων καταχωρήσεων"
-
-#: src/mainwindow.cpp:520
-msgid "Check-&out..."
-msgstr "Έλεγχ&ος εξόδου..."
-
-#: src/mainwindow.cpp:522
-msgid "Check-out the selected items"
-msgstr "Έλεγχος εξόδου επιλεγμένων αντικειμένων"
-
-#: src/mainwindow.cpp:525
-msgid "Check-&in"
-msgstr "Έλεγχος ε&ισόδου"
-
-#: src/mainwindow.cpp:527
-msgid "Check-in the selected items"
-msgstr "Έλεγχος εισόδου επιλεγμένων αντικειμένων"
-
-#: src/mainwindow.cpp:530
-msgid "&Rename Collection..."
-msgstr "&Μετονομασία συλλογής..."
-
-#: src/mainwindow.cpp:533
-msgid "Rename the collection"
-msgstr "Μετονομασία της συλλογής"
-
-#: src/mainwindow.cpp:536
-msgid "Collection &Fields..."
-msgstr "Πε&δία συλλογής..."
-
-#: src/mainwindow.cpp:537
-msgid "Fields"
-msgstr "Πεδία"
-
-#: src/mainwindow.cpp:540
-msgid "Modify the collection fields"
-msgstr "Τροποποίηση των πεδίων της συλλογής"
-
-#: src/mainwindow.cpp:543
-msgid "&Generate Reports..."
-msgstr "&Δημιουργία αναφορών..."
-
-#: src/mainwindow.cpp:544
-msgid "Reports"
-msgstr "Αναφορές"
-
-#: src/mainwindow.cpp:546
-msgid "Generate collection reports"
-msgstr "Δημιουργία αναφορών συλλογής"
-
-#: src/mainwindow.cpp:549
-msgid "Convert to &Bibliography"
-msgstr "Μετατροπή σε &βιβλιογραφία"
-
-#: src/mainwindow.cpp:551
-msgid "Convert a book collection to a bibliography"
-msgstr "Μετατροπή της συλλογής βιβλίων σε βιβλιογραφία"
-
-#: src/mainwindow.cpp:554
-msgid "String &Macros..."
-msgstr "Αλφαριθμητικό &μακροεντολής..."
-
-#: src/mainwindow.cpp:556
-msgid "Edit the bibtex string macros"
-msgstr "Επεξεργασία των αλφαριθμητικών μακροεντολών του bibtex"
-
-#: src/mainwindow.cpp:559
-msgid "Check for Duplicate Keys..."
-msgstr "Έλεγχος για διπλότυπα κλειδιά..."
-
-#: src/mainwindow.cpp:561
-msgid "Check for duplicate citation keys"
-msgstr "Έλεγχος για διπλότυπα κλειδιά παραπομπών..."
-
-#: src/mainwindow.cpp:568
-msgid "Copy Bibtex to Cli&pboard"
-msgstr "Αντιγραφή Bibtex στο &πρόχειρο"
-
-#: src/mainwindow.cpp:569
-msgid "Copy bibtex citations to the clipboard"
-msgstr "Αντιγραφή παραπομπών bibtex στο πρόχειρο"
-
-#: src/mainwindow.cpp:574
-msgid "Cite Entry in &LyX"
-msgstr "Παράθεση καταχώρησης στο &LyX"
-
-#: src/mainwindow.cpp:575
-msgid "Cite the selected entries in LyX"
-msgstr "Παράθεση των επιλεγμένων καταχωρήσεων στο LyX"
-
-#: src/mainwindow.cpp:585
-msgctxt "Update Entry"
-msgid "Update"
-msgstr "Ενημέρωση"
-
-#: src/mainwindow.cpp:590
-msgid "All Sources"
-msgstr "Όλες οι πηγές"
-
-#: src/mainwindow.cpp:591
-msgid "Update entry data from all available sources"
-msgstr ""
-"Ενημέρωση των δεδομένων των καταχωρήσεων από όλες τις διαθέσιμες πηγές."
-
-#: src/mainwindow.cpp:603
-msgid "Show Grou&p View"
-msgstr "Εμφάνιση προβολής &ομάδας"
-
-#: src/mainwindow.cpp:604
-msgid "Enable/disable the group view"
-msgstr "Ενεργοποίηση/Απενεργοποίηση προβολής ομάδας"
-
-#: src/mainwindow.cpp:608
-msgid "Show Entry &Editor"
-msgstr "Εμφάνιση επεξεργαστή καταχώρησης"
-
-#: src/mainwindow.cpp:610
-msgid "Enable/disable the editor"
-msgstr "Ενεργοποίηση/Απενεργοποίηση του επεξεργαστή"
-
-#: src/mainwindow.cpp:613
-msgid "Show Entry &View"
-msgstr "Εμφάνιση προ&βολής καταχώρησης"
-
-#: src/mainwindow.cpp:614
-msgid "Enable/disable the entry view"
-msgstr "Ενεργοποίηση/Απενεργοποίηση προβολής καταχώρησης"
-
-#: src/mainwindow.cpp:640
-msgid "Change Grouping"
-msgstr "Αλλαγή ομαδοποίησης"
-
-#: src/mainwindow.cpp:643
-msgid "&Group Selection"
-msgstr "&Επιλογή ομάδας"
-
-#: src/mainwindow.cpp:644
-msgid "Change the grouping of the collection"
-msgstr "Αλλαγή ομαδοποίησης της συλλογής"
-
-#: src/mainwindow.cpp:656
-msgid "Filter here..."
-msgstr "Φίλτρο εδώ..."
-
-#: src/mainwindow.cpp:719
-msgid "Groups"
-msgstr "Ομάδες"
-
-#: src/mainwindow.cpp:720
-msgid ""
-"<qt>The <i>Group View</i> sorts the entries into groupings based on a "
-"selected field.</qt>"
-msgstr ""
-"<qt>Η <i>Προβολή ομάδας</i> ταξινομεί τις καταχωρήσεις σε ομάδες με βάση το "
-"επιλεγμένο πεδίο.</qt>"
-
-#: src/mainwindow.cpp:727
-msgid ""
-"<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
-"</qt>"
-msgstr ""
-"<qt>Η <i>Προβολή στήλης</i> εμφανίζει την τιμή πολλαπλών πεδίων για κάθε "
-"καταχώρηση.</qt>"
-
-#: src/mainwindow.cpp:786
-msgid "Welcome to the Tellico Collection Manager"
-msgstr "Καλώς ήρθατε στον διαχειριστή συλλογών Tellico"
-
-#: src/mainwindow.cpp:788
-msgid ""
-"<h3>Tellico is a tool for managing collections of books, videos, music, and "
-"whatever else you want to catalog.</h3><h3>New entries can be added to your "
-"collection by <a href=\"tc:///coll_new_entry\">entering data manually</a> or "
-"by <a href=\"tc:///edit_search_internet\">downloading data</a> from various "
-"Internet sources.</h3>"
-msgstr ""
-"<h3>Το Tellico είναι ένα εργαλείο με το οποίο μπορείτε να διαχειριστείτε "
-"βιβλία ταινίες, μουσική και οτιδήποτε άλλο επιθυμείτε να γράψετε σε "
-"κατάλογο. </h3><h3>Μπορείτε να προσθέσετε νέες καταχωρήσεις στη συλλογή σας "
-"είτε <a href=\"tc:///coll_new_entry\">με χειροκίνητη εισαγωγή δεδομένων</a> "
-"είτε <a href=\"tc:///edit_search_internet\"> εισάγοντας δεδομένα από "
-"διαδικτυακές πηγές.</a></h3>"
-
-#: src/mainwindow.cpp:988
-msgid ""
-"The current file has been modified.\n"
-"Do you want to save it?"
-msgstr ""
-"Το τρέχον αρχείο έχει τροποποιηθεί.\n"
-"Θέλετε να το αποθηκεύσετε;"
-
-#: src/mainwindow.cpp:1025
-msgid "Creating new document..."
-msgstr "Δημιουργία νέου εγγράφου..."
-
-#: src/mainwindow.cpp:1058 src/mainwindow.cpp:1077 src/mainwindow.cpp:1095
-msgid "Opening file..."
-msgstr "Άνοιγμα αρχείου..."
-
-#: src/mainwindow.cpp:1068
-msgid "Open File"
-msgstr "Άνοιγμα αρχείου"
-
-#: src/mainwindow.cpp:1186
-msgid ""
-"<qt><p>You are saving a file with many images, which causes Tellico to slow "
-"down significantly. Do you want to save the images separately in Tellico's "
-"data directory to improve performance?</p><p>Your choice can always be "
-"changed in the configuration dialog.</p></qt>"
-msgstr ""
-"<qt><p>Αποθηκεύσατε ένα αρχείο με πολλές εικόνες, το οποίο θα προκαλέσει "
-"σημαντική μείωση της ταχύτητας του Tellico. Θέλετε να αποθηκεύσετε ξεχωριστά "
-"τις εικόνες στον φάκελο δεδομένων του Tellico, ώστε να βελτιώσετε τη "
-"λειτουργία του; </p><p>Η επιλογή σας μπορεί να αλλάξει από το παράθυρο "
-"ρυθμίσεων.</p></qt>"
-
-#: src/mainwindow.cpp:1191
-msgid "Save Images Separately"
-msgstr "Ξεχωριστή αποθήκευση εικόνων"
-
-#: src/mainwindow.cpp:1192
-msgid "Save Images in File"
-msgstr "Αποθήκευση εικόνων σε αρχείο"
-
-#: src/mainwindow.cpp:1226
-msgid "Saving file with a new filename..."
-msgstr "Αποθήκευση αρχείου με ένα νέο όνομα..."
-
-#: src/mainwindow.cpp:1233
-msgid "Save As"
-msgstr "Αποθήκευση ως"
-
-#: src/mainwindow.cpp:1261 src/mainwindow.cpp:1311
-msgid "Printing..."
-msgstr "Εκτύπωση..."
-
-#: src/mainwindow.cpp:1270
-msgid ""
-"The collection is currently being filtered to show a limited subset of the "
-"entries. Only the visible entries will be printed. Continue?"
-msgstr ""
-"Η συλλογή αυτή τη στιγμή φιλτράρεται για να εμφανίσει ένα περιορισμένο "
-"υποσύνολο των καταχωρήσεων. Μόνον οι εμφανιζόμενες καταχωρήσεις θα "
-"εκτυπωθούν. Θέλετε να συνεχίσετε;"
-
-#: src/mainwindow.cpp:1295
-msgid "Processing document..."
-msgstr "Επεξεργασία εγγράφου.."
-
-#: src/mainwindow.cpp:1318
-msgid "Exiting..."
-msgstr "Έξοδος..."
-
-#: src/mainwindow.cpp:1457
-#, kde-format
-msgid "Total entries: %1"
-msgstr "Σύνολο καταχωρήσεων: %1"
-
-#: src/mainwindow.cpp:1464
-#, kde-format
-msgid "(%1 filtered; %2 selected)"
-msgstr "(%1 φιλτραρίστηκαν; %2 επιλέχθηκαν)"
-
-#: src/mainwindow.cpp:1467
-#, kde-format
-msgid "(%1 filtered)"
-msgstr "(%1 φιλτραρίστηκαν)"
-
-#: src/mainwindow.cpp:1470
-#, kde-format
-msgid "(%1 selected)"
-msgstr "(%1 Επιλεγμένο Παιχνίδι)"
-
-#: src/mainwindow.cpp:1617 src/translators/gcstarimporter.cpp:264
-#: src/translators/goodreadsimporter.cpp:97
-#: src/translators/xsltimporter.cpp:87
-msgid "Tellico encountered an error in XSLT processing."
-msgstr "Το Tellico εντόπισε ένα σφάλμα στη διαδικασία XSLT."
-
-#: src/mainwindow.cpp:1741
-msgid "Importing data..."
-msgstr "Εισαγωγή δεδομένων..."
-
-#: src/mainwindow.cpp:1750
-msgid "Import File"
-msgstr "Εισαγωγή αρχείου"
-
-#: src/mainwindow.cpp:1756
-msgid "Import Directory"
-msgstr "Εισαγωγή φακέλου"
-
-#: src/mainwindow.cpp:1777
-msgid "Exporting data..."
-msgstr "Εξαγωγή δεδομένων..."
-
-#: src/mainwindow.cpp:1799
-msgid "Export As"
-msgstr "Εξαγωγή ως"
-
-#: src/mainwindow.cpp:1824
-msgid "String Macros"
-msgstr "Αλφαριθμητικό μακροεντολής"
-
-#: src/mainwindow.cpp:1825
-msgid "Macro"
-msgstr "Μακροεντολή"
-
-#: src/mainwindow.cpp:1825
-msgid "String"
-msgstr "Συμβολοσειρά"
-
-#: src/mainwindow.cpp:1914
-msgid "Creating citations..."
-msgstr "Δημιουργία παραπομπών..."
-
-#: src/mainwindow.cpp:2019
-msgid "Filters"
-msgstr "Φίλτρα"
-
-#: src/mainwindow.cpp:2020
-msgid ""
-"<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
-"</qt>"
-msgstr ""
-"<qt>Η <i>Προβολή φίλτρου</i> εμφανίζει τις καταχωρήσεις που ικανοποιούν "
-"συγκεκριμένους κανόνες αναζήτησης.</qt>"
-
-#: src/mainwindow.cpp:2038
-msgid "Loans"
-msgstr "Δανεισμοί"
-
-#: src/mainwindow.cpp:2039
-msgid ""
-"<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
-"items from your collection.</qt>"
-msgstr ""
-"<qt>Η <i>Προβολή δανεισμού</i> εμφανίζει μια λίστα όλων των ατόμων, οι "
-"οποίοι έχουν δανειστεί αντικείμενα από τις συλλογές σας.</qt>"
-
-#: src/mainwindow.cpp:2111
-msgid ""
-"Some images are not saved in the configured location. The current file must "
-"be saved and the images will be transferred to the new location."
-msgstr ""
-"Μερικές εικόνες δεν αποθηκεύονται στην ρυθμισμένη τοποθεσία. Το τρέχον "
-"αρχείο πρέπει να αποθηκευτεί και οι εικόνες θα πρέπει να μεταφερθούν σε μια "
-"νέα τοποθεσία."
-
-#: src/mainwindow.cpp:2153
-#, kde-format
-msgid "Update entry data from %1"
-msgstr "Ενημέρωση δεδομένων καταχωρήσεων από %1"
-
-#: src/mainwindow.cpp:2171
-#, kde-format
-msgid ""
-"Tellico can only import one file of this type at a time. Only %1 will be "
-"imported."
-msgstr ""
-"Το Tellico μπορεί να κάνει εισαγωγή ενός μόνο αρχείου τη φορά. Μόνο %1 "
-"μπορεί να εισαχθεί."
-
 #: src/reportdialog.cpp:67
 msgid "Collection Report"
 msgstr "Αναφορά συλλογής"
@@ -4642,26 +3596,9 @@ msgstr "Παρακαλώ επιλέξτε ποια τιμή θα παραμεί�
 msgid "Select value from %1"
 msgstr "Επιλογή τιμής από %1"
 
-#: src/translators/alexandriaexporter.cpp:60
-msgid "Alexandria"
-msgstr "Αλεξάνδρεια"
-
-#: src/translators/alexandriaexporter.cpp:99
-#, kde-format
-msgid ""
-"<qt>An Alexandria library called <i>%1</i> already exists. Any existing "
-"books in that library could be overwritten.</qt>"
-msgstr ""
-"<qt>Μια βιβλιοθήκη Alexandria που ονομάζεται <i>%1</i> υπάρχει ήδη. Όλα τα "
-"βιβλία σε αυτή τη βιβλιοθήκη θα αντικατασταθούν.</qt>"
-
-#: src/translators/alexandriaimporter.cpp:217
-msgid "Alexandria Options"
-msgstr "Επιλογές Alexandria"
-
-#: src/translators/alexandriaimporter.cpp:220
-msgid "&Library:"
-msgstr "&Βιβλιοθήκη:"
+#: src/document.cpp:195 src/mainwindow.cpp:1177
+msgid "Saving file..."
+msgstr "Αποθήκευση αρχείου..."
 
 #: src/translators/audiofileimporter.cpp:78
 msgid "Scanning audio files..."
@@ -4682,7 +3619,7 @@ msgstr "Ρυθμός bit"
 msgid "Tracks (Disc %1)"
 msgstr "Κομμάτια (Δίσκος %1)"
 
-#: src/translators/audiofileimporter.cpp:242 xslt.cpp:4
+#: src/translators/audiofileimporter.cpp:242 xslt.cpp:6
 msgid "(Various)"
 msgstr "(Διάφοροι)"
 
@@ -5062,6 +3999,12 @@ msgstr ""
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>Το αρχείο δεν είναι ένα έγκυρο αρχείο GCstar.</qt>"
 
+#: src/translators/gcstarimporter.cpp:264
+#: src/translators/goodreadsimporter.cpp:97
+#: src/translators/xsltimporter.cpp:87 src/mainwindow.cpp:1619
+msgid "Tellico encountered an error in XSLT processing."
+msgstr "Το Tellico εντόπισε ένα σφάλμα στη διαδικασία XSLT."
+
 #: src/translators/goodreadsimporter.cpp:75
 #: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
 msgid "A valid XSLT file is needed to import the file."
@@ -5186,33 +4129,9 @@ msgstr "Το αρχείο είναι κενό."
 msgid "The file contains no collection data."
 msgstr "Το αρχείο δεν περιέχει δεδομένα συλλογής."
 
-#: src/translators/tellicoxmlexporter.cpp:66
-msgid "XML"
-msgstr "XML"
-
-#: src/translators/tellicoxmlexporter.cpp:501
-msgid "Tellico XML Options"
-msgstr "Επιλογές Tellico XML"
-
-#: src/translators/tellicoxmlexporter.cpp:504
-msgid "Include images in XML document"
-msgstr "Συμπερίληψη εικόνων στο έγγραφο XML."
-
-#: src/translators/tellicoxmlexporter.cpp:506
-msgid ""
-"If checked, the images in the document will be included in the XML stream as "
-"base64 encoded elements."
-msgstr ""
-"Εάν επιλεγεί, οι εικόνες του εγγράφου θα συμπεριληφθούν στη ροή XML ως "
-"base64 κωδικοποιημένα αντικείμενα."
-
 #: src/translators/tellicozipexporter.cpp:52
 msgid "Tellico Zip File"
 msgstr "Συμπιεσμένο αρχείο Tellico"
-
-#: src/translators/xmlstatehandler.cpp:130
-msgid "It is from a future version of Tellico."
-msgstr "Προέρχεται από μια μελλοντική έκδοση του Tellico."
 
 #: src/translators/xsltexporter.cpp:50
 msgid "XSLT"
@@ -5231,6 +4150,51 @@ msgid "Choose the XSLT file used to transform the data."
 msgstr ""
 "Επιλέξτε το αρχείο XSLT που θα χρησιμοποιηθεί για τον μετασχηματισμό των "
 "δεδομένων."
+
+#: src/translators/tellicoxmlexporter.cpp:66
+msgid "XML"
+msgstr "XML"
+
+#: src/translators/tellicoxmlexporter.cpp:509
+msgid "Tellico XML Options"
+msgstr "Επιλογές Tellico XML"
+
+#: src/translators/tellicoxmlexporter.cpp:512
+msgid "Include images in XML document"
+msgstr "Συμπερίληψη εικόνων στο έγγραφο XML."
+
+#: src/translators/tellicoxmlexporter.cpp:514
+msgid ""
+"If checked, the images in the document will be included in the XML stream as "
+"base64 encoded elements."
+msgstr ""
+"Εάν επιλεγεί, οι εικόνες του εγγράφου θα συμπεριληφθούν στη ροή XML ως "
+"base64 κωδικοποιημένα αντικείμενα."
+
+#: src/translators/xmlstatehandler.cpp:130
+msgid "It is from a future version of Tellico."
+msgstr "Προέρχεται από μια μελλοντική έκδοση του Tellico."
+
+#: src/translators/alexandriaexporter.cpp:60
+msgid "Alexandria"
+msgstr "Αλεξάνδρεια"
+
+#: src/translators/alexandriaexporter.cpp:99
+#, kde-format
+msgid ""
+"<qt>An Alexandria library called <i>%1</i> already exists. Any existing "
+"books in that library could be overwritten.</qt>"
+msgstr ""
+"<qt>Μια βιβλιοθήκη Alexandria που ονομάζεται <i>%1</i> υπάρχει ήδη. Όλα τα "
+"βιβλία σε αυτή τη βιβλιοθήκη θα αντικατασταθούν.</qt>"
+
+#: src/translators/alexandriaimporter.cpp:235
+msgid "Alexandria Options"
+msgstr "Επιλογές Alexandria"
+
+#: src/translators/alexandriaimporter.cpp:238
+msgid "&Library:"
+msgstr "&Βιβλιοθήκη:"
 
 #: src/utils/calendarhandler.cpp:197
 #, kde-format
@@ -5261,6 +4225,1183 @@ msgstr ""
 "<qt>Η <i>Προβολή εικονιδίων</i> εμφανίζει κάθε καταχώρηση ή ομάδα της "
 "συλλογής με τη χρήση ενός εικονιδίου, το οποίο μπορεί να είναι μια εικόνα "
 "της καταχώρησης.</qt>"
+
+#: src/filterdialog.cpp:83
+msgid "Any Field"
+msgstr "Οποιοδήποτε πεδίο"
+
+#: src/filterdialog.cpp:113
+msgid "Edit..."
+msgstr "Επεξεργασία..."
+
+#: src/filterdialog.cpp:255 src/filterdialog.cpp:264
+msgid "equals"
+msgstr "ίσο με"
+
+#: src/filterdialog.cpp:256 src/filterdialog.cpp:265
+msgid "does not equal"
+msgstr "δεν είναι ίσο με"
+
+#: src/filterdialog.cpp:257 src/filterdialog.cpp:266
+msgid "matches regexp"
+msgstr "ταιριάζει με απλές εκφράσεις"
+
+#: src/filterdialog.cpp:258 src/filterdialog.cpp:267
+msgid "does not match regexp"
+msgstr "δεν ταιριάζει με απλές εκφράσεις"
+
+#: src/filterdialog.cpp:259
+msgctxt "is before a date"
+msgid "is before"
+msgstr ""
+
+#: src/filterdialog.cpp:260
+msgctxt "is after a date"
+msgid "is after"
+msgstr ""
+
+#: src/filterdialog.cpp:262
+msgid "contains"
+msgstr "περιέχει"
+
+#: src/filterdialog.cpp:263
+msgid "does not contain"
+msgstr "δεν περιέχει"
+
+#: src/filterdialog.cpp:355
+msgid "Advanced Filter"
+msgstr "Προσαρμοσμένο φίλτρο"
+
+#: src/filterdialog.cpp:367
+msgid "Filter Criteria"
+msgstr "Κριτήρια φίλτρων"
+
+#: src/filterdialog.cpp:371
+msgid "Match a&ll of the following"
+msgstr "Ταιριάζει με ό&λα τα παρακάτω"
+
+#: src/filterdialog.cpp:372
+msgid "Match an&y of the following"
+msgstr "Ταιριάζει σε κάπο&ιο από τα παρακάτω"
+
+#: src/filterdialog.cpp:391
+msgid "Filter name:"
+msgstr "Όνομα φίλτρου:"
+
+#: src/filterdialog.cpp:400
+msgid "&Save Filter"
+msgstr "&Αποθήκευση φίλτρου"
+
+#: src/mainwindow.cpp:237
+msgid "Create a new collection"
+msgstr "Δημιουργία μιας νέας συλλογής"
+
+#: src/mainwindow.cpp:251
+msgid "New &Book Collection"
+msgstr "Νέα συλλογή &βιβλίων"
+
+#: src/mainwindow.cpp:252
+msgid "Create a new book collection"
+msgstr "Δημιουργία μιας νέας συλλογής βιβλίων"
+
+#: src/mainwindow.cpp:254
+msgid "New B&ibliography"
+msgstr "Νέα β&ιβλιογραφία"
+
+#: src/mainwindow.cpp:255
+msgid "Create a new bibtex bibliography"
+msgstr "Δημιουργία μιας νέας βιβλιογραφίας bibtex"
+
+#: src/mainwindow.cpp:257
+msgid "New &Comic Book Collection"
+msgstr "Νέα συλλογή &βιβλίων κόμικ"
+
+#: src/mainwindow.cpp:258
+msgid "Create a new comic book collection"
+msgstr "Δημιουργία μιας νέας συλλογής βιβλίων κόμικ"
+
+#: src/mainwindow.cpp:260
+msgid "New &Video Collection"
+msgstr "Νέα συλλογή &ταινιών"
+
+#: src/mainwindow.cpp:261
+msgid "Create a new video collection"
+msgstr "Δημιουργία μιας νέας συλλογής ταινιών"
+
+#: src/mainwindow.cpp:263
+msgid "New &Music Collection"
+msgstr "Νέα συλλογή &μουσικής"
+
+#: src/mainwindow.cpp:264
+msgid "Create a new music collection"
+msgstr "Δημιουργία μιας νέας συλλογής μουσικής"
+
+#: src/mainwindow.cpp:266
+msgid "New C&oin Collection"
+msgstr "Νέα συλλογή &νομισμάτων"
+
+#: src/mainwindow.cpp:267
+msgid "Create a new coin collection"
+msgstr "Δημιουργία μιας νέας συλλογής νομισμάτων"
+
+#: src/mainwindow.cpp:269
+msgid "New &Stamp Collection"
+msgstr "Νέα &συλλογή γραμματοσήμων"
+
+#: src/mainwindow.cpp:270
+msgid "Create a new stamp collection"
+msgstr "Δημιουργία μιας νέας συλλογής γραμματοσήμων"
+
+#: src/mainwindow.cpp:272
+msgid "New C&ard Collection"
+msgstr "Νέα συλλογή κ&αρτών"
+
+#: src/mainwindow.cpp:273
+msgid "Create a new trading card collection"
+msgstr "Δημιουργία μιας νέας συλλογής καρτών"
+
+#: src/mainwindow.cpp:275
+msgid "New &Wine Collection"
+msgstr "Νέα &συλλογή κρασιών"
+
+#: src/mainwindow.cpp:276
+msgid "Create a new wine collection"
+msgstr "Δημιουργία μιας νέας συλλογής κρασιών"
+
+#: src/mainwindow.cpp:278
+msgid "New &Game Collection"
+msgstr "Νέα συλλογή &ηλεκτρονικών παιχνιδιών"
+
+#: src/mainwindow.cpp:279
+msgid "Create a new game collection"
+msgstr "Δημιουργία μιας νέας συλλογής ηλεκτρονικών παιχνιδιών"
+
+#: src/mainwindow.cpp:281
+msgid "New Boa&rd Game Collection"
+msgstr "Νέα συλλογή επιτ&ραπέζιων παιχνιδιών"
+
+#: src/mainwindow.cpp:282
+msgid "Create a new board game collection"
+msgstr "Δημιουργία μιας νέας συλλογής επιτραπέζιων παιχνιδιών"
+
+#: src/mainwindow.cpp:284
+msgid "New &File Catalog"
+msgstr "Νέος κατάλογος αρ&χείων"
+
+#: src/mainwindow.cpp:285
+msgid "Create a new file catalog"
+msgstr "Δημιουργία ενός νέου καταλόγου αρχείων"
+
+#: src/mainwindow.cpp:288
+msgid "New C&ustom Collection"
+msgstr "Νέα προσαρμοσ&μένη συλλογή"
+
+#: src/mainwindow.cpp:289
+msgid "Create a new custom collection"
+msgstr "Δημιουργία μιας νέας προσαρμοσμένης συλλογής"
+
+#: src/mainwindow.cpp:300
+msgid "Open an existing document"
+msgstr "Άνοιγμα ενός υπάρχοντος αρχείου"
+
+#: src/mainwindow.cpp:302
+msgid "Open a recently used file"
+msgstr "Άνοιγμα ενός πρόσφατα χρησιμοποιημένου αρχείου"
+
+#: src/mainwindow.cpp:304
+msgid "Save the document"
+msgstr "Αποθήκευση εγγράφου"
+
+#: src/mainwindow.cpp:306
+msgid "Save the document as a different file..."
+msgstr "Αποθήκευση εγγράφου ως διαφορετικό αρχείο..."
+
+#: src/mainwindow.cpp:308
+msgid "Print the contents of the document..."
+msgstr "Εκτύπωση περιεχομένων εγγράφου..."
+
+#: src/mainwindow.cpp:310
+msgid "Quit the application"
+msgstr "Έξοδος από την εφαρμογή"
+
+#: src/mainwindow.cpp:320
+msgid "Import the collection data from other formats"
+msgstr "Εισαγωγή δεδομένων άλλης μορφοποίησης"
+
+#: src/mainwindow.cpp:332
+msgid "Import Tellico Data..."
+msgstr "Εισαγωγή δεδομένων Tellico..."
+
+#: src/mainwindow.cpp:333
+msgid "Import another Tellico data file"
+msgstr "Εισαγωγή ενός άλλου αρχείου δεδομένων Tellico"
+
+#: src/mainwindow.cpp:335
+msgid "Import CSV Data..."
+msgstr "Εισαγωγή δεδομένων CVS..."
+
+#: src/mainwindow.cpp:336
+msgid "Import a CSV file"
+msgstr "Εισαγωγή αρχείου CVS"
+
+#: src/mainwindow.cpp:338
+msgid "Import MODS Data..."
+msgstr "Εισαγωγή δεδομένων MODS..."
+
+#: src/mainwindow.cpp:339
+msgid "Import a MODS data file"
+msgstr "Εισαγωγή αρχείου δεδομένων MODS"
+
+#: src/mainwindow.cpp:341
+msgid "Import Alexandria Data..."
+msgstr "Εισαγωγή δεδομένων Alexandria..."
+
+#: src/mainwindow.cpp:342
+msgid "Import data from the Alexandria book collection manager"
+msgstr "Εισαγωγή δεδομένων από τον διαχειριστή συλλογών βιβλίων Alexandria"
+
+#: src/mainwindow.cpp:344
+msgid "Import Delicious Library Data..."
+msgstr "Εισαγωγή δεδομένων Delicious..."
+
+#: src/mainwindow.cpp:345
+msgid "Import data from Delicious Library"
+msgstr "Εισαγωγή δεδομένων από μια βιβλιοθήκη Delicious"
+
+#: src/mainwindow.cpp:347
+msgid "Import Referencer Data..."
+msgstr "Εισαγωγή δεδομένων Referencer..."
+
+#: src/mainwindow.cpp:348
+msgid "Import data from Referencer"
+msgstr "Εισαγωγή δεδομένων από Referencer"
+
+#: src/mainwindow.cpp:350
+msgid "Import Bibtex Data..."
+msgstr "Εισαγωγή δεδομένων Bibtex..."
+
+#: src/mainwindow.cpp:351
+msgid "Import a bibtex bibliography file"
+msgstr "Εισαγωγή αρχείου βιβλιογραφίας Bibtex"
+
+#: src/mainwindow.cpp:353
+msgid "Import Bibtexml Data..."
+msgstr "Εισαγωγή δεδομένων Bibtexml..."
+
+#: src/mainwindow.cpp:354
+msgid "Import a Bibtexml bibliography file"
+msgstr "Εισαγωγή αρχείου βιβλιογραφίας Bibtexml"
+
+#: src/mainwindow.cpp:356
+msgid "Import RIS Data..."
+msgstr "Εισαγωγή δεδομένων RIS..."
+
+#: src/mainwindow.cpp:357
+msgid "Import an RIS reference file"
+msgstr "Εισαγωγή αρχείου αναφοράς RIS"
+
+#: src/mainwindow.cpp:359
+msgid "Import Goodreads Collection..."
+msgstr "Εισαγωγή συλλογής Goodreads..."
+
+#: src/mainwindow.cpp:360
+msgid "Import a collection from Goodreads.com"
+msgstr "Εισαγωγή συλλογής από Goodreads.com"
+
+#: src/mainwindow.cpp:362
+msgid "Import PDF File..."
+msgstr "Εισαγωγή αρχείου PDF..."
+
+#: src/mainwindow.cpp:363
+msgid "Import a PDF file"
+msgstr "Εισαγωγή ενός αρχείου PDF"
+
+#: src/mainwindow.cpp:365
+msgid "Import Audio File Metadata..."
+msgstr "Εισαγωγή αρχείου μεταδεδομένων ήχου..."
+
+#: src/mainwindow.cpp:366
+msgid "Import meta-data from audio files"
+msgstr "Εισαγωγή μεταδεδομένων από αρχεία ήχου"
+
+#: src/mainwindow.cpp:371
+msgid "Import Audio CD Data..."
+msgstr "Εισαγωγή δεδομένων Audio CD..."
+
+#: src/mainwindow.cpp:372
+msgid "Import audio CD information"
+msgstr "Εισαγωγή πληροφοριών Audio CD"
+
+#: src/mainwindow.cpp:377
+msgid "Import GCstar Data..."
+msgstr "Εισαγωγή δεδομένων GCstar..."
+
+#: src/mainwindow.cpp:378
+msgid "Import a GCstar data file"
+msgstr "Εισαγωγή αρχείου δεδομένων GCstar"
+
+#: src/mainwindow.cpp:380
+msgid "Import Griffith Data..."
+msgstr "Εισαγωγή δεδομένων Griffith..."
+
+#: src/mainwindow.cpp:381
+msgid "Import a Griffith database"
+msgstr "Εισαγωγή βάσης δεδομένων Griffith"
+
+#: src/mainwindow.cpp:383
+msgid "Import Ant Movie Catalog Data..."
+msgstr "Εισαγωγή καταλόγου δεδομένων Ant Movie..."
+
+#: src/mainwindow.cpp:384
+msgid "Import an Ant Movie Catalog data file"
+msgstr "Εισαγωγή καταλόγου δεδομένων Ant Movie"
+
+#: src/mainwindow.cpp:386
+msgid "Import File Listing..."
+msgstr "Εισαγωγή πληροφοριών αρχείων φακέλου..."
+
+#: src/mainwindow.cpp:387
+msgid "Import information about files in a folder"
+msgstr "Εισαγωγή πληροφοριών για αρχεία που περιέχονται σε έναν φάκελο"
+
+#: src/mainwindow.cpp:389
+msgid "Import XSL Transform..."
+msgstr "Εισαγωγή XSL Transform..."
+
+#: src/mainwindow.cpp:390
+msgid "Import using an XSL Transform"
+msgstr "Εισαγωγή με χρήση του XSL Transform"
+
+#. i18n: file: src/tellicoui.rc:50
+#. i18n: ectx: Menu (file_export)
+#: src/mainwindow.cpp:400 rc.cpp:283
+msgid "&Export"
+msgstr "&Εξαγωγή"
+
+#: src/mainwindow.cpp:402
+msgid "Export the collection data to other formats"
+msgstr "Εξαγωγή των δεδομένων της συλλογής σε άλλες μορφοποιήσεις"
+
+#: src/mainwindow.cpp:414
+msgid "Export to XML..."
+msgstr "Εξαγωγή σε XML..."
+
+#: src/mainwindow.cpp:415
+msgid "Export to a Tellico XML file"
+msgstr "Εξαγωγή σε ένα αρχείο XML του Tellico"
+
+#: src/mainwindow.cpp:417
+msgid "Export to Zip..."
+msgstr "Εξαγωγή σε Zip..."
+
+#: src/mainwindow.cpp:418
+msgid "Export to a Tellico Zip file"
+msgstr "Εξαγωγή σε ένα αρχείο Zip του Tellico"
+
+#: src/mainwindow.cpp:420
+msgid "Export to HTML..."
+msgstr "Εξαγωγή σε HTML..."
+
+#: src/mainwindow.cpp:421
+msgid "Export to an HTML file"
+msgstr "Εξαγωγή σε ένα αρχείο HTML"
+
+#: src/mainwindow.cpp:423
+msgid "Export to CSV..."
+msgstr "Εξαγωγή σε CVS..."
+
+#: src/mainwindow.cpp:424
+msgid "Export to a comma-separated values file"
+msgstr "Εξαγωγή σε ένα αρχείο τιμών διαχωρισμένων με κόμμα"
+
+#: src/mainwindow.cpp:426
+msgid "Export to PilotDB..."
+msgstr "Εξαγωγή σε PilotDB..."
+
+#: src/mainwindow.cpp:427
+msgid "Export to a PilotDB database"
+msgstr "Εξαγωγή σε μια βάση δεδομένων PilotDB"
+
+#: src/mainwindow.cpp:429
+msgid "Export to Alexandria..."
+msgstr "Εξαγωγή σε Alexandria..."
+
+#: src/mainwindow.cpp:430
+msgid "Export to an Alexandria library"
+msgstr "Εξαγωγή σε μια βιβλιοθήκη Alexandria"
+
+#: src/mainwindow.cpp:432
+msgid "Export to Bibtex..."
+msgstr "Εξαγωγή σε Bibtex..."
+
+#: src/mainwindow.cpp:433
+msgid "Export to a bibtex file"
+msgstr "Εξαγωγή σε ένα αρχείο bibtex"
+
+#: src/mainwindow.cpp:435
+msgid "Export to Bibtexml..."
+msgstr "Εξαγωγή σε Bibtexml..."
+
+#: src/mainwindow.cpp:436
+msgid "Export to a Bibtexml file"
+msgstr "Εξαγωγή σε ένα αρχείο Bibtexml"
+
+#: src/mainwindow.cpp:438
+msgid "Export to ONIX..."
+msgstr "Εξαγωγή σε ONIX..."
+
+#: src/mainwindow.cpp:439
+msgid "Export to an ONIX file"
+msgstr "Εξαγωγή σε ένα αρχείο ONIX"
+
+#: src/mainwindow.cpp:441
+msgid "Export to GCstar..."
+msgstr "Εξαγωγή σε GCstar..."
+
+#: src/mainwindow.cpp:442
+msgid "Export to a GCstar data file"
+msgstr "Εξαγωγή σε ένα αρχείο δεδομένων GCstar"
+
+#: src/mainwindow.cpp:444
+msgid "Export XSL Transform..."
+msgstr "Εξαγωγή σε XSL Transform..."
+
+#: src/mainwindow.cpp:445
+msgid "Export using an XSL Transform"
+msgstr "Εισαγωγή με χρήση του XSL Transform"
+
+#: src/mainwindow.cpp:456
+msgid "Cut the selected text and puts it in the clipboard"
+msgstr "Αποκοπή του επιλεγμένου κειμένου και τοποθέτησή του στο πρόχειρο"
+
+#: src/mainwindow.cpp:458
+msgid "Copy the selected text to the clipboard"
+msgstr "Αντιγραφή του επιλεγμένου κειμένου στο πρόχειρο"
+
+#: src/mainwindow.cpp:460
+msgid "Paste the clipboard contents"
+msgstr "Επικόλληση των περιεχομένων του πρόχειρου"
+
+#: src/mainwindow.cpp:462
+msgid "Select all the entries in the collection"
+msgstr "Επιλογή όλων των καταχωρήσεων της συλλογής"
+
+#: src/mainwindow.cpp:464
+msgid "Deselect all the entries in the collection"
+msgstr "Αποεπιλογή όλων των καταχωρήσεων της συλλογής"
+
+#: src/mainwindow.cpp:467
+msgid "Internet Search..."
+msgstr "Διαδικτυακή αναζήτηση..."
+
+#: src/mainwindow.cpp:468 xslt.cpp:47
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: src/mainwindow.cpp:471
+msgid "Search the internet..."
+msgstr "Αναζήτηση στο Διαδίκτυο..."
+
+#: src/mainwindow.cpp:474
+msgid "Advanced &Filter..."
+msgstr "Προσαρμοσμένο &φίλτρο..."
+
+#: src/mainwindow.cpp:478 src/mainwindow.cpp:672
+msgid "Filter the collection"
+msgstr "Φιλτράρισμα της συλλογής"
+
+#: src/mainwindow.cpp:485
+msgid "&New Entry..."
+msgstr "&Νέα καταχώρηση..."
+
+#: src/mainwindow.cpp:489
+msgid "Create a new entry"
+msgstr "Δημιουργία νέας καταχώρησης"
+
+#: src/mainwindow.cpp:493 src/controller.cpp:577
+msgid "&Edit Entry..."
+msgstr "&Επεξεργασία καταχώρησης..."
+
+#: src/mainwindow.cpp:496
+msgid "Edit the selected entries"
+msgstr "Επεξεργασία των επιλεγμένων καταχωρήσεων"
+
+#: src/mainwindow.cpp:500 src/controller.cpp:578
+msgid "D&uplicate Entry"
+msgstr "Α&ντίγραφο καταχώρησης"
+
+#: src/mainwindow.cpp:503
+msgid "Copy the selected entries"
+msgstr "Αντιγραφή των επιλεγμένων καταχωρήσεων"
+
+#: src/mainwindow.cpp:507 src/controller.cpp:580
+msgid "&Delete Entry"
+msgstr "&Διαγραφή καταχώρησης"
+
+#: src/mainwindow.cpp:510
+msgid "Delete the selected entries"
+msgstr "Διαγραφή των επιλεγμένων καταχωρήσεων"
+
+#: src/mainwindow.cpp:514
+msgid "&Merge Entries"
+msgstr "&Συγχώνευση καταχωρήσεων"
+
+#: src/mainwindow.cpp:518
+msgid "Merge the selected entries"
+msgstr "Συγχώνευση των επιλεγμένων καταχωρήσεων"
+
+#: src/mainwindow.cpp:522
+msgid "Check-&out..."
+msgstr "Έλεγχ&ος εξόδου..."
+
+#: src/mainwindow.cpp:524
+msgid "Check-out the selected items"
+msgstr "Έλεγχος εξόδου επιλεγμένων αντικειμένων"
+
+#: src/mainwindow.cpp:527
+msgid "Check-&in"
+msgstr "Έλεγχος ε&ισόδου"
+
+#: src/mainwindow.cpp:529
+msgid "Check-in the selected items"
+msgstr "Έλεγχος εισόδου επιλεγμένων αντικειμένων"
+
+#: src/mainwindow.cpp:532
+msgid "&Rename Collection..."
+msgstr "&Μετονομασία συλλογής..."
+
+#: src/mainwindow.cpp:535
+msgid "Rename the collection"
+msgstr "Μετονομασία της συλλογής"
+
+#: src/mainwindow.cpp:538
+msgid "Collection &Fields..."
+msgstr "Πε&δία συλλογής..."
+
+#: src/mainwindow.cpp:539
+msgid "Fields"
+msgstr "Πεδία"
+
+#: src/mainwindow.cpp:542
+msgid "Modify the collection fields"
+msgstr "Τροποποίηση των πεδίων της συλλογής"
+
+#: src/mainwindow.cpp:545
+msgid "&Generate Reports..."
+msgstr "&Δημιουργία αναφορών..."
+
+#: src/mainwindow.cpp:546
+msgid "Reports"
+msgstr "Αναφορές"
+
+#: src/mainwindow.cpp:548
+msgid "Generate collection reports"
+msgstr "Δημιουργία αναφορών συλλογής"
+
+#: src/mainwindow.cpp:551
+msgid "Convert to &Bibliography"
+msgstr "Μετατροπή σε &βιβλιογραφία"
+
+#: src/mainwindow.cpp:553
+msgid "Convert a book collection to a bibliography"
+msgstr "Μετατροπή της συλλογής βιβλίων σε βιβλιογραφία"
+
+#: src/mainwindow.cpp:556
+msgid "String &Macros..."
+msgstr "Αλφαριθμητικό &μακροεντολής..."
+
+#: src/mainwindow.cpp:558
+msgid "Edit the bibtex string macros"
+msgstr "Επεξεργασία των αλφαριθμητικών μακροεντολών του bibtex"
+
+#: src/mainwindow.cpp:561
+msgid "Check for Duplicate Keys..."
+msgstr "Έλεγχος για διπλότυπα κλειδιά..."
+
+#: src/mainwindow.cpp:563
+msgid "Check for duplicate citation keys"
+msgstr "Έλεγχος για διπλότυπα κλειδιά παραπομπών..."
+
+#: src/mainwindow.cpp:570
+msgid "Copy Bibtex to Cli&pboard"
+msgstr "Αντιγραφή Bibtex στο &πρόχειρο"
+
+#: src/mainwindow.cpp:571
+msgid "Copy bibtex citations to the clipboard"
+msgstr "Αντιγραφή παραπομπών bibtex στο πρόχειρο"
+
+#: src/mainwindow.cpp:576
+msgid "Cite Entry in &LyX"
+msgstr "Παράθεση καταχώρησης στο &LyX"
+
+#: src/mainwindow.cpp:577
+msgid "Cite the selected entries in LyX"
+msgstr "Παράθεση των επιλεγμένων καταχωρήσεων στο LyX"
+
+#. i18n: file: src/tellicoui.rc:79
+#. i18n: ectx: Menu (coll_update_entry)
+#: src/mainwindow.cpp:585 src/controller.cpp:579 rc.cpp:289
+msgid "&Update Entry"
+msgstr "&Ενημέρωση καταχώρησης"
+
+#: src/mainwindow.cpp:587
+msgctxt "Update Entry"
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: src/mainwindow.cpp:592
+msgid "All Sources"
+msgstr "Όλες οι πηγές"
+
+#: src/mainwindow.cpp:593
+msgid "Update entry data from all available sources"
+msgstr ""
+"Ενημέρωση των δεδομένων των καταχωρήσεων από όλες τις διαθέσιμες πηγές."
+
+#: src/mainwindow.cpp:605
+msgid "Show Grou&p View"
+msgstr "Εμφάνιση προβολής &ομάδας"
+
+#: src/mainwindow.cpp:606
+msgid "Enable/disable the group view"
+msgstr "Ενεργοποίηση/Απενεργοποίηση προβολής ομάδας"
+
+#: src/mainwindow.cpp:610
+msgid "Show Entry &Editor"
+msgstr "Εμφάνιση επεξεργαστή καταχώρησης"
+
+#: src/mainwindow.cpp:612
+msgid "Enable/disable the editor"
+msgstr "Ενεργοποίηση/Απενεργοποίηση του επεξεργαστή"
+
+#: src/mainwindow.cpp:615
+msgid "Show Entry &View"
+msgstr "Εμφάνιση προ&βολής καταχώρησης"
+
+#: src/mainwindow.cpp:616
+msgid "Enable/disable the entry view"
+msgstr "Ενεργοποίηση/Απενεργοποίηση προβολής καταχώρησης"
+
+#: src/mainwindow.cpp:642
+msgid "Change Grouping"
+msgstr "Αλλαγή ομαδοποίησης"
+
+#: src/mainwindow.cpp:645
+msgid "&Group Selection"
+msgstr "&Επιλογή ομάδας"
+
+#: src/mainwindow.cpp:646
+msgid "Change the grouping of the collection"
+msgstr "Αλλαγή ομαδοποίησης της συλλογής"
+
+#: src/mainwindow.cpp:658
+msgid "Filter here..."
+msgstr "Φίλτρο εδώ..."
+
+#: src/mainwindow.cpp:721
+msgid "Groups"
+msgstr "Ομάδες"
+
+#: src/mainwindow.cpp:722
+msgid ""
+"<qt>The <i>Group View</i> sorts the entries into groupings based on a "
+"selected field.</qt>"
+msgstr ""
+"<qt>Η <i>Προβολή ομάδας</i> ταξινομεί τις καταχωρήσεις σε ομάδες με βάση το "
+"επιλεγμένο πεδίο.</qt>"
+
+#: src/mainwindow.cpp:729
+msgid ""
+"<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
+"</qt>"
+msgstr ""
+"<qt>Η <i>Προβολή στήλης</i> εμφανίζει την τιμή πολλαπλών πεδίων για κάθε "
+"καταχώρηση.</qt>"
+
+#: src/mainwindow.cpp:788
+msgid "Welcome to the Tellico Collection Manager"
+msgstr "Καλώς ήρθατε στον διαχειριστή συλλογών Tellico"
+
+#: src/mainwindow.cpp:790
+msgid ""
+"<h3>Tellico is a tool for managing collections of books, videos, music, and "
+"whatever else you want to catalog.</h3><h3>New entries can be added to your "
+"collection by <a href=\"tc:///coll_new_entry\">entering data manually</a> or "
+"by <a href=\"tc:///edit_search_internet\">downloading data</a> from various "
+"Internet sources.</h3>"
+msgstr ""
+"<h3>Το Tellico είναι ένα εργαλείο με το οποίο μπορείτε να διαχειριστείτε "
+"βιβλία ταινίες, μουσική και οτιδήποτε άλλο επιθυμείτε να γράψετε σε "
+"κατάλογο. </h3><h3>Μπορείτε να προσθέσετε νέες καταχωρήσεις στη συλλογή σας "
+"είτε <a href=\"tc:///coll_new_entry\">με χειροκίνητη εισαγωγή δεδομένων</a> "
+"είτε <a href=\"tc:///edit_search_internet\"> εισάγοντας δεδομένα από "
+"διαδικτυακές πηγές.</a></h3>"
+
+#: src/mainwindow.cpp:990
+msgid ""
+"The current file has been modified.\n"
+"Do you want to save it?"
+msgstr ""
+"Το τρέχον αρχείο έχει τροποποιηθεί.\n"
+"Θέλετε να το αποθηκεύσετε;"
+
+#: src/mainwindow.cpp:1027
+msgid "Creating new document..."
+msgstr "Δημιουργία νέου εγγράφου..."
+
+#: src/mainwindow.cpp:1060 src/mainwindow.cpp:1079 src/mainwindow.cpp:1097
+msgid "Opening file..."
+msgstr "Άνοιγμα αρχείου..."
+
+#: src/mainwindow.cpp:1070
+msgid "Open File"
+msgstr "Άνοιγμα αρχείου"
+
+#: src/mainwindow.cpp:1188
+msgid ""
+"<qt><p>You are saving a file with many images, which causes Tellico to slow "
+"down significantly. Do you want to save the images separately in Tellico's "
+"data directory to improve performance?</p><p>Your choice can always be "
+"changed in the configuration dialog.</p></qt>"
+msgstr ""
+"<qt><p>Αποθηκεύσατε ένα αρχείο με πολλές εικόνες, το οποίο θα προκαλέσει "
+"σημαντική μείωση της ταχύτητας του Tellico. Θέλετε να αποθηκεύσετε ξεχωριστά "
+"τις εικόνες στον φάκελο δεδομένων του Tellico, ώστε να βελτιώσετε τη "
+"λειτουργία του; </p><p>Η επιλογή σας μπορεί να αλλάξει από το παράθυρο "
+"ρυθμίσεων.</p></qt>"
+
+#: src/mainwindow.cpp:1193
+msgid "Save Images Separately"
+msgstr "Ξεχωριστή αποθήκευση εικόνων"
+
+#: src/mainwindow.cpp:1194
+msgid "Save Images in File"
+msgstr "Αποθήκευση εικόνων σε αρχείο"
+
+#: src/mainwindow.cpp:1228
+msgid "Saving file with a new filename..."
+msgstr "Αποθήκευση αρχείου με ένα νέο όνομα..."
+
+#: src/mainwindow.cpp:1235
+msgid "Save As"
+msgstr "Αποθήκευση ως"
+
+#: src/mainwindow.cpp:1263 src/mainwindow.cpp:1313
+msgid "Printing..."
+msgstr "Εκτύπωση..."
+
+#: src/mainwindow.cpp:1272
+msgid ""
+"The collection is currently being filtered to show a limited subset of the "
+"entries. Only the visible entries will be printed. Continue?"
+msgstr ""
+"Η συλλογή αυτή τη στιγμή φιλτράρεται για να εμφανίσει ένα περιορισμένο "
+"υποσύνολο των καταχωρήσεων. Μόνον οι εμφανιζόμενες καταχωρήσεις θα "
+"εκτυπωθούν. Θέλετε να συνεχίσετε;"
+
+#: src/mainwindow.cpp:1297
+msgid "Processing document..."
+msgstr "Επεξεργασία εγγράφου.."
+
+#: src/mainwindow.cpp:1320
+msgid "Exiting..."
+msgstr "Έξοδος..."
+
+#: src/mainwindow.cpp:1459
+#, kde-format
+msgid "Total entries: %1"
+msgstr "Σύνολο καταχωρήσεων: %1"
+
+#: src/mainwindow.cpp:1466
+#, kde-format
+msgid "(%1 filtered; %2 selected)"
+msgstr "(%1 φιλτραρίστηκαν; %2 επιλέχθηκαν)"
+
+#: src/mainwindow.cpp:1469
+#, kde-format
+msgid "(%1 filtered)"
+msgstr "(%1 φιλτραρίστηκαν)"
+
+#: src/mainwindow.cpp:1472
+#, kde-format
+msgid "(%1 selected)"
+msgstr "(%1 Επιλεγμένο Παιχνίδι)"
+
+#: src/mainwindow.cpp:1743
+msgid "Importing data..."
+msgstr "Εισαγωγή δεδομένων..."
+
+#: src/mainwindow.cpp:1752
+msgid "Import File"
+msgstr "Εισαγωγή αρχείου"
+
+#: src/mainwindow.cpp:1758
+msgid "Import Directory"
+msgstr "Εισαγωγή φακέλου"
+
+#: src/mainwindow.cpp:1779
+msgid "Exporting data..."
+msgstr "Εξαγωγή δεδομένων..."
+
+#: src/mainwindow.cpp:1801
+msgid "Export As"
+msgstr "Εξαγωγή ως"
+
+#: src/mainwindow.cpp:1826
+msgid "String Macros"
+msgstr "Αλφαριθμητικό μακροεντολής"
+
+#: src/mainwindow.cpp:1827
+msgid "Macro"
+msgstr "Μακροεντολή"
+
+#: src/mainwindow.cpp:1827
+msgid "String"
+msgstr "Συμβολοσειρά"
+
+#: src/mainwindow.cpp:1916
+msgid "Creating citations..."
+msgstr "Δημιουργία παραπομπών..."
+
+#: src/mainwindow.cpp:2021
+msgid "Filters"
+msgstr "Φίλτρα"
+
+#: src/mainwindow.cpp:2022
+msgid ""
+"<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
+"</qt>"
+msgstr ""
+"<qt>Η <i>Προβολή φίλτρου</i> εμφανίζει τις καταχωρήσεις που ικανοποιούν "
+"συγκεκριμένους κανόνες αναζήτησης.</qt>"
+
+#: src/mainwindow.cpp:2040
+msgid "Loans"
+msgstr "Δανεισμοί"
+
+#: src/mainwindow.cpp:2041
+msgid ""
+"<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
+"items from your collection.</qt>"
+msgstr ""
+"<qt>Η <i>Προβολή δανεισμού</i> εμφανίζει μια λίστα όλων των ατόμων, οι "
+"οποίοι έχουν δανειστεί αντικείμενα από τις συλλογές σας.</qt>"
+
+#: src/mainwindow.cpp:2113
+msgid ""
+"Some images are not saved in the configured location. The current file must "
+"be saved and the images will be transferred to the new location."
+msgstr ""
+"Μερικές εικόνες δεν αποθηκεύονται στην ρυθμισμένη τοποθεσία. Το τρέχον "
+"αρχείο πρέπει να αποθηκευτεί και οι εικόνες θα πρέπει να μεταφερθούν σε μια "
+"νέα τοποθεσία."
+
+#: src/mainwindow.cpp:2155
+#, kde-format
+msgid "Update entry data from %1"
+msgstr "Ενημέρωση δεδομένων καταχωρήσεων από %1"
+
+#: src/mainwindow.cpp:2173
+#, kde-format
+msgid ""
+"Tellico can only import one file of this type at a time. Only %1 will be "
+"imported."
+msgstr ""
+"Το Tellico μπορεί να κάνει εισαγωγή ενός μόνο αρχείου τη φορά. Μόνο %1 "
+"μπορεί να εισαχθεί."
+
+#: src/loandialog.cpp:53
+msgid "Loan Dialog"
+msgstr "Παράθυρο δανεισμού"
+
+#: src/loandialog.cpp:97
+msgid "The following items are being checked out:"
+msgstr "Τα παρακάτω αντικείμενα πρόκειται να εξαχθούν:"
+
+#: src/loandialog.cpp:103
+msgid "The following item is on-loan:"
+msgstr "Τα παρακάτω αντικείμενα είναι προς δανεισμό:"
+
+#: src/loandialog.cpp:113
+msgid "&Lend to:"
+msgstr "&Δανείζεται στον:"
+
+#: src/loandialog.cpp:125
+msgid ""
+"Enter the name of the person borrowing the items from you. Clicking the "
+"button allows you to select from your address book."
+msgstr ""
+"Εισάγετε το όνομα του ατόμου που δανείστηκε τα αντικείμενα. Κάνοντας κλικ "
+"στο πλήκτρο, μπορείτε να επιλέξετε από το βιβλίο διευθύνσεων."
+
+#: src/loandialog.cpp:134
+msgid "&Loan date:"
+msgstr "Ημερομηνία δανεισμού:"
+
+#: src/loandialog.cpp:140
+msgid ""
+"The check-out date is the date that you lent the items. By default, today's "
+"date is used."
+msgstr ""
+"Η ημερομηνία ελέγχου εξόδου είναι αυτή κατά την οποία δανείσατε αντικείμενα. "
+"Ως προκαθορισμένη ημερομηνία, χρησιμοποιείται η σημερινή."
+
+#: src/loandialog.cpp:149
+msgid "D&ue date:"
+msgstr "Ημερομηνία &λήξης δανεισμού:"
+
+#: src/loandialog.cpp:156
+msgid ""
+"The due date is when the items are due to be returned. The due date is not "
+"required, unless you want to add the loan to your active calendar."
+msgstr ""
+"Η ημερομηνία λήξης είναι αυτή κατά την οποία τα αντικείμενα πρέπει να "
+"επιστραφούν. Η ημερομηνία αυτή δεν είναι απαραίτητη, παρά μόνο εάν θέλετε να "
+"προσθέσετε τον δανεισμό στο ενεργό σας ημερολόγιο."
+
+#: src/loandialog.cpp:161
+msgid "&Note:"
+msgstr "&Σημείωση:"
+
+#: src/loandialog.cpp:167
+msgid "You can add notes about the loan."
+msgstr "Μπορείτε να προσθέσετε σημειώσεις για τον δανεισμό."
+
+#: src/loandialog.cpp:171
+msgid "&Add a reminder to the active calendar"
+msgstr "Προσθέστε μι&α υπενθύμιση στο ενεργό ημερολόγιο."
+
+#: src/loandialog.cpp:174
+msgid ""
+"<qt>Checking this box will add a <em>To-do</em> item to your active "
+"calendar, which can be viewed using KOrganizer. The box is only active if "
+"you set a due date.</qt>"
+msgstr ""
+"<qt>Η επιλογή αυτού του πλαισίου θα προσθέσει ένα αντικείμενο "
+"<em>Σχεδιαζόμενες βελτιώσεις</em> στο ενεργό σας ημερολόγιο, το οποίο "
+"μπορείτε να δείτε με το KOrganizer. Το πλαίσιο είναι ενεργό μόνον εάν "
+"ορίσετε μια ημερομηνία επιστροφής.</qt>"
+
+#: src/fetchdialog.cpp:82
+msgid "&Search"
+msgstr "&Αναζήτηση"
+
+#: src/fetchdialog.cpp:83
+msgid "&Stop"
+msgstr "&Σταμάτημα"
+
+#: src/fetchdialog.cpp:128
+msgid "Internet Search"
+msgstr "Αναζήτηση στο Διαδίκτυο"
+
+#: src/fetchdialog.cpp:137
+msgid "Search Query"
+msgstr "Ερώτημα αναζήτησης"
+
+#: src/fetchdialog.cpp:145
+msgctxt "Start the search"
+msgid "S&earch:"
+msgstr "Αναζήτηση:"
+
+#: src/fetchdialog.cpp:149
+msgid "Enter a search value. An ISBN search must include the full ISBN."
+msgstr ""
+"Εισάγετε μια έγκυρη τιμή. Μια αναζήτηση ISBN πρέπει να περιλαμβάνει το "
+"πλήρες ISBN."
+
+#: src/fetchdialog.cpp:156
+msgid "Choose the type of search"
+msgstr "Επιλέξτε το είδος της αναζήτησης"
+
+#: src/fetchdialog.cpp:162
+msgid "Click to start or stop the search"
+msgstr "Κάντε κλικ για να ξεκινήσετε ή να σταματήσετε την αναζήτηση"
+
+#: src/fetchdialog.cpp:180
+msgid "&Multiple ISBN/UPC search"
+msgstr "Πολλαπλή ISBN/UPC αναζήτηση"
+
+#: src/fetchdialog.cpp:181
+msgid "Check this box to search for multiple ISBN or UPC values."
+msgstr ""
+"Επιλέξτε αυτό το πλαίσιο για να κάνετε αναζήτηση σε πολλαπλές τιμές ISBN ή "
+"UPC."
+
+#: src/fetchdialog.cpp:184
+#, fuzzy
+#| msgid "Edit ISBN/UPC Values"
+msgid "Edit ISBN/UPC values..."
+msgstr "Επεξεργασία τιμών ISBN/UPC"
+
+#: src/fetchdialog.cpp:186
+#, fuzzy
+#| msgid ""
+#| "Click to open a text edit box for entering or editing multiple ISBN "
+#| "values."
+msgid ""
+"Click to open a text edit box for entering or editing multiple ISBN or UPC "
+"values."
+msgstr ""
+"Κάντε κλικ για να ανοίξετε ένα πλαίσιο επεξεργασίας κειμένου, ώστε να "
+"εισάγετε ή να επεξεργαστείτε πολλαπλές τιμές ISBN."
+
+#: src/fetchdialog.cpp:192
+msgid "Search s&ource:"
+msgstr "Πηγή προς αναζήτη&ση:"
+
+#: src/fetchdialog.cpp:200
+msgid "Select the database to search"
+msgstr "Επιλέξτε τη βάση δεδομένων για αναζήτηση"
+
+#: src/fetchdialog.cpp:216
+msgid "Source"
+msgstr "Πηγή"
+
+#: src/fetchdialog.cpp:226
+msgid ""
+"As results are found, they are added to this list. Selecting one will fetch "
+"the complete entry and show it in the view below."
+msgstr ""
+"Τα αποτελέσματα που βρέθηκαν, μπορούν να εισαχθούν στη λίστα. Επιλέγοντας "
+"ένα θα ανακτηθεί η πλήρης καταχώρηση και θα προβληθεί στην παρακάτω προβολή."
+
+#: src/fetchdialog.cpp:235
+msgid ""
+"An entry may be shown here before adding it to the current collection by "
+"selecting it in the list above"
+msgstr ""
+"Μια καταχώρηση μπορεί να εμφανιστεί εδώ πριν την προσθέσετε στην τρέχουσα "
+"συλλογή επιλέγοντάς την από την παραπάνω λίστα."
+
+#: src/fetchdialog.cpp:242
+msgid "&Add Entry"
+msgstr "&Προσθήκη καταχώρησης"
+
+#: src/fetchdialog.cpp:246
+msgid "Add the selected entry to the current collection"
+msgstr ""
+"Προσθήκη της επιλεγμένης ή των επιλεγμένων καταχωρήσεων στην τρέχουσα "
+"συλλογή."
+
+#: src/fetchdialog.cpp:248
+msgid "Get More Results"
+msgstr "Λήψη περισσότερων αποτελεσμάτων"
+
+#: src/fetchdialog.cpp:251
+msgid "Fetch more results from the current data source"
+msgstr "Ανάκτηση περισσότερων αποτελεσμάτων από την τρέχουσα πηγή δεδομένων."
+
+#: src/fetchdialog.cpp:255
+msgid "Clear all search fields and results"
+msgstr "Καθαρισμός όλων των πεδίων αναζήτησης και αποτελεσμάτων"
+
+#: src/fetchdialog.cpp:337
+msgid "Cancelling the search..."
+msgstr "Ακύρωση της αναζήτησης..."
+
+#: src/fetchdialog.cpp:348 src/fetchdialog.cpp:482
+msgid "Searching..."
+msgstr "Αναζήτηση..."
+
+#: src/fetchdialog.cpp:403
+msgid "The search returned no items."
+msgstr "Η αναζήτηση δεν επέστρεψε αποτελέσματα."
+
+#: src/fetchdialog.cpp:406
+#, kde-format
+msgid "The search returned 1 item."
+msgid_plural "The search returned %1 items."
+msgstr[0] "Η αναζήτηση επέστρεψε μόνο ένα αντικείμενο."
+msgstr[1] "Η αναζήτηση επέστρεψε %1 αντικείμενα."
+
+#: src/fetchdialog.cpp:429
+msgid "No results were found for the following ISBN values:"
+msgstr "Δεν βρέθηκαν αποτελέσματα για τις ακόλουθες τιμές ISBN:"
+
+#: src/fetchdialog.cpp:430
+msgid "No Results"
+msgstr "Δεν υπάρχουν αποτελέσματα"
+
+#: src/fetchdialog.cpp:450 src/fetchdialog.cpp:505
+#, kde-format
+msgid "Fetching %1..."
+msgstr "Ανάκτηση %1..."
+
+#: src/fetchdialog.cpp:517
+msgid "Attribution"
+msgstr "Γνωρίσματα"
+
+#: src/fetchdialog.cpp:549 src/fetchdialog.cpp:751
+msgid "No Internet sources are available for your current collection type."
+msgstr ""
+"Δεν υπάρχουν διαθέσιμες διαδικτυακές πηγές για το είδος της τρέχουσας "
+"συλλογής."
+
+#: src/fetchdialog.cpp:631
+msgid "Edit ISBN/UPC Values"
+msgstr "Επεξεργασία τιμών ISBN/UPC"
+
+#: src/fetchdialog.cpp:636
+msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
+msgstr "<qt>Εισάγετε τις τιμές ISBN ή UPC, μία σε κάθε γραμμή.</qt>"
+
+#: src/fetchdialog.cpp:648
+msgid "&Load From File..."
+msgstr "Φόρτωση από αρχείο..."
+
+#: src/fetchdialog.cpp:649
+msgid "<qt>Load the list from a text file.</qt>"
+msgstr "<qt>Φόρτωση της λίστας από ένα αρχείο κειμένου.</qt>"
+
+#: src/fetchdialog.cpp:668
+msgid ""
+"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
+"100 values in your list will be used.</qt>"
+msgstr ""
+"<qt>Μια αναζήτηση ISBN μπορεί να περιέχει περισσότερες από 100 τιμές. Μόνο "
+"οι πρώτες 100 τιμές της λίστας θα χρησιμοποιηθούν.</qt>"
+
+#: src/controller.cpp:375
+msgid "Do you really want to delete this entry?"
+msgstr "Θέλετε οπωσδήποτε να διαγράψετε αυτή την καταχώρηση;"
+
+#: src/controller.cpp:377
+msgid "Delete Entry"
+msgstr "Διαγραφή καταχώρησης"
+
+#: src/controller.cpp:389
+msgid "Do you really want to delete these entries?"
+msgstr "Θέλετε οπωσδήποτε να διαγράψετε αυτές τις καταχωρήσεις;"
+
+#: src/controller.cpp:393
+msgid "Delete Multiple Entries"
+msgstr "Διαγραφή πολλαπλών καταχωρήσεων"
+
+#: src/controller.cpp:583
+msgid "&Edit Entries..."
+msgstr "&Επεξεργασία καταχωρήσεων..."
+
+#: src/controller.cpp:584
+msgid "D&uplicate Entries"
+msgstr "Δ&ιπλοεγγραφές καταχωρήσεων"
+
+#: src/controller.cpp:585
+msgid "&Update Entries"
+msgstr "&Ενημέρωση καταχωρήσεων"
+
+#: src/controller.cpp:586
+msgid "&Delete Entries"
+msgstr "&Διαγραφή καταχωρήσεων"
+
+#: src/controller.cpp:643
+msgid ""
+"The following items are already loaned, but Tellico does not currently "
+"support lending an item multiple times. They will be removed from the list "
+"of items to lend."
+msgstr ""
+"Τα παρακάτω αντικείμενα είναι ήδη δανεισμένα, αλλά το Tellico δεν "
+"υποστηρίζει ακόμη τον δανεισμό ενός αντικειμένου πολλές φορές. Θα διαγραφούν "
+"από τη λίστα των δανεισμένων αντικειμένων."
 
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
@@ -5507,8 +5648,12 @@ msgstr ""
 "p>\n"
 
 #: tips.cpp:11
+#, fuzzy
+#| msgid ""
+#| "<p>...that you can change which fields are shown in the list view by\n"
+#| "right-clicking on the column header.\n"
 msgid ""
-"<p>...that you can change which fields are shown in the list view by\n"
+"<p>...that you can change which fields are shown in the column view by\n"
 "right-clicking on the column header.\n"
 msgstr ""
 "<p>...ότι μπορείτε να αλλάξετε τα πεδία που εμφανίζονται στην\n"
@@ -5637,9 +5782,13 @@ msgstr ""
 " &lt;i&gt;πλάγια&lt;/i&gt;.</p>\n"
 
 #: tips.cpp:80
+#, fuzzy
+#| msgid ""
+#| "<p>...that in the Detailed View, you can press a letter on the\n"
+#| "keyboard to skip to the next entry that starts with that letter.</p>\n"
 msgid ""
-"<p>...that in the Detailed View, you can press a letter on the\n"
-"keyboard to skip to the next entry that starts with that letter.</p>\n"
+"<p>...that when the Column View is focused, you can press a letter on the\n"
+"keyboard to scroll to the next entry that starts with that letter.</p>\n"
 msgstr ""
 "<p>...ότι στην Προβολή λεπτομερειών, μπορείτε να πατήσετε\n"
 "ένα γράμμα στο πληκτρολόγιο ώστε να μεταβείτε στην επόμενη\n"
@@ -5668,48 +5817,70 @@ msgstr ""
 "κειμένου με καταχωρήσεις 3b, 14a.</p>\n"
 
 #: xslt.cpp:2
-msgid "Album XSL Template"
-msgstr "Άλμπουμ, πρότυπο XSL"
+#, fuzzy
+#| msgid "Compact Disc"
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "CD"
 
-#: xslt.cpp:3
+#: xslt.cpp:4
+#, fuzzy
+#| msgid "Album"
+msgctxt "Album XSL Template"
+msgid "Album"
+msgstr "Άλμπουμ"
+
+#: xslt.cpp:5
 msgid "This template is meant for music collections only."
 msgstr "Αυτό το πρότυπο προορίζεται μόνο για συλλογές μουσικής."
 
-#: xslt.cpp:5
+#: xslt.cpp:7
 msgid "Total:"
 msgstr "Σύνολο:"
 
-#: xslt.cpp:7
-msgid "Compact XSL Template"
-msgstr "Μουσική, πρότυπο XSL"
-
 #: xslt.cpp:9
-msgid "Default XSL Template"
-msgstr "Προκαθορισμένο πρότυπο XSL"
+#, fuzzy
+#| msgid "&Default value:"
+msgctxt "Default XSL Template"
+msgid "Default"
+msgstr "&Καθορισμένη τιμή:"
 
 #: xslt.cpp:11
-msgid "Fancy XSL Template"
-msgstr "Fancy, πρότυπο XSL"
+msgctxt "Fancy XSL Template"
+msgid "Fancy"
+msgstr ""
 
 #: xslt.cpp:13
-msgid "Video XSL Template"
-msgstr "Ταινίες, πρότυπο XSL"
+#, fuzzy
+#| msgid "My Videos"
+msgctxt "Video XSL Template"
+msgid "Video"
+msgstr "Τα βίντεο μου"
 
 #: xslt.cpp:14 xslt.cpp:46
 msgid "This template is meant for video collections only."
 msgstr "Αυτό το πρότυπο προορίζεται μόνο για συλλογές ταινιών."
 
 #: xslt.cpp:16
-msgid "Column View XSL Template"
-msgstr "Προβολή στήλης, πρότυπο XSL"
+#, fuzzy
+#| msgid "Column %1"
+msgctxt "Column View XSL Template"
+msgid "Column View"
+msgstr "Στήλη %1"
 
 #: xslt.cpp:18
-msgid "Group Statistics XSL Template"
+#, fuzzy
+#| msgid "Group Statistics XSL Template"
+msgctxt "Group Statistics XSL Template"
+msgid "Group Statistics"
 msgstr "Πρότυπο ομάδας στατιστικών XSL"
 
 #: xslt.cpp:21
-msgid "Group Summary XSL Template"
-msgstr "Περίληψη ομάδων, πρότυπο XSL"
+#, fuzzy
+#| msgid ": Group Summary"
+msgctxt "Group Summary XSL Template"
+msgid "Group Summary"
+msgstr ": Περιλήψεις ομάδων"
 
 #: xslt.cpp:22
 msgid ": Group Summary"
@@ -5732,16 +5903,25 @@ msgid "Distinct values: "
 msgstr "Σαφείς τιμές:"
 
 #: xslt.cpp:28
-msgid "Group View XSL Template"
-msgstr "Προβολή ομάδας, πρότυπο XSL"
+#, fuzzy
+#| msgid "Show Grou&p View"
+msgctxt "Group View XSL Template"
+msgid "Group View"
+msgstr "Εμφάνιση προβολής &ομάδας"
 
 #: xslt.cpp:30
-msgid "Image List XSL Template"
-msgstr "Λίστα εικόνων, πρότυπο XSL"
+#, fuzzy
+#| msgid "Image Options"
+msgctxt "Image List XSL Template"
+msgid "Image List"
+msgstr "Επιλογές εικόνας"
 
 #: xslt.cpp:32
-msgid "Loan View XSL Template"
-msgstr "Πρότυπο XSL για προβολή δανεισμού"
+#, fuzzy
+#| msgid "Loan Date"
+msgctxt "Loan View XSL Template"
+msgid "Loan View"
+msgstr "Ημερομηνία δανεισμού"
 
 #: xslt.cpp:34 xslt.cpp:36
 msgid "Loan Date"
@@ -5756,16 +5936,26 @@ msgid "Due Date"
 msgstr "Ημερομηνία λήξης"
 
 #: xslt.cpp:41
-msgid "Title Listing (Horizontal) XSL Template"
+#, fuzzy
+#| msgid "Title Listing (Horizontal) XSL Template"
+msgctxt "Title Listing (Horizontal) XSL Template"
+msgid "Title Listing (Horizontal)"
 msgstr "Πρότυπο XSL για λίστα τίτλων (oριζόντια)"
 
 #: xslt.cpp:43
-msgid "Title Listing (Vertical) XSL Template"
+#, fuzzy
+#| msgid "Title Listing (Vertical) XSL Template"
+msgctxt "Title Listing (Vertical) XSL Template"
+msgid "Title Listing (Vertical)"
 msgstr "Πρότυπο XSL για λίστα τίτλων (κάθετη)"
 
 #: xslt.cpp:45
-msgid "Tri-Column XSL Template"
-msgstr "Πρότυπο XSL για προβολή τριών στηλών"
+#, fuzzy
+#| msgctxt "Noun, Menu name"
+#| msgid "Columns"
+msgctxt "Tri-Column XSL Template"
+msgid "Tri-Column"
+msgstr "Στήλες"
 
 #: xslt.cpp:48
 msgid "Clear"
@@ -5838,6 +6028,42 @@ msgstr "Allocine.fr"
 #: scripts.cpp:10
 msgid "Spanish Ministry of Culture"
 msgstr "Ισπανικό Υπουργείο Πολιτισμού"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #, fuzzy
 

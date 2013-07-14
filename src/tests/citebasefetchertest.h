@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,15 +25,13 @@
 #ifndef CITEBASEFETCHERTEST_H
 #define CITEBASEFETCHERTEST_H
 
-#include <QObject>
-#include <QEventLoop>
-#include <QHash>
+#include "abstractfetchertest.h"
 
-#include "../datavectors.h"
+#include <QHash>
 
 class KJob;
 
-class CitebaseFetcherTest : public QObject {
+class CitebaseFetcherTest : public AbstractFetcherTest {
 Q_OBJECT
 public:
   CitebaseFetcherTest();
@@ -42,12 +40,8 @@ private Q_SLOTS:
   void initTestCase();
   void testArxivID();
 
-  void slotResult(KJob* job);
-
 private:
-  QEventLoop m_loop;
   QHash<QString, QString> m_fieldValues;
-  Tellico::Data::EntryList m_results;
 };
 
 #endif

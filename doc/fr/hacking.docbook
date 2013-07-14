@@ -115,7 +115,7 @@
 >. </para>
 
 <para
->Field properties are used for setting default field values, rating value ranges, derived value templates, etc. The examples above include a default value, a maximum rating value, and a template for a derived ID field. </para>
+>Les propriétés des champs sont utilisées pour définir les valeurs par défaut des champs (plage de notation, modèle de valeur dérivée, etc.). L'exemple ci-dessus inclut une valeur par défaut, un notation maximale et un modèle pour un champ ID dérivé. </para>
 
  
 
@@ -441,7 +441,7 @@
 <row
 ><entry
 ><emphasis
->Ne pas autoriser la suppression</emphasis
+>Interdire la suppression</emphasis
 ></entry
 ><entry
 ><constant
@@ -451,7 +451,7 @@
 <row
 ><entry
 ><emphasis
->Disallow Editing</emphasis
+>Interdire l'édition</emphasis
 ></entry
 ><entry
 ><constant
@@ -460,7 +460,7 @@
 ></row>
 <row
 ><entry
->Derived Value</entry
+>Valeur dérivée</entry
 ><entry
 ><constant
 >0x20</constant
@@ -471,15 +471,15 @@
 </table>
 
 <para
->The format of the field is given in the format attribute on the field element. <emphasis
->Date Formatting</emphasis
-> is not currently used. Grouping by <emphasis
->People</emphasis
-> uses all the fields which use <emphasis
->Name Formatting</emphasis
->. Setting the <emphasis
->Derived Value</emphasis
-> flag implies the value for the field is generated from the template property from other field values. </para>
+>Le format du champ est donné dans l'attribut du format sur l'élément de champ. Le <emphasis
+>formatage de date</emphasis
+> n'est pas utilisé actuellement. Le groupement par <emphasis
+>personne</emphasis
+> utilise tous les champs employant le <emphasis
+>formatage de nom</emphasis
+>. La définition du drapeau <emphasis
+>valeur dérivée</emphasis
+> implique que la valeur du champ sera générée sur la base du modèle à partir des autres valeurs du champs. </para>
 
 <table>
 <title
@@ -564,9 +564,9 @@
 >Taille maximum des icônes</title>
 
 <para
->La taille maximum des icônes dans la <interface
+>La taille maximale des icônes dans la <interface
 >Vue en icônes</interface
-> peut être modifiée avec ce paramètre. La valeur par défaut est 96. La taille doit être comprise entre 32 et 256. </para>
+> peut être modifiée avec ce paramètre. La valeur par défaut est 96. La taille doit être comprise entre 32 et 512. </para>
 </sect3>
 
 <sect3>
@@ -576,6 +576,55 @@
 <para
 ><userinput
 >Max Icon Size=128</userinput
+></para>
+</informalexample>
+</sect3>
+
+<sect3>
+<title
+>Taille du cache des icônes</title>
+
+<para
+>Le nombre maximal d'icônes cachées en mémoire peut être modifié avec ce paramètre. La valeur par défaut est 1000. </para>
+</sect3>
+
+<sect3>
+<title
+>Exemple</title>
+<informalexample>
+<para
+><userinput
+>Icon Cache Size=100</userinput
+></para>
+</informalexample>
+</sect3>
+
+<sect3>
+<title
+>Exemple</title>
+<informalexample>
+<para
+><userinput
+>Max Icon Size=128</userinput
+></para>
+</informalexample>
+</sect3>
+
+<sect3>
+<title
+>Taille du cache des images</title>
+
+<para
+>La taille maximale de mémoire allouée, en octets, à la mise en cache de toutes les images peut être modifiée avec ce paramètre. La valeur par défaut est 67108864. </para>
+</sect3>
+
+<sect3>
+<title
+>Exemple</title>
+<informalexample>
+<para
+><userinput
+>Image Cache Size=256000000</userinput
 ></para>
 </informalexample>
 </sect3>

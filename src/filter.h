@@ -31,6 +31,7 @@
 
 #include <QList>
 #include <QString>
+#include <QVariant>
 
 namespace Tellico {
   namespace Data {
@@ -51,7 +52,8 @@ public:
   enum Function {
     FuncContains=0, FuncNotContains,
     FuncEquals, FuncNotEquals,
-    FuncRegExp, FuncNotRegExp
+    FuncRegExp, FuncNotRegExp,
+    FuncBefore, FuncAfter
   };
 
   FilterRule();
@@ -88,7 +90,7 @@ public:
   /**
    * Return pattern
    */
-  const QString& pattern() const { return m_pattern; }
+  QString pattern() const;
   /**
    * Set pattern
    */
@@ -98,11 +100,14 @@ private:
   bool equals(Data::EntryPtr entry) const;
   bool contains(Data::EntryPtr entry) const;
   bool matchesRegExp(Data::EntryPtr entry) const;
+  bool before(Data::EntryPtr entry) const;
+  bool after(Data::EntryPtr entry) const;
+  void updatePattern();
 
   QString m_fieldName;
   Function m_function;
   QString m_pattern;
-  QRegExp m_patternRx;
+  QVariant m_patternVariant;
 };
 
 /**

@@ -93,6 +93,9 @@ TARGET_LINK_LIBRARIES(bibtextest ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(bibtexmltest NOGUI bibtexmltest.cpp)
 TARGET_LINK_LIBRARIES(bibtexmltest ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(ciwtest NOGUI ciwtest.cpp)
+TARGET_LINK_LIBRARIES(ciwtest ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(gcstartest NOGUI gcstartest.cpp)
 TARGET_LINK_LIBRARIES(gcstartest ${TELLICO_TEST_LIBS})
 
@@ -149,6 +152,9 @@ IF( QJSON_FOUND )
 
     KDE4_ADD_UNIT_TEST(filmasterfetchertest NOGUI filmasterfetchertest.cpp abstractfetchertest.cpp)
     TARGET_LINK_LIBRARIES(filmasterfetchertest fetch ${TELLICO_TEST_LIBS})
+
+    KDE4_ADD_UNIT_TEST(masfetchertest NOGUI masfetchertest.cpp abstractfetchertest.cpp)
+    TARGET_LINK_LIBRARIES(masfetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( QJSON_FOUND )
 
 # running gcstar in the fetcher is really unreliable
@@ -163,6 +169,9 @@ TARGET_LINK_LIBRARIES(googlebookfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(googlescholarfetchertest NOGUI googlescholarfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(googlescholarfetchertest fetch ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(ibsfetchertest NOGUI ibsfetchertest.cpp abstractfetchertest.cpp)
+TARGET_LINK_LIBRARIES(ibsfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(imdbfetchertest NOGUI imdbfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(imdbfetchertest fetch ${TELLICO_TEST_LIBS})
@@ -180,6 +189,9 @@ IF( QJSON_FOUND )
     KDE4_ADD_UNIT_TEST(openlibraryfetchertest NOGUI openlibraryfetchertest.cpp abstractfetchertest.cpp)
     TARGET_LINK_LIBRARIES(openlibraryfetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( QJSON_FOUND )
+
+KDE4_ADD_UNIT_TEST(springerfetchertest NOGUI springerfetchertest.cpp abstractfetchertest.cpp)
+TARGET_LINK_LIBRARIES(springerfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(srufetchertest NOGUI srufetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(srufetchertest fetch ${TELLICO_TEST_LIBS})

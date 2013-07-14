@@ -3,18 +3,15 @@ ADD_SUBDIRECTORY( scripts )
 ########### next target ###############
 
 SET(fetch_STAT_SRCS
-   allocinefetcher.cpp
    amazonfetcher.cpp
    amazonrequest.cpp
    animenfofetcher.cpp
    arxivfetcher.cpp
-   beyazperdefetcher.cpp
    bibliosharefetcher.cpp
    bibsonomyfetcher.cpp
    citebasefetcher.cpp
    configwidget.cpp
    crossreffetcher.cpp
-   dblpfetcher.cpp
    discogsfetcher.cpp
    doubanfetcher.cpp
    dvdfrfetcher.cpp
@@ -26,30 +23,23 @@ SET(fetch_STAT_SRCS
    fetchmanager.cpp
    fetchresult.cpp
    filmasterfetcher.cpp
-   filmstartsfetcher.cpp
    freebasefetcher.cpp
    gcstarpluginfetcher.cpp
    gcstarthread.cpp
    giantbombfetcher.cpp
    googlebookfetcher.cpp
    googlescholarfetcher.cpp
-   hathitrustfetcher.cpp
    hmac_sha2.c
    ibsfetcher.cpp
    imdbfetcher.cpp
    isbndbfetcher.cpp
-   masfetcher.cpp
    messagehandler.cpp
    moviemeterfetcher.cpp
    multifetcher.cpp
    musicbrainzfetcher.cpp
    openlibraryfetcher.cpp
-   screenrushfetcher.cpp
-   sensacinefetcher.cpp
    sha2.c
-   springerfetcher.cpp
    srufetcher.cpp
-   thegamesdbfetcher.cpp
    themoviedbfetcher.cpp
    winecomfetcher.cpp
    xmlfetcher.cpp
@@ -65,14 +55,7 @@ TARGET_LINK_LIBRARIES(fetch
     btparse
     )
 
-# Versions of KDE prior to 4.7 have a character encoding bug in libkxmlrpc
-# Use internal version of libkxmlrpc if so
-IF (KDEPIMLIBS_FOUND AND ${KDE_VERSION} VERSION_GREATER "4.6.99")
-  TARGET_LINK_LIBRARIES(fetch ${KDEPIMLIBS_KXMLRPCCLIENT_LIBS})
-ELSE (KDEPIMLIBS_FOUND AND ${KDE_VERSION} VERSION_GREATER "4.6.99")
-  ADD_SUBDIRECTORY(xmlrpc)
-  TARGET_LINK_LIBRARIES(fetch xmlrpc)
-ENDIF (KDEPIMLIBS_FOUND AND ${KDE_VERSION} VERSION_GREATER "4.6.99")
+TARGET_LINK_LIBRARIES(fetch ${KDEPIMLIBS_KXMLRPCCLIENT_LIBS})
 
 IF( YAZ_FOUND )
   TARGET_LINK_LIBRARIES(fetch ${YAZ_LIBRARIES})

@@ -44,10 +44,6 @@ void FilterTest::testFilter() {
   Tellico::FilterRule* rule1 = new Tellico::FilterRule(QLatin1String("title"),
                                                        QLatin1String("Star Wars"),
                                                        Tellico::FilterRule::FuncEquals);
-  QCOMPARE(rule1->fieldName(), QLatin1String("title"));
-  QCOMPARE(rule1->pattern(), QLatin1String("Star Wars"));
-  QCOMPARE(rule1->function(), Tellico::FilterRule::FuncEquals);
-
   Tellico::Filter filter(Tellico::Filter::MatchAny);
   filter.append(rule1);
   QVERIFY(filter.matches(entry));
@@ -88,7 +84,6 @@ void FilterTest::testFilter() {
   Tellico::FilterRule* rule3 = new Tellico::FilterRule(QLatin1String("title"),
                                                        QLatin1String("Sta[rt]"),
                                                        Tellico::FilterRule::FuncRegExp);
-  QCOMPARE(rule3->pattern(), QLatin1String("Sta[rt]"));
   filter.clear();
   filter.append(rule3);
   QVERIFY(filter.matches(entry));
@@ -130,37 +125,5 @@ void FilterTest::testFilter() {
   QVERIFY(filter.matches(entry));
 
   rule5->setFunction(Tellico::FilterRule::FuncRegExp);
-  QVERIFY(!filter.matches(entry));
-
-  Tellico::Data::FieldPtr date(new Tellico::Data::Field(QLatin1String("date"),
-                                                        QLatin1String("Date"),
-                                                        Tellico::Data::Field::Date));
-  coll->addField(date);
-
-  entry->setField(QLatin1String("date"), QLatin1String("2011-10-25"));
-
-  Tellico::FilterRule* rule6 = new Tellico::FilterRule(QLatin1String("date"),
-                                                       QLatin1String("2011-10-24"),
-                                                       Tellico::FilterRule::FuncAfter);
-  QCOMPARE(rule6->pattern(), QLatin1String("2011-10-24"));
-  filter.clear();
-  filter.append(rule6);
-  QVERIFY(filter.matches(entry));
-
-  rule6->setFunction(Tellico::FilterRule::FuncBefore);
-  QVERIFY(!filter.matches(entry));
-
-  // check that a date match is neither before or after
-  entry->setField(QLatin1String("date"), rule6->pattern());
-  rule6->setFunction(Tellico::FilterRule::FuncAfter);
-  QVERIFY(!filter.matches(entry));
-  rule6->setFunction(Tellico::FilterRule::FuncBefore);
-  QVERIFY(!filter.matches(entry));
-
-  // check that an invalid date never matches
-  entry->setField(QLatin1String("date"), QLatin1String("test"));
-  rule6->setFunction(Tellico::FilterRule::FuncAfter);
-  QVERIFY(!filter.matches(entry));
-  rule6->setFunction(Tellico::FilterRule::FuncBefore);
   QVERIFY(!filter.matches(entry));
 }

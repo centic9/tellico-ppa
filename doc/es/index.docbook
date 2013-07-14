@@ -12,7 +12,7 @@
   <!ENTITY robby "Robby Stephenson">
   <!ENTITY email "robby@periapsis.org">
   <!ENTITY homepage "http://tellico-project.org">
-  <!ENTITY maillist "http://tellico-project.org/mailing-list">
+  <!ENTITY maillist "http://forge.novell.com/mailman/listinfo/tellico-users">
   <!ENTITY xslt "<acronym
 >XSLT</acronym
 >">
@@ -33,7 +33,7 @@
 
 <!-- The language must NOT be changed here. -->
 
-<book id="tellico" lang="&language;">
+<book lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -117,22 +117,37 @@ Do NOT change these in the translation. -->
 >2008</year>
 <year
 >2009</year>
-<year
->2010</year>
-<year
->2011</year>
 <holder
 >&robby;</holder>
 </copyright>
 
 <!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+&FDLNotice;
+
+<para
+>El autor de esta documentación le concede también el permiso para utilizar el contenido bajo los términos de la <ulink url="freebsd-doc-license.html"
+>Licencia de la documentación de FreeBSD</ulink
+>, si lo desea. Vea el aviso en la <link linkend="gnu-fdl"
+>sección de licencia</link
+>.</para>
+</legalnotice>
 
 <legalnotice>
 <para
->Para obtener información sobre la licencia tanto de este programa como de su documentación, consulte la <link linkend="credits"
->última sección</link
->. </para>
+>Este programa es software libre; puede redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General &GNU;, tal como está publicada por la Free Software Foundation; cualquier versión 2 de la Licencia o (a su elección) de la versión 3 u otra versión posterior aceptada por los miembros de KDE e.V. (o su sucesor aprobado por los miembros de KDE e.V.), que actuará por poderes, tal como está definido en la sección 14 de la versión 3 de la licencia. </para>
+
+<para
+>Este programa se distribuye con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; incluso sin la garantía implícita de COMERCIALIDAD o ADECUACIÓN A UN PROPÓSITO PARTICULAR. Vea la Licencia Pública General de &GNU; para más detalles.</para>
+
+<para
+>Usted debería haber recibido una copia de la Licencia Pública General &GNU; con este programa; si no, escriba a la Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</para>
 </legalnotice>
+<!--<legalnotice
+>&GPLNotice;</legalnotice
+>-->
 
 <!-- Abstract about this handbook -->
 
@@ -214,7 +229,7 @@ revision history. (see installation appendix comment) -->
 >&appname; no es un reproductor de audio o de vídeo. No proporciona facilidades para leer o para modificar archivos multimedia. Tampoco proporciona ninguna funcionalidad de edición de imágenes. Aunque &appname; tiene alguna funcionalidad para gestionar listas de bibliografía, no es un gestor dedicado de referencia bibliográfica. &appname; tampoco intenta  tener todas las capacidades de una base de datos relacional hecha y derecha. </para>
 
 <para
->Como cierta forma de exención de responsabilidad, &appname; es un hobby del autor, y no se dan garantías sobre su funcionalidad, utilidad o cualquier otra cosa. Se incluye más información en la <link linkend="credits"
+>Como cierta forma de exención de responsabilidad, &appname; es un hobby del autor, y no se dan garantías sobre su funcionalidad, utilidad o cualquier otra cosa. Está muy lejos de ser un paquete de software profesional. Se incluye más información en la <link linkend="gnu-fdl"
 >declaración de licencia</link
 >. </para>
 
@@ -240,8 +255,8 @@ revision history. (see installation appendix comment) -->
 <title
 >Campos de una colección</title>
 <para
->Cada colección puede tener un número ilimitado de campos. &appname; admite once tipos de campos, lo que permite un intervalo de datos diferentes. Los campos se pueden editar con el <link linkend="fields-dialog"
-><interface
+>Cada colección tiene un número ilimitado de campos. &appname; admite once tipos de campos, lo que permite un intervalo de datos diferentes. Los campos se pueden editar con el <link linkend="fields-dialog"
+> <interface
 >Diálogo de campos de la colección</interface
 ></link
 >, y se explican con más detalle en la sección <link linkend="field-types"
@@ -296,11 +311,12 @@ file included in the KDE distribution. -->
 <para
 >&appname; </para>
 <para
->Derecho de autor del programa 2001-2011 &robby; <email
+>Derecho de autor del programa 2001-2009 &robby; <email
 >&email;</email
 > </para>
+
 <para
->Derechos de autor de la documentación 2001-2011 &robby; <email
+>Derechos de autor de la documentación 2001-2009 &robby; <email
 >&email;</email
 > </para>
 
@@ -309,10 +325,10 @@ file included in the KDE distribution. -->
 >the.blue.valkyrie@gmail.com</email
 ></para
 > 
-&underGPL; &underFDL; <para
->El autor de esta documentación le garantiza también el permiso para usar el contenido bajo los términos de la <ulink url="http://www.freebsd.org/copyright/freebsd-doc-license.html"
->Licencia de documentación de FreeBSD</ulink
->, si así lo elige. Si desea permitir el uso de su versión de este contenido sólo bajo los términos de la Licencia de documentación de FreeBSD, pero no permitir que otros usen su versión de este archivo bajo los términos de la GFDL, indique su decisión eliminando el aviso de GFDL y reemplazándolo con el aviso y otras provisiones requeridas por la Licencia de documentación de FreeBSD. Si no elimina el aviso GFDL de arriba, un destinatario podría usar su versión de este archivo bajo los términos tanto de GFDL como de la Licencia de documentación de FreeBSD.</para>
+&underFDL; &underGPL; <para
+>El autor de esta documentación le garantiza también el permiso para usar el contenido bajo los términos de la <ulink url="freebsd-doc-license.html"
+>Licencia de la documentación de FreeBSD</ulink
+>, a su elección. Si desea permitir el uso de su versión de este contenido sólo bajo los términos de la Licencia de la documentación de FreeBSD, pero no permitir que otros usen su versión de este archivo bajo los términos de GFDL, indique su decisión eliminando el aviso de GFDL y reemplazándolo con el aviso y otras provisiones requeridas por la Licencia de la documentación de FreeBSD. Si no elimina el aviso GFDL de arriba, un destinatario podría usar su versión de este archivo bajo los términos tanto de GFDL como de la Licencia de la documentación de FreeBSD.</para>
 
 </chapter>
 

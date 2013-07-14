@@ -35,11 +35,11 @@
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
-#include <KStandardDirs>
+#include <kstandarddirs.h>
 
 QTEST_KDEMAIN( FilmasterFetcherTest, GUI )
 
-FilmasterFetcherTest::FilmasterFetcherTest() : AbstractFetcherTest() {
+FilmasterFetcherTest::FilmasterFetcherTest() : m_loop(this) {
 }
 
 void FilmasterFetcherTest::initTestCase() {
@@ -48,7 +48,7 @@ void FilmasterFetcherTest::initTestCase() {
 
   m_fieldValues.insert(QLatin1String("title"), QLatin1String("The Man from Snowy River"));
   m_fieldValues.insert(QLatin1String("year"), QLatin1String("1982"));
-//  m_fieldValues.insert(QLatin1String("genre"), QLatin1String("drama; family; romance; western"));
+  m_fieldValues.insert(QLatin1String("genre"), QLatin1String("drama; family; romance; western"));
   m_fieldValues.insert(QLatin1String("director"), QLatin1String("George Miller"));
 //  m_fieldValues.insert(QLatin1String("nationality"), QLatin1String("Australia"));
 }
@@ -58,11 +58,16 @@ void FilmasterFetcherTest::testTitle() {
                                        QLatin1String("Man From Snowy River"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::FilmasterFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 2);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(2);
 
-  QCOMPARE(results.size(), 2);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(1);
+  QCOMPARE(m_results.size(), 2);
+
+  Tellico::Data::EntryPtr entry = m_results.at(1);
   QVERIFY(entry);
 
   QHashIterator<QString, QString> i(m_fieldValues);
@@ -82,12 +87,16 @@ void FilmasterFetcherTest::testPerson() {
                                        QLatin1String("Tom Burlinson"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::FilmasterFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QVERIFY(results.size() > 0);
+  job->start();
+  m_loop.exec();
+
+  QVERIFY(m_results.size() > 0);
   Tellico::Data::EntryPtr entry;  //  results can be randomly ordered, loop until wee find the one we want
-  for(int i = 0; i < results.size(); ++i) {
-    Tellico::Data::EntryPtr test = results.at(i);
+  for(int i = 0; i < m_results.size(); ++i) {
+    Tellico::Data::EntryPtr test = m_results.at(i);
     if(test->field(QLatin1String("title")).toLower() == QLatin1String("the man from snowy river")) {
       entry = test;
       break;
@@ -114,11 +123,16 @@ void FilmasterFetcherTest::testKeyword() {
                                        QLatin1String("Man From Snowy River"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::FilmasterFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 2);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(2);
 
-  QCOMPARE(results.size(), 2);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(1);
+  QCOMPARE(m_results.size(), 2);
+
+  Tellico::Data::EntryPtr entry = m_results.at(1);
   QVERIFY(entry);
 
   QHashIterator<QString, QString> i(m_fieldValues);
@@ -131,4 +145,9 @@ void FilmasterFetcherTest::testKeyword() {
   QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
   QVERIFY(!entry->field(QLatin1String("plot")).isEmpty());
+}
+
+void FilmasterFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

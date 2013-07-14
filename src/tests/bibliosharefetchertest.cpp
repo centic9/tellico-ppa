@@ -28,6 +28,7 @@
 #include "bibliosharefetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/bibliosharefetcher.h"
 #include "../entry.h"
 #include "../collections/bookcollection.h"
@@ -39,7 +40,7 @@
 
 QTEST_KDEMAIN( BiblioShareFetcherTest, GUI )
 
-BiblioShareFetcherTest::BiblioShareFetcherTest() : AbstractFetcherTest() {
+BiblioShareFetcherTest::BiblioShareFetcherTest() : m_loop(this) {
 }
 
 void BiblioShareFetcherTest::initTestCase() {
@@ -54,17 +55,23 @@ void BiblioShareFetcherTest::testIsbn() {
                                        QLatin1String("0670069035"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::BiblioShareFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("The Girl Who Kicked The Hornets Nest"));
+  QCOMPARE(m_results.size(), 1);
+//  QVERIFY(!m_results.isEmpty());
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
+  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("The Girl Who Kicked The Hornet`s Nest"));
   QCOMPARE(entry->field(QLatin1String("author")), QLatin1String("Stieg Larsson"));
   QCOMPARE(entry->field(QLatin1String("binding")), QLatin1String("Hardback"));
   QCOMPARE(entry->field(QLatin1String("isbn")), QLatin1String("0-670-06903-5"));
   QCOMPARE(entry->field(QLatin1String("pub_year")), QLatin1String("2010"));
-  QCOMPARE(entry->field(QLatin1String("publisher")), QLatin1String("Penguin Group Canada"));
+  QCOMPARE(entry->field(QLatin1String("publisher")), QLatin1String("Viking Canada"));
   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 }
 
@@ -73,16 +80,27 @@ void BiblioShareFetcherTest::testIsbn13() {
                                        QLatin1String("9780670069033"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::BiblioShareFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("The Girl Who Kicked The Hornets Nest"));
+  QCOMPARE(m_results.size(), 1);
+//  QVERIFY(!m_results.isEmpty());
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
+  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("The Girl Who Kicked The Hornet`s Nest"));
   QCOMPARE(entry->field(QLatin1String("author")), QLatin1String("Stieg Larsson"));
   QCOMPARE(entry->field(QLatin1String("binding")), QLatin1String("Hardback"));
   QCOMPARE(entry->field(QLatin1String("isbn")), QLatin1String("0-670-06903-5"));
   QCOMPARE(entry->field(QLatin1String("pub_year")), QLatin1String("2010"));
-  QCOMPARE(entry->field(QLatin1String("publisher")), QLatin1String("Penguin Group Canada"));
+  QCOMPARE(entry->field(QLatin1String("publisher")), QLatin1String("Viking Canada"));
   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+}
+
+void BiblioShareFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

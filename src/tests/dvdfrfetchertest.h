@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,11 +25,14 @@
 #ifndef DVDFRFETCHERTEST_H
 #define DVDFRFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-#include <QHash>
+#include "../datavectors.h"
 
-class DVDFrFetcherTest : public AbstractFetcherTest {
+class KJob;
+
+class DVDFrFetcherTest : public QObject {
 Q_OBJECT
 public:
   DVDFrFetcherTest();
@@ -37,10 +40,13 @@ public:
 private Q_SLOTS:
   void initTestCase();
   void testTitle();
-  void testTitleAccented();
   void testUPC();
 
+  void slotResult(KJob* job);
+
 private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
   QHash<QString, QString> m_fieldValues;
 };
 

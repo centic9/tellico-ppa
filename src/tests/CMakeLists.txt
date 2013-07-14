@@ -93,12 +93,6 @@ TARGET_LINK_LIBRARIES(bibtextest ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(bibtexmltest NOGUI bibtexmltest.cpp)
 TARGET_LINK_LIBRARIES(bibtexmltest ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(ciwtest NOGUI ciwtest.cpp)
-TARGET_LINK_LIBRARIES(ciwtest ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(delicioustest NOGUI delicioustest.cpp)
-TARGET_LINK_LIBRARIES(delicioustest ${TELLICO_TEST_LIBS})
-
 KDE4_ADD_UNIT_TEST(gcstartest NOGUI gcstartest.cpp)
 TARGET_LINK_LIBRARIES(gcstartest ${TELLICO_TEST_LIBS})
 
@@ -111,113 +105,84 @@ TARGET_LINK_LIBRARIES(ristest ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(tellicoreadtest NOGUI tellicoreadtest.cpp)
 TARGET_LINK_LIBRARIES(tellicoreadtest tellicomodels ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(vinoxmltest NOGUI vinoxmltest.cpp)
-TARGET_LINK_LIBRARIES(vinoxmltest ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(entryupdatejobtest NOGUI entryupdatejobtest.cpp ../entryupdatejob.cpp)
-TARGET_LINK_LIBRARIES(entryupdatejobtest fetch translators ${TELLICO_TEST_LIBS})
-
-# fetcher tests from here down
-IF(BUILD_FETCHER_TESTS)
-
-KDE4_ADD_UNIT_TEST(allocinefetchertest NOGUI allocinefetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(allocinefetchertest NOGUI allocinefetchertest.cpp)
 TARGET_LINK_LIBRARIES(allocinefetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(amazonfetchertest NOGUI amazonfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(amazonfetchertest NOGUI amazonfetchertest.cpp)
 TARGET_LINK_LIBRARIES(amazonfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(animenfofetchertest NOGUI animenfofetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(animenfofetchertest NOGUI animenfofetchertest.cpp)
 TARGET_LINK_LIBRARIES(animenfofetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(arxivfetchertest NOGUI arxivfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(arxivfetchertest NOGUI arxivfetchertest.cpp)
 TARGET_LINK_LIBRARIES(arxivfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(bibliosharefetchertest NOGUI bibliosharefetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(bibliosharefetchertest NOGUI bibliosharefetchertest.cpp)
 TARGET_LINK_LIBRARIES(bibliosharefetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(boardgamegeekfetchertest NOGUI boardgamegeekfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(boardgamegeekfetchertest NOGUI boardgamegeekfetchertest.cpp)
 TARGET_LINK_LIBRARIES(boardgamegeekfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(citebasefetchertest NOGUI citebasefetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(citebasefetchertest NOGUI citebasefetchertest.cpp)
 TARGET_LINK_LIBRARIES(citebasefetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(darkhorsefetchertest NOGUI darkhorsefetchertest.cpp abstractfetchertest.cpp)
-TARGET_LINK_LIBRARIES(darkhorsefetchertest fetch ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(dblpfetchertest NOGUI dblpfetchertest.cpp abstractfetchertest.cpp)
-TARGET_LINK_LIBRARIES(dblpfetchertest fetch ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(discogsfetchertest NOGUI discogsfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(discogsfetchertest NOGUI discogsfetchertest.cpp)
 TARGET_LINK_LIBRARIES(discogsfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(doubanfetchertest NOGUI doubanfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(doubanfetchertest NOGUI doubanfetchertest.cpp)
 TARGET_LINK_LIBRARIES(doubanfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(dvdfrfetchertest NOGUI dvdfrfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(dvdfrfetchertest NOGUI dvdfrfetchertest.cpp)
 TARGET_LINK_LIBRARIES(dvdfrfetchertest fetch ${TELLICO_TEST_LIBS})
 
 IF( QJSON_FOUND )
-    KDE4_ADD_UNIT_TEST(freebasefetchertest NOGUI freebasefetchertest.cpp abstractfetchertest.cpp)
+    KDE4_ADD_UNIT_TEST(freebasefetchertest NOGUI freebasefetchertest.cpp)
     TARGET_LINK_LIBRARIES(freebasefetchertest fetch ${TELLICO_TEST_LIBS})
 
-    KDE4_ADD_UNIT_TEST(filmasterfetchertest NOGUI filmasterfetchertest.cpp abstractfetchertest.cpp)
+    KDE4_ADD_UNIT_TEST(filmasterfetchertest NOGUI filmasterfetchertest.cpp)
     TARGET_LINK_LIBRARIES(filmasterfetchertest fetch ${TELLICO_TEST_LIBS})
-
-    KDE4_ADD_UNIT_TEST(masfetchertest NOGUI masfetchertest.cpp abstractfetchertest.cpp)
-    TARGET_LINK_LIBRARIES(masfetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( QJSON_FOUND )
 
 # running gcstar in the fetcher is really unreliable
 #KDE4_ADD_UNIT_TEST(gcstarfetchertest NOGUI gcstarfetchertest.cpp)
 #TARGET_LINK_LIBRARIES(gcstarfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(giantbombfetchertest NOGUI giantbombfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(giantbombfetchertest NOGUI giantbombfetchertest.cpp)
 TARGET_LINK_LIBRARIES(giantbombfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(googlebookfetchertest NOGUI googlebookfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(googlebookfetchertest NOGUI googlebookfetchertest.cpp)
 TARGET_LINK_LIBRARIES(googlebookfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(googlescholarfetchertest NOGUI googlescholarfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(googlescholarfetchertest NOGUI googlescholarfetchertest.cpp)
 TARGET_LINK_LIBRARIES(googlescholarfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(ibsfetchertest NOGUI ibsfetchertest.cpp abstractfetchertest.cpp)
-TARGET_LINK_LIBRARIES(ibsfetchertest fetch ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(imdbfetchertest NOGUI imdbfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(imdbfetchertest NOGUI imdbfetchertest.cpp)
 TARGET_LINK_LIBRARIES(imdbfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(isbndbfetchertest NOGUI isbndbfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(isbndbfetchertest NOGUI isbndbfetchertest.cpp)
 TARGET_LINK_LIBRARIES(isbndbfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(moviemeterfetchertest NOGUI moviemeterfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(moviemeterfetchertest NOGUI moviemeterfetchertest.cpp)
 TARGET_LINK_LIBRARIES(moviemeterfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(musicbrainzfetchertest NOGUI musicbrainzfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(musicbrainzfetchertest NOGUI musicbrainzfetchertest.cpp)
 TARGET_LINK_LIBRARIES(musicbrainzfetchertest fetch ${TELLICO_TEST_LIBS})
 
 IF( QJSON_FOUND )
-    KDE4_ADD_UNIT_TEST(openlibraryfetchertest NOGUI openlibraryfetchertest.cpp abstractfetchertest.cpp)
+    KDE4_ADD_UNIT_TEST(openlibraryfetchertest NOGUI openlibraryfetchertest.cpp)
     TARGET_LINK_LIBRARIES(openlibraryfetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( QJSON_FOUND )
 
-KDE4_ADD_UNIT_TEST(springerfetchertest NOGUI springerfetchertest.cpp abstractfetchertest.cpp)
-TARGET_LINK_LIBRARIES(springerfetchertest fetch ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(srufetchertest NOGUI srufetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(srufetchertest NOGUI srufetchertest.cpp)
 TARGET_LINK_LIBRARIES(srufetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(thegamesdbfetchertest NOGUI thegamesdbfetchertest.cpp abstractfetchertest.cpp)
-TARGET_LINK_LIBRARIES(thegamesdbfetchertest fetch ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(themoviedbfetchertest NOGUI themoviedbfetchertest.cpp abstractfetchertest.cpp)
+KDE4_ADD_UNIT_TEST(themoviedbfetchertest NOGUI themoviedbfetchertest.cpp)
 TARGET_LINK_LIBRARIES(themoviedbfetchertest fetch ${TELLICO_TEST_LIBS})
 
-KDE4_ADD_UNIT_TEST(winecomfetchertest NOGUI winecomfetchertest.cpp abstractfetchertest.cpp)
-TARGET_LINK_LIBRARIES(winecomfetchertest fetch ${TELLICO_TEST_LIBS})
-
 IF( YAZ_FOUND )
-    KDE4_ADD_UNIT_TEST(z3950fetchertest NOGUI z3950fetchertest.cpp abstractfetchertest.cpp)
+    KDE4_ADD_UNIT_TEST(z3950fetchertest NOGUI z3950fetchertest.cpp)
     TARGET_LINK_LIBRARIES(z3950fetchertest fetch ${TELLICO_TEST_LIBS})
 ENDIF( YAZ_FOUND )
 
-ENDIF(BUILD_FETCHER_TESTS)
+KDE4_ADD_UNIT_TEST(entryupdatejobtest NOGUI entryupdatejobtest.cpp ../entryupdatejob.cpp)
+TARGET_LINK_LIBRARIES(entryupdatejobtest fetch translators ${TELLICO_TEST_LIBS})

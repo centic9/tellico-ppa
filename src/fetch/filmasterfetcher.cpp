@@ -66,8 +66,8 @@ QString FilmasterFetcher::source() const {
 }
 
 QString FilmasterFetcher::attribution() const {
-  return i18n("This data is licensed under <a href=""%1"">specific terms</a>.",
-              QLatin1String("http://filmaster.com/license/"));
+  return i18n("This data is licensed under <a href=""%1"">specific terms</a>.")
+         .arg(QLatin1String("http://filmaster.com/license/"));
 }
 
 bool FilmasterFetcher::canSearch(FetchKey k) const {
@@ -133,7 +133,7 @@ Tellico::Data::EntryPtr FilmasterFetcher::fetchEntryHook(uint uid_) {
     myWarning() << "no entry in dict";
     return Data::EntryPtr();
   }
-
+  
   const QString image = entry->field(QLatin1String("cover"));
   if(image.contains(QLatin1Char('/'))) {
     KUrl imageUrl(FILMASTER_API_URL);
@@ -216,7 +216,7 @@ void FilmasterFetcher::slotComplete(KJob* job_) {
     case Keyword:
       resultList = resultsMap.value(QLatin1String("films")).toMap().value(QLatin1String("best_results")).toList();
       break;
-
+    
     default:
       break;
   }

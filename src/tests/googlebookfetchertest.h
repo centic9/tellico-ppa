@@ -25,11 +25,14 @@
 #ifndef GOOGLEBOOKFETCHERTEST_H
 #define GOOGLEBOOKFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-#include <KConfig>
+#include "../datavectors.h"
 
-class GoogleBookFetcherTest : public AbstractFetcherTest {
+class KJob;
+
+class GoogleBookFetcherTest : public QObject {
 Q_OBJECT
 public:
   GoogleBookFetcherTest();
@@ -41,11 +44,13 @@ private Q_SLOTS:
   void testAuthor();
   void testKeyword();
 
+  void slotResult(KJob* job);
+
 private:
   void compareEntry(Tellico::Data::EntryPtr entry);
 
-  bool m_hasConfigFile;
-  KConfig m_config;
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

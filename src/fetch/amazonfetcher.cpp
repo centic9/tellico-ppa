@@ -73,9 +73,7 @@ using Tellico::Fetch::AmazonFetcher;
 
 // static
 const AmazonFetcher::SiteData& AmazonFetcher::siteData(int site_) {
-  Q_ASSERT(site_>= 0);
-  Q_ASSERT(site_< 10);
-  static SiteData dataVector[9] = {
+  static SiteData dataVector[6] = {
     {
       i18n("Amazon (US)"),
       KUrl("http://webservices.amazon.com/onca/xml")
@@ -94,19 +92,19 @@ const AmazonFetcher::SiteData& AmazonFetcher::siteData(int site_) {
     }, {
       i18n("Amazon (Canada)"),
       KUrl("http://webservices.amazon.ca/onca/xml")
+#if 0
+      // TODO: update after string freeze
     }, {
-      i18n("Amazon (China)"),
       KUrl("http://webservices.amazon.cn/onca/xml")
     }, {
-      i18n("Amazon (Spain)"),
       KUrl("http://webservices.amazon.es/onca/xml")
     }, {
-      i18n("Amazon (Italy)"),
       KUrl("http://webservices.amazon.it/onca/xml")
+#endif
     }
   };
 
-  return dataVector[qBound(0, site_, static_cast<int>(sizeof(dataVector)/sizeof(SiteData)))];
+  return dataVector[site_];
 }
 
 AmazonFetcher::AmazonFetcher(QObject* parent_)
@@ -126,8 +124,8 @@ QString AmazonFetcher::source() const {
 }
 
 QString AmazonFetcher::attribution() const {
-  return i18n("This data is licensed under <a href=""%1"">specific terms</a>.",
-              QLatin1String("https://affiliate-program.amazon.com/gp/advertising/api/detail/agreement.html"));
+  return i18n("This data is licensed under <a href=""%1"">specific terms</a>.")
+         .arg(QLatin1String("https://affiliate-program.amazon.com/gp/advertising/api/detail/agreement.html"));
 }
 
 bool AmazonFetcher::canFetch(int type) const {
@@ -245,7 +243,8 @@ void AmazonFetcher::doSearch() {
     case Data::Collection::Video:
       // CA and JP appear to have a bug where Video only returns VHS or Music results
       // DVD will return DVD, Blu-ray, etc. so just ignore VHS for those users
-      if(m_site == CA || m_site == JP || m_site == IT || m_site == ES) {
+      if(m_site == CA || m_site == JP) {
+//      if(m_site == CA || m_site == JP || m_site == IT || m_site == ES) {
         params.insert(QLatin1String("SearchIndex"), QLatin1String("DVD"));
       } else {
         params.insert(QLatin1String("SearchIndex"), QLatin1String("Video"));
@@ -343,23 +342,6 @@ void AmazonFetcher::doSearch() {
 
     case UPC:
       {
-        QString cleanValue = value;
-        cleanValue.remove(QLatin1Char('-'));
-        // for EAN values, add 0 to beginning if not 13 characters
-        // in order to assume US country code from UPC value
-        QStringList values;
-        foreach(const QString& splitValue, cleanValue.split(FieldFormat::delimiterString())) {
-          QString tmpValue = splitValue;
-          if(m_site != US && tmpValue.length() == 12) {
-            tmpValue.prepend(QLatin1Char('0'));
-          }
-          values << tmpValue;
-          // limit to first 10 values
-          if(values.length() >= 10) {
-            break;
-          }
-        }
-
         params.insert(QLatin1String("Operation"), QLatin1String("ItemLookup"));
         // US allows UPC, all others are EAN
         if(m_site == US) {
@@ -367,7 +349,12 @@ void AmazonFetcher::doSearch() {
         } else {
           params.insert(QLatin1String("IdType"), QLatin1String("EAN"));
         }
-        params.insert(QLatin1String("ItemId"), values.join(QLatin1String(",")));
+        QString cleanValue = value;
+        cleanValue.remove(QLatin1Char('-'));
+        // limit to first 10 values
+        cleanValue.replace(FieldFormat::delimiterString(), QLatin1String(","));
+        cleanValue = cleanValue.section(QLatin1Char(','), 0, 9);
+        params.insert(QLatin1String("ItemId"), cleanValue);
       }
       break;
 
@@ -499,8 +486,6 @@ void AmazonFetcher::slotComplete(KJob*) {
   // assume amazon is always utf-8
   QString str = m_xsltHandler->applyStylesheet(QString::fromUtf8(data, data.size()));
   Import::TellicoImporter imp(str);
-  // be quiet when loading images
-  imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
   if(!coll) {
     myDebug() << "no collection pointer";
@@ -757,7 +742,7 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
   }
 //  myDebug() << "grabbing " << imageURL.prettyUrl();
   if(!imageURL.isEmpty()) {
-    QString id = ImageFactory::addImage(imageURL, true);
+    QString id = ImageFactory::addImage(imageURL, false);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     } else { // amazon serves up 1x1 gifs occasionally, but that's caught in the image constructor
@@ -968,9 +953,6 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
   m_siteCombo->addItem(i18n("Japan"), JP);
   m_siteCombo->addItem(i18n("France"), FR);
   m_siteCombo->addItem(i18n("Canada"), CA);
-  m_siteCombo->addItem(i18n("China"), CN);
-  m_siteCombo->addItem(i18n("Spain"), ES);
-  m_siteCombo->addItem(i18n("Italy"), IT);
   connect(m_siteCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
   connect(m_siteCombo, SIGNAL(activated(int)), SLOT(slotSiteChanged()));
   l->addWidget(m_siteCombo, row, 1);

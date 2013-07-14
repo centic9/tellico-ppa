@@ -25,9 +25,14 @@
 #ifndef DOUBANFETCHERTEST_H
 #define DOUBANFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-class DoubanFetcherTest : public AbstractFetcherTest {
+#include "../datavectors.h"
+
+class KJob;
+
+class DoubanFetcherTest : public QObject {
 Q_OBJECT
 public:
   DoubanFetcherTest();
@@ -38,6 +43,12 @@ private Q_SLOTS:
   void testISBN();
   void testVideo();
   void testMusic();
+
+  void slotResult(KJob* job);
+
+private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

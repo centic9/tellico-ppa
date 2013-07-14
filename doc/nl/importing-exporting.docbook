@@ -16,7 +16,7 @@
 >. </para>
 
 <para
->Zoekopdrachten kunnen verschillende criteria gebruiken: <guilabel
+>Zoekopdrachten kunnen vijf verschillende criteria gebruiken: <guilabel
 >Titel</guilabel
 >, <guilabel
 >Persoon</guilabel
@@ -24,19 +24,9 @@
 >ISBN</guilabel
 >, <guilabel
 >UPC/EAN</guilabel
->, <guilabel
->LCCN</guilabel
 > of <guilabel
->Trefwoord</guilabel
->. Niet alle criteria zijn beschikbaar voor bepaalde gegevensbronnen. De waarden <acronym
->ISBN</acronym
-> en <acronym
->LCCN</acronym
-> zijn er alleen voor boeken, terwijl de waarden van <acronym
->UPC</acronym
-> of <acronym
->EAN</acronym
-> van toepassing zijn op elk type item.</para>
+>Sleutelwoord</guilabel
+>. Niet alle criteria zijn beschikbaar voor bepaalde gegevensbronnen.</para>
 
 <para
 >Nadat een zoekopdracht is gestart, wordt de knop <guibutton
@@ -158,7 +148,7 @@
 <para
 >&appname; kan de service <ulink url="http://freedb.org"
 >freedb.org</ulink
-> gebruiken om informatie over een &CD; te gebruiken, inclusief de tracklijst. Afhankelijk van uw distributie, kunnen instellingen voor toegang tot de service ingesteld worden in het &kde; &systemsettings;. De artiest, titel, genre, jaar en tracklijst worden allen toegevoegd. </para>
+> gebruiken om informatie over een &CD; te gebruiken, inclusief de tracklijst. Afhankelijk van uw distributie, kunnen instellingen voor toegang tot de service ingesteld worden in het &kde; Systeeminstellingen. De artiest, titel, genre, jaar en tracklijst worden allen toegevoegd. </para>
 
 <para
 >Bovendien, als de schijf &CD;-tekst bevat, dan wordt die informatie gelezen en toegevoegd aan het geïmporteerde item. </para>
@@ -567,13 +557,13 @@
 
 <screenshot>
 <screeninfo
->Opties voor Bibtex exporteren</screeninfo>
+>Bibtex Export Options</screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="export-bibtex.png"/></imageobject>
 <textobject
 ><phrase
->Opties voor Bibtex exporteren</phrase
+>Bibtex Export Options</phrase
 ></textobject>
 </mediaobject>
 </screenshot>
@@ -581,25 +571,25 @@
 
 <sect2 id="exporting-bibtexml">
 <title
->Bibtexml exporteren</title>
+>Exporting Bibtexml</title>
 
 <para
 ><ulink url="http://bibtexml.sourceforge.net"
 >Bibtexml</ulink
-> is een formaat voor bibtex-gegevens in &XML;. </para>
+> is a format for expressing bibtex data via &XML;. </para>
 
 </sect2>
 
-<sect2 id="exporting-gcstar">
+<sect2 id="exporting-gcfilms">
 <title
->GCstar exporteren</title>
+>Exporting GCfilms</title>
 
 <para
 ><application
-><ulink url="http://www.gcstar.org"
->GCstar</ulink
+><ulink url="http://home.gna.org/gcfilms/"
+>GCfilms</ulink
 ></application
-> is another movie collection manager. &appname; is able to export most collection types to a GCstar data file. </para>
+> is another movie collection manager. &appname; is able to export a limited subset of video collection fields to a GCfilms data file. </para>
 
 </sect2>
 

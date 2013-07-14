@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,6 +28,7 @@
 #include "boardgamegeekfetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/execexternalfetcher.h"
 #include "../collections/boardgamecollection.h"
 #include "../collectionfactory.h"
@@ -39,15 +40,10 @@
 
 QTEST_KDEMAIN( BoardGameGeekFetcherTest, NoGUI )
 
-BoardGameGeekFetcherTest::BoardGameGeekFetcherTest() : AbstractFetcherTest() {
+BoardGameGeekFetcherTest::BoardGameGeekFetcherTest() : m_loop(this) {
 }
 
 void BoardGameGeekFetcherTest::initTestCase() {
-  const QString ruby = KStandardDirs::findExe(QLatin1String("ruby"));
-  if(ruby.isEmpty()) {
-    QSKIP("This test requires ruby", SkipAll);
-  }
-
   Tellico::RegisterCollection<Tellico::Data::BoardGameCollection> registerBoard(Tellico::Data::Collection::BoardGame, "boardgame");
   Tellico::ImageFactory::init();
 }
@@ -64,18 +60,29 @@ void BoardGameGeekFetcherTest::testTitle() {
   cg.markAsClean();
   fetcher->readConfig(cg, cg.name());
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("The Settlers of Catan"));
   QCOMPARE(entry->field(QLatin1String("designer")), QLatin1String("Klaus Teuber"));
   QCOMPARE(Tellico::FieldFormat::splitValue(entry->field(QLatin1String("publisher"))).at(0), QLatin1String("999 Games"));
   QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("1995"));
-  QCOMPARE(Tellico::FieldFormat::splitValue(entry->field(QLatin1String("genre"))).at(0), QLatin1String("Negotiation"));
+  QCOMPARE(Tellico::FieldFormat::splitValue(entry->field(QLatin1String("genre"))).at(0), QLatin1String("City Building"));
   QCOMPARE(Tellico::FieldFormat::splitValue(entry->field(QLatin1String("mechanism"))).at(0), QLatin1String("Dice Rolling"));
   QCOMPARE(entry->field(QLatin1String("num-player")), QLatin1String("3; 4"));
   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
   QVERIFY(!entry->field(QLatin1String("description")).isEmpty());
+}
+
+void BoardGameGeekFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

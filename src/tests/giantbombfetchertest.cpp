@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,17 +28,18 @@
 #include "giantbombfetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/giantbombfetcher.h"
 #include "../collections/gamecollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
-#include <KStandardDirs>
+#include <kstandarddirs.h>
 
 QTEST_KDEMAIN( GiantBombFetcherTest, GUI )
 
-GiantBombFetcherTest::GiantBombFetcherTest() : AbstractFetcherTest() {
+GiantBombFetcherTest::GiantBombFetcherTest() : m_loop(this) {
 }
 
 void GiantBombFetcherTest::initTestCase() {
@@ -53,15 +54,26 @@ void GiantBombFetcherTest::testKeyword() {
                                        QLatin1String("Halo 3: ODST"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::GiantBombFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Halo 3: ODST"));
   QCOMPARE(entry->field(QLatin1String("developer")), QLatin1String("Bungie"));
   QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("2009"));
   QCOMPARE(entry->field(QLatin1String("platform")), QLatin1String("Xbox 360"));
   QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("First-Person Shooter; Action"));
   QCOMPARE(entry->field(QLatin1String("publisher")), QLatin1String("Microsoft Studios"));
+}
+
+void GiantBombFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

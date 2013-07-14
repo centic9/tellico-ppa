@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2012 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,9 +25,14 @@
 #ifndef ALLOCINEFETCHERTEST_H
 #define ALLOCINEFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-class AllocineFetcherTest : public AbstractFetcherTest {
+#include "../datavectors.h"
+
+class KJob;
+
+class AllocineFetcherTest : public QObject {
 Q_OBJECT
 public:
   AllocineFetcherTest();
@@ -39,14 +44,11 @@ private Q_SLOTS:
   void testTitleAccentRemoved();
   void testPlotQuote();
 
-  void testTitleAPI();
-  void testTitleAPIAccented();
+  void slotResult(KJob* job);
 
-  void testTitleScreenRush();
-  void testTitleFilmStarts();
-  void testTitleFilmStartsGerman();
-  void testTitleSensaCineSpanish();
-  void testTitleBeyazperdeTurkish();
+private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

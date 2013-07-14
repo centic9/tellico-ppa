@@ -37,12 +37,10 @@ class SpinBox : public QSpinBox {
 Q_OBJECT
 
 public:
-  SpinBox(int min, int max, QWidget* parent);
-
-  virtual void stepBy(int steps);
+  SpinBox(int min, int max, QWidget *parent);
 
 private slots:
-  void checkValue(const QString&);
+  void checkValue();
 
 private:
   QValidator::State validate(QString& text, int& pos) const;

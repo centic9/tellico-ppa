@@ -164,7 +164,11 @@ bool addEntryValue(int idItem, QString nomeCampo, QString valor)
 >Exemplos de &DBus;</title>
 
 <para
->Aqui estão alguns exemplos de programação da &appname; usando a interface &DBus;. </para>
+>Aqui estão alguns exemplos de programação do &appname; usando a interface &DBus;. Uma vez que o <emphasis
+>pid</emphasis
+> deve ser conhecido, a maneira mais fácil de descobri-lo em um comando do console é a seguinte: <userinput
+>dbus $(dbus | grep tellico) tellico</userinput
+>. </para>
 
 <screen width="40"
 ><emphasis

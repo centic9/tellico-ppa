@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,6 +28,7 @@
 #include "imdbfetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/imdbfetcher.h"
 #include "../entry.h"
 #include "../collections/videocollection.h"
@@ -39,7 +40,7 @@
 
 QTEST_KDEMAIN( ImdbFetcherTest, GUI )
 
-ImdbFetcherTest::ImdbFetcherTest() : AbstractFetcherTest() {
+ImdbFetcherTest::ImdbFetcherTest() : m_loop(this) {
 }
 
 void ImdbFetcherTest::initTestCase() {
@@ -59,12 +60,18 @@ void ImdbFetcherTest::testSnowyRiver() {
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
   fetcher->readConfig(cg, cg.name());
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  job->setMaximumResults(1);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
 
   // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
+  Tellico::Data::EntryPtr entry = m_results.at(0);
 
   QCOMPARE(entry->field("title"), QLatin1String("The Man from Snowy River"));
   QCOMPARE(entry->field("year"), QLatin1String("1982"));
@@ -76,93 +83,12 @@ void ImdbFetcherTest::testSnowyRiver() {
   QCOMPARE(entry->field("aspect-ratio"), QLatin1String("2.35 : 1"));
   QCOMPARE(entry->field("color"), QLatin1String("Color"));
   QCOMPARE(entry->field("language"), QLatin1String("English"));
-  QCOMPARE(entry->field("certification"), QLatin1String("PG (USA)"));
   QCOMPARE(entry->field("director"), QLatin1String("George Miller"));
   QCOMPARE(entry->field("writer"), QLatin1String("Cul Cullen; A.B. 'Banjo' Paterson"));
   QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
   QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
   QCOMPARE(entry->field("imdb"), QLatin1String("http://akas.imdb.com/title/tt0084296/"));
   QVERIFY(!entry->field("plot").isEmpty());
-  QVERIFY(!entry->field("cover").isEmpty());
-}
-
-void ImdbFetcherTest::testSnowyRiverFr() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
-  QString groupName = QLatin1String("IMDB FR");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "The Man From Snowy River");
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
-
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QCOMPARE(results.size(), 1);
-
-  // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
-
-  QCOMPARE(entry->field("title"), QString::fromUtf8("L'homme de la rivière d'argent"));
-  QCOMPARE(entry->field("year"), QLatin1String("1982"));
-  QCOMPARE(entry->field("genre"), QLatin1String("Aventure; Drame; Famille; Romance; Western"));
-  QCOMPARE(entry->field("nationality"), QLatin1String("Australie"));
-  QCOMPARE(entry->field("studio"), QLatin1String("Cambridge Productions; Michael Edgley International; Snowy River Investment Pty. Ltd."));
-  QCOMPARE(entry->field("running-time"), QLatin1String("102"));
-  QCOMPARE(entry->field("audio-track"), QLatin1String("Dolby"));
-  QCOMPARE(entry->field("aspect-ratio"), QLatin1String("2,35 : 1"));
-  QCOMPARE(entry->field("color"), QLatin1String("Color"));
-  QCOMPARE(entry->field("language"), QLatin1String("Anglais"));
-  QCOMPARE(entry->field("director"), QLatin1String("George Miller"));
-  QCOMPARE(entry->field("certification"), QLatin1String("PG (USA)"));
-  QCOMPARE(entry->field("writer"), QLatin1String("Cul Cullen; A.B. 'Banjo' Paterson"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
-  QCOMPARE(entry->field("imdb"), QLatin1String("http://www.imdb.fr/title/tt0084296/"));
-  // no french plot on imdb yet
-//  QVERIFY(!entry->field("plot").isEmpty());
-  QVERIFY(!entry->field("cover").isEmpty());
-}
-
-void ImdbFetcherTest::testSnowyRiverEs() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
-  QString groupName = QLatin1String("IMDB ES");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "The Man From Snowy River");
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
-
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QCOMPARE(results.size(), 1);
-
-  // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
-
-  QCOMPARE(entry->field("title"), QString::fromUtf8("El hombre de río Nevado"));
-  QCOMPARE(entry->field("year"), QLatin1String("1982"));
-  QCOMPARE(entry->field("genre"), QLatin1String("Aventura; Drama; Familia; Romance; Del Oeste"));
-  QCOMPARE(entry->field("nationality"), QLatin1String("Australia"));
-  QCOMPARE(entry->field("studio"), QLatin1String("Cambridge Productions; Michael Edgley International; Snowy River Investment Pty. Ltd."));
-  QCOMPARE(entry->field("running-time"), QLatin1String("102"));
-  QCOMPARE(entry->field("audio-track"), QLatin1String("Dolby"));
-  QCOMPARE(entry->field("aspect-ratio"), QLatin1String("2,35 : 1"));
-  QCOMPARE(entry->field("color"), QLatin1String("Color"));
-  QCOMPARE(entry->field("language"), QString::fromUtf8("Inglés"));
-  QCOMPARE(entry->field("director"), QLatin1String("George Miller"));
-//  QCOMPARE(entry->field("certification"), QLatin1String("PG (USA)"));
-  QCOMPARE(entry->field("writer"), QLatin1String("Cul Cullen; A.B. 'Banjo' Paterson"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QCOMPARE(castList.at(0), QLatin1String("Tom Burlinson::Jim Craig"));
-  QCOMPARE(entry->field("imdb"), QLatin1String("http://www.imdb.es/title/tt0084296/"));
-  // no spanish plot on imdb yet
-//  QVERIFY(!entry->field("plot").isEmpty());
   QVERIFY(!entry->field("cover").isEmpty());
 }
 
@@ -174,23 +100,28 @@ void ImdbFetcherTest::testAsterix() {
   }
   KConfigGroup cg(&config, groupName);
 
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, QString::fromUtf8("Astérix aux jeux olympiques"));
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "Astérix aux jeux olympiques");
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
   fetcher->readConfig(cg, cg.name());
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  job->setMaximumResults(1);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
 
   // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
+  Tellico::Data::EntryPtr entry = m_results.at(0);
 
   QCOMPARE(entry->field("title"), QString::fromUtf8("Astérix aux jeux olympiques"));
   QCOMPARE(entry->field("director"), QString::fromUtf8("Thomas Langmann; Frédéric Forestier"));
   QCOMPARE(entry->field("writer"), QString::fromUtf8("René Goscinny; Albert Uderzo"));
   QStringList altTitleList = Tellico::FieldFormat::splitTable(entry->field("alttitle"));
-  QVERIFY(altTitleList.contains(QString::fromUtf8("Astérix en los juegos olímpicos")));
-  QVERIFY(altTitleList.contains(QLatin1String("Asterix alle olimpiadi")));
+  QVERIFY(altTitleList.size() > 1);
 }
 
 // https://bugs.kde.org/show_bug.cgi?id=249096
@@ -198,12 +129,17 @@ void ImdbFetcherTest::testBodyDouble() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "Body Double");
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  job->setMaximumResults(1);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
 
   // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
+  Tellico::Data::EntryPtr entry = m_results.at(0);
 
   QCOMPARE(entry->field("title"), QLatin1String("Body Double"));
   QCOMPARE(entry->field("director"), QLatin1String("Brian De Palma"));
@@ -215,12 +151,17 @@ void ImdbFetcherTest::testMary() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "There's Something About Mary");
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  job->setMaximumResults(1);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
 
   // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
+  Tellico::Data::EntryPtr entry = m_results.at(0);
 
   QCOMPARE(entry->field("director"), QLatin1String("Peter Farrelly; Bobby Farrelly"));
   QCOMPARE(entry->field("writer"), QLatin1String("John J. Strauss; Ed Decter"));
@@ -231,15 +172,25 @@ void ImdbFetcherTest::testOkunen() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title, "46-okunen no koi");
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IMDBFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  job->setMaximumResults(1);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
-  Tellico::Data::EntryPtr entry = results.at(0);
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
+  Tellico::Data::EntryPtr entry = m_results.at(0);
 
   QCOMPARE(entry->field("year"), QLatin1String("2006"));
-  QCOMPARE(entry->field("genre"), QLatin1String("Drama; Fantasy"));
+  QCOMPARE(entry->field("genre"), QLatin1String("Drama"));
   QCOMPARE(entry->field("director"), QLatin1String("Takashi Miike"));
   QCOMPARE(entry->field("writer"), QLatin1String("Ikki Kajiwara; Hisao Maki"));
   QVERIFY(!entry->field("plot").isEmpty());
   QVERIFY(!entry->field("cover").isEmpty());
+}
+
+void ImdbFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

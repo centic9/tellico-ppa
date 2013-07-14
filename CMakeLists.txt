@@ -1,5 +1,5 @@
 project(Tellico)
-set(TELLICO_VERSION "2.3.7")
+set(TELLICO_VERSION "2.3.4")
 
 cmake_minimum_required(VERSION 2.6.2)
 
@@ -17,7 +17,6 @@ option(ENABLE_AMAZON "Enable Amazon.com searching" TRUE)
 option(ENABLE_IMDB "Enable IMDb searching" TRUE)
 option(ENABLE_CDTEXT "Enable cdtext" TRUE)
 option(ENABLE_WEBCAM "Enable support for webcams" FALSE)
-option(BUILD_FETCHER_TESTS "Build tests which verify data sources" FALSE)
 
 include(CheckTypeSize)
 check_type_size("unsigned char" SIZEOF_UNSIGNED_CHAR)
@@ -45,15 +44,9 @@ find_package(LibXslt REQUIRED)
 
 macro_optional_find_package(Nepomuk)
 macro_log_feature(NEPOMUK_FOUND "nepomuk" "Support for reading file metadata" "http://www.kde.org" FALSE "4.2.0" "")
-if(NEPOMUK_FOUND)
-    include_directories(${NEPOMUK_INCLUDE_DIRS})
-endif(NEPOMUK_FOUND)
 
 macro_optional_find_package(KdepimLibs)
 macro_log_feature(KDEPIMLIBS_FOUND "kdepimlibs" "Support for using the address book and calendar for loans" "http://pim.kde.org" FALSE "4.2.0" "")
-if(KDEPIMLIBS_FOUND)
-    include_directories(${KDEPIMLIBS_INCLUDE_DIRS})
-endif(KDEPIMLIBS_FOUND)
 
 macro_optional_find_package(KdeMultimedia)
 macro_log_feature(KDEMULTIMEDIA_FOUND "kdemultimedia" "Support for CDDB searches" "http://multimedia.kde.org" FALSE "4.2.0" "")
@@ -92,9 +85,6 @@ endif(LIBEXEMPI_FOUND)
 
 macro_optional_find_package(QJSON)
 macro_log_feature(QJSON_FOUND "QJSON" "Support for searching OpenLibrary and Freebase" "http://qjson.sourceforge.net" FALSE "" "")
-if(QJSON_FOUND)
-    include_directories(${QJSON_INCLUDE_DIR})
-endif(QJSON_FOUND)
 
 # webcam uses libv4l, which only works on Linux for now
 # Linux 2.6.38 removed the videodev.h header
@@ -131,7 +121,6 @@ remove_definitions(-DQT_NO_STL -DQT3_SUPPORT)
 
 include_directories(${KDE4_INCLUDES}
                     ${QT_INCLUDES}
-                    ${QIMAGEBLITZ_INCLUDES}
                     ${LIBXML2_INCLUDE_DIR}
                     ${LIBXSLT_INCLUDE_DIR}
                     ${CMAKE_CURRENT_BINARY_DIR}
@@ -172,7 +161,6 @@ macro_bool_to_01(KSANE_FOUND HAVE_KSANE)
 macro_bool_to_01(KDEMULTIMEDIA_FOUND HAVE_KCDDB)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KABC)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KCAL)
-macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KXMLRPC)
 macro_bool_to_01(LIBV4L_FOUND HAVE_V4L)
 macro_bool_to_01(QJSON_FOUND HAVE_QJSON)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)

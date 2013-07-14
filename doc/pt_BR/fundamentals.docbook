@@ -38,10 +38,8 @@
 ></menuchoice
 >. Assim que tiver inserido os valores para o item, poderá salvá-lo na coleção, usando o botão <guibutton
 >Salvar o Item</guibutton
-> na janela do <interface
->Editor de itens</interface
->, que permanece aberta no caso de continuar a querer adicionar itens novos. Assim que tiver salvo um item na coleção, você poderá modificá-lo se clicar nele na janela principal. Se o <interface
->Editor de itens</interface
+> na janela do 'Editor de Itens', que permanece aberta no caso de continuar a querer adicionar itens novos. Assim que tiver salvo um item na coleção, você poderá modificá-lo se clicar nele na janela principal. Se o <interface
+>Editor de Itens</interface
 > não estiver já aberto, poderá fazer duplo-clique sobre um item para abrir o editor e começar a edição. </para>
 
 <para
@@ -161,7 +159,7 @@
 >Área de Grupos</interface
 > agrupa os itens em árvore por qualquer campo que <link linkend="field-options"
 >permita o agrupamento</link
->. O número de itens em cada grupo aparece após o nome do mesmo. Os grupos poderão ser expandidos ou recolhidos, se clicar na seta ou se fizer duplo-clique no item. A expansão e fecho de todos os grupos são opções no menu de contexto do botão direito do mouse. A árvore poderá ser ordenada pelo nome do grupo ou pela quantidade, clicando no cabeçalho. Um grupo também poderá ser usado como filtro na <link linkend="detailed-view"
+>. O número de itens em cada grupo aparece após o nome do mesmo. Os grupos poderão ser expandidos ou recolhidos, se clicar no sinal de '+' ou se fizer duplo-clique no item. A expansão e fecho de todos os grupos são opções no menu de contexto do botão direito do mouse. A árvore poderá ser ordenada pelo nome do grupo ou pela quantidade, clicando no cabeçalho. Um grupo também poderá ser usado como filtro na <link linkend="detailed-view"
 ><interface
 >Área de Colunas</interface
 ></link
@@ -305,6 +303,9 @@
 >, o ícone da barra de ferramentas ou o botão no <interface
 >Editor de Itens</interface
 > propriamente dito.</para>
+
+<para
+>Os botões das setas no fundo irão mover para os itens anteriores ou seguintes na lista atual. </para>
 
 <para
 >Se fechar o <interface
@@ -544,7 +545,7 @@
 ><emphasis
 >Escolha</emphasis
 ></link
-> deverá ser separada por ponto e vírgula. </para>
+> deverá ser separada por ponto-e-vírgula. </para>
 
 <para
 >Os campos novos poderão ser de qualquer tipo, mas a alteração do tipo dos campos existente está restringida a campos compatíveis, como é apresentado na tabela abaixo: </para>
@@ -797,7 +798,7 @@
 <para
 >Os campos também possuem três opções gerais. Se o completamento automático estiver ativo, o &appname; faz 'cache' dos valores para cada campo, oferecendo o <interface
 >Editor de Itens</interface
-> o completamento automático, usando a configuração-padrão do &kde;. Nem todos os tipos de campos permitem o completamento automático. O &appname; também necessita saber se um campo poderá ter vários valores ou se poderá ser usado para agrupar os itens. É usado um ponto e vírgula para separar os vários valores, ao editar um item. </para>
+> o completamento automático, usando a configuração-padrão do &kde;. Nem todos os tipos de campos permitem o completamento automático. O &appname; também necessita saber se um campo poderá ter vários valores ou se poderá ser usado para agrupar os itens. É usado um ponto-e-vírgula para separar os vários valores, ao editar um item. </para>
 
 <para
 >Por questões de eficiência, não ative o completamento automático, a menos que necessite dele para os campos. Quanto mais campos com completamento automático tiver na coleção, mais lento se torna o &appname; ao carregar o arquivo. </para>
@@ -839,7 +840,7 @@
 <para
 >Cada linha contém uma regra única de filtragem. Selecione o campo correspondente na primeira opção da linha, e selecione depois uma regra correspondente ao centro. As regras poderão corresponder a determinados valores ou que sejam exatamente iguais. Você poderá também usar uma expressão regular para fazer a correspondência dos itens; nesse caso, o botão <guibutton
 >Editar...</guibutton
-> fica ativo para editar a expressão, se o &kregexpeditor; estiver instalado no seu computador. Finalmente, a palavra ou texto correspondente deverão ser inseridos no campo de texto. </para>
+> fica ativo para editar a expressão. Finalmente, a palavra ou texto correspondente deverão ser inseridos no campo de texto. </para>
 
 <para
 >Você poderá usar até oito (8) regras no filtro. Poderá usar os botões <guibutton
@@ -980,14 +981,14 @@
 
 <sect1 id="tips">
 <title
->Dicas gerais</title>
+>Dicas Gerais</title>
 
 <para
 >Este é o conjunto de dicas contido na lista "Dica do Dia" para o &appname;. </para>
 
 <tip>
 <para
->Se um livro possui vários autores, você deve separar os nomes deles com um ponto e vírgula. O Tellico saberá separá-los e utilizar de forma independente. Qualquer outro campo que permita múltiplos valores deverá ter a mesma estrutura, com um ponto e vírgula (;) separando cada valor. </para>
+>Se um livro possui vários autores, você deve separar os nomes deles com um ponto-e-vírgula. O Tellico saberá separá-los e utilizar de forma independente. Qualquer outro campo que permita múltiplos valores deverá ter a mesma estrutura, com um ponto-e-vírgula (;) separando cada valor. </para>
 </tip>
 
 <tip>
@@ -1004,11 +1005,7 @@
 
 <tip>
 <para
->Se você quiser filtrar a partir de um campo do tipo <link linkend="bool"
-><emphasis
->Marcador</emphasis
-></link
->, deverá ser definido um valor "verdadeiro". Se quiser, por exemplo, mostrar só os livros de ficção científica que ainda não leu, assinale a opção <guilabel
+>Se você quiser filtrar a partir de um campo do tipo Marcador, deverá ser definido um valor "verdadeiro". Se quiser, por exemplo, mostrar só os livros de ficção científica que ainda não leu, assinale a opção <guilabel
 >Corresponder a todas as seguintes</guilabel
 >, ajuste a primeira como se segue: "Gênero" "contém" "Ficção científica" (sem aspas) e a segunda regra assim: "Lido" "Não contém" "Verdadeiro" (sem aspas). </para>
 </tip>
@@ -1050,11 +1047,7 @@
 
 <tip>
 <para
->Você pode adicionar marcas &HTML; a um campo de tipo <link linkend="para"
-><emphasis
->Parágrafo</emphasis
-></link
-> para a sua formatação, como por exemplo &lt;b&gt;<emphasis role="bold"
+>Você pode adicionar marcas &HTML; a um campo de tipo parágrafo para a sua formatação, como por exemplo &lt;b&gt;<emphasis role="bold"
 >bold</emphasis
 >&lt;/b&gt; ou &lt;i&gt;<emphasis
 >italic</emphasis

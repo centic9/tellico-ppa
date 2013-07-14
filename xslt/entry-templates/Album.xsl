@@ -311,10 +311,7 @@
   <xsl:variable name="fields" select="key('fieldsByCat', $category)"/>
   <xsl:variable name="first-type" select="$fields[1]/@type"/>
 
-  <xsl:variable name="n" select="count($entry//*[key('fieldsByName',local-name(.))/@category=$category and
-                                                 key('fieldsByName',local-name(.))/@name != 'id' and
-                                                 key('fieldsByName',local-name(.))/@name != 'cdate' and
-                                                 key('fieldsByName',local-name(.))/@name != 'mdate'])"/>
+  <xsl:variable name="n" select="count($entry//*[key('fieldsByName',local-name(.))/@category=$category])"/>
 
   <!-- only output if there are field values in this category -->
   <xsl:if test="$n &gt; 0">

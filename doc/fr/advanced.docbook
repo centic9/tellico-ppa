@@ -4,23 +4,23 @@
 
 <sect1 id="command-line">
 <title
->Options en ligne de commande</title>
+>Options de la ligne de commande</title>
 
 <para
->Lorsque vous lancez &appname; depuis la ligne de commande, plusieurs options existent pour ouvrir des fichiers de données. Elles peuvent être affichées en écrivant <userinput
+>Quand vous lancez &appname; depuis la ligne de commande, il y a plusieurs options pour ouvrir des fichiers de données. Ils peuvent être affichés en lançant <userinput
 >tellico --help</userinput
 >. </para>
 
 <programlisting
->Utilisation : tellico [options-Qt] [options-KDE] [options] [filename]
+>Utilisation : tellico [Qt-options] [KDE-options] [options] [filename]
 
-Tellico - un gestionnaire de collections pour KDE
+Tellico - un gestionnaire de collection pour KDE
 
 Options : 
-  --nofile                  Ne pas charger le dernier fichier ouvert
-  --bibtex                  Importer le &lt;filename&gt; en tant que fichier bibtex
-  --mods                    Importer le &lt;filename&gt; en tant que fichier MODS
-  --ris                     Importer le &lt;filename&gt; en tant que fichier RIS
+  --nofile                  Ne pas reouvrir le dernier fichier ouvert
+  --bibtex                  Importer le &lt;nom de fichier&gt; comme un fichier bibtex
+  --mods                    Importer le &lt;nom de fichier&gt; comme un fichier MODS
+  --ris                     Importer le &lt;nom de fichier&gt; comme un fichierRIS
 
 Arguments : 
   filename                  Fichier à ouvrir
@@ -33,7 +33,7 @@ Arguments :
 >L'interface &DBus;</title>
 
 <para
->&appname; a une interface &DBus; minimale permettant de scripter ou d'interagir avec des applications lancées depuis la ligne de commande. Comme pour tous les appels &DBus;, vous devrez spécifier le service à contrôler ainsi que son interface. Le nom du service &DBus; est <constant
+>&appname; a une interface &DBus; minimale, qui peut être utilisée pour scripter ou interagir avec des applications lancées depuis la ligne de commande. Comme avec tous les appels &DBus;, vous avez besoin de spécifier le service qui va interférer avec et l'interface particulière. Le nom du service  &DBus; est <constant
 >org.kde.tellico</constant
 >. </para>
 
@@ -42,7 +42,7 @@ Arguments :
 >Les commandes &DBus;</title>
 
 <para
->Deux objets &DBus; sont accessibles par l'interface de Tellico : <constant
+>Deux objets &DBus; sont disponibles dans l'interface de Tellico : <constant
 >Tellico</constant
 > et <constant
 >Collections</constant
@@ -78,19 +78,19 @@ bool showEntry(int id)
 </programlisting>
 
 <para
->Pour les quatre commandes d'import : le premier argument est le fichier à importer et le deuxième correspond à l'action d'import. Trois actions sont disponibles : <emphasis
+>Pour les quatres commandes d'import, le premier argument est le fichier à importer, et le deuxième est l'action d'import. Trois actions sont disponibles : <emphasis
 >replace</emphasis
-> (remplacer), <emphasis
+>, <emphasis
 >append</emphasis
-> (ajouter), et <emphasis
+>, et <emphasis
 >merge</emphasis
-> (fusionner). Quatre formats de fichier sont gérés pour l'import : fichiers &XML; Tellico, fichiers Bibtex, fichiers MODS et fichiers RIS. </para>
+>. Quatre formats de fichier sont gérés pour l'import : fichiers &XML; Tellico, fichiers Bibtex, fichiers MODS et fichiers RIS. </para>
 
 <para
->La collection actuellement ouverte dans &appname; peut être exportée dans un fichier aux formats suivants : &XML; Tellico, ZIP Tellico, Bibtex &HTML;, comma-separated values (CSV) ou PilotDB. </para>
+>La collection courante ouverte dans &appname; doit être exportée dans un fichier, soit dans le format &XML; Tellico, le format ZIP Tellico, le format comma-separated values &HTML; (CSV) ou le format PilotDB. </para>
 
 <para
->Une liste des ID pour les entrées actuellement sélectionnées ou filtrées permet de faciliter l'affichage ou la mise à jour des entrées dans la vue.</para>
+>Une liste des entrées ID courantes sélectionnées ou filtrées permet de faciliter l'affichage ou la mise à jour des entrées dans la vue.</para>
 
 <para
 >Un nouveau fichier de données peut être ouvert en utilisant la commande <command
@@ -100,12 +100,12 @@ bool showEntry(int id)
 <para
 >Un nouveau filtre peut être défini en utilisant la commande <command
 >setFilter()</command
->, équivalente à la saisie dans la boîte de filtre de la fenêtre principale.</para>
+>, qui est l'équivalent de la saisie dans la boîte de filtre dans la fenêtre principale.</para>
 
 <para
->En donnant un ID d'entrée, <command
+>En donnant une entrée ID, <command
 >showEntry()</command
-> sélectionnera cette entrée et affichera les détails dans la fenêtre principale.</para>
+> sélectionnera cette entrée et affichera les détails de l'entrée dans la fenêtre principale.</para>
 </sect3>
 
 <sect3 id="dbus-collection">
@@ -131,26 +131,26 @@ bool addEntryValue(int entryID, QString fieldName, QString value)
 </programlisting>
 
 <para
->Une nouvelle entrée vierge peut être créée dans la collection courante en utilisant la commande <command
+>Une nouvelle entrée peut être créée dans la collection courante en utilisant la commande <command
 >addEntry()</command
->. La valeur retournée est l'ID de l'entrée, pouvant ensuite être utilisé pour définir les valeurs des champs. Une entrée peut être supprimée de la collection en appelant la commande <command
+>. La valeur retournée est l'entrée ID qui peut être ensuite utilisée pour définir les valeurs du champ dans l'entrée. Une entrée peut être supprimée de la collection en appelant la commande <command
 >removeEntry()</command
 >. </para>
 
 <para
 >Appeler <command
 >allValues()</command
-> en utilisant simplement un nom de champ retournera toutes les valeurs pour ce champ pour les entrées actuellement sélectionnées. En l'absence de sélection, la liste sera vide. Si un ID d'entrée est inclus dans la commande, les valeurs des champs pour cette entrée spécifique seront retournées. </para>
+> en utilisant simplement un nom de champ retournera toutes les valeurs pour ce champ pour les entrées courantes sélectionnées. Si aucune entrées ne sont sélectionnées, la liste retournée est vide. Si une entrée ID est incluse dans la commande, les valeurs du champ pour cette entrée spécifique sont retournées. </para>
 
 <para
 >Si la collection courante est une bibliographie, appeler <command
 >selectedBibtexKeys()</command
-> retournera la clé de citation Bibtex pour toutes les entrées sélectionnées. La bibtexKey (clé Bibtex) pour une entrée spécifique peut être trouvée en utilisant la commande <command
+> retournera la clé de citation Bibtex pour toutes les entrées sélectionnées. bibtexKey pour une entrée spécifique peut être trouvé en utilisant la commande <command
 >entryBibtexKey()</command
 >. </para>
 
 <para
->Les entrées sont modifiables directement depuis l'interface &DBus;. À partir d'un ID d'entrée, <command
+>Les entrées peuvent être modifiées directement avec l'interface &DBus;. Donner une entrée ID <command
 >setEntryValue()</command
 > définira la valeur du champ directement. Pour ajouter une valeur, sans affecter les valeurs existantes, utilisez <command
 >addEntryValue()</command
@@ -164,7 +164,11 @@ bool addEntryValue(int entryID, QString fieldName, QString value)
 >Exemples &DBus;</title>
 
 <para
->Voici quelques exemples de scripts &appname; employant l'interface &DBus;. </para>
+>Voici des exemples pour scripter &appname; en utilisant l'interface &DBus;. Depuis que le <emphasis
+>pid</emphasis
+> doit être connu, la façon la plus simple d'inclure celle-ci dans la commande shell se fait de cette manière : <userinput
+>dcop $(dcop | grep tellico) tellico</userinput
+>. </para>
 
 <screen width="40"
 ><emphasis
@@ -192,7 +196,7 @@ bool addEntryValue(int entryID, QString fieldName, QString value)
 
 <screen width="40"
 ><emphasis
->Obtenir la clé de citation pour la sélection courante</emphasis>
+>Rappeler la clé de citation de la sélection courante</emphasis>
 <prompt
 >%</prompt
 > <userinput
@@ -204,7 +208,7 @@ bool addEntryValue(int entryID, QString fieldName, QString value)
 
 <screen width="40"
 ><emphasis
->Ajouter une nouvelle entrée et en définir le titre</emphasis>
+>Ajouter une nouvelle entrée et définir le titre</emphasis>
 <prompt
 >%</prompt
 > <userinput
@@ -212,7 +216,7 @@ bool addEntryValue(int entryID, QString fieldName, QString value)
 <prompt
 >%</prompt
 > <userinput
->qdbus org.kde.tellico /Collections org.kde.tellico.setEntryValue $myid title "Mon nouveau livre"</userinput>
+>qdbus org.kde.tellico /Collections org.kde.tellico.setEntryValue $myid title "My New Book"</userinput>
 <computeroutput
 >true</computeroutput
 >

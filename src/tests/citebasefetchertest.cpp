@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,16 +28,17 @@
 #include "citebasefetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/citebasefetcher.h"
 #include "../entry.h"
 #include "../collections/bibtexcollection.h"
 #include "../collectionfactory.h"
 
-#include <KStandardDirs>
+#include <kstandarddirs.h>
 
 QTEST_KDEMAIN( CitebaseFetcherTest, GUI )
 
-CitebaseFetcherTest::CitebaseFetcherTest() : AbstractFetcherTest() {
+CitebaseFetcherTest::CitebaseFetcherTest() : m_loop(this) {
 }
 
 void CitebaseFetcherTest::initTestCase() {
@@ -63,16 +64,26 @@ void CitebaseFetcherTest::testArxivID() {
                                        "arxiv:" + m_fieldValues.value("arxiv"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::CitebaseFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  if(!results.isEmpty()) {
-    Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  if(!m_results.isEmpty()) {
+    Tellico::Data::EntryPtr entry = m_results.at(0);
     QHashIterator<QString, QString> i(m_fieldValues);
     while(i.hasNext()) {
       i.next();
       QCOMPARE(entry->field(i.key()), i.value());
     }
   }
+}
+
+void CitebaseFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

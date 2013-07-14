@@ -54,8 +54,6 @@
 #include <kmenu.h>
 #include <ktabwidget.h>
 
-#include <unistd.h>
-
 using Tellico::Controller;
 
 Controller* Controller::s_self = 0;

@@ -28,6 +28,7 @@
 #include "doubanfetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/doubanfetcher.h"
 #include "../collections/bookcollection.h"
 #include "../collections/videocollection.h"
@@ -36,11 +37,11 @@
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
-#include <KStandardDirs>
+#include <kstandarddirs.h>
 
 QTEST_KDEMAIN( DoubanFetcherTest, GUI )
 
-DoubanFetcherTest::DoubanFetcherTest() : AbstractFetcherTest() {
+DoubanFetcherTest::DoubanFetcherTest() : m_loop(this) {
 }
 
 void DoubanFetcherTest::initTestCase() {
@@ -57,11 +58,16 @@ void DoubanFetcherTest::testBookTitle() {
                                        QString::fromUtf8("大设计 列纳德·蒙洛迪诺"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DoubanFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QVERIFY(entry);
 
   QCOMPARE(entry->collection()->type(), Tellico::Data::Collection::Book);
@@ -70,7 +76,8 @@ void DoubanFetcherTest::testBookTitle() {
   QCOMPARE(entry->field("author"), QString::fromUtf8("[英] 斯蒂芬·霍金; 列纳德·蒙洛迪诺"));
   QCOMPARE(entry->field("translator"), QString::fromUtf8("吴忠超"));
   QCOMPARE(entry->field("publisher"), QString::fromUtf8("湖南科学技术出版社"));
-  QCOMPARE(entry->field("binding"), QLatin1String("Hardback"));
+  // ToDo: fix binding
+//  QCOMPARE(entry->field("binding"), QString::fromUtf8("精装"));
   QCOMPARE(entry->field("pub_year"), QLatin1String("2011"));
   QCOMPARE(entry->field("isbn"), QLatin1String("978-7-53576544-4"));
   QCOMPARE(entry->field("pages"), QLatin1String("176"));
@@ -84,11 +91,16 @@ void DoubanFetcherTest::testISBN() {
                                        QLatin1String("9787535765444"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DoubanFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QVERIFY(entry);
 
   QCOMPARE(entry->collection()->type(), Tellico::Data::Collection::Book);
@@ -97,7 +109,8 @@ void DoubanFetcherTest::testISBN() {
   QCOMPARE(entry->field("author"), QString::fromUtf8("[英] 斯蒂芬·霍金; 列纳德·蒙洛迪诺"));
   QCOMPARE(entry->field("translator"), QString::fromUtf8("吴忠超"));
   QCOMPARE(entry->field("publisher"), QString::fromUtf8("湖南科学技术出版社"));
-  QCOMPARE(entry->field("binding"), QLatin1String("Hardback"));
+  // ToDo: fix binding
+//  QCOMPARE(entry->field("binding"), QString::fromUtf8("精装"));
   QCOMPARE(entry->field("pub_year"), QLatin1String("2011"));
   QCOMPARE(entry->field("isbn"), QLatin1String("978-7-53576544-4"));
   QCOMPARE(entry->field("pages"), QLatin1String("176"));
@@ -108,22 +121,27 @@ void DoubanFetcherTest::testISBN() {
 
 void DoubanFetcherTest::testVideo() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Keyword,
-                                       QString::fromUtf8("钢铁侠2"));
+                                       QString::fromUtf8("钢铁侠"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DoubanFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QVERIFY(entry);
 
   QCOMPARE(entry->collection()->type(), Tellico::Data::Collection::Video);
 
-  QCOMPARE(entry->field("title"), QLatin1String("Iron Man 2"));
-  QCOMPARE(entry->field("year"), QLatin1String("2010"));
+  QCOMPARE(entry->field("title"), QLatin1String("Iron Man"));
+  QCOMPARE(entry->field("year"), QLatin1String("2008"));
   QCOMPARE(entry->field("director"), QString::fromUtf8("乔恩·费儒"));
-  QCOMPARE(entry->field("running-time"), QLatin1String("124"));
+  QCOMPARE(entry->field("running-time"), QLatin1String("126"));
   QVERIFY(!entry->field(QLatin1String("genre")).isEmpty());
   QVERIFY(!entry->field(QLatin1String("cast")).isEmpty());
   QVERIFY(!entry->field(QLatin1String("nationality")).isEmpty());
@@ -138,11 +156,16 @@ void DoubanFetcherTest::testMusic() {
                                        QString::fromUtf8("Top Gun Original Motion Picture"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DoubanFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
+  job->setMaximumResults(1);
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QVERIFY(entry);
 
   QCOMPARE(entry->collection()->type(), Tellico::Data::Collection::Album);
@@ -158,4 +181,9 @@ void DoubanFetcherTest::testMusic() {
   QVERIFY(!entry->field(QLatin1String("keyword")).isEmpty());
   QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 //  QVERIFY(!entry->field(QLatin1String("comments")).isEmpty());
+}
+
+void DoubanFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

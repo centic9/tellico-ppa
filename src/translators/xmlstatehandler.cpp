@@ -305,7 +305,7 @@ bool FieldHandler::start(const QString&, const QString&, const QString&, const Q
 
   Data::FieldPtr field;
   if(type == Data::Field::Choice) {
-    QStringList allowed = attValue(atts_, "allowed").split(QRegExp(QLatin1String("\\s*;\\s*")), QString::SkipEmptyParts);
+    QStringList allowed = attValue(atts_, "allowed").split(QRegExp(QLatin1String("\\s*;\\s*")));
     if(isI18n) {
       for(QStringList::Iterator word = allowed.begin(); word != allowed.end(); ++word) {
         (*word) = i18n((*word).toUtf8());
@@ -776,10 +776,6 @@ bool FilterRuleHandler::start(const QString&, const QString&, const QString&, co
     func = FilterRule::FuncRegExp;
   } else if(function == QLatin1String("notregexp")) {
     func = FilterRule::FuncNotRegExp;
-  } else if(function == QLatin1String("before")) {
-    func = FilterRule::FuncBefore;
-  } else if(function == QLatin1String("after")) {
-    func = FilterRule::FuncAfter;
   } else {
     myWarning() << "invalid rule function:" << function;
     return true;

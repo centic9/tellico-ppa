@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,11 +25,15 @@
 #ifndef ARXIVFETCHERTEST_H
 #define ARXIVFETCHERTEST_H
 
-#include "abstractfetchertest.h"
-
+#include <QObject>
+#include <QEventLoop>
 #include <QHash>
 
-class ArxivFetcherTest : public AbstractFetcherTest {
+#include "../datavectors.h"
+
+class KJob;
+
+class ArxivFetcherTest : public QObject {
 Q_OBJECT
 public:
   ArxivFetcherTest();
@@ -40,8 +44,12 @@ private Q_SLOTS:
   void testArxivID();
   void testArxivIDVersioned();
 
+  void slotResult(KJob* job);
+
 private:
+  QEventLoop m_loop;
   QHash<QString, QString> m_fieldValues;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

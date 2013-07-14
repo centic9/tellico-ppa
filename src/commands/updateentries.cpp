@@ -31,27 +31,6 @@
 
 #include <klocale.h>
 
-namespace {
-
-class OverWriteResolver : public Tellico::MergeConflictResolver {
-public:
-  OverWriteResolver(bool overwrite_) : m_overWrite(overwrite_) {};
-  Tellico::MergeConflictResolver::Result resolve(Tellico::Data::EntryPtr,
-                                                 Tellico::Data::EntryPtr,
-                                                 Tellico::Data::FieldPtr,
-                                                 const QString& value1 = QString(),
-                                                 const QString& value2 = QString()) {
-    Q_UNUSED(value1);
-    Q_UNUSED(value2);
-    return m_overWrite ? Tellico::MergeConflictResolver::KeepSecond : Tellico::MergeConflictResolver::KeepFirst;
-  }
-
-private:
-  bool m_overWrite;
-};
-
-}
-
 using Tellico::Command::UpdateEntries;
 
 namespace Tellico {
@@ -72,8 +51,7 @@ public:
   }
 
   virtual void redo() {
-    OverWriteResolver res(m_overWrite);
-    Data::Document::mergeEntry(m_currEntry, m_newEntry, &res);
+    Data::Document::mergeEntry(m_currEntry, m_newEntry, m_overWrite);
   }
   virtual void undo() {} // does nothing
   Data::EntryPtr orphanEntry() const { return m_orphanEntry; }

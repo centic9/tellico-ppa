@@ -12,7 +12,6 @@ SET(translators_STAT_SRCS
    bibteximporter.cpp
    bibtexmlexporter.cpp
    bibtexmlimporter.cpp
-   ciwimporter.cpp
    csvexporter.cpp
    csvimporter.cpp
    csvparser.cpp
@@ -40,7 +39,6 @@ SET(translators_STAT_SRCS
    tellicoxmlhandler.cpp
    tellicozipexporter.cpp
    textimporter.cpp
-   vinoxmlimporter.cpp
    xmlimporter.cpp
    xmlstatehandler.cpp
    xmphandler.cpp

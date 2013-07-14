@@ -25,11 +25,14 @@
 #ifndef FILMASTERFETCHERTEST_H
 #define FILMASTERFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-#include <QHash>
+#include "../datavectors.h"
 
-class FilmasterFetcherTest : public AbstractFetcherTest {
+class KJob;
+
+class FilmasterFetcherTest : public QObject {
 Q_OBJECT
 public:
   FilmasterFetcherTest();
@@ -40,7 +43,11 @@ private Q_SLOTS:
   void testPerson();
   void testKeyword();
 
+  void slotResult(KJob* job);
+
 private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
   QHash<QString, QString> m_fieldValues;
 };
 

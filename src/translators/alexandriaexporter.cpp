@@ -120,7 +120,6 @@ bool AlexandriaExporter::exec() {
       item.setProgress(j);
       kapp->processEvents();
     }
-    ++j;
   }
   return success;
 }
@@ -170,13 +169,8 @@ bool AlexandriaExporter::writeFile(const QDir& dir_, Tellico::Data::EntryPtr ent
   // I have no idea how to debug ruby, so err on safe side and add quotes
   ts << "isbn: \"" << isbn << "\"\n";
 
-  static const QRegExp rx(QLatin1String("<br/?>"), Qt::CaseInsensitive);
   tmp = entry_->formattedField(QLatin1String("comments"), format);
-  tmp.replace(rx, QLatin1String("\n"));
-  ts << "notes: |-\n";
-  foreach(const QString& line, tmp.split(QLatin1Char('\n'))) {
-    ts << "  " << line << "\n";
-  }
+  ts << "notes: \"" << escapeText(tmp) << "\"\n";
 
   tmp = entry_->formattedField(QLatin1String("publisher"), format);
   // publisher uses n/a when empty

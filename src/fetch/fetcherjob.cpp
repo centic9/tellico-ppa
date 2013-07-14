@@ -33,7 +33,7 @@ using namespace Tellico::Fetch;
 using Tellico::Fetch::FetcherJob;
 
 FetcherJob::FetcherJob(QObject* parent_, Fetcher::Ptr fetcher_, const FetchRequest& request_)
-    : KJob(parent_), m_fetcher(fetcher_), m_request(request_), m_maximumResults(0) {
+    : KJob(parent_), m_fetcher(fetcher_), m_request(request_) {
   connect(m_fetcher.data(), SIGNAL(signalResultFound(Tellico::Fetch::FetchResult*)),
           SLOT(slotResult(Tellico::Fetch::FetchResult*)));
   connect(m_fetcher.data(), SIGNAL(signalDone(Tellico::Fetch::Fetcher*)),
@@ -48,10 +48,7 @@ FetcherJob::~FetcherJob() {
 Tellico::Data::EntryList FetcherJob::entries() {
   Data::EntryList list;
   foreach(FetchResult* result, m_results) {
-    Data::EntryPtr entry = result->fetchEntry();
-    if(entry) {
-      list << entry;
-    }
+    list << result->fetchEntry();
   }
   return list;
 }
@@ -81,12 +78,7 @@ void FetcherJob::slotResult(Tellico::Fetch::FetchResult* result_) {
 }
 
 void FetcherJob::slotDone() {
-  // only continue if more results were specifically asked for
-  if(m_fetcher->hasMoreResults() && m_results.count() < m_maximumResults) {
-    m_fetcher->continueSearch();
-  } else {
-    emitResult();
-  }
+  emitResult();
 }
 
 bool FetcherJob::doKill() {

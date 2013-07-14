@@ -85,11 +85,7 @@ QString TellicoXMLExporter::text() const {
 }
 
 QDomDocument TellicoXMLExporter::exportXML() const {
-  int exportVersion = XML::syntaxVersion;
-
-  if(exportVersion == 12 && !version12Needed()) {
-    exportVersion = 11;
-  }
+  const int exportVersion = XML::syntaxVersion;
 
   QDomImplementation impl;
   QDomDocumentType doctype = impl.createDocumentType(QLatin1String("tellico"),
@@ -457,12 +453,8 @@ void TellicoXMLExporter::exportFilterXML(QDomDocument& dom_, QDomElement& parent
       case FilterRule::FuncNotRegExp:
         ruleElem.setAttribute(QLatin1String("function"), QLatin1String("notregexp"));
         break;
-      case FilterRule::FuncBefore:
-        ruleElem.setAttribute(QLatin1String("function"), QLatin1String("before"));
-        break;
-      case FilterRule::FuncAfter:
-        ruleElem.setAttribute(QLatin1String("function"), QLatin1String("after"));
-        break;
+      default:
+        myWarning() << "no matching rule function!";
     }
     filterElem.appendChild(ruleElem);
   }
@@ -573,17 +565,5 @@ Tellico::Data::EntryList TellicoXMLExporter::sortEntries(const Data::EntryList& 
   return sorted;
 }
 
-bool TellicoXMLExporter::version12Needed() const {
-  // version 12 is only necessary if the new filter rules are not used
-  foreach(FilterPtr filter, collection()->filters()) {
-    foreach(FilterRule* rule, *filter) {
-      if(rule->function() == FilterRule::FuncBefore ||
-         rule->function() == FilterRule::FuncAfter) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
 
 #include "tellicoxmlexporter.moc"

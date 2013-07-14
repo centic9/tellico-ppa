@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,16 +28,17 @@
 #include "z3950fetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/z3950fetcher.h"
 #include "../collections/bookcollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
 
-#include <KStandardDirs>
+#include <kstandarddirs.h>
 
 QTEST_KDEMAIN( Z3950FetcherTest, GUI )
 
-Z3950FetcherTest::Z3950FetcherTest() : AbstractFetcherTest() {
+Z3950FetcherTest::Z3950FetcherTest() : m_loop(this) {
 }
 
 void Z3950FetcherTest::initTestCase() {
@@ -53,11 +54,16 @@ void Z3950FetcherTest::testTitle() {
                                        QLatin1String("Foundations of Qt Development"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::Z3950Fetcher(this, QLatin1String("loc")));
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Foundations of Qt development"));
   QCOMPARE(entry->field(QLatin1String("author")), QLatin1String("Thelin, Johan."));
   QCOMPARE(entry->field(QLatin1String("isbn")), QLatin1String("1-59059-831-8"));
@@ -69,11 +75,16 @@ void Z3950FetcherTest::testIsbn() {
                                        QLatin1String("978-1-59059-831-3; 0-201-88954-4"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::Z3950Fetcher(this, QLatin1String("loc")));
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 2);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(1);
+  QCOMPARE(m_results.size(), 2);
+
+  Tellico::Data::EntryPtr entry = m_results.at(1);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Foundations of Qt development"));
   QCOMPARE(entry->field(QLatin1String("author")), QLatin1String("Thelin, Johan."));
   QCOMPARE(entry->field(QLatin1String("isbn")), QLatin1String("1-59059-831-8"));
@@ -90,11 +101,16 @@ void Z3950FetcherTest::testADS() {
                                                                         QLatin1String("AST"),
                                                                         QLatin1String("ads")));
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Particle creation by black holes"));
   QCOMPARE(entry->field(QLatin1String("author")), QLatin1String("Hawking, S. W."));
   QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("1975"));
@@ -103,4 +119,9 @@ void Z3950FetcherTest::testADS() {
   QCOMPARE(entry->field(QLatin1String("volume")), QLatin1String("43"));
   QCOMPARE(entry->field(QLatin1String("journal")), QLatin1String("Communications In Mathematical Physics"));
   QVERIFY(!entry->field(QLatin1String("url")).isEmpty());
+}
+
+void Z3950FetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

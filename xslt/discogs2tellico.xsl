@@ -115,7 +115,7 @@
   <artists>
    <xsl:for-each select="artists/artist">
     <artist>
-     <xsl:value-of select="name"/>
+     <xsl:value-of select="."/>
     </artist>
    </xsl:for-each>
   </artists>

@@ -56,7 +56,6 @@
 #include <kcombobox.h>
 #include <kacceleratormanager.h>
 #include <kseparator.h>
-#include <KIcon>
 
 #include <QFile>
 #include <QLabel>
@@ -446,7 +445,7 @@ void Z3950Fetcher::handleResult(const QString& result_) {
     }
 #endif
     Import::TellicoImporter imp(m_MODSHandler->applyStylesheet(str));
-    imp.setOptions(imp.options() ^ Import::ImportProgress); // no progress needed
+    imp.setOptions(imp.options() & ~Import::ImportProgress); // no progress needed
     coll = imp.collection();
     msg = imp.statusMessage();
   }
@@ -462,19 +461,6 @@ void Z3950Fetcher::handleResult(const QString& result_) {
   if(coll->entryCount() == 0) {
 //    myDebug() << "no Tellico entry in result";
     return;
-  }
-
-  // since the Dewey and LoC field titles have a context in their i18n call here
-  // but not in the mods2tellico.xsl stylesheet where the field is actually created
-  // update the field titles here
-  QHashIterator<QString, QString> i(allOptionalFields());
-  while(i.hasNext()) {
-    i.next();
-    Data::FieldPtr field = coll->fieldByName(i.key());
-    if(field) {
-      field->setTitle(i.value());
-      coll->modifyField(field);
-    }
   }
 
   Data::EntryList entries = coll->entries();
@@ -566,7 +552,7 @@ Tellico::StringHash Z3950Fetcher::allOptionalFields() {
   hash[QLatin1String("abstract")] = i18n("Abstract");
   hash[QLatin1String("illustrator")] = i18n("Illustrator");
   hash[QLatin1String("dewey")] = i18nc("Dewey Decimal classification system", "Dewey Decimal");
-  hash[QLatin1String("lcc")] = i18nc("Library of Congress classification system", "LoC Classification");
+  hash[QLatin1String("lcc")] = i18nc("Library of Congress classificationn system", "LoC Classification");
   return hash;
 }
 
@@ -789,7 +775,7 @@ void Z3950Fetcher::ConfigWidget::loadPresets(const QString& current_) {
 
   KConfig serverConfig(serverFile, KConfig::SimpleConfig);
   const QStringList servers = serverConfig.groupList();
-  // I want the list of servers sorted by name so use QMap instead of QHash
+  // I want the list of servers sorted by name
   QMap<QString, QString> serverNameMap;
   for(QStringList::ConstIterator server = servers.constBegin(); server != servers.constEnd(); ++server) {
     if((*server).isEmpty()) {
@@ -806,16 +792,8 @@ void Z3950Fetcher::ConfigWidget::loadPresets(const QString& current_) {
     const QString name = it.key();
     const QString group = it.value();
     KConfigGroup cfg(&serverConfig, group);
-    const QString country = cfg.readEntry("Country", QString());
 
-    if(country.isEmpty()) {
-      m_serverCombo->addItem(i18n(name.toUtf8()), group);
-    } else {
-      const QString flag = KStandardDirs::locate("locale",
-                                                 QString::fromLatin1("l10n/%1/flag.png").arg(country));
-      m_serverCombo->addItem(KIcon(flag), i18n(name.toUtf8()), group);
-    }
-
+    m_serverCombo->addItem(i18n(name.toUtf8()), group);
     if(current_.isEmpty() && idx == -1) {
       // set the initial selection to something depending on the language
       const QStringList locales = cfg.readEntry("Locale", QStringList());

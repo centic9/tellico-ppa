@@ -12,7 +12,7 @@
   <!ENTITY robby "Robby Stephenson">
   <!ENTITY email "robby@periapsis.org">
   <!ENTITY homepage "http://tellico-project.org">
-  <!ENTITY maillist "http://tellico-project.org/mailing-list">
+  <!ENTITY maillist "http://forge.novell.com/mailman/listinfo/tellico-users">
   <!ENTITY xslt "<acronym
 >XSLT</acronym
 >">
@@ -33,7 +33,7 @@
 
 <!-- The language must NOT be changed here. -->
 
-<book id="tellico" lang="&language;">
+<book lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -103,22 +103,37 @@ Do NOT change these in the translation. -->
 >2008</year>
 <year
 >2009</year>
-<year
->2010</year>
-<year
->2011</year>
 <holder
 >&robby;</holder>
 </copyright>
 
 <!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+&FDLNotice;
+
+<para
+>Författaren av detta dokument har också beviljat dig rättighet att använda innehållet under villkoren i <ulink url="freebsd-doc-license.html"
+>FreeBSD Documentation License</ulink
+>, om du så önskar. Se anmärkningen i <link linkend="gnu-fdl"
+>licensavsnittet</link
+>.</para>
+</legalnotice>
 
 <legalnotice>
 <para
->För licensinformation för både programvaran och den här dokumentationen, se <link linkend="credits"
->det sista avsnittet</link
->. </para>
+>Detta program är fri programvara. Du kan distribuera det och/eller ändra det under villkoren i GNU General Public License, publicerad av Free Software Foundation, antingen version 2 av licensen, eller (om du så önskar) version 3 eller någon senare version accepterad av ledamöterna i KDE e.V. (eller deras efterföljare, godkända av ledamöterna i KDE e.V.), vilka ska fungera som ombud, enligt definitionen i avsnitt 14 av licensens tredje version. </para>
+
+<para
+>Detta program distribueras i hopp om att det ska vara användbart, men UTAN NÅGON SOM HELST GARANTI, även utan underförstådd garanti om SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT ÄNDAMÅL. Se &GNU; General Public License för ytterligare information.</para>
+
+<para
+>Du ska ha fått en kopia av &GNU; General Public License tillsammans med detta program. Om inte, skriv till Free Software Foundation, Inc., 51 Franklin Steet, Fifth Floor, Boston, MA 02110-1301, USA.</para>
 </legalnotice>
+<!--<legalnotice
+>&GPLNotice;</legalnotice
+>-->
 
 <!-- Abstract about this handbook -->
 
@@ -200,7 +215,7 @@ revision history. (see installation appendix comment) -->
 >&appname; är inte en ljud- eller videospelare. Det tillhandahåller inga funktioner för att läsa eller ändra multimediafiler. Det tillhandahåller heller inte några bildredigeringsfunktioner. Även om &appname; har vissa funktioner för att hantera bibliografilistor, är det inte ett fullständigt bibliografiskt referensprogram. &appname; påstår sig inte heller ha alla möjligheter som tillhandahålls av en fullständig relationsdatabas. </para>
 
 <para
->Som något av en friskrivning, är &appname; en hobby för upphovsmannen, och inga garantier ges om dess funktion, användbarhet, eller liknande. Mer information ingår i <link linkend="credits"
+>Som något av en friskrivning, är &appname; en hobby för upphovsmannen, och inga garantier ges om dess funktion, användbarhet, eller liknande. Det är mycket långt från att vara en professionell programvara. Mer information ingår i <link linkend="gnu-fdl"
 >licensdeklarationen</link
 >. </para>
 
@@ -282,11 +297,12 @@ file included in the KDE distribution. -->
 <para
 >&appname; </para>
 <para
->Program copyright 2001-2011 &robby; <email
+>Program copyright 2001-2009 &robby; <email
 >&email;</email
 > </para>
+
 <para
->Documentation copyright 2001-2011 &robby; <email
+>Dokumentation copyright 2001-2009 &robby; <email
 >&email;</email
 > </para>
 
@@ -295,8 +311,8 @@ file included in the KDE distribution. -->
 >stefan.asserhall@comhem.se</email
 ></para
 > 
-&underGPL; &underFDL; <para
->Författaren av detta dokument har också beviljat dig rättighet att använda innehållet under villkoren i <ulink url="http://www.freebsd.org/copyright/freebsd-doc-license.html"
+&underFDL; &underGPL; <para
+>Författaren av detta dokument har också beviljat dig rättighet att använda innehållet under villkoren i <ulink url="freebsd-doc-license.html"
 >FreeBSD Documentation License</ulink
 >, om du så önskar. Om du enbart önskar tillåta användning av din version av detta innehåll under villkoren i FreeBSD Documentation License, och inte tillåta andra att använda din version av filen under villkoren i GFDL, indikera ditt beslut genom att ta bort GFDL notisen och ersätt den med notisen och andra bestämmelser som krävs av FreeBSD Documentation License. Om du inte tar bort GFDL notisen ovan, kan en mottagare av filen antingen använda din version av filen under villkoren i GFDL eller FreeBSD Documentation License.</para>
 

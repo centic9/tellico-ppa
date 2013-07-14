@@ -37,7 +37,9 @@ FilterRule::FilterRule() : m_function(FuncEquals) {
 
 FilterRule::FilterRule(const QString& fieldName_, const QString& pattern_, Function func_)
     : m_fieldName(fieldName_), m_function(func_), m_pattern(pattern_) {
-  updatePattern();
+  if(m_function == FuncRegExp || m_function == FuncNotRegExp) {
+    m_patternRx = QRegExp(m_pattern, Qt::CaseInsensitive);
+  }
 }
 
 bool FilterRule::matches(Tellico::Data::EntryPtr entry_) const {
@@ -58,10 +60,6 @@ bool FilterRule::matches(Tellico::Data::EntryPtr entry_) const {
       return matchesRegExp(entry_);
     case FuncNotRegExp:
       return !matchesRegExp(entry_);
-    case FuncBefore:
-      return before(entry_);
-    case FuncAfter:
-      return after(entry_);
     default:
       myWarning() << "invalid function!";
       break;
@@ -138,66 +136,30 @@ bool FilterRule::contains(Tellico::Data::EntryPtr entry_) const {
 
 bool FilterRule::matchesRegExp(Tellico::Data::EntryPtr entry_) const {
   // empty field name means search all
-  const QRegExp pattern = m_patternVariant.toRegExp();
   if(m_fieldName.isEmpty()) {
     foreach(const QString& value, entry_->fieldValues()) {
-      if(pattern.indexIn(value) >= 0) {
+      if(m_patternRx.indexIn(value) >= 0) {
         return true;
       }
     }
     foreach(const QString& value, entry_->formattedFieldValues()) {
-      if(pattern.indexIn(value) >= 0) {
+      if(m_patternRx.indexIn(value) >= 0) {
         return true;
       }
     }
   } else {
-    return pattern.indexIn(entry_->field(m_fieldName)) >= 0 ||
-           pattern.indexIn(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat)) >= 0;
+    return m_patternRx.indexIn(entry_->field(m_fieldName)) >= 0 ||
+           m_patternRx.indexIn(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat)) >= 0;
   }
 
   return false;
 }
 
-bool FilterRule::before(Tellico::Data::EntryPtr entry_) const {
-  // empty field name means search all
-  // but the rule widget should limit this function to date fields only
-  if(m_fieldName.isEmpty()) {
-    return false;
-  }
-  const QDate pattern = m_patternVariant.toDate();
-  const QDate value = QDate::fromString(entry_->field(m_fieldName), Qt::ISODate);
-  return value.isValid() && value < pattern;
-}
-
-bool FilterRule::after(Tellico::Data::EntryPtr entry_) const {
-  // empty field name means search all
-  // but the rule widget should limit this function to date fields only
-  if(m_fieldName.isEmpty()) {
-    return false;
-  }
-  const QDate pattern = m_patternVariant.toDate();
-  const QDate value = QDate::fromString(entry_->field(m_fieldName), Qt::ISODate);
-  return value.isValid() && value > pattern;
-}
-
-void FilterRule::updatePattern() {
-  if(m_function == FuncRegExp || m_function == FuncNotRegExp) {
-    m_patternVariant = QRegExp(m_pattern, Qt::CaseInsensitive);
-  } else if(m_function == FuncBefore || m_function == FuncAfter)  {
-    m_patternVariant = QDate::fromString(m_pattern, Qt::ISODate);
-  } else {
-    // we don't even use it
-    m_patternVariant = QVariant();
-  }
-}
-
 void FilterRule::setFunction(Function func_) {
   m_function = func_;
-  updatePattern();
-}
-
-QString FilterRule::pattern() const {
-  return m_pattern;
+  if(m_function == FuncRegExp || m_function == FuncNotRegExp) {
+    m_patternRx = QRegExp(m_pattern, Qt::CaseInsensitive);
+  }
 }
 
 /*******************************************************/

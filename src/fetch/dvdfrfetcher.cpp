@@ -75,12 +75,7 @@ KUrl DVDFrFetcher::searchUrl() {
 
   switch(request().key) {
     case Title:
-      // DVDfr requires the title string to be in iso-8859-15
-      {
-        QTextCodec* codec = QTextCodec::codecForName("iso-8859-15");
-        Q_ASSERT(codec);
-        u.addEncodedQueryItem("title", codec->fromUnicode(request().value));
-      }
+      u.addQueryItem(QLatin1String("title"), request().value);
       break;
 
     case UPC:
@@ -128,8 +123,6 @@ Tellico::Data::EntryPtr DVDFrFetcher::fetchEntryHookData(Data::EntryPtr entry_) 
 #endif
 
   Import::TellicoImporter imp(xsltHandler()->applyStylesheet(output));
-  // be quiet when loading images
-  imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
 //  getTracks(entry);
   if(!coll) {
@@ -168,9 +161,8 @@ QString DVDFrFetcher::defaultIcon() {
 
 Tellico::StringHash DVDFrFetcher::allOptionalFields() {
   StringHash hash;
-  hash[QLatin1String("origtitle")] = i18n("Original Title");
-  hash[QLatin1String("dvdfr")]     = i18n("DVDFr Link");
-  hash[QLatin1String("alttitle")]  = i18n("Alternative Titles");
+  hash[QLatin1String("dvdfr")]    = i18n("DVDFr Link");
+  hash[QLatin1String("alttitle")] = i18n("Alternative Titles");
   return hash;
 }
 

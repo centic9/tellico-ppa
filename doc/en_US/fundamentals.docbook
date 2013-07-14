@@ -65,11 +65,11 @@ Any of the fields in the collections may be shown in the <interface>Column View<
 
 <para>
 The <interface>Group View</interface> groups the entries in a tree-view by any field which <link linkend="field-options">allows grouping</link>.
-The number of entries in each group is shown next to the group name. Groups may be expanded or collapsed by clicking the arrow sign, or by double-clicking the item. Expanding and contracting all the groups are options in the right-click context menu. The tree may be sorted either by the group name, or by the count, by clicking on the header. A group may also be used as a filter for the <link linkend="detailed-view"><interface>Column View</interface></link>, by right-clicking on the group item.
+The number of entries in each group is shown next to the group name. Groups may be expanded or collapsed by clicking the plus sign, or by double-clicking the item. Expanding and contracting all the groups are options in the right-click context menu. The tree may be sorted either by the group name, or by the count, by clicking on the header. A group may also be used as a filter for the <link linkend="detailed-view"><interface>Column View</interface></link>, by right-clicking on the group item.
 </para>
 
 <para id="people-group">
-When more than one field in the collection has the <emphasis><link linkend="fields-dialog"><guilabel>Format as a name</guilabel></link></emphasis> option turned on, an additional group is added to combine all those fields into one single <emphasis>People</emphasis> pseudo-group.
+When more than one field in the collection has the <emphasis><link linkend="fields-dialog"><guilabel>Format as name</guilabel></link></emphasis> option turned on, an additional group is added to combine all those fields into one single <emphasis>People</emphasis> pseudo-group.
 </para>
 
 <para>
@@ -122,7 +122,7 @@ on an entry item has an option for modifying the loan using the <interface>Loan 
 <para>
 A formatted representation of the entry's values is shown in the <interface>Entry View</interface>. Templates are used for the layout and any additional graphics. Separate templates for each type of collection may be specified in the <link linkend="template-options"><interface>Configuration Dialog</interface></link>, along with custom colors and fonts.</para>
 
-<para>All of the default templates honor the color and font selection, but other custom templates might not.
+<para>All of the default templates honor the color and font selection, but other custom templates might now.
 The default templates also make &URL; fields active, which will open up with the default &kde; file association. When exporting to &HTML;, the current template is used for exporting the individual entry files.
 </para>
 
@@ -147,6 +147,10 @@ The status bar is used to show you what &appname; is currently doing. It also in
 
 <para>
 The <interface>Entry Editor</interface> is used to add and modify entries in the collection. Double-clicking on an entry in either the <interface>Group View</interface> or the <interface>Column View</interface> opens the <interface>Entry Editor</interface> with that entry. New entries may be created using the <menuchoice><guimenu>Collection</guimenu></menuchoice> menu, the toolbar icon, or the button in the <interface>Entry Editor</interface> itself.</para>
+
+<para>
+The arrow buttons on the bottom will move to the previous or next entries in the current list.
+</para>
 
 <para>Closing the <interface>Entry Editor</interface> when changes have been made but not saved will cause a warning message to appear. The fields are grouped by category and appear in the order that they appear in the <link linkend="fields-dialog"><interface>Collection Fields Dialog</interface></link>. They may also be reordered.
 </para>
@@ -400,7 +404,7 @@ find those that meet any of them. The <interface>Advanced Filter Dialog</interfa
 </screenshot>
 
 <para>
-Each row contains a single filter rule. Select the field to match in the first box in the row, then select a matching rule in the center. Rules may match values that contain a certain word, or are exactly equal. A regular expression may also be used to match entries, in which case the <guibutton>Edit...</guibutton> button becomes active for editing the expression, if &kregexpeditor; is installed on your computer. Finally, the word or string to match should be entered in the text box.
+Each row contains a single filter rule. Select the field to match in the first box in the row, then select a matching rule in the center. Rules may match values that contain a certain word, or are exactly equal. A regular expression may also be used to match entries, in which case the <guibutton>Edit...</guibutton> button becomes active for editing the expression. Finally, the word or string to match should be entered in the text box.
 </para>
 
 <para>

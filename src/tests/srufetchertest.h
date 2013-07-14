@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,9 +25,14 @@
 #ifndef SRUFETCHERTEST_H
 #define SRUFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-class SRUFetcherTest : public AbstractFetcherTest {
+#include "../datavectors.h"
+
+class KJob;
+
+class SRUFetcherTest : public QObject {
 Q_OBJECT
 public:
   SRUFetcherTest();
@@ -36,6 +41,12 @@ private Q_SLOTS:
   void initTestCase();
   void testTitle();
   void testIsbn();
+
+  void slotResult(KJob* job);
+
+private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

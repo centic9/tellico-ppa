@@ -16,5 +16,3 @@ SET(models_STAT_SRCS
    )
 
 KDE4_ADD_LIBRARY(tellicomodels STATIC ${models_STAT_SRCS})
-
-ADD_DEPENDENCIES(tellicomodels tellico_config)

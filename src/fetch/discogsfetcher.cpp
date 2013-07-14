@@ -35,7 +35,7 @@
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
-#include <QBoxLayout>
+#include <QGridLayout>
 #include <QDomDocument>
 #include <QTextCodec>
 
@@ -43,14 +43,16 @@
 
 namespace {
   static const int DISCOGS_MAX_RETURNS_TOTAL = 20;
-  static const char* DISCOGS_API_URL = "http://api.discogs.com";
+  static const char* DISCOGS_API_URL = "http://www.discogs.com";
+  static const char* DISCOGS_API_KEY = "de6cb96534";
 }
 
 using namespace Tellico;
 using Tellico::Fetch::DiscogsFetcher;
 
 DiscogsFetcher::DiscogsFetcher(QObject* parent_)
-    : XMLFetcher(parent_) {
+    : XMLFetcher(parent_)
+    , m_apiKey(QLatin1String(DISCOGS_API_KEY)) {
   setLimit(DISCOGS_MAX_RETURNS_TOTAL);
   setXSLTFilename(QLatin1String("discogs2tellico.xsl"));
 }
@@ -67,7 +69,10 @@ bool DiscogsFetcher::canFetch(int type) const {
 }
 
 void DiscogsFetcher::readConfigHook(const KConfigGroup& config_) {
-  Q_UNUSED(config_);
+  QString k = config_.readEntry("API Key", DISCOGS_API_KEY);
+  if(!k.isEmpty()) {
+    m_apiKey = k;
+  }
 }
 
 void DiscogsFetcher::resetSearch() {
@@ -77,6 +82,7 @@ void DiscogsFetcher::resetSearch() {
 KUrl DiscogsFetcher::searchUrl() {
   KUrl u(DISCOGS_API_URL);
   u.addQueryItem(QLatin1String("f"), QLatin1String("xml"));
+  u.addQueryItem(QLatin1String("api_key"), m_apiKey);
 
   switch(request().key) {
     case Title:
@@ -87,7 +93,6 @@ KUrl DiscogsFetcher::searchUrl() {
 
     case Person:
       u.setPath(QString::fromLatin1("/artist/%1").arg(request().value));
-      u.addQueryItem(QLatin1String("releases"), QLatin1String("1"));
       break;
 
     case Keyword:
@@ -147,6 +152,7 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHookData(Data::EntryPtr entry_
   KUrl u(DISCOGS_API_URL);
   u.setPath(QString::fromLatin1("/release/%1").arg(release));
   u.addQueryItem(QLatin1String("f"), QLatin1String("xml"));
+  u.addQueryItem(QLatin1String("api_key"), m_apiKey);
 #endif
 //  myDebug() << "url: " << u;
 
@@ -155,7 +161,7 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHookData(Data::EntryPtr entry_
 
 #if 0
   myWarning() << "Remove output debug from discogsfetcher.cpp";
-  QFile f(QLatin1String("/tmp/test-discogs2.xml"));
+  QFile f(QLatin1String("/tmp/test2.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
     t.setCodec(QTextCodec::codecForName("UTF-8"));
@@ -165,8 +171,6 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHookData(Data::EntryPtr entry_
 #endif
 
   Import::TellicoImporter imp(xsltHandler()->applyStylesheet(output));
-  // be quiet when loading images
-  imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
 //  getTracks(entry);
   if(!coll) {
@@ -218,12 +222,55 @@ Tellico::StringHash DiscogsFetcher::allOptionalFields() {
 
 DiscogsFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const DiscogsFetcher* fetcher_)
     : Fetch::ConfigWidget(parent_) {
-  QVBoxLayout* l = new QVBoxLayout(optionsWidget());
-  l->addWidget(new QLabel(i18n("This source has no options."), optionsWidget()));
-  l->addStretch();
+  QGridLayout* l = new QGridLayout(optionsWidget());
+  l->setSpacing(4);
+  l->setColumnStretch(1, 10);
+
+  int row = -1;
+
+  QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
+                               "If you agree to the terms and conditions, <a href='%2'>sign "
+                               "up for an account</a>, and enter your information below.",
+                                preferredName(),
+                                QLatin1String("http://www.discogs.com/users/api_key")),
+                          optionsWidget());
+  al->setOpenExternalLinks(true);
+  al->setWordWrap(true);
+  ++row;
+  l->addWidget(al, row, 0, 1, 2);
+  // richtext gets weird with size
+  al->setMinimumWidth(al->sizeHint().width());
+
+  QLabel* label = new QLabel(i18n("Access key: "), optionsWidget());
+  l->addWidget(label, ++row, 0);
+
+  m_apiKeyEdit = new KLineEdit(optionsWidget());
+  connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  l->addWidget(m_apiKeyEdit, row, 1);
+  QString w = i18n("The default Tellico key may be used, but searching may fail due to reaching access limits.");
+  label->setWhatsThis(w);
+  m_apiKeyEdit->setWhatsThis(w);
+  label->setBuddy(m_apiKeyEdit);
+
+  l->setRowStretch(++row, 10);
 
   // now add additional fields widget
   addFieldsWidget(DiscogsFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
+
+  if(fetcher_) {
+    // only show the key if it is not the default Tellico one...
+    // that way the user is prompted to apply for their own
+    if(fetcher_->m_apiKey != QLatin1String(DISCOGS_API_KEY)) {
+      m_apiKeyEdit->setText(fetcher_->m_apiKey);
+    }
+  }
+}
+
+void DiscogsFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
+  QString apiKey = m_apiKeyEdit->text().trimmed();
+  if(!apiKey.isEmpty()) {
+    config_.writeEntry("API Key", apiKey);
+  }
 }
 
 QString DiscogsFetcher::ConfigWidget::preferredName() const {

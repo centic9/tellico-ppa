@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,11 +25,16 @@
 #ifndef AMAZONFETCHERTEST_H
 #define AMAZONFETCHERTEST_H
 
-#include "abstractfetchertest.h"
-
 #include <KConfig>
 
-class AmazonFetcherTest : public AbstractFetcherTest {
+#include <QObject>
+#include <QEventLoop>
+
+#include "../datavectors.h"
+
+class KJob;
+
+class AmazonFetcherTest : public QObject {
 Q_OBJECT
 public:
   AmazonFetcherTest();
@@ -43,7 +48,11 @@ private Q_SLOTS:
   void testUpc();
   void testUpc_data();
 
+  void slotResult(KJob* job);
+
 private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
   bool m_hasConfigFile;
   KConfig m_config;
   QHash<QString, QHash<QString, QString> > m_fieldValues;

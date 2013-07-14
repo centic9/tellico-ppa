@@ -30,9 +30,9 @@
 #include "../gui/cursorsaver.h"
 #include "../tellico_debug.h"
 
-#include <KFileDialog>
-#include <KLocale>
-#include <KMessageBox>
+#include <kfiledialog.h>
+#include <klocale.h>
+#include <kmessagebox.h>
 #include <KPushButton>
 #include <KStandardDirs>
 #include <KProgressDialog>
@@ -54,8 +54,6 @@
 #include <QDragEnterEvent>
 #include <QToolButton>
 #include <QActionGroup>
-#include <QTimer>
-#include <QSet>
 
 #ifdef HAVE_KSANE
 #include <libksane/ksane.h>
@@ -75,7 +73,7 @@ using Tellico::GUI::ImageWidget;
 ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
   m_editProcess(0), m_waitDlg(0)
 #ifdef HAVE_KSANE
-  , m_saneWidget(0), m_saneDlg(0), m_saneDeviceIsOpen(false)
+  , m_saneWidget(0), m_saneDlg(0)
 #endif
 {
   QHBoxLayout* l = new QHBoxLayout(this);
@@ -93,12 +91,10 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
   boxLayout->addStretch(1);
 
   KPushButton* button1 = new KPushButton(i18n("Select Image..."), this);
-  button1->setIcon(KIcon(QLatin1String("insert-image")));
   connect(button1, SIGNAL(clicked()), this, SLOT(slotGetImage()));
   boxLayout->addWidget(button1);
 
   KPushButton* button2 = new KPushButton(i18n("Scan Image..."), this);
-  button2->setIcon(KIcon(QLatin1String("scanner")));
   connect(button2, SIGNAL(clicked()), this, SLOT(slotScanImage()));
   boxLayout->addWidget(button2);
 #ifndef HAVE_KSANE
@@ -120,13 +116,9 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
   QAction* selectedAction = 0;
   KService::List offers = KMimeTypeTrader::self()->query(QLatin1String("image/png"),
                                                          QLatin1String("Application"));
-  QSet<QString> offerNames;
   foreach(KService::Ptr service, offers) {
-    if(offerNames.contains(service->name())) {
-      continue;
-    }
-    offerNames.insert(service->name());
     QAction* action = m_editMenu->addAction(KIcon(service->icon()), service->name());
+    action->setCheckable(true);
     action->setData(QVariant::fromValue(service));
     grp->addAction(action);
     if(!selectedAction || editor == service->name()) {
@@ -134,6 +126,7 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
     }
   }
   if(selectedAction) {
+    selectedAction->setChecked(true);
     slotEditMenu(selectedAction);
     m_edit->setMenu(m_editMenu);
     connect(m_editMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotEditMenu(QAction*)));
@@ -141,7 +134,6 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
     m_edit->setEnabled(false);
   }
   KPushButton* button4 = new KPushButton(i18nc("Clear image", "Clear"), this);
-  button4->setIcon(KIcon(QLatin1String("edit-clear")));
   connect(button4, SIGNAL(clicked()), this, SLOT(slotClear()));
   boxLayout->addWidget(button4);
 
@@ -248,30 +240,30 @@ void ImageWidget::slotGetImage() {
 
 void ImageWidget::slotScanImage() {
 #ifdef HAVE_KSANE
-  if(!m_saneDlg) {
+  if(!m_saneWidget) {
     m_saneDlg = new KDialog(this);
     m_saneWidget = new KSaneIface::KSaneWidget(m_saneDlg);
+    if(m_saneWidget->openDevice(QString()) == false) {
+      QString dev = m_saneWidget->selectDevice(this);
+      if(!dev.isEmpty()) {
+        if(m_saneWidget->openDevice(dev) == false) {
+          KMessageBox::sorry(0, i18n("Opening the selected scanner failed."));
+          dev.clear();
+        }
+      }
+      if(dev.isEmpty()) {
+        delete m_saneWidget;
+        m_saneWidget = 0;
+        delete m_saneDlg;
+        m_saneDlg = 0;
+        return;
+      }
+    }
     m_saneDlg->setMainWidget(m_saneWidget);
     m_saneDlg->setButtons(KDialog::Cancel);
-    m_saneDlg->setAttribute(Qt::WA_DeleteOnClose, false);
+
     connect(m_saneWidget, SIGNAL(imageReady(QByteArray &, int, int, int, int)),
-            SLOT(imageReady(QByteArray &, int, int, int, int)));
-    // the dialog emits buttonClicked before it handles the actual cancel action
-    connect(m_saneDlg, SIGNAL(buttonClicked(KDialog::ButtonCode)),
-            SLOT(cancelScan(KDialog::ButtonCode)));
-  }
-  if(m_saneDevice.isEmpty()) {
-    m_saneDevice = m_saneWidget->selectDevice(this);
-  }
-  if(!m_saneDevice.isEmpty() && !m_saneDeviceIsOpen) {
-    m_saneDeviceIsOpen = m_saneWidget->openDevice(m_saneDevice);
-    if(!m_saneDeviceIsOpen) {
-      KMessageBox::sorry(this, i18n("Opening the selected scanner failed."));
-      m_saneDevice.clear();
-    }
-  }
-  if(!m_saneDeviceIsOpen || m_saneDevice.isEmpty()) {
-    return;
+            this, SLOT(imageReady(QByteArray &, int, int, int, int)));
   }
   m_saneDlg->exec();
 #endif
@@ -279,18 +271,15 @@ void ImageWidget::slotScanImage() {
 
 void ImageWidget::imageReady(QByteArray& data, int w, int h, int bpl, int f) {
 #ifdef HAVE_KSANE
-  if(!m_saneWidget) {
-    return;
-  }
   QImage scannedImage = m_saneWidget->toQImage(data, w, h, bpl,
                                                static_cast<KSaneIface::KSaneWidget::ImageFormat>(f));
   KTemporaryFile temp;
   temp.setSuffix(QLatin1String(".png"));
   if(temp.open()) {
-    scannedImage.save(temp.fileName(), "PNG");
+    scannedImage.save(temp.fileName());
     loadImage(temp.fileName());
   }
-  QTimer::singleShot(100, m_saneDlg, SLOT(accept()));
+  m_saneDlg->close();
 #else
   Q_UNUSED(data);
   Q_UNUSED(w);
@@ -436,17 +425,6 @@ void ImageWidget::loadImage(const KUrl& url_) {
   // at the end, cause setImage() resets it
   m_originalURL = url_;
   m_cbLinkOnly->setEnabled(true);
-}
-
-void ImageWidget::cancelScan(KDialog::ButtonCode code_) {
-  if(code_ != KDialog::Cancel) {
-    return;
-  }
-#ifdef HAVE_KSANE
-  if(m_saneWidget) {
-    m_saneWidget->scanCancel();
-  }
-#endif
 }
 
 #include "imagewidget.moc"

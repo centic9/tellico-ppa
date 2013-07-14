@@ -283,8 +283,6 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FETCHER_ADD(Discogs);
   FETCHER_ADD(TheMovieDB);
   FETCHER_ADD(MusicBrainz);
-  FETCHER_ADD(BiblioShare);
-  FETCHER_ADD(TheGamesDB);
 // only add IBS if user includes italian
   if(KGlobal::locale()->languageList().contains(QLatin1String("it"))) {
     FETCHER_ADD(IBS);
@@ -294,19 +292,8 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FETCHER_ADD(Freebase);
   FETCHER_ADD(GoogleBook);
 #endif
-  const QStringList langs = KGlobal::locale()->languageList();
-  if(langs.contains(QLatin1String("fr"))) {
+  if(KGlobal::locale()->languageList().contains(QLatin1String("fr"))) {
     FETCHER_ADD(DVDFr);
-    FETCHER_ADD(Allocine);
-  }
-  if(langs.contains(QLatin1String("de"))) {
-    FETCHER_ADD(FilmStarts);
-  }
-  if(langs.contains(QLatin1String("es"))) {
-    FETCHER_ADD(SensaCine);
-  }
-  if(langs.contains(QLatin1String("tr"))) {
-    FETCHER_ADD(Beyazperde);
   }
   return vec;
 }

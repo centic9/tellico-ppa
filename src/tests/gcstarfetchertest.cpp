@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,6 +28,7 @@
 #include "gcstarfetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/gcstarpluginfetcher.h"
 #include "../entry.h"
 #include "../collections/videocollection.h"
@@ -41,7 +42,7 @@
 
 QTEST_KDEMAIN( GCstarFetcherTest, GUI )
 
-GCstarFetcherTest::GCstarFetcherTest() : AbstractFetcherTest() {
+GCstarFetcherTest::GCstarFetcherTest() : m_loop(this) {
 }
 
 void GCstarFetcherTest::initTestCase() {
@@ -68,15 +69,25 @@ void GCstarFetcherTest::testSnowyRiver() {
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::GCstarPluginFetcher(this));
   fetcher->readConfig(cg, cg.name());
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  job->setMaximumResults(1);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
+
+  QCOMPARE(m_results.size(), 1);
 
   // the first entry had better be the right one
-  Tellico::Data::EntryPtr entry = results.at(0);
+  Tellico::Data::EntryPtr entry = m_results.at(0);
 
   QCOMPARE(entry->field("title"), QLatin1String("Superman Returns"));
   QCOMPARE(entry->field("year"), QLatin1String("2006"));
   QVERIFY(!entry->field("cover").isEmpty());
   QVERIFY(!Tellico::ImageFactory::imageById(entry->field("cover")).isNull());
+}
+
+void GCstarFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

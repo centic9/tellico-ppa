@@ -25,15 +25,13 @@
 #ifndef TELLICO_IMAGEWIDGET_H
 #define TELLICO_IMAGEWIDGET_H
 
-#include <KUrl>
-#include <KDialog>
+#include <kurl.h>
 
 #include <QWidget>
 #include <QPixmap>
 #include <QPoint>
 #include <KService>
 #include <QDateTime>
-#include <QPointer>
 
 #include <config.h>
 
@@ -90,7 +88,6 @@ private slots:
   void slotEditImage();
   void slotEditMenu(QAction* action);
   void slotFinished();
-  void cancelScan(KDialog::ButtonCode code);
 
 private:
   void scale();
@@ -111,10 +108,8 @@ private:
   KProgressDialog* m_waitDlg;
   QDateTime m_editedFileDateTime;
 #ifdef HAVE_KSANE
-  QPointer<KSaneIface::KSaneWidget> m_saneWidget;
-  QPointer<KDialog> m_saneDlg;
-  QString m_saneDevice;
-  bool m_saneDeviceIsOpen;
+  KSaneIface::KSaneWidget* m_saneWidget;
+  KDialog* m_saneDlg;
 #endif
 };
 

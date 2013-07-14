@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -28,16 +28,17 @@
 #include "srufetchertest.moc"
 #include "qtest_kde.h"
 
+#include "../fetch/fetcherjob.h"
 #include "../fetch/srufetcher.h"
 #include "../collections/bookcollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
 
-#include <KStandardDirs>
+#include <kstandarddirs.h>
 
 QTEST_KDEMAIN( SRUFetcherTest, GUI )
 
-SRUFetcherTest::SRUFetcherTest() : AbstractFetcherTest() {
+SRUFetcherTest::SRUFetcherTest() : m_loop(this) {
 }
 
 void SRUFetcherTest::initTestCase() {
@@ -51,11 +52,16 @@ void SRUFetcherTest::testTitle() {
                                        QLatin1String("Foundations of Qt Development"));
   Tellico::Fetch::Fetcher::Ptr fetcher = Tellico::Fetch::SRUFetcher::libraryOfCongress(this);
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 1);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(m_results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = m_results.at(0);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Foundations of Qt development"));
   QCOMPARE(entry->field(QLatin1String("author")), QLatin1String("Thelin, Johan."));
   QCOMPARE(entry->field(QLatin1String("isbn")), QLatin1String("1-59059-831-8"));
@@ -67,12 +73,22 @@ void SRUFetcherTest::testIsbn() {
                                        QLatin1String("978-1-59059-831-3; 0-201-88954-4"));
   Tellico::Fetch::Fetcher::Ptr fetcher = Tellico::Fetch::SRUFetcher::libraryOfCongress(this);
 
-  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  // don't use 'this' as job parent, it crashes
+  Tellico::Fetch::FetcherJob* job = new Tellico::Fetch::FetcherJob(0, fetcher, request);
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(slotResult(KJob*)));
 
-  QCOMPARE(results.size(), 2);
+  job->start();
+  m_loop.exec();
 
-  Tellico::Data::EntryPtr entry = results.at(1);
+  QCOMPARE(m_results.size(), 2);
+
+  Tellico::Data::EntryPtr entry = m_results.at(1);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Foundations of Qt development"));
   QCOMPARE(entry->field(QLatin1String("author")), QLatin1String("Thelin, Johan."));
   QCOMPARE(entry->field(QLatin1String("isbn")), QLatin1String("1-59059-831-8"));
+}
+
+void SRUFetcherTest::slotResult(KJob* job_) {
+  m_results = static_cast<Tellico::Fetch::FetcherJob*>(job_)->entries();
+  m_loop.quit();
 }

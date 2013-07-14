@@ -1,5 +1,6 @@
 /***************************************************************************
     Copyright (C) 2006-2009 Robby Stephenson <robby@periapsis.org>
+
  ***************************************************************************/
 
 /***************************************************************************
@@ -50,7 +51,7 @@ void LineEdit::contextMenuEvent(QContextMenuEvent* event_) {
     return;
   }
 
-  if(m_allowSpellCheck && echoMode() == Normal && !isReadOnly()) {
+  if(m_allowSpellCheck && echoMode() == QLineEdit::Normal && !isReadOnly()) {
     menu->addSeparator();
     menu->addAction(m_spellAction);
     m_spellAction->setEnabled(m_enableSpellCheck && !text().isEmpty());

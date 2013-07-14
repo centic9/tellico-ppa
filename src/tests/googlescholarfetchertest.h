@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,11 +25,15 @@
 #ifndef GOOGLESCHOLARFETCHERTEST_H
 #define GOOGLESCHOLARFETCHERTEST_H
 
-#include "abstractfetchertest.h"
-
+#include <QObject>
+#include <QEventLoop>
 #include <QHash>
 
-class GoogleScholarFetcherTest : public AbstractFetcherTest {
+#include "../datavectors.h"
+
+class KJob;
+
+class GoogleScholarFetcherTest : public QObject {
 Q_OBJECT
 public:
   GoogleScholarFetcherTest();
@@ -39,8 +43,12 @@ private Q_SLOTS:
   void testTitle();
   void testAuthor();
 
+  void slotResult(KJob* job);
+
 private:
+  QEventLoop m_loop;
   QHash<QString, QString> m_fieldValues;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

@@ -25,11 +25,14 @@
 #ifndef MOVIEMETERFETCHERTEST_H
 #define MOVIEMETERFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-#include <QHash>
+#include "../datavectors.h"
 
-class MovieMeterFetcherTest : public AbstractFetcherTest {
+class KJob;
+
+class MovieMeterFetcherTest : public QObject {
 Q_OBJECT
 public:
   MovieMeterFetcherTest();
@@ -40,7 +43,11 @@ private Q_SLOTS:
   void testKeyword();
   void testKeywordCzech();
 
+  void slotResult(KJob* job);
+
 private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
   QHash<QString, QString> m_fieldValues;
 };
 

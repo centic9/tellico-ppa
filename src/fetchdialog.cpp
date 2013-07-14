@@ -122,7 +122,6 @@ FetchDialog::FetchDialog(QWidget* parent_)
     : KDialog(parent_)
     , m_timer(new QTimer(this))
     , m_started(false)
-    , m_treeWasResized(false)
     , m_barcodePreview(0)
     , m_barcodeRecognitionThread(0) {
   setModal(false);
@@ -182,9 +181,9 @@ FetchDialog::FetchDialog(QWidget* parent_)
   m_multipleISBN->setWhatsThis(i18n("Check this box to search for multiple ISBN or UPC values."));
   connect(m_multipleISBN, SIGNAL(toggled(bool)), SLOT(slotMultipleISBN(bool)));
 
-  m_editISBN = new KPushButton(KGuiItem(i18n("Edit ISBN/UPC values..."), KIcon(QLatin1String("format-justify-fill"))), box2);
+  m_editISBN = new KPushButton(KGuiItem(i18n("Edit List..."), KIcon(QLatin1String("format-justify-fill"))), box2);
   m_editISBN->setEnabled(false);
-  m_editISBN->setWhatsThis(i18n("Click to open a text edit box for entering or editing multiple ISBN or UPC values."));
+  m_editISBN->setWhatsThis(i18n("Click to open a text edit box for entering or editing multiple ISBN values."));
   connect(m_editISBN, SIGNAL(clicked()), SLOT(slotEditMultipleISBN()));
 
   // add for spacing
@@ -200,9 +199,6 @@ FetchDialog::FetchDialog(QWidget* parent_)
   connect(m_sourceCombo, SIGNAL(activated(const QString&)), SLOT(slotSourceChanged(const QString&)));
   m_sourceCombo->setWhatsThis(i18n("Select the database to search"));
 
-  // for whatever reason, the dialog window could get shrunk and truncate the text
-  box2->setMinimumWidth(box2->minimumSizeHint().width());
-
   QSplitter* split = new QSplitter(Qt::Vertical, mainWidget);
   topLayout->addWidget(split);
 
@@ -210,7 +206,6 @@ FetchDialog::FetchDialog(QWidget* parent_)
   m_treeWidget->sortItems(1, Qt::AscendingOrder);
   m_treeWidget->setAllColumnsShowFocus(true);
   m_treeWidget->setSortingEnabled(true);
-  m_treeWidget->setRootIsDecorated(false);
   m_treeWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
   m_treeWidget->setHeaderLabels(QStringList() << QString()
                                               << i18n("Title")
@@ -225,7 +220,6 @@ FetchDialog::FetchDialog(QWidget* parent_)
   connect(m_treeWidget, SIGNAL(itemSelectionChanged()), SLOT(slotShowEntry()));
   // double clicking should add the entry
   connect(m_treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), SLOT(slotAddEntry()));
-  connect(m_treeWidget->header(), SIGNAL(sectionResized(int, int, int)), SLOT(columnResized(int)));
   m_treeWidget->setWhatsThis(i18n("As results are found, they are added to this list. Selecting one "
                                   "will fetch the complete entry and show it in the view below."));
 
@@ -275,7 +269,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
 
   connect(m_timer, SIGNAL(timeout()), SLOT(slotMoveProgress()));
 
-  setMinimumWidth(qMax(minimumWidth(), qMax(FETCH_MIN_WIDTH, minimumSizeHint().width())));
+  setMinimumWidth(qMax(minimumWidth(), FETCH_MIN_WIDTH));
   setStatus(i18n("Ready."));
 
   KConfigGroup sizeGroup(KGlobal::config(), QLatin1String("Fetch Dialog Options"));
@@ -429,9 +423,7 @@ void FetchDialog::slotFetchDone(bool checkISBN_ /* = true */) {
     }
     const QStringList valuesNotFound = ISBNValidator::listDifference(searchValues, resultValues);
     if(!valuesNotFound.isEmpty()) {
-      KMessageBox::informationList(this,
-                                   i18n("No results were found for the following ISBN values:"),
-                                   valuesNotFound,
+      KMessageBox::informationList(this, i18n("No results were found for the following ISBN values:"), valuesNotFound,
                                    i18n("No Results"));
     }
   }
@@ -440,31 +432,6 @@ void FetchDialog::slotFetchDone(bool checkISBN_ /* = true */) {
 void FetchDialog::slotResultFound(Tellico::Fetch::FetchResult* result_) {
   m_results.append(result_);
   (void) new FetchResultItem(m_treeWidget, result_);
-  // resize final column to size of contents if the user has never resized anything before
-  if(!m_treeWasResized) {
-    m_treeWidget->header()->setStretchLastSection(false);
-
-    // we'd like to make the view look nice by resizing column 3, the final one
-    // but calling resizeColumnToContents(3) doesn't work since it's the final column
-    const int w0 = m_treeWidget->columnWidth(0);
-    const int w1 = m_treeWidget->columnWidth(1);
-    const int w2 = m_treeWidget->columnWidth(2);
-    const int w3 = m_treeWidget->columnWidth(3);
-    const int wt = m_treeWidget->width();
-//    myDebug() << w0 << w1 << w2 << w3 << wt;
-
-    // whatever is leftover from resizing 3, split between 1 and 2
-    if(wt > w0 + w1 + w2 + w3) {
-      const int diff = wt - w0 - w1 - w2 - w3;
-      const int w1new = w1 + diff/2 - 4; // extra padding
-      const int w2new = w2 + diff/2 - 4; // extra padding
-      m_treeWidget->setColumnWidth(1, w1new);
-      m_treeWidget->setColumnWidth(2, w2new);
-    }
-    m_treeWidget->header()->setStretchLastSection(true);
-    // because calling setColumnWidth() will change this
-    m_treeWasResized = false;
-  }
   ++m_resultCount;
 }
 
@@ -717,9 +684,6 @@ void FetchDialog::slotLoadISBNList() {
 }
 
 void FetchDialog::slotISBNTextChanged() {
-  if(!m_isbnTextEdit) {
-    return;
-  }
   const QValidator* val = m_valueLineEdit->validator();
   if(!val) {
     return;
@@ -761,12 +725,6 @@ void FetchDialog::slotUPC2ISBN() {
   if(key == Fetch::UPC) {
     m_keyCombo->setCurrentData(Fetch::ISBN);
     slotKeyChanged(m_keyCombo->currentIndex());
-  }
-}
-
-void FetchDialog::columnResized(int column_) {
-  if(column_ == 1 || column_ == 2) {
-    m_treeWasResized = true;
   }
 }
 

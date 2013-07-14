@@ -38,7 +38,7 @@ namespace Tellico {
 class RemoveLoans : public QUndoCommand  {
 
 public:
-  explicit RemoveLoans(Data::LoanList loans, QUndoCommand* parent = 0);
+  RemoveLoans(Data::LoanList loans, QUndoCommand* parent = 0);
 
   virtual void redo();
   virtual void undo();

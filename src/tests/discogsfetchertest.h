@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,9 +25,14 @@
 #ifndef DISCOGSFETCHERTEST_H
 #define DISCOGSFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
 
-class DiscogsFetcherTest : public AbstractFetcherTest {
+#include "../datavectors.h"
+
+class KJob;
+
+class DiscogsFetcherTest : public QObject {
 Q_OBJECT
 public:
   DiscogsFetcherTest();
@@ -37,6 +42,12 @@ private Q_SLOTS:
   void testTitle();
   void testPerson();
   void testKeyword();
+
+  void slotResult(KJob* job);
+
+private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

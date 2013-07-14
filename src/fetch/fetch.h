@@ -80,17 +80,7 @@ enum Type {
   Douban,
   BiblioShare,
   MovieMeter,
-  GoogleBook,
-  MAS,
-  Springer,
-  Allocine,
-  ScreenRush,
-  FilmStarts,
-  SensaCine,
-  Beyazperde,
-  HathiTrust,
-  TheGamesDB,
-  DBLP
+  GoogleBook
 };
 
   }

@@ -415,11 +415,6 @@
  <xsl:for-each select="$categories[. != $titleCat and
                                    ($castCat = '' or . != $castCat) and
                                    key('fieldsByCat',.)[1]/@type != 10]">
-  <xsl:if test="key('fieldsByCat', .)[@name != 'directors-cut' and
-                                      @name != 'widescreen' and
-                                      @name != 'id' and
-                                      @name != 'cdate' and
-                                      @name != 'mdate']">
   <table width="49%" class="category">
    <thead>
     <tr class="category">
@@ -509,7 +504,6 @@
     </xsl:for-each>
    </tbody>
   </table>
-  </xsl:if>
  </xsl:for-each>
 </td>
 </tr>

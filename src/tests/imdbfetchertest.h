@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,9 +25,15 @@
 #ifndef IMDBFETCHERTEST_H
 #define IMDBFETCHERTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
+#include <QEventLoop>
+#include <QHash>
 
-class ImdbFetcherTest : public AbstractFetcherTest {
+#include "../datavectors.h"
+
+class KJob;
+
+class ImdbFetcherTest : public QObject {
 Q_OBJECT
 public:
   ImdbFetcherTest();
@@ -35,12 +41,16 @@ public:
 private Q_SLOTS:
   void initTestCase();
   void testSnowyRiver();
-  void testSnowyRiverFr();
-  void testSnowyRiverEs();
   void testAsterix();
   void testBodyDouble();
   void testMary();
   void testOkunen();
+
+  void slotResult(KJob* job);
+
+private:
+  QEventLoop m_loop;
+  Tellico::Data::EntryList m_results;
 };
 
 #endif

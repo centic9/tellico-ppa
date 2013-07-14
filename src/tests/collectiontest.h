@@ -40,7 +40,6 @@ private Q_SLOTS:
   void testValue_data();
   void testDtd();
   void testDtd_data();
-  void testDuplicate();
 };
 
 #endif

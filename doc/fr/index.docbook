@@ -12,7 +12,7 @@
   <!ENTITY robby "Robby Stephenson">
   <!ENTITY email "robby@periapsis.org">
   <!ENTITY homepage "http://tellico-project.org">
-  <!ENTITY maillist "http://tellico-project.org/mailing-list">
+  <!ENTITY maillist "http://forge.novell.com/mailman/listinfo/tellico-users">
   <!ENTITY xslt "<acronym
 >XSLT</acronym
 >">
@@ -33,7 +33,7 @@
 
 <!-- The language must NOT be changed here. -->
 
-<book id="tellico" lang="&language;">
+<book lang="&language;">
 
 <!-- This header contains all of the meta-information for the document such
 as Authors, publish date, the abstract, and Keywords -->
@@ -67,49 +67,7 @@ Do NOT change these in the translation. -->
 ></address>
 </affiliation>
 </author>
-<othercredit role="translator"
-><firstname
->Stanislas</firstname
-><surname
->Zeller</surname
-><affiliation
-><address
-><email
->uncensored.assault@gmail.com</email
-></address
-></affiliation
-><contrib
->Traduction française&nbsp;</contrib
-></othercredit
-> <othercredit role="translator"
-><firstname
->Pierre</firstname
-><surname
->Buard</surname
-><affiliation
-><address
-><email
->pierre.buard@gmail.com</email
-></address
-> </affiliation
-><contrib
->Traduction française&nbsp;</contrib
-></othercredit
-> <othercredit role="reviewer"
-><firstname
->Pierre</firstname
-><surname
->Buard</surname
-><affiliation
-><address
-><email
->pierre.buard@gmail.com</email
-></address
-> </affiliation
-><contrib
->Relecture de la documentation française&nbsp;</contrib
-></othercredit
-> 
+&traducteurEquipeKDE;&traducteurStanislasZeller;&relecteurPierreBuard; 
 </authorgroup>
 
 <copyright>
@@ -131,22 +89,37 @@ Do NOT change these in the translation. -->
 >2008</year>
 <year
 >2009</year>
-<year
->2010</year>
-<year
->2011</year>
 <holder
 >&robby;</holder>
 </copyright>
 
 <!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>
+&FDLNotice;
+
+<para
+>L'auteur de cette documentation vous permet aussi d'utiliser le contenu sous les termes de la <ulink url="freebsd-doc-license.html"
+>Licence de Documentation FreeBSD</ulink
+>, si vous le choisissez. Voir la note de la <link linkend="gnu-fdl"
+>section des licences</link
+>.</para>
+</legalnotice>
 
 <legalnotice>
 <para
->Pour prendre connaissance des licences s'appliquant au logiciel et à cette documentation, veuillez vous référer à la <link linkend="credits"
->dernière section</link
->. </para>
+>Ce programme est un logiciel libre ; vous pouvez le redistribuer ou le modifier suivant les termes de la Licence publique générale &GNU; telle que publiée par la Free Software Foundation : soit la version 2 de cette licence, soit, à votre gré, la version 3 ou toute version ultérieure acceptée par les membres de KDE e.V. (ou son successeur approuvée par les membres de KDE e.V.), laquelle association officiera comme mandataire telle que défini dans la section 14 de la version 3 de la licence. </para>
+
+<para
+>Ce programme est distribué dans l'espoir qu'il vous sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie implicite de VALEUR COMMERCIALE ni d'ADÉQUATION À UN OBJECTIF PARTICULIER. Consultez la Licence générale publique &GNU; pour plus de détails.</para>
+
+<para
+>Vous devriez avoir reçu une copie de la Licence générale publique &GNU; avec ce programme ; sinon, écrivez à la Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</para>
 </legalnotice>
+<!--<legalnotice
+>&GPLNotice;</legalnotice
+>-->
 
 <!-- Abstract about this handbook -->
 
@@ -206,17 +179,17 @@ revision history. (see installation appendix comment) -->
 >&appname;</title>
 
 <para
->&appname; est un programme pour gérer des collections. Au départ simple gestionnaire de collections de livres, il a été étendu pour intégrer des modèles de collections de bibliographies, bandes dessinées, vidéos, musiques, monnaies, timbres, cartes, jeux vidéo, vins, jeux de plateau et fichiers. De plus, des collections personnalisées peuvent être créées pour tous types d'ensembles. </para>
+>&appname; est un programme pour gérer des collections. Au départ simple gestionnaire de collections de livres, il a été étendu pour intégrer des modèles de collections de bibliographies, bandes dessinées, vidéos, musique, monnaies, timbres, cartes, jeux vidéo, vins, jeux de plateau et fichiers. De plus, des collections personnalisées peuvent être créées pour tout ce qui peut être collectionné. </para>
 
 <sect2 id="what-tellico-is">
 <title
 >Ce qu'est &appname;</title>
 
 <para
->&appname; archive les entrées d'une collection et propose un moyen simple d'ajouter des informations à chacune. Il fournit plusieurs types de champs et permet leur création en nombre illimité par l'utilisateur. Les entrées d'une collection peuvent être regroupées selon n'importe quel champ pour en facilité l'organisation et les vues personnalisables affichent autant d'informations que vous le souhaitez. </para>
+>&appname; archive les entrées d'une collection, et propose un moyen simple d'ajouter des information à chaque entrée. Il fournit plusieurs types de champs, et permet un nombre illimité de champs définis par l'utilisateur. Les entrées d'une collection peuvent être regroupées selon n'importe quel champ pour facilité l'organisation, et les vues personnalisables affichent autant d'informations que vous le souhaitez. </para>
 
 <para
->Les prêts peuvent être suivis, avec une intégration optionnelle à &korganizer;. Les collections sont importables et exportables depuis et vers plusieurs formats pour faciliter l'échange et la publication des données. </para>
+>Les prêts peuvent être suivies, avec une intégration optionnelle à &korganizer;. Les collections peuvent être importées ou exportées depuis et vers plusieurs formats, pour permettre un échange et une publication aisés des données. </para>
 
 </sect2>
 
@@ -225,11 +198,11 @@ revision history. (see installation appendix comment) -->
 >Ce que &appname; n'est pas</title>
 
 <para
->&appname; n'est pas un lecteur audio ou vidéo. Il ne propose rien pour lire ou modifier des fichiers multimédia. Il ne permet pas non plus de modifier les images. Bien que &appname; ait certaines fonctionnalités pour gérer des listes bibliographiques, ce n'est pas un outil complet de gestion de références. &appname; n'a pas non plus la prétention d'avoir toutes les capacités d'un outil de base de données relationnelle. </para>
+>&appname; n'est pas un lecteur audio ou vidéo. Il ne propose rien pour lire ou modifier des fichiers multimédia. Il ne propose pas non plus de fonctionnalités pour modifier les images. Bien que &appname; ait certaines fonctionnalités pour gérer des listes de bibliographies, ce n'est pas un outil complet de gestion de références bibliographiques. &appname; n'a pas non plus la prétention d'avoir toutes les capacités d'un outil de base de données relationnelle. </para>
 
 <para
->Comme simili clause de non-responsabilité, &appname; est un passe-temps pour l'auteur et il n'est fait aucune garantie concernant ses fonctionnalités, son utilité ou quoi que ce soit d'autre. Plus d'informations sont disponibles dans la <link linkend="credits"
->déclaration de licence</link
+>Enfin, &appname; est un passe-temps pour l'auteur, et il n'est fait aucune garantie concernant ses fonctionnalités, son utilité ou quoi que ce soit d'autre. &appname; est loin d'être un outil logiciel professionnel. Plus d'informations sont disponibles dans la <link linkend="gnu-fdl"
+>licence</link
 >. </para>
 
 </sect2>
@@ -247,15 +220,15 @@ revision history. (see installation appendix comment) -->
 >champs</link
 > et d'<link linkend="entries"
 >entrées</link
->. &appname; peut gérer douze types de collections spécifiques par défaut : livres, bibliographies, bandes dessinées, vidéos, musiques, cartes, pièces de monnaie, timbres, jeux, vins, jeux de plateau et listes de fichiers. En outre, un type de collection générique vide existe pour tout autre type de listes ou d'objets à collectionner. </para>
+>. &appname; peut gérer douze types de collections spécifiques par défaut : livres, entrées bibliographiques, bandes dessinées, vidéos, musique, cartes, pièces de monnaie, timbres, jeux vidéos, vins, jeux de plateau et listes de fichiers. En outre, un type de collection générique vide existe pour tout autre type d'objet à collectionner. </para>
 </sect2>
 
 <sect2 id="fields">
 <title
->Champs de la collection</title>
+>Champs de collection</title>
 <para
->Chaque collection peut avoir un nombre illimité de champs. &appname; gère onze types de champs permettant une large variété de données. Les champs peuvent être modifiés avec la <link linkend="fields-dialog"
->boîte de dialogue des champs de la collections</link
+>Chaque collection peut avoir un nombre illimité de champs. &appname; gère onze types de champs, permettant une large variété de données différentes. Les champs peuvent être modifiés avec la <link linkend="fields-dialog"
+>boîte de dialogue des champs de collections</link
 > et sont expliqués plus en détails dans la section <link linkend="field-types"
 >Types de champs</link
 >. </para>
@@ -263,13 +236,13 @@ revision history. (see installation appendix comment) -->
 
 <sect2 id="entries">
 <title
->Entrées de la collection</title>
+>Entrées de collection</title>
 
 <para
->Une entrée est un enregistrement de base dans &appname;. Chaque entrée contient les valeurs correspondantes aux champs de la collection. Une collection peut avoir un nombre théoriquement illimité d'entrées. Cependant, la collection complète étant conservée en mémoire, un trop grand nombre d'entrées ralentirait l'application. </para>
+>Une entrée est un enregistrement de base dans &appname;. Chaque entrée contient une valeur pour chaque champ de la collection. Une collection peut avoir un nombre théoriquement illimité d'entrées. Cependant, la collection complète étant conservée en mémoire, un trop grand nombre d'entrées ralentirait l'application. </para>
 
 <para
->&appname; a été testé avec une collection de 10 000 entrées et la vitesse était satisfaisante. Cependant, si des images nombreuses ou volumineuses sont incluses dans la collection, le chargement et le traitement seront ralentis de façon importante. Les performances peuvent être améliorées en faisant en sorte que &appname; conserve les images séparées du fichier de données lui-même : soit dans le dossier de l'application, soit dans un dossier lié au fichier. Plus d'informations sont disponibles dans la section concernant la <link linkend="configuration"
+>&appname; a été testé avec une collection de 10.000 entrées, et la vitesse était satisfaisante. Cependant, si des images nombreuses ou volumineuses sont incluses dans la collection, le chargement et le traitement seront ralentis de façon importante. Les performances peuvent être améliorées en faisant en sorte que &appname; conserve les images séparées du fichier de données lui-même ; soit dans le dossier de l'application, soit dans un dossier lié au fichier. Plus d'informations sont disponibles dans la section concernant la <link linkend="configuration"
 >configuration</link
 >. </para>
 
@@ -308,27 +281,22 @@ file included in the KDE distribution. -->
 <para
 >&appname; </para>
 <para
->Programme sous copyright 2001-2011 &robby; <email
->&email;</email
-> </para>
-<para
->Documentation sous copyright 2001-2011 &robby; <email
+>Programme sous copyright 2001-2009 &robby; <email
 >&email;</email
 > </para>
 
 <para
->Traduction française par Stanislas Zeller <email
->uncensored.assault@gmail.com</email
-> et Pierre Buard <email
->pierre.buard@gmail.com</email
-> ; relecture par Pierre Buard <email
->pierre.buard@gmail.com</email
->.</para
+>Documentation sous copyright 2001-2009 &robby; <email
+>&email;</email
+> </para>
+
+<para
+>Traduction française par &StanislasZeller; ; relecture par &PierreBuard;.</para
 > 
-&underGPL; &underFDL; <para
->L'auteur de cette documentation vous permet aussi d'utiliser ce contenu sous les termes de la <ulink url="http://www.freebsd.org/copyright/freebsd-doc-license.html"
+&underFDL; &underGPL; <para
+>L'auteur de cette documentation vous permet aussi d'utiliser le contenu sous les termes de la <ulink url="freebsd-doc-license.html"
 >Licence de documentation FreeBSD</ulink
->, si vous le choisissez. Si vous souhaitez seulement permettre l'utilisation de votre version de ce contenu sous les termes de la Licence de documentation FreeBSD, et ne pas autoriser les autres à utiliser votre version de ce fichier sous les termes de la GFDL, indiquez votre décision en supprimant la mention GFDL et en la replaçant par la mention et les autres clauses requises par la Licence de documentation FreeBSD. Si vous ne supprimez pas la mention GFDL ci-dessus, un bénéficiaire peut utiliser votre version de ce fichier sous les termes de la GFDL ou la Licence de documentation FreeBSD.</para>
+>, si vous le choisissez. Si vous souhaitez seulement permettre l'utilisation de votre version de ce contenu sous les termes de la Licence de documentation FreeBSD, et ne pas autoriser les autres à utiliser votre version de ce fichier sous les termes de la GFDL, indiquez votre décision en supprimant la mention GFDL et en la replaçant par la mention et les autres clauses requises par la Licence de documentation FreeBSD. Si vous ne supprimez pas la mention GFDL ci-dessus, un bénéficiaire peut utiliser votre version de ce fichier sous les termes soit de la GFDL ou la Licence de documentation FreeBSD.</para>
 
 </chapter>
 
@@ -343,7 +311,7 @@ file included in the KDE distribution. -->
 <para
 >Le site web de &appname; est à l'adresse <ulink url="&homepage;"
 >&homepage;</ulink
->. Vous y trouverez les mises à jour et son actualité.</para>
+>. Les mises à jour et les nouvelles informations s'y trouvent.</para>
 </sect1>
 
 <sect1 id="compilation">

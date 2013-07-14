@@ -50,8 +50,6 @@
 #include <QRegExp>
 #include <QTimer>
 
-#include <unistd.h>
-
 using namespace Tellico;
 using Tellico::Data::Document;
 Document* Document::s_self = 0;
@@ -315,7 +313,7 @@ Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll_)
       }
     }
     if(matchEntry) {
-      mergeEntry(matchEntry, newEntry);
+      mergeEntry(matchEntry, newEntry, false /*overwrite*/);
     } else {
       Data::EntryPtr e(new Data::Entry(*newEntry));
       e->setCollection(m_coll);
@@ -645,7 +643,7 @@ void Document::removeImagesNotInCollection(Tellico::Data::EntryList entries_, Te
   }
 }
 
-bool Document::mergeEntry(Data::EntryPtr e1, Data::EntryPtr e2, MergeConflictResolver* resolver_) {
+bool Document::mergeEntry(Data::EntryPtr e1, Data::EntryPtr e2, bool overwrite_, MergeConflictResolver* resolver_) {
   if(!e1 || !e2) {
     myDebug() << "bad entry pointer";
     return false;
@@ -655,19 +653,13 @@ bool Document::mergeEntry(Data::EntryPtr e1, Data::EntryPtr e2, MergeConflictRes
     if(e2->field(field).isEmpty()) {
       continue;
     }
-    // never try to merge entry id, creation date or mod date. Those are unique to each entry
-    if(field->name() == QLatin1String("id") ||
-       field->name() == QLatin1String("cdate") ||
-       field->name() == QLatin1String("mdate")) {
-      continue;
-    }
 //    myLog() << "reading field: " << field->name();
-    if(e1->field(field) == e2->field(field)) {
-      continue;
-    } else if(e1->field(field).isEmpty()) {
-//      myLog() << e1->title() << ": updating field(" << field->name() << ") to " << e2->field(field);
+    if(overwrite_ || e1->field(field).isEmpty()) {
+//      myLog() << e1->title() << ": updating field(" << field->name() << ") to " << e2->field(field->name());
       e1->setField(field, e2->field(field));
       ret = true;
+    } else if(e1->field(field) == e2->field(field)) {
+      continue;
     } else if(field->type() == Data::Field::Table) {
       // if field F is a table-type field (album tracks, files, etc.), merge rows (keep their position)
       // if e1's F val in [row i, column j] empty, replace with e2's val at same position
@@ -699,11 +691,11 @@ bool Document::mergeEntry(Data::EntryPtr e1, Data::EntryPtr e2, MergeConflictRes
               parts1[j] = parts2[j];
               changedPart = true;
             } else if(resolver_ && parts1[j] != parts2[j]) {
-              int resolverResponse = resolver_->resolve(e1, e2, field, parts1[j], parts2[j]);
-              if(resolverResponse == MergeConflictResolver::CancelMerge) {
-                ret = false;
-                return false; // cancel all the merge right now
-              } else if(resolverResponse == MergeConflictResolver::KeepSecond) {
+              int ret = resolver_->resolve(e1, e2, field, parts1[j], parts2[j]);
+              if(ret == 0) {
+                return false; // we got cancelled
+              }
+              if(ret == 1) {
                 parts1[j] = parts2[j];
                 changedPart = true;
               }
@@ -738,16 +730,14 @@ bool Document::mergeEntry(Data::EntryPtr e1, Data::EntryPtr e2, MergeConflictRes
       e1->setField(field, items1.join(FieldFormat::delimiterString()));
       ret = true;
 #endif
-    } else if(resolver_) {
-      int resolverResponse = resolver_->resolve(e1, e2, field);
-      if(resolverResponse == MergeConflictResolver::CancelMerge) {
-        ret = false; // we got cancelled
-        return false; // cancel all the merge right now
-      } else if(resolverResponse == MergeConflictResolver::KeepSecond) {
+    } else if(resolver_ && e1->field(field) != e2->field(field)) {
+      int ret = resolver_->resolve(e1, e2, field);
+      if(ret == 0) {
+        return false; // we got cancelled
+      }
+      if(ret == 1) {
         e1->setField(field, e2->field(field));
       }
-    } else {
-      myDebug() << "Doing nothing for" << field->name();
     }
   }
   return ret;

@@ -3,20 +3,20 @@
 >Bidouiller &appname;</title>
 
 <para
->Dans l'esprit du logiciel libre, vous êtes les bienvenues pour bidouiller &appname; comme vous le souhaitez. Vous devez pouvoir écrire des scripts pour importer, exporter ou modifier les données très facilement. Ce chapitre vous donne plus d'informations sur ce qui est possible de faire. </para>
+>Dans l'esprit du logiciel libre, vous êtes les bienvenues pour bidouiller &appname; comme vous le souhaitez. Vous devriez pouvoir écrire des scripts pour importer, exporter ou modifier les données très facilement. Ce chapitre vous donne plus d'informations sur ce qu'il est possible de faire. </para>
 
 <sect1 id="file-format">
 <title
 >Format de fichier</title>
 
 <para
->Le fichier de données par défaut est une archive zip, avec normalement l'extension <literal role="extension"
+>Le fichier de données par défaut de &appname; est une archive zip, avec normalement l'extension <literal role="extension"
 >.tc</literal
->. À l'intérieur de l'archive se trouve un fichier <filename
+>. À l'intérieur de cette archive se trouve un fichier <filename
 >tellico.xml</filename
->, les images peuvent être incluses dans le dossier <filename
+>. Des images peuvent être incluses dans le dossier <filename
 >images/</filename
-> de l'archive, ou elles doivent être incluses dans le dossier &XML; directement dans un encodage base64. Les images peuvent aussi être enregistrées dans le dossier de données de l'application, auquel cas, elles ne sont pas du tout dans le fichier de données. &appname; peut aussi charger un fichier &XML;, lui-même, non compressé. </para>
+> de l'archive ou directement dans les données &XML;, encodées en base64. Il est possible que les images soient enregistrées dans le dossier de données de l'application, auquel cas, elles ne seront pas présente dans le fichier de données. &appname; peut aussi charger un fichier &XML;, seul et non compressé. </para>
 
 <sect2 id="xml-format">
 <title
@@ -39,24 +39,24 @@
 </programlisting>
 
 <para
->Le fichier commence avec la déclaration et l'encodage &XML; requis suivi du doctype. Quand un nouveau type de champ est ajouté ou que des propriétés additionnelles sont définies sur les champs par défaut, la version du doctype DTD est incrémentée. &appname; peut toujours ouvrir et lire n'importe quelles versions DTD précédentes, mais enregistrera les fichiers dans la version courante. L'emplacement DTD est lié au fichier DTD actuel. </para>
+>Le fichier commence par la déclaration et l'encodage &XML; requis, suivi du doctype. Quand un nouveau type de champ est ajouté ou que des propriétés additionnelles sont définies sur les champs par défaut, la version du doctype DTD est incrémentée. &appname; peut toujours ouvrir et lire n'importe quelles versions DTD précédentes, mais enregistrera les fichiers dans la version courante. L'emplacement DTD pointe vers un véritable fichier DTD. </para>
 
 <para
 >L'élément de haut niveau est un élément <markup
 >&lt;tellico&gt;</markup
->, contenant la déclaration de l'espace de nom par défaut et la version de syntaxe du fichier qui doit toujours correspondre au fichier DTD. </para>
+>, contenant la déclaration de l'espace de nom par défaut et la version de syntaxe du fichier qui doit toujours correspondre au DTD. </para>
 
 <para
 >L'élément <markup
 >&lt;tellico&gt;</markup
 > contient un élément <markup
 >&lt;collection&gt;</markup
->. Plusieurs collections sont ignorées pour l'instant. L'attribut <markup
+>. Les collections multiples ne sont pas abordées, pour l'instant. L'attribut <markup
 >title</markup
 > contient le titre de la collection, tandis que le <markup
 >type</markup
 > spécifie quelles sortes d'entrées sont contenues dans la collection. Les types autorisés sont <link linkend="collection-type-values"
->listés dans une section suivante</link
+>listés ultérieurement</link
 >. Un attribut optionnel <markup
 >entryTitle</markup
 > peut être utilisé pour spécifier le titre des entrées pour une collection personnalisée, et doit être au pluriel. </para>
@@ -102,7 +102,7 @@
 <para
 >Tous les champs sont définis dans un élément <markup
 >&lt;fields&gt;</markup
-> où ils ne peuvent qu'être unique. Toutes les informations pour un champ, sauf pour les propriétés étendues, sont inclues comme des attributs de l'élément de <markup
+> unique. Toutes les informations pour un champ, à l'exception des propriétés étendues, sont incluses comme attributs de l'élément de <markup
 >&lt;field&gt;</markup
 >. Les valeurs autorisées pour <markup
 >flags</markup
@@ -115,7 +115,7 @@
 >. </para>
 
 <para
->Les propriétés des champs sont utilisées pour définir les valeurs par défaut des champs (plage de notation, modèle de valeur dérivée, etc.). L'exemple ci-dessus inclut une valeur par défaut, un notation maximale et un modèle pour un champ ID dérivé. </para>
+>Les propriétés des champs sont utilisées pour définir les valeurs par défaut des champs (plage de notation, modèle de valeur dérivée, etc.). L'exemple ci-dessus inclut une valeur par défaut, une notation maximale et un modèle pour un champ ID dérivé. </para>
 
  
 
@@ -159,14 +159,14 @@
 </programlisting>
 
 <para
->Pour tous les champs de la collection, <markup
+>Pour chaque champ de la collection, une <markup
 >&lt;entry&gt;</markup
-> peut contenir un élément dont le nom est identique au nom de champ. Si plusieurs valeurs sont permises pour le champ, la lettre <emphasis
+> peut contenir un élément dont le nom est identique au nom d'un champ. Si plusieurs valeurs sont permises pour le champ, la lettre <emphasis
 >s</emphasis
-> est ensuite ajoutée au nom de champ pour créer un élément, et chaque valeur est ajoutée comme un enfant de l'élément, comme dans le cas des champs 'auteur, genre et mots clés ci-dessus. </para>
+> est ensuite ajoutée au nom de champ pour créer un élément et chaque valeur est ajoutée comme un enfant de l'élément, comme dans le cas des champs author (auteur), genre et keyword (mot clé) ci-dessus. </para>
 
 <para
->Comme résultat, si des champs additionnels sont ajoutés à la collection, le fichier de données ne sera plus conforme au fichier DTD. Cependant, &appname; utilise un analyseur syntaxique &XML; non valable, les champs additionnels ne poseront donc aucun problèmes. </para>
+>Il en résulte que si des champs additionnels sont ajoutés à la collection, le fichier de données ne sera plus conforme au fichier DTD. Cependant, &appname; utilise un analyseur syntaxique &XML; non valable, les champs additionnels ne poseront donc aucun problème. </para>
 </sect3>
 
 <sect3 id="images-xml-data">
@@ -183,7 +183,7 @@
 <para
 >Dans l'élément <markup
 >&lt;images&gt;</markup
->, chaque image référencée par une entrée est listée, avec des attributs décrivant la taille de l'image, le format et l'ID. Si l'image est contenu dans le fichier zip, l'élément est vide. Sinon, l'image peut être contenue dans le flux &XML; comme texte d'encodage base64. </para>
+>, chaque image référencée par une entrée est listée, avec des attributs décrivant la taille de l'image, le format et l'ID. Si l'image est contenue dans le fichier zip, l'élément est vide. Sinon, l'image peut être ajoutée au flux &XML;, sous forme de texte et encodée en base64. </para>
 </sect3>
 
 </sect2>
@@ -195,10 +195,10 @@
 >Valeurs du type de collection</title>
 
 <para
->Le type de collection est donné dans l'attribut type de l'élément de la collection. La valeur est identique à la valeur <type
+>Le type de collection est indiqué par l'attribut type de l'élément de la collection. La valeur est identique à la valeur enum <type
 >Type</type
 > dans <filename
-> src/collection.h</filename
+>src/collection.h</filename
 >. </para>
 
 <table>
@@ -228,13 +228,13 @@
 ></row>
 <row
 ><entry
->Collection de films</entry
+>Collection de vidéos</entry
 ><entry
 >3</entry
 ></row>
 <row
 ><entry
->Collection de musique</entry
+>Collection musicale</entry
 ><entry
 >4</entry
 ></row>
@@ -246,7 +246,7 @@
 ></row>
 <row
 ><entry
->Collection de BD</entry
+>Collection de bandes-dessinées</entry
 ><entry
 >6</entry
 ></row>
@@ -276,7 +276,7 @@
 ></row>
 <row
 ><entry
->Collection de jeux vidéo</entry
+>Collection de jeux</entry
 ><entry
 >11</entry
 ></row>
@@ -301,16 +301,16 @@
 
 <sect1 id="field-type-values">
 <title
->Valeurs de type de champ</title>
+>Valeurs du type de champ</title>
 
 <para
->&appname; inclura tous les champs par défaut pour une collection si le premier élément de champ a le nom <emphasis
+>&appname; inclura tous les champs par défaut pour une collection si le premier élément de champ porte le nom <emphasis
 >_default</emphasis
 >. Pour les champs <emphasis
 >Paragraphe</emphasis
 >, <emphasis
 >Tableau</emphasis
->, ou <emphasis
+> ou <emphasis
 >Image</emphasis
 >, la catégorie de champ doit être identique au titre de champ. </para>
 
@@ -323,7 +323,7 @@
 
 <table>
 <title
->Valeurs de type de champ</title>
+>Valeurs du type de champ</title>
 <tgroup cols="2">
 <thead>
 <row>
@@ -372,7 +372,7 @@
 ></row>
 <row
 ><entry
->Tableau en colonnes simples</entry
+>Tableau d'une colonne</entry
 ><entry
 >8</entry
 ></row>
@@ -399,11 +399,11 @@
 </table>
 
 <para
->Le champ peut avoir différents jeux de drapeaux, donnés comme une valeur OR 'd bitewise dans l'attribut du drapeau sur l'élément de champ. Le drapeau, pour prévenir l'utilisateur d'une suppression d'un champ est voulue pour certaines choses comme la clé de citation pour les entrées bibliographiques. </para>
+>Le champ peut avoir différents jeux de drapeaux, donnés comme une valeur OR bit-à-bit dans l'attribut des drapeaux sur l'élément de champ. Le drapeau empêchant l'utilisateur de supprimer un champ est conçu pour certaines choses comme la clé de citation pour les entrées bibliographiques. </para>
 
 <table>
 <title
->Valeur du drapeau de champ</title>
+>Valeurs du drapeau de champ</title>
 <tgroup cols="2">
 <thead>
 <row>
@@ -432,7 +432,7 @@
 ></row>
 <row
 ><entry
->Autoriser le complètement</entry
+>Autoriser l'auto-complètement</entry
 ><entry
 ><constant
 >0x04</constant
@@ -476,14 +476,14 @@
 > n'est pas utilisé actuellement. Le groupement par <emphasis
 >personne</emphasis
 > utilise tous les champs employant le <emphasis
->formatage de nom</emphasis
+>formatage du nom</emphasis
 >. La définition du drapeau <emphasis
 >valeur dérivée</emphasis
-> implique que la valeur du champ sera générée sur la base du modèle à partir des autres valeurs du champs. </para>
+> implique que la valeur du champ sera générée à partir de la propriété du modèle des autres valeurs du champ. </para>
 
 <table>
 <title
->Valeurs de format de champ</title>
+>Valeurs du format de champ</title>
 <tgroup cols="2">
 <thead>
 <row>
@@ -502,27 +502,27 @@
 ></row>
 <row
 ><entry
->Formatage du titre</entry
+>Mise en forme comme un titre</entry
 ><entry
 >1</entry
 ></row>
 <row
 ><entry
->Formatage du nom</entry
+>Mise en forme comme un nom</entry
 ><entry
 >2</entry
 ></row>
 <row
 ><entry
 ><emphasis
->Formatage de la date</emphasis
+>Mise en forme comme une date</emphasis
 ></entry
 ><entry
 >3</entry
 ></row>
 <row
 ><entry
->Pas de formatage</entry
+>Pas de mise en forme</entry
 ><entry
 >4</entry
 ></row>
@@ -537,18 +537,18 @@
 >Cacher les options de configuration</title>
 
 <para
->&appname; a des options de configuration supplémentaires qui ne sont pas visibles dans la <interface
->Boîte de dialogue de configuration</interface
->. Ces options n'étaient pas assez importantes pour encombrer la boîte de dialogue avec plus de paramètres, mais comme elles représentent des options qui peuvent plaire à des utilisateurs, l'application les lit depuis le fichier de configuration. </para>
+>&appname; a des options de configuration qui ne sont pas présentes dans la boîte de dialogue de <interface
+>Configuration</interface
+>. Elles n'étaient pas assez importantes pour encombrer la boîte de dialogue avec plus de paramètres mais présentent des options susceptibles de convenir à divers utilisateurs, l'application les lit depuis le fichier de configuration. </para>
 
 <para
->Les paramètres pour &appname; sont enregistrés dans un fichier dans le dossier personnel de l'utilisateur appelé <filename
+>Les paramètres de &appname; sont enregistrés dans un fichier du dossier personnel de l'utilisateur appelé <filename
 >$<envar
 >KDEHOME</envar
 >/share/config/tellicorc</filename
->. Dans ce fichier, les paramètres sont rangés par groupes, qui apparaissent avec des noms entre crochets, tel que [General Options]. Pour ajouter un paramètre au groupe <emphasis
+>. Dans ce fichier, les réglages sont regroupés dans des sections avec des noms entre crochets, tel que « [General Options] ». Pour ajouter un paramètre au groupe <emphasis
 >General Options</emphasis
->, cherchez la ligne dans le fichier de configuration avec ce nom de groupe. Si il n'apparaît pas créez le vous même en ajoutant une ligne intitulée [General Options]. Le paramètre peut ensuite être ajouté sous le nom de groupe. </para>
+>, cherchez la ligne dans le fichier de configuration avec ce nom de groupe. S'il n'apparaît pas, créez-le vous-même en ajoutant une ligne intitulée [General Options]. Le paramètre peut ensuite être ajouté sous le nom de groupe. </para>
 
 <sect2 id="hidden-general-options">
 <title
@@ -561,7 +561,7 @@
 
 <sect3>
 <title
->Taille maximum des icônes</title>
+>Max Icon Size</title>
 
 <para
 >La taille maximale des icônes dans la <interface
@@ -582,10 +582,10 @@
 
 <sect3>
 <title
->Taille du cache des icônes</title>
+>Icon Cache Size</title>
 
 <para
->Le nombre maximal d'icônes cachées en mémoire peut être modifié avec ce paramètre. La valeur par défaut est 1000. </para>
+>Le nombre maximal d'icônes conservées en mémoire peut être modifié avec ce paramètre. La valeur par défaut est 1000. </para>
 </sect3>
 
 <sect3>
@@ -612,7 +612,7 @@
 
 <sect3>
 <title
->Taille du cache des images</title>
+>Image Cache Size</title>
 
 <para
 >La taille maximale de mémoire allouée, en octets, à la mise en cache de toutes les images peut être modifiée avec ce paramètre. La valeur par défaut est 67108864. </para>
@@ -633,11 +633,11 @@
 
 <sect2 id="hidden-bibtex-options">
 <title
->[Options - BibTeX]</title>
+>[Options - bibtex]</title>
 
 <para
 >Ces paramètres doivent être placés dans le groupe <emphasis
->Options - BibTeX</emphasis
+>Options - bibtex</emphasis
 >. </para>
 
 <sect3>
@@ -645,7 +645,7 @@
 >lyxpipe</title>
 
 <para
->Ce paramètre est pour l'emplacement de lyxpipe pour l'envoi de citations bibliographiques. Il ne doit pas inclure le suffixe <literal role="extension"
+>Ce paramètre définit l'emplacement de lyxpipe pour l'envoi de citations bibliographiques. Il ne doit pas inclure le suffixe <literal role="extension"
 >.in</literal
 >. </para>
 </sect3>
@@ -673,10 +673,10 @@
 
 <sect3>
 <title
->Jeu de caractères</title>
+>Charset</title>
 
 <para
->L'encodage de données exportées dans un fichier PilotDB peut être modifié avec ce paramètre. La valeur par défaut est la règle de jeu de caractères pour la locale de l'utilisateur. </para>
+>L'encodage des données exportées dans un fichier PilotDB peut être modifié avec ce paramètre. La valeur par défaut correspond au jeu de caractères de la langue de l'utilisateur. </para>
 </sect3>
 
 <sect3>
@@ -695,12 +695,12 @@
 
 <sect1 id="bibtex-translation">
 <title
->Traduction de caractères BibTeX</title>
+>Traduction de caractère BibTeX</title>
 
 <para
->Quand des fichiers BibTeX sont importés ou exportés, certains caractères sont traduits entre leur équivalent TeX et les caractères Unicode. Ces mapping de caractères sont contenus dans le fichier <filename
+>Quand des fichiers BibTeX sont importés ou exportés, certains caractères sont traduits entre leurs équivalents TeX et les caractères Unicode. Ces cartographies de caractères sont contenus dans le fichier <filename
 >BibTeX-translation.xml</filename
->, situés dans le dossier d'installation. Le mapping peut être modifié, comme désiré. L'élément clé contient les caractères Unicode, et les éléments de l'entrée qui contiennent les équivalents TeX, qui peuvent être un mapping un-vers-plusieurs. Le premier mapping est le premier utilisé à l'exportation vers BibTeX. </para>
+>, situés dans le dossier d'installation. La cartographie peut être modifiée, comme souhaitée. L'élément clé contient les caractères Unicode et les éléments de l'entrée contiennent les équivalents TeX, qui peuvent être une cartographie multiple. La première définition sera celle employée lors de l'exportation en BibTeX. </para>
 
 <programlisting
 ><![CDATA[
@@ -720,7 +720,7 @@
 >Astuces XSLT</title>
 
 <para
->Voici quelques astuces pour l'écriture XSLT pour analyser les données &XML; de &appname; (TBD). </para>
+>Voici quelques astuces pour l'écriture XSLT afin d'analyser les données &XML; de &appname; (À faire). </para>
 </sect1>
 
 </chapter>

@@ -58,7 +58,7 @@ using namespace Tellico;
 using Tellico::FieldListItem;
 using Tellico::CollectionFieldsDialog;
 
-class Tellico::FieldListItem : public Tellico::GUI::ListWidgetItem {
+class FieldListItem : public Tellico::GUI::ListWidgetItem {
 public:
   FieldListItem(QListWidget* parent_, Data::FieldPtr field_) : GUI::ListWidgetItem(field_->title(), parent_), m_field(field_) {}
 
@@ -648,7 +648,7 @@ void CollectionFieldsDialog::updateField() {
 
   if(field->type() == Data::Field::Choice) {
     const QRegExp rx(QLatin1String("\\s*;\\s*"));
-    field->setAllowed(m_allowEdit->text().split(rx, QString::SkipEmptyParts));
+    field->setAllowed(m_allowEdit->text().split(rx));
     field->setProperty(QLatin1String("minimum"), QString());
     field->setProperty(QLatin1String("maximum"), QString());
   } else if(field->type() == Data::Field::Rating) {

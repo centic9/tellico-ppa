@@ -48,7 +48,6 @@
 #include "translators/deliciousimporter.h"
 #include "translators/goodreadsimporter.h"
 #include "translators/ciwimporter.h"
-#include "translators/vinoxmlimporter.h"
 
 #include <klocale.h>
 #include <kstandarddirs.h>
@@ -272,11 +271,6 @@ Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format
     case Import::CIW:
       importer = new Import::CIWImporter(urls_);
       break;
-
-    case Import::VinoXML:
-      CHECK_SIZE;
-      importer = new Import::VinoXMLImporter(firstURL);
-      break;
   }
   if(!importer) {
     myWarning() << "importer not created!";
@@ -306,6 +300,9 @@ QString ImportDialog::fileFilter(Tellico::Import::Format format_) {
 
     case Import::Bibtexml:
     case Import::XSLT:
+      text = i18n("*.xml|XML Files (*.xml)") + QLatin1Char('\n');
+      break;
+
     case Import::MODS:
     case Import::Delicious:
       text = i18n("*.xml|XML Files (*.xml)") + QLatin1Char('\n');
@@ -334,11 +331,6 @@ QString ImportDialog::fileFilter(Tellico::Import::Format format_) {
 
     case Import::CIW:
       text = i18n("*.ciw|CIW Files (*.ciw)") + QLatin1Char('\n');
-      break;
-
-    case Import::VinoXML:
-      text = i18n("*.vinoxml|VinoXML Data Files (*.vinoxml)") + QLatin1Char('\n');
-      text += i18n("*.xml|XML Files (*.xml)") + QLatin1Char('\n');
       break;
 
     case Import::AudioFile:

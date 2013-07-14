@@ -154,17 +154,7 @@
   </pages>
 
   <binding i18n="true">
-   <xsl:choose>
-    <xsl:when test="db:attribute[@name='binding'] = '精装'">
-     <xsl:text>Hardback</xsl:text>
-    </xsl:when>
-    <xsl:when test="db:attribute[@name='binding'] = '装帧'">
-     <xsl:text>Paperback</xsl:text>
-    </xsl:when>
-    <xsl:otherwise>
-     <xsl:value-of select="db:attribute[@name='binding']"/>
-    </xsl:otherwise>
-   </xsl:choose>
+   <xsl:value-of select="db:attribute[@name='binding']"/>
   </binding>
 
   <running-time>

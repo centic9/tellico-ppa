@@ -801,28 +801,7 @@ void Collection::addBorrower(Tellico::Data::BorrowerPtr borrower_) {
   if(!borrower_) {
     return;
   }
-  // check against existing borrower uid
-  BorrowerPtr existingBorrower;
-  foreach(BorrowerPtr bor, m_borrowers) {
-    if(bor->uid() == borrower_->uid()) {
-      existingBorrower = bor;
-      break;
-    }
-  }
-  if(!existingBorrower) {
-    m_borrowers.append(borrower_);
-  } else if(existingBorrower != borrower_) {
-    // need to merge loans
-    QHash<QString, LoanPtr> existingLoans;
-    foreach(LoanPtr loan, existingBorrower->loans()) {
-      existingLoans.insert(loan->uid(), loan);
-    }
-    foreach(LoanPtr loan, borrower_->loans()) {
-      if(!existingLoans.contains(loan->uid())) {
-        existingBorrower->addLoan(loan);
-      }
-    }
-  }
+  m_borrowers.append(borrower_);
 }
 
 void Collection::addFilter(Tellico::FilterPtr filter_) {

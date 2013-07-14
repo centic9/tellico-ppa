@@ -4,6 +4,7 @@ ADD_SUBDIRECTORY( report-templates )
 ########### install files ###############
 
 SET(XSLT_FILES
+    allocine2tellico.xsl
     amazon2tellico.xsl
     arxiv2tellico.xsl
     biblioshare2tellico.xsl
@@ -29,6 +30,7 @@ SET(XSLT_FILES
     record-logo.png
     referencer2tellico.xsl
     shadowAlpha.png
+    springer2tellico.xsl
     srw2tellico.xsl
     tellico2gcstar.xsl
     tellico2html.js

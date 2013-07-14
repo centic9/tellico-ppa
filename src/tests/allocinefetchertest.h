@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2010-2012 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -38,6 +38,15 @@ private Q_SLOTS:
   void testTitleAccented();
   void testTitleAccentRemoved();
   void testPlotQuote();
+
+  void testTitleAPI();
+  void testTitleAPIAccented();
+
+  void testTitleScreenRush();
+  void testTitleFilmStarts();
+  void testTitleFilmStartsGerman();
+  void testTitleSensaCineSpanish();
+  void testTitleBeyazperdeTurkish();
 };
 
 #endif

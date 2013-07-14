@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2012-01-09 10:07+0100\n"
+"POT-Creation-Date: 2012-06-12 18:42+0200\n"
 "PO-Revision-Date: 2011-12-10 12:24+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
@@ -78,8 +78,8 @@ msgstr "Personlig"
 
 #: src/collection.cpp:56 src/collections/musiccollection.cpp:86
 #: src/entrymatchdialog.cpp:86 src/fetch/fetchmanager.cpp:69
-#: src/translators/audiofileimporter.cpp:175
-#: src/translators/xmlstatehandler.cpp:409 src/fetchdialog.cpp:214
+#: src/fetchdialog.cpp:216 src/translators/audiofileimporter.cpp:175
+#: src/translators/xmlstatehandler.cpp:409
 msgid "Title"
 msgstr "Tittel"
 
@@ -91,16 +91,16 @@ msgstr "Tittel"
 #: src/collections/musiccollection.cpp:31
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31
-#: src/collections/winecollection.cpp:30
+#: src/collections/winecollection.cpp:30 src/collections/filecatalog.cpp:31
 #: src/collections/bibtexcollection.cpp:38
-#: src/collections/bibtexcollection.cpp:100 src/collections/filecatalog.cpp:31
-#: src/configdialog.cpp:159 src/configdialog.cpp:182 src/configdialog.cpp:209
-#: src/configdialog.cpp:227 src/fetch/googlebookfetcher.cpp:235
+#: src/collections/bibtexcollection.cpp:100 src/configdialog.cpp:159
+#: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
 #: src/fetch/animenfofetcher.cpp:294 src/fetch/animenfofetcher.cpp:298
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:367
-#: src/fetch/imdbfetcher.cpp:753 src/fetch/imdbfetcher.cpp:1071
-#: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
-#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
+#: src/fetch/freebasefetcher.cpp:367 src/fetch/googlebookfetcher.cpp:249
+#: src/fetch/imdbfetcher.cpp:946 src/fetch/imdbfetcher.cpp:1277
+#: src/fetch/filmasterfetcher.cpp:233 src/fetch/moviemeterfetcher.cpp:247
+#: src/fetch/openlibraryfetcher.cpp:283 src/field.cpp:37 src/field.cpp:78
+#: src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Generelt"
 
@@ -550,7 +550,7 @@ msgstr "Antall spillere"
 #: src/collections/gamecollection.cpp:94
 #: src/collections/stampcollection.cpp:54
 #: src/collections/winecollection.cpp:125 src/collections/filecatalog.cpp:57
-#: src/entrymatchdialog.cpp:86 src/fetchdialog.cpp:215
+#: src/entrymatchdialog.cpp:86 src/fetchdialog.cpp:217
 msgid "Description"
 msgstr "Beskrivelse"
 
@@ -661,11 +661,11 @@ msgid "Editor"
 msgstr "Redaktør"
 
 #: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:401
-#: src/translators/alexandriaimporter.cpp:158
+#: src/fetch/ibsfetcher.cpp:338 src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Stivt omslag"
 
-#: src/collections/bookcollection.cpp:71
+#: src/collections/bookcollection.cpp:71 src/fetch/ibsfetcher.cpp:336
 msgid "Paperback"
 msgstr "Papprygg"
 
@@ -744,7 +744,7 @@ msgstr "Språk"
 #: src/collections/comicbookcollection.cpp:119
 #: src/collections/musiccollection.cpp:113
 #: src/collections/videocollection.cpp:215
-#: src/collections/bibtexcollection.cpp:234 src/fetch/amazonfetcher.cpp:899
+#: src/collections/bibtexcollection.cpp:234 src/fetch/amazonfetcher.cpp:913
 msgid "Keywords"
 msgstr "Nøkkelord"
 
@@ -1052,7 +1052,7 @@ msgid "Compact Disc"
 msgstr "CD"
 
 #: src/collections/musiccollection.cpp:54
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:863
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:877
 msgid "DVD"
 msgstr "DVD"
 
@@ -1103,7 +1103,7 @@ msgid "Issue Year"
 msgstr "Utsendelsesår"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180
+#: src/collections/videocollection.cpp:180 src/fetch/imdbfetcher.cpp:1389
 msgid "Color"
 msgstr "Farge"
 
@@ -1149,7 +1149,7 @@ msgstr "Egenskaper"
 msgid "My Videos"
 msgstr "Mine Videofilmer"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:850
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:864
 msgid "VHS"
 msgstr "VHS"
 
@@ -1161,11 +1161,11 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:844
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:858
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:847
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:861
 msgid "HD DVD"
 msgstr "HD DVD"
 
@@ -1222,11 +1222,11 @@ msgstr "Region 8"
 msgid "Region"
 msgstr "Region"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:219
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:221
 msgid "Nationality"
 msgstr "Nasjonalitet"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:859
+#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:873
 msgid "NTSC"
 msgstr "NTSC"
 
@@ -1264,7 +1264,7 @@ msgstr "En liste over personer med i filmen og hvilken rolle de spiller"
 msgid "Director"
 msgstr "Regissør"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:218
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:220
 msgid "Producer"
 msgstr "Produsent"
 
@@ -1300,7 +1300,7 @@ msgstr "Varigheten på filmen (i minutter)"
 msgid "Aspect Ratio"
 msgstr "Bredde/høyde-forhold"
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:833
+#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:847
 msgid "Widescreen"
 msgstr "Bredskjerm"
 
@@ -1312,11 +1312,11 @@ msgstr "Svart-hvitt"
 msgid "Color Mode"
 msgstr "Fargemodus"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:854
+#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:868
 msgid "Director's Cut"
 msgstr "Regissørens klipping"
 
-#: src/collections/videocollection.cpp:190 src/fetch/ibsfetcher.cpp:360
+#: src/collections/videocollection.cpp:190 src/fetch/ibsfetcher.cpp:387
 msgid "Plot Summary"
 msgstr "Sammendrag av handlinga"
 
@@ -1361,93 +1361,15 @@ msgstr "Drikkes før"
 msgid "Label Image"
 msgstr "Etikettbilde"
 
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
-#: src/translators/risimporter.cpp:338
-msgid "Miscellaneous"
-msgstr "Diverse"
+#: src/collections/filecatalog.cpp:37
+msgid "My Files"
+msgstr "Mine filer"
 
-#: src/collections/bibtexcollection.cpp:84
-msgid "Entry Type"
-msgstr "Innslagstype"
-
-#: src/collections/bibtexcollection.cpp:88
-msgid "These entry types are specific to bibtex. See the bibtex documentation."
-msgstr ""
-"Disse innslagsverdiene er spesifikke for Bibtex. Se dokumentasjon for bibtex."
-
-#: src/collections/bibtexcollection.cpp:98
-msgid "Bibtex Key"
-msgstr "Bibtex-nøkkel"
-
-#: src/collections/bibtexcollection.cpp:104
-msgid "Book Title"
-msgstr "Boktittel"
-
-#: src/collections/bibtexcollection.cpp:117
-msgid "Organization"
-msgstr "Organisasjon"
-
-#: src/collections/bibtexcollection.cpp:139 src/fetch/z3950fetcher.cpp:564
-#: src/fetch/srufetcher.cpp:453
-msgid "Address"
-msgstr "Adresse"
-
-#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
-msgid "DOI"
-msgstr "DOI"
-
-#: src/collections/bibtexcollection.cpp:179
-msgid "Digital Object Identifier"
-msgstr "Digital Object Identifier"
-
-#: src/collections/bibtexcollection.cpp:184
-msgid "Month"
-msgstr "Måned"
-
-#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
-msgid "Number"
-msgstr "Nummer"
-
-#: src/collections/bibtexcollection.cpp:195
-msgid "How Published"
-msgstr "Publiseringsmåte"
-
-#: src/collections/bibtexcollection.cpp:207
-msgid "Chapter"
-msgstr "Kapittel"
-
-#: src/collections/bibtexcollection.cpp:219
-msgctxt "A number field in a bibliography"
-msgid "Volume"
-msgstr "Bind"
-
-#: src/collections/bibtexcollection.cpp:224
-msgid "Cross-Reference"
-msgstr "Kryssreferanse"
-
-#: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
+#: src/collections/filecatalog.cpp:53 src/collections/bibtexcollection.cpp:240
 #: src/fetch/entrezfetcher.cpp:398 src/fetch/entrezfetcher.cpp:464
 #: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
 msgid "URL"
 msgstr "URL"
-
-#: src/collections/bibtexcollection.cpp:245 src/fetch/z3950fetcher.cpp:565
-#: src/fetch/entrezfetcher.cpp:463 src/fetch/srufetcher.cpp:454
-msgid "Abstract"
-msgstr "Sammendrag"
-
-#: src/collections/bibtexcollection.cpp:249
-msgid "Notes"
-msgstr "Notater"
-
-#: src/collections/bibtexcollection.cpp:479
-#: src/translators/xmlstatehandler.cpp:298
-msgid "Unknown"
-msgstr "Ukjent"
-
-#: src/collections/filecatalog.cpp:37
-msgid "My Files"
-msgstr "Mine filer"
 
 #: src/collections/filecatalog.cpp:62
 msgctxt "File catalog"
@@ -1493,6 +1415,85 @@ msgstr "Metainfo"
 #: src/collections/filecatalog.cpp:111
 msgid "Icon"
 msgstr "Ikon"
+
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
+#: src/translators/risimporter.cpp:338
+msgid "Miscellaneous"
+msgstr "Diverse"
+
+#: src/collections/bibtexcollection.cpp:84
+msgid "Entry Type"
+msgstr "Innslagstype"
+
+#: src/collections/bibtexcollection.cpp:88
+msgid "These entry types are specific to bibtex. See the bibtex documentation."
+msgstr ""
+"Disse innslagsverdiene er spesifikke for Bibtex. Se dokumentasjon for bibtex."
+
+#: src/collections/bibtexcollection.cpp:98
+msgid "Bibtex Key"
+msgstr "Bibtex-nøkkel"
+
+#: src/collections/bibtexcollection.cpp:104
+msgid "Book Title"
+msgstr "Boktittel"
+
+#: src/collections/bibtexcollection.cpp:117
+msgid "Organization"
+msgstr "Organisasjon"
+
+#: src/collections/bibtexcollection.cpp:139 src/fetch/srufetcher.cpp:453
+#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:565
+msgid "Address"
+msgstr "Adresse"
+
+#: src/collections/bibtexcollection.cpp:176 src/fetch/fetchmanager.cpp:74
+msgid "DOI"
+msgstr "DOI"
+
+#: src/collections/bibtexcollection.cpp:179
+msgid "Digital Object Identifier"
+msgstr "Digital Object Identifier"
+
+#: src/collections/bibtexcollection.cpp:184
+msgid "Month"
+msgstr "Måned"
+
+#: src/collections/bibtexcollection.cpp:190 src/field.cpp:199
+msgid "Number"
+msgstr "Nummer"
+
+#: src/collections/bibtexcollection.cpp:195
+msgid "How Published"
+msgstr "Publiseringsmåte"
+
+#: src/collections/bibtexcollection.cpp:207
+msgid "Chapter"
+msgstr "Kapittel"
+
+#: src/collections/bibtexcollection.cpp:219
+msgctxt "A number field in a bibliography"
+msgid "Volume"
+msgstr "Bind"
+
+#: src/collections/bibtexcollection.cpp:224
+msgid "Cross-Reference"
+msgstr "Kryssreferanse"
+
+#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
+#: src/fetch/srufetcher.cpp:454 src/fetch/hathitrustfetcher.cpp:305
+#: src/fetch/z3950fetcher.cpp:566
+msgid "Abstract"
+msgstr "Sammendrag"
+
+#: src/collections/bibtexcollection.cpp:249
+msgid "Notes"
+msgstr "Notater"
+
+#: src/collections/bibtexcollection.cpp:479
+#: src/translators/xmlstatehandler.cpp:298
+msgid "Unknown"
+msgstr "Ukjent"
 
 #: src/commands/addentries.cpp:41
 msgid "Add Entries"
@@ -1546,7 +1547,7 @@ msgid "Add Filter"
 msgstr "Legg til filter"
 
 #: src/commands/filtercommand.cpp:58 src/filterview.cpp:133
-#: src/filterdialog.cpp:355
+#: src/filterdialog.cpp:370
 msgid "Modify Filter"
 msgstr "Endre filter"
 
@@ -1969,7 +1970,7 @@ msgstr "*.xsl|XSL-filer (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|malpakker (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:337 src/reportdialog.cpp:215
+#: src/configdialog.cpp:1137 src/importdialog.cpp:346 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
 #: src/translators/htmlexporter.cpp:91 src/translators/onixexporter.cpp:71
@@ -1989,6 +1990,97 @@ msgstr "Slett mal"
 #: src/configdialog.cpp:1169
 msgid "Select template to delete:"
 msgstr "Velg mal som skal slettes:"
+
+#: src/importdialog.cpp:69 src/importdialog.cpp:75
+msgid "Import Options"
+msgstr "Valg for import"
+
+#: src/importdialog.cpp:79
+msgid "&Replace current collection"
+msgstr "&Bytt ut gjeldende samling"
+
+#: src/importdialog.cpp:80
+msgid "Replace the current collection with the contents of the imported file."
+msgstr ""
+"Bytter ut den gjeldende samlinga med innholdet fra den importerte fila."
+
+#: src/importdialog.cpp:82
+msgid "A&ppend to current collection"
+msgstr "Le&gg til den gjeldende samlinga"
+
+#: src/importdialog.cpp:83
+msgid ""
+"Append the contents of the imported file to the current collection. This is "
+"only possible when the collection types match."
+msgstr ""
+"Legg til innholdet av den importerte samlinga. Dette er bare mulig når "
+"samlingene er av samme type."
+
+#: src/importdialog.cpp:86
+msgid "&Merge with current collection"
+msgstr "Flett &med gjeldende samling"
+
+#: src/importdialog.cpp:87
+msgid ""
+"Merge the contents of the imported file to the current collection. This is "
+"only possible when the collection types match. Entries must match exactly in "
+"order to be merged."
+msgstr ""
+"Flett inn innholdet av den importerte samlinga. Dette er bare mulig når "
+"samlingene er av samme type. Innslag må stemme eksakt for å kunne flettes "
+"inn."
+
+#. i18n: file: src/tellicoui.rc:24
+#. i18n: ectx: Menu (file_import)
+#: src/importdialog.cpp:122 src/mainwindow.cpp:318 rc.cpp:280
+msgid "&Import"
+msgstr "&Importer"
+
+#: src/importdialog.cpp:289 src/translators/tellicozipexporter.cpp:56
+#: src/mainwindow.cpp:1063 src/mainwindow.cpp:1230
+msgid "*.tc *.bc|Tellico Files (*.tc)"
+msgstr "*.tc *.bc|Tellico filer (*.tc)"
+
+#: src/importdialog.cpp:290 src/importdialog.cpp:303 src/importdialog.cpp:308
+#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1065
+msgid "*.xml|XML Files (*.xml)"
+msgstr "*.xml|XML filer (*.xml)"
+
+#: src/importdialog.cpp:294 src/translators/bibtexexporter.cpp:61
+msgid "*.bib|Bibtex Files (*.bib)"
+msgstr "*.bib|Bibtex filer (*.bib)"
+
+#: src/importdialog.cpp:298 src/translators/csvexporter.cpp:59
+msgid "*.csv|CSV Files (*.csv)"
+msgstr "*.csv|CSV filer (*.csv)"
+
+#: src/importdialog.cpp:312
+msgid "*.ris|RIS Files (*.ris)"
+msgstr "*.ris|RIS filer (*.ris)"
+
+#: src/importdialog.cpp:316 src/translators/gcstarexporter.cpp:60
+msgid "*.gcs|GCstar Data Files (*.gcs)"
+msgstr "*.gcs|GCstar datafiler (*.gcs)"
+
+#: src/importdialog.cpp:317
+msgid "*.gcf|GCfilms Data Files (*.gcf)"
+msgstr "*.gcf|GCfilms datafiler (*.gcf)"
+
+#: src/importdialog.cpp:321
+msgid "*.amc|AMC Data Files (*.amc)"
+msgstr "*.amc|AMC datafiler (*.amc)"
+
+#: src/importdialog.cpp:325
+msgid "*.pdf|PDF Files (*.pdf)"
+msgstr "*.pdf|PDF-filer (*.pdf)"
+
+#: src/importdialog.cpp:329
+msgid "*.reflib|Referencer Files (*.reflib)"
+msgstr "*.reflib|Referencer-filer (*.reflib)"
+
+#: src/importdialog.cpp:333
+msgid "*.ciw|CIW Files (*.ciw)"
+msgstr ""
 
 #: src/core/tellico_strings.cpp:29
 #, kde-format
@@ -2087,56 +2179,6 @@ msgstr "Skjul alle kolonner"
 #: src/detailedlistview.cpp:580
 msgid "Resize to Content"
 msgstr "Endre størrelse til innholdet"
-
-#: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
-#: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
-msgid "Edit Entry"
-msgstr "Endre innslag"
-
-#: src/entryeditdialog.cpp:67
-msgid "&New Entry"
-msgstr "&Nytt innslag"
-
-#: src/entryeditdialog.cpp:74 src/entryeditdialog.cpp:120
-#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:530
-msgid "Sa&ve Entry"
-msgstr "&Lagre innslag"
-
-#: src/entryeditdialog.cpp:319
-msgid "Do you really want to modify these entries?"
-msgstr "Er du sikker på at du vil endre disse innslagene?"
-
-#: src/entryeditdialog.cpp:321
-msgid "Modify Multiple Entries"
-msgstr "Endre flere innslag"
-
-#: src/entryeditdialog.cpp:362
-msgid "A value is required for the following fields. Do you want to continue?"
-msgstr "Følgende felter må ha en verdi. Vil du fortsette?"
-
-#: src/entryeditdialog.cpp:459
-msgid "Edit Entries"
-msgstr "Endre flere innslag"
-
-#: src/entryeditdialog.cpp:485
-msgid "Sa&ve Entries"
-msgstr "L&agre flere innslag"
-
-#: src/entryeditdialog.cpp:647
-msgid ""
-"The current entry has been modified.\n"
-"Do you want to enter the changes?"
-msgstr ""
-"Innslaget har blitt endret.\n"
-"Vil du lagre endringene?"
-
-#: src/entryeditdialog.cpp:650
-msgid "Save Entry"
-msgstr "Lagre innslag"
-
-#: src/entryeditdialog.cpp:651 src/mainwindow.cpp:992
-msgid "Unsaved Changes"
-msgstr "Ulagrede endringer"
 
 #: src/entrygroup.cpp:32
 msgid "(Empty)"
@@ -2243,65 +2285,17 @@ msgstr "Bruk din lokale tegnkoding (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Eksporter fila i ditt lokale tegnsett."
 
-#: src/fetch/googlebookfetcher.cpp:234 src/fetch/googlebookfetcher.cpp:313
-msgid "Google Book Link"
-msgstr "Lenke til Google Book"
-
-#: src/fetch/googlebookfetcher.cpp:304
-msgid "Google Book Search"
-msgstr "Søk i Google Book"
-
-#: src/fetch/googlebookfetcher.cpp:320 src/fetch/animenfofetcher.cpp:488
-#: src/fetch/arxivfetcher.cpp:329 src/fetch/bibsonomyfetcher.cpp:183
-#: src/fetch/citebasefetcher.cpp:234 src/fetch/filmasterfetcher.cpp:319
-#: src/fetch/dvdfrfetcher.cpp:172 src/fetch/entrezfetcher.cpp:475
-#: src/fetch/freebasefetcher.cpp:902 src/fetch/googlescholarfetcher.cpp:267
-#: src/fetch/ibsfetcher.cpp:413 src/fetch/musicbrainzfetcher.cpp:332
-#: src/fetch/yahoofetcher.cpp:394 src/fetch/moviemeterfetcher.cpp:367
-#: src/fetch/openlibraryfetcher.cpp:424
-msgid "This source has no options."
-msgstr "Denne kilden har ingen valgmuligheter."
-
-#: src/fetch/fetchmanager.cpp:70
-msgid "Person"
-msgstr "Person"
-
-#: src/fetch/fetchmanager.cpp:71
-msgid "ISBN"
-msgstr "ISBN-nummer"
-
-#: src/fetch/fetchmanager.cpp:72
-msgid "UPC/EAN"
-msgstr "UPC/EAN"
-
-#: src/fetch/fetchmanager.cpp:73
-msgid "Keyword"
-msgstr "Nøkkelord"
-
-#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
-msgid "arXiv ID"
-msgstr "arXiv ID"
-
-#: src/fetch/fetchmanager.cpp:76
-msgid "PubMed ID"
-msgstr "Pubmed ID"
-
-#: src/fetch/fetchmanager.cpp:77
-msgid "LCCN"
-msgstr "LCCN"
-
-#: src/fetch/fetchmanager.cpp:78
-msgid "Raw Query"
-msgstr "Uformattert forespørsel"
-
 #: src/fetch/animenfofetcher.cpp:276 src/fetch/animenfofetcher.cpp:478
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
+#: src/fetch/allocinefetcher.cpp:224 src/fetch/beyazperdefetcher.cpp:58
+#: src/fetch/filmstartsfetcher.cpp:58
 msgid "Original Title"
 msgstr "Originaltittel"
 
 #: src/fetch/animenfofetcher.cpp:279 src/fetch/animenfofetcher.cpp:479
-#: src/fetch/dvdfrfetcher.cpp:165 src/fetch/imdbfetcher.cpp:823
-#: src/fetch/imdbfetcher.cpp:1268 src/fetch/doubanfetcher.cpp:209
-#: src/fetch/themoviedbfetcher.cpp:245 src/fetch/moviemeterfetcher.cpp:253
+#: src/fetch/doubanfetcher.cpp:211 src/fetch/imdbfetcher.cpp:1016
+#: src/fetch/imdbfetcher.cpp:1550 src/fetch/dvdfrfetcher.cpp:167
+#: src/fetch/themoviedbfetcher.cpp:252 src/fetch/moviemeterfetcher.cpp:253
 #: src/fetch/moviemeterfetcher.cpp:360
 msgid "Alternative Titles"
 msgstr "Alternative titler"
@@ -2322,11 +2316,23 @@ msgstr "AnimeNfo Link"
 msgid "AnimeNfo Rating"
 msgstr "AnimeNfo karakter"
 
+#: src/fetch/animenfofetcher.cpp:488 src/fetch/arxivfetcher.cpp:329
+#: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
+#: src/fetch/entrezfetcher.cpp:475 src/fetch/yahoofetcher.cpp:396
+#: src/fetch/freebasefetcher.cpp:902 src/fetch/googlescholarfetcher.cpp:267
+#: src/fetch/googlebookfetcher.cpp:334 src/fetch/dvdfrfetcher.cpp:174
+#: src/fetch/musicbrainzfetcher.cpp:334 src/fetch/filmasterfetcher.cpp:319
+#: src/fetch/masfetcher.cpp:328 src/fetch/hathitrustfetcher.cpp:315
+#: src/fetch/moviemeterfetcher.cpp:367 src/fetch/openlibraryfetcher.cpp:424
+#: src/fetch/springerfetcher.cpp:179 src/fetch/ibsfetcher.cpp:445
+msgid "This source has no options."
+msgstr "Denne kilden har ingen valgmuligheter."
+
 #: src/fetch/bibliosharefetcher.cpp:160 src/fetch/crossreffetcher.cpp:311
-#: src/fetch/discogsfetcher.cpp:232 src/fetch/winecomfetcher.cpp:296
-#: src/fetch/giantbombfetcher.cpp:204 src/fetch/isbndbfetcher.cpp:355
-#: src/fetch/doubanfetcher.cpp:222 src/fetch/themoviedbfetcher.cpp:257
-#: src/fetch/amazonfetcher.cpp:915
+#: src/fetch/discogsfetcher.cpp:234 src/fetch/giantbombfetcher.cpp:206
+#: src/fetch/doubanfetcher.cpp:224 src/fetch/isbndbfetcher.cpp:357
+#: src/fetch/winecomfetcher.cpp:297 src/fetch/themoviedbfetcher.cpp:264
+#: src/fetch/amazonfetcher.cpp:929
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2337,16 +2343,16 @@ msgstr ""
 "betingelsene, <a href='%2'>så meld deg på for å få en konto</a>, og oppgi "
 "din kontoinformasjon nedenfor."
 
-#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:245
-#: src/fetch/winecomfetcher.cpp:309 src/fetch/giantbombfetcher.cpp:217
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/doubanfetcher.cpp:235
-#: src/fetch/themoviedbfetcher.cpp:270 src/fetch/amazonfetcher.cpp:928
+#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/discogsfetcher.cpp:247
+#: src/fetch/giantbombfetcher.cpp:219 src/fetch/doubanfetcher.cpp:237
+#: src/fetch/isbndbfetcher.cpp:370 src/fetch/winecomfetcher.cpp:310
+#: src/fetch/themoviedbfetcher.cpp:277 src/fetch/amazonfetcher.cpp:942
 msgid "Access key: "
 msgstr "Tilgangsnøkkel: "
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:251
-#: src/fetch/giantbombfetcher.cpp:223 src/fetch/isbndbfetcher.cpp:374
-#: src/fetch/themoviedbfetcher.cpp:276
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/discogsfetcher.cpp:253
+#: src/fetch/giantbombfetcher.cpp:225 src/fetch/isbndbfetcher.cpp:376
+#: src/fetch/themoviedbfetcher.cpp:283
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2389,125 +2395,13 @@ msgstr "For noen kontoer kreves bare en e-postadresse."
 msgid "Email: "
 msgstr "E-post: "
 
-#: src/fetch/filmasterfetcher.cpp:69 src/fetch/amazonfetcher.cpp:129
-#, kde-format
-msgid "This data is licensed under <a href=%1>specific terms</a>."
-msgstr ""
-"Disse dataene er lisensiert under <a href=%1>spesielle betingelser</a>."
+#: src/fetch/discogsfetcher.cpp:211
+msgid "Discogs Audio Search"
+msgstr "Discogs lydsøk"
 
-#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
-msgid "Filmaster Link"
-msgstr "Filmaster-lenke"
-
-#: src/fetch/z3950fetcher.cpp:554 src/fetch/z3950fetcher.cpp:830
-msgid "z39.50 Server"
-msgstr "z39.50-tjener"
-
-#: src/fetch/z3950fetcher.cpp:566
-msgid "Illustrator"
-msgstr "Illustratør"
-
-#: src/fetch/z3950fetcher.cpp:567
-msgctxt "Dewey Decimal classification system"
-msgid "Dewey Decimal"
-msgstr "Dewey Desimalt"
-
-#: src/fetch/z3950fetcher.cpp:568
-msgctxt "Library of Congress classification system"
-msgid "LoC Classification"
-msgstr "LoC-klassifisering"
-
-#: src/fetch/z3950fetcher.cpp:580
-msgid "Use preset &server:"
-msgstr "Bruk forhånd&sinnstilt tjener:"
-
-#: src/fetch/z3950fetcher.cpp:590 src/fetch/imdbfetcher.cpp:1284
-#: src/fetch/srufetcher.cpp:469
-msgid "Hos&t: "
-msgstr "Ver&t:"
-
-#: src/fetch/z3950fetcher.cpp:596 src/fetch/srufetcher.cpp:476
-msgid "Enter the host name of the server."
-msgstr "Skriv inn vertsnavn på tjeneren."
-
-#: src/fetch/z3950fetcher.cpp:601 src/fetch/srufetcher.cpp:481
-msgid "&Port: "
-msgstr "&Port:"
-
-#: src/fetch/z3950fetcher.cpp:606 src/fetch/srufetcher.cpp:486
-#, kde-format
-msgid "Enter the port number of the server. The default is %1."
-msgstr "Skriv inn portnummer for tjeneren. Standardport er %1."
-
-#: src/fetch/z3950fetcher.cpp:611
-msgid "&Database: "
-msgstr "&Database:"
-
-#: src/fetch/z3950fetcher.cpp:616
-msgid "Enter the database name used by the server."
-msgstr "Skriv inn databasenavnet som tjeneren bruker. "
-
-#: src/fetch/z3950fetcher.cpp:621
-msgid "Ch&aracter set: "
-msgstr "T&egnsett:"
-
-#: src/fetch/z3950fetcher.cpp:630
-msgid ""
-"Enter the character set encoding used by the z39.50 server. The most likely "
-"choice is MARC-8, although ISO-8859-1 is common as well."
-msgstr ""
-"Skriv inn tegnsettet brukt av z39.50-tjeneren. Det mest sannsynlige valget "
-"er MARC-8, selv om ISO-8859-1 også er vanlig."
-
-#: src/fetch/z3950fetcher.cpp:636
-msgid "&Format: "
-msgstr "&Format:"
-
-#: src/fetch/z3950fetcher.cpp:639
-msgid "Auto-detect"
-msgstr "Finn ut automatisk"
-
-#: src/fetch/z3950fetcher.cpp:648
-msgid ""
-"Enter the data format used by the z39.50 server. Tellico will attempt to "
-"automatically detect the best setting if <i>auto-detect</i> is selected."
-msgstr ""
-"Oppgi dataformatet som z39.50-tjeneren bruker. Tellico vil forsøke å finne "
-"den beste innstillinga automatisk hvis <i>Finn ut automatisk</i> er valgt."
-
-#: src/fetch/z3950fetcher.cpp:654
-msgid "&User: "
-msgstr "Br&uker:"
-
-#: src/fetch/z3950fetcher.cpp:657 src/fetch/z3950fetcher.cpp:669
-msgid "Optional"
-msgstr "Valgfri"
-
-#: src/fetch/z3950fetcher.cpp:660
-msgid ""
-"Enter the authentication user name used by the z39.50 database. Most servers "
-"do not need one."
-msgstr ""
-"Skriv inn autentiseringsnavnet brukt av z39.50-tjeneren. De fleste tjenerne "
-"trenger ikke dette."
-
-#: src/fetch/z3950fetcher.cpp:666
-msgid "Pass&word: "
-msgstr "Pass&ord:"
-
-#: src/fetch/z3950fetcher.cpp:673
-msgid ""
-"Enter the authentication password used by the z39.50 database. Most servers "
-"do not need one. The password will be saved in plain text in the Tellico "
-"configuration file."
-msgstr ""
-"Skriv inn autentiseringspassordet som z39.50-databasen bruker. De fleste "
-"tjenerene trenger ikke dette. Passordet blir lagret i ren tekst i Tellicos "
-"oppsettsfil."
-
-#: src/fetch/dvdfrfetcher.cpp:164
-msgid "DVDFr Link"
-msgstr "DVDFr-lenke"
+#: src/fetch/discogsfetcher.cpp:222
+msgid "Discogs Link"
+msgstr "Discogs-lenke"
 
 #: src/fetch/entrezfetcher.cpp:452
 msgid "Entrez Database"
@@ -2583,24 +2477,23 @@ msgstr ""
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 tillater ikke søk for samlinger av denne typen."
 
-#: src/fetch/discogsfetcher.cpp:209
-msgid "Discogs Audio Search"
-msgstr "Discogs lydsøk"
+#: src/fetch/doubanfetcher.cpp:212
+msgid "Douban Link"
+msgstr "Douban-lenke"
 
-#: src/fetch/discogsfetcher.cpp:220
-msgid "Discogs Link"
-msgstr "Discogs-lenke"
+#: src/fetch/doubanfetcher.cpp:213 src/fetch/imdbfetcher.cpp:945
+#: src/fetch/imdbfetcher.cpp:1548 src/fetch/themoviedbfetcher.cpp:251
+msgid "IMDb Link"
+msgstr "IMDb-lenke"
 
-#: src/fetch/winecomfetcher.cpp:229 src/fetch/isbndbfetcher.cpp:257
-#: src/fetch/amazonfetcher.cpp:586
-#, kde-format
-msgid "Results from %1: %2/%3"
-msgstr "Resultater fra %1: %2/%3"
-
-#: src/fetch/freebasefetcher.cpp:227 src/fetch/yahoofetcher.cpp:238
-#: src/fetch/amazonfetcher.cpp:748
+#: src/fetch/yahoofetcher.cpp:240 src/fetch/freebasefetcher.cpp:227
+#: src/fetch/googlebookfetcher.cpp:183 src/fetch/amazonfetcher.cpp:762
 msgid "The cover image could not be loaded."
 msgstr "Omslagsbilde kunne ikke lastes."
+
+#: src/fetch/yahoofetcher.cpp:377
+msgid "Yahoo! Audio Search"
+msgstr "Yahoo! lydsøk"
 
 #: src/fetch/freebasefetcher.cpp:366 src/fetch/freebasefetcher.cpp:586
 msgid "Freebase Link"
@@ -2626,74 +2519,7 @@ msgstr "Velg Gcstar programtillegg som brukes for datakilden."
 msgid "Author: "
 msgstr "Forfatter:"
 
-#: src/fetch/ibsfetcher.cpp:403
-msgid "Internet Bookshop (ibs.it)"
-msgstr "Internet Bookshop (ibs.it)"
-
-#: src/fetch/imdbfetcher.cpp:615
-msgid "Select IMDb Result"
-msgstr "Velg resultat fra IMDb"
-
-#: src/fetch/imdbfetcher.cpp:621
-msgid ""
-"<qt>Your search returned multiple matches. Please select one below.</qt>"
-msgstr ""
-"<qt>Ditt søk returnerte flere treff. Vennligst velg ett treff nedenfor.</qt>"
-
-#: src/fetch/imdbfetcher.cpp:638
-msgid "<qt>Select a search result.</qt>"
-msgstr "<qt>Velg et søkeresultat.</qt>"
-
-#: src/fetch/imdbfetcher.cpp:752 src/fetch/imdbfetcher.cpp:1266
-#: src/fetch/doubanfetcher.cpp:211 src/fetch/themoviedbfetcher.cpp:244
-msgid "IMDb Link"
-msgstr "IMDb-lenke"
-
-#: src/fetch/imdbfetcher.cpp:1070 src/fetch/imdbfetcher.cpp:1267
-msgid "IMDb Rating"
-msgstr "IMDb-karakter"
-
-#: src/fetch/imdbfetcher.cpp:1227 src/fetch/imdbfetcher.cpp:1269
-msgid "Certifications"
-msgstr "Sertifiseringer"
-
-#: src/fetch/imdbfetcher.cpp:1256
-msgid "Internet Movie Database"
-msgstr "Internet filmdatabase (IMDB)"
-
-#: src/fetch/imdbfetcher.cpp:1289
-msgid ""
-"The Internet Movie Database uses several different servers. Choose the one "
-"you wish to use."
-msgstr ""
-"Internett filmdatabasen (IMDB) benytter seg av flere forskjellige tjenere. "
-"Velg den du ønsker å benytte."
-
-#: src/fetch/imdbfetcher.cpp:1295
-msgid "&Maximum cast: "
-msgstr "&Største rolleliste:"
-
-#: src/fetch/imdbfetcher.cpp:1300
-msgid ""
-"The list of cast members may include many people. Set the maximum number "
-"returned from the search."
-msgstr ""
-"Rollelista kan inneholde mange mennesker. Oppgi det høyeste antallet som "
-"returneres fra søket."
-
-#: src/fetch/imdbfetcher.cpp:1305
-msgid "Download cover &image"
-msgstr "Last ned omslagsb&ilde"
-
-#: src/fetch/imdbfetcher.cpp:1309 src/fetch/amazonfetcher.cpp:978
-msgid ""
-"The cover image may be downloaded as well. However, too many large images in "
-"the collection may degrade performance."
-msgstr ""
-"Omslagsbildet kan også lastes ned. Merk at for mange store bilder i samlinga "
-"kan føre til dårligere ytelse."
-
-#: src/fetch/isbndbfetcher.cpp:222
+#: src/fetch/isbndbfetcher.cpp:224
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
@@ -2703,13 +2529,147 @@ msgstr ""
 "kan ha nådd det høyeste antall søk for i dag med denne nøkkelen, eller du "
 "kan ha tastet inn nøkkelen feil.</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:341
+#: src/fetch/isbndbfetcher.cpp:259 src/fetch/winecomfetcher.cpp:230
+#: src/fetch/amazonfetcher.cpp:600
+#, kde-format
+msgid "Results from %1: %2/%3"
+msgstr "Resultater fra %1: %2/%3"
+
+#: src/fetch/isbndbfetcher.cpp:343
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
+
+#: src/fetch/googlebookfetcher.cpp:248 src/fetch/googlebookfetcher.cpp:327
+msgid "Google Book Link"
+msgstr "Lenke til Google Book"
+
+#: src/fetch/googlebookfetcher.cpp:318
+msgid "Google Book Search"
+msgstr "Søk i Google Book"
+
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1538
+msgid "Internet Movie Database"
+msgstr "Internet filmdatabase (IMDB)"
+
+#: src/fetch/imdbfetcher.cpp:123
+msgid "Internet Movie Database (French)"
+msgstr ""
+
+#: src/fetch/imdbfetcher.cpp:150
+msgid "Internet Movie Database (Spanish)"
+msgstr ""
+
+#: src/fetch/imdbfetcher.cpp:177
+msgid "Internet Movie Database (German)"
+msgstr ""
+
+#: src/fetch/imdbfetcher.cpp:204
+msgid "Internet Movie Database (Italian)"
+msgstr ""
+
+#: src/fetch/imdbfetcher.cpp:231
+msgid "Internet Movie Database (Portuguese)"
+msgstr ""
+
+#: src/fetch/imdbfetcher.cpp:804
+msgid "Select IMDb Result"
+msgstr "Velg resultat fra IMDb"
+
+#: src/fetch/imdbfetcher.cpp:810
+msgid ""
+"<qt>Your search returned multiple matches. Please select one below.</qt>"
+msgstr ""
+"<qt>Ditt søk returnerte flere treff. Vennligst velg ett treff nedenfor.</qt>"
+
+#: src/fetch/imdbfetcher.cpp:827
+msgid "<qt>Select a search result.</qt>"
+msgstr "<qt>Velg et søkeresultat.</qt>"
+
+#: src/fetch/imdbfetcher.cpp:1276 src/fetch/imdbfetcher.cpp:1549
+msgid "IMDb Rating"
+msgstr "IMDb-karakter"
+
+#: src/fetch/imdbfetcher.cpp:1421 src/fetch/imdbfetcher.cpp:1509
+#: src/fetch/imdbfetcher.cpp:1551
+msgid "Certifications"
+msgstr "Sertifiseringer"
+
+#: src/fetch/imdbfetcher.cpp:1566 src/fetch/amazonfetcher.cpp:962
+msgid "Country: "
+msgstr "Land: "
+
+#: src/fetch/imdbfetcher.cpp:1569 src/fetch/amazonfetcher.cpp:965
+msgid "United States"
+msgstr "USA"
+
+#: src/fetch/imdbfetcher.cpp:1570 src/fetch/amazonfetcher.cpp:969
+msgid "France"
+msgstr "Frankrike"
+
+#: src/fetch/imdbfetcher.cpp:1571 src/fetch/amazonfetcher.cpp:972
+msgid "Spain"
+msgstr "Spania"
+
+#: src/fetch/imdbfetcher.cpp:1572 src/fetch/amazonfetcher.cpp:967
+msgid "Germany"
+msgstr "Tyskland"
+
+#: src/fetch/imdbfetcher.cpp:1573 src/fetch/amazonfetcher.cpp:973
+msgid "Italy"
+msgstr "Italia"
+
+#: src/fetch/imdbfetcher.cpp:1574
+msgid "Portugal"
+msgstr "Portugal"
+
+#: src/fetch/imdbfetcher.cpp:1578
+msgid ""
+"The Internet Movie Database provides data from several different localized "
+"sites. Choose the one you wish to use for this data source."
+msgstr ""
+
+#: src/fetch/imdbfetcher.cpp:1584 src/fetch/allocinefetcher.cpp:181
+msgid "&Maximum cast: "
+msgstr "&Største rolleliste:"
+
+#: src/fetch/imdbfetcher.cpp:1589 src/fetch/allocinefetcher.cpp:186
+msgid ""
+"The list of cast members may include many people. Set the maximum number "
+"returned from the search."
+msgstr ""
+"Rollelista kan inneholde mange mennesker. Oppgi det høyeste antallet som "
+"returneres fra søket."
+
+#: src/fetch/imdbfetcher.cpp:1594
+msgid "Download cover &image"
+msgstr "Last ned omslagsb&ilde"
+
+#: src/fetch/imdbfetcher.cpp:1598 src/fetch/amazonfetcher.cpp:992
+msgid ""
+"The cover image may be downloaded as well. However, too many large images in "
+"the collection may degrade performance."
+msgstr ""
+"Omslagsbildet kan også lastes ned. Merk at for mange store bilder i samlinga "
+"kan føre til dårligere ytelse."
 
 #: src/fetch/multifetcher.cpp:172
 msgid "Multiple Sources"
 msgstr "Mange kilder"
+
+#: src/fetch/dvdfrfetcher.cpp:166
+msgid "DVDFr Link"
+msgstr "DVDFr-lenke"
+
+#: src/fetch/filmasterfetcher.cpp:69 src/fetch/masfetcher.cpp:74
+#: src/fetch/amazonfetcher.cpp:129 src/fetch/springerfetcher.cpp:60
+#, kde-format
+msgid "This data is licensed under <a href=%1>specific terms</a>."
+msgstr ""
+"Disse dataene er lisensiert under <a href=%1>spesielle betingelser</a>."
+
+#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+msgid "Filmaster Link"
+msgstr "Filmaster-lenke"
 
 #: src/fetch/srufetcher.cpp:438 z3950.cpp:2
 msgid "Library of Congress (US)"
@@ -2718,6 +2678,23 @@ msgstr "Library of Congress (USA)"
 #: src/fetch/srufetcher.cpp:443
 msgid "SRU Server"
 msgstr "SRU-tjener"
+
+#: src/fetch/srufetcher.cpp:469 src/fetch/z3950fetcher.cpp:591
+msgid "Hos&t: "
+msgstr "Ver&t:"
+
+#: src/fetch/srufetcher.cpp:476 src/fetch/z3950fetcher.cpp:597
+msgid "Enter the host name of the server."
+msgstr "Skriv inn vertsnavn på tjeneren."
+
+#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:602
+msgid "&Port: "
+msgstr "&Port:"
+
+#: src/fetch/srufetcher.cpp:486 src/fetch/z3950fetcher.cpp:607
+#, kde-format
+msgid "Enter the port number of the server. The default is %1."
+msgstr "Skriv inn portnummer for tjeneren. Standardport er %1."
 
 #: src/fetch/srufetcher.cpp:491
 msgid "Path: "
@@ -2744,10 +2721,6 @@ msgstr "Mottok ugyldig XML.-oppmerking: %1 ved %2:%3"
 msgid "Unknown type of XML markup received"
 msgstr "Ukjent type XML-oppmerkoing mottatt"
 
-#: src/fetch/yahoofetcher.cpp:375
-msgid "Yahoo! Audio Search"
-msgstr "Yahoo! lydsøk"
-
 #: src/fetch/z3950connection.cpp:175
 msgid "Query error!"
 msgstr "Feil i spørringen"
@@ -2766,39 +2739,35 @@ msgstr "Syntaksfeil"
 msgid "Connection error %1: %2"
 msgstr "Forbindelsesfeil %1: %2"
 
-#: src/fetch/doubanfetcher.cpp:210
-msgid "Douban Link"
-msgstr "Douban-lenke"
-
-#: src/fetch/themoviedbfetcher.cpp:243
+#: src/fetch/themoviedbfetcher.cpp:250
 msgid "TMDb Link"
 msgstr "TMDb-lenke"
 
-#: src/fetch/themoviedbfetcher.cpp:281
+#: src/fetch/themoviedbfetcher.cpp:288
 msgid "Language: "
 msgstr "Språk: "
 
-#: src/fetch/themoviedbfetcher.cpp:284
+#: src/fetch/themoviedbfetcher.cpp:291
 msgctxt "Language"
 msgid "English"
 msgstr "Engelsk"
 
-#: src/fetch/themoviedbfetcher.cpp:285
+#: src/fetch/themoviedbfetcher.cpp:292
 msgctxt "Language"
 msgid "French"
 msgstr "Fransk"
 
-#: src/fetch/themoviedbfetcher.cpp:286
+#: src/fetch/themoviedbfetcher.cpp:293
 msgctxt "Language"
 msgid "German"
 msgstr "Tysk"
 
-#: src/fetch/themoviedbfetcher.cpp:287
+#: src/fetch/themoviedbfetcher.cpp:294
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Spansk"
 
-#: src/fetch/themoviedbfetcher.cpp:318
+#: src/fetch/themoviedbfetcher.cpp:325
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
@@ -2843,7 +2812,7 @@ msgstr "Amazon (Spania)"
 msgid "Amazon (Italy)"
 msgstr "Amazon (Italia)"
 
-#: src/fetch/amazonfetcher.cpp:212 src/fetch/amazonfetcher.cpp:933
+#: src/fetch/amazonfetcher.cpp:212 src/fetch/amazonfetcher.cpp:947
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
 "Key."
@@ -2855,55 +2824,31 @@ msgstr ""
 msgid "Those values must be entered in the data source settings."
 msgstr "De verdiene må oppgis i innstillingene for datakilde."
 
-#: src/fetch/amazonfetcher.cpp:890
+#: src/fetch/amazonfetcher.cpp:904
 msgid "Amazon.com Web Services"
 msgstr "Amazon.coms nettjenester"
 
-#: src/fetch/amazonfetcher.cpp:938
+#: src/fetch/amazonfetcher.cpp:952
 msgid "Secret key: "
 msgstr "Hemmelig nøkkel: "
 
-#: src/fetch/amazonfetcher.cpp:948
-msgid "Country: "
-msgstr "Land: "
-
-#: src/fetch/amazonfetcher.cpp:951
-msgid "United States"
-msgstr "USA"
-
-#: src/fetch/amazonfetcher.cpp:952
+#: src/fetch/amazonfetcher.cpp:966
 msgid "United Kingdom"
 msgstr "Storbritannia"
 
-#: src/fetch/amazonfetcher.cpp:953
-msgid "Germany"
-msgstr "Tyskland"
-
-#: src/fetch/amazonfetcher.cpp:954
+#: src/fetch/amazonfetcher.cpp:968
 msgid "Japan"
 msgstr "Japan"
 
-#: src/fetch/amazonfetcher.cpp:955
-msgid "France"
-msgstr "Frankrike"
-
-#: src/fetch/amazonfetcher.cpp:956
+#: src/fetch/amazonfetcher.cpp:970
 msgid "Canada"
 msgstr "Canada"
 
-#: src/fetch/amazonfetcher.cpp:957
+#: src/fetch/amazonfetcher.cpp:971
 msgid "China"
 msgstr "Kina"
 
-#: src/fetch/amazonfetcher.cpp:958
-msgid "Spain"
-msgstr "Spania"
-
-#: src/fetch/amazonfetcher.cpp:959
-msgid "Italy"
-msgstr "Italia"
-
-#: src/fetch/amazonfetcher.cpp:963
+#: src/fetch/amazonfetcher.cpp:977
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
 "one you wish to use for this data source."
@@ -2911,37 +2856,51 @@ msgstr ""
 "Amazon.com tilbyr data fra flere lokaliserte steder. Velg ett sted du vil "
 "bruke som datakilde."
 
-#: src/fetch/amazonfetcher.cpp:969
+#: src/fetch/amazonfetcher.cpp:983
 msgid "&Image size: "
 msgstr "B&ildestørrelse:"
 
-#: src/fetch/amazonfetcher.cpp:972
+#: src/fetch/amazonfetcher.cpp:986
 msgid "Small Image"
 msgstr "Lite bilde"
 
-#: src/fetch/amazonfetcher.cpp:973
+#: src/fetch/amazonfetcher.cpp:987
 msgid "Medium Image"
 msgstr "Middelstort bilde"
 
-#: src/fetch/amazonfetcher.cpp:974
+#: src/fetch/amazonfetcher.cpp:988
 msgid "Large Image"
 msgstr "Stort bilde"
 
-#: src/fetch/amazonfetcher.cpp:975
+#: src/fetch/amazonfetcher.cpp:989
 msgid "No Image"
 msgstr "Ingen bilder"
 
-#: src/fetch/amazonfetcher.cpp:984
+#: src/fetch/amazonfetcher.cpp:998
 msgid "&Associate's ID: "
 msgstr "&Brukers ID:"
 
-#: src/fetch/amazonfetcher.cpp:989
+#: src/fetch/amazonfetcher.cpp:1003
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
 "Services, and is included in any links to the Amazon.com site."
 msgstr ""
 "Brukers ID identifiserer personen som aksesserer nettjenesten til Amazon."
 "com, og er medregnet i lenker til Amazon.coms nettsted."
+
+#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/z3950fetcher.cpp:567
+msgid "Illustrator"
+msgstr "Illustratør"
+
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/z3950fetcher.cpp:568
+msgctxt "Dewey Decimal classification system"
+msgid "Dewey Decimal"
+msgstr "Dewey Desimalt"
+
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/z3950fetcher.cpp:569
+msgctxt "Library of Congress classification system"
+msgid "LoC Classification"
+msgstr "LoC-klassifisering"
 
 #: src/fetch/moviemeterfetcher.cpp:246 src/fetch/moviemeterfetcher.cpp:359
 msgid "MovieMeter Link"
@@ -2950,6 +2909,120 @@ msgstr "MovieMeter-lenke"
 #: src/fetch/openlibraryfetcher.cpp:282 src/fetch/openlibraryfetcher.cpp:417
 msgid "OpenLibrary Link"
 msgstr "Åpne bibliotekslenke"
+
+#: src/fetch/ibsfetcher.cpp:435
+msgid "Internet Bookshop (ibs.it)"
+msgstr "Internet Bookshop (ibs.it)"
+
+#: src/fetch/z3950fetcher.cpp:555 src/fetch/z3950fetcher.cpp:839
+msgid "z39.50 Server"
+msgstr "z39.50-tjener"
+
+#: src/fetch/z3950fetcher.cpp:581
+msgid "Use preset &server:"
+msgstr "Bruk forhånd&sinnstilt tjener:"
+
+#: src/fetch/z3950fetcher.cpp:612
+msgid "&Database: "
+msgstr "&Database:"
+
+#: src/fetch/z3950fetcher.cpp:617
+msgid "Enter the database name used by the server."
+msgstr "Skriv inn databasenavnet som tjeneren bruker. "
+
+#: src/fetch/z3950fetcher.cpp:622
+msgid "Ch&aracter set: "
+msgstr "T&egnsett:"
+
+#: src/fetch/z3950fetcher.cpp:631
+msgid ""
+"Enter the character set encoding used by the z39.50 server. The most likely "
+"choice is MARC-8, although ISO-8859-1 is common as well."
+msgstr ""
+"Skriv inn tegnsettet brukt av z39.50-tjeneren. Det mest sannsynlige valget "
+"er MARC-8, selv om ISO-8859-1 også er vanlig."
+
+#: src/fetch/z3950fetcher.cpp:637
+msgid "&Format: "
+msgstr "&Format:"
+
+#: src/fetch/z3950fetcher.cpp:640
+msgid "Auto-detect"
+msgstr "Finn ut automatisk"
+
+#: src/fetch/z3950fetcher.cpp:649
+msgid ""
+"Enter the data format used by the z39.50 server. Tellico will attempt to "
+"automatically detect the best setting if <i>auto-detect</i> is selected."
+msgstr ""
+"Oppgi dataformatet som z39.50-tjeneren bruker. Tellico vil forsøke å finne "
+"den beste innstillinga automatisk hvis <i>Finn ut automatisk</i> er valgt."
+
+#: src/fetch/z3950fetcher.cpp:655
+msgid "&User: "
+msgstr "Br&uker:"
+
+#: src/fetch/z3950fetcher.cpp:658 src/fetch/z3950fetcher.cpp:670
+msgid "Optional"
+msgstr "Valgfri"
+
+#: src/fetch/z3950fetcher.cpp:661
+msgid ""
+"Enter the authentication user name used by the z39.50 database. Most servers "
+"do not need one."
+msgstr ""
+"Skriv inn autentiseringsnavnet brukt av z39.50-tjeneren. De fleste tjenerne "
+"trenger ikke dette."
+
+#: src/fetch/z3950fetcher.cpp:667
+msgid "Pass&word: "
+msgstr "Pass&ord:"
+
+#: src/fetch/z3950fetcher.cpp:674
+msgid ""
+"Enter the authentication password used by the z39.50 database. Most servers "
+"do not need one. The password will be saved in plain text in the Tellico "
+"configuration file."
+msgstr ""
+"Skriv inn autentiseringspassordet som z39.50-databasen bruker. De fleste "
+"tjenerene trenger ikke dette. Passordet blir lagret i ren tekst i Tellicos "
+"oppsettsfil."
+
+#: src/fetch/allocinefetcher.cpp:225
+msgid "Allocine Link"
+msgstr ""
+
+#: src/fetch/fetchmanager.cpp:70
+msgid "Person"
+msgstr "Person"
+
+#: src/fetch/fetchmanager.cpp:71
+msgid "ISBN"
+msgstr "ISBN-nummer"
+
+#: src/fetch/fetchmanager.cpp:72
+msgid "UPC/EAN"
+msgstr "UPC/EAN"
+
+#: src/fetch/fetchmanager.cpp:73
+msgid "Keyword"
+msgstr "Nøkkelord"
+
+#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
+msgid "arXiv ID"
+msgstr "arXiv ID"
+
+#: src/fetch/fetchmanager.cpp:76
+msgid "PubMed ID"
+msgstr "Pubmed ID"
+
+#: src/fetch/fetchmanager.cpp:77
+msgid "LCCN"
+msgstr "LCCN"
+
+#: src/fetch/fetchmanager.cpp:78
+msgid "Raw Query"
+msgstr "Uformattert forespørsel"
 
 #: src/fetcherconfigdialog.cpp:72
 msgid "Data Source Properties"
@@ -3061,40 +3134,6 @@ msgctxt "Edit Label"
 msgid "%1:"
 msgstr "%1:"
 
-#: src/gui/imagewidget.cpp:93
-msgid "Select Image..."
-msgstr "Velg bilde …"
-
-#: src/gui/imagewidget.cpp:97
-msgid "Scan Image..."
-msgstr "Skann bilde …"
-
-#: src/gui/imagewidget.cpp:105
-msgid "Open With..."
-msgstr "Åpne med …"
-
-#: src/gui/imagewidget.cpp:136
-msgctxt "Clear image"
-msgid "Clear"
-msgstr "Tøm"
-
-#: src/gui/imagewidget.cpp:142
-msgid "Save link only"
-msgstr "Lagre bare lenke"
-
-#: src/gui/imagewidget.cpp:250
-msgid "Opening the selected scanner failed."
-msgstr "Det lyktes ikke å åpne den valgte skanneren!"
-
-#: src/gui/imagewidget.cpp:311
-#, kde-format
-msgid "Opening image in %1..."
-msgstr "Åpner bilde i %1 …"
-
-#: src/gui/imagewidget.cpp:341
-msgid "Saving a link is only possible for newly added images."
-msgstr "Lenke kan bare lagres for bilder som nylig er lagt til."
-
 #: src/gui/kwidgetlister.cpp:63
 msgctxt "more widgets"
 msgid "More"
@@ -3108,32 +3147,6 @@ msgstr "Færre"
 #: src/gui/previewdialog.cpp:40
 msgid "Template Preview"
 msgstr "Forhåndsvis mal"
-
-#: src/gui/statusbar.cpp:69
-msgid "Cancel"
-msgstr "Avbryt"
-
-#: src/gui/statusbar.cpp:74
-msgid "Decrease the maximum icon size in the icon list view"
-msgstr "Minsk største ikonstørrelse i ikonlistevisningen"
-
-#: src/gui/statusbar.cpp:85 src/gui/statusbar.cpp:176
-#, kde-format
-msgid ""
-"The current maximum icon size is %1.\n"
-"Move the slider to change it."
-msgstr ""
-"Gjeldende største ikonstørrelse er %1.\n"
-"Flytt glidebryteren for å endre den."
-
-#: src/gui/statusbar.cpp:91
-msgid "Increase the maximum icon size in the icon list view"
-msgstr "Øk største ikonstørrelse i ikonlistevisningen"
-
-#: src/gui/statusbar.cpp:125 src/fetchdialog.cpp:276 src/fetchdialog.cpp:368
-#: src/fetchdialog.cpp:458 src/fetchdialog.cpp:527 src/controller.cpp:142
-msgid "Ready."
-msgstr "Klar."
 
 #: src/gui/stringmapdialog.cpp:66
 msgctxt "set a value"
@@ -3181,6 +3194,66 @@ msgstr "Flytt rad opp"
 #: src/gui/tablefieldwidget.cpp:261
 msgid "Move Row Down"
 msgstr "Flytt rad ned"
+
+#: src/gui/imagewidget.cpp:95
+msgid "Select Image..."
+msgstr "Velg bilde …"
+
+#: src/gui/imagewidget.cpp:100
+msgid "Scan Image..."
+msgstr "Skann bilde …"
+
+#: src/gui/imagewidget.cpp:109
+msgid "Open With..."
+msgstr "Åpne med …"
+
+#: src/gui/imagewidget.cpp:143
+msgctxt "Clear image"
+msgid "Clear"
+msgstr "Tøm"
+
+#: src/gui/imagewidget.cpp:150
+msgid "Save link only"
+msgstr "Lagre bare lenke"
+
+#: src/gui/imagewidget.cpp:269
+msgid "Opening the selected scanner failed."
+msgstr "Det lyktes ikke å åpne den valgte skanneren!"
+
+#: src/gui/imagewidget.cpp:322
+#, kde-format
+msgid "Opening image in %1..."
+msgstr "Åpner bilde i %1 …"
+
+#: src/gui/imagewidget.cpp:352
+msgid "Saving a link is only possible for newly added images."
+msgstr "Lenke kan bare lagres for bilder som nylig er lagt til."
+
+#: src/gui/statusbar.cpp:69
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/gui/statusbar.cpp:74
+msgid "Decrease the maximum icon size in the icon list view"
+msgstr "Minsk største ikonstørrelse i ikonlistevisningen"
+
+#: src/gui/statusbar.cpp:85 src/gui/statusbar.cpp:176
+#, kde-format
+msgid ""
+"The current maximum icon size is %1.\n"
+"Move the slider to change it."
+msgstr ""
+"Gjeldende største ikonstørrelse er %1.\n"
+"Flytt glidebryteren for å endre den."
+
+#: src/gui/statusbar.cpp:91
+msgid "Increase the maximum icon size in the icon list view"
+msgstr "Øk største ikonstørrelse i ikonlistevisningen"
+
+#: src/gui/statusbar.cpp:125 src/fetchdialog.cpp:279 src/fetchdialog.cpp:371
+#: src/fetchdialog.cpp:491 src/fetchdialog.cpp:560 src/controller.cpp:142
+msgid "Ready."
+msgstr "Klar."
 
 #: src/gui/kdatecombobox.cpp:145
 msgctxt "@option next year"
@@ -3248,93 +3321,6 @@ msgstr "Datoen kan ikke være tidligere enn %1"
 msgctxt "@info"
 msgid "Date cannot be later than %1"
 msgstr "Datoen kan ikke være senere enn %1"
-
-#: src/importdialog.cpp:68 src/importdialog.cpp:74
-msgid "Import Options"
-msgstr "Valg for import"
-
-#: src/importdialog.cpp:78
-msgid "&Replace current collection"
-msgstr "&Bytt ut gjeldende samling"
-
-#: src/importdialog.cpp:79
-msgid "Replace the current collection with the contents of the imported file."
-msgstr ""
-"Bytter ut den gjeldende samlinga med innholdet fra den importerte fila."
-
-#: src/importdialog.cpp:81
-msgid "A&ppend to current collection"
-msgstr "Le&gg til den gjeldende samlinga"
-
-#: src/importdialog.cpp:82
-msgid ""
-"Append the contents of the imported file to the current collection. This is "
-"only possible when the collection types match."
-msgstr ""
-"Legg til innholdet av den importerte samlinga. Dette er bare mulig når "
-"samlingene er av samme type."
-
-#: src/importdialog.cpp:85
-msgid "&Merge with current collection"
-msgstr "Flett &med gjeldende samling"
-
-#: src/importdialog.cpp:86
-msgid ""
-"Merge the contents of the imported file to the current collection. This is "
-"only possible when the collection types match. Entries must match exactly in "
-"order to be merged."
-msgstr ""
-"Flett inn innholdet av den importerte samlinga. Dette er bare mulig når "
-"samlingene er av samme type. Innslag må stemme eksakt for å kunne flettes "
-"inn."
-
-#. i18n: file: src/tellicoui.rc:24
-#. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:121 src/mainwindow.cpp:318 rc.cpp:280
-msgid "&Import"
-msgstr "&Importer"
-
-#: src/importdialog.cpp:284 src/translators/tellicozipexporter.cpp:56
-#: src/mainwindow.cpp:1063 src/mainwindow.cpp:1230
-msgid "*.tc *.bc|Tellico Files (*.tc)"
-msgstr "*.tc *.bc|Tellico filer (*.tc)"
-
-#: src/importdialog.cpp:285 src/importdialog.cpp:298 src/importdialog.cpp:303
-#: src/translators/tellicoxmlexporter.cpp:70 src/mainwindow.cpp:1065
-msgid "*.xml|XML Files (*.xml)"
-msgstr "*.xml|XML filer (*.xml)"
-
-#: src/importdialog.cpp:289 src/translators/bibtexexporter.cpp:61
-msgid "*.bib|Bibtex Files (*.bib)"
-msgstr "*.bib|Bibtex filer (*.bib)"
-
-#: src/importdialog.cpp:293 src/translators/csvexporter.cpp:59
-msgid "*.csv|CSV Files (*.csv)"
-msgstr "*.csv|CSV filer (*.csv)"
-
-#: src/importdialog.cpp:307
-msgid "*.ris|RIS Files (*.ris)"
-msgstr "*.ris|RIS filer (*.ris)"
-
-#: src/importdialog.cpp:311 src/translators/gcstarexporter.cpp:60
-msgid "*.gcs|GCstar Data Files (*.gcs)"
-msgstr "*.gcs|GCstar datafiler (*.gcs)"
-
-#: src/importdialog.cpp:312
-msgid "*.gcf|GCfilms Data Files (*.gcf)"
-msgstr "*.gcf|GCfilms datafiler (*.gcf)"
-
-#: src/importdialog.cpp:316
-msgid "*.amc|AMC Data Files (*.amc)"
-msgstr "*.amc|AMC datafiler (*.amc)"
-
-#: src/importdialog.cpp:320
-msgid "*.pdf|PDF Files (*.pdf)"
-msgstr "*.pdf|PDF-filer (*.pdf)"
-
-#: src/importdialog.cpp:324
-msgid "*.reflib|Referencer Files (*.reflib)"
-msgstr "*.reflib|Referencer-filer (*.reflib)"
 
 #: src/loanview.cpp:118
 msgid "Check-in"
@@ -3512,6 +3498,173 @@ msgstr "Velg verdi fra %1"
 msgid "Saving file..."
 msgstr "Lagrer fila …"
 
+#: src/fetchdialog.cpp:82
+msgid "&Search"
+msgstr "&Søk"
+
+#: src/fetchdialog.cpp:83
+msgid "&Stop"
+msgstr "&Stopp"
+
+#: src/fetchdialog.cpp:129
+msgid "Internet Search"
+msgstr "Internettsøk"
+
+#: src/fetchdialog.cpp:138
+msgid "Search Query"
+msgstr "Søkeforespørsel"
+
+#: src/fetchdialog.cpp:146
+msgctxt "Start the search"
+msgid "S&earch:"
+msgstr "Sø&k:"
+
+#: src/fetchdialog.cpp:150
+msgid "Enter a search value. An ISBN search must include the full ISBN."
+msgstr ""
+"Skriv inn en søkeverdi. Et ISBN-søk må inneholde det fullstendige ISBN-"
+"nummeret."
+
+#: src/fetchdialog.cpp:157
+msgid "Choose the type of search"
+msgstr "Velg søketype"
+
+#: src/fetchdialog.cpp:163
+msgid "Click to start or stop the search"
+msgstr "Klikk for å starte eller stoppe søket"
+
+#: src/fetchdialog.cpp:181
+msgid "&Multiple ISBN/UPC search"
+msgstr "Søk etter &flere ISBN/UPC-nummer"
+
+#: src/fetchdialog.cpp:182
+msgid "Check this box to search for multiple ISBN or UPC values."
+msgstr "Kryss av i boksen for å søke etter flere ISBN eller UPC-nummer."
+
+#: src/fetchdialog.cpp:185
+msgid "Edit ISBN/UPC values..."
+msgstr "Endre ISBN/UPC-verdier …"
+
+#: src/fetchdialog.cpp:187
+msgid ""
+"Click to open a text edit box for entering or editing multiple ISBN or UPC "
+"values."
+msgstr ""
+"Klikk for å åpne en tekstboks for å skrive inn flere eller endre ISBN- eller "
+"UPC-verdier."
+
+#: src/fetchdialog.cpp:193
+msgid "Search s&ource:"
+msgstr "Søkek&ilde:"
+
+#: src/fetchdialog.cpp:201
+msgid "Select the database to search"
+msgstr "Velg database å søke i"
+
+#: src/fetchdialog.cpp:218
+msgid "Source"
+msgstr "Kilde"
+
+#: src/fetchdialog.cpp:229
+msgid ""
+"As results are found, they are added to this list. Selecting one will fetch "
+"the complete entry and show it in the view below."
+msgstr ""
+"Etterhvert som man får resultater vil disse bli lagt til i lista. Å velge "
+"ett treff vil hente alle data om treffet og vise informasjonen under."
+
+#: src/fetchdialog.cpp:238
+msgid ""
+"An entry may be shown here before adding it to the current collection by "
+"selecting it in the list above"
+msgstr ""
+"Et treff kan bli vist her før man legger det inn i samlinga ved å klikke på "
+"treffet i lista over"
+
+#: src/fetchdialog.cpp:245
+msgid "&Add Entry"
+msgstr "&Legg til innslag"
+
+#: src/fetchdialog.cpp:249
+msgid "Add the selected entry to the current collection"
+msgstr "Legg valgt innslag til i den gjeldende samlinga"
+
+#: src/fetchdialog.cpp:251
+msgid "Get More Results"
+msgstr "Hent flere resultater"
+
+#: src/fetchdialog.cpp:254
+msgid "Fetch more results from the current data source"
+msgstr "Hent flere resultater fra gjendende datakilde"
+
+#: src/fetchdialog.cpp:258
+msgid "Clear all search fields and results"
+msgstr "Tøm alle søkefelter og søkeresultater"
+
+#: src/fetchdialog.cpp:340
+msgid "Cancelling the search..."
+msgstr "Avbryter søket …"
+
+#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:515
+msgid "Searching..."
+msgstr "Søker …"
+
+#: src/fetchdialog.cpp:406
+msgid "The search returned no items."
+msgstr "Søket ga ingen treff."
+
+#: src/fetchdialog.cpp:409
+#, kde-format
+msgid "The search returned 1 item."
+msgid_plural "The search returned %1 items."
+msgstr[0] "Søket ga 1 treff."
+msgstr[1] "Søket ga %1 treff."
+
+#: src/fetchdialog.cpp:433
+msgid "No results were found for the following ISBN values:"
+msgstr "Ingen treff for søk etter følgende ISBN-nummer:"
+
+#: src/fetchdialog.cpp:435
+msgid "No Results"
+msgstr "Ingen resultater"
+
+#: src/fetchdialog.cpp:483 src/fetchdialog.cpp:538
+#, kde-format
+msgid "Fetching %1..."
+msgstr "Henter %1 …"
+
+#: src/fetchdialog.cpp:550
+msgid "Attribution"
+msgstr "Tilskrivelse"
+
+#: src/fetchdialog.cpp:582 src/fetchdialog.cpp:793
+msgid "No Internet sources are available for your current collection type."
+msgstr "Ingen nettkilder er tilgjengelige for din nåværende samlingstype."
+
+#: src/fetchdialog.cpp:664
+msgid "Edit ISBN/UPC Values"
+msgstr "Endre ISBN/UPC-nummer"
+
+#: src/fetchdialog.cpp:669
+msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
+msgstr "<qt>Skriv inn ISBN- eller UPC-nummer, ett nummer per linje.</qt>"
+
+#: src/fetchdialog.cpp:681
+msgid "&Load From File..."
+msgstr "&Last inn fra fil …"
+
+#: src/fetchdialog.cpp:682
+msgid "<qt>Load the list from a text file.</qt>"
+msgstr "<qt>Last inn lista fra en tekstfil</qt>"
+
+#: src/fetchdialog.cpp:701
+msgid ""
+"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
+"100 values in your list will be used.</qt>"
+msgstr ""
+"<qt>Et søk etter ISBN-nummer kan maksimalt innholde 100 verdier. Bare de 100 "
+"første verdiene i listen vil bli brukt.</qt>"
+
 #: src/translators/audiofileimporter.cpp:78
 msgid "Scanning audio files..."
 msgstr "Skanner lydfiler …"
@@ -3531,7 +3684,7 @@ msgstr "Bitrate"
 msgid "Tracks (Disc %1)"
 msgstr "Spor (plate %1)"
 
-#: src/translators/audiofileimporter.cpp:242 xslt.cpp:6
+#: src/translators/audiofileimporter.cpp:242 xslt.cpp:4
 msgid "(Various)"
 msgstr "(Diverse)"
 
@@ -4115,72 +4268,6 @@ msgid ""
 msgstr ""
 "<qt><i>Ikon</i> viser hvert innslag eller gruppe i samlingen som et ikon. "
 "Dette kan være et bilde i innslaget.</qt>"
-
-#: src/filterdialog.cpp:83
-msgid "Any Field"
-msgstr "Uansett felt"
-
-#: src/filterdialog.cpp:113
-msgid "Edit..."
-msgstr "Endre …"
-
-#: src/filterdialog.cpp:255 src/filterdialog.cpp:264
-msgid "equals"
-msgstr "er lik"
-
-#: src/filterdialog.cpp:256 src/filterdialog.cpp:265
-msgid "does not equal"
-msgstr "er ikke lik"
-
-#: src/filterdialog.cpp:257 src/filterdialog.cpp:266
-msgid "matches regexp"
-msgstr "treffer regulært uttrykk"
-
-#: src/filterdialog.cpp:258 src/filterdialog.cpp:267
-msgid "does not match regexp"
-msgstr "treffer ikke regulært uttrykk"
-
-#: src/filterdialog.cpp:259
-msgctxt "is before a date"
-msgid "is before"
-msgstr "er før"
-
-#: src/filterdialog.cpp:260
-msgctxt "is after a date"
-msgid "is after"
-msgstr "er etter"
-
-#: src/filterdialog.cpp:262
-msgid "contains"
-msgstr "inneholder"
-
-#: src/filterdialog.cpp:263
-msgid "does not contain"
-msgstr "inneholder ikke"
-
-#: src/filterdialog.cpp:355
-msgid "Advanced Filter"
-msgstr "Avansert filter"
-
-#: src/filterdialog.cpp:367
-msgid "Filter Criteria"
-msgstr "Filterkriterie"
-
-#: src/filterdialog.cpp:371
-msgid "Match a&ll of the following"
-msgstr "Treff på a&lle"
-
-#: src/filterdialog.cpp:372
-msgid "Match an&y of the following"
-msgstr "Treff på e&n eller flere"
-
-#: src/filterdialog.cpp:391
-msgid "Filter name:"
-msgstr "Filternavn:"
-
-#: src/filterdialog.cpp:400
-msgid "&Save Filter"
-msgstr "&Lagre filter"
 
 #: src/mainwindow.cpp:237
 msgid "Create a new collection"
@@ -4833,6 +4920,10 @@ msgstr ""
 "Dette dokumentet er endret.\n"
 "Vil du lagre?"
 
+#: src/mainwindow.cpp:992 src/entryeditdialog.cpp:650
+msgid "Unsaved Changes"
+msgstr "Ulagrede endringer"
+
 #: src/mainwindow.cpp:1027
 msgid "Creating new document..."
 msgstr "Lager nytt dokument …"
@@ -4986,7 +5077,7 @@ msgstr ""
 msgid "Update entry data from %1"
 msgstr "Oppdater innslagsdata fra %1"
 
-#: src/mainwindow.cpp:2173
+#: src/mainwindow.cpp:2174
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -5065,173 +5156,6 @@ msgstr ""
 "aktive kalender, som du kan se med KOrganizer. Boksen er bare aktiv hvis du "
 "har oppgitt en forfallsdato.</qt>"
 
-#: src/fetchdialog.cpp:82
-msgid "&Search"
-msgstr "&Søk"
-
-#: src/fetchdialog.cpp:83
-msgid "&Stop"
-msgstr "&Stopp"
-
-#: src/fetchdialog.cpp:128
-msgid "Internet Search"
-msgstr "Internettsøk"
-
-#: src/fetchdialog.cpp:137
-msgid "Search Query"
-msgstr "Søkeforespørsel"
-
-#: src/fetchdialog.cpp:145
-msgctxt "Start the search"
-msgid "S&earch:"
-msgstr "Sø&k:"
-
-#: src/fetchdialog.cpp:149
-msgid "Enter a search value. An ISBN search must include the full ISBN."
-msgstr ""
-"Skriv inn en søkeverdi. Et ISBN-søk må inneholde det fullstendige ISBN-"
-"nummeret."
-
-#: src/fetchdialog.cpp:156
-msgid "Choose the type of search"
-msgstr "Velg søketype"
-
-#: src/fetchdialog.cpp:162
-msgid "Click to start or stop the search"
-msgstr "Klikk for å starte eller stoppe søket"
-
-#: src/fetchdialog.cpp:180
-msgid "&Multiple ISBN/UPC search"
-msgstr "Søk etter &flere ISBN/UPC-nummer"
-
-#: src/fetchdialog.cpp:181
-msgid "Check this box to search for multiple ISBN or UPC values."
-msgstr "Kryss av i boksen for å søke etter flere ISBN eller UPC-nummer."
-
-#: src/fetchdialog.cpp:184
-msgid "Edit ISBN/UPC values..."
-msgstr "Endre ISBN/UPC-verdier …"
-
-#: src/fetchdialog.cpp:186
-msgid ""
-"Click to open a text edit box for entering or editing multiple ISBN or UPC "
-"values."
-msgstr ""
-"Klikk for å åpne en tekstboks for å skrive inn flere eller endre ISBN- eller "
-"UPC-verdier."
-
-#: src/fetchdialog.cpp:192
-msgid "Search s&ource:"
-msgstr "Søkek&ilde:"
-
-#: src/fetchdialog.cpp:200
-msgid "Select the database to search"
-msgstr "Velg database å søke i"
-
-#: src/fetchdialog.cpp:216
-msgid "Source"
-msgstr "Kilde"
-
-#: src/fetchdialog.cpp:226
-msgid ""
-"As results are found, they are added to this list. Selecting one will fetch "
-"the complete entry and show it in the view below."
-msgstr ""
-"Etterhvert som man får resultater vil disse bli lagt til i lista. Å velge "
-"ett treff vil hente alle data om treffet og vise informasjonen under."
-
-#: src/fetchdialog.cpp:235
-msgid ""
-"An entry may be shown here before adding it to the current collection by "
-"selecting it in the list above"
-msgstr ""
-"Et treff kan bli vist her før man legger det inn i samlinga ved å klikke på "
-"treffet i lista over"
-
-#: src/fetchdialog.cpp:242
-msgid "&Add Entry"
-msgstr "&Legg til innslag"
-
-#: src/fetchdialog.cpp:246
-msgid "Add the selected entry to the current collection"
-msgstr "Legg valgt innslag til i den gjeldende samlinga"
-
-#: src/fetchdialog.cpp:248
-msgid "Get More Results"
-msgstr "Hent flere resultater"
-
-#: src/fetchdialog.cpp:251
-msgid "Fetch more results from the current data source"
-msgstr "Hent flere resultater fra gjendende datakilde"
-
-#: src/fetchdialog.cpp:255
-msgid "Clear all search fields and results"
-msgstr "Tøm alle søkefelter og søkeresultater"
-
-#: src/fetchdialog.cpp:337
-msgid "Cancelling the search..."
-msgstr "Avbryter søket …"
-
-#: src/fetchdialog.cpp:348 src/fetchdialog.cpp:482
-msgid "Searching..."
-msgstr "Søker …"
-
-#: src/fetchdialog.cpp:403
-msgid "The search returned no items."
-msgstr "Søket ga ingen treff."
-
-#: src/fetchdialog.cpp:406
-#, kde-format
-msgid "The search returned 1 item."
-msgid_plural "The search returned %1 items."
-msgstr[0] "Søket ga 1 treff."
-msgstr[1] "Søket ga %1 treff."
-
-#: src/fetchdialog.cpp:429
-msgid "No results were found for the following ISBN values:"
-msgstr "Ingen treff for søk etter følgende ISBN-nummer:"
-
-#: src/fetchdialog.cpp:430
-msgid "No Results"
-msgstr "Ingen resultater"
-
-#: src/fetchdialog.cpp:450 src/fetchdialog.cpp:505
-#, kde-format
-msgid "Fetching %1..."
-msgstr "Henter %1 …"
-
-#: src/fetchdialog.cpp:517
-msgid "Attribution"
-msgstr "Tilskrivelse"
-
-#: src/fetchdialog.cpp:549 src/fetchdialog.cpp:751
-msgid "No Internet sources are available for your current collection type."
-msgstr "Ingen nettkilder er tilgjengelige for din nåværende samlingstype."
-
-#: src/fetchdialog.cpp:631
-msgid "Edit ISBN/UPC Values"
-msgstr "Endre ISBN/UPC-nummer"
-
-#: src/fetchdialog.cpp:636
-msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
-msgstr "<qt>Skriv inn ISBN- eller UPC-nummer, ett nummer per linje.</qt>"
-
-#: src/fetchdialog.cpp:648
-msgid "&Load From File..."
-msgstr "&Last inn fra fil …"
-
-#: src/fetchdialog.cpp:649
-msgid "<qt>Load the list from a text file.</qt>"
-msgstr "<qt>Last inn lista fra en tekstfil</qt>"
-
-#: src/fetchdialog.cpp:668
-msgid ""
-"<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
-"100 values in your list will be used.</qt>"
-msgstr ""
-"<qt>Et søk etter ISBN-nummer kan maksimalt innholde 100 verdier. Bare de 100 "
-"første verdiene i listen vil bli brukt.</qt>"
-
 #: src/controller.cpp:375
 msgid "Do you really want to delete this entry?"
 msgstr "Er du sikker på at du vil slette dette innslaget?"
@@ -5273,6 +5197,118 @@ msgstr ""
 "De følgende gjenstandene er allerede lånt ut, men Tellico støtter ikke ennå "
 "flere samtidige utlån for en og samme gjenstand. De blir fjernet fra lista "
 "over gjenstander som kan lånes ut."
+
+#: src/filterdialog.cpp:83
+msgid "Any Field"
+msgstr "Uansett felt"
+
+#: src/filterdialog.cpp:114
+msgid "Edit..."
+msgstr "Endre …"
+
+#: src/filterdialog.cpp:270 src/filterdialog.cpp:279
+msgid "equals"
+msgstr "er lik"
+
+#: src/filterdialog.cpp:271 src/filterdialog.cpp:280
+msgid "does not equal"
+msgstr "er ikke lik"
+
+#: src/filterdialog.cpp:272 src/filterdialog.cpp:281
+msgid "matches regexp"
+msgstr "treffer regulært uttrykk"
+
+#: src/filterdialog.cpp:273 src/filterdialog.cpp:282
+msgid "does not match regexp"
+msgstr "treffer ikke regulært uttrykk"
+
+#: src/filterdialog.cpp:274
+msgctxt "is before a date"
+msgid "is before"
+msgstr "er før"
+
+#: src/filterdialog.cpp:275
+msgctxt "is after a date"
+msgid "is after"
+msgstr "er etter"
+
+#: src/filterdialog.cpp:277
+msgid "contains"
+msgstr "inneholder"
+
+#: src/filterdialog.cpp:278
+msgid "does not contain"
+msgstr "inneholder ikke"
+
+#: src/filterdialog.cpp:370
+msgid "Advanced Filter"
+msgstr "Avansert filter"
+
+#: src/filterdialog.cpp:382
+msgid "Filter Criteria"
+msgstr "Filterkriterie"
+
+#: src/filterdialog.cpp:386
+msgid "Match a&ll of the following"
+msgstr "Treff på a&lle"
+
+#: src/filterdialog.cpp:387
+msgid "Match an&y of the following"
+msgstr "Treff på e&n eller flere"
+
+#: src/filterdialog.cpp:406
+msgid "Filter name:"
+msgstr "Filternavn:"
+
+#: src/filterdialog.cpp:415
+msgid "&Save Filter"
+msgstr "&Lagre filter"
+
+#: src/entryeditdialog.cpp:64 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:413 src/entryeditdialog.cpp:509
+msgid "Edit Entry"
+msgstr "Endre innslag"
+
+#: src/entryeditdialog.cpp:67
+msgid "&New Entry"
+msgstr "&Nytt innslag"
+
+#: src/entryeditdialog.cpp:74 src/entryeditdialog.cpp:120
+#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:530
+msgid "Sa&ve Entry"
+msgstr "&Lagre innslag"
+
+#: src/entryeditdialog.cpp:319
+msgid "Do you really want to modify these entries?"
+msgstr "Er du sikker på at du vil endre disse innslagene?"
+
+#: src/entryeditdialog.cpp:321
+msgid "Modify Multiple Entries"
+msgstr "Endre flere innslag"
+
+#: src/entryeditdialog.cpp:362
+msgid "A value is required for the following fields. Do you want to continue?"
+msgstr "Følgende felter må ha en verdi. Vil du fortsette?"
+
+#: src/entryeditdialog.cpp:459
+msgid "Edit Entries"
+msgstr "Endre flere innslag"
+
+#: src/entryeditdialog.cpp:485
+msgid "Sa&ve Entries"
+msgstr "L&agre flere innslag"
+
+#: src/entryeditdialog.cpp:646
+msgid ""
+"The current entry has been modified.\n"
+"Do you want to enter the changes?"
+msgstr ""
+"Innslaget har blitt endret.\n"
+"Vil du lagre endringene?"
+
+#: src/entryeditdialog.cpp:649
+msgid "Save Entry"
+msgstr "Lagre innslag"
 
 #: rc.cpp:1
 msgctxt "NAME OF TRANSLATORS"
@@ -5669,41 +5705,41 @@ msgstr ""
 "et tekst-underfelt med oppføringer 3b, 14a.</p>\n"
 
 #: xslt.cpp:2
-msgctxt "Compact XSL Template"
-msgid "Compact"
-msgstr "Kompakt"
-
-#: xslt.cpp:4
 msgctxt "Album XSL Template"
 msgid "Album"
 msgstr "Album"
 
-#: xslt.cpp:5
+#: xslt.cpp:3
 msgid "This template is meant for music collections only."
 msgstr "Denne malen er ment bare for musikksamlinger."
 
-#: xslt.cpp:7
+#: xslt.cpp:5
 msgid "Total:"
 msgstr "Totalt:"
 
-#: xslt.cpp:9
+#: xslt.cpp:7
 msgctxt "Default XSL Template"
 msgid "Default"
 msgstr "Standard"
 
-#: xslt.cpp:11
+#: xslt.cpp:9
 msgctxt "Fancy XSL Template"
 msgid "Fancy"
 msgstr "Flott"
 
-#: xslt.cpp:13
+#: xslt.cpp:11
 msgctxt "Video XSL Template"
 msgid "Video"
 msgstr "Video"
 
-#: xslt.cpp:14 xslt.cpp:46
+#: xslt.cpp:12 xslt.cpp:46
 msgid "This template is meant for video collections only."
 msgstr "Denne malen er ment bare for videosamlinger."
+
+#: xslt.cpp:14
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "Kompakt"
 
 #: xslt.cpp:16
 msgctxt "Column View XSL Template"

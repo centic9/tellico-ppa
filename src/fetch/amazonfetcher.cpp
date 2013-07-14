@@ -126,8 +126,8 @@ QString AmazonFetcher::source() const {
 }
 
 QString AmazonFetcher::attribution() const {
-  return i18n("This data is licensed under <a href=""%1"">specific terms</a>.")
-         .arg(QLatin1String("https://affiliate-program.amazon.com/gp/advertising/api/detail/agreement.html"));
+  return i18n("This data is licensed under <a href=""%1"">specific terms</a>.",
+              QLatin1String("https://affiliate-program.amazon.com/gp/advertising/api/detail/agreement.html"));
 }
 
 bool AmazonFetcher::canFetch(int type) const {
@@ -343,6 +343,23 @@ void AmazonFetcher::doSearch() {
 
     case UPC:
       {
+        QString cleanValue = value;
+        cleanValue.remove(QLatin1Char('-'));
+        // for EAN values, add 0 to beginning if not 13 characters
+        // in order to assume US country code from UPC value
+        QStringList values;
+        foreach(const QString& splitValue, cleanValue.split(FieldFormat::delimiterString())) {
+          QString tmpValue = splitValue;
+          if(m_site != US && tmpValue.length() == 12) {
+            tmpValue.prepend(QLatin1Char('0'));
+          }
+          values << tmpValue;
+          // limit to first 10 values
+          if(values.length() >= 10) {
+            break;
+          }
+        }
+
         params.insert(QLatin1String("Operation"), QLatin1String("ItemLookup"));
         // US allows UPC, all others are EAN
         if(m_site == US) {
@@ -350,12 +367,7 @@ void AmazonFetcher::doSearch() {
         } else {
           params.insert(QLatin1String("IdType"), QLatin1String("EAN"));
         }
-        QString cleanValue = value;
-        cleanValue.remove(QLatin1Char('-'));
-        // limit to first 10 values
-        cleanValue.replace(FieldFormat::delimiterString(), QLatin1String(","));
-        cleanValue = cleanValue.section(QLatin1Char(','), 0, 9);
-        params.insert(QLatin1String("ItemId"), cleanValue);
+        params.insert(QLatin1String("ItemId"), values.join(QLatin1String(",")));
       }
       break;
 
@@ -487,6 +499,8 @@ void AmazonFetcher::slotComplete(KJob*) {
   // assume amazon is always utf-8
   QString str = m_xsltHandler->applyStylesheet(QString::fromUtf8(data, data.size()));
   Import::TellicoImporter imp(str);
+  // be quiet when loading images
+  imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
   if(!coll) {
     myDebug() << "no collection pointer";
@@ -743,7 +757,7 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
   }
 //  myDebug() << "grabbing " << imageURL.prettyUrl();
   if(!imageURL.isEmpty()) {
-    QString id = ImageFactory::addImage(imageURL, false);
+    QString id = ImageFactory::addImage(imageURL, true);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     } else { // amazon serves up 1x1 gifs occasionally, but that's caught in the image constructor

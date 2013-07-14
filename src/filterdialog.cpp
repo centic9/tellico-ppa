@@ -41,7 +41,14 @@
 #include <kregexpeditorinterface.h>
 #include <kiconloader.h>
 
+// KDateComboBox was new in KDE 4.7
+// use a local copy if building in KDE 4.6
+#include <kdeversion.h>
+#if KDE_IS_VERSION(4,7,0)
 #include <kdatecombobox.h>
+#elif KDE_IS_VERSION(4,6,0)
+#include "../gui/kdatecombobox.h"
+#endif
 
 #include <QLayout>
 #include <QGroupBox>
@@ -59,7 +66,7 @@ using Tellico::FilterRuleWidgetLister;
 using Tellico::FilterDialog;
 
 FilterRuleWidget::FilterRuleWidget(Tellico::FilterRule* rule_, QWidget* parent_)
-    : KHBox(parent_), m_editRegExp(0), m_editRegExpDialog(0), m_isDate(false) {
+    : KHBox(parent_), m_ruleDate(0), m_editRegExp(0), m_editRegExpDialog(0), m_isDate(false) {
   initLists();
   initWidget();
 
@@ -95,12 +102,13 @@ void FilterRuleWidget::initWidget() {
   m_valueStack = new QStackedWidget(this);
   m_ruleValue = new KLineEdit(m_valueStack);
   connect(m_ruleValue, SIGNAL(textChanged(const QString&)), SIGNAL(signalModified()));
+  m_valueStack->addWidget(m_ruleValue);
 
+#if KDE_IS_VERSION(4,6,0)
   m_ruleDate = new KDateComboBox(m_valueStack);
   connect(m_ruleDate, SIGNAL(dateChanged(const QDate&)), SIGNAL(signalModified()));
-
-  m_valueStack->addWidget(m_ruleValue);
   m_valueStack->addWidget(m_ruleDate);
+#endif
 
   if(!KServiceTypeTrader::self()->query(QLatin1String("KRegExpEditor/KRegExpEditor")).isEmpty()) {
     m_editRegExp = new KPushButton(i18n("Edit..."), this);
@@ -165,9 +173,15 @@ void FilterRuleWidget::slotRuleFunctionChanged(int which_) {
 
   // don't show the date picker if we're using regular expressions
   if(m_isDate && data != FilterRule::FuncRegExp && data != FilterRule::FuncNotRegExp) {
+#if KDE_IS_VERSION(4,6,0)
     m_valueStack->setCurrentWidget(m_ruleDate);
-  } else {
+#else
+    // I don't want a translated message but just an unambiguous hint for older versions
+    m_ruleValue->setClickMessage(QLatin1String("2010-12-30"));
+#endif
+} else {
     m_valueStack->setCurrentWidget(m_ruleValue);
+    m_ruleValue->setClickMessage(QString());
   }
 }
 
@@ -188,7 +202,11 @@ void FilterRuleWidget::setRule(const Tellico::FilterRule* rule_) {
       m_isDate = true;
       const QDate date = QDate::fromString(rule_->pattern(), Qt::ISODate);
       if(date.isValid()) {
+#if KDE_IS_VERSION(4,6,0)
         m_ruleDate->setDate(date);
+#else
+        m_ruleValue->setText(rule_->pattern());
+#endif
       }
     }
     const int idx = m_ruleField->findText(field ? field->title() : QString());
@@ -211,9 +229,13 @@ Tellico::FilterRule* FilterRuleWidget::rule() const {
   }
 
   QString ruleValue;
+#if KDE_IS_VERSION(4,6,0)
   if(m_valueStack->currentWidget() == m_ruleDate) {
     ruleValue = m_ruleDate->date().toString(Qt::ISODate);
   } else {
+#else
+  if(true) {
+#endif
     ruleValue = m_ruleValue->text().trimmed();
   }
 

@@ -46,7 +46,8 @@ namespace Tellico {
       PDF,
       Referencer,
       Delicious,
-      Goodreads
+      Goodreads,
+      CIW
     };
 
     enum Action {

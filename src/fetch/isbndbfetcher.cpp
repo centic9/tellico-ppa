@@ -48,7 +48,7 @@
 namespace {
   static const int ISBNDB_RETURNS_PER_REQUEST = 10;
   static const int ISBNDB_MAX_RETURNS_TOTAL = 25;
-  static const char* ISBNDB_BASE_URL = "http://isbndb.com/api/books.xml";
+  static const char* ISBNDB_BASE_URL = "http://isbndb.com/api/v2/xml/";
   static const char* ISBNDB_APP_ID = "3B9S3BQS";
 }
 
@@ -101,34 +101,33 @@ void ISBNdbFetcher::doSearch() {
 //  myDebug() << "value = " << value_;
 
   KUrl u(ISBNDB_BASE_URL);
-  u.addQueryItem(QLatin1String("access_key"), m_apiKey);
-  u.addQueryItem(QLatin1String("results"), QLatin1String("details,authors,subjects,texts"));
-  u.addQueryItem(QLatin1String("page_number"), QString::number(m_page));
+  u.addPath(m_apiKey);
 
   switch(request().key) {
     case Title:
-      u.addQueryItem(QLatin1String("index1"), QLatin1String("title"));
-      u.addQueryItem(QLatin1String("value1"), request().value);
+      u.addPath(QLatin1String("books"));
+      u.addQueryItem(QLatin1String("q"), request().value);
       break;
 
     case Person:
-      // yes, this also queries titles, too, it's a limitation of the isbndb api service
-      u.addQueryItem(QLatin1String("index1"), QLatin1String("combined"));
-      u.addQueryItem(QLatin1String("value1"), request().value);
+      u.addPath(QLatin1String("books"));
+      u.addQueryItem(QLatin1String("i"), QLatin1String("author_name"));
+      u.addQueryItem(QLatin1String("q"), request().value);
       break;
 
     case Keyword:
-      u.addQueryItem(QLatin1String("index1"), QLatin1String("full"));
-      u.addQueryItem(QLatin1String("value1"), request().value);
+      u.addPath(QLatin1String("books"));
+      u.addQueryItem(QLatin1String("i"), QLatin1String("full"));
+      u.addQueryItem(QLatin1String("q"), request().value);
       break;
 
     case ISBN:
-      u.addQueryItem(QLatin1String("index1"), QLatin1String("isbn"));
+      u.addPath(QLatin1String("book"));
       {
-        // only grab first value
+        // can only grab first value
         QString v = request().value.section(QLatin1Char(';'), 0);
         v.remove(QLatin1Char('-'));
-        u.addQueryItem(QLatin1String("value1"), v);
+        u.addPath(v);
       }
       break;
 
@@ -137,7 +136,9 @@ void ISBNdbFetcher::doSearch() {
       stop();
       return;
   }
-//  myDebug() << "url: " << u.url();
+  u.addQueryItem(QLatin1String("page"), QString::number(m_page));
+
+  //  myDebug() << "url: " << u.url();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   m_job->ui()->setWindow(GUI::Proxy::widget());
@@ -182,7 +183,7 @@ void ISBNdbFetcher::slotComplete(KJob*) {
   QFile f(QLatin1String("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec(QTextCodec::codecForName("UTF-8"));
+    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -229,9 +230,21 @@ void ISBNdbFetcher::slotComplete(KJob*) {
     }
   }
 
+  // since the Dewey and LoC field titles have a context in their i18n call here
+  // but not in the isbndb2tellico.xsl stylesheet where the field is actually created
+  // update the field titles here
+  QHashIterator<QString, QString> i(allOptionalFields());
+  while(i.hasNext()) {
+    i.next();
+    Data::FieldPtr field = coll->fieldByName(i.key());
+    if(field) {
+      field->setTitle(i.value());
+      coll->modifyField(field);
+    }
+  }
+
   int count = 0;
-  Data::EntryList entries = coll->entries();
-  foreach(Data::EntryPtr entry, entries) {
+  foreach(Data::EntryPtr entry, coll->entries()) {
     if(m_numResults >= m_limit) {
       break;
     }
@@ -275,29 +288,6 @@ Tellico::Data::EntryPtr ISBNdbFetcher::fetchEntryHook(uint uid_) {
     myWarning() << "no entry in dict";
     return Data::EntryPtr();
   }
-
-  // if the publisher id is set, then we need to grab the real publisher name
-  const QString id = entry->field(QLatin1String("pub_id"));
-  if(!id.isEmpty()) {
-    KUrl u(ISBNDB_BASE_URL);
-    u.setFileName(QLatin1String("publishers.xml"));
-    u.addQueryItem(QLatin1String("access_key"), m_apiKey);
-    u.addQueryItem(QLatin1String("index1"), QLatin1String("publisher_id"));
-    u.addQueryItem(QLatin1String("value1"), id);
-
-    QDomDocument dom = FileHandler::readXMLDocument(u, true);
-    if(!dom.isNull()) {
-      QString pub = dom.documentElement().namedItem(QLatin1String("PublisherList"))
-                                         .namedItem(QLatin1String("PublisherData"))
-                                         .namedItem(QLatin1String("Name"))
-                                         .toElement().text();
-      if(!pub.isEmpty()) {
-        entry->setField(QLatin1String("publisher"), pub);
-      }
-    }
-    entry->setField(QLatin1String("pub_id"), QString());
-  }
-
   return entry;
 }
 
@@ -347,6 +337,14 @@ QString ISBNdbFetcher::defaultIcon() {
   return favIcon("http://isbndb.com");
 }
 
+Tellico::StringHash ISBNdbFetcher::allOptionalFields() {
+  // same ones as z3950fetcher
+  StringHash hash;
+  hash[QLatin1String("dewey")] = i18nc("Dewey Decimal classification system", "Dewey Decimal");
+  hash[QLatin1String("lcc")]   = i18nc("Library of Congress classification system", "LoC Classification");
+  return hash;
+}
+
 ISBNdbFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ISBNdbFetcher* fetcher_)
     : Fetch::ConfigWidget(parent_) {
   QGridLayout* l = new QGridLayout(optionsWidget());
@@ -387,6 +385,9 @@ ISBNdbFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ISBNdbFetcher*
       m_apiKeyEdit->setText(fetcher_->m_apiKey);
     }
   }
+
+  // now add additional fields widget
+  addFieldsWidget(ISBNdbFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 }
 
 void ISBNdbFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {

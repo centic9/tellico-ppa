@@ -75,7 +75,7 @@ bool OpenLibraryFetcher::canSearch(FetchKey k) const {
 }
 
 bool OpenLibraryFetcher::canFetch(int type) const {
-  return type == Data::Collection::Book || Data::Collection::Bibtex;
+  return type == Data::Collection::Book || type == Data::Collection::Bibtex;
 }
 
 void OpenLibraryFetcher::readConfigHook(const KConfigGroup&) {
@@ -263,7 +263,7 @@ void OpenLibraryFetcher::slotComplete(KJob* job_) {
   QFile f(QString::fromLatin1("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec(QTextCodec::codecForName("UTF-8"));
+    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -272,7 +272,7 @@ void OpenLibraryFetcher::slotComplete(KJob* job_) {
   QJson::Parser parser;
   QVariantList resultList = parser.parse(data).toList();
   if(resultList.isEmpty()) {
-    myDebug() << "no results";
+//    myDebug() << "no results";
     endJob(job);
     return;
   }
@@ -286,7 +286,12 @@ void OpenLibraryFetcher::slotComplete(KJob* job_) {
 
   QVariantMap resultMap;
   foreach(const QVariant& result, resultList) {
-  //  myDebug() << "found result:" << result;
+    // be sure to check that the fetcher has not been stopped
+    // crashes can occur if not
+    if(!m_started) {
+      break;
+    }
+//    myDebug() << "found result:" << result;
     resultMap = result.toMap();
 
 //  myDebug() << resultMap.value(QLatin1String("isbn_10")).toList().at(0);

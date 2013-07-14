@@ -1,12 +1,12 @@
 # translation of tellico.po to Slovak
 # Richard Fric <Richard.Fric@kdemail.net>, 2009.
-# Roman Paholík <wizzardsk@gmail.com>, 2012.
+# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2013-01-08 19:37+0100\n"
-"PO-Revision-Date: 2012-09-28 14:39+0200\n"
+"POT-Creation-Date: 2013-07-02 05:19+0000\n"
+"PO-Revision-Date: 2013-05-17 20:24+0200\n"
 "Last-Translator: Roman Paholík <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
@@ -167,10 +167,13 @@ msgstr ""
 msgid "There are no duplicate citation keys."
 msgstr ""
 
-#: src/bibtexkeydialog.cpp:100
+#: src/bibtexkeydialog.cpp:99
 #, kde-format
-msgid "There are %1 duplicate citation keys."
-msgstr ""
+msgid "There is %1 duplicate citation key."
+msgid_plural "There are %1 duplicate citation keys."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: src/borrowerdialog.cpp:68
 #, fuzzy
@@ -223,10 +226,11 @@ msgstr "Názov"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
+#: src/fetch/allocinefetcher.cpp:247 src/fetch/allocinefetcher.cpp:253
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:368
-#: src/fetch/googlebookfetcher.cpp:258 src/fetch/googlebookfetcher.cpp:263
-#: src/fetch/imdbfetcher.cpp:946 src/fetch/imdbfetcher.cpp:1284
+#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:388
+#: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
+#: src/fetch/imdbfetcher.cpp:951 src/fetch/imdbfetcher.cpp:1289
 #: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
 #: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
@@ -342,9 +346,8 @@ msgid ""
 msgstr ""
 
 #: src/collectionfieldsdialog.cpp:140
-#, fuzzy
 msgid "Field Properties"
-msgstr "Vlastnosti kanálu"
+msgstr "Vlastnosti poľa"
 
 #: src/collectionfieldsdialog.cpp:149
 msgid "&Title:"
@@ -504,7 +507,7 @@ msgstr "Názov importovaného priečinku:"
 #: src/collectionfieldsdialog.cpp:285
 #, fuzzy
 msgid "Field Options"
-msgstr "Voľby pre ignorovanie"
+msgstr "Možnosti poľa"
 
 #: src/collectionfieldsdialog.cpp:287
 msgid "Enable auto-completion"
@@ -637,7 +640,7 @@ msgstr ""
 msgid "Publishing"
 msgstr "Publikovanie"
 
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:399
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:401
 #: src/translators/risimporter.cpp:338
 msgid "Miscellaneous"
 msgstr "Rôzne"
@@ -681,7 +684,7 @@ msgid "Publisher"
 msgstr "Vydavateľ"
 
 #: src/collections/bibtexcollection.cpp:139
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/srufetcher.cpp:453
+#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/srufetcher.cpp:465
 #: src/fetch/z3950fetcher.cpp:565
 msgid "Address"
 msgstr "Adresa"
@@ -760,7 +763,8 @@ msgstr "Hlasitosť"
 #: src/collections/bibtexcollection.cpp:224
 #, fuzzy
 msgid "Cross-Reference"
-msgstr "Referenčné funkcie"
+msgstr ""
+"<link href=\"text/swriter/01/04090002.xhp\" name=\"Odkaz\">Odkaz</link>"
 
 #: src/collections/bibtexcollection.cpp:234
 #: src/collections/bookcollection.cpp:141
@@ -772,13 +776,13 @@ msgid "Keywords"
 msgstr "Kľúčové slová"
 
 #: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
-#: src/fetch/entrezfetcher.cpp:398 src/fetch/entrezfetcher.cpp:464
+#: src/fetch/entrezfetcher.cpp:400 src/fetch/entrezfetcher.cpp:466
 #: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
 msgid "URL"
 msgstr "URL"
 
-#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:463
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/srufetcher.cpp:454
+#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:465
+#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/srufetcher.cpp:466
 #: src/fetch/z3950fetcher.cpp:566
 msgid "Abstract"
 msgstr "Abstraktné"
@@ -864,9 +868,8 @@ msgstr "dátum: %1; autor: %2"
 #: src/collections/stampcollection.cpp:129
 #: src/collections/videocollection.cpp:203
 #: src/collections/winecollection.cpp:118
-#, fuzzy
 msgid "Gift"
-msgstr "Gift Lake"
+msgstr "Darček"
 
 #: src/collections/boardgamecollection.cpp:102
 #: src/collections/bookcollection.cpp:83 src/collections/cardcollection.cpp:98
@@ -924,7 +927,7 @@ msgstr "Moje knihy"
 msgid "Subtitle"
 msgstr "Podtitulok"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:401
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:421
 #: src/fetch/ibsfetcher.cpp:338 src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr ""
@@ -1030,7 +1033,7 @@ msgstr "Tím"
 
 #: src/collections/cardcollection.cpp:66
 msgid "Brand"
-msgstr ""
+msgstr "Značka"
 
 #: src/collections/cardcollection.cpp:73
 msgid "Card Number"
@@ -1060,7 +1063,7 @@ msgstr "Transformovať obrázok"
 #: src/collections/cardcollection.cpp:123
 #, fuzzy
 msgid "Back Image"
-msgstr "Povoliť &obrázok pozadia"
+msgstr "Obrázok pozadia:"
 
 #: src/collections/coincollection.cpp:37
 #, fuzzy
@@ -1376,7 +1379,8 @@ msgid "Issue Year"
 msgstr "Rok vydania"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/imdbfetcher.cpp:1396
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:356
+#: src/fetch/imdbfetcher.cpp:1401
 msgid "Color"
 msgstr "Farba"
 
@@ -1519,7 +1523,7 @@ msgstr "Formát"
 
 #: src/collections/videocollection.cpp:108
 msgid "Cast"
-msgstr ""
+msgstr "Obsadenie"
 
 #: src/collections/videocollection.cpp:110
 #: src/translators/xmlstatehandler.cpp:413
@@ -1618,7 +1622,7 @@ msgstr ""
 
 #: src/collections/winecollection.cpp:72
 msgid "Vintage"
-msgstr ""
+msgstr "Staré"
 
 #: src/collections/winecollection.cpp:78
 msgid "Red Wine"
@@ -1682,7 +1686,7 @@ msgstr "Kolekcia"
 #: src/commands/fieldcommand.cpp:59
 #, fuzzy, kde-format
 msgid "Add %1 Field"
-msgstr "Pridanie položky"
+msgstr "Pridať pole"
 
 #: src/commands/fieldcommand.cpp:61
 #, fuzzy, kde-format
@@ -1745,7 +1749,7 @@ msgstr "Skontrolovať poštu v"
 #, fuzzy, kde-format
 msgctxt "Check-in (Entry Title)"
 msgid "Check-in %1"
-msgstr "Skontrolovať poštu v"
+msgstr "Odoslať..."
 
 #: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:319
 msgid "Rename Collection"
@@ -1837,7 +1841,7 @@ msgstr ""
 #: src/configdialog.cpp:278 src/configdialog.cpp:363
 #, fuzzy
 msgid "Formatting Options"
-msgstr "Voľby pre ignorovanie"
+msgstr "Voľby formátovania"
 
 #: src/configdialog.cpp:283
 msgid "Auto capitalize &titles and names"
@@ -1958,9 +1962,8 @@ msgid ""
 msgstr ""
 
 #: src/configdialog.cpp:433
-#, fuzzy
 msgid "Template Options"
-msgstr "Voľby pre ignorovanie"
+msgstr "Voľby šablón"
 
 #: src/configdialog.cpp:446 src/fetch/execexternalfetcher.cpp:341
 #: src/fetch/gcstarpluginfetcher.cpp:398 src/fetch/multifetcher.cpp:191
@@ -2112,7 +2115,7 @@ msgid "Click to download additional data sources."
 msgstr ""
 
 #: src/configdialog.cpp:1135 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:117
+#: src/translators/xsltimporter.cpp:118
 msgid "*.xsl|XSL Files (*.xsl)"
 msgstr "*.xsl|XSL súbory (*.xsl)"
 
@@ -2120,7 +2123,7 @@ msgstr "*.xsl|XSL súbory (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr ""
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:354 src/mainwindow.cpp:1068
+#: src/configdialog.cpp:1137 src/importdialog.cpp:374 src/mainwindow.cpp:1068
 #: src/mainwindow.cpp:1233 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
@@ -2129,7 +2132,7 @@ msgstr ""
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/tellicozipexporter.cpp:56
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:117
+#: src/translators/xsltimporter.cpp:118
 msgid "*|All Files"
 msgstr "*|Všetky súbory"
 
@@ -2525,7 +2528,7 @@ msgid ""
 "entry currently in the collection. Please select the correct match.</qt>"
 msgstr ""
 
-#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:389
+#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:356
 #, fuzzy
 msgid "Merge Entries"
 msgstr "Žiadne položky"
@@ -2628,29 +2631,31 @@ msgstr "Používa sa náhradná identita '%1'."
 msgid "Encode the exported file in the local encoding."
 msgstr ""
 
-#: src/fetch/allocinefetcher.cpp:181 src/fetch/imdbfetcher.cpp:1591
+#: src/fetch/allocinefetcher.cpp:252 src/fetch/allocinefetcher.cpp:472
 #, fuzzy
-msgid "&Maximum cast: "
-msgstr "Maximálny dátový tok:"
+msgid "Allocine Link"
+msgstr "Symbolický odkaz"
 
-#: src/fetch/allocinefetcher.cpp:186 src/fetch/imdbfetcher.cpp:1596
-msgid ""
-"The list of cast members may include many people. Set the maximum number "
-"returned from the search."
-msgstr ""
-
-#: src/fetch/allocinefetcher.cpp:224 src/fetch/animenfofetcher.cpp:278
-#: src/fetch/animenfofetcher.cpp:481 src/fetch/beyazperdefetcher.cpp:58
-#: src/fetch/dvdfrfetcher.cpp:171 src/fetch/filmstartsfetcher.cpp:58
-#: src/fetch/screenrushfetcher.cpp:58 src/fetch/sensacinefetcher.cpp:58
+#: src/fetch/allocinefetcher.cpp:257 src/fetch/allocinefetcher.cpp:471
+#: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
+#: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
+#: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/vndbfetcher.cpp:241
+#: src/fetch/vndbfetcher.cpp:320
 #, fuzzy
 msgid "Original Title"
 msgstr "Titulok na výšku"
 
-#: src/fetch/allocinefetcher.cpp:225
+#: src/fetch/allocinefetcher.cpp:382 src/fetch/imdbfetcher.cpp:1596
 #, fuzzy
-msgid "Allocine Link"
-msgstr "Symbolický odkaz"
+msgid "&Maximum cast: "
+msgstr "Maximálny dátový tok:"
+
+#: src/fetch/allocinefetcher.cpp:387 src/fetch/imdbfetcher.cpp:1601
+msgid ""
+"The list of cast members may include many people. Set the maximum number "
+"returned from the search."
+msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:68
 #, fuzzy
@@ -2709,14 +2714,14 @@ msgstr ""
 msgid "Those values must be entered in the data source settings."
 msgstr ""
 
-#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:259
+#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:272
 #: src/fetch/winecomfetcher.cpp:230
 #, fuzzy, kde-format
 msgid "Results from %1: %2/%3"
 msgstr "Výsledky dotazu pre '%1'"
 
-#: src/fetch/amazonfetcher.cpp:762 src/fetch/freebasefetcher.cpp:228
-#: src/fetch/googlebookfetcher.cpp:201 src/fetch/yahoofetcher.cpp:240
+#: src/fetch/amazonfetcher.cpp:762 src/fetch/freebasefetcher.cpp:245
+#: src/fetch/googlebookfetcher.cpp:203 src/fetch/yahoofetcher.cpp:240
 #, fuzzy
 msgid "The cover image could not be loaded."
 msgstr "Zadaný obrázok sa nepodarilo načítať. Obrázok nebude zmenený."
@@ -2727,9 +2732,9 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
 #: src/fetch/crossreffetcher.cpp:311 src/fetch/doubanfetcher.cpp:226
-#: src/fetch/giantbombfetcher.cpp:206 src/fetch/googlebookfetcher.cpp:379
-#: src/fetch/isbndbfetcher.cpp:357 src/fetch/themoviedbfetcher.cpp:264
-#: src/fetch/winecomfetcher.cpp:297
+#: src/fetch/freebasefetcher.cpp:926 src/fetch/giantbombfetcher.cpp:206
+#: src/fetch/googlebookfetcher.cpp:381 src/fetch/isbndbfetcher.cpp:355
+#: src/fetch/themoviedbfetcher.cpp:264 src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2739,7 +2744,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:370 src/fetch/themoviedbfetcher.cpp:277
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:277
 #: src/fetch/winecomfetcher.cpp:310
 #, fuzzy
 msgid "Access key: "
@@ -2750,11 +2755,11 @@ msgstr "Vypršaný kľúč"
 msgid "Secret key: "
 msgstr "Exportovať tajný kľúč..."
 
-#: src/fetch/amazonfetcher.cpp:962 src/fetch/imdbfetcher.cpp:1573
+#: src/fetch/amazonfetcher.cpp:962 src/fetch/imdbfetcher.cpp:1578
 msgid "Country: "
 msgstr "krajina:"
 
-#: src/fetch/amazonfetcher.cpp:965 src/fetch/imdbfetcher.cpp:1576
+#: src/fetch/amazonfetcher.cpp:965 src/fetch/imdbfetcher.cpp:1581
 msgid "United States"
 msgstr "Spojené štáty"
 
@@ -2762,7 +2767,7 @@ msgstr "Spojené štáty"
 msgid "United Kingdom"
 msgstr "Spojené kráľovstvo"
 
-#: src/fetch/amazonfetcher.cpp:967 src/fetch/imdbfetcher.cpp:1579
+#: src/fetch/amazonfetcher.cpp:967 src/fetch/imdbfetcher.cpp:1584
 msgid "Germany"
 msgstr "Nemecko"
 
@@ -2770,7 +2775,7 @@ msgstr "Nemecko"
 msgid "Japan"
 msgstr "Japonsko"
 
-#: src/fetch/amazonfetcher.cpp:969 src/fetch/imdbfetcher.cpp:1577
+#: src/fetch/amazonfetcher.cpp:969 src/fetch/imdbfetcher.cpp:1582
 msgid "France"
 msgstr "Francúzsko"
 
@@ -2782,11 +2787,11 @@ msgstr "Kanada"
 msgid "China"
 msgstr "Čína"
 
-#: src/fetch/amazonfetcher.cpp:972 src/fetch/imdbfetcher.cpp:1578
+#: src/fetch/amazonfetcher.cpp:972 src/fetch/imdbfetcher.cpp:1583
 msgid "Spain"
 msgstr "Španielsko"
 
-#: src/fetch/amazonfetcher.cpp:973 src/fetch/imdbfetcher.cpp:1580
+#: src/fetch/amazonfetcher.cpp:973 src/fetch/imdbfetcher.cpp:1585
 msgid "Italy"
 msgstr "Taliansko"
 
@@ -2819,7 +2824,7 @@ msgstr "Transformovať obrázok"
 msgid "No Image"
 msgstr "Bez obrázku"
 
-#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1605
+#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1610
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2837,8 +2842,8 @@ msgid ""
 msgstr ""
 
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
-#: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:173
-#: src/fetch/imdbfetcher.cpp:1016 src/fetch/imdbfetcher.cpp:1557
+#: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
+#: src/fetch/imdbfetcher.cpp:1021 src/fetch/imdbfetcher.cpp:1562
 #: src/fetch/moviemeterfetcher.cpp:253 src/fetch/moviemeterfetcher.cpp:360
 #: src/fetch/themoviedbfetcher.cpp:252
 #, fuzzy
@@ -2866,20 +2871,20 @@ msgstr "Pridať hodnotenie"
 #: src/fetch/animenfofetcher.cpp:491 src/fetch/arxivfetcher.cpp:329
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
 #: src/fetch/dblpfetcher.cpp:126 src/fetch/discogsfetcher.cpp:222
-#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/entrezfetcher.cpp:475
-#: src/fetch/filmasterfetcher.cpp:319 src/fetch/freebasefetcher.cpp:902
-#: src/fetch/googlescholarfetcher.cpp:267 src/fetch/hathitrustfetcher.cpp:315
-#: src/fetch/ibsfetcher.cpp:445 src/fetch/masfetcher.cpp:328
-#: src/fetch/moviemeterfetcher.cpp:367 src/fetch/musicbrainzfetcher.cpp:334
-#: src/fetch/openlibraryfetcher.cpp:424 src/fetch/springerfetcher.cpp:179
-#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/yahoofetcher.cpp:396
+#: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:477
+#: src/fetch/filmasterfetcher.cpp:319 src/fetch/googlescholarfetcher.cpp:267
+#: src/fetch/hathitrustfetcher.cpp:315 src/fetch/ibsfetcher.cpp:445
+#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:367
+#: src/fetch/musicbrainzfetcher.cpp:334 src/fetch/openlibraryfetcher.cpp:429
+#: src/fetch/springerfetcher.cpp:179 src/fetch/thegamesdbfetcher.cpp:161
+#: src/fetch/vndbfetcher.cpp:328 src/fetch/yahoofetcher.cpp:396
 #, fuzzy
 msgid "This source has no options."
 msgstr "Táto funkcia nemá parametre."
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/giantbombfetcher.cpp:225
-#: src/fetch/googlebookfetcher.cpp:398 src/fetch/isbndbfetcher.cpp:376
-#: src/fetch/themoviedbfetcher.cpp:283
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:945
+#: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:400
+#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:283
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2934,23 +2939,23 @@ msgstr "Symbolický odkaz"
 msgid "Douban Link"
 msgstr "Symbolický odkaz"
 
-#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:945
-#: src/fetch/imdbfetcher.cpp:1555 src/fetch/themoviedbfetcher.cpp:251
+#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:950
+#: src/fetch/imdbfetcher.cpp:1560 src/fetch/themoviedbfetcher.cpp:251
 #, fuzzy
 msgid "IMDb Link"
 msgstr "Symbolický odkaz"
 
-#: src/fetch/dvdfrfetcher.cpp:172
+#: src/fetch/dvdfrfetcher.cpp:176
 #, fuzzy
 msgid "DVDFr Link"
 msgstr "Symbolický odkaz"
 
-#: src/fetch/entrezfetcher.cpp:452
+#: src/fetch/entrezfetcher.cpp:454
 #, fuzzy
 msgid "Entrez Database"
 msgstr "Databáza skratiek"
 
-#: src/fetch/entrezfetcher.cpp:462
+#: src/fetch/entrezfetcher.cpp:464
 msgid "Institution"
 msgstr "Inštitúcia"
 
@@ -3055,10 +3060,15 @@ msgstr "Dotaz na MusicBrainz"
 msgid "Filmaster Link"
 msgstr "Symbolický odkaz"
 
-#: src/fetch/freebasefetcher.cpp:367 src/fetch/freebasefetcher.cpp:586
+#: src/fetch/freebasefetcher.cpp:387 src/fetch/freebasefetcher.cpp:606
 #, fuzzy
 msgid "Freebase Link"
 msgstr "Symbolický odkaz"
+
+#: src/fetch/freebasefetcher.cpp:939 src/fetch/googlebookfetcher.cpp:394
+#, fuzzy
+msgid "API key: "
+msgstr "Vypršaný kľúč"
 
 #: src/fetch/gcstarpluginfetcher.cpp:383
 #, fuzzy
@@ -3081,32 +3091,29 @@ msgstr ""
 msgid "Author: "
 msgstr "Autor:"
 
-#: src/fetch/googlebookfetcher.cpp:262 src/fetch/googlebookfetcher.cpp:368
+#: src/fetch/googlebookfetcher.cpp:264 src/fetch/googlebookfetcher.cpp:370
 #, fuzzy
 msgid "Google Book Link"
 msgstr "Kopírovať adresu odkazu"
 
-#: src/fetch/googlebookfetcher.cpp:359
+#: src/fetch/googlebookfetcher.cpp:361
 #, fuzzy
 msgid "Google Book Search"
 msgstr "Pokročilé hľadanie Google"
-
-#: src/fetch/googlebookfetcher.cpp:392
-#, fuzzy
-msgid "API key: "
-msgstr "Vypršaný kľúč"
 
 #: src/fetch/hathitrustfetcher.cpp:306 src/fetch/z3950fetcher.cpp:567
 msgid "Illustrator"
 msgstr ""
 
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/z3950fetcher.cpp:568
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/isbndbfetcher.cpp:343
+#: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
 #, fuzzy
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Decimál/hodnota"
 
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/z3950fetcher.cpp:569
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/isbndbfetcher.cpp:344
+#: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
 #, fuzzy
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3116,7 +3123,7 @@ msgstr "Zam&knúť sedenie"
 msgid "Internet Bookshop (ibs.it)"
 msgstr ""
 
-#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1545
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1550
 msgid "Internet Movie Database"
 msgstr "Internetová databáza filmov IMDb"
 
@@ -3145,54 +3152,54 @@ msgstr "Internetová databáza filmov IMDb"
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Internetová databáza filmov IMDb"
 
-#: src/fetch/imdbfetcher.cpp:805
+#: src/fetch/imdbfetcher.cpp:806
 #, fuzzy
 msgid "Select IMDb Result"
 msgstr "Výs&ledky posledného hľadania"
 
-#: src/fetch/imdbfetcher.cpp:811
+#: src/fetch/imdbfetcher.cpp:812
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr ""
 
-#: src/fetch/imdbfetcher.cpp:827
+#: src/fetch/imdbfetcher.cpp:832
 #, fuzzy
 msgid "<qt>Select a search result.</qt>"
 msgstr "Vyberte režim iba hľadať."
 
-#: src/fetch/imdbfetcher.cpp:1283 src/fetch/imdbfetcher.cpp:1556
+#: src/fetch/imdbfetcher.cpp:1288 src/fetch/imdbfetcher.cpp:1561
 #, fuzzy
 msgid "IMDb Rating"
 msgstr "Pridať hodnotenie"
 
-#: src/fetch/imdbfetcher.cpp:1428 src/fetch/imdbfetcher.cpp:1516
-#: src/fetch/imdbfetcher.cpp:1558
+#: src/fetch/imdbfetcher.cpp:1433 src/fetch/imdbfetcher.cpp:1521
+#: src/fetch/imdbfetcher.cpp:1563
 msgid "Certifications"
 msgstr "Certifikácie"
 
-#: src/fetch/imdbfetcher.cpp:1581
+#: src/fetch/imdbfetcher.cpp:1586
 msgid "Portugal"
 msgstr "Portugalsko"
 
-#: src/fetch/imdbfetcher.cpp:1585
+#: src/fetch/imdbfetcher.cpp:1590
 msgid ""
 "The Internet Movie Database provides data from several different localized "
 "sites. Choose the one you wish to use for this data source."
 msgstr ""
 
-#: src/fetch/imdbfetcher.cpp:1601
+#: src/fetch/imdbfetcher.cpp:1606
 #, fuzzy
 msgid "Download cover &image"
 msgstr "Vybrať súbor s obrázkom obalu"
 
-#: src/fetch/isbndbfetcher.cpp:224
+#: src/fetch/isbndbfetcher.cpp:225
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
 "may have entered the access key incorrectly.</qt>"
 msgstr ""
 
-#: src/fetch/isbndbfetcher.cpp:343
+#: src/fetch/isbndbfetcher.cpp:333
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
@@ -3206,51 +3213,51 @@ msgstr "Symbolický odkaz"
 msgid "Multiple Sources"
 msgstr "Zdroje informácií"
 
-#: src/fetch/openlibraryfetcher.cpp:282 src/fetch/openlibraryfetcher.cpp:417
+#: src/fetch/openlibraryfetcher.cpp:282 src/fetch/openlibraryfetcher.cpp:422
 #, fuzzy
 msgid "OpenLibrary Link"
 msgstr "Symbolický odkaz"
 
-#: src/fetch/srufetcher.cpp:438 z3950.cpp:2
+#: src/fetch/srufetcher.cpp:450 z3950.cpp:2
 #, fuzzy
 msgid "Library of Congress (US)"
 msgstr "Použiť uprav&ený zvonček"
 
-#: src/fetch/srufetcher.cpp:443
+#: src/fetch/srufetcher.cpp:455
 msgid "SRU Server"
 msgstr "SRU Server"
 
-#: src/fetch/srufetcher.cpp:469 src/fetch/z3950fetcher.cpp:591
+#: src/fetch/srufetcher.cpp:483 src/fetch/z3950fetcher.cpp:591
 msgid "Hos&t: "
 msgstr "Hosti&teľ:"
 
-#: src/fetch/srufetcher.cpp:476 src/fetch/z3950fetcher.cpp:597
+#: src/fetch/srufetcher.cpp:490 src/fetch/z3950fetcher.cpp:597
 #, fuzzy
 msgid "Enter the host name of the server."
 msgstr "Zadajte meno servra a heslo"
 
-#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:602
+#: src/fetch/srufetcher.cpp:495 src/fetch/z3950fetcher.cpp:602
 msgid "&Port: "
 msgstr "&Port: "
 
-#: src/fetch/srufetcher.cpp:486 src/fetch/z3950fetcher.cpp:607
+#: src/fetch/srufetcher.cpp:500 src/fetch/z3950fetcher.cpp:607
 #, fuzzy, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Zadajte číslo portu HTTP proxy servera."
 
-#: src/fetch/srufetcher.cpp:491
+#: src/fetch/srufetcher.cpp:505
 msgid "Path: "
 msgstr "Cesta:"
 
-#: src/fetch/srufetcher.cpp:496
+#: src/fetch/srufetcher.cpp:510
 msgid "Enter the path to the database used by the server."
 msgstr ""
 
-#: src/fetch/srufetcher.cpp:501
+#: src/fetch/srufetcher.cpp:515
 msgid "Format: "
 msgstr "Formát:"
 
-#: src/fetch/srufetcher.cpp:511
+#: src/fetch/srufetcher.cpp:525
 msgid "Enter the result format used by the server."
 msgstr ""
 
@@ -3286,6 +3293,15 @@ msgstr "Španielčina"
 #: src/fetch/themoviedbfetcher.cpp:325
 #, kde-format
 msgid "TheMovieDB (%1)"
+msgstr ""
+
+#: src/fetch/vndbfetcher.cpp:246 src/fetch/vndbfetcher.cpp:321
+#, fuzzy
+msgid "Alias"
+msgstr "Alias"
+
+#: src/fetch/vndbfetcher.cpp:264
+msgid "Visual Novel"
 msgstr ""
 
 #: src/fetch/xmlrpc/query.cpp:376
@@ -3557,7 +3573,7 @@ msgstr ""
 #: src/fetcherconfigdialog.cpp:72
 #, fuzzy
 msgid "Data Source Properties"
-msgstr "Zdroj dát komponentu"
+msgstr "Vlastnosti zdroja dát: #"
 
 #: src/fetcherconfigdialog.cpp:100
 msgid "&Source name: "
@@ -3833,9 +3849,8 @@ msgid "Fewer"
 msgstr "Menej"
 
 #: src/gui/previewdialog.cpp:40
-#, fuzzy
 msgid "Template Preview"
-msgstr "Zatvára sa náhľad"
+msgstr "Náhľad šablóny"
 
 #: src/gui/statusbar.cpp:69
 msgid "Cancel"
@@ -3902,9 +3917,8 @@ msgid "Move Row Up"
 msgstr "Presunúť uzol nahor"
 
 #: src/gui/tablefieldwidget.cpp:261
-#, fuzzy
 msgid "Move Row Down"
-msgstr "Presunúť uzol nadol"
+msgstr "Presunúť rad nadol"
 
 #: src/importdialog.cpp:70 src/importdialog.cpp:76
 msgid "Import Options"
@@ -3947,63 +3961,63 @@ msgstr ""
 msgid "&Import"
 msgstr "&Importovať"
 
-#: src/importdialog.cpp:295 src/mainwindow.cpp:1064 src/mainwindow.cpp:1231
+#: src/importdialog.cpp:315 src/mainwindow.cpp:1064 src/mainwindow.cpp:1231
 #: src/translators/tellicozipexporter.cpp:56
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Súbory Tellico (*.tc)"
 
-#: src/importdialog.cpp:296 src/importdialog.cpp:311 src/importdialog.cpp:341
+#: src/importdialog.cpp:316 src/importdialog.cpp:331 src/importdialog.cpp:361
 #: src/mainwindow.cpp:1066 src/translators/tellicoxmlexporter.cpp:70
 #, fuzzy
 msgid "*.xml|XML Files (*.xml)"
 msgstr "%1 (nekomprimované súbory XML)"
 
-#: src/importdialog.cpp:300 src/translators/bibtexexporter.cpp:61
+#: src/importdialog.cpp:320 src/translators/bibtexexporter.cpp:61
 #, fuzzy
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "Rozbaľujú sa všetky súbory"
 
-#: src/importdialog.cpp:304 src/translators/csvexporter.cpp:59
+#: src/importdialog.cpp:324 src/translators/csvexporter.cpp:59
 #, fuzzy
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "CSV súbory"
 
-#: src/importdialog.cpp:315
+#: src/importdialog.cpp:335
 #, fuzzy
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "Všetky súbory"
 
-#: src/importdialog.cpp:319 src/translators/gcstarexporter.cpp:60
+#: src/importdialog.cpp:339 src/translators/gcstarexporter.cpp:60
 #, fuzzy
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "Zobraziť dátové súbory"
 
-#: src/importdialog.cpp:320
+#: src/importdialog.cpp:340
 #, fuzzy
 msgid "*.gcf|GCfilms Data Files (*.gcf)"
 msgstr "Zobraziť dátové súbory"
 
-#: src/importdialog.cpp:324
+#: src/importdialog.cpp:344
 #, fuzzy
 msgid "*.amc|AMC Data Files (*.amc)"
 msgstr "Dátové súbory pre španielštinu"
 
-#: src/importdialog.cpp:328
+#: src/importdialog.cpp:348
 #, fuzzy
 msgid "*.pdf|PDF Files (*.pdf)"
 msgstr "Logy PDF súborov Cups"
 
-#: src/importdialog.cpp:332
+#: src/importdialog.cpp:352
 #, fuzzy
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "Rozbaľujú sa všetky súbory"
 
-#: src/importdialog.cpp:336
+#: src/importdialog.cpp:356
 #, fuzzy
 msgid "*.ciw|CIW Files (*.ciw)"
 msgstr "CSV súbory"
 
-#: src/importdialog.cpp:340
+#: src/importdialog.cpp:360
 #, fuzzy
 msgid "*.vinoxml|VinoXML Data Files (*.vinoxml)"
 msgstr "%1 (nekomprimované súbory XML)"
@@ -4075,14 +4089,14 @@ msgstr ""
 #: src/loanview.cpp:118
 #, fuzzy
 msgid "Check-in"
-msgstr "Skontrolovať poštu v"
+msgstr "Odoslať..."
 
 #: src/loanview.cpp:120
 #, fuzzy
 msgid "Modify Loan..."
 msgstr "Investičná pôžička"
 
-#: src/loanview.cpp:223 xslt.cpp:33
+#: src/loanview.cpp:223 xslt.cpp:17
 msgid "Borrower"
 msgstr ""
 
@@ -4103,7 +4117,7 @@ msgstr "Pokročilý správca sťahovania pre KDE"
 #: src/main.cpp:39
 #, fuzzy
 #| msgid "(c) 2001-2010, Robby Stephenson"
-msgid "(c) 2001-2012, Robby Stephenson"
+msgid "(c) 2001-2013, Robby Stephenson"
 msgstr "(c) 2001-2010, Robby Stephenson"
 
 #: src/main.cpp:41
@@ -4740,7 +4754,7 @@ msgstr "Vyčistiť všetky vybraté položky"
 #: src/mainwindow.cpp:530
 #, fuzzy
 msgid "Check-&in"
-msgstr "Skontrolovať poštu v"
+msgstr "Odoslať..."
 
 #: src/mainwindow.cpp:532
 #, fuzzy
@@ -4997,7 +5011,7 @@ msgstr "Vybraná %1 položka"
 #: src/mainwindow.cpp:1444
 #, fuzzy, kde-format
 msgid "(%1 filtered)"
-msgstr "Pridať filtrované"
+msgstr "(filtrované)"
 
 #: src/mainwindow.cpp:1447
 #, kde-format
@@ -5011,9 +5025,8 @@ msgid "Tellico encountered an error in XSLT processing."
 msgstr ""
 
 #: src/mainwindow.cpp:1718
-#, fuzzy
 msgid "Importing data..."
-msgstr "Importujem CSV dáta"
+msgstr "Importujem dáta..."
 
 #: src/mainwindow.cpp:1727
 msgid "Import File"
@@ -5128,24 +5141,24 @@ msgstr "Vymazať filter?"
 msgid "New collection name:"
 msgstr "Nový názov témy:"
 
-#: src/tellico_kernel.cpp:368
+#: src/tellico_kernel.cpp:335
 msgid "Entry 1"
 msgstr "Položka 1"
 
-#: src/tellico_kernel.cpp:369
+#: src/tellico_kernel.cpp:336
 msgid "Entry 2"
 msgstr "Položka 2"
 
-#: src/tellico_kernel.cpp:378
+#: src/tellico_kernel.cpp:345
 #, kde-format
 msgid "Conflicting values for %1 were found while merging entries."
 msgstr ""
 
-#: src/tellico_kernel.cpp:384
+#: src/tellico_kernel.cpp:351
 msgid "Please choose which value to keep."
 msgstr ""
 
-#: src/tellico_kernel.cpp:390 src/tellico_kernel.cpp:391
+#: src/tellico_kernel.cpp:357 src/tellico_kernel.cpp:358
 #, fuzzy, kde-format
 msgid "Select value from %1"
 msgstr "Vybrať pixmapu z %1"
@@ -5221,7 +5234,7 @@ msgstr "Dátový tok"
 msgid "Tracks (Disc %1)"
 msgstr "Typ disku"
 
-#: src/translators/audiofileimporter.cpp:242 xslt.cpp:4
+#: src/translators/audiofileimporter.cpp:242 xslt.cpp:13
 #, fuzzy
 msgid "(Various)"
 msgstr "Rôzdne opravy chýb"
@@ -5305,7 +5318,7 @@ msgstr "KBlocks, Egyptský štýl."
 #: src/translators/bibtexexporter.cpp:244
 #: src/translators/bibtexexporter.cpp:283
 msgid "Braces"
-msgstr ""
+msgstr "Zložené zátvorky"
 
 #: src/translators/bibtexexporter.cpp:238
 #: src/translators/bibtexexporter.cpp:246
@@ -5358,83 +5371,83 @@ msgstr "%1 (nekomprimované súbory XML)"
 msgid "CSV"
 msgstr "CSV"
 
-#: src/translators/csvexporter.cpp:131 src/translators/csvimporter.cpp:180
+#: src/translators/csvexporter.cpp:134 src/translators/csvimporter.cpp:180
 #, fuzzy
 msgid "CSV Options"
 msgstr "Nastavenia importu CSV"
 
-#: src/translators/csvexporter.cpp:134
+#: src/translators/csvexporter.cpp:137
 msgid "Include field titles as column headers"
 msgstr ""
 
-#: src/translators/csvexporter.cpp:136
+#: src/translators/csvexporter.cpp:139
 msgid "If checked, a header row will be added with the field titles."
 msgstr ""
 
-#: src/translators/csvexporter.cpp:139
+#: src/translators/csvexporter.cpp:142
 msgid "Delimiter"
 msgstr "Oddelovač"
 
-#: src/translators/csvexporter.cpp:142 src/translators/csvimporter.cpp:204
+#: src/translators/csvexporter.cpp:145 src/translators/csvimporter.cpp:204
 msgid ""
 "In addition to a comma, other characters may be used as a delimiter, "
 "separating each value in the file."
 msgstr ""
 
-#: src/translators/csvexporter.cpp:146
+#: src/translators/csvexporter.cpp:149
 msgid "Comma"
 msgstr "Čiarka"
 
-#: src/translators/csvexporter.cpp:148 src/translators/csvimporter.cpp:211
+#: src/translators/csvexporter.cpp:151 src/translators/csvimporter.cpp:211
 #, fuzzy
 msgid "Use a comma as the delimiter."
 msgstr "Použije 'icon' ako ikonu aplikácie"
 
-#: src/translators/csvexporter.cpp:152
+#: src/translators/csvexporter.cpp:155
 msgid "Semicolon"
 msgstr "Bodkočiarka"
 
-#: src/translators/csvexporter.cpp:153 src/translators/csvimporter.cpp:216
+#: src/translators/csvexporter.cpp:156 src/translators/csvimporter.cpp:216
 msgid "Use a semi-colon as the delimiter."
 msgstr ""
 
-#: src/translators/csvexporter.cpp:157
+#: src/translators/csvexporter.cpp:160
 msgid "Tab"
 msgstr "Karta"
 
-#: src/translators/csvexporter.cpp:158 src/translators/csvimporter.cpp:221
+#: src/translators/csvexporter.cpp:161 src/translators/csvimporter.cpp:221
 #, fuzzy
 msgid "Use a tab as the delimiter."
 msgstr "Použiť novú kartu ako domovskú stránku"
 
-#: src/translators/csvexporter.cpp:162 xslt.cpp:19
+#: src/translators/csvexporter.cpp:165 xslt.cpp:44
 msgid "Other"
 msgstr "Ostatné"
 
-#: src/translators/csvexporter.cpp:163 src/translators/csvimporter.cpp:226
+#: src/translators/csvexporter.cpp:166 src/translators/csvimporter.cpp:226
 msgid "Use a custom string as the delimiter."
 msgstr ""
 
-#: src/translators/csvexporter.cpp:168 src/translators/csvimporter.cpp:233
+#: src/translators/csvexporter.cpp:171 src/translators/csvimporter.cpp:233
 msgid "A custom string, such as a colon, may be used as a delimiter."
 msgstr ""
 
-#: src/translators/csvexporter.cpp:185 src/translators/csvimporter.cpp:252
+#: src/translators/csvexporter.cpp:188 src/translators/csvimporter.cpp:252
 #, fuzzy
 msgid "Table column delimiter:"
 msgstr "Tabuľka %3, riadok %1, stĺpec %2"
 
-#: src/translators/csvexporter.cpp:190 src/translators/csvimporter.cpp:251
+#: src/translators/csvexporter.cpp:193 src/translators/csvimporter.cpp:251
 msgid ""
 "The column delimiter separates values in each column of a <i>Table</i> field."
 msgstr ""
 
-#: src/translators/csvexporter.cpp:194 src/translators/csvimporter.cpp:263
+#: src/translators/csvexporter.cpp:197 src/translators/csvimporter.cpp:263
 #, fuzzy
 msgid "Table row delimiter:"
 msgstr "Tabuľka %3, riadok %1, stĺpec %2"
 
-#: src/translators/csvexporter.cpp:199 src/translators/csvimporter.cpp:262
+#: src/translators/csvexporter.cpp:202 src/translators/csvimporter.cpp:262
 msgid "The row delimiter separates values in each row of a <i>Table</i> field."
 msgstr ""
 
@@ -5618,7 +5631,7 @@ msgstr "HTML"
 #: src/translators/htmlexporter.cpp:333
 #, fuzzy, kde-format
 msgid "(grouped by %1)"
-msgstr "Blokované cez %1"
+msgstr "Združené podľa:"
 
 #: src/translators/htmlexporter.cpp:487
 #, fuzzy
@@ -5753,16 +5766,16 @@ msgstr ""
 msgid "XSLT"
 msgstr "XSLT"
 
-#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:109
+#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:110
 #, fuzzy
 msgid "XSLT Options"
 msgstr "Voľby pre ignorovanie"
 
-#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:112
+#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:113
 msgid "XSLT file:"
 msgstr "XSLT súbor:"
 
-#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:114
+#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:115
 msgid "Choose the XSLT file used to transform the data."
 msgstr ""
 
@@ -5792,133 +5805,133 @@ msgid ""
 msgstr ""
 
 #: xslt.cpp:2
-msgctxt "Album XSL Template"
-msgid "Album"
-msgstr "Album"
-
-#: xslt.cpp:3
-msgid "This template is meant for music collections only."
-msgstr ""
-
-#: xslt.cpp:5
-msgid "Total:"
-msgstr "Celkom:"
-
-#: xslt.cpp:7
-msgctxt "Compact XSL Template"
-msgid "Compact"
-msgstr "Kompaktný"
-
-#: xslt.cpp:9
-msgctxt "Default XSL Template"
-msgid "Default"
-msgstr "Predvolené"
-
-#: xslt.cpp:11
 msgctxt "Fancy XSL Template"
 msgid "Fancy"
 msgstr "Vkusný"
 
-#: xslt.cpp:13
+#: xslt.cpp:4
+msgctxt "Default XSL Template"
+msgid "Default"
+msgstr "Predvolené"
+
+#: xslt.cpp:6
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "Kompaktný"
+
+#: xslt.cpp:8
 msgctxt "Video XSL Template"
 msgid "Video"
 msgstr "Video"
 
-#: xslt.cpp:14 xslt.cpp:46
+#: xslt.cpp:9 xslt.cpp:34
 msgid "This template is meant for video collections only."
 msgstr ""
 
+#: xslt.cpp:11
+msgctxt "Album XSL Template"
+msgid "Album"
+msgstr "Album"
+
+#: xslt.cpp:12
+msgid "This template is meant for music collections only."
+msgstr ""
+
+#: xslt.cpp:14
+msgid "Total:"
+msgstr "Celkom:"
+
 #: xslt.cpp:16
-#, fuzzy
-msgctxt "Column View XSL Template"
-msgid "Column View"
-msgstr "Nastavenie stĺpca pomocného pohľadu"
-
-#: xslt.cpp:18
-#, fuzzy
-msgctxt "Group Statistics XSL Template"
-msgid "Group Statistics"
-msgstr "&Zobraziť štatistiky"
-
-#: xslt.cpp:21
-#, fuzzy
-msgctxt "Group Summary XSL Template"
-msgid "Group Summary"
-msgstr "Súhrnný pohľad"
-
-#: xslt.cpp:22
-#, fuzzy
-msgid ": Group Summary"
-msgstr "Súhrnný pohľad"
-
-#: xslt.cpp:23
-#, fuzzy
-msgid "Total number of fields:"
-msgstr "Celkový počet výskytov"
-
-#: xslt.cpp:24
-#, fuzzy
-msgid "Total number of entries:"
-msgstr "Celkový počet výskytov"
-
-#: xslt.cpp:25 xslt.cpp:39 xslt.cpp:49
-#, fuzzy
-msgid "Generated by Tellico"
-msgstr "Udalosť generovaná pluginom"
-
-#: xslt.cpp:26
-#, fuzzy
-msgid "Distinct values: "
-msgstr "Hodnoty čakania"
-
-#: xslt.cpp:28
-#, fuzzy
-msgctxt "Group View XSL Template"
-msgid "Group View"
-msgstr "Skupinový pohľad viditeľný"
-
-#: xslt.cpp:30
-#, fuzzy
-msgctxt "Image List XSL Template"
-msgid "Image List"
-msgstr "Zobraziť zoznam obrázkov"
-
-#: xslt.cpp:32
 #, fuzzy
 msgctxt "Loan View XSL Template"
 msgid "Loan View"
 msgstr "Zobraziť položku"
 
-#: xslt.cpp:34 xslt.cpp:36
+#: xslt.cpp:18 xslt.cpp:20
 #, fuzzy
 msgid "Loan Date"
 msgstr "dátum: %1; autor: %2"
 
-#: xslt.cpp:35 xslt.cpp:38
+#: xslt.cpp:19 xslt.cpp:22
 msgid "Note"
 msgstr "Poznámka"
 
-#: xslt.cpp:37
+#: xslt.cpp:21
 msgid "Due Date"
 msgstr "Termín splnenia"
 
-#: xslt.cpp:41
+#: xslt.cpp:23 xslt.cpp:40 xslt.cpp:49
 #, fuzzy
-msgctxt "Title Listing (Horizontal) XSL Template"
-msgid "Title Listing (Horizontal)"
-msgstr "Zarovnať na stred (horizontálne)"
+msgid "Generated by Tellico"
+msgstr "Udalosť generovaná pluginom"
 
-#: xslt.cpp:43
+#: xslt.cpp:25
+#, fuzzy
+msgctxt "Image List XSL Template"
+msgid "Image List"
+msgstr "Zobraziť zoznam obrázkov"
+
+#: xslt.cpp:27
+#, fuzzy
+msgctxt "Column View XSL Template"
+msgid "Column View"
+msgstr "Nastavenie stĺpca pomocného pohľadu"
+
+#: xslt.cpp:29
 #, fuzzy
 msgctxt "Title Listing (Vertical) XSL Template"
 msgid "Title Listing (Vertical)"
 msgstr "Zarovnať stred (vertikálne)"
 
-#: xslt.cpp:45
+#: xslt.cpp:31
+#, fuzzy
+msgctxt "Title Listing (Horizontal) XSL Template"
+msgid "Title Listing (Horizontal)"
+msgstr "Zarovnať na stred (horizontálne)"
+
+#: xslt.cpp:33
 #, fuzzy
 msgctxt "Tri-Column XSL Template"
 msgid "Tri-Column"
 msgstr "Jeden stĺpec"
+
+#: xslt.cpp:36
+#, fuzzy
+msgctxt "Group Summary XSL Template"
+msgid "Group Summary"
+msgstr "Súhrnný pohľad"
+
+#: xslt.cpp:37
+#, fuzzy
+msgid ": Group Summary"
+msgstr "Súhrnný pohľad"
+
+#: xslt.cpp:38
+#, fuzzy
+msgid "Total number of fields:"
+msgstr "Celkový počet výskytov"
+
+#: xslt.cpp:39
+#, fuzzy
+msgid "Total number of entries:"
+msgstr "Celkový počet výskytov"
+
+#: xslt.cpp:41
+#, fuzzy
+msgid "Distinct values: "
+msgstr "Jedinečné hodnoty"
+
+#: xslt.cpp:43
+#, fuzzy
+msgctxt "Group Statistics XSL Template"
+msgid "Group Statistics"
+msgstr "&Zobraziť štatistiky"
+
+#: xslt.cpp:46
+#, fuzzy
+msgctxt "Group View XSL Template"
+msgid "Group View"
+msgstr "Skupinový pohľad viditeľný"
 
 #: xslt.cpp:48
 msgid "Clear"

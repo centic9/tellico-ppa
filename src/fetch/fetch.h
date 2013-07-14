@@ -90,7 +90,8 @@ enum Type {
   Beyazperde,
   HathiTrust,
   TheGamesDB,
-  DBLP
+  DBLP,
+  VNDB
 };
 
   }

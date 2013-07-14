@@ -80,7 +80,7 @@ bool GoogleBookFetcher::canSearch(FetchKey k) const {
 }
 
 bool GoogleBookFetcher::canFetch(int type) const {
-  return type == Data::Collection::Book || Data::Collection::Bibtex;
+  return type == Data::Collection::Book || type == Data::Collection::Bibtex;
 }
 
 void GoogleBookFetcher::readConfigHook(const KConfigGroup& config_) {
@@ -185,6 +185,7 @@ Tellico::Data::EntryPtr GoogleBookFetcher::fetchEntryHook(uint uid_) {
     return Data::EntryPtr();
   }
 
+#ifdef HAVE_QJSON
   QString gbs = entry->field(QLatin1String("gbs-link"));
   if(!gbs.isEmpty()) {
     // quiet
@@ -192,6 +193,7 @@ Tellico::Data::EntryPtr GoogleBookFetcher::fetchEntryHook(uint uid_) {
     QJson::Parser parser;
     populateEntry(entry, parser.parse(data).toMap());
   }
+#endif
 
   const QString image_id = entry->field(QLatin1String("cover"));
   // if it's still a url, we need to load it
@@ -246,7 +248,7 @@ void GoogleBookFetcher::slotComplete(KJob* job_) {
   QFile f(QString::fromLatin1("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec(QTextCodec::codecForName("UTF-8"));
+    t.setCodec("UTF-8");
     t << data;
   }
   f.close();

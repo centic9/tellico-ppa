@@ -88,9 +88,7 @@ enum Type {
   FilmStarts,
   SensaCine,
   Beyazperde,
-  HathiTrust,
-  TheGamesDB,
-  DBLP
+  HathiTrust
 };
 
   }

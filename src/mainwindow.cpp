@@ -383,9 +383,6 @@ void MainWindow::initActions() {
   IMPORT_ACTION(Import::AMC, "file_import_amc", i18n("Import Ant Movie Catalog Data..."),
                 i18n("Import an Ant Movie Catalog data file"), BarIcon(QLatin1String("amc")));
 
-  IMPORT_ACTION(Import::VinoXML, "file_import_vinoxml", i18n("Import VinoXML..."),
-                i18n("Import VinoXML data"), BarIcon(QLatin1String("vinoxml")));
-
   IMPORT_ACTION(Import::FileListing, "file_import_filelisting", i18n("Import File Listing..."),
                 i18n("Import information about files in a folder"), mimeIcon("inode/directory"));
 
@@ -602,6 +599,9 @@ void MainWindow::initActions() {
   setStandardToolBarMenuEnabled(true);
   createStandardStatusBarAction();
 
+  KStandardAction::configureToolbars(this, SLOT(slotConfigToolbar()), actionCollection());
+  KStandardAction::keyBindings(this, SLOT(slotConfigKeys()), actionCollection());
+
   m_toggleGroupWidget = new KToggleAction(i18n("Show Grou&p View"), this);
   m_toggleGroupWidget->setToolTip(i18n("Enable/disable the group view"));
   connect(m_toggleGroupWidget, SIGNAL(triggered()), SLOT(slotToggleGroupWidget()));
@@ -673,7 +673,6 @@ void MainWindow::initActions() {
   action->setShortcutConfigurable(false);
   actionCollection()->addAction(QLatin1String("quick_filter"), action);
 
-  setupGUI(Keys | ToolBar);
 #ifdef UIFILE
   myWarning() << "call!";
   createGUI(UIFILE);
@@ -1364,6 +1363,32 @@ void MainWindow::slotEditSelectAll() {
 
 void MainWindow::slotEditDeselect() {
   Controller::self()->slotUpdateSelection(0, Data::EntryList());
+}
+
+void MainWindow::slotConfigToolbar() {
+  KConfigGroup config(KGlobal::config(), QLatin1String("Main Window Options"));
+  saveMainWindowSettings(config);
+#ifdef UIFILE
+  KEditToolBar dlg(actionCollection(), UIFILE);
+#else
+  KEditToolBar dlg(actionCollection());
+#endif
+  connect(&dlg, SIGNAL(newToolbarConfig()), this, SLOT(slotNewToolbarConfig()));
+  dlg.exec();
+}
+
+void MainWindow::slotNewToolbarConfig() {
+  KConfigGroup config(KGlobal::config(), QLatin1String("Main Window Options"));
+  applyMainWindowSettings(config);
+#ifdef UIFILE
+  createGUI(UIFILE);
+#else
+  createGUI();
+#endif
+}
+
+void MainWindow::slotConfigKeys() {
+  KShortcutsDialog::configure(actionCollection());
 }
 
 void MainWindow::slotToggleGroupWidget() {

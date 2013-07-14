@@ -33,7 +33,7 @@
 
 #include <kapplication.h>
 #include <kcolorutils.h>
-#include <qimageblitz.h>
+#include <qimageblitz/qimageblitz.h>
 
 #define RELEASE_IMAGES
 

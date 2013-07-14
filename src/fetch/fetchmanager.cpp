@@ -297,7 +297,9 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   const QStringList langs = KGlobal::locale()->languageList();
   if(langs.contains(QLatin1String("fr"))) {
     FETCHER_ADD(DVDFr);
+#ifdef HAVE_QJSON
     FETCHER_ADD(Allocine);
+#endif
   }
   if(langs.contains(QLatin1String("de"))) {
     FETCHER_ADD(FilmStarts);
@@ -381,7 +383,8 @@ Tellico::Fetch::NameTypeMap Manager::nameTypeMap() {
       continue;
     }
 
-    if(!bundledScriptHasExecPath(file, specConfig)) { // no available exec
+    bool enabled = specConfig.readEntry("Enabled", true);
+    if(!enabled || !bundledScriptHasExecPath(file, specConfig)) { // no available exec
       continue;
     }
 

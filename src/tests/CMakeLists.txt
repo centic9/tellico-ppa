@@ -19,9 +19,6 @@ TARGET_LINK_LIBRARIES(lccntest utils ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} $
 KDE4_ADD_UNIT_TEST(lcctest NOGUI lcctest.cpp ../field.cpp ../fieldformat.cpp ../tellico_utils.cpp)
 TARGET_LINK_LIBRARIES(lcctest utils core ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} )
 
-KDE4_ADD_UNIT_TEST(csvtest NOGUI csvtest.cpp ../translators/csvparser.cpp)
-TARGET_LINK_LIBRARIES(csvtest csv ${QT_AND_KDECORE_LIBS} ${QT_QTCORE_LIBRARY} ${QT_QTTEST_LIBRARY} )
-
 KDE4_ADD_UNIT_TEST(formattest NOGUI formattest.cpp ../fieldformat.cpp)
 TARGET_LINK_LIBRARIES(formattest core ${QT_AND_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTTEST_LIBRARY} )
 
@@ -96,6 +93,9 @@ TARGET_LINK_LIBRARIES(bibtexmltest ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(ciwtest NOGUI ciwtest.cpp)
 TARGET_LINK_LIBRARIES(ciwtest ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(csvtest NOGUI csvtest.cpp)
+TARGET_LINK_LIBRARIES(csvtest csv ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(delicioustest NOGUI delicioustest.cpp)
 TARGET_LINK_LIBRARIES(delicioustest ${TELLICO_TEST_LIBS})
 
@@ -156,6 +156,9 @@ TARGET_LINK_LIBRARIES(doubanfetchertest fetch ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(dvdfrfetchertest NOGUI dvdfrfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(dvdfrfetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(entrezfetchertest NOGUI entrezfetchertest.cpp abstractfetchertest.cpp)
+TARGET_LINK_LIBRARIES(entrezfetchertest fetch ${TELLICO_TEST_LIBS})
+
 IF( QJSON_FOUND )
     KDE4_ADD_UNIT_TEST(freebasefetchertest NOGUI freebasefetchertest.cpp abstractfetchertest.cpp)
     TARGET_LINK_LIBRARIES(freebasefetchertest fetch ${TELLICO_TEST_LIBS})
@@ -165,6 +168,10 @@ IF( QJSON_FOUND )
 
     KDE4_ADD_UNIT_TEST(masfetchertest NOGUI masfetchertest.cpp abstractfetchertest.cpp)
     TARGET_LINK_LIBRARIES(masfetchertest fetch ${TELLICO_TEST_LIBS})
+
+    KDE4_ADD_UNIT_TEST(googlebookfetchertest NOGUI googlebookfetchertest.cpp abstractfetchertest.cpp)
+    TARGET_LINK_LIBRARIES(googlebookfetchertest fetch ${TELLICO_TEST_LIBS})
+
 ENDIF( QJSON_FOUND )
 
 # running gcstar in the fetcher is really unreliable
@@ -173,9 +180,6 @@ ENDIF( QJSON_FOUND )
 
 KDE4_ADD_UNIT_TEST(giantbombfetchertest NOGUI giantbombfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(giantbombfetchertest fetch ${TELLICO_TEST_LIBS})
-
-KDE4_ADD_UNIT_TEST(googlebookfetchertest NOGUI googlebookfetchertest.cpp abstractfetchertest.cpp)
-TARGET_LINK_LIBRARIES(googlebookfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(googlescholarfetchertest NOGUI googlescholarfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(googlescholarfetchertest fetch ${TELLICO_TEST_LIBS})
@@ -211,6 +215,9 @@ TARGET_LINK_LIBRARIES(thegamesdbfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(themoviedbfetchertest NOGUI themoviedbfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(themoviedbfetchertest fetch ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(vndbfetchertest NOGUI vndbfetchertest.cpp abstractfetchertest.cpp)
+TARGET_LINK_LIBRARIES(vndbfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(winecomfetchertest NOGUI winecomfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(winecomfetchertest fetch ${TELLICO_TEST_LIBS})

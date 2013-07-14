@@ -424,7 +424,7 @@ void IMDBFetcher::slotComplete(KJob*) {
     return;
   }
 
-  m_text = Tellico::fromHtmlData(m_job->data());
+  m_text = Tellico::fromHtmlData(m_job->data(), "UTF-8");
   if(m_text.isEmpty()) {
     myLog() << "No data returned";
     stop();
@@ -436,6 +436,7 @@ void IMDBFetcher::slotComplete(KJob*) {
   QFile f(QString::fromLatin1("/tmp/testimdbresults.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
+    t.setCodec("UTF-8");
     t << m_text;
   }
   f.close();
@@ -813,7 +814,11 @@ void IMDBFetcher::parseMultipleNameResults() {
   KListWidget* listWidget = new KListWidget(box);
   listWidget->setMinimumWidth(400);
   listWidget->setWrapping(true);
-  foreach(const QString& value, map.keys()) {
+
+  QMapIterator<QString, KUrl> i(map);
+  while(i.hasNext()) {
+    i.next();
+    const QString& value = i.key();
     if(value.endsWith(QLatin1Char(' '))) {
       GUI::ListWidgetItem* box = new GUI::ListWidgetItem(value, listWidget);
       box->setColored(true);

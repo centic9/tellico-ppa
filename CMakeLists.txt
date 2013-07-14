@@ -1,5 +1,5 @@
 project(Tellico)
-set(TELLICO_VERSION "2.3.7")
+set(TELLICO_VERSION "2.3.8")
 
 cmake_minimum_required(VERSION 2.6.2)
 
@@ -91,7 +91,7 @@ if(LIBEXEMPI_FOUND)
 endif(LIBEXEMPI_FOUND)
 
 macro_optional_find_package(QJSON)
-macro_log_feature(QJSON_FOUND "QJSON" "Support for searching OpenLibrary and Freebase" "http://qjson.sourceforge.net" FALSE "" "")
+macro_log_feature(QJSON_FOUND "QJSON" "Support for searching additional data sources, such as OpenLibrary and Freebase" "http://qjson.sourceforge.net" FALSE "" "")
 if(QJSON_FOUND)
     include_directories(${QJSON_INCLUDE_DIR})
 endif(QJSON_FOUND)

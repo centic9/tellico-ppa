@@ -157,7 +157,7 @@ void GoogleScholarFetcher::slotComplete(KJob*) {
   QFile f(QString::fromLatin1("/tmp/test.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec(QTextCodec::codecForName("UTF-8"));
+    t.setCodec("UTF-8");
     t << text;
   }
   f.close();
@@ -235,7 +235,7 @@ void GoogleScholarFetcher::setBibtexCookie() {
   // have to set preferences to have bibtex output
   const QString text = FileHandler::readTextFile(KUrl(SCHOLAR_SET_BIBTEX_URL), true);
   // find hidden input variables
-  QRegExp inputRx(QLatin1String("<input\\s+.*\\s+type\\s*=\\s*hidden\\s+.*>"));
+  QRegExp inputRx(QLatin1String("<input\\s+[^>]*\\s*type\\s*=\\s*\"hidden\"\\s+[^>]+>"));
   inputRx.setMinimal(true);
   QRegExp pairRx(QLatin1String("([^=\\s<]+)\\s*=\\s*\"?([^=\\s\">]+)\"?"));
   QHash<QString, QString> nameValues;

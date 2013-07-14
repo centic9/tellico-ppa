@@ -15,7 +15,7 @@ or menu bars.
 >La fenêtre principale de &appname;</title>
 
 <para
->Chaque élément du menu est discuté ci-dessous. Quand un raccourci clavier lance une fonctionnalité du menu, ce raccourci clavier est listé avec l'élément du menu. </para>
+>Chaque élément des menus est détaillé ci-dessous. Quand un raccourci clavier lance une fonctionnalité du menu, celui-ci accompagne l'élément décrit. </para>
 
 <sect2>
 <title
@@ -42,7 +42,7 @@ or menu bars.
 >crée une nouvelle collection</action
 >. &appname; gère <link linkend="collection-types"
 >douze types de collections par défaut</link
-> avec une collection vide personnalisée définie par l'utilisateur.</para>
+> en plus d'une collection vide, personnalisable, définie par l'utilisateur.</para>
 </listitem>
 </varlistentry>
 
@@ -58,7 +58,7 @@ or menu bars.
 > <guimenu
 >Fichier</guimenu
 > <guimenuitem
->Ouvrir..</guimenuitem
+>Ouvrir...</guimenuitem
 > </menuchoice>
 </term>
 
@@ -84,7 +84,7 @@ or menu bars.
 <para
 >Cette commande <action
 >ouvre un fichier</action
-> depuis un sous-menu qui contient une liste des fichiers récemment ouverts.</para>
+> depuis un sous-menu contenant une liste des fichiers récemment ouverts.</para>
 </listitem>
 </varlistentry>
 
@@ -112,9 +112,9 @@ or menu bars.
 >Sans titre</emphasis
 >, <guimenuitem
 >Enregistrer...</guimenuitem
-> est l'équivalent de <guimenuitem
+> est équivalent à <guimenuitem
 >Enregistrer sous</guimenuitem
->. Seulement activé quand la collection a été modifiée.</para>
+>. Activé uniquement lorsque la collection a été modifiée.</para>
 </listitem>
 </varlistentry>
 
@@ -131,7 +131,7 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->enregistre la collection vers un nouveau fichier</action
+>enregistre la collection dans un nouveau fichier</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -156,8 +156,8 @@ or menu bars.
 <para
 >Cette commande <action
 >imprime la collection</action
->. Les options d'impression peuvent être définies dans la <interface
->Boîte de dialogue de configuration</interface
+>. Les options d'impression peuvent être définies dans la boîte de dialogue de <interface
+>Configuration</interface
 >.</para>
 </listitem>
 </varlistentry>
@@ -175,7 +175,7 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->importe les données depuis un autre fichier</action
+>importe des données depuis un autre fichier</action
 >. &appname; peut importer des données depuis <link linkend="importing"
 >d'autres formats</link
 >.</para>
@@ -196,7 +196,7 @@ or menu bars.
 <para
 >Cette commande <action
 >exporte la collection vers un autre format</action
->. &appname; peut exporter les données dans <link linkend="exporting"
+>. &appname; peut exporter des données dans <link linkend="exporting"
 >d'autres formats</link
 >.</para>
 </listitem>
@@ -222,7 +222,7 @@ or menu bars.
 <para
 >Cette commande <action
 >ferme la fenêtre de &appname;</action
->, si la collection a des modifications non enregistrées, vous serez averti de les enregistrer avant de continuer.</para>
+>, si la collection a des modifications non enregistrées, vous serez invité à les enregistrer avant de continuer.</para>
 </listitem>
 </varlistentry>
 
@@ -284,7 +284,7 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->refait la commande annulée</action
+>rétablie l'action annulée</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -309,8 +309,8 @@ or menu bars.
 <para
 >Cette commande <action
 >supprime le texte sélectionné</action
->, et <action
->copie le texte sélectionné dans le presse-papiers</action
+> et <action
+>le copie dans le presse-papiers</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -358,8 +358,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->colle le texte dans le presse-papiers</action
-> dans l'éditeur à la position du curseur.</para>
+>colle le texte du presse-papiers</action
+>, si présent, dans l'éditeur à la position du curseur.</para>
 </listitem>
 </varlistentry>
 
@@ -383,7 +383,7 @@ or menu bars.
 <para
 >Cette commande <action
 >sélectionne toutes les entrées</action
-> dans la collection, dans la <interface
+> de la collection, dans la <interface
 >Vue en colonnes</interface
 >.</para>
 </listitem>
@@ -409,7 +409,7 @@ or menu bars.
 <para
 >Cette commande <action
 >désélectionne toutes les entrées</action
-> dans la collection.</para>
+> de la collection.</para>
 </listitem>
 </varlistentry>
 
@@ -432,10 +432,10 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre la <interface
->Boîte de dialogue des champs de collection</interface
+>ouvre la boîte de dialogue des <interface
+>Champs de la collection</interface
 ></action
-> pour rechercher et importer des entrées depuis des sites web, incluant <ulink url="http://amazon.com"
+> pour rechercher et importer des entrées depuis des sites web, comme <ulink url="http://amazon.com"
 >Amazon.com</ulink
 >.</para>
 </listitem>
@@ -453,15 +453,15 @@ or menu bars.
 > <guimenu
 >Édition</guimenu
 > <guimenuitem
->Filtre avancé</guimenuitem
+>Filtre avancé...</guimenuitem
 > </menuchoice>
 </term>
 
 <listitem>
 <para
 >Cette commande <action
->ouvre la <interface
->Boîte de dialogue de filtre avancée</interface
+>ouvre la boîte de dialogue <interface
+>Filtre avancée</interface
 ></action
 >.</para>
 </listitem>
@@ -501,9 +501,9 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre <interface
->L'éditeur d'entrées</interface
-> pour modifier de nouvelles entrées</action
+>ouvre l'<interface
+>éditeur d'entrée</interface
+> pour en créer une nouvelle</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -527,9 +527,9 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre <interface
->L'éditeur d'entrées</interface
-> pour modifier les entrées sélectionnées</action
+>ouvre l'<interface
+>éditeur d'entrée</interface
+> pour modifier celles sélectionnées</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -554,7 +554,7 @@ or menu bars.
 <para
 >Cette commande <action
 >copie ou duplique les entrées sélectionnées</action
-> comme de nouvelles entrées dans la collection.</para>
+> en nouvelles entrées de la collection.</para>
 </listitem>
 </varlistentry>
 
@@ -612,7 +612,7 @@ or menu bars.
 
 <listitem>
 <para
->Ce menu contient une liste de toutes les sources disponibles, et peut être utilisé automatiquement pour lancer une requête vers une source et <action
+>Ce menu contient une liste de toutes les sources disponibles. Il peut être utilisé pour interroger automatiquement une source et <action
 >mettre à jour les entrées sélectionnées</action
 >.</para>
 </listitem>
@@ -631,7 +631,7 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre une boîte de dialogue pour gérer les prêts des entrées sélectionnées</action
+>ouvre une boîte de dialogue gérant les prêts des entrées sélectionnées</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -642,7 +642,7 @@ or menu bars.
 ><guimenu
 >Collection</guimenu
 > <guimenuitem
->Retour de prêt</guimenuitem
+>Récupérer</guimenuitem
 > </menuchoice>
 </term>
 
@@ -697,8 +697,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre la <interface
->Boîte de dialogue des champs de la collection</interface
+>ouvre la boîte de dialogue des <interface
+>Champs de la collection</interface
 ></action
 >.</para>
 </listitem>
@@ -717,8 +717,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre la <interface
->Boîte de dialogue de rapport</interface
+>ouvre la boîte de dialogue <interface
+>Rapport</interface
 ></action
 > pour générer des rapports à propos de la collection.</para>
 </listitem>
@@ -729,6 +729,8 @@ or menu bars.
  <menuchoice
 ><guimenu
 >Collection</guimenu
+> <guisubmenu
+>Bibliographie</guisubmenu
 > <guimenuitem
 >Convertir en bibliographie</guimenuitem
 > </menuchoice>
@@ -737,8 +739,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->convertit une collection de livres vers une bibliographie</action
-> en ajoutant certains champs nécessaire à l'exportation vers BibTeX, et celle-ci est activée seulement quand une collection de livre est ouverte.</para>
+>convertit une collection de livres en bibliographie</action
+> en ajoutant certains champs nécessaires à l'exportation vers BibTeX. Elle n'est disponible que pour les collections de livres.</para>
 </listitem>
 </varlistentry>
 
@@ -747,6 +749,8 @@ or menu bars.
  <menuchoice
 ><guimenu
 >Collection</guimenu
+> <guisubmenu
+>Bibliographie</guisubmenu
 > <guimenuitem
 >Ligne de Macros...</guimenuitem
 > </menuchoice>
@@ -755,8 +759,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre une boîte de dialogue pour modifier les macros d'entrées BibTeX</action
-> dans la collection. Celle-ci est activée à l'édition d'une bibliographie.</para>
+>ouvre une boîte de dialogue pour modifier les macros BibTeX</action
+> de la collection. Celle-ci n'est accessible que lors de l'édition d'une bibliographie.</para>
 </listitem>
 </varlistentry>
 
@@ -765,6 +769,28 @@ or menu bars.
  <menuchoice
 ><guimenu
 >Collection</guimenu
+> <guisubmenu
+>Bibliographie</guisubmenu
+> <guimenuitem
+>Vérifier les doublons</guimenuitem
+> </menuchoice>
+</term>
+
+<listitem>
+<para
+>Cette commande <action
+>recherche les clés BibTeX en double</action
+> et peut filtrer la collection pour afficher les entrées ayant des clés en double.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+ <menuchoice
+><guimenu
+>Collection</guimenu
+> <guisubmenu
+>Bibliographie</guisubmenu
 > <guimenuitem
 >Copier au format BibTeX vers le presse-papiers</guimenuitem
 > </menuchoice>
@@ -783,6 +809,8 @@ or menu bars.
  <menuchoice
 ><guimenu
 >Collection</guimenu
+> <guisubmenu
+>Bibliographie</guisubmenu
 > <guimenuitem
 >Citer l'entrée dans LyX</guimenuitem
 > </menuchoice>
@@ -796,11 +824,11 @@ or menu bars.
 ><link linkend="hidden-bibtex-options"
 >lyxpipe</link
 ></emphasis
-> pour utiliser dans <application
+> pour servir dans <application
 >LyX</application
 >, <application
 >Kile</application
->, ou d'autres applications LaTeX. Celle-ci est activée seulement à l'édition de la bibliographie.</para>
+> ou d'autres applications LaTeX. Celle-ci est activée seulement lors de l'édition d'une bibliographie.</para>
 </listitem>
 </varlistentry>
 
@@ -861,7 +889,7 @@ or menu bars.
 ><guimenu
 >Configuration</guimenu
 > <guimenuitem
->Afficher la vue par groupes</guimenuitem
+>Afficher la vue par groupe</guimenuitem
 > </menuchoice>
 </term>
 
@@ -869,7 +897,7 @@ or menu bars.
 <para
 >Cette commande <action
 >permute l'affichage de la <interface
->Vue par groupes</interface
+>Vue par groupe</interface
 ></action
 >.</para>
 </listitem>
@@ -881,7 +909,7 @@ or menu bars.
 ><guimenu
 >Configuration</guimenu
 > <guimenuitem
->Afficher l'éditeur d'entrées</guimenuitem
+>Afficher l'éditeur d'entrée</guimenuitem
 > </menuchoice>
 </term>
 
@@ -889,7 +917,7 @@ or menu bars.
 <para
 >Cette commande <action
 >permute l'affichage de <interface
->l'éditeur d'entrées</interface
+>l'éditeur d'entrée</interface
 ></action
 >.</para>
 </listitem>
@@ -929,7 +957,7 @@ or menu bars.
 <para
 >Cette commande <action
 >modifie le champ utilisé pour grouper les entrées</action
-> dans la collection.</para>
+> de la collection.</para>
 </listitem>
 </varlistentry>
 
@@ -946,8 +974,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre la <interface
->Boîte de dialogue de configuration des raccourcis clavier</interface
+>ouvre la boîte de dialogue de <interface
+>Configuration des raccourcis clavier</interface
 > de &kde;</action
 >.</para>
 </listitem>
@@ -966,8 +994,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre la <interface
->Boîte de dialogue de configuration de la barre d'outils</interface
+>ouvre la boîte de dialogue de <interface
+>Configuration de la barre d'outils</interface
 > de &kde;</action
 >.</para>
 </listitem>
@@ -986,8 +1014,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre la <interface
->Boîte de dialogue de configuration</interface
+>ouvre la boîte de dialogue de <interface
+>Configuration</interface
 > de &appname;</action
 >.</para>
 </listitem>
@@ -1005,13 +1033,13 @@ or menu bars.
 ></title>
 
 <para
->Voici les éléments standard &kde; pour le menu <guimenu
+>Voici les éléments standards du menu <guimenu
 >Aide</guimenu
-> : </para>
+> de &kde; : </para>
 &help.menu.documentation; <para
->Séparé des éléments du menu <guimenu
+>En plus des éléments standards du menu <guimenu
 >Aide</guimenu
-> standard de &kde;, décris ci-dessus, &appname; possède les entrées de menu supplémentaires : </para>
+> de &kde;, décris ci-dessus, &appname; propose une entrée supplémentaire : </para>
 
 <variablelist>
 <varlistentry>
@@ -1027,8 +1055,8 @@ or menu bars.
 <listitem>
 <para
 >Cette commande <action
->ouvre la boîte de dialogue d'astuce du jour</action
->. Vous pouvez faire défiler toutes les astuces en utilisant les boutons de la boîte de dialogue.</para>
+>ouvre la boîte de dialogue des astuces du jour</action
+>. Vous pouvez consulter toutes les astuces en utilisant les boutons de la boîte de dialogue.</para>
 </listitem>
 </varlistentry>
 

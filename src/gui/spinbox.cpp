@@ -35,10 +35,11 @@ SpinBox::SpinBox(int min_, int max_, QWidget * parent_) : QSpinBox(parent_) {
   // I want to be able to have an empty value
   // an empty string just removes the special value, so set white space
   setSpecialValueText(QLatin1String(" "));
-  connect(lineEdit(), SIGNAL(textEdited(const QString&)), SLOT(checkValue()));
+  connect(lineEdit(), SIGNAL(textChanged(const QString&)), SLOT(checkValue(const QString&)));
 }
 
-void SpinBox::checkValue() {
+void SpinBox::checkValue(const QString& text_) {
+  Q_UNUSED(text_);
   // if we delete everything in the lineedit, then we want to have an empty value
   // which is equivalent to the minimum, or special value text
   if(cleanText().isEmpty()) {
@@ -51,6 +52,21 @@ QValidator::State SpinBox::validate(QString& text_, int& pos_) const {
     text_.remove(text_.length()-1, 1);
   }
   return QSpinBox::validate(text_, pos_);
+}
+
+void SpinBox::stepBy(int steps_) {
+  const int oldValue = value();
+  const QString oldText = lineEdit()->text();
+
+  QSpinBox::stepBy(steps_);
+
+  // QT bug? Apparently, after the line edit is cleared, the internal value is not changed
+  // then when the little buttons are clickeed, the internal value is inserted in the line edit
+  // but the valueChanged signal is not emitted
+  if(oldText != lineEdit()->text() && oldValue == value()) {
+    emit valueChanged(value());
+    emit valueChanged(text());
+  }
 }
 
 #include "spinbox.moc"

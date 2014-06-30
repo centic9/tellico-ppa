@@ -1,13 +1,13 @@
 # translation of tellico.po to Ukrainian
-# Copyright (C) 2007 Robby Stephenson <robby@periapsis.org>.
+# Copyright (C) 2007-2014 This_file_is_part_of_KDE
 # Serhij Dubyk <dubyk@library.lviv.ua>, 2007.
-# Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010, 2011, 2012, 2013.
+# Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010, 2011, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2013-07-02 05:19+0000\n"
-"PO-Revision-Date: 2013-04-02 23:41+0300\n"
+"POT-Creation-Date: 2014-05-27 06:47+0000\n"
+"PO-Revision-Date: 2014-01-18 10:07+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -64,7 +64,7 @@ msgid ""
 "\"true\" should be used. If you'd like to filter to\n"
 "show only the science fiction books which you've not read, for\n"
 "example, check the <em>Match all of the\n"
-"following</em> button,  set the first rule to have \"Genre\"\n"
+"following</em> button, set the first rule to have \"Genre\"\n"
 "\"contains\" \"Science Fiction\" (no quotes) and the second rule to\n"
 "have \"Read\" \"does not contain\" \"true\" (no quotes).</p>\n"
 msgstr ""
@@ -279,13 +279,15 @@ msgstr "Назва"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:247 src/fetch/allocinefetcher.cpp:253
+#: src/fetch/allocinefetcher.cpp:255 src/fetch/allocinefetcher.cpp:261
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:388
+#: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
-#: src/fetch/imdbfetcher.cpp:951 src/fetch/imdbfetcher.cpp:1289
+#: src/fetch/imdbfetcher.cpp:957 src/fetch/imdbfetcher.cpp:1297
 #: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
-#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
+#: src/fetch/themoviedbfetcher.cpp:253 src/fetch/themoviedbfetcher.cpp:258
+#: src/fetch/themoviedbfetcher.cpp:263 src/field.cpp:37 src/field.cpp:78
+#: src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Загальне"
 
@@ -695,7 +697,7 @@ msgstr "Для поля з похідним значенням слід вказ
 msgid "Publishing"
 msgstr "Публікація"
 
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:401
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:405
 #: src/translators/risimporter.cpp:338
 msgid "Miscellaneous"
 msgstr "Різне"
@@ -738,7 +740,7 @@ msgid "Publisher"
 msgstr "Видавець"
 
 #: src/collections/bibtexcollection.cpp:139
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/srufetcher.cpp:465
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:465
 #: src/fetch/z3950fetcher.cpp:565
 msgid "Address"
 msgstr "Адреса"
@@ -826,13 +828,13 @@ msgid "Keywords"
 msgstr "Ключові слова"
 
 #: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
-#: src/fetch/entrezfetcher.cpp:400 src/fetch/entrezfetcher.cpp:466
+#: src/fetch/entrezfetcher.cpp:404 src/fetch/entrezfetcher.cpp:470
 #: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
 msgid "URL"
 msgstr "URL"
 
-#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:465
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/srufetcher.cpp:466
+#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:469
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:466
 #: src/fetch/z3950fetcher.cpp:566
 msgid "Abstract"
 msgstr "Резюме"
@@ -972,12 +974,13 @@ msgstr "Мої книги"
 msgid "Subtitle"
 msgstr "Підзаголовок"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:421
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:441
 #: src/fetch/ibsfetcher.cpp:338 src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Тверда палітурка"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/ibsfetcher.cpp:336
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:443
+#: src/fetch/ibsfetcher.cpp:336
 msgid "Paperback"
 msgstr "М'яка палітурка"
 
@@ -1419,8 +1422,8 @@ msgid "Issue Year"
 msgstr "Рік видання"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:356
-#: src/fetch/imdbfetcher.cpp:1401
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:364
+#: src/fetch/imdbfetcher.cpp:1409
 msgid "Color"
 msgstr "Колір"
 
@@ -1947,7 +1950,7 @@ msgstr "&Форматувати імена та назви"
 msgid "&Print field headers"
 msgstr "&Включати заголовки полів"
 
-#: src/configdialog.cpp:374 src/translators/htmlexporter.cpp:491
+#: src/configdialog.cpp:374 src/translators/htmlexporter.cpp:493
 msgid "If checked, the field names will be printed as table headers."
 msgstr ""
 "Якщо буде позначено цей пункт, при експорті в HTML будуть надруковані "
@@ -1961,7 +1964,7 @@ msgstr "Параметри групування"
 msgid "&Group the entries"
 msgstr "&Групувати записи"
 
-#: src/configdialog.cpp:384 src/translators/htmlexporter.cpp:496
+#: src/configdialog.cpp:384 src/translators/htmlexporter.cpp:498
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr ""
 "Якщо буде позначено цей пункт, записи будуть згруповані за позначеним полем"
@@ -2157,7 +2160,7 @@ msgstr "*.tar.gz *.tgz|Пакунки шаблонів (*.tar.gz)"
 #: src/mainwindow.cpp:1233 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
-#: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:91
+#: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:92
 #: src/translators/onixexporter.cpp:71 src/translators/pilotdbexporter.cpp:58
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/tellicozipexporter.cpp:56
@@ -2175,7 +2178,8 @@ msgid "Select template to delete:"
 msgstr "Виберіть шаблон для вилучення:"
 
 #: src/controller.cpp:142 src/fetchdialog.cpp:279 src/fetchdialog.cpp:371
-#: src/fetchdialog.cpp:488 src/fetchdialog.cpp:557 src/gui/statusbar.cpp:125
+#: src/fetchdialog.cpp:493 src/fetchdialog.cpp:553 src/fetchdialog.cpp:567
+#: src/gui/statusbar.cpp:125
 msgid "Ready."
 msgstr "Готово."
 
@@ -2246,22 +2250,22 @@ msgstr "Відбулася помилка XML у рядку %1 та стовпц
 msgid "The error message from Qt is:"
 msgstr "Помилка від QT:"
 
-#: src/core/filehandler.cpp:192 src/core/filehandler.cpp:208
+#: src/core/filehandler.cpp:194 src/core/filehandler.cpp:210
 #, kde-format
 msgid "Tellico is unable to load the image - %1."
 msgstr "Tellico не вдається завантажити зображення - %1."
 
-#: src/core/filehandler.cpp:224
+#: src/core/filehandler.cpp:226
 msgid "Overwrite"
 msgstr "Переписати"
 
-#: src/core/filehandler.cpp:228
+#: src/core/filehandler.cpp:230
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr "Файл з назвою «%1» вже існує. Хочете переписати його?"
 
-#: src/core/filehandler.cpp:231
+#: src/core/filehandler.cpp:233
 msgid "Overwrite File?"
 msgstr "Переписати файл?"
 
@@ -2646,24 +2650,25 @@ msgstr "Системне кодування (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Змінити кодування експортованого файла на локальне."
 
-#: src/fetch/allocinefetcher.cpp:252 src/fetch/allocinefetcher.cpp:472
+#: src/fetch/allocinefetcher.cpp:260 src/fetch/allocinefetcher.cpp:480
 msgid "Allocine Link"
 msgstr "Посилання Allocine"
 
-#: src/fetch/allocinefetcher.cpp:257 src/fetch/allocinefetcher.cpp:471
+#: src/fetch/allocinefetcher.cpp:265 src/fetch/allocinefetcher.cpp:479
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
-#: src/fetch/sensacinefetcher.cpp:58 src/fetch/vndbfetcher.cpp:241
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
+#: src/fetch/themoviedbfetcher.cpp:426 src/fetch/vndbfetcher.cpp:241
 #: src/fetch/vndbfetcher.cpp:320
 msgid "Original Title"
 msgstr "Початкова назва"
 
-#: src/fetch/allocinefetcher.cpp:382 src/fetch/imdbfetcher.cpp:1596
+#: src/fetch/allocinefetcher.cpp:390 src/fetch/imdbfetcher.cpp:1607
 msgid "&Maximum cast: "
 msgstr "&Максимальна к-ть акторів: "
 
-#: src/fetch/allocinefetcher.cpp:387 src/fetch/imdbfetcher.cpp:1601
+#: src/fetch/allocinefetcher.cpp:395 src/fetch/imdbfetcher.cpp:1612
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2746,9 +2751,9 @@ msgstr "Мережеві служби Amazon.com"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
 #: src/fetch/crossreffetcher.cpp:311 src/fetch/doubanfetcher.cpp:226
-#: src/fetch/freebasefetcher.cpp:926 src/fetch/giantbombfetcher.cpp:206
+#: src/fetch/freebasefetcher.cpp:954 src/fetch/giantbombfetcher.cpp:206
 #: src/fetch/googlebookfetcher.cpp:381 src/fetch/isbndbfetcher.cpp:355
-#: src/fetch/themoviedbfetcher.cpp:264 src/fetch/winecomfetcher.cpp:297
+#: src/fetch/themoviedbfetcher.cpp:438 src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2761,7 +2766,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:277
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:451
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "Ключ доступу: "
@@ -2770,11 +2775,11 @@ msgstr "Ключ доступу: "
 msgid "Secret key: "
 msgstr "Закритий ключ: "
 
-#: src/fetch/amazonfetcher.cpp:962 src/fetch/imdbfetcher.cpp:1578
+#: src/fetch/amazonfetcher.cpp:962
 msgid "Country: "
 msgstr "Країна: "
 
-#: src/fetch/amazonfetcher.cpp:965 src/fetch/imdbfetcher.cpp:1581
+#: src/fetch/amazonfetcher.cpp:965
 msgid "United States"
 msgstr "США"
 
@@ -2782,7 +2787,7 @@ msgstr "США"
 msgid "United Kingdom"
 msgstr "Великобританія"
 
-#: src/fetch/amazonfetcher.cpp:967 src/fetch/imdbfetcher.cpp:1584
+#: src/fetch/amazonfetcher.cpp:967
 msgid "Germany"
 msgstr "Німеччина"
 
@@ -2790,7 +2795,7 @@ msgstr "Німеччина"
 msgid "Japan"
 msgstr "Японія"
 
-#: src/fetch/amazonfetcher.cpp:969 src/fetch/imdbfetcher.cpp:1582
+#: src/fetch/amazonfetcher.cpp:969
 msgid "France"
 msgstr "Франція"
 
@@ -2802,11 +2807,11 @@ msgstr "Канада"
 msgid "China"
 msgstr "Китай"
 
-#: src/fetch/amazonfetcher.cpp:972 src/fetch/imdbfetcher.cpp:1583
+#: src/fetch/amazonfetcher.cpp:972
 msgid "Spain"
 msgstr "Іспанія"
 
-#: src/fetch/amazonfetcher.cpp:973 src/fetch/imdbfetcher.cpp:1585
+#: src/fetch/amazonfetcher.cpp:973
 msgid "Italy"
 msgstr "Італія"
 
@@ -2838,7 +2843,7 @@ msgstr "Велике зображення"
 msgid "No Image"
 msgstr "Немає зображення"
 
-#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1610
+#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1621
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2860,9 +2865,9 @@ msgstr ""
 
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
-#: src/fetch/imdbfetcher.cpp:1021 src/fetch/imdbfetcher.cpp:1562
+#: src/fetch/imdbfetcher.cpp:1027 src/fetch/imdbfetcher.cpp:1570
 #: src/fetch/moviemeterfetcher.cpp:253 src/fetch/moviemeterfetcher.cpp:360
-#: src/fetch/themoviedbfetcher.cpp:252
+#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:425
 msgid "Alternative Titles"
 msgstr "Альтернативні назви"
 
@@ -2885,19 +2890,19 @@ msgstr "Оцінка AnimeNfo"
 #: src/fetch/animenfofetcher.cpp:491 src/fetch/arxivfetcher.cpp:329
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
 #: src/fetch/dblpfetcher.cpp:126 src/fetch/discogsfetcher.cpp:222
-#: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:477
-#: src/fetch/filmasterfetcher.cpp:319 src/fetch/googlescholarfetcher.cpp:267
-#: src/fetch/hathitrustfetcher.cpp:315 src/fetch/ibsfetcher.cpp:445
+#: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
+#: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
+#: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
 #: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:367
-#: src/fetch/musicbrainzfetcher.cpp:334 src/fetch/openlibraryfetcher.cpp:429
+#: src/fetch/musicbrainzfetcher.cpp:337 src/fetch/openlibraryfetcher.cpp:429
 #: src/fetch/springerfetcher.cpp:179 src/fetch/thegamesdbfetcher.cpp:161
 #: src/fetch/vndbfetcher.cpp:328 src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "Це джерело немає параметрів."
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:945
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
 #: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:400
-#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:283
+#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:457
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2950,8 +2955,9 @@ msgstr "Посилання Discogs"
 msgid "Douban Link"
 msgstr "Посилання Douban"
 
-#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:950
-#: src/fetch/imdbfetcher.cpp:1560 src/fetch/themoviedbfetcher.cpp:251
+#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:956
+#: src/fetch/imdbfetcher.cpp:1568 src/fetch/themoviedbfetcher.cpp:262
+#: src/fetch/themoviedbfetcher.cpp:424
 msgid "IMDb Link"
 msgstr "Посилання IMDb"
 
@@ -2959,11 +2965,11 @@ msgstr "Посилання IMDb"
 msgid "DVDFr Link"
 msgstr "Посилання DVDFr"
 
-#: src/fetch/entrezfetcher.cpp:454
+#: src/fetch/entrezfetcher.cpp:458
 msgid "Entrez Database"
 msgstr "База даних Entrez"
 
-#: src/fetch/entrezfetcher.cpp:464
+#: src/fetch/entrezfetcher.cpp:468
 msgid "Institution"
 msgstr "Інститут"
 
@@ -3027,7 +3033,7 @@ msgstr ""
 "назви полів слід вказувати у фігурних дужках, наприклад <i>%{author}</i>. "
 "Докладніше про це оповідається у документації.</p>"
 
-#: src/fetch/fetcher.cpp:77
+#: src/fetch/fetcher.cpp:76
 #, kde-format
 msgid "%1 does not allow searching for this collection type."
 msgstr "У цьому типі збірок не можна шукати %1"
@@ -3064,15 +3070,15 @@ msgstr "LCCN"
 msgid "Raw Query"
 msgstr "Необроблений запит"
 
-#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+#: src/fetch/filmasterfetcher.cpp:235 src/fetch/filmasterfetcher.cpp:315
 msgid "Filmaster Link"
 msgstr "Посилання Filmaster"
 
-#: src/fetch/freebasefetcher.cpp:387 src/fetch/freebasefetcher.cpp:606
+#: src/fetch/freebasefetcher.cpp:389 src/fetch/freebasefetcher.cpp:628
 msgid "Freebase Link"
 msgstr "Посилання Freebase"
 
-#: src/fetch/freebasefetcher.cpp:939 src/fetch/googlebookfetcher.cpp:394
+#: src/fetch/freebasefetcher.cpp:967 src/fetch/googlebookfetcher.cpp:394
 msgid "API key: "
 msgstr "Ключ до API: "
 
@@ -3104,17 +3110,17 @@ msgstr "Посилання у Книгах Google"
 msgid "Google Book Search"
 msgstr "Пошук у Книгах Google"
 
-#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/z3950fetcher.cpp:567
+#: src/fetch/hathitrustfetcher.cpp:309 src/fetch/z3950fetcher.cpp:567
 msgid "Illustrator"
 msgstr "Ілюстратор"
 
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/isbndbfetcher.cpp:343
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:343
 #: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Десяткова Дьюї"
 
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/isbndbfetcher.cpp:344
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:344
 #: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3124,7 +3130,7 @@ msgstr "Класифікація Бібліотеки Конгресу"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Інтернет-магазин книг (ibs.it)"
 
-#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1550
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1558
 msgid "Internet Movie Database"
 msgstr "База даних фільмів у інтернеті (IMDB)"
 
@@ -3148,42 +3154,30 @@ msgstr "База даних фільмів у інтернеті (італійс
 msgid "Internet Movie Database (Portuguese)"
 msgstr "База даних фільмів у інтернеті (португальською)"
 
-#: src/fetch/imdbfetcher.cpp:806
+#: src/fetch/imdbfetcher.cpp:811
 msgid "Select IMDb Result"
 msgstr "Виберіть результат IMDb"
 
-#: src/fetch/imdbfetcher.cpp:812
+#: src/fetch/imdbfetcher.cpp:817
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr ""
 "<qt>Ваш пошук дав декілька результатів. Будь ласка, виберіть один з них.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:832
+#: src/fetch/imdbfetcher.cpp:837
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>Виберіть результат пошуку.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:1288 src/fetch/imdbfetcher.cpp:1561
+#: src/fetch/imdbfetcher.cpp:1296 src/fetch/imdbfetcher.cpp:1569
 msgid "IMDb Rating"
 msgstr "Рейтинг IMDb"
 
-#: src/fetch/imdbfetcher.cpp:1433 src/fetch/imdbfetcher.cpp:1521
-#: src/fetch/imdbfetcher.cpp:1563
+#: src/fetch/imdbfetcher.cpp:1441 src/fetch/imdbfetcher.cpp:1529
+#: src/fetch/imdbfetcher.cpp:1571
 msgid "Certifications"
 msgstr "Сертифікації"
 
-#: src/fetch/imdbfetcher.cpp:1586
-msgid "Portugal"
-msgstr "Португалія"
-
-#: src/fetch/imdbfetcher.cpp:1590
-msgid ""
-"The Internet Movie Database provides data from several different localized "
-"sites. Choose the one you wish to use for this data source."
-msgstr ""
-"База даних фільмів у інтернеті (IMDB) надає дані з декількох своїх сайтів. "
-"Виберіть джерело, звідки ви хочете отримати дані."
-
-#: src/fetch/imdbfetcher.cpp:1606
+#: src/fetch/imdbfetcher.cpp:1617
 msgid "Download cover &image"
 msgstr "Звантажити зо&браження обкладинки"
 
@@ -3255,35 +3249,35 @@ msgstr "Формат: "
 msgid "Enter the result format used by the server."
 msgstr "Введіть остаточний формат, який використовується сервером."
 
-#: src/fetch/themoviedbfetcher.cpp:250
+#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:423
 msgid "TMDb Link"
 msgstr "Посилання TMDb"
 
-#: src/fetch/themoviedbfetcher.cpp:288
+#: src/fetch/themoviedbfetcher.cpp:462
 msgid "Language: "
 msgstr "Мова: "
 
-#: src/fetch/themoviedbfetcher.cpp:291
+#: src/fetch/themoviedbfetcher.cpp:465
 msgctxt "Language"
 msgid "English"
 msgstr "англійська"
 
-#: src/fetch/themoviedbfetcher.cpp:292
+#: src/fetch/themoviedbfetcher.cpp:466
 msgctxt "Language"
 msgid "French"
 msgstr "французька"
 
-#: src/fetch/themoviedbfetcher.cpp:293
+#: src/fetch/themoviedbfetcher.cpp:467
 msgctxt "Language"
 msgid "German"
 msgstr "німецька"
 
-#: src/fetch/themoviedbfetcher.cpp:294
+#: src/fetch/themoviedbfetcher.cpp:468
 msgctxt "Language"
 msgid "Spanish"
 msgstr "іспанська"
 
-#: src/fetch/themoviedbfetcher.cpp:325
+#: src/fetch/themoviedbfetcher.cpp:499
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
@@ -3505,7 +3499,7 @@ msgstr "Спорожнити усі поля та результати пошу�
 msgid "Cancelling the search..."
 msgstr "Скасування пошуку…"
 
-#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:512
+#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:517
 msgid "Searching..."
 msgstr "Пошук…"
 
@@ -3522,44 +3516,44 @@ msgstr[1] "Пошук дав %1 результати."
 msgstr[2] "Пошук дав %1 результатів."
 msgstr[3] "Пошук дав %1 результат."
 
-#: src/fetchdialog.cpp:433
+#: src/fetchdialog.cpp:437
 msgid "No results were found for the following ISBN values:"
 msgstr "Жодних записів не було знайдено для таких номерів ISBN:"
 
-#: src/fetchdialog.cpp:435
+#: src/fetchdialog.cpp:439
 msgid "No Results"
 msgstr "Нічого не знайдено"
 
-#: src/fetchdialog.cpp:480 src/fetchdialog.cpp:535
+#: src/fetchdialog.cpp:485 src/fetchdialog.cpp:540
 #, kde-format
 msgid "Fetching %1..."
 msgstr "Отримання %1…"
 
-#: src/fetchdialog.cpp:547
+#: src/fetchdialog.cpp:557
 msgid "Attribution"
 msgstr "Посилання на джерело"
 
-#: src/fetchdialog.cpp:579 src/fetchdialog.cpp:790
+#: src/fetchdialog.cpp:589 src/fetchdialog.cpp:800
 msgid "No Internet sources are available for your current collection type."
 msgstr "Немає доступних інтернет-джерел для поточного типу збірки."
 
-#: src/fetchdialog.cpp:661
+#: src/fetchdialog.cpp:671
 msgid "Edit ISBN/UPC Values"
 msgstr "Редагувати значення ISBN/UPC"
 
-#: src/fetchdialog.cpp:666
+#: src/fetchdialog.cpp:676
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>Введіть значення номера ISBN чи UPC, по одному на рядок.</qt>"
 
-#: src/fetchdialog.cpp:678
+#: src/fetchdialog.cpp:688
 msgid "&Load From File..."
 msgstr "&Завантажити з файла…"
 
-#: src/fetchdialog.cpp:679
+#: src/fetchdialog.cpp:689
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>Завантажити список з текстового файла.</qt>"
 
-#: src/fetchdialog.cpp:698
+#: src/fetchdialog.cpp:708
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
 "100 values in your list will be used.</qt>"
@@ -3722,7 +3716,7 @@ msgid "Group"
 msgstr "Група"
 
 #: src/groupview.cpp:415 src/mainwindow.cpp:903 src/mainwindow.cpp:1522
-#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:329
+#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:330
 msgid "People"
 msgstr "Люди"
 
@@ -3881,40 +3875,40 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "Ви&лучити"
 
-#: src/gui/tablefieldwidget.cpp:167
+#: src/gui/tablefieldwidget.cpp:168
 msgid "Rename Column"
 msgstr "Перейменувати стовпець"
 
-#: src/gui/tablefieldwidget.cpp:167
+#: src/gui/tablefieldwidget.cpp:168
 msgid "New column name:"
 msgstr "Нова назва стовпця:"
 
-#: src/gui/tablefieldwidget.cpp:194
+#: src/gui/tablefieldwidget.cpp:195
 #, kde-format
 msgid "Column %1"
 msgstr "Стовпець %1"
 
-#: src/gui/tablefieldwidget.cpp:233 src/gui/tablefieldwidget.cpp:267
+#: src/gui/tablefieldwidget.cpp:234 src/gui/tablefieldwidget.cpp:268
 msgid "Rename Column..."
 msgstr "Перейменувати стовпець…"
 
-#: src/gui/tablefieldwidget.cpp:235 src/gui/tablefieldwidget.cpp:273
+#: src/gui/tablefieldwidget.cpp:236 src/gui/tablefieldwidget.cpp:274
 msgid "Clear Table"
 msgstr "Спорожнити таблицю"
 
-#: src/gui/tablefieldwidget.cpp:252
+#: src/gui/tablefieldwidget.cpp:253
 msgid "Insert Row"
 msgstr "Вставити рядок"
 
-#: src/gui/tablefieldwidget.cpp:254
+#: src/gui/tablefieldwidget.cpp:255
 msgid "Remove Row"
 msgstr "Вилучити рядок"
 
-#: src/gui/tablefieldwidget.cpp:256
+#: src/gui/tablefieldwidget.cpp:257
 msgid "Move Row Up"
 msgstr "Перемістити рядок вгору"
 
-#: src/gui/tablefieldwidget.cpp:261
+#: src/gui/tablefieldwidget.cpp:262
 msgid "Move Row Down"
 msgstr "Перемістити рядок донизу"
 
@@ -4103,8 +4097,8 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico — програма для керування збірками у KDE"
 
 #: src/main.cpp:39
-msgid "(c) 2001-2013, Robby Stephenson"
-msgstr "© Robby Stephenson, 2001–2012"
+msgid "(c) 2001-2014, Robby Stephenson"
+msgstr "© Robby Stephenson, 2001–2014"
 
 #: src/main.cpp:41
 msgid "Robby Stephenson"
@@ -5019,7 +5013,7 @@ msgid ""
 "Some reports may take several seconds to generate for large collections."
 msgstr "Створення звітів великих збірок може тривати декілька десятків секунд."
 
-#: src/reportdialog.cpp:215 src/translators/htmlexporter.cpp:91
+#: src/reportdialog.cpp:215 src/translators/htmlexporter.cpp:92
 msgid "*.html|HTML Files (*.html)"
 msgstr "*.html|файли HTML (*.html)"
 
@@ -5218,9 +5212,11 @@ msgstr "Цитати"
 
 #: src/translators/bibtexexporter.cpp:239
 msgid ""
-"<qt>The quotation style used when exporting bibtex. All field values will  "
-"be escaped with either braces or quotation marks.</qt>"
-msgstr "<qt>При експорті використовуватиметься стиль цитування bibtex.</qt>"
+"<qt>The quotation style used when exporting bibtex. All field values will be "
+"escaped with either braces or quotation marks.</qt>"
+msgstr ""
+"<qt>Під час експортування буде використано стиль цитування bibtex. Усі "
+"значення полів буде екрановано фігурними дужками або лапками.</qt>"
 
 #: src/translators/bibteximporter.cpp:99
 msgid "No valid bibtex entries were found"
@@ -5506,32 +5502,32 @@ msgstr "Параметри Goodreads"
 msgid "User ID"
 msgstr "Ідентифікатор користувача"
 
-#: src/translators/htmlexporter.cpp:87
+#: src/translators/htmlexporter.cpp:88
 msgid "HTML"
 msgstr "HTML"
 
-#: src/translators/htmlexporter.cpp:333
+#: src/translators/htmlexporter.cpp:334
 #, kde-format
 msgid "(grouped by %1)"
 msgstr "(згруповано за %1)"
 
-#: src/translators/htmlexporter.cpp:487
+#: src/translators/htmlexporter.cpp:489
 msgid "HTML Options"
 msgstr "Параметри HTML"
 
-#: src/translators/htmlexporter.cpp:490
+#: src/translators/htmlexporter.cpp:492
 msgid "Print field headers"
 msgstr "Включити заголовки полів"
 
-#: src/translators/htmlexporter.cpp:495
+#: src/translators/htmlexporter.cpp:497
 msgid "Group the entries"
 msgstr "Групувати записи"
 
-#: src/translators/htmlexporter.cpp:500
+#: src/translators/htmlexporter.cpp:502
 msgid "Export individual entry files"
 msgstr "Експорт кожного запису в окремий файл"
 
-#: src/translators/htmlexporter.cpp:501
+#: src/translators/htmlexporter.cpp:503
 msgid "If checked, individual files will be created for each entry."
 msgstr ""
 "Якщо буде позначено цей пункт, кожен запис виводитиметься в окремий файл."

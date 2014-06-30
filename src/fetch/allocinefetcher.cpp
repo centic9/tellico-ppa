@@ -103,8 +103,13 @@ void AbstractAllocineFetcher::search() {
   QList<QPair<QString, QString> > params;
   params.append(qMakePair(QString::fromLatin1("partner"), m_apiKey));
 
-  QString q = request().value;
+  // I can't figure out how to encode accent marks, but they don't
+  // seem to be necessary
+  QString q = removeAccents(request().value);
+  q.remove(QLatin1Char(','));
+  q.replace(QLatin1Char('\''), QLatin1Char('+'));
   q.replace(QLatin1Char(' '), QLatin1Char('+'));
+
   switch(request().key) {
     case Keyword:
       params.append(qMakePair(QString::fromLatin1("q"), q));
@@ -229,6 +234,9 @@ void AbstractAllocineFetcher::slotComplete(KJob*) {
     stop();
     return;
   }
+  // see bug 319662. If fetcher is cancelled, job is killed
+  // if the pointer is retained, it gets double-deleted
+  m_job = 0;
 
 #if 0
   myWarning() << "Remove debug from allocinefetcher.cpp";

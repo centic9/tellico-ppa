@@ -6,13 +6,14 @@
 # Petros <pvidalis@gmail.com>, 2009, 2010, 2011.
 # Stelios <sstavra@gmail.com>, 2011, 2012.
 # Dimitrios Glentadakis <dglent@gmail.com>, 2012, 2013.
+# Dimitris Kardarakos <dimkard@gmail.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2013-07-02 05:19+0000\n"
-"PO-Revision-Date: 2013-05-30 18:50+0200\n"
-"Last-Translator: Dimitrios Glentadakis <dglent@gmail.com>\n"
+"POT-Creation-Date: 2014-05-27 06:47+0000\n"
+"PO-Revision-Date: 2014-04-22 11:40+0300\n"
+"Last-Translator: Dimitris Kardarakos <dimkard@gmail.com>\n"
 "Language-Team: Greek <kde-i18n-el@kde.org>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +69,7 @@ msgid ""
 "\"true\" should be used. If you'd like to filter to\n"
 "show only the science fiction books which you've not read, for\n"
 "example, check the <em>Match all of the\n"
-"following</em> button,  set the first rule to have \"Genre\"\n"
+"following</em> button, set the first rule to have \"Genre\"\n"
 "\"contains\" \"Science Fiction\" (no quotes) and the second rule to\n"
 "have \"Read\" \"does not contain\" \"true\" (no quotes).</p>\n"
 msgstr ""
@@ -289,13 +290,15 @@ msgstr "Τίτλος"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:247 src/fetch/allocinefetcher.cpp:253
+#: src/fetch/allocinefetcher.cpp:255 src/fetch/allocinefetcher.cpp:261
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:388
+#: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
-#: src/fetch/imdbfetcher.cpp:951 src/fetch/imdbfetcher.cpp:1289
+#: src/fetch/imdbfetcher.cpp:957 src/fetch/imdbfetcher.cpp:1297
 #: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
-#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
+#: src/fetch/themoviedbfetcher.cpp:253 src/fetch/themoviedbfetcher.cpp:258
+#: src/fetch/themoviedbfetcher.cpp:263 src/field.cpp:37 src/field.cpp:78
+#: src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Γενικά"
 
@@ -727,7 +730,7 @@ msgstr "Ένα πεδίο με μια παράγωγη τιμή πρέπει ν�
 msgid "Publishing"
 msgstr "Έκδοση"
 
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:401
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:405
 #: src/translators/risimporter.cpp:338
 msgid "Miscellaneous"
 msgstr "Διάφορα"
@@ -772,7 +775,7 @@ msgid "Publisher"
 msgstr "Εκδότης"
 
 #: src/collections/bibtexcollection.cpp:139
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/srufetcher.cpp:465
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:465
 #: src/fetch/z3950fetcher.cpp:565
 msgid "Address"
 msgstr "Διεύθυνση"
@@ -860,13 +863,13 @@ msgid "Keywords"
 msgstr "Λέξεις κλειδιά"
 
 #: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
-#: src/fetch/entrezfetcher.cpp:400 src/fetch/entrezfetcher.cpp:466
+#: src/fetch/entrezfetcher.cpp:404 src/fetch/entrezfetcher.cpp:470
 #: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
 msgid "URL"
 msgstr "URL"
 
-#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:465
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/srufetcher.cpp:466
+#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:469
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:466
 #: src/fetch/z3950fetcher.cpp:566
 msgid "Abstract"
 msgstr "Περίληψη"
@@ -1006,12 +1009,13 @@ msgstr "Τα βιβλία μου"
 msgid "Subtitle"
 msgstr "Υπότιτλος"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:421
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:441
 #: src/fetch/ibsfetcher.cpp:338 src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Σκληρόδετο"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/ibsfetcher.cpp:336
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:443
+#: src/fetch/ibsfetcher.cpp:336
 msgid "Paperback"
 msgstr "Χαρτόδετο"
 
@@ -1453,8 +1457,8 @@ msgid "Issue Year"
 msgstr "Έτος διάθεσης"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:356
-#: src/fetch/imdbfetcher.cpp:1401
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:364
+#: src/fetch/imdbfetcher.cpp:1409
 msgid "Color"
 msgstr "Χρώμα"
 
@@ -1983,7 +1987,7 @@ msgstr "Μορ&φοποίηση τίτλων και ονομάτων"
 msgid "&Print field headers"
 msgstr "Εκτύ&πωση επικεφαλίδων πεδίων"
 
-#: src/configdialog.cpp:374 src/translators/htmlexporter.cpp:491
+#: src/configdialog.cpp:374 src/translators/htmlexporter.cpp:493
 msgid "If checked, the field names will be printed as table headers."
 msgstr "Εάν επιλεγεί, τα πεδία ονομάτων θα εκτυπωθούν ως επικεφαλίδες πίνακα."
 
@@ -1995,7 +1999,7 @@ msgstr "Επιλογές ομαδοποίησης"
 msgid "&Group the entries"
 msgstr "&Ομαδοποίηση καταχωρήσεων"
 
-#: src/configdialog.cpp:384 src/translators/htmlexporter.cpp:496
+#: src/configdialog.cpp:384 src/translators/htmlexporter.cpp:498
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr ""
 "Εάν επιλεγεί, οι καταχωρήσεις θα ομαδοποιηθούν σύμφωνα με το επιλεγμένο "
@@ -2193,7 +2197,7 @@ msgstr "*.tar.gz *.tgz|Πακέτα προτύπων (*.tar.gz)"
 #: src/mainwindow.cpp:1233 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
-#: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:91
+#: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:92
 #: src/translators/onixexporter.cpp:71 src/translators/pilotdbexporter.cpp:58
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/tellicozipexporter.cpp:56
@@ -2211,7 +2215,8 @@ msgid "Select template to delete:"
 msgstr "Επιλέξτε πρότυπο για να το διαγράψετε:"
 
 #: src/controller.cpp:142 src/fetchdialog.cpp:279 src/fetchdialog.cpp:371
-#: src/fetchdialog.cpp:488 src/fetchdialog.cpp:557 src/gui/statusbar.cpp:125
+#: src/fetchdialog.cpp:493 src/fetchdialog.cpp:553 src/fetchdialog.cpp:567
+#: src/gui/statusbar.cpp:125
 msgid "Ready."
 msgstr "Έτοιμο"
 
@@ -2285,23 +2290,23 @@ msgstr "Υπάρχει ένα συντακτικό σφάλμα XML στη γρ�
 msgid "The error message from Qt is:"
 msgstr "Το μήνυμα σφάλματος από την Qt είναι:"
 
-#: src/core/filehandler.cpp:192 src/core/filehandler.cpp:208
+#: src/core/filehandler.cpp:194 src/core/filehandler.cpp:210
 #, kde-format
 msgid "Tellico is unable to load the image - %1."
 msgstr "Το Tellico δεν είναι σε θέση να φορτώσει την εικόνα - %1."
 
-#: src/core/filehandler.cpp:224
+#: src/core/filehandler.cpp:226
 msgid "Overwrite"
 msgstr "Αντικατάσταση"
 
-#: src/core/filehandler.cpp:228
+#: src/core/filehandler.cpp:230
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr ""
 "Ένα αρχείο με όνομα \"%1\" υπάρχει ήδη. Σίγουρα θέλετε να αντικατασταθεί;"
 
-#: src/core/filehandler.cpp:231
+#: src/core/filehandler.cpp:233
 msgid "Overwrite File?"
 msgstr "Αντικατάσταση του αρχείου;"
 
@@ -2688,24 +2693,25 @@ msgstr ""
 "Κωδικοποίηση του αρχείου εξαγωγής με την επιλεγμένη από τον χρήση "
 "κωδικοποίηση."
 
-#: src/fetch/allocinefetcher.cpp:252 src/fetch/allocinefetcher.cpp:472
+#: src/fetch/allocinefetcher.cpp:260 src/fetch/allocinefetcher.cpp:480
 msgid "Allocine Link"
 msgstr "Σύνδεσμος Allocine"
 
-#: src/fetch/allocinefetcher.cpp:257 src/fetch/allocinefetcher.cpp:471
+#: src/fetch/allocinefetcher.cpp:265 src/fetch/allocinefetcher.cpp:479
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
-#: src/fetch/sensacinefetcher.cpp:58 src/fetch/vndbfetcher.cpp:241
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
+#: src/fetch/themoviedbfetcher.cpp:426 src/fetch/vndbfetcher.cpp:241
 #: src/fetch/vndbfetcher.cpp:320
 msgid "Original Title"
 msgstr "Αυθεντικός τίτλος"
 
-#: src/fetch/allocinefetcher.cpp:382 src/fetch/imdbfetcher.cpp:1596
+#: src/fetch/allocinefetcher.cpp:390 src/fetch/imdbfetcher.cpp:1607
 msgid "&Maximum cast: "
 msgstr "&Μέγιστη διανομή ρόλων: "
 
-#: src/fetch/allocinefetcher.cpp:387 src/fetch/imdbfetcher.cpp:1601
+#: src/fetch/allocinefetcher.cpp:395 src/fetch/imdbfetcher.cpp:1612
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2789,9 +2795,9 @@ msgstr "Amazon.com Υπηρεσίες Web"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
 #: src/fetch/crossreffetcher.cpp:311 src/fetch/doubanfetcher.cpp:226
-#: src/fetch/freebasefetcher.cpp:926 src/fetch/giantbombfetcher.cpp:206
+#: src/fetch/freebasefetcher.cpp:954 src/fetch/giantbombfetcher.cpp:206
 #: src/fetch/googlebookfetcher.cpp:381 src/fetch/isbndbfetcher.cpp:355
-#: src/fetch/themoviedbfetcher.cpp:264 src/fetch/winecomfetcher.cpp:297
+#: src/fetch/themoviedbfetcher.cpp:438 src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2805,7 +2811,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:277
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:451
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "Κλειδί πρόσβασης: "
@@ -2814,11 +2820,11 @@ msgstr "Κλειδί πρόσβασης: "
 msgid "Secret key: "
 msgstr "Κρυφό κλειδί:"
 
-#: src/fetch/amazonfetcher.cpp:962 src/fetch/imdbfetcher.cpp:1578
+#: src/fetch/amazonfetcher.cpp:962
 msgid "Country: "
 msgstr "Χώρα: "
 
-#: src/fetch/amazonfetcher.cpp:965 src/fetch/imdbfetcher.cpp:1581
+#: src/fetch/amazonfetcher.cpp:965
 msgid "United States"
 msgstr "Ηνωμένες Πολιτείες"
 
@@ -2826,7 +2832,7 @@ msgstr "Ηνωμένες Πολιτείες"
 msgid "United Kingdom"
 msgstr "Ηνωμένο Βασίλειο"
 
-#: src/fetch/amazonfetcher.cpp:967 src/fetch/imdbfetcher.cpp:1584
+#: src/fetch/amazonfetcher.cpp:967
 msgid "Germany"
 msgstr "Γερμανία"
 
@@ -2834,7 +2840,7 @@ msgstr "Γερμανία"
 msgid "Japan"
 msgstr "Ιαπωνία"
 
-#: src/fetch/amazonfetcher.cpp:969 src/fetch/imdbfetcher.cpp:1582
+#: src/fetch/amazonfetcher.cpp:969
 msgid "France"
 msgstr "Γαλλία"
 
@@ -2846,11 +2852,11 @@ msgstr "Καναδάς"
 msgid "China"
 msgstr "Κίνα"
 
-#: src/fetch/amazonfetcher.cpp:972 src/fetch/imdbfetcher.cpp:1583
+#: src/fetch/amazonfetcher.cpp:972
 msgid "Spain"
 msgstr "Ισπανία"
 
-#: src/fetch/amazonfetcher.cpp:973 src/fetch/imdbfetcher.cpp:1585
+#: src/fetch/amazonfetcher.cpp:973
 msgid "Italy"
 msgstr "Ιταλία"
 
@@ -2882,7 +2888,7 @@ msgstr "Μεγάλη εικόνα"
 msgid "No Image"
 msgstr "Χωρίς εικόνα"
 
-#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1610
+#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1621
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2903,9 +2909,9 @@ msgstr ""
 
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
-#: src/fetch/imdbfetcher.cpp:1021 src/fetch/imdbfetcher.cpp:1562
+#: src/fetch/imdbfetcher.cpp:1027 src/fetch/imdbfetcher.cpp:1570
 #: src/fetch/moviemeterfetcher.cpp:253 src/fetch/moviemeterfetcher.cpp:360
-#: src/fetch/themoviedbfetcher.cpp:252
+#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:425
 msgid "Alternative Titles"
 msgstr "Εναλλακτικοί τίτλοι"
 
@@ -2928,19 +2934,19 @@ msgstr "Βαθμολογία AnimeNfo"
 #: src/fetch/animenfofetcher.cpp:491 src/fetch/arxivfetcher.cpp:329
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
 #: src/fetch/dblpfetcher.cpp:126 src/fetch/discogsfetcher.cpp:222
-#: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:477
-#: src/fetch/filmasterfetcher.cpp:319 src/fetch/googlescholarfetcher.cpp:267
-#: src/fetch/hathitrustfetcher.cpp:315 src/fetch/ibsfetcher.cpp:445
+#: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
+#: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
+#: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
 #: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:367
-#: src/fetch/musicbrainzfetcher.cpp:334 src/fetch/openlibraryfetcher.cpp:429
+#: src/fetch/musicbrainzfetcher.cpp:337 src/fetch/openlibraryfetcher.cpp:429
 #: src/fetch/springerfetcher.cpp:179 src/fetch/thegamesdbfetcher.cpp:161
 #: src/fetch/vndbfetcher.cpp:328 src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "Αυτή η πηγή δεν έχει επιλογές"
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:945
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
 #: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:400
-#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:283
+#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:457
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2995,8 +3001,9 @@ msgstr "Δεσμός δισκογραφίας"
 msgid "Douban Link"
 msgstr "Σύνδεσμος Douban"
 
-#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:950
-#: src/fetch/imdbfetcher.cpp:1560 src/fetch/themoviedbfetcher.cpp:251
+#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:956
+#: src/fetch/imdbfetcher.cpp:1568 src/fetch/themoviedbfetcher.cpp:262
+#: src/fetch/themoviedbfetcher.cpp:424
 msgid "IMDb Link"
 msgstr "Σύνδεσμος IMDb "
 
@@ -3004,11 +3011,11 @@ msgstr "Σύνδεσμος IMDb "
 msgid "DVDFr Link"
 msgstr "Σύνδεσμος DVDFr "
 
-#: src/fetch/entrezfetcher.cpp:454
+#: src/fetch/entrezfetcher.cpp:458
 msgid "Entrez Database"
 msgstr "Εισαγωγή βάσης δεδομένων"
 
-#: src/fetch/entrezfetcher.cpp:464
+#: src/fetch/entrezfetcher.cpp:468
 msgid "Institution"
 msgstr "Ίδρυμα"
 
@@ -3080,7 +3087,7 @@ msgstr ""
 "περιέχονται μέσα σε αγκύλες, όπως στο <i>%{συγγραφέας}</i>.  Διαβάστε την "
 "τεκμηρίωση για περισσότερες λεπτομέρειες.</p>"
 
-#: src/fetch/fetcher.cpp:77
+#: src/fetch/fetcher.cpp:76
 #, kde-format
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 δεν επιτρέπει την αναζήτηση για αυτόν τον τύπο συλλογής."
@@ -3117,15 +3124,15 @@ msgstr "LCCN"
 msgid "Raw Query"
 msgstr "Ακατέργαστο ερώτημα"
 
-#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+#: src/fetch/filmasterfetcher.cpp:235 src/fetch/filmasterfetcher.cpp:315
 msgid "Filmaster Link"
 msgstr "Σύνδεσμος Filmaster"
 
-#: src/fetch/freebasefetcher.cpp:387 src/fetch/freebasefetcher.cpp:606
+#: src/fetch/freebasefetcher.cpp:389 src/fetch/freebasefetcher.cpp:628
 msgid "Freebase Link"
 msgstr "Σύνδεσμος Freebase"
 
-#: src/fetch/freebasefetcher.cpp:939 src/fetch/googlebookfetcher.cpp:394
+#: src/fetch/freebasefetcher.cpp:967 src/fetch/googlebookfetcher.cpp:394
 msgid "API key: "
 msgstr "API κλειδί: "
 
@@ -3161,17 +3168,17 @@ msgstr "Σύνδεσμος Google Book"
 msgid "Google Book Search"
 msgstr "Αναζήτηση Google Book"
 
-#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/z3950fetcher.cpp:567
+#: src/fetch/hathitrustfetcher.cpp:309 src/fetch/z3950fetcher.cpp:567
 msgid "Illustrator"
 msgstr "Εικονογράφος"
 
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/isbndbfetcher.cpp:343
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:343
 #: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Δεκαδική Ταξινόμηση Dewey"
 
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/isbndbfetcher.cpp:344
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:344
 #: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3181,7 +3188,7 @@ msgstr "LoC ταξινόμηση"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Internet Bookshop (ibs.it)"
 
-#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1550
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1558
 msgid "Internet Movie Database"
 msgstr "Βάση δεδομένων ταινιών διαδικτύου"
 
@@ -3205,44 +3212,31 @@ msgstr "Βάση δεδομένων ταινιών διαδικτύου (Ιτα�
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Βάση δεδομένων ταινιών διαδικτύου (Πορτογαλικά)"
 
-#: src/fetch/imdbfetcher.cpp:806
+#: src/fetch/imdbfetcher.cpp:811
 msgid "Select IMDb Result"
 msgstr "Επιλέξτε το αποτέλεσμα του  IMDb"
 
-#: src/fetch/imdbfetcher.cpp:812
+#: src/fetch/imdbfetcher.cpp:817
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr ""
 "<qt>Η αναζήτηση σας επέστρεψε πολλαπλές αντιστοιχίσεις. Παρακαλούμε επιλέξτε "
 "ένα από τα παρακάτω.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:832
+#: src/fetch/imdbfetcher.cpp:837
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>Επιλέξτε ένα αποτέλεσμα αναζήτησης.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:1288 src/fetch/imdbfetcher.cpp:1561
+#: src/fetch/imdbfetcher.cpp:1296 src/fetch/imdbfetcher.cpp:1569
 msgid "IMDb Rating"
 msgstr "Βαθμολογία IMDb"
 
-#: src/fetch/imdbfetcher.cpp:1433 src/fetch/imdbfetcher.cpp:1521
-#: src/fetch/imdbfetcher.cpp:1563
+#: src/fetch/imdbfetcher.cpp:1441 src/fetch/imdbfetcher.cpp:1529
+#: src/fetch/imdbfetcher.cpp:1571
 msgid "Certifications"
 msgstr "Πιστοποιήσεις"
 
-#: src/fetch/imdbfetcher.cpp:1586
-msgid "Portugal"
-msgstr "Πορτογαλία"
-
-#: src/fetch/imdbfetcher.cpp:1590
-msgid ""
-"The Internet Movie Database provides data from several different localized "
-"sites. Choose the one you wish to use for this data source."
-msgstr ""
-"Η βάση δεδομένων ταινιών διαδικτύου (Internet Movie Database) παρέχει "
-"δεδομένα από πολλούς διαφορετικούς τοπικούς ιστοτόπους. Επιλέξτε εκείνον που "
-"επιθυμείτε να χρησιμοποιήσετε γι' αυτήν την πηγή δεδομένων."
-
-#: src/fetch/imdbfetcher.cpp:1606
+#: src/fetch/imdbfetcher.cpp:1617
 msgid "Download cover &image"
 msgstr "Λήψη &εικόνας εξώφυλλου "
 
@@ -3317,35 +3311,35 @@ msgstr ""
 "Εισάγεται το αποτέλεσμα της μορφοποίησης που χρησιμοποιείται από τον "
 "εξυπηρετητή."
 
-#: src/fetch/themoviedbfetcher.cpp:250
+#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:423
 msgid "TMDb Link"
 msgstr "Σύνδεσμος TMDb"
 
-#: src/fetch/themoviedbfetcher.cpp:288
+#: src/fetch/themoviedbfetcher.cpp:462
 msgid "Language: "
 msgstr "Γλώσσα: "
 
-#: src/fetch/themoviedbfetcher.cpp:291
+#: src/fetch/themoviedbfetcher.cpp:465
 msgctxt "Language"
 msgid "English"
 msgstr "Αγγλικά"
 
-#: src/fetch/themoviedbfetcher.cpp:292
+#: src/fetch/themoviedbfetcher.cpp:466
 msgctxt "Language"
 msgid "French"
 msgstr "Γαλλικά"
 
-#: src/fetch/themoviedbfetcher.cpp:293
+#: src/fetch/themoviedbfetcher.cpp:467
 msgctxt "Language"
 msgid "German"
 msgstr "Γερμανικά"
 
-#: src/fetch/themoviedbfetcher.cpp:294
+#: src/fetch/themoviedbfetcher.cpp:468
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Ισπανικά"
 
-#: src/fetch/themoviedbfetcher.cpp:325
+#: src/fetch/themoviedbfetcher.cpp:499
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
@@ -3579,7 +3573,7 @@ msgstr "Καθαρισμός όλων των πεδίων αναζήτησης �
 msgid "Cancelling the search..."
 msgstr "Ακύρωση της αναζήτησης..."
 
-#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:512
+#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:517
 msgid "Searching..."
 msgstr "Αναζήτηση..."
 
@@ -3594,46 +3588,46 @@ msgid_plural "The search returned %1 items."
 msgstr[0] "Η αναζήτηση επέστρεψε μόνο ένα αντικείμενο."
 msgstr[1] "Η αναζήτηση επέστρεψε %1 αντικείμενα."
 
-#: src/fetchdialog.cpp:433
+#: src/fetchdialog.cpp:437
 msgid "No results were found for the following ISBN values:"
 msgstr "Δεν βρέθηκαν αποτελέσματα για τις ακόλουθες τιμές ISBN:"
 
-#: src/fetchdialog.cpp:435
+#: src/fetchdialog.cpp:439
 msgid "No Results"
 msgstr "Δεν υπάρχουν αποτελέσματα"
 
-#: src/fetchdialog.cpp:480 src/fetchdialog.cpp:535
+#: src/fetchdialog.cpp:485 src/fetchdialog.cpp:540
 #, kde-format
 msgid "Fetching %1..."
 msgstr "Ανάκτηση %1..."
 
-#: src/fetchdialog.cpp:547
+#: src/fetchdialog.cpp:557
 msgid "Attribution"
 msgstr "Γνωρίσματα"
 
-#: src/fetchdialog.cpp:579 src/fetchdialog.cpp:790
+#: src/fetchdialog.cpp:589 src/fetchdialog.cpp:800
 msgid "No Internet sources are available for your current collection type."
 msgstr ""
 "Δεν υπάρχουν διαθέσιμες διαδικτυακές πηγές για το είδος της τρέχουσας "
 "συλλογής."
 
-#: src/fetchdialog.cpp:661
+#: src/fetchdialog.cpp:671
 msgid "Edit ISBN/UPC Values"
 msgstr "Επεξεργασία τιμών ISBN/UPC"
 
-#: src/fetchdialog.cpp:666
+#: src/fetchdialog.cpp:676
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>Εισάγετε τις τιμές ISBN ή UPC, μία σε κάθε γραμμή.</qt>"
 
-#: src/fetchdialog.cpp:678
+#: src/fetchdialog.cpp:688
 msgid "&Load From File..."
 msgstr "Φόρτωση από αρχείο..."
 
-#: src/fetchdialog.cpp:679
+#: src/fetchdialog.cpp:689
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>Φόρτωση της λίστας από ένα αρχείο κειμένου.</qt>"
 
-#: src/fetchdialog.cpp:698
+#: src/fetchdialog.cpp:708
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
 "100 values in your list will be used.</qt>"
@@ -3797,7 +3791,7 @@ msgid "Group"
 msgstr "Ομάδα"
 
 #: src/groupview.cpp:415 src/mainwindow.cpp:903 src/mainwindow.cpp:1522
-#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:329
+#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:330
 msgid "People"
 msgstr "Άτομα"
 
@@ -3955,40 +3949,40 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "&Διαγραφή"
 
-#: src/gui/tablefieldwidget.cpp:167
+#: src/gui/tablefieldwidget.cpp:168
 msgid "Rename Column"
 msgstr "Μετονομασία στήλης"
 
-#: src/gui/tablefieldwidget.cpp:167
+#: src/gui/tablefieldwidget.cpp:168
 msgid "New column name:"
 msgstr "Νέο όνομα στήλης:"
 
-#: src/gui/tablefieldwidget.cpp:194
+#: src/gui/tablefieldwidget.cpp:195
 #, kde-format
 msgid "Column %1"
 msgstr "Στήλη %1"
 
-#: src/gui/tablefieldwidget.cpp:233 src/gui/tablefieldwidget.cpp:267
+#: src/gui/tablefieldwidget.cpp:234 src/gui/tablefieldwidget.cpp:268
 msgid "Rename Column..."
 msgstr "Μετονομασία στήλης..."
 
-#: src/gui/tablefieldwidget.cpp:235 src/gui/tablefieldwidget.cpp:273
+#: src/gui/tablefieldwidget.cpp:236 src/gui/tablefieldwidget.cpp:274
 msgid "Clear Table"
 msgstr "Καθαρισμός πίνακα"
 
-#: src/gui/tablefieldwidget.cpp:252
+#: src/gui/tablefieldwidget.cpp:253
 msgid "Insert Row"
 msgstr "Εισαγωγή γραμμής"
 
-#: src/gui/tablefieldwidget.cpp:254
+#: src/gui/tablefieldwidget.cpp:255
 msgid "Remove Row"
 msgstr "Αφαίρεση γραμμής"
 
-#: src/gui/tablefieldwidget.cpp:256
+#: src/gui/tablefieldwidget.cpp:257
 msgid "Move Row Up"
 msgstr "Μετακίνηση γραμμής πάνω"
 
-#: src/gui/tablefieldwidget.cpp:261
+#: src/gui/tablefieldwidget.cpp:262
 msgid "Move Row Down"
 msgstr "Μετακίνηση γραμμής κάτω"
 
@@ -4185,8 +4179,8 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico - ένας διαχειριστής συλλογών για το KDE"
 
 #: src/main.cpp:39
-msgid "(c) 2001-2013, Robby Stephenson"
-msgstr "(c) 2001-2013, Robby Stephenson"
+msgid "(c) 2001-2014, Robby Stephenson"
+msgstr "(c) 2001-2014, Robby Stephenson"
 
 #: src/main.cpp:41
 msgid "Robby Stephenson"
@@ -5108,7 +5102,7 @@ msgstr ""
 "Μερικές αναφορές που αφορούν μεγάλες συλλογές χρειάζονται αρκετά "
 "δευτερόλεπτα για να δημιουργηθούν."
 
-#: src/reportdialog.cpp:215 src/translators/htmlexporter.cpp:91
+#: src/reportdialog.cpp:215 src/translators/htmlexporter.cpp:92
 msgid "*.html|HTML Files (*.html)"
 msgstr "*.html|HTML Αρχεία (*.html)"
 
@@ -5310,11 +5304,11 @@ msgstr "Εισαγωγικά"
 
 #: src/translators/bibtexexporter.cpp:239
 msgid ""
-"<qt>The quotation style used when exporting bibtex. All field values will  "
-"be escaped with either braces or quotation marks.</qt>"
+"<qt>The quotation style used when exporting bibtex. All field values will be "
+"escaped with either braces or quotation marks.</qt>"
 msgstr ""
-"<qt>Το στυλ εισαγωγικών χρησιμοποιείται κατά την εξαγωγή bibtex. Όλες οι "
-"τιμές πεδίων θα αποφευχθούν ακόμη και αυτές με αγκύλες ή εισαγωγικά.</qt>"
+"<qt>Το στυλ παράθεσης χρησιμοποιείται κατά την εξαγωγή bibtex. Όλες οι τιμές "
+"πεδίων θα διαφύγουν είτε με αγκύλες είτε με εισαγωγικά.</qt>"
 
 #: src/translators/bibteximporter.cpp:99
 msgid "No valid bibtex entries were found"
@@ -5614,32 +5608,32 @@ msgstr "Επιλογές Goodreads"
 msgid "User ID"
 msgstr "Αναγνωριστικό χρήστη"
 
-#: src/translators/htmlexporter.cpp:87
+#: src/translators/htmlexporter.cpp:88
 msgid "HTML"
 msgstr "HTML"
 
-#: src/translators/htmlexporter.cpp:333
+#: src/translators/htmlexporter.cpp:334
 #, kde-format
 msgid "(grouped by %1)"
 msgstr "(ομαδοποιήθηκε από %1)"
 
-#: src/translators/htmlexporter.cpp:487
+#: src/translators/htmlexporter.cpp:489
 msgid "HTML Options"
 msgstr "Επιλογές HTML"
 
-#: src/translators/htmlexporter.cpp:490
+#: src/translators/htmlexporter.cpp:492
 msgid "Print field headers"
 msgstr "Εκτύπωση επικεφαλίδων πεδίων"
 
-#: src/translators/htmlexporter.cpp:495
+#: src/translators/htmlexporter.cpp:497
 msgid "Group the entries"
 msgstr "Ομαδοποίηση καταχωρήσεων"
 
-#: src/translators/htmlexporter.cpp:500
+#: src/translators/htmlexporter.cpp:502
 msgid "Export individual entry files"
 msgstr "Εξαγωγή μεμονωμένων αρχείων καταχωρήσεων"
 
-#: src/translators/htmlexporter.cpp:501
+#: src/translators/htmlexporter.cpp:503
 msgid "If checked, individual files will be created for each entry."
 msgstr "Εάν επιλεγεί, θα δημιουργηθούν μεμονωμένα αρχεία για κάθε καταχώρηση."
 
@@ -5962,6 +5956,17 @@ msgstr "Copac (Η.Β. και Ιρλανδία)"
 #: z3950.cpp:26
 msgid "Pontifical Biblical Institute"
 msgstr "Παπικό Βιβλικό Ινστιτούτο"
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,13 +3,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Toomas Nigola,25,+3727416388,+3725296049,+3727500970 <toomas.nigola@eelk.ee>, 2003, 2004.
-# Marek Laane <bald@smail.ee>, 2009, 2010, 2011, 2012, 2013.
+# Marek Laane <bald@smail.ee>, 2009, 2010, 2011, 2012, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2013-07-02 05:19+0000\n"
-"PO-Revision-Date: 2013-01-21 21:19+0200\n"
+"POT-Creation-Date: 2014-05-27 06:47+0000\n"
+"PO-Revision-Date: 2014-06-11 03:14+0300\n"
 "Last-Translator: Marek Laane <bald@smail.ee>\n"
 "Language-Team: Estonian <kde-et@linux.ee>\n"
 "Language: et\n"
@@ -65,7 +65,7 @@ msgid ""
 "\"true\" should be used. If you'd like to filter to\n"
 "show only the science fiction books which you've not read, for\n"
 "example, check the <em>Match all of the\n"
-"following</em> button,  set the first rule to have \"Genre\"\n"
+"following</em> button, set the first rule to have \"Genre\"\n"
 "\"contains\" \"Science Fiction\" (no quotes) and the second rule to\n"
 "have \"Read\" \"does not contain\" \"true\" (no quotes).</p>\n"
 msgstr ""
@@ -222,8 +222,7 @@ msgid "There are no duplicate citation keys."
 msgstr "Topeltviitevõtmeid ei ole."
 
 #: src/bibtexkeydialog.cpp:99
-#, fuzzy, kde-format
-#| msgid "There are %1 duplicate citation keys."
+#, kde-format
 msgid "There is %1 duplicate citation key."
 msgid_plural "There are %1 duplicate citation keys."
 msgstr[0] "Topeltviitevõtmeid leiti %1."
@@ -279,13 +278,15 @@ msgstr "Pealkiri"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:247 src/fetch/allocinefetcher.cpp:253
+#: src/fetch/allocinefetcher.cpp:255 src/fetch/allocinefetcher.cpp:261
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/freebasefetcher.cpp:388
+#: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
-#: src/fetch/imdbfetcher.cpp:951 src/fetch/imdbfetcher.cpp:1289
+#: src/fetch/imdbfetcher.cpp:957 src/fetch/imdbfetcher.cpp:1297
 #: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
-#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
+#: src/fetch/themoviedbfetcher.cpp:253 src/fetch/themoviedbfetcher.cpp:258
+#: src/fetch/themoviedbfetcher.cpp:263 src/field.cpp:37 src/field.cpp:78
+#: src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Üldine"
 
@@ -700,7 +701,7 @@ msgstr "Tuletatud väärtusega väljal peab olema väärtusemall."
 msgid "Publishing"
 msgstr "Kirjastamine"
 
-#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:401
+#: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:405
 #: src/translators/risimporter.cpp:338
 msgid "Miscellaneous"
 msgstr "Muu"
@@ -744,7 +745,7 @@ msgid "Publisher"
 msgstr "Kirjastaja"
 
 #: src/collections/bibtexcollection.cpp:139
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/srufetcher.cpp:465
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:465
 #: src/fetch/z3950fetcher.cpp:565
 msgid "Address"
 msgstr "Aadress"
@@ -832,13 +833,13 @@ msgid "Keywords"
 msgstr "Märksõnad"
 
 #: src/collections/bibtexcollection.cpp:240 src/collections/filecatalog.cpp:53
-#: src/fetch/entrezfetcher.cpp:400 src/fetch/entrezfetcher.cpp:466
+#: src/fetch/entrezfetcher.cpp:404 src/fetch/entrezfetcher.cpp:470
 #: src/field.cpp:200 src/translators/gcstarimporter.cpp:88
 msgid "URL"
 msgstr "URL"
 
-#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:465
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/srufetcher.cpp:466
+#: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:469
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:466
 #: src/fetch/z3950fetcher.cpp:566
 msgid "Abstract"
 msgstr "Kokkuvõte"
@@ -978,12 +979,13 @@ msgstr "Minu raamatud"
 msgid "Subtitle"
 msgstr "Alapealkiri"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:421
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:441
 #: src/fetch/ibsfetcher.cpp:338 src/translators/alexandriaimporter.cpp:158
 msgid "Hardback"
 msgstr "Kõvaköide"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/ibsfetcher.cpp:336
+#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:443
+#: src/fetch/ibsfetcher.cpp:336
 msgid "Paperback"
 msgstr "Pehmeköide"
 
@@ -1424,8 +1426,8 @@ msgid "Issue Year"
 msgstr "Väljalaskeaasta"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:356
-#: src/fetch/imdbfetcher.cpp:1401
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:364
+#: src/fetch/imdbfetcher.cpp:1409
 msgid "Color"
 msgstr "Värviline"
 
@@ -1952,7 +1954,7 @@ msgstr "Pealkirjade ja nimede &vormindamine"
 msgid "&Print field headers"
 msgstr "Välja &päiste trükkimine"
 
-#: src/configdialog.cpp:374 src/translators/htmlexporter.cpp:491
+#: src/configdialog.cpp:374 src/translators/htmlexporter.cpp:493
 msgid "If checked, the field names will be printed as table headers."
 msgstr "Märkimisel trükitakse väljade nimed tabeli päistena."
 
@@ -1964,7 +1966,7 @@ msgstr "Rühmitamise valikud"
 msgid "&Group the entries"
 msgstr "Kir&jete rühmitamine"
 
-#: src/configdialog.cpp:384 src/translators/htmlexporter.cpp:496
+#: src/configdialog.cpp:384 src/translators/htmlexporter.cpp:498
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr "Märkimisel rühmitatakse kirjed valitud välja järgi."
 
@@ -2155,7 +2157,7 @@ msgstr "*.tar.gz *.tgz|Mallipaketid (*.tar.gz)"
 #: src/mainwindow.cpp:1233 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
-#: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:91
+#: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:92
 #: src/translators/onixexporter.cpp:71 src/translators/pilotdbexporter.cpp:58
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/tellicozipexporter.cpp:56
@@ -2173,7 +2175,8 @@ msgid "Select template to delete:"
 msgstr "Kustutatav mall:"
 
 #: src/controller.cpp:142 src/fetchdialog.cpp:279 src/fetchdialog.cpp:371
-#: src/fetchdialog.cpp:488 src/fetchdialog.cpp:557 src/gui/statusbar.cpp:125
+#: src/fetchdialog.cpp:493 src/fetchdialog.cpp:553 src/fetchdialog.cpp:567
+#: src/gui/statusbar.cpp:125
 msgid "Ready."
 msgstr "Valmis."
 
@@ -2246,16 +2249,16 @@ msgstr "XML-i parsimisel ilmnes viga real %1, veerus %2."
 msgid "The error message from Qt is:"
 msgstr "Qt veateade:"
 
-#: src/core/filehandler.cpp:192 src/core/filehandler.cpp:208
+#: src/core/filehandler.cpp:194 src/core/filehandler.cpp:210
 #, kde-format
 msgid "Tellico is unable to load the image - %1."
 msgstr "Tellicol ei õnnestu laadida pilti - %1."
 
-#: src/core/filehandler.cpp:224
+#: src/core/filehandler.cpp:226
 msgid "Overwrite"
 msgstr "Kirjuta üle"
 
-#: src/core/filehandler.cpp:228
+#: src/core/filehandler.cpp:230
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
@@ -2263,7 +2266,7 @@ msgstr ""
 "Fail nimega \"%1\" on juba olemas. Kas oled kindel, et soovid selle üle "
 "kirjutada?"
 
-#: src/core/filehandler.cpp:231
+#: src/core/filehandler.cpp:233
 msgid "Overwrite File?"
 msgstr "Kas kirjutada fail üle?"
 
@@ -2644,24 +2647,25 @@ msgstr "Kasutaja lokaadis (%1) kodeerimine"
 msgid "Encode the exported file in the local encoding."
 msgstr "Eksporditava faili kodeerimine kohalikus kodeeringus."
 
-#: src/fetch/allocinefetcher.cpp:252 src/fetch/allocinefetcher.cpp:472
+#: src/fetch/allocinefetcher.cpp:260 src/fetch/allocinefetcher.cpp:480
 msgid "Allocine Link"
 msgstr "Allocine'i link"
 
-#: src/fetch/allocinefetcher.cpp:257 src/fetch/allocinefetcher.cpp:471
+#: src/fetch/allocinefetcher.cpp:265 src/fetch/allocinefetcher.cpp:479
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
-#: src/fetch/sensacinefetcher.cpp:58 src/fetch/vndbfetcher.cpp:241
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
+#: src/fetch/themoviedbfetcher.cpp:426 src/fetch/vndbfetcher.cpp:241
 #: src/fetch/vndbfetcher.cpp:320
 msgid "Original Title"
 msgstr "Originaalpealkiri"
 
-#: src/fetch/allocinefetcher.cpp:382 src/fetch/imdbfetcher.cpp:1596
+#: src/fetch/allocinefetcher.cpp:390 src/fetch/imdbfetcher.cpp:1607
 msgid "&Maximum cast: "
 msgstr "&Maks. osatäitjate arv: "
 
-#: src/fetch/allocinefetcher.cpp:387 src/fetch/imdbfetcher.cpp:1601
+#: src/fetch/allocinefetcher.cpp:395 src/fetch/imdbfetcher.cpp:1612
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2744,9 +2748,9 @@ msgstr "Amazon.com-i veebiteenused"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
 #: src/fetch/crossreffetcher.cpp:311 src/fetch/doubanfetcher.cpp:226
-#: src/fetch/freebasefetcher.cpp:926 src/fetch/giantbombfetcher.cpp:206
+#: src/fetch/freebasefetcher.cpp:954 src/fetch/giantbombfetcher.cpp:206
 #: src/fetch/googlebookfetcher.cpp:381 src/fetch/isbndbfetcher.cpp:355
-#: src/fetch/themoviedbfetcher.cpp:264 src/fetch/winecomfetcher.cpp:297
+#: src/fetch/themoviedbfetcher.cpp:438 src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2759,7 +2763,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:277
+#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:451
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "Kasutamisvõti: "
@@ -2768,11 +2772,11 @@ msgstr "Kasutamisvõti: "
 msgid "Secret key: "
 msgstr "Salajane võti: "
 
-#: src/fetch/amazonfetcher.cpp:962 src/fetch/imdbfetcher.cpp:1578
+#: src/fetch/amazonfetcher.cpp:962
 msgid "Country: "
 msgstr "Riik: "
 
-#: src/fetch/amazonfetcher.cpp:965 src/fetch/imdbfetcher.cpp:1581
+#: src/fetch/amazonfetcher.cpp:965
 msgid "United States"
 msgstr "USA"
 
@@ -2780,7 +2784,7 @@ msgstr "USA"
 msgid "United Kingdom"
 msgstr "Suurbritannia"
 
-#: src/fetch/amazonfetcher.cpp:967 src/fetch/imdbfetcher.cpp:1584
+#: src/fetch/amazonfetcher.cpp:967
 msgid "Germany"
 msgstr "Saksamaa"
 
@@ -2788,7 +2792,7 @@ msgstr "Saksamaa"
 msgid "Japan"
 msgstr "Jaapan"
 
-#: src/fetch/amazonfetcher.cpp:969 src/fetch/imdbfetcher.cpp:1582
+#: src/fetch/amazonfetcher.cpp:969
 msgid "France"
 msgstr "Prantsusmaa"
 
@@ -2800,11 +2804,11 @@ msgstr "Kanada"
 msgid "China"
 msgstr "Hiina"
 
-#: src/fetch/amazonfetcher.cpp:972 src/fetch/imdbfetcher.cpp:1583
+#: src/fetch/amazonfetcher.cpp:972
 msgid "Spain"
 msgstr "Hispaania"
 
-#: src/fetch/amazonfetcher.cpp:973 src/fetch/imdbfetcher.cpp:1585
+#: src/fetch/amazonfetcher.cpp:973
 msgid "Italy"
 msgstr "Itaalia"
 
@@ -2836,7 +2840,7 @@ msgstr "Suur pilt"
 msgid "No Image"
 msgstr "Pilt puudub"
 
-#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1610
+#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1621
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2859,9 +2863,9 @@ msgstr ""
 
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
-#: src/fetch/imdbfetcher.cpp:1021 src/fetch/imdbfetcher.cpp:1562
+#: src/fetch/imdbfetcher.cpp:1027 src/fetch/imdbfetcher.cpp:1570
 #: src/fetch/moviemeterfetcher.cpp:253 src/fetch/moviemeterfetcher.cpp:360
-#: src/fetch/themoviedbfetcher.cpp:252
+#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:425
 msgid "Alternative Titles"
 msgstr "Alternatiivpealkirjad"
 
@@ -2884,19 +2888,19 @@ msgstr "AnimeNfo hinnang"
 #: src/fetch/animenfofetcher.cpp:491 src/fetch/arxivfetcher.cpp:329
 #: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
 #: src/fetch/dblpfetcher.cpp:126 src/fetch/discogsfetcher.cpp:222
-#: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:477
-#: src/fetch/filmasterfetcher.cpp:319 src/fetch/googlescholarfetcher.cpp:267
-#: src/fetch/hathitrustfetcher.cpp:315 src/fetch/ibsfetcher.cpp:445
+#: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
+#: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
+#: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
 #: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:367
-#: src/fetch/musicbrainzfetcher.cpp:334 src/fetch/openlibraryfetcher.cpp:429
+#: src/fetch/musicbrainzfetcher.cpp:337 src/fetch/openlibraryfetcher.cpp:429
 #: src/fetch/springerfetcher.cpp:179 src/fetch/thegamesdbfetcher.cpp:161
 #: src/fetch/vndbfetcher.cpp:328 src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "Sellel allikal ei ole valikuid."
 
-#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:945
+#: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
 #: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:400
-#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:283
+#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:457
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2949,8 +2953,9 @@ msgstr "Discogsi link"
 msgid "Douban Link"
 msgstr "Doubani link"
 
-#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:950
-#: src/fetch/imdbfetcher.cpp:1560 src/fetch/themoviedbfetcher.cpp:251
+#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:956
+#: src/fetch/imdbfetcher.cpp:1568 src/fetch/themoviedbfetcher.cpp:262
+#: src/fetch/themoviedbfetcher.cpp:424
 msgid "IMDb Link"
 msgstr "IMDb link"
 
@@ -2958,11 +2963,11 @@ msgstr "IMDb link"
 msgid "DVDFr Link"
 msgstr "DVDFr link"
 
-#: src/fetch/entrezfetcher.cpp:454
+#: src/fetch/entrezfetcher.cpp:458
 msgid "Entrez Database"
 msgstr "Entrezi andmebaas"
 
-#: src/fetch/entrezfetcher.cpp:464
+#: src/fetch/entrezfetcher.cpp:468
 msgid "Institution"
 msgstr "Institutsioon"
 
@@ -3026,7 +3031,7 @@ msgstr ""
 "on looksulgudes, näiteks <i>%{author}</i>. Täpsemalt kõneleb sellest "
 "käsiraamat.</p>"
 
-#: src/fetch/fetcher.cpp:77
+#: src/fetch/fetcher.cpp:76
 #, kde-format
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 ei võimalda selle kogutüübi puhul otsingut."
@@ -3063,15 +3068,15 @@ msgstr "LCCN"
 msgid "Raw Query"
 msgstr "Toorpäring"
 
-#: src/fetch/filmasterfetcher.cpp:232 src/fetch/filmasterfetcher.cpp:312
+#: src/fetch/filmasterfetcher.cpp:235 src/fetch/filmasterfetcher.cpp:315
 msgid "Filmaster Link"
 msgstr "Filmasteri link"
 
-#: src/fetch/freebasefetcher.cpp:387 src/fetch/freebasefetcher.cpp:606
+#: src/fetch/freebasefetcher.cpp:389 src/fetch/freebasefetcher.cpp:628
 msgid "Freebase Link"
 msgstr "Freebase'i link"
 
-#: src/fetch/freebasefetcher.cpp:939 src/fetch/googlebookfetcher.cpp:394
+#: src/fetch/freebasefetcher.cpp:967 src/fetch/googlebookfetcher.cpp:394
 msgid "API key: "
 msgstr "API võti: "
 
@@ -3103,17 +3108,17 @@ msgstr "Google Booki link"
 msgid "Google Book Search"
 msgstr "Google Booki otsing"
 
-#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/z3950fetcher.cpp:567
+#: src/fetch/hathitrustfetcher.cpp:309 src/fetch/z3950fetcher.cpp:567
 msgid "Illustrator"
 msgstr "Illustrator"
 
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/isbndbfetcher.cpp:343
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:343
 #: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey kümnendsüsteem"
 
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/isbndbfetcher.cpp:344
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:344
 #: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3123,7 +3128,7 @@ msgstr "LoC klassifikatsioon"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Interneti raamatupood (ibs.it)"
 
-#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1550
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1558
 msgid "Internet Movie Database"
 msgstr "Interneti filmide andmebaas"
 
@@ -3147,41 +3152,29 @@ msgstr "Interneti filmide andmebaas (Itaalia)"
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Interneti filmide andmebaas (Portugali)"
 
-#: src/fetch/imdbfetcher.cpp:806
+#: src/fetch/imdbfetcher.cpp:811
 msgid "Select IMDb Result"
 msgstr "IMDb tulemuse valik"
 
-#: src/fetch/imdbfetcher.cpp:812
+#: src/fetch/imdbfetcher.cpp:817
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr "<qt>Otsing tagastas mitu tulemust. Palun vali neist vajalik.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:832
+#: src/fetch/imdbfetcher.cpp:837
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>Vali otsingutulemus.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:1288 src/fetch/imdbfetcher.cpp:1561
+#: src/fetch/imdbfetcher.cpp:1296 src/fetch/imdbfetcher.cpp:1569
 msgid "IMDb Rating"
 msgstr "IMDb hinnang"
 
-#: src/fetch/imdbfetcher.cpp:1433 src/fetch/imdbfetcher.cpp:1521
-#: src/fetch/imdbfetcher.cpp:1563
+#: src/fetch/imdbfetcher.cpp:1441 src/fetch/imdbfetcher.cpp:1529
+#: src/fetch/imdbfetcher.cpp:1571
 msgid "Certifications"
 msgstr "Piirangud"
 
-#: src/fetch/imdbfetcher.cpp:1586
-msgid "Portugal"
-msgstr "Portugal"
-
-#: src/fetch/imdbfetcher.cpp:1590
-msgid ""
-"The Internet Movie Database provides data from several different localized "
-"sites. Choose the one you wish to use for this data source."
-msgstr ""
-"Interneti filmide andmebaas IMDb andmeid mitmelt lokaliseeritud saidilt. "
-"Vali see, mida soovid kasutada antud andmeallika puhul."
-
-#: src/fetch/imdbfetcher.cpp:1606
+#: src/fetch/imdbfetcher.cpp:1617
 msgid "Download cover &image"
 msgstr "Kaanepil&i allalaadimine"
 
@@ -3252,46 +3245,46 @@ msgstr "Vorming: "
 msgid "Enter the result format used by the server."
 msgstr "Sisesta serveri kasutatav tulemuste vorming."
 
-#: src/fetch/themoviedbfetcher.cpp:250
+#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:423
 msgid "TMDb Link"
 msgstr "TMDb link"
 
-#: src/fetch/themoviedbfetcher.cpp:288
+#: src/fetch/themoviedbfetcher.cpp:462
 msgid "Language: "
 msgstr "Keel: "
 
-#: src/fetch/themoviedbfetcher.cpp:291
+#: src/fetch/themoviedbfetcher.cpp:465
 msgctxt "Language"
 msgid "English"
 msgstr "Inglise"
 
-#: src/fetch/themoviedbfetcher.cpp:292
+#: src/fetch/themoviedbfetcher.cpp:466
 msgctxt "Language"
 msgid "French"
 msgstr "Prantsuse"
 
-#: src/fetch/themoviedbfetcher.cpp:293
+#: src/fetch/themoviedbfetcher.cpp:467
 msgctxt "Language"
 msgid "German"
 msgstr "Saksa"
 
-#: src/fetch/themoviedbfetcher.cpp:294
+#: src/fetch/themoviedbfetcher.cpp:468
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Hispaania"
 
-#: src/fetch/themoviedbfetcher.cpp:325
+#: src/fetch/themoviedbfetcher.cpp:499
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
 #: src/fetch/vndbfetcher.cpp:246 src/fetch/vndbfetcher.cpp:321
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: src/fetch/vndbfetcher.cpp:264
 msgid "Visual Novel"
-msgstr ""
+msgstr "Visuaalne"
 
 #: src/fetch/xmlrpc/query.cpp:376
 #, kde-format
@@ -3502,7 +3495,7 @@ msgstr "Kõigi otsingu- ja tulemusväljade puhastamine"
 msgid "Cancelling the search..."
 msgstr "Otsingu katkestamine..."
 
-#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:512
+#: src/fetchdialog.cpp:351 src/fetchdialog.cpp:517
 msgid "Searching..."
 msgstr "Otsimine..."
 
@@ -3517,44 +3510,44 @@ msgid_plural "The search returned %1 items."
 msgstr[0] "Otsing andis 1 tulemuse."
 msgstr[1] "Otsing andis %1 tulemust."
 
-#: src/fetchdialog.cpp:433
+#: src/fetchdialog.cpp:437
 msgid "No results were found for the following ISBN values:"
 msgstr "Järgmistele ISBN-i väärtustele ei leitud tulemusi:"
 
-#: src/fetchdialog.cpp:435
+#: src/fetchdialog.cpp:439
 msgid "No Results"
 msgstr "Tulemusi pole"
 
-#: src/fetchdialog.cpp:480 src/fetchdialog.cpp:535
+#: src/fetchdialog.cpp:485 src/fetchdialog.cpp:540
 #, kde-format
 msgid "Fetching %1..."
 msgstr "Tõmmatakse %1..."
 
-#: src/fetchdialog.cpp:547
+#: src/fetchdialog.cpp:557
 msgid "Attribution"
 msgstr "Allikas"
 
-#: src/fetchdialog.cpp:579 src/fetchdialog.cpp:790
+#: src/fetchdialog.cpp:589 src/fetchdialog.cpp:800
 msgid "No Internet sources are available for your current collection type."
 msgstr "Aktiivse kogu tüübile pole saadaval ühtegi internetiallikat."
 
-#: src/fetchdialog.cpp:661
+#: src/fetchdialog.cpp:671
 msgid "Edit ISBN/UPC Values"
 msgstr "ISBN/UPC väärtuste muutmine"
 
-#: src/fetchdialog.cpp:666
+#: src/fetchdialog.cpp:676
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>Sisesta ISBN-i või UPC väärtused, üks iga rea kohta.</qt>"
 
-#: src/fetchdialog.cpp:678
+#: src/fetchdialog.cpp:688
 msgid "&Load From File..."
 msgstr "&Laadi failist..."
 
-#: src/fetchdialog.cpp:679
+#: src/fetchdialog.cpp:689
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt> Laadi nimekiri tekstifailist.</qt>"
 
-#: src/fetchdialog.cpp:698
+#: src/fetchdialog.cpp:708
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
 "100 values in your list will be used.</qt>"
@@ -3713,7 +3706,7 @@ msgid "Group"
 msgstr "Rühm:"
 
 #: src/groupview.cpp:415 src/mainwindow.cpp:903 src/mainwindow.cpp:1522
-#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:329
+#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:330
 msgid "People"
 msgstr "Inimesed"
 
@@ -3869,40 +3862,40 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "&Kustuta"
 
-#: src/gui/tablefieldwidget.cpp:167
+#: src/gui/tablefieldwidget.cpp:168
 msgid "Rename Column"
 msgstr "Veeru nime muutmine"
 
-#: src/gui/tablefieldwidget.cpp:167
+#: src/gui/tablefieldwidget.cpp:168
 msgid "New column name:"
 msgstr "Uus veeru nimi:"
 
-#: src/gui/tablefieldwidget.cpp:194
+#: src/gui/tablefieldwidget.cpp:195
 #, kde-format
 msgid "Column %1"
 msgstr "Veerg %1"
 
-#: src/gui/tablefieldwidget.cpp:233 src/gui/tablefieldwidget.cpp:267
+#: src/gui/tablefieldwidget.cpp:234 src/gui/tablefieldwidget.cpp:268
 msgid "Rename Column..."
 msgstr "Muuda veeru nime..."
 
-#: src/gui/tablefieldwidget.cpp:235 src/gui/tablefieldwidget.cpp:273
+#: src/gui/tablefieldwidget.cpp:236 src/gui/tablefieldwidget.cpp:274
 msgid "Clear Table"
 msgstr "Puhasta tabel"
 
-#: src/gui/tablefieldwidget.cpp:252
+#: src/gui/tablefieldwidget.cpp:253
 msgid "Insert Row"
 msgstr "Lisa rida"
 
-#: src/gui/tablefieldwidget.cpp:254
+#: src/gui/tablefieldwidget.cpp:255
 msgid "Remove Row"
 msgstr "Eemalda rida"
 
-#: src/gui/tablefieldwidget.cpp:256
+#: src/gui/tablefieldwidget.cpp:257
 msgid "Move Row Up"
 msgstr "Liiguta rida üles"
 
-#: src/gui/tablefieldwidget.cpp:261
+#: src/gui/tablefieldwidget.cpp:262
 msgid "Move Row Down"
 msgstr "Liiguta rida alla"
 
@@ -4094,8 +4087,8 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico - KDE kogude haldur"
 
 #: src/main.cpp:39
-msgid "(c) 2001-2013, Robby Stephenson"
-msgstr "(c) 2001-2013: Robby Stephenson"
+msgid "(c) 2001-2014, Robby Stephenson"
+msgstr "(c) 2001-2014: Robby Stephenson"
 
 #: src/main.cpp:41
 msgid "Robby Stephenson"
@@ -5007,7 +5000,7 @@ msgid ""
 "Some reports may take several seconds to generate for large collections."
 msgstr "Suurte kogude puhul võib aruande tekitamine võtta veidi aega."
 
-#: src/reportdialog.cpp:215 src/translators/htmlexporter.cpp:91
+#: src/reportdialog.cpp:215 src/translators/htmlexporter.cpp:92
 msgid "*.html|HTML Files (*.html)"
 msgstr "*.html|HTML-failid (*.html)"
 
@@ -5201,8 +5194,8 @@ msgstr "Jutumärgid"
 
 #: src/translators/bibtexexporter.cpp:239
 msgid ""
-"<qt>The quotation style used when exporting bibtex. All field values will  "
-"be escaped with either braces or quotation marks.</qt>"
+"<qt>The quotation style used when exporting bibtex. All field values will be "
+"escaped with either braces or quotation marks.</qt>"
 msgstr ""
 "<qt>bibtexi eksportimisel kasutatav tsitaadistiil. Kõigi väljade väärtused "
 "ümbritsetakse sulgude või jutumärkidega.</qt>"
@@ -5491,32 +5484,32 @@ msgstr "Goodreadsi valikud"
 msgid "User ID"
 msgstr "Kasutaja ID"
 
-#: src/translators/htmlexporter.cpp:87
+#: src/translators/htmlexporter.cpp:88
 msgid "HTML"
 msgstr "HTML"
 
-#: src/translators/htmlexporter.cpp:333
+#: src/translators/htmlexporter.cpp:334
 #, kde-format
 msgid "(grouped by %1)"
 msgstr "(rühmituse alus on %1)"
 
-#: src/translators/htmlexporter.cpp:487
+#: src/translators/htmlexporter.cpp:489
 msgid "HTML Options"
 msgstr "HTML valikud"
 
-#: src/translators/htmlexporter.cpp:490
+#: src/translators/htmlexporter.cpp:492
 msgid "Print field headers"
 msgstr "Välja päiste näitamine"
 
-#: src/translators/htmlexporter.cpp:495
+#: src/translators/htmlexporter.cpp:497
 msgid "Group the entries"
 msgstr "Kirjete rühmitamine"
 
-#: src/translators/htmlexporter.cpp:500
+#: src/translators/htmlexporter.cpp:502
 msgid "Export individual entry files"
 msgstr "Kirjete eksport eraldi failidena"
 
-#: src/translators/htmlexporter.cpp:501
+#: src/translators/htmlexporter.cpp:503
 msgid "If checked, individual files will be created for each entry."
 msgstr "Märkimisel eksporditakse iga kirje eraldi failina."
 
@@ -5830,6 +5823,16 @@ msgstr "Copac (Suurbritannia ja Iirimaa)"
 #: z3950.cpp:26
 msgid "Pontifical Biblical Institute"
 msgstr "Paavsti Piibliinstituut"
+
+
+
+
+
+
+
+
+
+
 
 
 

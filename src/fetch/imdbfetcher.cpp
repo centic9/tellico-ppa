@@ -74,13 +74,13 @@ void IMDBFetcher::initRegExps() {
   s_tagRx = new QRegExp(QLatin1String("<.*>"));
   s_tagRx->setMinimal(true);
 
-  s_anchorRx = new QRegExp(QLatin1String("<a\\s+[^>]*href\\s*=\\s*\"([^\"]*)\"[^<]*>([^<]*)</a>"), Qt::CaseInsensitive);
+  s_anchorRx = new QRegExp(QLatin1String("<a\\s+[^>]*href\\s*=\\s*\"([^\"]+)\"[^<]*>([^<]+)</a>"), Qt::CaseInsensitive);
   s_anchorRx->setMinimal(true);
 
   s_anchorTitleRx = new QRegExp(QLatin1String("<a\\s+[^>]*href\\s*=\\s*\"([^\"]*/title/[^\"]*)\"[^<]*>([^<]*)</a>"), Qt::CaseInsensitive);
   s_anchorTitleRx->setMinimal(true);
 
-  s_anchorNameRx = new QRegExp(QLatin1String("<a\\s+[^>]*href\\s*=\\s*\"([^\"]*/name/[^\"]*)\"[^<]*>([^<]*)</a>"), Qt::CaseInsensitive);
+  s_anchorNameRx = new QRegExp(QLatin1String("<a\\s+[^>]*href\\s*=\\s*\"([^\"]*/name/[^\"]*)\"[^<]*>(.+)</a>"), Qt::CaseInsensitive);
   s_anchorNameRx->setMinimal(true);
 
   s_titleRx = new QRegExp(QLatin1String("<title>(.*)</title>"), Qt::CaseInsensitive);
@@ -286,8 +286,10 @@ bool IMDBFetcher::canSearch(FetchKey k) const {
 }
 
 void IMDBFetcher::readConfigHook(const KConfigGroup& config_) {
+  /*
   const int lang = config_.readEntry("Lang", int(EN));
   m_lang = static_cast<Lang>(lang);
+  */
   if(m_name.isEmpty()) {
     m_name = langData(m_lang).siteTitle;
   }
@@ -430,6 +432,9 @@ void IMDBFetcher::slotComplete(KJob*) {
     stop();
     return;
   }
+  // see bug 319662. If fetcher is cancelled, job is killed
+  // if the pointer is retained, it gets double-deleted
+  m_job = 0;
 
 #if 0
   myWarning() << "Remove debug from imdbfetcher.cpp";
@@ -441,9 +446,6 @@ void IMDBFetcher::slotComplete(KJob*) {
   }
   f.close();
 #endif
-
-  // since the fetch is done, don't worry about holding the job pointer
-  m_job = 0;
 
   // a single result was found if we got redirected
   switch(request().key) {
@@ -487,6 +489,7 @@ void IMDBFetcher::parseSingleTitleResult() {
   KUrl url(m_url);
   url.setEncodedQuery(QByteArray());
   m_matches.insert(r->uid, url);
+  m_allMatches.insert(r->uid, url);
   emit signalResultFound(r);
 
   m_hasMoreResults = false;
@@ -631,6 +634,7 @@ void IMDBFetcher::parseTitleBlock(const QString& str_) {
     KUrl u(m_url, cap1);
     u.setQuery(QString());
     m_matches.insert(r->uid, u);
+    m_allMatches.insert(r->uid, u);
     emit signalResultFound(r);
     ++count;
   }
@@ -710,6 +714,7 @@ void IMDBFetcher::parseSingleNameResult() {
     KUrl u(m_url, s_anchorTitleRx->cap(1)); // relative URL constructor
     u.setQuery(QString());
     m_matches.insert(r->uid, u);
+    m_allMatches.insert(r->uid, u);
 //    myDebug() << u;
 //    myDebug() << cap2;
     emit signalResultFound(r);
@@ -869,11 +874,12 @@ Tellico::Data::EntryPtr IMDBFetcher::fetchEntryHook(uint uid_) {
     return entry;
   }
 
-  if(!m_matches.contains(uid_)) {
+  if(!m_matches.contains(uid_) && !m_allMatches.contains(uid_)) {
     myLog() << "no url found";
     return Data::EntryPtr();
   }
-  KUrl url = m_matches[uid_];
+  KUrl url = m_matches.contains(uid_) ? m_matches[uid_]
+                                      : m_allMatches[uid_];
   if(url.path().contains(QRegExp(QLatin1String("/tt\\d+/$"))))  {
     url.setPath(url.path() + QLatin1String("combined"));
   }
@@ -1219,7 +1225,7 @@ void IMDBFetcher::doCast(const QString& str_, Tellico::Data::EntryPtr entry_, co
     QRegExp castAnchorRx(QLatin1String("<a\\s+name\\s*=\\s*\"cast\""), Qt::CaseInsensitive);
     pos = castAnchorRx.indexIn(castText);
     if(pos < 0) {
-      QRegExp tableClassRx(QLatin1String("<table\\s+class\\s*=\\s*\"cast\""), Qt::CaseInsensitive);
+      QRegExp tableClassRx(QLatin1String("<table\\s+class\\s*=\\s*\"cast_list\""), Qt::CaseInsensitive);
       pos = tableClassRx.indexIn(castText);
       if(pos < 0) {
         // fragile, the word "cast" appears in the title, but need to find
@@ -1247,24 +1253,26 @@ void IMDBFetcher::doCast(const QString& str_, Tellico::Data::EntryPtr entry_, co
   QRegExp tdRx(QLatin1String("<td[^>]*>(.*)</td>"), Qt::CaseInsensitive);
   tdRx.setMinimal(true);
 
+  QRegExp tdActorRx(QLatin1String("<td\\s+[^>]*itemprop=\"actor\"[^>]*>(.*)</td>"), Qt::CaseInsensitive);
+  tdActorRx.setMinimal(true);
+
+  QRegExp tdCharRx(QLatin1String("<td\\s+[^>]*class=\"character\"[^>]*>(.*)</td>"), Qt::CaseInsensitive);
+  tdCharRx.setMinimal(true);
+
   QStringList cast;
   // loop until closing table tag
   const int endPos = castText.indexOf(QLatin1String("</table"), pos, Qt::CaseInsensitive);
-  pos = s_anchorRx->indexIn(castText, pos+1);
-  while(pos > -1 && pos < endPos && cast.count() < m_numCast) {
-    if(s_anchorRx->cap(1).contains(name)) {
-      // now search for <td> item with character name
-      // there's a column with ellipses then the character
-      const int pos2 = tdRx.indexIn(castText, pos);
-      if(pos2 > -1 && tdRx.indexIn(castText, pos2+tdRx.matchedLength()) > -1) {
-        cast += s_anchorRx->cap(2).trimmed()
-              + FieldFormat::columnDelimiterString()
-              + tdRx.cap(1).simplified().remove(*s_tagRx);
-      } else {
-        cast += s_anchorRx->cap(2).trimmed();
-      }
+  castText = castText.mid(pos, endPos-pos+1);
+  pos = tdActorRx.indexIn(castText);
+  while(pos > -1 && cast.count() < m_numCast) {
+    QString actorText = tdActorRx.cap(1).remove(*s_tagRx).simplified();
+    const int pos2 = tdCharRx.indexIn(castText, pos+1);
+    if(pos2 > -1) {
+      cast += actorText
+            + FieldFormat::columnDelimiterString()
+            + tdCharRx.cap(1).remove(*s_tagRx).simplified();
     }
-    pos = s_anchorRx->indexIn(castText, pos+1);
+    pos = tdActorRx.indexIn(castText, qMax(pos+1, pos2));
   }
 
   if(!cast.isEmpty()) {
@@ -1575,6 +1583,8 @@ IMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IMDBFetcher* fet
   l->setColumnStretch(1, 10);
 
   int row = -1;
+  /*
+  IMDB.fr and others now redirects to imdb.com
   QLabel* label = new QLabel(i18n("Country: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_langCombo = new GUI::ComboBox(optionsWidget());
@@ -1592,13 +1602,14 @@ IMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IMDBFetcher* fet
   label->setWhatsThis(w);
   m_langCombo->setWhatsThis(w);
   label->setBuddy(m_langCombo);
-
-  label = new QLabel(i18n("&Maximum cast: "), optionsWidget());
+  */
+  
+  QLabel* label = new QLabel(i18n("&Maximum cast: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_numCast = new KIntSpinBox(0, 99, 1, 10, optionsWidget());
   connect(m_numCast, SIGNAL(valueChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_numCast, row, 1);
-  w = i18n("The list of cast members may include many people. Set the maximum number returned from the search.");
+  QString w = i18n("The list of cast members may include many people. Set the maximum number returned from the search.");
   label->setWhatsThis(w);
   m_numCast->setWhatsThis(w);
   label->setBuddy(m_numCast);
@@ -1618,26 +1629,27 @@ IMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IMDBFetcher* fet
   KAcceleratorManager::manage(optionsWidget());
 
   if(fetcher_) {
-    m_langCombo->setCurrentData(fetcher_->m_lang);
+    // m_langCombo->setCurrentData(fetcher_->m_lang);
     m_numCast->setValue(fetcher_->m_numCast);
     m_fetchImageCheck->setChecked(fetcher_->m_fetchImages);
   } else { //defaults
-    m_langCombo->setCurrentData(EN);
+    // m_langCombo->setCurrentData(EN);
     m_numCast->setValue(10);
     m_fetchImageCheck->setChecked(true);
   }
 }
 
 void IMDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
-  int n = m_langCombo->currentData().toInt();
-  config_.writeEntry("Lang", n);
+  // int n = m_langCombo->currentData().toInt();
+  // config_.writeEntry("Lang", n);
   config_.writeEntry("Host", QString()); // clear old host entry
   config_.writeEntry("Max Cast", m_numCast->value());
   config_.writeEntry("Fetch Images", m_fetchImageCheck->isChecked());
 }
 
 QString IMDBFetcher::ConfigWidget::preferredName() const {
-  return IMDBFetcher::langData(m_langCombo->currentData().toInt()).siteTitle;
+  // return IMDBFetcher::langData(m_langCombo->currentData().toInt()).siteTitle;
+  return IMDBFetcher::langData(EN).siteTitle;
 }
 
 void IMDBFetcher::ConfigWidget::slotSiteChanged() {

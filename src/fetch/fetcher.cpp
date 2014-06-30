@@ -37,6 +37,7 @@
 #include <QDBusInterface>
 #include <QDBusReply>
 #include <QUuid>
+#include <QPointer>
 
 using namespace Tellico::Fetch;
 using Tellico::Fetch::Fetcher;
@@ -49,9 +50,7 @@ Fetcher::Fetcher(QObject* parent) : QObject(parent)
 }
 
 Fetcher::~Fetcher() {
-  KConfigGroup config(KGlobal::config(), m_configGroup);
-  config.writeEntry("Uuid", m_uuid);
-  saveConfigHook(config);
+  saveConfig();
 }
 
 int Fetcher::collectionType() const {
@@ -116,9 +115,20 @@ void Fetcher::readConfig(const KConfigGroup& config_, const QString& groupName_)
   readConfigHook(config_);
 }
 
+void Fetcher::saveConfig() {
+  if(m_configGroup.isEmpty()) {
+    return;
+  }
+  KConfigGroup config(KGlobal::config(), m_configGroup);
+  config.writeEntry("Uuid", m_uuid);
+  saveConfigHook(config);
+}
+
 Tellico::Data::EntryPtr Fetcher::fetchEntry(uint uid_) {
+  QPointer<Fetcher> ptr(this);
   Data::EntryPtr entry = fetchEntryHook(uid_);
-  if(entry) {
+  // could be cancelled after fetching entry, check isSearching
+  if(ptr && entry && isSearching()) {
     // iterate over list of possible optional fields
     // and if the field is not included in the user-configured list
     // remove the field from the entry

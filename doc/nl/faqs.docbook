@@ -51,17 +51,17 @@ application work. -->
 >, maar dat bestand wijzigen is nodig om de opmaak van het afdrukken te wijzigen. Er wordt &HTML; gegenereerd uit het bestand en de gemakkelijkste manier om het uiterlijk van de afdruk te wijzigen is de &CSS; aan het begin te wijzigen.</para>
 
 <para
->Be aware that the <filename
+>Let erop dat het bestand <filename
 >tellico-printing.xsl</filename
-> references another file, <filename
+> refereert naar een ander bestand, <filename
 >tellico-common.xsl</filename
->, that contains some common &xslt; templates. If you copy <filename
+>, die enkele gemeenschappelijke &xslt;-sjablonen bevat. Als u <filename
 >tellico-printing.xsl</filename
-> to $<envar
+> kopieert naar $<envar
 >KDEHOME</envar
->, you must either modify the &lt;xsl:import&gt; element to point to the actual location of the <filename
+>, dan moet u ofwel het &lt;xsl:import&gt; element laten wijzen naar de actuele locatie van het bestand <filename
 >tellico-common.xsl</filename
-> file or copy the common file as well. </para>
+> of ook het gemeenschappelijke bestand kopiëren. </para>
 </answer>
 </qandaentry>
 <qandaentry>
@@ -71,7 +71,7 @@ application work. -->
 </question>
 <answer>
 <para
->To allow grouping by a field which doesn't allow grouping by default, check the "Allow Grouping" box for that particular field in the "Collection Fields" dialog. </para>
+>Om groepering per veld toe te staan, die standaard geen groepering toestaat, activeer dan het vakje "Groepering toestaan" voor dat specifieke veld in de dialoog "Velden in de verzameling". </para>
 </answer>
 </qandaentry>
 
@@ -82,23 +82,26 @@ application work. -->
 ></question>
 <answer>
 <para
->Stuff like: <screen width="40"
->
-<computeroutput>Tellico::updateCollectionToolBar</computeroutput>
-<computeroutput>GroupView::setGroupAttribute - author</computeroutput>
-<computeroutput>GroupView::slotAddCollection</computeroutput>
-<computeroutput>QCheckBox::property( "title" ) failed: property invalid
+>Dingen zoals: <screen width="40">
+<computeroutput
+>Tellico::updateCollectionToolBar</computeroutput>
+<computeroutput
+>GroupView::setGroupAttribute - author</computeroutput>
+<computeroutput
+>GroupView::slotAddCollection</computeroutput>
+<computeroutput
+>QCheckBox::property( "title" ) failed: property invalid
 or does not exist</computeroutput>
 </screen
-> is debug info. At compile time, this can be stopped by compiling with the <userinput
+> is debug-informatie. Bij het compileren, kan dit worden gestopt door te compileren met de valag <userinput
 ><option
 >--disable-debug</option
 ></userinput
-> flag. You might also want to use <userinput
+>. U zou ook <userinput
 ><option
 >--enable-final</option
 ></userinput
->, too, which takes a bit more memory when compiling, but is more efficient when running the application.</para>
+> kunnen gebruiken, die iets meer geheugen gebruikt bij compileren, maar efficiënter is bij het uitvoeren van de toepassing.</para>
 
 <para
 >Het laatste bericht is enigszins verschillend, het betekent gewoon dat uw &Qt;-installatie gecompileerd is met enige debugging-informatie.</para>
@@ -134,36 +137,36 @@ or does not exist</computeroutput>
 >Intern worden de keuzevakjes in &appname; opgeslagen als "geactiveerd", dus als u, bijvoorbeeld, wilt filteren op alleen de science fiction boeken die u nog niet hebt gelezen, dan moet u twee regels maken. Ga na dat knop "Alle volgenden moeten overeenkomen" is geactiveerd. Stel de eerste regel on op "Genre" "bevat" "Science Fiction" (geen aanhalingstekens) en de tweede regel op "Gelezen" "bevat geen" "waar" (geen aanhalingstekens) ).</para>
 
 <para
->Also, the quick filter in the toolbar will match any field, and if there is a non-word character, the text is interpreted as a regular expression. So if you quickly want to filter your books to show those by Weber or Bujold, then type "weber|bujold" (no quotes) in the toolbar.</para>
+>Het snelfilter in de werkbalk zal overeenkomen met elk veld en, als er een niet-woord teken inzit, zal de tekst geïnterpreteerd worden als een reguliere expressie. Dus als u snel wilt filteren op boeken om alleen diegenen te tonen door Weber of Bujold, typ dan "weber|bujold" (zonder aanhalingstekens) in de werkbalk.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question
 ><para
->How do I add new entry templates?</para
+>Hoe voeg ik nieuwe invoersjablonen toe?</para
 ></question>
 
 <answer>
 <para
->Entry templates should be saved in <filename class="directory"
+>Invoersjablonen moeten opgeslagen worden in <filename class="directory"
 >$<envar
 >KDEHOME</envar
 >/share/apps/tellico/entry-templates/</filename
-> for access for a single user or <filename class="directory"
+> voor toegang voor een enkele gebruiker of <filename class="directory"
 >$<envar
 >KDEDIR</envar
 >/share/apps/tellico/entry-templates/</filename
-> for access by everyone. Templates in $<envar
+> voor toegang door iedereen. Sjablonen in $<envar
 >KDEHOME</envar
-> will override any files by the same name in $<envar
+> gaan boven elk bestand met dezelfde naam in $<envar
 >KDEDIRS</envar
->. The entry templates can be set on a per collection-type basis in the settings dialog.</para>
+>. De invoersjablonen kunnen ingesteld worden op basis van per type verzameling de instellingendialoog.</para>
 
 <para
->Templates for the <interface
->Report Dialog</interface
-> are saved in <filename class="directory"
+>Sjablonen voor de <interface
+>Reportagedialoog</interface
+> worden opgeslagen in <filename class="directory"
 >$<envar
 >KDEHOME</envar
 >/share/apps/tellico/report-templates/</filename
@@ -174,106 +177,106 @@ or does not exist</computeroutput>
 <qandaentry>
 <question
 ><para
->Compiling and installing went fine, but when &appname; starts up, the window is blank. What's wrong?</para
+>Compileren en installeren gingen goed, maar wanneer &appname; opstart is het venster blanco. Wat is er fout?</para
 ></question>
 
 <answer>
 <para
->&kde; programs look for data in the locations defined in the $<envar
+>&kde; programma's kijken naar gegevens in de locaties gedefinieerd in de omgevingsvariabele $<envar
 >KDEDIRS</envar
-> environmental variable. If you install in <filename class="directory"
+>. Als u bijvoorbeeld installeert in <filename class="directory"
 >/usr/local</filename
-> for example, but $<envar
+>, maar $<envar
 >KDEDIRS</envar
-> is empty or just <filename class="directory"
+> is leeg of alleen <filename class="directory"
 >/usr</filename
->, then &appname; won't be able to find the files it needs. This is particularly true for &SuSE;, for which you should compile with <userinput
+>, dan is &appname; niet in staat de benodigde bestanden te vinden. Dit is speciaal het geval voor &SuSE;, waarvoor u het zou moeten compileren met <userinput
 ><option
 >--prefix</option
 >=<filename class="directory"
 >/opt/kde3</filename
 ></userinput
->. Alternatively, you could add a line to your <filename
+>. Als alternatief kunt u een regel toevoegen aan uw bestand <filename
 >.profile</filename
-> file to set $<envar
+> om $<envar
 >KDEDIRS</envar
->. Check the documentation for your shell.</para>
+> in te stellen. Controleer de documentatie voor uw shell.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question
 ><para
->How do I export additional bibtex fields?</para
+>Hoe exporteer ik extra bibtex-velden?</para
 ></question>
 <answer>
 <para
->&appname; uses the <emphasis
+>&appname; gebruikt de eigenschap <emphasis
 >bibtex</emphasis
-> property to know how to export bibtex fields. If you want to add additional fields to export, such as an abstract, open up the <interface
->Collection Fields Dialog</interface
->, and click the <guibutton
->Set Properties</guibutton
-> button. Add a <emphasis
+> om te weten hoe bibtex-velden te exporteren. Als u extra velden om te exporteren wilt toevoegen, zoals een samenvatting, open dan de <interface
+>Dialoog voor velden in de verzameling</interface
+> en klik op de knop <guibutton
+>Eigenschappen instellen</guibutton
+>. Voeg een eigenschap <emphasis
 >bibtex</emphasis
-> property with value <emphasis
+> toe met de waarde <emphasis
 >abstract</emphasis
->. Then, when you export to bibtex or bibtexml, that property will be used for the bibtex field name.</para>
+>. Die eigenschap zal, bij exporteren naar bibtex of bibtexml, gebruikt worden voor de bibtex-veldnaam.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question>
 <para
->What happened to Bookcase?</para>
+>Wat is er gebeurt met Bookcase?</para>
 </question>
 
 <answer>
 <para
->Due to a trademark conflict, Bookcase was renamed Tellico in September 2004. Tellico 0.12 was then released, which was identical to Bookcase 0.11, except for the name change.</para>
+>Vanwege een conflict met een handelsmerk, is Bookcase hernoemd tot Tellico in september 2004. Tellico 0.12 is toen vrijgegeven, die identiek is aan Bookcase 0.11, behalve voor de wijziging in de naam.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question>
 <para
->What does the name Tellico have to do with anything?</para>
+>Wat heeft de naam Tellico hiermee te maken?</para>
 </question>
 
 <answer>
 <para
->I thought about <ulink url="http://www.periapsis.org/archives/2004/09/13/renaming_bookcase.html"
->several other names</ulink
->, a few of which were connected with book collections. However, Tellico can handle more than just books, and besides, this is a hobby, so I chose a neat-sounding (to me) name, one taken from a town close to where I grew up.</para>
+>Ik heb nagedacht over <ulink url="http://www.periapsis.org/archives/2004/09/13/renaming_bookcase.html"
+>verschillende andere namen</ulink
+>, waarvan een paar verbonden waren met boekverzamelingen. Tellico kan echter meer behandelen dan alleen boeken en terzijde, dit is een hobby, dus koos ik een (voor mij) mooi klinkende naam, genomen van een plaats dichtbij waar ik opgegroeid ben.</para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question>
 <para
->What do you include those links to Amazon.com in the search results?</para>
+>Waarom voegt u die koppelingen naar Amazon.com in in de zoekresultaten?</para>
 </question>
 
 <answer>
 <para
->The <ulink url="http://www.amazon.com/gp/browse.html/002-0927720-5265623?node=3440661"
->terms of agreement for accessing the Amazon.com Web Services</ulink
-> require all images pulled from the service to be linked back to Amazon.com, as well as an additional link. The Amazon.com associate's ID is necessarily included, so any referral payments are duly collected. </para>
+>De <ulink url="http://www.amazon.com/gp/browse.html/002-0927720-5265623?node=3440661"
+>bepalingen van de overeenkomst voor toegang tot de webservices van Amazon.com </ulink
+> vereisen dat alle afbeeldingen opgehaald vanaf de service teruggekoppeld moeten zijn naar Amazon.com, evenals een extra koppeling. Het associatie-ID van Amazon.com moet ook worden ingevoegd, zodat elke betaling voor verwijzing eerlijk worden verzameld. </para>
 </answer>
 </qandaentry>
 
 <qandaentry>
 <question>
 <para
->Why don't you use a real database?</para>
+>Waarom gebruikt u geen echte database?</para>
 </question>
 
 <answer>
 <para
->Part of the reason I started &appname; was to learn C++. I didn't know SQL at the time, and at the moment, I only have a faint knowledge of how to use it. Simply put, &appname; didn't start out as a relational database, and that won't change until sometime in the future when I get around to learning SQL and have the time and motivation to change the data model. If that bothers you, well, don't use &appname; then. </para>
+>Deel van de reden dat ik begon met &appname; was om C++ te leren. Op dat moment kende ik SQL nog niet en op dit moment heb ik alleen nog maar een flauw begrip van hoe het te gebruiken. Eenvoudig gezegd, &appname; is niet begonnen als een relationele database en dat zal niet veranderen tot enig moment in de toekomst wanneer ik me SQL heb eigen gemaakt en de tijd en de motivatie om het gegevensmodel te wijzigen. Als u daar last van hebt, gebruik &appname; dan niet. </para>
 
 <para
->Of course, anyone is welcome to make any changes they want to with the source code. </para>
+>Natuurlijk is iedereen welkom om elke wijziging die ze willen aan te brengen in de broncode. </para>
 </answer>
 </qandaentry>
 

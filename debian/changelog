@@ -1,3 +1,22 @@
+tellico (2.3.9+dfsg.1-1) unstable; urgency=low
+
+  * New upstream release.
+    + Patch cdb95d17 is now included, drop it.
+    + CVS parsing update. Closes: #729503.
+  * Bump Stadards-Version to 3.9.6. No other change needed.
+
+ -- Regis Boudin <regis@debian.org>  Sat, 18 Oct 2014 12:40:17 +0200
+
+tellico (2.3.8+dfsg.2-1) unstable; urgency=low
+
+  * Repack the upstream source further to remove sourceless jquery.js.
+    Closes: #736786.
+  * Enable parallel building. Thanks Pino Toscano. Closes: #721029.
+  * Take patch cdb95d17 from upstream git. Closes: #729499.
+  * Bump Stadards-Version to 3.9.5. No other change needed.
+
+ -- Regis Boudin <regis@debian.org>  Sat, 01 Mar 2014 15:05:27 +0100
+
 tellico (2.3.8+dfsg.1-2) unstable; urgency=low
 
   * Disable tests for now, which should at least temporarily address #716982.

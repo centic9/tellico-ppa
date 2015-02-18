@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-27 06:47+0000\n"
+"POT-Creation-Date: 2015-02-15 06:07+0000\n"
 "PO-Revision-Date: 2014-06-04 10:56+0800\n"
 "Last-Translator: Franklin\n"
 "Language-Team: Chinese Traditional <kde-tw@googlegroups.com>\n"
@@ -159,18 +159,14 @@ msgid "Bedetheque.com"
 msgstr "Bedetheque.com"
 
 #: scripts.cpp:4
-msgid "BoardGameGeek"
-msgstr "BoardGameGeek"
-
-#: scripts.cpp:6
 msgid "Dark Horse Comics"
 msgstr "Dark Horse 漫畫"
 
-#: scripts.cpp:8
+#: scripts.cpp:6
 msgid "Allocine.fr"
 msgstr "Allocine.fr"
 
-#: scripts.cpp:10
+#: scripts.cpp:8
 msgid "Spanish Ministry of Culture"
 msgstr "西班牙文化部"
 
@@ -250,15 +246,17 @@ msgstr "標題"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:255 src/fetch/allocinefetcher.cpp:261
+#: src/fetch/allocinefetcher.cpp:267 src/fetch/allocinefetcher.cpp:273
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
+#: src/fetch/discogsfetcher.cpp:244 src/fetch/discogsfetcher.cpp:249
+#: src/fetch/discogsfetcher.cpp:254 src/fetch/discogsfetcher.cpp:261
 #: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
-#: src/fetch/imdbfetcher.cpp:957 src/fetch/imdbfetcher.cpp:1297
-#: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
-#: src/fetch/themoviedbfetcher.cpp:253 src/fetch/themoviedbfetcher.cpp:258
-#: src/fetch/themoviedbfetcher.cpp:263 src/field.cpp:37 src/field.cpp:78
-#: src/translators/gcstarimporter.cpp:89
+#: src/fetch/imdbfetcher.cpp:963 src/fetch/imdbfetcher.cpp:1341
+#: src/fetch/moviemeterfetcher.cpp:213 src/fetch/moviemeterfetcher.cpp:218
+#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:253
+#: src/fetch/themoviedbfetcher.cpp:258 src/fetch/themoviedbfetcher.cpp:263
+#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "一般"
 
@@ -985,7 +983,7 @@ msgid "Series Number"
 msgstr "序號"
 
 #: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:235
-#: src/mainwindow.cpp:490
+#: src/mainwindow.cpp:493
 msgid "New"
 msgstr "全新"
 
@@ -1137,6 +1135,8 @@ msgid "Writer"
 msgstr "作者"
 
 #: src/collections/comicbookcollection.cpp:63
+#: src/fetch/boardgamegeekfetcher.cpp:176
+#: src/translators/boardgamegeekimporter.cpp:181
 msgctxt "Comic Book Illustrator"
 msgid "Artist"
 msgstr "演出者"
@@ -1371,8 +1371,8 @@ msgid "Issue Year"
 msgstr "發行年份"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:364
-#: src/fetch/imdbfetcher.cpp:1409
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:379
+#: src/fetch/imdbfetcher.cpp:1453
 msgid "Color"
 msgstr "顏色"
 
@@ -1491,7 +1491,8 @@ msgstr "區域 8"
 msgid "Region"
 msgstr "區域"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:214
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:253
+#: src/fetch/discogsfetcher.cpp:407
 msgid "Nationality"
 msgstr "國籍"
 
@@ -1533,7 +1534,8 @@ msgstr "卡司表，包括他們所演出的角色"
 msgid "Director"
 msgstr "導演"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:213
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:260
+#: src/fetch/discogsfetcher.cpp:406
 msgid "Producer"
 msgstr "製片"
 
@@ -1681,7 +1683,7 @@ msgstr "刪除 %1 欄位"
 msgid "Add Filter"
 msgstr "新增過濾器"
 
-#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:370
+#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:394
 #: src/filterview.cpp:133
 msgid "Modify Filter"
 msgstr "變更過濾器"
@@ -2080,8 +2082,8 @@ msgstr "*.xsl|XSL 檔 (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|樣本套件 (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:374 src/mainwindow.cpp:1068
-#: src/mainwindow.cpp:1233 src/reportdialog.cpp:215
+#: src/configdialog.cpp:1137 src/importdialog.cpp:381 src/mainwindow.cpp:1071
+#: src/mainwindow.cpp:1236 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
 #: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:92
@@ -2123,20 +2125,20 @@ msgstr "您真的要刪除這些項目嗎？"
 msgid "Delete Multiple Entries"
 msgstr "刪除多個項目"
 
-#: src/controller.cpp:577 src/mainwindow.cpp:496
+#: src/controller.cpp:577 src/mainwindow.cpp:499
 msgid "&Edit Entry..."
 msgstr "編輯項目(&E)..."
 
-#: src/controller.cpp:578 src/mainwindow.cpp:503
+#: src/controller.cpp:578 src/mainwindow.cpp:506
 msgid "D&uplicate Entry"
 msgstr "複製項目(&U)"
 
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/controller.cpp:579 src/mainwindow.cpp:588 src/tellicoui.rc:81
+#: src/controller.cpp:579 src/mainwindow.cpp:591 src/tellicoui.rc:83
 msgid "&Update Entry"
 msgstr "更新項目(&U)"
 
-#: src/controller.cpp:580 src/mainwindow.cpp:510
+#: src/controller.cpp:580 src/mainwindow.cpp:513
 msgid "&Delete Entry"
 msgstr "刪除項目(&D)"
 
@@ -2396,7 +2398,7 @@ msgstr "隱藏所有欄位"
 msgid "Resize to Content"
 msgstr "將大小調整到符合內容"
 
-#: src/document.cpp:195 src/mainwindow.cpp:1178
+#: src/document.cpp:195 src/mainwindow.cpp:1181
 msgid "Saving file..."
 msgstr "正在儲存檔案..."
 
@@ -2446,7 +2448,7 @@ msgstr ""
 msgid "Save Entry"
 msgstr "儲存項目"
 
-#: src/entryeditdialog.cpp:650 src/mainwindow.cpp:993
+#: src/entryeditdialog.cpp:650 src/mainwindow.cpp:996
 msgid "Unsaved Changes"
 msgstr "未儲存的改變"
 
@@ -2506,7 +2508,7 @@ msgstr "更新 <b>%1</b> 中..."
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico 無法找到預設的項目樣式表。"
 
-#: src/entryview.cpp:224 src/mainwindow.cpp:1595
+#: src/entryview.cpp:224 src/mainwindow.cpp:1598
 msgid "Please check your installation."
 msgstr "請檢查您的安裝。"
 
@@ -2566,25 +2568,25 @@ msgstr "以使用者的地域設定（%1）編碼"
 msgid "Encode the exported file in the local encoding."
 msgstr "匯出的檔案以使用者的地域設定編碼。"
 
-#: src/fetch/allocinefetcher.cpp:260 src/fetch/allocinefetcher.cpp:480
+#: src/fetch/allocinefetcher.cpp:272 src/fetch/allocinefetcher.cpp:495
 msgid "Allocine Link"
 msgstr "Allocine 連結"
 
-#: src/fetch/allocinefetcher.cpp:265 src/fetch/allocinefetcher.cpp:479
+#: src/fetch/allocinefetcher.cpp:277 src/fetch/allocinefetcher.cpp:494
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
 #: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
-#: src/fetch/themoviedbfetcher.cpp:426 src/fetch/vndbfetcher.cpp:241
+#: src/fetch/themoviedbfetcher.cpp:431 src/fetch/vndbfetcher.cpp:241
 #: src/fetch/vndbfetcher.cpp:320
 msgid "Original Title"
 msgstr "原始標題"
 
-#: src/fetch/allocinefetcher.cpp:390 src/fetch/imdbfetcher.cpp:1607
+#: src/fetch/allocinefetcher.cpp:405 src/fetch/imdbfetcher.cpp:1651
 msgid "&Maximum cast: "
 msgstr "最大演員數量(&M)："
 
-#: src/fetch/allocinefetcher.cpp:395 src/fetch/imdbfetcher.cpp:1612
+#: src/fetch/allocinefetcher.cpp:410 src/fetch/imdbfetcher.cpp:1656
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2646,7 +2648,7 @@ msgstr "要從 Amazon.com 取得資料必須有 AWS 存取金鑰代碼以及私�
 msgid "Those values must be entered in the data source settings."
 msgstr "這些值必須在資料來源設定裡輸入。"
 
-#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:272
+#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:281
 #: src/fetch/winecomfetcher.cpp:230
 #, kde-format
 msgid "Results from %1: %2/%3"
@@ -2662,10 +2664,11 @@ msgid "Amazon.com Web Services"
 msgstr "Amazon.com 網頁服務（AWS）"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
-#: src/fetch/crossreffetcher.cpp:311 src/fetch/doubanfetcher.cpp:226
-#: src/fetch/freebasefetcher.cpp:954 src/fetch/giantbombfetcher.cpp:206
-#: src/fetch/googlebookfetcher.cpp:381 src/fetch/isbndbfetcher.cpp:355
-#: src/fetch/themoviedbfetcher.cpp:438 src/fetch/winecomfetcher.cpp:297
+#: src/fetch/crossreffetcher.cpp:311 src/fetch/discogsfetcher.cpp:419
+#: src/fetch/doubanfetcher.cpp:226 src/fetch/freebasefetcher.cpp:954
+#: src/fetch/giantbombfetcher.cpp:206 src/fetch/googlebookfetcher.cpp:387
+#: src/fetch/isbndbfetcher.cpp:364 src/fetch/themoviedbfetcher.cpp:443
+#: src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2677,7 +2680,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:451
+#: src/fetch/isbndbfetcher.cpp:377 src/fetch/themoviedbfetcher.cpp:456
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "存取金鑰："
@@ -2752,7 +2755,7 @@ msgstr "大"
 msgid "No Image"
 msgstr "沒有影像"
 
-#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1621
+#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1665
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2773,9 +2776,9 @@ msgstr ""
 
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
-#: src/fetch/imdbfetcher.cpp:1027 src/fetch/imdbfetcher.cpp:1570
-#: src/fetch/moviemeterfetcher.cpp:253 src/fetch/moviemeterfetcher.cpp:360
-#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:425
+#: src/fetch/imdbfetcher.cpp:1033 src/fetch/imdbfetcher.cpp:1614
+#: src/fetch/moviemeterfetcher.cpp:222 src/fetch/moviemeterfetcher.cpp:294
+#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:430
 msgid "Alternative Titles"
 msgstr "替代標題"
 
@@ -2796,25 +2799,32 @@ msgid "AnimeNfo Rating"
 msgstr "AnimeNfo 評比"
 
 #: src/fetch/animenfofetcher.cpp:491 src/fetch/arxivfetcher.cpp:329
-#: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
-#: src/fetch/dblpfetcher.cpp:126 src/fetch/discogsfetcher.cpp:222
+#: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/boardgamegeekfetcher.cpp:184
+#: src/fetch/citebasefetcher.cpp:234 src/fetch/dblpfetcher.cpp:126
 #: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
 #: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
 #: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
-#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:367
-#: src/fetch/musicbrainzfetcher.cpp:337 src/fetch/openlibraryfetcher.cpp:429
-#: src/fetch/springerfetcher.cpp:179 src/fetch/thegamesdbfetcher.cpp:161
-#: src/fetch/vndbfetcher.cpp:328 src/fetch/yahoofetcher.cpp:396
+#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/mrlookupfetcher.cpp:220 src/fetch/musicbrainzfetcher.cpp:337
+#: src/fetch/openlibraryfetcher.cpp:429 src/fetch/springerfetcher.cpp:179
+#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:328
+#: src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "此來源沒有選項。"
 
 #: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
-#: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:400
-#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:457
+#: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:406
+#: src/fetch/isbndbfetcher.cpp:383 src/fetch/themoviedbfetcher.cpp:462
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
 msgstr "可以使用 Tellico 預設的金鑰，不過搜尋可能會因為達到存取限制而失敗。"
+
+#: src/fetch/boardgamegeekfetcher.cpp:177
+#, fuzzy
+#| msgid "BoardGameGeek"
+msgid "BoardGameGeek Link"
+msgstr "BoardGameGeek"
 
 #: src/fetch/configwidget.cpp:41
 msgid "Source Options"
@@ -2849,21 +2859,39 @@ msgstr "有些帳號只需要電子郵件地址。"
 msgid "Email: "
 msgstr "電子郵件地址："
 
-#: src/fetch/discogsfetcher.cpp:204
+#: src/fetch/discogsfetcher.cpp:96
+#, fuzzy
+#| msgid ""
+#| "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
+#| "Key."
+msgid "Access to data from Discogs.com requires a personal token."
+msgstr "要從 Amazon.com 取得資料必須有 AWS 存取金鑰代碼以及私密金鑰。"
+
+#: src/fetch/discogsfetcher.cpp:248 src/fetch/discogsfetcher.cpp:408
+msgid "Discogs Link"
+msgstr "Discogs 連結"
+
+#: src/fetch/discogsfetcher.cpp:271
+msgid "The Discogs.com server reports a token error."
+msgstr ""
+
+#: src/fetch/discogsfetcher.cpp:397
 msgid "Discogs Audio Search"
 msgstr "Discogs 音效搜尋"
 
-#: src/fetch/discogsfetcher.cpp:215
-msgid "Discogs Link"
-msgstr "Discogs 連結"
+#: src/fetch/discogsfetcher.cpp:432
+#, fuzzy
+#| msgid "&User: "
+msgid "User token: "
+msgstr "使用者(&U)："
 
 #: src/fetch/doubanfetcher.cpp:214
 msgid "Douban Link"
 msgstr "Douban 連結"
 
-#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:956
-#: src/fetch/imdbfetcher.cpp:1568 src/fetch/themoviedbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:424
+#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:962
+#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:262
+#: src/fetch/themoviedbfetcher.cpp:429
 msgid "IMDb Link"
 msgstr "IMDb 連結"
 
@@ -2980,7 +3008,7 @@ msgstr "Filmaster 連結"
 msgid "Freebase Link"
 msgstr "Freebase 連結"
 
-#: src/fetch/freebasefetcher.cpp:967 src/fetch/googlebookfetcher.cpp:394
+#: src/fetch/freebasefetcher.cpp:967 src/fetch/googlebookfetcher.cpp:400
 msgid "API key: "
 msgstr "API 鍵值："
 
@@ -3004,11 +3032,11 @@ msgstr "設定使用此資料來源的 GCstar 外掛程式。"
 msgid "Author: "
 msgstr "作者："
 
-#: src/fetch/googlebookfetcher.cpp:264 src/fetch/googlebookfetcher.cpp:370
+#: src/fetch/googlebookfetcher.cpp:264 src/fetch/googlebookfetcher.cpp:376
 msgid "Google Book Link"
 msgstr "Google Book 連結"
 
-#: src/fetch/googlebookfetcher.cpp:361
+#: src/fetch/googlebookfetcher.cpp:367
 msgid "Google Book Search"
 msgstr "Google Book 搜尋"
 
@@ -3016,13 +3044,13 @@ msgstr "Google Book 搜尋"
 msgid "Illustrator"
 msgstr "插畫家"
 
-#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:343
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:352
 #: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey Decimal"
 
-#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:344
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:353
 #: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3032,57 +3060,57 @@ msgstr "LoC 分級"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "網路書店（ibs.it）"
 
-#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1558
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1602
 msgid "Internet Movie Database"
 msgstr "網際網路電影資料庫（IMDb）"
 
-#: src/fetch/imdbfetcher.cpp:123
+#: src/fetch/imdbfetcher.cpp:124
 msgid "Internet Movie Database (French)"
 msgstr "網際網路電影資料庫（法文）"
 
-#: src/fetch/imdbfetcher.cpp:150
+#: src/fetch/imdbfetcher.cpp:152
 msgid "Internet Movie Database (Spanish)"
 msgstr "網際網路電影資料庫（西班牙文）"
 
-#: src/fetch/imdbfetcher.cpp:177
+#: src/fetch/imdbfetcher.cpp:180
 msgid "Internet Movie Database (German)"
 msgstr "網際網路電影資料庫（德文）"
 
-#: src/fetch/imdbfetcher.cpp:204
+#: src/fetch/imdbfetcher.cpp:208
 msgid "Internet Movie Database (Italian)"
 msgstr "網際網路電影資料庫（義大利文）"
 
-#: src/fetch/imdbfetcher.cpp:231
+#: src/fetch/imdbfetcher.cpp:236
 msgid "Internet Movie Database (Portuguese)"
 msgstr "網際網路電影資料庫（葡萄牙文）"
 
-#: src/fetch/imdbfetcher.cpp:811
+#: src/fetch/imdbfetcher.cpp:817
 msgid "Select IMDb Result"
 msgstr "選擇 IMDb 結果"
 
-#: src/fetch/imdbfetcher.cpp:817
+#: src/fetch/imdbfetcher.cpp:823
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr "<qt>您的搜尋找到多個符合的結果。請選擇一個。</qt>"
 
-#: src/fetch/imdbfetcher.cpp:837
+#: src/fetch/imdbfetcher.cpp:843
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>選擇搜尋結果。</qt>"
 
-#: src/fetch/imdbfetcher.cpp:1296 src/fetch/imdbfetcher.cpp:1569
+#: src/fetch/imdbfetcher.cpp:1340 src/fetch/imdbfetcher.cpp:1613
 msgid "IMDb Rating"
 msgstr "IMDb 評分"
 
-#: src/fetch/imdbfetcher.cpp:1441 src/fetch/imdbfetcher.cpp:1529
-#: src/fetch/imdbfetcher.cpp:1571
+#: src/fetch/imdbfetcher.cpp:1485 src/fetch/imdbfetcher.cpp:1573
+#: src/fetch/imdbfetcher.cpp:1615
 msgid "Certifications"
 msgstr "憑證"
 
-#: src/fetch/imdbfetcher.cpp:1617
+#: src/fetch/imdbfetcher.cpp:1661
 msgid "Download cover &image"
 msgstr "下載封面影像(&I)"
 
-#: src/fetch/isbndbfetcher.cpp:225
+#: src/fetch/isbndbfetcher.cpp:234
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
@@ -3091,11 +3119,11 @@ msgstr ""
 "<qt><p><b>ISBNndb.com 伺服器傳回了存取金鑰的錯誤。</b></p> 您可能已經達到此金"
 "鑰所允許本日搜尋的上限，或是您輸入的存取金鑰是錯誤的。</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:333
+#: src/fetch/isbndbfetcher.cpp:342
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/moviemeterfetcher.cpp:246 src/fetch/moviemeterfetcher.cpp:359
+#: src/fetch/moviemeterfetcher.cpp:217 src/fetch/moviemeterfetcher.cpp:293
 msgid "MovieMeter Link"
 msgstr "MovieMeter 連結"
 
@@ -3148,35 +3176,35 @@ msgstr "格式："
 msgid "Enter the result format used by the server."
 msgstr "輸入伺服器使用的結果格式。"
 
-#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:423
+#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:428
 msgid "TMDb Link"
 msgstr "TMDb 連結"
 
-#: src/fetch/themoviedbfetcher.cpp:462
+#: src/fetch/themoviedbfetcher.cpp:467
 msgid "Language: "
 msgstr "語言："
 
-#: src/fetch/themoviedbfetcher.cpp:465
+#: src/fetch/themoviedbfetcher.cpp:470
 msgctxt "Language"
 msgid "English"
 msgstr "英文"
 
-#: src/fetch/themoviedbfetcher.cpp:466
+#: src/fetch/themoviedbfetcher.cpp:471
 msgctxt "Language"
 msgid "French"
 msgstr "法文"
 
-#: src/fetch/themoviedbfetcher.cpp:467
+#: src/fetch/themoviedbfetcher.cpp:472
 msgctxt "Language"
 msgid "German"
 msgstr "德文"
 
-#: src/fetch/themoviedbfetcher.cpp:468
+#: src/fetch/themoviedbfetcher.cpp:473
 msgctxt "Language"
 msgid "Spanish"
 msgstr "西班牙文"
 
-#: src/fetch/themoviedbfetcher.cpp:499
+#: src/fetch/themoviedbfetcher.cpp:504
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB（%1）"
@@ -3188,15 +3216,6 @@ msgstr "別名"
 #: src/fetch/vndbfetcher.cpp:264
 msgid "Visual Novel"
 msgstr "Visual Novel"
-
-#: src/fetch/xmlrpc/query.cpp:376
-#, kde-format
-msgid "Received invalid XML markup: %1 at %2:%3"
-msgstr "接收到不合法的 XML 標籤：%1，於 %2:%3"
-
-#: src/fetch/xmlrpc/query.cpp:390
-msgid "Unknown type of XML markup received"
-msgstr "接收到未知型態的 XML 標籤。"
 
 #: src/fetch/yahoofetcher.cpp:377
 msgid "Yahoo! Audio Search"
@@ -3511,66 +3530,76 @@ msgstr "任何欄位"
 msgid "Edit..."
 msgstr "編輯..."
 
-#: src/filterdialog.cpp:270 src/filterdialog.cpp:279
+#: src/filterdialog.cpp:284 src/filterdialog.cpp:292 src/filterdialog.cpp:302
 msgid "equals"
 msgstr "等於"
 
-#: src/filterdialog.cpp:271 src/filterdialog.cpp:280
+#: src/filterdialog.cpp:285 src/filterdialog.cpp:293 src/filterdialog.cpp:303
 msgid "does not equal"
 msgstr "不等於"
 
-#: src/filterdialog.cpp:272 src/filterdialog.cpp:281
+#: src/filterdialog.cpp:286 src/filterdialog.cpp:294 src/filterdialog.cpp:304
 msgid "matches regexp"
 msgstr "符合正規表示式"
 
-#: src/filterdialog.cpp:273 src/filterdialog.cpp:282
+#: src/filterdialog.cpp:287 src/filterdialog.cpp:295 src/filterdialog.cpp:305
 msgid "does not match regexp"
 msgstr "不符合正規表示式"
 
-#: src/filterdialog.cpp:274
+#: src/filterdialog.cpp:288
 msgctxt "is before a date"
 msgid "is before"
 msgstr "在此之前："
 
-#: src/filterdialog.cpp:275
+#: src/filterdialog.cpp:289
 msgctxt "is after a date"
 msgid "is after"
 msgstr "在此之後："
 
-#: src/filterdialog.cpp:277
+#: src/filterdialog.cpp:296
+msgctxt "is less than a number"
+msgid "is less than"
+msgstr ""
+
+#: src/filterdialog.cpp:297
+msgctxt "is greater than a number"
+msgid "is greater than"
+msgstr ""
+
+#: src/filterdialog.cpp:300
 msgid "contains"
 msgstr "內含"
 
-#: src/filterdialog.cpp:278
+#: src/filterdialog.cpp:301
 msgid "does not contain"
 msgstr "不含"
 
-#: src/filterdialog.cpp:370
+#: src/filterdialog.cpp:394
 msgid "Advanced Filter"
 msgstr "進階過濾"
 
-#: src/filterdialog.cpp:382
+#: src/filterdialog.cpp:406
 msgid "Filter Criteria"
 msgstr "過濾標準"
 
-#: src/filterdialog.cpp:386
+#: src/filterdialog.cpp:410
 msgid "Match a&ll of the following"
 msgstr "符合下列全部規則(&L)"
 
-#: src/filterdialog.cpp:387
+#: src/filterdialog.cpp:411
 msgid "Match an&y of the following"
 msgstr "符合下列任一規則(&Y)"
 
-#: src/filterdialog.cpp:406
+#: src/filterdialog.cpp:430
 msgid "Filter name:"
 msgstr "過濾器名稱："
 
-#: src/filterdialog.cpp:415
+#: src/filterdialog.cpp:439
 msgid "&Save Filter"
 msgstr "儲存過濾器(&S)"
 
-#: src/filterview.cpp:205 src/mainwindow.cpp:478 src/mainwindow.cpp:654
-#: src/mainwindow.cpp:670
+#: src/filterview.cpp:205 src/mainwindow.cpp:481 src/mainwindow.cpp:657
+#: src/mainwindow.cpp:673
 msgid "Filter"
 msgstr "過濾器"
 
@@ -3600,8 +3629,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "群組"
 
-#: src/groupview.cpp:415 src/mainwindow.cpp:903 src/mainwindow.cpp:1522
-#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:330
+#: src/groupview.cpp:415 src/mainwindow.cpp:906 src/mainwindow.cpp:1525
+#: src/mainwindow.cpp:1551 src/translators/htmlexporter.cpp:330
 msgid "People"
 msgstr "人物"
 
@@ -3794,33 +3823,33 @@ msgstr "將列上移"
 msgid "Move Row Down"
 msgstr "將列下移"
 
-#: src/importdialog.cpp:70 src/importdialog.cpp:76
+#: src/importdialog.cpp:71 src/importdialog.cpp:77
 msgid "Import Options"
 msgstr "匯入選項"
 
-#: src/importdialog.cpp:80
+#: src/importdialog.cpp:81
 msgid "&Replace current collection"
 msgstr "取代目前的收藏(&R)"
 
-#: src/importdialog.cpp:81
+#: src/importdialog.cpp:82
 msgid "Replace the current collection with the contents of the imported file."
 msgstr "以匯入檔案的內容取代目前的收藏。"
 
-#: src/importdialog.cpp:83
+#: src/importdialog.cpp:84
 msgid "A&ppend to current collection"
 msgstr "附加到目前的收藏(&P)"
 
-#: src/importdialog.cpp:84
+#: src/importdialog.cpp:85
 msgid ""
 "Append the contents of the imported file to the current collection. This is "
 "only possible when the collection types match."
 msgstr "將匯入檔案的內容附加到目前收藏的後面。只有在收藏型態相符時才能進行。"
 
-#: src/importdialog.cpp:87
+#: src/importdialog.cpp:88
 msgid "&Merge with current collection"
 msgstr "與現有的收藏合併(&M)"
 
-#: src/importdialog.cpp:88
+#: src/importdialog.cpp:89
 msgid ""
 "Merge the contents of the imported file to the current collection. This is "
 "only possible when the collection types match. Entries must match exactly in "
@@ -3830,57 +3859,57 @@ msgstr ""
 "照順序符合才能合併。"
 
 #. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:123 src/mainwindow.cpp:318 src/tellicoui.rc:24
+#: src/importdialog.cpp:124 src/mainwindow.cpp:318 src/tellicoui.rc:24
 msgid "&Import"
 msgstr "匯入(&I)"
 
-#: src/importdialog.cpp:315 src/mainwindow.cpp:1064 src/mainwindow.cpp:1231
+#: src/importdialog.cpp:321 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
 #: src/translators/tellicozipexporter.cpp:56
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Tellico 檔案 (*.tc)"
 
-#: src/importdialog.cpp:316 src/importdialog.cpp:331 src/importdialog.cpp:361
-#: src/mainwindow.cpp:1066 src/translators/tellicoxmlexporter.cpp:70
+#: src/importdialog.cpp:322 src/importdialog.cpp:337 src/importdialog.cpp:367
+#: src/mainwindow.cpp:1069 src/translators/tellicoxmlexporter.cpp:70
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|XML 檔案 (*.xml)"
 
-#: src/importdialog.cpp:320 src/translators/bibtexexporter.cpp:61
+#: src/importdialog.cpp:326 src/translators/bibtexexporter.cpp:61
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "*.bib|Bibtex 檔案 (*.bib)"
 
-#: src/importdialog.cpp:324 src/translators/csvexporter.cpp:59
+#: src/importdialog.cpp:330 src/translators/csvexporter.cpp:59
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "*.csv|CSV 檔案 (*.csv)"
 
-#: src/importdialog.cpp:335
+#: src/importdialog.cpp:341
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "*.ris|RIS 檔案 (*.ris)"
 
-#: src/importdialog.cpp:339 src/translators/gcstarexporter.cpp:60
+#: src/importdialog.cpp:345 src/translators/gcstarexporter.cpp:60
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|GCstar 資料檔 (*.gcs)"
 
-#: src/importdialog.cpp:340
+#: src/importdialog.cpp:346
 msgid "*.gcf|GCfilms Data Files (*.gcf)"
 msgstr "*.gcf|GCfilms 資料檔 (*.gcf)"
 
-#: src/importdialog.cpp:344
+#: src/importdialog.cpp:350
 msgid "*.amc|AMC Data Files (*.amc)"
 msgstr "*.amc|AMC 資料檔 (*.amc)"
 
-#: src/importdialog.cpp:348
+#: src/importdialog.cpp:354
 msgid "*.pdf|PDF Files (*.pdf)"
 msgstr "*.pdf|PDF 檔案 (*.pdf)"
 
-#: src/importdialog.cpp:352
+#: src/importdialog.cpp:358
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "*.reflib|Referencer 檔案 (*.reflib)"
 
-#: src/importdialog.cpp:356
+#: src/importdialog.cpp:362
 msgid "*.ciw|CIW Files (*.ciw)"
 msgstr "*.ciw|CIW 檔案 (*.csv)"
 
-#: src/importdialog.cpp:360
+#: src/importdialog.cpp:366
 msgid "*.vinoxml|VinoXML Data Files (*.vinoxml)"
 msgstr "*.vinoxml|VinoXML 資料檔 (*.vinoxml)"
 
@@ -4326,356 +4355,368 @@ msgid "Import an Ant Movie Catalog data file"
 msgstr "匯入 Ant Movie Catalog 資料檔"
 
 #: src/mainwindow.cpp:386
+#, fuzzy
+#| msgid "Import Goodreads Collection..."
+msgid "Import BoardGameGeek Collection..."
+msgstr "匯入 Goodreads 收藏..."
+
+#: src/mainwindow.cpp:387
+#, fuzzy
+#| msgid "Import a collection from Goodreads.com"
+msgid "Import a collection from BoardGameGeek.com"
+msgstr "從 Goodreads.com 匯入收藏"
+
+#: src/mainwindow.cpp:389
 msgid "Import VinoXML..."
 msgstr "匯出為 VinoXML 檔..."
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:390
 msgid "Import VinoXML data"
 msgstr "匯入 VinoXML 資料中..."
 
-#: src/mainwindow.cpp:389
+#: src/mainwindow.cpp:392
 msgid "Import File Listing..."
 msgstr "匯入檔案列表..."
 
-#: src/mainwindow.cpp:390
+#: src/mainwindow.cpp:393
 msgid "Import information about files in a folder"
 msgstr "匯入某個資料夾內的檔案資訊"
 
-#: src/mainwindow.cpp:392
+#: src/mainwindow.cpp:395
 msgid "Import XSL Transform..."
 msgstr "匯入 XSL Transform..."
 
-#: src/mainwindow.cpp:393
+#: src/mainwindow.cpp:396
 msgid "Import using an XSL Transform"
 msgstr "用 XSL Transform 匯入資料"
 
 #. i18n: ectx: Menu (file_export)
-#: src/mainwindow.cpp:403 src/tellicoui.rc:52
+#: src/mainwindow.cpp:406 src/tellicoui.rc:54
 msgid "&Export"
 msgstr "匯出(&E)"
 
-#: src/mainwindow.cpp:405
+#: src/mainwindow.cpp:408
 msgid "Export the collection data to other formats"
 msgstr "將收藏資料匯出為其他格式"
 
-#: src/mainwindow.cpp:417
+#: src/mainwindow.cpp:420
 msgid "Export to XML..."
 msgstr "匯出為 XML 檔..."
 
-#: src/mainwindow.cpp:418
+#: src/mainwindow.cpp:421
 msgid "Export to a Tellico XML file"
 msgstr "匯出為 Tellico XML 檔"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:423
 msgid "Export to Zip..."
 msgstr "匯出為 Zip 檔..."
 
-#: src/mainwindow.cpp:421
+#: src/mainwindow.cpp:424
 msgid "Export to a Tellico Zip file"
 msgstr "匯出為 Tellico Zip 檔"
 
-#: src/mainwindow.cpp:423
+#: src/mainwindow.cpp:426
 msgid "Export to HTML..."
 msgstr "匯出為 HTML 檔..."
 
-#: src/mainwindow.cpp:424
+#: src/mainwindow.cpp:427
 msgid "Export to an HTML file"
 msgstr "匯出為 HTML 檔"
 
-#: src/mainwindow.cpp:426
+#: src/mainwindow.cpp:429
 msgid "Export to CSV..."
 msgstr "匯出為 CSV 檔..."
 
-#: src/mainwindow.cpp:427
+#: src/mainwindow.cpp:430
 msgid "Export to a comma-separated values file"
 msgstr "匯出為 CSV 檔，以逗號分隔"
 
-#: src/mainwindow.cpp:429
+#: src/mainwindow.cpp:432
 msgid "Export to PilotDB..."
 msgstr "匯出到 PilotDB ..."
 
-#: src/mainwindow.cpp:430
+#: src/mainwindow.cpp:433
 msgid "Export to a PilotDB database"
 msgstr "匯出到 PilotDB 資料庫"
 
-#: src/mainwindow.cpp:432
+#: src/mainwindow.cpp:435
 msgid "Export to Alexandria..."
 msgstr "匯出到 Alexandria..."
 
-#: src/mainwindow.cpp:433
+#: src/mainwindow.cpp:436
 msgid "Export to an Alexandria library"
 msgstr "匯出到 Alexandria 圖書館"
 
-#: src/mainwindow.cpp:435
+#: src/mainwindow.cpp:438
 msgid "Export to Bibtex..."
 msgstr "匯出為 Bibtex 檔..."
 
-#: src/mainwindow.cpp:436
+#: src/mainwindow.cpp:439
 msgid "Export to a bibtex file"
 msgstr "匯出為 Bibtex 檔"
 
-#: src/mainwindow.cpp:438
+#: src/mainwindow.cpp:441
 msgid "Export to Bibtexml..."
 msgstr "匯出為 Bibtexml 檔..."
 
-#: src/mainwindow.cpp:439
+#: src/mainwindow.cpp:442
 msgid "Export to a Bibtexml file"
 msgstr "匯出為 Bibtexml 檔"
 
-#: src/mainwindow.cpp:441
+#: src/mainwindow.cpp:444
 msgid "Export to ONIX..."
 msgstr "匯出為 ONIX 檔..."
 
-#: src/mainwindow.cpp:442
+#: src/mainwindow.cpp:445
 msgid "Export to an ONIX file"
 msgstr "匯出為 ONIX 檔"
 
-#: src/mainwindow.cpp:444
+#: src/mainwindow.cpp:447
 msgid "Export to GCstar..."
 msgstr "匯出到 GCstar..."
 
-#: src/mainwindow.cpp:445
+#: src/mainwindow.cpp:448
 msgid "Export to a GCstar data file"
 msgstr "匯出為 GCstar 資料檔"
 
-#: src/mainwindow.cpp:447
+#: src/mainwindow.cpp:450
 msgid "Export XSL Transform..."
 msgstr "用 XSL Transform 匯出..."
 
-#: src/mainwindow.cpp:448
+#: src/mainwindow.cpp:451
 msgid "Export using an XSL Transform"
 msgstr "用 XSL Transform 匯出資料"
 
-#: src/mainwindow.cpp:459
+#: src/mainwindow.cpp:462
 msgid "Cut the selected text and puts it in the clipboard"
 msgstr "剪下選取的文字並放入剪貼簿"
 
-#: src/mainwindow.cpp:461
+#: src/mainwindow.cpp:464
 msgid "Copy the selected text to the clipboard"
 msgstr "將選取的文字複製到剪貼簿"
 
-#: src/mainwindow.cpp:463
+#: src/mainwindow.cpp:466
 msgid "Paste the clipboard contents"
 msgstr "貼上剪貼簿內容"
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:468
 msgid "Select all the entries in the collection"
 msgstr "選擇收藏中所有的項目"
 
-#: src/mainwindow.cpp:467
+#: src/mainwindow.cpp:470
 msgid "Deselect all the entries in the collection"
 msgstr "取消選擇收藏中所有的項目"
 
-#: src/mainwindow.cpp:470
+#: src/mainwindow.cpp:473
 msgid "Internet Search..."
 msgstr "網際網路搜尋..."
 
-#: src/mainwindow.cpp:471 xslt.cpp:47
+#: src/mainwindow.cpp:474 xslt.cpp:47
 msgid "Search"
 msgstr "搜尋"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:477
 msgid "Search the internet..."
 msgstr "在網際網路上搜尋..."
 
-#: src/mainwindow.cpp:477
+#: src/mainwindow.cpp:480
 msgid "Advanced &Filter..."
 msgstr "進階過濾(&F)..."
 
-#: src/mainwindow.cpp:481 src/mainwindow.cpp:672
+#: src/mainwindow.cpp:484 src/mainwindow.cpp:675
 msgid "Filter the collection"
 msgstr "過濾收藏"
 
-#: src/mainwindow.cpp:488
+#: src/mainwindow.cpp:491
 msgid "&New Entry..."
 msgstr "新增項目(&N)..."
 
-#: src/mainwindow.cpp:492
+#: src/mainwindow.cpp:495
 msgid "Create a new entry"
 msgstr "建立新的項目"
 
-#: src/mainwindow.cpp:499
+#: src/mainwindow.cpp:502
 msgid "Edit the selected entries"
 msgstr "編輯選取的項目"
 
-#: src/mainwindow.cpp:506
+#: src/mainwindow.cpp:509
 msgid "Copy the selected entries"
 msgstr "複製選取的項目"
 
-#: src/mainwindow.cpp:513
+#: src/mainwindow.cpp:516
 msgid "Delete the selected entries"
 msgstr "刪除選取的項目"
 
-#: src/mainwindow.cpp:517
+#: src/mainwindow.cpp:520
 msgid "&Merge Entries"
 msgstr "合併項目(&M)"
 
-#: src/mainwindow.cpp:521
+#: src/mainwindow.cpp:524
 msgid "Merge the selected entries"
 msgstr "合併選取的項目"
 
-#: src/mainwindow.cpp:525
+#: src/mainwindow.cpp:528
 msgid "Check-&out..."
 msgstr "取出(&O)..."
 
-#: src/mainwindow.cpp:527
+#: src/mainwindow.cpp:530
 msgid "Check-out the selected items"
 msgstr "取出選取的項目"
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:533
 msgid "Check-&in"
 msgstr "歸還(&I)"
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:535
 msgid "Check-in the selected items"
 msgstr "歸還選取的項目"
 
-#: src/mainwindow.cpp:535
+#: src/mainwindow.cpp:538
 msgid "&Rename Collection..."
 msgstr "重新命名收藏(&R)..."
 
-#: src/mainwindow.cpp:538
+#: src/mainwindow.cpp:541
 msgid "Rename the collection"
 msgstr "重新命名收藏"
 
-#: src/mainwindow.cpp:541
+#: src/mainwindow.cpp:544
 msgid "Collection &Fields..."
 msgstr "收藏欄位(&F)..."
 
-#: src/mainwindow.cpp:542
+#: src/mainwindow.cpp:545
 msgid "Fields"
 msgstr "欄位"
 
-#: src/mainwindow.cpp:545
+#: src/mainwindow.cpp:548
 msgid "Modify the collection fields"
 msgstr "變更收藏的欄位"
 
-#: src/mainwindow.cpp:548
+#: src/mainwindow.cpp:551
 msgid "&Generate Reports..."
 msgstr "產生報告(&G)..."
 
-#: src/mainwindow.cpp:549
+#: src/mainwindow.cpp:552
 msgid "Reports"
 msgstr "報告"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:554
 msgid "Generate collection reports"
 msgstr "產生收藏的報告"
 
-#: src/mainwindow.cpp:554
+#: src/mainwindow.cpp:557
 msgid "Convert to &Bibliography"
 msgstr "轉換到參考書目(&B)"
 
-#: src/mainwindow.cpp:556
+#: src/mainwindow.cpp:559
 msgid "Convert a book collection to a bibliography"
 msgstr "將書籍收藏轉換到參考書目"
 
-#: src/mainwindow.cpp:559
+#: src/mainwindow.cpp:562
 msgid "String &Macros..."
 msgstr "字串巨集(&M)..."
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:564
 msgid "Edit the bibtex string macros"
 msgstr "編輯 bibtex 字串巨集"
 
-#: src/mainwindow.cpp:564
+#: src/mainwindow.cpp:567
 msgid "Check for Duplicate Keys..."
 msgstr "檢查重複的關鍵字..."
 
-#: src/mainwindow.cpp:566
+#: src/mainwindow.cpp:569
 msgid "Check for duplicate citation keys"
 msgstr "檢查是否有重複的引文鍵值"
 
-#: src/mainwindow.cpp:573
+#: src/mainwindow.cpp:576
 msgid "Copy Bibtex to Cli&pboard"
 msgstr "將 Bibtex 複製到剪貼簿(&P)"
 
-#: src/mainwindow.cpp:574
+#: src/mainwindow.cpp:577
 msgid "Copy bibtex citations to the clipboard"
 msgstr "將 bibtex 的引用複製到剪貼簿"
 
-#: src/mainwindow.cpp:579
+#: src/mainwindow.cpp:582
 msgid "Cite Entry in &LyX"
 msgstr "於 LyX 引用項目(&L)"
 
-#: src/mainwindow.cpp:580
+#: src/mainwindow.cpp:583
 msgid "Cite the selected entries in LyX"
 msgstr "於 LyX 引用選取的項目"
 
-#: src/mainwindow.cpp:590
+#: src/mainwindow.cpp:593
 msgctxt "Update Entry"
 msgid "Update"
 msgstr "更新"
 
-#: src/mainwindow.cpp:595
+#: src/mainwindow.cpp:598
 msgid "All Sources"
 msgstr "所有來源"
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:599
 msgid "Update entry data from all available sources"
 msgstr "從所有可用來源更新項目資料"
 
-#: src/mainwindow.cpp:605
+#: src/mainwindow.cpp:608
 msgid "Show Grou&p View"
 msgstr "顯示群組檢視(&P)"
 
-#: src/mainwindow.cpp:606
+#: src/mainwindow.cpp:609
 msgid "Enable/disable the group view"
 msgstr "開啟/關閉群組檢視"
 
-#: src/mainwindow.cpp:610
+#: src/mainwindow.cpp:613
 msgid "Show Entry &Editor"
 msgstr "顯示項目編輯器(&E)"
 
-#: src/mainwindow.cpp:612
+#: src/mainwindow.cpp:615
 msgid "Enable/disable the editor"
 msgstr "開啟/關閉編輯器"
 
-#: src/mainwindow.cpp:615
+#: src/mainwindow.cpp:618
 msgid "Show Entry &View"
 msgstr "顯示項目檢視(&V)"
 
-#: src/mainwindow.cpp:616
+#: src/mainwindow.cpp:619
 msgid "Enable/disable the entry view"
 msgstr "開啟/關閉項目檢視"
 
-#: src/mainwindow.cpp:642
+#: src/mainwindow.cpp:645
 msgid "Change Grouping"
 msgstr "變更群組"
 
-#: src/mainwindow.cpp:645
+#: src/mainwindow.cpp:648
 msgid "&Group Selection"
 msgstr "群組選擇(&G)"
 
-#: src/mainwindow.cpp:646
+#: src/mainwindow.cpp:649
 msgid "Change the grouping of the collection"
 msgstr "變更收藏的群組"
 
-#: src/mainwindow.cpp:658
+#: src/mainwindow.cpp:661
 msgid "Filter here..."
 msgstr "在此過濾..."
 
-#: src/mainwindow.cpp:722
+#: src/mainwindow.cpp:725
 msgid "Groups"
 msgstr "群組"
 
-#: src/mainwindow.cpp:723
+#: src/mainwindow.cpp:726
 msgid ""
 "<qt>The <i>Group View</i> sorts the entries into groupings based on a "
 "selected field.</qt>"
 msgstr "<qt>群組檢視會將項目根據所選的欄位排序並歸類。</qt>"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:733
 msgid ""
 "<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
 "</qt>"
 msgstr "<qt>欄位檢視會顯示每個項目的許多欄位的值。</qt>"
 
-#: src/mainwindow.cpp:789
+#: src/mainwindow.cpp:792
 msgid "Welcome to the Tellico Collection Manager"
 msgstr "歡迎使用 Tellico 收藏管理員"
 
-#: src/mainwindow.cpp:791
+#: src/mainwindow.cpp:794
 msgid ""
 "<h3>Tellico is a tool for managing collections of books, videos, music, and "
 "whatever else you want to catalog.</h3><h3>New entries can be added to your "
@@ -4688,7 +4729,7 @@ msgstr ""
 "\"tc:///edit_search_internet\">從不同網路來源下載資料</a>的方式加入新的收藏項"
 "目。</h3>"
 
-#: src/mainwindow.cpp:991
+#: src/mainwindow.cpp:994
 msgid ""
 "The current file has been modified.\n"
 "Do you want to save it?"
@@ -4696,19 +4737,19 @@ msgstr ""
 "目前的檔案已修改。\n"
 "要儲存嗎？"
 
-#: src/mainwindow.cpp:1028
+#: src/mainwindow.cpp:1031
 msgid "Creating new document..."
 msgstr "正在建立新文件..."
 
-#: src/mainwindow.cpp:1061 src/mainwindow.cpp:1080 src/mainwindow.cpp:1098
+#: src/mainwindow.cpp:1064 src/mainwindow.cpp:1083 src/mainwindow.cpp:1101
 msgid "Opening file..."
 msgstr "正在開啟檔案..."
 
-#: src/mainwindow.cpp:1071
+#: src/mainwindow.cpp:1074
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/mainwindow.cpp:1189
+#: src/mainwindow.cpp:1192
 msgid ""
 "<qt><p>You are saving a file with many images, which causes Tellico to slow "
 "down significantly. Do you want to save the images separately in Tellico's "
@@ -4719,123 +4760,124 @@ msgstr ""
 "否要將影像存在另外一個 Tellico 的資料目錄裡以加快效率？</p> <p>您稍後還是可以"
 "在設定對話框裡變更您的選擇。</p></qt>"
 
-#: src/mainwindow.cpp:1194
+#: src/mainwindow.cpp:1197
 msgid "Save Images Separately"
 msgstr "分別儲存影像"
 
-#: src/mainwindow.cpp:1195
+#: src/mainwindow.cpp:1198
 msgid "Save Images in File"
 msgstr "將影像存在檔案內"
 
-#: src/mainwindow.cpp:1229
+#: src/mainwindow.cpp:1232
 msgid "Saving file with a new filename..."
 msgstr "正在用新檔名儲存檔案..."
 
-#: src/mainwindow.cpp:1236
+#: src/mainwindow.cpp:1239
 msgid "Save As"
 msgstr "另存新檔"
 
-#: src/mainwindow.cpp:1264 src/mainwindow.cpp:1314
+#: src/mainwindow.cpp:1267 src/mainwindow.cpp:1317
 msgid "Printing..."
 msgstr "正在列印..."
 
-#: src/mainwindow.cpp:1273
+#: src/mainwindow.cpp:1276
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
 msgstr "正在過濾收藏，只有符合過濾條件的項目會被列印。要繼續嗎？"
 
-#: src/mainwindow.cpp:1298
+#: src/mainwindow.cpp:1301
 msgid "Processing document..."
 msgstr "正在處理文件..."
 
-#: src/mainwindow.cpp:1321
+#: src/mainwindow.cpp:1324
 msgid "Exiting..."
 msgstr "正在離開..."
 
-#: src/mainwindow.cpp:1434
+#: src/mainwindow.cpp:1437
 #, kde-format
 msgid "Total entries: %1"
 msgstr "所有項目：%1"
 
-#: src/mainwindow.cpp:1441
+#: src/mainwindow.cpp:1444
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "（%1 已過濾；%2 已選擇）"
 
-#: src/mainwindow.cpp:1444
+#: src/mainwindow.cpp:1447
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "（%1 已過濾）"
 
-#: src/mainwindow.cpp:1447
+#: src/mainwindow.cpp:1450
 #, kde-format
 msgid "(%1 selected)"
 msgstr "（%1 已選擇）"
 
-#: src/mainwindow.cpp:1594 src/translators/gcstarimporter.cpp:262
+#: src/mainwindow.cpp:1597 src/translators/boardgamegeekimporter.cpp:93
+#: src/translators/gcstarimporter.cpp:262
 #: src/translators/goodreadsimporter.cpp:97
 #: src/translators/xsltimporter.cpp:87
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico 在處理 XSLT 時遇到錯誤。"
 
-#: src/mainwindow.cpp:1718
+#: src/mainwindow.cpp:1721
 msgid "Importing data..."
 msgstr "匯入資料中..."
 
-#: src/mainwindow.cpp:1727
+#: src/mainwindow.cpp:1730
 msgid "Import File"
 msgstr "匯入檔案"
 
-#: src/mainwindow.cpp:1733
+#: src/mainwindow.cpp:1736
 msgid "Import Directory"
 msgstr "匯入目錄"
 
-#: src/mainwindow.cpp:1754
+#: src/mainwindow.cpp:1757
 msgid "Exporting data..."
 msgstr "匯出資料中..."
 
-#: src/mainwindow.cpp:1776
+#: src/mainwindow.cpp:1779
 msgid "Export As"
 msgstr "匯出為"
 
-#: src/mainwindow.cpp:1801
+#: src/mainwindow.cpp:1804
 msgid "String Macros"
 msgstr "字串巨集"
 
-#: src/mainwindow.cpp:1802
+#: src/mainwindow.cpp:1805
 msgid "Macro"
 msgstr "巨集"
 
-#: src/mainwindow.cpp:1802
+#: src/mainwindow.cpp:1805
 msgid "String"
 msgstr "字串"
 
-#: src/mainwindow.cpp:1891
+#: src/mainwindow.cpp:1894
 msgid "Creating citations..."
 msgstr "建立引用中..."
 
-#: src/mainwindow.cpp:1996
+#: src/mainwindow.cpp:1999
 msgid "Filters"
 msgstr "過濾器"
 
-#: src/mainwindow.cpp:1997
+#: src/mainwindow.cpp:2000
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
 msgstr "<qt>過濾檢視會顯示符合特定過濾條件的項目。</qt>"
 
-#: src/mainwindow.cpp:2015
+#: src/mainwindow.cpp:2018
 msgid "Loans"
 msgstr "借貸"
 
-#: src/mainwindow.cpp:2016
+#: src/mainwindow.cpp:2019
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
 msgstr "<qt>借貸檢視會顯示所有您已借出的收藏項目。</qt>"
 
-#: src/mainwindow.cpp:2088
+#: src/mainwindow.cpp:2091
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4843,12 +4885,12 @@ msgstr ""
 "有些影像並未儲存在設定的位置。目前的檔案必須先儲存，影像則會被轉換到新的位"
 "置。"
 
-#: src/mainwindow.cpp:2130
+#: src/mainwindow.cpp:2133
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "從 %1 更新的項目資料"
 
-#: src/mainwindow.cpp:2149
+#: src/mainwindow.cpp:2152
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -4925,22 +4967,22 @@ msgid "&New"
 msgstr "新增(&N)"
 
 #. i18n: ectx: Menu (collection)
-#: src/tellicoui.rc:74
+#: src/tellicoui.rc:76
 msgid "&Collection"
 msgstr "收藏(&C)"
 
 #. i18n: ectx: Menu (coll_bibliography)
-#: src/tellicoui.rc:95
+#: src/tellicoui.rc:97
 msgid "&Bibliography"
 msgstr "參考書目(&B)"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/tellicoui.rc:115
+#: src/tellicoui.rc:117
 msgid "Main Toolbar"
 msgstr "主工具列"
 
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: src/tellicoui.rc:124
+#: src/tellicoui.rc:126
 msgid "Collection Toolbar"
 msgstr "收藏工具列"
 
@@ -5106,6 +5148,36 @@ msgstr "Bibtexml"
 #: src/translators/bibtexmlexporter.cpp:53
 msgid "*.xml|Bibtexml Files (*.xml)"
 msgstr "*.xml|Bibtexml 檔案 (*.xml)"
+
+#: src/translators/boardgamegeekimporter.cpp:76
+#: src/translators/goodreadsimporter.cpp:75
+#: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
+msgid "A valid XSLT file is needed to import the file."
+msgstr "要匯入檔案需要一個合法的 XSLT 檔。"
+
+#: src/translators/boardgamegeekimporter.cpp:87
+#: src/translators/goodreadsimporter.cpp:91
+#, fuzzy
+#| msgid "A valid Goodreads user ID must be entered."
+msgid "A valid user ID must be entered."
+msgstr "必須輸入合法的 Goodreads 使用者代碼。"
+
+#: src/translators/boardgamegeekimporter.cpp:210
+#, fuzzy
+#| msgid "BoardGameGeek"
+msgid "BoardGameGeek Options"
+msgstr "BoardGameGeek"
+
+#: src/translators/boardgamegeekimporter.cpp:216
+#, fuzzy
+#| msgid "Export selected entries only"
+msgid "Import owned items only"
+msgstr "只匯出選取的項目。"
+
+#: src/translators/boardgamegeekimporter.cpp:219
+#: src/translators/goodreadsimporter.cpp:130
+msgid "User ID"
+msgstr "使用者代碼"
 
 #: src/translators/csvexporter.cpp:55
 msgid "CSV"
@@ -5332,22 +5404,9 @@ msgstr "從預設的快取資料夾裡所有的 CDDB 快取檔中遞迴地讀取
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>檔案不是合法的 GCstar 資料檔。</qt>"
 
-#: src/translators/goodreadsimporter.cpp:75
-#: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
-msgid "A valid XSLT file is needed to import the file."
-msgstr "要匯入檔案需要一個合法的 XSLT 檔。"
-
-#: src/translators/goodreadsimporter.cpp:91
-msgid "A valid Goodreads user ID must be entered."
-msgstr "必須輸入合法的 Goodreads 使用者代碼。"
-
-#: src/translators/goodreadsimporter.cpp:123
+#: src/translators/goodreadsimporter.cpp:124
 msgid "Goodreads Options"
 msgstr "Goodreads 選項"
-
-#: src/translators/goodreadsimporter.cpp:129
-msgid "User ID"
-msgstr "使用者代碼"
 
 #: src/translators/htmlexporter.cpp:88
 msgid "HTML"
@@ -5455,15 +5514,15 @@ msgstr "檔案沒有包含收藏資料。"
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:509
+#: src/translators/tellicoxmlexporter.cpp:516
 msgid "Tellico XML Options"
 msgstr "Tellico XML 選項"
 
-#: src/translators/tellicoxmlexporter.cpp:512
+#: src/translators/tellicoxmlexporter.cpp:519
 msgid "Include images in XML document"
 msgstr "在 XML 文件中包含影像"
 
-#: src/translators/tellicoxmlexporter.cpp:514
+#: src/translators/tellicoxmlexporter.cpp:521
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "
 "base64 encoded elements."
@@ -5684,6 +5743,12 @@ msgstr "Copac（英國與愛爾蘭）"
 #: z3950.cpp:26
 msgid "Pontifical Biblical Institute"
 msgstr "羅馬教皇聖經學院"
+
+
+
+
+
+
 
 
 

@@ -67,6 +67,8 @@
 #include "beyazperdefetcher.h"
 #include "thegamesdbfetcher.h"
 #include "dblpfetcher.h"
+#include "mrlookupfetcher.h"
+#include "boardgamegeekfetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -95,13 +97,13 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::CitebaseFetcher> registerCitebase(Citebase);
   RegisterFetcher<Fetch::BibsonomyFetcher> registerBibsonomy(Bibsonomy);
   RegisterFetcher<Fetch::GoogleScholarFetcher> registerGoogle(GoogleScholar);
-  RegisterFetcher<Fetch::DiscogsFetcher> registerDiscogs(Discogs);
   RegisterFetcher<Fetch::WineComFetcher> registerWine(WineCom);
   RegisterFetcher<Fetch::MusicBrainzFetcher> registerMB(MusicBrainz);
   RegisterFetcher<Fetch::GiantBombFetcher> registerBomb(GiantBomb);
   RegisterFetcher<Fetch::OpenLibraryFetcher> registerOpenLibrary(OpenLibrary);
   RegisterFetcher<Fetch::MultiFetcher> registerMulti(Multiple);
 #ifdef HAVE_QJSON
+  RegisterFetcher<Fetch::DiscogsFetcher> registerDiscogs(Discogs);
   RegisterFetcher<Fetch::TheMovieDBFetcher> registerTMDB(TheMovieDB);
   RegisterFetcher<Fetch::FreebaseFetcher> registerFreebase(Freebase);
   RegisterFetcher<Fetch::FilmasterFetcher> registerFilmaster(Filmaster);
@@ -110,6 +112,7 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::HathiTrustFetcher> registerHathiTrust(HathiTrust);
   RegisterFetcher<Fetch::VNDBFetcher> registerVNDB(VNDB);
   RegisterFetcher<Fetch::AllocineFetcher> registerAllocine(Allocine);
+  RegisterFetcher<Fetch::MovieMeterFetcher> registerMovieMeter(MovieMeter);
   // add these back if the API gets updated
 //  RegisterFetcher<Fetch::ScreenRushFetcher> registerScreenRush(ScreenRush);
 //  RegisterFetcher<Fetch::FilmStartsFetcher> registerFilmStarts(FilmStarts);
@@ -119,8 +122,9 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::DVDFrFetcher> registerDVDFr(DVDFr);
   RegisterFetcher<Fetch::DoubanFetcher> registerDouban(Douban);
   RegisterFetcher<Fetch::BiblioShareFetcher> registerBiblioShare(BiblioShare);
-  RegisterFetcher<Fetch::MovieMeterFetcher> registerMovieMeter(MovieMeter);
   RegisterFetcher<Fetch::SpringerFetcher> registerSpringer(Springer);
   RegisterFetcher<Fetch::TheGamesDBFetcher> registerTheGamesDB(TheGamesDB);
   RegisterFetcher<Fetch::DBLPFetcher> registerDBLP(DBLP);
+  RegisterFetcher<Fetch::MRLookupFetcher> registerMRLookup(MRLookup);
+  RegisterFetcher<Fetch::BoardGameGeekFetcher> registerBGG(BoardGameGeek);
 }

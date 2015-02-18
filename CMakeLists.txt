@@ -1,5 +1,5 @@
 project(Tellico)
-set(TELLICO_VERSION "2.3.9")
+set(TELLICO_VERSION "2.3.10")
 
 cmake_minimum_required(VERSION 2.6.2)
 
@@ -172,7 +172,6 @@ macro_bool_to_01(KSANE_FOUND HAVE_KSANE)
 macro_bool_to_01(KDEMULTIMEDIA_FOUND HAVE_KCDDB)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KABC)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KCAL)
-macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KXMLRPC)
 macro_bool_to_01(LIBV4L_FOUND HAVE_V4L)
 macro_bool_to_01(QJSON_FOUND HAVE_QJSON)
 macro_bool_to_01(NEPOMUK_FOUND HAVE_NEPOMUK)
@@ -185,7 +184,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY
 install(FILES tellico.dtd tellico.tips DESTINATION ${TELLICO_DATA_INSTALL_DIR})
 install(PROGRAMS tellico.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES tellico.xml DESTINATION  ${XDG_MIME_INSTALL_DIR})
-install(FILES x-tellico.desktop DESTINATION ${MIME_INSTALL_DIR}/application)
 install(FILES tellico.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata )
 
 if(CMAKE_SOURCE_DIR STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")

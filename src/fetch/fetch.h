@@ -91,7 +91,9 @@ enum Type {
   HathiTrust,
   TheGamesDB,
   DBLP,
-  VNDB
+  VNDB,
+  MRLookup,
+  BoardGameGeek
 };
 
   }

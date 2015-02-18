@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2014-05-27 06:47+0000\n"
+"POT-Creation-Date: 2015-02-15 06:07+0000\n"
 "PO-Revision-Date: 2013-09-18 03:53+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -187,18 +187,14 @@ msgid "Bedetheque.com"
 msgstr "Bedetheque.com"
 
 #: scripts.cpp:4
-msgid "BoardGameGeek"
-msgstr "BoardGameGeek"
-
-#: scripts.cpp:6
 msgid "Dark Horse Comics"
 msgstr "Dark Horse комикстері"
 
-#: scripts.cpp:8
+#: scripts.cpp:6
 msgid "Allocine.fr"
 msgstr "Allocine.fr"
 
-#: scripts.cpp:10
+#: scripts.cpp:8
 msgid "Spanish Ministry of Culture"
 msgstr "Испания мәдениет министрлігі"
 
@@ -278,15 +274,17 @@ msgstr "Атауы"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:255 src/fetch/allocinefetcher.cpp:261
+#: src/fetch/allocinefetcher.cpp:267 src/fetch/allocinefetcher.cpp:273
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
+#: src/fetch/discogsfetcher.cpp:244 src/fetch/discogsfetcher.cpp:249
+#: src/fetch/discogsfetcher.cpp:254 src/fetch/discogsfetcher.cpp:261
 #: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
-#: src/fetch/imdbfetcher.cpp:957 src/fetch/imdbfetcher.cpp:1297
-#: src/fetch/moviemeterfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:283
-#: src/fetch/themoviedbfetcher.cpp:253 src/fetch/themoviedbfetcher.cpp:258
-#: src/fetch/themoviedbfetcher.cpp:263 src/field.cpp:37 src/field.cpp:78
-#: src/translators/gcstarimporter.cpp:89
+#: src/fetch/imdbfetcher.cpp:963 src/fetch/imdbfetcher.cpp:1341
+#: src/fetch/moviemeterfetcher.cpp:213 src/fetch/moviemeterfetcher.cpp:218
+#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:253
+#: src/fetch/themoviedbfetcher.cpp:258 src/fetch/themoviedbfetcher.cpp:263
+#: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Жалпы"
 
@@ -1029,7 +1027,7 @@ msgid "Series Number"
 msgstr "Серияның нөмірі"
 
 #: src/collections/bookcollection.cpp:156 src/mainwindow.cpp:235
-#: src/mainwindow.cpp:490
+#: src/mainwindow.cpp:493
 msgid "New"
 msgstr "Жаңа"
 
@@ -1181,6 +1179,8 @@ msgid "Writer"
 msgstr "Жазушысы"
 
 #: src/collections/comicbookcollection.cpp:63
+#: src/fetch/boardgamegeekfetcher.cpp:176
+#: src/translators/boardgamegeekimporter.cpp:181
 msgctxt "Comic Book Illustrator"
 msgid "Artist"
 msgstr "Сурет салушысы"
@@ -1417,8 +1417,8 @@ msgid "Issue Year"
 msgstr "Шыққан жылы"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:364
-#: src/fetch/imdbfetcher.cpp:1409
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:379
+#: src/fetch/imdbfetcher.cpp:1453
 msgid "Color"
 msgstr "Түсі"
 
@@ -1537,7 +1537,8 @@ msgstr "8-өлкесі"
 msgid "Region"
 msgstr "Өлкесі"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:214
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:253
+#: src/fetch/discogsfetcher.cpp:407
 msgid "Nationality"
 msgstr "Елі"
 
@@ -1579,7 +1580,8 @@ msgstr "Орындаушылар және олардың рөлдерінің к
 msgid "Director"
 msgstr "Режисері"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:213
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:260
+#: src/fetch/discogsfetcher.cpp:406
 msgid "Producer"
 msgstr "Продьюсері"
 
@@ -1727,7 +1729,7 @@ msgstr "%1 өрісін өшіру"
 msgid "Add Filter"
 msgstr "Сүзгіні қосу"
 
-#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:370
+#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:394
 #: src/filterview.cpp:133
 msgid "Modify Filter"
 msgstr "Сүзгіні өзгерту"
@@ -2139,8 +2141,8 @@ msgstr "*.xsl|XSL файлдары (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|Үлгі дестелері (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:374 src/mainwindow.cpp:1068
-#: src/mainwindow.cpp:1233 src/reportdialog.cpp:215
+#: src/configdialog.cpp:1137 src/importdialog.cpp:381 src/mainwindow.cpp:1071
+#: src/mainwindow.cpp:1236 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
 #: src/translators/gcstarexporter.cpp:60 src/translators/htmlexporter.cpp:92
@@ -2182,20 +2184,20 @@ msgstr "Шынымен осы жазуларын өшірмексіз бе?"
 msgid "Delete Multiple Entries"
 msgstr "Бірнеше жазуларын өшіру"
 
-#: src/controller.cpp:577 src/mainwindow.cpp:496
+#: src/controller.cpp:577 src/mainwindow.cpp:499
 msgid "&Edit Entry..."
 msgstr "Жа&зуды өңдеу..."
 
-#: src/controller.cpp:578 src/mainwindow.cpp:503
+#: src/controller.cpp:578 src/mainwindow.cpp:506
 msgid "D&uplicate Entry"
 msgstr "Жазуды қ&осарлау"
 
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/controller.cpp:579 src/mainwindow.cpp:588 src/tellicoui.rc:81
+#: src/controller.cpp:579 src/mainwindow.cpp:591 src/tellicoui.rc:83
 msgid "&Update Entry"
 msgstr "&Жазуды жаңарту"
 
-#: src/controller.cpp:580 src/mainwindow.cpp:510
+#: src/controller.cpp:580 src/mainwindow.cpp:513
 msgid "&Delete Entry"
 msgstr "Жазуды ө&шіру"
 
@@ -2459,7 +2461,7 @@ msgstr "Бүкіл бағандарды жасыру"
 msgid "Resize to Content"
 msgstr "Өлшемін мазмұнына келтіру"
 
-#: src/document.cpp:195 src/mainwindow.cpp:1178
+#: src/document.cpp:195 src/mainwindow.cpp:1181
 msgid "Saving file..."
 msgstr "Файлды сақтау..."
 
@@ -2509,7 +2511,7 @@ msgstr ""
 msgid "Save Entry"
 msgstr "Жазуды сақтау"
 
-#: src/entryeditdialog.cpp:650 src/mainwindow.cpp:993
+#: src/entryeditdialog.cpp:650 src/mainwindow.cpp:996
 msgid "Unsaved Changes"
 msgstr "Сақталмаған өзгерістер"
 
@@ -2569,7 +2571,7 @@ msgstr "<b>%1</b> жаңартуы..."
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico әдетті жазу стиль кестесін таба алмады."
 
-#: src/entryview.cpp:224 src/mainwindow.cpp:1595
+#: src/entryview.cpp:224 src/mainwindow.cpp:1598
 msgid "Please check your installation."
 msgstr "Орнатылғанын тексеріңіз."
 
@@ -2631,25 +2633,25 @@ msgstr "Жергілікті стандартпен (%1) кодталсын"
 msgid "Encode the exported file in the local encoding."
 msgstr "Файлды жергілікті кодтауымен экспорттап шығару."
 
-#: src/fetch/allocinefetcher.cpp:260 src/fetch/allocinefetcher.cpp:480
+#: src/fetch/allocinefetcher.cpp:272 src/fetch/allocinefetcher.cpp:495
 msgid "Allocine Link"
 msgstr "Allocine сілтемесі"
 
-#: src/fetch/allocinefetcher.cpp:265 src/fetch/allocinefetcher.cpp:479
+#: src/fetch/allocinefetcher.cpp:277 src/fetch/allocinefetcher.cpp:494
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
 #: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
-#: src/fetch/themoviedbfetcher.cpp:426 src/fetch/vndbfetcher.cpp:241
+#: src/fetch/themoviedbfetcher.cpp:431 src/fetch/vndbfetcher.cpp:241
 #: src/fetch/vndbfetcher.cpp:320
 msgid "Original Title"
 msgstr "Бастапқы атауы"
 
-#: src/fetch/allocinefetcher.cpp:390 src/fetch/imdbfetcher.cpp:1607
+#: src/fetch/allocinefetcher.cpp:405 src/fetch/imdbfetcher.cpp:1651
 msgid "&Maximum cast: "
 msgstr "Актерлер санның шегі:  "
 
-#: src/fetch/allocinefetcher.cpp:395 src/fetch/imdbfetcher.cpp:1612
+#: src/fetch/allocinefetcher.cpp:410 src/fetch/imdbfetcher.cpp:1656
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2715,7 +2717,7 @@ msgstr ""
 msgid "Those values must be entered in the data source settings."
 msgstr "Ол мәндер деректер көзінің параметрлерінде келтірілу керек."
 
-#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:272
+#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:281
 #: src/fetch/winecomfetcher.cpp:230
 #, kde-format
 msgid "Results from %1: %2/%3"
@@ -2731,10 +2733,11 @@ msgid "Amazon.com Web Services"
 msgstr "Amazon.com веб-қызметтері"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
-#: src/fetch/crossreffetcher.cpp:311 src/fetch/doubanfetcher.cpp:226
-#: src/fetch/freebasefetcher.cpp:954 src/fetch/giantbombfetcher.cpp:206
-#: src/fetch/googlebookfetcher.cpp:381 src/fetch/isbndbfetcher.cpp:355
-#: src/fetch/themoviedbfetcher.cpp:438 src/fetch/winecomfetcher.cpp:297
+#: src/fetch/crossreffetcher.cpp:311 src/fetch/discogsfetcher.cpp:419
+#: src/fetch/doubanfetcher.cpp:226 src/fetch/freebasefetcher.cpp:954
+#: src/fetch/giantbombfetcher.cpp:206 src/fetch/googlebookfetcher.cpp:387
+#: src/fetch/isbndbfetcher.cpp:364 src/fetch/themoviedbfetcher.cpp:443
+#: src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -2746,7 +2749,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:451
+#: src/fetch/isbndbfetcher.cpp:377 src/fetch/themoviedbfetcher.cpp:456
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "Қатынау кілті: "
@@ -2821,7 +2824,7 @@ msgstr "Үлкен кескін"
 msgid "No Image"
 msgstr "Кескін жоқ"
 
-#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1621
+#: src/fetch/amazonfetcher.cpp:992 src/fetch/imdbfetcher.cpp:1665
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
 "the collection may degrade performance."
@@ -2843,9 +2846,9 @@ msgstr ""
 
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
-#: src/fetch/imdbfetcher.cpp:1027 src/fetch/imdbfetcher.cpp:1570
-#: src/fetch/moviemeterfetcher.cpp:253 src/fetch/moviemeterfetcher.cpp:360
-#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:425
+#: src/fetch/imdbfetcher.cpp:1033 src/fetch/imdbfetcher.cpp:1614
+#: src/fetch/moviemeterfetcher.cpp:222 src/fetch/moviemeterfetcher.cpp:294
+#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:430
 msgid "Alternative Titles"
 msgstr "Басқа атаулары"
 
@@ -2866,27 +2869,34 @@ msgid "AnimeNfo Rating"
 msgstr "AnimeNfo бағасы"
 
 #: src/fetch/animenfofetcher.cpp:491 src/fetch/arxivfetcher.cpp:329
-#: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/citebasefetcher.cpp:234
-#: src/fetch/dblpfetcher.cpp:126 src/fetch/discogsfetcher.cpp:222
+#: src/fetch/bibsonomyfetcher.cpp:183 src/fetch/boardgamegeekfetcher.cpp:184
+#: src/fetch/citebasefetcher.cpp:234 src/fetch/dblpfetcher.cpp:126
 #: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
 #: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
 #: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
-#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:367
-#: src/fetch/musicbrainzfetcher.cpp:337 src/fetch/openlibraryfetcher.cpp:429
-#: src/fetch/springerfetcher.cpp:179 src/fetch/thegamesdbfetcher.cpp:161
-#: src/fetch/vndbfetcher.cpp:328 src/fetch/yahoofetcher.cpp:396
+#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/mrlookupfetcher.cpp:220 src/fetch/musicbrainzfetcher.cpp:337
+#: src/fetch/openlibraryfetcher.cpp:429 src/fetch/springerfetcher.cpp:179
+#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:328
+#: src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "Бұл көздің параметрі жоқ."
 
 #: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
-#: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:400
-#: src/fetch/isbndbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:457
+#: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:406
+#: src/fetch/isbndbfetcher.cpp:383 src/fetch/themoviedbfetcher.cpp:462
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
 msgstr ""
 "Әдетті Tellico кілтін қолдануға болады, бірақ онда іздеу болмауы мүмкін, "
 "катынау шегіне жеткен сөң."
+
+#: src/fetch/boardgamegeekfetcher.cpp:177
+#, fuzzy
+#| msgid "BoardGameGeek"
+msgid "BoardGameGeek Link"
+msgstr "BoardGameGeek"
 
 #: src/fetch/configwidget.cpp:41
 msgid "Source Options"
@@ -2921,21 +2931,41 @@ msgstr "Кейбір тіркелгілеріне эл.пошта адресің
 msgid "Email: "
 msgstr "Эл.пошта: "
 
-#: src/fetch/discogsfetcher.cpp:204
+#: src/fetch/discogsfetcher.cpp:96
+#, fuzzy
+#| msgid ""
+#| "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
+#| "Key."
+msgid "Access to data from Discogs.com requires a personal token."
+msgstr ""
+"Amazon.com дегенге қатынау үшін AWS қатынау кілтінің ID және құпия кілті "
+"керек."
+
+#: src/fetch/discogsfetcher.cpp:248 src/fetch/discogsfetcher.cpp:408
+msgid "Discogs Link"
+msgstr "Discogs сілтемесі"
+
+#: src/fetch/discogsfetcher.cpp:271
+msgid "The Discogs.com server reports a token error."
+msgstr ""
+
+#: src/fetch/discogsfetcher.cpp:397
 msgid "Discogs Audio Search"
 msgstr "Discogs Audio іздеуі"
 
-#: src/fetch/discogsfetcher.cpp:215
-msgid "Discogs Link"
-msgstr "Discogs сілтемесі"
+#: src/fetch/discogsfetcher.cpp:432
+#, fuzzy
+#| msgid "&User: "
+msgid "User token: "
+msgstr "&Пайдаланушы: "
 
 #: src/fetch/doubanfetcher.cpp:214
 msgid "Douban Link"
 msgstr "Douban сілтемесі"
 
-#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:956
-#: src/fetch/imdbfetcher.cpp:1568 src/fetch/themoviedbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:424
+#: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:962
+#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:262
+#: src/fetch/themoviedbfetcher.cpp:429
 msgid "IMDb Link"
 msgstr "IMDb сілтемесі"
 
@@ -3054,7 +3084,7 @@ msgstr "Filmaster сілтемесі"
 msgid "Freebase Link"
 msgstr "Freebase сілтемесі"
 
-#: src/fetch/freebasefetcher.cpp:967 src/fetch/googlebookfetcher.cpp:394
+#: src/fetch/freebasefetcher.cpp:967 src/fetch/googlebookfetcher.cpp:400
 msgid "API key: "
 msgstr "API кілті: "
 
@@ -3078,11 +3108,11 @@ msgstr "Дерек көзі ретінде GCstar плагинін таңдау.
 msgid "Author: "
 msgstr "Авторы: "
 
-#: src/fetch/googlebookfetcher.cpp:264 src/fetch/googlebookfetcher.cpp:370
+#: src/fetch/googlebookfetcher.cpp:264 src/fetch/googlebookfetcher.cpp:376
 msgid "Google Book Link"
 msgstr "Google Book сілтемесі"
 
-#: src/fetch/googlebookfetcher.cpp:361
+#: src/fetch/googlebookfetcher.cpp:367
 msgid "Google Book Search"
 msgstr "Google Book іздеуі"
 
@@ -3090,13 +3120,13 @@ msgstr "Google Book іздеуі"
 msgid "Illustrator"
 msgstr "Иллюстраторы"
 
-#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:343
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:352
 #: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Ондық Dewey жіктеуі"
 
-#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:344
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:353
 #: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3106,57 +3136,57 @@ msgstr "Конгрес кітапханасының жіктеуі"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Интернет кітап дүкені (ibs.it)"
 
-#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1558
+#: src/fetch/imdbfetcher.cpp:96 src/fetch/imdbfetcher.cpp:1602
 msgid "Internet Movie Database"
 msgstr "Интернет фильмдер қоры"
 
-#: src/fetch/imdbfetcher.cpp:123
+#: src/fetch/imdbfetcher.cpp:124
 msgid "Internet Movie Database (French)"
 msgstr "Интернет фильмдер қоры (Франция)"
 
-#: src/fetch/imdbfetcher.cpp:150
+#: src/fetch/imdbfetcher.cpp:152
 msgid "Internet Movie Database (Spanish)"
 msgstr "Интернет фильмдер қоры (Испания)"
 
-#: src/fetch/imdbfetcher.cpp:177
+#: src/fetch/imdbfetcher.cpp:180
 msgid "Internet Movie Database (German)"
 msgstr "Интернет фильмдер қоры (Германия)"
 
-#: src/fetch/imdbfetcher.cpp:204
+#: src/fetch/imdbfetcher.cpp:208
 msgid "Internet Movie Database (Italian)"
 msgstr "Интернет фильмдер қоры (Италия)"
 
-#: src/fetch/imdbfetcher.cpp:231
+#: src/fetch/imdbfetcher.cpp:236
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Интернет фильмдер қоры (Португалия)"
 
-#: src/fetch/imdbfetcher.cpp:811
+#: src/fetch/imdbfetcher.cpp:817
 msgid "Select IMDb Result"
 msgstr "IMDb нәтижесін таңдау"
 
-#: src/fetch/imdbfetcher.cpp:817
+#: src/fetch/imdbfetcher.cpp:823
 msgid ""
 "<qt>Your search returned multiple matches. Please select one below.</qt>"
 msgstr "<qt>Іздеу шартына бірнеше сәйкестік табылды. Біреуін таңдаңыз.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:837
+#: src/fetch/imdbfetcher.cpp:843
 msgid "<qt>Select a search result.</qt>"
 msgstr "<qt>Іздеу нәтижесін таңдау.</qt>"
 
-#: src/fetch/imdbfetcher.cpp:1296 src/fetch/imdbfetcher.cpp:1569
+#: src/fetch/imdbfetcher.cpp:1340 src/fetch/imdbfetcher.cpp:1613
 msgid "IMDb Rating"
 msgstr "IMDb бағасы"
 
-#: src/fetch/imdbfetcher.cpp:1441 src/fetch/imdbfetcher.cpp:1529
-#: src/fetch/imdbfetcher.cpp:1571
+#: src/fetch/imdbfetcher.cpp:1485 src/fetch/imdbfetcher.cpp:1573
+#: src/fetch/imdbfetcher.cpp:1615
 msgid "Certifications"
 msgstr "Куәландырулары"
 
-#: src/fetch/imdbfetcher.cpp:1617
+#: src/fetch/imdbfetcher.cpp:1661
 msgid "Download cover &image"
 msgstr "Мұқаба &кескіні жүктеп алынсын"
 
-#: src/fetch/isbndbfetcher.cpp:225
+#: src/fetch/isbndbfetcher.cpp:234
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
@@ -3165,11 +3195,11 @@ msgstr ""
 "<qt><p><b>ISBNndb.com серверіне қатынау кілт қатесі.</b></p>Мүмкін іздеу "
 "санның шегіне жеттіңіз немесе дұрыс емес кілтті келтірдіңіз.</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:333
+#: src/fetch/isbndbfetcher.cpp:342
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/moviemeterfetcher.cpp:246 src/fetch/moviemeterfetcher.cpp:359
+#: src/fetch/moviemeterfetcher.cpp:217 src/fetch/moviemeterfetcher.cpp:293
 msgid "MovieMeter Link"
 msgstr "MovieMeter сілтемесі"
 
@@ -3222,35 +3252,35 @@ msgstr "Пішімі: "
 msgid "Enter the result format used by the server."
 msgstr "Сервер пайдаланатын нәтиже пішімін келтіру."
 
-#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:423
+#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:428
 msgid "TMDb Link"
 msgstr "TMDb сілтемесі"
 
-#: src/fetch/themoviedbfetcher.cpp:462
+#: src/fetch/themoviedbfetcher.cpp:467
 msgid "Language: "
 msgstr "Тілі: "
 
-#: src/fetch/themoviedbfetcher.cpp:465
+#: src/fetch/themoviedbfetcher.cpp:470
 msgctxt "Language"
 msgid "English"
 msgstr "Ағылшын"
 
-#: src/fetch/themoviedbfetcher.cpp:466
+#: src/fetch/themoviedbfetcher.cpp:471
 msgctxt "Language"
 msgid "French"
 msgstr "Француз"
 
-#: src/fetch/themoviedbfetcher.cpp:467
+#: src/fetch/themoviedbfetcher.cpp:472
 msgctxt "Language"
 msgid "German"
 msgstr "Неміс"
 
-#: src/fetch/themoviedbfetcher.cpp:468
+#: src/fetch/themoviedbfetcher.cpp:473
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Испан"
 
-#: src/fetch/themoviedbfetcher.cpp:499
+#: src/fetch/themoviedbfetcher.cpp:504
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
@@ -3262,15 +3292,6 @@ msgstr "Бүркеншік атауы"
 #: src/fetch/vndbfetcher.cpp:264
 msgid "Visual Novel"
 msgstr "Көрінетін новелла"
-
-#: src/fetch/xmlrpc/query.cpp:376
-#, kde-format
-msgid "Received invalid XML markup: %1 at %2:%3"
-msgstr "%1 деген XML белгісі дұрыс емес: %2:%3"
-
-#: src/fetch/xmlrpc/query.cpp:390
-msgid "Unknown type of XML markup received"
-msgstr "XML белгісінің беймәлім түрі кездесті"
 
 #: src/fetch/yahoofetcher.cpp:377
 msgid "Yahoo! Audio Search"
@@ -3591,66 +3612,76 @@ msgstr "Кез келген өрісі"
 msgid "Edit..."
 msgstr "Өзгерту..."
 
-#: src/filterdialog.cpp:270 src/filterdialog.cpp:279
+#: src/filterdialog.cpp:284 src/filterdialog.cpp:292 src/filterdialog.cpp:302
 msgid "equals"
 msgstr "келесіге тең:"
 
-#: src/filterdialog.cpp:271 src/filterdialog.cpp:280
+#: src/filterdialog.cpp:285 src/filterdialog.cpp:293 src/filterdialog.cpp:303
 msgid "does not equal"
 msgstr "дәл келесі емес:"
 
-#: src/filterdialog.cpp:272 src/filterdialog.cpp:281
+#: src/filterdialog.cpp:286 src/filterdialog.cpp:294 src/filterdialog.cpp:304
 msgid "matches regexp"
 msgstr "мына үлгі өрнекке сәйкесті:"
 
-#: src/filterdialog.cpp:273 src/filterdialog.cpp:282
+#: src/filterdialog.cpp:287 src/filterdialog.cpp:295 src/filterdialog.cpp:305
 msgid "does not match regexp"
 msgstr "мына үлгі өрнекке сәйкестісі емес:"
 
-#: src/filterdialog.cpp:274
+#: src/filterdialog.cpp:288
 msgctxt "is before a date"
 msgid "is before"
 msgstr "мынаның алдында:"
 
-#: src/filterdialog.cpp:275
+#: src/filterdialog.cpp:289
 msgctxt "is after a date"
 msgid "is after"
 msgstr "мынадан кейін:"
 
-#: src/filterdialog.cpp:277
+#: src/filterdialog.cpp:296
+msgctxt "is less than a number"
+msgid "is less than"
+msgstr ""
+
+#: src/filterdialog.cpp:297
+msgctxt "is greater than a number"
+msgid "is greater than"
+msgstr ""
+
+#: src/filterdialog.cpp:300
 msgid "contains"
 msgstr "мынадан тұрады:"
 
-#: src/filterdialog.cpp:278
+#: src/filterdialog.cpp:301
 msgid "does not contain"
 msgstr "мынандайы жоғы:"
 
-#: src/filterdialog.cpp:370
+#: src/filterdialog.cpp:394
 msgid "Advanced Filter"
 msgstr "Жетелеген сүзгі"
 
-#: src/filterdialog.cpp:382
+#: src/filterdialog.cpp:406
 msgid "Filter Criteria"
 msgstr "Сүзгі шарты"
 
-#: src/filterdialog.cpp:386
+#: src/filterdialog.cpp:410
 msgid "Match a&ll of the following"
 msgstr "Б&үкіл келесі шарттарға сәйкес келетін"
 
-#: src/filterdialog.cpp:387
+#: src/filterdialog.cpp:411
 msgid "Match an&y of the following"
 msgstr "Келесі б&ір шартқа сәйкес келетін"
 
-#: src/filterdialog.cpp:406
+#: src/filterdialog.cpp:430
 msgid "Filter name:"
 msgstr "Сүзгінің атауы"
 
-#: src/filterdialog.cpp:415
+#: src/filterdialog.cpp:439
 msgid "&Save Filter"
 msgstr "&Сүзгіні сақтау"
 
-#: src/filterview.cpp:205 src/mainwindow.cpp:478 src/mainwindow.cpp:654
-#: src/mainwindow.cpp:670
+#: src/filterview.cpp:205 src/mainwindow.cpp:481 src/mainwindow.cpp:657
+#: src/mainwindow.cpp:673
 msgid "Filter"
 msgstr "Сүзгі"
 
@@ -3680,8 +3711,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Топ"
 
-#: src/groupview.cpp:415 src/mainwindow.cpp:903 src/mainwindow.cpp:1522
-#: src/mainwindow.cpp:1548 src/translators/htmlexporter.cpp:330
+#: src/groupview.cpp:415 src/mainwindow.cpp:906 src/mainwindow.cpp:1525
+#: src/mainwindow.cpp:1551 src/translators/htmlexporter.cpp:330
 msgid "People"
 msgstr "Адамдар"
 
@@ -3874,23 +3905,23 @@ msgstr "Жолды жоғарлату"
 msgid "Move Row Down"
 msgstr "Жолды төмендету"
 
-#: src/importdialog.cpp:70 src/importdialog.cpp:76
+#: src/importdialog.cpp:71 src/importdialog.cpp:77
 msgid "Import Options"
 msgstr "Импорттау параметрлері"
 
-#: src/importdialog.cpp:80
+#: src/importdialog.cpp:81
 msgid "&Replace current collection"
 msgstr "Назардағы жинақ а&уыстырылсын"
 
-#: src/importdialog.cpp:81
+#: src/importdialog.cpp:82
 msgid "Replace the current collection with the contents of the imported file."
 msgstr "Назардағы жинақты импортталған файлдың мазмұнымен ауыстыру."
 
-#: src/importdialog.cpp:83
+#: src/importdialog.cpp:84
 msgid "A&ppend to current collection"
 msgstr "Назардағы жинақ жа&лғастырылсын"
 
-#: src/importdialog.cpp:84
+#: src/importdialog.cpp:85
 msgid ""
 "Append the contents of the imported file to the current collection. This is "
 "only possible when the collection types match."
@@ -3898,11 +3929,11 @@ msgstr ""
 "Назардағы жинақты импортталған файлдың мазмұнымен жалғастыру. Әрине, түрі "
 "бірдей болса."
 
-#: src/importdialog.cpp:87
+#: src/importdialog.cpp:88
 msgid "&Merge with current collection"
 msgstr "Назардағы жинақпен &біріктірілсін"
 
-#: src/importdialog.cpp:88
+#: src/importdialog.cpp:89
 msgid ""
 "Merge the contents of the imported file to the current collection. This is "
 "only possible when the collection types match. Entries must match exactly in "
@@ -3912,57 +3943,57 @@ msgstr ""
 "нақты бірдей болса ғана мүмкін."
 
 #. i18n: ectx: Menu (file_import)
-#: src/importdialog.cpp:123 src/mainwindow.cpp:318 src/tellicoui.rc:24
+#: src/importdialog.cpp:124 src/mainwindow.cpp:318 src/tellicoui.rc:24
 msgid "&Import"
 msgstr "&Импорт"
 
-#: src/importdialog.cpp:315 src/mainwindow.cpp:1064 src/mainwindow.cpp:1231
+#: src/importdialog.cpp:321 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
 #: src/translators/tellicozipexporter.cpp:56
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Tellico файлдары (*.tc)"
 
-#: src/importdialog.cpp:316 src/importdialog.cpp:331 src/importdialog.cpp:361
-#: src/mainwindow.cpp:1066 src/translators/tellicoxmlexporter.cpp:70
+#: src/importdialog.cpp:322 src/importdialog.cpp:337 src/importdialog.cpp:367
+#: src/mainwindow.cpp:1069 src/translators/tellicoxmlexporter.cpp:70
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|XML файлдары (*.xml)"
 
-#: src/importdialog.cpp:320 src/translators/bibtexexporter.cpp:61
+#: src/importdialog.cpp:326 src/translators/bibtexexporter.cpp:61
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "*.bib|Bibtex файлдары (*.bib)"
 
-#: src/importdialog.cpp:324 src/translators/csvexporter.cpp:59
+#: src/importdialog.cpp:330 src/translators/csvexporter.cpp:59
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "*.csv|CSV файлдары (*.csv)"
 
-#: src/importdialog.cpp:335
+#: src/importdialog.cpp:341
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "*.ris|RIS файлдары (*.ris)"
 
-#: src/importdialog.cpp:339 src/translators/gcstarexporter.cpp:60
+#: src/importdialog.cpp:345 src/translators/gcstarexporter.cpp:60
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|GCstar Data файдары (*.gcs)"
 
-#: src/importdialog.cpp:340
+#: src/importdialog.cpp:346
 msgid "*.gcf|GCfilms Data Files (*.gcf)"
 msgstr "*.gcf|GCfilms дерек файлдары (*.gcf)"
 
-#: src/importdialog.cpp:344
+#: src/importdialog.cpp:350
 msgid "*.amc|AMC Data Files (*.amc)"
 msgstr "*.amc|AMC дерек файлдары (*.amc)"
 
-#: src/importdialog.cpp:348
+#: src/importdialog.cpp:354
 msgid "*.pdf|PDF Files (*.pdf)"
 msgstr "*.pdf|PDF файлдары (*.pdf)"
 
-#: src/importdialog.cpp:352
+#: src/importdialog.cpp:358
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "*.reflib|Referencer файлдары (*.reflib)"
 
-#: src/importdialog.cpp:356
+#: src/importdialog.cpp:362
 msgid "*.ciw|CIW Files (*.ciw)"
 msgstr "*.ciw|CIW файлдары (*.ciw)"
 
-#: src/importdialog.cpp:360
+#: src/importdialog.cpp:366
 msgid "*.vinoxml|VinoXML Data Files (*.vinoxml)"
 msgstr "*.vinoxml|VinoXML Дерек файлдары (*.vinoxml)"
 
@@ -4413,340 +4444,352 @@ msgid "Import an Ant Movie Catalog data file"
 msgstr "Ant Movie каталог дерек файлын импорттау"
 
 #: src/mainwindow.cpp:386
+#, fuzzy
+#| msgid "Import Goodreads Collection..."
+msgid "Import BoardGameGeek Collection..."
+msgstr "Goodreads жинағын импорттау..."
+
+#: src/mainwindow.cpp:387
+#, fuzzy
+#| msgid "Import a collection from Goodreads.com"
+msgid "Import a collection from BoardGameGeek.com"
+msgstr "Goodreads.com жинағын импорттау"
+
+#: src/mainwindow.cpp:389
 msgid "Import VinoXML..."
 msgstr "VinoXML импорты..."
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:390
 msgid "Import VinoXML data"
 msgstr "VinoXML деректі импорттау..."
 
-#: src/mainwindow.cpp:389
+#: src/mainwindow.cpp:392
 msgid "Import File Listing..."
 msgstr "Файл тізімін импорттау..."
 
-#: src/mainwindow.cpp:390
+#: src/mainwindow.cpp:393
 msgid "Import information about files in a folder"
 msgstr "Қапшықтағы файлдар туралы мәліметті импорттау"
 
-#: src/mainwindow.cpp:392
+#: src/mainwindow.cpp:395
 msgid "Import XSL Transform..."
 msgstr "XSL түрлендіруді импорттау..."
 
-#: src/mainwindow.cpp:393
+#: src/mainwindow.cpp:396
 msgid "Import using an XSL Transform"
 msgstr "XSL түрлендіруді қолданып импорттау"
 
 #. i18n: ectx: Menu (file_export)
-#: src/mainwindow.cpp:403 src/tellicoui.rc:52
+#: src/mainwindow.cpp:406 src/tellicoui.rc:54
 msgid "&Export"
 msgstr "&Экспорт"
 
-#: src/mainwindow.cpp:405
+#: src/mainwindow.cpp:408
 msgid "Export the collection data to other formats"
 msgstr "Жинақ дерегін басқа пішімімен экспорттау"
 
-#: src/mainwindow.cpp:417
+#: src/mainwindow.cpp:420
 msgid "Export to XML..."
 msgstr "XML-ге экспорттау..."
 
-#: src/mainwindow.cpp:418
+#: src/mainwindow.cpp:421
 msgid "Export to a Tellico XML file"
 msgstr "Tellico XML файлына экспорттау"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:423
 msgid "Export to Zip..."
 msgstr "Zip-ке экспорттау..."
 
-#: src/mainwindow.cpp:421
+#: src/mainwindow.cpp:424
 msgid "Export to a Tellico Zip file"
 msgstr "Tellico Zip файлына экспорттау"
 
-#: src/mainwindow.cpp:423
+#: src/mainwindow.cpp:426
 msgid "Export to HTML..."
 msgstr "HTML-ге экспорттау..."
 
-#: src/mainwindow.cpp:424
+#: src/mainwindow.cpp:427
 msgid "Export to an HTML file"
 msgstr "HTML файлға экспорттау"
 
-#: src/mainwindow.cpp:426
+#: src/mainwindow.cpp:429
 msgid "Export to CSV..."
 msgstr "CSV-ге экспорттау..."
 
-#: src/mainwindow.cpp:427
+#: src/mainwindow.cpp:430
 msgid "Export to a comma-separated values file"
 msgstr "Үтірмен бөлінген мәндер (CSV) файлға экспорттау"
 
-#: src/mainwindow.cpp:429
+#: src/mainwindow.cpp:432
 msgid "Export to PilotDB..."
 msgstr "PilotDB-ге экспорттау..."
 
-#: src/mainwindow.cpp:430
+#: src/mainwindow.cpp:433
 msgid "Export to a PilotDB database"
 msgstr "PilotDB деректер қорына экспорттау"
 
-#: src/mainwindow.cpp:432
+#: src/mainwindow.cpp:435
 msgid "Export to Alexandria..."
 msgstr "Alexandria-ға экспорттау..."
 
-#: src/mainwindow.cpp:433
+#: src/mainwindow.cpp:436
 msgid "Export to an Alexandria library"
 msgstr "Alexandria кітапхана пішіміне экспорттау"
 
-#: src/mainwindow.cpp:435
+#: src/mainwindow.cpp:438
 msgid "Export to Bibtex..."
 msgstr "Bibtex-ке экспорттау..."
 
-#: src/mainwindow.cpp:436
+#: src/mainwindow.cpp:439
 msgid "Export to a bibtex file"
 msgstr "Bibtex файлына экспорттау"
 
-#: src/mainwindow.cpp:438
+#: src/mainwindow.cpp:441
 msgid "Export to Bibtexml..."
 msgstr "Bibtexml-ге экспорттау..."
 
-#: src/mainwindow.cpp:439
+#: src/mainwindow.cpp:442
 msgid "Export to a Bibtexml file"
 msgstr "Bibtexml файлына экспорттау"
 
-#: src/mainwindow.cpp:441
+#: src/mainwindow.cpp:444
 msgid "Export to ONIX..."
 msgstr "ONIX-ке экспорттау..."
 
-#: src/mainwindow.cpp:442
+#: src/mainwindow.cpp:445
 msgid "Export to an ONIX file"
 msgstr "ONIX файлға экспорттау"
 
-#: src/mainwindow.cpp:444
+#: src/mainwindow.cpp:447
 msgid "Export to GCstar..."
 msgstr "GCstar-ға экспорттау..."
 
-#: src/mainwindow.cpp:445
+#: src/mainwindow.cpp:448
 msgid "Export to a GCstar data file"
 msgstr "GCstar дерек файлына экспорттау"
 
-#: src/mainwindow.cpp:447
+#: src/mainwindow.cpp:450
 msgid "Export XSL Transform..."
 msgstr "XSL түрлендіруді экспорттау..."
 
-#: src/mainwindow.cpp:448
+#: src/mainwindow.cpp:451
 msgid "Export using an XSL Transform"
 msgstr "XSL түрлендіруді қолданып экспорттау"
 
-#: src/mainwindow.cpp:459
+#: src/mainwindow.cpp:462
 msgid "Cut the selected text and puts it in the clipboard"
 msgstr "Таңдалған мәтінді қиып алып алмасу буферіне салу"
 
-#: src/mainwindow.cpp:461
+#: src/mainwindow.cpp:464
 msgid "Copy the selected text to the clipboard"
 msgstr "Таңдалған мәтінді алмасу буферіне көшірмелеу"
 
-#: src/mainwindow.cpp:463
+#: src/mainwindow.cpp:466
 msgid "Paste the clipboard contents"
 msgstr "Алмасу буфердегіні орналастыру"
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:468
 msgid "Select all the entries in the collection"
 msgstr "Жинақтағы бүкіл жазуларын таңдау"
 
-#: src/mainwindow.cpp:467
+#: src/mainwindow.cpp:470
 msgid "Deselect all the entries in the collection"
 msgstr "Жинақтағы бүкіл жазуларын таңдаудан айнну"
 
-#: src/mainwindow.cpp:470
+#: src/mainwindow.cpp:473
 msgid "Internet Search..."
 msgstr "Интернетте іздеу..."
 
-#: src/mainwindow.cpp:471 xslt.cpp:47
+#: src/mainwindow.cpp:474 xslt.cpp:47
 msgid "Search"
 msgstr "Іздеу"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:477
 msgid "Search the internet..."
 msgstr "Интернетте іздеу..."
 
-#: src/mainwindow.cpp:477
+#: src/mainwindow.cpp:480
 msgid "Advanced &Filter..."
 msgstr "Жетелеген &сүзгі..."
 
-#: src/mainwindow.cpp:481 src/mainwindow.cpp:672
+#: src/mainwindow.cpp:484 src/mainwindow.cpp:675
 msgid "Filter the collection"
 msgstr "Жинақты сүзу"
 
-#: src/mainwindow.cpp:488
+#: src/mainwindow.cpp:491
 msgid "&New Entry..."
 msgstr "&Жаңа жазу"
 
-#: src/mainwindow.cpp:492
+#: src/mainwindow.cpp:495
 msgid "Create a new entry"
 msgstr "Жаңа жазуды құру"
 
-#: src/mainwindow.cpp:499
+#: src/mainwindow.cpp:502
 msgid "Edit the selected entries"
 msgstr "Таңдалған жазуларын өзгерту"
 
-#: src/mainwindow.cpp:506
+#: src/mainwindow.cpp:509
 msgid "Copy the selected entries"
 msgstr "Таңдалған жазуларының көшірмесін жасау"
 
-#: src/mainwindow.cpp:513
+#: src/mainwindow.cpp:516
 msgid "Delete the selected entries"
 msgstr "Таңдалған жазуларын өшіру"
 
-#: src/mainwindow.cpp:517
+#: src/mainwindow.cpp:520
 msgid "&Merge Entries"
 msgstr "Жазуларын б&іріктіру"
 
-#: src/mainwindow.cpp:521
+#: src/mainwindow.cpp:524
 msgid "Merge the selected entries"
 msgstr "Таңдалған жазуларын біріктіру"
 
-#: src/mainwindow.cpp:525
+#: src/mainwindow.cpp:528
 msgid "Check-&out..."
 msgstr "Қ&олға беру..."
 
-#: src/mainwindow.cpp:527
+#: src/mainwindow.cpp:530
 msgid "Check-out the selected items"
 msgstr "Таңдалғанды қолға берілген деп тіркеу"
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:533
 msgid "Check-&in"
 msgstr "Қолдан қа&йтару..."
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:535
 msgid "Check-in the selected items"
 msgstr "Таңдалғанды қолдан қайтарылған деп тіркеу"
 
-#: src/mainwindow.cpp:535
+#: src/mainwindow.cpp:538
 msgid "&Rename Collection..."
 msgstr "&Жинақтың атауын өзгерту..."
 
-#: src/mainwindow.cpp:538
+#: src/mainwindow.cpp:541
 msgid "Rename the collection"
 msgstr "Жинақтың атауын өзгерту"
 
-#: src/mainwindow.cpp:541
+#: src/mainwindow.cpp:544
 msgid "Collection &Fields..."
 msgstr "Жинақтың &өрістері..."
 
-#: src/mainwindow.cpp:542
+#: src/mainwindow.cpp:545
 msgid "Fields"
 msgstr "Өрістер"
 
-#: src/mainwindow.cpp:545
+#: src/mainwindow.cpp:548
 msgid "Modify the collection fields"
 msgstr "Жинақтың өрістерін өзгерту"
 
-#: src/mainwindow.cpp:548
+#: src/mainwindow.cpp:551
 msgid "&Generate Reports..."
 msgstr "&Есеп беру..."
 
-#: src/mainwindow.cpp:549
+#: src/mainwindow.cpp:552
 msgid "Reports"
 msgstr "Есептер"
 
-#: src/mainwindow.cpp:551
+#: src/mainwindow.cpp:554
 msgid "Generate collection reports"
 msgstr "Жинақ туралы есеп беру"
 
-#: src/mainwindow.cpp:554
+#: src/mainwindow.cpp:557
 msgid "Convert to &Bibliography"
 msgstr "&Библиографияға аудару"
 
-#: src/mainwindow.cpp:556
+#: src/mainwindow.cpp:559
 msgid "Convert a book collection to a bibliography"
 msgstr "Кітап жинағын библиографияға аудару"
 
-#: src/mainwindow.cpp:559
+#: src/mainwindow.cpp:562
 msgid "String &Macros..."
 msgstr "Мәтін-жол &макростары..."
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:564
 msgid "Edit the bibtex string macros"
 msgstr "Bibtex мәтін жол макростарын өзгерту"
 
-#: src/mainwindow.cpp:564
+#: src/mainwindow.cpp:567
 msgid "Check for Duplicate Keys..."
 msgstr "Кілттердің қайталғанын іздеу..."
 
-#: src/mainwindow.cpp:566
+#: src/mainwindow.cpp:569
 msgid "Check for duplicate citation keys"
 msgstr "Дәйексөз кілттердің қайталғанын іздеу"
 
-#: src/mainwindow.cpp:573
+#: src/mainwindow.cpp:576
 msgid "Copy Bibtex to Cli&pboard"
 msgstr "Bibtex-теріді &алмасу буферге"
 
-#: src/mainwindow.cpp:574
+#: src/mainwindow.cpp:577
 msgid "Copy bibtex citations to the clipboard"
 msgstr "Bibtex дәйексөздерін алмасу буферіне көшіріп алу"
 
-#: src/mainwindow.cpp:579
+#: src/mainwindow.cpp:582
 msgid "Cite Entry in &LyX"
 msgstr "Жазуды &LyX-ке дәйекке алу"
 
-#: src/mainwindow.cpp:580
+#: src/mainwindow.cpp:583
 msgid "Cite the selected entries in LyX"
 msgstr "Таңдалған жазуларының LyX-ке дәйексөзге алу"
 
-#: src/mainwindow.cpp:590
+#: src/mainwindow.cpp:593
 msgctxt "Update Entry"
 msgid "Update"
 msgstr "Жаңарту"
 
-#: src/mainwindow.cpp:595
+#: src/mainwindow.cpp:598
 msgid "All Sources"
 msgstr "Бүкіл деректер көзі"
 
-#: src/mainwindow.cpp:596
+#: src/mainwindow.cpp:599
 msgid "Update entry data from all available sources"
 msgstr "Жазуды бүкіл дерек көздерін жұмсап жаңарту"
 
-#: src/mainwindow.cpp:605
+#: src/mainwindow.cpp:608
 msgid "Show Grou&p View"
 msgstr "То&птық көрініс"
 
-#: src/mainwindow.cpp:606
+#: src/mainwindow.cpp:609
 msgid "Enable/disable the group view"
 msgstr "Топтық көрінісін көрсету/жасыру"
 
-#: src/mainwindow.cpp:610
+#: src/mainwindow.cpp:613
 msgid "Show Entry &Editor"
 msgstr "Жазулар &өңдегіші"
 
-#: src/mainwindow.cpp:612
+#: src/mainwindow.cpp:615
 msgid "Enable/disable the editor"
 msgstr "Жазулар өңдегішін шығару/жасыру"
 
-#: src/mainwindow.cpp:615
+#: src/mainwindow.cpp:618
 msgid "Show Entry &View"
 msgstr "Жазу &көрінісі"
 
-#: src/mainwindow.cpp:616
+#: src/mainwindow.cpp:619
 msgid "Enable/disable the entry view"
 msgstr "Жазу көрінісін көрсету/жасыру"
 
-#: src/mainwindow.cpp:642
+#: src/mainwindow.cpp:645
 msgid "Change Grouping"
 msgstr "Топтастыруын өзгерту"
 
-#: src/mainwindow.cpp:645
+#: src/mainwindow.cpp:648
 msgid "&Group Selection"
 msgstr "&Топтастыруын таңдау"
 
-#: src/mainwindow.cpp:646
+#: src/mainwindow.cpp:649
 msgid "Change the grouping of the collection"
 msgstr "Жинақтың топтастыруын өзгерту"
 
-#: src/mainwindow.cpp:658
+#: src/mainwindow.cpp:661
 msgid "Filter here..."
 msgstr "Сүзгі шарты..."
 
-#: src/mainwindow.cpp:722
+#: src/mainwindow.cpp:725
 msgid "Groups"
 msgstr "Топтар"
 
-#: src/mainwindow.cpp:723
+#: src/mainwindow.cpp:726
 msgid ""
 "<qt>The <i>Group View</i> sorts the entries into groupings based on a "
 "selected field.</qt>"
@@ -4754,7 +4797,7 @@ msgstr ""
 "<qt><i>Топ көрінісі</i> жазуларды таңдалған өрісі бойынша топтастырып "
 "көрсетеді.</qt>"
 
-#: src/mainwindow.cpp:730
+#: src/mainwindow.cpp:733
 msgid ""
 "<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
 "</qt>"
@@ -4762,11 +4805,11 @@ msgstr ""
 "<qt><i>Бағанды көрініс</i> әр жазулардың бірнеше өріс мәндерін көрсетеді.</"
 "qt>"
 
-#: src/mainwindow.cpp:789
+#: src/mainwindow.cpp:792
 msgid "Welcome to the Tellico Collection Manager"
 msgstr "Tellico жинақтар менеджеріне қош келдіңіз"
 
-#: src/mainwindow.cpp:791
+#: src/mainwindow.cpp:794
 msgid ""
 "<h3>Tellico is a tool for managing collections of books, videos, music, and "
 "whatever else you want to catalog.</h3><h3>New entries can be added to your "
@@ -4780,7 +4823,7 @@ msgstr ""
 "href=\"tc:///edit_search_internet\">деректі жүктеп алып</a> та, толтыруға "
 "болады.</h3>"
 
-#: src/mainwindow.cpp:991
+#: src/mainwindow.cpp:994
 msgid ""
 "The current file has been modified.\n"
 "Do you want to save it?"
@@ -4788,19 +4831,19 @@ msgstr ""
 "Назардағы файл өзгертілген.\n"
 "Сақтайсыз ба?"
 
-#: src/mainwindow.cpp:1028
+#: src/mainwindow.cpp:1031
 msgid "Creating new document..."
 msgstr "Жаңа құжатты құру..."
 
-#: src/mainwindow.cpp:1061 src/mainwindow.cpp:1080 src/mainwindow.cpp:1098
+#: src/mainwindow.cpp:1064 src/mainwindow.cpp:1083 src/mainwindow.cpp:1101
 msgid "Opening file..."
 msgstr "Файлды ашу..."
 
-#: src/mainwindow.cpp:1071
+#: src/mainwindow.cpp:1074
 msgid "Open File"
 msgstr "Файлды ашу"
 
-#: src/mainwindow.cpp:1189
+#: src/mainwindow.cpp:1192
 msgid ""
 "<qt><p>You are saving a file with many images, which causes Tellico to slow "
 "down significantly. Do you want to save the images separately in Tellico's "
@@ -4812,27 +4855,27 @@ msgstr ""
 "деректер қапшығындағы бөлек файлға сақтауды қалайсыз ба?</p><p>Бұл "
 "ұйғарымыңызды әрқашан баптау диалогы арқылы өзгерте аласыз.</p></qt>"
 
-#: src/mainwindow.cpp:1194
+#: src/mainwindow.cpp:1197
 msgid "Save Images Separately"
 msgstr "Кескіндері бөлек сақталсын"
 
-#: src/mainwindow.cpp:1195
+#: src/mainwindow.cpp:1198
 msgid "Save Images in File"
 msgstr "Кескіндер файлда сақталсын"
 
-#: src/mainwindow.cpp:1229
+#: src/mainwindow.cpp:1232
 msgid "Saving file with a new filename..."
 msgstr "Файлды жаңа атауымен сақтау..."
 
-#: src/mainwindow.cpp:1236
+#: src/mainwindow.cpp:1239
 msgid "Save As"
 msgstr "Былай сақтау"
 
-#: src/mainwindow.cpp:1264 src/mainwindow.cpp:1314
+#: src/mainwindow.cpp:1267 src/mainwindow.cpp:1317
 msgid "Printing..."
 msgstr "Басып шығару..."
 
-#: src/mainwindow.cpp:1273
+#: src/mainwindow.cpp:1276
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
@@ -4840,81 +4883,82 @@ msgstr ""
 "Жинағыңыз қазір сүзгіліген, бір бөлігі көрсетілген түрде. Осы түрінде басыла "
 "берсін бе?"
 
-#: src/mainwindow.cpp:1298
+#: src/mainwindow.cpp:1301
 msgid "Processing document..."
 msgstr "Құжатты өңдеу..."
 
-#: src/mainwindow.cpp:1321
+#: src/mainwindow.cpp:1324
 msgid "Exiting..."
 msgstr "Шығу..."
 
-#: src/mainwindow.cpp:1434
+#: src/mainwindow.cpp:1437
 #, kde-format
 msgid "Total entries: %1"
 msgstr "Жалпы жазулары: %1"
 
-#: src/mainwindow.cpp:1441
+#: src/mainwindow.cpp:1444
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 сүзгіленген; %2 таңдалған)"
 
-#: src/mainwindow.cpp:1444
+#: src/mainwindow.cpp:1447
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 сүзгіленген)"
 
-#: src/mainwindow.cpp:1447
+#: src/mainwindow.cpp:1450
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 таңдалған)"
 
-#: src/mainwindow.cpp:1594 src/translators/gcstarimporter.cpp:262
+#: src/mainwindow.cpp:1597 src/translators/boardgamegeekimporter.cpp:93
+#: src/translators/gcstarimporter.cpp:262
 #: src/translators/goodreadsimporter.cpp:97
 #: src/translators/xsltimporter.cpp:87
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico XSLT өңдегенде бір қатеге тап болды."
 
-#: src/mainwindow.cpp:1718
+#: src/mainwindow.cpp:1721
 msgid "Importing data..."
 msgstr "Деректі импорттау..."
 
-#: src/mainwindow.cpp:1727
+#: src/mainwindow.cpp:1730
 msgid "Import File"
 msgstr "Файлды импорттау"
 
-#: src/mainwindow.cpp:1733
+#: src/mainwindow.cpp:1736
 msgid "Import Directory"
 msgstr "Қапшықты импорттау"
 
-#: src/mainwindow.cpp:1754
+#: src/mainwindow.cpp:1757
 msgid "Exporting data..."
 msgstr "Дерегін экспорттау..."
 
-#: src/mainwindow.cpp:1776
+#: src/mainwindow.cpp:1779
 msgid "Export As"
 msgstr "Былай экспорттау"
 
-#: src/mainwindow.cpp:1801
+#: src/mainwindow.cpp:1804
 msgid "String Macros"
 msgstr "Мәтін-жол макростары"
 
-#: src/mainwindow.cpp:1802
+#: src/mainwindow.cpp:1805
 msgid "Macro"
 msgstr "Макрос"
 
-#: src/mainwindow.cpp:1802
+#: src/mainwindow.cpp:1805
 msgid "String"
 msgstr "Мәтін жолы"
 
-#: src/mainwindow.cpp:1891
+#: src/mainwindow.cpp:1894
 msgid "Creating citations..."
 msgstr "Дәйексөзді құру..."
 
-#: src/mainwindow.cpp:1996
+#: src/mainwindow.cpp:1999
 msgid "Filters"
 msgstr "Сүзгілер"
 
-#: src/mainwindow.cpp:1997
+#: src/mainwindow.cpp:2000
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
@@ -4922,11 +4966,11 @@ msgstr ""
 "<qt>The <i>Сұзгіленген көрініс</i> сүзгі шартына келетін жазуларын көрсетеді."
 "</qt>"
 
-#: src/mainwindow.cpp:2015
+#: src/mainwindow.cpp:2018
 msgid "Loans"
 msgstr "Борыштар"
 
-#: src/mainwindow.cpp:2016
+#: src/mainwindow.cpp:2019
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
@@ -4934,7 +4978,7 @@ msgstr ""
 "<qt>The <i>Борышкерлер көрінісі</i> - жинақ нәрселерін алған борышкерлер "
 "тізімі.</qt>"
 
-#: src/mainwindow.cpp:2088
+#: src/mainwindow.cpp:2091
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4942,12 +4986,12 @@ msgstr ""
 "Кейбір кескіндер керек орнына сақталған жоқ. Бұл файл, кескіндер жаңа орынға "
 "көшіріліп, сақталу тиіс."
 
-#: src/mainwindow.cpp:2130
+#: src/mainwindow.cpp:2133
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Жазуды %1 дерек көзінен жаңарту"
 
-#: src/mainwindow.cpp:2149
+#: src/mainwindow.cpp:2152
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -5026,22 +5070,22 @@ msgid "&New"
 msgstr "&Жаңа"
 
 #. i18n: ectx: Menu (collection)
-#: src/tellicoui.rc:74
+#: src/tellicoui.rc:76
 msgid "&Collection"
 msgstr "&Жинақ"
 
 #. i18n: ectx: Menu (coll_bibliography)
-#: src/tellicoui.rc:95
+#: src/tellicoui.rc:97
 msgid "&Bibliography"
 msgstr "&Библиография"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/tellicoui.rc:115
+#: src/tellicoui.rc:117
 msgid "Main Toolbar"
 msgstr "Негізгі құралдар"
 
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: src/tellicoui.rc:124
+#: src/tellicoui.rc:126
 msgid "Collection Toolbar"
 msgstr "Жинақ құралдары"
 
@@ -5215,6 +5259,36 @@ msgstr "Bibtexml"
 #: src/translators/bibtexmlexporter.cpp:53
 msgid "*.xml|Bibtexml Files (*.xml)"
 msgstr "*.xml|Bibtexml файлдары (*.xml)"
+
+#: src/translators/boardgamegeekimporter.cpp:76
+#: src/translators/goodreadsimporter.cpp:75
+#: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
+msgid "A valid XSLT file is needed to import the file."
+msgstr "Импорттау үшін жарамды XSLT файлы керек."
+
+#: src/translators/boardgamegeekimporter.cpp:87
+#: src/translators/goodreadsimporter.cpp:91
+#, fuzzy
+#| msgid "A valid Goodreads user ID must be entered."
+msgid "A valid user ID must be entered."
+msgstr "Дұрыс Goodreads пайдаланушының идентификаторын келтіру керек."
+
+#: src/translators/boardgamegeekimporter.cpp:210
+#, fuzzy
+#| msgid "BoardGameGeek"
+msgid "BoardGameGeek Options"
+msgstr "BoardGameGeek"
+
+#: src/translators/boardgamegeekimporter.cpp:216
+#, fuzzy
+#| msgid "Export selected entries only"
+msgid "Import owned items only"
+msgstr "Тек таңдалғандары ғана экспортталсын"
+
+#: src/translators/boardgamegeekimporter.cpp:219
+#: src/translators/goodreadsimporter.cpp:130
+msgid "User ID"
+msgstr "Пайдаланушы ID-і"
 
 #: src/translators/csvexporter.cpp:55
 msgid "CSV"
@@ -5447,22 +5521,9 @@ msgstr ""
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>Файл жарамды GCstar деректер файлы емес.</qt>"
 
-#: src/translators/goodreadsimporter.cpp:75
-#: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
-msgid "A valid XSLT file is needed to import the file."
-msgstr "Импорттау үшін жарамды XSLT файлы керек."
-
-#: src/translators/goodreadsimporter.cpp:91
-msgid "A valid Goodreads user ID must be entered."
-msgstr "Дұрыс Goodreads пайдаланушының идентификаторын келтіру керек."
-
-#: src/translators/goodreadsimporter.cpp:123
+#: src/translators/goodreadsimporter.cpp:124
 msgid "Goodreads Options"
 msgstr "Goodreads параметрлері"
-
-#: src/translators/goodreadsimporter.cpp:129
-msgid "User ID"
-msgstr "Пайдаланушы ID-і"
 
 #: src/translators/htmlexporter.cpp:88
 msgid "HTML"
@@ -5572,15 +5633,15 @@ msgstr "Жинақ дерегі файлда жоқ."
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:509
+#: src/translators/tellicoxmlexporter.cpp:516
 msgid "Tellico XML Options"
 msgstr "Tellico XML параметрлері"
 
-#: src/translators/tellicoxmlexporter.cpp:512
+#: src/translators/tellicoxmlexporter.cpp:519
 msgid "Include images in XML document"
 msgstr "Кескіндер XML құжатына қосылсын"
 
-#: src/translators/tellicoxmlexporter.cpp:514
+#: src/translators/tellicoxmlexporter.cpp:521
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "
 "base64 encoded elements."

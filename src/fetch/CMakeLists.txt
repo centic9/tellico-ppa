@@ -11,6 +11,7 @@ SET(fetch_STAT_SRCS
    beyazperdefetcher.cpp
    bibliosharefetcher.cpp
    bibsonomyfetcher.cpp
+   boardgamegeekfetcher.cpp
    citebasefetcher.cpp
    configwidget.cpp
    crossreffetcher.cpp
@@ -41,6 +42,7 @@ SET(fetch_STAT_SRCS
    masfetcher.cpp
    messagehandler.cpp
    moviemeterfetcher.cpp
+   mrlookupfetcher.cpp
    multifetcher.cpp
    musicbrainzfetcher.cpp
    openlibraryfetcher.cpp
@@ -65,8 +67,6 @@ TARGET_LINK_LIBRARIES(fetch
     newstuff
     btparse
     )
-
-TARGET_LINK_LIBRARIES(fetch ${KDEPIMLIBS_KXMLRPCCLIENT_LIBS})
 
 IF( YAZ_FOUND )
   TARGET_LINK_LIBRARIES(fetch ${YAZ_LIBRARIES})

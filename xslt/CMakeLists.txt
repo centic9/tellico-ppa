@@ -20,6 +20,7 @@ SET(XSLT_FILES
     gcstar2tellico.xsl
     giantbomb2tellico.xsl
     goodreads2tellico.xsl
+    griffith2tellico.xsl
     hddvd-logo.png
     isbndb2tellico.xsl
     MARC21slim2MODS3.xsl
@@ -42,6 +43,7 @@ SET(XSLT_FILES
     tellico-printing.xsl
     thegamesdb2tellico.xsl
     UNIMARC2MODS3.xsl
+    unixref2tellico.xsl
     vhs-logo.png
     vinoxml2tellico.xsl
     welcome.html

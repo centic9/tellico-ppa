@@ -102,6 +102,15 @@ TARGET_LINK_LIBRARIES(delicioustest ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(gcstartest NOGUI gcstartest.cpp)
 TARGET_LINK_LIBRARIES(gcstartest ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(griffithtest NOGUI griffithtest.cpp)
+TARGET_LINK_LIBRARIES(griffithtest ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(modstest NOGUI modstest.cpp)
+TARGET_LINK_LIBRARIES(modstest ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(pdftest NOGUI pdftest.cpp  ../entryupdatejob.cpp)
+TARGET_LINK_LIBRARIES(pdftest fetch ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(referencertest NOGUI referencertest.cpp)
 TARGET_LINK_LIBRARIES(referencertest ${TELLICO_TEST_LIBS})
 
@@ -141,6 +150,9 @@ TARGET_LINK_LIBRARIES(boardgamegeekfetchertest fetch ${TELLICO_TEST_LIBS})
 KDE4_ADD_UNIT_TEST(citebasefetchertest NOGUI citebasefetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(citebasefetchertest fetch ${TELLICO_TEST_LIBS})
 
+KDE4_ADD_UNIT_TEST(crossreffetchertest NOGUI crossreffetchertest.cpp abstractfetchertest.cpp)
+TARGET_LINK_LIBRARIES(crossreffetchertest fetch ${TELLICO_TEST_LIBS})
+
 KDE4_ADD_UNIT_TEST(darkhorsefetchertest NOGUI darkhorsefetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(darkhorsefetchertest fetch ${TELLICO_TEST_LIBS})
 
@@ -158,6 +170,9 @@ TARGET_LINK_LIBRARIES(dvdfrfetchertest fetch ${TELLICO_TEST_LIBS})
 
 KDE4_ADD_UNIT_TEST(entrezfetchertest NOGUI entrezfetchertest.cpp abstractfetchertest.cpp)
 TARGET_LINK_LIBRARIES(entrezfetchertest fetch ${TELLICO_TEST_LIBS})
+
+KDE4_ADD_UNIT_TEST(externalfetchertest NOGUI externalfetchertest.cpp abstractfetchertest.cpp)
+TARGET_LINK_LIBRARIES(externalfetchertest fetch ${TELLICO_TEST_LIBS})
 
 IF( QJSON_FOUND )
     KDE4_ADD_UNIT_TEST(freebasefetchertest NOGUI freebasefetchertest.cpp abstractfetchertest.cpp)

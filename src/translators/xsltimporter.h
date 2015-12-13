@@ -31,6 +31,8 @@ class KUrlRequester;
 #include "../datavectors.h"
 
 namespace Tellico {
+  class XSLTHandler;
+
   namespace Import {
 
 /**
@@ -45,6 +47,7 @@ public:
   /**
    */
   XSLTImporter(const KUrl& url);
+  XSLTImporter(const QString& text);
 
   /**
    */
@@ -52,6 +55,7 @@ public:
   /**
    */
   virtual QWidget* widget(QWidget* parent);
+  virtual void beginXSLTHandler(XSLTHandler*) {}
   void setXSLTURL(const KUrl& url) { m_xsltURL = url; }
 
 public slots:

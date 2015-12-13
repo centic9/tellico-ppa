@@ -25,6 +25,7 @@
 #include <config.h>
 #include "themoviedbfetcher.h"
 #include "../collections/videocollection.h"
+#include "../images/imagefactory.h"
 #include "../gui/combobox.h"
 #include "../gui/guiproxy.h"
 #include "../core/filehandler.h"
@@ -200,6 +201,17 @@ Tellico::Data::EntryPtr TheMovieDBFetcher::fetchEntryHook(uint uid_) {
     populateEntry(entry, parser.parse(data).toMap(), true);
   }
 #endif
+
+  // image might still be a URL
+  const QString image_id = entry->field(QLatin1String("cover"));
+  if(image_id.contains(QLatin1Char('/'))) {
+    const QString id = ImageFactory::addImage(image_id, true /* quiet */);
+    if(id.isEmpty()) {
+      message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
+    }
+    // empty image ID is ok
+    entry->setField(QLatin1String("cover"), id);
+  }
 
   // don't want to include TMDb ID field
   entry->setField(QLatin1String("tmdb-id"), QString());
@@ -388,6 +400,7 @@ void TheMovieDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& 
 }
 
 void TheMovieDBFetcher::readConfiguration() {
+#ifdef HAVE_QJSON
   KUrl u(THEMOVIEDB_API_URL);
   u.setPath(QString::fromLatin1("%1/configuration").arg(QLatin1String(THEMOVIEDB_API_VERSION)));
   u.addQueryItem(QLatin1String("api_key"), m_apiKey);
@@ -409,6 +422,7 @@ void TheMovieDBFetcher::readConfiguration() {
 
   m_imageBase = value(resultMap.value(QLatin1String("images")).toMap(), "base_url");
   m_serverConfigDate = QDate::currentDate();
+#endif
 }
 
 Tellico::Fetch::ConfigWidget* TheMovieDBFetcher::configWidget(QWidget* parent_) const {

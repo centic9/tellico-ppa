@@ -22,6 +22,8 @@
  *                                                                         *
  ***************************************************************************/
 
+ #include <config.h>
+
 #include "imagefactory.h"
 #include "image.h"
 #include "imageinfo.h"
@@ -33,7 +35,10 @@
 
 #include <kapplication.h>
 #include <kcolorutils.h>
+
+#ifdef HAVE_QIMAGEBLITZ
 #include <qimageblitz.h>
+#endif
 
 #define RELEASE_IMAGES
 
@@ -463,13 +468,14 @@ QPixmap ImageFactory::pixmap(const QString& id_, int width_, int height_) {
     pix = new QPixmap(img.convertToPixmap());
   }
 
+  QPixmap pix2(*pix); // retain a copy of pix in case it doesn't go into the cache
   // pixmap size is w x h x d, divided by 8 bits
+  const int size = (pix->width()*pix->height()*pix->depth()/8);
   if(!factory->d->pixmapCache.insert(key, pix, pix->width()*pix->height()*pix->depth()/8)) {
+    // at this point, pix might be deleted
     myWarning() << "can't save in cache: " << id_;
-    myWarning() << "### Current pixmap size is " << (pix->width()*pix->height()*pix->depth()/8);
+    myWarning() << "### Current pixmap size is " << size;
     myWarning() << "### Max pixmap cache size is " << factory->d->pixmapCache.maxCost();
-    QPixmap pix2(*pix);
-    delete pix;
     return pix2;
   }
   return *pix;
@@ -506,13 +512,23 @@ void ImageFactory::createStyleImages(int collectionType_, const Tellico::StyleOp
   const QColor& bgc2 = KColorUtils::mix(baseColor, highColor, 0.5);
 
   const QString bgname = QLatin1String("gradient_bg.png");
+#ifdef HAVE_QIMAGEBLITZ
   QImage bgImage = Blitz::gradient(QSize(400, 1), bgc1, baseColor,
                                    Blitz::PipeCrossGradient);
+#else
+  QImage bgImage(QSize(400, 1), QImage::Format_RGB32);
+  bgImage.fill(bgc1);
+#endif
   bgImage = bgImage.transformed(QTransform().rotate(90));
 
   const QString hdrname = QLatin1String("gradient_header.png");
+#ifdef HAVE_QIMAGEBLITZ
   QImage hdrImage = Blitz::unbalancedGradient(QSize(1, 10), highColor, bgc2,
                                               Blitz::VerticalGradient, 100, -100);
+#else
+  QImage hdrImage(QSize(1, 10), QImage::Format_RGB32);
+  hdrImage.fill(highColor);
+#endif
 
   if(opt_.imgDir.isEmpty()) {
     // write the style images both to the tmp dir and the cache dir
@@ -595,7 +611,7 @@ void ImageFactory::setLocalDirectory(const KUrl& url_) {
     myWarning() << "Tellico can only save images to local disk";
     myWarning() << "unable to save to " << url_;
   } else {
-    QString dir = url_.directory(KUrl::AppendTrailingSlash);
+    QString dir = url_.directory(KUrl::ObeyTrailingSlash | KUrl::AppendTrailingSlash);
     // could have already been set once
     if(!url_.fileName().contains(QLatin1String("_files"))) {
       dir += url_.fileName().section(QLatin1Char('.'), 0, 0) + QLatin1String("_files/");

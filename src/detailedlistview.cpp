@@ -282,7 +282,7 @@ void DetailedListView::setEntriesSelected(Data::EntryList entries_) {
   }
 
   clearSelection();
-  EntrySortModel* proxyModel = dynamic_cast<EntrySortModel*>(model());
+  EntrySortModel* proxyModel = static_cast<EntrySortModel*>(model());
   foreach(Data::EntryPtr entry, entries_) {
     QModelIndex index = sourceModel()->indexFromEntry(entry);
     if(!proxyModel->mapFromSource(index).isValid()) {
@@ -626,12 +626,18 @@ void DetailedListView::checkHeader() {
   }
   // find title action in menu and activate it
   QAction* action = 0;
+  QAction* fallbackAction = 0;
   foreach(QAction* tryAction, m_columnMenu->actions()) {
     const int ncol = tryAction->data().toInt();
     if(ncol > -1 && columnFieldName(ncol) == QLatin1String("title")) {
       action = tryAction;
       break;
+    } else if(ncol > -1 && !fallbackAction) {
+      fallbackAction = tryAction;
     }
+  }
+  if(!action) {
+    action = fallbackAction;
   }
   if(action) {
     action->setChecked(true);

@@ -1,13 +1,16 @@
-# translation of tellico.po to Ukrainian
-# Copyright (C) 2007-2014 This_file_is_part_of_KDE
+# Translation of tellico.po to Ukrainian
+# Copyright (C) 2007-2015 This_file_is_part_of_KDE
+# This file is distributed under the license LGPL version 2.1 or
+# version 3 or later versions approved by the membership of KDE e.V.
+#
 # Serhij Dubyk <dubyk@library.lviv.ua>, 2007.
 # Yuri Chornoivan <yurchor@ukr.net>, 2009, 2010, 2011, 2012, 2013, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2015-02-15 06:07+0000\n"
-"PO-Revision-Date: 2015-01-24 13:58+0200\n"
+"POT-Creation-Date: 2015-11-10 07:01+0000\n"
+"PO-Revision-Date: 2015-06-25 19:27+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
 "Language: uk\n"
@@ -275,16 +278,16 @@ msgstr "Назва"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:267 src/fetch/allocinefetcher.cpp:273
+#: src/fetch/allocinefetcher.cpp:314 src/fetch/allocinefetcher.cpp:320
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
-#: src/fetch/discogsfetcher.cpp:244 src/fetch/discogsfetcher.cpp:249
-#: src/fetch/discogsfetcher.cpp:254 src/fetch/discogsfetcher.cpp:261
+#: src/fetch/discogsfetcher.cpp:255 src/fetch/discogsfetcher.cpp:260
+#: src/fetch/discogsfetcher.cpp:265 src/fetch/discogsfetcher.cpp:272
 #: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
 #: src/fetch/imdbfetcher.cpp:963 src/fetch/imdbfetcher.cpp:1341
-#: src/fetch/moviemeterfetcher.cpp:213 src/fetch/moviemeterfetcher.cpp:218
-#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:253
-#: src/fetch/themoviedbfetcher.cpp:258 src/fetch/themoviedbfetcher.cpp:263
+#: src/fetch/moviemeterfetcher.cpp:225 src/fetch/moviemeterfetcher.cpp:230
+#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:265
+#: src/fetch/themoviedbfetcher.cpp:270 src/fetch/themoviedbfetcher.cpp:275
 #: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Загальне"
@@ -379,99 +382,99 @@ msgstr "&Вилучити"
 msgid "Remove a field from the collection"
 msgstr "Вилучити поле зі збірки"
 
-#: src/collectionfieldsdialog.cpp:126
+#: src/collectionfieldsdialog.cpp:132
 msgid ""
 "Move this field up in the list. The list order is important for the layout "
 "of the entry editor."
 msgstr "Перемістити поле вгору на одну позицію"
 
-#: src/collectionfieldsdialog.cpp:130
+#: src/collectionfieldsdialog.cpp:136
 msgid ""
 "Move this field down in the list. The list order is important for the layout "
 "of the entry editor."
 msgstr "Перемістити поле вниз на одну позицію"
 
-#: src/collectionfieldsdialog.cpp:140
+#: src/collectionfieldsdialog.cpp:146
 msgid "Field Properties"
 msgstr "Параметри поля"
 
-#: src/collectionfieldsdialog.cpp:149
+#: src/collectionfieldsdialog.cpp:155
 msgid "&Title:"
 msgstr "Н&азва:"
 
-#: src/collectionfieldsdialog.cpp:154
+#: src/collectionfieldsdialog.cpp:160
 msgid "The title of the field"
 msgstr "Назва поля"
 
-#: src/collectionfieldsdialog.cpp:159
+#: src/collectionfieldsdialog.cpp:165
 msgid "T&ype:"
 msgstr "Т&ип:"
 
-#: src/collectionfieldsdialog.cpp:165
+#: src/collectionfieldsdialog.cpp:171
 msgid "The type of the field determines what values may be used. "
 msgstr "Тип збірки визначає, які значення можуть бути використані. "
 
-#: src/collectionfieldsdialog.cpp:166
+#: src/collectionfieldsdialog.cpp:172
 msgid "<i>Simple Text</i> is used for most fields. "
 msgstr "<i>Простий текст</i> використовується у багатьох полях. "
 
-#: src/collectionfieldsdialog.cpp:167
+#: src/collectionfieldsdialog.cpp:173
 msgid "<i>Paragraph</i> is for large text blocks. "
 msgstr "<i>Стаття</i> використовується для запису великих об'ємів тексту. "
 
-#: src/collectionfieldsdialog.cpp:168
+#: src/collectionfieldsdialog.cpp:174
 msgid "<i>Choice</i> limits the field to certain values. "
 msgstr "<i>Вибір</i> створює поле для вибору фіксованих значень. "
 
-#: src/collectionfieldsdialog.cpp:169
+#: src/collectionfieldsdialog.cpp:175
 msgid "<i>Checkbox</i> is for a simple yes/no value. "
 msgstr ""
 "<i>Вибір так/ні</i> створює поле для простого встановлення значення «так» "
 "або «ні». "
 
-#: src/collectionfieldsdialog.cpp:170
+#: src/collectionfieldsdialog.cpp:176
 msgid "<i>Number</i> indicates that the field contains a numerical value. "
 msgstr "<i>Число</i> використовується для запису числового значення. "
 
-#: src/collectionfieldsdialog.cpp:171
+#: src/collectionfieldsdialog.cpp:177
 msgid ""
 "<i>URL</i> is for fields which refer to URLs, including references to other "
 "files. "
 msgstr "<i>URL</i> використовується для запису посилань. "
 
-#: src/collectionfieldsdialog.cpp:172
+#: src/collectionfieldsdialog.cpp:178
 msgid "A <i>Table</i> may hold one or more columns of values. "
 msgstr "<i>Таблиця</i> створює поле для запису інформації у форматі таблиці. "
 
-#: src/collectionfieldsdialog.cpp:173
+#: src/collectionfieldsdialog.cpp:179
 msgid "An <i>Image</i> field holds a picture. "
 msgstr "<i>Зображення</i> використовується для зберігання зображень у збірці. "
 
-#: src/collectionfieldsdialog.cpp:174
+#: src/collectionfieldsdialog.cpp:180
 msgid ""
 "A <i>Date</i> field can be used for values with a day, month, and year. "
 msgstr ""
 "<i>Дата</i> використовується для створення полів з днем, місяцем та роком. "
 
-#: src/collectionfieldsdialog.cpp:175
+#: src/collectionfieldsdialog.cpp:181
 msgid "A <i>Rating</i> field uses stars to show a rating number. "
 msgstr ""
 "<i>Рейтинг</i> створює поле з п'ятьма зірочками для визначення особистого "
 "рейтингу. "
 
-#: src/collectionfieldsdialog.cpp:184
+#: src/collectionfieldsdialog.cpp:190
 msgid "Cate&gory:"
 msgstr "Кат&егорія:"
 
-#: src/collectionfieldsdialog.cpp:189
+#: src/collectionfieldsdialog.cpp:195
 msgid "The field category determines where the field is placed in the editor."
 msgstr "Категорія поля визначає, куди буде воно поміщено."
 
-#: src/collectionfieldsdialog.cpp:206
+#: src/collectionfieldsdialog.cpp:212
 msgid "Set &properties..."
 msgstr "Встановити &властивості…"
 
-#: src/collectionfieldsdialog.cpp:210
+#: src/collectionfieldsdialog.cpp:216
 msgid ""
 "Extended field properties are used to specify things such as the "
 "corresponding bibtex field."
@@ -479,33 +482,33 @@ msgstr ""
 "Додаткові параметри поля корисні для деяких специфічних речей. Наприклад, "
 "для відповідного поля bibtex."
 
-#: src/collectionfieldsdialog.cpp:215
+#: src/collectionfieldsdialog.cpp:221
 msgid "Description:"
 msgstr "Опис:"
 
-#: src/collectionfieldsdialog.cpp:222
+#: src/collectionfieldsdialog.cpp:228
 msgid ""
 "The description is a useful reminder of what information is contained in the "
 "field."
 msgstr "Опис — це корисні відомості щодо даних, що зберігаються у полі."
 
-#: src/collectionfieldsdialog.cpp:227
+#: src/collectionfieldsdialog.cpp:233
 msgid "Value Options"
 msgstr "Параметри значень"
 
-#: src/collectionfieldsdialog.cpp:231
+#: src/collectionfieldsdialog.cpp:237
 msgid "&Default value:"
 msgstr "&Типове значення:"
 
-#: src/collectionfieldsdialog.cpp:236
+#: src/collectionfieldsdialog.cpp:248
 msgid "<qt>A default value can be set for new entries.</qt>"
 msgstr "<qt>Ви можете вказати типове значення для нових записів.</qt>"
 
-#: src/collectionfieldsdialog.cpp:241
+#: src/collectionfieldsdialog.cpp:253
 msgid "Value template:"
 msgstr "Шаблон значення:"
 
-#: src/collectionfieldsdialog.cpp:249
+#: src/collectionfieldsdialog.cpp:261
 msgid ""
 "Derived values are formed from the values of other fields according to the "
 "value template. Named fields, such as \"%{year} %{title}\", get substituted "
@@ -515,15 +518,15 @@ msgstr ""
 "шаблону значення. Програма виконуватиме заміну іменованих полів у значенні, "
 "зокрема «%{year} %{title}», їхнім вмістом."
 
-#: src/collectionfieldsdialog.cpp:255
+#: src/collectionfieldsdialog.cpp:267
 msgid "Use derived value"
 msgstr "Використовувати похідне значення"
 
-#: src/collectionfieldsdialog.cpp:261
+#: src/collectionfieldsdialog.cpp:273
 msgid "A&llowed values:"
 msgstr "&Дозволені значення:"
 
-#: src/collectionfieldsdialog.cpp:266
+#: src/collectionfieldsdialog.cpp:278
 msgid ""
 "<qt>For <i>Choice</i>-type fields, these are the only values allowed. They "
 "are placed in a combo box. The possible values have to be separated by a "
@@ -532,35 +535,35 @@ msgstr ""
 "<qt>Сюди вводяться допустимі значення для поля типу <i>«Вибір»</i>. Значення "
 "розділяються комами (наприклад «Кіт; Пес; Миша»)</qt>"
 
-#: src/collectionfieldsdialog.cpp:273
+#: src/collectionfieldsdialog.cpp:285
 msgid "Format options:"
 msgstr "Параметри форматування:"
 
-#: src/collectionfieldsdialog.cpp:279
+#: src/collectionfieldsdialog.cpp:291
 msgid "No formatting"
 msgstr "Немає форматування"
 
-#: src/collectionfieldsdialog.cpp:280
+#: src/collectionfieldsdialog.cpp:292
 msgid "Allow auto-capitalization only"
 msgstr "Дозволити лише явне форматування"
 
-#: src/collectionfieldsdialog.cpp:281
+#: src/collectionfieldsdialog.cpp:293
 msgid "Format as a title"
 msgstr "Форматувати як назву"
 
-#: src/collectionfieldsdialog.cpp:282
+#: src/collectionfieldsdialog.cpp:294
 msgid "Format as a name"
 msgstr "Форматувати як назву"
 
-#: src/collectionfieldsdialog.cpp:285
+#: src/collectionfieldsdialog.cpp:297
 msgid "Field Options"
 msgstr "Параметри поля"
 
-#: src/collectionfieldsdialog.cpp:287
+#: src/collectionfieldsdialog.cpp:299
 msgid "Enable auto-completion"
 msgstr "Автоматично доповнювати до слова"
 
-#: src/collectionfieldsdialog.cpp:288
+#: src/collectionfieldsdialog.cpp:300
 msgid ""
 "If checked, KDE auto-completion will be enabled in the text edit box for "
 "this field."
@@ -568,11 +571,11 @@ msgstr ""
 "Якщо позначити цей пункт, у полі для введення тексту цього поля буде "
 "увімкнено автодоповнення KDE."
 
-#: src/collectionfieldsdialog.cpp:290
+#: src/collectionfieldsdialog.cpp:302
 msgid "Allow multiple values"
 msgstr "Дозволити декілька значень"
 
-#: src/collectionfieldsdialog.cpp:291
+#: src/collectionfieldsdialog.cpp:303
 msgid ""
 "If checked, Tellico will parse the values in the field for multiple values, "
 "separated by a semi-colon."
@@ -580,26 +583,26 @@ msgstr ""
 "Якщо буде позначено цей пункт, Tellico проаналізує значення у полі для "
 "багатократних значень, відокремлених крапкою з комою."
 
-#: src/collectionfieldsdialog.cpp:293
+#: src/collectionfieldsdialog.cpp:305
 msgid "Allow grouping"
 msgstr "Дозволити групування"
 
-#: src/collectionfieldsdialog.cpp:294
+#: src/collectionfieldsdialog.cpp:306
 msgid ""
 "If checked, this field may be used to group the entries in the group view."
 msgstr ""
 "Якщо буде позначено цей пункт, це поле буде використано для групування "
 "записів у перегляді груп."
 
-#: src/collectionfieldsdialog.cpp:310
+#: src/collectionfieldsdialog.cpp:322
 msgid "Revert the selected field's properties to the default values."
 msgstr "Повернути типові значення властивостям вибраного поля."
 
-#: src/collectionfieldsdialog.cpp:363
+#: src/collectionfieldsdialog.cpp:375
 msgid "Modify Fields"
 msgstr "Редагувати поля"
 
-#: src/collectionfieldsdialog.cpp:376
+#: src/collectionfieldsdialog.cpp:388
 #, kde-format
 msgid ""
 "<qt>Removing allowed values from the <i>%1</i> field which currently exist "
@@ -609,20 +612,20 @@ msgstr ""
 "<qt>Переміщення значень з поля «<i>%1</i>», яке вже існує, може пошкодити "
 "ваші дані. Хочете продовжити?</qt>"
 
-#: src/collectionfieldsdialog.cpp:381
+#: src/collectionfieldsdialog.cpp:393
 msgid "Keep modified values"
 msgstr "Зберігати змінені значення"
 
-#: src/collectionfieldsdialog.cpp:479 src/collectionfieldsdialog.cpp:482
+#: src/collectionfieldsdialog.cpp:491 src/collectionfieldsdialog.cpp:494
 #, kde-format
 msgid "New Field %1"
 msgstr "Нове поле %1"
 
-#: src/collectionfieldsdialog.cpp:768
+#: src/collectionfieldsdialog.cpp:780
 msgid "Revert Field Properties"
 msgstr "Поміняти властивості поля"
 
-#: src/collectionfieldsdialog.cpp:769
+#: src/collectionfieldsdialog.cpp:781
 #, kde-format
 msgid ""
 "<qt><p>Do you really want to revert the properties for the <em>%1</em> field "
@@ -631,31 +634,31 @@ msgstr ""
 "<qt><p>Ви дійсно хочете повернути полю <em>«%1»</em> типові значення?</p></"
 "qt>"
 
-#: src/collectionfieldsdialog.cpp:772
+#: src/collectionfieldsdialog.cpp:784
 msgid "Revert"
 msgstr "Поміняти"
 
-#: src/collectionfieldsdialog.cpp:840
+#: src/collectionfieldsdialog.cpp:852
 msgid "Extended Field Properties"
 msgstr "Додаткові властивості поля"
 
-#: src/collectionfieldsdialog.cpp:841 src/collections/filecatalog.cpp:107
+#: src/collectionfieldsdialog.cpp:853 src/collections/filecatalog.cpp:107
 msgid "Property"
 msgstr "Властивість"
 
-#: src/collectionfieldsdialog.cpp:841 src/collections/filecatalog.cpp:108
+#: src/collectionfieldsdialog.cpp:853 src/collections/filecatalog.cpp:108
 msgid "Value"
 msgstr "Значення"
 
-#: src/collectionfieldsdialog.cpp:873
+#: src/collectionfieldsdialog.cpp:885
 msgid "A field with this title already exists. Please enter a different title."
 msgstr "Поле з такою назвою вже існує. Будь ласка, введіть іншу назву."
 
-#: src/collectionfieldsdialog.cpp:880
+#: src/collectionfieldsdialog.cpp:892
 msgid "<qt>The category may not be empty. Please enter a category.</qt>"
 msgstr "<qt>Ця категорія не порожня. Будь ласка, виберіть категорію.</qt>"
 
-#: src/collectionfieldsdialog.cpp:888
+#: src/collectionfieldsdialog.cpp:900
 msgid ""
 "<qt>A field may not be in the same category as a <em>Paragraph</em>, "
 "<em>Table</em> or <em>Image</em> field. Please enter a different category.</"
@@ -664,14 +667,14 @@ msgstr ""
 "<qt>Поле не може належати до категорій: <em>«Стаття» </em>, <em>«Таблиця»</"
 "em> або <em>«Зображення»</em>. Виберіть іншу категорію.</qt>"
 
-#: src/collectionfieldsdialog.cpp:896
+#: src/collectionfieldsdialog.cpp:908
 msgid ""
 "A field's title may not be the same as an existing category. Please enter a "
 "different title."
 msgstr ""
 "Назва поля не може бути таким же, як назва категорії. Введіть іншу назву."
 
-#: src/collectionfieldsdialog.cpp:908
+#: src/collectionfieldsdialog.cpp:920
 msgid ""
 "The range for a rating field must be between 1 and 10, and the lower bound "
 "must be less than the higher bound. Please enter different low and high "
@@ -679,11 +682,11 @@ msgid ""
 msgstr ""
 "Рейтинг не повинен бути менше 1 та більше 10. Введіть інше значення рейтингу."
 
-#: src/collectionfieldsdialog.cpp:923
+#: src/collectionfieldsdialog.cpp:935
 msgid "Tables are limited to a maximum of ten columns."
 msgstr "У таблиці може бути максимум десять стовпців."
 
-#: src/collectionfieldsdialog.cpp:929
+#: src/collectionfieldsdialog.cpp:941
 msgid "A field with a derived value must have a value template."
 msgstr "Для поля з похідним значенням слід вказати шаблон значення."
 
@@ -691,7 +694,7 @@ msgstr "Для поля з похідним значенням слід вказ
 #: src/collections/bookcollection.cpp:32
 #: src/collections/comicbookcollection.cpp:31
 #: src/fetch/citebasefetcher.cpp:155 src/translators/grs1importer.cpp:71
-#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:200
+#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:210
 msgid "Publishing"
 msgstr "Публікація"
 
@@ -738,7 +741,7 @@ msgid "Publisher"
 msgstr "Видавець"
 
 #: src/collections/bibtexcollection.cpp:139
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:465
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:478
 #: src/fetch/z3950fetcher.cpp:565
 msgid "Address"
 msgstr "Адреса"
@@ -832,7 +835,7 @@ msgid "URL"
 msgstr "URL"
 
 #: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:469
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:466
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:479
 #: src/fetch/z3950fetcher.cpp:566
 msgid "Abstract"
 msgstr "Резюме"
@@ -1055,7 +1058,7 @@ msgstr "Прочитана"
 
 #: src/collections/bookcollection.cpp:182
 #: src/collections/comicbookcollection.cpp:158 src/fetch/arxivfetcher.cpp:204
-#: src/fetch/crossreffetcher.cpp:195 src/translators/pdfimporter.cpp:229
+#: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:240
 #: src/translators/referencerimporter.cpp:62
 msgid "Front Cover"
 msgstr "Обкладинка"
@@ -1363,7 +1366,7 @@ msgstr "Мої аудіозаписи"
 msgid "Album"
 msgstr "Альбом"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:344
 #: src/translators/freedbimporter.cpp:264
 #: src/translators/freedbimporter.cpp:378
 #: src/translators/freedbimporter.cpp:444
@@ -1372,14 +1375,15 @@ msgstr "Компакт-диск"
 
 #: src/collections/musiccollection.cpp:54
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:877
+#: src/fetch/discogsfetcher.cpp:352
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:349
 msgid "Cassette"
 msgstr "Аудіокасета"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:347
 msgid "Vinyl"
 msgstr "Вінілова пластинка"
 
@@ -1422,7 +1426,7 @@ msgid "Issue Year"
 msgstr "Рік видання"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:379
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:398
 #: src/fetch/imdbfetcher.cpp:1453
 msgid "Color"
 msgstr "Колір"
@@ -1542,8 +1546,8 @@ msgstr "Регіон 8"
 msgid "Region"
 msgstr "Регіон"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:253
-#: src/fetch/discogsfetcher.cpp:407
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:264
+#: src/fetch/discogsfetcher.cpp:422
 msgid "Nationality"
 msgstr "Країна"
 
@@ -1585,8 +1589,8 @@ msgstr "Таблиця для запису акторів і ролей, які 
 msgid "Director"
 msgstr "Режисер"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:260
-#: src/fetch/discogsfetcher.cpp:406
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:271
+#: src/fetch/discogsfetcher.cpp:421
 msgid "Producer"
 msgstr "Виробник"
 
@@ -1707,11 +1711,11 @@ msgstr "віддання у борг %1"
 msgid "Append Collection"
 msgstr "доповнення збірки"
 
-#: src/commands/collectioncommand.cpp:53
+#: src/commands/collectioncommand.cpp:54
 msgid "Merge Collection"
 msgstr "об’єднання збірок"
 
-#: src/commands/collectioncommand.cpp:55
+#: src/commands/collectioncommand.cpp:57
 msgid "Replace Collection"
 msgstr "заміну збірки"
 
@@ -1720,12 +1724,12 @@ msgstr "заміну збірки"
 msgid "Add %1 Field"
 msgstr "додавання поля %1"
 
-#: src/commands/fieldcommand.cpp:61
+#: src/commands/fieldcommand.cpp:62
 #, kde-format
 msgid "Modify %1 Field"
 msgstr "редагування поля %1"
 
-#: src/commands/fieldcommand.cpp:63
+#: src/commands/fieldcommand.cpp:65
 #, kde-format
 msgid "Delete %1 Field"
 msgstr "вилучення поля %1"
@@ -1734,12 +1738,12 @@ msgstr "вилучення поля %1"
 msgid "Add Filter"
 msgstr "додавання фільтра"
 
-#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:394
+#: src/commands/filtercommand.cpp:59 src/filterdialog.cpp:394
 #: src/filterview.cpp:133
 msgid "Modify Filter"
 msgstr "Редагування фільтра"
 
-#: src/commands/filtercommand.cpp:60 src/filterview.cpp:135
+#: src/commands/filtercommand.cpp:62 src/filterview.cpp:135
 msgid "Delete Filter"
 msgstr "Вилучення фільтра"
 
@@ -2083,11 +2087,11 @@ msgstr "Клацніть, щоб встановити новий шаблон б
 
 #: src/configdialog.cpp:568 src/configdialog.cpp:663
 msgid "Download..."
-msgstr "Звантаження…"
+msgstr "Отримання…"
 
 #: src/configdialog.cpp:571
 msgid "Click to download additional templates."
-msgstr "Натисніть, щоб звантажити додаткові шаблони."
+msgstr "Натисніть, щоб отримати додаткові шаблони."
 
 #: src/configdialog.cpp:574
 msgid "Delete..."
@@ -2147,10 +2151,10 @@ msgstr "Клацніть, щоб вилучити відібране джере�
 
 #: src/configdialog.cpp:665
 msgid "Click to download additional data sources."
-msgstr "Натисніть, щоб звантажити додаткові джерела даних."
+msgstr "Натисніть, щоб отримати додаткові джерела даних."
 
 #: src/configdialog.cpp:1135 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:118
+#: src/translators/xsltimporter.cpp:124
 msgid "*.xsl|XSL Files (*.xsl)"
 msgstr "*.xsl|файли XSL (*.xsl)"
 
@@ -2158,7 +2162,7 @@ msgstr "*.xsl|файли XSL (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|Пакунки шаблонів (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:381 src/mainwindow.cpp:1071
+#: src/configdialog.cpp:1137 src/importdialog.cpp:382 src/mainwindow.cpp:1071
 #: src/mainwindow.cpp:1236 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
@@ -2167,7 +2171,7 @@ msgstr "*.tar.gz *.tgz|Пакунки шаблонів (*.tar.gz)"
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/tellicozipexporter.cpp:56
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:118
+#: src/translators/xsltimporter.cpp:124
 msgid "*|All Files"
 msgstr "*|Усі файли"
 
@@ -2652,25 +2656,33 @@ msgstr "Системне кодування (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Змінити кодування експортованого файла на локальне."
 
-#: src/fetch/allocinefetcher.cpp:272 src/fetch/allocinefetcher.cpp:495
+#: src/fetch/allocinefetcher.cpp:230 src/fetch/amazonfetcher.cpp:762
+#: src/fetch/discogsfetcher.cpp:195 src/fetch/freebasefetcher.cpp:245
+#: src/fetch/googlebookfetcher.cpp:203 src/fetch/moviemeterfetcher.cpp:170
+#: src/fetch/themoviedbfetcher.cpp:210 src/fetch/vndbfetcher.cpp:169
+#: src/fetch/yahoofetcher.cpp:240
+msgid "The cover image could not be loaded."
+msgstr "Не виходить завантажити зображення обкладинки"
+
+#: src/fetch/allocinefetcher.cpp:319 src/fetch/allocinefetcher.cpp:514
 msgid "Allocine Link"
 msgstr "Посилання Allocine"
 
-#: src/fetch/allocinefetcher.cpp:277 src/fetch/allocinefetcher.cpp:494
+#: src/fetch/allocinefetcher.cpp:324 src/fetch/allocinefetcher.cpp:513
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
-#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
-#: src/fetch/themoviedbfetcher.cpp:431 src/fetch/vndbfetcher.cpp:241
-#: src/fetch/vndbfetcher.cpp:320
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:284
+#: src/fetch/themoviedbfetcher.cpp:445 src/fetch/vndbfetcher.cpp:252
+#: src/fetch/vndbfetcher.cpp:331
 msgid "Original Title"
 msgstr "Початкова назва"
 
-#: src/fetch/allocinefetcher.cpp:405 src/fetch/imdbfetcher.cpp:1651
+#: src/fetch/allocinefetcher.cpp:424 src/fetch/imdbfetcher.cpp:1651
 msgid "&Maximum cast: "
 msgstr "&Максимальна к-ть акторів: "
 
-#: src/fetch/allocinefetcher.cpp:410 src/fetch/imdbfetcher.cpp:1656
+#: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1656
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2736,26 +2748,21 @@ msgstr ""
 msgid "Those values must be entered in the data source settings."
 msgstr "Ці значення слід ввести у параметрах джерела даних."
 
-#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:281
+#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:282
 #: src/fetch/winecomfetcher.cpp:230
 #, kde-format
 msgid "Results from %1: %2/%3"
 msgstr "Результати від %1: %2/%3"
-
-#: src/fetch/amazonfetcher.cpp:762 src/fetch/freebasefetcher.cpp:245
-#: src/fetch/googlebookfetcher.cpp:203 src/fetch/yahoofetcher.cpp:240
-msgid "The cover image could not be loaded."
-msgstr "Не виходить завантажити зображення обкладинки"
 
 #: src/fetch/amazonfetcher.cpp:904
 msgid "Amazon.com Web Services"
 msgstr "Мережеві служби Amazon.com"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
-#: src/fetch/crossreffetcher.cpp:311 src/fetch/discogsfetcher.cpp:419
+#: src/fetch/crossreffetcher.cpp:316 src/fetch/discogsfetcher.cpp:434
 #: src/fetch/doubanfetcher.cpp:226 src/fetch/freebasefetcher.cpp:954
 #: src/fetch/giantbombfetcher.cpp:206 src/fetch/googlebookfetcher.cpp:387
-#: src/fetch/isbndbfetcher.cpp:364 src/fetch/themoviedbfetcher.cpp:443
+#: src/fetch/isbndbfetcher.cpp:365 src/fetch/themoviedbfetcher.cpp:457
 #: src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
@@ -2769,7 +2776,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:377 src/fetch/themoviedbfetcher.cpp:456
+#: src/fetch/isbndbfetcher.cpp:378 src/fetch/themoviedbfetcher.cpp:470
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "Ключ доступу: "
@@ -2869,8 +2876,8 @@ msgstr ""
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
 #: src/fetch/imdbfetcher.cpp:1033 src/fetch/imdbfetcher.cpp:1614
-#: src/fetch/moviemeterfetcher.cpp:222 src/fetch/moviemeterfetcher.cpp:294
-#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:430
+#: src/fetch/moviemeterfetcher.cpp:234 src/fetch/moviemeterfetcher.cpp:306
+#: src/fetch/themoviedbfetcher.cpp:279 src/fetch/themoviedbfetcher.cpp:444
 msgid "Alternative Titles"
 msgstr "Альтернативні назви"
 
@@ -2896,17 +2903,17 @@ msgstr "Оцінка AnimeNfo"
 #: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
 #: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
 #: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
-#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:313
 #: src/fetch/mrlookupfetcher.cpp:220 src/fetch/musicbrainzfetcher.cpp:337
 #: src/fetch/openlibraryfetcher.cpp:429 src/fetch/springerfetcher.cpp:179
-#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:328
+#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:339
 #: src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "Це джерело немає параметрів."
 
 #: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
 #: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:406
-#: src/fetch/isbndbfetcher.cpp:383 src/fetch/themoviedbfetcher.cpp:462
+#: src/fetch/isbndbfetcher.cpp:384 src/fetch/themoviedbfetcher.cpp:476
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2926,48 +2933,48 @@ msgstr "Параметри джерела"
 msgid "Available Fields"
 msgstr "Доступні поля"
 
-#: src/fetch/crossreffetcher.cpp:91
+#: src/fetch/crossreffetcher.cpp:91 src/fetch/crossreffetcher.cpp:92
 #, kde-format
 msgid "%1 requires a username and password."
 msgstr "Для роботи з %1 потрібні реєстраційні дані."
 
-#: src/fetch/crossreffetcher.cpp:323
+#: src/fetch/crossreffetcher.cpp:328
 msgid "&Username: "
 msgstr "&Користувач: "
 
-#: src/fetch/crossreffetcher.cpp:328
+#: src/fetch/crossreffetcher.cpp:333
 msgid "A username and password is required to access the CrossRef service."
 msgstr "Для доступу до служби CrossRef потрібне ім’я користувача і пароль."
 
-#: src/fetch/crossreffetcher.cpp:333
+#: src/fetch/crossreffetcher.cpp:338
 msgid "&Password: "
 msgstr "Па&роль: "
 
-#: src/fetch/crossreffetcher.cpp:343
+#: src/fetch/crossreffetcher.cpp:348
 msgid "For some accounts, only an email address is required."
 msgstr "Для деяких облікових записів потрібна лише адреса електронної пошти."
 
-#: src/fetch/crossreffetcher.cpp:346
+#: src/fetch/crossreffetcher.cpp:351
 msgid "Email: "
 msgstr "Ел. пошта: "
 
-#: src/fetch/discogsfetcher.cpp:96
+#: src/fetch/discogsfetcher.cpp:97
 msgid "Access to data from Discogs.com requires a personal token."
 msgstr "Для доступу до даних з Discogs.com потрібен особистий ключ доступу."
 
-#: src/fetch/discogsfetcher.cpp:248 src/fetch/discogsfetcher.cpp:408
+#: src/fetch/discogsfetcher.cpp:259 src/fetch/discogsfetcher.cpp:423
 msgid "Discogs Link"
 msgstr "Посилання Discogs"
 
-#: src/fetch/discogsfetcher.cpp:271
+#: src/fetch/discogsfetcher.cpp:282
 msgid "The Discogs.com server reports a token error."
 msgstr "Сервер Discogs.com повідомляє про помилку ключа."
 
-#: src/fetch/discogsfetcher.cpp:397
+#: src/fetch/discogsfetcher.cpp:412
 msgid "Discogs Audio Search"
 msgstr "Аудіопошук Discogs"
 
-#: src/fetch/discogsfetcher.cpp:432
+#: src/fetch/discogsfetcher.cpp:447
 msgid "User token: "
 msgstr "Ключ користувача: "
 
@@ -2976,8 +2983,8 @@ msgid "Douban Link"
 msgstr "Посилання Douban"
 
 #: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:962
-#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:429
+#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:274
+#: src/fetch/themoviedbfetcher.cpp:443
 msgid "IMDb Link"
 msgstr "Посилання IMDb"
 
@@ -3074,7 +3081,7 @@ msgstr "UPC/EAN"
 msgid "Keyword"
 msgstr "Ключові слова"
 
-#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
+#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:209
 msgid "arXiv ID"
 msgstr "Ідент. arXiv"
 
@@ -3134,14 +3141,14 @@ msgstr "Пошук у Книгах Google"
 msgid "Illustrator"
 msgstr "Ілюстратор"
 
-#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:352
-#: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:353
+#: src/fetch/srufetcher.cpp:480 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Десяткова Дьюї"
 
-#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:353
-#: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:354
+#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
 msgstr "Класифікація Бібліотеки Конгресу"
@@ -3199,9 +3206,9 @@ msgstr "Сертифікації"
 
 #: src/fetch/imdbfetcher.cpp:1661
 msgid "Download cover &image"
-msgstr "Звантажити зо&браження обкладинки"
+msgstr "Отримати зо&браження обкладинки"
 
-#: src/fetch/isbndbfetcher.cpp:234
+#: src/fetch/isbndbfetcher.cpp:235
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
@@ -3212,11 +3219,11 @@ msgstr ""
 "виконано максимальну можливу кількість пошуків на сьогодні. Крім того, ви "
 "могли помилитися під час введення ключа доступу.</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:342
+#: src/fetch/isbndbfetcher.cpp:343
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/moviemeterfetcher.cpp:217 src/fetch/moviemeterfetcher.cpp:293
+#: src/fetch/moviemeterfetcher.cpp:229 src/fetch/moviemeterfetcher.cpp:305
 msgid "MovieMeter Link"
 msgstr "Посилання MovieMeter"
 
@@ -3228,85 +3235,85 @@ msgstr "Декілька джерел"
 msgid "OpenLibrary Link"
 msgstr "Посилання OpenLibrary"
 
-#: src/fetch/srufetcher.cpp:450 z3950.cpp:2
+#: src/fetch/srufetcher.cpp:463 z3950.cpp:2
 msgid "Library of Congress (US)"
 msgstr "Бібліотека Конгресу (США)"
 
-#: src/fetch/srufetcher.cpp:455
+#: src/fetch/srufetcher.cpp:468
 msgid "SRU Server"
 msgstr "Сервер SRU"
 
-#: src/fetch/srufetcher.cpp:483 src/fetch/z3950fetcher.cpp:591
+#: src/fetch/srufetcher.cpp:496 src/fetch/z3950fetcher.cpp:591
 msgid "Hos&t: "
 msgstr "&Сервер: "
 
-#: src/fetch/srufetcher.cpp:490 src/fetch/z3950fetcher.cpp:597
+#: src/fetch/srufetcher.cpp:503 src/fetch/z3950fetcher.cpp:597
 msgid "Enter the host name of the server."
 msgstr "Введіть адресу сервера."
 
-#: src/fetch/srufetcher.cpp:495 src/fetch/z3950fetcher.cpp:602
+#: src/fetch/srufetcher.cpp:508 src/fetch/z3950fetcher.cpp:602
 msgid "&Port: "
 msgstr "&Порт: "
 
-#: src/fetch/srufetcher.cpp:500 src/fetch/z3950fetcher.cpp:607
+#: src/fetch/srufetcher.cpp:513 src/fetch/z3950fetcher.cpp:607
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Введіть номер порту сервера. Типовим значенням є %1"
 
-#: src/fetch/srufetcher.cpp:505
+#: src/fetch/srufetcher.cpp:518
 msgid "Path: "
 msgstr "Шлях: "
 
-#: src/fetch/srufetcher.cpp:510
+#: src/fetch/srufetcher.cpp:523
 msgid "Enter the path to the database used by the server."
 msgstr "Введіть шлях до бази даних, що використовується на сервері."
 
-#: src/fetch/srufetcher.cpp:515
+#: src/fetch/srufetcher.cpp:528
 msgid "Format: "
 msgstr "Формат: "
 
-#: src/fetch/srufetcher.cpp:525
+#: src/fetch/srufetcher.cpp:539
 msgid "Enter the result format used by the server."
 msgstr "Введіть остаточний формат, який використовується сервером."
 
-#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:428
+#: src/fetch/themoviedbfetcher.cpp:269 src/fetch/themoviedbfetcher.cpp:442
 msgid "TMDb Link"
 msgstr "Посилання TMDb"
 
-#: src/fetch/themoviedbfetcher.cpp:467
+#: src/fetch/themoviedbfetcher.cpp:481
 msgid "Language: "
 msgstr "Мова: "
 
-#: src/fetch/themoviedbfetcher.cpp:470
+#: src/fetch/themoviedbfetcher.cpp:484
 msgctxt "Language"
 msgid "English"
 msgstr "англійська"
 
-#: src/fetch/themoviedbfetcher.cpp:471
+#: src/fetch/themoviedbfetcher.cpp:485
 msgctxt "Language"
 msgid "French"
 msgstr "французька"
 
-#: src/fetch/themoviedbfetcher.cpp:472
+#: src/fetch/themoviedbfetcher.cpp:486
 msgctxt "Language"
 msgid "German"
 msgstr "німецька"
 
-#: src/fetch/themoviedbfetcher.cpp:473
+#: src/fetch/themoviedbfetcher.cpp:487
 msgctxt "Language"
 msgid "Spanish"
 msgstr "іспанська"
 
-#: src/fetch/themoviedbfetcher.cpp:504
+#: src/fetch/themoviedbfetcher.cpp:518
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/vndbfetcher.cpp:246 src/fetch/vndbfetcher.cpp:321
+#: src/fetch/vndbfetcher.cpp:257 src/fetch/vndbfetcher.cpp:332
 msgid "Alias"
 msgstr "Інша назва"
 
-#: src/fetch/vndbfetcher.cpp:264
+#: src/fetch/vndbfetcher.cpp:275
 msgid "Visual Novel"
 msgstr "Візуальна новела"
 
@@ -3975,53 +3982,53 @@ msgstr ""
 msgid "&Import"
 msgstr "&Імпорт"
 
-#: src/importdialog.cpp:321 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
+#: src/importdialog.cpp:322 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
 #: src/translators/tellicozipexporter.cpp:56
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|файли Tellico (*.tc, *bc)"
 
-#: src/importdialog.cpp:322 src/importdialog.cpp:337 src/importdialog.cpp:367
+#: src/importdialog.cpp:323 src/importdialog.cpp:339 src/importdialog.cpp:369
 #: src/mainwindow.cpp:1069 src/translators/tellicoxmlexporter.cpp:70
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|файли XML (*.xml)"
 
-#: src/importdialog.cpp:326 src/translators/bibtexexporter.cpp:61
+#: src/importdialog.cpp:327 src/translators/bibtexexporter.cpp:61
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "*.bib|файли Bibtex (*.bib)"
 
-#: src/importdialog.cpp:330 src/translators/csvexporter.cpp:59
+#: src/importdialog.cpp:331 src/translators/csvexporter.cpp:59
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "*.csv|файли CSV (*.csv)"
 
-#: src/importdialog.cpp:341
+#: src/importdialog.cpp:343
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "*.ris|файли RIS (*.ris)"
 
-#: src/importdialog.cpp:345 src/translators/gcstarexporter.cpp:60
+#: src/importdialog.cpp:347 src/translators/gcstarexporter.cpp:60
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|файли GCstar (*.gcs)"
 
-#: src/importdialog.cpp:346
+#: src/importdialog.cpp:348
 msgid "*.gcf|GCfilms Data Files (*.gcf)"
 msgstr "*.gcf|файли GCfilms(*.gcf)"
 
-#: src/importdialog.cpp:350
+#: src/importdialog.cpp:352
 msgid "*.amc|AMC Data Files (*.amc)"
 msgstr "*.amc|файли даних AMC (*.amc)"
 
-#: src/importdialog.cpp:354
+#: src/importdialog.cpp:356
 msgid "*.pdf|PDF Files (*.pdf)"
 msgstr "*.pdf|файли PDF (*.pdf)"
 
-#: src/importdialog.cpp:358
+#: src/importdialog.cpp:360
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "*.reflib|файли Referencer (*.reflib)"
 
-#: src/importdialog.cpp:362
+#: src/importdialog.cpp:364
 msgid "*.ciw|CIW Files (*.ciw)"
 msgstr "*.ciw|файли CIW (*.ciw)"
 
-#: src/importdialog.cpp:366
+#: src/importdialog.cpp:368
 msgid "*.vinoxml|VinoXML Data Files (*.vinoxml)"
 msgstr "*.vinoxml|файли даних VinoXML (*.vinoxml)"
 
@@ -4029,19 +4036,19 @@ msgstr "*.vinoxml|файли даних VinoXML (*.vinoxml)"
 msgid "Loan Dialog"
 msgstr "Віддати у борг"
 
-#: src/loandialog.cpp:98
+#: src/loandialog.cpp:100
 msgid "The following items are being checked out:"
 msgstr "Наступні речі будуть віддані у борг:"
 
-#: src/loandialog.cpp:104
+#: src/loandialog.cpp:106
 msgid "The following item is on-loan:"
 msgstr "Наступні речі не були повернені:"
 
-#: src/loandialog.cpp:114
+#: src/loandialog.cpp:116
 msgid "&Lend to:"
 msgstr "&Віддати у борг (кому):"
 
-#: src/loandialog.cpp:126
+#: src/loandialog.cpp:128
 msgid ""
 "Enter the name of the person borrowing the items from you. Clicking the "
 "button allows you to select from your address book."
@@ -4049,40 +4056,40 @@ msgstr ""
 "Введіть ім'я людини, якій ви хочете віддати у борг. Якщо хочете вибрати "
 "людину з вашої адресної книги, натисніть відповідну кнопку."
 
-#: src/loandialog.cpp:135
+#: src/loandialog.cpp:137
 msgid "&Loan date:"
 msgstr "&Дата дачі у борг:"
 
-#: src/loandialog.cpp:141
+#: src/loandialog.cpp:143
 msgid ""
 "The check-out date is the date that you lent the items. By default, today's "
 "date is used."
 msgstr ""
 "Дата, коли предмет був відданий у борг. Типово використовується поточна дата."
 
-#: src/loandialog.cpp:150
+#: src/loandialog.cpp:152
 msgid "D&ue date:"
 msgstr "Д&ата закінчення терміну:"
 
-#: src/loandialog.cpp:157
+#: src/loandialog.cpp:159
 msgid ""
 "The due date is when the items are due to be returned. The due date is not "
 "required, unless you want to add the loan to your active calendar."
 msgstr "Дата закінчення терміну боргу (необов'язково)"
 
-#: src/loandialog.cpp:162
+#: src/loandialog.cpp:164
 msgid "&Note:"
 msgstr "&Замітки:"
 
-#: src/loandialog.cpp:168
+#: src/loandialog.cpp:170
 msgid "You can add notes about the loan."
 msgstr "Ви можете додати деякі нотатки щодо позиченого."
 
-#: src/loandialog.cpp:172
+#: src/loandialog.cpp:174
 msgid "&Add a reminder to the active calendar"
 msgstr "Д&одати нагадування."
 
-#: src/loandialog.cpp:175
+#: src/loandialog.cpp:177
 msgid ""
 "<qt>Checking this box will add a <em>To-do</em> item to your active "
 "calendar, which can be viewed using KOrganizer. The box is only active if "
@@ -4118,8 +4125,8 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico — програма для керування збірками у KDE"
 
 #: src/main.cpp:39
-msgid "(c) 2001-2014, Robby Stephenson"
-msgstr "© Robby Stephenson, 2001–2014"
+msgid "(c) 2001-2015, Robby Stephenson"
+msgstr "© Robby Stephenson, 2001–2015"
 
 #: src/main.cpp:41
 msgid "Robby Stephenson"
@@ -4842,7 +4849,7 @@ msgstr ""
 "<h3>Tellico — це інструмент для роботи зі збірками книжок, відео, музики і "
 "будь-яких інших речей, які можна каталогізувати.</h3><h3>Ви можете додавати "
 "нові записи до вашої збірки або <a href=\"tc:///coll_new_entry\">введенням "
-"даних вручну</a>, або <a href=\"tc:///edit_search_internet\">звантаженням "
+"даних вручну</a>, або <a href=\"tc:///edit_search_internet\">отриманням "
 "даних</a> з різноманітних джерел у інтернеті.</h3>"
 
 #: src/mainwindow.cpp:994
@@ -4936,7 +4943,7 @@ msgstr "(%1 позначено)"
 #: src/mainwindow.cpp:1597 src/translators/boardgamegeekimporter.cpp:93
 #: src/translators/gcstarimporter.cpp:262
 #: src/translators/goodreadsimporter.cpp:97
-#: src/translators/xsltimporter.cpp:87
+#: src/translators/xsltimporter.cpp:92
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Відбулася помилка в XSLT"
 
@@ -5284,7 +5291,7 @@ msgstr "*.xml|файли Bibtexml (*.xml)"
 
 #: src/translators/boardgamegeekimporter.cpp:76
 #: src/translators/goodreadsimporter.cpp:75
-#: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
+#: src/translators/xsltimporter.cpp:80 src/translators/xsltimporter.cpp:86
 msgid "A valid XSLT file is needed to import the file."
 msgstr "Для імпорту потрібний правильний файл XSLT."
 
@@ -5457,27 +5464,27 @@ msgstr ""
 msgid "New Field"
 msgstr "Нове поле"
 
-#: src/translators/filelistingimporter.cpp:80
+#: src/translators/filelistingimporter.cpp:81
 msgid "Scanning files..."
 msgstr "Скануються файли…"
 
-#: src/translators/filelistingimporter.cpp:219
+#: src/translators/filelistingimporter.cpp:222
 msgid "File Listing Options"
 msgstr "Параметри побудови списків файлів"
 
-#: src/translators/filelistingimporter.cpp:222
+#: src/translators/filelistingimporter.cpp:225
 msgid "Recursive folder search"
 msgstr "Рекурсивний пошук у теках"
 
-#: src/translators/filelistingimporter.cpp:223
+#: src/translators/filelistingimporter.cpp:226
 msgid "If checked, folders are recursively searched for all files."
 msgstr "Якщо буде позначено, програма виконуватиме рекурсивний пошук у теках."
 
-#: src/translators/filelistingimporter.cpp:227
+#: src/translators/filelistingimporter.cpp:230
 msgid "Generate file previews"
 msgstr "Створювати значки файлів"
 
-#: src/translators/filelistingimporter.cpp:228
+#: src/translators/filelistingimporter.cpp:231
 msgid ""
 "If checked, previews of the file contents are generated, which can slow down "
 "the folder listing."
@@ -5605,17 +5612,17 @@ msgid ""
 msgstr ""
 "Якщо буде позначено цей пункт, зображення стискатимуться у ZIP-архів ONIX"
 
-#: src/translators/pdfimporter.cpp:110 src/translators/pdfimporter.cpp:118
+#: src/translators/pdfimporter.cpp:111 src/translators/pdfimporter.cpp:128
 msgid "Tellico was unable to read any metadata from the PDF file."
 msgstr "Tellico не вдалося прочитати метадані з файла PDF."
 
-#: src/translators/pdfimporter.cpp:256
+#: src/translators/pdfimporter.cpp:267
 msgid ""
 "Tellico is able to download information about entries with a DOI from "
 "CrossRef.org. However, you must create an CrossRef account and add a new "
 "data source with your account information."
 msgstr ""
-"Tellico може звантажувати відомості щодо записів за допомогою цифрових "
+"Tellico може отримувати відомості щодо записів за допомогою цифрових "
 "ідентифікаторів об’єктів з CrossRef.org. Але для цього вам слід створити "
 "обліковий запис CrossRef і додати нове джерело даних з вашими реєстраційними "
 "даними."
@@ -5681,15 +5688,15 @@ msgstr "Це з майбутньої версії Tellico."
 msgid "XSLT"
 msgstr "XSLT"
 
-#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:110
+#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:116
 msgid "XSLT Options"
 msgstr "Параметри XSLT"
 
-#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:113
+#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:119
 msgid "XSLT file:"
 msgstr "Файл XSLT:"
 
-#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:115
+#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:121
 msgid "Choose the XSLT file used to transform the data."
 msgstr "Виберіть файл XSLT, який використовуватиметься для перетворення даних."
 

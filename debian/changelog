@@ -1,3 +1,10 @@
+tellico (2.3.10-0ubuntu0~ppa1) trusty; urgency=medium
+
+  * Update to latest upstream
+  * Import latest changes from Ubuntu/Debian
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Wed, 18 Feb 2015 16:34:25 +0100
+
 tellico (2.3.9+dfsg.1-1ubuntu1) vivid; urgency=low
 
   * Merge from Debian unstable.  Remaining changes:
@@ -15,6 +22,25 @@ tellico (2.3.9+dfsg.1-1) unstable; urgency=low
   * Bump Stadards-Version to 3.9.6. No other change needed.
 
  -- Regis Boudin <regis@debian.org>  Sat, 18 Oct 2014 12:40:17 +0200
+
+tellico (2.3.9-0ubuntu0~ppa3) trusty; urgency=medium
+
+  * No-change rebuild to try to get newer kde libs linked in.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Fri, 15 Aug 2014 23:39:19 +0200
+
+tellico (2.3.9-0ubuntu0~ppa2) trusty; urgency=medium
+
+  * Fix overlapping package contents between -doc and -data.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 30 Jun 2014 22:26:55 +0200
+
+tellico (2.3.9-0ubuntu0~ppa1) trusty; urgency=medium
+
+  * Import latest upstream release.
+  * Merge some changes from Ubuntu package, new -doc package.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 30 Jun 2014 21:25:17 +0200
 
 tellico (2.3.8+dfsg.2-1ubuntu1) utopic; urgency=medium
 
@@ -47,6 +73,65 @@ tellico (2.3.8+dfsg.1-1) unstable; urgency=low
 
  -- Regis Boudin <regis@debian.org>  Mon, 08 Jul 2013 22:26:50 +0200
 
+tellico (2.3.8-0ubuntu0~ppa1) precise; urgency=low
+
+  * New upstream version
+  * Patch for memory leak in XSLTHandler is now applied upstream.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 14 Jul 2013 21:57:17 +0200
+
+tellico (2.3.7-0ubuntu0~ppa5) precise; urgency=low
+
+  * Add patch from KDE Bug 316449 to fix a large memory leak when 
+    fetching/updating entries from data sources.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 11 Mar 2013 19:19:21 +0100
+
+tellico (2.3.7-0ubuntu0~ppa4) precise; urgency=low
+
+  * Adjust dependencies once more so that it also
+    builds on pure Precise without newer KDE packages.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Wed, 30 Jan 2013 18:01:19 +0100
+
+tellico (2.3.7-0ubuntu0~ppa3) precise; urgency=low
+
+  * kdemultimedia is gone in >=4.9, use dependency on
+    libkcompactdisc-dev, libkcddb-dev instead to satisfy 
+    the cmake-check.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Tue, 29 Jan 2013 21:46:09 +0100
+
+tellico (2.3.7-0ubuntu0~ppa2) precise; urgency=low
+
+  * Add dependency on kdemultimedia-dev to try to add CDDB searches.
+  * Add dependency libv4l-dev for barcode scanning with a webcam.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Tue, 29 Jan 2013 07:58:14 +0100
+
+tellico (2.3.7-0ubuntu0~ppa1quantal) quantal; urgency=low
+
+  * Upload for Quantal as well.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 28 Jan 2013 22:50:32 +0100
+
+tellico (2.3.7-0ubuntu0~ppa1) precise; urgency=low
+
+  * Import latest upstream version.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 27 Jan 2013 23:10:21 +0100
+
+tellico (2.3.6-0ubuntu0~ppa1) precise; urgency=low
+
+  * Update with latest version from upstream.
+  * Merge some changes from latest ubuntu version.
+    - Set compat to 9
+    - Update build-depends to match precise-libs
+    - Update rules from Ubuntu version, keep webcam support
+  * Disable kde-patch, now integrated upstream.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 15 Jul 2012 20:50:31 +0200
+
 tellico (2.3.5+dfsg.1-4) unstable; urgency=low
 
   * Fix passing of hardening flags. Thanks Simon Ruderich. Closes: #669190.
@@ -76,6 +161,40 @@ tellico (2.3.5+dfsg.1-1) unstable; urgency=low
   * Bump Standards-Version to 3.9.3.
 
  -- Regis Boudin <regis@debian.org>  Thu, 15 Mar 2012 22:16:59 +0100
+
+tellico (2.3.5-0ubuntu0~ppa3) lucid; urgency=low
+
+  * Update with some changes from current Debian package, however keep KDE 4.4
+    compatibility for now until Precise is released.
+  * Update packages descriptions, thanks to Paul Stewart. Closes: #647154.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Sun, 18 Mar 2012 08:24:22 +0100
+
+tellico (2.3.5-0ubuntu0~ppa2) lucid; urgency=low
+
+  * Apply patch to build on version of KDE in Lucid.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Fri, 09 Mar 2012 21:26:42 +0100
+
+tellico (2.3.5-0ubuntu0~ppa1) lucid; urgency=low
+
+  * Update with latest version from upstream
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Mon, 16 Jan 2012 21:23:25 +0100
+
+tellico (2.3.4+dfsg.1-1ubuntu0~ppa2) lucid; urgency=low
+
+  * Re-upload with orig-sources.
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 29 Sep 2011 17:35:59 +0200
+
+tellico (2.3.4+dfsg.1-1ubuntu0~ppa1) lucid; urgency=low
+
+  * Backport for Lucid, remaining changes:
+    - Enable Webcam support
+    - Adjust dependencies for Lucid
+
+ -- Dominik Stadler (Ubuntu key) <dominik.stadler@gmx.at>  Thu, 29 Sep 2011 17:08:39 +0200
 
 tellico (2.3.4+dfsg.1-1) unstable; urgency=low
 

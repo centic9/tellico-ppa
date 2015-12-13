@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2015-02-15 06:07+0000\n"
-"PO-Revision-Date: 2015-01-05 23:30+0100\n"
+"POT-Creation-Date: 2015-11-10 07:01+0000\n"
+"PO-Revision-Date: 2015-02-22 13:35+0100\n"
 "Last-Translator: Olivier Delaune <olivier.delaune@wanadoo.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -293,16 +293,16 @@ msgstr "Titre"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:267 src/fetch/allocinefetcher.cpp:273
+#: src/fetch/allocinefetcher.cpp:314 src/fetch/allocinefetcher.cpp:320
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
-#: src/fetch/discogsfetcher.cpp:244 src/fetch/discogsfetcher.cpp:249
-#: src/fetch/discogsfetcher.cpp:254 src/fetch/discogsfetcher.cpp:261
+#: src/fetch/discogsfetcher.cpp:255 src/fetch/discogsfetcher.cpp:260
+#: src/fetch/discogsfetcher.cpp:265 src/fetch/discogsfetcher.cpp:272
 #: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
 #: src/fetch/imdbfetcher.cpp:963 src/fetch/imdbfetcher.cpp:1341
-#: src/fetch/moviemeterfetcher.cpp:213 src/fetch/moviemeterfetcher.cpp:218
-#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:253
-#: src/fetch/themoviedbfetcher.cpp:258 src/fetch/themoviedbfetcher.cpp:263
+#: src/fetch/moviemeterfetcher.cpp:225 src/fetch/moviemeterfetcher.cpp:230
+#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:265
+#: src/fetch/themoviedbfetcher.cpp:270 src/fetch/themoviedbfetcher.cpp:275
 #: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "Général"
@@ -397,7 +397,7 @@ msgstr "&Supprimer"
 msgid "Remove a field from the collection"
 msgstr "Supprimer un champ de la collection"
 
-#: src/collectionfieldsdialog.cpp:126
+#: src/collectionfieldsdialog.cpp:132
 msgid ""
 "Move this field up in the list. The list order is important for the layout "
 "of the entry editor."
@@ -405,7 +405,7 @@ msgstr ""
 "Déplacer ce champ vers le haut. L'ordre dans la liste est important pour le "
 "modèle de l'éditeur d'entrée."
 
-#: src/collectionfieldsdialog.cpp:130
+#: src/collectionfieldsdialog.cpp:136
 msgid ""
 "Move this field down in the list. The list order is important for the layout "
 "of the entry editor."
@@ -413,49 +413,49 @@ msgstr ""
 "Déplacer le champ vers le bas. L'ordre dans la liste est important pour le "
 "modèle de l'éditeur d'entrée."
 
-#: src/collectionfieldsdialog.cpp:140
+#: src/collectionfieldsdialog.cpp:146
 msgid "Field Properties"
 msgstr "Propriétés du champ"
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:149
+#: src/collectionfieldsdialog.cpp:155
 msgid "&Title:"
 msgstr "&Titre :"
 
-#: src/collectionfieldsdialog.cpp:154
+#: src/collectionfieldsdialog.cpp:160
 msgid "The title of the field"
 msgstr "Le titre du champ"
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:159
+#: src/collectionfieldsdialog.cpp:165
 msgid "T&ype:"
 msgstr "T&ype :"
 
-#: src/collectionfieldsdialog.cpp:165
+#: src/collectionfieldsdialog.cpp:171
 msgid "The type of the field determines what values may be used. "
 msgstr "Le type du champ détermine quelles values peuvent être utilisées. "
 
-#: src/collectionfieldsdialog.cpp:166
+#: src/collectionfieldsdialog.cpp:172
 msgid "<i>Simple Text</i> is used for most fields. "
 msgstr "<i>Texte simple</i> est utilisé pour la plupart des champs. "
 
-#: src/collectionfieldsdialog.cpp:167
+#: src/collectionfieldsdialog.cpp:173
 msgid "<i>Paragraph</i> is for large text blocks. "
 msgstr "<i>Paragraphe</i> est utilisé pour les textes longs. "
 
-#: src/collectionfieldsdialog.cpp:168
+#: src/collectionfieldsdialog.cpp:174
 msgid "<i>Choice</i> limits the field to certain values. "
 msgstr "<i>Liste</i> limite le champ à certaines valeurs. "
 
-#: src/collectionfieldsdialog.cpp:169
+#: src/collectionfieldsdialog.cpp:175
 msgid "<i>Checkbox</i> is for a simple yes/no value. "
 msgstr "<i>Case à cocher</i> est une simple valeur oui/non. "
 
-#: src/collectionfieldsdialog.cpp:170
+#: src/collectionfieldsdialog.cpp:176
 msgid "<i>Number</i> indicates that the field contains a numerical value. "
 msgstr "<i>Nombre</i> indiqué que le champ contient une valeur numérique. "
 
-#: src/collectionfieldsdialog.cpp:171
+#: src/collectionfieldsdialog.cpp:177
 msgid ""
 "<i>URL</i> is for fields which refer to URLs, including references to other "
 "files. "
@@ -463,41 +463,41 @@ msgstr ""
 "<i>URL</i> est pour les champs faisant référence à une URL, contenant des "
 "références à d'autres fichiers. "
 
-#: src/collectionfieldsdialog.cpp:172
+#: src/collectionfieldsdialog.cpp:178
 msgid "A <i>Table</i> may hold one or more columns of values. "
 msgstr "<i>Tableau</i> peut contenir une ou plusieurs colonne(s) de valeurs. "
 
-#: src/collectionfieldsdialog.cpp:173
+#: src/collectionfieldsdialog.cpp:179
 msgid "An <i>Image</i> field holds a picture. "
 msgstr "Un champ <i>Image</i> contient une image. "
 
-#: src/collectionfieldsdialog.cpp:174
+#: src/collectionfieldsdialog.cpp:180
 msgid ""
 "A <i>Date</i> field can be used for values with a day, month, and year. "
 msgstr ""
 "Un champ <i>Date</i> peut être utilisé pour des valeurs avec jour, mois et "
 "année. "
 
-#: src/collectionfieldsdialog.cpp:175
+#: src/collectionfieldsdialog.cpp:181
 msgid "A <i>Rating</i> field uses stars to show a rating number. "
 msgstr ""
 "Un champ <i>Note</i> utilise des étoiles pour afficher une note donnée. "
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:184
+#: src/collectionfieldsdialog.cpp:190
 msgid "Cate&gory:"
 msgstr "Caté&gorie :"
 
-#: src/collectionfieldsdialog.cpp:189
+#: src/collectionfieldsdialog.cpp:195
 msgid "The field category determines where the field is placed in the editor."
 msgstr "La catégorie du champ détermine la position du champ dans l'éditeur."
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:206
+#: src/collectionfieldsdialog.cpp:212
 msgid "Set &properties..."
 msgstr "Régler les &propriétés..."
 
-#: src/collectionfieldsdialog.cpp:210
+#: src/collectionfieldsdialog.cpp:216
 msgid ""
 "Extended field properties are used to specify things such as the "
 "corresponding bibtex field."
@@ -506,11 +506,11 @@ msgstr ""
 "le champ BibTeX correspondant."
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:215
+#: src/collectionfieldsdialog.cpp:221
 msgid "Description:"
 msgstr "Description :"
 
-#: src/collectionfieldsdialog.cpp:222
+#: src/collectionfieldsdialog.cpp:228
 msgid ""
 "The description is a useful reminder of what information is contained in the "
 "field."
@@ -518,24 +518,24 @@ msgstr ""
 "La description est un rappel utile du type d'information contenue dans le "
 "champ."
 
-#: src/collectionfieldsdialog.cpp:227
+#: src/collectionfieldsdialog.cpp:233
 msgid "Value Options"
 msgstr "Options de la valeur"
 
-#: src/collectionfieldsdialog.cpp:231
+#: src/collectionfieldsdialog.cpp:237
 msgid "&Default value:"
 msgstr "Valeur par &défaut"
 
-#: src/collectionfieldsdialog.cpp:236
+#: src/collectionfieldsdialog.cpp:248
 msgid "<qt>A default value can be set for new entries.</qt>"
 msgstr ""
 "<qt>Une valeur par défaut peut être appliquée aux nouvelles entrées.</qt>"
 
-#: src/collectionfieldsdialog.cpp:241
+#: src/collectionfieldsdialog.cpp:253
 msgid "Value template:"
 msgstr "Modèle de valeur :"
 
-#: src/collectionfieldsdialog.cpp:249
+#: src/collectionfieldsdialog.cpp:261
 msgid ""
 "Derived values are formed from the values of other fields according to the "
 "value template. Named fields, such as \"%{year} %{title}\", get substituted "
@@ -545,17 +545,17 @@ msgstr ""
 "selon le modèle de la valeur. Les champs nommés, comme « %{year} %{title}, "
 "sont substitués dans la valeur."
 
-#: src/collectionfieldsdialog.cpp:255
+#: src/collectionfieldsdialog.cpp:267
 msgid "Use derived value"
 msgstr "Utiliser la valeur dérivée"
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:261
+#: src/collectionfieldsdialog.cpp:273
 msgid "A&llowed values:"
 msgstr "Va&leurs autorisées :"
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:266
+#: src/collectionfieldsdialog.cpp:278
 msgid ""
 "<qt>For <i>Choice</i>-type fields, these are the only values allowed. They "
 "are placed in a combo box. The possible values have to be separated by a "
@@ -566,35 +566,35 @@ msgstr ""
 "possibles doivent être séparées par un point-virgule, par exemple : "
 "« chien ; chat ; souris » </qt>"
 
-#: src/collectionfieldsdialog.cpp:273
+#: src/collectionfieldsdialog.cpp:285
 msgid "Format options:"
 msgstr "Options de mise en forme :"
 
-#: src/collectionfieldsdialog.cpp:279
+#: src/collectionfieldsdialog.cpp:291
 msgid "No formatting"
 msgstr "Pas de mise en forme"
 
-#: src/collectionfieldsdialog.cpp:280
+#: src/collectionfieldsdialog.cpp:292
 msgid "Allow auto-capitalization only"
 msgstr "Autoriser la mise en majuscule automatique seulement"
 
-#: src/collectionfieldsdialog.cpp:281
+#: src/collectionfieldsdialog.cpp:293
 msgid "Format as a title"
 msgstr "Mise en forme comme un titre"
 
-#: src/collectionfieldsdialog.cpp:282
+#: src/collectionfieldsdialog.cpp:294
 msgid "Format as a name"
 msgstr "Mise en forme comme un nom"
 
-#: src/collectionfieldsdialog.cpp:285
+#: src/collectionfieldsdialog.cpp:297
 msgid "Field Options"
 msgstr "Options des champs"
 
-#: src/collectionfieldsdialog.cpp:287
+#: src/collectionfieldsdialog.cpp:299
 msgid "Enable auto-completion"
 msgstr "Activer l'auto-complètement"
 
-#: src/collectionfieldsdialog.cpp:288
+#: src/collectionfieldsdialog.cpp:300
 msgid ""
 "If checked, KDE auto-completion will be enabled in the text edit box for "
 "this field."
@@ -602,11 +602,11 @@ msgstr ""
 "Si cochée, l'auto-complètement de KDE sera active dans la zone de saisie "
 "pour ce champ."
 
-#: src/collectionfieldsdialog.cpp:290
+#: src/collectionfieldsdialog.cpp:302
 msgid "Allow multiple values"
 msgstr "Autoriser des valeurs multiples"
 
-#: src/collectionfieldsdialog.cpp:291
+#: src/collectionfieldsdialog.cpp:303
 msgid ""
 "If checked, Tellico will parse the values in the field for multiple values, "
 "separated by a semi-colon."
@@ -614,27 +614,27 @@ msgstr ""
 "Si cochée, Tellico séparera les valeurs du champ en multiples valeurs "
 "séparées par un point-virgule."
 
-#: src/collectionfieldsdialog.cpp:293
+#: src/collectionfieldsdialog.cpp:305
 msgid "Allow grouping"
 msgstr "Autoriser le regroupement"
 
-#: src/collectionfieldsdialog.cpp:294
+#: src/collectionfieldsdialog.cpp:306
 msgid ""
 "If checked, this field may be used to group the entries in the group view."
 msgstr ""
 "Si cochée, ce champ sera utilisé pour regrouper les entrées dans la vue par "
 "groupe."
 
-#: src/collectionfieldsdialog.cpp:310
+#: src/collectionfieldsdialog.cpp:322
 msgid "Revert the selected field's properties to the default values."
 msgstr "Revenir aux valeurs par défaut pour les champs sélectionnés."
 
-#: src/collectionfieldsdialog.cpp:363
+#: src/collectionfieldsdialog.cpp:375
 msgid "Modify Fields"
 msgstr "Modifier les champs"
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:376
+#: src/collectionfieldsdialog.cpp:388
 #, kde-format
 msgid ""
 "<qt>Removing allowed values from the <i>%1</i> field which currently exist "
@@ -645,21 +645,21 @@ msgstr ""
 "collection peut causer des corruptions de données. Voulez-vous utiliser les "
 "valeurs modifiées ou annuler et revenir aux valeurs précédentes ?</qt>"
 
-#: src/collectionfieldsdialog.cpp:381
+#: src/collectionfieldsdialog.cpp:393
 msgid "Keep modified values"
 msgstr "Conserver les valeurs modifiées"
 
-#: src/collectionfieldsdialog.cpp:479 src/collectionfieldsdialog.cpp:482
+#: src/collectionfieldsdialog.cpp:491 src/collectionfieldsdialog.cpp:494
 #, kde-format
 msgid "New Field %1"
 msgstr "Nouveau champ %1"
 
-#: src/collectionfieldsdialog.cpp:768
+#: src/collectionfieldsdialog.cpp:780
 msgid "Revert Field Properties"
 msgstr "Revenir aux propriétés du champ par défaut"
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:769
+#: src/collectionfieldsdialog.cpp:781
 #, kde-format
 msgid ""
 "<qt><p>Do you really want to revert the properties for the <em>%1</em> field "
@@ -668,34 +668,34 @@ msgstr ""
 "<qt><p>Voulez-vous vraiment revenir aux propriétés par défaut pour le champ "
 "<em>%1</em> ?</p></qt>"
 
-#: src/collectionfieldsdialog.cpp:772
+#: src/collectionfieldsdialog.cpp:784
 msgid "Revert"
 msgstr "Revenir"
 
-#: src/collectionfieldsdialog.cpp:840
+#: src/collectionfieldsdialog.cpp:852
 msgid "Extended Field Properties"
 msgstr "Propriétés étendues du champ"
 
-#: src/collectionfieldsdialog.cpp:841 src/collections/filecatalog.cpp:107
+#: src/collectionfieldsdialog.cpp:853 src/collections/filecatalog.cpp:107
 msgid "Property"
 msgstr "Propriété"
 
-#: src/collectionfieldsdialog.cpp:841 src/collections/filecatalog.cpp:108
+#: src/collectionfieldsdialog.cpp:853 src/collections/filecatalog.cpp:108
 msgid "Value"
 msgstr "Valeur"
 
-#: src/collectionfieldsdialog.cpp:873
+#: src/collectionfieldsdialog.cpp:885
 msgid "A field with this title already exists. Please enter a different title."
 msgstr "Un champ avec ce nom existe déjà. Veuillez saisir un autre nom."
 
 # unreviewed-context
-#: src/collectionfieldsdialog.cpp:880
+#: src/collectionfieldsdialog.cpp:892
 msgid "<qt>The category may not be empty. Please enter a category.</qt>"
 msgstr ""
 "<qt><p>Voulez-vous vraiment revenir aux propriétés par défaut pour le champ "
 "<em>%1</em> ?</p></qt>"
 
-#: src/collectionfieldsdialog.cpp:888
+#: src/collectionfieldsdialog.cpp:900
 msgid ""
 "<qt>A field may not be in the same category as a <em>Paragraph</em>, "
 "<em>Table</em> or <em>Image</em> field. Please enter a different category.</"
@@ -705,7 +705,7 @@ msgstr ""
 "em>, un <em>tableau</em> ou une <em>image</em>. Veuillez choisir une autre "
 "catégorie.</qt>"
 
-#: src/collectionfieldsdialog.cpp:896
+#: src/collectionfieldsdialog.cpp:908
 msgid ""
 "A field's title may not be the same as an existing category. Please enter a "
 "different title."
@@ -713,7 +713,7 @@ msgstr ""
 "Le nom d'un champ ne doit pas être le même que celui d'une catégorie "
 "existante. Veuillez saisir un autre nom."
 
-#: src/collectionfieldsdialog.cpp:908
+#: src/collectionfieldsdialog.cpp:920
 msgid ""
 "The range for a rating field must be between 1 and 10, and the lower bound "
 "must be less than the higher bound. Please enter different low and high "
@@ -724,11 +724,11 @@ msgstr ""
 "de la limite supérieure. Veuillez saisir des valeurs différentes pour les "
 "bornes supérieures et inférieures."
 
-#: src/collectionfieldsdialog.cpp:923
+#: src/collectionfieldsdialog.cpp:935
 msgid "Tables are limited to a maximum of ten columns."
 msgstr "Les tableaux sont limités à un nombre maximum de dix colonnes."
 
-#: src/collectionfieldsdialog.cpp:929
+#: src/collectionfieldsdialog.cpp:941
 msgid "A field with a derived value must have a value template."
 msgstr "Un champ avec une valeur dérivée doit avoir une valeur de modèle."
 
@@ -736,7 +736,7 @@ msgstr "Un champ avec une valeur dérivée doit avoir une valeur de modèle."
 #: src/collections/bookcollection.cpp:32
 #: src/collections/comicbookcollection.cpp:31
 #: src/fetch/citebasefetcher.cpp:155 src/translators/grs1importer.cpp:71
-#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:200
+#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:210
 msgid "Publishing"
 msgstr "Publication"
 
@@ -783,7 +783,7 @@ msgid "Publisher"
 msgstr "Maison d'édition"
 
 #: src/collections/bibtexcollection.cpp:139
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:465
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:478
 #: src/fetch/z3950fetcher.cpp:565
 msgid "Address"
 msgstr "Adresse"
@@ -877,7 +877,7 @@ msgid "URL"
 msgstr "URL"
 
 #: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:469
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:466
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:479
 #: src/fetch/z3950fetcher.cpp:566
 msgid "Abstract"
 msgstr "Résumé"
@@ -1100,7 +1100,7 @@ msgstr "Lu"
 
 #: src/collections/bookcollection.cpp:182
 #: src/collections/comicbookcollection.cpp:158 src/fetch/arxivfetcher.cpp:204
-#: src/fetch/crossreffetcher.cpp:195 src/translators/pdfimporter.cpp:229
+#: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:240
 #: src/translators/referencerimporter.cpp:62
 msgid "Front Cover"
 msgstr "Couverture"
@@ -1408,7 +1408,7 @@ msgstr "Ma musique"
 msgid "Album"
 msgstr "Album"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:344
 #: src/translators/freedbimporter.cpp:264
 #: src/translators/freedbimporter.cpp:378
 #: src/translators/freedbimporter.cpp:444
@@ -1417,14 +1417,15 @@ msgstr "Compact Disc"
 
 #: src/collections/musiccollection.cpp:54
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:877
+#: src/fetch/discogsfetcher.cpp:352
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:349
 msgid "Cassette"
 msgstr "Cassette"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:347
 msgid "Vinyl"
 msgstr "Vinyle"
 
@@ -1467,7 +1468,7 @@ msgid "Issue Year"
 msgstr "Année"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:379
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:398
 #: src/fetch/imdbfetcher.cpp:1453
 msgid "Color"
 msgstr "Couleur"
@@ -1587,8 +1588,8 @@ msgstr "Région 8"
 msgid "Region"
 msgstr "Région"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:253
-#: src/fetch/discogsfetcher.cpp:407
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:264
+#: src/fetch/discogsfetcher.cpp:422
 msgid "Nationality"
 msgstr "Nationalité"
 
@@ -1630,8 +1631,8 @@ msgstr "Un tableau pour la distribution du film, avec le rôle joué"
 msgid "Director"
 msgstr "Réalisateur"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:260
-#: src/fetch/discogsfetcher.cpp:406
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:271
+#: src/fetch/discogsfetcher.cpp:421
 msgid "Producer"
 msgstr "Producteur"
 
@@ -1752,11 +1753,11 @@ msgstr "Prêter l'article %1"
 msgid "Append Collection"
 msgstr "Ajouter la collection"
 
-#: src/commands/collectioncommand.cpp:53
+#: src/commands/collectioncommand.cpp:54
 msgid "Merge Collection"
 msgstr "Fusionner la collection"
 
-#: src/commands/collectioncommand.cpp:55
+#: src/commands/collectioncommand.cpp:57
 msgid "Replace Collection"
 msgstr "Remplacer la collection"
 
@@ -1765,12 +1766,12 @@ msgstr "Remplacer la collection"
 msgid "Add %1 Field"
 msgstr "Ajouter le champ %1"
 
-#: src/commands/fieldcommand.cpp:61
+#: src/commands/fieldcommand.cpp:62
 #, kde-format
 msgid "Modify %1 Field"
 msgstr "Modifier le champ %1"
 
-#: src/commands/fieldcommand.cpp:63
+#: src/commands/fieldcommand.cpp:65
 #, kde-format
 msgid "Delete %1 Field"
 msgstr "Supprimer le champ %1"
@@ -1779,12 +1780,12 @@ msgstr "Supprimer le champ %1"
 msgid "Add Filter"
 msgstr "Ajouter un filtre"
 
-#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:394
+#: src/commands/filtercommand.cpp:59 src/filterdialog.cpp:394
 #: src/filterview.cpp:133
 msgid "Modify Filter"
 msgstr "Modifier le filtre"
 
-#: src/commands/filtercommand.cpp:60 src/filterview.cpp:135
+#: src/commands/filtercommand.cpp:62 src/filterview.cpp:135
 msgid "Delete Filter"
 msgstr "Supprimer le filtre"
 
@@ -2204,7 +2205,7 @@ msgid "Click to download additional data sources."
 msgstr "Cliquer pour télécharger des sources de données supplémentaires."
 
 #: src/configdialog.cpp:1135 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:118
+#: src/translators/xsltimporter.cpp:124
 msgid "*.xsl|XSL Files (*.xsl)"
 msgstr "*.xsl|Fichiers XSL (*.xsl)"
 
@@ -2212,7 +2213,7 @@ msgstr "*.xsl|Fichiers XSL (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|Paquets de modèle (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:381 src/mainwindow.cpp:1071
+#: src/configdialog.cpp:1137 src/importdialog.cpp:382 src/mainwindow.cpp:1071
 #: src/mainwindow.cpp:1236 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
@@ -2221,7 +2222,7 @@ msgstr "*.tar.gz *.tgz|Paquets de modèle (*.tar.gz)"
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/tellicozipexporter.cpp:56
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:118
+#: src/translators/xsltimporter.cpp:124
 msgid "*|All Files"
 msgstr "*|Tous les fichiers"
 
@@ -2719,26 +2720,34 @@ msgstr "Encoder dans la locale de l'utilisateur (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Encoder le fichier exporté au format local."
 
-#: src/fetch/allocinefetcher.cpp:272 src/fetch/allocinefetcher.cpp:495
+#: src/fetch/allocinefetcher.cpp:230 src/fetch/amazonfetcher.cpp:762
+#: src/fetch/discogsfetcher.cpp:195 src/fetch/freebasefetcher.cpp:245
+#: src/fetch/googlebookfetcher.cpp:203 src/fetch/moviemeterfetcher.cpp:170
+#: src/fetch/themoviedbfetcher.cpp:210 src/fetch/vndbfetcher.cpp:169
+#: src/fetch/yahoofetcher.cpp:240
+msgid "The cover image could not be loaded."
+msgstr "La couverture n'a pas pu être chargée."
+
+#: src/fetch/allocinefetcher.cpp:319 src/fetch/allocinefetcher.cpp:514
 msgid "Allocine Link"
 msgstr "Lien Allociné"
 
-#: src/fetch/allocinefetcher.cpp:277 src/fetch/allocinefetcher.cpp:494
+#: src/fetch/allocinefetcher.cpp:324 src/fetch/allocinefetcher.cpp:513
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
-#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
-#: src/fetch/themoviedbfetcher.cpp:431 src/fetch/vndbfetcher.cpp:241
-#: src/fetch/vndbfetcher.cpp:320
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:284
+#: src/fetch/themoviedbfetcher.cpp:445 src/fetch/vndbfetcher.cpp:252
+#: src/fetch/vndbfetcher.cpp:331
 msgid "Original Title"
 msgstr "Titre original"
 
 # unreviewed-context
-#: src/fetch/allocinefetcher.cpp:405 src/fetch/imdbfetcher.cpp:1651
+#: src/fetch/allocinefetcher.cpp:424 src/fetch/imdbfetcher.cpp:1651
 msgid "&Maximum cast: "
 msgstr "Nombre &maximal d'acteur : "
 
-#: src/fetch/allocinefetcher.cpp:410 src/fetch/imdbfetcher.cpp:1656
+#: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1656
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2809,26 +2818,21 @@ msgstr ""
 "données."
 
 # unreviewed-context
-#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:281
+#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:282
 #: src/fetch/winecomfetcher.cpp:230
 #, kde-format
 msgid "Results from %1: %2/%3"
 msgstr "Résultats de %1 : %2/%3"
-
-#: src/fetch/amazonfetcher.cpp:762 src/fetch/freebasefetcher.cpp:245
-#: src/fetch/googlebookfetcher.cpp:203 src/fetch/yahoofetcher.cpp:240
-msgid "The cover image could not be loaded."
-msgstr "La couverture n'a pas pu être chargée."
 
 #: src/fetch/amazonfetcher.cpp:904
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
-#: src/fetch/crossreffetcher.cpp:311 src/fetch/discogsfetcher.cpp:419
+#: src/fetch/crossreffetcher.cpp:316 src/fetch/discogsfetcher.cpp:434
 #: src/fetch/doubanfetcher.cpp:226 src/fetch/freebasefetcher.cpp:954
 #: src/fetch/giantbombfetcher.cpp:206 src/fetch/googlebookfetcher.cpp:387
-#: src/fetch/isbndbfetcher.cpp:364 src/fetch/themoviedbfetcher.cpp:443
+#: src/fetch/isbndbfetcher.cpp:365 src/fetch/themoviedbfetcher.cpp:457
 #: src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
@@ -2843,7 +2847,7 @@ msgstr ""
 # unreviewed-context
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:377 src/fetch/themoviedbfetcher.cpp:456
+#: src/fetch/isbndbfetcher.cpp:378 src/fetch/themoviedbfetcher.cpp:470
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "Clé d'accès :"
@@ -2945,8 +2949,8 @@ msgstr ""
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
 #: src/fetch/imdbfetcher.cpp:1033 src/fetch/imdbfetcher.cpp:1614
-#: src/fetch/moviemeterfetcher.cpp:222 src/fetch/moviemeterfetcher.cpp:294
-#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:430
+#: src/fetch/moviemeterfetcher.cpp:234 src/fetch/moviemeterfetcher.cpp:306
+#: src/fetch/themoviedbfetcher.cpp:279 src/fetch/themoviedbfetcher.cpp:444
 msgid "Alternative Titles"
 msgstr "Titres alternatifs"
 
@@ -2972,17 +2976,17 @@ msgstr "Note AnimeNfo"
 #: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
 #: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
 #: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
-#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:313
 #: src/fetch/mrlookupfetcher.cpp:220 src/fetch/musicbrainzfetcher.cpp:337
 #: src/fetch/openlibraryfetcher.cpp:429 src/fetch/springerfetcher.cpp:179
-#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:328
+#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:339
 #: src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "Cette source n'a pas d'option."
 
 #: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
 #: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:406
-#: src/fetch/isbndbfetcher.cpp:383 src/fetch/themoviedbfetcher.cpp:462
+#: src/fetch/isbndbfetcher.cpp:384 src/fetch/themoviedbfetcher.cpp:476
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -3002,73 +3006,65 @@ msgstr "Options de source"
 msgid "Available Fields"
 msgstr "Champs disponibles"
 
-#: src/fetch/crossreffetcher.cpp:91
+#: src/fetch/crossreffetcher.cpp:91 src/fetch/crossreffetcher.cpp:92
 #, kde-format
 msgid "%1 requires a username and password."
 msgstr "%1 nécessite un nom d'utilisateur et un mot de passe."
 
 # unreviewed-context
-#: src/fetch/crossreffetcher.cpp:323
+#: src/fetch/crossreffetcher.cpp:328
 msgid "&Username: "
 msgstr "Nom d'&utilisateur : "
 
-#: src/fetch/crossreffetcher.cpp:328
+#: src/fetch/crossreffetcher.cpp:333
 msgid "A username and password is required to access the CrossRef service."
 msgstr ""
 "Un nom d'utilisateur et un mot de passe sont nécessaires pour l'utilisation "
 "du service CrossRef."
 
 # unreviewed-context
-#: src/fetch/crossreffetcher.cpp:333
+#: src/fetch/crossreffetcher.cpp:338
 msgid "&Password: "
 msgstr "Mot de &passe : "
 
-#: src/fetch/crossreffetcher.cpp:343
+#: src/fetch/crossreffetcher.cpp:348
 msgid "For some accounts, only an email address is required."
 msgstr ""
 "Pour certains comptes, seulement une adresse de courrier électronique est "
 "requise."
 
-#: src/fetch/crossreffetcher.cpp:346
+#: src/fetch/crossreffetcher.cpp:351
 msgid "Email: "
 msgstr "Courriel :"
 
-#: src/fetch/discogsfetcher.cpp:96
-#, fuzzy
-#| msgid ""
-#| "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
-#| "Key."
+#: src/fetch/discogsfetcher.cpp:97
 msgid "Access to data from Discogs.com requires a personal token."
-msgstr ""
-"L'accès aux données d'Amazon.com nécessite un ID de clé d'accès AWS et une "
-"clé secrète."
+msgstr "L'accès aux données de Discogs.com nécessite un identifiant personnel."
 
-#: src/fetch/discogsfetcher.cpp:248 src/fetch/discogsfetcher.cpp:408
+#: src/fetch/discogsfetcher.cpp:259 src/fetch/discogsfetcher.cpp:423
 msgid "Discogs Link"
 msgstr "Liens Discogs"
 
-#: src/fetch/discogsfetcher.cpp:271
+#: src/fetch/discogsfetcher.cpp:282
 msgid "The Discogs.com server reports a token error."
-msgstr ""
+msgstr "Le serveur de Discogs.com indique une erreur d'authentification."
 
-#: src/fetch/discogsfetcher.cpp:397
+#: src/fetch/discogsfetcher.cpp:412
 msgid "Discogs Audio Search"
 msgstr "Recherche audio Discogs"
 
 # unreviewed-context
-#: src/fetch/discogsfetcher.cpp:432
-#, fuzzy
-#| msgid "&User: "
+#: src/fetch/discogsfetcher.cpp:447
 msgid "User token: "
-msgstr "&Utilisateur : "
+msgstr "Identifiant de l'utilisateur : "
 
 #: src/fetch/doubanfetcher.cpp:214
 msgid "Douban Link"
 msgstr "Lien Douban"
 
 #: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:962
-#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:429
+#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:274
+#: src/fetch/themoviedbfetcher.cpp:443
 msgid "IMDb Link"
 msgstr "Lien IMDb"
 
@@ -3176,7 +3172,7 @@ msgstr "UPC/EAN"
 msgid "Keyword"
 msgstr "Mot-clé"
 
-#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
+#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:209
 msgid "arXiv ID"
 msgstr "ID arXiv"
 
@@ -3239,14 +3235,14 @@ msgstr "Recherche Google Book"
 msgid "Illustrator"
 msgstr "Illustrateur"
 
-#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:352
-#: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:353
+#: src/fetch/srufetcher.cpp:480 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Classification décimale de Dewey"
 
-#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:353
-#: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:354
+#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
 msgstr "Classification LoC"
@@ -3307,7 +3303,7 @@ msgstr "Certifications"
 msgid "Download cover &image"
 msgstr "Télécharger la c&ouverture"
 
-#: src/fetch/isbndbfetcher.cpp:234
+#: src/fetch/isbndbfetcher.cpp:235
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
@@ -3317,11 +3313,11 @@ msgstr ""
 "b></p>Vous avez peut être atteint le nombre maximum de recherches "
 "quotidiennes avec cette clé, ou vous avez mal saisi la clé.</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:342
+#: src/fetch/isbndbfetcher.cpp:343
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/moviemeterfetcher.cpp:217 src/fetch/moviemeterfetcher.cpp:293
+#: src/fetch/moviemeterfetcher.cpp:229 src/fetch/moviemeterfetcher.cpp:305
 msgid "MovieMeter Link"
 msgstr "Lien MovieMeter"
 
@@ -3333,85 +3329,85 @@ msgstr "Plusieurs sources"
 msgid "OpenLibrary Link"
 msgstr "Lien OpenLibrary"
 
-#: src/fetch/srufetcher.cpp:450 z3950.cpp:2
+#: src/fetch/srufetcher.cpp:463 z3950.cpp:2
 msgid "Library of Congress (US)"
 msgstr "Bibliothèque du Congres (US)"
 
-#: src/fetch/srufetcher.cpp:455
+#: src/fetch/srufetcher.cpp:468
 msgid "SRU Server"
 msgstr "Serveur SRU"
 
-#: src/fetch/srufetcher.cpp:483 src/fetch/z3950fetcher.cpp:591
+#: src/fetch/srufetcher.cpp:496 src/fetch/z3950fetcher.cpp:591
 msgid "Hos&t: "
 msgstr "Hô&te : "
 
-#: src/fetch/srufetcher.cpp:490 src/fetch/z3950fetcher.cpp:597
+#: src/fetch/srufetcher.cpp:503 src/fetch/z3950fetcher.cpp:597
 msgid "Enter the host name of the server."
 msgstr "Saisissez le nom du serveur."
 
-#: src/fetch/srufetcher.cpp:495 src/fetch/z3950fetcher.cpp:602
+#: src/fetch/srufetcher.cpp:508 src/fetch/z3950fetcher.cpp:602
 msgid "&Port: "
 msgstr "&Port : "
 
-#: src/fetch/srufetcher.cpp:500 src/fetch/z3950fetcher.cpp:607
+#: src/fetch/srufetcher.cpp:513 src/fetch/z3950fetcher.cpp:607
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Saisissez le numéro de port du serveur. Le défaut est %1."
 
-#: src/fetch/srufetcher.cpp:505
+#: src/fetch/srufetcher.cpp:518
 msgid "Path: "
 msgstr "Emplacement :"
 
-#: src/fetch/srufetcher.cpp:510
+#: src/fetch/srufetcher.cpp:523
 msgid "Enter the path to the database used by the server."
 msgstr "Saisissez l'emplacement de la base de données utilisée par le serveur."
 
-#: src/fetch/srufetcher.cpp:515
+#: src/fetch/srufetcher.cpp:528
 msgid "Format: "
 msgstr "Format :"
 
-#: src/fetch/srufetcher.cpp:525
+#: src/fetch/srufetcher.cpp:539
 msgid "Enter the result format used by the server."
 msgstr "Saisissez le format de résultat utilisé par le serveur."
 
-#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:428
+#: src/fetch/themoviedbfetcher.cpp:269 src/fetch/themoviedbfetcher.cpp:442
 msgid "TMDb Link"
 msgstr "Lien IMDb"
 
-#: src/fetch/themoviedbfetcher.cpp:467
+#: src/fetch/themoviedbfetcher.cpp:481
 msgid "Language: "
 msgstr "Langue :"
 
-#: src/fetch/themoviedbfetcher.cpp:470
+#: src/fetch/themoviedbfetcher.cpp:484
 msgctxt "Language"
 msgid "English"
 msgstr "anglais"
 
-#: src/fetch/themoviedbfetcher.cpp:471
+#: src/fetch/themoviedbfetcher.cpp:485
 msgctxt "Language"
 msgid "French"
 msgstr "français"
 
-#: src/fetch/themoviedbfetcher.cpp:472
+#: src/fetch/themoviedbfetcher.cpp:486
 msgctxt "Language"
 msgid "German"
 msgstr "allemand"
 
-#: src/fetch/themoviedbfetcher.cpp:473
+#: src/fetch/themoviedbfetcher.cpp:487
 msgctxt "Language"
 msgid "Spanish"
 msgstr "espagnol"
 
-#: src/fetch/themoviedbfetcher.cpp:504
+#: src/fetch/themoviedbfetcher.cpp:518
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/vndbfetcher.cpp:246 src/fetch/vndbfetcher.cpp:321
+#: src/fetch/vndbfetcher.cpp:257 src/fetch/vndbfetcher.cpp:332
 msgid "Alias"
 msgstr "Alias"
 
-#: src/fetch/vndbfetcher.cpp:264
+#: src/fetch/vndbfetcher.cpp:275
 msgid "Visual Novel"
 msgstr "Visual Novel"
 
@@ -4089,53 +4085,53 @@ msgstr ""
 msgid "&Import"
 msgstr "&Importer"
 
-#: src/importdialog.cpp:321 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
+#: src/importdialog.cpp:322 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
 #: src/translators/tellicozipexporter.cpp:56
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Fichiers Tellico (*.tc)"
 
-#: src/importdialog.cpp:322 src/importdialog.cpp:337 src/importdialog.cpp:367
+#: src/importdialog.cpp:323 src/importdialog.cpp:339 src/importdialog.cpp:369
 #: src/mainwindow.cpp:1069 src/translators/tellicoxmlexporter.cpp:70
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|Fichiers XML (*.xml)"
 
-#: src/importdialog.cpp:326 src/translators/bibtexexporter.cpp:61
+#: src/importdialog.cpp:327 src/translators/bibtexexporter.cpp:61
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "*.bib|Fichiers BibTeX (*.bib)"
 
-#: src/importdialog.cpp:330 src/translators/csvexporter.cpp:59
+#: src/importdialog.cpp:331 src/translators/csvexporter.cpp:59
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "*.csv|Fichiers CSV (*.csv)"
 
-#: src/importdialog.cpp:341
+#: src/importdialog.cpp:343
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "*.ris|Fichiers RIS (*.ris)"
 
-#: src/importdialog.cpp:345 src/translators/gcstarexporter.cpp:60
+#: src/importdialog.cpp:347 src/translators/gcstarexporter.cpp:60
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|Fichiers de données GCstar (*.gcs)"
 
-#: src/importdialog.cpp:346
+#: src/importdialog.cpp:348
 msgid "*.gcf|GCfilms Data Files (*.gcf)"
 msgstr "*.gcf|Fichiers de données GCFilms (*.gcf)"
 
-#: src/importdialog.cpp:350
+#: src/importdialog.cpp:352
 msgid "*.amc|AMC Data Files (*.amc)"
 msgstr "*.amc|Fichiers de données AMC (*.amc)"
 
-#: src/importdialog.cpp:354
+#: src/importdialog.cpp:356
 msgid "*.pdf|PDF Files (*.pdf)"
 msgstr "*.pdf|Fichiers PDF (*.pdf)"
 
-#: src/importdialog.cpp:358
+#: src/importdialog.cpp:360
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "*.reflib|Fichiers Referencer (*.reflib)"
 
-#: src/importdialog.cpp:362
+#: src/importdialog.cpp:364
 msgid "*.ciw|CIW Files (*.ciw)"
 msgstr "*.ciw|Fichiers CIW (*.ciw)"
 
-#: src/importdialog.cpp:366
+#: src/importdialog.cpp:368
 msgid "*.vinoxml|VinoXML Data Files (*.vinoxml)"
 msgstr "*.vinoxml|Fichiers VinoXML (*.vinoxml)"
 
@@ -4143,20 +4139,20 @@ msgstr "*.vinoxml|Fichiers VinoXML (*.vinoxml)"
 msgid "Loan Dialog"
 msgstr "Fenêtre des prêts"
 
-#: src/loandialog.cpp:98
+#: src/loandialog.cpp:100
 msgid "The following items are being checked out:"
 msgstr "La vérification des articles suivants est en cours :"
 
-#: src/loandialog.cpp:104
+#: src/loandialog.cpp:106
 msgid "The following item is on-loan:"
 msgstr "L'objet suivant est emprunté :"
 
 # unreviewed-context
-#: src/loandialog.cpp:114
+#: src/loandialog.cpp:116
 msgid "&Lend to:"
 msgstr "&Prêter à :"
 
-#: src/loandialog.cpp:126
+#: src/loandialog.cpp:128
 msgid ""
 "Enter the name of the person borrowing the items from you. Clicking the "
 "button allows you to select from your address book."
@@ -4165,11 +4161,11 @@ msgstr ""
 "possibilité de choisir un nom dans votre carnet d'adresses."
 
 # unreviewed-context
-#: src/loandialog.cpp:135
+#: src/loandialog.cpp:137
 msgid "&Loan date:"
 msgstr "Date de &l'emprunt :"
 
-#: src/loandialog.cpp:141
+#: src/loandialog.cpp:143
 msgid ""
 "The check-out date is the date that you lent the items. By default, today's "
 "date is used."
@@ -4177,11 +4173,11 @@ msgstr ""
 "La date de contrôle est la date à laquelle vous avez prêté des articles. La "
 "date du jour est utilisée par défaut."
 
-#: src/loandialog.cpp:150
+#: src/loandialog.cpp:152
 msgid "D&ue date:"
 msgstr "Date de reto&ur :"
 
-#: src/loandialog.cpp:157
+#: src/loandialog.cpp:159
 msgid ""
 "The due date is when the items are due to be returned. The due date is not "
 "required, unless you want to add the loan to your active calendar."
@@ -4191,19 +4187,19 @@ msgstr ""
 "prêt à votre calendrier courant."
 
 # unreviewed-context
-#: src/loandialog.cpp:162
+#: src/loandialog.cpp:164
 msgid "&Note:"
 msgstr "&Remarques :"
 
-#: src/loandialog.cpp:168
+#: src/loandialog.cpp:170
 msgid "You can add notes about the loan."
 msgstr "Vous pouvez également ajouter des notes a propos du prêt."
 
-#: src/loandialog.cpp:172
+#: src/loandialog.cpp:174
 msgid "&Add a reminder to the active calendar"
 msgstr "&Ajouter un rappel dans le calendrier actif"
 
-#: src/loandialog.cpp:175
+#: src/loandialog.cpp:177
 msgid ""
 "<qt>Checking this box will add a <em>To-do</em> item to your active "
 "calendar, which can be viewed using KOrganizer. The box is only active if "
@@ -4239,8 +4235,8 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico - un gestionnaire de collections pour KDE"
 
 #: src/main.cpp:39
-msgid "(c) 2001-2014, Robby Stephenson"
-msgstr "(c) 2001-2014, Robby Stephenson"
+msgid "(c) 2001-2015, Robby Stephenson"
+msgstr "(c) 2001-2015, Robby Stephenson"
 
 #: src/main.cpp:41
 msgid "Robby Stephenson"
@@ -5062,7 +5058,7 @@ msgstr "(%1 sélectionnée(s))"
 #: src/mainwindow.cpp:1597 src/translators/boardgamegeekimporter.cpp:93
 #: src/translators/gcstarimporter.cpp:262
 #: src/translators/goodreadsimporter.cpp:97
-#: src/translators/xsltimporter.cpp:87
+#: src/translators/xsltimporter.cpp:92
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico a rencontré une erreur dans le traitement XSLT."
 
@@ -5416,7 +5412,7 @@ msgstr "*.xml|Fichiers BibTeXML (*.xml)"
 
 #: src/translators/boardgamegeekimporter.cpp:76
 #: src/translators/goodreadsimporter.cpp:75
-#: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
+#: src/translators/xsltimporter.cpp:80 src/translators/xsltimporter.cpp:86
 msgid "A valid XSLT file is needed to import the file."
 msgstr "Un fichier XSLT valable est nécessaire pour importer le fichier."
 
@@ -5599,29 +5595,29 @@ msgstr ""
 msgid "New Field"
 msgstr "Nouveau champ"
 
-#: src/translators/filelistingimporter.cpp:80
+#: src/translators/filelistingimporter.cpp:81
 msgid "Scanning files..."
 msgstr "Lecture des fichiers..."
 
-#: src/translators/filelistingimporter.cpp:219
+#: src/translators/filelistingimporter.cpp:222
 msgid "File Listing Options"
 msgstr "Options des listes de fichiers"
 
-#: src/translators/filelistingimporter.cpp:222
+#: src/translators/filelistingimporter.cpp:225
 msgid "Recursive folder search"
 msgstr "Recherche récursive"
 
-#: src/translators/filelistingimporter.cpp:223
+#: src/translators/filelistingimporter.cpp:226
 msgid "If checked, folders are recursively searched for all files."
 msgstr ""
 "Si cochée, les dossiers sont balayés récursivement pour chercher tous les "
 "fichiers."
 
-#: src/translators/filelistingimporter.cpp:227
+#: src/translators/filelistingimporter.cpp:230
 msgid "Generate file previews"
 msgstr "Générer les aperçus de fichiers"
 
-#: src/translators/filelistingimporter.cpp:228
+#: src/translators/filelistingimporter.cpp:231
 msgid ""
 "If checked, previews of the file contents are generated, which can slow down "
 "the folder listing."
@@ -5752,11 +5748,11 @@ msgid ""
 msgstr ""
 "Si cochée, les images du document seront intégrées dans le fichier ONIX."
 
-#: src/translators/pdfimporter.cpp:110 src/translators/pdfimporter.cpp:118
+#: src/translators/pdfimporter.cpp:111 src/translators/pdfimporter.cpp:128
 msgid "Tellico was unable to read any metadata from the PDF file."
 msgstr "Tellico n'a pas pu lire les métadonnées du fichier PDF."
 
-#: src/translators/pdfimporter.cpp:256
+#: src/translators/pdfimporter.cpp:267
 msgid ""
 "Tellico is able to download information about entries with a DOI from "
 "CrossRef.org. However, you must create an CrossRef account and add a new "
@@ -5827,16 +5823,16 @@ msgstr "Ceci est pour une future version de Tellico."
 msgid "XSLT"
 msgstr "XSLT"
 
-#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:110
+#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:116
 msgid "XSLT Options"
 msgstr "Options XSLT"
 
 # unreviewed-context
-#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:113
+#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:119
 msgid "XSLT file:"
 msgstr "Fichier XSLT :"
 
-#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:115
+#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:121
 msgid "Choose the XSLT file used to transform the data."
 msgstr "Choisir le fichier XSLT utilisé pour transformer les données"
 

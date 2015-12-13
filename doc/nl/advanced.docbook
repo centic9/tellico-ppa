@@ -90,7 +90,7 @@ bool showEntry(int id)
 >De huidige geopende verzameling in &appname; kan naar een bestand worden geëxporteerd in ofwel Tellico-&XML;-formaat, Tellico-ZIP-formaat, Bibtex, &HTML;, komma-gescheiden-waarden (CSV) of het PilotDB-formaat. </para>
 
 <para
->A list of the entry IDs currently selected or being filtered is able to facilitate showing or updating entries in the view.</para>
+>Een lijst van de nu geselecteerde of gefilterde item-ID's is in staat om getoonde items te tonen of bij te werken.</para>
 
 <para
 >Een nieuw gegevensbestand kan worden geopend met het commando <command
@@ -103,21 +103,21 @@ bool showEntry(int id)
 >, wat gelijk is aan het invoeren in het filtervak in het hoofdvenster.</para>
 
 <para
->Given an entry ID, <command
+>Gegeven een item-ID, zal <command
 >showEntry()</command
-> will select that entry and show the entry details in the main window.</para>
+> dat item selecteren en de details van het item in het hoofdvenster tonen.</para>
 </sect3>
 
 <sect3 id="dbus-collection">
 <title
->The <constant
+>Het object <constant
 >Collections</constant
-> Object</title>
+></title>
 
 <para
->The full list of &DBus; commands in the <constant
+>De volledige lijst van &DBus;-commando's in het object <constant
 >Collections</constant
-> object is shown below:</para>
+> wordt onderstaand getoond:</para>
 
 <programlisting
 >int addEntry()
@@ -131,64 +131,91 @@ bool addEntryValue(int entryID, QString fieldName, QString value)
 </programlisting>
 
 <para
->A new empty entry may be created in the current collection using the <command
+>Een nieuw leeg item kan aangemaakt worden in de huidige verzameling met het commando <command
 >addEntry()</command
-> command. The return value is the entry ID, which can then be used to set the field values in the entry. An entry can be deleted from the collection by calling <command
+>. De teruggegeven waarde is het item-ID, dat dan gebruikt kan worden om waarden van velden van het item in te stellen. Een item kan verwijderd worden uit de verzameling door <command
 >removeEntry()</command
->. </para>
+> aan te roepen. </para>
 
 <para
->Calling <command
+>Aanroepen van <command
 >allValues()</command
-> using just a field name will return all the values for that field for the currently selected entries. If no entries are selected, the return list is empty. If an entry ID is included in the command, the field values for that specific entry are returned. </para>
+> met alleen een veldnaam zal alle waarden voor dat veld voor de nu geselecteerde items teruggeven. Als geen items geselecteerd zijn, zal de teruggegeven lijst leeg zijn. Als een item-ID in het commando wordt meegegeven, zullen de veldwaarden voor dat specifieke item worden teruggegeven. </para>
 
 <para
->If the current collection is a bibliography, calling <command
+>Als de huidige verzameling een bibliografie is, zal aanroepen van <command
 >selectedBibtexKeys()</command
-> will return the Bibtex citation key for all selected entries. The bibtexKey for a specific entry may be found by using the <command
+> de Bibtex citatiesleutel voor alle geselecteerde items teruggeven. De bibtexKey voor een specifiek item kan gevonden worden door het commando <command
 >entryBibtexKey()</command
-> command. </para>
+> te gebruiken. </para>
 
 <para
->Entries can be edited directly with the &DBus; interface. Given an entry ID, <command
+>Items kunnen direct bewerkt worden met het &DBus;-interface. Gegeven een item-ID, zal <command
 >setEntryValue()</command
-> will set the field value directly. To add a value, without affecting the existing values, use <command
+> de veldwaarde direct instellen. Om een waarde in te stellen, zonder de bestaande waarden aan te tasten, gebruik <command
 >addEntryValue()</command
->. The new value gets appended to the end of the existing list. </para>
+>. De nieuwe waarde wordt toegevoegd aan het eind van de bestaande lijst. </para>
 </sect3>
 
 </sect2>
 
 <sect2 id="dbus-examples">
 <title
->&DBus; Examples</title>
+>Voorbeelden met &DBus;</title>
 
 <para
->Here are some examples for scripting &appname; using the &DBus; interface. </para>
+>Hier zijn enige voorbeelden van scripts voor &appname; met gebruik van het &DBus;-interface. </para>
 
 <screen width="40"
-><emphasis>Open a Bibtex file</emphasis>
-<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Tellico org.kde.tellico.importBibtex "/home/robby/reference.bib" "replace"</userinput>
-<computeroutput>true</computeroutput>
+><emphasis
+>Open een Bibtex-bestand</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Tellico org.kde.tellico.importBibtex "/home/robby/reference.bib" "replace"</userinput>
+<computeroutput
+>true</computeroutput
+>
 </screen>
 
 <screen width="40"
-><emphasis>Export a Bibtex file</emphasis>
-<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Tellico org.kde.tellico.exportBibtex ~/documents/reference.bib</userinput>
-<computeroutput>true</computeroutput>
+><emphasis
+>Exporteer een Bibtex-bestand</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Tellico org.kde.tellico.exportBibtex ~/documents/reference.bib</userinput>
+<computeroutput
+>true</computeroutput
+>
 </screen>
 
 <screen width="40"
-><emphasis>Echo the citation key of the current selection</emphasis>
-<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Collections org.kde.tellico.selectedBibtexKeys</userinput>
-<computeroutput>stephenson2004</computeroutput>
+><emphasis
+>Echo de citatiesleutel van de huidige selectie</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Collections org.kde.tellico.selectedBibtexKeys</userinput>
+<computeroutput
+>stephenson2004</computeroutput
+>
 </screen>
 
 <screen width="40"
-><emphasis>Add a new entry and set the title</emphasis>
-<prompt>%</prompt> <userinput>myid=`qdbus org.kde.tellico /Collections org.kde.tellico.addEntry`</userinput>
-<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Collections org.kde.tellico.setEntryValue $myid title "My New Book"</userinput>
-<computeroutput>true</computeroutput>
+><emphasis
+>Voeg een nieuw item toe en stel de titel in</emphasis>
+<prompt
+>%</prompt
+> <userinput
+>myid=`qdbus org.kde.tellico /Collections org.kde.tellico.addEntry`</userinput>
+<prompt
+>%</prompt
+> <userinput
+>qdbus org.kde.tellico /Collections org.kde.tellico.setEntryValue $myid title "Mijn nieuwe boek"</userinput>
+<computeroutput
+>true</computeroutput
+>
 </screen>
 
 </sect2>

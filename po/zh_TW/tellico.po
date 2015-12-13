@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2015-02-15 06:07+0000\n"
+"POT-Creation-Date: 2015-11-10 07:01+0000\n"
 "PO-Revision-Date: 2014-06-04 10:56+0800\n"
 "Last-Translator: Franklin\n"
 "Language-Team: Chinese Traditional <kde-tw@googlegroups.com>\n"
@@ -246,16 +246,16 @@ msgstr "標題"
 #: src/collections/videocollection.cpp:31
 #: src/collections/winecollection.cpp:30 src/configdialog.cpp:159
 #: src/configdialog.cpp:182 src/configdialog.cpp:209 src/configdialog.cpp:227
-#: src/fetch/allocinefetcher.cpp:267 src/fetch/allocinefetcher.cpp:273
+#: src/fetch/allocinefetcher.cpp:314 src/fetch/allocinefetcher.cpp:320
 #: src/fetch/animenfofetcher.cpp:296 src/fetch/animenfofetcher.cpp:300
-#: src/fetch/discogsfetcher.cpp:244 src/fetch/discogsfetcher.cpp:249
-#: src/fetch/discogsfetcher.cpp:254 src/fetch/discogsfetcher.cpp:261
+#: src/fetch/discogsfetcher.cpp:255 src/fetch/discogsfetcher.cpp:260
+#: src/fetch/discogsfetcher.cpp:265 src/fetch/discogsfetcher.cpp:272
 #: src/fetch/filmasterfetcher.cpp:236 src/fetch/freebasefetcher.cpp:390
 #: src/fetch/googlebookfetcher.cpp:260 src/fetch/googlebookfetcher.cpp:265
 #: src/fetch/imdbfetcher.cpp:963 src/fetch/imdbfetcher.cpp:1341
-#: src/fetch/moviemeterfetcher.cpp:213 src/fetch/moviemeterfetcher.cpp:218
-#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:253
-#: src/fetch/themoviedbfetcher.cpp:258 src/fetch/themoviedbfetcher.cpp:263
+#: src/fetch/moviemeterfetcher.cpp:225 src/fetch/moviemeterfetcher.cpp:230
+#: src/fetch/openlibraryfetcher.cpp:283 src/fetch/themoviedbfetcher.cpp:265
+#: src/fetch/themoviedbfetcher.cpp:270 src/fetch/themoviedbfetcher.cpp:275
 #: src/field.cpp:37 src/field.cpp:78 src/translators/gcstarimporter.cpp:89
 msgid "General"
 msgstr "一般"
@@ -350,126 +350,126 @@ msgstr "刪除(&D)"
 msgid "Remove a field from the collection"
 msgstr "從收藏中移除欄位"
 
-#: src/collectionfieldsdialog.cpp:126
+#: src/collectionfieldsdialog.cpp:132
 msgid ""
 "Move this field up in the list. The list order is important for the layout "
 "of the entry editor."
 msgstr "在清單中將此欄位上移。清單裡的順序會影響項目編輯器的佈局。"
 
-#: src/collectionfieldsdialog.cpp:130
+#: src/collectionfieldsdialog.cpp:136
 msgid ""
 "Move this field down in the list. The list order is important for the layout "
 "of the entry editor."
 msgstr "在清單中將此欄位下移。清單裡的順序會影響項目編輯器的佈局。"
 
-#: src/collectionfieldsdialog.cpp:140
+#: src/collectionfieldsdialog.cpp:146
 msgid "Field Properties"
 msgstr "欄位屬性"
 
-#: src/collectionfieldsdialog.cpp:149
+#: src/collectionfieldsdialog.cpp:155
 msgid "&Title:"
 msgstr "標題(&T)："
 
-#: src/collectionfieldsdialog.cpp:154
+#: src/collectionfieldsdialog.cpp:160
 msgid "The title of the field"
 msgstr "欄位的標題"
 
-#: src/collectionfieldsdialog.cpp:159
+#: src/collectionfieldsdialog.cpp:165
 msgid "T&ype:"
 msgstr "類型(&Y)："
 
-#: src/collectionfieldsdialog.cpp:165
+#: src/collectionfieldsdialog.cpp:171
 msgid "The type of the field determines what values may be used. "
 msgstr "欄位的型態決定了它能使用怎麼樣的值。"
 
-#: src/collectionfieldsdialog.cpp:166
+#: src/collectionfieldsdialog.cpp:172
 msgid "<i>Simple Text</i> is used for most fields. "
 msgstr "<i>簡單文字</i>可以用在大部份的欄位。"
 
-#: src/collectionfieldsdialog.cpp:167
+#: src/collectionfieldsdialog.cpp:173
 msgid "<i>Paragraph</i> is for large text blocks. "
 msgstr "<i>段落</i>用於大型的文字輸入區塊。"
 
-#: src/collectionfieldsdialog.cpp:168
+#: src/collectionfieldsdialog.cpp:174
 msgid "<i>Choice</i> limits the field to certain values. "
 msgstr "<i>選項</i>讓此欄位只有特定的值可以選擇。"
 
-#: src/collectionfieldsdialog.cpp:169
+#: src/collectionfieldsdialog.cpp:175
 msgid "<i>Checkbox</i> is for a simple yes/no value. "
 msgstr "<i>勾選盒</i>用於表達簡單的「是/否」。"
 
-#: src/collectionfieldsdialog.cpp:170
+#: src/collectionfieldsdialog.cpp:176
 msgid "<i>Number</i> indicates that the field contains a numerical value. "
 msgstr "<i>數值</i>表示此欄位裡是一個數值。"
 
-#: src/collectionfieldsdialog.cpp:171
+#: src/collectionfieldsdialog.cpp:177
 msgid ""
 "<i>URL</i> is for fields which refer to URLs, including references to other "
 "files. "
 msgstr "<i>網址</i>表示此欄位裡的是網址，包含檔案的參考。"
 
-#: src/collectionfieldsdialog.cpp:172
+#: src/collectionfieldsdialog.cpp:178
 msgid "A <i>Table</i> may hold one or more columns of values. "
 msgstr "<i>表格</i>可以用於儲存一個以上的值。"
 
-#: src/collectionfieldsdialog.cpp:173
+#: src/collectionfieldsdialog.cpp:179
 msgid "An <i>Image</i> field holds a picture. "
 msgstr "<i>影像</i>欄位用於存放影像。"
 
-#: src/collectionfieldsdialog.cpp:174
+#: src/collectionfieldsdialog.cpp:180
 msgid ""
 "A <i>Date</i> field can be used for values with a day, month, and year. "
 msgstr "<i>日期</i>欄位用於存放年月日。"
 
-#: src/collectionfieldsdialog.cpp:175
+#: src/collectionfieldsdialog.cpp:181
 msgid "A <i>Rating</i> field uses stars to show a rating number. "
 msgstr "<i>評比</i>欄位裡會有星星，表示評分。"
 
-#: src/collectionfieldsdialog.cpp:184
+#: src/collectionfieldsdialog.cpp:190
 msgid "Cate&gory:"
 msgstr "類別(&G)："
 
-#: src/collectionfieldsdialog.cpp:189
+#: src/collectionfieldsdialog.cpp:195
 msgid "The field category determines where the field is placed in the editor."
 msgstr "欄位類別決定此欄位在編輯器裡的位置。"
 
-#: src/collectionfieldsdialog.cpp:206
+#: src/collectionfieldsdialog.cpp:212
 msgid "Set &properties..."
 msgstr "設定屬性(&P)..."
 
-#: src/collectionfieldsdialog.cpp:210
+#: src/collectionfieldsdialog.cpp:216
 msgid ""
 "Extended field properties are used to specify things such as the "
 "corresponding bibtex field."
 msgstr "延伸欄位屬性用於指定一些東西，如相關的 bibtex 欄位。"
 
-#: src/collectionfieldsdialog.cpp:215
+#: src/collectionfieldsdialog.cpp:221
 msgid "Description:"
 msgstr "描述："
 
-#: src/collectionfieldsdialog.cpp:222
+#: src/collectionfieldsdialog.cpp:228
 msgid ""
 "The description is a useful reminder of what information is contained in the "
 "field."
 msgstr "描述是用於說明此欄位裡所儲存的資訊。"
 
-#: src/collectionfieldsdialog.cpp:227
+#: src/collectionfieldsdialog.cpp:233
 msgid "Value Options"
 msgstr "數值選項"
 
-#: src/collectionfieldsdialog.cpp:231
+#: src/collectionfieldsdialog.cpp:237
 msgid "&Default value:"
 msgstr "預設值(&D)："
 
-#: src/collectionfieldsdialog.cpp:236
+#: src/collectionfieldsdialog.cpp:248
 msgid "<qt>A default value can be set for new entries.</qt>"
 msgstr "<qt>建立新項目時使用的預設值。</qt>"
 
-#: src/collectionfieldsdialog.cpp:241
+#: src/collectionfieldsdialog.cpp:253
 msgid "Value template:"
 msgstr "數值樣本："
 
-#: src/collectionfieldsdialog.cpp:249
+#: src/collectionfieldsdialog.cpp:261
 msgid ""
 "Derived values are formed from the values of other fields according to the "
 "value template. Named fields, such as \"%{year} %{title}\", get substituted "
@@ -478,15 +478,15 @@ msgstr ""
 "衍生數值是指根據數值樣本，從其他的欄位的值建立此欄位的值。例如 %{year} "
 "%{title} 會取代成名為 year 與 title 的欄位裡的值。"
 
-#: src/collectionfieldsdialog.cpp:255
+#: src/collectionfieldsdialog.cpp:267
 msgid "Use derived value"
 msgstr "使用衍生數值"
 
-#: src/collectionfieldsdialog.cpp:261
+#: src/collectionfieldsdialog.cpp:273
 msgid "A&llowed values:"
 msgstr "允許的數值(&L)："
 
-#: src/collectionfieldsdialog.cpp:266
+#: src/collectionfieldsdialog.cpp:278
 msgid ""
 "<qt>For <i>Choice</i>-type fields, these are the only values allowed. They "
 "are placed in a combo box. The possible values have to be separated by a "
@@ -495,68 +495,68 @@ msgstr ""
 "<qt>欄位型態為<i>選項</i>時，只能使用這些值。它們會被放在一個下拉式選單中。允"
 "許的數值以分號區隔，如：\"dog; cat; mouse\"</qt>"
 
-#: src/collectionfieldsdialog.cpp:273
+#: src/collectionfieldsdialog.cpp:285
 msgid "Format options:"
 msgstr "格式選項："
 
-#: src/collectionfieldsdialog.cpp:279
+#: src/collectionfieldsdialog.cpp:291
 msgid "No formatting"
 msgstr "沒有格式"
 
-#: src/collectionfieldsdialog.cpp:280
+#: src/collectionfieldsdialog.cpp:292
 msgid "Allow auto-capitalization only"
 msgstr "只允許自動大寫"
 
-#: src/collectionfieldsdialog.cpp:281
+#: src/collectionfieldsdialog.cpp:293
 msgid "Format as a title"
 msgstr "設為標題格式"
 
-#: src/collectionfieldsdialog.cpp:282
+#: src/collectionfieldsdialog.cpp:294
 msgid "Format as a name"
 msgstr "設為名稱格式"
 
-#: src/collectionfieldsdialog.cpp:285
+#: src/collectionfieldsdialog.cpp:297
 msgid "Field Options"
 msgstr "欄位選項"
 
-#: src/collectionfieldsdialog.cpp:287
+#: src/collectionfieldsdialog.cpp:299
 msgid "Enable auto-completion"
 msgstr "開啟自動補完"
 
-#: src/collectionfieldsdialog.cpp:288
+#: src/collectionfieldsdialog.cpp:300
 msgid ""
 "If checked, KDE auto-completion will be enabled in the text edit box for "
 "this field."
 msgstr "若勾選此選項，編輯此欄位的文字時會開啟 KDE 的自動文字補完功能。"
 
-#: src/collectionfieldsdialog.cpp:290
+#: src/collectionfieldsdialog.cpp:302
 msgid "Allow multiple values"
 msgstr "允許多個數值"
 
-#: src/collectionfieldsdialog.cpp:291
+#: src/collectionfieldsdialog.cpp:303
 msgid ""
 "If checked, Tellico will parse the values in the field for multiple values, "
 "separated by a semi-colon."
 msgstr "若勾選此選項，Tellico 會將此欄位的值剖析為多個數值，以分號區隔。"
 
-#: src/collectionfieldsdialog.cpp:293
+#: src/collectionfieldsdialog.cpp:305
 msgid "Allow grouping"
 msgstr "允許群組"
 
-#: src/collectionfieldsdialog.cpp:294
+#: src/collectionfieldsdialog.cpp:306
 msgid ""
 "If checked, this field may be used to group the entries in the group view."
 msgstr "若勾選此選項，此欄位可以用於在群組檢視中將項目群組在一起。"
 
-#: src/collectionfieldsdialog.cpp:310
+#: src/collectionfieldsdialog.cpp:322
 msgid "Revert the selected field's properties to the default values."
 msgstr "將選取的欄位屬性回復到預設值。"
 
-#: src/collectionfieldsdialog.cpp:363
+#: src/collectionfieldsdialog.cpp:375
 msgid "Modify Fields"
 msgstr "變更欄位"
 
-#: src/collectionfieldsdialog.cpp:376
+#: src/collectionfieldsdialog.cpp:388
 #, kde-format
 msgid ""
 "<qt>Removing allowed values from the <i>%1</i> field which currently exist "
@@ -566,51 +566,51 @@ msgstr ""
 "<qt>從 <i>%1</i> 欄位中將目前存在於此收藏的允許的數值移除可能會造成資料損毀。"
 "您要保持您的變更，還是要取消變更並回復到原來的值？</qt>"
 
-#: src/collectionfieldsdialog.cpp:381
+#: src/collectionfieldsdialog.cpp:393
 msgid "Keep modified values"
 msgstr "保持所做的變更"
 
-#: src/collectionfieldsdialog.cpp:479 src/collectionfieldsdialog.cpp:482
+#: src/collectionfieldsdialog.cpp:491 src/collectionfieldsdialog.cpp:494
 #, kde-format
 msgid "New Field %1"
 msgstr "新增欄位 %1"
 
-#: src/collectionfieldsdialog.cpp:768
+#: src/collectionfieldsdialog.cpp:780
 msgid "Revert Field Properties"
 msgstr "回復欄位屬性"
 
-#: src/collectionfieldsdialog.cpp:769
+#: src/collectionfieldsdialog.cpp:781
 #, kde-format
 msgid ""
 "<qt><p>Do you really want to revert the properties for the <em>%1</em> field "
 "back to their default values?</p></qt>"
 msgstr "<qt><p>您要將 <em>%1</em> 欄位的屬性回復為預設值嗎？</p></qt>"
 
-#: src/collectionfieldsdialog.cpp:772
+#: src/collectionfieldsdialog.cpp:784
 msgid "Revert"
 msgstr "回復"
 
-#: src/collectionfieldsdialog.cpp:840
+#: src/collectionfieldsdialog.cpp:852
 msgid "Extended Field Properties"
 msgstr "延伸欄位屬性"
 
-#: src/collectionfieldsdialog.cpp:841 src/collections/filecatalog.cpp:107
+#: src/collectionfieldsdialog.cpp:853 src/collections/filecatalog.cpp:107
 msgid "Property"
 msgstr "屬性"
 
-#: src/collectionfieldsdialog.cpp:841 src/collections/filecatalog.cpp:108
+#: src/collectionfieldsdialog.cpp:853 src/collections/filecatalog.cpp:108
 msgid "Value"
 msgstr "數值"
 
-#: src/collectionfieldsdialog.cpp:873
+#: src/collectionfieldsdialog.cpp:885
 msgid "A field with this title already exists. Please enter a different title."
 msgstr "已經有欄位使用此標題。請輸入不同的標題。"
 
-#: src/collectionfieldsdialog.cpp:880
+#: src/collectionfieldsdialog.cpp:892
 msgid "<qt>The category may not be empty. Please enter a category.</qt>"
 msgstr "<qt>類別不能為空。請輸入類別。</qt>"
 
-#: src/collectionfieldsdialog.cpp:888
+#: src/collectionfieldsdialog.cpp:900
 msgid ""
 "<qt>A field may not be in the same category as a <em>Paragraph</em>, "
 "<em>Table</em> or <em>Image</em> field. Please enter a different category.</"
@@ -619,24 +619,24 @@ msgstr ""
 "<qt>欄位不能與<em>段落</em>、<em>表格</em>或<em>影像</em>欄位在同一個類別中。"
 "請輸入不同的類別。</qt>"
 
-#: src/collectionfieldsdialog.cpp:896
+#: src/collectionfieldsdialog.cpp:908
 msgid ""
 "A field's title may not be the same as an existing category. Please enter a "
 "different title."
 msgstr "欄位的標題不能與現有的類別相同。請輸入不同的標題。"
 
-#: src/collectionfieldsdialog.cpp:908
+#: src/collectionfieldsdialog.cpp:920
 msgid ""
 "The range for a rating field must be between 1 and 10, and the lower bound "
 "must be less than the higher bound. Please enter different low and high "
 "properties."
 msgstr "評分欄位的範圍為 1 到 10。低限必須比高限低。請輸入不同的高低限屬性。"
 
-#: src/collectionfieldsdialog.cpp:923
+#: src/collectionfieldsdialog.cpp:935
 msgid "Tables are limited to a maximum of ten columns."
 msgstr "表格裡最多只能有十欄。"
 
-#: src/collectionfieldsdialog.cpp:929
+#: src/collectionfieldsdialog.cpp:941
 msgid "A field with a derived value must have a value template."
 msgstr "含有衍生數值的欄位必須定義數值樣本。"
 
@@ -644,7 +644,7 @@ msgstr "含有衍生數值的欄位必須定義數值樣本。"
 #: src/collections/bookcollection.cpp:32
 #: src/collections/comicbookcollection.cpp:31
 #: src/fetch/citebasefetcher.cpp:155 src/translators/grs1importer.cpp:71
-#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:200
+#: src/translators/grs1importer.cpp:76 src/translators/pdfimporter.cpp:210
 msgid "Publishing"
 msgstr "發布"
 
@@ -691,7 +691,7 @@ msgid "Publisher"
 msgstr "發行者"
 
 #: src/collections/bibtexcollection.cpp:139
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:465
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:478
 #: src/fetch/z3950fetcher.cpp:565
 msgid "Address"
 msgstr "地址"
@@ -785,7 +785,7 @@ msgid "URL"
 msgstr "網址"
 
 #: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:469
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:466
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:479
 #: src/fetch/z3950fetcher.cpp:566
 msgid "Abstract"
 msgstr "抽象"
@@ -1008,7 +1008,7 @@ msgstr "讀取"
 
 #: src/collections/bookcollection.cpp:182
 #: src/collections/comicbookcollection.cpp:158 src/fetch/arxivfetcher.cpp:204
-#: src/fetch/crossreffetcher.cpp:195 src/translators/pdfimporter.cpp:229
+#: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:240
 #: src/translators/referencerimporter.cpp:62
 msgid "Front Cover"
 msgstr "封面"
@@ -1312,7 +1312,7 @@ msgstr "我的音樂"
 msgid "Album"
 msgstr "專輯"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:344
 #: src/translators/freedbimporter.cpp:264
 #: src/translators/freedbimporter.cpp:378
 #: src/translators/freedbimporter.cpp:444
@@ -1321,14 +1321,15 @@ msgstr "光碟"
 
 #: src/collections/musiccollection.cpp:54
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:877
+#: src/fetch/discogsfetcher.cpp:352
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:349
 msgid "Cassette"
 msgstr "卡帶"
 
-#: src/collections/musiccollection.cpp:54
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:347
 msgid "Vinyl"
 msgstr "黑膠唱片"
 
@@ -1371,7 +1372,7 @@ msgid "Issue Year"
 msgstr "發行年份"
 
 #: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:379
+#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:398
 #: src/fetch/imdbfetcher.cpp:1453
 msgid "Color"
 msgstr "顏色"
@@ -1491,8 +1492,8 @@ msgstr "區域 8"
 msgid "Region"
 msgstr "區域"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:253
-#: src/fetch/discogsfetcher.cpp:407
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:264
+#: src/fetch/discogsfetcher.cpp:422
 msgid "Nationality"
 msgstr "國籍"
 
@@ -1534,8 +1535,8 @@ msgstr "卡司表，包括他們所演出的角色"
 msgid "Director"
 msgstr "導演"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:260
-#: src/fetch/discogsfetcher.cpp:406
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:271
+#: src/fetch/discogsfetcher.cpp:421
 msgid "Producer"
 msgstr "製片"
 
@@ -1656,11 +1657,11 @@ msgstr "檢查 %1"
 msgid "Append Collection"
 msgstr "附加收藏"
 
-#: src/commands/collectioncommand.cpp:53
+#: src/commands/collectioncommand.cpp:54
 msgid "Merge Collection"
 msgstr "合併收藏"
 
-#: src/commands/collectioncommand.cpp:55
+#: src/commands/collectioncommand.cpp:57
 msgid "Replace Collection"
 msgstr "取代收藏"
 
@@ -1669,12 +1670,12 @@ msgstr "取代收藏"
 msgid "Add %1 Field"
 msgstr "新增 %1 欄位"
 
-#: src/commands/fieldcommand.cpp:61
+#: src/commands/fieldcommand.cpp:62
 #, kde-format
 msgid "Modify %1 Field"
 msgstr "變更 %1 欄位"
 
-#: src/commands/fieldcommand.cpp:63
+#: src/commands/fieldcommand.cpp:65
 #, kde-format
 msgid "Delete %1 Field"
 msgstr "刪除 %1 欄位"
@@ -1683,12 +1684,12 @@ msgstr "刪除 %1 欄位"
 msgid "Add Filter"
 msgstr "新增過濾器"
 
-#: src/commands/filtercommand.cpp:58 src/filterdialog.cpp:394
+#: src/commands/filtercommand.cpp:59 src/filterdialog.cpp:394
 #: src/filterview.cpp:133
 msgid "Modify Filter"
 msgstr "變更過濾器"
 
-#: src/commands/filtercommand.cpp:60 src/filterview.cpp:135
+#: src/commands/filtercommand.cpp:62 src/filterview.cpp:135
 msgid "Delete Filter"
 msgstr "刪除過濾器"
 
@@ -2074,7 +2075,7 @@ msgid "Click to download additional data sources."
 msgstr "點擊以下載額外的資料來源。"
 
 #: src/configdialog.cpp:1135 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:118
+#: src/translators/xsltimporter.cpp:124
 msgid "*.xsl|XSL Files (*.xsl)"
 msgstr "*.xsl|XSL 檔 (*.xsl)"
 
@@ -2082,7 +2083,7 @@ msgstr "*.xsl|XSL 檔 (*.xsl)"
 msgid "*.tar.gz *.tgz|Template Packages (*.tar.gz)"
 msgstr "*.tar.gz *.tgz|樣本套件 (*.tar.gz)"
 
-#: src/configdialog.cpp:1137 src/importdialog.cpp:381 src/mainwindow.cpp:1071
+#: src/configdialog.cpp:1137 src/importdialog.cpp:382 src/mainwindow.cpp:1071
 #: src/mainwindow.cpp:1236 src/reportdialog.cpp:215
 #: src/translators/bibtexexporter.cpp:61
 #: src/translators/bibtexmlexporter.cpp:53 src/translators/csvexporter.cpp:59
@@ -2091,7 +2092,7 @@ msgstr "*.tar.gz *.tgz|樣本套件 (*.tar.gz)"
 #: src/translators/tellicoxmlexporter.cpp:70
 #: src/translators/tellicozipexporter.cpp:56
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:99
-#: src/translators/xsltimporter.cpp:118
+#: src/translators/xsltimporter.cpp:124
 msgid "*|All Files"
 msgstr "*|所有檔案"
 
@@ -2568,25 +2569,33 @@ msgstr "以使用者的地域設定（%1）編碼"
 msgid "Encode the exported file in the local encoding."
 msgstr "匯出的檔案以使用者的地域設定編碼。"
 
-#: src/fetch/allocinefetcher.cpp:272 src/fetch/allocinefetcher.cpp:495
+#: src/fetch/allocinefetcher.cpp:230 src/fetch/amazonfetcher.cpp:762
+#: src/fetch/discogsfetcher.cpp:195 src/fetch/freebasefetcher.cpp:245
+#: src/fetch/googlebookfetcher.cpp:203 src/fetch/moviemeterfetcher.cpp:170
+#: src/fetch/themoviedbfetcher.cpp:210 src/fetch/vndbfetcher.cpp:169
+#: src/fetch/yahoofetcher.cpp:240
+msgid "The cover image could not be loaded."
+msgstr "無法載入封面影像。"
+
+#: src/fetch/allocinefetcher.cpp:319 src/fetch/allocinefetcher.cpp:514
 msgid "Allocine Link"
 msgstr "Allocine 連結"
 
-#: src/fetch/allocinefetcher.cpp:277 src/fetch/allocinefetcher.cpp:494
+#: src/fetch/allocinefetcher.cpp:324 src/fetch/allocinefetcher.cpp:513
 #: src/fetch/animenfofetcher.cpp:278 src/fetch/animenfofetcher.cpp:481
 #: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:175
 #: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
-#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:272
-#: src/fetch/themoviedbfetcher.cpp:431 src/fetch/vndbfetcher.cpp:241
-#: src/fetch/vndbfetcher.cpp:320
+#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:284
+#: src/fetch/themoviedbfetcher.cpp:445 src/fetch/vndbfetcher.cpp:252
+#: src/fetch/vndbfetcher.cpp:331
 msgid "Original Title"
 msgstr "原始標題"
 
-#: src/fetch/allocinefetcher.cpp:405 src/fetch/imdbfetcher.cpp:1651
+#: src/fetch/allocinefetcher.cpp:424 src/fetch/imdbfetcher.cpp:1651
 msgid "&Maximum cast: "
 msgstr "最大演員數量(&M)："
 
-#: src/fetch/allocinefetcher.cpp:410 src/fetch/imdbfetcher.cpp:1656
+#: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1656
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
 "returned from the search."
@@ -2648,26 +2657,21 @@ msgstr "要從 Amazon.com 取得資料必須有 AWS 存取金鑰代碼以及私�
 msgid "Those values must be entered in the data source settings."
 msgstr "這些值必須在資料來源設定裡輸入。"
 
-#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:281
+#: src/fetch/amazonfetcher.cpp:600 src/fetch/isbndbfetcher.cpp:282
 #: src/fetch/winecomfetcher.cpp:230
 #, kde-format
 msgid "Results from %1: %2/%3"
 msgstr "從 %1 傳回的結果：%2/%3"
-
-#: src/fetch/amazonfetcher.cpp:762 src/fetch/freebasefetcher.cpp:245
-#: src/fetch/googlebookfetcher.cpp:203 src/fetch/yahoofetcher.cpp:240
-msgid "The cover image could not be loaded."
-msgstr "無法載入封面影像。"
 
 #: src/fetch/amazonfetcher.cpp:904
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com 網頁服務（AWS）"
 
 #: src/fetch/amazonfetcher.cpp:929 src/fetch/bibliosharefetcher.cpp:160
-#: src/fetch/crossreffetcher.cpp:311 src/fetch/discogsfetcher.cpp:419
+#: src/fetch/crossreffetcher.cpp:316 src/fetch/discogsfetcher.cpp:434
 #: src/fetch/doubanfetcher.cpp:226 src/fetch/freebasefetcher.cpp:954
 #: src/fetch/giantbombfetcher.cpp:206 src/fetch/googlebookfetcher.cpp:387
-#: src/fetch/isbndbfetcher.cpp:364 src/fetch/themoviedbfetcher.cpp:443
+#: src/fetch/isbndbfetcher.cpp:365 src/fetch/themoviedbfetcher.cpp:457
 #: src/fetch/winecomfetcher.cpp:297
 #, kde-format
 msgid ""
@@ -2680,7 +2684,7 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:942 src/fetch/bibliosharefetcher.cpp:173
 #: src/fetch/doubanfetcher.cpp:239 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/isbndbfetcher.cpp:377 src/fetch/themoviedbfetcher.cpp:456
+#: src/fetch/isbndbfetcher.cpp:378 src/fetch/themoviedbfetcher.cpp:470
 #: src/fetch/winecomfetcher.cpp:310
 msgid "Access key: "
 msgstr "存取金鑰："
@@ -2777,8 +2781,8 @@ msgstr ""
 #: src/fetch/animenfofetcher.cpp:281 src/fetch/animenfofetcher.cpp:482
 #: src/fetch/doubanfetcher.cpp:213 src/fetch/dvdfrfetcher.cpp:177
 #: src/fetch/imdbfetcher.cpp:1033 src/fetch/imdbfetcher.cpp:1614
-#: src/fetch/moviemeterfetcher.cpp:222 src/fetch/moviemeterfetcher.cpp:294
-#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:430
+#: src/fetch/moviemeterfetcher.cpp:234 src/fetch/moviemeterfetcher.cpp:306
+#: src/fetch/themoviedbfetcher.cpp:279 src/fetch/themoviedbfetcher.cpp:444
 msgid "Alternative Titles"
 msgstr "替代標題"
 
@@ -2804,17 +2808,17 @@ msgstr "AnimeNfo 評比"
 #: src/fetch/dvdfrfetcher.cpp:184 src/fetch/entrezfetcher.cpp:481
 #: src/fetch/filmasterfetcher.cpp:322 src/fetch/googlescholarfetcher.cpp:267
 #: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:445
-#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/masfetcher.cpp:328 src/fetch/moviemeterfetcher.cpp:313
 #: src/fetch/mrlookupfetcher.cpp:220 src/fetch/musicbrainzfetcher.cpp:337
 #: src/fetch/openlibraryfetcher.cpp:429 src/fetch/springerfetcher.cpp:179
-#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:328
+#: src/fetch/thegamesdbfetcher.cpp:161 src/fetch/vndbfetcher.cpp:339
 #: src/fetch/yahoofetcher.cpp:396
 msgid "This source has no options."
 msgstr "此來源沒有選項。"
 
 #: src/fetch/bibliosharefetcher.cpp:179 src/fetch/freebasefetcher.cpp:973
 #: src/fetch/giantbombfetcher.cpp:225 src/fetch/googlebookfetcher.cpp:406
-#: src/fetch/isbndbfetcher.cpp:383 src/fetch/themoviedbfetcher.cpp:462
+#: src/fetch/isbndbfetcher.cpp:384 src/fetch/themoviedbfetcher.cpp:476
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
@@ -2834,32 +2838,32 @@ msgstr "來源選項"
 msgid "Available Fields"
 msgstr "可用的欄位"
 
-#: src/fetch/crossreffetcher.cpp:91
+#: src/fetch/crossreffetcher.cpp:91 src/fetch/crossreffetcher.cpp:92
 #, kde-format
 msgid "%1 requires a username and password."
 msgstr "%1 需要使用者名稱與密碼。"
 
-#: src/fetch/crossreffetcher.cpp:323
+#: src/fetch/crossreffetcher.cpp:328
 msgid "&Username: "
 msgstr "使用者名稱(&U)："
 
-#: src/fetch/crossreffetcher.cpp:328
+#: src/fetch/crossreffetcher.cpp:333
 msgid "A username and password is required to access the CrossRef service."
 msgstr "要存取 CrossRef 服務需要使用者名稱與密碼。"
 
-#: src/fetch/crossreffetcher.cpp:333
+#: src/fetch/crossreffetcher.cpp:338
 msgid "&Password: "
 msgstr "密碼(&P)："
 
-#: src/fetch/crossreffetcher.cpp:343
+#: src/fetch/crossreffetcher.cpp:348
 msgid "For some accounts, only an email address is required."
 msgstr "有些帳號只需要電子郵件地址。"
 
-#: src/fetch/crossreffetcher.cpp:346
+#: src/fetch/crossreffetcher.cpp:351
 msgid "Email: "
 msgstr "電子郵件地址："
 
-#: src/fetch/discogsfetcher.cpp:96
+#: src/fetch/discogsfetcher.cpp:97
 #, fuzzy
 #| msgid ""
 #| "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
@@ -2867,19 +2871,19 @@ msgstr "電子郵件地址："
 msgid "Access to data from Discogs.com requires a personal token."
 msgstr "要從 Amazon.com 取得資料必須有 AWS 存取金鑰代碼以及私密金鑰。"
 
-#: src/fetch/discogsfetcher.cpp:248 src/fetch/discogsfetcher.cpp:408
+#: src/fetch/discogsfetcher.cpp:259 src/fetch/discogsfetcher.cpp:423
 msgid "Discogs Link"
 msgstr "Discogs 連結"
 
-#: src/fetch/discogsfetcher.cpp:271
+#: src/fetch/discogsfetcher.cpp:282
 msgid "The Discogs.com server reports a token error."
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:397
+#: src/fetch/discogsfetcher.cpp:412
 msgid "Discogs Audio Search"
 msgstr "Discogs 音效搜尋"
 
-#: src/fetch/discogsfetcher.cpp:432
+#: src/fetch/discogsfetcher.cpp:447
 #, fuzzy
 #| msgid "&User: "
 msgid "User token: "
@@ -2890,8 +2894,8 @@ msgid "Douban Link"
 msgstr "Douban 連結"
 
 #: src/fetch/doubanfetcher.cpp:215 src/fetch/imdbfetcher.cpp:962
-#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:429
+#: src/fetch/imdbfetcher.cpp:1612 src/fetch/themoviedbfetcher.cpp:274
+#: src/fetch/themoviedbfetcher.cpp:443
 msgid "IMDb Link"
 msgstr "IMDb 連結"
 
@@ -2984,7 +2988,7 @@ msgstr "UPC/EAN"
 msgid "Keyword"
 msgstr "關鍵字"
 
-#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:199
+#: src/fetch/fetchmanager.cpp:75 src/translators/pdfimporter.cpp:209
 msgid "arXiv ID"
 msgstr "arXiv 代碼"
 
@@ -3044,14 +3048,14 @@ msgstr "Google Book 搜尋"
 msgid "Illustrator"
 msgstr "插畫家"
 
-#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:352
-#: src/fetch/srufetcher.cpp:467 src/fetch/z3950fetcher.cpp:568
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:353
+#: src/fetch/srufetcher.cpp:480 src/fetch/z3950fetcher.cpp:568
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey Decimal"
 
-#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:353
-#: src/fetch/srufetcher.cpp:468 src/fetch/z3950fetcher.cpp:569
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/isbndbfetcher.cpp:354
+#: src/fetch/srufetcher.cpp:481 src/fetch/z3950fetcher.cpp:569
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
 msgstr "LoC 分級"
@@ -3110,7 +3114,7 @@ msgstr "憑證"
 msgid "Download cover &image"
 msgstr "下載封面影像(&I)"
 
-#: src/fetch/isbndbfetcher.cpp:234
+#: src/fetch/isbndbfetcher.cpp:235
 msgid ""
 "<qt><p><b>The ISBNndb.com server reports an access key error.</b></p>You may "
 "have reached the maximum number of searches for today with this key, or you "
@@ -3119,11 +3123,11 @@ msgstr ""
 "<qt><p><b>ISBNndb.com 伺服器傳回了存取金鑰的錯誤。</b></p> 您可能已經達到此金"
 "鑰所允許本日搜尋的上限，或是您輸入的存取金鑰是錯誤的。</qt>"
 
-#: src/fetch/isbndbfetcher.cpp:342
+#: src/fetch/isbndbfetcher.cpp:343
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/moviemeterfetcher.cpp:217 src/fetch/moviemeterfetcher.cpp:293
+#: src/fetch/moviemeterfetcher.cpp:229 src/fetch/moviemeterfetcher.cpp:305
 msgid "MovieMeter Link"
 msgstr "MovieMeter 連結"
 
@@ -3135,85 +3139,85 @@ msgstr "多個來源"
 msgid "OpenLibrary Link"
 msgstr "OpenLibrary 連結"
 
-#: src/fetch/srufetcher.cpp:450 z3950.cpp:2
+#: src/fetch/srufetcher.cpp:463 z3950.cpp:2
 msgid "Library of Congress (US)"
 msgstr "國會圖書館（美國）"
 
-#: src/fetch/srufetcher.cpp:455
+#: src/fetch/srufetcher.cpp:468
 msgid "SRU Server"
 msgstr "SRU 伺服器"
 
-#: src/fetch/srufetcher.cpp:483 src/fetch/z3950fetcher.cpp:591
+#: src/fetch/srufetcher.cpp:496 src/fetch/z3950fetcher.cpp:591
 msgid "Hos&t: "
 msgstr "主機(&T)："
 
-#: src/fetch/srufetcher.cpp:490 src/fetch/z3950fetcher.cpp:597
+#: src/fetch/srufetcher.cpp:503 src/fetch/z3950fetcher.cpp:597
 msgid "Enter the host name of the server."
 msgstr "輸入此伺服器的主機名稱。"
 
-#: src/fetch/srufetcher.cpp:495 src/fetch/z3950fetcher.cpp:602
+#: src/fetch/srufetcher.cpp:508 src/fetch/z3950fetcher.cpp:602
 msgid "&Port: "
 msgstr "連接埠(&P)："
 
-#: src/fetch/srufetcher.cpp:500 src/fetch/z3950fetcher.cpp:607
+#: src/fetch/srufetcher.cpp:513 src/fetch/z3950fetcher.cpp:607
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "輸入伺服器的連接埠號。預設為 %1。"
 
-#: src/fetch/srufetcher.cpp:505
+#: src/fetch/srufetcher.cpp:518
 msgid "Path: "
 msgstr "路徑："
 
-#: src/fetch/srufetcher.cpp:510
+#: src/fetch/srufetcher.cpp:523
 msgid "Enter the path to the database used by the server."
 msgstr "輸入伺服器使用的資料庫路徑。"
 
-#: src/fetch/srufetcher.cpp:515
+#: src/fetch/srufetcher.cpp:528
 msgid "Format: "
 msgstr "格式："
 
-#: src/fetch/srufetcher.cpp:525
+#: src/fetch/srufetcher.cpp:539
 msgid "Enter the result format used by the server."
 msgstr "輸入伺服器使用的結果格式。"
 
-#: src/fetch/themoviedbfetcher.cpp:257 src/fetch/themoviedbfetcher.cpp:428
+#: src/fetch/themoviedbfetcher.cpp:269 src/fetch/themoviedbfetcher.cpp:442
 msgid "TMDb Link"
 msgstr "TMDb 連結"
 
-#: src/fetch/themoviedbfetcher.cpp:467
+#: src/fetch/themoviedbfetcher.cpp:481
 msgid "Language: "
 msgstr "語言："
 
-#: src/fetch/themoviedbfetcher.cpp:470
+#: src/fetch/themoviedbfetcher.cpp:484
 msgctxt "Language"
 msgid "English"
 msgstr "英文"
 
-#: src/fetch/themoviedbfetcher.cpp:471
+#: src/fetch/themoviedbfetcher.cpp:485
 msgctxt "Language"
 msgid "French"
 msgstr "法文"
 
-#: src/fetch/themoviedbfetcher.cpp:472
+#: src/fetch/themoviedbfetcher.cpp:486
 msgctxt "Language"
 msgid "German"
 msgstr "德文"
 
-#: src/fetch/themoviedbfetcher.cpp:473
+#: src/fetch/themoviedbfetcher.cpp:487
 msgctxt "Language"
 msgid "Spanish"
 msgstr "西班牙文"
 
-#: src/fetch/themoviedbfetcher.cpp:504
+#: src/fetch/themoviedbfetcher.cpp:518
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB（%1）"
 
-#: src/fetch/vndbfetcher.cpp:246 src/fetch/vndbfetcher.cpp:321
+#: src/fetch/vndbfetcher.cpp:257 src/fetch/vndbfetcher.cpp:332
 msgid "Alias"
 msgstr "別名"
 
-#: src/fetch/vndbfetcher.cpp:264
+#: src/fetch/vndbfetcher.cpp:275
 msgid "Visual Novel"
 msgstr "Visual Novel"
 
@@ -3863,53 +3867,53 @@ msgstr ""
 msgid "&Import"
 msgstr "匯入(&I)"
 
-#: src/importdialog.cpp:321 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
+#: src/importdialog.cpp:322 src/mainwindow.cpp:1067 src/mainwindow.cpp:1234
 #: src/translators/tellicozipexporter.cpp:56
 msgid "*.tc *.bc|Tellico Files (*.tc)"
 msgstr "*.tc *.bc|Tellico 檔案 (*.tc)"
 
-#: src/importdialog.cpp:322 src/importdialog.cpp:337 src/importdialog.cpp:367
+#: src/importdialog.cpp:323 src/importdialog.cpp:339 src/importdialog.cpp:369
 #: src/mainwindow.cpp:1069 src/translators/tellicoxmlexporter.cpp:70
 msgid "*.xml|XML Files (*.xml)"
 msgstr "*.xml|XML 檔案 (*.xml)"
 
-#: src/importdialog.cpp:326 src/translators/bibtexexporter.cpp:61
+#: src/importdialog.cpp:327 src/translators/bibtexexporter.cpp:61
 msgid "*.bib|Bibtex Files (*.bib)"
 msgstr "*.bib|Bibtex 檔案 (*.bib)"
 
-#: src/importdialog.cpp:330 src/translators/csvexporter.cpp:59
+#: src/importdialog.cpp:331 src/translators/csvexporter.cpp:59
 msgid "*.csv|CSV Files (*.csv)"
 msgstr "*.csv|CSV 檔案 (*.csv)"
 
-#: src/importdialog.cpp:341
+#: src/importdialog.cpp:343
 msgid "*.ris|RIS Files (*.ris)"
 msgstr "*.ris|RIS 檔案 (*.ris)"
 
-#: src/importdialog.cpp:345 src/translators/gcstarexporter.cpp:60
+#: src/importdialog.cpp:347 src/translators/gcstarexporter.cpp:60
 msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgstr "*.gcs|GCstar 資料檔 (*.gcs)"
 
-#: src/importdialog.cpp:346
+#: src/importdialog.cpp:348
 msgid "*.gcf|GCfilms Data Files (*.gcf)"
 msgstr "*.gcf|GCfilms 資料檔 (*.gcf)"
 
-#: src/importdialog.cpp:350
+#: src/importdialog.cpp:352
 msgid "*.amc|AMC Data Files (*.amc)"
 msgstr "*.amc|AMC 資料檔 (*.amc)"
 
-#: src/importdialog.cpp:354
+#: src/importdialog.cpp:356
 msgid "*.pdf|PDF Files (*.pdf)"
 msgstr "*.pdf|PDF 檔案 (*.pdf)"
 
-#: src/importdialog.cpp:358
+#: src/importdialog.cpp:360
 msgid "*.reflib|Referencer Files (*.reflib)"
 msgstr "*.reflib|Referencer 檔案 (*.reflib)"
 
-#: src/importdialog.cpp:362
+#: src/importdialog.cpp:364
 msgid "*.ciw|CIW Files (*.ciw)"
 msgstr "*.ciw|CIW 檔案 (*.csv)"
 
-#: src/importdialog.cpp:366
+#: src/importdialog.cpp:368
 msgid "*.vinoxml|VinoXML Data Files (*.vinoxml)"
 msgstr "*.vinoxml|VinoXML 資料檔 (*.vinoxml)"
 
@@ -3917,39 +3921,39 @@ msgstr "*.vinoxml|VinoXML 資料檔 (*.vinoxml)"
 msgid "Loan Dialog"
 msgstr "借貸對話框"
 
-#: src/loandialog.cpp:98
+#: src/loandialog.cpp:100
 msgid "The following items are being checked out:"
 msgstr "以下的項目正要被借出："
 
-#: src/loandialog.cpp:104
+#: src/loandialog.cpp:106
 msgid "The following item is on-loan:"
 msgstr "以下的項目已被借出："
 
-#: src/loandialog.cpp:114
+#: src/loandialog.cpp:116
 msgid "&Lend to:"
 msgstr "借出對象(&L)："
 
-#: src/loandialog.cpp:126
+#: src/loandialog.cpp:128
 msgid ""
 "Enter the name of the person borrowing the items from you. Clicking the "
 "button allows you to select from your address book."
 msgstr "輸入您將此項目借給誰。點擊此按鍵可以讓您從您的通訊錄中選取。"
 
-#: src/loandialog.cpp:135
+#: src/loandialog.cpp:137
 msgid "&Loan date:"
 msgstr "借出日期(&L)："
 
-#: src/loandialog.cpp:141
+#: src/loandialog.cpp:143
 msgid ""
 "The check-out date is the date that you lent the items. By default, today's "
 "date is used."
 msgstr "借出日期就是指... 借出的日期嘛。預設是今天。"
 
-#: src/loandialog.cpp:150
+#: src/loandialog.cpp:152
 msgid "D&ue date:"
 msgstr "到期日(&U)："
 
-#: src/loandialog.cpp:157
+#: src/loandialog.cpp:159
 msgid ""
 "The due date is when the items are due to be returned. The due date is not "
 "required, unless you want to add the loan to your active calendar."
@@ -3957,19 +3961,19 @@ msgstr ""
 "到期日就是對方該歸還的日子。您可以不填寫，除非您要將此借出行為加入您的行事曆"
 "中。"
 
-#: src/loandialog.cpp:162
+#: src/loandialog.cpp:164
 msgid "&Note:"
 msgstr "備註(&N)："
 
-#: src/loandialog.cpp:168
+#: src/loandialog.cpp:170
 msgid "You can add notes about the loan."
 msgstr "您可以對此借貸加上備註。"
 
-#: src/loandialog.cpp:172
+#: src/loandialog.cpp:174
 msgid "&Add a reminder to the active calendar"
 msgstr "將提醒加入行事曆中(&A)"
 
-#: src/loandialog.cpp:175
+#: src/loandialog.cpp:177
 msgid ""
 "<qt>Checking this box will add a <em>To-do</em> item to your active "
 "calendar, which can be viewed using KOrganizer. The box is only active if "
@@ -4003,7 +4007,9 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico - KDE 上的收藏管理員"
 
 #: src/main.cpp:39
-msgid "(c) 2001-2014, Robby Stephenson"
+#, fuzzy
+#| msgid "(c) 2001-2014, Robby Stephenson"
+msgid "(c) 2001-2015, Robby Stephenson"
 msgstr "(c) 2001-2014, Robby Stephenson"
 
 #: src/main.cpp:41
@@ -4817,7 +4823,7 @@ msgstr "（%1 已選擇）"
 #: src/mainwindow.cpp:1597 src/translators/boardgamegeekimporter.cpp:93
 #: src/translators/gcstarimporter.cpp:262
 #: src/translators/goodreadsimporter.cpp:97
-#: src/translators/xsltimporter.cpp:87
+#: src/translators/xsltimporter.cpp:92
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico 在處理 XSLT 時遇到錯誤。"
 
@@ -5151,7 +5157,7 @@ msgstr "*.xml|Bibtexml 檔案 (*.xml)"
 
 #: src/translators/boardgamegeekimporter.cpp:76
 #: src/translators/goodreadsimporter.cpp:75
-#: src/translators/xsltimporter.cpp:75 src/translators/xsltimporter.cpp:81
+#: src/translators/xsltimporter.cpp:80 src/translators/xsltimporter.cpp:86
 msgid "A valid XSLT file is needed to import the file."
 msgstr "要匯入檔案需要一個合法的 XSLT 檔。"
 
@@ -5325,27 +5331,27 @@ msgstr "要指定一個欄位，至少要先指定一個表格欄。只會匯入
 msgid "New Field"
 msgstr "新增欄位"
 
-#: src/translators/filelistingimporter.cpp:80
+#: src/translators/filelistingimporter.cpp:81
 msgid "Scanning files..."
 msgstr "掃描檔案中..."
 
-#: src/translators/filelistingimporter.cpp:219
+#: src/translators/filelistingimporter.cpp:222
 msgid "File Listing Options"
 msgstr "檔案列表選項"
 
-#: src/translators/filelistingimporter.cpp:222
+#: src/translators/filelistingimporter.cpp:225
 msgid "Recursive folder search"
 msgstr "遞迴資料夾搜尋"
 
-#: src/translators/filelistingimporter.cpp:223
+#: src/translators/filelistingimporter.cpp:226
 msgid "If checked, folders are recursively searched for all files."
 msgstr "若勾選此選項，則會遞迴式地搜尋資料夾內的所有檔案。"
 
-#: src/translators/filelistingimporter.cpp:227
+#: src/translators/filelistingimporter.cpp:230
 msgid "Generate file previews"
 msgstr "產生檔案預覽"
 
-#: src/translators/filelistingimporter.cpp:228
+#: src/translators/filelistingimporter.cpp:231
 msgid ""
 "If checked, previews of the file contents are generated, which can slow down "
 "the folder listing."
@@ -5468,11 +5474,11 @@ msgid ""
 "archive."
 msgstr "若勾選此選項，文件中的影像也會被包入 ONIX 歸檔中。"
 
-#: src/translators/pdfimporter.cpp:110 src/translators/pdfimporter.cpp:118
+#: src/translators/pdfimporter.cpp:111 src/translators/pdfimporter.cpp:128
 msgid "Tellico was unable to read any metadata from the PDF file."
 msgstr "Tellico 無法讀取此 PDF 檔的任何中繼資料。"
 
-#: src/translators/pdfimporter.cpp:256
+#: src/translators/pdfimporter.cpp:267
 msgid ""
 "Tellico is able to download information about entries with a DOI from "
 "CrossRef.org. However, you must create an CrossRef account and add a new "
@@ -5540,15 +5546,15 @@ msgstr "這是從更新版本的 Tellico 而來。"
 msgid "XSLT"
 msgstr "XSLT"
 
-#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:110
+#: src/translators/xsltexporter.cpp:86 src/translators/xsltimporter.cpp:116
 msgid "XSLT Options"
 msgstr "XSLT 選項"
 
-#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:113
+#: src/translators/xsltexporter.cpp:89 src/translators/xsltimporter.cpp:119
 msgid "XSLT file:"
 msgstr "XSLT 檔："
 
-#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:115
+#: src/translators/xsltexporter.cpp:91 src/translators/xsltimporter.cpp:121
 msgid "Choose the XSLT file used to transform the data."
 msgstr "選擇用於轉換資料的 XSLT 檔。"
 

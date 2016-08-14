@@ -31,7 +31,7 @@
 
 #include <QPointer>
 
-class KUrl;
+class QUrl;
 class KJob;
 namespace KIO {
   class StoredTransferJob;
@@ -74,7 +74,7 @@ public:
   static QString defaultIcon();
   static StringHash allOptionalFields() { return StringHash(); }
 
-private slots:
+private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:

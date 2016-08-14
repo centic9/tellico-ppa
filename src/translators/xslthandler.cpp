@@ -24,9 +24,9 @@
 
 #include "xslthandler.h"
 #include "../tellico_debug.h"
-#include "../tellico_utils.h"
+#include "../utils/string_utils.h"
 
-#include <kurl.h>
+#include <QUrl>
 
 #include <QDomDocument>
 #include <QTextCodec>
@@ -84,7 +84,7 @@ XSLTHandler::XSLTHandler(const QByteArray& xsltFile_) :
   init();
   QByteArray file = QUrl::toPercentEncoding(QString::fromLocal8Bit(xsltFile_));
   if(!file.isEmpty()) {
-    xmlDocPtr xsltDoc = xmlReadFile(file, NULL, xslt_options);
+    xmlDocPtr xsltDoc = xmlReadFile(file.constData(), 0, xslt_options);
     m_stylesheet = xsltParseStylesheetDoc(xsltDoc);
     if(!m_stylesheet) {
       myDebug() << "null stylesheet pointer for " << xsltFile_;
@@ -94,17 +94,17 @@ XSLTHandler::XSLTHandler(const QByteArray& xsltFile_) :
   }
 }
 
-XSLTHandler::XSLTHandler(const KUrl& xsltURL_) :
+XSLTHandler::XSLTHandler(const QUrl& xsltURL_) :
     m_stylesheet(0) {
   init();
   if(xsltURL_.isValid() && xsltURL_.isLocalFile()) {
-    xmlDocPtr xsltDoc = xmlReadFile(xsltURL_.encodedPathAndQuery().toUtf8(), NULL, xslt_options);
+    xmlDocPtr xsltDoc = xmlReadFile(xsltURL_.toLocalFile().toUtf8().constData(), 0, xslt_options);
     m_stylesheet = xsltParseStylesheetDoc(xsltDoc);
     if(!m_stylesheet) {
       myDebug() << "null stylesheet pointer for " << xsltURL_.path();
     }
   } else {
-    myDebug() << "XSLTHandler(KUrl) - invalid: " << xsltURL_;
+    myDebug() << "XSLTHandler(QUrl) - invalid: " << xsltURL_;
   }
 }
 
@@ -144,14 +144,18 @@ void XSLTHandler::init() {
   m_params.clear();
 }
 
+bool XSLTHandler::isValid() const {
+  return (m_stylesheet != 0);
+}
+
 void XSLTHandler::setXSLTDoc(const QDomDocument& dom_, const QByteArray& xsltFile_, bool translate_) {
   bool utf8 = true; // XML defaults to utf-8
 
   // need to find out if utf-8 or not
-  const QDomNodeList childs = dom_.childNodes();
-  for(int j = 0; j < childs.count(); ++j) {
-    if(childs.item(j).isProcessingInstruction()) {
-      QDomProcessingInstruction pi = childs.item(j).toProcessingInstruction();
+  const QDomNodeList children = dom_.childNodes();
+  for(int j = 0; j < children.count(); ++j) {
+    if(children.item(j).isProcessingInstruction()) {
+      QDomProcessingInstruction pi = children.item(j).toProcessingInstruction();
       if(pi.data().toLower().contains(QLatin1String("encoding"))) {
         if(!pi.data().toLower().contains(QLatin1String("utf-8"))) {
           utf8 = false;
@@ -172,9 +176,9 @@ void XSLTHandler::setXSLTDoc(const QDomDocument& dom_, const QByteArray& xsltFil
 
   xmlDocPtr xsltDoc;
   if(utf8) {
-    xsltDoc = xmlReadDoc(reinterpret_cast<xmlChar*>(s.toUtf8().data()), xsltFile_.data(), NULL, xslt_options);
+    xsltDoc = xmlReadDoc(reinterpret_cast<xmlChar*>(s.toUtf8().data()), xsltFile_.data(), 0, xslt_options);
   } else {
-    xsltDoc = xmlReadDoc(reinterpret_cast<xmlChar*>(s.toLocal8Bit().data()), xsltFile_.data(), NULL, xslt_options);
+    xsltDoc = xmlReadDoc(reinterpret_cast<xmlChar*>(s.toLocal8Bit().data()), xsltFile_.data(), 0, xslt_options);
   }
 
   if(m_stylesheet) {
@@ -224,7 +228,7 @@ QString XSLTHandler::applyStylesheet(const QString& text_) {
   }
 
   xmlDocPtr docIn;
-  docIn = xmlReadDoc(reinterpret_cast<xmlChar*>(text_.toUtf8().data()), NULL, NULL, xml_options);
+  docIn = xmlReadDoc(reinterpret_cast<xmlChar*>(text_.toUtf8().data()), 0, 0, xml_options);
 
   return process(docIn);
 }
@@ -236,13 +240,13 @@ QString XSLTHandler::process(xmlDocPtr docIn) {
   }
 
   QVector<const char*> params(2*m_params.count() + 1);
-  params[0] = NULL;
+  params[0] = 0;
   QHash<QByteArray, QByteArray>::ConstIterator it = m_params.constBegin();
   QHash<QByteArray, QByteArray>::ConstIterator end = m_params.constEnd();
   for(int i = 0; it != end; ++it) {
-    params[i  ] = qstrdup(it.key());
-    params[i+1] = qstrdup(it.value());
-    params[i+2] = NULL;
+    params[i  ] = qstrdup(it.key().constData());
+    params[i+1] = qstrdup(it.value().constData());
+    params[i+2] = 0;
     i += 2;
   }
   // returns NULL on error
@@ -276,10 +280,10 @@ QString XSLTHandler::process(xmlDocPtr docIn) {
 
 //static
 QDomDocument& XSLTHandler::setLocaleEncoding(QDomDocument& dom_) {
-  const QDomNodeList childs = dom_.documentElement().childNodes();
-  for(int j = 0; j < childs.count(); ++j) {
-    if(childs.item(j).isElement() && childs.item(j).nodeName() == QLatin1String("xsl:output")) {
-      QDomElement e = childs.item(j).toElement();
+  const QDomNodeList children = dom_.documentElement().childNodes();
+  for(int j = 0; j < children.count(); ++j) {
+    if(children.item(j).isElement() && children.item(j).nodeName() == QLatin1String("xsl:output")) {
+      QDomElement e = children.item(j).toElement();
       const QString encoding = QLatin1String(QTextCodec::codecForLocale()->name());
       e.setAttribute(QLatin1String("encoding"), encoding);
       break;

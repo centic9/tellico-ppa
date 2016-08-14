@@ -52,16 +52,15 @@ public:
   virtual void modifyBorrower(Data::BorrowerPtr);
   virtual void removeBorrower(Data::BorrowerPtr);
 
-public slots:
+public Q_SLOTS:
   /**
    * Resets the list view, clearing and deleting all items.
    */
   void slotReset();
 
-private slots:
+private Q_SLOTS:
   void slotCheckIn();
   void slotModifyLoan();
-  void selectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
   void slotDoubleClicked(const QModelIndex& index);
   void slotSortingChanged(int column, Qt::SortOrder order);
 

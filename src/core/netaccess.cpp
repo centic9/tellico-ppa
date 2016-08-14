@@ -24,20 +24,18 @@
 
 #include "netaccess.h"
 #include "tellico_strings.h"
-#include "../gui/guiproxy.h"
+#include "../utils/guiproxy.h"
 #include "../tellico_debug.h"
 
-#include <kio/job.h>
-#include <kio/netaccess.h>
-#include <kio/previewjob.h>
-#include <kio/jobuidelegate.h>
-#include <ktemporaryfile.h>
-#include <klocale.h>
-#include <kdeversion.h>
+#include <KIO/PreviewJob>
+#include <KIO/StatJob>
+#include <KIO/JobUiDelegate>
+#include <KJobWidgets>
+#include <KLocalizedString>
 
-#include <QEventLoop>
-
-#include <unistd.h>
+#include <QUrl>
+#include <QFileInfo>
+#include <QTemporaryFile>
 
 static QStringList* tmpfiles = 0;
 
@@ -45,14 +43,20 @@ QString Tellico::NetAccess::s_lastErrorMessage;
 
 using Tellico::NetAccess;
 
-bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, bool quiet_) {
-  if(url_.isLocalFile()) {
-    return KIO::NetAccess::download(url_, target_, window_);
-  }
-  Q_ASSERT(target_.isEmpty());
+bool NetAccess::download(const QUrl& url_, QString& target_, QWidget* window_, bool quiet_) {
   // copied from KIO::NetAccess::download() apidox except for quiet part
+  if(url_.isLocalFile()) {
+    target_ = url_.toLocalFile();
+    const bool readable = QFileInfo(target_).isReadable();
+    if(!readable) {
+      s_lastErrorMessage = i18n(errorOpen, target_);
+    }
+    return readable;
+  }
+
+  Q_ASSERT(target_.isEmpty());
   if(target_.isEmpty()) {
-    KTemporaryFile tmpFile;
+    QTemporaryFile tmpFile;
     tmpFile.setAutoRemove(false);
     tmpFile.open();
     target_ = tmpFile.fileName();
@@ -62,8 +66,7 @@ bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, b
     tmpfiles->append(target_);
   }
 
-  KUrl dest;
-  dest.setPath(target_);
+  QUrl dest = QUrl::fromLocalFile(target_);
   KIO::JobFlags flags = KIO::Overwrite;
   if(quiet_ || !window_) {
     flags |= KIO::HideProgressInfo;
@@ -71,13 +74,13 @@ bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, b
 
   // KIO::storedGet seems to handle Content-Encoding: gzip ok
   QByteArray data;
-//  KIO::StoredTransferJob* getJob = KIO::storedGet(url_, KIO::NoReload, flags);
-  KIO::TransferJob* getJob = KIO::get(url_, KIO::NoReload, flags);
-  if(KIO::NetAccess::synchronousRun(getJob, window_, &data)) {
+  KIO::StoredTransferJob* getJob = KIO::storedGet(url_, KIO::NoReload, flags);
+  KJobWidgets::setWindow(getJob, window_);
+  if(getJob->exec()) {
     QFile f(target_);
     if(f.open(QIODevice::WriteOnly)) {
 //      if(f.write(getJob->data()) > -1) {
-      if(f.write(data) > -1) {
+      if(f.write(getJob->data()) > -1) {
         return true;
       } else {
         s_lastErrorMessage = i18n(errorWrite, target_);
@@ -88,6 +91,7 @@ bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, b
     }
   } else {
     s_lastErrorMessage = QString::fromLatin1("Tellico was unable to download %1").arg(url_.url());
+    myWarning() << getJob->errorString();
   }
 
   if(!quiet_ && getJob->ui()) {
@@ -96,38 +100,26 @@ bool NetAccess::download(const KUrl& url_, QString& target_, QWidget* window_, b
   return false;
 }
 
-QPixmap NetAccess::filePreview(const KUrl& url, int size) {
-  NetAccess netaccess;
-
-#if KDE_IS_VERSION(4,7,0)
-  KFileItem fileItem(KFileItem::Unknown, KFileItem::Unknown, url, true);
-  KIO::Job* previewJob = KIO::filePreview(KFileItemList() << fileItem, QSize(size, size));
-#else
-  KUrl::List list;
-  list.append(url);
-  KIO::Job* previewJob = KIO::filePreview(list, size, size);
-#endif
-  connect(previewJob, SIGNAL(gotPreview(const KFileItem&, const QPixmap&)),
-          &netaccess, SLOT(slotPreview(const KFileItem&, const QPixmap&)));
-
-  KIO::NetAccess::synchronousRun(previewJob, GUI::Proxy::widget());
-  return netaccess.m_preview;
+QPixmap NetAccess::filePreview(const QUrl& url, int size) {
+  return filePreview(KFileItem(url), size);
 }
 
 QPixmap NetAccess::filePreview(const KFileItem& item, int size) {
   NetAccess netaccess;
 
-#if KDE_IS_VERSION(4,7,0)
   KIO::Job* previewJob = KIO::filePreview(KFileItemList() << item, QSize(size, size));
-#else
-  KFileItemList list;
-  list.append(item);
-  KIO::Job* previewJob = KIO::filePreview(list, size, size);
-#endif
   connect(previewJob, SIGNAL(gotPreview(const KFileItem&, const QPixmap&)),
           &netaccess, SLOT(slotPreview(const KFileItem&, const QPixmap&)));
 
-  KIO::NetAccess::synchronousRun(previewJob, GUI::Proxy::widget());
+  if(GUI::Proxy::widget()) {
+    KJobWidgets::setWindow(previewJob, GUI::Proxy::widget());
+  }
+  if(!previewJob->exec()) {
+    myDebug() << "Preview job did not succeed";
+  }
+  if(previewJob->error() != 0) {
+    myDebug() << previewJob->errorString();
+  }
   return netaccess.m_preview;
 }
 
@@ -140,15 +132,22 @@ void NetAccess::removeTempFile(const QString& name) {
     return;
   }
   if(tmpfiles->contains(name)) {
-    ::unlink(QFile::encodeName(name));
+    QFile::remove(name);
     tmpfiles->removeAll(name);
-  } else {
-    KIO::NetAccess::removeTempFile(name);
   }
+}
+
+bool NetAccess::exists(const QUrl& url_, bool sourceSide_, QWidget* window_) {
+  if(url_.isLocalFile()) {
+    return QFile::exists(url_.toLocalFile());
+  }
+
+  KIO::StatJob* job = KIO::stat(url_);
+  KJobWidgets::setWindow(job, window_);
+  job->setSide(sourceSide_ ? KIO::StatJob::SourceSide : KIO::StatJob::DestinationSide);
+  return job->exec();
 }
 
 QString NetAccess::lastErrorString() {
   return s_lastErrorMessage;
 }
-
-#include "netaccess.moc"

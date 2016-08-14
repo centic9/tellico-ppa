@@ -29,28 +29,33 @@
  *     http://lists.kde.org/?l=kde-multimedia&m=123397778013726&w=2
  */
 
+#include <config.h>
+
 #include "freedbimporter.h"
 #include "../collections/musiccollection.h"
 #include "../entry.h"
 #include "../field.h"
 #include "../fieldformat.h"
-#include "../tellico_utils.h"
-#include "../gui/guiproxy.h"
+#include "../utils/tellico_utils.h"
+#include "../utils/string_utils.h"
+#include "../utils/guiproxy.h"
 #include "../progressmanager.h"
-#include "../gui/cursorsaver.h"
+#include "../utils/cursorsaver.h"
 #include "../tellico_debug.h"
+#include "../utils/string_utils.h"
 
-#include <config.h>
-
-#ifdef HAVE_KCDDB
+#if defined HAVE_KF5KCDDB
+#include <KCddb/Client>
+#elif defined HAVE_KCDDB
 #include <libkcddb/client.h>
 #endif
 
-#include <kcombobox.h>
+#include <KComboBox>
+#include <KSharedConfig>
 #include <KConfigGroup>
-#include <kapplication.h>
-#include <kinputdialog.h>
+#include <KLocalizedString>
 
+#include <QInputDialog>
 #include <QFile>
 #include <QDir>
 #include <QLabel>
@@ -61,10 +66,17 @@
 #include <QTextStream>
 #include <QVBoxLayout>
 #include <QTextCodec>
+#include <QApplication>
 
 using Tellico::Import::FreeDBImporter;
 
-FreeDBImporter::FreeDBImporter() : Tellico::Import::Importer(), m_widget(0), m_cancelled(false) {
+FreeDBImporter::FreeDBImporter() : Tellico::Import::Importer()
+    , m_widget(0)
+    , m_buttonGroup(0)
+    , m_radioCDROM(0)
+    , m_radioCache(0)
+    , m_driveCombo(0)
+    , m_cancelled(false) {
 }
 
 bool FreeDBImporter::canImport(int type) const {
@@ -89,7 +101,7 @@ Tellico::Data::CollPtr FreeDBImporter::collection() {
 }
 
 void FreeDBImporter::readCDROM() {
-#ifdef HAVE_KCDDB
+#if defined (HAVE_KCDDB) || defined (HAVE_KF5KCDDB)
   QString drivePath = m_driveCombo->currentText();
   if(drivePath.isEmpty()) {
     setStatusMessage(i18n("<qt>Tellico was unable to access the CD-ROM device - <i>%1</i>.</qt>", drivePath));
@@ -107,7 +119,7 @@ void FreeDBImporter::readCDROM() {
   }
 
   {
-    KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - FreeDB"));
+    KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - FreeDB"));
     config.writeEntry("CD-ROM Devices", drives);
     config.writeEntry("Last Device", drivePath);
     config.writeEntry("Cache Files Only", false);
@@ -199,10 +211,10 @@ void FreeDBImporter::readCDROM() {
     // switch back to pointer cursor
     GUI::CursorSaver cs(Qt::ArrowCursor);
     bool ok;
-    QString res = KInputDialog::getItem(i18n("Select CDDB Entry"),
+    QString res = QInputDialog::getItem(GUI::Proxy::widget(),
+                                        i18n("Select CDDB Entry"),
                                         i18n("Select a CDDB entry:"),
-                                        list, 0, false, &ok,
-                                        GUI::Proxy::widget());
+                                        list, 0, false, &ok);
     if(ok) {
       int i = 0;
       foreach(const QString& listValue, list) {
@@ -291,10 +303,10 @@ void FreeDBImporter::readCDROM() {
 }
 
 void FreeDBImporter::readCache() {
-#ifdef HAVE_KCDDB
+#if defined (HAVE_KCDDB) || defined (HAVE_KF5KCDDB)
   {
     // remember the import options
-    KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - FreeDB"));
+    KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - FreeDB"));
     config.writeEntry("Cache Files Only", true);
   }
 
@@ -320,7 +332,7 @@ void FreeDBImporter::readCache() {
     foreach(const QString& listEntry, list) {
       files.insert(listEntry, dir.absoluteFilePath(listEntry));
     }
-//    kapp->processEvents(); // really needed ?
+//    qApp->processEvents(); // really needed ?
   }
 
   const QString title    = QLatin1String("title");
@@ -418,7 +430,7 @@ void FreeDBImporter::readCache() {
 
     if(showProgress && step%stepSize == 0) {
       ProgressManager::self()->setProgress(this, step);
-      kapp->processEvents();
+      qApp->processEvents();
     }
   }
 #endif
@@ -519,7 +531,7 @@ QWidget* FreeDBImporter::widget(QWidget* parent_) {
   l->addStretch(1);
 
   // now read config options
-  KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - FreeDB"));
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - FreeDB"));
   QStringList devices = config.readEntry("CD-ROM Devices", QStringList());
   if(devices.isEmpty()) {
 #if defined(__OpenBSD__)
@@ -556,5 +568,3 @@ void FreeDBImporter::slotClicked(int id_) {
 void FreeDBImporter::slotCancel() {
   m_cancelled = true;
 }
-
-#include "freedbimporter.moc"

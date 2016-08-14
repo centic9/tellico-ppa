@@ -28,12 +28,11 @@
 #include "fetch/fetch.h"
 #include "fetch/configwidget.h"
 
-#include <kdialog.h>
-
+#include <QDialog>
 #include <QHash>
 #include <QLabel>
 
-class KLineEdit;
+class QLineEdit;
 class QCheckBox;
 class QStackedWidget;
 
@@ -45,7 +44,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class FetcherConfigDialog : public KDialog {
+class FetcherConfigDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -59,10 +58,11 @@ public:
   bool updateOverwrite() const;
   Fetch::ConfigWidget* configWidget() const;
 
-private slots:
+private Q_SLOTS:
   void slotNewSourceSelected(int idx);
   void slotNameChanged(const QString& name);
   void slotPossibleNewName(const QString& name);
+  void slotHelp();
 
 private:
   void init(Fetch::Type type);
@@ -71,7 +71,7 @@ private:
   bool m_useDefaultName : 1;
   Fetch::ConfigWidget* m_configWidget;
   QLabel* m_iconLabel;
-  KLineEdit* m_nameEdit;
+  QLineEdit* m_nameEdit;
   GUI::ComboBox* m_typeCombo;
   QCheckBox* m_cbOverwrite;
   QStackedWidget* m_stack;

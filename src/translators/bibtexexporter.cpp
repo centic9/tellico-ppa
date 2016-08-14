@@ -25,16 +25,16 @@
 #include <config.h>
 
 #include "bibtexexporter.h"
-#include "bibtexhandler.h"
 #include "../collections/bibtexcollection.h"
 #include "../core/filehandler.h"
+#include "../utils/bibtexhandler.h"
 #include "../utils/stringset.h"
 #include "../fieldformat.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KConfigGroup>
-#include <kcombobox.h>
+#include <KComboBox>
 
 #include <QRegExp>
 #include <QCheckBox>
@@ -50,7 +50,11 @@ BibtexExporter::BibtexExporter(Data::CollPtr coll) : Tellico::Export::Exporter(c
    m_expandMacros(false),
    m_packageURL(true),
    m_skipEmptyKeys(false),
-   m_widget(0) {
+   m_widget(0),
+   m_checkExpandMacros(0),
+   m_checkPackageURL(0),
+   m_checkSkipEmpty(0),
+   m_cbBibtexStyle(0) {
 }
 
 QString BibtexExporter::formatString() const {
@@ -58,7 +62,7 @@ QString BibtexExporter::formatString() const {
 }
 
 QString BibtexExporter::fileFilter() const {
-  return i18n("*.bib|Bibtex Files (*.bib)") + QLatin1Char('\n') + i18n("*|All Files");
+  return i18n("Bibtex Files") + QLatin1String(" (*.bib)") + QLatin1String(";;") + i18n("All Files") + QLatin1String(" (*)");
 }
 
 bool BibtexExporter::exec() {
@@ -352,5 +356,3 @@ void BibtexExporter::writeEntryText(QString& text_, const Tellico::Data::FieldLi
   }
   text_ += QLatin1String("\n}\n\n");
 }
-
-#include "bibtexexporter.moc"

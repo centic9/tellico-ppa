@@ -57,13 +57,13 @@ enum Type {
   SRU,
   Entrez,
   ExecExternal,
-  Yahoo,
+  Yahoo, // Removed
   AnimeNfo,
   IBS,
   ISBNdb,
   GCstarPlugin,
   CrossRef,
-  Citebase,
+  Citebase, // Removed
   Arxiv,
   Bibsonomy,
   GoogleScholar,
@@ -84,16 +84,17 @@ enum Type {
   MAS,
   Springer,
   Allocine,
-  ScreenRush,
-  FilmStarts,
-  SensaCine,
-  Beyazperde,
+  ScreenRush, // Removed
+  FilmStarts, // Removed
+  SensaCine, // Removed
+  Beyazperde, // Removed
   HathiTrust,
   TheGamesDB,
   DBLP,
   VNDB,
   MRLookup,
-  BoardGameGeek
+  BoardGameGeek,
+  Bedetheque
 };
 
   }

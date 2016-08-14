@@ -25,7 +25,7 @@
 #ifndef TELLICO_REPORTDIALOG_H
 #define TELLICO_REPORTDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 class KHTMLPart;
 
@@ -40,7 +40,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class ReportDialog : public KDialog {
+class ReportDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -52,16 +52,17 @@ public:
   ReportDialog(QWidget* parent);
   virtual ~ReportDialog();
 
-public slots:
+public Q_SLOTS:
   /**
    * Regenerate the report.
    */
   void slotRefresh();
 
-private slots:
+private Q_SLOTS:
   void slotGenerate();
   void slotPrint();
   void slotSaveAs();
+  void slotUpdateSize();
 
 private:
   KHTMLPart* m_HTMLPart;

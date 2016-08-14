@@ -25,31 +25,24 @@
 #undef QT_NO_CAST_FROM_ASCII
 
 #include "discogsfetchertest.h"
-#include "discogsfetchertest.moc"
-#include "qtest_kde.h"
-
 #include "../fetch/discogsfetcher.h"
-#include "../collections/musiccollection.h"
-#include "../collectionfactory.h"
 #include "../entry.h"
 #include "../images/imagefactory.h"
 #include "../images/image.h"
 
-#include <KStandardDirs>
 #include <KConfigGroup>
 
-QTEST_KDEMAIN( DiscogsFetcherTest, GUI )
+#include <QTest>
+
+QTEST_GUILESS_MAIN( DiscogsFetcherTest )
 
 DiscogsFetcherTest::DiscogsFetcherTest() : AbstractFetcherTest()
-    , m_config(QString::fromLatin1(KDESRCDIR)  + "/discogsfetchertest.config", KConfig::SimpleConfig) {
+    , m_config(QFINDTESTDATA("discogsfetchertest.config"), KConfig::SimpleConfig) {
 }
 
 void DiscogsFetcherTest::initTestCase() {
-//  Tellico::RegisterCollection<Tellico::Data::MusicCollection> registerMusic(Tellico::Data::Collection::Album, "album");
-  // since we use the Discogs importer
-//  KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
   Tellico::ImageFactory::init();
-  m_hasConfigFile = QFile::exists(QString::fromLatin1(KDESRCDIR)  + "/discogsfetchertest.config");
+  m_hasConfigFile = QFile::exists(QFINDTESTDATA("discogsfetchertest.config"));
 }
 
 void DiscogsFetcherTest::testTitle() {
@@ -174,6 +167,9 @@ void DiscogsFetcherTest::testRawData() {
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field("track"));
   QCOMPARE(trackList.count(), 14);
   QCOMPARE(trackList.at(0), QLatin1String("Haunted::Evanescence::4:04"));
+
+  QEXPECT_FAIL("", "Thumbnails are not returned in full raw data, for some reason", Continue);
+  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
 }
 
 // do another check to make sure the Vinyl format is captured
@@ -195,7 +191,7 @@ void DiscogsFetcherTest::testRawDataVinyl() {
 
   Tellico::Data::EntryPtr entry = results.at(0);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("The Clash"));
-  QCOMPARE(entry->field(QLatin1String("artist")), QLatin1String("Clash, The"));
+  QCOMPARE(entry->field(QLatin1String("artist")), QLatin1String("The Clash"));
   QCOMPARE(entry->field(QLatin1String("label")), QLatin1String("CBS; CBS"));
   QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("1977"));
   QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("Rock"));
@@ -205,5 +201,5 @@ void DiscogsFetcherTest::testRawDataVinyl() {
 
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field("track"));
   QCOMPARE(trackList.count(), 14);
-  QCOMPARE(trackList.at(0), QLatin1String("Janie Jones::Clash, The::2:05"));
+  QCOMPARE(trackList.at(0), QLatin1String("Janie Jones::The Clash::2:05"));
 }

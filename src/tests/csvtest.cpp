@@ -23,11 +23,11 @@
  ***************************************************************************/
 
 #include "csvtest.h"
-#include "csvtest.moc"
-#include "qtest_kde.h"
 
 #include "../translators/csvparser.h"
 #include "../translators/csvexporter.h"
+
+#include <QTest>
 
 QTEST_MAIN( CsvTest )
 

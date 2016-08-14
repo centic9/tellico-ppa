@@ -26,30 +26,29 @@
 #include "tellico_strings.h"
 #include "netaccess.h"
 #include "../images/image.h"
-#include "../gui/cursorsaver.h"
-#include "../gui/guiproxy.h"
+#include "../utils/cursorsaver.h"
+#include "../utils/guiproxy.h"
 #include "../utils/xmlhandler.h"
 #include "../tellico_debug.h"
 
-#include <kurl.h>
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kio/netaccess.h>
-#include <ktemporaryfile.h>
-#include <ksavefile.h>
-#include <kfileitem.h>
-#include <kio/job.h>
-#include <kfilterdev.h>
-#include <kdeversion.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KFileItem>
+#include <KIO/FileCopyJob>
+#include <KIO/DeleteJob>
+#include <KBackup>
+#include <KJobWidgets>
 
+#include <QUrl>
 #include <QDomDocument>
 #include <QFile>
 #include <QTextStream>
-#include <QList>
+#include <QTemporaryFile>
+#include <QSaveFile>
 
 using Tellico::FileHandler;
 
-FileHandler::FileRef::FileRef(const KUrl& url_, bool quiet_) : m_device(0), m_isValid(false) {
+FileHandler::FileRef::FileRef(const QUrl& url_, bool quiet_) : m_device(0), m_isValid(false) {
   if(url_.isEmpty()) {
     return;
   }
@@ -88,8 +87,7 @@ bool FileHandler::FileRef::open(bool quiet_) {
   }
   if(!m_device || !m_device->open(QIODevice::ReadOnly)) {
     if(!quiet_) {
-      KUrl u;
-      u.setPath(fileName());
+      QUrl u = QUrl::fromLocalFile(fileName());
       GUI::Proxy::sorry(i18n(errorLoad, u.fileName()));
     }
     delete m_device;
@@ -100,11 +98,11 @@ bool FileHandler::FileRef::open(bool quiet_) {
   return true;
 }
 
-FileHandler::FileRef* FileHandler::fileRef(const KUrl& url_, bool quiet_) {
+FileHandler::FileRef* FileHandler::fileRef(const QUrl& url_, bool quiet_) {
   return new FileRef(url_, quiet_);
 }
 
-QString FileHandler::readTextFile(const KUrl& url_, bool quiet_/*=false*/, bool useUTF8_ /*false*/) {
+QString FileHandler::readTextFile(const QUrl& url_, bool quiet_/*=false*/, bool useUTF8_ /*false*/) {
   FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return QString();
@@ -120,7 +118,7 @@ QString FileHandler::readTextFile(const KUrl& url_, bool quiet_/*=false*/, bool 
   return QString();
 }
 
-QString FileHandler::readXMLFile(const KUrl& url_, bool quiet_/*=false*/) {
+QString FileHandler::readXMLFile(const QUrl& url_, bool quiet_/*=false*/) {
   FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return QString();
@@ -132,7 +130,7 @@ QString FileHandler::readXMLFile(const KUrl& url_, bool quiet_/*=false*/) {
   return QString();
 }
 
-QDomDocument FileHandler::readXMLDocument(const KUrl& url_, bool processNamespace_, bool quiet_) {
+QDomDocument FileHandler::readXMLDocument(const QUrl& url_, bool processNamespace_, bool quiet_) {
   FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return QDomDocument();
@@ -160,7 +158,7 @@ QDomDocument FileHandler::readXMLDocument(const KUrl& url_, bool processNamespac
   return doc;
 }
 
-QByteArray FileHandler::readDataFile(const KUrl& url_, bool quiet_) {
+QByteArray FileHandler::readDataFile(const QUrl& url_, bool quiet_) {
   FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return QByteArray();
@@ -170,16 +168,14 @@ QByteArray FileHandler::readDataFile(const KUrl& url_, bool quiet_) {
   return f.file()->readAll();
 }
 
-Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, const QString& id_, bool quiet_, const KUrl& referrer_) {
+Tellico::Data::Image* FileHandler::readImageFile(const QUrl& url_, const QString& id_, bool quiet_, const QUrl& referrer_) {
   if(referrer_.isEmpty() || url_.isLocalFile()) {
     return readImageFile(url_, id_, quiet_);
   }
 
-  KTemporaryFile tempFile;
+  QTemporaryFile tempFile;
   tempFile.open();
-  tempFile.setAutoRemove(true);
-  KUrl tempURL;
-  tempURL.setPath(tempFile.fileName());
+  QUrl tempURL = QUrl::fromLocalFile(tempFile.fileName());
 
   KIO::JobFlags flags = KIO::Overwrite;
   if(quiet_) {
@@ -189,9 +185,10 @@ Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, const QString
   KIO::Job* job = KIO::file_copy(url_, tempURL, -1, flags);
   job->addMetaData(QLatin1String("referrer"), referrer_.url());
 
-  if(!KIO::NetAccess::synchronousRun(job, GUI::Proxy::widget())) {
+  KJobWidgets::setWindow(job, GUI::Proxy::widget());
+  if(!job->exec()) {
     if(!quiet_) {
-      QString str = i18n("Tellico is unable to load the image - %1.", url_.prettyUrl());
+      QString str = i18n("Tellico is unable to load the image - %1.", url_.toDisplayString());
       GUI::Proxy::sorry(str);
     }
     return 0;
@@ -199,7 +196,7 @@ Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, const QString
   return readImageFile(tempURL, id_, quiet_);
 }
 
-Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, const QString& id_, bool quiet_) {
+Tellico::Data::Image* FileHandler::readImageFile(const QUrl& url_, const QString& id_, bool quiet_) {
   FileRef f(url_, quiet_);
   if(!f.isValid()) {
     return 0;
@@ -215,23 +212,19 @@ Tellico::Data::Image* FileHandler::readImageFile(const KUrl& url_, const QString
 
 // really, this should be decoupled from the writeBackupFile() function
 // but every other function that calls it would need to be updated
-bool FileHandler::queryExists(const KUrl& url_) {
-  if(url_.isEmpty() || !KIO::NetAccess::exists(url_, KIO::NetAccess::SourceSide, GUI::Proxy::widget())) {
+bool FileHandler::queryExists(const QUrl& url_) {
+  if(url_.isEmpty() || !QFile::exists(url_.toLocalFile())) {
     return true;
   }
 
   // no need to check if we're actually overwriting the current url
   // the TellicoImporter forces the write
   GUI::CursorSaver cs(Qt::ArrowCursor);
-  KGuiItem guiItem(i18n("Overwrite"));
-  guiItem.setIcon(KIcon(QLatin1String("document-save-as"),
-                                      KIconLoader::global(),
-                                      QStringList() << QLatin1String("emblem-important")));
   QString str = i18n("A file named \"%1\" already exists. "
                      "Are you sure you want to overwrite it?", url_.fileName());
   int want_continue = KMessageBox::warningContinueCancel(GUI::Proxy::widget(), str,
                                                          i18n("Overwrite File?"),
-                                                         guiItem);
+                                                         KStandardGuiItem::overwrite());
 
   if(want_continue == KMessageBox::Cancel) {
     return false;
@@ -239,24 +232,19 @@ bool FileHandler::queryExists(const KUrl& url_) {
   return writeBackupFile(url_);
 }
 
-bool FileHandler::writeBackupFile(const KUrl& url_) {
+bool FileHandler::writeBackupFile(const QUrl& url_) {
   bool success = true;
   if(url_.isLocalFile()) {
-    // KDE bug 178640, for versions prior to KDE 4.2RC1, backup file was not deleted first
-    // this might fail if a different backup scheme is being used
-    if(KDE::version() < KDE_MAKE_VERSION(4, 1, 90)) {
-      QFile::remove(url_.path() + QLatin1Char('~'));
-    }
-    success = KSaveFile::backupFile(url_.path());
-    if(KDE::version() < KDE_MAKE_VERSION(4, 1, 90)) {
-      success = true; // ignore error for old version because of bug
-    }
+    success = KBackup::backupFile(url_.path());
   } else {
-    KUrl backup(url_);
+    QUrl backup(url_);
     backup.setPath(backup.path() + QLatin1Char('~'));
-    KIO::NetAccess::del(backup, GUI::Proxy::widget()); // might fail if backup doesn't exist, that's ok
+    KIO::DeleteJob* delJob = KIO::del(backup);
+    KJobWidgets::setWindow(delJob, GUI::Proxy::widget());
+    delJob->exec(); // might fail if backup doesn't exist, that's ok
     KIO::FileCopyJob* job = KIO::file_copy(url_, backup, -1, KIO::Overwrite);
-    success = KIO::NetAccess::synchronousRun(job, GUI::Proxy::widget());
+    KJobWidgets::setWindow(job, GUI::Proxy::widget());
+    success = job->exec();
   }
   if(!success) {
     GUI::Proxy::sorry(i18n(errorWrite, url_.fileName() + QLatin1Char('~')));
@@ -264,7 +252,7 @@ bool FileHandler::writeBackupFile(const KUrl& url_) {
   return success;
 }
 
-bool FileHandler::writeTextURL(const KUrl& url_, const QString& text_, bool encodeUTF8_, bool force_, bool quiet_) {
+bool FileHandler::writeTextURL(const QUrl& url_, const QString& text_, bool encodeUTF8_, bool force_, bool quiet_) {
   if((!force_ && !queryExists(url_)) || text_.isNull()) {
     if(text_.isNull()) {
       myDebug() << "null string for" << url_;
@@ -273,23 +261,22 @@ bool FileHandler::writeTextURL(const KUrl& url_, const QString& text_, bool enco
   }
 
   if(url_.isLocalFile()) {
-    KSaveFile f(url_.path());
-    f.open();
+    QSaveFile f(url_.toLocalFile());
+    f.open(QIODevice::WriteOnly);
     if(f.error() != QFile::NoError) {
       if(!quiet_) {
         GUI::Proxy::sorry(i18n(errorWrite, url_.fileName()));
       }
       return false;
     }
-    bool success = FileHandler::writeTextFile(f, text_, encodeUTF8_);
-    return success;
+    return FileHandler::writeTextFile(f, text_, encodeUTF8_);
   }
 
   // save to remote file
-  KTemporaryFile tempfile;
+  QTemporaryFile tempfile;
   tempfile.open();
-  KSaveFile f(tempfile.fileName());
-  f.open();
+  QSaveFile f(tempfile.fileName());
+  f.open(QIODevice::WriteOnly);
   if(f.error() != QFile::NoError) {
     tempfile.remove();
     if(!quiet_) {
@@ -300,12 +287,11 @@ bool FileHandler::writeTextURL(const KUrl& url_, const QString& text_, bool enco
 
   bool success = FileHandler::writeTextFile(f, text_, encodeUTF8_);
   if(success) {
-    success = KIO::NetAccess::upload(tempfile.fileName(), url_, GUI::Proxy::widget());
-    if(!success) {
-      tempfile.remove();
-      if(!quiet_) {
-        GUI::Proxy::sorry(i18n(errorUpload, url_.fileName()));
-      }
+    KIO::Job* job = KIO::file_copy(QUrl::fromLocalFile(tempfile.fileName()), url_, -1, KIO::Overwrite);
+    KJobWidgets::setWindow(job, GUI::Proxy::widget());
+    success = job->exec();
+    if(!success && !quiet_) {
+      GUI::Proxy::sorry(i18n(errorUpload, url_.fileName()));
     }
   }
   tempfile.remove();
@@ -313,14 +299,14 @@ bool FileHandler::writeTextURL(const KUrl& url_, const QString& text_, bool enco
   return success;
 }
 
-bool FileHandler::writeTextFile(KSaveFile& file_, const QString& text_, bool encodeUTF8_) {
+bool FileHandler::writeTextFile(QSaveFile& file_, const QString& text_, bool encodeUTF8_) {
   QTextStream t(&file_);
   if(encodeUTF8_) {
     t.setCodec("UTF-8");
   }
   t << text_;
   file_.flush();
-  bool success = file_.finalize();
+  bool success = file_.commit();
 #ifndef NDEBUG
   if(!success) {
     myDebug() << "error = " << file_.error();
@@ -329,14 +315,14 @@ bool FileHandler::writeTextFile(KSaveFile& file_, const QString& text_, bool enc
   return success;
 }
 
-bool FileHandler::writeDataURL(const KUrl& url_, const QByteArray& data_, bool force_, bool quiet_) {
+bool FileHandler::writeDataURL(const QUrl& url_, const QByteArray& data_, bool force_, bool quiet_) {
   if(!force_ && !queryExists(url_)) {
     return false;
   }
 
   if(url_.isLocalFile()) {
-    KSaveFile f(url_.path());
-    f.open();
+    QSaveFile f(url_.toLocalFile());
+    f.open(QIODevice::WriteOnly);
     if(f.error() != QFile::NoError) {
       if(!quiet_) {
         GUI::Proxy::sorry(i18n(errorWrite, url_.fileName()));
@@ -347,10 +333,10 @@ bool FileHandler::writeDataURL(const KUrl& url_, const QByteArray& data_, bool f
   }
 
   // save to remote file
-  KTemporaryFile tempfile;
+  QTemporaryFile tempfile;
   tempfile.open();
-  KSaveFile f(tempfile.fileName());
-  f.open();
+  QSaveFile f(tempfile.fileName());
+  f.open(QIODevice::WriteOnly);
   if(f.error() != QFile::NoError) {
     if(!quiet_) {
       GUI::Proxy::sorry(i18n(errorWrite, url_.fileName()));
@@ -360,7 +346,9 @@ bool FileHandler::writeDataURL(const KUrl& url_, const QByteArray& data_, bool f
 
   bool success = FileHandler::writeDataFile(f, data_);
   if(success) {
-    success = KIO::NetAccess::upload(tempfile.fileName(), url_, GUI::Proxy::widget());
+    KIO::Job* job = KIO::file_copy(QUrl::fromLocalFile(tempfile.fileName()), url_, -1, KIO::Overwrite);
+    KJobWidgets::setWindow(job, GUI::Proxy::widget());
+    success = job->exec();
     if(!success && !quiet_) {
       GUI::Proxy::sorry(i18n(errorUpload, url_.fileName()));
     }
@@ -370,11 +358,11 @@ bool FileHandler::writeDataURL(const KUrl& url_, const QByteArray& data_, bool f
   return success;
 }
 
-bool FileHandler::writeDataFile(KSaveFile& file_, const QByteArray& data_) {
+bool FileHandler::writeDataFile(QSaveFile& file_, const QByteArray& data_) {
   QDataStream s(&file_);
   s.writeRawData(data_.data(), data_.size());
   file_.flush();
-  bool success = file_.finalize();
+  bool success = file_.commit();
 #ifndef NDEBUG
   if(!success) {
     myDebug() << "error = " << file_.error();

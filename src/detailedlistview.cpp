@@ -25,7 +25,6 @@
 #include "detailedlistview.h"
 #include "collection.h"
 #include "collectionfactory.h"
-#include "images/imagefactory.h"
 #include "controller.h"
 #include "field.h"
 #include "entry.h"
@@ -36,14 +35,10 @@
 #include "models/entrysortmodel.h"
 #include "models/modelmanager.h"
 
-#include <klocale.h>
-#include <kconfig.h>
-#include <kapplication.h>
-#include <kaction.h>
-#include <kiconloader.h>
-#include <kmenu.h>
+#include <KLocalizedString>
+#include <KSharedConfig>
 
-#include <QPixmap>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QHeaderView>
 #include <QContextMenuEvent>
@@ -65,6 +60,11 @@ protected:
       opt->font.setBold(true);
       opt->font.setItalic(true);
     }
+    // since the model returns an icon for the title, turn it off for the list view
+    // here we assume that column 0 is always the title field
+    if(index.column() == 0) {
+      opt->features ^= QStyleOptionViewItemV2::HasDecoration;
+    }
   }
 };
 
@@ -73,7 +73,8 @@ protected:
 using namespace Tellico;
 using Tellico::DetailedListView;
 
-DetailedListView::DetailedListView(QWidget* parent_) : GUI::TreeView(parent_), m_selectionChanging(false) {
+DetailedListView::DetailedListView(QWidget* parent_) : GUI::TreeView(parent_)
+    , m_loadingCollection(false), m_selectionChanging(false) {
   setHeaderHidden(false);
   setSelectionMode(QAbstractItemView::ExtendedSelection);
   setAlternatingRowColors(true);
@@ -87,8 +88,8 @@ DetailedListView::DetailedListView(QWidget* parent_) : GUI::TreeView(parent_), m
   header()->installEventFilter(this);
   header()->setMinimumSectionSize(20);
 
-  m_headerMenu = new KMenu(this);
-  m_columnMenu = new KMenu(this);
+  m_headerMenu = new QMenu(this);
+  m_columnMenu = new QMenu(this);
   connect(m_columnMenu, SIGNAL(triggered(QAction*)),
           SLOT(slotColumnMenuActivated(QAction*)));
 
@@ -119,13 +120,13 @@ void DetailedListView::addCollection(Tellico::Data::CollPtr coll_) {
   }
 
   const QString configGroup = QString::fromLatin1("Options - %1").arg(CollectionFactory::typeName(coll_));
-  KConfigGroup config(KGlobal::config(), configGroup);
+  KConfigGroup config(KSharedConfig::openConfig(), configGroup);
 
   QString configN;
   if(coll_->type() == Data::Collection::Base) {
-    KUrl url = Kernel::self()->URL();
+    QUrl url = Kernel::self()->URL();
     for(int i = 0; i < Config::maxCustomURLSettings(); ++i) {
-      KUrl u = config.readEntry(QString::fromLatin1("URL_%1").arg(i), KUrl());
+      QUrl u = config.readEntry(QString::fromLatin1("URL_%1").arg(i), QUrl());
       if(u == url) {
         configN = QString::fromLatin1("_%1").arg(i);
         break;
@@ -174,7 +175,7 @@ void DetailedListView::addCollection(Tellico::Data::CollPtr coll_) {
   }
 
   // always hide tables and paragraphs
-  for(int ncol = 0; ncol < header()->count(); ++ncol) {
+  for(int ncol = 0; ncol < coll_->fields().count(); ++ncol) {
     Data::FieldPtr field = model()->headerData(ncol, Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
     if(field) {
       if(field->type() == Data::Field::Table || field->type() == Data::Field::Para) {
@@ -201,14 +202,12 @@ void DetailedListView::addCollection(Tellico::Data::CollPtr coll_) {
   m_loadingCollection = false;
   setUpdatesEnabled(true);
 
-  sortModel()->invalidate();
   header()->setSortIndicator(sortModel()->sortColumn(), sortModel()->sortOrder());
 }
 
 void DetailedListView::slotReset() {
   //clear() does not remove columns
   sourceModel()->clear();
-  sortModel()->clear();
 }
 
 void DetailedListView::addEntries(Tellico::Data::EntryList entries_) {
@@ -268,7 +267,7 @@ void DetailedListView::contextMenuEvent(QContextMenuEvent* event_) {
     return;
   }
 
-  KMenu menu(this);
+  QMenu menu(this);
   Controller::self()->plugEntryActions(&menu);
   menu.exec(event_->globalPos());
 }
@@ -311,23 +310,8 @@ bool DetailedListView::eventFilter(QObject* obj_, QEvent* event_) {
   return GUI::TreeView::eventFilter(obj_, event_);
 }
 
-void DetailedListView::selectionChanged(const QItemSelection& selected_, const QItemSelection& deselected_) {
-  m_selectionChanging = true;
-  GUI::TreeView::selectionChanged(selected_, deselected_);
-  Data::EntryList entries;
-  foreach(const QModelIndex& index, selectionModel()->selectedRows()) {
-    QModelIndex realIndex = sortModel()->mapToSource(index);
-    Data::EntryPtr tmp = sourceModel()->data(realIndex, EntryPtrRole).value<Data::EntryPtr>();
-    if(tmp) {
-      entries += tmp;
-    }
-  }
-  Controller::self()->slotUpdateSelection(this, entries);
-  m_selectionChanging = false;
-}
-
 void DetailedListView::slotDoubleClicked(const QModelIndex& index_) {
-  Data::EntryPtr entry = sourceModel()->data(index_, EntryPtrRole).value<Data::EntryPtr>();
+  Data::EntryPtr entry = index_.data(EntryPtrRole).value<Data::EntryPtr>();
   if(entry) {
     Controller::self()->editEntry(entry);
   }
@@ -430,14 +414,14 @@ void DetailedListView::reorderFields(const Tellico::Data::FieldList& fields_) {
 
 void DetailedListView::saveConfig(Tellico::Data::CollPtr coll_, int configIndex_) {
   const QString configGroup = QString::fromLatin1("Options - %1").arg(CollectionFactory::typeName(coll_));
-  KConfigGroup config(KGlobal::config(), configGroup);
+  KConfigGroup config(KSharedConfig::openConfig(), configGroup);
 
   // all of this is to have custom settings on a per file basis
   QString configN;
   if(coll_->type() == Data::Collection::Base) {
     QList<ConfigInfo> info;
     for(int i = 0; i < Config::maxCustomURLSettings(); ++i) {
-      KUrl u = config.readEntry(QString::fromLatin1("URL_%1").arg(i));
+      QUrl u(config.readEntry(QString::fromLatin1("URL_%1").arg(i)));
       if(!u.isEmpty() && i != configIndex_) {
         configN = QString::fromLatin1("_%1").arg(i);
         ConfigInfo ci;
@@ -549,11 +533,11 @@ void DetailedListView::resetEntryStatus() {
 void DetailedListView::updateHeaderMenu() {
   // we only want to update the menu when the header count and model count agree
   if(model()->columnCount() != header()->count()) {
-    myDebug() << "column counts diagree";
+    myDebug() << "column counts disagree";
     return;
   }
   m_headerMenu->clear();
-  m_headerMenu->addTitle(i18n("View Columns"));
+  m_headerMenu->addSection(i18n("View Columns"));
 
   m_columnMenu->clear();
 
@@ -569,7 +553,7 @@ void DetailedListView::updateHeaderMenu() {
   }
   QAction* columnAction = m_headerMenu->addMenu(m_columnMenu);
   columnAction->setText(i18nc("Noun, Menu name", "Columns"));
-  columnAction->setIcon(KIcon(QLatin1String("view-file-columns")));
+  columnAction->setIcon(QIcon::fromTheme(QLatin1String("view-file-columns")));
 
   m_headerMenu->addSeparator();
 
@@ -577,7 +561,7 @@ void DetailedListView::updateHeaderMenu() {
   connect(actShowAll, SIGNAL(triggered(bool)), this, SLOT(showAllColumns()));
   QAction* actHideAll = m_headerMenu->addAction(i18n("Hide All Columns"));
   connect(actHideAll, SIGNAL(triggered(bool)), this, SLOT(hideAllColumns()));
-  QAction* actResize = m_headerMenu->addAction(KIcon(QLatin1String("zoom-fit-width")), i18n("Resize to Content"));
+  QAction* actResize = m_headerMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-fit-width")), i18n("Resize to Content"));
   connect(actResize, SIGNAL(triggered(bool)), this, SLOT(resizeColumnsToContents()));
 }
 
@@ -654,5 +638,3 @@ QString DetailedListView::columnFieldName(int ncol_) const {
   Data::FieldPtr field = model()->headerData(ncol_, Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
   return field ? field->name() : QString();
 }
-
-#include "detailedlistview.moc"

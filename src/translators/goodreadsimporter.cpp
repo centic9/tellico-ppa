@@ -26,17 +26,20 @@
 #include "xslthandler.h"
 #include "tellicoimporter.h"
 #include "filehandler.h"
+#include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
-#include <KStandardDirs>
-#include <KLineEdit>
 #include <KConfigGroup>
+#include <KSharedConfig>
+#include <KLocalizedString>
 
+#include <QLineEdit>
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QGroupBox>
 #include <QDomDocument>
 #include <QRegExp>
+#include <QUrlQuery>
 
 namespace {
   static const char* GOODREADS_LIST_URL = "http://www.goodreads.com/review/list.xml";
@@ -46,15 +49,15 @@ namespace {
 
 using Tellico::Import::GoodreadsImporter;
 
-GoodreadsImporter::GoodreadsImporter() : Import::Importer(), m_widget(0) {
-  QString xsltFile = KStandardDirs::locate("appdata", QLatin1String("goodreads2tellico.xsl"));
+GoodreadsImporter::GoodreadsImporter() : Import::Importer(), m_widget(0), m_userEdit(0) {
+  QString xsltFile = DataFileRegistry::self()->locate(QLatin1String("goodreads2tellico.xsl"));
   if(!xsltFile.isEmpty()) {
-    m_xsltURL.setPath(xsltFile);
+    m_xsltURL = QUrl::fromLocalFile(xsltFile);
   } else {
     myWarning() << "unable to find goodreads2tellico.xsl!";
   }
 
-  KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - Goodreads"));
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - Goodreads"));
   m_user = config.readEntry("User ID");
   m_key = config.readEntry("Developer Key");
   if(m_key.isEmpty()) {
@@ -107,7 +110,7 @@ Tellico::Data::CollPtr GoodreadsImporter::collection() {
   m_coll = imp.collection();
   setStatusMessage(imp.statusMessage());
 
-  KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - Goodreads"));
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - Goodreads"));
   config.writeEntry("User ID", m_user);
   config.writeEntry("Developer Key", m_key);
 
@@ -124,7 +127,7 @@ QWidget* GoodreadsImporter::widget(QWidget* parent_) {
   QGroupBox* gbox = new QGroupBox(i18n("Goodreads Options"), m_widget);
   QFormLayout* lay = new QFormLayout(gbox);
 
-  m_userEdit = new KLineEdit(gbox);
+  m_userEdit = new QLineEdit(gbox);
   m_userEdit->setText(m_user);
 
   lay->addRow(i18n("User ID"), m_userEdit);
@@ -136,18 +139,22 @@ QWidget* GoodreadsImporter::widget(QWidget* parent_) {
 }
 
 QString GoodreadsImporter::text() const {
-  KUrl u(GOODREADS_LIST_URL);
-  u.addQueryItem(QLatin1String("v"), QLatin1String("2"));
-  u.addQueryItem(QLatin1String("id"), m_user);
-  u.addQueryItem(QLatin1String("key"), m_key);
+  QUrl u(QString::fromLatin1(GOODREADS_LIST_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("v"), QLatin1String("2"));
+  q.addQueryItem(QLatin1String("id"), m_user);
+  q.addQueryItem(QLatin1String("key"), m_key);
+  u.setQuery(q);
 //  myDebug() << u;
   return FileHandler::readTextFile(u, false, true);
 }
 
 QString GoodreadsImporter::idFromName(const QString& name_) const {
-  KUrl u(GOODREADS_USER_URL);
-  u.addQueryItem(QLatin1String("username"), name_);
-  u.addQueryItem(QLatin1String("key"), m_key);
+  QUrl u(QString::fromLatin1(GOODREADS_USER_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("username"), name_);
+  q.addQueryItem(QLatin1String("key"), m_key);
+  u.setQuery(q);
 //  myDebug() << u;
 
   QDomDocument dom = FileHandler::readXMLDocument(u, false /* process namespace */);
@@ -157,5 +164,3 @@ QString GoodreadsImporter::idFromName(const QString& name_) const {
                               .text()
                               .trimmed();
 }
-
-#include "goodreadsimporter.moc"

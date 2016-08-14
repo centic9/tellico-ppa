@@ -29,19 +29,17 @@
 #include "datewidget.h"
 #include "spinbox.h"
 
-#include <kcombobox.h>
-#include <kpushbutton.h>
-#include <kdatepicker.h>
-#include <kiconloader.h>
-#include <klocale.h>
-#include <kglobalsettings.h>
-#include <kcalendarsystem.h>
+#include <KComboBox>
+#include <KDatePicker>
 
+#include <QPushButton>
 #include <QHBoxLayout>
 #include <QFrame>
 #include <QEvent>
 #include <QMenu>
 #include <QWidgetAction>
+#include <QApplication>
+#include <QDesktopWidget>
 
 using Tellico::GUI::DateWidget;
 
@@ -79,8 +77,6 @@ DateWidget::DateWidget(QWidget* parent_) : QWidget(parent_) {
   QBoxLayout* l = new QHBoxLayout(this);
   l->setContentsMargins(0, 0, 0, 0);
 
-  KLocale* locale = KGlobal::locale();
-
   // 0 allows empty value
   m_daySpin = new SpinBox(0, 31, this);
   l->addWidget(m_daySpin, 1);
@@ -91,17 +87,16 @@ DateWidget::DateWidget(QWidget* parent_) : QWidget(parent_) {
   l->setStretchFactor(m_monthCombo, 1);
   // allow empty item
   m_monthCombo->addItem(QString());
-  QDate d = QDate::currentDate();
   for(int i = 1; ; ++i) {
-    QString str = locale->calendar()->monthName(i, locale->calendar()->year(d));
+    QString str = QDate::longMonthName(i);
     if(str.isEmpty()) {
       break;
     }
     m_monthCombo->addItem(str);
   }
 
-  m_yearSpin = new SpinBox(locale->calendar()->earliestValidDate().year(),
-                           locale->calendar()->latestValidDate().year(), this);
+  m_yearSpin = new SpinBox(QDate::fromJulianDay(0).year(),
+                           9999, this);
   l->addWidget(m_yearSpin, 1);
   l->setStretchFactor(m_yearSpin, 1);
 
@@ -109,8 +104,8 @@ DateWidget::DateWidget(QWidget* parent_) : QWidget(parent_) {
   connect(m_monthCombo, SIGNAL(activated(int)), SLOT(slotDateChanged()));
   connect(m_yearSpin, SIGNAL(valueChanged(int)), SLOT(slotDateChanged()));
 
-  m_dateButton = new KPushButton(this);
-  m_dateButton->setIcon(KIcon(QLatin1String("view-pim-calendar")));
+  m_dateButton = new QPushButton(this);
+  m_dateButton->setIcon(QIcon::fromTheme(QLatin1String("view-pim-calendar")));
   connect(m_dateButton, SIGNAL(clicked()), SLOT(slotShowPicker()));
   l->addWidget(m_dateButton, 0);
 
@@ -178,11 +173,19 @@ QString DateWidget::text() const {
   s += QLatin1Char('-');
   // first item is empty
   if(m_monthCombo->currentIndex() > 0) {
+    // zero-pad to two digits
+    if(m_monthCombo->currentIndex() < 10) {
+      s += QLatin1Char('0');
+    }
     s += QString::number(m_monthCombo->currentIndex());
     empty = false;
   }
   s += QLatin1Char('-');
   if(m_daySpin->value() > m_daySpin->minimum()) {
+    // zero-pad to two digits
+    if(m_daySpin->value() < 10) {
+      s += QLatin1Char('0');
+    }
     s += QString::number(m_daySpin->value());
     empty = false;
   }
@@ -194,11 +197,10 @@ void DateWidget::setDate(const QDate& date_) {
   m_monthCombo->blockSignals(true);
   m_yearSpin->blockSignals(true);
 
-  const KCalendarSystem* calendar = KGlobal::locale()->calendar();
-  m_daySpin->setMaximum(calendar->daysInMonth(date_));
-  m_daySpin->setValue(calendar->day(date_));
-  m_monthCombo->setCurrentIndex(calendar->month(date_)); // don't subtract 1 since there's the blank first item
-  m_yearSpin->setValue(calendar->year(date_));
+  m_daySpin->setMaximum(date_.daysInMonth());
+  m_daySpin->setValue(date_.day());
+  m_monthCombo->setCurrentIndex(date_.month()); // don't subtract 1 since there's the blank first item
+  m_yearSpin->setValue(date_.year());
 
   m_daySpin->blockSignals(false);
   m_monthCombo->blockSignals(false);
@@ -232,7 +234,7 @@ void DateWidget::setDate(const QString& date_) {
   // for now set date to 1
   QDate date(y, (m == 0 ? 1 : m), 1);
   m_daySpin->blockSignals(true);
-  m_daySpin->setMaximum(KGlobal::locale()->calendar()->daysInMonth(date));
+  m_daySpin->setMaximum(date.daysInMonth());
   m_daySpin->blockSignals(false);
 
   int day = s.count() > 2 ? s[2].toInt(&ok) : m_daySpin->minimum();
@@ -273,7 +275,7 @@ void DateWidget::clear() {
 }
 
 void DateWidget::slotShowPicker() {
-  QRect desk = KGlobalSettings::desktopGeometry(this);
+  QRect desk = QApplication::desktop()->screenGeometry(this);
   QPoint popupPoint = mapToGlobal(QPoint(0, 0));
 
   int dateFrameHeight = m_menu->sizeHint().height();
@@ -319,4 +321,3 @@ void DateWidget::slotDateEntered(const QDate& date_) {
   }
 }
 
-#include "datewidget.moc"

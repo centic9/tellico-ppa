@@ -31,11 +31,13 @@
 #include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
-#include <kapplication.h>
+#include <KLocalizedString>
+
+#include <QApplication>
 
 using Tellico::Import::BibtexmlImporter;
 
-BibtexmlImporter::BibtexmlImporter(const KUrl& url) : Import::XMLImporter(url), m_cancelled(false) {
+BibtexmlImporter::BibtexmlImporter(const QUrl& url) : Import::XMLImporter(url), m_cancelled(false) {
 }
 
 BibtexmlImporter::BibtexmlImporter(const QString& text) : Import::XMLImporter(text), m_cancelled(false) {
@@ -74,7 +76,7 @@ void BibtexmlImporter::loadDomDocument() {
 
     if(showProgress && j%stepSize == 0) {
       emit signalProgress(this, 100*j/count);
-      kapp->processEvents();
+      qApp->processEvents();
     }
   } // end entry loop
 }
@@ -169,5 +171,3 @@ void BibtexmlImporter::readEntry(const QDomNode& entryNode_) {
 void BibtexmlImporter::slotCancel() {
   m_cancelled = true;
 }
-
-#include "bibtexmlimporter.moc"

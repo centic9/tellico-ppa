@@ -28,12 +28,12 @@
 #include "entrygroup.h"
 #include "derivedvalue.h"
 #include "fieldformat.h"
-#include "tellico_utils.h"
+#include "utils/string_utils.h"
 #include "utils/stringset.h"
 #include "entrycomparison.h"
 #include "tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <QRegExp>
 
@@ -559,7 +559,6 @@ bool Collection::removeEntries(const Tellico::Data::EntryList& vec_) {
     return false;
   }
 
-//  myDebug() << "deleted entry - " << entry_->title();
   removeEntriesFromDicts(vec_, fieldNames());
   bool success = true;
   foreach(EntryPtr entry, vec_) {
@@ -905,5 +904,3 @@ Tellico::Data::ID Collection::getID() {
   static ID id = 0;
   return ++id;
 }
-
-#include "collection.moc"

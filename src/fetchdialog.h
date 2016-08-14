@@ -27,11 +27,9 @@
 
 #include "datavectors.h"
 
-#include <kdialog.h>
-
+#include <QDialog>
 #include <QPointer>
 #include <QEvent>
-#include <QCustomEvent>
 #include <QList>
 #include <QHash>
 
@@ -52,11 +50,11 @@ namespace barcodeRecognition {
 }
 
 class KComboBox;
-class KLineEdit;
-class KPushButton;
-class KStatusBar;
 class KTextEdit;
 
+class QStatusBar;
+class QPushButton;
+class QLineEdit;
 class QLabel;
 class QProgressBar;
 class QTimer;
@@ -68,7 +66,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class FetchDialog : public KDialog {
+class FetchDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -78,10 +76,10 @@ public:
   FetchDialog(QWidget* parent);
   ~FetchDialog();
 
-public slots:
+public Q_SLOTS:
   void slotResetCollection();
 
-private slots:
+private Q_SLOTS:
   void slotSearchClicked();
   void slotClearClicked();
   void slotAddEntry();
@@ -121,15 +119,15 @@ private:
 
   KComboBox* m_sourceCombo;
   GUI::ComboBox* m_keyCombo;
-  KLineEdit* m_valueLineEdit;
-  KPushButton* m_searchButton;
+  QLineEdit* m_valueLineEdit;
+  QPushButton* m_searchButton;
   QCheckBox* m_multipleISBN;
-  KPushButton* m_editISBN;
+  QPushButton* m_editISBN;
   QTreeWidget* m_treeWidget;
   EntryView* m_entryView;
-  KPushButton* m_addButton;
-  KPushButton* m_moreButton;
-  KStatusBar* m_statusBar;
+  QPushButton* m_addButton;
+  QPushButton* m_moreButton;
+  QStatusBar* m_statusBar;
   QLabel* m_statusLabel;
   QProgressBar* m_progress;
   QTimer* m_timer;

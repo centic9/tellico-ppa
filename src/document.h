@@ -28,10 +28,9 @@
 #include "datavectors.h"
 #include "filter.h"
 
-#include <kurl.h>
-
 #include <QObject>
 #include <QPointer>
+#include <QUrl>
 
 namespace Tellico {
   namespace Import {
@@ -69,7 +68,7 @@ public:
    *
    * @param url The URL
    */
-  void setURL(const KUrl& url);
+  void setURL(const QUrl& url);
   /**
    * Checks the modified flag, which indicates if the document has changed since the
    * last save.
@@ -86,7 +85,7 @@ public:
    *
    * @return The url
    */
-  const KUrl& URL() const { return m_url; }
+  const QUrl& URL() const { return m_url; }
   /**
    * Initializes a new document. The signalNewDoc() signal is emitted. The return
    * value is currently always true, but should indicate whether or not a new document
@@ -104,14 +103,14 @@ public:
    * @param url The location to open
    * @return A boolean indicating success
    */
-  bool openDocument(const KUrl& url);
+  bool openDocument(const QUrl& url);
   /**
    * Saves the document contents to a file.
    *
    * @param url The location to save the file
    * @return A boolean indicating success
    */
-  bool saveDocument(const KUrl& url);
+  bool saveDocument(const QUrl& url);
   /**
    * Closes the document, deleting the contents. The return value is presently always true.
    *
@@ -142,10 +141,11 @@ public:
    * @param coll A pointer to the appended collection.
    */
   void appendCollection(CollPtr coll);
+  static void appendCollection(CollPtr targetColl, CollPtr sourceColl);
   /**
    * Merges another collection into this one. The collections must be the same type. Fields in the
    * current collection are left alone. Fields not in the current are added. The merging is slow
-   * since each entry in @p coll must be compared to ever entry in the current collection.
+   * since each entry in @p coll must be compared to every entry in the current collection.
    *
    * @param coll A pointer to the collection to be merged.
    * @return A QPair of the merged entries, see note in datavectors.h
@@ -184,7 +184,7 @@ public:
                                                              Data::FieldList fields,
                                                              Data::EntryList entries);
 
-public slots:
+public Q_SLOTS:
   /**
    * Sets the modified flag. If it is true, the signalModified signal is made.
    *
@@ -193,7 +193,7 @@ public slots:
   void slotSetModified(bool m=true);
   void slotSetClean(bool clean);
 
-signals:
+Q_SIGNALS:
   /**
    * Signals that the document has been modified.
    */
@@ -212,7 +212,7 @@ signals:
   void signalCollectionAdded(Tellico::Data::CollPtr coll);
   void signalCollectionDeleted(Tellico::Data::CollPtr coll);
 
-private slots:
+private Q_SLOTS:
   /**
    * Does an initial loading of all images, used for writing
    * images to temp dir initially
@@ -226,7 +226,7 @@ private:
    * Writes all images in the current collection to the cache directory
    * if cacheDir = LocalDir, then url will be used and must not be empty
    */
-  void writeAllImages(int cacheDir, const KUrl& url=KUrl());
+  void writeAllImages(int cacheDir, const QUrl& url=QUrl());
   bool pruneImages();
 
   // make all constructors private
@@ -238,7 +238,7 @@ private:
   CollPtr m_coll;
   bool m_isModified;
   bool m_loadAllImages;
-  KUrl m_url;
+  QUrl m_url;
   bool m_validFile;
   QPointer<Import::TellicoImporter> m_importer;
   bool m_cancelImageWriting;

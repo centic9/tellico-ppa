@@ -63,7 +63,46 @@
   </cover>
 
   <platform>
-   <xsl:value-of select="platforms/platform[1]/name"/>
+   <xsl:variable name="p" select="platforms/platform[1]/name"/>
+   <!-- convert to default Tellico spelling -->
+   <xsl:choose>
+    <xsl:when test="$p='PlayStation 4'">
+     <xsl:value-of select="'PlayStation4'"/>
+    </xsl:when>
+    <xsl:when test="$p='PlayStation 3'">
+     <xsl:value-of select="'PlayStation3'"/>
+    </xsl:when>
+    <xsl:when test="$p='PlayStation 2'">
+     <xsl:value-of select="'PlayStation2'"/>
+    </xsl:when>
+    <xsl:when test="$p='PlayStation Portable'">
+     <xsl:value-of select="'PSP'"/>
+    </xsl:when>
+    <xsl:when test="contains($p, '360')">
+     <xsl:value-of select="'Xbox 360'"/>
+    </xsl:when>
+    <xsl:when test="contains($p, 'Wii')">
+     <xsl:value-of select="'Nintendo Wii'"/>
+    </xsl:when>
+    <xsl:when test="contains($p, '3DS')">
+     <xsl:value-of select="'Nintendo 3DS'"/>
+    </xsl:when>
+    <xsl:when test="contains($p, 'Super Nintendo')">
+     <xsl:value-of select="'Super Nintendo'"/>
+    </xsl:when>
+    <xsl:when test="$p = 'Nintendo Entertainment System'">
+     <xsl:value-of select="'Nintendo'"/>
+    </xsl:when>
+    <xsl:when test="$p='PC'">
+     <xsl:value-of select="'Windows'"/>
+    </xsl:when>
+    <xsl:when test="$p='Mac'">
+     <xsl:value-of select="'Mac OS'"/>
+    </xsl:when>
+    <xsl:otherwise>
+     <xsl:value-of select="$p"/>
+    </xsl:otherwise>
+   </xsl:choose>
   </platform>
 
   <genres>

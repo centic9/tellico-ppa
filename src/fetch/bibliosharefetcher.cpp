@@ -29,12 +29,13 @@
 #include "../images/imageinfo.h"
 #include "../tellico_debug.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigGroup>
-#include <KLineEdit>
 
+#include <QLineEdit>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QUrlQuery>
 
 namespace {
   static const char* BIBLIOSHARE_BASE_URL = "http://www.biblioshare.org/BNCServices/BNCServices.asmx/";
@@ -69,10 +70,12 @@ void BiblioShareFetcher::readConfigHook(const KConfigGroup& config_) {
   }
 }
 
-KUrl BiblioShareFetcher::searchUrl() {
-  KUrl u(BIBLIOSHARE_BASE_URL);
-  u.addPath(QLatin1String("BiblioSimple"));
-  u.addQueryItem(QLatin1String("Token"), m_token);
+QUrl BiblioShareFetcher::searchUrl() {
+  QUrl u(QString::fromLatin1(BIBLIOSHARE_BASE_URL));
+  u.setPath(u.path() + QLatin1String("BiblioSimple"));
+
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("Token"), m_token);
 
   switch(request().key) {
     case ISBN:
@@ -81,17 +84,17 @@ KUrl BiblioShareFetcher::searchUrl() {
         QString v = request().value.section(QLatin1Char(';'), 0);
         v = ISBNValidator::isbn13(v);
         v.remove(QLatin1Char('-'));
-        u.addQueryItem(QLatin1String("EAN"), v);
+        q.addQueryItem(QLatin1String("EAN"), v);
       }
       break;
 
     default:
-      return KUrl();
+      return QUrl();
   }
+  u.setQuery(q);
 //  myDebug() << "url:" << u.url();
   return u;
 }
-
 
 Tellico::Data::EntryPtr BiblioShareFetcher::fetchEntryHookData(Data::EntryPtr entry_) {
   Q_ASSERT(entry_);
@@ -108,12 +111,15 @@ Tellico::Data::EntryPtr BiblioShareFetcher::fetchEntryHookData(Data::EntryPtr en
       isbn = ISBNValidator::isbn13(isbn);
       isbn.remove(QLatin1Char('-'));
 
-      KUrl imageUrl(BIBLIOSHARE_BASE_URL);
-      imageUrl.addPath(QLatin1String("Images"));
-      imageUrl.addQueryItem(QLatin1String("Token"), m_token);
-      imageUrl.addQueryItem(QLatin1String("SAN"), QString());
-      imageUrl.addQueryItem(QLatin1String("Thumbnail"), QString());
-      imageUrl.addQueryItem(QLatin1String("EAN"), isbn);
+      QUrl imageUrl(QString::fromLatin1(BIBLIOSHARE_BASE_URL));
+      imageUrl.setPath(imageUrl.path() + QLatin1String("Images"));
+      QUrlQuery q;
+      q.addQueryItem(QLatin1String("Token"), m_token);
+      // QUrl does not had the "=" for empty SAN and Thumbnail query items
+      q.addQueryItem(QLatin1String("SAN"), QLatin1String(" "));
+      q.addQueryItem(QLatin1String("Thumbnail"), QLatin1String(" "));
+      q.addQueryItem(QLatin1String("EAN"), isbn);
+      imageUrl.setQuery(q);
       const QString id = ImageFactory::addImage(imageUrl, true);
       if(!id.isEmpty()) {
         // placeholder images are 120x120 or 1x1
@@ -173,7 +179,7 @@ BiblioShareFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BiblioSha
   QLabel* label = new QLabel(i18n("Access key: "), optionsWidget());
   l->addWidget(label, ++row, 0);
 
-  m_tokenEdit = new KLineEdit(optionsWidget());
+  m_tokenEdit = new QLineEdit(optionsWidget());
   connect(m_tokenEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_tokenEdit, row, 1);
   QString w = i18n("The default Tellico key may be used, but searching may fail due to reaching access limits.");
@@ -203,4 +209,3 @@ QString BiblioShareFetcher::ConfigWidget::preferredName() const {
   return BiblioShareFetcher::defaultName();
 }
 
-#include "bibliosharefetcher.moc"

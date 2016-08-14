@@ -23,8 +23,6 @@
  ***************************************************************************/
 
 #include "vndbfetchertest.h"
-#include "vndbfetchertest.moc"
-#include "qtest_kde.h"
 
 #include "../fetch/vndbfetcher.h"
 #include "../collections/gamecollection.h"
@@ -32,9 +30,12 @@
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
+#include <KConfig>
 #include <KConfigGroup>
 
-QTEST_KDEMAIN( VNDBFetcherTest, GUI )
+#include <QTest>
+
+QTEST_GUILESS_MAIN( VNDBFetcherTest )
 
 VNDBFetcherTest::VNDBFetcherTest() : AbstractFetcherTest() {
 }
@@ -47,11 +48,12 @@ void VNDBFetcherTest::initTestCase() {
   m_fieldValues.insert(QLatin1String("year"), QLatin1String("2008"));
 //  m_fieldValues.insert(QLatin1String("developer"), QLatin1String("Akabei Soft2"));
   m_fieldValues.insert(QLatin1String("origtitle"), QString::fromUtf8("G線上の魔王"));
-  m_fieldValues.insert(QLatin1String("alias"), QLatin1String("The Devil on G-String"));
+  // alias value was removed from the vndb data for this item
+//  m_fieldValues.insert(QLatin1String("alias"), QLatin1String("The Devil on G-String"));
 }
 
 void VNDBFetcherTest::testTitle() {
-  KConfig config(QString::fromLatin1(KDESRCDIR) + QLatin1String("/tellicotest.config"), KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
   QString groupName = QLatin1String("vndb");
   if(!config.hasGroup(groupName)) {
     QSKIP("This test requires a config file.", SkipAll);

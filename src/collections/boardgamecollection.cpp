@@ -25,7 +25,7 @@
 
 #include "boardgamecollection.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 namespace {
   static const char* boardgame_general = I18N_NOOP("General");
@@ -82,6 +82,16 @@ Tellico::Data::FieldList BoardGameCollection::defaultFields() {
   field->setFlags(Field::AllowMultiple | Field::AllowGrouped);
   list.append(field);
 
+  field = new Field(QLatin1String("playing-time"), i18n("Playing Time"), Field::Number);
+  field->setCategory(i18n(boardgame_general));
+  field->setFlags(Field::AllowGrouped);
+  list.append(field);
+
+  field = new Field(QLatin1String("minimum-age"), i18n("Minimum Age"), Field::Number);
+  field->setCategory(i18n(boardgame_general));
+  field->setFlags(Field::AllowGrouped);
+  list.append(field);
+
   field = new Field(QLatin1String("description"), i18n("Description"), Field::Para);
   list.append(field);
 
@@ -120,5 +130,3 @@ Tellico::Data::FieldList BoardGameCollection::defaultFields() {
 
   return list;
 }
-
-#include "boardgamecollection.moc"

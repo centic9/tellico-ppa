@@ -25,38 +25,39 @@
 #undef QT_NO_CAST_FROM_ASCII
 
 #include "crossreffetchertest.h"
-#include "crossreffetchertest.moc"
-#include "qtest_kde.h"
 
 #include "../fetch/crossreffetcher.h"
 #include "../collections/bibtexcollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
+#include "../utils/datafileregistry.h"
 
-#include <KStandardDirs>
+#include <KConfig>
 #include <KConfigGroup>
 
-QTEST_KDEMAIN( CrossRefFetcherTest, GUI )
+#include <QTest>
+
+QTEST_GUILESS_MAIN( CrossRefFetcherTest )
 
 CrossRefFetcherTest::CrossRefFetcherTest() : AbstractFetcherTest() {
 }
 
 void CrossRefFetcherTest::initTestCase() {
-  KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
+  Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/unixref2tellico.xsl"));
   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
 
   m_fieldValues.insert(QLatin1String("doi"), QLatin1String("10.2514/1.G000894"));
   m_fieldValues.insert(QLatin1String("entry-type"), QLatin1String("article"));
   m_fieldValues.insert(QLatin1String("title"), QLatin1String("Robustness and Efficiency Improvements for Star Tracker Attitude Estimation"));
   m_fieldValues.insert(QLatin1String("author"), QLatin1String("Tjorven Delabie; Joris De Schutter; Bart Vandenbussche"));
-  m_fieldValues.insert(QLatin1String("pages"), QLatin1String("1-14"));
+  m_fieldValues.insert(QLatin1String("pages"), QLatin1String("2108-2121"));
   m_fieldValues.insert(QLatin1String("journal"), QLatin1String("Journal of Guidance, Control, and Dynamics"));
   m_fieldValues.insert(QLatin1String("year"), QLatin1String("2015"));
-  m_fieldValues.insert(QLatin1String("month"), QLatin1String("04"));
+  m_fieldValues.insert(QLatin1String("month"), QLatin1String("11"));
 }
 
 void CrossRefFetcherTest::testDOI() {
-  KConfig config(QString::fromLatin1(KDESRCDIR) + QLatin1String("/tellicotest.config"), KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
   QString groupName = QLatin1String("crossref");
   if(!config.hasGroup(groupName)) {
     QSKIP("This test requires a config file.", SkipAll);

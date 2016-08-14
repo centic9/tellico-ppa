@@ -28,8 +28,8 @@
 #include "translators/translators.h"
 #include "datavectors.h"
 
-#include <kdialog.h>
-#include <kurl.h>
+#include <QDialog>
+#include <QUrl>
 
 class QCheckBox;
 class QRadioButton;
@@ -42,7 +42,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class ExportDialog : public KDialog {
+class ExportDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -50,12 +50,12 @@ public:
   ~ExportDialog();
 
   QString fileFilter();
-  bool exportURL(const KUrl& url=KUrl()) const;
+  bool exportURL(const QUrl& url=QUrl()) const;
 
   static Export::Target exportTarget(Export::Format format);
-  static bool exportCollection(Export::Format format, const KUrl& url);
+  static bool exportCollection(Export::Format format, const QUrl& url);
 
-private slots:
+private Q_SLOTS:
   void slotSaveOptions();
 
 private:

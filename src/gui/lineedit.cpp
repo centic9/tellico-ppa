@@ -24,19 +24,17 @@
 
 #include "lineedit.h"
 
-#include <kstandardaction.h>
-#include <kactioncollection.h>
-#include <kaction.h>
-#include <sonnet/dialog.h>
-#include <sonnet/backgroundchecker.h>
+#include <KStandardAction>
+#include <KActionCollection>
+#include <Sonnet/Dialog>
+#include <Sonnet/BackgroundChecker>
 
-#include <QApplication>
 #include <QMenu>
 #include <QContextMenuEvent>
 
 using Tellico::GUI::LineEdit;
 
-LineEdit::LineEdit(QWidget* parent_) : KLineEdit(parent_)
+LineEdit::LineEdit(QWidget* parent_) : KLineEdit(parent_) //krazy:exclude=qclasses
     , m_allowSpellCheck(false)
     , m_enableSpellCheck(true)
     , m_sonnetDialog(0) {
@@ -84,7 +82,8 @@ void LineEdit::slotSpellCheckDone(const QString& newText) {
   if(newText != text()) {
     setText(newText);
   }
-  m_sonnetDialog->delayedDestruct();
+  m_sonnetDialog->hide();
+  m_sonnetDialog->deleteLater();
   m_sonnetDialog = 0;
 }
 
@@ -98,5 +97,3 @@ void LineEdit::spellCheckerCorrected(const QString& oldWord, int pos, const QStr
     insert(newWord);
   }
 }
-
-#include "lineedit.moc"

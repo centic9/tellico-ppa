@@ -28,9 +28,8 @@
 #include "translators/translators.h"
 #include "datavectors.h"
 
-#include <kdialog.h>
-#include <kurl.h>
-
+#include <QDialog>
+#include <QUrl>
 #include <QShowEvent>
 
 class QRadioButton;
@@ -46,11 +45,11 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class ImportDialog : public KDialog {
+class ImportDialog : public QDialog {
 Q_OBJECT
 
 public:
-  ImportDialog(Import::Format format, const KUrl::List& urls, QWidget* parent);
+  ImportDialog(Import::Format format, const QList<QUrl>& urls, QWidget* parent);
   ~ImportDialog();
 
   Data::CollPtr collection();
@@ -61,11 +60,11 @@ public:
   static Import::Target importTarget(Import::Format format);
   static QString startDir(Import::Format format);
 
-  static Import::Importer* importer(Import::Format format, const KUrl::List& urls);
-  static Data::CollPtr importURL(Import::Format format, const KUrl& url);
+  static Import::Importer* importer(Import::Format format, const QList<QUrl>& urls);
+  static Data::CollPtr importURL(Import::Format format, const QUrl& url);
   static Data::CollPtr importText(Import::Format format, const QString& text);
 
-private slots:
+private Q_SLOTS:
   virtual void slotOk();
   void slotUpdateAction();
 

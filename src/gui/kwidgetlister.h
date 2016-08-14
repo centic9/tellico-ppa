@@ -37,7 +37,6 @@
 
 class QPushButton;
 class QVBoxLayout;
-class KHBox;
 
 /**
   @short Widget that manages a list of other widgets (incl. 'more', 'fewer' and 'clear' buttons).
@@ -115,7 +114,7 @@ class KWidgetLister : public QWidget
         nothing. */
     virtual void clearWidget( QWidget *w );
 
-    /** Because QT 2.x does not support signals/slots in template
+    /** Because QT does not support signals/slots in template
         classes, we are forced to emulate this by forcing the
         implementers of subclasses of KWidgetLister to reimplement this
         function which replaces the "@p new @p T" call. */
@@ -152,7 +151,7 @@ class KWidgetLister : public QWidget
 
     QPushButton *mBtnMore, *mBtnFewer, *mBtnClear;
     QVBoxLayout *mLayout;
-    KHBox       *mButtonBox;
+    QWidget     *mButtonBox;
 };
 
 #endif /* _KWIDGETLISTER_H_ */

@@ -27,13 +27,14 @@
 #include "xslthandler.h"
 #include "tellicoimporter.h"
 #include "filehandler.h"
+#include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
-#include <KStandardDirs>
-#include <KLineEdit>
+#include <KSharedConfig>
 #include <KConfigGroup>
-#include <KApplication>
+#include <KLocalizedString>
 
+#include <QLineEdit>
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QGroupBox>
@@ -41,6 +42,8 @@
 #include <QDomDocument>
 #include <QRegExp>
 #include <QFile>
+#include <QApplication>
+#include <QUrlQuery>
 
 namespace {
   static const char* BGG_THING_URL  = "http://boardgamegeek.com/xmlapi2/thing";
@@ -50,15 +53,16 @@ namespace {
 
 using Tellico::Import::BoardGameGeekImporter;
 
-BoardGameGeekImporter::BoardGameGeekImporter() : Import::Importer(), m_cancelled(false), m_widget(0) {
-  QString xsltFile = KStandardDirs::locate("appdata", QLatin1String("boardgamegeek2tellico.xsl"));
+BoardGameGeekImporter::BoardGameGeekImporter() : Import::Importer(), m_cancelled(false), m_widget(0)
+    , m_userEdit(0), m_checkOwned(0) {
+  QString xsltFile = DataFileRegistry::self()->locate(QLatin1String("boardgamegeek2tellico.xsl"));
   if(!xsltFile.isEmpty()) {
-    m_xsltURL.setPath(xsltFile);
+    m_xsltURL = QUrl::fromLocalFile(xsltFile);
   } else {
     myWarning() << "unable to find boardgamegeek2tellico.xsl!";
   }
 
-  KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - BoardGameGeek"));
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - BoardGameGeek"));
   m_user = config.readEntry("User ID");
   m_ownedOnly = config.readEntry("Owned", false);
 }
@@ -97,13 +101,15 @@ Tellico::Data::CollPtr BoardGameGeekImporter::collection() {
   m_ownedOnly = m_checkOwned->isChecked();
 
   // first get the bgg id list
-  KUrl u(BGG_COLLECTION_URL);
-  u.addQueryItem(QLatin1String("username"), m_user);
-  u.addQueryItem(QLatin1String("subtype"), QLatin1String("boardgame"));
-  u.addQueryItem(QLatin1String("brief"), QLatin1String("1"));
+  QUrl u(QString::fromLatin1(BGG_COLLECTION_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("username"), m_user);
+  q.addQueryItem(QLatin1String("subtype"), QLatin1String("boardgame"));
+  q.addQueryItem(QLatin1String("brief"), QLatin1String("1"));
   if(m_ownedOnly) {
-    u.addQueryItem(QLatin1String("own"), QLatin1String("1"));
+    q.addQueryItem(QLatin1String("own"), QLatin1String("1"));
   }
+  u.setQuery(q);
 
   QStringList idList;
   QDomDocument dom = FileHandler::readXMLDocument(u, false, true);
@@ -186,11 +192,11 @@ Tellico::Data::CollPtr BoardGameGeekImporter::collection() {
 
     if(showProgress) {
       emit signalProgress(this, 10 + 100*j/idList.size());
-      kapp->processEvents();
+      qApp->processEvents();
     }
   }
 
-  KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - BoardGameGeek"));
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - BoardGameGeek"));
   config.writeEntry("User ID", m_user);
   config.writeEntry("Owned", m_ownedOnly);
 
@@ -210,7 +216,7 @@ QWidget* BoardGameGeekImporter::widget(QWidget* parent_) {
   QGroupBox* gbox = new QGroupBox(i18n("BoardGameGeek Options"), m_widget);
   QFormLayout* lay = new QFormLayout(gbox);
 
-  m_userEdit = new KLineEdit(gbox);
+  m_userEdit = new QLineEdit(gbox);
   m_userEdit->setText(m_user);
 
   m_checkOwned = new QCheckBox(i18n("Import owned items only"), gbox);
@@ -227,9 +233,11 @@ QWidget* BoardGameGeekImporter::widget(QWidget* parent_) {
 
 QString BoardGameGeekImporter::text(const QStringList& idList_) const {
 //  myDebug() << idList_;
-  KUrl u(BGG_THING_URL);
-  u.addQueryItem(QLatin1String("id"), idList_.join(QLatin1String(",")));
-  u.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
+  QUrl u(QString::fromLatin1(BGG_THING_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("id"), idList_.join(QLatin1String(",")));
+  q.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
+  u.setQuery(q);
 //  myDebug() << u;
   return FileHandler::readTextFile(u, true, true);
 }
@@ -237,5 +245,3 @@ QString BoardGameGeekImporter::text(const QStringList& idList_) const {
 void BoardGameGeekImporter::slotCancel() {
   m_cancelled = true;
 }
-
-#include "boardgamegeekimporter.moc"

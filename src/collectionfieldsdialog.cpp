@@ -32,19 +32,16 @@
 #include "gui/combobox.h"
 #include "tellico_kernel.h"
 #include "translators/tellico_xml.h"
-#include "tellico_utils.h"
+#include "utils/string_utils.h"
 #include "tellico_debug.h"
 
-#include <klocale.h>
-#include <klineedit.h>
-#include <kiconloader.h>
-#include <kmessagebox.h>
-#include <kpushbutton.h>
-#include <kacceleratormanager.h>
-#include <KHBox>
-#include <KVBox>
-#include <KListWidget>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KAcceleratorManager>
+#include <KHelpClient>
 
+#include <QPushButton>
+#include <QLineEdit>
 #include <QLabel>
 #include <QRadioButton>
 #include <QGroupBox>
@@ -52,7 +49,10 @@
 #include <QRegExp>
 #include <QTimer>
 #include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QGridLayout>
+#include <QListWidget>
+#include <QDialogButtonBox>
 
 using namespace Tellico;
 using Tellico::FieldListItem;
@@ -70,7 +70,7 @@ private:
 };
 
 CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWidget* parent_)
-    : KDialog(parent_),
+    : QDialog(parent_),
       m_coll(coll_),
       m_defaultCollection(0),
       m_currentField(0),
@@ -80,11 +80,13 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
       m_oldIndex(-1),
       m_notifyMode(NotifyKernel) {
   setModal(false);
-  setCaption(i18n("Collection Fields"));
-  setButtons(Help|Default|Ok|Apply|Cancel);
+  setWindowTitle(i18n("Collection Fields"));
+
+  QVBoxLayout* mainLayout = new QVBoxLayout();
+  setLayout(mainLayout);
 
   QWidget* page = new QWidget(this);
-  setMainWidget(page);
+  mainLayout->addWidget(page);
   QBoxLayout* topLayout = new QHBoxLayout(page);
   page->setLayout(topLayout);
 
@@ -92,7 +94,7 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
   QBoxLayout* fieldsLayout = new QVBoxLayout(fieldsGroup);
   topLayout->addWidget(fieldsGroup, 1);
 
-  m_fieldsWidget = new KListWidget(fieldsGroup);
+  m_fieldsWidget = new QListWidget(fieldsGroup);
   m_fieldsWidget->setMinimumWidth(150);
   fieldsLayout->addWidget(m_fieldsWidget);
 
@@ -105,56 +107,57 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
   }
   connect(m_fieldsWidget, SIGNAL(currentRowChanged(int)), SLOT(slotHighlightedChanged(int)));
 
-  KHBox* hb1 = new KHBox(fieldsGroup);
-  hb1->setSpacing(KDialog::spacingHint());
+  QWidget* hb1 = new QWidget(fieldsGroup);
+  QHBoxLayout* hb1HBoxLayout = new QHBoxLayout(hb1);
+  hb1HBoxLayout->setMargin(0);
   fieldsLayout->addWidget(hb1);
-  m_btnNew = new KPushButton(i18nc("New Field", "&New"), hb1);
-  m_btnNew->setIcon(KIcon(QLatin1String("document-new")));
+  m_btnNew = new QPushButton(i18nc("New Field", "&New"), hb1);
+  hb1HBoxLayout->addWidget(m_btnNew);
+  m_btnNew->setIcon(QIcon::fromTheme(QLatin1String("document-new")));
   m_btnNew->setWhatsThis(i18n("Add a new field to the collection"));
-  m_btnDelete = new KPushButton(i18nc("Delete Field", "&Delete"), hb1);
-  m_btnDelete->setIcon(KIcon(QLatin1String("edit-delete")));
+  m_btnDelete = new QPushButton(i18nc("Delete Field", "Delete"), hb1);
+  hb1HBoxLayout->addWidget(m_btnDelete);
+  m_btnDelete->setIcon(QIcon::fromTheme(QLatin1String("edit-delete")));
   m_btnDelete->setWhatsThis(i18n("Remove a field from the collection"));
-  // KDE bug 351226, duplicate accelerator keys
-  // in order to avoid changing strings in the very stable branch, retain the english i18n
-  // but check if the text matches the english, and if so, remove the accelerator
-  if(m_btnDelete->text() == QLatin1String("&Delete")) {
-    m_btnDelete->setText(QLatin1String("Delete"));
-  }
 
-  connect(m_btnNew, SIGNAL(clicked()), SLOT(slotNew()) );
+  connect(m_btnNew, SIGNAL(clicked()), SLOT(slotNew()));
   connect(m_btnDelete, SIGNAL(clicked()), SLOT(slotDelete()));
 
-  KHBox* hb2 = new KHBox(fieldsGroup);
-  hb2->setSpacing(KDialog::spacingHint());
+  QWidget* hb2 = new QWidget(fieldsGroup);
+  QHBoxLayout* hb2HBoxLayout = new QHBoxLayout(hb2);
+  hb2HBoxLayout->setMargin(0);
   fieldsLayout->addWidget(hb2);
-  m_btnUp = new KPushButton(hb2);
-  m_btnUp->setIcon(KIcon(QLatin1String("go-up")));
+  m_btnUp = new QPushButton(hb2);
+  hb2HBoxLayout->addWidget(m_btnUp);
+  m_btnUp->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
   m_btnUp->setWhatsThis(i18n("Move this field up in the list. The list order is important "
                              "for the layout of the entry editor."));
-  m_btnDown = new KPushButton(hb2);
-  m_btnDown->setIcon(KIcon(QLatin1String("go-down")));
+  m_btnDown = new QPushButton(hb2);
+  hb2HBoxLayout->addWidget(m_btnDown);
+  m_btnDown->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
   m_btnDown->setWhatsThis(i18n("Move this field down in the list. The list order is important "
                                "for the layout of the entry editor."));
 
   connect(m_btnUp, SIGNAL(clicked()), SLOT(slotMoveUp()));
   connect(m_btnDown, SIGNAL(clicked()), SLOT(slotMoveDown()));
 
-  KVBox* vbox = new KVBox(page);
-  vbox->setSpacing(KDialog::spacingHint());
+  QWidget* vbox = new QWidget(page);
+  QVBoxLayout* vboxVBoxLayout = new QVBoxLayout(vbox);
+  vboxVBoxLayout->setMargin(0);
   topLayout->addWidget(vbox, 2);
 
   QGroupBox* propGroup = new QGroupBox(i18n("Field Properties"), vbox);
+  vboxVBoxLayout->addWidget(propGroup);
   QBoxLayout* propLayout = new QVBoxLayout(propGroup);
 
   QWidget* grid = new QWidget(propGroup);
-  // (parent, nrows, ncols, margin, spacing)
   QGridLayout* layout = new QGridLayout(grid);
   propLayout->addWidget(grid);
 
   int row = -1;
   QLabel* label = new QLabel(i18n("&Title:"), grid);
   layout->addWidget(label, ++row, 0);
-  m_titleEdit = new KLineEdit(grid);
+  m_titleEdit = new QLineEdit(grid);
   layout->addWidget(m_titleEdit, row, 1);
   label->setBuddy(m_titleEdit);
   QString whats = i18n("The title of the field");
@@ -207,10 +210,10 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
   }
   m_catCombo->addItems(cats);
   m_catCombo->setDuplicatesEnabled(false);
-  connect(m_catCombo, SIGNAL(textChanged(const QString&)), SLOT(slotModified()));
+  connect(m_catCombo, SIGNAL(currentTextChanged(const QString&)), SLOT(slotModified()));
 
-  m_btnExtended = new KPushButton(i18n("Set &properties..."), grid);
-  m_btnExtended->setIcon(KIcon(QLatin1String("bookmarks")));
+  m_btnExtended = new QPushButton(i18n("Set &properties..."), grid);
+  m_btnExtended->setIcon(QIcon::fromTheme(QLatin1String("bookmarks")));
   layout->addWidget(m_btnExtended, row, 2, 1, 2);
   label->setBuddy(m_btnExtended);
   whats = i18n("Extended field properties are used to specify things such as the corresponding bibtex field.");
@@ -220,7 +223,7 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
 
   label = new QLabel(i18n("Description:"), grid);
   layout->addWidget(label, ++row, 0);
-  m_descEdit = new KLineEdit(grid);
+  m_descEdit = new QLineEdit(grid);
   m_descEdit->setMinimumWidth(150);
   layout->addWidget(m_descEdit, row, 1, 1, 3);
   label->setBuddy(m_descEdit);
@@ -231,18 +234,13 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
   connect(m_descEdit, SIGNAL(textChanged(const QString&)), SLOT(slotModified()));
 
   QGroupBox* valueGroup = new QGroupBox(i18n("Value Options"), vbox);
+  vboxVBoxLayout->addWidget(valueGroup);
   QGridLayout* valueLayout = new QGridLayout(valueGroup);
   int valueRow = -1;
 
-  label = new QLabel(i18n("&Default value:"), valueGroup);
-  // KDE bug 351226, duplicate accelerator keys
-  // in order to avoid changing strings in the very stable branch, retain the english i18n
-  // but check if the text matches the english, and if so, remove the accelerator
-  if(label->text() == QLatin1String("&Default value:")) {
-    label->setText(QLatin1String("Default value:"));
-  }
+  label = new QLabel(i18n("Default value:"), valueGroup);
   valueLayout->addWidget(label, ++valueRow, 0);
-  m_defaultEdit = new KLineEdit(valueGroup);
+  m_defaultEdit = new QLineEdit(valueGroup);
   valueLayout->addWidget(m_defaultEdit, valueRow, 1, 1, 3);
   label->setBuddy(m_defaultEdit);
   whats = i18n("<qt>A default value can be set for new entries.</qt>");
@@ -252,7 +250,7 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
 
   label = new QLabel(i18n("Value template:"), valueGroup);
   valueLayout->addWidget(label, ++valueRow, 0);
-  m_derivedEdit = new KLineEdit(valueGroup);
+  m_derivedEdit = new QLineEdit(valueGroup);
   m_derivedEdit->setMinimumWidth(150);
   valueLayout->addWidget(m_derivedEdit, valueRow, 1);
   label->setBuddy(m_derivedEdit);
@@ -272,7 +270,7 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
 
   label = new QLabel(i18n("A&llowed values:"), valueGroup);
   valueLayout->addWidget(label, ++valueRow, 0);
-  m_allowEdit = new KLineEdit(valueGroup);
+  m_allowEdit = new QLineEdit(valueGroup);
   valueLayout->addWidget(m_allowEdit, valueRow, 1, 1, 3);
   label->setBuddy(m_allowEdit);
   whats = i18n("<qt>For <i>Choice</i>-type fields, these are the only values allowed. They are "
@@ -295,6 +293,7 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
   connect(m_formatCombo, SIGNAL(currentIndexChanged(int)), SLOT(slotModified()));
 
   QGroupBox* optionsGroup = new QGroupBox(i18n("Field Options"), vbox);
+  vboxVBoxLayout->addWidget(optionsGroup);
   QBoxLayout* optionsLayout = new QVBoxLayout(optionsGroup);
   m_complete = new QCheckBox(i18n("Enable auto-completion"), optionsGroup);
   m_complete->setWhatsThis(i18n("If checked, KDE auto-completion will be enabled in the "
@@ -314,20 +313,34 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
   connect(m_grouped, SIGNAL(clicked()), SLOT(slotModified()));
 
   // need to stretch at bottom
-  vbox->setStretchFactor(new QWidget(vbox), 1);
+  vboxVBoxLayout->addStretch(1);
 
   // keep a default collection
   m_defaultCollection = CollectionFactory::collection(m_coll->type(), true);
 
-  button(Default)->setWhatsThis(i18n("Revert the selected field's properties to the default values."));
+  m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|
+                                     QDialogButtonBox::Cancel|
+                                     QDialogButtonBox::Help|
+                                     QDialogButtonBox::RestoreDefaults|
+                                     QDialogButtonBox::Apply);
+  mainLayout->addWidget(m_buttonBox);
 
-  connect(this, SIGNAL(okClicked()), SLOT(slotOk()));
-  connect(this, SIGNAL(applyClicked()), SLOT(slotApply()));
+  QPushButton* okButton = m_buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  connect(m_buttonBox, SIGNAL(helpRequested()), this, SLOT(slotHelp()));
 
-  enableButtonOk(false);
-  enableButtonApply(false);
+  m_buttonBox->button(QDialogButtonBox::RestoreDefaults)->setWhatsThis(i18n("Revert the selected field's properties to the default values."));
 
-  setHelp(QLatin1String("fields-dialog"));
+  connect(okButton, SIGNAL(clicked()), SLOT(slotOk()));
+  connect(m_buttonBox->button(QDialogButtonBox::Apply), SIGNAL(clicked()), SLOT(slotApply()));
+  connect(m_buttonBox->button(QDialogButtonBox::RestoreDefaults), SIGNAL(clicked()), SLOT(slotDefault()));
+
+  okButton->setEnabled(false);
+  m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
+  m_buttonBox->button(QDialogButtonBox::RestoreDefaults)->setEnabled(false);
 
   // initially the m_typeCombo is populated with all types, but as soon as something is
   // selected in the fields box, the combo box is cleared and filled with the allowable
@@ -353,6 +366,10 @@ void CollectionFieldsDialog::slotSelectInitial() {
   // ones explicitly set in the constructor
   KAcceleratorManager::manage(this);
   m_fieldsWidget->setCurrentRow(0);
+}
+
+void CollectionFieldsDialog::slotHelp() {
+  KHelpClient::invokeHelp(QLatin1String("fields-dialog"));
 }
 
 void CollectionFieldsDialog::slotOk() {
@@ -474,7 +491,7 @@ void CollectionFieldsDialog::applyChanges() {
     m_derivedEdit->setText(m_currentField->property(QLatin1String("template")));
     m_updatingValues = wasUpdating;
   }
-  enableButtonApply(false);
+  m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
 }
 
 void CollectionFieldsDialog::slotNew() {
@@ -526,7 +543,7 @@ void CollectionFieldsDialog::slotDelete() {
       m_coll->removeField(m_currentField);
     }
     emit signalCollectionModified();
-    enableButtonOk(true);
+    m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
   }
   int currentRow = m_fieldsWidget->currentRow();
   delete m_fieldsWidget->takeItem(currentRow);
@@ -575,7 +592,9 @@ void CollectionFieldsDialog::slotTypeChanged(const QString& type_) {
 }
 
 void CollectionFieldsDialog::slotHighlightedChanged(int index_) {
-//  myDebug() << index_;
+  if(index_ == m_oldIndex) {
+    return; // state when checkValues() returns false
+  }
 
   // use this instead of blocking signals everywhere
   m_updatingValues = true;
@@ -585,9 +604,8 @@ void CollectionFieldsDialog::slotHighlightedChanged(int index_) {
 
   // next check old values
   if(!checkValues()) {
-    m_fieldsWidget->blockSignals(true);
-    m_fieldsWidget->setCurrentRow(m_oldIndex);
-    m_fieldsWidget->blockSignals(false);
+    // Other functions get called and change selection after this one. Use a SingleShot to revert
+    QTimer::singleShot(0, this, SLOT(resetToCurrent()));
     m_updatingValues = false;
     return;
   }
@@ -620,7 +638,7 @@ void CollectionFieldsDialog::slotHighlightedChanged(int index_) {
   // default button is enabled only if default collection contains the field
   if(m_defaultCollection) {
     const bool hasField = m_defaultCollection->hasField(field->name());
-    button(Default)->setEnabled(hasField);
+    m_buttonBox->button(QDialogButtonBox::RestoreDefaults)->setEnabled(hasField);
   }
 
   m_currentField = field;
@@ -628,7 +646,6 @@ void CollectionFieldsDialog::slotHighlightedChanged(int index_) {
 }
 
 void CollectionFieldsDialog::updateField() {
-//  myDebug();
   Data::FieldPtr field = m_currentField;
   if(!field || !m_modified) {
     return;
@@ -715,7 +732,6 @@ void CollectionFieldsDialog::updateField() {
 // The purpose here is to first set the modified flag. Then, if the field being edited is one
 // that exists in the collection already, a deep copy needs to be made.
 void CollectionFieldsDialog::slotModified() {
-//  myDebug();
   // if I'm just updating the values, I don't care
   if(m_updatingValues) {
     return;
@@ -723,8 +739,8 @@ void CollectionFieldsDialog::slotModified() {
 
   m_modified = true;
 
-  enableButtonOk(true);
-  enableButtonApply(true);
+  m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+  m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(true);
 
   if(!m_currentField) {
     myDebug() << "no current field!";
@@ -751,7 +767,6 @@ void CollectionFieldsDialog::slotModified() {
 }
 
 void CollectionFieldsDialog::updateTitle(const QString& title_) {
-//  myDebug();
   if(m_currentField && m_currentField->title() != title_) {
     m_fieldsWidget->blockSignals(true);
     FieldListItem* oldItem = findItem(m_currentField);
@@ -798,15 +813,18 @@ void CollectionFieldsDialog::slotMoveUp() {
   if(idx < 1) {
     return;
   }
+  // takeItem ends up signalling that the current index changed
+  // need to revert m_oldIndex after taking the item
   QListWidgetItem* item = m_fieldsWidget->takeItem(idx);
+  m_oldIndex++;
   m_fieldsWidget->insertItem(idx-1, item);
   m_fieldsWidget->setCurrentItem(item);
   m_reordered = true;
   // don't call slotModified() since that creates a deep copy.
   m_modified = true;
 
-  enableButtonOk(true);
-  enableButtonApply(true);
+  m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+  m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(true);
 }
 
 void CollectionFieldsDialog::slotMoveDown() {
@@ -814,15 +832,18 @@ void CollectionFieldsDialog::slotMoveDown() {
   if(idx > m_fieldsWidget->count()-1) {
     return;
   }
+  // takeItem ends up signalling that the current index changed
+  // need to revert m_oldIndex after taking the item
   QListWidgetItem* item = m_fieldsWidget->takeItem(idx);
+  m_oldIndex--;
   m_fieldsWidget->insertItem(idx+1, item);
   m_fieldsWidget->setCurrentItem(item);
   m_reordered = true;
   // don't call slotModified() since that creates a deep copy.
   m_modified = true;
 
-  enableButtonOk(true);
-  enableButtonApply(true);
+  m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+  m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(true);
 }
 
 Tellico::FieldListItem* CollectionFieldsDialog::findItem(Tellico::Data::FieldPtr field_) {
@@ -849,7 +870,7 @@ bool CollectionFieldsDialog::slotShowExtendedProperties() {
   props.remove(QLatin1String("template"));
 
   StringMapDialog dlg(props, this, true);
-  dlg.setCaption(i18n("Extended Field Properties"));
+  dlg.setWindowTitle(i18n("Extended Field Properties"));
   dlg.setLabels(i18n("Property"), i18n("Value"));
   if(dlg.exec() == QDialog::Accepted) {
     props = dlg.stringMap();
@@ -869,6 +890,10 @@ bool CollectionFieldsDialog::slotShowExtendedProperties() {
 void CollectionFieldsDialog::slotDerivedChecked(bool checked_) {
   m_defaultEdit->setEnabled(!checked_);
   m_derivedEdit->setEnabled(checked_);
+}
+
+void CollectionFieldsDialog::resetToCurrent() {
+  m_fieldsWidget->setCurrentRow(m_oldIndex);
 }
 
 bool CollectionFieldsDialog::checkValues() {
@@ -1063,5 +1088,3 @@ QStringList CollectionFieldsDialog::newTypesAllowed(int type_ /*=0*/) {
   }
   return newTypes;
 }
-
-#include "collectionfieldsdialog.moc"

@@ -26,16 +26,14 @@
 #include "models.h"
 #include "../collection.h"
 #include "../collectionfactory.h"
-#include "../images/imagefactory.h"
 #include "../entry.h"
 #include "../field.h"
-#include "../images/image.h"
 #include "../document.h"
-#include "../gui/ratingwidget.h"
+#include "../images/image.h"
+#include "../images/imagefactory.h"
+#include "../utils/tellico_utils.h"
+#include "../core/tellico_config.h"
 #include "../tellico_debug.h"
-
-#include <kicon.h>
-#include <klocale.h>
 
 namespace {
   static const int ENTRYMODEL_IMAGE_HEIGHT = 64;
@@ -43,15 +41,31 @@ namespace {
 
 using Tellico::EntryModel;
 
-EntryModel::EntryModel(QObject* parent) : AbstractEntryModel(parent),
-    m_checkPix(QLatin1String("checkmark")), m_imagesAreAvailable(false) {
+EntryModel::EntryModel(QObject* parent) : QAbstractItemModel(parent),
+    m_imagesAreAvailable(false) {
+  m_iconCache.setMaxCost(Config::iconCacheSize());
+  m_checkPix = QIcon::fromTheme(QLatin1String("checkmark"));
 }
 
 EntryModel::~EntryModel() {
+  qDeleteAll(m_defaultIcons.values());
+}
+
+int EntryModel::rowCount(const QModelIndex& index_) const {
+  // no children for valid indexes
+  return index_.isValid() ? 0 : m_entries.count();
 }
 
 int EntryModel::columnCount(const QModelIndex&) const {
   return m_fields.count();
+}
+
+QModelIndex EntryModel::index(int row_, int column_, const QModelIndex& parent_) const {
+  return hasIndex(row_, column_, parent_) ? createIndex(row_, column_) : QModelIndex();
+}
+
+QModelIndex EntryModel::parent(const QModelIndex&) const {
+  return QModelIndex();
 }
 
 QVariant EntryModel::headerData(int section_, Qt::Orientation orientation_, int role_) const {
@@ -108,6 +122,33 @@ QVariant EntryModel::data(const QModelIndex& index_, int role_) const {
       if(!entry) {
         return QVariant();
       }
+
+      // for titles only, for the icon view, return whatever
+      // image field is first in the collection
+      if(field->name() == QLatin1String("title")) {
+        // return entry image in this case
+        QString fieldName = imageField(entry->collection());
+        if(fieldName.isEmpty()) {
+          return defaultIcon(entry->collection());
+        }
+        const QString id = entry->field(fieldName);
+        QIcon* icon = m_iconCache.object(id);
+        if(icon) {
+          return QIcon(*icon);
+        }
+        const Data::Image& img = ImageFactory::imageById(id);
+        if(img.isNull()) {
+          return defaultIcon(entry->collection());
+        }
+
+        icon = new QIcon(img.convertToPixmap());
+        if(!m_iconCache.insert(id, icon)) {
+          // failing to insert invalidates the icon pointer
+          return QIcon(img.convertToPixmap());
+        }
+        return QIcon(*icon);
+      }
+      // otherwise just return the image for the entry
       // we don't need a formatted value for any pixmaps
       value = entry->field(field);
       if(value.isEmpty()) {
@@ -118,13 +159,13 @@ QVariant EntryModel::data(const QModelIndex& index_, int role_) const {
         // assume any non-empty value equals true
         return m_checkPix;
       } else if(field->type() == Data::Field::Rating) {
-        return GUI::RatingWidget::pixmap(value);
+        return Tellico::pixmap(value);
       }
 
       if(m_imagesAreAvailable && field->type() == Data::Field::Image) {
         const Data::Image& img = ImageFactory::imageById(value);
         if(!img.isNull()) {
-          return QPixmap::fromImage(img).scaledToHeight(ENTRYMODEL_IMAGE_HEIGHT);
+          return img.convertToPixmap().scaledToHeight(ENTRYMODEL_IMAGE_HEIGHT);
         }
       }
       return QVariant();
@@ -173,6 +214,23 @@ QVariant EntryModel::data(const QModelIndex& index_, int role_) const {
   return QVariant();
 }
 
+QModelIndex EntryModel::indexFromEntry(Data::EntryPtr entry_) const {
+  const int idx = m_entries.indexOf(entry_);
+  if(idx == -1) {
+    return QModelIndex();
+  }
+  return createIndex(idx, 0);
+}
+
+Tellico::Data::EntryPtr EntryModel::entry(const QModelIndex& index_) const {
+  Q_ASSERT(index_.isValid());
+  Data::EntryPtr entry;
+  if(index_.isValid() && index_.row() < m_entries.count()) {
+    entry = m_entries.at(index_.row());
+  }
+  return entry;
+}
+
 Tellico::Data::FieldPtr EntryModel::field(const QModelIndex& index_) const {
   Q_ASSERT(index_.isValid());
   Q_ASSERT(index_.column() < m_fields.count());
@@ -200,26 +258,74 @@ bool EntryModel::setData(const QModelIndex& index_, const QVariant& value_, int 
 }
 
 void EntryModel::clear() {
+  beginResetModel();
+  m_entries.clear();
   m_fields.clear();
   m_saveStates.clear();
-  AbstractEntryModel::clear();
+  m_iconCache.clear();
+  endResetModel();
 }
 
 void EntryModel::clearSaveState() {
+  beginResetModel();
   m_saveStates.clear();
-  reset();
+  endResetModel();
+}
+
+void EntryModel::setEntries(const Tellico::Data::EntryList& entries_) {
+  beginResetModel();
+  m_entries = entries_;
+  endResetModel();
+}
+
+void EntryModel::addEntries(const Tellico::Data::EntryList& entries_) {
+  beginInsertRows(QModelIndex(), m_entries.count(), m_entries.count() + entries_.count() - 1);
+  m_entries += entries_;
+  endInsertRows();
+}
+
+void EntryModel::modifyEntries(const Tellico::Data::EntryList& entries_) {
+  foreach(Data::EntryPtr entry, entries_) {
+    QModelIndex index = indexFromEntry(entry);
+    if(index.isValid()) {
+      emit dataChanged(index, index);
+    }
+  }
+}
+
+void EntryModel::removeEntries(const Tellico::Data::EntryList& entries_) {
+  // for performance reasons, if more than 10 entries are being removed, rather than
+  // iterating over all of them, which really hurts, just signal a full replacement
+  const bool bigRemoval = (entries_.size() > 10);
+  if(bigRemoval) {
+    beginResetModel();
+  }
+  foreach(Data::EntryPtr entry, entries_) {
+    int idx = m_entries.indexOf(entry);
+    if(idx > -1) {
+      if(!bigRemoval) {
+        beginRemoveRows(QModelIndex(), idx, idx);
+      }
+      m_entries.removeAt(idx);
+      if(!bigRemoval) {
+        endRemoveRows();
+      }
+    }
+  }
+  if(bigRemoval) {
+    endResetModel();
+  }
 }
 
 void EntryModel::setFields(const Tellico::Data::FieldList& fields_) {
   if(!m_fields.isEmpty()) {
     beginRemoveColumns(QModelIndex(), 0, m_fields.size()-1);
+    m_fields.clear();
     endRemoveColumns();
   }
   if(!fields_.isEmpty()) {
     beginInsertColumns(QModelIndex(), 0, fields_.size()-1);
-  }
-  m_fields = fields_;
-  if(!fields_.isEmpty()) {
+    m_fields = fields_;
     endInsertColumns();
   }
 }
@@ -255,9 +361,34 @@ void EntryModel::removeFields(const Tellico::Data::FieldList& fields_) {
 
 void EntryModel::setImagesAreAvailable(bool available_) {
   if(m_imagesAreAvailable != available_) {
+    beginResetModel();
     m_imagesAreAvailable = available_;
-    reset();
+    endResetModel();
   }
 }
 
-#include "entrymodel.moc"
+const QIcon& EntryModel::defaultIcon(Data::CollPtr coll_) const {
+  QIcon* icon = m_defaultIcons.value(coll_->type());
+  if(icon) {
+    return *icon;
+  }
+  QIcon tmpIcon = QIcon::fromTheme(QLatin1String("nocover_") + CollectionFactory::typeName(coll_->type()));
+  if(tmpIcon.isNull()) {
+    myLog() << "null nocover image, loading tellico.png";
+    tmpIcon = QIcon::fromTheme(QLatin1String("tellico"));
+  }
+
+  icon = new QIcon(tmpIcon);
+  m_defaultIcons.insert(coll_->type(), icon);
+  return *icon;
+}
+
+QString EntryModel::imageField(Data::CollPtr coll_) const {
+  if(!m_imageFields.contains(coll_->id())) {
+    const Data::FieldList& fields = coll_->imageFields();
+    if(!fields.isEmpty()) {
+      m_imageFields.insert(coll_->id(), fields[0]->name());
+    }
+  }
+  return m_imageFields.value(coll_->id());
+}

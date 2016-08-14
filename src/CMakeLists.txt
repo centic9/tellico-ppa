@@ -11,9 +11,9 @@ ADD_SUBDIRECTORY( models )
 ADD_SUBDIRECTORY( utils )
 ADD_SUBDIRECTORY( 3rdparty )
 
-IF( KDE4_BUILD_TESTS )
+IF( BUILD_TESTS )
   ADD_SUBDIRECTORY( tests )
-ENDIF( KDE4_BUILD_TESTS )
+ENDIF( BUILD_TESTS )
 
 IF( ENABLE_WEBCAM )
   ADD_SUBDIRECTORY( barcode )
@@ -30,6 +30,7 @@ SET(tellico_SRCS
    collectionfieldsdialog.cpp
    configdialog.cpp
    controller.cpp
+   dbusinterface.cpp
    detailedlistview.cpp
    derivedvalue.cpp
    document.cpp
@@ -61,11 +62,10 @@ SET(tellico_SRCS
    progressmanager.cpp
    reportdialog.cpp
    tellico_kernel.cpp
-   tellico_utils.cpp
    viewstack.cpp
    )
 
-KDE4_ADD_EXECUTABLE(tellico ${tellico_SRCS})
+add_executable(tellico ${tellico_SRCS})
 
 TARGET_LINK_LIBRARIES(tellico
     core
@@ -79,64 +79,61 @@ TARGET_LINK_LIBRARIES(tellico
     tellicomodels
     utils
     newstuff
-    pilotdb
-    rtf2html
-    btparse
-    csv
+    rtf2html-tellico
+    ${TELLICO_BTPARSE_LIBS}
+    ${TELLICO_CSV_LIBS}
     )
 
 TARGET_LINK_LIBRARIES(tellico
-    ${QT_AND_KDECORE_LIBS}
-    ${KDE4_KDEUI_LIBS}
-    ${KDE4_KIO_LIBS}
-    ${KDE4_KHTML_LIBS}
-    ${KDE4_SOLID_LIBS}
+    Qt5::Core
+    Qt5::Widgets
+    Qt5::DBus
+    KF5::Crash
+    KF5::KHtml
+    KF5::KIOCore
+    KF5::KIOFileWidgets
+    KF5::WindowSystem
     ${LIBXML2_LIBRARIES}
     ${LIBXSLT_LIBRARIES}
-    ${LIBEXSLT_LIBRARIES}
+    ${LIBXSLT_EXSLT_LIBRARIES}
     )
 
-IF( ENABLE_KNEWSTUFF3 )
-  TARGET_LINK_LIBRARIES(tellico ${KDE4_KNEWSTUFF3_LIBS})
-ELSE( ENABLE_KNEWSTUFF3 )
-  TARGET_LINK_LIBRARIES(tellico ${KDE4_KNEWSTUFF2_LIBS})
-ENDIF( ENABLE_KNEWSTUFF3 )
+IF( KF5NewStuff_FOUND )
+  TARGET_LINK_LIBRARIES(tellico KF5::NewStuff)
+ENDIF( KF5NewStuff_FOUND )
 
 IF( KDEPIMLIBS_FOUND )
-  TARGET_LINK_LIBRARIES(tellico ${KDEPIMLIBS_KABC_LIBS} ${KDEPIMLIBS_KCAL_LIBS})
+  TARGET_LINK_LIBRARIES(tellico KF5::Contacts ${KDEPIMLIBS_KCAL_LIBS} KF5::AkonadiContact)
 ENDIF( KDEPIMLIBS_FOUND )
 
-IF( KDEMULTIMEDIA_FOUND )
-  TARGET_LINK_LIBRARIES(tellico ${KCDDB_LIBRARY})
-ENDIF( KDEMULTIMEDIA_FOUND)
+IF( KF5Cddb_FOUND )
+  TARGET_LINK_LIBRARIES(tellico KF5::Cddb)
+ELSEIF( Libkcddb_FOUND )
+  TARGET_LINK_LIBRARIES(tellico KDE::Libkcddb::kcddb)
+ENDIF( KF5Cddb_FOUND)
 
-IF( POPPLER_QT4_FOUND )
-  TARGET_LINK_LIBRARIES(tellico ${POPPLER_QT4_LIBRARIES})
-ENDIF( POPPLER_QT4_FOUND )
-
-IF( LIBEXEMPI_FOUND )
-  TARGET_LINK_LIBRARIES(tellico ${LIBEXEMPI_LIBRARIES})
-ENDIF( LIBEXEMPI_FOUND )
+IF( Exempi_FOUND )
+  TARGET_LINK_LIBRARIES(tellico ${Exempi_LIBRARIES})
+ENDIF( Exempi_FOUND )
 
 IF( TAGLIB_FOUND )
   TARGET_LINK_LIBRARIES(tellico ${TAGLIB_LIBRARIES})
 ENDIF( TAGLIB_FOUND )
 
-IF( YAZ_FOUND )
-  TARGET_LINK_LIBRARIES(tellico ${YAZ_LIBRARIES})
-ENDIF( YAZ_FOUND )
+IF( Yaz_FOUND )
+  TARGET_LINK_LIBRARIES(tellico ${Yaz_LIBRARIES})
+ENDIF( Yaz_FOUND )
 
 IF( ENABLE_WEBCAM )
   TARGET_LINK_LIBRARIES(tellico barcode ${LIBV4L_LIBRARIES})
 ENDIF( ENABLE_WEBCAM )
 
-IF( KSANE_FOUND )
-  TARGET_LINK_LIBRARIES(tellico ${KSANE_LIBRARY})
-ENDIF( KSANE_FOUND )
-
-INSTALL( TARGETS tellico ${INSTALL_TARGETS_DEFAULT_ARGS} )
+IF( KF5Sane_FOUND )
+  TARGET_LINK_LIBRARIES(tellico KF5::Sane)
+ENDIF( KF5Sane_FOUND )
 
 ########### install files ###############
 
-INSTALL(FILES   tellicorc DESTINATION ${CONFIG_INSTALL_DIR} )
-INSTALL(FILES   tellicoui.rc DESTINATION ${TELLICO_DATA_INSTALL_DIR} )
+INSTALL(TARGETS tellico ${INSTALL_TARGETS_DEFAULT_ARGS} )
+INSTALL(FILES tellicorc DESTINATION ${KDE_INSTALL_CONFDIR} )
+INSTALL(FILES tellicoui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/tellico )

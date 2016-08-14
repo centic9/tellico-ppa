@@ -33,10 +33,10 @@
 #include "models/models.h"
 #include "gui/countdelegate.h"
 
-#include <klocale.h>
-#include <kmenu.h>
-#include <kicon.h>
+#include <KLocalizedString>
 
+#include <QMenu>
+#include <QIcon>
 #include <QHeaderView>
 #include <QContextMenuEvent>
 
@@ -45,7 +45,7 @@ using Tellico::FilterView;
 
 FilterView::FilterView(QWidget* parent_)
     : GUI::TreeView(parent_), m_notSortedYet(true) {
-  header()->setResizeMode(QHeaderView::Stretch);
+  header()->setSectionResizeMode(QHeaderView::Stretch);
   setHeaderHidden(false);
   setSelectionMode(QAbstractItemView::ExtendedSelection);
 
@@ -126,12 +126,12 @@ void FilterView::contextMenuEvent(QContextMenuEvent* event_) {
     return;
   }
 
-  KMenu menu(this);
+  QMenu menu(this);
   // no parent means it's a top-level item
   if(!index.parent().isValid()) {
-    menu.addAction(KIcon(QLatin1String("view-filter")),
+    menu.addAction(QIcon::fromTheme(QLatin1String("view-filter")),
                     i18n("Modify Filter"), this, SLOT(slotModifyFilter()));
-    menu.addAction(KIcon(QLatin1String("edit-delete")),
+    menu.addAction(QIcon::fromTheme(QLatin1String("edit-delete")),
                     i18n("Delete Filter"), this, SLOT(slotDeleteFilter()));
   } else {
     Controller::self()->plugEntryActions(&menu);
@@ -142,34 +142,18 @@ void FilterView::contextMenuEvent(QContextMenuEvent* event_) {
 void FilterView::selectionChanged(const QItemSelection& selected_, const QItemSelection& deselected_) {
 //  DEBUG_BLOCK;
   QAbstractItemView::selectionChanged(selected_, deselected_);
-  // ignore the selected and deselected variables
-  // we want to grab all the currently selected ones
-  QSet<Data::EntryPtr> entries;
   FilterPtr filter;
   foreach(const QModelIndex& index, selectionModel()->selectedIndexes()) {
     QModelIndex realIndex = sortModel()->mapToSource(index);
     Data::EntryPtr entry = sourceModel()->entry(realIndex);
-    if(entry) {
-      entries += entry;
-    } else {
-      QModelIndex child = realIndex.child(0, 0);
-      for( ; child.isValid(); child = child.sibling(child.row()+1, 0)) {
-        entry = sourceModel()->entry(child);
-        if(entry) {
-          entries += entry;
-        }
-      }
-      if(filter) {
-        myWarning() << "Only one filter can be applied";
-      } else {
-        filter = sourceModel()->filter(realIndex);
-      }
+    if(!entry && !filter) {
+      filter = sourceModel()->filter(realIndex);
+      break;
     }
   }
   if(filter) {
     emit signalUpdateFilter(filter);
   }
-  Controller::self()->slotUpdateSelection(this, entries.toList());
 }
 
 void FilterView::slotDoubleClicked(const QModelIndex& index_) {
@@ -227,4 +211,3 @@ void FilterView::invalidate(Tellico::Data::EntryList entries_) {
   }
 }
 
-#include "filterview.moc"

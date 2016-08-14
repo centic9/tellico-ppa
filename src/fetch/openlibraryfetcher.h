@@ -84,14 +84,13 @@ public:
   static QString defaultIcon();
   static StringHash allOptionalFields();
 
-private slots:
+private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:
   virtual void search();
   virtual FetchRequest updateRequest(Data::EntryPtr entry);
   void doSearch(const QString& term);
-  void doCoverOnly(const QString& term);
   QString getAuthorKeys(const QString& term);
   void endJob(KIO::StoredTransferJob* job);
 

@@ -31,32 +31,31 @@
 #include "images/imagefactory.h"
 #include "images/imageinfo.h"
 #include "tellico_kernel.h"
-#include "tellico_utils.h"
+#include "utils/tellico_utils.h"
 #include "core/filehandler.h"
 #include "core/tellico_config.h"
-#include "core/drophandler.h"
-#include "newstuff/manager.h"
+#include "gui/drophandler.h"
 #include "document.h"
+#include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
-#include <kstandarddirs.h>
-#include <krun.h>
-#include <kmessagebox.h>
-#include <khtmlview.h>
+#include <KMessageBox>
+#include <KHTMLView>
 #include <dom/dom_element.h>
-#include <kapplication.h>
-#include <ktemporaryfile.h>
-#include <klocale.h>
-#include <kglobalsettings.h>
+#include <KLocalizedString>
 
 #include <QFile>
 #include <QTextStream>
 #include <QClipboard>
+#include <QDomDocument>
+#include <QTemporaryFile>
+#include <QApplication>
+#include <QDesktopServices>
 
 using Tellico::EntryView;
 using Tellico::EntryViewWidget;
 
-EntryViewWidget::EntryViewWidget(KHTMLPart* part, QWidget* parent)
+EntryViewWidget::EntryViewWidget(EntryView* part, QWidget* parent)
     : KHTMLView(part, parent) {}
 
 // for the life of me, I could not figure out how to call the actual
@@ -65,8 +64,18 @@ void EntryViewWidget::copy() {
   QApplication::clipboard()->setText(part()->selectedText(), QClipboard::Clipboard);
 }
 
+void EntryViewWidget::changeEvent(QEvent* event_) {
+  // this will delete and reread the default colors, assuming they changed
+  if(event_->type() == QEvent::PaletteChange ||
+     event_->type() == QEvent::FontChange ||
+     event_->type() == QEvent::ApplicationFontChange) {
+    static_cast<EntryView*>(part())->resetView();
+  }
+  KHTMLView::changeEvent(event_);
+}
+
 EntryView::EntryView(QWidget* parent_) : KHTMLPart(new EntryViewWidget(this, parent_), parent_),
-    m_handler(0), m_run(0), m_tempFile(0), m_useGradientImages(true), m_checkCommonFile(true) {
+    m_handler(0), m_tempFile(0), m_useGradientImages(true), m_checkCommonFile(true) {
   setJScriptEnabled(false);
   setJavaEnabled(false);
   setMetaRefreshEnabled(false);
@@ -77,15 +86,13 @@ EntryView::EntryView(QWidget* parent_) : KHTMLPart(new EntryViewWidget(this, par
   DropHandler* drophandler = new DropHandler(this);
   view()->installEventFilter(drophandler);
 
-  connect(browserExtension(), SIGNAL(openUrlRequestDelayed(const KUrl&, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&)),
-          SLOT(slotOpenURL(const KUrl&)));
-  connect(KGlobalSettings::self(), SIGNAL(kdisplayPaletteChanged()), SLOT(slotResetColors()));
+  connect(browserExtension(), SIGNAL(openUrlRequestDelayed(const QUrl&, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&)),
+          SLOT(slotOpenURL(const QUrl&)));
+
+  view()->setWhatsThis(i18n("<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</qt>"));
 }
 
 EntryView::~EntryView() {
-  if(m_run) {
-    m_run->abort();
-  }
   delete m_handler;
   m_handler = 0;
   delete m_tempFile;
@@ -102,6 +109,13 @@ void EntryView::clear() {
   }
   end();
   view()->layout(); // I need this because some of the margins and widths may get messed up
+}
+
+void EntryView::showEntries(Tellico::Data::EntryList entries_) {
+  Q_ASSERT(!entries_.isEmpty());
+  if(!entries_.isEmpty()) {
+    showEntry(entries_.first());
+  }
 }
 
 void EntryView::showEntry(Tellico::Data::EntryPtr entry_) {
@@ -128,8 +142,7 @@ void EntryView::showEntry(Tellico::Data::EntryPtr entry_) {
 
   // by setting the xslt file as the URL, any images referenced in the xslt "theme" can be found
   // by simply using a relative path in the xslt file
-  KUrl u;
-  u.setPath(m_xsltFile);
+  QUrl u = QUrl::fromLocalFile(m_xsltFile);
   begin(u);
 
   Export::TellicoXMLExporter exporter(entry_->collection());
@@ -211,12 +224,12 @@ void EntryView::setXSLTFile(const QString& file_) {
     m_xsltFile = file_;
   } else {
     const QString templateDir = QLatin1String("entry-templates/");
-    m_xsltFile = KStandardDirs::locate("appdata", templateDir + file_);
+    m_xsltFile = DataFileRegistry::self()->locate(templateDir + file_);
     if(m_xsltFile.isEmpty()) {
       if(!file_.isEmpty()) {
         myWarning() << "can't locate" << file_;
       }
-      m_xsltFile = KStandardDirs::locate("appdata", templateDir + QLatin1String("Fancy.xsl"));
+      m_xsltFile = DataFileRegistry::self()->locate(templateDir + QLatin1String("Fancy.xsl"));
       if(m_xsltFile.isEmpty()) {
         QString str = QLatin1String("<qt>");
         str += i18n("Tellico is unable to locate the default entry stylesheet.");
@@ -252,7 +265,7 @@ void EntryView::setXSLTFile(const QString& file_) {
     // must read the file name to get proper context
     m_handler = new XSLTHandler(QFile::encodeName(m_xsltFile));
     if(m_checkCommonFile && !m_handler->isValid()) {
-      NewStuff::Manager::checkCommonFile();
+      Tellico::checkCommonXSLFile();
       m_checkCommonFile = false;
       delete m_handler;
       m_handler = new XSLTHandler(QFile::encodeName(m_xsltFile));
@@ -279,18 +292,15 @@ void EntryView::setXSLTFile(const QString& file_) {
     m_handler->addStringParam("imgdir", QFile::encodeName(ImageFactory::tempDir()));
   }
 
-  // look for a file that gets installed to know the installation directory
-  QString appdir = KGlobal::dirs()->findResourceDir("appdata", QLatin1String("pics/tellico.png"));
-  m_handler->addStringParam("datadir", QFile::encodeName(appdir));
+  m_handler->addStringParam("datadir", QFile::encodeName(Tellico::dataDir()));
 
   // if we don't have to reload the images, then just show the entry and we're done
-  if(!reloadImages) {
+  if(reloadImages) {
+    // now, have to recreate images and refresh khtml cache
+    resetColors();
+  } else {
     showEntry(m_entry);
-    return;
   }
-
-  // now, have to recreate images and refresh khtml cache
-  resetColors();
 }
 
 void EntryView::slotRefresh() {
@@ -303,26 +313,26 @@ void EntryView::slotRefresh() {
 // need to interpret it relative to document URL instead of xslt file
 // the current node under the mouse vould be the text node inside
 // the anchor node, so iterate up the parents
-void EntryView::slotOpenURL(const KUrl& url_) {
-  if(url_.protocol() == QLatin1String("tc")) {
+void EntryView::slotOpenURL(const QUrl& url_) {
+  if(url_.scheme() == QLatin1String("tc")) {
     // handle this internally
     emit signalAction(url_);
     return;
   }
 
-  KUrl u = url_;
+  QUrl u = url_;
   for(DOM::Node node = nodeUnderMouse(); !node.isNull(); node = node.parentNode()) {
     if(node.nodeType() == DOM::Node::ELEMENT_NODE && static_cast<DOM::Element>(node).tagName() == "a") {
       QString href = static_cast<DOM::Element>(node).getAttribute("href").string();
-      if(!href.isEmpty() && KUrl::isRelativeUrl(href)) {
+      if(!href.isEmpty()) {
         // interpet url relative to document url
-        u = KUrl(Kernel::self()->URL(), href);
+        u = Kernel::self()->URL().resolved(QUrl(href));
       }
       break;
     }
   }
-  // open the url, m_run gets auto-deleted
-  m_run = new KRun(u, view());
+  // open the url
+  QDesktopServices::openUrl(u);
 }
 
 void EntryView::slotReloadEntry() {
@@ -363,14 +373,10 @@ void EntryView::setXSLTOptions(const Tellico::StyleOptions& opt_) {
   m_handler->addStringParam("imgdir",   QFile::encodeName(opt_.imgDir));
 }
 
-
-void EntryView::slotResetColors() {
-  // this will delete and reread the default colors, assuming they changed
-  // better to do this elsewhere, but do it here for now
-//  Config::deleteAndReset();
+void EntryView::resetView() {
   delete m_handler;
   m_handler = 0;
-  setXSLTFile(m_xsltFile);
+  setXSLTFile(m_xsltFile); // this ends up calling resetColors()
 }
 
 void EntryView::resetColors() {
@@ -394,8 +400,7 @@ void EntryView::resetColors() {
                              .arg(dir + QLatin1String("gradient_header.png"));
 
   delete m_tempFile;
-  m_tempFile = new KTemporaryFile();
-  m_tempFile->setAutoRemove(true);
+  m_tempFile = new QTemporaryFile();
   if(!m_tempFile->open()) {
     myDebug() << "failed to open temp file";
     delete m_tempFile;
@@ -412,8 +417,6 @@ void EntryView::resetColors() {
 
   // don't flicker
   view()->setUpdatesEnabled(false);
-  openUrl(m_tempFile->fileName());
+  openUrl(QUrl::fromLocalFile(m_tempFile->fileName()));
   connect(this, SIGNAL(completed()), SLOT(slotReloadEntry()));
 }
-
-#include "entryview.moc"

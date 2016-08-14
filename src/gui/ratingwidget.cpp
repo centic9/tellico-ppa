@@ -24,13 +24,10 @@
 
 #include "ratingwidget.h"
 #include "../field.h"
-#include "../tellico_utils.h"
+#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
-#include <kiconloader.h>
-
 #include <QHash>
-#include <QPixmap>
 #include <QBoxLayout>
 #include <QLabel>
 #include <QMouseEvent>
@@ -43,31 +40,14 @@ namespace {
 
 using Tellico::GUI::RatingWidget;
 
-const QPixmap& RatingWidget::pixmap(const QString& value_) {
-  static QHash<int, QPixmap*> pixmaps;
-  if(pixmaps.isEmpty()) {
-    pixmaps.insert(-1, new QPixmap());
-  }
-  bool ok;
-  int n = Tellico::toUInt(value_, &ok);
-  if(!ok || n < 1 || n > 10) {
-    return *pixmaps[-1];
-  }
-  if(pixmaps[n]) {
-    return *pixmaps[n];
-  }
-
-  QString picName = QString::fromLatin1("stars%1").arg(n);
-  QPixmap* pix = new QPixmap(UserIcon(picName));
-  pixmaps.insert(n, pix);
-  return *pix;
-}
-
 RatingWidget::RatingWidget(Tellico::Data::FieldPtr field_, QWidget* parent_)
-    : KHBox(parent_), m_field(field_), m_currIndex(-1) {
-  m_pixOn = UserIcon(QLatin1String("star_on"));
-  m_pixOff = UserIcon(QLatin1String("star_off"));
-  setSpacing(0);
+    : QWidget(parent_), m_field(field_), m_currIndex(-1) {
+  QHBoxLayout* layout = new QHBoxLayout(this);
+  layout->setMargin(0);
+  layout->setSpacing(0);
+
+  m_pixOn = QIcon::fromTheme(QLatin1String("star_on")).pixmap(QSize(18, 18));
+  m_pixOff = QIcon::fromTheme(QLatin1String("star_off")).pixmap(QSize(18, 18));
 
   // find maximum width and height
   int w = qMax(RATING_WIDGET_MAX_STAR_SIZE, qMax(m_pixOn.width(), m_pixOff.width()));
@@ -76,15 +56,17 @@ RatingWidget::RatingWidget(Tellico::Data::FieldPtr field_, QWidget* parent_)
     QLabel* l = new QLabel(this);
     l->setFixedSize(w, h);
     m_widgets.append(l);
+    layout->addWidget(l);
   }
 
   m_clearButton = new QToolButton(this);
   if(layoutDirection() == Qt::LeftToRight) {
-    m_clearButton->setIcon(SmallIcon(QLatin1String("edit-clear-locationbar-rtl")));
+    m_clearButton->setIcon(QIcon::fromTheme(QLatin1String("edit-clear-locationbar-rtl")));
   } else {
-    m_clearButton->setIcon(SmallIcon(QLatin1String("edit-clear-locationbar-ltr")));
+    m_clearButton->setIcon(QIcon::fromTheme(QLatin1String("edit-clear-locationbar-ltr")));
   }
   connect(m_clearButton, SIGNAL(clicked()), this, SLOT(clearClicked()));
+  layout->addWidget(m_clearButton);
 
   // to keep the widget from resizing when the clear button is shown/hidden
   // have a fixed width spacer to swap with
@@ -142,7 +124,7 @@ void RatingWidget::update() {
     m_widgets.at(i)->setPixmap(m_pixOff);
   }
 
-  KHBox::update();
+  QWidget::update();
 }
 
 void RatingWidget::mousePressEvent(QMouseEvent* event_) {
@@ -229,4 +211,3 @@ void RatingWidget::clearClicked() {
   }
 }
 
-#include "ratingwidget.moc"

@@ -27,8 +27,7 @@
 
 #include "fieldwidget.h"
 
-#include <krun.h>
-#include <kurlcompletion.h>
+#include <KUrlCompletion>
 
 #include <QPointer>
 
@@ -50,14 +49,14 @@ public:
   virtual QString text() const;
   virtual void setTextImpl(const QString& text);
 
-public slots:
+public Q_SLOTS:
   virtual void clearImpl();
 
 protected:
   virtual QWidget* widget();
   virtual void updateFieldHook(Data::FieldPtr oldField, Data::FieldPtr newField);
 
-protected slots:
+protected Q_SLOTS:
   void slotOpenURL(const QString& url);
 
 private:
@@ -68,8 +67,7 @@ private:
   };
 
   KUrlRequester* m_requester;
-  bool m_isRelative : 1;
-  QPointer<KRun> m_run;
+  bool m_isRelative;
 };
 
   } // end GUI namespace

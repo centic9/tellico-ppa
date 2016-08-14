@@ -29,8 +29,6 @@
 #include "configwidget.h"
 #include "../datavectors.h"
 
-#include <klineedit.h>
-
 #include <QPointer>
 
 class KJob;
@@ -90,7 +88,7 @@ public:
   static QString defaultIcon();
   static StringHash allOptionalFields() { return StringHash(); }
 
-private slots:
+private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:

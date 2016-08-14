@@ -76,5 +76,3 @@ void AbstractSortModel::sort(int col_, Qt::SortOrder order_) {
   m_sortOrder = order_;
   QSortFilterProxyModel::sort(col_, order_);
 }
-
-#include "abstractsortmodel.moc"

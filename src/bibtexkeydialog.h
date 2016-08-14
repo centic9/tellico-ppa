@@ -25,40 +25,43 @@
 #ifndef TELLICO_BIBTEXKEYDIALOG_H
 #define TELLICO_BIBTEXKEYDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "datavectors.h"
 #include "filter.h"
 
 class KTitleWidget;
 
+class QPushButton;
+
 namespace Tellico {
 
 /**
  * @author Robby Stephenson
  */
-class BibtexKeyDialog : public KDialog {
+class BibtexKeyDialog : public QDialog {
 Q_OBJECT
 
 public:
   BibtexKeyDialog(Data::CollPtr coll, QWidget* parent);
   virtual ~BibtexKeyDialog();
 
-signals:
+Q_SIGNALS:
   void signalUpdateFilter(Tellico::FilterPtr);
 
-public slots:
+public Q_SLOTS:
   void slotCheckDuplicates();
 
-private slots:
+private Q_SLOTS:
   void slotCheckDuplicatesImpl();
   void slotFilterDuplicates();
 
 private:
   Data::CollPtr m_coll;
   Data::EntryList m_dupes;
-  
+
   KTitleWidget* m_dupeLabel;
+  QPushButton* m_filterButton;
 };
 
 } // end namespace

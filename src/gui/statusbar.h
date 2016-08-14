@@ -29,12 +29,10 @@
 #ifndef TELLICO_STATUSBAR_H
 #define TELLICO_STATUSBAR_H
 
-#include <kstatusbar.h>
+#include <QStatusBar>
 
 class QLabel;
-class KPushButton;
-class QToolButton;
-class QSlider;
+class QPushButton;
 
 namespace Tellico {
   namespace GUI {
@@ -45,7 +43,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class StatusBar : public KStatusBar {
+class StatusBar : public QStatusBar {
 Q_OBJECT
 
 public:
@@ -56,34 +54,10 @@ public:
   static StatusBar* self() { return s_self; }
 
   virtual void ensurePolished() const;
-  
-signals:
-  /** 
-   * Emitted when the user manipulates the GUI to change the maximum icon size in the icon list view.
-  */
-  void requestIconSizeChange(int);
-  
-public slots:
-  /**
-   * Sets the visibility of the icon size GUI controls
-   */
-  void setIconSizeInterfaceVisible(bool);
 
-private slots:
+private Q_SLOTS:
   void slotProgress(qulonglong progress);
   void slotUpdate();
-  /**
-    * Called when the "Decrease Icon Size" button is clicked.
-    */
-  void slotDecreaseIconSizeButtonClicked();
-  /**
-    * Called when the "Increase Icon Size" button is clicked.
-    */
-  void slotIncreaseIconSizeButtonClicked();
-  /**
-    * Called when the "Icon Size" slider value changes.
-    */
-  void slotIconSizeSliderChanged(int);
 
 private:
   static StatusBar* s_self;
@@ -95,10 +69,7 @@ private:
   QLabel* m_mainLabel;
   QLabel* m_countLabel;
   GUI::Progress* m_progress;
-  KPushButton* m_cancelButton;
-  QSlider* m_iconSizeSlider;
-  QToolButton* m_increaseIconSizeButton;
-  QToolButton* m_decreaseIconSizeButton;
+  QPushButton* m_cancelButton;
 };
 
 }

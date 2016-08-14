@@ -27,12 +27,14 @@
 #include "../utils/isbnvalidator.h"
 #include "../tellico_debug.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigGroup>
+#include <QUrl>
 
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QDomDocument>
+#include <QUrlQuery>
 
 namespace {
   static const char* SPRINGER_BASE_URL = "http://api.springer.com/metadata/pam";
@@ -77,23 +79,24 @@ void SpringerFetcher::resetSearch() {
   m_total = -1;
 }
 
-KUrl SpringerFetcher::searchUrl() {
-  KUrl u(SPRINGER_BASE_URL);
-  u.addQueryItem(QLatin1String("api_key"), QLatin1String(SPRINGER_API_KEY));
-  u.addQueryItem(QLatin1String("s"), QString::number(m_start + 1));
-  u.addQueryItem(QLatin1String("p"), QString::number(SPRINGER_QUERY_COUNT));
+QUrl SpringerFetcher::searchUrl() {
+  QUrl u(QString::fromLatin1(SPRINGER_BASE_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("api_key"), QLatin1String(SPRINGER_API_KEY));
+  q.addQueryItem(QLatin1String("s"), QString::number(m_start + 1));
+  q.addQueryItem(QLatin1String("p"), QString::number(SPRINGER_QUERY_COUNT));
 
   switch(request().key) {
     case Title:
-      u.addQueryItem(QLatin1String("q"), QString::fromLatin1("title:\"%1\" OR book:\"%1\"").arg(request().value));
+      q.addQueryItem(QLatin1String("q"), QString::fromLatin1("title:\"%1\" OR book:\"%1\"").arg(request().value));
       break;
 
     case Person:
-      u.addQueryItem(QLatin1String("q"), QString::fromLatin1("name:%1").arg(request().value));
+      q.addQueryItem(QLatin1String("q"), QString::fromLatin1("name:%1").arg(request().value));
       break;
 
     case Keyword:
-      u.addQueryItem(QLatin1String("q"), QString::fromLatin1("\"%1\"").arg(request().value));
+      q.addQueryItem(QLatin1String("q"), QString::fromLatin1("\"%1\"").arg(request().value));
       break;
 
     case ISBN:
@@ -101,21 +104,22 @@ KUrl SpringerFetcher::searchUrl() {
         // only grab first value
         QString v = request().value.section(QLatin1Char(';'), 0);
         v = ISBNValidator::isbn13(v);
-        u.addQueryItem(QLatin1String("q"), QString::fromLatin1("isbn:%1").arg(v));
+        q.addQueryItem(QLatin1String("q"), QString::fromLatin1("isbn:%1").arg(v));
       }
       break;
 
     case DOI:
-      u.addQueryItem(QLatin1String("q"), QString::fromLatin1("doi:%1").arg(request().value));
+      q.addQueryItem(QLatin1String("q"), QString::fromLatin1("doi:%1").arg(request().value));
       break;
 
     case Raw:
-      u.addQueryItem(QLatin1String("q"), request().value);
+      q.addQueryItem(QLatin1String("q"), request().value);
       break;
 
     default:
-      return KUrl();
+      return QUrl();
   }
+  u.setQuery(q);
 
 //  myDebug() << "url:" << u.url();
   return u;
@@ -190,4 +194,3 @@ QString SpringerFetcher::ConfigWidget::preferredName() const {
   return SpringerFetcher::defaultName();
 }
 
-#include "springerfetcher.moc"

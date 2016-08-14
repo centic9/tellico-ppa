@@ -28,7 +28,8 @@
 #include <QObject>
 #include <QPixmap>
 
-class KUrl;
+class QUrl;
+
 class KFileItem;
 
 namespace Tellico {
@@ -37,14 +38,15 @@ class NetAccess : public QObject {
 Q_OBJECT
 
 public:
-  static bool download(const KUrl& u, QString& target, QWidget* window, bool quiet=false);
-  static QPixmap filePreview(const KUrl& fileName, int size=196);
+  static bool download(const QUrl& u, QString& target, QWidget* window, bool quiet=false);
+  static QPixmap filePreview(const QUrl& fileName, int size=196);
   static QPixmap filePreview(const KFileItem& item, int size=196);
   static void removeTempFile(const QString& name);
+  static bool exists(const QUrl& url, bool sourceSide, QWidget* window);
 
   static QString lastErrorString();
 
-private slots:
+private Q_SLOTS:
   void slotPreview(const KFileItem& item, const QPixmap& pix);
 
 private:

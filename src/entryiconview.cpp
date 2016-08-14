@@ -30,28 +30,26 @@
 #include "entry.h"
 #include "field.h"
 #include "document.h"
-#include "tellico_utils.h"
-#include "tellico_debug.h"
-#include "models/entrytitlemodel.h"
+#include "utils/tellico_utils.h"
+#include "models/entrymodel.h"
 #include "models/entrysortmodel.h"
+#include "tellico_kernel.h"
+#include "tellico_debug.h"
 
-#include <kmenu.h>
-#include <klocale.h>
-#include <kicon.h>
+#include <KLocalizedString>
 
-#include <QPainter>
-#include <QPixmap>
+#include <QMenu>
+#include <QIcon>
 #include <QContextMenuEvent>
+#include <QDesktopServices>
 
 namespace {
   static const int ENTRY_ICON_SIZE_PAD = 6;
-  static const int ENTRY_ICON_SHADOW_RIGHT = 1;
-  static const int ENTRY_ICON_SHADOW_BOTTOM = 1;
 }
 
 using Tellico::EntryIconView;
 
-EntryIconView::EntryIconView(QWidget* parent_)
+EntryIconView::EntryIconView(QAbstractItemModel* model_, QWidget* parent_)
     : QListView(parent_), m_maxAllowedIconWidth(MAX_ENTRY_ICON_SIZE) {
   setViewMode(QListView::IconMode);
   setMovement(QListView::Static);
@@ -62,24 +60,19 @@ EntryIconView::EntryIconView(QWidget* parent_)
   setWordWrap(true);
   setSpacing(ENTRY_ICON_SIZE_PAD);
 
-  EntryTitleModel* baseModel = new EntryTitleModel(this);
+  Q_ASSERT(::qobject_cast<EntryModel*>(model_));
   EntrySortModel* sortModel = new EntrySortModel(this);
   sortModel->setSortRole(EntryPtrRole);
-  sortModel->setSourceModel(baseModel);
+  sortModel->setSourceModel(model_);
   setModel(sortModel);
 
   connect(this, SIGNAL(doubleClicked(const QModelIndex&)), SLOT(slotDoubleClicked(const QModelIndex&)));
+
+  setWhatsThis(i18n("<qt>The <i>Icon View</i> shows each entry in the collection or group using "
+                    "an icon, which may be an image in the entry.</qt>"));
 }
 
 EntryIconView::~EntryIconView() {
-}
-
-Tellico::EntrySortModel* EntryIconView::sortModel() const {
-  return static_cast<EntrySortModel*>(model());
-}
-
-Tellico::AbstractEntryModel* EntryIconView::sourceModel() const {
-  return static_cast<AbstractEntryModel*>(sortModel()->sourceModel());
 }
 
 void EntryIconView::setMaxAllowedIconWidth(int width_) {
@@ -90,61 +83,44 @@ void EntryIconView::setMaxAllowedIconWidth(int width_) {
   QSize gridSize(m_maxAllowedIconWidth + 2*ENTRY_ICON_SIZE_PAD,
                  m_maxAllowedIconWidth + 3*(fontMetrics().lineSpacing() + ENTRY_ICON_SIZE_PAD));
   setGridSize(gridSize);
-
-  refresh();
-}
-
-void EntryIconView::clear() {
-  sourceModel()->clear();
-}
-
-void EntryIconView::refresh() {
-  sourceModel()->reset();
-}
-
-void EntryIconView::showEntries(const Tellico::Data::EntryList& entries_) {
-  sourceModel()->setEntries(entries_);
-}
-
-void EntryIconView::addEntries(Tellico::Data::EntryList entries_) {
-  sourceModel()->addEntries(entries_);
-}
-
-void EntryIconView::modifyEntries(Tellico::Data::EntryList entries_) {
-  sourceModel()->modifyEntries(entries_);
-}
-
-void EntryIconView::removeEntries(Tellico::Data::EntryList entries_) {
-  sourceModel()->removeEntries(entries_);
-}
-
-void EntryIconView::selectionChanged(const QItemSelection& selected_, const QItemSelection& deselected_) {
-  QAbstractItemView::selectionChanged(selected_, deselected_);
-  Data::EntryList entries;
-  // ignore the selected_ and deselected_, just use selection model
-  foreach(const QModelIndex& index, selectionModel()->selectedIndexes()) {
-    Data::EntryPtr tmp = model()->data(index, EntryPtrRole).value<Data::EntryPtr>();
-    if(tmp) {
-      entries += tmp;
-    }
-  }
-  Controller::self()->slotUpdateSelection(this, entries);
 }
 
 void EntryIconView::slotDoubleClicked(const QModelIndex& index_) {
-  Data::EntryPtr entry = sourceModel()->data(index_, EntryPtrRole).value<Data::EntryPtr>();
+  Data::EntryPtr entry = index_.data(EntryPtrRole).value<Data::EntryPtr>();
   if(entry) {
     Controller::self()->editEntry(entry);
   }
 }
 
 void EntryIconView::contextMenuEvent(QContextMenuEvent* ev_) {
-  KMenu menu(this);
+  QMenu menu(this);
 
   // only insert entry items if one is selected
   QModelIndex index = indexAt(ev_->pos());
   if(index.isValid()) {
     Controller::self()->plugEntryActions(&menu);
+
+    // add a menu item to open each URL field
+    Data::EntryPtr entry = index.data(EntryPtrRole).value<Data::EntryPtr>();
+    Data::FieldList urlFields;
+    foreach(Data::FieldPtr field, Data::Document::self()->collection()->fields()) {
+      if(field->type() == Data::Field::URL) {
+        urlFields += field;
+      }
+    }
+    foreach(Data::FieldPtr urlField, urlFields) {
+      QAction* act = menu.addAction(QIcon::fromTheme(QLatin1String("bookmarks")),
+                                    i18nc("Open URL", "Open %1", urlField->title()));
+      const QString value = entry->field(urlField);
+      act->setData(value);
+      act->setWhatsThis(value);
+      act->setEnabled(!value.isEmpty());
+      menu.addAction(act);
+    }
+    if(!urlFields.isEmpty()) {
+      connect(&menu, SIGNAL(triggered(QAction*)), SLOT(slotOpenUrlMenuActivated(QAction*)));
+    }
+
     menu.addSeparator();
   }
 
@@ -163,7 +139,7 @@ void EntryIconView::slotSortMenuActivated(QAction* action_) {
   if(!field) {
     return;
   }
-  // could have just put the index of the field in the list as the actionn data
+  // could have just put the index of the field in the list as the action data
   // but instead, we need to to iterate over the current fields and find the index since EntryTitleModel
   // uses the field list index as the column value
   Data::FieldList fields = Data::Document::self()->collection()->fields();
@@ -175,4 +151,12 @@ void EntryIconView::slotSortMenuActivated(QAction* action_) {
   }
 }
 
-#include "entryiconview.moc"
+void EntryIconView::slotOpenUrlMenuActivated(QAction* action_/*=0*/) {
+  if(!action_) {
+    return;
+  }
+  const QString link = action_->data().toString();
+  if(!link.isEmpty()) {
+    QDesktopServices::openUrl(Kernel::self()->URL().resolved(QUrl::fromUserInput(link)));
+  }
+}

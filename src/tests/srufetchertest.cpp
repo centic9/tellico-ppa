@@ -25,18 +25,17 @@
 #undef QT_NO_CAST_FROM_ASCII
 
 #include "srufetchertest.h"
-#include "srufetchertest.moc"
-#include "qtest_kde.h"
 
 #include "../fetch/srufetcher.h"
 #include "../collections/bookcollection.h"
 #include "../collections/bibtexcollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
+#include "../utils/datafileregistry.h"
 
-#include <KStandardDirs>
+#include <QTest>
 
-QTEST_KDEMAIN( SRUFetcherTest, GUI )
+QTEST_GUILESS_MAIN( SRUFetcherTest )
 
 SRUFetcherTest::SRUFetcherTest() : AbstractFetcherTest() {
 }
@@ -45,7 +44,7 @@ void SRUFetcherTest::initTestCase() {
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
   // since we use the MODS importer
-  KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
+  Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/mods2tellico.xsl"));
 }
 
 void SRUFetcherTest::testTitle() {

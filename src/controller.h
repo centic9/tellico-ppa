@@ -30,7 +30,7 @@
 #include <QObject>
 #include <QList>
 
-class KMenu;
+class QMenu;
 
 namespace Tellico {
   class MainWindow;
@@ -62,11 +62,11 @@ public:
   /**
    * Plug the default collection actions into a widget
    */
-  void plugCollectionActions(KMenu* popup);
+  void plugCollectionActions(QMenu* popup);
   /**
    * Plug the default entry actions into a widget
    */
-  void plugEntryActions(KMenu* popup);
+  void plugEntryActions(QMenu* popup);
   void updateActions() const;
 
   /**
@@ -112,7 +112,7 @@ public:
 
   void clearFilter();
 
-public slots:
+public Q_SLOTS:
   /**
    * When a collection is added to the document, certain actions need to be taken
    * by the parent app. The collection toolbar is updated, the entry count is set, and
@@ -135,12 +135,9 @@ public slots:
   /**
    * Updates the widgets when entries are selected.
    *
-   * param widget A pointer to the widget where the entries were selected
-   * @param widget The widget doing the selecting, if NULL, then use previous
    * @param entries The list of selected entries
    */
-  void slotUpdateSelection(QWidget* widget, const Tellico::Data::EntryList& entries);
-  void slotUpdateCurrent(const Tellico::Data::EntryList& entries);
+  void slotUpdateSelection(const Tellico::Data::EntryList& entries);
   void slotCopySelectedEntries();
   void slotUpdateSelectedEntries(const QString& source);
   void slotDeleteSelectedEntries();
@@ -150,7 +147,7 @@ public slots:
   void slotCheckIn();
   void slotCheckIn(const Data::EntryList& entries);
 
-signals:
+Q_SIGNALS:
   void collectionAdded(int collType);
 
 private:
@@ -159,7 +156,7 @@ private:
 
   void blockAllSignals(bool block) const;
   bool canCheckIn() const;
-  void plugUpdateMenu(KMenu* popup);
+  void plugUpdateMenu(QMenu* popup);
 
   MainWindow* m_mainWindow;
 
@@ -172,8 +169,6 @@ private:
    * Keep track of the selected entries so that a top-level delete has something for reference
    */
   Data::EntryList m_selectedEntries;
-  Data::EntryList m_currentEntries;
-  QWidget* m_widgetWithSelection;
 };
 
 } // end namespace

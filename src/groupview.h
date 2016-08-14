@@ -28,8 +28,6 @@
 #include "gui/treeview.h"
 #include "observer.h"
 
-#include <QPixmap>
-
 namespace Tellico {
   namespace Data {
     class EntryGroup;
@@ -105,7 +103,7 @@ public:
 
   virtual void modifyField(Data::CollPtr coll, Data::FieldPtr oldField, Data::FieldPtr newField);
 
-public slots:
+public Q_SLOTS:
   /**
    * Resets the list view, clearing and deleting all items.
    */
@@ -131,7 +129,7 @@ private:
   QString groupTitle();
   void updateHeader(Data::FieldPtr field=Data::FieldPtr());
 
-private slots:
+private Q_SLOTS:
   /**
    * Handles changing the icon when an item is expanded, depended on whether it refers
    * to a collection, a group, or an entry.
@@ -146,11 +144,10 @@ private slots:
    * Filter by group
    */
   void slotFilterGroup();
-  void selectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
   void slotDoubleClicked(const QModelIndex& index);
   void slotSortingChanged(int column, Qt::SortOrder order);
 
-signals:
+Q_SIGNALS:
   /**
    * Signals a desire to filter the view.
    *

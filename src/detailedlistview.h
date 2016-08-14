@@ -30,11 +30,10 @@
 #include "filter.h"
 
 #include <QStringList>
-#include <QPixmap>
 #include <QEvent>
 #include <QVector>
 
-class KMenu;
+class QMenu;
 
 namespace Tellico {
   class DetailedEntryItem;
@@ -123,16 +122,9 @@ public:
    */
   void selectAllVisible();
   int visibleItems() const;
-  /**
-   * Set max size of pixmaps.
-   *
-   * @param width Width
-   * @param height Height
-   */
-  void setPixmapSize(int width, int height) { Q_UNUSED(width) Q_UNUSED(height) }
   void resetEntryStatus();
 
-public slots:
+public Q_SLOTS:
   /**
    * Resets the list view, clearing and deleting all items.
    */
@@ -143,8 +135,7 @@ public slots:
   void slotRefresh();
   void slotRefreshImages();
 
-private slots:
-  void selectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
+private Q_SLOTS:
   void slotDoubleClicked(const QModelIndex& index);
   void slotColumnMenuActivated(QAction* action);
   void updateHeaderMenu();
@@ -170,8 +161,8 @@ private:
     int sortOrder;
   };
 
-  KMenu* m_headerMenu;
-  KMenu* m_columnMenu;
+  QMenu* m_headerMenu;
+  QMenu* m_columnMenu;
   bool m_loadingCollection;
   bool m_selectionChanging;
 };

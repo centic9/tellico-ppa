@@ -28,11 +28,9 @@
 #include "../datavectors.h"
 #include "../collection.h"
 
-#include <kurl.h>
-#include <klocale.h>
-
 #include <QObject>
 #include <QString>
+#include <QUrl>
 
 class QWidget;
 
@@ -63,8 +61,8 @@ public:
    *
    * @param url The URL of the file to import
    */
-  Importer(const KUrl& url);
-  Importer(const KUrl::List& urls);
+  Importer(const QUrl& url);
+  Importer(const QList<QUrl>& urls);
   Importer(const QString& text);
   /**
    */
@@ -115,13 +113,13 @@ public:
    */
   void setCurrentCollection(Data::CollPtr coll) { m_currentCollection = coll; }
 
-public slots:
+public Q_SLOTS:
   /**
    * The import action was changed in the import dialog
    */
   virtual void slotActionChanged(int) {}
 
-signals:
+Q_SIGNALS:
   void signalTotalSteps(QObject* obj, qulonglong steps);
   void signalProgress(QObject* obj, qulonglong progress);
 
@@ -131,8 +129,8 @@ protected:
    *
    * @return the file URL
    */
-  KUrl url() const { return m_urls.isEmpty() ? KUrl() : m_urls[0]; }
-  KUrl::List urls() const { return m_urls; }
+  QUrl url() const { return m_urls.isEmpty() ? QUrl() : m_urls[0]; }
+  QList<QUrl> urls() const { return m_urls; }
   QString text() const { return m_text; }
   Data::CollPtr currentCollection() const;
   /**
@@ -146,7 +144,7 @@ protected:
 
 private:
   long m_options;
-  KUrl::List m_urls;
+  QList<QUrl> m_urls;
   QString m_text;
   QString m_statusMsg;
   Data::CollPtr m_currentCollection;

@@ -34,13 +34,14 @@ class PDFImporter : public Importer {
 Q_OBJECT
 
 public:
-  PDFImporter(const KUrl::List& urls);
+  PDFImporter(const QUrl& url);
+  PDFImporter(const QList<QUrl>& urls);
 
   virtual bool canImport(int type) const;
 
   virtual Data::CollPtr collection();
 
-public slots:
+public Q_SLOTS:
   void slotCancel();
 
 private:

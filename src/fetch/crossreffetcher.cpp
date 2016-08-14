@@ -25,30 +25,30 @@
 #include "crossreffetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../gui/guiproxy.h"
-#include "../tellico_utils.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../collection.h"
 #include "../entry.h"
 #include "../core/netaccess.h"
 #include "../images/imagefactory.h"
 #include "../utils/wallet.h"
+#include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kstandarddirs.h>
-#include <klineedit.h>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
+#include <KLocalizedString>
+#include <KIO/Job>
+#include <KIO/JobUiDelegate>
 #include <KConfigGroup>
+#include <KJobWidgets/KJobWidgets>
 
+#include <QLineEdit>
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
 #include <QPixmap>
 #include <QTextCodec>
-
-// #define CROSSREF_TEST
+#include <QUrlQuery>
 
 #define CROSSREF_USE_UNIXREF
 
@@ -96,14 +96,14 @@ void CrossRefFetcher::search() {
 
 //  myDebug() << "value = " << value_;
 
-  KUrl u = searchURL(request().key, request().value);
+  QUrl u = searchURL(request().key, request().value);
   if(u.isEmpty()) {
     stop();
     return;
   }
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
-  m_job->ui()->setWindow(GUI::Proxy::widget());
+  KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)),
           SLOT(slotComplete(KJob*)));
 }
@@ -159,7 +159,7 @@ void CrossRefFetcher::slotComplete(KJob*) {
   }
 
   // assume result is always utf-8
-  QString str = m_xsltHandler->applyStylesheet(QString::fromUtf8(data, data.size()));
+  QString str = m_xsltHandler->applyStylesheet(QString::fromUtf8(data.constData(), data.size()));
   Import::TellicoImporter imp(str);
   Data::CollPtr coll = imp.collection();
 
@@ -197,7 +197,7 @@ Tellico::Data::EntryPtr CrossRefFetcher::fetchEntryHook(uint uid_) {
       coll->addField(field);
     }
     if(entry->field(field).isEmpty()) {
-      QPixmap pix = NetAccess::filePreview(entry->field(QLatin1String("url")));
+      QPixmap pix = NetAccess::filePreview(QUrl::fromUserInput(entry->field(QLatin1String("url"))));
       if(!pix.isNull()) {
         QString id = ImageFactory::addImage(pix, QLatin1String("PNG"));
         if(!id.isEmpty()) {
@@ -211,9 +211,9 @@ Tellico::Data::EntryPtr CrossRefFetcher::fetchEntryHook(uint uid_) {
 
 void CrossRefFetcher::initXSLTHandler() {
 #ifdef CROSSREF_USE_UNIXREF
-  QString xsltfile = KStandardDirs::locate("appdata", QLatin1String("unixref2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("unixref2tellico.xsl"));
 #else
-  QString xsltfile = KStandardDirs::locate("appdata", QLatin1String("crossref2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("crossref2tellico.xsl"));
 #endif
   if(xsltfile.isEmpty()) {
 #ifdef CROSSREF_USE_UNIXREF
@@ -224,8 +224,7 @@ void CrossRefFetcher::initXSLTHandler() {
     return;
   }
 
-  KUrl u;
-  u.setPath(xsltfile);
+  QUrl u = QUrl::fromLocalFile(xsltfile);
 
   delete m_xsltHandler;
   m_xsltHandler = new XSLTHandler(u);
@@ -237,32 +236,30 @@ void CrossRefFetcher::initXSLTHandler() {
   }
 }
 
-KUrl CrossRefFetcher::searchURL(FetchKey key_, const QString& value_) const {
-  KUrl u(CROSSREF_BASE_URL);
-  u.addQueryItem(QLatin1String("noredirect"), QLatin1String("true"));
-  u.addQueryItem(QLatin1String("multihit"), QLatin1String("true"));
+QUrl CrossRefFetcher::searchURL(FetchKey key_, const QString& value_) const {
+  QUrl u(QString::fromLatin1(CROSSREF_BASE_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("noredirect"), QLatin1String("true"));
+  q.addQueryItem(QLatin1String("multihit"), QLatin1String("true"));
 #ifdef CROSSREF_USE_UNIXREF
-  u.addQueryItem(QLatin1String("format"), QLatin1String("unixref"));
+  q.addQueryItem(QLatin1String("format"), QLatin1String("unixref"));
 #endif
   if(m_email.isEmpty()) {
-    u.addQueryItem(QLatin1String("pid"), QString::fromLatin1("%1:%2").arg(m_user, m_password));
+    q.addQueryItem(QLatin1String("pid"), QString::fromLatin1("%1:%2").arg(m_user, m_password));
   } else {
-    u.addQueryItem(QLatin1String("pid"), m_email);
+    q.addQueryItem(QLatin1String("pid"), m_email);
   }
 
   switch(key_) {
     case DOI:
-      u.addQueryItem(QLatin1String("rft_id"), QString::fromLatin1("info:doi/%1").arg(value_));
+      q.addQueryItem(QLatin1String("rft_id"), QString::fromLatin1("info:doi/%1").arg(value_));
       break;
 
     default:
       myWarning() << "key not recognized: " << key_;
-      return KUrl();
+      return QUrl();
   }
-
-#ifdef CROSSREF_TEST
-  u = KUrl("/home/robby/crossref.xml");
-#endif
+  u.setQuery(q);
 //  myDebug() << "url: " << u.url();
   return u;
 }
@@ -327,7 +324,7 @@ CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetc
 
   QLabel* label = new QLabel(i18n("&Username: "), optionsWidget());
   l->addWidget(label, ++row, 0);
-  m_userEdit = new KLineEdit(optionsWidget());
+  m_userEdit = new QLineEdit(optionsWidget());
   connect(m_userEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_userEdit, row, 1);
   QString w = i18n("A username and password is required to access the CrossRef service.");
@@ -337,7 +334,7 @@ CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetc
 
   label = new QLabel(i18n("&Password: "), optionsWidget());
   l->addWidget(label, ++row, 0);
-  m_passEdit = new KLineEdit(optionsWidget());
+  m_passEdit = new QLineEdit(optionsWidget());
 //  m_passEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
   connect(m_passEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_passEdit, row, 1);
@@ -350,7 +347,7 @@ CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetc
 
   label = new QLabel(i18n("Email: "), optionsWidget());
   l->addWidget(label, ++row, 0);
-  m_emailEdit = new KLineEdit(optionsWidget());
+  m_emailEdit = new QLineEdit(optionsWidget());
   connect(m_emailEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_emailEdit, row, 1);
   label->setBuddy(m_emailEdit);
@@ -383,5 +380,3 @@ void CrossRefFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
 QString CrossRefFetcher::ConfigWidget::preferredName() const {
   return CrossRefFetcher::defaultName();
 }
-
-#include "crossreffetcher.moc"

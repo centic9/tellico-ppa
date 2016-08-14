@@ -69,7 +69,6 @@ bool exportZip(QString arquivo)
 bool exportBibtex(QString arquivo)
 bool exportHTML(QString arquivo)
 bool exportCSV(QString arquivo)
-bool exportPilotDB(QString arquivo)
 QList&lt;int&gt; selectedEntries()
 QList&lt;int&gt; filteredEntries()
 void openFile(QString arquivo)
@@ -87,7 +86,7 @@ bool showEntry(int id)
 > (mesclar). Quatro formatos de arquivo são suportados para importação: arquivos &XML; Tellico, arquivos Bibtex, arquivos MODS e arquivos RIS. </para>
 
 <para
->A coleção atualmente aberta no &appname; poderá ser exportada para um arquivo, sendo no formato &XML; do Tellico, no formato ZIP do mesmo, em Bibtex, &HTML;, valores separados por vírgulas (CSV) ou no formato PilotDB. </para>
+>A coleção atualmente aberta no &appname; poderá ser exportada para um arquivo no formato &XML; ou ZIP, ambos do Tellico, em Bibtex, &HTML; ou valores separados por vírgulas (CSV). </para>
 
 <para
 >Uma lista dos IDs dos elementos atualmente selecionados ou filtrados permite facilitar a apresentação ou atualização dos itens na janela.</para>

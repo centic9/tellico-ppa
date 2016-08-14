@@ -28,11 +28,8 @@
 #include "observer.h"
 #include "gui/fieldwidget.h"
 
-#include <kdialog.h>
-
+#include <QDialog>
 #include <QHash>
-
-class KPushButton;
 
 namespace Tellico {
   namespace GUI {
@@ -42,7 +39,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class EntryEditDialog : public KDialog, public Observer {
+class EntryEditDialog : public QDialog, public Observer {
 Q_OBJECT
 
 // needed for completion object support
@@ -63,14 +60,7 @@ public:
    *
    * @param coll A pointer to the collection whose fields should be used for setting up the layout
    */
-  void setLayout(Data::CollPtr coll);
-  /**
-   * Sets the contents of the input controls to match the contents of a list of entries.
-   *
-   * @param list A list of the entries. The data in the first one will be inserted in the controls, and
-   * the widgets will be enabled or not, depending on whether the rest of the entries match the first one.
-   */
-  void setContents(Data::EntryList entries);
+  void resetLayout(Data::CollPtr coll);
   /**
    * Clears all of the input controls in the widget. The pointer to the
    * current entry is nullified, but not the pointer to the current collection.
@@ -97,7 +87,7 @@ public:
    */
   virtual void removeField(Data::CollPtr, Data::FieldPtr field);
 
-public slots:
+public Q_SLOTS:
   /**
    * Called when the Close button is clicked. It just hides the dialog.
    */
@@ -122,12 +112,20 @@ public slots:
    * from a @ref FieldEditWidget.
    */
   void slotSetModified(bool modified=true);
+  /**
+   * Sets the contents of the input controls to match the contents of a list of entries.
+   *
+   * @param list A list of the entries. The data in the first one will be inserted in the controls, and
+   * the widgets will be enabled or not, depending on whether the rest of the entries match the first one.
+   */
+  void setContents(Tellico::Data::EntryList entries);
 
-protected slots:
-  virtual void slotButtonClicked(int button);
+protected Q_SLOTS:
+  void slotHelp();
 
-private slots:
+private Q_SLOTS:
   void fieldValueChanged(Tellico::Data::FieldPtr field);
+  void slotUpdateSize();
 
 private:
   /**
@@ -144,15 +142,17 @@ private:
    * @param entry A pointer to the entry
    */
   void updateCompletions(Data::EntryPtr entry);
-  virtual void closeEvent(QCloseEvent* event);
+  virtual void showEvent(QShowEvent* event) Q_DECL_OVERRIDE;
+  virtual void hideEvent(QHideEvent* event) Q_DECL_OVERRIDE;
+  virtual void closeEvent(QCloseEvent* event) Q_DECL_OVERRIDE;
 
   Data::CollPtr m_currColl;
   Data::EntryList m_currEntries;
   GUI::TabWidget* m_tabs;
   QHash<QString, GUI::FieldWidget*> m_widgetDict;
 
-  ButtonCode m_saveBtn;
-  ButtonCode m_newBtn;
+  QPushButton* m_newButton;
+  QPushButton* m_saveButton;
 
   bool m_modified;
   Data::FieldList m_modifiedFields;

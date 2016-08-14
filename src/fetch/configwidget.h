@@ -47,8 +47,9 @@ public:
   ConfigWidget(QWidget* parent);
   virtual ~ConfigWidget() {}
 
-  void setAccepted(bool accepted_) { m_accepted = accepted_; }
-  bool shouldSave() const { return m_modified && m_accepted; }
+  bool shouldSave() const;
+  void setAccepted(bool accepted);
+  virtual void readConfig(const KConfigGroup&) {}
   /**
    * Saves any configuration options. The config group must be
    * set before calling this function.
@@ -65,14 +66,14 @@ public:
   virtual void removed() {}
   virtual QString preferredName() const = 0;
 
-signals:
+Q_SIGNALS:
   void signalName(const QString& name);
 
-public slots:
-  void slotSetModified(bool modified_ = true) { m_modified = modified_; }
+public Q_SLOTS:
+  void slotSetModified(bool modified = true);
 
 protected:
-  QWidget* optionsWidget() { return m_optionsWidget; }
+  QWidget* optionsWidget();
   void addFieldsWidget(const StringHash& customFields, const QStringList& fieldsToAdd);
   virtual void saveConfigHook(KConfigGroup&) {}
 

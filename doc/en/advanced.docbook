@@ -1,0 +1,150 @@
+<chapter id="advanced">
+<title>Advanced Usage</title>
+
+<sect1 id="command-line">
+<title>Command Line Options</title>
+
+<para>
+When running &appname; from the command line, there are several options for opening data files. They may be seen by running <userinput>tellico --help</userinput>.
+</para>
+
+<programlisting>
+Usage: tellico [Qt-options] [KDE-options] [options] [filename]
+
+Tellico - a collection manager for KDE
+
+Options:
+  --nofile                  Do not reopen the last open file
+  --bibtex                  Import &lt;filename&gt; as a bibtex file
+  --mods                    Import &lt;filename&gt; as a MODS file
+  --ris                     Import &lt;filename&gt; as a RIS file
+
+Arguments:
+  filename                  File to open
+</programlisting>
+
+</sect1>
+
+<sect1 id="dbus-interface">
+<title>&DBus; Interface</title>
+
+<para>
+&appname; has a minimal &DBus; interface, which can be useful for scripting or interacting with a running application from the command-line. As with all &DBus; calls, you need to specify the service you want to interface with, and the particular interface. The name of the &DBus; service is <constant>org.kde.tellico</constant>.
+</para>
+
+<sect2 id="dbus-commands">
+<title>&DBus; Commands</title>
+
+<para>Two &DBus; primary objects are available in the tellico interface: <constant>Tellico</constant> and <constant>Collections</constant>.</para>
+
+<sect3 id="dbus-tellico">
+<title>The <constant>Tellico</constant> Object</title>
+
+<para>The full list of &DBus; commands in the <constant>tellico</constant> object is shown below:</para>
+
+<programlisting>
+bool importTellico(QString file, QString action)
+bool importBibtex(QString file, QString action)
+bool importMODS(QString file, QString action)
+bool importRIS(QString file, QString action)
+bool exportXML(QString file)
+bool exportZip(QString file)
+bool exportBibtex(QString file)
+bool exportHTML(QString file)
+bool exportCSV(QString file)
+QList&lt;int&gt; selectedEntries()
+QList&lt;int&gt; filteredEntries()
+void openFile(QString file)
+void setFilter(QString text)
+bool showEntry(int id)
+</programlisting>
+
+<para>
+For the four import commands, the first argument is the file to import, and the second is the import action. Three actions are available: <emphasis>replace</emphasis>, <emphasis>append</emphasis>, and <emphasis>merge</emphasis>. Four file formats are supported for importing: Tellico &XML; files, Bibtex files, MODS files, and RIS files.
+</para>
+
+<para>
+The current open collection in &appname; may be exported to a file, in either Tellico &XML; format, Tellico ZIP format, Bibtex, &HTML;, or comma-separated values (CSV).
+</para>
+
+<para>A list of the entry IDs currently selected or being filtered is able to facilitate showing or updating entries in the view.</para>
+
+<para> A new data file may be opened by using the <command>openFile()</command> command. The full path must be specified.</para>
+
+<para>A new filter may be set using the <command>setFilter()</command> command, which is the equivalent of typing in the filter box in the main window.</para>
+
+<para>Given an entry ID, <command>showEntry()</command> will select that entry and show the entry details in the main window.</para>
+</sect3>
+
+<sect3 id="dbus-collection">
+<title>The <constant>Collections</constant> Object</title>
+
+<para>The full list of &DBus; commands in the <constant>Collections</constant> object is shown below:</para>
+
+<programlisting>
+int addEntry()
+bool removeEntry(int entryID)
+QStringList allValues(QString fieldName)
+QStringList entryValues(int entryID, QString fieldName)
+QStringList selectedBibtexKeys()
+QString entryBibtexKey(int entryID)
+bool setEntryValue(int entryID, QString fieldName, QString value)
+bool addEntryValue(int entryID, QString fieldName, QString value)
+</programlisting>
+
+<para>
+A new empty entry may be created in the current collection using the <command>addEntry()</command> command. The return value is the entry ID, which can then be used to set the field values in the entry. An entry can be deleted from the collection by calling <command>removeEntry()</command>.
+</para>
+
+<para>
+Calling <command>allValues()</command> using just a field name will return all the values for that field for the currently selected entries. If no entries are selected, the return list is empty. If an entry ID is included in the command, the field values for that specific entry are returned.
+</para>
+
+<para>
+If the current collection is a bibliography, calling <command>selectedBibtexKeys()</command> will return the Bibtex citation key for all selected entries. The bibtexKey for a specific entry may be found by using the <command>entryBibtexKey()</command> command.
+</para>
+
+<para>
+Entries can be edited directly with the &DBus; interface. Given an entry ID, <command>setEntryValue()</command> will set the field value directly. To add a value, without affecting the existing values, use <command>addEntryValue()</command>. The new value gets appended to the end of the existing list.
+</para>
+</sect3>
+
+</sect2>
+
+<sect2 id="dbus-examples">
+<title>&DBus; Examples</title>
+
+<para>
+Here are some examples for scripting &appname; using the &DBus; interface.
+</para>
+
+<screen width="40">
+<emphasis>Open a Bibtex file</emphasis>
+<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Tellico org.kde.tellico.importBibtex "/home/robby/reference.bib" "replace"</userinput>
+<computeroutput>true</computeroutput>
+</screen>
+
+<screen width="40">
+<emphasis>Export a Bibtex file</emphasis>
+<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Tellico org.kde.tellico.exportBibtex ~/documents/reference.bib</userinput>
+<computeroutput>true</computeroutput>
+</screen>
+
+<screen width="40">
+<emphasis>Echo the citation key of the current selection</emphasis>
+<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Collections org.kde.tellico.selectedBibtexKeys</userinput>
+<computeroutput>stephenson2004</computeroutput>
+</screen>
+
+<screen width="40">
+<emphasis>Add a new entry and set the title</emphasis>
+<prompt>%</prompt> <userinput>myid=`qdbus org.kde.tellico /Collections org.kde.tellico.addEntry`</userinput>
+<prompt>%</prompt> <userinput>qdbus org.kde.tellico /Collections org.kde.tellico.setEntryValue $myid title "My New Book"</userinput>
+<computeroutput>true</computeroutput>
+</screen>
+
+</sect2>
+
+</sect1>
+
+</chapter>

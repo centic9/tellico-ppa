@@ -24,14 +24,11 @@
 
 #include "upcvalidator.h"
 #include "isbnvalidator.h"
-#include "../tellico_debug.h"
-
-#include <kcodecs.h>
 
 using Tellico::UPCValidator;
 
 UPCValidator::UPCValidator(QObject* parent_)
-    : QValidator(parent_), m_checkISBN(false) {
+    : QValidator(parent_), m_checkISBN(false), m_isbn(false) {
 }
 
 QValidator::State UPCValidator::validate(QString& input_, int& pos_) const {
@@ -131,10 +128,10 @@ QValidator::State Tellico::CueCat::decode(QString& input_) {
     }
   }
 
-  code = QString::fromLatin1(KCodecs::base64Decode(code.toAscii()));
+  code = QString::fromLatin1(QByteArray::fromBase64(code.toLatin1()));
 
   for(int i = 0; i < code.length(); ++i) {
-    char c = code[i].toAscii() ^ 'C';
+    char c = code[i].toLatin1() ^ 'C';
     code.replace(i, 1, QLatin1Char(c));
   }
 
@@ -142,4 +139,3 @@ QValidator::State Tellico::CueCat::decode(QString& input_) {
   return QValidator::Acceptable;
 }
 
-#include "upcvalidator.moc"

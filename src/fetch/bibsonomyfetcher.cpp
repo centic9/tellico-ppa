@@ -24,24 +24,26 @@
 
 #include "bibsonomyfetcher.h"
 #include "../translators/bibteximporter.h"
-#include "../gui/guiproxy.h"
-#include "../tellico_utils.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../collection.h"
 #include "../entry.h"
 #include "../core/netaccess.h"
 #include "../core/filehandler.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
+#include <KLocalizedString>
+#include <KIO/Job>
+#include <KIO/JobUiDelegate>
+#include <KJobWidgets/KJobWidgets>
 
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QUrlQuery>
 
 namespace {
   // always bibtex
-  static const char* BIBSONOMY_BASE_URL = "http://bibsonomy.org";
+  static const char* BIBSONOMY_BASE_URL = "http://bibsonomy.org/";
   static const int BIBSONOMY_MAX_RESULTS = 20;
 }
 
@@ -71,16 +73,16 @@ void BibsonomyFetcher::search() {
 
 //  myDebug() << "value = " << value_;
 
-  KUrl u(BIBSONOMY_BASE_URL);
+  QUrl u(QString::fromLatin1(BIBSONOMY_BASE_URL));
   u.setPath(QLatin1String("/bib/"));
 
   switch(request().key) {
     case Person:
-      u.addPath(QString::fromLatin1("author/%1").arg(request().value));
+      u.setPath(u.path() + QString::fromLatin1("author/%1").arg(request().value));
       break;
 
     case Keyword:
-      u.addPath(QString::fromLatin1("search/%1").arg(request().value));
+      u.setPath(u.path() + QString::fromLatin1("search/%1").arg(request().value));
       break;
 
     default:
@@ -88,11 +90,12 @@ void BibsonomyFetcher::search() {
       stop();
       return;
   }
-
-  u.addQueryItem(QLatin1String("items"), QString::number(BIBSONOMY_MAX_RESULTS));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("items"), QString::number(BIBSONOMY_MAX_RESULTS));
+  u.setQuery(q);
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
-  m_job->ui()->setWindow(GUI::Proxy::widget());
+  KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)),
           SLOT(slotComplete(KJob*)));
 }
@@ -129,7 +132,7 @@ void BibsonomyFetcher::slotComplete(KJob*) {
   // since the fetch is done, don't worry about holding the job pointer
   m_job = 0;
 
-  Import::BibtexImporter imp(QString::fromUtf8(data, data.size()));
+  Import::BibtexImporter imp(QString::fromUtf8(data.constData(), data.size()));
   Data::CollPtr coll = imp.collection();
 
   if(!coll) {
@@ -191,4 +194,3 @@ QString BibsonomyFetcher::ConfigWidget::preferredName() const {
   return BibsonomyFetcher::defaultName();
 }
 
-#include "bibsonomyfetcher.moc"

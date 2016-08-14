@@ -1,11 +1,9 @@
-ADD_SUBDIRECTORY( btparse )
-ADD_SUBDIRECTORY( libcsv )
+IF( NOT Btparse_FOUND )
+  ADD_SUBDIRECTORY( btparse )
+ENDIF( NOT Btparse_FOUND )
+
+IF( NOT Csv_FOUND )
+  ADD_SUBDIRECTORY( libcsv )
+ENDIF( NOT Csv_FOUND )
+
 ADD_SUBDIRECTORY( rtf2html )
-ADD_SUBDIRECTORY( pilotdb )
-
-#KDE4_ADD_LIBRARY(3rdparty STATIC)
-
-#TARGET_LINK_LIBRARIES(3rdparty
-#    btparse
-#    libcsv
-#}

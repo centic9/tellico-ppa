@@ -25,11 +25,11 @@
 #ifndef TELLICO_GUI_PREVIEWDIALOG_H
 #define TELLICO_GUI_PREVIEWDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "../datavectors.h"
 
-class KTempDir;
+class QTemporaryDir;
 
 namespace Tellico {
   class EntryView;
@@ -37,7 +37,7 @@ namespace Tellico {
 
   namespace GUI {
 
-class PreviewDialog : public KDialog {
+class PreviewDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -49,7 +49,7 @@ public:
   void showEntry(Data::EntryPtr entry);
 
 private:
-  KTempDir* m_tempDir;
+  QTemporaryDir* m_tempDir;
   EntryView* m_view;
 };
 

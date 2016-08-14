@@ -25,32 +25,26 @@
 #undef QT_NO_CAST_FROM_ASCII
 
 #include "allocinefetchertest.h"
-#include "allocinefetchertest.moc"
-#include "qtest_kde.h"
 
 #include "../fetch/execexternalfetcher.h"
 #include "../fetch/allocinefetcher.h"
-#include "../fetch/filmstartsfetcher.h"
-#include "../fetch/sensacinefetcher.h"
-#include "../fetch/beyazperdefetcher.h"
-#include "../fetch/screenrushfetcher.h"
 #include "../collections/videocollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
-#include <KStandardDirs>
+#include <KConfig>
 #include <KConfigGroup>
 
-QTEST_KDEMAIN( AllocineFetcherTest, GUI )
+#include <QTest>
+
+QTEST_GUILESS_MAIN( AllocineFetcherTest )
 
 AllocineFetcherTest::AllocineFetcherTest() : AbstractFetcherTest() {
 }
 
 void AllocineFetcherTest::initTestCase() {
   Tellico::RegisterCollection<Tellico::Data::VideoCollection> registerVideo(Tellico::Data::Collection::Video, "video");
-  // since we use the importer
-  KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
   Tellico::ImageFactory::init();
 }
 
@@ -59,9 +53,9 @@ void AllocineFetcherTest::testTitle() {
                                        QLatin1String("Superman Returns"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ExecExternalFetcher(this));
 
-  KConfig config(QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py.spec", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("../fetch/scripts/fr.allocine.py.spec"), KConfig::SimpleConfig);
   KConfigGroup cg = config.group(QLatin1String("<default>"));
-  cg.writeEntry("ExecPath", QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py");
+  cg.writeEntry("ExecPath", QFINDTESTDATA("../fetch/scripts/fr.allocine.py"));
   // don't sync() and save the new path
   cg.markAsClean();
   fetcher->readConfig(cg, cg.name());
@@ -92,9 +86,9 @@ void AllocineFetcherTest::testTitleAccented() {
                                        QString::fromUtf8("Opération Tonnerre"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ExecExternalFetcher(this));
 
-  KConfig config(QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py.spec", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("../fetch/scripts/fr.allocine.py.spec"), KConfig::SimpleConfig);
   KConfigGroup cg = config.group(QLatin1String("<default>"));
-  cg.writeEntry("ExecPath", QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py");
+  cg.writeEntry("ExecPath", QFINDTESTDATA("../fetch/scripts/fr.allocine.py"));
   // don't sync() and save the new path
   cg.markAsClean();
   fetcher->readConfig(cg, cg.name());
@@ -114,9 +108,9 @@ void AllocineFetcherTest::testTitleAccentRemoved() {
                                        QLatin1String("Operation Tonnerre"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ExecExternalFetcher(this));
 
-  KConfig config(QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py.spec", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("../fetch/scripts/fr.allocine.py.spec"), KConfig::SimpleConfig);
   KConfigGroup cg = config.group(QLatin1String("<default>"));
-  cg.writeEntry("ExecPath", QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py");
+  cg.writeEntry("ExecPath", QFINDTESTDATA("../fetch/scripts/fr.allocine.py"));
   // don't sync() and save the new path
   cg.markAsClean();
   fetcher->readConfig(cg, cg.name());
@@ -134,9 +128,9 @@ void AllocineFetcherTest::testPlotQuote() {
                                        QLatin1String("Goldfinger"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ExecExternalFetcher(this));
 
-  KConfig config(QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py.spec", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("../fetch/scripts/fr.allocine.py.spec"), KConfig::SimpleConfig);
   KConfigGroup cg = config.group(QLatin1String("<default>"));
-  cg.writeEntry("ExecPath", QString::fromLatin1(KDESRCDIR) + "/../fetch/scripts/fr.allocine.py");
+  cg.writeEntry("ExecPath", QFINDTESTDATA("../fetch/scripts/fr.allocine.py"));
   // don't sync() and save the new path
   cg.markAsClean();
   fetcher->readConfig(cg, cg.name());
@@ -150,10 +144,8 @@ void AllocineFetcherTest::testPlotQuote() {
   QVERIFY(!entry->field(QLatin1String("plot")).contains(QLatin1String("&quot;")));
 }
 
-#ifdef HAVE_QJSON
-
 void AllocineFetcherTest::testTitleAPI() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
   QString groupName = QLatin1String("allocine");
   if(!config.hasGroup(groupName)) {
     QSKIP("This test requires a config file.", SkipAll);
@@ -186,7 +178,7 @@ void AllocineFetcherTest::testTitleAPI() {
 }
 
 void AllocineFetcherTest::testTitleAPIAccented() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
   QString groupName = QLatin1String("allocine");
   if(!config.hasGroup(groupName)) {
     QSKIP("This test requires a config file.", SkipAll);
@@ -212,7 +204,7 @@ void AllocineFetcherTest::testTitleAPIAccented() {
 
 // mentioned in https://bugs.kde.org/show_bug.cgi?id=337432
 void AllocineFetcherTest::testGhostDog() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
   QString groupName = QLatin1String("allocine");
   if(!config.hasGroup(groupName)) {
     QSKIP("This test requires a config file.", SkipAll);
@@ -230,137 +222,3 @@ void AllocineFetcherTest::testGhostDog() {
   Tellico::Data::EntryPtr entry = results.at(0);
   QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Ghost Dog: la voie du samourai"));
 }
-
-void AllocineFetcherTest::testTitleScreenRush() {
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Keyword,
-                                       QLatin1String("Superman Returns"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ScreenRushFetcher(this));
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QEXPECT_FAIL("", "Allocine API is unknown", Abort);
-  QCOMPARE(results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Superman Returns"));
-  QCOMPARE(entry->field(QLatin1String("director")), QLatin1String("Bryan Singer"));
-  QCOMPARE(entry->field(QLatin1String("producer")), QLatin1String("Jon Peters; Gilbert Adler; Bryan Singer; Lorne Orleans"));
-//  QCOMPARE(entry->field(QLatin1String("studio")), QLatin1String("Warner Bros. France"));
-  QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("2006"));
-  QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("Fantasy; Action"));
-  QCOMPARE(entry->field(QLatin1String("nationality")), QLatin1String("USA; Australia"));
-  QCOMPARE(entry->field(QLatin1String("running-time")), QLatin1String("154"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QVERIFY(!castList.isEmpty());
-  QCOMPARE(castList.at(0), QLatin1String("Brandon Routh::Clark Kent/Superman"));
-  QCOMPARE(castList.size(), 10);
-  QVERIFY(!entry->field(QLatin1String("plot")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
-}
-
-void AllocineFetcherTest::testTitleFilmStarts() {
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Keyword,
-                                       QLatin1String("Superman Returns"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::FilmStartsFetcher(this));
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QEXPECT_FAIL("", "Allocine API is unknown", Abort);
-  QCOMPARE(results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Superman Returns"));
-  QCOMPARE(entry->field(QLatin1String("director")), QLatin1String("Bryan Singer"));
-  QCOMPARE(entry->field(QLatin1String("producer")), QLatin1String("Jon Peters; Gilbert Adler; Bryan Singer; Lorne Orleans"));
-//  QCOMPARE(entry->field(QLatin1String("studio")), QLatin1String("Warner Bros. France"));
-  QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("2006"));
-  QCOMPARE(entry->field(QLatin1String("genre")), QLatin1String("Fantasy; Action"));
-  QCOMPARE(entry->field(QLatin1String("nationality")), QLatin1String("USA; Australien"));
-  QCOMPARE(entry->field(QLatin1String("running-time")), QLatin1String("154"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QVERIFY(!castList.isEmpty());
-  QCOMPARE(castList.at(0), QLatin1String("Brandon Routh::Clark Kent/Superman"));
-  QCOMPARE(castList.size(), 10);
-  QVERIFY(!entry->field(QLatin1String("plot")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
-}
-
-void AllocineFetcherTest::testTitleFilmStartsGerman() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
-  QString groupName = QLatin1String("allocine");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Keyword,
-                                       QLatin1String("Feuerball"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::FilmStartsFetcher(this));
-  fetcher->readConfig(cg, cg.name());
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QEXPECT_FAIL("", "Allocine API is unknown", Abort);
-  QCOMPARE(results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("James Bond 007 - Feuerball"));
-  QCOMPARE(entry->field(QLatin1String("origtitle")), QLatin1String("Thunderball"));
-  QCOMPARE(entry->field(QLatin1String("studio")), QLatin1String(""));
-  QCOMPARE(entry->field(QLatin1String("director")), QLatin1String("Terence Young"));
-  QCOMPARE(entry->field(QLatin1String("color")), QLatin1String("Color"));
-}
-
-void AllocineFetcherTest::testTitleSensaCineSpanish() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
-  QString groupName = QLatin1String("allocine");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Keyword,
-                                       QLatin1String("Los juegos del hambre"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::SensaCineFetcher(this));
-  fetcher->readConfig(cg, cg.name());
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QEXPECT_FAIL("", "Allocine API is unknown", Abort);
-  QCOMPARE(results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QLatin1String("Los juegos del hambre"));
-  QCOMPARE(entry->field(QLatin1String("origtitle")), QLatin1String("The Hunger Games"));
-  QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("2012"));
-  QCOMPARE(entry->field(QLatin1String("director")), QLatin1String("Gary Ross"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QVERIFY(!castList.isEmpty());
-  QCOMPARE(castList.at(0), QLatin1String("Jennifer Lawrence::Katniss Everdeen"));
-}
-
-void AllocineFetcherTest::testTitleBeyazperdeTurkish() {
-  KConfig config(QString::fromLatin1(KDESRCDIR)  + "/tellicotest.config", KConfig::SimpleConfig);
-  QString groupName = QLatin1String("allocine");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
-  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Keyword,
-                                       QString::fromUtf8("Açlık Oyunları"));
-  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::BeyazperdeFetcher(this));
-  fetcher->readConfig(cg, cg.name());
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
-
-  QEXPECT_FAIL("", "Allocine API is unknown", Abort);
-  QCOMPARE(results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QLatin1String("title")), QString::fromUtf8("Açlık Oyunları"));
-  QCOMPARE(entry->field(QLatin1String("origtitle")), QLatin1String("The Hunger Games"));
-  QCOMPARE(entry->field(QLatin1String("year")), QLatin1String("2012"));
-  QCOMPARE(entry->field(QLatin1String("director")), QLatin1String("Gary Ross"));
-  QStringList castList = Tellico::FieldFormat::splitTable(entry->field("cast"));
-  QVERIFY(!castList.isEmpty());
-  QCOMPARE(castList.at(0), QLatin1String("Jennifer Lawrence::Katniss Everdeen"));
-}
-
-// endif HAVE_QJSON
-#endif

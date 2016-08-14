@@ -25,10 +25,10 @@
 #include "boardgamegeekfetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../tellico_utils.h"
+#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigGroup>
 
 #include <QLabel>
@@ -37,6 +37,7 @@
 #include <QVBoxLayout>
 #include <QTextCodec>
 #include <QDomDocument>
+#include <QUrlQuery>
 
 namespace {
   // a lot of overlap with boardgamegeekimporter.h
@@ -65,31 +66,33 @@ bool BoardGameGeekFetcher::canFetch(int type) const {
   return type == Data::Collection::BoardGame;
 }
 
-KUrl BoardGameGeekFetcher::searchUrl() {
-  KUrl u(BGG_SEARCH_URL);
+QUrl BoardGameGeekFetcher::searchUrl() {
+  QUrl u(QString::fromLatin1(BGG_SEARCH_URL));
 
+  QUrlQuery q;
   switch(request().key) {
     case Title:
-      u.addQueryItem(QLatin1String("query"), request().value);
-      u.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
-      u.addQueryItem(QLatin1String("exact"), QLatin1String("1"));
+      q.addQueryItem(QLatin1String("query"), request().value);
+      q.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
+      q.addQueryItem(QLatin1String("exact"), QLatin1String("1"));
       break;
 
     case Keyword:
-      u.addQueryItem(QLatin1String("query"), request().value);
-      u.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
+      q.addQueryItem(QLatin1String("query"), request().value);
+      q.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
       break;
 
     case Raw:
       u.setUrl(QLatin1String(BGG_THING_URL));
-      u.addQueryItem(QLatin1String("id"), request().value);
-      u.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
+      q.addQueryItem(QLatin1String("id"), request().value);
+      q.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
       break;
 
     default:
       myWarning() << "key not recognized: " << request().key;
-      return KUrl();
+      return QUrl();
   }
+  u.setQuery(q);
 
 //  myDebug() << "url: " << u.url();
   return u;
@@ -104,9 +107,11 @@ Tellico::Data::EntryPtr BoardGameGeekFetcher::fetchEntryHookData(Data::EntryPtr 
     return entry_;
   }
 
-  KUrl u(BGG_THING_URL);
-  u.addQueryItem(QLatin1String("id"), id);
-  u.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
+  QUrl u(QString::fromLatin1(BGG_THING_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("id"), id);
+  q.addQueryItem(QLatin1String("type"), QLatin1String("boardgame,boardgameexpansion"));
+  u.setQuery(q);
 //  myDebug() << "url: " << u;
 
   // quiet
@@ -195,4 +200,3 @@ QString BoardGameGeekFetcher::ConfigWidget::preferredName() const {
   return BoardGameGeekFetcher::defaultName();
 }
 
-#include "boardgamegeekfetcher.moc"

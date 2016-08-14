@@ -46,7 +46,7 @@ Q_OBJECT
 public:
   /**
    */
-  XSLTImporter(const KUrl& url);
+  XSLTImporter(const QUrl& url);
   XSLTImporter(const QString& text);
 
   /**
@@ -56,9 +56,9 @@ public:
    */
   virtual QWidget* widget(QWidget* parent);
   virtual void beginXSLTHandler(XSLTHandler*) {}
-  void setXSLTURL(const KUrl& url) { m_xsltURL = url; }
+  void setXSLTURL(const QUrl& url) { m_xsltURL = url; }
 
-public slots:
+public Q_SLOTS:
   void slotCancel();
 
 private:
@@ -66,7 +66,7 @@ private:
 
   QWidget* m_widget;
   KUrlRequester* m_URLRequester;
-  KUrl m_xsltURL;
+  QUrl m_xsltURL;
 };
 
   } // end namespace

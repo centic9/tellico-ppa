@@ -30,40 +30,52 @@
 #include "collection.h"
 #include "commands/addloans.h"
 #include "commands/modifyloans.h"
-#include "tellico_utils.h"
+#include "utils/string_utils.h"
+#include "tellico_debug.h"
 
-#include <klocale.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
-#include <ktextedit.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KLineEdit>
+#include <KTextEdit>
+#include <KJob>
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include <KWindowConfig>
+
 #ifdef HAVE_KABC
-#include <kabc/stdaddressbook.h>
+#include <kcontacts/addressee.h>
+#include <Akonadi/Contact/ContactSearchJob>
 #endif
 
 #include <QLabel>
 #include <QCheckBox>
 #include <QGridLayout>
+#include <QPushButton>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
+#include <QTimer>
+
+namespace {
+  static const char* dialogOptionsString = "Loan Dialog Options";
+}
 
 using Tellico::LoanDialog;
 
 LoanDialog::LoanDialog(const Tellico::Data::EntryList& entries_, QWidget* parent_)
-    : KDialog(parent_),
+    : QDialog(parent_),
       m_mode(Add), m_borrower(0), m_entries(entries_), m_loan(0) {
   setModal(true);
-  setCaption(i18n("Loan Dialog"));
-  setButtons(Ok|Cancel);
+  setWindowTitle(i18n("Loan Dialog"));
+
   init();
 }
 
 LoanDialog::LoanDialog(Tellico::Data::LoanPtr loan_, QWidget* parent_)
-    : KDialog(parent_),
+    : QDialog(parent_),
       m_mode(Modify), m_borrower(loan_->borrower()), m_loan(loan_) {
   m_entries.append(m_loan->entry());
 
   setModal(true);
-  setCaption(i18n("Modify Loan"));
-  setButtons(Ok|Cancel);
+  setWindowTitle(i18n("Modify Loan"));
 
   init();
 
@@ -82,8 +94,12 @@ LoanDialog::LoanDialog(Tellico::Data::LoanPtr loan_, QWidget* parent_)
 }
 
 void LoanDialog::init() {
+  QVBoxLayout* mainLayout = new QVBoxLayout(this);
+  setLayout(mainLayout);
+
   QWidget* mainWidget = new QWidget(this);
-  setMainWidget(mainWidget);
+  mainLayout->addWidget(mainWidget);
+
   QGridLayout* topLayout = new QGridLayout(mainWidget);
   // middle column gets to be the widest
   topLayout->setColumnStretch(1, 1);
@@ -91,7 +107,8 @@ void LoanDialog::init() {
   int row = -1;
 
   QLabel* pixLabel = new QLabel(mainWidget);
-  pixLabel->setPixmap(DesktopIcon(QLatin1String("tellico"), 64));
+  mainLayout->addWidget(pixLabel);
+  pixLabel->setPixmap(QIcon::fromTheme(QLatin1String("tellico")).pixmap(QSize(64, 64)));
   pixLabel->setAlignment(Qt::Alignment(Qt::AlignLeft) | Qt::AlignTop);
   topLayout->addWidget(pixLabel, ++row, 0);
 
@@ -109,20 +126,23 @@ void LoanDialog::init() {
   }
   entryString += QLatin1String("</ol></qt>");
   KTextEdit* entryLabel = new KTextEdit(mainWidget);
+  mainLayout->addWidget(entryLabel);
   entryLabel->setHtml(entryString);
   entryLabel->setReadOnly(true);
   topLayout->addWidget(entryLabel, row, 1, 1, 2);
 
   QLabel* l = new QLabel(i18n("&Lend to:"), mainWidget);
+  mainLayout->addWidget(l);
   topLayout->addWidget(l, ++row, 0);
-  m_borrowerEdit = new KLineEdit(mainWidget);
+  m_borrowerEdit = new KLineEdit(mainWidget); //krazy:exclude=qclasses
+  mainLayout->addWidget(m_borrowerEdit);
   topLayout->addWidget(m_borrowerEdit, row, 1);
   l->setBuddy(m_borrowerEdit);
   m_borrowerEdit->completionObject()->setIgnoreCase(true);
   connect(m_borrowerEdit, SIGNAL(textChanged(const QString&)),
           SLOT(slotBorrowerNameChanged(const QString&)));
-  button(Ok)->setEnabled(false); // disable until a name is entered
-  KPushButton* pb = new KPushButton(KIcon(QLatin1String("kaddressbook")), QString(), mainWidget);
+  QPushButton* pb = new QPushButton(QIcon::fromTheme(QLatin1String("kaddressbook")), QString(), mainWidget);
+  mainLayout->addWidget(pb);
   topLayout->addWidget(pb, row, 2);
   connect(pb, SIGNAL(clicked()), SLOT(slotGetBorrower()));
   QString whats = i18n("Enter the name of the person borrowing the items from you. "
@@ -135,6 +155,7 @@ void LoanDialog::init() {
   }
 
   l = new QLabel(i18n("&Loan date:"), mainWidget);
+  mainLayout->addWidget(l);
   topLayout->addWidget(l, ++row, 0);
   m_loanDate = new GUI::DateWidget(mainWidget);
   m_loanDate->setDate(QDate::currentDate());
@@ -150,6 +171,7 @@ void LoanDialog::init() {
   }
 
   l = new QLabel(i18n("D&ue date:"), mainWidget);
+  mainLayout->addWidget(l);
   topLayout->addWidget(l, ++row, 0);
   m_dueDate = new GUI::DateWidget(mainWidget);
   l->setBuddy(m_dueDate);
@@ -162,8 +184,10 @@ void LoanDialog::init() {
   m_dueDate->setWhatsThis(whats);
 
   l = new QLabel(i18n("&Note:"), mainWidget);
+  mainLayout->addWidget(l);
   topLayout->addWidget(l, ++row, 0);
   m_note = new KTextEdit(mainWidget);
+  mainLayout->addWidget(m_note);
   l->setBuddy(m_note);
   topLayout->addWidget(m_note, row, 1, 1, 2);
   topLayout->setRowStretch(row, 1);
@@ -172,32 +196,40 @@ void LoanDialog::init() {
   m_note->setWhatsThis(whats);
 
   m_addEvent = new QCheckBox(i18n("&Add a reminder to the active calendar"), mainWidget);
+  mainLayout->addWidget(m_addEvent);
   topLayout->addWidget(m_addEvent, ++row, 0, 1, 3);
   m_addEvent->setEnabled(false); // gets enabled when valid due date is entered
   m_addEvent->setWhatsThis(i18n("<qt>Checking this box will add a <em>To-do</em> item "
                                    "to your active calendar, which can be viewed using KOrganizer. "
                                    "The box is only active if you set a due date.</qt>"));
 
-  KConfigGroup config(KGlobal::config(), QLatin1String("Loan Dialog Options"));
-  restoreDialogSize(config);
-
 #ifdef HAVE_KABC
-  KABC::AddressBook* abook = KABC::StdAddressBook::self(true);
-  connect(abook, SIGNAL(addressBookChanged(AddressBook*)),
-          SLOT(slotLoadAddressBook()));
-  connect(abook, SIGNAL(loadingFinished(Resource*)),
-          SLOT(slotLoadAddressBook()));
+  // Search for all existing contacts
+  Akonadi::ContactSearchJob* job = new Akonadi::ContactSearchJob();
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(akonadiSearchResult(KJob*)));
 #endif
-  slotLoadAddressBook();
+  populateBorrowerList();
+
+  m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+  QPushButton* okButton = m_buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  okButton->setEnabled(false); // disable until a name is entered
+  connect(m_buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(m_buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+
+  mainLayout->addWidget(m_buttonBox);
+
+  QTimer::singleShot(0, this, SLOT(slotUpdateSize()));
 }
 
 LoanDialog::~LoanDialog() {
-  KConfigGroup config(KGlobal::config(), QLatin1String("Loan Dialog Options"));
-  saveDialogSize(config);
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("Loan Dialog Options"));
+  KWindowConfig::saveWindowSize(windowHandle(), config);
 }
 
 void LoanDialog::slotBorrowerNameChanged(const QString& str_) {
-  button(Ok)->setEnabled(!str_.isEmpty());
+  m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(!str_.isEmpty());
 }
 
 void LoanDialog::slotDueDateChanged() {
@@ -214,7 +246,30 @@ void LoanDialog::slotGetBorrower() {
   }
 }
 
-void LoanDialog::slotLoadAddressBook() {
+void LoanDialog::akonadiSearchResult(KJob* job_) {
+  if(job_->error() != 0) {
+    myDebug() << job_->errorString();
+    return;
+  }
+
+#ifdef HAVE_KABC
+  Akonadi::ContactSearchJob* searchJob = qobject_cast<Akonadi::ContactSearchJob*>(job_);
+  Q_ASSERT(searchJob);
+
+  populateBorrowerList();
+
+  foreach(const KContacts::Addressee& addressee, searchJob->contacts()) {
+    // skip people with no name
+    const QString name = addressee.realName().trimmed();
+    if(name.isEmpty()) {
+      continue;
+    }
+    m_borrowerEdit->completionObject()->addItem(name);
+  }
+#endif
+}
+
+void LoanDialog::populateBorrowerList() {
   m_borrowerEdit->completionObject()->clear();
 
   // add current borrowers
@@ -222,19 +277,6 @@ void LoanDialog::slotLoadAddressBook() {
   foreach(Data::BorrowerPtr borrower, borrowers) {
     m_borrowerEdit->completionObject()->addItem(borrower->name());
   }
-
-#ifdef HAVE_KABC
-  const KABC::AddressBook* const abook = KABC::StdAddressBook::self(true);
-  for(KABC::AddressBook::ConstIterator it = abook->begin(), end = abook->end();
-      it != end; ++it) {
-    // skip people with no name
-    const QString name = (*it).realName().trimmed();
-    if(name.isEmpty()) {
-      continue;
-    }
-    m_borrowerEdit->completionObject()->addItem(name);
-  }
-#endif
 }
 
 QUndoCommand* LoanDialog::createCommand() {
@@ -295,4 +337,7 @@ QUndoCommand* LoanDialog::modifyLoansCommand() {
   return new Command::ModifyLoans(m_loan, newLoan, m_addEvent->isChecked());
 }
 
-#include "loandialog.moc"
+void LoanDialog::slotUpdateSize() {
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String(dialogOptionsString));
+  KWindowConfig::restoreWindowSize(windowHandle(), config);
+}

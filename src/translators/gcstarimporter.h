@@ -42,7 +42,7 @@ Q_OBJECT
 public:
   /**
    */
-  GCstarImporter(const KUrl& url);
+  GCstarImporter(const QUrl& url);
   GCstarImporter(const QString& text);
 
   /**
@@ -55,7 +55,7 @@ public:
 
   void setHasRelativeImageLinks(bool b) { m_relativeImageLinks = b; }
 
-public slots:
+public Q_SLOTS:
   void slotCancel();
 
 private:

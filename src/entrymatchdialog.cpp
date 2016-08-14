@@ -27,14 +27,17 @@
 #include "entry.h"
 #include "fetch/fetchmanager.h"
 
-#include <klocale.h>
-#include <ktextedit.h>
-#include <KHBox>
+#include <KLocalizedString>
+#include <KTextEdit>
+#include <KIconLoader>
 
 #include <QSplitter>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QTreeWidget>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 namespace {
   static const int DIALOG_MIN_WIDTH = 600;
@@ -45,23 +48,27 @@ using Tellico::EntryMatchDialog;
 
 EntryMatchDialog::EntryMatchDialog(QWidget* parent_, Data::EntryPtr entryToUpdate_,
                                    Fetch::Fetcher::Ptr fetcher_, const EntryUpdater::ResultList& matchResults_)
-    : KDialog(parent_) {
+    : QDialog(parent_) {
   Q_ASSERT(entryToUpdate_);
   Q_ASSERT(fetcher_);
 
   setModal(true);
-  setCaption(i18n("Select Match"));
-  setButtons(KDialog::Ok|KDialog::Cancel);
+  setWindowTitle(i18n("Select Match"));
+
+  QVBoxLayout* mainLayout = new QVBoxLayout(this);
+  setLayout(mainLayout);
 
   QWidget* mainWidget = new QWidget(this);
-  setMainWidget(mainWidget);
-  QBoxLayout* topLayout = new QVBoxLayout(mainWidget);
+  mainLayout->addWidget(mainWidget);
 
-  KHBox* hbox = new KHBox(mainWidget);
-  hbox->setSpacing(10);
-  topLayout->addWidget(hbox);
+  QWidget* hbox = new QWidget(mainWidget);
+  mainLayout->addWidget(hbox);
+  QHBoxLayout* hboxHBoxLayout = new QHBoxLayout(hbox);
+  hboxHBoxLayout->setMargin(0);
+  hboxHBoxLayout->setSpacing(10);
 
   QLabel* icon = new QLabel(hbox);
+  hboxHBoxLayout->addWidget(icon);
   icon->setPixmap(Fetch::Manager::fetcherIcon(fetcher_, KIconLoader::Panel, 48));
   icon->setAlignment(Qt::Alignment(Qt::AlignLeft) | Qt::AlignTop);
 
@@ -71,14 +78,15 @@ EntryMatchDialog::EntryMatchDialog(QWidget* parent_, Data::EntryPtr entryToUpdat
                    entryToUpdate_->title());
 
   KTextEdit* l = new KTextEdit(hbox);
+  hboxHBoxLayout->addWidget(l);
   l->setHtml(s);
   l->setReadOnly(true);
   l->setMaximumHeight(48);
   l->setFrameStyle(0);
 
   QSplitter* split = new QSplitter(Qt::Vertical, mainWidget);
+  mainLayout->addWidget(split);
   split->setMinimumHeight(400);
-  topLayout->addWidget(split);
 
   m_treeWidget = new QTreeWidget(split);
   m_treeWidget->setAllColumnsShowFocus(true);
@@ -100,6 +108,14 @@ EntryMatchDialog::EntryMatchDialog(QWidget* parent_, Data::EntryPtr entryToUpdat
   m_entryView->setXSLTFile(QLatin1String("Compact.xsl"));
   m_entryView->addXSLTStringParam("skip-fields", "id,mdate,cdate");
 
+  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+  QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  mainLayout->addWidget(buttonBox);
+
   setMinimumWidth(qMax(minimumWidth(), DIALOG_MIN_WIDTH));
   // have the entry view be taller than the tree widget
   split->setStretchFactor(1, 10);
@@ -114,7 +130,6 @@ void EntryMatchDialog::slotShowEntry() {
   m_entryView->showEntry(m_itemEntries[item]);
 }
 
-
 Tellico::EntryUpdater::UpdateResult EntryMatchDialog::updateResult() const {
   QTreeWidgetItem* item = m_treeWidget->currentItem();
   if(!item) {
@@ -122,5 +137,3 @@ Tellico::EntryUpdater::UpdateResult EntryMatchDialog::updateResult() const {
   }
   return m_itemResults[item];
 }
-
-#include "entrymatchdialog.moc"

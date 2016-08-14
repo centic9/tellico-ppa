@@ -30,7 +30,8 @@
 
 #include <QPointer>
 
-class KLineEdit;
+class QLineEdit;
+
 class KJob;
 namespace KIO {
   class StoredTransferJob;
@@ -68,7 +69,7 @@ public:
     virtual void saveConfigHook(KConfigGroup&);
     virtual QString preferredName() const;
   private:
-    KLineEdit* m_apiKeyEdit;
+    QLineEdit* m_apiKeyEdit;
   };
   friend class ConfigWidget;
 
@@ -76,7 +77,7 @@ public:
   static QString defaultIcon();
   static StringHash allOptionalFields() { return StringHash(); }
 
-private slots:
+private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:

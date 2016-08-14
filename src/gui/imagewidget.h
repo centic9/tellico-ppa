@@ -25,15 +25,14 @@
 #ifndef TELLICO_IMAGEWIDGET_H
 #define TELLICO_IMAGEWIDGET_H
 
-#include <KUrl>
-#include <KDialog>
+#include <KService>
 
 #include <QWidget>
 #include <QPixmap>
 #include <QPoint>
-#include <KService>
 #include <QDateTime>
 #include <QPointer>
+#include <QUrl>
 
 #include <config.h>
 
@@ -46,10 +45,11 @@ class QCheckBox;
 class QLabel;
 class QToolButton;
 class QMenu;
-class KProgressDialog;
+class QProgressDialog;
+
 class KProcess;
 #ifdef HAVE_KSANE
-class KDialog;
+class KPageDialog;
 namespace KSaneIface { class KSaneWidget; }
 #endif
 namespace Tellico {
@@ -69,10 +69,10 @@ public:
   void setImage(const QString& id);
   void setLinkOnlyChecked(bool l);
 
-public slots:
+public Q_SLOTS:
   void slotClear();
 
-signals:
+Q_SIGNALS:
   void signalModified();
 
 protected:
@@ -82,7 +82,7 @@ protected:
   virtual void dragEnterEvent(QDragEnterEvent* ev);
   virtual void dropEvent(QDropEvent* ev);
 
-private slots:
+private Q_SLOTS:
   void slotGetImage();
   void slotLinkOnlyClicked();
   void slotScanImage();
@@ -90,29 +90,29 @@ private slots:
   void slotEditImage();
   void slotEditMenu(QAction* action);
   void slotFinished();
-  void cancelScan(KDialog::ButtonCode code);
+  void cancelScan();
 
 private:
   void scale();
-  void loadImage(const KUrl& url);
+  void loadImage(const QUrl& url);
 
   QString m_imageID;
   QPixmap m_pixmap;
   QPixmap m_scaled;
   QLabel* m_label;
   QCheckBox* m_cbLinkOnly;
-  KUrl m_originalURL;
+  QUrl m_originalURL;
   QPoint m_dragStart;
   QMenu* m_editMenu;
   QToolButton* m_edit;
   KService::Ptr m_editor;
   QString m_img;
   KProcess* m_editProcess;
-  KProgressDialog* m_waitDlg;
+  QProgressDialog* m_waitDlg;
   QDateTime m_editedFileDateTime;
 #ifdef HAVE_KSANE
   QPointer<KSaneIface::KSaneWidget> m_saneWidget;
-  QPointer<KDialog> m_saneDlg;
+  QPointer<KPageDialog> m_saneDlg;
   QString m_saneDevice;
   bool m_saneDeviceIsOpen;
 #endif

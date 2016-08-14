@@ -111,7 +111,6 @@ void barcodeRecognitionThread::stop()
   m_stop_mutex.unlock();
 }
 
-
 void barcodeRecognitionThread::recognizeBarcode( QImage img )
 {
   // attention! This function is called from GUI context
@@ -189,12 +188,12 @@ void barcodeRecognitionThread::printArray( int array[10][13][2], int level )
 {
   for (int i = 0; i < 10; i++) {
     QString temp;
-    temp = QString::number( i ) + QString::fromAscii(" :   ");
+    temp = QString::number( i ) + QString::fromLatin1(" :   ");
     for (int j = 0; j < 13; j++) {
       if (array[i][j][level] == -1)
-        temp += QString::fromAscii("x  ");
+        temp += QString::fromLatin1("x  ");
       else
-      temp += QString::number( array[i][j][level] ) + QString::fromAscii("  ");
+      temp += QString::number( array[i][j][level] ) + QString::fromLatin1("  ");
     }
   qDebug() << temp;
   }
@@ -579,7 +578,7 @@ QString Barcode_EAN13::toString() const
     if ((m_numbers[i] >= 0) && (m_numbers[i] <= 9))
       s += QString::number(m_numbers[i]);
     else
-      s += QChar::fromAscii('?');
+      s += QChar::fromLatin1('?');
   return s;
 }
 
@@ -654,7 +653,7 @@ QVector<int> Decoder_EAN13::decode( QVector< QVector<int> > fields, int start_i,
     if (fields[i][0] == 0) {
       if ((fields[i][1] >= min_unit_length) && (fields[i][1] <= max_unit_length)) {
         if ((abs(fields[i][1] - fields[i + 1][1]) <= max_start_sentry_bar_differences)
-                  && (abs(fields[i][1] - fields[i + 2][1]) <= max_start_sentry_bar_differences) && (fields[i + 3][1] < fields[i][1] << 3)) {
+                  && (qAbs(fields[i][1] - fields[i + 2][1]) <= max_start_sentry_bar_differences) && (fields[i + 3][1] < fields[i][1] << 3)) {
           start_sentinel_i = i;
           break;
         }
@@ -695,14 +694,12 @@ QVector<int> Decoder_EAN13::decode( QVector< QVector<int> > fields, int start_i,
   if (left_numbers_i + 1 > end_i)
     return QVector<int>();
 
-
   // test the side from which we are reading the barcode:
   for (int j = 0; j < 4; j++) {
     current_number_field[j][0] = fields[left_numbers_i + j][0];
     current_number_field[j][1] = fields[left_numbers_i + j][1];
   }
   MatchMakerResult matchMakerResult = recognizeNumber( current_number_field, BOTH_TABLES );
-
 
   if (matchMakerResult.isEven()) {
     // we are reading the barcode from the back side:
@@ -884,4 +881,3 @@ MatchMakerResult::MatchMakerResult( bool even, int digit )
   m_digit = digit;
 }
 
-#include "barcode.moc"

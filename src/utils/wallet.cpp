@@ -23,9 +23,9 @@
  ***************************************************************************/
 
 #include "wallet.h"
-#include "../gui/guiproxy.h"
+#include "guiproxy.h"
 
-#include <kwallet.h>
+#include <KWallet>
 
 #include <QWidget>
 

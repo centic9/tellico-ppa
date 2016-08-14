@@ -25,7 +25,7 @@
 #include "parafieldwidget.h"
 #include "../field.h"
 
-#include <ktextedit.h>
+#include <KTextEdit>
 
 using Tellico::GUI::ParaFieldWidget;
 
@@ -63,5 +63,3 @@ void ParaFieldWidget::clearImpl() {
 QWidget* ParaFieldWidget::widget() {
   return m_textEdit;
 }
-
-#include "parafieldwidget.moc"

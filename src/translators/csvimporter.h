@@ -30,11 +30,11 @@
 
 class CSVImporterWidget;
 
-class KLineEdit;
 class KComboBox;
-class KIntSpinBox;
-class KPushButton;
 
+class QSpinBox;
+class QLineEdit;
+class QPushButton;
 class QCheckBox;
 class QRadioButton;
 class QTableWidget;
@@ -55,7 +55,7 @@ Q_OBJECT
 public:
   /**
    */
-  CSVImporter(const KUrl& url);
+  CSVImporter(const QUrl& url);
   ~CSVImporter();
 
   /**
@@ -68,11 +68,11 @@ public:
 
   virtual bool validImport() const;
 
-public slots:
+public Q_SLOTS:
   void slotActionChanged(int action);
   void slotCancel();
 
-private slots:
+private Q_SLOTS:
   void slotTypeChanged();
   void slotFieldChanged(int idx);
   void slotFirstRowHeader(bool b);
@@ -86,6 +86,7 @@ private:
   void fillTable();
   void updateHeader();
   void createCollection();
+  void updateFieldCombo();
 
   Data::CollPtr m_coll;
   Data::CollPtr m_existingCollection; // used to grab fields from current collection in window
@@ -102,14 +103,15 @@ private:
   QRadioButton* m_radioSemicolon;
   QRadioButton* m_radioTab;
   QRadioButton* m_radioOther;
-  KLineEdit* m_editOther;
-  KLineEdit* m_editColDelimiter;
-  KLineEdit* m_editRowDelimiter;
+  QLineEdit* m_editOther;
+  QLineEdit* m_editColDelimiter;
+  QLineEdit* m_editRowDelimiter;
   QTableWidget* m_table;
-  KIntSpinBox* m_colSpinBox;
+  QSpinBox* m_colSpinBox;
   KComboBox* m_comboField;
-  KPushButton* m_setColumnBtn;
+  QPushButton* m_setColumnBtn;
   bool m_hasAssignedFields;
+  bool m_isLibraryThing;
 
   CSVParser* m_parser;
 };

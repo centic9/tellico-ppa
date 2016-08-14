@@ -27,7 +27,6 @@
 #include "groupview.h"
 #include "detailedlistview.h"
 #include "entryeditdialog.h"
-#include "viewstack.h"
 #include "entryview.h"
 #include "entryiconview.h"
 #include "entry.h"
@@ -40,19 +39,18 @@
 #include "borrower.h"
 #include "filterview.h"
 #include "loanview.h"
-#include "utils/calendarhandler.h"
 #include "entryupdater.h"
 #include "entrymerger.h"
-#include "gui/cursorsaver.h"
+#include "utils/cursorsaver.h"
 #include "gui/lineedit.h"
+#include "gui/tabwidget.h"
 #include "tellico_debug.h"
 
-#include <klocale.h>
-#include <kmessagebox.h>
-#include <kaction.h>
-#include <kactionmenu.h>
-#include <kmenu.h>
-#include <ktabwidget.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KActionMenu>
+
+#include <QMenu>
 
 #include <unistd.h>
 
@@ -61,7 +59,7 @@ using Tellico::Controller;
 Controller* Controller::s_self = 0;
 
 Controller::Controller(Tellico::MainWindow* parent_)
-    : QObject(parent_), m_mainWindow(parent_), m_working(false), m_widgetWithSelection(0) {
+    : QObject(parent_), m_mainWindow(parent_), m_working(false) {
 }
 
 void Controller::addObserver(Tellico::Observer* obs) {
@@ -126,7 +124,7 @@ void Controller::slotCollectionAdded(Tellico::Data::CollPtr coll_) {
 //  blockAllSignals(true);
   m_mainWindow->m_detailedView->addCollection(coll_);
   m_mainWindow->m_groupView->addCollection(coll_);
-  m_mainWindow->m_editDialog->setLayout(coll_);
+  m_mainWindow->m_editDialog->resetLayout(coll_);
   if(!coll_->filters().isEmpty()) {
     m_mainWindow->addFilterView();
     m_mainWindow->m_filterView->addCollection(coll_);
@@ -178,7 +176,7 @@ void Controller::slotCollectionDeleted(Tellico::Data::CollPtr coll_) {
     m_mainWindow->m_loanView->slotReset();
   }
   m_mainWindow->m_detailedView->removeCollection(coll_);
-  m_mainWindow->m_viewStack->clear();
+  m_mainWindow->m_entryView->clear();
   blockAllSignals(false);
 
   // disconnect all signals from the collection
@@ -211,7 +209,7 @@ void Controller::modifiedEntries(Tellico::Data::EntryList entries_) {
   foreach(Observer* obs, m_observers) {
     obs->modifyEntries(entries_);
   }
-  m_mainWindow->m_viewStack->entryView()->slotRefresh(); // special case
+  m_mainWindow->m_entryView->slotRefresh(); // special case
   m_mainWindow->slotQueueFilter();
   blockAllSignals(false);
 }
@@ -223,11 +221,6 @@ void Controller::removedEntries(Tellico::Data::EntryList entries_) {
   }
   foreach(Data::EntryPtr entry, entries_) {
     m_selectedEntries.removeAll(entry);
-    m_currentEntries.removeAll(entry);
-  }
-  if(m_currentEntries.isEmpty()) {
-    m_mainWindow->m_viewStack->entryView()->clear();
-    m_mainWindow->m_editDialog->clear();
   }
   m_mainWindow->slotEntryCount();
   m_mainWindow->slotQueueFilter();
@@ -238,7 +231,7 @@ void Controller::addedField(Tellico::Data::CollPtr coll_, Tellico::Data::FieldPt
   foreach(Observer* obs, m_observers) {
     obs->addField(coll_, field_);
   }
-  m_mainWindow->m_viewStack->refresh();
+  m_mainWindow->m_entryView->slotRefresh();
   m_mainWindow->slotUpdateCollectionToolBar(coll_);
   m_mainWindow->slotQueueFilter();
 }
@@ -247,7 +240,7 @@ void Controller::removedField(Tellico::Data::CollPtr coll_, Tellico::Data::Field
   foreach(Observer* obs, m_observers) {
     obs->removeField(coll_, field_);
   }
-  m_mainWindow->m_viewStack->refresh();
+  m_mainWindow->m_entryView->slotRefresh();
   m_mainWindow->slotUpdateCollectionToolBar(coll_);
   m_mainWindow->slotQueueFilter();
 }
@@ -256,16 +249,16 @@ void Controller::modifiedField(Tellico::Data::CollPtr coll_, Tellico::Data::Fiel
   foreach(Observer* obs, m_observers) {
     obs->modifyField(coll_, oldField_, newField_);
   }
-  m_mainWindow->m_viewStack->refresh();
+  m_mainWindow->m_entryView->slotRefresh();
   m_mainWindow->slotUpdateCollectionToolBar(coll_);
   m_mainWindow->slotQueueFilter();
 }
 
 void Controller::reorderedFields(Tellico::Data::CollPtr coll_) {
-  m_mainWindow->m_editDialog->setLayout(coll_);
+  m_mainWindow->m_editDialog->resetLayout(coll_);
   m_mainWindow->m_detailedView->reorderFields(coll_->fields());
   m_mainWindow->slotUpdateCollectionToolBar(coll_);
-  m_mainWindow->m_viewStack->refresh();
+  m_mainWindow->m_entryView->slotRefresh();
 }
 
 void Controller::slotClearSelection() {
@@ -281,8 +274,6 @@ void Controller::slotClearSelection() {
   if(m_mainWindow->m_loanView) {
     m_mainWindow->m_loanView->clearSelection();
   }
-//  m_mainWindow->m_editDialog->clear(); let this stay
-//  m_mainWindow->m_viewStack->clear(); let this stay
 
   blockAllSignals(false);
 
@@ -292,60 +283,15 @@ void Controller::slotClearSelection() {
   m_working = false;
 }
 
-void Controller::slotUpdateSelection(QWidget* widget_, const Tellico::Data::EntryList& entries_) {
+void Controller::slotUpdateSelection(const Tellico::Data::EntryList& entries_) {
   if(m_working) {
     return;
   }
   m_working = true;
-
-  if(widget_) {
-    m_widgetWithSelection = widget_;
-  }
-
-  blockAllSignals(true);
-// in the list view and group view, if entries are selected in one, clear selection in other
-  if(m_widgetWithSelection != m_mainWindow->m_detailedView) {
-    m_mainWindow->m_detailedView->clearSelection();
-  }
-  if(m_widgetWithSelection != m_mainWindow->m_groupView) {
-    m_mainWindow->m_groupView->clearSelection();
-  }
-  if(m_mainWindow->m_filterView && m_widgetWithSelection != m_mainWindow->m_filterView) {
-    m_mainWindow->m_filterView->clearSelection();
-  }
-  if(m_mainWindow->m_loanView && m_widgetWithSelection != m_mainWindow->m_loanView) {
-    m_mainWindow->m_loanView->clearSelection();
-  }
-  if(m_widgetWithSelection != m_mainWindow->m_editDialog) {
-    m_mainWindow->m_editDialog->setContents(entries_);
-  }
-  // only show first one
-  if(m_widgetWithSelection && m_widgetWithSelection != m_mainWindow->m_viewStack->iconView()) {
-    if(entries_.count() > 1) {
-      m_mainWindow->m_viewStack->showEntries(entries_);
-    } else if(entries_.count() > 0) {
-      m_mainWindow->m_viewStack->showEntry(entries_[0]);
-    }
-  }
-  blockAllSignals(false);
 
   m_selectedEntries = entries_;
   updateActions();
   m_mainWindow->slotEntryCount();
-  m_working = false;
-}
-
-void Controller::slotUpdateCurrent(const Tellico::Data::EntryList& entries_) {
-  if(m_working) {
-    return;
-  }
-  m_working = true;
-
-  blockAllSignals(true);
-  m_mainWindow->m_viewStack->showEntries(entries_);
-  blockAllSignals(false);
-
-  m_currentEntries = entries_;
   m_working = false;
 }
 
@@ -375,7 +321,7 @@ void Controller::slotDeleteSelectedEntries() {
     QString str = i18n("Do you really want to delete this entry?");
     QString dontAsk = QLatin1String("DeleteEntry");
     int ret = KMessageBox::warningContinueCancel(Kernel::self()->widget(), str, i18n("Delete Entry"),
-                                                 KGuiItem(i18n("&Delete"), QLatin1String("edit-delete")),
+                                                 KStandardGuiItem::del(),
                                                  KStandardGuiItem::cancel(), dontAsk);
     if(ret != KMessageBox::Continue) {
       m_working = false;
@@ -391,7 +337,7 @@ void Controller::slotDeleteSelectedEntries() {
     QString dontAsk = QLatin1String("DeleteMultipleBooks");
     int ret = KMessageBox::warningContinueCancelList(Kernel::self()->widget(), str, names,
                                                      i18n("Delete Multiple Entries"),
-                                                     KGuiItem(i18n("&Delete"), QLatin1String("edit-delete")),
+                                                     KStandardGuiItem::del(),
                                                      KStandardGuiItem::cancel(), dontAsk);
     if(ret != KMessageBox::Continue) {
       m_working = false;
@@ -430,7 +376,7 @@ void Controller::slotRefreshField(Tellico::Data::FieldPtr field_) {
     m_mainWindow->m_groupView->populateCollection();
   }
   m_mainWindow->m_detailedView->slotRefresh();
-  m_mainWindow->m_viewStack->refresh();
+  m_mainWindow->m_entryView->slotRefresh();
 }
 
 void Controller::slotCopySelectedEntries() {
@@ -448,8 +394,7 @@ void Controller::slotCopySelectedEntries() {
     entries.append(Data::EntryPtr(new Data::Entry(*it)));
   }
   Kernel::self()->addEntries(entries, false);
-  m_widgetWithSelection = 0; // KDE bug 231125: probably should figure out how to really fix it...
-  slotUpdateSelection(0, old);
+  slotUpdateSelection(old);
 }
 
 void Controller::blockAllSignals(bool block_) const {
@@ -467,7 +412,7 @@ void Controller::blockAllSignals(bool block_) const {
     m_mainWindow->m_filterView->blockSignals(block_);
   }
   m_mainWindow->m_editDialog->blockSignals(block_);
-  m_mainWindow->m_viewStack->iconView()->blockSignals(block_);
+  m_mainWindow->m_iconView->blockSignals(block_);
 }
 
 void Controller::slotUpdateFilter(Tellico::FilterPtr filter_) {
@@ -477,7 +422,7 @@ void Controller::slotUpdateFilter(Tellico::FilterPtr filter_) {
   if(filter_ && !filter_->isEmpty()) {
     // clear the icon view selection only
     // the detailed view takes care of itself
-    m_mainWindow->m_viewStack->iconView()->clearSelection();
+    m_mainWindow->m_iconView->clearSelection();
     m_selectedEntries.clear();
   }
   updateActions();
@@ -500,7 +445,7 @@ void Controller::editEntry(Tellico::Data::EntryPtr) const {
   m_mainWindow->slotShowEntryEditor();
 }
 
-void Controller::plugCollectionActions(KMenu* popup_) {
+void Controller::plugCollectionActions(QMenu* popup_) {
   if(!popup_) {
     return;
   }
@@ -510,7 +455,7 @@ void Controller::plugCollectionActions(KMenu* popup_) {
   popup_->addAction(m_mainWindow->action("change_entry_grouping"));
 }
 
-void Controller::plugEntryActions(KMenu* popup_) {
+void Controller::plugEntryActions(QMenu* popup_) {
   if(!popup_) {
     return;
   }
@@ -528,7 +473,7 @@ void Controller::plugEntryActions(KMenu* popup_) {
   popup_->addAction(m_mainWindow->m_checkOutEntry);
 }
 
-void Controller::plugUpdateMenu(KMenu* popup_) {
+void Controller::plugUpdateMenu(QMenu* popup_) {
   QMenu* updatePopup = 0;
   foreach(QAction* action, popup_->actions()) {
     if(action && action->text() == m_mainWindow->m_updateEntryMenu->text()) {
@@ -559,14 +504,14 @@ void Controller::plugUpdateMenu(KMenu* popup_) {
 }
 
 void Controller::updateActions() const {
-  bool emptySelection = m_selectedEntries.isEmpty();
+  const bool emptySelection = m_selectedEntries.isEmpty();
   m_mainWindow->stateChanged(QLatin1String("empty_selection"),
                              emptySelection ? KXMLGUIClient::StateNoReverse : KXMLGUIClient::StateReverse);
   foreach(QAction* action, m_mainWindow->m_fetchActions) {
     action->setEnabled(!emptySelection);
   }
   //only enable citation items when it's a bibliography
-  bool isBibtex = Kernel::self()->collectionType() == Data::Collection::Bibtex;
+  const bool isBibtex = Kernel::self()->collectionType() == Data::Collection::Bibtex;
   if(isBibtex) {
     m_mainWindow->action("cite_clipboard")->setEnabled(!emptySelection);
     m_mainWindow->action("cite_lyxpipe")->setEnabled(!emptySelection);
@@ -712,4 +657,3 @@ void Controller::updatedFetchers() {
   m_mainWindow->updateEntrySources();
 }
 
-#include "controller.moc"

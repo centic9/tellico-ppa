@@ -30,8 +30,9 @@
 #include "../entry.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kicon.h>
+#include <KLocalizedString>
+
+#include <QIcon>
 
 using Tellico::BorrowerModel;
 
@@ -120,8 +121,8 @@ QVariant BorrowerModel::data(const QModelIndex& index_, int role_) const {
       // it points to a borrower
       return borrower(index_)->name();
     case Qt::DecorationRole:
-      return parent.isValid() ? KIcon(CollectionFactory::typeName(entry(index_)->collection()))
-                              : KIcon(QLatin1String("kaddressbook"));
+      return parent.isValid() ? QIcon::fromTheme(CollectionFactory::typeName(entry(index_)->collection()))
+                              : QIcon::fromTheme(QLatin1String("kaddressbook"));
     case RowCountRole:
       return rowCount(index_);
     case EntryPtrRole:
@@ -168,10 +169,11 @@ QModelIndex BorrowerModel::parent(const QModelIndex& index_) const {
 }
 
 void BorrowerModel::clear() {
+  beginResetModel();
   m_borrowers.clear();
   delete m_rootNode;
   m_rootNode = new Node(0);
-  reset();
+  endResetModel();
 }
 
 void BorrowerModel::addBorrowers(const Tellico::Data::BorrowerList& borrowers_) {
@@ -270,4 +272,3 @@ Tellico::Data::LoanPtr BorrowerModel::loan(const QModelIndex& index_) const {
   return loan;
 }
 
-#include "borrowermodel.moc"

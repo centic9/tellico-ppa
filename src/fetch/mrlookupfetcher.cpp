@@ -25,19 +25,21 @@
 #include "mrlookupfetcher.h"
 #include "../translators/bibteximporter.h"
 #include "../collections/bibtexcollection.h"
-#include "../gui/guiproxy.h"
-#include "../tellico_utils.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
+#include <KLocalizedString>
+#include <KIO/Job>
+#include <KIO/JobUiDelegate>
 #include <KConfigGroup>
+#include <KJobWidgets/KJobWidgets>
 
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QFile>
 #include <QTextCodec>
+#include <QUrlQuery>
 
 namespace {
   static const char* MRLOOKUP_URL = "http://www.ams.org/mrlookup";
@@ -73,15 +75,15 @@ void MRLookupFetcher::readConfigHook(const KConfigGroup& config_) {
 void MRLookupFetcher::search() {
   m_started = true;
 
-  KUrl u(MRLOOKUP_URL);
-
+  QUrl u(QString::fromLatin1(MRLOOKUP_URL));
+  QUrlQuery q;
   switch(request().key) {
     case Title:
-      u.addQueryItem(QLatin1String("ti"), request().value);
+      q.addQueryItem(QLatin1String("ti"), request().value);
       break;
 
     case Person:
-      u.addQueryItem(QLatin1String("au"), request().value);
+      q.addQueryItem(QLatin1String("au"), request().value);
       break;
 
     default:
@@ -89,11 +91,12 @@ void MRLookupFetcher::search() {
       stop();
       return;
   }
-  u.addQueryItem(QLatin1String("format"), QLatin1String("bibtex"));
+  q.addQueryItem(QLatin1String("format"), QLatin1String("bibtex"));
+  u.setQuery(q);
 
 //  myDebug() << u;
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
-  m_job->ui()->setWindow(GUI::Proxy::widget());
+  KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
 }
 
@@ -140,7 +143,7 @@ void MRLookupFetcher::slotComplete(KJob* job_) {
   // if the pointer is retained, it gets double-deleted
   m_job = 0;
 
-  const QString text = QString::fromUtf8(data, data.size());
+  const QString text = QString::fromUtf8(data.constData(), data.size());
   // grab everything within the <pre></pre> block
   QRegExp preRx(QLatin1String("<pre>(.*)</pre>"));
   preRx.setMinimal(true);
@@ -224,5 +227,3 @@ MRLookupFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const MRLookupFetc
 QString MRLookupFetcher::ConfigWidget::preferredName() const {
   return MRLookupFetcher::defaultName();
 }
-
-#include "mrlookupfetcher.moc"

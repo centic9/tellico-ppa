@@ -24,12 +24,12 @@
 
 #include "bibtexcollection.h"
 #include "../entrycomparison.h"
-#include "../translators/bibtexhandler.h"
+#include "../utils/bibtexhandler.h"
 #include "../fieldformat.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kstringhandler.h>
+#include <KLocalizedString>
+#include <KStringHandler>
 
 using namespace Tellico;
 using Tellico::Data::BibtexCollection;
@@ -522,5 +522,3 @@ Tellico::Data::EntryList BibtexCollection::duplicateBibtexKeys() const {
   }
   return dupes.toList();
 }
-
-#include "bibtexcollection.moc"

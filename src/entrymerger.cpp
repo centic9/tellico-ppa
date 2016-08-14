@@ -32,7 +32,7 @@
 #include "gui/statusbar.h"
 #include "tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <QTimer>
 
@@ -107,7 +107,7 @@ void EntryMerger::slotCancel() {
 
 void EntryMerger::slotCleanup() {
   Kernel::self()->removeEntries(m_entriesToRemove);
-  Controller::self()->slotUpdateSelection(0, m_entriesLeft);
+  Controller::self()->slotUpdateSelection(m_entriesLeft);
   StatusBar::self()->clearStatus();
   ProgressManager::self()->setDone(this);
   Kernel::self()->endCommandGroup();
@@ -132,4 +132,3 @@ bool EntryMerger::cleanMerge(Tellico::Data::EntryPtr e1, Tellico::Data::EntryPtr
   return true;
 }
 
-#include "entrymerger.moc"

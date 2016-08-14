@@ -27,13 +27,12 @@
 
 #include "datavectors.h"
 
-#include <khtml_part.h>
-#include <khtmlview.h>
+#include <KHTMLPart>
+#include <KHTMLView>
 
 #include <QPointer>
 
-class KRun;
-class KTemporaryFile;
+class QTemporaryFile;
 
 namespace Tellico {
   class XSLTHandler;
@@ -79,25 +78,26 @@ public:
   void addXSLTStringParam(const QByteArray& name, const QByteArray& value);
   void setXSLTOptions(const StyleOptions& options);
   void setUseGradientImages(bool b) { m_useGradientImages = b; }
+  void resetView();
 
-signals:
-  void signalAction(const KUrl& url);
+Q_SIGNALS:
+  void signalAction(const QUrl& url);
 
-public slots:
+public Q_SLOTS:
   /**
    * Helper function to refresh view.
    */
   void slotRefresh();
+  void showEntries(Tellico::Data::EntryList entries);
 
-private slots:
+private Q_SLOTS:
   /**
    * Open a URL.
    *
    * @param url The URL to open
    */
-  void slotOpenURL(const KUrl& url);
+  void slotOpenURL(const QUrl& url);
   void slotReloadEntry();
-  void slotResetColors();
 
 private:
   void resetColors();
@@ -107,11 +107,9 @@ private:
   QString m_xsltFile;
   QString m_textToShow;
 
-  // to run any clicked processes
-  QPointer<KRun> m_run;
-  KTemporaryFile* m_tempFile;
-  bool m_useGradientImages : 1;
-  bool m_checkCommonFile : 1;
+  QTemporaryFile* m_tempFile;
+  bool m_useGradientImages;
+  bool m_checkCommonFile;
 };
 
 // stupid naming on my part, I need to subclass the view to
@@ -119,9 +117,13 @@ private:
 class EntryViewWidget : public KHTMLView {
 Q_OBJECT
 public:
-  EntryViewWidget(KHTMLPart* part, QWidget* parent);
-public slots:
+  EntryViewWidget(EntryView* part, QWidget* parent);
+
+public Q_SLOTS:
   void copy();
+
+protected:
+  void changeEvent(QEvent* event);
 };
 
 } //end namespace

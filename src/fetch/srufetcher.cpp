@@ -29,26 +29,29 @@
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
 #include "../translators/xmlimporter.h"
-#include "../gui/guiproxy.h"
+#include "../utils/guiproxy.h"
 #include "../gui/lineedit.h"
 #include "../gui/combobox.h"
-#include "../tellico_utils.h"
+#include "../gui/stringmapwidget.h"
+#include "../utils/string_utils.h"
 #include "../utils/lccnvalidator.h"
 #include "../utils/isbnvalidator.h"
+#include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
-#include <kstandarddirs.h>
+#include <KLocalizedString>
+#include <KIO/Job>
+#include <KJobUiDelegate>
+#include <KJobWidgets/KJobWidgets>
 #include <KConfigGroup>
-#include <kcombobox.h>
-#include <kacceleratormanager.h>
-#include <knuminput.h>
+#include <KComboBox>
+#include <KAcceleratorManager>
 
+#include <QSpinBox>
 #include <QLabel>
 #include <QGridLayout>
 #include <QFile>
+#include <QUrlQuery>
 
 namespace {
   // 7090 was the old default port, but that was just because LoC used it
@@ -61,7 +64,7 @@ using namespace Tellico;
 using Tellico::Fetch::SRUFetcher;
 
 SRUFetcher::SRUFetcher(QObject* parent_)
-    : Fetcher(parent_), m_job(0), m_MARCXMLHandler(0), m_MODSHandler(0), m_SRWHandler(0), m_started(false) {
+    : Fetcher(parent_), m_port(SRU_DEFAULT_PORT), m_job(0), m_MARCXMLHandler(0), m_MODSHandler(0), m_SRWHandler(0), m_started(false) {
 }
 
 SRUFetcher::SRUFetcher(const QString& name_, const QString& host_, uint port_, const QString& path_,
@@ -103,6 +106,12 @@ void SRUFetcher::readConfigHook(const KConfigGroup& config_) {
     m_path.prepend(QLatin1Char('/'));
   }
   m_format = config_.readEntry("Format", "mods");
+  const QStringList queryFields = config_.readEntry("QueryFields", QStringList());
+  const QStringList queryValues = config_.readEntry("QueryValues", QStringList());
+  Q_ASSERT(queryFields.count() == queryValues.count());
+  for(int i = 0; i < qMin(queryFields.count(), queryValues.count()); ++i) {
+    m_queryMap.insert(queryFields.at(i), queryValues.at(i));
+  }
 }
 
 void SRUFetcher::search() {
@@ -114,11 +123,11 @@ void SRUFetcher::search() {
 
   m_started = true;
 
-  KUrl u;
-  u.setProtocol(QLatin1String("http"));
+  QUrl u;
+  u.setScheme(QLatin1String("http"));
   u.setHost(m_host);
   u.setPort(m_port);
-//  u.setPath(m_path);
+//  u.setPath(QLatin1Char('/') + m_path, QUrl::TolerantMode);
 
 /*
   QString uStr = QLatin1String("http://") + m_host;
@@ -129,24 +138,24 @@ void SRUFetcher::search() {
   u = QUrl::fromUserInput(uStr);
 */
   // hack to allow (for now) including extra query terms in the path, avoids double encoding
-  u.setUrl(u.url() + QLatin1Char('/') + m_path);
+  u = QUrl::fromUserInput(u.url() + QLatin1Char('/') + m_path);
 
-  u.addQueryItem(QLatin1String("operation"), QLatin1String("searchRetrieve"));
-  u.addQueryItem(QLatin1String("version"), QLatin1String("1.1"));
-  u.addQueryItem(QLatin1String("maximumRecords"), QString::number(SRU_MAX_RECORDS));
+  QUrlQuery query;
+  query.addQueryItem(QLatin1String("operation"), QLatin1String("searchRetrieve"));
+  query.addQueryItem(QLatin1String("version"), QLatin1String("1.1"));
+  query.addQueryItem(QLatin1String("maximumRecords"), QString::number(SRU_MAX_RECORDS));
   if(!m_format.isEmpty() && m_format != QLatin1String("none")) {
-    u.addQueryItem(QLatin1String("recordSchema"), m_format);
+    query.addQueryItem(QLatin1String("recordSchema"), m_format);
   }
-  // added for the nature.com openSearch, what's the best way to make this an option?
-  if(m_host.endsWith(QLatin1String("nature.com"))) {
-    u.addQueryItem(QLatin1String("httpAccept"), QLatin1String("application/sru+xml"));
+  for(StringMap::ConstIterator it = m_queryMap.constBegin(); it != m_queryMap.constEnd(); ++it) {
+    query.addQueryItem(it.key(), it.value());
   }
 
   const int type = collectionType();
   QString str = QLatin1Char('"') + request().value + QLatin1Char('"');
   switch(request().key) {
     case Title:
-      u.addQueryItem(QLatin1String("query"), QLatin1String("dc.title=") + str);
+      query.addQueryItem(QLatin1String("query"), QLatin1String("dc.title=") + str);
       break;
 
     case Person:
@@ -157,7 +166,7 @@ void SRUFetcher::search() {
         } else {
           s = QLatin1String("dc.creator=") + str + QLatin1String(" or dc.editor=") + str;
         }
-        u.addQueryItem(QLatin1String("query"), s);
+        query.addQueryItem(QLatin1String("query"), s);
       }
       break;
 
@@ -182,7 +191,7 @@ void SRUFetcher::search() {
             q += QLatin1String(" or ");
           }
         }
-        u.addQueryItem(QLatin1String("query"), q);
+        query.addQueryItem(QLatin1String("query"), q);
       }
       break;
 
@@ -198,19 +207,19 @@ void SRUFetcher::search() {
             q += QLatin1String(" or ");
           }
         }
-        u.addQueryItem(QLatin1String("query"), q);
+        query.addQueryItem(QLatin1String("query"), q);
       }
       break;
 
     case Keyword:
-      u.addQueryItem(QLatin1String("query"), str);
+      query.addQueryItem(QLatin1String("query"), str);
       break;
 
     case Raw:
       {
         QString key = request().value.section(QLatin1Char('='), 0, 0).trimmed();
         QString str = request().value.section(QLatin1Char('='), 1).trimmed();
-        u.addQueryItem(key, str);
+        query.addQueryItem(key, str);
       }
       break;
 
@@ -219,10 +228,11 @@ void SRUFetcher::search() {
       stop();
       break;
   }
+  u.setQuery(query);
 //  myDebug() << u.url();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
-  m_job->ui()->setWindow(GUI::Proxy::widget());
+  KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)),
           SLOT(slotComplete(KJob*)));
 }
@@ -270,7 +280,7 @@ void SRUFetcher::slotComplete(KJob*) {
   Data::CollPtr coll;
   QString msg;
 
-  const QString result = QString::fromUtf8(data, data.size());
+  const QString result = QString::fromUtf8(data.constData(), data.size());
 
   // first check for SRU errors
   const QString& diag = XML::nsZingDiag;
@@ -392,14 +402,13 @@ bool SRUFetcher::initMARCXMLHandler() {
     return true;
   }
 
-  QString xsltfile = KStandardDirs::locate("appdata", QLatin1String("MARC21slim2MODS3.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("MARC21slim2MODS3.xsl"));
   if(xsltfile.isEmpty()) {
     myWarning() << "can not locate MARC21slim2MODS3.xsl.";
     return false;
   }
 
-  KUrl u;
-  u.setPath(xsltfile);
+  QUrl u = QUrl::fromLocalFile(xsltfile);
 
   m_MARCXMLHandler = new XSLTHandler(u);
   if(!m_MARCXMLHandler->isValid()) {
@@ -416,14 +425,13 @@ bool SRUFetcher::initMODSHandler() {
     return true;
   }
 
-  QString xsltfile = KStandardDirs::locate("appdata", QLatin1String("mods2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("mods2tellico.xsl"));
   if(xsltfile.isEmpty()) {
     myWarning() << "can not locate mods2tellico.xsl.";
     return false;
   }
 
-  KUrl u;
-  u.setPath(xsltfile);
+  QUrl u = QUrl::fromLocalFile(xsltfile);
 
   m_MODSHandler = new XSLTHandler(u);
   if(!m_MODSHandler->isValid()) {
@@ -440,14 +448,13 @@ bool SRUFetcher::initSRWHandler() {
     return true;
   }
 
-  QString xsltfile = KStandardDirs::locate("appdata", QLatin1String("srw2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("srw2tellico.xsl"));
   if(xsltfile.isEmpty()) {
     myWarning() << "can not locate srw2tellico.xsl.";
     return false;
   }
 
-  KUrl u;
-  u.setPath(xsltfile);
+  QUrl u = QUrl::fromLocalFile(xsltfile);
 
   m_SRWHandler = new XSLTHandler(u);
   if(!m_SRWHandler->isValid()) {
@@ -507,7 +514,10 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
 
   label = new QLabel(i18n("&Port: "), optionsWidget());
   l->addWidget(label, ++row, 0);
-  m_portSpinBox = new KIntSpinBox(0, 999999, 1, SRU_DEFAULT_PORT, optionsWidget());
+  m_portSpinBox = new QSpinBox(optionsWidget());
+  m_portSpinBox->setMaximum(999999);
+  m_portSpinBox->setMinimum(0);
+  m_portSpinBox->setValue(SRU_DEFAULT_PORT);
   connect(m_portSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetModified()));
   l->addWidget(m_portSpinBox, row, 1);
   w = i18n("Enter the port number of the server. The default is %1.", SRU_DEFAULT_PORT);
@@ -543,6 +553,10 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
 
   l->setRowStretch(++row, 1);
 
+  m_queryTree = new GUI::StringMapWidget(StringMap(), optionsWidget());
+  l->addWidget(m_queryTree, row, 0, 1, 2);
+  m_queryTree->setLabels(i18n("Field"), i18n("Value"));
+
   // now add additional fields widget
   addFieldsWidget(SRUFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 
@@ -554,6 +568,7 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
       m_formatCombo->addItem(fetcher_->m_format, fetcher_->m_format);
     }
     m_formatCombo->setCurrentData(fetcher_->m_format);
+    m_queryTree->setStringMap(fetcher_->m_queryMap);
   }
   KAcceleratorManager::manage(optionsWidget());
 }
@@ -579,6 +594,11 @@ void SRUFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   if(!s.isEmpty()) {
     config_.writeEntry("Format", s);
   }
+  StringMap queryMap = m_queryTree->stringMap();
+  if(!queryMap.isEmpty()) {
+    config_.writeEntry("QueryFields", queryMap.keys());
+    config_.writeEntry("QueryValues", queryMap.values());
+  }
 }
 
 QString SRUFetcher::ConfigWidget::preferredName() const {
@@ -590,17 +610,15 @@ void SRUFetcher::ConfigWidget::slotCheckHost() {
   QString s = m_hostEdit->text();
   // someone might be pasting a full URL, check that
   if(s.indexOf(QLatin1Char(':')) > -1 || s.indexOf(QLatin1Char('/')) > -1) {
-    KUrl u(s);
+    QUrl u(s);
     if(u.isValid()) {
       m_hostEdit->setText(u.host());
       if(u.port() > 0) {
         m_portSpinBox->setValue(u.port());
       }
       if(!u.path().isEmpty()) {
-        m_pathEdit->setText(u.path());
+        m_pathEdit->setText(u.path().trimmed());
       }
     }
   }
 }
-
-#include "srufetcher.moc"

@@ -25,10 +25,10 @@
 #include "dvdfrfetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../tellico_utils.h"
+#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KConfigGroup>
 
 #include <QLabel>
@@ -37,8 +37,7 @@
 #include <QVBoxLayout>
 #include <QTextCodec>
 #include <QDomDocument>
-
-//#define DVDFR_TEST
+#include <QUrlQuery>
 
 namespace {
   static const int DVDFR_MAX_RETURNS_TOTAL = 20;
@@ -66,32 +65,29 @@ bool DVDFrFetcher::canFetch(int type) const {
   return type == Data::Collection::Video;
 }
 
-KUrl DVDFrFetcher::searchUrl() {
-#ifdef DVDFR_TEST
-  return KUrl("/home/robby/kde/src/tellico/src/fetch/dvdfr_search2.xml");
-#endif
+QUrl DVDFrFetcher::searchUrl() {
+  QUrl u(QString::fromLatin1(DVDFR_SEARCH_API_URL));
 
-  KUrl u(DVDFR_SEARCH_API_URL);
-
+  QUrlQuery q;
   switch(request().key) {
     case Title:
       // DVDfr requires the title string to be in iso-8859-15
       {
         QTextCodec* codec = QTextCodec::codecForName("iso-8859-15");
         Q_ASSERT(codec);
-        u.addEncodedQueryItem("title", codec->fromUnicode(request().value));
+        q.addQueryItem(QLatin1String("title"), QString::fromUtf8(codec->fromUnicode(request().value)));
       }
       break;
 
     case UPC:
-      u.addQueryItem(QLatin1String("gencode"), request().value);
+      q.addQueryItem(QLatin1String("gencode"), request().value);
       break;
 
     default:
       myWarning() << "key not recognized: " << request().key;
-      return KUrl();
+      return QUrl();
   }
-
+  u.setQuery(q);
 //  myDebug() << "url: " << u.url();
   return u;
 }
@@ -105,13 +101,11 @@ Tellico::Data::EntryPtr DVDFrFetcher::fetchEntryHookData(Data::EntryPtr entry_) 
     return entry_;
   }
 
-  KUrl u(DVDFR_DETAIL_API_URL);
-  u.addQueryItem(QLatin1String("id"), id);
+  QUrl u(QString::fromLatin1(DVDFR_DETAIL_API_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("id"), id);
+  u.setQuery(q);
 //  myDebug() << "url: " << u;
-
-#ifdef DVDFR_TEST
-  u = KUrl("/home/robby/kde/src/tellico/src/fetch/dvdfr_detail2.xml");
-#endif
 
   // quiet
   QString output = FileHandler::readXMLFile(u, true);
@@ -195,4 +189,3 @@ QString DVDFrFetcher::ConfigWidget::preferredName() const {
   return DVDFrFetcher::defaultName();
 }
 
-#include "dvdfrfetcher.moc"

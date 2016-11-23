@@ -25,10 +25,9 @@
 #ifndef TELLICO_FETCH_Z3950CONNECTION_H
 #define TELLICO_FETCH_Z3950CONNECTION_H
 
-#include <ksharedptr.h>
-
 #include <QThread>
 #include <QEvent>
+#include <QExplicitlySharedDataPointer>
 
 namespace Tellico {
   namespace Fetch {
@@ -102,7 +101,7 @@ private:
   bool makeConnection();
   void done();
   void done(const QString& message, int type);
-  QByteArray toCString(const QString& text);
+  const char* toCString(const QString& text);
   QString toString(const QByteArray& text);
   void checkPendingEvents();
 
@@ -112,7 +111,7 @@ private:
   bool m_connected;
   bool m_aborted;
 
-  KSharedPtr<Z3950Fetcher> m_fetcher;
+  QExplicitlySharedDataPointer<Z3950Fetcher> m_fetcher;
   QString m_host;
   uint m_port;
   QString m_dbname;

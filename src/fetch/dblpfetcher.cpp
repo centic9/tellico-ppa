@@ -25,11 +25,12 @@
 #include "dblpfetcher.h"
 #include "../tellico_debug.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigGroup>
 
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QUrlQuery>
 
 namespace {
   static const char* DBLP_API_URL = "http://www.dblp.org/search/api/";
@@ -58,22 +59,24 @@ bool DBLPFetcher::canFetch(int type) const {
 void DBLPFetcher::readConfigHook(const KConfigGroup&) {
 }
 
-KUrl DBLPFetcher::searchUrl() {
-  KUrl u(DBLP_API_URL);
+QUrl DBLPFetcher::searchUrl() {
+  QUrl u(QString::fromLatin1(DBLP_API_URL));
 
+  QUrlQuery q;
   switch(request().key) {
     case Keyword:
-      u.addQueryItem(QLatin1String("q"), request().value);
-      u.addQueryItem(QLatin1String("h"), QString::number(DBLP_MAX_RETURNS_TOTAL));
-      u.addQueryItem(QLatin1String("c"), QString::number(0));
+      q.addQueryItem(QLatin1String("q"), request().value);
+      q.addQueryItem(QLatin1String("h"), QString::number(DBLP_MAX_RETURNS_TOTAL));
+      q.addQueryItem(QLatin1String("c"), QString::number(0));
       break;
 
     default:
       myWarning() << "key not recognized:" << request().key;
-      return KUrl();
+      return QUrl();
   }
   // has to be after query
-  u.addQueryItem(QLatin1String("format"), QLatin1String("xml"));
+  q.addQueryItem(QLatin1String("format"), QLatin1String("xml"));
+  u.setQuery(q);
 
 //  myDebug() << "url:" << u.url();
   return u;
@@ -137,4 +140,3 @@ QString DBLPFetcher::ConfigWidget::preferredName() const {
   return DBLPFetcher::defaultName();
 }
 
-#include "dblpfetcher.moc"

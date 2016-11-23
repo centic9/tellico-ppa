@@ -27,16 +27,16 @@
 
 #include "datavectors.h"
 
-#include <kdialog.h>
+#include <QDialog>
 
 class KComboBox;
-class KLineEdit;
-class KPushButton;
-class KListWidget;
 
+class QPushButton;
+class QLineEdit;
+class QListWidget;
 class QRadioButton;
 class QCheckBox;
-class QPainter;
+class QDialogButtonBox;
 
 namespace Tellico {
   namespace Data {
@@ -51,7 +51,7 @@ class FieldListItem;
 /**
  * @author Robby Stephenson
  */
-class CollectionFieldsDialog : public KDialog {
+class CollectionFieldsDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -66,15 +66,16 @@ public:
 
   void setNotifyKernel(bool notify);
 
-signals:
+Q_SIGNALS:
   void signalCollectionModified();
 
-protected slots:
-  virtual void slotOk();
-  virtual void slotApply();
-  virtual void slotDefault();
+protected Q_SLOTS:
+  void slotOk();
+  void slotApply();
+  void slotDefault();
+  void slotHelp();
 
-private slots:
+private Q_SLOTS:
   void slotNew();
   void slotDelete();
   void slotMoveUp();
@@ -85,6 +86,7 @@ private slots:
   bool slotShowExtendedProperties();
   void slotSelectInitial();
   void slotDerivedChecked(bool checked);
+  void resetToCurrent();
 
 private:
   void applyChanges();
@@ -107,26 +109,27 @@ private:
   enum NotifyMode { NotifyKernel, NoNotification };
   NotifyMode m_notifyMode;
 
-  KListWidget* m_fieldsWidget;
-  KPushButton* m_btnNew;
-  KPushButton* m_btnDelete;
-  KPushButton* m_btnUp;
-  KPushButton* m_btnDown;
+  QListWidget* m_fieldsWidget;
+  QPushButton* m_btnNew;
+  QPushButton* m_btnDelete;
+  QPushButton* m_btnUp;
+  QPushButton* m_btnDown;
 
-  KLineEdit* m_titleEdit;
+  QLineEdit* m_titleEdit;
   KComboBox* m_typeCombo;
   KComboBox* m_catCombo;
-  KLineEdit* m_descEdit;
-  KLineEdit* m_derivedEdit;
-  KLineEdit* m_defaultEdit;
+  QLineEdit* m_descEdit;
+  QLineEdit* m_derivedEdit;
+  QLineEdit* m_defaultEdit;
   QCheckBox* m_derived;
-  KLineEdit* m_allowEdit;
-  KPushButton* m_btnExtended;
+  QLineEdit* m_allowEdit;
+  QPushButton* m_btnExtended;
 
   GUI::ComboBox* m_formatCombo;
   QCheckBox* m_complete;
   QCheckBox* m_multiple;
   QCheckBox* m_grouped;
+  QDialogButtonBox* m_buttonBox;
 };
 
 } // end namespace

@@ -28,7 +28,7 @@
 #include "../controller.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 using Tellico::Command::RemoveEntries;
 
@@ -64,7 +64,7 @@ void RemoveEntries::redo() {
 
   m_coll->removeEntries(m_entries);
   Controller::self()->removedEntries(m_entries);
-  
+
   QUndoCommand::redo();
 }
 

@@ -30,8 +30,6 @@
 
 #include <QListView>
 
-class KIcon;
-
 namespace {
   static const int MIN_ENTRY_ICON_SIZE = 32;
   static const int MAX_ENTRY_ICON_SIZE = 512;
@@ -41,9 +39,6 @@ namespace {
 
 namespace Tellico {
 
-class AbstractEntryModel;
-class EntrySortModel;
-
 /**
  * @author Robby Stephenson
  */
@@ -51,36 +46,21 @@ class EntryIconView : public QListView, public Observer {
 Q_OBJECT
 
 public:
-  EntryIconView(QWidget* parent);
+  EntryIconView(QAbstractItemModel* model, QWidget* parent);
   ~EntryIconView();
-
-  EntrySortModel* sortModel() const;
-  AbstractEntryModel* sourceModel() const;
-
-  void clear();
-  void refresh();
-  void showEntries(const Data::EntryList& entries);
-  /**
-   * Adds a new list item showing the details for a entry.
-   *
-   * @param entry A pointer to the entry
-   */
-  virtual void    addEntries(Data::EntryList entries);
-  virtual void modifyEntries(Data::EntryList entries);
-  virtual void removeEntries(Data::EntryList entries);
 
   int maxAllowedIconWidth() const { return m_maxAllowedIconWidth; }
 
-public slots:
+public Q_SLOTS:
   void setMaxAllowedIconWidth(int width);
 
 protected:
   void contextMenuEvent(QContextMenuEvent* event);
 
-private slots:
-  void selectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
+private Q_SLOTS:
   void slotDoubleClicked(const QModelIndex& index);
   void slotSortMenuActivated(QAction* action);
+  void slotOpenUrlMenuActivated(QAction* action=0);
 
 private:
   int m_maxAllowedIconWidth;

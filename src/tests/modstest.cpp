@@ -25,28 +25,26 @@
 #undef QT_NO_CAST_FROM_ASCII
 
 #include "modstest.h"
-#include "modstest.moc"
-#include "qtest_kde.h"
 
 #include "../translators/xsltimporter.h"
 #include "../collections/bookcollection.h"
 #include "../collectionfactory.h"
 #include "../fieldformat.h"
+#include "../utils/datafileregistry.h"
 
-#include <KStandardDirs>
+#include <QTest>
 
-QTEST_KDEMAIN( ModsTest, GUI )
+QTEST_APPLESS_MAIN( ModsTest )
 
 void ModsTest::initTestCase() {
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
-  // since we use the MODS importer
-//  KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
+  Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/mods2tellico.xsl"));
 }
 
 void ModsTest::testBook() {
-  KUrl url(QString::fromLatin1(KDESRCDIR) + "/data/example_mods.xml");
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/example_mods.xml"));
   Tellico::Import::XSLTImporter importer(url);
-  importer.setXSLTURL(QString::fromLatin1(KDESRCDIR) + "/../../xslt/mods2tellico.xsl");
+  importer.setXSLTURL(QUrl::fromLocalFile(QFINDTESTDATA("../../xslt/mods2tellico.xsl")));
 
   Tellico::Data::CollPtr coll = importer.collection();
 

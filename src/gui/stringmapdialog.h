@@ -25,16 +25,12 @@
 #ifndef TELLICO_STRINGMAPDIALOG_H
 #define TELLICO_STRINGMAPDIALOG_H
 
-#include <kdialog.h>
-
-class KLineEdit;
-
-class QTreeWidget;
-class QTreeWidgetItem;
-template <typename T1, typename T2>
-class QMap;
+#include <QDialog>
 
 namespace Tellico {
+  namespace GUI {
+    class StringMapWidget;
+  }
 
 /**
  * @short A simple dialog for editing a map between two strings.
@@ -47,7 +43,7 @@ namespace Tellico {
  *
  * @author Robby Stephenson
  */
-class StringMapDialog : public KDialog {
+class StringMapDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -67,15 +63,8 @@ public:
    */
   QMap<QString, QString> stringMap();
 
-private slots:
-  void slotAdd();
-  void slotDelete();
-  void slotUpdate(QTreeWidgetItem* item);
-
 protected:
-  QTreeWidget* m_treeWidget;
-  KLineEdit* m_edit1;
-  KLineEdit* m_edit2;
+  GUI::StringMapWidget* m_widget;
 };
 
 } // end namespace

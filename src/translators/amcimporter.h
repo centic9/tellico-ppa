@@ -26,6 +26,7 @@
 #define TELLICO_IMPORT_AMCIMPORTER_H
 
 #include "dataimporter.h"
+#include <QDataStream>
 
 namespace Tellico {
   namespace Import {
@@ -36,13 +37,13 @@ namespace Tellico {
 class AMCImporter : public DataImporter {
 Q_OBJECT
 public:
-  AMCImporter(const KUrl& url);
+  AMCImporter(const QUrl& url);
   virtual ~AMCImporter();
 
   virtual Data::CollPtr collection();
   bool canImport(int type) const;
 
-public slots:
+public Q_SLOTS:
   void slotCancel();
 
 private:

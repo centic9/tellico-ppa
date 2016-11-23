@@ -25,25 +25,25 @@
 #ifndef TELLICO_CONFIGDIALOG_H
 #define TELLICO_CONFIGDIALOG_H
 
-#include "fetch/fetcher.h"
+#include "fetch/fetcherinfolistitem.h"
 
-#include <kpagedialog.h>
-#include <klistwidget.h>
+#include <KPageDialog>
+
+#include <QListWidget>
 
 class KConfig;
-class KLineEdit;
-class KIntSpinBox;
-class KPushButton;
 class KIntNumInput;
 class KColorCombo;
 
+class QSpinBox;
+class QPushButton;
+class QLineEdit;
 class QFontComboBox;
 class QCheckBox;
 class QRadioButton;
 class QFrame;
 
 namespace Tellico {
-  class SourceListItem;
   namespace Fetch {
     class ConfigWidget;
   }
@@ -75,13 +75,13 @@ public:
    */
   void saveConfiguration();
 
-signals:
+Q_SIGNALS:
   /**
    * Emitted whenever the Ok or Apply button is clicked.
    */
   void signalConfigChanged();
 
-private slots:
+private Q_SLOTS:
   /**
    * Called when anything gets changed
    */
@@ -89,7 +89,7 @@ private slots:
   /**
    * Called when the Ok button is clicked.
    */
-  void slotOk();
+  virtual void accept();
   /**
    * Called when the Apply button is clicked.
    */
@@ -98,12 +98,7 @@ private slots:
    * Called when the Default button is clicked.
    */
   void slotDefault();
-  /**
-   * Update the help link for a page.
-   *
-   * @param w The page
-   */
-  void slotUpdateHelpLink(KPageWidgetItem* item);
+  void slotHelp();
   void slotInitPage(KPageWidgetItem* item);
   /**
    * Create a new Internet source
@@ -126,6 +121,7 @@ private slots:
   void slotInstallTemplate();
   void slotDownloadTemplate();
   void slotDeleteTemplate();
+  void slotCreateConfigWidgets();
 
 private:
   enum Page {
@@ -165,7 +161,7 @@ private:
   void readFetchConfig();
   void saveFetchConfig();
 
-  SourceListItem* findItem(const QString& path) const;
+  FetcherInfoListItem* findItem(const QString& path) const;
   void loadTemplateList();
 
   bool m_modifying;
@@ -179,71 +175,37 @@ private:
   QCheckBox* m_cbEnableWebcam;
   QCheckBox* m_cbCapitalize;
   QCheckBox* m_cbFormat;
-  KLineEdit* m_leCapitals;
-  KLineEdit* m_leArticles;
-  KLineEdit* m_leSuffixes;
-  KLineEdit* m_lePrefixes;
+  QLineEdit* m_leCapitals;
+  QLineEdit* m_leArticles;
+  QLineEdit* m_leSuffixes;
+  QLineEdit* m_lePrefixes;
 
   QCheckBox* m_cbPrintHeaders;
   QCheckBox* m_cbPrintFormatted;
   QCheckBox* m_cbPrintGrouped;
-  KIntSpinBox* m_imageWidthBox;
-  KIntSpinBox* m_imageHeightBox;
+  QSpinBox* m_imageWidthBox;
+  QSpinBox* m_imageHeightBox;
 
   GUI::ComboBox* m_templateCombo;
-  KPushButton* m_previewButton;
+  QPushButton* m_previewButton;
   QFontComboBox* m_fontCombo;
-  KIntNumInput* m_fontSizeInput;
+  QSpinBox* m_fontSizeInput;
   KColorCombo* m_baseColorCombo;
   KColorCombo* m_textColorCombo;
   KColorCombo* m_highBaseColorCombo;
   KColorCombo* m_highTextColorCombo;
 
-  KListWidget* m_sourceListWidget;
-  QMap<SourceListItem*, Fetch::ConfigWidget*> m_configWidgets;
+  QListWidget* m_sourceListWidget;
+  QMap<FetcherInfoListItem*, Fetch::ConfigWidget*> m_configWidgets;
   QList<Fetch::ConfigWidget*> m_newStuffConfigWidgets;
   QList<Fetch::ConfigWidget*> m_removedConfigWidgets;
-  KPushButton* m_modifySourceBtn;
-  KPushButton* m_moveUpSourceBtn;
-  KPushButton* m_moveDownSourceBtn;
-  KPushButton* m_removeSourceBtn;
-  KPushButton* m_newStuffBtn;
+  QPushButton* m_modifySourceBtn;
+  QPushButton* m_moveUpSourceBtn;
+  QPushButton* m_moveDownSourceBtn;
+  QPushButton* m_removeSourceBtn;
+  QPushButton* m_newStuffBtn;
   QCheckBox* m_cbFilterSource;
   GUI::CollectionTypeCombo* m_sourceTypeCombo;
-};
-
-class GeneralFetcherInfo {
-public:
-  GeneralFetcherInfo(Fetch::Type t, const QString& n, bool o, QString u=QString()) : type(t), name(n), updateOverwrite(o), uuid(u) {}
-  Fetch::Type type;
-  QString name;
-  bool updateOverwrite;
-  QString uuid;
-};
-
-class SourceListItem : public QListWidgetItem {
-public:
-  explicit SourceListItem(const GeneralFetcherInfo& info,
-                          const QString& groupName = QString());
-  SourceListItem(KListWidget* parent, const GeneralFetcherInfo& info,
-                 const QString& groupName = QString());
-
-  void setConfigGroup(const QString& s) { m_configGroup = s; if(m_fetcher) m_fetcher->setConfigGroup(s); }
-  const QString& configGroup() const { return m_configGroup; }
-  const Fetch::Type& fetchType() const { return m_info.type; }
-  void setUpdateOverwrite(bool b) { m_info.updateOverwrite = b; }
-  bool updateOverwrite() const { return m_info.updateOverwrite; }
-  void setNewSource(bool b) { m_newSource = b; }
-  bool isNewSource() const { return m_newSource; }
-  QString uuid() const { return m_info.uuid; }
-  void setFetcher(Fetch::Fetcher::Ptr fetcher);
-  Fetch::Fetcher::Ptr fetcher() const { return m_fetcher; }
-
-private:
-  GeneralFetcherInfo m_info;
-  QString m_configGroup;
-  bool m_newSource;
-  Fetch::Fetcher::Ptr m_fetcher;
 };
 
 } // end namespace

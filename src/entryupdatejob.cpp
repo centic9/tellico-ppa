@@ -86,5 +86,3 @@ bool EntryUpdateJob::doKill() {
   m_fetcher->stop();
   return true;
 }
-
-#include "entryupdatejob.moc"

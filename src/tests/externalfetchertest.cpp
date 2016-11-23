@@ -25,37 +25,36 @@
 #undef QT_NO_CAST_FROM_ASCII
 
 #include "externalfetchertest.h"
-#include "externalfetchertest.moc"
-#include "qtest_kde.h"
 
 #include "../fetch/execexternalfetcher.h"
 #include "../entry.h"
 #include "../collections/bookcollection.h"
 #include "../collectionfactory.h"
+#include "../utils/datafileregistry.h"
 
 #include <KConfig>
 #include <KConfigGroup>
 
-#include <KStandardDirs>
+#include <QTest>
+#include <QStandardPaths>
 
-QTEST_KDEMAIN( ExternalFetcherTest, GUI )
+QTEST_GUILESS_MAIN( ExternalFetcherTest )
 
 ExternalFetcherTest::ExternalFetcherTest() : AbstractFetcherTest() {
 }
 
 void ExternalFetcherTest::initTestCase() {
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
-  // since we use the MODS importer
-  KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
+  Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/mods2tellico.xsl"));
 }
 
 void ExternalFetcherTest::testMods() {
   // fake the fetcher by 'cat'ting the MODS file
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::Title,
-                                       QString::fromLatin1(KDESRCDIR) + "/data/example_mods.xml");
+                                       QFINDTESTDATA("data/example_mods.xml"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ExecExternalFetcher(this));
 
-  KConfig config(QString::fromLatin1(KDESRCDIR) + "/data/cat_mods.spec", KConfig::SimpleConfig);
+  KConfig config(QFINDTESTDATA("data/cat_mods.spec"), KConfig::SimpleConfig);
   KConfigGroup cg = config.group(QLatin1String("<default>"));
   fetcher->readConfig(cg, cg.name());
 

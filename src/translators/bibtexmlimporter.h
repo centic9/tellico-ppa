@@ -42,7 +42,7 @@ Q_OBJECT
 public:
   /**
    */
-  BibtexmlImporter(const KUrl& url);
+  BibtexmlImporter(const QUrl& url);
   BibtexmlImporter(const QString& text);
 
   /**
@@ -50,7 +50,7 @@ public:
   virtual Data::CollPtr collection();
   virtual bool canImport(int type) const;
 
-public slots:
+public Q_SLOTS:
   void slotCancel();
 
 private:

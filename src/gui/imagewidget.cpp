@@ -27,20 +27,19 @@
 #include "../images/image.h"
 #include "../images/imageinfo.h"
 #include "../core/filehandler.h"
-#include "../gui/cursorsaver.h"
+#include "../utils/cursorsaver.h"
 #include "../tellico_debug.h"
 
-#include <KFileDialog>
-#include <KLocale>
+#include <KPageDialog>
+#include <KLocalizedString>
 #include <KMessageBox>
-#include <KPushButton>
-#include <KStandardDirs>
-#include <KProgressDialog>
-#include <KTemporaryFile>
 #include <KProcess>
 #include <KMimeTypeTrader>
-#include <KRun>
+#include <KIO/DesktopExecParser>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
+#include <QPushButton>
 #include <QMenu>
 #include <QMatrix>
 #include <QLabel>
@@ -56,9 +55,15 @@
 #include <QActionGroup>
 #include <QTimer>
 #include <QSet>
+#include <QDrag>
+#include <QTemporaryFile>
+#include <QMimeData>
+#include <QProgressDialog>
+#include <QFileDialog>
+#include <QImageReader>
 
 #ifdef HAVE_KSANE
-#include <libksane/ksane.h>
+#include <KSaneWidget>
 #endif
 
 Q_DECLARE_METATYPE(KService::Ptr)
@@ -92,13 +97,13 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
 
   boxLayout->addStretch(1);
 
-  KPushButton* button1 = new KPushButton(i18n("Select Image..."), this);
-  button1->setIcon(KIcon(QLatin1String("insert-image")));
+  QPushButton* button1 = new QPushButton(i18n("Select Image..."), this);
+  button1->setIcon(QIcon::fromTheme(QLatin1String("insert-image")));
   connect(button1, SIGNAL(clicked()), this, SLOT(slotGetImage()));
   boxLayout->addWidget(button1);
 
-  KPushButton* button2 = new KPushButton(i18n("Scan Image..."), this);
-  button2->setIcon(KIcon(QLatin1String("scanner")));
+  QPushButton* button2 = new QPushButton(i18n("Scan Image..."), this);
+  button2->setIcon(QIcon::fromTheme(QLatin1String("scanner")));
   connect(button2, SIGNAL(clicked()), this, SLOT(slotScanImage()));
   boxLayout->addWidget(button2);
 #ifndef HAVE_KSANE
@@ -112,7 +117,7 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
   connect(m_edit, SIGNAL(clicked()), this, SLOT(slotEditImage()));
   boxLayout->addWidget(m_edit);
 
-  KConfigGroup config(KGlobal::config(), "EditImage");
+  KConfigGroup config(KSharedConfig::openConfig(), "EditImage");
   QString editor = config.readEntry("editor");
   m_editMenu = new QMenu(this);
   QActionGroup* grp = new QActionGroup(this);
@@ -126,7 +131,7 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
       continue;
     }
     offerNames.insert(service->name());
-    QAction* action = m_editMenu->addAction(KIcon(service->icon()), service->name());
+    QAction* action = m_editMenu->addAction(QIcon::fromTheme(service->icon()), service->name());
     action->setData(QVariant::fromValue(service));
     grp->addAction(action);
     if(!selectedAction || editor == service->name()) {
@@ -140,8 +145,8 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
   } else {
     m_edit->setEnabled(false);
   }
-  KPushButton* button4 = new KPushButton(i18nc("Clear image", "Clear"), this);
-  button4->setIcon(KIcon(QLatin1String("edit-clear")));
+  QPushButton* button4 = new QPushButton(i18nc("Clear image", "Clear"), this);
+  button4->setIcon(QIcon::fromTheme(QLatin1String("edit-clear")));
   connect(button4, SIGNAL(clicked()), this, SLOT(slotClear()));
   boxLayout->addWidget(button4);
 
@@ -160,7 +165,7 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
 
 ImageWidget::~ImageWidget() {
   if(m_editor) {
-    KConfigGroup config(KGlobal::config(), "EditImage");
+    KConfigGroup config(KSharedConfig::openConfig(), "EditImage");
     config.writeEntry("editor", m_editor->name());
   }
 }
@@ -175,8 +180,9 @@ void ImageWidget::setImage(const QString& id_) {
   const bool link = ImageFactory::imageInfo(id_).linkOnly;
   m_cbLinkOnly->setChecked(link);
   m_cbLinkOnly->setEnabled(link); // user can't make a non;-linked image a linked image, so disable if not linked
+  m_edit->setEnabled(true);
   // if we're using a link, then the original URL _is_ the id
-  m_originalURL = link ? KUrl(id_) : KUrl();
+  m_originalURL = link ? QUrl(id_) : QUrl();
   m_scaled = QPixmap();
   scale();
 
@@ -198,6 +204,7 @@ void ImageWidget::slotClear() {
   m_label->setPixmap(m_scaled);
   m_cbLinkOnly->setChecked(false);
   m_cbLinkOnly->setEnabled(true);
+  m_edit->setEnabled(false);
   update();
   if(!wasEmpty) {
     emit signalModified();
@@ -239,7 +246,14 @@ void ImageWidget::resizeEvent(QResizeEvent *) {
 }
 
 void ImageWidget::slotGetImage() {
-  KUrl url = KFileDialog::getImageOpenUrl(KUrl(), this);
+  QString filter;
+  foreach(const QByteArray& ba, QImageReader::supportedImageFormats()) {
+    if(!filter.isEmpty()) {
+      filter += QLatin1Char(' ');
+    }
+    filter += QLatin1String("*.") + QString::fromLatin1(ba);
+  }
+  QUrl url = QFileDialog::getOpenFileUrl(this, QString(), QUrl(), i18n("All Images (%1)", filter));
   if(url.isEmpty() || !url.isValid()) {
     return;
   }
@@ -249,16 +263,15 @@ void ImageWidget::slotGetImage() {
 void ImageWidget::slotScanImage() {
 #ifdef HAVE_KSANE
   if(!m_saneDlg) {
-    m_saneDlg = new KDialog(this);
+    m_saneDlg = new KPageDialog(this);
     m_saneWidget = new KSaneIface::KSaneWidget(m_saneDlg);
-    m_saneDlg->setMainWidget(m_saneWidget);
-    m_saneDlg->setButtons(KDialog::Cancel);
+    m_saneDlg->addPage(m_saneWidget, QString());
+    m_saneDlg->setStandardButtons(QDialogButtonBox::Cancel);
     m_saneDlg->setAttribute(Qt::WA_DeleteOnClose, false);
     connect(m_saneWidget, SIGNAL(imageReady(QByteArray &, int, int, int, int)),
             SLOT(imageReady(QByteArray &, int, int, int, int)));
-    // the dialog emits buttonClicked before it handles the actual cancel action
-    connect(m_saneDlg, SIGNAL(buttonClicked(KDialog::ButtonCode)),
-            SLOT(cancelScan(KDialog::ButtonCode)));
+    connect(m_saneDlg, SIGNAL(rejected()),
+            SLOT(cancelScan()));
   }
   if(m_saneDevice.isEmpty()) {
     m_saneDevice = m_saneWidget->selectDevice(this);
@@ -284,11 +297,12 @@ void ImageWidget::imageReady(QByteArray& data, int w, int h, int bpl, int f) {
   }
   QImage scannedImage = m_saneWidget->toQImage(data, w, h, bpl,
                                                static_cast<KSaneIface::KSaneWidget::ImageFormat>(f));
-  KTemporaryFile temp;
-  temp.setSuffix(QLatin1String(".png"));
+  QTemporaryFile temp(QDir::tempPath() + QLatin1String("/tellico_XXXXXX") + QLatin1String(".png"));
   if(temp.open()) {
     scannedImage.save(temp.fileName(), "PNG");
-    loadImage(temp.fileName());
+    loadImage(QUrl::fromLocalFile(temp.fileName()));
+  } else {
+    myWarning() << "Failed to open temp image file";
   }
   QTimer::singleShot(100, m_saneDlg, SLOT(accept()));
 #else
@@ -301,42 +315,48 @@ void ImageWidget::imageReady(QByteArray& data, int w, int h, int bpl, int f) {
 }
 
 void ImageWidget::slotEditImage() {
+  if(m_imageID.isEmpty()) {
+    return;
+  }
+
   if(!m_editProcess) {
     m_editProcess = new KProcess(this);
     connect(m_editProcess, SIGNAL(finished(int, QProcess::ExitStatus)),
             this, SLOT(slotFinished()));
   }
   if(m_editor && m_editProcess->state() == QProcess::NotRunning) {
-    KTemporaryFile temp;
-    temp.setSuffix(QLatin1String(".png"));
+    QTemporaryFile temp(QDir::tempPath() + QLatin1String("/tellico_XXXXXX") + QLatin1String(".png"));
     if(temp.open()) {
       m_img = temp.fileName();
       const Data::Image& img = ImageFactory::imageById(m_imageID);
       img.save(m_img);
       m_editedFileDateTime = QFileInfo(m_img).lastModified();
-      m_editProcess->setProgram(KRun::processDesktopExec(*m_editor, KUrl::List() << m_img));
+      KIO::DesktopExecParser parser(*m_editor, QList<QUrl>() << QUrl::fromLocalFile(m_img));
+      m_editProcess->setProgram(parser.resultingArguments());
       m_editProcess->start();
       if(!m_waitDlg) {
-        m_waitDlg = new KProgressDialog(this);
-        m_waitDlg->showCancelButton(false);
+        m_waitDlg = new QProgressDialog(this);
+        m_waitDlg->setCancelButton(0);
         m_waitDlg->setLabelText(i18n("Opening image in %1...", m_editor->name()));
-        m_waitDlg->progressBar()->setRange(0, 0);
+        m_waitDlg->setRange(0, 0);
       }
       m_waitDlg->exec();
+    } else {
+      myWarning() << "Failed to open temp image file";
     }
   }
 }
 
 void ImageWidget::slotFinished() {
   if(m_editedFileDateTime != QFileInfo(m_img).lastModified()) {
-    loadImage(KUrl(m_img));
+    loadImage(QUrl::fromLocalFile(m_img));
   }
   m_waitDlg->close();
 }
 
 void ImageWidget::slotEditMenu(QAction* action) {
   m_editor = action->data().value<KService::Ptr>();
-  m_edit->setIcon(KIcon(m_editor->icon()));
+  m_edit->setIcon(QIcon::fromTheme(m_editor->icon()));
 }
 
 void ImageWidget::slotLinkOnlyClicked() {
@@ -358,7 +378,7 @@ void ImageWidget::slotLinkOnlyClicked() {
   // so it needs to be added to the cache all over again
   // probably could do this without downloading the image all over again,
   // but I'm not going to do that right now
-  const QString& id = ImageFactory::addImage(m_originalURL, false, KUrl(), link);
+  const QString& id = ImageFactory::addImage(m_originalURL, false, QUrl(), link);
   // same image, so no need to call setImage
   m_imageID = id;
   emit signalModified();
@@ -415,7 +435,7 @@ void ImageWidget::dropEvent(QDropEvent* event_) {
     }
     event_->acceptProposedAction();
   } else if(event_->mimeData()->hasText()) {
-    KUrl url(event_->mimeData()->text());
+    QUrl url = QUrl::fromUserInput(event_->mimeData()->text());
     if(!url.isEmpty() && url.isValid()) {
       loadImage(url);
       event_->acceptProposedAction();
@@ -423,12 +443,12 @@ void ImageWidget::dropEvent(QDropEvent* event_) {
   }
 }
 
-void ImageWidget::loadImage(const KUrl& url_) {
+void ImageWidget::loadImage(const QUrl& url_) {
   const bool link = m_cbLinkOnly->isChecked();
 
   GUI::CursorSaver cs;
   // if we're linking only, then we want the image id to be the same as the url
-  const QString& id = ImageFactory::addImage(url_, false, KUrl(), link);
+  const QString& id = ImageFactory::addImage(url_, false, QUrl(), link);
   if(id != m_imageID) {
     setImage(id);
     emit signalModified();
@@ -438,15 +458,10 @@ void ImageWidget::loadImage(const KUrl& url_) {
   m_cbLinkOnly->setEnabled(true);
 }
 
-void ImageWidget::cancelScan(KDialog::ButtonCode code_) {
-  if(code_ != KDialog::Cancel) {
-    return;
-  }
+void ImageWidget::cancelScan() {
 #ifdef HAVE_KSANE
   if(m_saneWidget) {
     m_saneWidget->scanCancel();
   }
 #endif
 }
-
-#include "imagewidget.moc"

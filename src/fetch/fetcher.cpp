@@ -28,14 +28,16 @@
 #include "../entry.h"
 #include "../tellico_debug.h"
 
-#include <kglobal.h>
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KSharedConfig>
 #include <KConfigGroup>
-#include <kmimetype.h>
+#include <KIO/Global>
+#include <kio_version.h>
+#if KIO_VERSION >= QT_VERSION_CHECK(5,19,0)
+#include <KIO/FavIconRequestJob>
+#endif
 
-#include <QDBusInterface>
-#include <QDBusReply>
+#include <QUrl>
 #include <QUuid>
 #include <QPointer>
 
@@ -119,7 +121,7 @@ void Fetcher::saveConfig() {
   if(m_configGroup.isEmpty()) {
     return;
   }
-  KConfigGroup config(KGlobal::config(), m_configGroup);
+  KConfigGroup config(KSharedConfig::openConfig(), m_configGroup);
   config.writeEntry("Uuid", m_uuid);
   saveConfigHook(config);
 }
@@ -160,23 +162,28 @@ void Fetcher::infoList(const QString& message_, const QStringList& list_) const 
 }
 
 QString Fetcher::favIcon(const char* url_) {
-  return favIcon(KUrl(url_));
+  return favIcon(QUrl(QString::fromLatin1(url_)));
 }
 
-QString Fetcher::favIcon(const KUrl& url_) {
-  QDBusInterface kded(QLatin1String("org.kde.kded"),
-                      QLatin1String("/modules/favicons"),
-                      QLatin1String("org.kde.FavIcon"));
-  if(!kded.isValid()) {
-    myDebug() << "invalid dbus interface";
+QString Fetcher::favIcon(const QUrl& url_) {
+  if(!url_.isValid()) {
+    return QString();
   }
-  QDBusReply<QString> iconName = kded.call(QLatin1String("iconForUrl"), url_.url());
-  if(iconName.isValid() && !iconName.value().isEmpty()) {
-    return iconName;
-  }
-  // go ahead and try to download it for later
-  kded.call(QLatin1String("downloadHostIcon"), url_.url());
-  return KMimeType::iconNameForUrl(url_);
-}
+#if KIO_VERSION >= QT_VERSION_CHECK(5,19,0)
+  KIO::FavIconRequestJob* job = new KIO::FavIconRequestJob(url_);
+  Q_UNUSED(job);
+#endif
+  QString name = KIO::favIconForUrl(url_);
 
-#include "fetcher.moc"
+  // favIcons start with "/". being an absolute file path from FavIconFetchJob
+  // but KIconLoader still expects them to start with "favicons/" and appends ".png"
+  // since the rest of Tellico assumes KDE4 behavior, adjust here
+  if(name.startsWith(QLatin1Char('/'))) {
+    int pos = name.indexOf(QLatin1String("favicons/"));
+    if(pos > -1) {
+      name = name.mid(pos);
+      name.chop(4); // remove ".png";
+    }
+  }
+  return name;
+}

@@ -37,14 +37,13 @@
 #include "translators/bibtexexporter.h"
 #include "translators/bibtexmlexporter.h"
 #include "translators/xsltexporter.h"
-#include "translators/pilotdbexporter.h"
 #include "translators/alexandriaexporter.h"
 #include "translators/onixexporter.h"
 #include "translators/gcstarexporter.h"
 
-#include <klocale.h>
-#include <kglobal.h>
-#include <kconfig.h>
+#include <KLocalizedString>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <QLayout>
 #include <QCheckBox>
@@ -53,19 +52,22 @@
 #include <QRadioButton>
 #include <QTextCodec>
 #include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 using namespace Tellico;
 using Tellico::ExportDialog;
 
 ExportDialog::ExportDialog(Tellico::Export::Format format_, Tellico::Data::CollPtr coll_, QWidget* parent_)
-    : KDialog(parent_),
+    : QDialog(parent_),
       m_format(format_), m_coll(coll_), m_exporter(exporter(format_, coll_)) {
   setModal(true);
-  setCaption(i18n("Export Options"));
-  setButtons(Ok|Cancel);
+  setWindowTitle(i18n("Export Options"));
 
   QWidget* widget = new QWidget(this);
   QVBoxLayout* topLayout = new QVBoxLayout(widget);
+  setLayout(topLayout);
+  topLayout->addWidget(widget);
 
   QGroupBox* group1 = new QGroupBox(i18n("Formatting"), widget);
   topLayout->addWidget(group1, 0);
@@ -122,13 +124,20 @@ ExportDialog::ExportDialog(Tellico::Export::Format format_, Tellico::Data::CollP
 
   topLayout->addStretch();
 
-  setMainWidget(widget);
+  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+  QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  connect(okButton, SIGNAL(clicked()), SLOT(slotSaveOptions()));
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  topLayout->addWidget(buttonBox);
+
   readOptions();
-  if(format_ == Export::Alexandria || format_ == Export::PilotDB) {
+  if(format_ == Export::Alexandria) {
     // no encoding options enabled
     group2->setEnabled(false);
   }
-  connect(this, SIGNAL(okClicked()), SLOT(slotSaveOptions()));
 }
 
 ExportDialog::~ExportDialog() {
@@ -141,7 +150,7 @@ QString ExportDialog::fileFilter() {
 }
 
 void ExportDialog::readOptions() {
-  KConfigGroup config(KGlobal::config(), "ExportOptions");
+  KConfigGroup config(KSharedConfig::openConfig(), "ExportOptions");
   bool format = config.readEntry("FormatFields", false);
   m_formatFields->setChecked(format);
   bool selected = config.readEntry("ExportSelectedOnly", false);
@@ -155,7 +164,7 @@ void ExportDialog::readOptions() {
 }
 
 void ExportDialog::slotSaveOptions() {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   // each exporter sets its own group
   m_exporter->saveOptions(config);
 
@@ -204,14 +213,6 @@ Tellico::Export::Exporter* ExportDialog::exporter(Tellico::Export::Format format
       exporter = new Export::XSLTExporter(coll_);
       break;
 
-    case Export::PilotDB:
-      {
-        Export::PilotDBExporter* pdbExp = new Export::PilotDBExporter(coll_);
-        pdbExp->setColumns(Controller::self()->visibleColumns());
-        exporter = pdbExp;
-      }
-      break;
-
     case Export::Alexandria:
       exporter = new Export::AlexandriaExporter(coll_);
       break;
@@ -229,17 +230,13 @@ Tellico::Export::Exporter* ExportDialog::exporter(Tellico::Export::Format format
       break;
   }
   if(exporter) {
-    exporter->readOptions(KGlobal::config());
+    exporter->readOptions(KSharedConfig::openConfig());
   }
   return exporter;
 }
 
-bool ExportDialog::exportURL(const KUrl& url_/*=KUrl()*/) const {
+bool ExportDialog::exportURL(const QUrl& url_/*=QUrl()*/) const {
   if(!m_exporter) {
-    return false;
-  }
-
-  if(!url_.isEmpty() && !FileHandler::queryExists(url_)) {
     return false;
   }
 
@@ -290,13 +287,13 @@ Tellico::Export::Target ExportDialog::exportTarget(Tellico::Export::Format forma
 }
 
 // static
-bool ExportDialog::exportCollection(Tellico::Export::Format format_, const KUrl& url_) {
+bool ExportDialog::exportCollection(Tellico::Export::Format format_, const QUrl& url_) {
   Export::Exporter* exp = exporter(format_, Data::Document::self()->collection());
 
   exp->setURL(url_);
   exp->setEntries(Data::Document::self()->collection()->entries());
 
-  KConfigGroup config(KGlobal::config(), "ExportOptions");
+  KConfigGroup config(KSharedConfig::openConfig(), "ExportOptions");
   long options = 0;
   if(config.readEntry("FormatFields", false)) {
     options |= Export::ExportFormatted;
@@ -310,5 +307,3 @@ bool ExportDialog::exportCollection(Tellico::Export::Format format_, const KUrl&
   delete exp;
   return success;
 }
-
-#include "exportdialog.moc"

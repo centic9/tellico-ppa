@@ -26,7 +26,7 @@
 
 using Tellico::Import::DataImporter;
 
-DataImporter::DataImporter(const KUrl& url) : Importer(url), m_source(URL) {
+DataImporter::DataImporter(const QUrl& url) : Importer(url), m_source(URL) {
   m_fileRef = FileHandler::fileRef(url);
 }
 
@@ -48,4 +48,7 @@ void DataImporter::setText(const QString& text) {
   m_source = Text;
 }
 
-#include "dataimporter.moc"
+Tellico::FileHandler::FileRef& DataImporter::fileRef() const {
+  Q_ASSERT(m_fileRef);
+  return *m_fileRef;
+}

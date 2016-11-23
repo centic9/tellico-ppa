@@ -1,4 +1,3 @@
-
 ########### next target ###############
 
 SET(gui_STAT_SRCS
@@ -7,13 +6,14 @@ SET(gui_STAT_SRCS
    collectiontypecombo.cpp
    combobox.cpp
    countdelegate.cpp
-   cursorsaver.cpp
    datefieldwidget.cpp
    datewidget.cpp
-   guiproxy.cpp
+   drophandler.cpp
    imagefieldwidget.cpp
    imagewidget.cpp
    fieldwidget.cpp
+   filterrulewidget.cpp
+   filterrulewidgetlister.cpp
    kwidgetlister.cpp
    lineedit.cpp
    linefieldwidget.cpp
@@ -27,18 +27,26 @@ SET(gui_STAT_SRCS
    spinbox.cpp
    statusbar.cpp
    stringmapdialog.cpp
+   stringmapwidget.cpp
    tablefieldwidget.cpp
    tabwidget.cpp
    treeview.cpp
    urlfieldwidget.cpp
    )
 
-# The KDateComboBox class was added to KDE in version 4.7
-# If we're building under KDE 4.6, use a local copy
-IF(${KDE_VERSION} VERSION_LESS "4.6.99" AND ${KDE_VERSION} VERSION_GREATER "4.5.99")
-  LIST(APPEND gui_STAT_SRCS kdatecombobox.cpp)
-ENDIF(${KDE_VERSION} VERSION_LESS "4.6.99" AND ${KDE_VERSION} VERSION_GREATER "4.5.99")
+add_library(gui STATIC ${gui_STAT_SRCS})
 
-KDE4_ADD_LIBRARY(gui STATIC ${gui_STAT_SRCS})
+TARGET_LINK_LIBRARIES(gui
+    Qt5::Core
+    Qt5::Widgets
+    Qt5::Gui
+    KF5::KIOCore
+    KF5::KHtml
+    KF5::SonnetCore
+    KF5::SonnetUi
+    KF5::XmlGui
+)
 
-ADD_DEPENDENCIES(gui tellico_config)
+IF( KF5Sane_FOUND )
+  TARGET_LINK_LIBRARIES(gui KF5::Sane)
+ENDIF( KF5Sane_FOUND )

@@ -8,11 +8,10 @@ SET(fetch_STAT_SRCS
    amazonrequest.cpp
    animenfofetcher.cpp
    arxivfetcher.cpp
-   beyazperdefetcher.cpp
+   bedethequefetcher.cpp
    bibliosharefetcher.cpp
    bibsonomyfetcher.cpp
    boardgamegeekfetcher.cpp
-   citebasefetcher.cpp
    configwidget.cpp
    crossreffetcher.cpp
    dblpfetcher.cpp
@@ -22,12 +21,12 @@ SET(fetch_STAT_SRCS
    entrezfetcher.cpp
    execexternalfetcher.cpp
    fetcher.cpp
+   fetcherinfolistitem.cpp
    fetcherinitializer.cpp
    fetcherjob.cpp
    fetchmanager.cpp
    fetchresult.cpp
    filmasterfetcher.cpp
-   filmstartsfetcher.cpp
    freebasefetcher.cpp
    gcstarpluginfetcher.cpp
    gcstarthread.cpp
@@ -46,8 +45,6 @@ SET(fetch_STAT_SRCS
    multifetcher.cpp
    musicbrainzfetcher.cpp
    openlibraryfetcher.cpp
-   screenrushfetcher.cpp
-   sensacinefetcher.cpp
    sha2.c
    springerfetcher.cpp
    srufetcher.cpp
@@ -56,26 +53,32 @@ SET(fetch_STAT_SRCS
    vndbfetcher.cpp
    winecomfetcher.cpp
    xmlfetcher.cpp
-   yahoofetcher.cpp
    z3950connection.cpp
    z3950fetcher.cpp
    )
 
-KDE4_ADD_LIBRARY(fetch STATIC ${fetch_STAT_SRCS})
+add_library(fetch STATIC ${fetch_STAT_SRCS})
 
 TARGET_LINK_LIBRARIES(fetch
     newstuff
-    btparse
+    utils
+    ${TELLICO_BTPARSE_LIBS}
+    Qt5::Network
+    KF5::Archive
+    KF5::IconThemes
+    KF5::JobWidgets
     )
 
-IF( YAZ_FOUND )
-  TARGET_LINK_LIBRARIES(fetch ${YAZ_LIBRARIES})
-ENDIF( YAZ_FOUND )
+IF(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
+  TARGET_LINK_LIBRARIES(fetch
+      KF5::KIOGui
+      )
+ENDIF(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
 
-IF( QJSON_FOUND )
-  TARGET_LINK_LIBRARIES(fetch ${QJSON_LIBRARIES} ${qjson_LIBRARIES})
-ENDIF( QJSON_FOUND )
+IF( Yaz_FOUND )
+  TARGET_LINK_LIBRARIES(fetch ${Yaz_LIBRARIES})
+ENDIF( Yaz_FOUND )
 
 ########### install files ###############
 
-INSTALL(FILES   z3950-servers.cfg DESTINATION ${TELLICO_DATA_INSTALL_DIR} )
+INSTALL(FILES z3950-servers.cfg DESTINATION ${TELLICO_DATA_INSTALL_DIR} )

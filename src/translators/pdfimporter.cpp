@@ -31,35 +31,38 @@
 #include "../core/filehandler.h"
 #include "../core/netaccess.h"
 #include "../images/imagefactory.h"
-#include "../gui/guiproxy.h"
+#include "../utils/guiproxy.h"
 #include "../fetch/fetchmanager.h"
-#include "../fetch/crossreffetcher.h"
 #include "../progressmanager.h"
-#include "../gui/cursorsaver.h"
+#include "../utils/cursorsaver.h"
 #include "../entryupdatejob.h"
+#include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
-#include <kstandarddirs.h>
-#include <kmessagebox.h>
-#include <kapplication.h>
+#include <KMessageBox>
+#include <KLocalizedString>
 
 #include <QString>
 #include <QPixmap>
+#include <QApplication>
 #include <QFile>
+#include <QScopedPointer>
 
 #include <config.h>
 #ifdef HAVE_POPPLER
-#include <poppler-qt4.h>
+#include <poppler-qt5.h>
 #endif
 
-#include <memory>
 namespace {
   static const int PDF_FILE_PREVIEW_SIZE = 196;
 }
 
 using Tellico::Import::PDFImporter;
 
-PDFImporter::PDFImporter(const KUrl::List& urls_) : Importer(urls_), m_cancelled(false) {
+PDFImporter::PDFImporter(const QUrl& url_) : Importer(url_), m_cancelled(false) {
+}
+
+PDFImporter::PDFImporter(const QList<QUrl>& urls_) : Importer(urls_), m_cancelled(false) {
 }
 
 bool PDFImporter::canImport(int type_) const {
@@ -67,8 +70,8 @@ bool PDFImporter::canImport(int type_) const {
 }
 
 Tellico::Data::CollPtr PDFImporter::collection() {
-  QString xsltfile = KStandardDirs::locate("appdata", QLatin1String("xmp2tellico.xsl"));
-  if(xsltfile.isEmpty()) {
+  QString xsltFile = DataFileRegistry::self()->locate(QLatin1String("xmp2tellico.xsl"));
+  if(xsltFile.isEmpty()) {
     myWarning() << "can not locate xmp2tellico.xsl";
     return Data::CollPtr();
   }
@@ -79,8 +82,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
   ProgressItem::Done done(this);
   const bool showProgress = options() & ImportProgress;
 
-  KUrl u;
-  u.setPath(xsltfile);
+  QUrl u = QUrl::fromLocalFile(xsltFile);
 
   XSLTHandler xsltHandler(u);
   if(!xsltHandler.isValid()) {
@@ -95,9 +97,9 @@ Tellico::Data::CollPtr PDFImporter::collection() {
 
   Data::CollPtr coll;
   XMPHandler xmpHandler;
-  KUrl::List list = urls();
-  for(KUrl::List::Iterator it = list.begin(); it != list.end() && !m_cancelled; ++it, ++j) {
-    const std::auto_ptr<FileHandler::FileRef> ref(FileHandler::fileRef(*it));
+  QList<QUrl> list = urls();
+  for(QList<QUrl>::Iterator it = list.begin(); it != list.end() && !m_cancelled; ++it, ++j) {
+    const QScopedPointer<FileHandler::FileRef> ref(FileHandler::fileRef(*it));
     if(!ref->isValid()) {
       continue;
     }
@@ -226,9 +228,9 @@ Tellico::Data::CollPtr PDFImporter::collection() {
     // always an article?
     entry->setField(QLatin1String("entry-type"), QLatin1String("article"));
 
-    QPixmap pix = NetAccess::filePreview(ref->fileName(), PDF_FILE_PREVIEW_SIZE);
+    QPixmap pix = NetAccess::filePreview(QUrl::fromLocalFile(ref->fileName()), PDF_FILE_PREVIEW_SIZE);
     if(pix.isNull()) {
-//      myDebug() << "No file preview from pdf";
+      myDebug() << "No file preview from pdf";
     } else {
       // is png best option?
       QString id = ImageFactory::addImage(pix, QLatin1String("PNG"));
@@ -251,7 +253,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
 
     if(showProgress) {
       ProgressManager::self()->setProgress(this, j);
-      kapp->processEvents();
+      qApp->processEvents();
     }
   }
 
@@ -293,11 +295,11 @@ Tellico::Data::CollPtr PDFImporter::collection() {
     }
   }
 
-// finally
+  // finally
   foreach(Data::EntryPtr entry, coll->entries()) {
     if(entry->title().isEmpty()) {
       // use file name
-      KUrl u = entry->field(QLatin1String("url"));
+      QUrl u = QUrl::fromLocalFile(entry->field(QLatin1String("url")));
       entry->setField(QLatin1String("title"), u.fileName());
     }
   }
@@ -311,5 +313,3 @@ Tellico::Data::CollPtr PDFImporter::collection() {
 void PDFImporter::slotCancel() {
   m_cancelled = true;
 }
-
-#include "pdfimporter.moc"

@@ -25,16 +25,17 @@
 #include "thegamesdbfetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../tellico_utils.h"
+#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KConfigGroup>
 
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
+#include <QUrlQuery>
 
 namespace {
   static const char* THEGAMESDB_SEARCH_API_URL = "http://thegamesdb.net/api/GetGamesList.php";
@@ -61,24 +62,26 @@ bool TheGamesDBFetcher::canFetch(int type) const {
   return type == Data::Collection::Game;
 }
 
-KUrl TheGamesDBFetcher::searchUrl() {
-  KUrl u;
+QUrl TheGamesDBFetcher::searchUrl() {
+  QUrl u;
 
+  QUrlQuery q;
   switch(request().key) {
     case Title:
-      u = KUrl(THEGAMESDB_DETAIL_API_URL);
-      u.addQueryItem(QLatin1String("name"), request().value);
+      u = QUrl(QString::fromLatin1(THEGAMESDB_DETAIL_API_URL));
+      q.addQueryItem(QLatin1String("name"), request().value);
       break;
 
     case Keyword:
-      u = KUrl(THEGAMESDB_SEARCH_API_URL);
-      u.addQueryItem(QLatin1String("name"), request().value);
+      u = QUrl(QString::fromLatin1(THEGAMESDB_SEARCH_API_URL));
+      q.addQueryItem(QLatin1String("name"), request().value);
       break;
 
     default:
       myWarning() << "key not recognized: " << request().key;
-      return KUrl();
+      return QUrl();
   }
+  u.setQuery(q);
 
 //  myDebug() << "url: " << u.url();
   return u;
@@ -93,8 +96,10 @@ Tellico::Data::EntryPtr TheGamesDBFetcher::fetchEntryHookData(Data::EntryPtr ent
     return entry_;
   }
 
-  KUrl u(THEGAMESDB_DETAIL_API_URL);
-  u.addQueryItem(QLatin1String("id"), id);
+  QUrl u(QString::fromLatin1(THEGAMESDB_DETAIL_API_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("id"), id);
+  u.setQuery(q);
 //  myDebug() << "url: " << u;
 
   // quiet
@@ -171,5 +176,3 @@ void TheGamesDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
 QString TheGamesDBFetcher::ConfigWidget::preferredName() const {
   return TheGamesDBFetcher::defaultName();
 }
-
-#include "thegamesdbfetcher.moc"

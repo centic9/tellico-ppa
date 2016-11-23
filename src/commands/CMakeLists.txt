@@ -1,4 +1,3 @@
-
 ########### next target ###############
 
 SET(commands_STAT_SRCS
@@ -14,6 +13,12 @@ SET(commands_STAT_SRCS
    collectioncommand.cpp
    renamecollection.cpp
    updateentries.cpp
-   )
+)
 
-KDE4_ADD_LIBRARY(commands STATIC ${commands_STAT_SRCS})
+add_library(commands STATIC ${commands_STAT_SRCS})
+
+target_link_libraries(commands
+    Qt5::Core
+    Qt5::Widgets
+    KF5::I18n
+)

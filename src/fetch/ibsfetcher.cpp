@@ -23,8 +23,8 @@
  ***************************************************************************/
 
 #include "ibsfetcher.h"
-#include "../gui/guiproxy.h"
-#include "../tellico_utils.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../collections/bookcollection.h"
 #include "../entry.h"
 #include "../fieldformat.h"
@@ -32,18 +32,17 @@
 #include "../images/imagefactory.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kconfig.h>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
+#include <KLocalizedString>
+#include <KIO/Job>
+#include <KJobUiDelegate>
+#include <KJobWidgets/KJobWidgets>
 
 #include <QRegExp>
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-
-//#define IBS_TEST
+#include <QUrlQuery>
 
 namespace {
   static const char* IBS_BASE_URL = "http://www.internetbookshop.it/ser/serpge.asp";
@@ -53,7 +52,7 @@ using namespace Tellico;
 using Tellico::Fetch::IBSFetcher;
 
 IBSFetcher::IBSFetcher(QObject* parent_)
-    : Fetcher(parent_), m_started(false) {
+    : Fetcher(parent_), m_total(0), m_started(false) {
 }
 
 IBSFetcher::~IBSFetcher() {
@@ -80,36 +79,36 @@ void IBSFetcher::search() {
   m_started = true;
   m_matches.clear();
 
-#ifdef IBS_TEST
-  KUrl u = KUrl(QLatin1String("/home/robby/ibs.html"));
-#else
-  KUrl u(IBS_BASE_URL);
+  QUrl u(QString::fromLatin1(IBS_BASE_URL));
+  QUrlQuery q;
 
   switch(request().key) {
     case Title:
-      u.addQueryItem(QLatin1String("Type"), QLatin1String("keyword"));
-      u.addQueryItem(QLatin1String("T"), request().value);
+      q.addQueryItem(QLatin1String("Type"), QLatin1String("keyword"));
+      q.addQueryItem(QLatin1String("T"), request().value);
       break;
 
     case Person:
-      u.addQueryItem(QLatin1String("Type"), QLatin1String("keyword"));
-      u.addQueryItem(QLatin1String("A"), request().value);
+      q.addQueryItem(QLatin1String("Type"), QLatin1String("keyword"));
+      q.addQueryItem(QLatin1String("A"), request().value);
       break;
 
     case ISBN:
       {
+        u = u.adjusted(QUrl::RemoveFilename);
+        u.setPath(u.path() + QLatin1String("serdsp.asp"));
+
         QString s = request().value;
         s.remove(QLatin1Char('-'));
         // limit to first isbn
         s = s.section(QLatin1Char(';'), 0, 0);
-        u.setFileName(QLatin1String("serdsp.asp"));
-        u.addQueryItem(QLatin1String("isbn"), s);
+        q.addQueryItem(QLatin1String("isbn"), s);
       }
       break;
 
     case Keyword:
-      u.addQueryItem(QLatin1String("Type"), QLatin1String("keyword"));
-      u.addQueryItem(QLatin1String("S"), request().value);
+      q.addQueryItem(QLatin1String("Type"), QLatin1String("keyword"));
+      q.addQueryItem(QLatin1String("S"), request().value);
       break;
 
     default:
@@ -117,11 +116,11 @@ void IBSFetcher::search() {
       stop();
       return;
   }
-#endif
+  u.setQuery(q);
 //  myDebug() << "url: " << u.url();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
-  m_job->ui()->setWindow(GUI::Proxy::widget());
+  KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   if(request().key == ISBN) {
     connect(m_job, SIGNAL(result(KJob*)), SLOT(slotCompleteISBN(KJob*)));
   } else {
@@ -174,12 +173,8 @@ void IBSFetcher::slotComplete(KJob*) {
   int pos2;
   for(int pos = anchorRx.indexIn(s); m_started && pos > -1; pos = anchorRx.indexIn(s, pos+anchorRx.matchedLength())) {
     if(!u.isEmpty()) {
-#ifdef IBS_TEST
-      KUrl url = KUrl(QLatin1String("/home/robby/ibs2.html"));
-#else
       // the url probable contains &amp; so be careful
-      KUrl url = u.replace(QLatin1String("&amp;"), QLatin1String("&"));
-#endif
+      QUrl url(u.replace(QLatin1String("&amp;"), QLatin1String("&")));
       FetchResult* r = new FetchResult(Fetcher::Ptr(this), t, d);
       m_matches.insert(r->uid, url);
       emit signalResultFound(r);
@@ -198,13 +193,12 @@ void IBSFetcher::slotComplete(KJob*) {
       }
     }
   }
-#ifndef IBS_TEST
+
   if(!u.isEmpty()) {
     FetchResult* r = new FetchResult(Fetcher::Ptr(this), t, d);
-    m_matches.insert(r->uid, u.replace(QLatin1String("&amp;"), QLatin1String("&")));
+    m_matches.insert(r->uid, QUrl(u.replace(QLatin1String("&amp;"), QLatin1String("&"))));
     emit signalResultFound(r);
   }
-#endif
 
   stop();
 }
@@ -250,7 +244,7 @@ Tellico::Data::EntryPtr IBSFetcher::fetchEntryHook(uint uid_) {
     return entry;
   }
 
-  KUrl url = m_matches[uid_];
+  QUrl url = m_matches[uid_];
   if(url.isEmpty()) {
     myWarning() << "no url in map";
     return Data::EntryPtr();
@@ -355,9 +349,9 @@ Tellico::Data::EntryPtr IBSFetcher::parseEntry(const QString& str_) {
   if(!isbn.isEmpty()) {
     entry->setField(QLatin1String("isbn"), isbn);
 #if 1
-    KUrl imgURL = QString::fromLatin1("http://giotto.ibs.it/cop/copt13.asp?f=%1").arg(isbn);
+    QUrl imgURL(QString::fromLatin1("http://giotto.ibs.it/cop/copt13.asp?f=%1").arg(isbn));
 //    myLog() << "cover = " << imgURL;
-    QString id = ImageFactory::addImage(imgURL, true, KUrl("http://internetbookshop.it"));
+    QString id = ImageFactory::addImage(imgURL, true, QUrl(QString::fromLatin1("http://internetbookshop.it")));
     if(!id.isEmpty()) {
       entry->setField(QLatin1String("cover"), id);
     }
@@ -367,7 +361,7 @@ Tellico::Data::EntryPtr IBSFetcher::parseEntry(const QString& str_) {
     pos = imgRx.indexIn(str_);
     if(pos > -1) {
 //      myLog() << "cover = " << imgRx.cap(1);
-      QString id = ImageFactory::addImage(imgRx.cap(1), true, KUrl("http://internetbookshop.it"));
+      QString id = ImageFactory::addImage(imgRx.cap(1), true, QUrl("http://internetbookshop.it"));
       if(!id.isEmpty()) {
         entry->setField(QLatin1String("cover"), id);
       }
@@ -449,5 +443,3 @@ IBSFetcher::ConfigWidget::ConfigWidget(QWidget* parent_)
 QString IBSFetcher::ConfigWidget::preferredName() const {
   return IBSFetcher::defaultName();
 }
-
-#include "ibsfetcher.moc"

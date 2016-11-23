@@ -27,39 +27,51 @@
 #include "entry.h"
 #include "tellico_debug.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KTitleWidget>
+#include <KSharedConfig>
+#include <KGuiItem>
 
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QTimer>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 using Tellico::BibtexKeyDialog;
 
 // default button is going to be used as a print button, so it's separated
 BibtexKeyDialog::BibtexKeyDialog(Data::CollPtr coll_, QWidget* parent_)
-    : KDialog(parent_), m_coll(coll_) {
+    : QDialog(parent_), m_coll(coll_) {
   Q_ASSERT(m_coll);
   setModal(false);
-  setCaption(i18n("Citation Key Manager"));
-  setButtons(User1|User2|Close);
-  setDefaultButton(Close);
+  setWindowTitle(i18n("Citation Key Manager"));
 
-  setButtonGuiItem(User1, KGuiItem(i18n("Filter for duplicates"), QLatin1String("view-filter")));
-  setButtonGuiItem(User2, KGuiItem(i18n("Check for duplicates"), QLatin1String("system-search")));
- 
+  QVBoxLayout* topLayout = new QVBoxLayout;
+  setLayout(topLayout);
+
   QWidget* mainWidget = new QWidget(this);
-  setMainWidget(mainWidget);
-  QVBoxLayout* topLayout = new QVBoxLayout(mainWidget);
-   
+  topLayout->addWidget(mainWidget);
+
   m_dupeLabel = new KTitleWidget(this);
   m_dupeLabel->setText(m_coll->title(), KTitleWidget::PlainMessage);
   m_dupeLabel->setComment(i18n("Checking for entries with duplicate citation keys..."));
-  m_dupeLabel->setPixmap(KIcon(QLatin1String("tools-wizard")).pixmap(64, 64), KTitleWidget::ImageLeft);
+  m_dupeLabel->setPixmap(QIcon::fromTheme(QLatin1String("tools-wizard")).pixmap(64, 64), KTitleWidget::ImageLeft);
   topLayout->addWidget(m_dupeLabel);
 
-  KConfigGroup config(KGlobal::config(), QLatin1String("Bibtex Key Dialog Options"));
-  restoreDialogSize(config);
+  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+  buttonBox->button(QDialogButtonBox::Close)->setDefault(true);
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+
+  QPushButton* checkDuplicates = new QPushButton(buttonBox);
+  KGuiItem::assign(checkDuplicates, KGuiItem(i18n("Check for duplicates"), QLatin1String("system-search")));
+  buttonBox->addButton(checkDuplicates, QDialogButtonBox::ActionRole);
+  m_filterButton = new QPushButton(buttonBox);
+  KGuiItem::assign(m_filterButton, KGuiItem(i18n("Filter for duplicates"), QLatin1String("view-filter")));
+  buttonBox->addButton(m_filterButton, QDialogButtonBox::ActionRole);
+
+  topLayout->addWidget(buttonBox);
 
   if(m_coll->type() != Data::Collection::Bibtex)  {
     // if it's not a bibliography, no need to save a pointer
@@ -67,16 +79,14 @@ BibtexKeyDialog::BibtexKeyDialog(Data::CollPtr coll_, QWidget* parent_)
     myWarning() << "not a bibliography";
   } else {
     // the button is enabled when duplicates are found
-    enableButton(User1, false);
-    connect(this, SIGNAL(user1Clicked()), SLOT(slotFilterDuplicates()));
-    connect(this, SIGNAL(user2Clicked()), SLOT(slotCheckDuplicates()));
+    m_filterButton->setEnabled(false);
+    connect(m_filterButton, SIGNAL(clicked()), SLOT(slotFilterDuplicates()));
+    connect(checkDuplicates, SIGNAL(clicked()), SLOT(slotCheckDuplicates()));
     QTimer::singleShot(0, this, SLOT(slotCheckDuplicatesImpl()));
   }
 }
 
 BibtexKeyDialog::~BibtexKeyDialog() {
-  KConfigGroup config(KGlobal::config(), QLatin1String("Bibtex Key Dialog Options"));
-  saveDialogSize(config);
 }
 
 void BibtexKeyDialog::slotCheckDuplicates() {
@@ -90,14 +100,14 @@ void BibtexKeyDialog::slotCheckDuplicates() {
 void BibtexKeyDialog::slotCheckDuplicatesImpl() {
   const Data::BibtexCollection* c = static_cast<Data::BibtexCollection*>(m_coll.data());
   m_dupes = c->duplicateBibtexKeys();
-  
-  enableButton(User1, false);
+
+  m_filterButton->setEnabled(false);
   if(m_dupes.isEmpty())  {
     m_dupeLabel->setComment(i18n("There are no duplicate citation keys."));
-    enableButton(User1, false);
+    m_filterButton->setEnabled(false);
   } else {
     m_dupeLabel->setComment(i18np("There is %1 duplicate citation key.", "There are %1 duplicate citation keys.", m_dupes.count()));
-    enableButton(User1, true);
+    m_filterButton->setEnabled(true);
   }
 }
 
@@ -116,10 +126,8 @@ void BibtexKeyDialog::slotFilterDuplicates() {
       keys << key;
     }
   }
-  
+
   if(!filter->isEmpty()) {
     emit signalUpdateFilter(filter);
   }
 }
-
-#include "bibtexkeydialog.moc"

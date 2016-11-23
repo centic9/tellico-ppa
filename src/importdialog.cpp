@@ -27,7 +27,7 @@
 #include "tellico_debug.h"
 #include "collection.h"
 #include "progressmanager.h"
-#include "gui/guiproxy.h"
+#include "utils/guiproxy.h"
 
 #include "translators/importer.h"
 #include "translators/tellicoimporter.h"
@@ -50,10 +50,10 @@
 #include "translators/ciwimporter.h"
 #include "translators/vinoxmlimporter.h"
 #include "translators/boardgamegeekimporter.h"
+#include "utils/datafileregistry.h"
 
-#include <klocale.h>
-#include <kstandarddirs.h>
-#include <kstandardguiitem.h>
+#include <KLocalizedString>
+#include <KStandardGuiItem>
 
 #include <QGroupBox>
 #include <QButtonGroup>
@@ -61,17 +61,22 @@
 #include <QCheckBox>
 #include <QTimer>
 #include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 using Tellico::ImportDialog;
 
-ImportDialog::ImportDialog(Tellico::Import::Format format_, const KUrl::List& urls_, QWidget* parent_)
-    : KDialog(parent_),
+ImportDialog::ImportDialog(Tellico::Import::Format format_, const QList<QUrl>& urls_, QWidget* parent_)
+    : QDialog(parent_),
       m_importer(importer(format_, urls_)) {
   setModal(true);
-  setCaption(i18n("Import Options"));
-  setButtons(Ok|Cancel);
+  setWindowTitle(i18n("Import Options"));
+
+  QVBoxLayout* mainLayout = new QVBoxLayout();
+  setLayout(mainLayout);
 
   QWidget* widget = new QWidget(this);
+  mainLayout->addWidget(widget);
   QVBoxLayout* topLayout = new QVBoxLayout(widget);
 
   QGroupBox* groupBox = new QGroupBox(i18n("Import Options"), widget);
@@ -109,7 +114,7 @@ ImportDialog::ImportDialog(Tellico::Import::Format format_, const KUrl::List& ur
   m_buttonGroup->addButton(m_radioMerge, Import::Merge);
 
   QWidget* w = m_importer->widget(widget);
-//  m_importer->readOptions(KGlobal::config());
+//  m_importer->readOptions(KSharedConfig::openConfig());
   if(w) {
     w->layout()->setMargin(0);
     topLayout->addWidget(w, 0);
@@ -118,17 +123,23 @@ ImportDialog::ImportDialog(Tellico::Import::Format format_, const KUrl::List& ur
   connect(m_buttonGroup, SIGNAL(buttonClicked(int)), m_importer, SLOT(slotActionChanged(int)));
 
   topLayout->addStretch();
-  setMainWidget(widget);
+
+  QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+  mainLayout->addWidget(buttonBox);
+  QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  connect(okButton, SIGNAL(clicked()), SLOT(slotOk()));
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
   KGuiItem ok = KStandardGuiItem::ok();
   ok.setText(i18n("&Import"));
-  setButtonGuiItem(Ok, ok);
+  KGuiItem::assign(okButton, ok);
 
   // want to grab default button action, too
   // since the importer might do something with widgets, don't just call it, do it after layout is done
   QTimer::singleShot(0, this, SLOT(slotUpdateAction()));
-
-  connect(this, SIGNAL(okClicked()), SLOT(slotOk()));
 }
 
 ImportDialog::~ImportDialog() {
@@ -165,9 +176,9 @@ Tellico::Import::Action ImportDialog::action() const {
 }
 
 // static
-Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format_, const KUrl::List& urls_) {
+Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format_, const QList<QUrl>& urls_) {
 #define CHECK_SIZE if(urls_.size() > 1) myWarning() << "only importing first URL"
-  KUrl firstURL = urls_.isEmpty() ? KUrl() : urls_[0];
+  QUrl firstURL = urls_.isEmpty() ? QUrl() : urls_[0];
   Import::Importer* importer = 0;
   switch(format_) {
     case Import::TellicoXML:
@@ -198,10 +209,9 @@ Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format
       CHECK_SIZE;
       importer = new Import::XSLTImporter(firstURL);
       {
-        QString xsltFile = KStandardDirs::locate("appdata", QLatin1String("mods2tellico.xsl"));
+        QString xsltFile = DataFileRegistry::self()->locate(QLatin1String("mods2tellico.xsl"));
         if(!xsltFile.isEmpty()) {
-          KUrl u;
-          u.setPath(xsltFile);
+          QUrl u = QUrl::fromLocalFile(xsltFile);
           static_cast<Import::XSLTImporter*>(importer)->setXSLTURL(u);
         } else {
           myWarning() << "unable to find mods2tellico.xml!";
@@ -319,16 +329,16 @@ QString ImportDialog::fileFilter(Tellico::Import::Format format_) {
   QString text;
   switch(format_) {
     case Import::TellicoXML:
-      text = i18n("*.tc *.bc|Tellico Files (*.tc)") + QLatin1Char('\n');
-      text += i18n("*.xml|XML Files (*.xml)") + QLatin1Char('\n');
+      text = i18n("Tellico Files") + QLatin1String(" (*.tc *.bc)") + QLatin1String(";;");
+      text += i18n("XML Files") + QLatin1String(" (*.xml)") + QLatin1String(";;");
       break;
 
     case Import::Bibtex:
-      text = i18n("*.bib|Bibtex Files (*.bib)") + QLatin1Char('\n');
+      text = i18n("Bibtex Files") + QLatin1String(" (*.bib)") + QLatin1String(";;");
       break;
 
     case Import::CSV:
-      text = i18n("*.csv|CSV Files (*.csv)") + QLatin1Char('\n');
+      text = i18n("CSV Files") + QLatin1String(" (*.csv)") + QLatin1String(";;");
       break;
 
     case Import::Bibtexml:
@@ -336,37 +346,36 @@ QString ImportDialog::fileFilter(Tellico::Import::Format format_) {
     case Import::MODS:
     case Import::Delicious:
     case Import::Griffith:
-      text = i18n("*.xml|XML Files (*.xml)") + QLatin1Char('\n');
+      text = i18n("XML Files") + QLatin1String(" (*.xml)") + QLatin1String(";;");
       break;
 
     case Import::RIS:
-      text = i18n("*.ris|RIS Files (*.ris)") + QLatin1Char('\n');
+      text = i18n("RIS Files") + QLatin1String(" (*.ris)") + QLatin1String(";;");
       break;
 
     case Import::GCstar:
-      text = i18n("*.gcs|GCstar Data Files (*.gcs)") + QLatin1Char('\n');
-      text += i18n("*.gcf|GCfilms Data Files (*.gcf)") + QLatin1Char('\n');
+      text = i18n("GCstar Data Files") + QLatin1String(" (*.gcs *.gcf)") + QLatin1String(";;");
       break;
 
     case Import::AMC:
-      text = i18n("*.amc|AMC Data Files (*.amc)") + QLatin1Char('\n');
+      text = i18n("AMC Data Files") + QLatin1String(" (*.amc)") + QLatin1String(";;");
       break;
 
     case Import::PDF:
-      text = i18n("*.pdf|PDF Files (*.pdf)") + QLatin1Char('\n');
+      text = i18n("PDF Files") + QLatin1String(" (*.pdf)") + QLatin1String(";;");
       break;
 
     case Import::Referencer:
-      text = i18n("*.reflib|Referencer Files (*.reflib)") + QLatin1Char('\n');
+      text = i18n("Referencer Files") + QLatin1String(" (*.reflib)") + QLatin1String(";;");
       break;
 
     case Import::CIW:
-      text = i18n("*.ciw|CIW Files (*.ciw)") + QLatin1Char('\n');
+      text = i18n("CIW Files") + QLatin1String(" (*.ciw)") + QLatin1String(";;");
       break;
 
     case Import::VinoXML:
-      text = i18n("*.vinoxml|VinoXML Data Files (*.vinoxml)") + QLatin1Char('\n');
-      text += i18n("*.xml|XML Files (*.xml)") + QLatin1Char('\n');
+      text = i18n("VinoXML Data Files") + QLatin1String(" (*.vinoxml)") + QLatin1String(";;");
+      text += i18n("XML Files") + QLatin1String(" (*.xml)") + QLatin1String(";;");
       break;
 
     case Import::AudioFile:
@@ -379,7 +388,7 @@ QString ImportDialog::fileFilter(Tellico::Import::Format format_) {
       break;
   }
 
-  return text + i18n("*|All Files");
+  return text + i18n("All Files") + QLatin1String(" (*)");
 }
 
 // audio files are imported by directory
@@ -408,7 +417,7 @@ QString ImportDialog::startDir(Tellico::Import::Format format_) {
       return dir.absolutePath();
     }
   }
-  return QLatin1String(":import");
+  return QString();
 }
 
 void ImportDialog::slotOk() {
@@ -425,8 +434,8 @@ void ImportDialog::slotUpdateAction() {
 }
 
 // static
-Tellico::Data::CollPtr ImportDialog::importURL(Tellico::Import::Format format_, const KUrl& url_) {
-  Import::Importer* imp = importer(format_, url_);
+Tellico::Data::CollPtr ImportDialog::importURL(Tellico::Import::Format format_, const QUrl& url_) {
+  Import::Importer* imp = importer(format_, QList<QUrl>() << url_);
   if(!imp) {
     return Data::CollPtr();
   }
@@ -470,5 +479,3 @@ Tellico::Data::CollPtr ImportDialog::importText(Tellico::Import::Format format_,
   delete imp;
   return c;
 }
-
-#include "importdialog.moc"

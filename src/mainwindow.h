@@ -31,19 +31,17 @@
 #include "translators/translators.h"
 #include "datavectors.h"
 
-#include <kxmlguiwindow.h>
-#include <kurl.h>
+#include <KXmlGuiWindow>
 
+#include <QUrl>
 #include <QList>
 
 class KToolBar;
-class KAction;
+class QAction;
 class KSelectAction;
 class KToggleAction;
 class KRecentFilesAction;
 class KActionMenu;
-class KDialogBase;
-class KTabWidget;
 
 class QCloseEvent;
 class QSplitter;
@@ -53,10 +51,13 @@ namespace Tellico {
 // forward declarations
   namespace GUI {
     class LineEdit;
+    class TabWidget;
   }
   class Controller;
   class ViewStack;
   class DetailedListView;
+  class EntryIconView;
+  class EntryView;
   class FilterDialog;
   class EntryEditDialog;
   class GroupView;
@@ -77,10 +78,7 @@ namespace Tellico {
  * window and reads the config file as well as providing a menubar, toolbar
  * and statusbar. Tellico reimplements the methods that KMainWindow provides
  * for main window handling and supports full session management as well as
- * using KActions.
- * @see KMainWindow
- * @see KApplication
- * @see KConfig
+ * using QActions.
  *
  * @author Robby Stephenson
  */
@@ -125,11 +123,11 @@ public:
    * @param format The file format
    * @param url The url
    */
-  virtual bool importFile(Import::Format format, const KUrl& url, Import::Action action);
+  virtual bool importFile(Import::Format format, const QUrl& url, Import::Action action);
   /**
    * Used by DCOP to export to a file.
    */
-  virtual bool exportCollection(Export::Format format, const KUrl& url);
+  virtual bool exportCollection(Export::Format format, const QUrl& url);
   /**
    * Used by DCOP
    */
@@ -139,7 +137,7 @@ public:
 
   bool eventFilter(QObject* watched, QEvent* event);
 
-public slots:
+public Q_SLOTS:
   /**
    * Initializes some stuff after the object is created.
    */
@@ -159,13 +157,13 @@ public slots:
    *
    * @param url The url to open
    */
-  void slotFileOpen(const KUrl& url);
+  void slotFileOpen(const QUrl& url);
   /**
    * Opens a file from the recent files menu
    *
    * @param url The url sent by the RecentFilesAction
    */
-  void slotFileOpenRecent(const KUrl& url);
+  void slotFileOpenRecent(const QUrl& url);
   /**
    * Saves the document
    */
@@ -210,10 +208,6 @@ public slots:
    * Toggles the edit widget.
    */
   void slotToggleEntryEditor();
-  /**
-   * Toggles the edit widget.
-   */
-  void slotToggleEntryView();
   /**
    * Shows the configuration dialog for the application.
    */
@@ -292,10 +286,6 @@ public slots:
    */
   void slotShowStringMacroDialog();
   /**
-   * Hides the string macro editor dialog for the application.
-   */
-  void slotHideStringMacroDialog();
-  /**
    * Shows the citation key dialog
    */
   void slotShowBibtexKeyDialog();
@@ -306,7 +296,7 @@ public slots:
   /**
    * Handle a url that indicates some actino should be taken
    */
-  void slotURLAction(const KUrl& url);
+  void slotURLAction(const QUrl& url);
 
 private:
   /**
@@ -319,7 +309,7 @@ private:
    */
   void readOptions();
   /**
-   * Initializes the KActions of the application
+   * Initializes the QActions of the application
    */
   void initActions();
   /**
@@ -352,18 +342,12 @@ private:
    */
   bool queryClose();
   /**
-   * Called before the very last window is closed, either by the user
-   * or indirectly by the session manager.
-   * @see KMainWindow::queryExit
-   */
-  bool queryExit();
-  /**
    * Actual method used when opening a URL. Updating for the list views is turned off
    * as well as sorting, in order to more quickly load the document.
    *
    * @param url The url to open
    */
-  bool openURL(const KUrl& url);
+  bool openURL(const QUrl& url);
   /*
    * Helper method to handle the printing duties.
    *
@@ -385,7 +369,7 @@ private:
   void updateCollectionActions();
   void updateEntrySources();
 
-private slots:
+private Q_SLOTS:
   /**
    * Updates the actions when a file is opened.
    */
@@ -433,7 +417,7 @@ private slots:
   /**
    * Handle the Ok button being clicked in the string macros dialog.
    */
-  void slotStringMacroDialogOk();
+  void slotStringMacroDialogFinished(int result=-1);
   /**
    * Since I use an application icon in the toolbar, I need to change its size whenever
    * the toolbar changes mode
@@ -468,10 +452,6 @@ private slots:
   void slotRenameCollection();
   void slotImageLocationChanged();
   /**
-   * Called when the viewStack's current widget changes
-   */
-  void slotCurrentViewWidgetChanged();
-  /**
    * Toggle full screen mode
    */
   void slotToggleFullScreen();
@@ -481,26 +461,25 @@ private slots:
   void slotToggleMenuBarVisibility();
 
 private:
-  void importFile(Import::Format format, const KUrl::List& kurls);
+  void importFile(Import::Format format, const QList<QUrl>& kurls);
   void importText(Import::Format format, const QString& text);
   bool importCollection(Data::CollPtr coll, Import::Action action);
 
   // the reason that I have to keep pointers to all these
   // is because they get plugged into menus later in Controller
   KRecentFilesAction* m_fileOpenRecent;
-  KAction* m_fileSave;
-  KAction* m_newEntry;
-  KAction* m_editEntry;
-  KAction* m_copyEntry;
-  KAction* m_deleteEntry;
-  KAction* m_mergeEntry;
+  QAction* m_fileSave;
+  QAction* m_newEntry;
+  QAction* m_editEntry;
+  QAction* m_copyEntry;
+  QAction* m_deleteEntry;
+  QAction* m_mergeEntry;
   KActionMenu* m_updateEntryMenu;
-  KAction* m_updateAll;
-  KAction* m_checkInEntry;
-  KAction* m_checkOutEntry;
+  QAction* m_updateAll;
+  QAction* m_checkInEntry;
+  QAction* m_checkOutEntry;
   KToggleAction* m_toggleGroupWidget;
   KToggleAction* m_toggleEntryEditor;
-  KToggleAction* m_toggleEntryView;
 
   KSelectAction* m_entryGrouping;
   GUI::LineEdit* m_quickFilter;
@@ -514,10 +493,12 @@ private:
 
   DetailedListView* m_detailedView;
   EntryEditDialog* m_editDialog;
-  KTabWidget* m_viewTabs;
+  GUI::TabWidget* m_viewTabs;
   GroupView* m_groupView;
   FilterView* m_filterView;
   LoanView* m_loanView;
+  EntryView* m_entryView;
+  EntryIconView* m_iconView;
   ViewStack* m_viewStack;
   QSignalMapper* m_updateMapper;
 

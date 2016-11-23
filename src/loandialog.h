@@ -28,13 +28,15 @@
 #include "datavectors.h"
 #include "borrower.h"
 
-#include <kdialog.h>
+#include <QDialog>
 
 class KLineEdit;
 class KTextEdit;
+class KJob;
 
 class QUndoCommand;
 class QCheckBox;
+class QDialogButtonBox;
 
 namespace Tellico {
   namespace GUI {
@@ -44,7 +46,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class LoanDialog : public KDialog {
+class LoanDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -60,16 +62,18 @@ public:
 
   QUndoCommand* createCommand();
 
-private slots:
+private Q_SLOTS:
   void slotBorrowerNameChanged(const QString& str);
   void slotGetBorrower();
-  void slotLoadAddressBook();
   void slotDueDateChanged();
+  void akonadiSearchResult(KJob*);
+  void slotUpdateSize();
 
 private:
   void init();
   QUndoCommand* addLoansCommand();
   QUndoCommand* modifyLoansCommand();
+  void populateBorrowerList();
 
   enum Mode {
     Add,
@@ -86,6 +90,7 @@ private:
   GUI::DateWidget* m_dueDate;
   KTextEdit* m_note;
   QCheckBox* m_addEvent;
+  QDialogButtonBox* m_buttonBox;
 
   QString m_uid;
 };

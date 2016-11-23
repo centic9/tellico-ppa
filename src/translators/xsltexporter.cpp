@@ -28,8 +28,8 @@
 #include "../collection.h"
 #include "../core/filehandler.h"
 
-#include <klocale.h>
-#include <kurlrequester.h>
+#include <KLocalizedString>
+#include <KUrlRequester>
 #include <KUser>
 #include <KConfigGroup>
 
@@ -51,12 +51,11 @@ QString XSLTExporter::formatString() const {
 }
 
 QString XSLTExporter::fileFilter() const {
-  return i18n("*|All Files");
+  return i18n("All Files") + QLatin1String(" (*)");
 }
 
-
 bool XSLTExporter::exec() {
-  KUrl u = m_URLRequester->url();
+  QUrl u = m_URLRequester->url();
   if(u.isEmpty() || !u.isValid()) {
     return false;
   }
@@ -96,7 +95,10 @@ QWidget* XSLTExporter::widget(QWidget* parent_) {
 
   l->addWidget(gbox);
 
-  QString filter = i18n("*.xsl|XSL Files (*.xsl)") + QLatin1Char('\n') + i18n("*|All Files");
+  // these are in the old KDE4 filter format, not the Qt5 format
+  QString filter = QLatin1String("*.xsl|") + i18n("XSL Files")
+                 + QLatin1Char('\n')
+                 + QLatin1String("*|") + i18n("All Files");
   m_URLRequester->setFilter(filter);
   m_URLRequester->setMode(KFile::File | KFile::ExistingOnly);
   if(!m_xsltFile.isEmpty()) {
@@ -109,11 +111,12 @@ QWidget* XSLTExporter::widget(QWidget* parent_) {
 
 void XSLTExporter::readOptions(KSharedConfigPtr config_) {
   KConfigGroup group(config_, QString::fromLatin1("ExportOptions - %1").arg(formatString()));
-  m_xsltFile = group.readEntry("Last File", KUrl());
+  m_xsltFile = group.readEntry("Last File", QUrl());
 }
 
 void XSLTExporter::saveOptions(KSharedConfigPtr config_) {
   KConfigGroup group(config_, QString::fromLatin1("ExportOptions - %1").arg(formatString()));
   m_xsltFile = m_URLRequester->url();
-  group.writeEntry("Last File", m_xsltFile);
+  // TODO
+  group.writeEntry("Last File", QUrl(m_xsltFile.url()));
 }

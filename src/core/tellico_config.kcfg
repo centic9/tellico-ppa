@@ -6,9 +6,9 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
       http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
 
-<include>klocale.h</include>
-<include>kglobalsettings.h</include>
-<include>kcolorscheme.h</include>
+<include>KLocalizedString</include>
+<include>KColorScheme</include>
+<include>QFontDatabase</include>
 <kcfgfile name="tellicorc"/>
 
 <group name="TipOfDay">
@@ -20,15 +20,6 @@
 <group name="Main Window Options">
     <entry key="Main Splitter Sizes" type="IntList"/>
     <entry key="Secondary Splitter Sizes" type="IntList"/>
-</group>
-
-<group name="Detailed View Options">
-    <entry key="MaxPixmapWidth" type="Int">
-        <default>50</default>
-    </entry>
-    <entry key="MaxPixmapHeight" type="Int">
-        <default>50</default>
-    </entry>
 </group>
 
 <group name="Group View Options">
@@ -71,8 +62,12 @@
     <entry key="Show Edit Widget" type="Bool">
         <default>false</default>
     </entry>
-    <entry key="Show Entry View" type="Bool">
-        <default>true</default>
+    <entry key="View Widget" type="Enum">
+      <choices>
+        <choice name="ListView"/>
+        <choice name="IconView"/>
+      </choices>
+      <default>ListView</default>
     </entry>
     <entry key="Image Location" type="Enum">
       <choices>
@@ -148,7 +143,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontBook">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorBook">
         <label>Template background color</label>
@@ -174,7 +169,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontVideo">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorVideo">
         <label>Template background color</label>
@@ -200,7 +195,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontAlbum">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorAlbum">
         <label>Template background color</label>
@@ -229,7 +224,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontBibtex">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorBibtex">
         <label>Template background color</label>
@@ -255,7 +250,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontComicBook">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorComicBook">
         <label>Template background color</label>
@@ -281,7 +276,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontWine">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorWine">
         <label>Template background color</label>
@@ -307,7 +302,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontCoin">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorCoin">
         <label>Template background color</label>
@@ -333,7 +328,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontStamp">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorStamp">
         <label>Template background color</label>
@@ -359,7 +354,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontCard">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorCard">
         <label>Template background color</label>
@@ -385,7 +380,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontGame">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorGame">
         <label>Template background color</label>
@@ -411,7 +406,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontFile">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorFile">
         <label>Template background color</label>
@@ -437,7 +432,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontBoardGame">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorBoardGame">
         <label>Template background color</label>
@@ -463,7 +458,7 @@
     </entry>
     <entry key="Template Font" type="Font" name="fontBase">
         <label>Template font</label>
-        <default code="true">KGlobalSettings::generalFont()</default>
+        <default code="true">QFontDatabase::systemFont(QFontDatabase::GeneralFont)</default>
     </entry>
     <entry key="Template Base Color" type="Color" name="baseColorBase">
         <label>Template background color</label>

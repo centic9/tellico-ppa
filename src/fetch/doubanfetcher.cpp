@@ -27,19 +27,19 @@
 #include "../translators/tellicoimporter.h"
 #include "../images/imagefactory.h"
 #include "../utils/isbnvalidator.h"
-#include "../tellico_utils.h"
+#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KConfigGroup>
-#include <KLineEdit>
 
+#include <QLineEdit>
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
 #include <QTextCodec>
-#include <QDomDocument>
+#include <QUrlQuery>
 
 namespace {
   static const int DOUBAN_MAX_RETURNS_TOTAL = 20;
@@ -81,57 +81,58 @@ void DoubanFetcher::readConfigHook(const KConfigGroup& config_) {
   }
 }
 
-KUrl DoubanFetcher::searchUrl() {
-  KUrl u(DOUBAN_API_URL);
+QUrl DoubanFetcher::searchUrl() {
+  QUrl u(QString::fromLatin1(DOUBAN_API_URL));
 
   switch(request().collectionType) {
     case Data::Collection::Book:
     case Data::Collection::Bibtex:
-      u.addPath(QString::fromLatin1("book/"));
+      u.setPath(u.path() + QLatin1String("book/"));
       break;
 
     case Data::Collection::Video:
-      u.addPath(QString::fromLatin1("movie/"));
+      u.setPath(u.path() + QLatin1String("movie/"));
       break;
 
     case Data::Collection::Album:
-      u.addPath(QString::fromLatin1("music/"));
+      u.setPath(u.path() + QLatin1String("music/"));
       break;
 
     default:
       myWarning() << "bad collection type:" << request().collectionType;
-      return KUrl();
+      return QUrl();
   }
 
+  QUrlQuery q;
   switch(request().key) {
     case ISBN:
-      u.addPath(QLatin1String("subject/isbn/"));
+      u.setPath(u.path() + QLatin1String("subject/isbn/"));
       {
         QStringList isbns = FieldFormat::splitValue(request().value);
         if(isbns.isEmpty()) {
-          return KUrl();
+          return QUrl();
         } else {
-          u.addPath(ISBNValidator::cleanValue(isbns.front()));
+          u.setPath(u.path() + ISBNValidator::cleanValue(isbns.front()));
         }
       }
       break;
 
     case Keyword:
-      u.addPath(QLatin1String("subjects"));
-      u.addQueryItem(QLatin1String("q"), request().value);
+      u.setPath(u.path() + QLatin1String("subjects"));
+      q.addQueryItem(QLatin1String("q"), request().value);
       break;
 
     default:
       myWarning() << "key not recognized:" << request().key;
-      return KUrl();
+      return QUrl();
   }
 
   if(!m_apiKey.isEmpty()) {
-    u.addQueryItem(QLatin1String("apikey"), m_apiKey);
+    q.addQueryItem(QLatin1String("apikey"), m_apiKey);
   }
-  u.addQueryItem(QLatin1String("max-results"), QString::number(DOUBAN_MAX_RETURNS_TOTAL));
-  u.addQueryItem(QLatin1String("start-index"), QString::number(1));
-
+  q.addQueryItem(QLatin1String("max-results"), QString::number(DOUBAN_MAX_RETURNS_TOTAL));
+  q.addQueryItem(QLatin1String("start-index"), QString::number(1));
+  u.setQuery(q);
 //  myDebug() << "url:" << u.url();
   return u;
 }
@@ -141,7 +142,7 @@ Tellico::Data::EntryPtr DoubanFetcher::fetchEntryHookData(Data::EntryPtr entry_)
 
   const QString image = entry_->field(QLatin1String("cover"));
   if(image.contains(QLatin1Char('/'))) {
-    const QString id = ImageFactory::addImage(KUrl(image), true /* quiet */);
+    const QString id = ImageFactory::addImage(QUrl(image), true /* quiet */);
     if(!id.isEmpty()) {
       entry_->setField(QLatin1String("cover"), id);
     }
@@ -163,7 +164,7 @@ Tellico::Data::EntryPtr DoubanFetcher::fetchEntryHookData(Data::EntryPtr entry_)
 //  myDebug() << id;
 
   // quiet
-  const QString output = FileHandler::readXMLFile(KUrl(id), true /* true */);
+  const QString output = FileHandler::readXMLFile(QUrl(id), true /* true */);
   Import::TellicoImporter imp(xsltHandler()->applyStylesheet(output));
   // be quiet when loading images
   imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
@@ -239,7 +240,7 @@ DoubanFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const DoubanFetcher*
   QLabel* label = new QLabel(i18n("Access key: "), optionsWidget());
   l->addWidget(label, ++row, 0);
 
-  m_apiKeyEdit = new KLineEdit(optionsWidget());
+  m_apiKeyEdit = new QLineEdit(optionsWidget());
   connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_apiKeyEdit, row, 1);
   label->setBuddy(m_apiKeyEdit);
@@ -265,4 +266,3 @@ QString DoubanFetcher::ConfigWidget::preferredName() const {
   return DoubanFetcher::defaultName();
 }
 
-#include "doubanfetcher.moc"

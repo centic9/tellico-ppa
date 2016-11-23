@@ -25,14 +25,15 @@
 #include "fetcherconfigdialog.h"
 #include "fetch/fetchmanager.h"
 #include "gui/combobox.h"
-#include "tellico_utils.h"
+#include "utils/string_utils.h"
 #include "tellico_debug.h"
 
-#include <klocale.h>
-#include <klineedit.h>
-#include <kcombobox.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KComboBox>
+#include <KIconLoader>
+#include <KHelpClient>
 
+#include <QLineEdit>
 #include <QLabel>
 #include <QLayout>
 #include <QStackedWidget>
@@ -41,6 +42,8 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 namespace {
   static const int FETCHER_CONFIG_MIN_WIDTH = 600;
@@ -49,7 +52,7 @@ namespace {
 using Tellico::FetcherConfigDialog;
 
 FetcherConfigDialog::FetcherConfigDialog(QWidget* parent_)
-    : KDialog(parent_)
+    : QDialog(parent_)
     , m_newSource(true)
     , m_useDefaultName(true)
     , m_configWidget(0) {
@@ -58,7 +61,7 @@ FetcherConfigDialog::FetcherConfigDialog(QWidget* parent_)
 
 FetcherConfigDialog::FetcherConfigDialog(const QString& sourceName_, Tellico::Fetch::Type type_, bool updateOverwrite_,
                                          Tellico::Fetch::ConfigWidget* configWidget_, QWidget* parent_)
-    : KDialog(parent_)
+    : QDialog(parent_)
     , m_newSource(false)
     , m_useDefaultName(false)
     , m_configWidget(configWidget_) {
@@ -69,11 +72,12 @@ FetcherConfigDialog::FetcherConfigDialog(const QString& sourceName_, Tellico::Fe
 
 void FetcherConfigDialog::init(Tellico::Fetch::Type type_) {
   setModal(true);
-  setCaption(i18n("Data Source Properties"));
-  setButtons(Ok|Cancel|Help);
+  setWindowTitle(i18n("Data Source Properties"));
+
+  QVBoxLayout* mainLayout = new QVBoxLayout();
+  setLayout(mainLayout);
 
   setMinimumWidth(FETCHER_CONFIG_MIN_WIDTH);
-  setHelp(QLatin1String("data-sources-options"));
 
   QWidget* widget = new QWidget(this);
   QBoxLayout* topLayout = new QHBoxLayout(widget);
@@ -102,7 +106,7 @@ void FetcherConfigDialog::init(Tellico::Fetch::Type type_) {
   QString w = i18n("The name identifies the data source and should be unique and informative.");
   label->setWhatsThis(w);
 
-  m_nameEdit = new KLineEdit(widget);
+  m_nameEdit = new QLineEdit(widget);
   gl->addWidget(m_nameEdit, row, 1);
   m_nameEdit->setFocus();
   m_nameEdit->setWhatsThis(w);
@@ -114,7 +118,7 @@ void FetcherConfigDialog::init(Tellico::Fetch::Type type_) {
   } else {
     // since the label doesn't have a buddy, we don't want an accel,
     // but also want to reuse string we already have
-    label = new QLabel(removeAcceleratorMarker(i18n("Source &type: ")), widget);
+    label = new QLabel(KLocalizedString::removeAcceleratorMarker(i18n("Source &type: ")), widget);
   }
   gl->addWidget(label, ++row, 0);
   w = i18n("Tellico supports several different data sources.");
@@ -164,7 +168,18 @@ void FetcherConfigDialog::init(Tellico::Fetch::Type type_) {
     connect(m_configWidget, SIGNAL(signalName(const QString&)), SLOT(slotPossibleNewName(const QString&)));
   }
 
-  setMainWidget(widget);
+  mainLayout->addWidget(widget);
+
+  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|
+                                                     QDialogButtonBox::Cancel|
+                                                     QDialogButtonBox::Help);
+  QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  connect(buttonBox, SIGNAL(helpRequested()), this, SLOT(slotHelp()));
+  mainLayout->addWidget(buttonBox);
 }
 
 QString FetcherConfigDialog::sourceName() const {
@@ -242,4 +257,6 @@ void FetcherConfigDialog::slotPossibleNewName(const QString& name_) {
   }
 }
 
-#include "fetcherconfigdialog.moc"
+void FetcherConfigDialog::slotHelp() {
+  KHelpClient::invokeHelp(QLatin1String("data-sources-options"));
+}

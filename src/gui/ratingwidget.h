@@ -27,8 +27,6 @@
 
 #include "../datavectors.h"
 
-#include <KHBox>
-
 #include <QList>
 #include <QLabel>
 #include <QPixmap>
@@ -45,7 +43,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class RatingWidget : public KHBox {
+class RatingWidget : public QWidget {
 Q_OBJECT
 
 typedef QList<QLabel*> LabelList;
@@ -58,12 +56,10 @@ public:
   void setText(const QString& text);
   void updateField(Data::FieldPtr field);
 
-  static const QPixmap& pixmap(const QString& value);
-
-public slots:
+public Q_SLOTS:
   void update();
 
-signals:
+Q_SIGNALS:
   void signalModified();
 
 protected:
@@ -71,7 +67,7 @@ protected:
   virtual void enterEvent(QEvent* e);
   virtual void leaveEvent(QEvent* e);
 
-private slots:
+private Q_SLOTS:
   void clearClicked();
 
 private:

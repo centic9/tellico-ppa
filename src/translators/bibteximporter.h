@@ -31,7 +31,10 @@
 #include <config.h>
 extern "C" {
 #ifdef HAVE_LIBBTPARSE
+/* btparse has a struct member 'class' */
+#define class errclass
 #include <btparse.h>
+#undef class
 #else
 #include "btparse/btparse.h"
 #endif
@@ -60,7 +63,7 @@ public:
    *
    * @param url The url of the bibtex file
    */
-  BibtexImporter(const KUrl::List& urls);
+  BibtexImporter(const QList<QUrl>& urls);
   BibtexImporter(const QString& text);
   /*
    * Some cleanup is done for the btparse library
@@ -77,10 +80,10 @@ public:
   virtual QWidget* widget(QWidget* parent);
   virtual bool canImport(int type) const;
 
-  static bool maybeBibtex(const KUrl& url);
-  static bool maybeBibtex(const QString& text, const KUrl& url = KUrl());
+  static bool maybeBibtex(const QUrl& url);
+  static bool maybeBibtex(const QString& text, const QUrl& url = QUrl());
 
-public slots:
+public Q_SLOTS:
   void slotCancel();
 
 private:

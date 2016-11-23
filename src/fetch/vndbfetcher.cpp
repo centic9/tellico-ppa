@@ -26,14 +26,14 @@
 #include "vndbfetcher.h"
 #include "../collections/gamecollection.h"
 #include "../images/imagefactory.h"
-#include "../gui/guiproxy.h"
-#include "../tellico_utils.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../entry.h"
 #include "../fieldformat.h"
 #include "../core/filehandler.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <QTcpSocket>
 #include <QLabel>
@@ -41,11 +41,9 @@
 #include <QTextStream>
 #include <QGridLayout>
 #include <QTextCodec>
-
-#ifdef HAVE_QJSON
-#include <qjson/parser.h>
-#include <qjson/serializer.h>
-#endif
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 
 namespace {
   static const char* VNDB_HOSTNAME = "api.vndb.org";
@@ -68,13 +66,8 @@ QString VNDBFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-// without QJSON, we can only search on ISBN for covers
 bool VNDBFetcher::canSearch(FetchKey k) const {
-#ifdef HAVE_QJSON
   return k == Title;
-#else
-  return false;
-#endif
 }
 
 bool VNDBFetcher::canFetch(int type) const {
@@ -86,10 +79,6 @@ void VNDBFetcher::readConfigHook(const KConfigGroup&) {
 
 void VNDBFetcher::search() {
   m_started = true;
-#ifndef HAVE_QJSON
-  stop();
-  return;
-#else
 
   if(!m_socket) {
     m_socket = new QTcpSocket(this);
@@ -123,11 +112,9 @@ void VNDBFetcher::search() {
   }
 
   QByteArray get = "get vn basic,details ";
-  QJson::Serializer serializer;
   switch(request().key) {
     case Title:
-      get += "(title ~ " + serializer.serialize(request().value) + ')';
-//      u.addQueryItem(QLatin1String("title"), term_);
+      get += "(title ~ \"" + request().value.toUtf8() + "\")";
       break;
 
     default:
@@ -138,7 +125,6 @@ void VNDBFetcher::search() {
 //  myDebug() << "get:" << get;
   get.append(0x04);
   m_socket->write(get);
-#endif
 }
 
 void VNDBFetcher::stop() {
@@ -164,7 +150,7 @@ Tellico::Data::EntryPtr VNDBFetcher::fetchEntryHook(uint uid_) {
   // image might still be a URL
   const QString image_id = entry->field(QLatin1String("cover"));
   if(image_id.contains(QLatin1Char('/'))) {
-    const QString id = ImageFactory::addImage(image_id, true /* quiet */);
+    const QString id = ImageFactory::addImage(QUrl::fromUserInput(image_id), true /* quiet */);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
@@ -184,7 +170,6 @@ Tellico::Fetch::FetchRequest VNDBFetcher::updateRequest(Data::EntryPtr entry_) {
 }
 
 void VNDBFetcher::slotComplete() {
-#ifdef HAVE_QJSON
 //  myDebug();
 
   QByteArray data = m_socket->readAll();
@@ -197,9 +182,9 @@ void VNDBFetcher::slotComplete() {
   // remove the late hex character
   data.chop(1);
 
-  if(data.startsWith("error")) {
-    QJson::Parser parser;
-    QVariantMap result = parser.parse(data.mid(5)).toMap();
+  if(data.startsWith("error")) { //krazy:exclude=strings
+    QJsonDocument doc = QJsonDocument::fromJson(data.mid(5));
+    QVariantMap result = doc.object().toVariantMap();
     if(result.contains(QLatin1String("msg"))) {
       myDebug() << result.value(QLatin1String("msg")).toString();
       message(result.value(QLatin1String("msg")).toString(), MessageHandler::Error);
@@ -210,7 +195,7 @@ void VNDBFetcher::slotComplete() {
 
 //  myDebug() << data;
   if(m_state == PreLogin) {
-    if(data.startsWith("ok")) {
+    if(data.startsWith("ok")) { //krazy:exclude=strings
       m_state = PostLogin;
     } else {
       stop();
@@ -218,7 +203,7 @@ void VNDBFetcher::slotComplete() {
     return;
   }
 
-  if(!data.startsWith("results")) {
+  if(!data.startsWith("results")) { //krazy:exclude=strings
     myDebug() << "Expecting results!";
     stop();
     return;
@@ -237,8 +222,8 @@ void VNDBFetcher::slotComplete() {
   f.close();
 #endif
 
-  QJson::Parser parser;
-  QVariantMap topResultMap = parser.parse(data).toMap();
+  QJsonDocument doc = QJsonDocument::fromJson(data);
+  QVariantMap topResultMap = doc.object().toVariantMap();
   QVariantList resultList = topResultMap.value(QLatin1String("items")).toList();
   if(resultList.isEmpty()) {
     myDebug() << "no results";
@@ -291,7 +276,6 @@ void VNDBFetcher::slotComplete() {
 //  m_start = m_entries.count();
 //  m_hasMoreResults = m_start <= m_total;
   m_hasMoreResults = false; // for now, no continued searches
-#endif
   stop();
 }
 
@@ -365,5 +349,3 @@ QString VNDBFetcher::value(const QVariantMap& map, const char* name) {
     return QString();
   }
 }
-
-#include "vndbfetcher.moc"

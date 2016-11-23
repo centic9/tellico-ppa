@@ -28,12 +28,11 @@
 #include "fetcher.h"
 #include "configwidget.h"
 
-#include <KUrl>
-
+#include <QUrl>
 #include <QPointer>
 
-class KLineEdit;
-class KIntSpinBox;
+class QSpinBox;
+
 class KJob;
 namespace KIO {
   class Job;
@@ -120,9 +119,9 @@ public:
   static QString defaultIcon();
   static StringHash allOptionalFields();
 
-private slots:
+private Q_SLOTS:
   void slotComplete(KJob* job);
-  void slotRedirection(KIO::Job* job, const KUrl& toURL);
+  void slotRedirection(KIO::Job* job, const QUrl& toURL);
 
 private:
   virtual void search();
@@ -138,29 +137,27 @@ private:
   void doRunningTime(const QString& s, Data::EntryPtr e);
   void doAspectRatio(const QString& s, Data::EntryPtr e);
   void doAlsoKnownAs(const QString& s, Data::EntryPtr e);
-  void doPlot(const QString& s, Data::EntryPtr e, const KUrl& baseURL_);
+  void doPlot(const QString& s, Data::EntryPtr e, const QUrl& baseURL_);
   void doStudio(const QString& s, Data::EntryPtr e);
   void doPerson(const QString& s, Data::EntryPtr e,
                 const QString& imdbHeader, const QString& fieldName);
-  void doCast(const QString& s, Data::EntryPtr e, const KUrl& baseURL_);
+  void doCast(const QString& s, Data::EntryPtr e, const QUrl& baseURL_);
   void doLists(const QString& s, Data::EntryPtr e);
   void doLists2(const QString& s, Data::EntryPtr e);
   void doRating(const QString& s, Data::EntryPtr e);
-  void doCover(const QString& s, Data::EntryPtr e, const KUrl& baseURL);
+  void doCover(const QString& s, Data::EntryPtr e, const QUrl& baseURL);
 
   void parseSingleTitleResult();
-  void parseSingleNameResult();
   void parseMultipleTitleResults();
   void parseTitleBlock(const QString& str);
-  void parseMultipleNameResults();
   Data::EntryPtr parseEntry(const QString& str);
 
   QString m_text;
   QHash<int, Data::EntryPtr> m_entries;
-  QHash<int, KUrl> m_matches;
+  QHash<int, QUrl> m_matches;
   // if a new search is started, m_matches is cleared
   // but we might still need to recover an entry by uid
-  QHash<int, KUrl> m_allMatches;
+  QHash<int, QUrl> m_allMatches;
   QPointer<KIO::StoredTransferJob> m_job;
 
   bool m_started;
@@ -168,7 +165,7 @@ private:
 
   QString m_host;
   int m_numCast;
-  KUrl m_url;
+  QUrl m_url;
   bool m_redirected;
   int m_limit;
   Lang m_lang;
@@ -177,7 +174,7 @@ private:
   QString m_exactTitles;
   QString m_partialTitles;
   QString m_approxTitles;
-  enum TitleBlock { Unknown = 0, Popular = 1, Exact = 2, Partial = 3, Approx = 4, SinglePerson = 5};
+  enum TitleBlock { Unknown = 0, Popular = 1, Exact = 2, Partial = 3, Approx = 4 };
   TitleBlock m_currentTitleBlock;
   int m_countOffset;
 };
@@ -191,14 +188,12 @@ public:
   virtual void saveConfigHook(KConfigGroup& config);
   virtual QString preferredName() const;
 
-private slots:
+private Q_SLOTS:
   void slotSiteChanged();
 
 private:
-  KLineEdit* m_hostEdit;
-  //GUI::ComboBox* m_langCombo;
   QCheckBox* m_fetchImageCheck;
-  KIntSpinBox* m_numCast;
+  QSpinBox* m_numCast;
 };
 
   } // end namespace

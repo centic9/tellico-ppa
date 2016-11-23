@@ -26,26 +26,25 @@
 
 #include <config.h>
 #include "pdftest.h"
-#include "pdftest.moc"
-#include "qtest_kde.h"
 
 #include "../translators/pdfimporter.h"
 #include "../collections/bibtexcollection.h"
 #include "../collectionfactory.h"
 #include "../fieldformat.h"
+#include "../utils/datafileregistry.h"
 
-#include <KStandardDirs>
+#include <QTest>
 
-QTEST_KDEMAIN( PdfTest, GUI )
+QTEST_GUILESS_MAIN( PdfTest )
 
 void PdfTest::initTestCase() {
   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBook(Tellico::Data::Collection::Bibtex, "bibliography");
   // since we use the XMP importer
-  KGlobal::dirs()->addResourceDir("appdata", QString::fromLatin1(KDESRCDIR) + "/../../xslt/");
+  Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/xmp2tellico.xsl"));
 }
 
 void PdfTest::testScienceDirect() {
-  KUrl url(QString::fromLatin1(KDESRCDIR) + "/data/test-sciencedirect.pdf");
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test-sciencedirect.pdf"));
   Tellico::Import::PDFImporter importer(url);
 
   Tellico::Data::CollPtr coll = importer.collection();
@@ -56,7 +55,7 @@ void PdfTest::testScienceDirect() {
 
   Tellico::Data::EntryPtr entry = coll->entryById(1);
   QVERIFY(entry);
-#ifdef LIBEXEMPI_FOUND
+#ifdef HAVE_EXEMPI
   QCOMPARE(entry->field("title"), QLatin1String("Parametric analysis of air-water heat recovery concept applied to HVAC systems"));
   QCOMPARE(entry->field("author"), QLatin1String("Mohamad Ramadan; Mostafa Gad El Rab; Mahmoud Khaled"));
   QCOMPARE(entry->field("journal"), QLatin1String("Case Studies in Thermal Engineering"));

@@ -36,8 +36,8 @@
 #include "../field.h"
 #include "../tellico_debug.h"
 
-#include <kurllabel.h>
-#include <klocale.h>
+#include <KUrlLabel>
+#include <KLocalizedString>
 
 #include <QWhatsThis>
 #include <QRegExp>
@@ -241,4 +241,3 @@ void FieldWidget::multipleChecked() {
   emit valueChanged(m_field);
 }
 
-#include "fieldwidget.moc"

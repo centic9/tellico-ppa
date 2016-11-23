@@ -36,10 +36,10 @@
 #include "models/models.h"
 #include "gui/countdelegate.h"
 
-#include <kmenu.h>
-#include <klocale.h>
-#include <kicon.h>
+#include <KLocalizedString>
 
+#include <QMenu>
+#include <QIcon>
 #include <QStringList>
 #include <QColor>
 #include <QRegExp>
@@ -50,7 +50,7 @@ using Tellico::GroupView;
 
 GroupView::GroupView(QWidget* parent_)
     : GUI::TreeView(parent_), m_notSortedYet(true) {
-  header()->setResizeMode(QHeaderView::Stretch);
+  header()->setSectionResizeMode(QHeaderView::Stretch);
   setHeaderHidden(false);
   setSelectionMode(QAbstractItemView::ExtendedSelection);
 
@@ -262,14 +262,14 @@ void GroupView::contextMenuEvent(QContextMenuEvent* event_) {
     return;
   }
 
-  KMenu menu(this);
+  QMenu menu(this);
   // no parent means it's a top-level item
   if(!index.parent().isValid()) {
-    menu.addAction(KIcon(QLatin1String("arrow-down-double")),
+    menu.addAction(QIcon::fromTheme(QLatin1String("arrow-down-double")),
                    i18n("Expand All Groups"), this, SLOT(expandAll()));
-    menu.addAction(KIcon(QLatin1String("arrow-up-double")),
+    menu.addAction(QIcon::fromTheme(QLatin1String("arrow-up-double")),
                    i18n("Collapse All Groups"), this, SLOT(collapseAll()));
-    menu.addAction(KIcon(QLatin1String("view-filter")),
+    menu.addAction(QIcon::fromTheme(QLatin1String("view-filter")),
                    i18n("Filter by Group"), this, SLOT(slotFilterGroup()));
   } else {
     Controller::self()->plugEntryActions(&menu);
@@ -350,27 +350,6 @@ void GroupView::slotFilterGroup() {
   }
 }
 
-void GroupView::selectionChanged(const QItemSelection& selected_, const QItemSelection& deselected_) {
-//  DEBUG_BLOCK;
-  QAbstractItemView::selectionChanged(selected_, deselected_);
-  // ignore the selected and deselected variables
-  // we want to grab all the currently selected ones
-  QSet<Data::EntryPtr> entries;
-  foreach(const QModelIndex& index, selectionModel()->selectedIndexes()) {
-    QModelIndex realIndex = sortModel()->mapToSource(index);
-    Data::EntryPtr entry = sourceModel()->entry(realIndex);
-    if(entry) {
-      entries += entry;
-    } else {
-      Data::EntryGroup* group = sourceModel()->group(realIndex);
-      if(group) {
-        entries += QSet<Data::EntryPtr>::fromList(*group);
-      }
-    }
-  }
-  Controller::self()->slotUpdateSelection(this, entries.toList());
-}
-
 void GroupView::slotDoubleClicked(const QModelIndex& index_) {
   QModelIndex realIndex = sortModel()->mapToSource(index_);
   Data::EntryPtr entry = sourceModel()->entry(realIndex);
@@ -430,4 +409,3 @@ void GroupView::addGroup(Tellico::Data::EntryGroup* group_) {
   }
 }
 
-#include "groupview.moc"

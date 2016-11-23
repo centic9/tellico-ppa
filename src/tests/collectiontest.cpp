@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2016 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,8 +25,6 @@
 #undef QT_NO_CAST_FROM_ASCII
 
 #include "collectiontest.h"
-#include "collectiontest.moc"
-#include "qtest_kde.h"
 
 #include "../collection.h"
 #include "../field.h"
@@ -34,13 +32,16 @@
 #include "../collectionfactory.h"
 #include "../collections/collectioninitializer.h"
 #include "../translators/tellicoxmlexporter.h"
+#include "../translators/tellicoimporter.h"
 #include "../images/imagefactory.h"
 #include "../document.h"
 
-#include <KStandardDirs>
 #include <KProcess>
 
-QTEST_KDEMAIN_CORE( CollectionTest )
+#include <QTest>
+#include <QStandardPaths>
+
+QTEST_GUILESS_MAIN( CollectionTest )
 
 class TestResolver : public Tellico::MergeConflictResolver {
 public:
@@ -67,7 +68,7 @@ void CollectionTest::initTestCase() {
 
 void CollectionTest::testEmpty() {
   Tellico::Data::CollPtr nullColl;
-  QVERIFY(nullColl.isNull());
+  QVERIFY(!nullColl);
 
   Tellico::Data::Collection coll(false, QLatin1String("Title"));
 
@@ -126,6 +127,19 @@ void CollectionTest::testCollection() {
   entry2->setField(QLatin1String("title"), QLatin1String("new title"));
   QCOMPARE(entry2->field(QLatin1String("cdate")), weekAgo.toString(Qt::ISODate));
   QCOMPARE(entry2->field(QLatin1String("mdate")), QDate::currentDate().toString(Qt::ISODate));
+
+  // check Bug 361622 - properly handling empty rows in table
+  Tellico::Data::FieldPtr tableField(new Tellico::Data::Field(QLatin1String("table"), QLatin1String("Table"), Tellico::Data::Field::Table));
+  tableField->setFormatType(Tellico::FieldFormat::FormatName);
+  coll->addField(tableField);
+  QString tableValue = QLatin1String("Value1")
+                     + Tellico::FieldFormat::rowDelimiterString()
+                     + Tellico::FieldFormat::rowDelimiterString()
+                     + QLatin1String("Value2");
+  entry2->setField(QLatin1String("table"), tableValue);
+  QCOMPARE(entry2->formattedField(QLatin1String("table")), tableValue);
+  QCOMPARE(QSet<QString>::fromList(entry2->groupNamesByFieldName(QLatin1String("table"))),
+           QSet<QString>() << QLatin1String("Value1") << QLatin1String("Value2"));
 }
 
 void CollectionTest::testFields() {
@@ -314,7 +328,7 @@ void CollectionTest::testValue() {
   entry->setField(field2, string + dummy);
 
   QCOMPARE(entry->formattedField(field1, Tellico::FieldFormat::ForceFormat), formatted);
-  QCOMPARE(entry->formattedField(field2, Tellico::FieldFormat::ForceFormat), formatted + dummy);
+  QCOMPARE(entry->formattedField(field2, Tellico::FieldFormat::ForceFormat), formatted.append(dummy));
 }
 
 void CollectionTest::testValue_data() {
@@ -330,7 +344,7 @@ void CollectionTest::testValue_data() {
 }
 
 void CollectionTest::testDtd() {
-  const QString xmllint = KStandardDirs::findExe(QLatin1String("xmllint"));
+  const QString xmllint = QStandardPaths::findExecutable(QLatin1String("xmllint"));
   if(xmllint.isEmpty()) {
     QSKIP("This test requires xmllint", SkipAll);
   }
@@ -367,7 +381,7 @@ void CollectionTest::testDtd() {
   proc.setProgram(QLatin1String("xmllint"),
                   QStringList() << QLatin1String("--noout")
                                 << QLatin1String("--dtdvalid")
-                                << QString::fromLatin1(KDESRCDIR) + QLatin1String("../../tellico.dtd")
+                                << QFINDTESTDATA("../../tellico.dtd")
                                 << QLatin1String("-"));
 
   proc.start();
@@ -468,6 +482,7 @@ void CollectionTest::testMergeFields() {
 
   Tellico::Data::EntryPtr entry2(new Tellico::Data::Entry(coll2));
   entry2->setField(QLatin1String("platform"), QLatin1String("PlayStation"));
+  QCOMPARE(entry2->field(QLatin1String("platform")), QLatin1String("PlayStation"));
   coll2->addEntries(entry2);
 
   QPair<Tellico::Data::FieldList, Tellico::Data::FieldList> p = Tellico::Data::Document::mergeFields(coll1,
@@ -482,4 +497,104 @@ void CollectionTest::testMergeFields() {
 
   Tellico::Data::FieldList addedFields = p.second;
   QVERIFY(addedFields.isEmpty());
+}
+
+void CollectionTest::testAppendCollection() {
+  // appending a collection adds new fields, merges existing one, and add new entries
+  // the new entries should belong to the original collection and the existing entries should 
+  // remain in the source collection
+  Tellico::Data::CollPtr coll1 = Tellico::CollectionFactory::collection(Tellico::Data::Collection::Game, true);
+  Tellico::Data::CollPtr coll2 = Tellico::CollectionFactory::collection(Tellico::Data::Collection::Game, true);
+
+  // modify the allowed values for  "platform" in collection 1
+  Tellico::Data::FieldPtr platform1 = coll1->fieldByName(QLatin1String("platform"));
+  QVERIFY(platform1);
+  QStringList newValues1 = QStringList() << QLatin1String("My Box");
+  platform1->setAllowed(newValues1);
+  QVERIFY(coll1->modifyField(platform1));
+  // add a new field
+  Tellico::Data::FieldPtr field1(new Tellico::Data::Field(QLatin1String("test"), QLatin1String("test")));
+  QVERIFY(coll1->addField(field1));
+
+  Tellico::Data::EntryPtr entry1(new Tellico::Data::Entry(coll1));
+  QCOMPARE(entry1->collection(), coll1);
+  coll1->addEntries(entry1);
+
+  Tellico::Data::EntryPtr entry2(new Tellico::Data::Entry(coll2));
+  QCOMPARE(entry2->collection(), coll2);
+  coll2->addEntries(entry2);
+
+  // append coll1 into coll2
+  Tellico::Data::Document::appendCollection(coll2, coll1);
+  // verify that the test field was added
+  QVERIFY(coll2->hasField(QLatin1String("test")));
+  // verified that the modified field was merged
+  Tellico::Data::FieldPtr platform2 = coll2->fieldByName(QLatin1String("platform"));
+  QVERIFY(platform2);
+  QVERIFY(platform2->allowed().contains(QLatin1String("My Box")));
+
+  // coll2 should have two entries now, both with proper parent
+  QCOMPARE(coll2->entryCount(), 2);
+  Tellico::Data::EntryList e2 = coll2->entries();
+  QCOMPARE(e2.at(0)->collection(), coll2);
+  QCOMPARE(e2.at(1)->collection(), coll2);
+
+  QCOMPARE(coll1->entryCount(), 1);
+  Tellico::Data::EntryList e1 = coll1->entries();
+  QCOMPARE(e1.at(0)->collection(), coll1);
+}
+
+void CollectionTest::testMergeCollection() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/movies-many.tc"));
+
+  Tellico::Import::TellicoImporter importer1(url);
+  Tellico::Data::CollPtr coll1 = importer1.collection();
+  QVERIFY(coll1);
+
+  Tellico::Import::TellicoImporter importer2(url);
+  Tellico::Data::CollPtr coll2 = importer2.collection();
+  QVERIFY(coll2);
+
+  Tellico::Data::EntryPtr entryToAdd(new Tellico::Data::Entry(coll2));
+  QCOMPARE(entryToAdd->collection(), coll2);
+  coll2->addEntries(entryToAdd);
+
+  QCOMPARE(coll1->entryCount()+1, coll2->entryCount());
+
+  // merge coll2 into coll1
+  // first item is a vector of all entries that got added in the merge process
+  // second item is a pair of entries that had their table field modified
+  // typedef QVector< QPair<EntryPtr, QString> > PairVector;
+  // typedef QPair<Data::EntryList, PairVector> MergePair;
+  Tellico::Data::MergePair mergePair = Tellico::Data::Document::mergeCollection(coll1, coll2);
+
+  // one new entry was added
+  QCOMPARE(mergePair.first.count(), 1);
+  // no table fields edited either
+  QVERIFY(mergePair.second.isEmpty());
+
+  // check item count
+  QCOMPARE(coll1->fields().count(), coll2->fields().count());
+  QCOMPARE(coll1->entryCount(), coll2->entryCount());
+}
+
+void CollectionTest::testMergeBenchmark() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/movies-many.tc"));
+
+  Tellico::Import::TellicoImporter importer1(url);
+  Tellico::Data::CollPtr coll1 = importer1.collection();
+  QVERIFY(coll1);
+
+  Tellico::Import::TellicoImporter importer2(url);
+  Tellico::Data::CollPtr coll2 = importer2.collection();
+  QVERIFY(coll2);
+
+  for(int i = 0; i < 100; ++i) {
+    Tellico::Data::EntryPtr entryToAdd(new Tellico::Data::Entry(coll2));
+    coll2->addEntries(entryToAdd);
+  }
+
+  QBENCHMARK {
+    Tellico::Data::Document::mergeCollection(coll1, coll2);
+  }
 }

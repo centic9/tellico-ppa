@@ -29,23 +29,22 @@
 #include "../collection.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kurlrequester.h>
+#include <KLocalizedString>
+#include <KUrlRequester>
 
 #include <QLabel>
 #include <QGroupBox>
 #include <QTextStream>
 #include <QHBoxLayout>
-
-#include <memory>
+#include <QScopedPointer>
 
 using Tellico::Import::XSLTImporter;
 
 namespace {
 
-static bool isUTF8(const KUrl& url_) {
+static bool isUTF8(const QUrl& url_) {
   // read first line to check encoding
-  const std::auto_ptr<Tellico::FileHandler::FileRef> ref(Tellico::FileHandler::fileRef(url_));
+  const QScopedPointer<Tellico::FileHandler::FileRef> ref(Tellico::FileHandler::fileRef(url_));
   if(!ref->isValid()) {
     return false;
   }
@@ -59,7 +58,7 @@ static bool isUTF8(const KUrl& url_) {
 }
 
 // always use utf8 for xslt
-XSLTImporter::XSLTImporter(const KUrl& url_) : Tellico::Import::TextImporter(url_, isUTF8(url_)),
+XSLTImporter::XSLTImporter(const QUrl& url_) : Tellico::Import::TextImporter(url_, isUTF8(url_)),
     m_widget(0),
     m_URLRequester(0) {
 }
@@ -89,6 +88,7 @@ Tellico::Data::CollPtr XSLTImporter::collection() {
 
   XSLTHandler handler(m_xsltURL);
   if(!handler.isValid()) {
+    myDebug() << "invalid xslt handler";
     setStatusMessage(i18n("Tellico encountered an error in XSLT processing."));
     return Data::CollPtr();
   }
@@ -121,7 +121,10 @@ QWidget* XSLTImporter::widget(QWidget* parent_) {
   m_URLRequester->setWhatsThis(i18n("Choose the XSLT file used to transform the data."));
   label->setBuddy(m_URLRequester);
 
-  QString filter = i18n("*.xsl|XSL Files (*.xsl)") + QLatin1Char('\n') + i18n("*|All Files");
+  // these are in the old KDE4 filter format, not the Qt5 format
+  QString filter = QLatin1String("*.xsl|") + i18n("XSL Files")
+                 + QLatin1Char('\n')
+                 + QLatin1String("*|") + i18n("All Files");
   m_URLRequester->setFilter(filter);
 
   hlay->addWidget(label);
@@ -135,5 +138,3 @@ QWidget* XSLTImporter::widget(QWidget* parent_) {
 void XSLTImporter::slotCancel() {
   myDebug() << "unimplemented";
 }
-
-#include "xsltimporter.moc"

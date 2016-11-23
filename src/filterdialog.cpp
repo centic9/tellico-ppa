@@ -30,356 +30,25 @@
 #include "document.h"
 #include "collection.h"
 #include "fieldcompletion.h"
-#include "gui/combobox.h"
+#include "gui/filterrulewidgetlister.h"
+#include "gui/filterrulewidget.h"
 #include "tellico_debug.h"
 
-#include <klocale.h>
-#include <kcombobox.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
-#include <kservicetypetrader.h>
-#include <kregexpeditorinterface.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KHelpClient>
 
-// KDateComboBox was new in KDE 4.7
-// use a local copy if building in KDE 4.6
-#include <kdeversion.h>
-#if KDE_IS_VERSION(4,7,0)
-#include <kdatecombobox.h>
-#elif KDE_IS_VERSION(4,6,0)
-#include "../gui/kdatecombobox.h"
-#endif
-
-#include <QLayout>
 #include <QGroupBox>
 #include <QRadioButton>
 #include <QButtonGroup>
 #include <QLabel>
 #include <QApplication>
 #include <QFrame>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QStackedWidget>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QDialogButtonBox>
 
-using Tellico::FilterRuleWidget;
-using Tellico::FilterRuleWidgetLister;
 using Tellico::FilterDialog;
-
-FilterRuleWidget::FilterRuleWidget(Tellico::FilterRule* rule_, QWidget* parent_)
-    : KHBox(parent_), m_ruleDate(0), m_editRegExp(0), m_editRegExpDialog(0), m_ruleType(General) {
-  initLists();
-  initWidget();
-
-  if(rule_) {
-    setRule(rule_);
-  } else {
-    reset();
-  }
-}
-
-void FilterRuleWidget::initLists() {
-  //---------- initialize list of filter fields
-  if(m_ruleFieldList.isEmpty()) {
-    m_ruleFieldList.append(QLatin1Char('<') + i18n("Any Field") + QLatin1Char('>'));
-    QStringList titles = Kernel::self()->fieldTitles();
-    titles.sort();
-    m_ruleFieldList += titles;
-  }
-
-}
-
-void FilterRuleWidget::initWidget() {
-  setSpacing(4);
-
-  m_ruleField = new KComboBox(this);
-  connect(m_ruleField, SIGNAL(activated(int)), SIGNAL(signalModified()));
-  connect(m_ruleField, SIGNAL(activated(int)), SLOT(slotRuleFieldChanged(int)));
-
-  m_ruleFunc = new GUI::ComboBox(this);
-  connect(m_ruleFunc, SIGNAL(activated(int)), SIGNAL(signalModified()));
-  connect(m_ruleFunc, SIGNAL(activated(int)), SLOT(slotRuleFunctionChanged(int)));
-
-  m_valueStack = new QStackedWidget(this);
-  m_ruleValue = new KLineEdit(m_valueStack);
-  connect(m_ruleValue, SIGNAL(textChanged(const QString&)), SIGNAL(signalModified()));
-  m_valueStack->addWidget(m_ruleValue);
-
-#if KDE_IS_VERSION(4,6,0)
-  m_ruleDate = new KDateComboBox(m_valueStack);
-  connect(m_ruleDate, SIGNAL(dateChanged(const QDate&)), SIGNAL(signalModified()));
-  m_valueStack->addWidget(m_ruleDate);
-#endif
-
-  if(!KServiceTypeTrader::self()->query(QLatin1String("KRegExpEditor/KRegExpEditor")).isEmpty()) {
-    m_editRegExp = new KPushButton(i18n("Edit..."), this);
-    connect(m_editRegExp, SIGNAL(clicked()), this, SLOT(slotEditRegExp()));
-  }
-
-  m_ruleField->addItems(m_ruleFieldList);
-  updateFunctionList();
-  slotRuleFunctionChanged(m_ruleFunc->currentIndex());
-}
-
-void FilterRuleWidget::slotEditRegExp() {
-  if(!m_editRegExpDialog) {
-    m_editRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>(QLatin1String("KRegExpEditor/KRegExpEditor"),
-                                                                              QString(), this);  //krazy:exclude=qclasses
-  }
-
-  if(!m_editRegExpDialog) {
-    myWarning() << "no dialog";
-    return;
-  }
-
-  KRegExpEditorInterface* iface = ::qobject_cast<KRegExpEditorInterface*>(m_editRegExpDialog);
-  if(iface) {
-    iface->setRegExp(m_ruleValue->text());
-    if(m_editRegExpDialog->exec() == QDialog::Accepted) {
-      m_ruleValue->setText(iface->regExp());
-    }
-  }
-}
-
-void FilterRuleWidget::slotRuleFieldChanged(int which_) {
-  Q_UNUSED(which_);
-  m_ruleType = General;
-  QString fieldTitle = m_ruleField->currentText();
-  if(fieldTitle.isEmpty() || fieldTitle[0] == QLatin1Char('<')) {
-    m_ruleValue->setCompletionObject(0);
-    updateFunctionList();
-    return;
-  }
-  Data::FieldPtr field = Data::Document::self()->collection()->fieldByTitle(fieldTitle);
-  if(field && field->hasFlag(Data::Field::AllowCompletion)) {
-    FieldCompletion* completion = new FieldCompletion(field->hasFlag(Data::Field::AllowMultiple));
-    completion->setItems(Kernel::self()->valuesByFieldName(field->name()));
-    completion->setIgnoreCase(true);
-    m_ruleValue->setCompletionObject(completion);
-    m_ruleValue->setAutoDeleteCompletionObject(true);
-  } else {
-    m_ruleValue->setCompletionObject(0);
-  }
-
-  if(field) {
-    if(field->type() == Data::Field::Date) {
-      m_ruleType = Date;
-    } else if(field->type() == Data::Field::Number || field->type() == Data::Field::Rating) {
-      m_ruleType = Number;
-    }
-  }
-  updateFunctionList();
-}
-
-void FilterRuleWidget::slotRuleFunctionChanged(int which_) {
-  const QVariant data = m_ruleFunc->itemData(which_);
-  if(m_editRegExp) {
-    m_editRegExp->setEnabled(data == FilterRule::FuncRegExp ||
-                             data == FilterRule::FuncNotRegExp);
-  }
-
-  // don't show the date picker if we're using regular expressions
-  if(m_ruleType == Date && data != FilterRule::FuncRegExp && data != FilterRule::FuncNotRegExp) {
-#if KDE_IS_VERSION(4,6,0)
-    m_valueStack->setCurrentWidget(m_ruleDate);
-#else
-    // I don't want a translated message but just an unambiguous hint for older versions
-    m_ruleValue->setClickMessage(QLatin1String("2010-12-30"));
-#endif
-} else {
-    m_valueStack->setCurrentWidget(m_ruleValue);
-    m_ruleValue->setClickMessage(QString());
-    if(m_ruleType == Number) {
-      m_ruleValue->setValidator(new QIntValidator(this));
-    } else {
-      m_ruleValue->setValidator(0);
-    }
-  }
-}
-
-void FilterRuleWidget::setRule(const Tellico::FilterRule* rule_) {
-  if(!rule_) {
-    reset();
-    return;
-  }
-
-  blockSignals(true);
-
-  m_ruleType = General;
-  if(rule_->fieldName().isEmpty()) {
-    m_ruleField->setCurrentIndex(0); // "All Fields"
-  } else {
-    Data::FieldPtr field = Data::Document::self()->collection()->fieldByName(rule_->fieldName());
-    if(field && field->type() == Data::Field::Date) {
-      m_ruleType = Date;
-      const QDate date = QDate::fromString(rule_->pattern(), Qt::ISODate);
-      if(date.isValid()) {
-#if KDE_IS_VERSION(4,6,0)
-        m_ruleDate->setDate(date);
-#else
-        m_ruleValue->setText(rule_->pattern());
-#endif
-      }
-    }
-    const int idx = m_ruleField->findText(field ? field->title() : QString());
-    m_ruleField->setCurrentIndex(idx);
-  }
-
-  // update the rulle fields first, before possible values
-  slotRuleFieldChanged(m_ruleField->currentIndex());
-
-  //--------------set function and contents
-  m_ruleFunc->setCurrentData(rule_->function());
-  m_ruleValue->setText(rule_->pattern());
-
-  slotRuleFunctionChanged(m_ruleFunc->currentIndex());
-  blockSignals(false);
-}
-
-Tellico::FilterRule* FilterRuleWidget::rule() const {
-  QString fieldName; // empty string
-  if(m_ruleField->currentIndex() > 0) { // 0 is "All Fields", field is empty
-    fieldName = Kernel::self()->fieldNameByTitle(m_ruleField->currentText());
-  }
-
-  QString ruleValue;
-#if KDE_IS_VERSION(4,6,0)
-  if(m_valueStack->currentWidget() == m_ruleDate) {
-    ruleValue = m_ruleDate->date().toString(Qt::ISODate);
-  } else {
-#else
-  if(true) {
-#endif
-    ruleValue = m_ruleValue->text().trimmed();
-  }
-
-  return new FilterRule(fieldName, ruleValue,
-                        static_cast<FilterRule::Function>(m_ruleFunc->currentData().toInt()));
-}
-
-void FilterRuleWidget::reset() {
-//  myDebug();
-  blockSignals(true);
-
-  m_ruleField->setCurrentIndex(0);
-  m_ruleFunc->setCurrentIndex(0);
-  m_ruleValue->clear();
-
-  if(m_editRegExp) {
-    m_editRegExp->setEnabled(false);
-  }
-
-  blockSignals(false);
-}
-
-void FilterRuleWidget::setFocus() {
-  m_ruleValue->setFocus();
-}
-
-void FilterRuleWidget::updateFunctionList() {
-  Q_ASSERT(m_ruleFunc);
-  const QVariant data = m_ruleFunc->currentData();
-  m_ruleFunc->clear();
-  switch(m_ruleType) {
-    case Date:
-      m_ruleFunc->addItem(i18n("equals"), FilterRule::FuncEquals);
-      m_ruleFunc->addItem(i18n("does not equal"), FilterRule::FuncNotEquals);
-      m_ruleFunc->addItem(i18n("matches regexp"), FilterRule::FuncRegExp);
-      m_ruleFunc->addItem(i18n("does not match regexp"), FilterRule::FuncNotRegExp);
-      m_ruleFunc->addItem(i18nc("is before a date", "is before"), FilterRule::FuncBefore);
-      m_ruleFunc->addItem(i18nc("is after a date", "is after"), FilterRule::FuncAfter);
-      break;
-    case Number:
-      m_ruleFunc->addItem(i18n("equals"), FilterRule::FuncEquals);
-      m_ruleFunc->addItem(i18n("does not equal"), FilterRule::FuncNotEquals);
-      m_ruleFunc->addItem(i18n("matches regexp"), FilterRule::FuncRegExp);
-      m_ruleFunc->addItem(i18n("does not match regexp"), FilterRule::FuncNotRegExp);
-      m_ruleFunc->addItem(i18nc("is less than a number", "is less than"), FilterRule::FuncLess);
-      m_ruleFunc->addItem(i18nc("is greater than a number", "is greater than"), FilterRule::FuncGreater);
-      break;
-    case General:
-      m_ruleFunc->addItem(i18n("contains"), FilterRule::FuncContains);
-      m_ruleFunc->addItem(i18n("does not contain"), FilterRule::FuncNotContains);
-      m_ruleFunc->addItem(i18n("equals"), FilterRule::FuncEquals);
-      m_ruleFunc->addItem(i18n("does not equal"), FilterRule::FuncNotEquals);
-      m_ruleFunc->addItem(i18n("matches regexp"), FilterRule::FuncRegExp);
-      m_ruleFunc->addItem(i18n("does not match regexp"), FilterRule::FuncNotRegExp);
-      break;
-  }
-  m_ruleFunc->setCurrentData(data);
-  slotRuleFunctionChanged(m_ruleFunc->currentIndex());
-}
-
-/***************************************************************/
-
-namespace {
-  static const int FILTER_MIN_RULE_WIDGETS = 1;
-  static const int FILTER_MAX_RULES = 8;
-}
-
-FilterRuleWidgetLister::FilterRuleWidgetLister(QWidget* parent_)
-    : KWidgetLister(FILTER_MIN_RULE_WIDGETS, FILTER_MAX_RULES, parent_) {
-//  slotClear();
-  connect(this, SIGNAL(clearWidgets()), SIGNAL(signalModified()));
-}
-
-void FilterRuleWidgetLister::setFilter(Tellico::FilterPtr filter_) {
-//  if(mWidgetList.first()) { // move this below next 'if'?
-//    mWidgetList.first()->blockSignals(true);
-//  }
-
-  if(filter_->isEmpty()) {
-    slotClear();
-//    mWidgetList.first()->blockSignals(false);
-    return;
-  }
-
-  const int count = filter_->count();
-  if(count > mMaxWidgets) {
-    myDebug() << "more rules than allowed!";
-  }
-
-  // set the right number of widgets
-  setNumberOfShownWidgetsTo(qMax(count, mMinWidgets));
-
-  // load the actions into the widgets
-  int i = 0;
-  for( ; i < filter_->count(); ++i) {
-    static_cast<FilterRuleWidget*>(mWidgetList.at(i))->setRule(filter_->at(i));
-  }
-  for( ; i < mWidgetList.count(); ++i) { // clear any remaining
-    static_cast<FilterRuleWidget*>(mWidgetList.at(i))->reset();
-  }
-
-//  mWidgetList.first()->blockSignals(false);
-}
-
-void FilterRuleWidgetLister::reset() {
-  slotClear();
-}
-
-void FilterRuleWidgetLister::setFocus() {
-  if(!mWidgetList.isEmpty()) {
-    mWidgetList.at(0)->setFocus();
-  }
-}
-
-QWidget* FilterRuleWidgetLister::createWidget(QWidget* parent_) {
-  QWidget* w = new FilterRuleWidget(static_cast<Tellico::FilterRule*>(0), parent_);
-  connect(w, SIGNAL(signalModified()), SIGNAL(signalModified()));
-  return w;
-}
-
-void FilterRuleWidgetLister::clearWidget(QWidget* widget_) {
-  if(widget_) {
-    static_cast<FilterRuleWidget*>(widget_)->reset();
-  }
-}
-
-QList<QWidget*> FilterRuleWidgetLister::widgetList() const {
-  return mWidgetList;
-}
-
-/***************************************************************/
 
 namespace {
   static const int FILTER_MIN_WIDTH = 600;
@@ -388,24 +57,33 @@ namespace {
 // modal dialog so I don't have to worry about updating stuff
 // don't show apply button if not saving, i.e. just modifying existing filter
 FilterDialog::FilterDialog(Mode mode_, QWidget* parent_)
-    : KDialog(parent_),
-      m_filter(0), m_mode(mode_), m_saveFilter(0) {
+    : QDialog(parent_), m_filter(0), m_mode(mode_), m_saveFilter(0) {
   setModal(true);
-  setCaption(mode_ == CreateFilter ? i18n("Advanced Filter") : i18n("Modify Filter"));
-  setButtons(mode_ == CreateFilter ? Help|Ok|Apply|Cancel : Help|Ok|Cancel);
-  setDefaultButton(Ok);
-  showButtonSeparator(false);
-  init();
-}
+  setWindowTitle(mode_ == CreateFilter ? i18n("Advanced Filter") : i18n("Modify Filter"));
 
-void FilterDialog::init() {
-  QWidget* page = new QWidget(this);
-  setMainWidget(page);
-  QVBoxLayout* topLayout = new QVBoxLayout(page);
+  QVBoxLayout* topLayout = new QVBoxLayout();
+  setLayout(topLayout);
 
-  QGroupBox* m_matchGroup = new QGroupBox(i18n("Filter Criteria"), page);
+  QDialogButtonBox* buttonBox;
+  if(mode_ == CreateFilter) {
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Help|QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Apply);
+  } else {
+    buttonBox = new QDialogButtonBox(QDialogButtonBox::Help|QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+  }
+  m_okButton = buttonBox->button(QDialogButtonBox::Ok);
+  m_applyButton = buttonBox->button(QDialogButtonBox::Apply);
+  connect(m_okButton, SIGNAL(clicked()), SLOT(slotOk()));
+  if(m_applyButton) {
+    connect(m_applyButton, SIGNAL(clicked()), SLOT(slotApply()));
+  }
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+  connect(buttonBox, SIGNAL(helpRequested()), this, SLOT(slotHelp()));
+
+  QGroupBox* m_matchGroup = new QGroupBox(i18n("Filter Criteria"), this);
   QVBoxLayout* vlay = new QVBoxLayout(m_matchGroup);
   topLayout->addWidget(m_matchGroup);
+  m_matchGroup->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
   m_matchAll = new QRadioButton(i18n("Match a&ll of the following"), m_matchGroup);
   m_matchAny = new QRadioButton(i18n("Match an&y of the following"), m_matchGroup);
@@ -427,28 +105,25 @@ void FilterDialog::init() {
 
   QHBoxLayout* blay = new QHBoxLayout();
   topLayout->addLayout(blay);
-  QLabel* lab = new QLabel(i18n("Filter name:"), page);
+  QLabel* lab = new QLabel(i18n("Filter name:"), this);
   blay->addWidget(lab);
 
-  m_filterName = new KLineEdit(page);
+  m_filterName = new QLineEdit(this);
   blay->addWidget(m_filterName);
   connect(m_filterName, SIGNAL(textChanged(const QString&)), SLOT(slotFilterChanged()));
 
   // only when creating a new filter can it be saved
   if(m_mode == CreateFilter) {
-    m_saveFilter = new KPushButton(KIcon(QLatin1String("view-filter")), i18n("&Save Filter"), page);
+    m_saveFilter = new QPushButton(QIcon::fromTheme(QLatin1String("view-filter")), i18n("&Save Filter"), this);
     blay->addWidget(m_saveFilter);
     m_saveFilter->setEnabled(false);
     connect(m_saveFilter, SIGNAL(clicked()), SLOT(slotSaveFilter()));
-    enableButtonApply(false);
+    m_applyButton->setEnabled(false);
   }
-  enableButtonOk(false); // disable at start
-  button(Help)->setDefault(false); // Help automatically becomes default when OK is disabled
-  button(Cancel)->setDefault(true); // Help automatically becomes default when OK is disabled
+  m_okButton->setEnabled(false); // disable at start
+  buttonBox->button(QDialogButtonBox::Cancel)->setDefault(true);
   setMinimumWidth(qMax(minimumWidth(), FILTER_MIN_WIDTH));
-  setHelp(QLatin1String("filter-dialog"));
-  connect(this, SIGNAL(okClicked()), SLOT(slotOk()));
-  connect(this, SIGNAL(applyClicked()), SLOT(slotApply()));
+  topLayout->addWidget(buttonBox);
 }
 
 Tellico::FilterPtr FilterDialog::currentFilter(bool alwaysCreateNew_) {
@@ -500,6 +175,10 @@ void FilterDialog::slotApply() {
   emit signalUpdateFilter(currentFilter());
 }
 
+void FilterDialog::slotHelp() {
+  KHelpClient::invokeHelp(QLatin1String("filter-dialog"));
+}
+
 void FilterDialog::slotClear() {
 //  myDebug();
   m_matchAll->setChecked(true);
@@ -520,11 +199,15 @@ void FilterDialog::slotFilterChanged() {
   const bool enableOk = !currentFilter()->isEmpty() || hadFilter;
   if(m_saveFilter) {
     m_saveFilter->setEnabled(!m_filterName->text().isEmpty() && !emptyFilter);
-    enableButtonApply(!emptyFilter);
+    if(m_applyButton) {
+      m_applyButton->setEnabled(!emptyFilter);
+    }
   }
-  enableButtonApply(enableOk);
-  enableButtonOk(enableOk);
-  button(Ok)->setDefault(enableOk);
+  if(m_applyButton) {
+    m_applyButton->setEnabled(enableOk);
+  }
+  m_okButton->setEnabled(enableOk);
+  m_okButton->setDefault(enableOk);
 }
 
 void FilterDialog::slotSaveFilter() {
@@ -547,5 +230,3 @@ void FilterDialog::slotSaveFilter() {
   }
   Kernel::self()->addFilter(filter);
 }
-
-#include "filterdialog.moc"

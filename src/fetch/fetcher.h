@@ -34,9 +34,10 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QExplicitlySharedDataPointer>
 
 class KConfigGroup;
-class KUrl;
+class QUrl;
 
 namespace Tellico {
   namespace Fetch {
@@ -52,8 +53,7 @@ class Fetcher : public QObject, public QSharedData {
 Q_OBJECT
 
 public:
-  typedef KSharedPtr<Fetcher> Ptr;
-  typedef KSharedPtr<const Fetcher> CPtr;
+  typedef QExplicitlySharedDataPointer<Fetcher> Ptr;
 
   /**
    */
@@ -135,9 +135,9 @@ public:
   virtual ConfigWidget* configWidget(QWidget* parent) const = 0;
 
   static QString favIcon(const char* url);
-  static QString favIcon(const KUrl& url);
+  static QString favIcon(const QUrl& url);
 
-signals:
+Q_SIGNALS:
 //  void signalStatus(const QString& status);
   void signalResultFound(Tellico::Fetch::FetchResult* result);
   void signalDone(Tellico::Fetch::Fetcher* fetcher);

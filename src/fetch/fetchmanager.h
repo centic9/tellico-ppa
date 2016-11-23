@@ -28,13 +28,14 @@
 #include "fetcher.h"
 
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QObject>
 #include <QMap>
 #include <QList>
 #include <QPixmap>
 
-class KUrl;
+class QUrl;
 
 namespace Tellico {
   namespace Fetch {
@@ -85,7 +86,7 @@ public:
   bool canFetch() const;
   bool hasMoreResults() const;
   void loadFetchers();
-  const FetcherVec& fetchers() const { return m_fetchers; }
+  const FetcherVec& fetchers() const;
   FetcherVec fetchers(int type);
   Fetcher::Ptr fetcherByUuid(const QString& uuid);
   NameTypeMap nameTypeMap();
@@ -107,12 +108,12 @@ public:
   static QPixmap fetcherIcon(Fetcher::Ptr ptr, int iconGroup=3 /*Small*/, int size=0 /* default*/);
   static StringHash optionalFields(Type type);
 
-signals:
+Q_SIGNALS:
   void signalStatus(const QString& status);
   void signalResultFound(Tellico::Fetch::FetchResult* result);
   void signalDone();
 
-private slots:
+private Q_SLOTS:
   void slotFetcherDone(Tellico::Fetch::Fetcher* fetcher);
 
 private:
@@ -121,7 +122,7 @@ private:
   static Manager* s_self;
 
   Manager();
-  Fetcher::Ptr createFetcher(KSharedPtr<KSharedConfig> config, const QString& configGroup);
+  Fetcher::Ptr createFetcher(KSharedConfigPtr config, const QString& configGroup);
   FetcherVec defaultFetchers();
   void updateStatus(const QString& message);
 

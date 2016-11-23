@@ -33,13 +33,12 @@
 #include "../tellico_debug.h"
 #include "../progressmanager.h"
 
-#include <klocale.h>
-#include <kconfig.h>
-#include <kzip.h>
-#include <kapplication.h>
+#include <KLocalizedString>
+#include <KZip>
 
-#include <qdom.h>
+#include <QDomDocument>
 #include <QBuffer>
+#include <QApplication>
 
 using namespace Tellico;
 using Tellico::Export::TellicoZipExporter;
@@ -53,7 +52,7 @@ QString TellicoZipExporter::formatString() const {
 }
 
 QString TellicoZipExporter::fileFilter() const {
-  return i18n("*.tc *.bc|Tellico Files (*.tc)") + QLatin1Char('\n') + i18n("*|All Files");
+  return i18n("Tellico Files") + QLatin1String(" (*.tc *.bc)") + QLatin1String(";;") + i18n("All Files") + QLatin1String(" (*)");
 }
 
 bool TellicoZipExporter::exec() {
@@ -91,7 +90,7 @@ bool TellicoZipExporter::exec() {
 
   KZip zip(&buf);
   zip.open(QIODevice::WriteOnly);
-  zip.writeFile(QLatin1String("tellico.xml"), QString(), QString(), xml, xml.size());
+  zip.writeFile(QLatin1String("tellico.xml"), xml);
 
   if(m_includeImages) {
     ProgressManager::self()->setProgress(this, 10);
@@ -128,11 +127,11 @@ bool TellicoZipExporter::exec() {
         }
         QByteArray ba = img.byteArray();
 //        myDebug() << "adding image id = " << it->field(fIt);
-        zip.writeFile(imagesDir + id, QString(), QString(), ba, ba.size());
+        zip.writeFile(imagesDir + id, ba);
         imageSet.add(id);
         if(j%stepSize == 0) {
           ProgressManager::self()->setProgress(this, qMin(10+j/stepSize, 99));
-          kapp->processEvents();
+          qApp->processEvents();
         }
         ++j;
       }
@@ -153,5 +152,3 @@ bool TellicoZipExporter::exec() {
 void TellicoZipExporter::slotCancel() {
   m_cancelled = true;
 }
-
-#include "tellicozipexporter.moc"

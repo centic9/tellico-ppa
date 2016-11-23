@@ -28,8 +28,7 @@
 #include "importer.h"
 #include "../datavectors.h"
 
-#include <kio/global.h>
-#include <kfileitem.h>
+#include <KFileItem>
 
 #include <QPointer>
 #include <QPixmap>
@@ -49,7 +48,7 @@ class FileListingImporter : public Importer {
 Q_OBJECT
 
 public:
-  FileListingImporter(const KUrl& url);
+  FileListingImporter(const QUrl& url);
 
   /**
    * @return A pointer to a @ref Data::Collection, or 0 if none can be created.
@@ -60,10 +59,10 @@ public:
   virtual QWidget* widget(QWidget*);
   virtual bool canImport(int type) const;
 
-public slots:
+public Q_SLOTS:
   void slotCancel();
 
-private slots:
+private Q_SLOTS:
   void slotEntries(KIO::Job* job, const KIO::UDSEntryList& list);
 
 private:
@@ -76,7 +75,7 @@ private:
   QPointer<KIO::Job> m_job;
   KFileItemList m_files;
   QPixmap m_pixmap;
-  bool m_cancelled : 1;
+  bool m_cancelled;
 };
 
   } // end namespace

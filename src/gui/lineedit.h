@@ -29,14 +29,12 @@
 
 #include <QString>
 
-class KAction;
+class QAction;
 class KSpell;
 namespace Sonnet {
   class Dialog;
 }
 
-class QFocusEvent;
-class QPaintEvent;
 class QContextMenuEvent;
 
 namespace Tellico {
@@ -45,7 +43,7 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class LineEdit : public KLineEdit {
+class LineEdit : public KLineEdit { //krazy:exclude=qclasses
 Q_OBJECT
 
 public:
@@ -59,14 +57,14 @@ public:
 protected:
   virtual void contextMenuEvent(QContextMenuEvent* event);
 
-private slots:
+private Q_SLOTS:
   void slotCheckSpelling();
   void slotSpellCheckDone(const QString& text);
   void spellCheckerMisspelling(const QString& text, int pos);
   void spellCheckerCorrected(const QString& oldText, int pos, const QString& newText);
 
 private:
-  KAction* m_spellAction;
+  QAction* m_spellAction;
   bool m_allowSpellCheck;
   bool m_enableSpellCheck;
   Sonnet::Dialog* m_sonnetDialog;

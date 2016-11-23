@@ -31,14 +31,13 @@
 #include "../core/filehandler.h"
 #include "../images/imagefactory.h"
 #include "../images/image.h"
-#include "../gui/cursorsaver.h"
+#include "../utils/cursorsaver.h"
+#include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
-#include <kstandarddirs.h>
-#include <kapplication.h>
-#include <kzip.h>
+#include <KZip>
 #include <KConfigGroup>
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <QDomDocument>
 #include <QFile>
@@ -55,7 +54,8 @@ ONIXExporter::ONIXExporter(Tellico::Data::CollPtr coll_) : Tellico::Export::Expo
     m_handler(0),
     m_xsltFile(QLatin1String("tellico2onix.xsl")),
     m_includeImages(true),
-    m_widget(0) {
+    m_widget(0),
+    m_checkIncludeImages(0) {
 }
 
 ONIXExporter::~ONIXExporter() {
@@ -68,7 +68,7 @@ QString ONIXExporter::formatString() const {
 }
 
 QString ONIXExporter::fileFilter() const {
-  return i18n("*.zip|Zip Files (*.zip)") + QLatin1Char('\n') + i18n("*|All Files");
+  return i18n("Zip Files") + QLatin1String(" (*.zip)") + QLatin1String(";;") + i18n("All Files") + QLatin1String(" (*)");
 }
 
 bool ONIXExporter::exec() {
@@ -84,7 +84,7 @@ bool ONIXExporter::exec() {
 
   KZip zip(&buf);
   zip.open(QIODevice::WriteOnly);
-  zip.writeFile(QLatin1String("onix.xml"), QString(), QString(), xml, xml.size());
+  zip.writeFile(QLatin1String("onix.xml"), xml);
 
   // use a dict for fast random access to keep track of which images were written to the file
   if(m_includeImages) { // for now, we're ignoring (options() & Export::ExportImages)
@@ -95,8 +95,7 @@ bool ONIXExporter::exec() {
       if(!img.isNull() && !imageSet.has(img.id())
          && (img.format() == "JPEG" || img.format() == "JPG" || img.format() == "GIF")) { /// onix only understands jpeg and gif
         QByteArray ba = img.byteArray();
-        zip.writeFile(QLatin1String("images/") + entry->field(cover),
-                      QString(), QString(), ba, ba.size());
+        zip.writeFile(QLatin1String("images/") + entry->field(cover), ba);
         imageSet.add(img.id());
       }
     }
@@ -108,8 +107,8 @@ bool ONIXExporter::exec() {
 }
 
 QString ONIXExporter::text() {
-  QString xsltfile = KStandardDirs::locate("appdata", m_xsltFile);
-  if(xsltfile.isNull()) {
+  QString xsltFile = DataFileRegistry::self()->locate(m_xsltFile);
+  if(xsltFile.isNull()) {
     myDebug() << "no xslt file for " << m_xsltFile;
     return QString();
   }
@@ -124,14 +123,13 @@ QString ONIXExporter::text() {
   // all params should be passed to XSLTHandler in utf8
   // input string to XSLTHandler should be in utf-8, EVEN IF DOM STRING SAYS OTHERWISE
 
-  KUrl u;
-  u.setPath(xsltfile);
+  QUrl u = QUrl::fromLocalFile(xsltFile);
   // do NOT do namespace processing, it messes up the XSL declaration since
   // QDom thinks there are no elements in the Tellico namespace and as a result
   // removes the namespace declaration
   QDomDocument dom = FileHandler::readXMLDocument(u, false);
   if(dom.isNull()) {
-    myDebug() << "error loading xslt file: " << xsltfile;
+    myDebug() << "error loading xslt file: " << xsltFile;
     return QString();
   }
 
@@ -142,7 +140,7 @@ QString ONIXExporter::text() {
   }
 
   delete m_handler;
-  m_handler = new XSLTHandler(dom, QFile::encodeName(xsltfile));
+  m_handler = new XSLTHandler(dom, QFile::encodeName(xsltFile));
 
   QDateTime now = QDateTime::currentDateTime();
   m_handler->addStringParam("sentDate", now.toString(QLatin1String("yyyyMMddhhmm")).toUtf8());
@@ -204,5 +202,3 @@ void ONIXExporter::saveOptions(KSharedConfigPtr config_) {
   KConfigGroup group(config_, QString::fromLatin1("ExportOptions - %1").arg(formatString()));
   group.writeEntry("Include Images", m_includeImages);
 }
-
-#include "onixexporter.moc"

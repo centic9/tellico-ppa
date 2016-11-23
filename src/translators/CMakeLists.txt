@@ -1,4 +1,3 @@
-
 ########### next target ###############
 
 SET(translators_STAT_SRCS
@@ -8,7 +7,6 @@ SET(translators_STAT_SRCS
    amcimporter.cpp
    audiofileimporter.cpp
    bibtexexporter.cpp
-   bibtexhandler.cpp
    bibteximporter.cpp
    bibtexmlexporter.cpp
    bibtexmlimporter.cpp
@@ -32,7 +30,6 @@ SET(translators_STAT_SRCS
    importer.cpp
    onixexporter.cpp
    pdfimporter.cpp
-   pilotdbexporter.cpp
    referencerimporter.cpp
    risimporter.cpp
    tellico_xml.cpp
@@ -50,44 +47,56 @@ SET(translators_STAT_SRCS
    xsltimporter.cpp
    )
 
-KDE4_ADD_LIBRARY(translators STATIC ${translators_STAT_SRCS})
+add_library(translators STATIC ${translators_STAT_SRCS})
 TARGET_LINK_LIBRARIES(translators
     collections
     tellicomodels
-    btparse
-    csv
-    rtf2html
+    core
+    gui
+    images
+    utils
+    ${TELLICO_BTPARSE_LIBS}
+    ${TELLICO_CSV_LIBS}
+    rtf2html-tellico
     )
 
 TARGET_LINK_LIBRARIES(translators
+    KF5::Archive
+    KF5::JobWidgets
+    KF5::Solid
     ${LIBXML2_LIBRARIES}
     ${LIBXSLT_LIBRARIES}
-    ${LIBEXSLT_LIBRARIES}
+    ${LIBXSLT_EXSLT_LIBRARIES}
     )
 
-IF( NEPOMUK_FOUND )
-  ADD_DEFINITIONS( -DDISABLE_NEPOMUK_LEGACY )
-  TARGET_LINK_LIBRARIES(translators ${NEPOMUK_LIBRARIES})
-ENDIF( NEPOMUK_FOUND)
+IF( KF5Cddb_FOUND )
+  TARGET_LINK_LIBRARIES(translators KF5::Cddb)
+ELSEIF( Libkcddb_FOUND )
+  TARGET_LINK_LIBRARIES(translators KDE::Libkcddb::kcddb)
+ENDIF( KF5Cddb_FOUND)
 
-IF( KCDDB_FOUND )
-  TARGET_LINK_LIBRARIES(translators ${KCDDB_LIBRARIES})
-ENDIF( KCDDB_FOUND)
+IF( Poppler_Qt5_FOUND )
+  TARGET_LINK_LIBRARIES(translators ${Poppler_Qt5_LIBRARIES})
+ENDIF( Poppler_Qt5_FOUND )
 
-IF( POPPLER_QT4_FOUND )
-  TARGET_LINK_LIBRARIES(translators ${POPPLER_QT4_LIBRARIES})
-ENDIF( POPPLER_QT4_FOUND )
-
-IF( LIBEXEMPI_FOUND )
-  TARGET_LINK_LIBRARIES(translators ${LIBEXEMPI_LIBRARIES})
-ENDIF( LIBEXEMPI_FOUND )
+IF( Exempi_FOUND )
+  TARGET_LINK_LIBRARIES(translators ${Exempi_LIBRARIES})
+ENDIF( Exempi_FOUND )
 
 IF( TAGLIB_FOUND )
   TARGET_LINK_LIBRARIES(translators ${TAGLIB_LIBRARIES})
 ENDIF( TAGLIB_FOUND )
 
+IF( DiscID_FOUND )
+  TARGET_LINK_LIBRARIES(translators ${DiscID_LIBRARIES})
+ENDIF( DiscID_FOUND )
+
+IF( KF5FileMetaData_FOUND )
+  TARGET_LINK_LIBRARIES(translators KF5::FileMetaData)
+ENDIF( KF5FileMetaData_FOUND )
+
 ADD_DEPENDENCIES(translators tellico_config)
 
 ########### install files ###############
 
-INSTALL(FILES   bibtex-translation.xml DESTINATION ${TELLICO_DATA_INSTALL_DIR} )
+INSTALL(FILES bibtex-translation.xml DESTINATION ${TELLICO_DATA_INSTALL_DIR})

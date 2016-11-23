@@ -34,17 +34,17 @@
 #include "models/models.h"
 #include "gui/countdelegate.h"
 
-#include <klocale.h>
-#include <kmenu.h>
-#include <kicon.h>
+#include <KLocalizedString>
 
+#include <QMenu>
+#include <QIcon>
 #include <QHeaderView>
 #include <QContextMenuEvent>
 
 using Tellico::LoanView;
 
 LoanView::LoanView(QWidget* parent_) : GUI::TreeView(parent_), m_notSortedYet(true) {
-  header()->setResizeMode(QHeaderView::Stretch);
+  header()->setSectionResizeMode(QHeaderView::Stretch);
   setHeaderHidden(false);
   setSelectionMode(QAbstractItemView::ExtendedSelection);
 
@@ -59,6 +59,7 @@ LoanView::LoanView(QWidget* parent_) : GUI::TreeView(parent_), m_notSortedYet(tr
   sortModel->setSourceModel(borrowerModel);
   setModel(sortModel);
   setItemDelegate(new GUI::CountDelegate(this));
+  updateHeader();
 }
 
 /*
@@ -113,37 +114,13 @@ void LoanView::contextMenuEvent(QContextMenuEvent* event_) {
 
   // no parent means it's a top-level item
   if(index.parent().isValid()) {
-    KMenu menu(this);
-    menu.addAction(KIcon(QLatin1String("arrow-down-double")),
+    QMenu menu(this);
+    menu.addAction(QIcon::fromTheme(QLatin1String("arrow-down-double")),
                    i18n("Check-in"), this, SLOT(slotCheckIn()));
-    menu.addAction(KIcon(QLatin1String("arrow-down-double")),
+    menu.addAction(QIcon::fromTheme(QLatin1String("arrow-down-double")),
                    i18n("Modify Loan..."), this, SLOT(slotModifyLoan()));
     menu.exec(event_->globalPos());
   }
-}
-
-void LoanView::selectionChanged(const QItemSelection& selected_, const QItemSelection& deselected_) {
-//  DEBUG_BLOCK;
-  QAbstractItemView::selectionChanged(selected_, deselected_);
-  // ignore the selected and deselected variables
-  // we want to grab all the currently selected ones
-  QSet<Data::EntryPtr> entries;
-  foreach(const QModelIndex& index, selectionModel()->selectedIndexes()) {
-    QModelIndex realIndex = sortModel()->mapToSource(index);
-    Data::EntryPtr entry = sourceModel()->entry(realIndex);
-    if(entry) {
-      entries += entry;
-    } else {
-      QModelIndex child = realIndex.child(0, 0);
-      for( ; child.isValid(); child = child.sibling(child.row()+1, 0)) {
-        entry = sourceModel()->entry(child);
-        if(entry) {
-          entries += entry;
-        }
-      }
-    }
-  }
-  Controller::self()->slotUpdateSelection(this, entries.toList());
 }
 
 void LoanView::slotDoubleClicked(const QModelIndex& index_) {
@@ -225,5 +202,3 @@ void LoanView::updateHeader() {
     model()->setHeaderData(0, Qt::Horizontal, i18n("Borrower (Sort by Count)"));
   }
 }
-
-#include "loanview.moc"

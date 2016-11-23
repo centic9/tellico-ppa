@@ -22,89 +22,134 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "borrowerdialog.h"
+#include "document.h"
+#include "collection.h"
+#include "../tellico_debug.h"
+
+#include <KLocalizedString>
+#include <KLineEdit>
+#include <KJob>
+
+#ifdef HAVE_KABC
 #ifdef QT_STRICT_ITERATORS
 #define WAS_STRICT
 #undef QT_STRICT_ITERATORS
 #endif
 
-#include "borrowerdialog.h"
-#include "document.h"
-#include "collection.h"
-
-#include <klocale.h>
-#include <klineedit.h>
-#ifdef HAVE_KABC
-#include <kabc/addressee.h>
-#include <kabc/stdaddressbook.h>
-#endif
-
-#include <QVBoxLayout>
+#include <kcontacts/addressee.h>
+#include <Akonadi/Contact/ContactSearchJob>
 
 #ifdef WAS_STRICT
 #define QT_STRICT_ITERATORS
 #undef WAS_STRICT
 #endif
+#endif
+
+#include <QVBoxLayout>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 using Tellico::BorrowerDialog;
 
 #ifdef HAVE_KABC
-BorrowerDialog::Item::Item(QTreeWidget* parent_, const KABC::Addressee& add_)
+BorrowerDialog::Item::Item(QTreeWidget* parent_, const KContacts::Addressee& add_)
     : QTreeWidgetItem(parent_), m_uid(add_.uid()) {
   setData(0, Qt::DisplayRole, add_.realName().trimmed());
-  setData(0, Qt::DecorationRole, KIcon(QLatin1String("kaddressbook")));
+  setData(0, Qt::DecorationRole, QIcon::fromTheme(QLatin1String("kaddressbook")));
 }
 #endif
 
 BorrowerDialog::Item::Item(QTreeWidget* parent_, const Tellico::Data::Borrower& bor_)
     : QTreeWidgetItem(parent_), m_uid(bor_.uid()) {
   setData(0, Qt::DisplayRole, bor_.name());
-  setData(0, Qt::DecorationRole, KIcon(QLatin1String("tellico")));
+  setData(0, Qt::DecorationRole, QIcon::fromTheme(QLatin1String("tellico")));
 }
 
 // default button is going to be used as a print button, so it's separated
 BorrowerDialog::BorrowerDialog(QWidget* parent_)
-    : KDialog(parent_) {
+    : QDialog(parent_) {
   setModal(true);
-  setCaption(i18n("Select Borrower"));
-  setButtons(Ok | Cancel);
+  setWindowTitle(i18n("Select Borrower"));
+
+  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+  QVBoxLayout *mainLayout = new QVBoxLayout(this);
+  setLayout(mainLayout);
 
   QWidget* mainWidget = new QWidget(this);
-  setMainWidget(mainWidget);
-  QVBoxLayout* topLayout = new QVBoxLayout(mainWidget);
+  mainLayout->addWidget(mainWidget);
+
+  QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
+  okButton->setDefault(true);
+  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
   m_treeWidget = new QTreeWidget(mainWidget);
-  topLayout->addWidget(m_treeWidget);
+  mainLayout->addWidget(m_treeWidget);
   m_treeWidget->setHeaderLabel(i18n("Name"));
+  m_treeWidget->setRootIsDecorated(false);
   connect(m_treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
           SLOT(accept()));
   connect(m_treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
           SLOT(updateEdit(QTreeWidgetItem*)));
 
-  m_lineEdit = new KLineEdit(mainWidget);
-  topLayout->addWidget(m_lineEdit);
+  m_lineEdit = new KLineEdit(mainWidget); //krazy:exclude=qclasses
+  mainLayout->addWidget(m_lineEdit);
   connect(m_lineEdit->completionObject(), SIGNAL(match(const QString&)),
           SLOT(selectItem(const QString&)));
   m_lineEdit->setFocus();
   m_lineEdit->completionObject()->setIgnoreCase(true);
 
+  mainLayout->addWidget(buttonBox);
+
 #ifdef HAVE_KABC
-  KABC::AddressBook* abook = KABC::StdAddressBook::self(true);
-  connect(abook, SIGNAL(addressBookChanged(AddressBook*)),
-          SLOT(slotLoadAddressBook()));
-  connect(abook, SIGNAL(loadingFinished(Resource*)),
-          SLOT(slotLoadAddressBook()));
+  // Search for all existing contacts
+  Akonadi::ContactSearchJob* job = new Akonadi::ContactSearchJob();
+  connect(job, SIGNAL(result(KJob*)), this, SLOT(akonadiSearchResult(KJob*)));
 #endif
-  slotLoadAddressBook();
+
+  populateBorrowerList();
 
   setMinimumWidth(400);
 }
 
-void BorrowerDialog::slotLoadAddressBook() {
+void BorrowerDialog::akonadiSearchResult(KJob* job_) {
+  if(job_->error() != 0) {
+    myDebug() << job_->errorString();
+    return;
+  }
+
+#ifdef HAVE_KABC
+  Akonadi::ContactSearchJob* searchJob = qobject_cast<Akonadi::ContactSearchJob*>(job_);
+  Q_ASSERT(searchJob);
+
+  populateBorrowerList();
+
+  foreach(const KContacts::Addressee& addressee, searchJob->contacts()) {
+    // skip people with no name
+    const QString name = addressee.realName().trimmed();
+    if(name.isEmpty()) {
+      continue;
+    }
+    if(m_itemHash.contains(name)) {
+      continue; // if an item already exists with this name
+    }
+    Item* item = new Item(m_treeWidget, addressee);
+    m_itemHash.insert(name, item);
+    m_lineEdit->completionObject()->addItem(name);
+  }
+#endif
+
+  m_treeWidget->sortItems(0, Qt::AscendingOrder);
+}
+
+void BorrowerDialog::populateBorrowerList() {
   m_treeWidget->clear();
   m_itemHash.clear();
   m_lineEdit->completionObject()->clear();
 
-  // Bug 307958 - KABC::Addressee uids are not constant
+  // Bug 307958 - KContacts::Addressee uids are not constant
   // so populate the borrower list with the existing borrowers
   // before adding ones from address book
   Data::BorrowerList borrowers = Data::Document::self()->collection()->borrowers();
@@ -119,25 +164,6 @@ void BorrowerDialog::slotLoadAddressBook() {
     m_itemHash.insert(bor->name(), item);
     m_lineEdit->completionObject()->addItem(bor->name());
   }
-
-#ifdef HAVE_KABC
-  const KABC::AddressBook* const abook = KABC::StdAddressBook::self(true);
-  for(KABC::AddressBook::ConstIterator it = abook->begin(), end = abook->end();
-      it != end; ++it) {
-    // skip people with no name
-    const QString name = (*it).realName().trimmed();
-    if(name.isEmpty()) {
-      continue;
-    }
-    if(m_itemHash.contains(name)) {
-      continue; // if an item already exists with this name
-    }
-    Item* item = new Item(m_treeWidget, *it);
-    m_itemHash.insert(name, item);
-    m_lineEdit->completionObject()->addItem(name);
-  }
-#endif
-
   m_treeWidget->sortItems(0, Qt::AscendingOrder);
 }
 
@@ -175,5 +201,3 @@ Tellico::Data::BorrowerPtr BorrowerDialog::getBorrower(QWidget* parent_) {
   }
   return Data::BorrowerPtr();
 }
-
-#include "borrowerdialog.moc"

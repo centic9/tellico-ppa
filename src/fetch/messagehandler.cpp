@@ -24,10 +24,10 @@
 
 #include "messagehandler.h"
 #include "fetchmanager.h"
-#include "../gui/guiproxy.h"
-#include "../gui/cursorsaver.h"
+#include "../utils/guiproxy.h"
+#include "../utils/cursorsaver.h"
 
-#include <kmessagebox.h>
+#include <KMessageBox>
 
 using Tellico::Fetch::ManagerMessage;
 

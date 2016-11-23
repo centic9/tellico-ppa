@@ -22,32 +22,30 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
+#include <config.h> // for TELLICO_VERSION
+
 #include "discogsfetcher.h"
 #include "../collections/musiccollection.h"
 #include "../images/imagefactory.h"
-#include "../gui/guiproxy.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../core/filehandler.h"
-#include "../tellico_utils.h"
 #include "../tellico_debug.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigGroup>
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
-#include <KLineEdit>
+#include <KIO/Job>
+#include <KJobUiDelegate>
+#include <KJobWidgets/KJobWidgets>
 
+#include <QLineEdit>
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QBoxLayout>
-#include <QDomDocument>
-#include <QTextCodec>
-
-#ifdef HAVE_QJSON
-#include <qjson/serializer.h>
-#include <qjson/parser.h>
-#endif
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QUrlQuery>
 
 namespace {
   static const int DISCOGS_MAX_RETURNS_TOTAL = 20;
@@ -70,11 +68,7 @@ QString DiscogsFetcher::source() const {
 }
 
 bool DiscogsFetcher::canSearch(FetchKey k) const {
-#ifdef HAVE_QJSON
   return k == Title || k == Person || k == Keyword;
-#else
-  return false;
-#endif
 }
 
 bool DiscogsFetcher::canFetch(int type) const {
@@ -89,7 +83,6 @@ void DiscogsFetcher::readConfigHook(const KConfigGroup& config_) {
 }
 
 void DiscogsFetcher::search() {
-#ifdef HAVE_QJSON
   m_started = true;
 
   if(m_apiKey.isEmpty()) {
@@ -100,29 +93,30 @@ void DiscogsFetcher::search() {
     return;
   }
 
-  KUrl u(DISCOGS_API_URL);
+  QUrl u(QString::fromLatin1(DISCOGS_API_URL));
 
+  QUrlQuery q;
   switch(request().key) {
     case Title:
       u.setPath(QLatin1String("/database/search"));
-      u.addQueryItem(QLatin1String("release_title"), request().value);
-      u.addQueryItem(QLatin1String("type"), QLatin1String("release"));
+      q.addQueryItem(QLatin1String("release_title"), request().value);
+      q.addQueryItem(QLatin1String("type"), QLatin1String("release"));
       break;
 
     case Person:
       u.setPath(QLatin1String("/database/search"));
-      u.addQueryItem(QLatin1String("artist"), request().value);
-      u.addQueryItem(QLatin1String("type"), QLatin1String("release"));
+      q.addQueryItem(QLatin1String("artist"), request().value);
+      q.addQueryItem(QLatin1String("type"), QLatin1String("release"));
       break;
 
     case Keyword:
       u.setPath(QLatin1String("/database/search"));
-      u.addQueryItem(QLatin1String("q"), request().value);
+      q.addQueryItem(QLatin1String("q"), request().value);
       break;
 
     case Raw:
       u.setPath(QLatin1String("/database/search"));
-      u.setEncodedQuery(request().value.toUtf8());
+      q.setQuery(request().value);
       break;
 
     default:
@@ -130,18 +124,16 @@ void DiscogsFetcher::search() {
       stop();
       return;
   }
-  u.addQueryItem(QLatin1String("token"), m_apiKey);
+  q.addQueryItem(QLatin1String("token"), m_apiKey);
+  u.setQuery(q);
 
 //  myDebug() << "url: " << u.url();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   m_job->addMetaData(QLatin1String("UserAgent"), QString::fromLatin1("Tellico/%1")
                                                                 .arg(QLatin1String(TELLICO_VERSION)));
-  m_job->ui()->setWindow(GUI::Proxy::widget());
+  KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
-#else
-  stop();
-#endif
 }
 
 void DiscogsFetcher::stop() {
@@ -163,11 +155,10 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHook(uint uid_) {
     return Data::EntryPtr();
   }
 
-#ifdef HAVE_QJSON
   QString id = entry->field(QLatin1String("discogs-id"));
   if(!id.isEmpty()) {
     // quiet
-    KUrl u(DISCOGS_API_URL);
+    QUrl u(QString::fromLatin1(DISCOGS_API_URL));
     u.setPath(QString::fromLatin1("/releases/%1").arg(id));
     QByteArray data = FileHandler::readDataFile(u, true);
 
@@ -182,15 +173,19 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHook(uint uid_) {
     f.close();
 #endif
 
-    QJson::Parser parser;
-    populateEntry(entry, parser.parse(data).toMap(), true);
+    QJsonParseError error;
+    QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+    if(error.error == QJsonParseError::NoError) {
+      populateEntry(entry, doc.object().toVariantMap(), true);
+    } else {
+      myDebug() << "Bad JSON results";
+    }
   }
-#endif
 
   const QString image_id = entry->field(QLatin1String("cover"));
   // if it's still a url, we need to load it
   if(image_id.contains(QLatin1Char('/'))) {
-    const QString id = ImageFactory::addImage(image_id, true /* quiet */);
+    const QString id = ImageFactory::addImage(QUrl::fromUserInput(image_id), true /* quiet */);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
@@ -219,7 +214,6 @@ Tellico::Fetch::FetchRequest DiscogsFetcher::updateRequest(Data::EntryPtr entry_
 
 void DiscogsFetcher::slotComplete(KJob* job_) {
   KIO::StoredTransferJob* job = static_cast<KIO::StoredTransferJob*>(job_);
-#ifdef HAVE_QJSON
 //  myDebug();
 
   if(job->error()) {
@@ -275,8 +269,9 @@ void DiscogsFetcher::slotComplete(KJob* job_) {
     coll->addField(field);
   }
 
-  QJson::Parser parser;
-  const QVariantMap resultMap = parser.parse(data).toMap();
+  QJsonDocument doc = QJsonDocument::fromJson(data);
+//  const QVariantMap resultMap = doc.object().toVariantMap().value(QLatin1String("feed")).toMap();
+  const QVariantMap resultMap = doc.object().toVariantMap();
 
   if(value(resultMap, "message").startsWith(QLatin1String("Invalid consumer token"))) {
     message(i18n("The Discogs.com server reports a token error."),
@@ -302,7 +297,6 @@ void DiscogsFetcher::slotComplete(KJob* job_) {
     ++count;
   }
 
-#endif
   stop();
 }
 
@@ -324,9 +318,8 @@ void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& res
   }
   entry_->setField(QLatin1String("label"), labels.join(FieldFormat::delimiterString()));
 
-  // thumb images are only returned in search, not in a full request
-  // so include them now, even though they're only needed for full data
-  const QString coverUrl = value(resultMap_, "thumb");
+  /* thumb value is not always in the full data, so go ahead and set it now */
+  QString coverUrl = value(resultMap_, "thumb");
   if(!coverUrl.isEmpty()) {
     entry_->setField(QLatin1String("cover"), coverUrl);
   }
@@ -447,7 +440,7 @@ DiscogsFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const DiscogsFetche
   QLabel* label = new QLabel(i18n("User token: "), optionsWidget());
   l->addWidget(label, ++row, 0);
 
-  m_apiKeyEdit = new KLineEdit(optionsWidget());
+  m_apiKeyEdit = new QLineEdit(optionsWidget());
   connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_apiKeyEdit, row, 1);
   label->setBuddy(m_apiKeyEdit);
@@ -486,5 +479,3 @@ QString DiscogsFetcher::value(const QVariantMap& map, const char* name) {
     return QString();
   }
 }
-
-#include "discogsfetcher.moc"

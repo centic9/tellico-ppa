@@ -37,10 +37,6 @@ namespace KIO {
   class StoredTransferJob;
 }
 
-namespace QJson {
-  class Parser;
-}
-
 namespace Tellico {
   namespace Fetch {
 
@@ -88,7 +84,7 @@ public:
   static QString defaultIcon();
   static StringHash allOptionalFields();
 
-private slots:
+private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:
@@ -104,7 +100,6 @@ private:
   QHash<int, Data::EntryPtr> m_entries;
 
   bool m_started;
-  QJson::Parser* m_parser;
   QHash<QString, QString> m_keywordHash;
 
   int m_start;

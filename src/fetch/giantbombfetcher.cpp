@@ -25,11 +25,11 @@
 #include "giantbombfetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../gui/guiproxy.h"
-#include "../tellico_utils.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 #include <KConfigGroup>
 
 #include <QLabel>
@@ -38,6 +38,7 @@
 #include <QGridLayout>
 #include <QDomDocument>
 #include <QTextCodec>
+#include <QUrlQuery>
 
 namespace {
   static const int GIANTBOMB_MAX_RETURNS_TOTAL = 20;
@@ -50,6 +51,7 @@ using Tellico::Fetch::GiantBombFetcher;
 
 GiantBombFetcher::GiantBombFetcher(QObject* parent_)
     : XMLFetcher(parent_)
+    , m_total(-1)
     , m_apiKey(QLatin1String(GIANTBOMB_API_KEY)) {
   setLimit(GIANTBOMB_MAX_RETURNS_TOTAL);
   setXSLTFilename(QLatin1String("giantbomb2tellico.xsl"));
@@ -77,22 +79,24 @@ void GiantBombFetcher::resetSearch() {
   m_total = -1;
 }
 
-KUrl GiantBombFetcher::searchUrl() {
-  KUrl u(GIANTBOMB_API_URL);
-  u.addQueryItem(QLatin1String("format"), QLatin1String("xml"));
-  u.addQueryItem(QLatin1String("api_key"), m_apiKey);
+QUrl GiantBombFetcher::searchUrl() {
+  QUrl u(QString::fromLatin1(GIANTBOMB_API_URL));
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("format"), QLatin1String("xml"));
+  q.addQueryItem(QLatin1String("api_key"), m_apiKey);
 
   switch(request().key) {
     case Keyword:
       u.setPath(QLatin1String("/search"));
-      u.addQueryItem(QLatin1String("query"), request().value);
-      u.addQueryItem(QLatin1String("resources"), QLatin1String("game"));
+      q.addQueryItem(QLatin1String("query"), request().value);
+      q.addQueryItem(QLatin1String("resources"), QLatin1String("game"));
       break;
 
     default:
       myWarning() << "key not recognized: " << request().key;
-      return KUrl();
+      return QUrl();
   }
+  u.setQuery(q);
 
 //  myDebug() << "url: " << u.url();
   return u;
@@ -131,10 +135,12 @@ Tellico::Data::EntryPtr GiantBombFetcher::fetchEntryHookData(Data::EntryPtr entr
     return entry_;
   }
 
-  KUrl u(GIANTBOMB_API_URL);
+  QUrl u(QString::fromLatin1(GIANTBOMB_API_URL));
   u.setPath(QString::fromLatin1("/game/%1/").arg(id));
-  u.addQueryItem(QLatin1String("format"), QLatin1String("xml"));
-  u.addQueryItem(QLatin1String("api_key"), m_apiKey);
+  QUrlQuery q;
+  q.addQueryItem(QLatin1String("format"), QLatin1String("xml"));
+  q.addQueryItem(QLatin1String("api_key"), m_apiKey);
+  u.setQuery(q);
 //  myDebug() << "url: " << u;
 
   // quiet
@@ -219,7 +225,7 @@ GiantBombFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const GiantBombFe
   QLabel* label = new QLabel(i18n("Access key: "), optionsWidget());
   l->addWidget(label, ++row, 0);
 
-  m_apiKeyEdit = new KLineEdit(optionsWidget());
+  m_apiKeyEdit = new QLineEdit(optionsWidget());
   connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_apiKeyEdit, row, 1);
   QString w = i18n("The default Tellico key may be used, but searching may fail due to reaching access limits.");
@@ -251,5 +257,3 @@ void GiantBombFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
 QString GiantBombFetcher::ConfigWidget::preferredName() const {
   return GiantBombFetcher::defaultName();
 }
-
-#include "giantbombfetcher.moc"

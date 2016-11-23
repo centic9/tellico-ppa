@@ -23,31 +23,24 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "../core/tellico_config.h"
 #include "statusbar.h"
-#include "../entryiconview.h"
 #include "../progressmanager.h"
 #include "progress.h"
-#include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kapplication.h>
-#include <kpushbutton.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KStandardGuiItem>
 
-#include <QObject>
-#include <QPainter>
 #include <QStyle>
 #include <QTimer>
 #include <QToolTip>
 #include <QLabel>
-#include <QToolButton>
-#include <QSlider>
+#include <QPushButton>
+#include <QApplication>
 
 using Tellico::StatusBar;
 StatusBar* StatusBar::s_self = 0;
 
-StatusBar::StatusBar(QWidget* parent_) : KStatusBar(parent_) {
+StatusBar::StatusBar(QWidget* parent_) : QStatusBar(parent_) {
   s_self = this;
 
   // don't care about text and id
@@ -64,35 +57,11 @@ StatusBar::StatusBar(QWidget* parent_) : KStatusBar(parent_) {
   m_progress = new GUI::Progress(100, this);
   addPermanentWidget(m_progress, 1);
 
-  m_cancelButton = new KPushButton(KStandardGuiItem::cancel(), this);
+  m_cancelButton = new QPushButton(this);
+  KGuiItem::assign(m_cancelButton, KStandardGuiItem::cancel());
   m_cancelButton->setText(QString());
   m_cancelButton->setToolTip(i18n("Cancel"));
   addPermanentWidget(m_cancelButton, 0);
-
-  m_decreaseIconSizeButton = new QToolButton(this);
-  m_decreaseIconSizeButton->setIcon(KIcon(QLatin1String("zoom-out")));
-  m_decreaseIconSizeButton->setToolTip(i18n("Decrease the maximum icon size in the icon list view"));
-  addPermanentWidget(m_decreaseIconSizeButton, 0);
-  connect(m_decreaseIconSizeButton, SIGNAL(clicked(bool)), SLOT(slotDecreaseIconSizeButtonClicked()));
-
-  m_iconSizeSlider = new QSlider(Qt::Horizontal, this);
-  m_iconSizeSlider->setMinimum(MIN_ENTRY_ICON_SIZE);
-  m_iconSizeSlider->setMaximum(MAX_ENTRY_ICON_SIZE);
-  m_iconSizeSlider->setSingleStep(SMALL_INCREMENT_ICON_SIZE);
-  m_iconSizeSlider->setPageStep(LARGE_INCREMENT_ICON_SIZE);
-  m_iconSizeSlider->setValue(Config::maxIconSize());
-  m_iconSizeSlider->setTracking(true);
-  m_iconSizeSlider->setToolTip(i18n("The current maximum icon size is %1.\nMove the slider to change it.", Config::maxIconSize()));
-  addPermanentWidget(m_iconSizeSlider, 0);
-  connect(m_iconSizeSlider, SIGNAL(valueChanged(int)), SLOT(slotIconSizeSliderChanged(int)));
-
-  m_increaseIconSizeButton = new QToolButton(this);
-  m_increaseIconSizeButton->setIcon(KIcon(QLatin1String("zoom-in")));
-  m_increaseIconSizeButton->setToolTip(i18n("Increase the maximum icon size in the icon list view"));
-  addPermanentWidget(m_increaseIconSizeButton, 0);
-  connect(m_increaseIconSizeButton, SIGNAL(clicked(bool)), SLOT(slotIncreaseIconSizeButtonClicked()));
-
-  setIconSizeInterfaceVisible(false);
 
   m_progress->hide();
   m_cancelButton->hide();
@@ -103,7 +72,7 @@ StatusBar::StatusBar(QWidget* parent_) : KStatusBar(parent_) {
 }
 
 void StatusBar::ensurePolished() const {
-  KStatusBar::ensurePolished();
+  QStatusBar::ensurePolished();
 
   int h = 0;
   QList<QWidget*> list = findChildren<QWidget*>();
@@ -145,43 +114,9 @@ void StatusBar::slotProgress(qulonglong progress_) {
     if(ProgressManager::self()->anyCanBeCancelled()) {
       m_cancelButton->show();
     }
-    kapp->processEvents(); // needed so the window gets updated ???
+    qApp->processEvents(); // needed so the window gets updated ???
   }
 }
 
 void StatusBar::slotUpdate() {
-/*
-  myDebug() << m_progress->isShown();
-  if(m_progressBox->isEmpty()) {
-    QTimer::singleShot(0, m_progress, SLOT(hide()));
-//    m_progressBox->hide();
-  } else {
-    QTimer::singleShot(0, m_progress, SLOT(show()));
-//    m_progressBox->show();
-  }
-*/
 }
-
-void StatusBar::slotDecreaseIconSizeButtonClicked() {
-  m_iconSizeSlider->setValue(m_iconSizeSlider->value() - LARGE_INCREMENT_ICON_SIZE);
-}
-
-void StatusBar::slotIncreaseIconSizeButtonClicked() {
-  m_iconSizeSlider->setValue(m_iconSizeSlider->value() + LARGE_INCREMENT_ICON_SIZE);
-}
-
-void StatusBar::slotIconSizeSliderChanged(int size) {
-  m_decreaseIconSizeButton->setEnabled(size > MIN_ENTRY_ICON_SIZE);
-  m_increaseIconSizeButton->setEnabled(size < MAX_ENTRY_ICON_SIZE);
-  m_iconSizeSlider->setToolTip(i18n("The current maximum icon size is %1.\nMove the slider to change it.", size));
-  Config::setMaxIconSize(size);
-  emit requestIconSizeChange(size);
-}
-
-void StatusBar::setIconSizeInterfaceVisible(bool visible) {
-  m_decreaseIconSizeButton->setVisible(visible);
-  m_increaseIconSizeButton->setVisible(visible);
-  m_iconSizeSlider->setVisible(visible);
-}
-
-#include "statusbar.moc"

@@ -33,11 +33,11 @@
 
 class KProcess;
 class KUrlRequester;
-class KLineEdit;
 class KComboBox;
 class KConfig;
 
 class QCheckBox;
+class QLineEdit;
 
 namespace Tellico {
   namespace GUI {
@@ -99,7 +99,7 @@ public:
   static QString defaultIcon();
   static StringHash allOptionalFields() { return StringHash(); }
 
-private slots:
+private Q_SLOTS:
   void slotData();
   void slotError();
   void slotProcessExited();

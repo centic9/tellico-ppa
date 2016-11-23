@@ -23,6 +23,7 @@
  ***************************************************************************/
 
 #include <config.h>
+
 #include "fetcherinitializer.h"
 #include "amazonfetcher.h"
 #include "imdbfetcher.h"
@@ -33,13 +34,11 @@
 #include "entrezfetcher.h"
 #include "execexternalfetcher.h"
 #include "animenfofetcher.h"
-#include "yahoofetcher.h"
 #include "ibsfetcher.h"
 #include "isbndbfetcher.h"
 #include "gcstarpluginfetcher.h"
 #include "crossreffetcher.h"
 #include "arxivfetcher.h"
-#include "citebasefetcher.h"
 #include "bibsonomyfetcher.h"
 #include "googlescholarfetcher.h"
 #include "discogsfetcher.h"
@@ -61,14 +60,11 @@
 #include "googlebookfetcher.h"
 #include "springerfetcher.h"
 #include "allocinefetcher.h"
-#include "screenrushfetcher.h"
-#include "filmstartsfetcher.h"
-#include "sensacinefetcher.h"
-#include "beyazperdefetcher.h"
 #include "thegamesdbfetcher.h"
 #include "dblpfetcher.h"
 #include "mrlookupfetcher.h"
 #include "boardgamegeekfetcher.h"
+#include "bedethequefetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -88,13 +84,11 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::EntrezFetcher> registerEntrez(Entrez);
   RegisterFetcher<Fetch::ExecExternalFetcher> registerExternal(ExecExternal);
   RegisterFetcher<Fetch::AnimeNfoFetcher> registerAnimeNfo(AnimeNfo);
-//  RegisterFetcher<Fetch::YahooFetcher> registerYahoo(Yahoo);
   RegisterFetcher<Fetch::IBSFetcher> registerIBS(IBS);
   RegisterFetcher<Fetch::ISBNdbFetcher> registerISBNdb(ISBNdb);
   RegisterFetcher<Fetch::GCstarPluginFetcher> registerGCstar(GCstarPlugin);
   RegisterFetcher<Fetch::CrossRefFetcher> registerCrossRef(CrossRef);
   RegisterFetcher<Fetch::ArxivFetcher> registerArxiv(Arxiv);
-  RegisterFetcher<Fetch::CitebaseFetcher> registerCitebase(Citebase);
   RegisterFetcher<Fetch::BibsonomyFetcher> registerBibsonomy(Bibsonomy);
   RegisterFetcher<Fetch::GoogleScholarFetcher> registerGoogle(GoogleScholar);
   RegisterFetcher<Fetch::WineComFetcher> registerWine(WineCom);
@@ -102,7 +96,6 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::GiantBombFetcher> registerBomb(GiantBomb);
   RegisterFetcher<Fetch::OpenLibraryFetcher> registerOpenLibrary(OpenLibrary);
   RegisterFetcher<Fetch::MultiFetcher> registerMulti(Multiple);
-#ifdef HAVE_QJSON
   RegisterFetcher<Fetch::DiscogsFetcher> registerDiscogs(Discogs);
   RegisterFetcher<Fetch::TheMovieDBFetcher> registerTMDB(TheMovieDB);
   RegisterFetcher<Fetch::FreebaseFetcher> registerFreebase(Freebase);
@@ -113,12 +106,6 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::VNDBFetcher> registerVNDB(VNDB);
   RegisterFetcher<Fetch::AllocineFetcher> registerAllocine(Allocine);
   RegisterFetcher<Fetch::MovieMeterFetcher> registerMovieMeter(MovieMeter);
-  // add these back if the API gets updated
-//  RegisterFetcher<Fetch::ScreenRushFetcher> registerScreenRush(ScreenRush);
-//  RegisterFetcher<Fetch::FilmStartsFetcher> registerFilmStarts(FilmStarts);
-//  RegisterFetcher<Fetch::SensaCineFetcher> registerSensaCine(SensaCine);
-//  RegisterFetcher<Fetch::BeyazperdeFetcher> registerBeyazperde(Beyazperde);
-#endif
   RegisterFetcher<Fetch::DVDFrFetcher> registerDVDFr(DVDFr);
   RegisterFetcher<Fetch::DoubanFetcher> registerDouban(Douban);
   RegisterFetcher<Fetch::BiblioShareFetcher> registerBiblioShare(BiblioShare);
@@ -127,4 +114,7 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::DBLPFetcher> registerDBLP(DBLP);
   RegisterFetcher<Fetch::MRLookupFetcher> registerMRLookup(MRLookup);
   RegisterFetcher<Fetch::BoardGameGeekFetcher> registerBGG(BoardGameGeek);
+  RegisterFetcher<Fetch::BedethequeFetcher> registerBD(Bedetheque);
+
+  Fetch::Manager::self()->loadFetchers();
 }

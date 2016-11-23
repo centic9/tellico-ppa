@@ -29,8 +29,8 @@
 #include "../collectionfactory.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
-#include <kicon.h>
+#include <KLocalizedString>
+#include <QIcon>
 
 using Tellico::EntryGroupModel;
 
@@ -134,12 +134,12 @@ QVariant EntryGroupModel::data(const QModelIndex& index_, int role_) const {
         // so no need to lookup the entry(index_), just use first one we find
         foreach(Data::EntryGroup* group, m_groups) {
           if(!group->isEmpty()) {
-            return KIcon(CollectionFactory::typeName(group->first()->collection()));
+            return QIcon::fromTheme(CollectionFactory::typeName(group->first()->collection()));
           }
         }
       }
       // for groups, check the icon name list
-      return KIcon(m_groupIconNames.at(index_.row()));
+      return QIcon::fromTheme(m_groupIconNames.at(index_.row()));
     case RowCountRole:
       return rowCount(index_);
     case EntryPtrRole:
@@ -203,11 +203,12 @@ QModelIndex EntryGroupModel::parent(const QModelIndex& index_) const {
 }
 
 void EntryGroupModel::clear() {
+  beginResetModel();
   m_groups.clear();
   delete m_rootNode;
   m_rootNode = new Node(0);
   m_groupIconNames.clear();
-  reset();
+  endResetModel();
 }
 
 void EntryGroupModel::addGroups(const QList<Tellico::Data::EntryGroup*>& groups_, const QString& iconName_) {
@@ -329,4 +330,3 @@ bool EntryGroupModel::hasValidParent(const QModelIndex& index_) const {
   return parentNode && parentNode != m_rootNode;
 }
  
-#include "entrygroupmodel.moc"

@@ -32,15 +32,15 @@
 #include "../gui/collectiontypecombo.h"
 #include "../utils/stringset.h"
 
-#include <klineedit.h>
-#include <kcombobox.h>
-#include <knuminput.h>
-#include <kpushbutton.h>
-#include <kapplication.h>
-#include <kiconloader.h>
-#include <kconfig.h>
-#include <kmessagebox.h>
+#include <KComboBox>
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include <KMessageBox>
+#include <KLocalizedString>
 
+#include <QSpinBox>
+#include <QLineEdit>
+#include <QPushButton>
 #include <QGroupBox>
 #include <QLabel>
 #include <QCheckBox>
@@ -53,17 +53,31 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QButtonGroup>
+#include <QApplication>
 
 using Tellico::Import::CSVImporter;
 
-CSVImporter::CSVImporter(const KUrl& url_) : Tellico::Import::TextImporter(url_),
+CSVImporter::CSVImporter(const QUrl& url_) : Tellico::Import::TextImporter(url_),
     m_existingCollection(0),
     m_firstRowHeader(false),
     m_delimiter(QLatin1String(",")),
     m_cancelled(false),
     m_widget(0),
+    m_comboColl(0),
+    m_checkFirstRowHeader(0),
+    m_radioComma(0),
+    m_radioSemicolon(0),
+    m_radioTab(0),
+    m_radioOther(0),
+    m_editOther(0),
+    m_editColDelimiter(0),
+    m_editRowDelimiter(0),
     m_table(0),
+    m_colSpinBox(0),
+    m_comboField(0),
+    m_setColumnBtn(0),
     m_hasAssignedFields(false),
+    m_isLibraryThing(false),
     m_parser(new CSVParser(text())) {
   m_parser->setDelimiter(m_delimiter);
 }
@@ -131,6 +145,19 @@ Tellico::Data::CollPtr CSVImporter::collection() {
       if(replaceRowDelimiter) {
         value.replace(m_rowDelimiter, FieldFormat::rowDelimiterString());
       }
+      if(m_isLibraryThing) {
+        // special cases for LibraryThing import
+        if(names[i] == QLatin1String("isbn")) {
+          // ISBN values are enclosed by brackets
+          value.remove(QLatin1Char('[')).remove(QLatin1Char(']'));
+        } else if(names[i] == QLatin1String("keyword")) {
+          // LT values are comma-separated
+          value.replace(QLatin1String(","), FieldFormat::delimiterString());
+        } else if(names[i] == QLatin1String("cdate")) {
+          // only want date, not time. 10 characters since it's zero-padded
+          value.truncate(10);
+        }
+      }
       bool success = entry->setField(names[i], value);
       // we might need to add a new allowed value
       // assume that if the user is importing the value, it should be allowed
@@ -154,12 +181,12 @@ Tellico::Data::CollPtr CSVImporter::collection() {
 
     if(showProgress && j%stepSize == 0) {
       emit signalProgress(this, 100*j/numChars);
-      kapp->processEvents();
+      qApp->processEvents();
     }
   }
 
   {
-    KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - CSV"));
+    KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - CSV"));
     config.writeEntry("Delimiter", m_delimiter);
     config.writeEntry("ColumnDelimiter", m_colDelimiter);
     config.writeEntry("RowDelimiter", m_rowDelimiter);
@@ -226,7 +253,7 @@ QWidget* CSVImporter::widget(QWidget* parent_) {
   m_radioOther->setWhatsThis(i18n("Use a custom string as the delimiter."));
   delimiterLayout->addWidget(m_radioOther);
 
-  m_editOther = new KLineEdit(groupBox);
+  m_editOther = new QLineEdit(groupBox);
   m_editOther->setEnabled(false);
   m_editOther->setFixedWidth(m_widget->fontMetrics().width(QLatin1Char('X')) * 4);
   m_editOther->setMaxLength(1);
@@ -252,7 +279,7 @@ QWidget* CSVImporter::widget(QWidget* parent_) {
   lab = new QLabel(i18n("Table column delimiter:"), groupBox);
   lab->setWhatsThis(w);
   delimiterLayout2->addWidget(lab);
-  m_editColDelimiter = new KLineEdit(groupBox);
+  m_editColDelimiter = new QLineEdit(groupBox);
   m_editColDelimiter->setWhatsThis(w);
   m_editColDelimiter->setFixedWidth(m_widget->fontMetrics().width(QLatin1Char('X')) * 4);
   m_editColDelimiter->setMaxLength(1);
@@ -263,7 +290,7 @@ QWidget* CSVImporter::widget(QWidget* parent_) {
   lab = new QLabel(i18n("Table row delimiter:"), groupBox);
   lab->setWhatsThis(w);
   delimiterLayout2->addWidget(lab);
-  m_editRowDelimiter = new KLineEdit(groupBox);
+  m_editRowDelimiter = new QLineEdit(groupBox);
   m_editRowDelimiter->setWhatsThis(w);
   m_editRowDelimiter->setFixedWidth(m_widget->fontMetrics().width(QLatin1Char('X')) * 4);
   m_editRowDelimiter->setMaxLength(1);
@@ -277,7 +304,7 @@ QWidget* CSVImporter::widget(QWidget* parent_) {
   m_table->setSelectionMode(QAbstractItemView::SingleSelection);
   m_table->setSelectionBehavior(QAbstractItemView::SelectColumns);
   m_table->verticalHeader()->hide();
-  m_table->horizontalHeader()->setClickable(true);
+  m_table->horizontalHeader()->setSectionsClickable(true);
   m_table->setMinimumHeight(m_widget->fontMetrics().lineSpacing() * 8);
   m_table->setWhatsThis(i18n("The table shows up to the first five lines of the CSV file."));
   connect(m_table, SIGNAL(currentCellChanged(int, int, int, int)), SLOT(slotCurrentChanged(int, int)));
@@ -291,7 +318,7 @@ QWidget* CSVImporter::widget(QWidget* parent_) {
   lab = new QLabel(i18n("Co&lumn:"), groupBox);
   hlay3->addWidget(lab);
   lab->setWhatsThis(what);
-  m_colSpinBox = new KIntSpinBox(groupBox);
+  m_colSpinBox = new QSpinBox(groupBox);
   hlay3->addWidget(m_colSpinBox);
   m_colSpinBox->setWhatsThis(what);
   m_colSpinBox->setMinimum(1);
@@ -313,17 +340,17 @@ QWidget* CSVImporter::widget(QWidget* parent_) {
 
   hlay3->addSpacing(10);
 
-  m_setColumnBtn = new KPushButton(i18n("&Assign Field"), groupBox);
+  m_setColumnBtn = new QPushButton(i18n("&Assign Field"), groupBox);
   hlay3->addWidget(m_setColumnBtn);
   m_setColumnBtn->setWhatsThis(what);
-  m_setColumnBtn->setIcon(KIcon(QLatin1String("dialog-ok-apply")));
+  m_setColumnBtn->setIcon(QIcon::fromTheme(QLatin1String("dialog-ok-apply")));
   connect(m_setColumnBtn, SIGNAL(clicked()), SLOT(slotSetColumnTitle()));
 //  hlay3->addStretch(10);
 
   l->addWidget(groupBox);
   l->addStretch(1);
 
-  KConfigGroup config(KGlobal::config(), QLatin1String("ImportOptions - CSV"));
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - CSV"));
   m_delimiter = config.readEntry("Delimiter", m_delimiter);
   m_colDelimiter = config.readEntry("ColumnDelimiter", m_colDelimiter);
   m_rowDelimiter = config.readEntry("RowDelimiter", m_rowDelimiter);
@@ -380,6 +407,17 @@ void CSVImporter::fillTable() {
     if(col > maxCols) {
       maxCols = col;
     }
+    // special case, check if the header row matches LibraryThing CSV export
+    // assume LT export always uses identical header row and verify against first 7 columns
+    if(row == 0 && values.count() > 7) {
+      m_isLibraryThing = (values.at(0) == QLatin1String("'TITLE'") &&
+                          values.at(1) == QLatin1String("'AUTHOR (first, last)'") &&
+                          values.at(2) == QLatin1String("'AUTHOR (last, first)'") &&
+                          values.at(3) == QLatin1String("'DATE'") &&
+                          values.at(4) == QLatin1String("'LCC'") &&
+                          values.at(5) == QLatin1String("'DDC'") &&
+                          values.at(6) == QLatin1String("'ISBNs'"));
+    }
   }
   for( ; row < m_table->rowCount(); ++row) {
     for(int col = 0; col < m_table->columnCount(); ++col) {
@@ -388,17 +426,19 @@ void CSVImporter::fillTable() {
   }
 
   m_table->setColumnCount(maxCols);
+
+  if(m_isLibraryThing) {
+    // do not call slotFirstRowHeader since it will loop
+    m_firstRowHeader = true;
+    updateHeader();
+  }
 }
 
 void CSVImporter::slotTypeChanged() {
   createCollection();
 
   updateHeader();
-  m_comboField->clear();
-  foreach(Data::FieldPtr field, m_coll->fields()) {
-    m_comboField->addItem(field->title());
-  }
-  m_comboField->addItem(QLatin1Char('<') + i18n("New Field") + QLatin1Char('>'));
+  updateFieldCombo();
 
   // hack to force a resize
   m_comboField->setFont(m_comboField->font());
@@ -491,6 +531,32 @@ void CSVImporter::updateHeader() {
     Data::FieldPtr field;
     if(item && m_coll) {
       QString itemValue = item->text();
+      // check against LibraryThing import
+      if(m_isLibraryThing && m_coll->type() == Data::Collection::Book) {
+        static QHash<QString, QString> ltFields;
+        if(ltFields.isEmpty()) {
+          ltFields[QLatin1String("TITLE")]                = QLatin1String("title");
+          ltFields[QLatin1String("AUTHOR (first, last)")] = QLatin1String("author");
+          ltFields[QLatin1String("DATE")]                 = QLatin1String("pub_year");
+          ltFields[QLatin1String("ISBNs")]                = QLatin1String("isbn");
+          ltFields[QLatin1String("RATINGS")]              = QLatin1String("rating");
+          ltFields[QLatin1String("ENTRY DATE")]           = QLatin1String("cdate");
+          ltFields[QLatin1String("TAGS")]                 = QLatin1String("keyword");
+          ltFields[QLatin1String("COMMENT")]              = QLatin1String("comments");
+          ltFields[QLatin1String("REVIEWS")]              = QLatin1String("review");
+        }
+        // strip leading and trailing single quotes
+        itemValue.remove(0,1).chop(1);
+        itemValue = ltFields.value(itemValue);
+
+        // review is a new field, we're going to add it by default
+        if(itemValue == QLatin1String("review") && !m_coll->hasField(itemValue)) {
+          Data::FieldPtr field(new Data::Field(QLatin1String("review"), i18n("Review"), Data::Field::Para));
+          m_coll->addField(field);
+          updateFieldCombo();
+          m_comboField->setCurrentIndex(m_comboField->count()-2);
+        }
+      }
       field = m_coll->fieldByTitle(itemValue);
       if(!field) {
         field = m_coll->fieldByName(itemValue);
@@ -515,11 +581,7 @@ void CSVImporter::slotFieldChanged(int idx_) {
   dlg.setNotifyKernel(false);
 
   if(dlg.exec() == QDialog::Accepted) {
-    m_comboField->clear();
-    foreach(Data::FieldPtr field, m_coll->fields()) {
-      m_comboField->addItem(field->title());
-    }
-    m_comboField->addItem(QLatin1Char('<') + i18n("New Field") + QLatin1Char('>'));
+    updateFieldCombo();
     fillTable();
   }
 
@@ -576,4 +638,10 @@ void CSVImporter::createCollection() {
   }
 }
 
-#include "csvimporter.moc"
+void CSVImporter::updateFieldCombo() {
+  m_comboField->clear();
+  foreach(Data::FieldPtr field, m_coll->fields()) {
+    m_comboField->addItem(field->title());
+  }
+  m_comboField->addItem(i18n("<New Field>"));
+}

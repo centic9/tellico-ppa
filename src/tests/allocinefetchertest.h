@@ -25,7 +25,6 @@
 #ifndef ALLOCINEFETCHERTEST_H
 #define ALLOCINEFETCHERTEST_H
 
-#include <config.h>
 #include "abstractfetchertest.h"
 
 class AllocineFetcherTest : public AbstractFetcherTest {
@@ -40,17 +39,9 @@ private Q_SLOTS:
   void testTitleAccentRemoved();
   void testPlotQuote();
 
-#ifdef HAVE_QJSON
   void testTitleAPI();
   void testTitleAPIAccented();
   void testGhostDog();
-
-  void testTitleScreenRush();
-  void testTitleFilmStarts();
-  void testTitleFilmStartsGerman();
-  void testTitleSensaCineSpanish();
-  void testTitleBeyazperdeTurkish();
-#endif
 };
 
 #endif

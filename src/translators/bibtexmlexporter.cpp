@@ -25,15 +25,14 @@
 #include <config.h>
 
 #include "bibtexmlexporter.h"
-#include "bibtexhandler.h"
-#include "../document.h"
+#include "../utils/bibtexhandler.h"
 #include "../fieldformat.h"
 #include "../core/filehandler.h"
 #include "tellico_xml.h"
 #include "../utils/stringset.h"
 #include "../tellico_debug.h"
 
-#include <klocale.h>
+#include <KLocalizedString>
 
 #include <QDomDocument>
 #include <QRegExp>
@@ -50,7 +49,7 @@ QString BibtexmlExporter::formatString() const {
 }
 
 QString BibtexmlExporter::fileFilter() const {
-  return i18n("*.xml|Bibtexml Files (*.xml)") + QLatin1Char('\n') + i18n("*|All Files");
+  return i18n("Bibtexml Files") + QLatin1String(" (*.xml)") + QLatin1String(";;") + i18n("All Files") + QLatin1String(" (*)");
 }
 
 bool BibtexmlExporter::exec() {
@@ -192,5 +191,3 @@ QString BibtexmlExporter::text() {
 
   return dom.toString();
 }
-
-#include "bibtexmlexporter.moc"

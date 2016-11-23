@@ -25,127 +25,23 @@
 #ifndef FILTERDIALOG_H
 #define FILTERDIALOG_H
 
-// kwidgetlister is copied from kdepim/libkdenetwork cvs
-#include "gui/kwidgetlister.h"
-#include "filter.h"
 #include "datavectors.h"
 
-#include <kdialog.h>
-#include <KHBox>
-
+#include <QDialog>
 #include <QString>
 #include <QStringList>
 
-class KComboBox;
-class KLineEdit;
-class KPushButton;
-class KDateComboBox;
-
 class QRadioButton;
-class QDialog;
-class QStackedWidget;
+class QPushButton;
+class QLineEdit;
 
 namespace Tellico {
-  namespace GUI {
-    class ComboBox;
-  }
-  class FilterDialog;
-
-/**
- * A widget to edit a single FilterRule.
- * It consists of a read-only @ref KComboBox for the field,
- * a read-only @ref KComboBox for the function and
- * a @ref KLineEdit for the content or the pattern (in case of regexps).
- *
- * This class borrows heavily from KMSearchRule in kmail by Marc Mutz
- *
- * @author Robby Stephenson
- */
-class FilterRuleWidget : public KHBox {
-Q_OBJECT
-
-public:
-  /**
-   * Constructor. You give a @ref FilterRule as parameter, which will
-   * be used to initialize the widget.
-   */
-  FilterRuleWidget(FilterRule* rule, QWidget* parent);
-
-  /**
-   * Set the rule. The rule is accepted regardless of the return
-   * value of @ref FilterRule::isEmpty. This widget makes a shallow
-   * copy of @p rule and operates directly on it. If @p rule is
-   * 0, the widget resets itself, takes user input, but does essentially
-   * nothing. If you pass 0, you should probably disable it.
-   */
-  void setRule(const FilterRule* rule);
-  /**
-   * Return a reference to the currently worked-on @ref FilterRule.
-   */
-  FilterRule* rule() const;
-  /**
-   * Resets the rule currently worked on and updates the widget accordingly.
-   */
-  void reset();
-
-signals:
-  void signalModified();
-
-public slots:
-  void setFocus();
-
-protected slots:
-  void slotEditRegExp();
-  void slotRuleFieldChanged(int which);
-  void slotRuleFunctionChanged(int which);
-
-private:
-  void initLists();
-  void initWidget();
-  void updateFunctionList();
-
-  KComboBox* m_ruleField;
-  GUI::ComboBox* m_ruleFunc;
-  QStackedWidget* m_valueStack;
-  KLineEdit* m_ruleValue;
-  KDateComboBox* m_ruleDate;
-  KPushButton* m_editRegExp;
-  QDialog* m_editRegExpDialog;  //krazy:exclude=qclasses
-  QStringList m_ruleFieldList;
-  enum RuleType {
-    General,
-    Date,
-    Number
-  };
-  RuleType m_ruleType;
-
-};
-
-class FilterRuleWidgetLister : public KWidgetLister {
-Q_OBJECT
-
-public:
-  FilterRuleWidgetLister(QWidget* parent);
-
-  QList<QWidget*> widgetList() const;
-  void setFilter(FilterPtr filter);
-
-public slots:
-  void reset();
-  virtual void setFocus();
-
-signals:
-  void signalModified();
-
-protected:
-  virtual void clearWidget(QWidget* widget);
-  virtual QWidget* createWidget(QWidget* parent);
-};
+  class FilterRuleWidgetLister;
 
 /**
  * @author Robby Stephenson
  */
-class FilterDialog : public KDialog {
+class FilterDialog : public QDialog {
 Q_OBJECT
 
 public:
@@ -164,30 +60,31 @@ public:
   FilterPtr currentFilter(bool alwaysCreateNew=false);
   void setFilter(FilterPtr filter);
 
-public slots:
+public Q_SLOTS:
   void slotClear();
 
-protected slots:
-  virtual void slotOk();
-  virtual void slotApply();
+protected Q_SLOTS:
+  void slotOk();
+  void slotApply();
+  void slotHelp();
   void slotShrink();
   void slotFilterChanged();
   void slotSaveFilter();
 
-signals:
+Q_SIGNALS:
   void signalUpdateFilter(Tellico::FilterPtr);
   void signalCollectionModified();
 
 private:
-  void init();
-
   FilterPtr m_filter;
   const Mode m_mode;
   QRadioButton* m_matchAll;
   QRadioButton* m_matchAny;
   FilterRuleWidgetLister* m_ruleLister;
-  KLineEdit* m_filterName;
-  KPushButton* m_saveFilter;
+  QLineEdit* m_filterName;
+  QPushButton* m_saveFilter;
+  QPushButton* m_okButton;
+  QPushButton* m_applyButton;
 };
 
 } // end namespace

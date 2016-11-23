@@ -30,7 +30,8 @@
 
 #include <QPointer>
 
-class KIntSpinBox;
+class QSpinBox;
+
 class KComboBox;
 class KJob;
 namespace KIO {
@@ -42,6 +43,7 @@ namespace Tellico {
   namespace GUI {
     class LineEdit;
     class ComboBox;
+    class StringMapWidget;
   }
   namespace Fetch {
 
@@ -88,7 +90,7 @@ public:
 
   static Fetcher::Ptr libraryOfCongress(QObject* parent);
 
-private slots:
+private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:
@@ -102,6 +104,7 @@ private:
   uint m_port;
   QString m_path;
   QString m_format;
+  StringMap m_queryMap;
 
   QHash<int, Data::EntryPtr> m_entries;
   QPointer<KIO::StoredTransferJob> m_job;
@@ -119,14 +122,15 @@ public:
   virtual void saveConfigHook(KConfigGroup& config);
   virtual QString preferredName() const;
 
-private slots:
+private Q_SLOTS:
   void slotCheckHost();
 
 private:
   GUI::LineEdit* m_hostEdit;
-  KIntSpinBox* m_portSpinBox;
+  QSpinBox* m_portSpinBox;
   GUI::LineEdit* m_pathEdit;
   GUI::ComboBox* m_formatCombo;
+  GUI::StringMapWidget* m_queryTree;
 };
 
   } // end namespace

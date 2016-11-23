@@ -5,14 +5,17 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-export DEB_LDFLAGS_MAINT_APPEND = -Wl,--no-undefined -Wl,--as-needed
+DEB_KDE_LINK_WITH_AS_NEEDED = yes
+
+include /usr/share/pkg-kde-tools/makefiles/1/variables.mk
 
 %:
-	dh $@ --with kde --parallel
+	dh $@ --buildsystem=cmake --builddirectory=build
 
 override_dh_auto_configure:
-	dh_auto_configure --buildsystem=kde --parallel -- \
-		-DKDE4_BUILD_TESTS=false \
+	dh_auto_configure -- \
+		$(DEB_CMAKE_KDE4_FLAGS) \
+		$(DEB_CMAKE_CUSTOM_FLAGS) \
 		-DENABLE_WEBCAM=false
 
 override_dh_shlibdeps:

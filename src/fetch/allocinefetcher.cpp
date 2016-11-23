@@ -22,34 +22,32 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
 #include "allocinefetcher.h"
 #include "../collections/videocollection.h"
 #include "../images/imagefactory.h"
 #include "../entry.h"
-#include "../gui/guiproxy.h"
-#include "../tellico_utils.h"
+#include "../utils/guiproxy.h"
+#include "../utils/string_utils.h"
 #include "../core/filehandler.h"
 #include "../tellico_debug.h"
 
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
-#include <KLocale>
+#include <KIO/Job>
+#include <KIO/JobUiDelegate>
+#include <KLocalizedString>
+#include <KJobWidgets/KJobWidgets>
 #include <KConfigGroup>
-#include <KLineEdit>
-#include <KIntSpinBox>
-#include <KCodecs>
 
+#include <QSpinBox>
+#include <QUrl>
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
 #include <QTextCodec>
 #include <QCryptographicHash>
-
-#ifdef HAVE_QJSON
-#include <qjson/parser.h>
-#endif
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QUrlQuery>
 
 namespace {
   static const char* ALLOCINE_API_KEY = "100043982026";
@@ -74,11 +72,7 @@ AbstractAllocineFetcher::~AbstractAllocineFetcher() {
 }
 
 bool AbstractAllocineFetcher::canSearch(FetchKey k) const {
-#ifdef HAVE_QJSON
   return k == Keyword;
-#else
-  return false;
-#endif
 }
 
 bool AbstractAllocineFetcher::canFetch(int type) const {
@@ -96,9 +90,10 @@ void AbstractAllocineFetcher::readConfigHook(const KConfigGroup& config_) {
 void AbstractAllocineFetcher::search() {
   m_started = true;
 
-#ifdef HAVE_QJSON
-  KUrl u(m_baseUrl);
-  u.addPath(QLatin1String("search"));
+  QUrl u(m_baseUrl);
+  u = u.adjusted(QUrl::StripTrailingSlash);
+  u.setPath(u.path() + QLatin1Char('/') + QLatin1String("search"));
+//  myDebug() << u;
 
   // the order of the parameters appears to matter
   QList<QPair<QString, QString> > params;
@@ -131,16 +126,15 @@ void AbstractAllocineFetcher::search() {
 
   const QByteArray sig = calculateSignature(params);
 
-  u.setQueryItems(params);
-  u.addQueryItem(QLatin1String("sig"), QLatin1String(sig));
-//  myDebug() << "url:" << u;
+  QUrlQuery query;
+  query.setQueryItems(params);
+  query.addQueryItem(QLatin1String("sig"), QLatin1String(sig));
+  u.setQuery(query);
+//  myDebug() << u;
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
-  m_job->ui()->setWindow(GUI::Proxy::widget());
+  KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
-#else
-  stop();
-#endif
 }
 
 void AbstractAllocineFetcher::stop() {
@@ -168,8 +162,9 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
     return entry;
   }
 
-  KUrl u(m_baseUrl);
-  u.addPath(QLatin1String("movie"));
+  QUrl u(m_baseUrl);
+  u = u.adjusted(QUrl::StripTrailingSlash);
+  u.setPath(u.path() + QLatin1Char('/') + QLatin1String("movie"));
 
   // the order of the parameters appears to matter
   QList<QPair<QString, QString> > params;
@@ -184,8 +179,10 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
 
   const QByteArray sig = calculateSignature(params);
 
-  u.setQueryItems(params);
-  u.addQueryItem(QLatin1String("sig"), QLatin1String(sig));
+  QUrlQuery query;
+  query.setQueryItems(params);
+  query.addQueryItem(QLatin1String("sig"), QLatin1String(sig));
+  u.setQuery(query);
 //  myDebug() << "url: " << u;
   // quiet
   QByteArray data = FileHandler::readDataFile(u, true);
@@ -201,11 +198,10 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
   f.close();
 #endif
 
-#ifdef HAVE_QJSON
-  QJson::Parser parser;
-  bool ok;
-  QVariantMap result = parser.parse(data, &ok).toMap().value(QLatin1String("movie")).toMap();
-  if(!ok) {
+  QJsonParseError error;
+  QJsonDocument doc = QJsonDocument::fromJson(data, &error);
+  QVariantMap result = doc.object().toVariantMap().value(QLatin1String("movie")).toMap();
+  if(error.error != QJsonParseError::NoError) {
     myDebug() << "Bad JSON results";
 #if 0
     myWarning() << "Remove debug from allocinefetcher.cpp";
@@ -220,12 +216,11 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
     return entry;
   }
   populateEntry(entry, result);
-#endif
 
   // image might still be a URL
   const QString image_id = entry->field(QLatin1String("cover"));
   if(image_id.contains(QLatin1Char('/'))) {
-    const QString id = ImageFactory::addImage(image_id, true /* quiet */);
+    const QString id = ImageFactory::addImage(QUrl::fromUserInput(image_id), true /* quiet */);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
@@ -244,9 +239,6 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
 }
 
 void AbstractAllocineFetcher::slotComplete(KJob*) {
-#ifdef HAVE_QJSON
-//  myDebug();
-
   if(m_job->error()) {
     m_job->ui()->showErrorMessage();
     stop();
@@ -274,12 +266,8 @@ void AbstractAllocineFetcher::slotComplete(KJob*) {
   f.close();
 #endif
 
-  QJson::Parser parser;
-  bool ok;
-  QVariantMap result = parser.parse(data, &ok).toMap().value(QLatin1String("feed")).toMap();
-  if(!ok) {
-    myDebug() << "Bad JSON results";
-  }
+  QJsonDocument doc = QJsonDocument::fromJson(data);
+  QVariantMap result = doc.object().toVariantMap().value(QLatin1String("feed")).toMap();
 //  myDebug() << "total:" << result.value(QLatin1String("totalResults"));
 
   QVariantList resultList = result.value(QLatin1String("movie")).toList();
@@ -303,7 +291,6 @@ void AbstractAllocineFetcher::slotComplete(KJob*) {
   }
 
   m_hasMoreResults = false;
-#endif
   stop();
 }
 
@@ -377,7 +364,7 @@ void AbstractAllocineFetcher::populateEntry(Data::EntryPtr entry, const QVariant
 
   QStringList genres;
   foreach(const QVariant& variant, resultMap.value(QLatin1String("genre")).toList()) {
-    genres << i18n(value(variant.toMap(), "$").toUtf8());
+    genres << i18n(value(variant.toMap(), "$").toUtf8().constData());
   }
   entry->setField(QLatin1String("genre"), genres.join(FieldFormat::delimiterString()));
 
@@ -423,7 +410,10 @@ AbstractAllocineFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Abst
 
   QLabel* label = new QLabel(i18n("&Maximum cast: "), optionsWidget());
   l->addWidget(label, ++row, 0);
-  m_numCast = new KIntSpinBox(0, 99, 1, 10, optionsWidget());
+  m_numCast = new QSpinBox(optionsWidget());
+  m_numCast->setMaximum(99);
+  m_numCast->setMinimum(0);
+  m_numCast->setValue(10);
   connect(m_numCast, SIGNAL(valueChanged(const QString&)), SLOT(slotSetModified()));
   l->addWidget(m_numCast, row, 1);
   QString w = i18n("The list of cast members may include many people. Set the maximum number returned from the search.");
@@ -482,7 +472,7 @@ QByteArray AbstractAllocineFetcher::calculateSignature(const QList<QPair<QString
 
   const QByteArray toSign = ALLOCINE_PARTNER_KEY + queryString;
   const QByteArray hash = QCryptographicHash::hash(toSign, QCryptographicHash::Sha1);
-  const QByteArray sig = KCodecs::base64Encode(hash);
+  QByteArray sig = hash.toBase64();
   return sig;
 }
 
@@ -525,4 +515,3 @@ QString AllocineFetcher::ConfigWidget::preferredName() const {
   return AllocineFetcher::defaultName();
 }
 
-#include "allocinefetcher.moc"

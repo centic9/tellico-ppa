@@ -8,22 +8,22 @@
 # Nick Shaforostoff <shaforostoff@kde.ru>, 2009, 2010.
 # Максим Кучугура <maksvlad@ya.ru>, 2010.
 # Max Kuchugura <maksvlad@ya.ru>, 2010.
-# Alexander Potashev <aspotashev@gmail.com>, 2010, 2011.
+# Alexander Potashev <aspotashev@gmail.com>, 2010, 2011, 2016.
 # Alexander Lakhin <exclusion@gmail.com>, 2013.
 # Yuri Efremov <yur.arh@gmail.com>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2016-08-04 07:39+0000\n"
-"PO-Revision-Date: 2013-08-07 19:56+0400\n"
-"Last-Translator: Yuri Efremov <yur.arh@gmail.com>\n"
+"POT-Creation-Date: 2016-11-07 07:12+0000\n"
+"PO-Revision-Date: 2016-09-06 08:26+0300\n"
+"Last-Translator: Alexander Potashev <aspotashev@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Environment: kde\n"
@@ -164,7 +164,7 @@ msgstr "Номер"
 #: src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34
-#: src/collections/winecollection.cpp:31 src/document.cpp:460
+#: src/collections/winecollection.cpp:31 src/document.cpp:488
 msgid "Personal"
 msgstr "Личное"
 
@@ -873,7 +873,7 @@ msgstr "Цена покупки"
 #: src/collections/comicbookcollection.cpp:150
 #: src/collections/gamecollection.cpp:122
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:458
+#: src/collections/videocollection.cpp:211 src/document.cpp:486
 msgid "Loaned"
 msgstr "Одолжено"
 
@@ -1736,7 +1736,7 @@ msgid "Delete Filter"
 msgstr "Удалить фильтр"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:366
+#: src/entryeditdialog.cpp:368
 msgid "Modify Entries"
 msgstr "Изменить записи"
 
@@ -1823,14 +1823,14 @@ msgstr "Если отмечено, при запуске программы бу
 
 #: src/configdialog.cpp:225
 msgid "&Enable webcam for barcode scanning"
-msgstr "&Включить веб-камеру для сканирования штрих-кода"
+msgstr "&Включить веб-камеру для сканирования штрихкода"
 
 #: src/configdialog.cpp:226
 msgid ""
 "If checked, the input from a webcam will be used to scan barcodes for "
 "searching."
 msgstr ""
-"Если отмечено, для сканирования штрих-кода и поиска будет использоваться веб-"
+"Если отмечено, для сканирования штрихкода и поиска будет использоваться веб-"
 "камера."
 
 #: src/configdialog.cpp:231
@@ -2468,45 +2468,45 @@ msgstr "Скрыть все столбцы"
 msgid "Resize to Content"
 msgstr "Подогнать под содержимое"
 
-#: src/document.cpp:193 src/mainwindow.cpp:1204
+#: src/document.cpp:194 src/mainwindow.cpp:1204
 msgid "Saving file..."
 msgstr "Сохранение файла..."
 
-#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:387
-#: src/entryeditdialog.cpp:410 src/entryeditdialog.cpp:505
+#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:412 src/entryeditdialog.cpp:507
 msgid "Edit Entry"
 msgstr "Изменение записи"
 
-#: src/entryeditdialog.cpp:86
+#: src/entryeditdialog.cpp:84
 msgid "&New Entry"
 msgstr "&Новая запись"
 
-#: src/entryeditdialog.cpp:91 src/entryeditdialog.cpp:122
-#: src/entryeditdialog.cpp:420 src/entryeditdialog.cpp:526
+#: src/entryeditdialog.cpp:89 src/entryeditdialog.cpp:124
+#: src/entryeditdialog.cpp:422 src/entryeditdialog.cpp:528
 msgid "Sa&ve Entry"
 msgstr "&Сохранить запись"
 
-#: src/entryeditdialog.cpp:317
+#: src/entryeditdialog.cpp:319
 msgid "Do you really want to modify these entries?"
 msgstr "Вы действительно хотите изменить эти записи?"
 
-#: src/entryeditdialog.cpp:319
+#: src/entryeditdialog.cpp:321
 msgid "Modify Multiple Entries"
 msgstr "Изменение нескольких записей"
 
-#: src/entryeditdialog.cpp:360
+#: src/entryeditdialog.cpp:362
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Для следующих полей требуется задать значения. Хотите продолжить?"
 
-#: src/entryeditdialog.cpp:456
+#: src/entryeditdialog.cpp:458
 msgid "Edit Entries"
 msgstr "Изменение записей"
 
-#: src/entryeditdialog.cpp:482
+#: src/entryeditdialog.cpp:484
 msgid "Sa&ve Entries"
 msgstr "&Сохранить записи"
 
-#: src/entryeditdialog.cpp:641
+#: src/entryeditdialog.cpp:643
 msgid ""
 "The current entry has been modified.\n"
 "Do you want to enter the changes?"
@@ -2514,11 +2514,11 @@ msgstr ""
 "Текущая запись были изменена.\n"
 "Вы хотите сохранить изменения?"
 
-#: src/entryeditdialog.cpp:644
+#: src/entryeditdialog.cpp:646
 msgid "Save Entry"
 msgstr "Сохранить запись"
 
-#: src/entryeditdialog.cpp:645 src/mainwindow.cpp:1016
+#: src/entryeditdialog.cpp:647 src/mainwindow.cpp:1016
 msgid "Unsaved Changes"
 msgstr "Несохранённые изменения"
 
@@ -2601,7 +2601,7 @@ msgstr ""
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Не удалось найти стандартную таблицу стилей."
 
-#: src/entryview.cpp:237 src/mainwindow.cpp:1633
+#: src/entryview.cpp:237 src/mainwindow.cpp:1636
 msgid "Please check your installation."
 msgstr "Проверьте правильность установки программы."
 
@@ -3711,8 +3711,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Группа"
 
-#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1548
-#: src/mainwindow.cpp:1574 src/translators/htmlexporter.cpp:337
+#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1551
+#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:337
 msgid "People"
 msgstr "Люди"
 
@@ -4808,11 +4808,11 @@ msgstr "Сохранение файла с другим именем..."
 msgid "Save As"
 msgstr "Сохранение с другим именем"
 
-#: src/mainwindow.cpp:1295 src/mainwindow.cpp:1345
+#: src/mainwindow.cpp:1298 src/mainwindow.cpp:1348
 msgid "Printing..."
 msgstr "Идёт печать..."
 
-#: src/mainwindow.cpp:1304
+#: src/mainwindow.cpp:1307
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
@@ -4820,82 +4820,82 @@ msgstr ""
 "В настоящий момент к коллекции применён фильтр, так что будут напечатаны "
 "только видимые поля. Продолжить?"
 
-#: src/mainwindow.cpp:1329
+#: src/mainwindow.cpp:1332
 msgid "Processing document..."
 msgstr "Обработка документа..."
 
-#: src/mainwindow.cpp:1352
+#: src/mainwindow.cpp:1355
 msgid "Exiting..."
 msgstr "Выход..."
 
-#: src/mainwindow.cpp:1460
+#: src/mainwindow.cpp:1463
 #, kde-format
 msgid "Total entries: %1"
 msgstr "Всего записей: %1"
 
-#: src/mainwindow.cpp:1467
+#: src/mainwindow.cpp:1470
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 отфильтровано; %2 выделено)"
 
-#: src/mainwindow.cpp:1470
+#: src/mainwindow.cpp:1473
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 отфильтровано)"
 
-#: src/mainwindow.cpp:1473
+#: src/mainwindow.cpp:1476
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 выделено)"
 
-#: src/mainwindow.cpp:1632 src/translators/boardgamegeekimporter.cpp:97
+#: src/mainwindow.cpp:1635 src/translators/boardgamegeekimporter.cpp:97
 #: src/translators/gcstarimporter.cpp:261
 #: src/translators/goodreadsimporter.cpp:100
 #: src/translators/xsltimporter.cpp:92
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Произошла ошибка при обработке XSLT."
 
-#: src/mainwindow.cpp:1758
+#: src/mainwindow.cpp:1761
 msgid "Importing data..."
 msgstr "Импорт данных..."
 
-#: src/mainwindow.cpp:1769
+#: src/mainwindow.cpp:1772
 msgid "Import File"
 msgstr "Импорт файла"
 
-#: src/mainwindow.cpp:1782
+#: src/mainwindow.cpp:1785
 msgid "Import Directory"
 msgstr "Импорт каталога"
 
-#: src/mainwindow.cpp:1805
+#: src/mainwindow.cpp:1808
 msgid "Exporting data..."
 msgstr "Экспортирование данных..."
 
-#: src/mainwindow.cpp:1828
+#: src/mainwindow.cpp:1831
 msgid "Export As"
 msgstr "Экспорт"
 
-#: src/mainwindow.cpp:1856
+#: src/mainwindow.cpp:1859
 msgid "String Macros"
 msgstr "Строковый макрос"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "Macro"
 msgstr "Макрос"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "String"
 msgstr "Строка"
 
-#: src/mainwindow.cpp:1944
+#: src/mainwindow.cpp:1947
 msgid "Creating citations..."
 msgstr "Идёт создание цитат..."
 
-#: src/mainwindow.cpp:2054
+#: src/mainwindow.cpp:2057
 msgid "Filters"
 msgstr "Фильтры"
 
-#: src/mainwindow.cpp:2055
+#: src/mainwindow.cpp:2058
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
@@ -4903,11 +4903,11 @@ msgstr ""
 "<qt>В <i>фильтрованном представлении</i> показываются записи, "
 "удовлетворяющие условиям заданного фильтра.</qt>"
 
-#: src/mainwindow.cpp:2077
+#: src/mainwindow.cpp:2080
 msgid "Loans"
 msgstr "Долговые записи"
 
-#: src/mainwindow.cpp:2078
+#: src/mainwindow.cpp:2081
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
@@ -4915,7 +4915,7 @@ msgstr ""
 "<qt>В панели <i>Долговые записи</i> выводится список людей, которые взяли "
 "что-то в долг из вашей коллекции.</qt>"
 
-#: src/mainwindow.cpp:2154
+#: src/mainwindow.cpp:2157
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4923,12 +4923,12 @@ msgstr ""
 "Некоторые изображения не сохранены в выбранном месте. Сохраните текущий файл "
 "и все изображения будут перенесены в новое место."
 
-#: src/mainwindow.cpp:2192
+#: src/mainwindow.cpp:2195
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Обновить данные записи из %1"
 
-#: src/mainwindow.cpp:2211
+#: src/mainwindow.cpp:2214
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2016-07-14 08:02+0000\n"
+"POT-Creation-Date: 2016-11-07 07:12+0000\n"
 "PO-Revision-Date: 2013-05-12 14:40+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -150,7 +150,7 @@ msgstr ""
 #: src/collections/gamecollection.cpp:32 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:454
+#: src/document.cpp:488
 msgid "Personal"
 msgstr "Personleg"
 
@@ -842,7 +842,7 @@ msgstr "Kjøpspris"
 #: src/collections/comicbookcollection.cpp:150
 #: src/collections/gamecollection.cpp:122
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:452
+#: src/collections/videocollection.cpp:211 src/document.cpp:486
 msgid "Loaned"
 msgstr "Lånt ut"
 
@@ -1299,9 +1299,9 @@ msgid "Album"
 msgstr "Album"
 
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:337
-#: src/translators/freedbimporter.cpp:272
-#: src/translators/freedbimporter.cpp:386
-#: src/translators/freedbimporter.cpp:452
+#: src/translators/freedbimporter.cpp:276
+#: src/translators/freedbimporter.cpp:390
+#: src/translators/freedbimporter.cpp:456
 msgid "Compact Disc"
 msgstr "CD"
 
@@ -1680,7 +1680,7 @@ msgid "Delete Filter"
 msgstr "Slett filter"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:366
+#: src/entryeditdialog.cpp:368
 msgid "Modify Entries"
 msgstr "Rediger oppføringar"
 
@@ -2396,45 +2396,45 @@ msgstr ""
 msgid "Resize to Content"
 msgstr ""
 
-#: src/document.cpp:193 src/mainwindow.cpp:1204
+#: src/document.cpp:194 src/mainwindow.cpp:1204
 msgid "Saving file..."
 msgstr "Lagrar fil …"
 
-#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:387
-#: src/entryeditdialog.cpp:410 src/entryeditdialog.cpp:505
+#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:412 src/entryeditdialog.cpp:507
 msgid "Edit Entry"
 msgstr "Rediger oppføring"
 
-#: src/entryeditdialog.cpp:86
+#: src/entryeditdialog.cpp:84
 msgid "&New Entry"
 msgstr "&Ny oppføring"
 
-#: src/entryeditdialog.cpp:91 src/entryeditdialog.cpp:122
-#: src/entryeditdialog.cpp:420 src/entryeditdialog.cpp:526
+#: src/entryeditdialog.cpp:89 src/entryeditdialog.cpp:124
+#: src/entryeditdialog.cpp:422 src/entryeditdialog.cpp:528
 msgid "Sa&ve Entry"
 msgstr "&Lagra oppføring"
 
-#: src/entryeditdialog.cpp:317
+#: src/entryeditdialog.cpp:319
 msgid "Do you really want to modify these entries?"
 msgstr "Er du sikker på at du vil endra desse oppføringane?"
 
-#: src/entryeditdialog.cpp:319
+#: src/entryeditdialog.cpp:321
 msgid "Modify Multiple Entries"
 msgstr "Endra fleire oppføringar"
 
-#: src/entryeditdialog.cpp:360
+#: src/entryeditdialog.cpp:362
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Desse felta må ha verdiar. Vil du halda fram?"
 
-#: src/entryeditdialog.cpp:456
+#: src/entryeditdialog.cpp:458
 msgid "Edit Entries"
 msgstr "Rediger oppføringar"
 
-#: src/entryeditdialog.cpp:482
+#: src/entryeditdialog.cpp:484
 msgid "Sa&ve Entries"
 msgstr "La&gra oppføringar"
 
-#: src/entryeditdialog.cpp:641
+#: src/entryeditdialog.cpp:643
 msgid ""
 "The current entry has been modified.\n"
 "Do you want to enter the changes?"
@@ -2442,11 +2442,11 @@ msgstr ""
 "Oppføringa er endra.\n"
 "Vil du lagra endringane?"
 
-#: src/entryeditdialog.cpp:644
+#: src/entryeditdialog.cpp:646
 msgid "Save Entry"
 msgstr "Lagra oppføring"
 
-#: src/entryeditdialog.cpp:645 src/mainwindow.cpp:1016
+#: src/entryeditdialog.cpp:647 src/mainwindow.cpp:1016
 msgid "Unsaved Changes"
 msgstr "Ulagra endringar"
 
@@ -2528,7 +2528,7 @@ msgstr ""
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Klarte ikkje finna standardstilsett for oppføring."
 
-#: src/entryview.cpp:237 src/mainwindow.cpp:1633
+#: src/entryview.cpp:237 src/mainwindow.cpp:1636
 msgid "Please check your installation."
 msgstr "Kontroller installeringa."
 
@@ -2601,9 +2601,7 @@ msgstr ""
 
 #: src/fetch/allocinefetcher.cpp:311 src/fetch/allocinefetcher.cpp:503
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
-#: src/fetch/beyazperdefetcher.cpp:58 src/fetch/dvdfrfetcher.cpp:169
-#: src/fetch/filmstartsfetcher.cpp:58 src/fetch/screenrushfetcher.cpp:58
-#: src/fetch/sensacinefetcher.cpp:58 src/fetch/themoviedbfetcher.cpp:279
+#: src/fetch/dvdfrfetcher.cpp:169 src/fetch/themoviedbfetcher.cpp:279
 #: src/fetch/themoviedbfetcher.cpp:439 src/fetch/vndbfetcher.cpp:237
 #: src/fetch/vndbfetcher.cpp:315
 msgid "Original Title"
@@ -3594,8 +3592,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Gruppe"
 
-#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1548
-#: src/mainwindow.cpp:1574 src/translators/htmlexporter.cpp:337
+#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1551
+#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:337
 msgid "People"
 msgstr "Personar"
 
@@ -4661,11 +4659,11 @@ msgstr "Lagrar fil med nytt filnamn …"
 msgid "Save As"
 msgstr "Lagra som"
 
-#: src/mainwindow.cpp:1295 src/mainwindow.cpp:1345
+#: src/mainwindow.cpp:1298 src/mainwindow.cpp:1348
 msgid "Printing..."
 msgstr "Skriv ut …"
 
-#: src/mainwindow.cpp:1304
+#: src/mainwindow.cpp:1307
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
@@ -4673,82 +4671,82 @@ msgstr ""
 "Samlinga vert filtrert, og viser berre nokre av oppføringane. Berre dei "
 "synlege oppføringane vert skrivne ut. Vil du halda fram?"
 
-#: src/mainwindow.cpp:1329
+#: src/mainwindow.cpp:1332
 msgid "Processing document..."
 msgstr "Handsamar dokument …"
 
-#: src/mainwindow.cpp:1352
+#: src/mainwindow.cpp:1355
 msgid "Exiting..."
 msgstr "Avsluttar …"
 
-#: src/mainwindow.cpp:1460
+#: src/mainwindow.cpp:1463
 #, kde-format
 msgid "Total entries: %1"
 msgstr "Oppføringar totalt: %1"
 
-#: src/mainwindow.cpp:1467
+#: src/mainwindow.cpp:1470
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 filtrert – %2 merkt)"
 
-#: src/mainwindow.cpp:1470
+#: src/mainwindow.cpp:1473
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 filtrert)"
 
-#: src/mainwindow.cpp:1473
+#: src/mainwindow.cpp:1476
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 merkt)"
 
-#: src/mainwindow.cpp:1632 src/translators/boardgamegeekimporter.cpp:97
+#: src/mainwindow.cpp:1635 src/translators/boardgamegeekimporter.cpp:97
 #: src/translators/gcstarimporter.cpp:261
 #: src/translators/goodreadsimporter.cpp:100
 #: src/translators/xsltimporter.cpp:92
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Det oppstod ein feil ved XSLT-handsaming."
 
-#: src/mainwindow.cpp:1758
+#: src/mainwindow.cpp:1761
 msgid "Importing data..."
 msgstr "Importerer data …"
 
-#: src/mainwindow.cpp:1769
+#: src/mainwindow.cpp:1772
 msgid "Import File"
 msgstr "Importer fil"
 
-#: src/mainwindow.cpp:1782
+#: src/mainwindow.cpp:1785
 msgid "Import Directory"
 msgstr "Importer mappe"
 
-#: src/mainwindow.cpp:1805
+#: src/mainwindow.cpp:1808
 msgid "Exporting data..."
 msgstr "Eksporterer data …"
 
-#: src/mainwindow.cpp:1828
+#: src/mainwindow.cpp:1831
 msgid "Export As"
 msgstr "Eksporter som"
 
-#: src/mainwindow.cpp:1856
+#: src/mainwindow.cpp:1859
 msgid "String Macros"
 msgstr "Tekstmakroar"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "Macro"
 msgstr "Makro"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "String"
 msgstr "Tekst"
 
-#: src/mainwindow.cpp:1944
+#: src/mainwindow.cpp:1947
 msgid "Creating citations..."
 msgstr "Lagar referansar …"
 
-#: src/mainwindow.cpp:2054
+#: src/mainwindow.cpp:2057
 msgid "Filters"
 msgstr "Filter"
 
-#: src/mainwindow.cpp:2055
+#: src/mainwindow.cpp:2058
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
@@ -4756,11 +4754,11 @@ msgstr ""
 "<qt>The <i>Filtervisinga</i> viser oppføringane i samsvar med visse "
 "filterreglar.</qt>"
 
-#: src/mainwindow.cpp:2077
+#: src/mainwindow.cpp:2080
 msgid "Loans"
 msgstr "Lån"
 
-#: src/mainwindow.cpp:2078
+#: src/mainwindow.cpp:2081
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
@@ -4768,18 +4766,18 @@ msgstr ""
 "<qt><i>Lånvisinga</i> viser ei oversikt over alle som har lånt noko i "
 "samlinga.</qt>"
 
-#: src/mainwindow.cpp:2154
+#: src/mainwindow.cpp:2157
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
 msgstr ""
 
-#: src/mainwindow.cpp:2192
+#: src/mainwindow.cpp:2195
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Oppdater oppføringsdata frå %1"
 
-#: src/mainwindow.cpp:2211
+#: src/mainwindow.cpp:2214
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -5245,49 +5243,49 @@ msgstr ""
 "Lag førehandsvisingar av innhaldet i filene, noko som kan gjera mappevisinga "
 "mykje seinare."
 
-#: src/translators/freedbimporter.cpp:103
-#: src/translators/freedbimporter.cpp:186
+#: src/translators/freedbimporter.cpp:107
+#: src/translators/freedbimporter.cpp:190
 #, kde-format
 msgid "<qt>Tellico was unable to access the CD-ROM device - <i>%1</i>.</qt>"
 msgstr "<qt>Fekk ikkje tilgang til CD-ROM-eininga – <i>%1</i>.</qt>"
 
-#: src/translators/freedbimporter.cpp:211
+#: src/translators/freedbimporter.cpp:215
 msgid "Select CDDB Entry"
 msgstr "Vel CDDB-oppføring"
 
-#: src/translators/freedbimporter.cpp:212
+#: src/translators/freedbimporter.cpp:216
 msgid "Select a CDDB entry:"
 msgstr "Vel CDDB-oppføring:"
 
-#: src/translators/freedbimporter.cpp:235
+#: src/translators/freedbimporter.cpp:239
 msgid "<qt>No records were found to match the CD.</qt>"
 msgstr "<qt>Fann ingen oppføringar som samsvarar med CD-en.</qt>"
 
-#: src/translators/freedbimporter.cpp:253
+#: src/translators/freedbimporter.cpp:257
 msgid "<qt>Tellico was unable to complete the CD lookup.</qt>"
 msgstr "<qt>Klarte ikkje fullføra oppslag for CD-plata.</qt>"
 
-#: src/translators/freedbimporter.cpp:476
+#: src/translators/freedbimporter.cpp:480
 msgid "Various"
 msgstr "Ymse"
 
-#: src/translators/freedbimporter.cpp:496
+#: src/translators/freedbimporter.cpp:500
 msgid "Audio CD Options"
 msgstr "Lyd-CD-val"
 
-#: src/translators/freedbimporter.cpp:503
+#: src/translators/freedbimporter.cpp:507
 msgid "Read data from CD-ROM device"
 msgstr "Les data frå CD-ROM-eininga"
 
-#: src/translators/freedbimporter.cpp:506
+#: src/translators/freedbimporter.cpp:510
 msgid "Select or input the CD-ROM device location."
 msgstr "Vel eller skriv inn adressa til CD-ROM-eininga."
 
-#: src/translators/freedbimporter.cpp:515
+#: src/translators/freedbimporter.cpp:519
 msgid "Read all CDDB cache files only"
 msgstr "Berre les data frå lokalt CDDB-lager"
 
-#: src/translators/freedbimporter.cpp:516
+#: src/translators/freedbimporter.cpp:520
 msgid ""
 "Read data recursively from all the CDDB cache files contained in the default "
 "cache folders."

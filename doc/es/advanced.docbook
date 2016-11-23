@@ -60,20 +60,19 @@ Argumentos:
 >:</para>
 
 <programlisting
->bool importTellico(QString file, QString action)
-bool importBibtex(QString file, QString action)
-bool importMODS(QString file, QString action)
-bool importRIS(QString file, QString action)
-bool exportXML(QString file)
-bool exportZip(QString file)
-bool exportBibtex(QString file)
-bool exportHTML(QString file)
-bool exportCSV(QString file)
-bool exportPilotDB(QString file)
+>bool importTellico(QString archivo, QString acción)
+bool importBibtex(QString archivo, QString acción)
+bool importMODS(QString archivo, QString acción)
+bool importRIS(QString archivo, QString acción)
+bool exportXML(QString archivo)
+bool exportZip(QString archivo)
+bool exportBibtex(QString archivo)
+bool exportHTML(QString archivo)
+bool exportCSV(QString archivo)
 QList&lt;int&gt; selectedEntries()
 QList&lt;int&gt; filteredEntries()
-void openFile(QString file)
-void setFilter(QString text)
+void openFile(QString archivo)
+void setFilter(QString texto)
 bool showEntry(int id)
 </programlisting>
 
@@ -87,7 +86,7 @@ bool showEntry(int id)
 >. Four file formats are supported for importing: Tellico &XML; files, Bibtex files, MODS files, and RIS files. </para>
 
 <para
->La colección abierta actual en &appname; se puede exportar a un archivo, tanto en formato &XML; de Tellico, en formato ZIP de Tellico, Bibtex, &HTML;, valores separados por comas (CSV), o el formato PilotDB. </para>
+>La colección actualmente abierta en &appname; se puede exportar a un archivo, ya sea en formato &XML; de Tellico, en formato ZIP de Tellico, Bibtex, &HTML; o en valores separados por comas (CSV). </para>
 
 <para
 >Una lista de las ID de la entrada actualmente seleccionada o filtrada puede facilitar mostrar o actualizar las entradas en la vista.</para>

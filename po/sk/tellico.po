@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2016-08-04 07:39+0000\n"
-"PO-Revision-Date: 2016-03-14 20:39+0100\n"
+"POT-Creation-Date: 2016-11-07 07:12+0000\n"
+"PO-Revision-Date: 2016-10-04 19:47+0100\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
@@ -151,7 +151,7 @@ msgstr "ID"
 #: src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34
-#: src/collections/winecollection.cpp:31 src/document.cpp:460
+#: src/collections/winecollection.cpp:31 src/document.cpp:488
 msgid "Personal"
 msgstr "Osobný"
 
@@ -788,14 +788,12 @@ msgid "Number of Players"
 msgstr "Počet hráčov"
 
 #: src/collections/boardgamecollection.cpp:85
-#, fuzzy
-#| msgid "Running Time"
 msgid "Playing Time"
-msgstr "Čas trvania"
+msgstr "Čas hrania"
 
 #: src/collections/boardgamecollection.cpp:90
 msgid "Minimum Age"
-msgstr ""
+msgstr "Minimálny vek"
 
 #: src/collections/boardgamecollection.cpp:95
 #: src/collections/filecatalog.cpp:57 src/collections/gamecollection.cpp:97
@@ -855,7 +853,7 @@ msgstr "Kúpna cena"
 #: src/collections/comicbookcollection.cpp:150
 #: src/collections/gamecollection.cpp:122
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:458
+#: src/collections/videocollection.cpp:211 src/document.cpp:486
 msgid "Loaned"
 msgstr "Požičal"
 
@@ -1176,10 +1174,8 @@ msgid "My Games"
 msgstr "Moje hry"
 
 #: src/collections/gamecollection.cpp:52
-#, fuzzy
-#| msgid "Xbox"
 msgid "Xbox One"
-msgstr "Xbox"
+msgstr "Xbox One"
 
 #: src/collections/gamecollection.cpp:52
 msgid "Xbox 360"
@@ -1190,10 +1186,8 @@ msgid "Xbox"
 msgstr "Xbox"
 
 #: src/collections/gamecollection.cpp:53
-#, fuzzy
-#| msgid "PlayStation"
 msgid "PlayStation4"
-msgstr "PlayStation"
+msgstr "PlayStation4"
 
 #: src/collections/gamecollection.cpp:53
 msgid "PlayStation3"
@@ -1213,42 +1207,32 @@ msgid "PSP"
 msgstr "PSP"
 
 #: src/collections/gamecollection.cpp:54
-#, fuzzy
-#| msgid "PlayStation"
 msgid "PlayStation Vita"
-msgstr "PlayStation"
+msgstr "PlayStation Vita"
 
 #: src/collections/gamecollection.cpp:55
 msgid "Nintendo Wii"
 msgstr "Nintendo Wii"
 
 #: src/collections/gamecollection.cpp:55
-#, fuzzy
-#| msgid "Nintendo DS"
 msgid "Nintendo 3DS"
-msgstr "Nintendo DS"
+msgstr "Nintendo 3DS"
 
 #: src/collections/gamecollection.cpp:55
 msgid "Nintendo DS"
 msgstr "Nintendo DS"
 
 #: src/collections/gamecollection.cpp:56
-#, fuzzy
-#| msgid "Nintendo DS"
 msgid "Nintendo 64"
-msgstr "Nintendo DS"
+msgstr "Nintendo 64"
 
 #: src/collections/gamecollection.cpp:56
-#, fuzzy
-#| msgid "Nintendo DS"
 msgid "Super Nintendo"
-msgstr "Nintendo DS"
+msgstr "Super Nintendo"
 
 #: src/collections/gamecollection.cpp:56
-#, fuzzy
-#| msgid "Nintendo DS"
 msgid "Nintendo"
-msgstr "Nintendo DS"
+msgstr "Nintendo"
 
 #: src/collections/gamecollection.cpp:57
 msgid "GameCube"
@@ -1261,7 +1245,7 @@ msgstr "Dreamcast"
 #: src/collections/gamecollection.cpp:57
 msgctxt "Sega Genesis"
 msgid "Genesis"
-msgstr ""
+msgstr "Genesis"
 
 #: src/collections/gamecollection.cpp:58
 msgid "Game Boy Advance"
@@ -1713,7 +1697,7 @@ msgid "Delete Filter"
 msgstr "Vymazať filter"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:366
+#: src/entryeditdialog.cpp:368
 msgid "Modify Entries"
 msgstr "Zmeniť položky"
 
@@ -2113,10 +2097,8 @@ msgid "XSL Files"
 msgstr "XSL súbory"
 
 #: src/configdialog.cpp:1121
-#, fuzzy
-#| msgid "Templates"
 msgid "Template Packages"
-msgstr "Šablóny"
+msgstr "Balíky šablón"
 
 #: src/configdialog.cpp:1122 src/importdialog.cpp:391 src/mainwindow.cpp:1090
 #: src/mainwindow.cpp:1259 src/reportdialog.cpp:228
@@ -2436,45 +2418,45 @@ msgstr "Skryť všetky stĺpce"
 msgid "Resize to Content"
 msgstr "Prispôsobiť veľkosť obsahu"
 
-#: src/document.cpp:193 src/mainwindow.cpp:1204
+#: src/document.cpp:194 src/mainwindow.cpp:1204
 msgid "Saving file..."
 msgstr "Ukladá sa súbor..."
 
-#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:387
-#: src/entryeditdialog.cpp:410 src/entryeditdialog.cpp:505
+#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:412 src/entryeditdialog.cpp:507
 msgid "Edit Entry"
 msgstr "Upraviť položku"
 
-#: src/entryeditdialog.cpp:86
+#: src/entryeditdialog.cpp:84
 msgid "&New Entry"
 msgstr "&Nová položka"
 
-#: src/entryeditdialog.cpp:91 src/entryeditdialog.cpp:122
-#: src/entryeditdialog.cpp:420 src/entryeditdialog.cpp:526
+#: src/entryeditdialog.cpp:89 src/entryeditdialog.cpp:124
+#: src/entryeditdialog.cpp:422 src/entryeditdialog.cpp:528
 msgid "Sa&ve Entry"
 msgstr "Uložiť položku"
 
-#: src/entryeditdialog.cpp:317
+#: src/entryeditdialog.cpp:319
 msgid "Do you really want to modify these entries?"
 msgstr "Naozaj chcete zmeniť tieto položky?"
 
-#: src/entryeditdialog.cpp:319
+#: src/entryeditdialog.cpp:321
 msgid "Modify Multiple Entries"
 msgstr "Zmeniť viacero položiek"
 
-#: src/entryeditdialog.cpp:360
+#: src/entryeditdialog.cpp:362
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Pre nasledujúce polia je požadovaná hodnota. Chcete pokračovať?"
 
-#: src/entryeditdialog.cpp:456
+#: src/entryeditdialog.cpp:458
 msgid "Edit Entries"
 msgstr "Upraviť položky"
 
-#: src/entryeditdialog.cpp:482
+#: src/entryeditdialog.cpp:484
 msgid "Sa&ve Entries"
 msgstr "&Uložiť položky"
 
-#: src/entryeditdialog.cpp:641
+#: src/entryeditdialog.cpp:643
 msgid ""
 "The current entry has been modified.\n"
 "Do you want to enter the changes?"
@@ -2482,11 +2464,11 @@ msgstr ""
 "Aktuálna položka bola zmenená.\n"
 "Chcete zapísať zmeny?"
 
-#: src/entryeditdialog.cpp:644
+#: src/entryeditdialog.cpp:646
 msgid "Save Entry"
 msgstr "Uložiť položku"
 
-#: src/entryeditdialog.cpp:645 src/mainwindow.cpp:1016
+#: src/entryeditdialog.cpp:647 src/mainwindow.cpp:1016
 msgid "Unsaved Changes"
 msgstr "Neuložené zmeny"
 
@@ -2503,11 +2485,10 @@ msgstr ""
 "pomocou ikony, ktorá môže byť obrázok v položke.</qt>"
 
 #: src/entryiconview.cpp:113
-#, fuzzy, kde-format
-#| msgid "Open File"
+#, kde-format
 msgctxt "Open URL"
 msgid "Open %1"
-msgstr "Otvoriť súbor"
+msgstr "Otvoriť %1"
 
 #: src/entryiconview.cpp:127
 msgid "&Sort By"
@@ -2568,7 +2549,7 @@ msgstr ""
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico nemôže nájsť predvolený štýl položky."
 
-#: src/entryview.cpp:237 src/mainwindow.cpp:1633
+#: src/entryview.cpp:237 src/mainwindow.cpp:1636
 msgid "Please check your installation."
 msgstr "Prosím, skontrolujte svoju inštaláciu."
 
@@ -2883,16 +2864,12 @@ msgid "This source has no options."
 msgstr "Tento zdroj nemá voľby."
 
 #: src/fetch/bedethequefetcher.cpp:332 src/fetch/bedethequefetcher.cpp:456
-#, fuzzy
-#| msgid "Color"
 msgid "Colorist"
-msgstr "Farba"
+msgstr "Colorist"
 
 #: src/fetch/bedethequefetcher.cpp:340 src/fetch/bedethequefetcher.cpp:460
-#, fuzzy
-#| msgid "Bedetheque.com"
 msgid "Bedetheque Link"
-msgstr "Bedetheque.com"
+msgstr "Odkaz Bedetheque"
 
 #: src/fetch/bibliosharefetcher.cpp:185 src/fetch/freebasefetcher.cpp:967
 #: src/fetch/giantbombfetcher.cpp:231 src/fetch/googlebookfetcher.cpp:397
@@ -3660,8 +3637,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Skupina"
 
-#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1548
-#: src/mainwindow.cpp:1574 src/translators/htmlexporter.cpp:337
+#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1551
+#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:337
 msgid "People"
 msgstr "Ľudia"
 
@@ -3749,10 +3726,9 @@ msgid "Save link only"
 msgstr "Uložiť iba odkaz"
 
 #: src/gui/imagewidget.cpp:256
-#, fuzzy, kde-format
-#| msgid "Small Image"
+#, kde-format
 msgid "All Images (%1)"
-msgstr "Malý obrázok"
+msgstr "Všetky obrázky (%1)"
 
 #: src/gui/imagewidget.cpp:282
 msgid "Opening the selected scanner failed."
@@ -3877,10 +3853,8 @@ msgstr "&Importovať"
 
 #: src/importdialog.cpp:332 src/mainwindow.cpp:1086 src/mainwindow.cpp:1257
 #: src/translators/tellicozipexporter.cpp:55
-#, fuzzy
-#| msgid "Tellico Zip File"
 msgid "Tellico Files"
-msgstr "Zip súbor Tellico"
+msgstr "Súbory Tellico"
 
 #: src/importdialog.cpp:333 src/importdialog.cpp:349 src/importdialog.cpp:378
 #: src/mainwindow.cpp:1088 src/translators/tellicoxmlexporter.cpp:68
@@ -3896,46 +3870,32 @@ msgid "CSV Files"
 msgstr "CSV súbory"
 
 #: src/importdialog.cpp:353
-#, fuzzy
-#| msgid "Files"
 msgid "RIS Files"
-msgstr "Súbory"
+msgstr "RIS súbory"
 
 #: src/importdialog.cpp:357 src/translators/gcstarexporter.cpp:61
-#, fuzzy
-#| msgid "*.gcs|GCstar Data Files (*.gcs)"
 msgid "GCstar Data Files"
-msgstr "*.gcs|Dátové súbory GCstar (*.gcs)"
+msgstr "Dátové súbory GCstar"
 
 #: src/importdialog.cpp:361
-#, fuzzy
-#| msgid "*.amc|AMC Data Files (*.amc)"
 msgid "AMC Data Files"
-msgstr "*.amc|Dátové súbory AMC (*.amc)"
+msgstr "Dátové súbory AMC"
 
 #: src/importdialog.cpp:365
-#, fuzzy
-#| msgid "Files"
 msgid "PDF Files"
-msgstr "Súbory"
+msgstr "PDF súbory"
 
 #: src/importdialog.cpp:369
-#, fuzzy
-#| msgid "Reorder Fields"
 msgid "Referencer Files"
-msgstr "Zmeniť poradie polí"
+msgstr "Súbory referencera"
 
 #: src/importdialog.cpp:373
-#, fuzzy
-#| msgid "Files"
 msgid "CIW Files"
-msgstr "Súbory"
+msgstr "CIW súbory"
 
 #: src/importdialog.cpp:377
-#, fuzzy
-#| msgid "*.vinoxml|VinoXML Data Files (*.vinoxml)"
 msgid "VinoXML Data Files"
-msgstr "*.vinoxml|Dátové súbory VinoXML (*.vinoxml)"
+msgstr "Dátové súbory VinoXML"
 
 #: src/loandialog.cpp:67
 msgid "Loan Dialog"
@@ -4028,10 +3988,8 @@ msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico - správca zbierok pre KDE"
 
 #: src/main.cpp:118
-#, fuzzy
-#| msgid "(c) 2001-2015, Robby Stephenson"
 msgid "(c) 2001-2016, Robby Stephenson"
-msgstr "(c) 2001-2015, Robby Stephenson"
+msgstr "(c) 2001-2016, Robby Stephenson"
 
 #: src/main.cpp:123
 msgid "Data source scripts"
@@ -4749,11 +4707,11 @@ msgstr "Ukladá sa súbor pod novým menom..."
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: src/mainwindow.cpp:1295 src/mainwindow.cpp:1345
+#: src/mainwindow.cpp:1298 src/mainwindow.cpp:1348
 msgid "Printing..."
 msgstr "Tlač..."
 
-#: src/mainwindow.cpp:1304
+#: src/mainwindow.cpp:1307
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
@@ -4761,82 +4719,82 @@ msgstr ""
 "Zbierka je v momentálne odfiltrovaná a ukazuje obmedzenú podmnožinu "
 "položiek. Vytlačené budú iba viditeľné položky. Pokračovať?"
 
-#: src/mainwindow.cpp:1329
+#: src/mainwindow.cpp:1332
 msgid "Processing document..."
 msgstr "Spracúvam dokument..."
 
-#: src/mainwindow.cpp:1352
+#: src/mainwindow.cpp:1355
 msgid "Exiting..."
 msgstr "Ukončujem..."
 
-#: src/mainwindow.cpp:1460
+#: src/mainwindow.cpp:1463
 #, kde-format
 msgid "Total entries: %1"
 msgstr "Celkom položiek: %1"
 
-#: src/mainwindow.cpp:1467
+#: src/mainwindow.cpp:1470
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 filtrovaných; %2 vybraných)"
 
-#: src/mainwindow.cpp:1470
+#: src/mainwindow.cpp:1473
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 filtrované)"
 
-#: src/mainwindow.cpp:1473
+#: src/mainwindow.cpp:1476
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 vybrané)"
 
-#: src/mainwindow.cpp:1632 src/translators/boardgamegeekimporter.cpp:97
+#: src/mainwindow.cpp:1635 src/translators/boardgamegeekimporter.cpp:97
 #: src/translators/gcstarimporter.cpp:261
 #: src/translators/goodreadsimporter.cpp:100
 #: src/translators/xsltimporter.cpp:92
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Nastala chyba v spracovaní XSLT v Tellico."
 
-#: src/mainwindow.cpp:1758
+#: src/mainwindow.cpp:1761
 msgid "Importing data..."
 msgstr "Importujem dáta..."
 
-#: src/mainwindow.cpp:1769
+#: src/mainwindow.cpp:1772
 msgid "Import File"
 msgstr "Importovať súbor"
 
-#: src/mainwindow.cpp:1782
+#: src/mainwindow.cpp:1785
 msgid "Import Directory"
 msgstr "Adresár importu"
 
-#: src/mainwindow.cpp:1805
+#: src/mainwindow.cpp:1808
 msgid "Exporting data..."
 msgstr "Exportovanie údajov..."
 
-#: src/mainwindow.cpp:1828
+#: src/mainwindow.cpp:1831
 msgid "Export As"
 msgstr "Exportovať ako"
 
-#: src/mainwindow.cpp:1856
+#: src/mainwindow.cpp:1859
 msgid "String Macros"
 msgstr "Makrá reťazcov"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "Macro"
 msgstr "Makro"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "String"
 msgstr "Reťazec"
 
-#: src/mainwindow.cpp:1944
+#: src/mainwindow.cpp:1947
 msgid "Creating citations..."
 msgstr "Vytváram citácie..."
 
-#: src/mainwindow.cpp:2054
+#: src/mainwindow.cpp:2057
 msgid "Filters"
 msgstr "Filtre"
 
-#: src/mainwindow.cpp:2055
+#: src/mainwindow.cpp:2058
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
@@ -4844,11 +4802,11 @@ msgstr ""
 "<qt>The <i>Pohľad filtra</i> ukazuje položky, ktoré spĺňajú určité pravidlá "
 "filtra.</qt>"
 
-#: src/mainwindow.cpp:2077
+#: src/mainwindow.cpp:2080
 msgid "Loans"
 msgstr "Pôžičky"
 
-#: src/mainwindow.cpp:2078
+#: src/mainwindow.cpp:2081
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
@@ -4856,7 +4814,7 @@ msgstr ""
 "<qt><i>Pohľad pôžičky</i> ukazuje zoznam všetkých ľudí, ktorí si požičali "
 "položky z vašej zbierky.</qt>"
 
-#: src/mainwindow.cpp:2154
+#: src/mainwindow.cpp:2157
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4864,12 +4822,12 @@ msgstr ""
 "Niektoré obrázky nie sú uložené do nastaveného miesta. Aktuálny súbor musí "
 "byť uložený a obrázky budú premiestnené do nového umiestnenia."
 
-#: src/mainwindow.cpp:2192
+#: src/mainwindow.cpp:2195
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Aktualizovať dáta položky z %1"
 
-#: src/mainwindow.cpp:2211
+#: src/mainwindow.cpp:2214
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -5136,10 +5094,8 @@ msgid "Bibtexml"
 msgstr "Bibtexml"
 
 #: src/translators/bibtexmlexporter.cpp:52
-#, fuzzy
-#| msgid "Bibtexml"
 msgid "Bibtexml Files"
-msgstr "Bibtexml"
+msgstr "Súbory Bibtexml"
 
 #: src/translators/boardgamegeekimporter.cpp:80
 #: src/translators/goodreadsimporter.cpp:78
@@ -5455,10 +5411,8 @@ msgid "ONIX Archive"
 msgstr "ONIX archív"
 
 #: src/translators/onixexporter.cpp:71
-#, fuzzy
-#| msgid "Files"
 msgid "Zip Files"
-msgstr "Súbory"
+msgstr "ZIP súbory"
 
 #: src/translators/onixexporter.cpp:179
 msgid "ONIX Archive Options"

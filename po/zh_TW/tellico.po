@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2016-08-04 07:39+0000\n"
+"POT-Creation-Date: 2016-11-07 07:12+0000\n"
 "PO-Revision-Date: 2015-06-14 13:12+0800\n"
 "Last-Translator: Franklin\n"
 "Language-Team: Chinese Traditional <kde-tw@googlegroups.com>\n"
@@ -150,7 +150,7 @@ msgstr "代碼"
 #: src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34
-#: src/collections/winecollection.cpp:31 src/document.cpp:460
+#: src/collections/winecollection.cpp:31 src/document.cpp:488
 msgid "Personal"
 msgstr "個人"
 
@@ -833,7 +833,7 @@ msgstr "購買價格"
 #: src/collections/comicbookcollection.cpp:150
 #: src/collections/gamecollection.cpp:122
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:458
+#: src/collections/videocollection.cpp:211 src/document.cpp:486
 msgid "Loaned"
 msgstr "借用"
 
@@ -1687,7 +1687,7 @@ msgid "Delete Filter"
 msgstr "刪除過濾器"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:366
+#: src/entryeditdialog.cpp:368
 msgid "Modify Entries"
 msgstr "變更項目"
 
@@ -2394,45 +2394,45 @@ msgstr "隱藏所有欄位"
 msgid "Resize to Content"
 msgstr "將大小調整到符合內容"
 
-#: src/document.cpp:193 src/mainwindow.cpp:1204
+#: src/document.cpp:194 src/mainwindow.cpp:1204
 msgid "Saving file..."
 msgstr "正在儲存檔案..."
 
-#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:387
-#: src/entryeditdialog.cpp:410 src/entryeditdialog.cpp:505
+#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:389
+#: src/entryeditdialog.cpp:412 src/entryeditdialog.cpp:507
 msgid "Edit Entry"
 msgstr "編輯項目"
 
-#: src/entryeditdialog.cpp:86
+#: src/entryeditdialog.cpp:84
 msgid "&New Entry"
 msgstr "新的項目(&N)"
 
-#: src/entryeditdialog.cpp:91 src/entryeditdialog.cpp:122
-#: src/entryeditdialog.cpp:420 src/entryeditdialog.cpp:526
+#: src/entryeditdialog.cpp:89 src/entryeditdialog.cpp:124
+#: src/entryeditdialog.cpp:422 src/entryeditdialog.cpp:528
 msgid "Sa&ve Entry"
 msgstr "儲存項目(&V)"
 
-#: src/entryeditdialog.cpp:317
+#: src/entryeditdialog.cpp:319
 msgid "Do you really want to modify these entries?"
 msgstr "您真的要變更這些項目嗎？"
 
-#: src/entryeditdialog.cpp:319
+#: src/entryeditdialog.cpp:321
 msgid "Modify Multiple Entries"
 msgstr "變更多個項目"
 
-#: src/entryeditdialog.cpp:360
+#: src/entryeditdialog.cpp:362
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "以下的欄位需要填值。您要繼續嗎？"
 
-#: src/entryeditdialog.cpp:456
+#: src/entryeditdialog.cpp:458
 msgid "Edit Entries"
 msgstr "編輯項目"
 
-#: src/entryeditdialog.cpp:482
+#: src/entryeditdialog.cpp:484
 msgid "Sa&ve Entries"
 msgstr "儲存項目(&V)"
 
-#: src/entryeditdialog.cpp:641
+#: src/entryeditdialog.cpp:643
 msgid ""
 "The current entry has been modified.\n"
 "Do you want to enter the changes?"
@@ -2440,11 +2440,11 @@ msgstr ""
 "目前的項目已變更。\n"
 "您要輸入變更嗎？"
 
-#: src/entryeditdialog.cpp:644
+#: src/entryeditdialog.cpp:646
 msgid "Save Entry"
 msgstr "儲存項目"
 
-#: src/entryeditdialog.cpp:645 src/mainwindow.cpp:1016
+#: src/entryeditdialog.cpp:647 src/mainwindow.cpp:1016
 msgid "Unsaved Changes"
 msgstr "未儲存的改變"
 
@@ -2524,7 +2524,7 @@ msgstr "<qt><i>項目檢視</i>將項目的內容用格式化的方式呈現。<
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico 無法找到預設的項目樣式表。"
 
-#: src/entryview.cpp:237 src/mainwindow.cpp:1633
+#: src/entryview.cpp:237 src/mainwindow.cpp:1636
 msgid "Please check your installation."
 msgstr "請檢查您的安裝。"
 
@@ -3594,8 +3594,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "群組"
 
-#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1548
-#: src/mainwindow.cpp:1574 src/translators/htmlexporter.cpp:337
+#: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1551
+#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:337
 msgid "People"
 msgstr "人物"
 
@@ -4679,108 +4679,108 @@ msgstr "正在用新檔名儲存檔案..."
 msgid "Save As"
 msgstr "另存新檔"
 
-#: src/mainwindow.cpp:1295 src/mainwindow.cpp:1345
+#: src/mainwindow.cpp:1298 src/mainwindow.cpp:1348
 msgid "Printing..."
 msgstr "正在列印..."
 
-#: src/mainwindow.cpp:1304
+#: src/mainwindow.cpp:1307
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
 msgstr "正在過濾收藏，只有符合過濾條件的項目會被列印。要繼續嗎？"
 
-#: src/mainwindow.cpp:1329
+#: src/mainwindow.cpp:1332
 msgid "Processing document..."
 msgstr "正在處理文件..."
 
-#: src/mainwindow.cpp:1352
+#: src/mainwindow.cpp:1355
 msgid "Exiting..."
 msgstr "正在離開..."
 
-#: src/mainwindow.cpp:1460
+#: src/mainwindow.cpp:1463
 #, kde-format
 msgid "Total entries: %1"
 msgstr "所有項目：%1"
 
-#: src/mainwindow.cpp:1467
+#: src/mainwindow.cpp:1470
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "（%1 個已過濾；%2 個已選擇）"
 
-#: src/mainwindow.cpp:1470
+#: src/mainwindow.cpp:1473
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "（%1 個已過濾）"
 
-#: src/mainwindow.cpp:1473
+#: src/mainwindow.cpp:1476
 #, kde-format
 msgid "(%1 selected)"
 msgstr "（%1 個已選擇）"
 
-#: src/mainwindow.cpp:1632 src/translators/boardgamegeekimporter.cpp:97
+#: src/mainwindow.cpp:1635 src/translators/boardgamegeekimporter.cpp:97
 #: src/translators/gcstarimporter.cpp:261
 #: src/translators/goodreadsimporter.cpp:100
 #: src/translators/xsltimporter.cpp:92
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico 在處理 XSLT 時遇到錯誤。"
 
-#: src/mainwindow.cpp:1758
+#: src/mainwindow.cpp:1761
 msgid "Importing data..."
 msgstr "匯入資料中..."
 
-#: src/mainwindow.cpp:1769
+#: src/mainwindow.cpp:1772
 msgid "Import File"
 msgstr "匯入檔案"
 
-#: src/mainwindow.cpp:1782
+#: src/mainwindow.cpp:1785
 msgid "Import Directory"
 msgstr "匯入目錄"
 
-#: src/mainwindow.cpp:1805
+#: src/mainwindow.cpp:1808
 msgid "Exporting data..."
 msgstr "匯出資料中..."
 
-#: src/mainwindow.cpp:1828
+#: src/mainwindow.cpp:1831
 msgid "Export As"
 msgstr "匯出為"
 
-#: src/mainwindow.cpp:1856
+#: src/mainwindow.cpp:1859
 msgid "String Macros"
 msgstr "字串巨集"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "Macro"
 msgstr "巨集"
 
-#: src/mainwindow.cpp:1857
+#: src/mainwindow.cpp:1860
 msgid "String"
 msgstr "字串"
 
-#: src/mainwindow.cpp:1944
+#: src/mainwindow.cpp:1947
 msgid "Creating citations..."
 msgstr "建立引用中..."
 
-#: src/mainwindow.cpp:2054
+#: src/mainwindow.cpp:2057
 msgid "Filters"
 msgstr "過濾器"
 
-#: src/mainwindow.cpp:2055
+#: src/mainwindow.cpp:2058
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
 msgstr "<qt>過濾檢視會顯示符合特定過濾條件的項目。</qt>"
 
-#: src/mainwindow.cpp:2077
+#: src/mainwindow.cpp:2080
 msgid "Loans"
 msgstr "借貸"
 
-#: src/mainwindow.cpp:2078
+#: src/mainwindow.cpp:2081
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
 msgstr "<qt>借貸檢視會顯示所有您已借出的收藏項目。</qt>"
 
-#: src/mainwindow.cpp:2154
+#: src/mainwindow.cpp:2157
 msgid ""
 "Some images are not saved in the configured location. The current file must "
 "be saved and the images will be transferred to the new location."
@@ -4788,12 +4788,12 @@ msgstr ""
 "有些影像並未儲存在設定的位置。目前的檔案必須先儲存，影像則會被轉換到新的位"
 "置。"
 
-#: src/mainwindow.cpp:2192
+#: src/mainwindow.cpp:2195
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "從 %1 更新的項目資料"
 
-#: src/mainwindow.cpp:2211
+#: src/mainwindow.cpp:2214
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "

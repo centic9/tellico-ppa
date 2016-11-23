@@ -33,6 +33,7 @@
 #include "fieldformat.h"
 #include "tellico_strings.h"
 #include "images/imagefactory.h"
+#include "images/imagedirectory.h"
 #include "images/image.h"
 #include "images/imageinfo.h"
 #include "utils/stringset.h"
@@ -173,7 +174,7 @@ bool Document::openDocument(const QUrl& url_) {
   return true;
 }
 
-bool Document::saveDocument(const QUrl& url_) {
+bool Document::saveDocument(const QUrl& url_, bool force_) {
   // FileHandler::queryExists calls FileHandler::writeBackupFile
   // so the only reason to check queryExists() is if the url to write to is different than the current one
   if(url_ == m_url) {
@@ -181,7 +182,7 @@ bool Document::saveDocument(const QUrl& url_) {
       return false;
     }
   } else {
-    if(!FileHandler::queryExists(url_)) {
+    if(!force_ && !FileHandler::queryExists(url_)) {
       return false;
     }
   }
@@ -203,11 +204,11 @@ bool Document::saveDocument(const QUrl& url_) {
   // case saving will over write the old file that has the images in it!
   if(includeImages) {
     totalSteps = 10;
-    item.setTotalSteps(10);
+    item.setTotalSteps(totalSteps);
     // since TellicoZipExporter uses 100 steps, then it will get 100/110 of the total progress
   } else {
     totalSteps = 100;
-    item.setTotalSteps(100);
+    item.setTotalSteps(totalSteps);
     m_cancelImageWriting = false;
     writeAllImages(imageLocation == Config::ImagesInAppDir ? ImageFactory::DataDir : ImageFactory::LocalDir, url_);
   }
@@ -291,45 +292,72 @@ void Document::appendCollection(Tellico::Data::CollPtr coll1_, Tellico::Data::Co
 }
 
 Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll_) {
+  return mergeCollection(m_coll, coll_);
+}
+
+Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll1_, Tellico::Data::CollPtr coll2_) {
   MergePair pair;
-  if(!coll_) {
+  if(!coll1_ || !coll2_) {
     return pair;
   }
 
-  m_coll->blockSignals(true);
-  Data::FieldList fields = coll_->fields();
+  coll1_->blockSignals(true);
+  Data::FieldList fields = coll2_->fields();
   foreach(FieldPtr field, fields) {
-    m_coll->mergeField(field);
+    coll1_->mergeField(field);
   }
 
-  EntryList currEntries = m_coll->entries();
-  EntryList newEntries = coll_->entries();
+  EntryList currEntries = coll1_->entries();
+  EntryList newEntries = coll2_->entries();
+  std::sort(currEntries.begin(), currEntries.end(), Data::EntryCmp(QLatin1String("title")));
+  std::sort(newEntries.begin(), newEntries.end(), Data::EntryCmp(QLatin1String("title")));
+
+  const int currTotal = currEntries.count();
+  int lastMatchId = 0;
+  bool checkSameId = false; // if the matching entries have the same id, then check that first for later comparisons
   foreach(EntryPtr newEntry, newEntries) {
     int bestMatch = 0;
-    Data::EntryPtr matchEntry;
-    foreach(EntryPtr currEntry, currEntries) {
-      int match = m_coll->sameEntry(currEntry, newEntry);
-      if(match >= EntryComparison::ENTRY_PERFECT_MATCH) {
+    Data::EntryPtr matchEntry, currEntry;
+    // first, if we're checking against same ID
+    if(checkSameId) {
+      currEntry = currEntries.first()->collection()->entryById(newEntry->id());
+      if(currEntry &&
+         currEntry->collection()->sameEntry(currEntry, newEntry) >= EntryComparison::ENTRY_PERFECT_MATCH) {
+        // only have to compare against perfect match
         matchEntry = currEntry;
-        break;
-      } else if(match >= EntryComparison::ENTRY_GOOD_MATCH && match > bestMatch) {
-        bestMatch = match;
-        matchEntry = currEntry;
-        // don't break, keep looking for better one
+      }
+    }
+    if(!matchEntry) {
+      // alternative is to loop over them all
+      for(int i = 0; i < currTotal; ++i) {
+        // since we're sorted by title, track the index of the previous match and starts comparison there
+        currEntry = currEntries.at((i+lastMatchId) % currTotal);
+        int match = currEntry->collection()->sameEntry(currEntry, newEntry);
+        if(match >= EntryComparison::ENTRY_PERFECT_MATCH) {
+          matchEntry = currEntry;
+          lastMatchId = (i+lastMatchId) % currTotal;
+          break;
+        } else if(match >= EntryComparison::ENTRY_GOOD_MATCH && match > bestMatch) {
+          bestMatch = match;
+          matchEntry = currEntry;
+          lastMatchId = (i+lastMatchId) % currTotal;
+          // don't break, keep looking for better one
+        }
       }
     }
     if(matchEntry) {
+      checkSameId = checkSameId || (matchEntry->id() == newEntry->id());
       mergeEntry(matchEntry, newEntry);
     } else {
       Data::EntryPtr e(new Data::Entry(*newEntry));
-      e->setCollection(m_coll);
+      e->setCollection(coll1_);
       // keep track of which entries got added
       pair.first.append(e);
     }
   }
-  m_coll->addEntries(pair.first);
+  coll1_->addEntries(pair.first);
   // TODO: merge filters and loans
-  m_coll->blockSignals(false);
+  coll1_->blockSignals(false);
   return pair;
 }
 
@@ -526,15 +554,18 @@ void Document::slotLoadAllImages() {
   m_importer = 0;
 }
 
+// cacheDir_ is the location dir to write the images
+// localDir_ provide the new file location which is only needed if cacheDir == LocalDir
 void Document::writeAllImages(int cacheDir_, const QUrl& localDir_) {
   // images get 80 steps in saveDocument()
   const uint stepSize = 1 + qMax(1, m_coll->entryCount()/80); // add 1 since it could round off
   uint j = 1;
 
-  QString oldLocalDir = ImageFactory::localDir();
-  ImageFactory::setLocalDirectory(localDir_);
-
   ImageFactory::CacheDir cacheDir = static_cast<ImageFactory::CacheDir>(cacheDir_);
+  ImageDirectory* imgDir = 0;
+  if(cacheDir == ImageFactory::LocalDir) {
+    imgDir = new ImageDirectory(ImageFactory::localDirectory(localDir_));
+  }
 
   QString id;
   StringSet images;
@@ -550,7 +581,14 @@ void Document::writeAllImages(int cacheDir_, const QUrl& localDir_) {
       if(ImageFactory::imageInfo(id).linkOnly) {
         continue;
       }
-      if(!ImageFactory::writeCachedImage(id, cacheDir)) {
+      // careful here, if we're writing to LocalDir, need to read from the old LocalDir and write to new
+      bool success;
+      if(cacheDir == ImageFactory::LocalDir) {
+        success = ImageFactory::writeCachedImage(id, imgDir);
+      } else {
+        success = ImageFactory::writeCachedImage(id, cacheDir);
+      }
+      if(!success) {
         myDebug() << "did not write image for entry title:" << entry->title();
       }
       if(m_cancelImageWriting) {
@@ -572,7 +610,6 @@ void Document::writeAllImages(int cacheDir_, const QUrl& localDir_) {
   }
 
   m_cancelImageWriting = false;
-  ImageFactory::setLocalDirectory(QUrl::fromLocalFile(oldLocalDir));
 }
 
 bool Document::pruneImages() {

@@ -1208,7 +1208,7 @@ bool MainWindow::fileSave() {
     ret = fileSaveAs();
   } else {
     // special check: if there are more than 200 images AND the "Write Images In File" config key
-    // is not set, then warn user that performance may suffer, and write result
+    // is set, then warn user that performance may suffer, and write result
     if(Config::imageLocation() == Config::ImagesInFile &&
        Config::askWriteImagesInFile() &&
        Data::Document::self()->imageCount() > MAX_IMAGES_WARN_PERFORMANCE) {
@@ -1274,7 +1274,9 @@ bool MainWindow::fileSaveAs() {
   bool ret = true;
   if(url.isValid()) {
     GUI::CursorSaver cs(Qt::WaitCursor);
-    if(Data::Document::self()->saveDocument(url)) {
+    m_savingImageLocationChange = true;
+    // Overwriting an existing file was already confirmed in QFileDialog::getSaveFileUrl()
+    if(Data::Document::self()->saveDocument(url, true /* force */)) {
       Kernel::self()->resetHistory();
       KRecentDocument::add(url);
       m_fileOpenRecent->addUrl(url);
@@ -1285,6 +1287,7 @@ bool MainWindow::fileSaveAs() {
     } else {
       ret = false;
     }
+    m_savingImageLocationChange = false;
   }
 
   StatusBar::self()->clearStatus();

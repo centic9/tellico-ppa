@@ -16,7 +16,7 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 		$(DEB_CMAKE_KDE4_FLAGS) \
 		$(DEB_CMAKE_CUSTOM_FLAGS) \
-		-DBUILD_TESTS=TRUE=false \
+		-DBUILD_TESTS=false \
 		-DENABLE_WEBCAM=true
 
 override_dh_shlibdeps:

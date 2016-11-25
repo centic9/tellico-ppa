@@ -18,11 +18,31 @@ override_dh_auto_configure:
 		$(DEB_CMAKE_CUSTOM_FLAGS) \
 		-DBUILD_TESTS=false \
 		-DENABLE_WEBCAM=true
-	# workaround to create some directories to prepare for differences between Xenial and Yakkety
-	mkdir -p debian/tmp/usr/share/appdata debian/tmp/usr/share/metainfo/
 
 override_dh_shlibdeps:
 	dh_shlibdeps -- -xkdepim-runtime
 
 override_dh_compress:
 	dh_compress -Xkde
+
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_install -i
+	dh_installdirs -i
+	dh_installdocs -i AUTHORS COMPILING COPYING TODO README
+	dh_installchangelogs -i ChangeLog
+	dh_installexamples -i
+	dh_installman -i
+	dh_link -i
+	dh_compress -i
+	dh_fixperms -i
+	dh_installdeb -i
+	dh_gencontrol -i
+	dh_md5sums -i
+	dh_builddeb -i
+	dh_lintian -i
+	dh_perl -i
+	# workaround to handle differences between Xenial and Yakkety
+	-install -p -m 0755 debian/tmp/usr/share/appdata/* $(debdir)/usr/share/appdata/
+	-install -p -m 0755 debian/tmp/usr/share/metainfo/* $(debdir)/usr/share/metainfo/

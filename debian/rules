@@ -18,6 +18,8 @@ override_dh_auto_configure:
 		$(DEB_CMAKE_CUSTOM_FLAGS) \
 		-DBUILD_TESTS=false \
 		-DENABLE_WEBCAM=true
+	# workaround to create some directories to prepare for differences between Xenial and Yakkety
+	mkdir -p debian/tmp/usr/share/appdata debian/tmp/usr/share/metainfo/
 
 override_dh_shlibdeps:
 	dh_shlibdeps -- -xkdepim-runtime

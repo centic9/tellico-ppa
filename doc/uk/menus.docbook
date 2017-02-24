@@ -12,16 +12,14 @@ or menu bars.
 
 <sect1 id="main-window-menus">
 <title
->Головне вікно &appname;</title>
+>Головне вікно &tellico;</title>
 
 <para
 >Далі за текстом докладно обговорено кожен з пунктів меню. Якщо існує клавіатурне скорочення, яке виконує ту саму дію, що і пункт меню, поряд з пунктом меню буде вказано це скорочення. </para>
 
 <sect2>
 <title
->Меню <guimenu
->Файл</guimenu
-></title>
+>Меню «Файл»</title>
 
 <para>
 <variablelist>
@@ -40,7 +38,7 @@ or menu bars.
 <para
 >За допомогою цього пункту меню можна <action
 >створити нову збірку</action
->. У &appname; передбачено <link linkend="collection-types"
+>. У &tellico; передбачено <link linkend="collection-types"
 >12 типових видів збірок</link
 >, а також порожню нетипову збірку, параметри якої визначає користувач.</para>
 </listitem>
@@ -65,7 +63,7 @@ or menu bars.
 <listitem>
 <para
 >За допомогою цього пункту можна <action
->відкрити файл &appname;</action
+>відкрити файл &tellico;</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -121,7 +119,13 @@ or menu bars.
 <varlistentry>
 <term>
  <menuchoice
-><guimenu
+><shortcut
+> <keycombo
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
 >Файл</guimenu
 > <guimenuitem
 >Зберегти як...</guimenuitem
@@ -176,7 +180,7 @@ or menu bars.
 <para
 >За допомогою цього пункту можна наказати програмі <action
 >імпортувати дані з зовнішнього файла</action
->. &appname; може імпортувати дані у багатьох <link linkend="importing"
+>. &tellico; може імпортувати дані у багатьох <link linkend="importing"
 >форматах</link
 >.</para>
 </listitem>
@@ -196,7 +200,7 @@ or menu bars.
 <para
 >За допомогою цього пункту меню можна наказати програмі <action
 >експортувати збірку у іншому форматі</action
->. &appname; може експортувати дані у багатьох <link linkend="exporting"
+>. &tellico; може експортувати дані у багатьох <link linkend="exporting"
 >форматах</link
 >.</para>
 </listitem>
@@ -221,7 +225,7 @@ or menu bars.
 <listitem>
 <para
 >За допомогою цієї команди можна <action
->закрити вікно &appname;</action
+>закрити вікно &tellico;</action
 >. Якщо у збірці залишалися незбережені зміни, програма запитає вас про те, чи слід їх зберегти, перш ніж завершити роботу.</para>
 </listitem>
 </varlistentry>
@@ -233,9 +237,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDIT MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Меню <guimenu
->Зміни</guimenu
-></title>
+>Меню «Зміни»</title>
 
 <para>
 
@@ -475,9 +477,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLLECTION MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Меню <guimenu
->Збірка</guimenu
-></title>
+>Меню «Збірка»</title>
 <para>
 
 <variablelist>
@@ -837,51 +837,21 @@ or menu bars.
 </para>
 </sect2>
 
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS / HELP MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Меню <guimenu
+>Меню «Параметри» і «Довідка»</title>
+
+<para
+>Окрім типових для &kde; пунктів меню <guimenu
 >Параметри</guimenu
-></title>
-<para>
+> і <guimenu
+>Довідка</guimenu
+>, описаних у <ulink url="help:/fundamentals/ui.html#menus"
+>розділі щодо меню</ulink
+> підручника з основ роботи у &kde;, у &tellico; передбачено такі додаткові пункти: </para>
 
 <variablelist>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Параметри</guimenu
-> <guimenuitem
->Показані панелі</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->За допомогою цього пункту меню можна <action
->увімкнути або вимкнути показ панелей інструментів</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Параметри</guimenu
-> <guimenuitem
->Показувати смужку стану</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->За допомогою цього пункту меню можна <action
->увімкнути або вимкнути показ смужки стану</action
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term>
@@ -938,105 +908,6 @@ or menu bars.
 >За допомогою цього пункту меню можна <action
 >змінити поле, яке буде використано для групування записів</action
 > у збірці.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Параметри</guimenu
-> <guimenuitem
->Налаштувати скорочення...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->За допомогою цього пункту меню можна <action
->відкрити <interface
->діалогове вікно налаштування клавіатурних скорочень &kde;</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Параметри</guimenu
-> <guimenuitem
->Налаштувати пенали...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->За допомогою цього пункту меню можна <action
->відкрити <interface
->діалогове вікно налаштування панелей &kde;</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Параметри</guimenu
-> <guimenuitem
->Налаштувати &appname;...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->За допомогою цього пункту меню можна <action
->відкрити <interface
->діалогове вікно налаштування &appname;</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</para>
-</sect2>
-
-<sect2>
-<title
->Меню <guimenu
->Довідка</guimenu
-></title>
-
-<para
->У меню <guimenu
->Довідка</guimenu
-> ви знайдете такі стандартні для &kde; пункти:</para>
-&help.menu.documentation; <para
->Окрім стандартних для &kde; пунктів меню <guimenu
->Довідка</guimenu
->, описаних вище, у меню &appname; буде і додатковий пункт:</para>
-
-<variablelist>
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Довідка</guimenu
-> <guimenuitem
->Порада дня</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->За допомогою цього пункту меню можна <action
->відкрити діалогове вікно поради дня</action
->. Ви можете ознайомитися з усіма порадами за допомогою кнопок у цьому діалоговому вікні.</para>
 </listitem>
 </varlistentry>
 

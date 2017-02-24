@@ -31,7 +31,6 @@
 #include "../document.h"
 #include "../images/image.h"
 #include "../images/imagefactory.h"
-#include "../utils/tellico_utils.h"
 #include "../core/tellico_config.h"
 #include "../tellico_debug.h"
 
@@ -102,8 +101,7 @@ QVariant EntryModel::data(const QModelIndex& index_, int role_) const {
       field = this->field(index_);
       if(!field ||
          field->type() == Data::Field::Image ||
-         field->type() == Data::Field::Bool ||
-         field->type() == Data::Field::Rating) {
+         field->type() == Data::Field::Bool) {
         return QVariant();
       }
       entry = this->entry(index_);
@@ -158,8 +156,6 @@ QVariant EntryModel::data(const QModelIndex& index_, int role_) const {
       if(field->type() == Data::Field::Bool) {
         // assume any non-empty value equals true
         return m_checkPix;
-      } else if(field->type() == Data::Field::Rating) {
-        return Tellico::pixmap(value);
       }
 
       if(m_imagesAreAvailable && field->type() == Data::Field::Image) {

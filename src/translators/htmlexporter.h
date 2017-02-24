@@ -39,6 +39,8 @@ extern "C" {
   struct _xmlNode;
 }
 
+class HtmlExporterTest;
+
 namespace Tellico {
   namespace Data {
     class Collection;
@@ -52,6 +54,8 @@ namespace Tellico {
  */
 class HTMLExporter : public Exporter {
 Q_OBJECT
+
+friend class ::HtmlExporterTest;
 
 public:
   HTMLExporter(Data::CollPtr coll);
@@ -68,6 +72,7 @@ public:
 
   void setCollectionURL(const QUrl& url) { m_collectionURL = url; m_links.clear(); }
   void setXSLTFile(const QString& filename);
+  void setEntryXSLTFile(const QString& filename);
   void setPrintHeaders(bool printHeaders) { m_printHeaders = printHeaders; }
   void setPrintGrouped(bool printGrouped) { m_printGrouped = printGrouped; }
   void setMaxImageSize(int w, int h) { m_imageWidth = w; m_imageHeight = h; }
@@ -76,6 +81,7 @@ public:
     { m_sort1 = l[0]; m_sort2 = l[1]; m_sort3 = l[2]; }
   void setColumns(const QStringList& columns) { m_columns = columns; }
   void setParseDOM(bool parseDOM) { m_parseDOM = parseDOM; reset(); }
+  void setExportEntryFiles(bool exportEntryFiles) { m_exportEntryFiles = exportEntryFiles; }
 
   QString text();
 

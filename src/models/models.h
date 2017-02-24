@@ -29,6 +29,12 @@
 
 namespace Tellico {
 
+  enum SaveState {
+    NormalState,
+    NewState,
+    ModifiedState
+  };
+
   enum ModelRole {
     RowCountRole = Qt::UserRole + 1,
     EntryPtrRole,

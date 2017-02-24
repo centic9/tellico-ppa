@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2012 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2001-2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,28 +22,19 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef ALLOCINEFETCHERTEST_H
-#define ALLOCINEFETCHERTEST_H
+#include "detailedentryitemdelegate.h"
+#include "../models/models.h"
 
-#include "abstractfetchertest.h"
+using namespace Tellico;
+using Tellico::DetailedEntryItemDelegate;
 
-class AllocineFetcherTest : public AbstractFetcherTest {
-Q_OBJECT
-public:
-  AllocineFetcherTest();
+void DetailedEntryItemDelegate::initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) const {
+  QStyledItemDelegate::initStyleOption(option, index);
 
-private Q_SLOTS:
-  void initTestCase();
-  void cleanupTestCase();
-
-  void testTitle();
-  void testTitleAccented();
-  void testTitleAccentRemoved();
-  void testPlotQuote();
-
-  void testTitleAPI();
-  void testTitleAPIAccented();
-  void testGhostDog();
-};
-
-#endif
+  QStyleOptionViewItemV4* opt = ::qstyleoption_cast<QStyleOptionViewItemV4*>(option);
+  const int state = index.data(SaveStateRole).toInt();
+  if(state == NewState || state == ModifiedState) {
+    opt->font.setBold(true);
+    opt->font.setItalic(true);
+  }
+}

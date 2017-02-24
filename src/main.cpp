@@ -43,6 +43,7 @@
 
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
+  KLocalizedString::setApplicationDomain("tellico");
   app.setApplicationVersion(QStringLiteral(TELLICO_VERSION));
 
   // Migrate KDE4 configuration and data files 
@@ -112,13 +113,13 @@ int main(int argc, char* argv[]) {
 
   KCrash::initialize();
 
+  // component name = "tellico" is same as bugs.kde.org product name
   KAboutData aboutData(QLatin1String("tellico"), QLatin1String("Tellico"),
                        QLatin1String(TELLICO_VERSION), i18n("Tellico - a collection manager for KDE"),
                        KAboutLicense::GPL_V2,
                        i18n("(c) 2001-2016, Robby Stephenson"),
                        QString(),
-                       QLatin1String("http://tellico-project.org"),
-                       QLatin1String("tellico-users@kde.org"));
+                       QLatin1String("http://tellico-project.org"));
   aboutData.addAuthor(QLatin1String("Robby Stephenson"), QString(), QLatin1String("robby@periapsis.org"));
   aboutData.addAuthor(QLatin1String("Mathias Monnerville"), i18n("Data source scripts"));
   aboutData.addAuthor(QLatin1String("Regis Boudin"), QString(), QLatin1String("regis@boudin.name"));

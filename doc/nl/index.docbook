@@ -1,10 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.5-Based Variant V1.1//EN" "dtd/kdedbx45.dtd" [
-  <!ENTITY appname '<application
->Tellico</application
->'>
-  <!ENTITY kappname "&appname;">
-  <!ENTITY package "extragear/office">
+  <!ENTITY appname "&tellico;">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % Dutch "INCLUDE"
 ><!-- change language only here -->
@@ -52,7 +48,7 @@ Do NOT change these in the translation. -->
 >2.0</releaseinfo>
 
 <title
->Het handboek van &appname;</title>
+>Het handboek van &tellico;</title>
 
 <authorgroup>
 <author
@@ -124,7 +120,7 @@ Do NOT change these in the translation. -->
 
 <abstract>
 <para
->Dit document is een handboek voor het gebruiken van &appname;, een beheerder voor verzamelingen van software toepassingen. </para>
+>Dit document is een handboek voor het gebruiken van &tellico;, een beheerder voor verzamelingen van software toepassingen. </para>
 </abstract>
 
 <!-- This is a set of Keywords for indexing by search engines.
@@ -175,17 +171,17 @@ revision history. (see installation appendix comment) -->
 
 <sect1 id="tellico-intro">
 <title
->&appname;</title>
+>&tellico;</title>
 
 <para
->&appname; is een programma voor het beheren van verzamelingen. Het begon als een eenvoudige beheerder voor een boekenverzameling en is uitgebreid met standaard verzamelingensjablonen voor bibliografieën, stripboeken, video's, muziek, penningen, stempels, visitekaartjes, videospellen, wijnen, bordspelen en lijsten van bestanden. Bovendien kunnen er eigen verzamelingen mee worden gebouwd voor iets anders om te verzamelen. </para>
+>&tellico; is een programma voor het beheren van verzamelingen. Het begon als een eenvoudige beheerder voor een boekenverzameling en is uitgebreid met standaard verzamelingensjablonen voor bibliografieën, stripboeken, video's, muziek, penningen, stempels, visitekaartjes, videospellen, wijnen, bordspelen en lijsten van bestanden. Bovendien kunnen er eigen verzamelingen mee worden gebouwd voor iets anders om te verzamelen. </para>
 
 <sect2 id="what-tellico-is">
 <title
->Wat &appname; is</title>
+>Wat &tellico; is</title>
 
 <para
->&appname; houdt de items in een verzameling bij en biedt een gemakkelijke manier om gegevens voor elk item it te voeren. Het biedt verschillende veldtypen en staat een ongelimiteerd aantal gebruikergedefineerde velden toe. De items in een verzameling kunnen worden gegroepeerd op elk veld om het organiseren gemakkelijk te maken en weergaven aanpasbaar zodat u zo weinig of zoveel als u wilt te zien. </para>
+>&tellico; houdt de items in een verzameling bij en biedt een gemakkelijke manier om gegevens voor elk item it te voeren. Het biedt verschillende veldtypen en staat een ongelimiteerd aantal gebruikergedefineerde velden toe. De items in een verzameling kunnen worden gegroepeerd op elk veld om het organiseren gemakkelijk te maken en weergaven aanpasbaar zodat u zo weinig of zoveel als u wilt te zien. </para>
 
 <para
 >uitleningen kunnen worden gevolgd, met optionele integratie met &korganizer;. Verzamelingen kunnen worden geïmporteerd of geëxporteerd met een verscheidenheid aan formaten, om gemakkelijke uitwisseling of publicatie van gegevens mogelijk te maken. </para>
@@ -194,13 +190,13 @@ revision history. (see installation appendix comment) -->
 
 <sect2 id="what-tellico-is-not">
 <title
->Wat &appname; niet is</title>
+>Wat &tellico; niet is</title>
 
 <para
->&appname; is geen geluid- of videospeler. Het biedt geen faciliteiten voor het lezen of wijzigen van multimedia-bestanden. Het biedt ook geen bewerking van afbeeldingen. Hoewel &appname; enige functionaliteit heeft voor beheer van bibliografische lijsten, is het geen volledige bibliografische beheerder van verwijzingen. &appname; heeft ook niet de pretentie van het hebben van alle mogelijkheden van een volledige relationele database. </para>
+>&tellico; is geen geluid- of videospeler. Het biedt geen faciliteiten voor het lezen of wijzigen van multimedia-bestanden. Het biedt ook geen bewerking van afbeeldingen. Hoewel &tellico; enige functionaliteit heeft voor beheer van bibliografische lijsten, is het geen volledige bibliografische beheerder van verwijzingen. &tellico; heeft ook niet de pretentie van het hebben van alle mogelijkheden van een volledige relationele database. </para>
 
 <para
->Bij wijze van waarschuwing, &appname; is een hobby van de auteur en er worden geen garanties gegeven over zijn functionaliteit, nut of anderszins. Meer informatie is beschikbaar in de <link linkend="credits"
+>Bij wijze van waarschuwing, &tellico; is een hobby van de auteur en er worden geen garanties gegeven over zijn functionaliteit, nut of anderszins. Meer informatie is beschikbaar in de <link linkend="credits"
 >licentieverklaring</link
 >. </para>
 
@@ -215,18 +211,18 @@ revision history. (see installation appendix comment) -->
 <title
 >Verzamelingen</title>
 <para
->In &appname;, is een verzameling het document. Er is slechts één verzameling in elk bestand van &appname;. Een verzameling bevat elk aantal <link linkend="fields"
+>In &tellico;, is een verzameling het document. Er is slechts één verzameling in elk bestand van &tellico;. Een verzameling bevat elk aantal <link linkend="fields"
 >velden</link
 > en <link linkend="entries"
 >items</link
->. &appname; ondersteunt standaard 12 specifieke verzamelingtypen: boeken, bibliografische items, stripboeken, video's, muziek, visitekaartjes, munten, postzegels, videospellen, wijnen, bordspellen en lijsten met bestanden. Daar naast is een leeg generiek sjabloon voor een verzameling beschikbaar voor elk ander type verzameling of lijst. </para>
+>. &tellico; ondersteunt standaard 12 specifieke verzamelingtypen: boeken, bibliografische items, stripboeken, video's, muziek, visitekaartjes, munten, postzegels, videospellen, wijnen, bordspellen en lijsten met bestanden. Daar naast is een leeg generiek sjabloon voor een verzameling beschikbaar voor elk ander type verzameling of lijst. </para>
 </sect2>
 
 <sect2 id="fields">
 <title
 >Verzamelingsvelden</title>
 <para
->Elke verzameling kan een ongelimiteerd aantal velden hebben. &appname; ondersteunt elf typen velden, wat mogelijkheden biedt voor een reeks van verschillende gegevens. De velden kunnen bewerkt worden met de <link linkend="fields-dialog"
+>Elke verzameling kan een ongelimiteerd aantal velden hebben. &tellico; ondersteunt elf typen velden, wat mogelijkheden biedt voor een reeks van verschillende gegevens. De velden kunnen bewerkt worden met de <link linkend="fields-dialog"
 ><interface
 >Dialoog voor velden in de verzameling</interface
 >"</link
@@ -240,10 +236,10 @@ revision history. (see installation appendix comment) -->
 >Items in de verzameling</title>
 
 <para
->Een item is het basis record in &appname;. Elk item bevat een enkele waarde voor elk veld in de verzameling. Een verzameling kan een ongelimiteerd aantal items bevatten, althans in theorie, omdat de gehele verzameling zich altijd in geheugen bevindt, te veel items zou de toepassing kunnen vertragen. </para>
+>Een item is het basis record in &tellico;. Elk item bevat een enkele waarde voor elk veld in de verzameling. Een verzameling kan een ongelimiteerd aantal items bevatten, althans in theorie, omdat de gehele verzameling zich altijd in geheugen bevindt, te veel items zou de toepassing kunnen vertragen. </para>
 
 <para
->&appname; is getest met een verzameling van 10.000 items en de snelheid voldeed. Als er echter veel grote afbeeldingen in de verzameling zitten, dan kan het laden en verwerken aanzienlijk vertraagd worden. De prestatie kan verbeterd worden door &appname; afbeeldingen apart van het gegevensbestand zelf op te slaan, ofwel in de specifieke map van de toepassing of een map relatief tot het gegevensbestand. Meer informatie kan worden gevonden in de <link linkend="configuration"
+>&tellico; is getest met een verzameling van 10.000 items en de snelheid voldeed. Als er echter veel grote afbeeldingen in de verzameling zitten, dan kan het laden en verwerken aanzienlijk vertraagd worden. De prestatie kan verbeterd worden door &tellico; afbeeldingen apart van het gegevensbestand zelf op te slaan, ofwel in de specifieke map van de toepassing of een map relatief tot het gegevensbestand. Meer informatie kan worden gevonden in de <link linkend="configuration"
 >instellingen-sectie</link
 >. </para>
 
@@ -280,7 +276,7 @@ file included in the KDE distribution. -->
 >Dankbetuigingen en licentie</title>
 
 <para
->&appname; </para>
+>&tellico; </para>
 <para
 >Programma copyright 2001-2011 &robby; <email
 >&email;</email
@@ -297,27 +293,6 @@ file included in the KDE distribution. -->
 > te gebruiken, als u dat kiest. Als u uw versie van deze inhoud alleen onder de termen van de FreeBSD Documentatielicentie wilt gebruiken en u anderen niet wilt toestaan om uw versie van dit bestand onder de termen van de GFDL wordt gebruikt, geef dat dan aan in uw beslissing door de GFDL notitie te verwijderen en deze te vervangen door de notitie en andere voorwaarden die worden vereist door de FreeBSD Documentatielicentie. Als u de GFDL notitie hierboven niet verwijdert, dan mag een ontvanger uw versie van dit bestand gebruiken onder de termen van ofwel de GFDL of de FreeBSD Documentatielicentie.</para>
 
 </chapter>
-
-<appendix id="installation">
-<title
->Installatie</title>
-
-<sect1 id="getting-tellico">
-<title
->Hoe &appname; te verkrijgen</title>
-
-<para
->De homepagina van &appname; is <ulink url="&homepage;"
->&homepage;</ulink
->. Verbeteringen en nieuws kan daar worden gevonden.</para>
-</sect1>
-
-<sect1 id="compilation">
-<title
->Compilatie en installatie</title>
-&install.compile.documentation; </sect1>
-
-</appendix>
 
 &documentation.index;
 

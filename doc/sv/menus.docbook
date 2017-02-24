@@ -12,16 +12,14 @@ or menu bars.
 
 <sect1 id="main-window-menus">
 <title
->Huvudfönstret i &appname;</title>
+>Huvudfönstret i &tellico;</title>
 
 <para
 >Varje menyalternativ beskrivs nedan. Om det finns en snabbtangent som utför en menyfunktion, så listas den tillsammans med menyalternativet. </para>
 
 <sect2>
 <title
->Menyn <guimenu
->Arkiv</guimenu
-></title>
+>Menyn Arkiv</title>
 
 <para>
 <variablelist>
@@ -40,7 +38,7 @@ or menu bars.
 <para
 >Kommandot <action
 >skapar en ny samling</action
->. &appname; stöder <link linkend="collection-types"
+>. &tellico; stöder <link linkend="collection-types"
 >12 standardsamlingstyper</link
 > liksom en tom användardefinierad egensamling.</para>
 </listitem>
@@ -65,7 +63,7 @@ or menu bars.
 <listitem>
 <para
 >Kommandot <action
->öppnar en &appname;-fil</action
+>öppnar en &tellico;-fil</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -121,7 +119,13 @@ or menu bars.
 <varlistentry>
 <term>
  <menuchoice
-><guimenu
+><shortcut
+> <keycombo
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
 >Arkiv</guimenu
 > <guimenuitem
 >Spara som...</guimenuitem
@@ -176,7 +180,7 @@ or menu bars.
 <para
 >Kommandot <action
 >importerar data från en annan fil</action
->. &appname; kan importera data från ett antal <link linkend="importing"
+>. &tellico; kan importera data från ett antal <link linkend="importing"
 >andra format</link
 >.</para>
 </listitem>
@@ -196,7 +200,7 @@ or menu bars.
 <para
 >Kommandot <action
 >exporterar samlingen till ett annat format</action
->. &appname; kan exportera data till ett antal <link linkend="exporting"
+>. &tellico; kan exportera data till ett antal <link linkend="exporting"
 >andra format</link
 >.</para>
 </listitem>
@@ -221,7 +225,7 @@ or menu bars.
 <listitem>
 <para
 >Kommandot <action
->stänger &appname;s fönster</action
+>stänger &tellico;s fönster</action
 >. Om samlingen har osparade ändringar, blir du tillfrågad om att spara dem innan kommandot utförs.</para>
 </listitem>
 </varlistentry>
@@ -233,9 +237,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDIT MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Menyn <guimenu
->Redigera</guimenu
-></title>
+>Menyn Redigera</title>
 
 <para>
 
@@ -475,9 +477,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLLECTION MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Menyn <guimenu
->Samling</guimenu
-></title>
+>Menyn Samling</title>
 <para>
 
 <variablelist>
@@ -837,51 +837,17 @@ or menu bars.
 </para>
 </sect2>
 
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS / HELP MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Menyn <guimenu
->Inställningar</guimenu
-></title>
-<para>
+>Menyerna Inställningar och Hjälp</title>
+
+<para
+>Förutom de vanliga inställnings- och hjälpmenyerna i &kde; som beskrivs i kapitlet <ulink url="help:/fundamentals/ui.html#menus"
+>Meny</ulink
+> i dokumentet &kde;:s grunder, har &tellico; följande programspecifika menyalternativ: </para>
 
 <variablelist>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Inställningar</guimenu
-> <guimenuitem
->Visade verktygsrader</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Kommandot <action
->växlar visning av verktygsraderna</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Inställningar</guimenu
-> <guimenuitem
->Visa statusrad</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Kommandot <action
->växlar visning av statusraden</action
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term>
@@ -938,105 +904,6 @@ or menu bars.
 >Kommandot <action
 >ändrar fältet som används för att gruppera posterna </action
 > i samlingen.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Inställningar</guimenu
-> <guimenuitem
->Anpassa genvägar...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Kommandot <action
->visar &kde;:s <interface
->Inställningsdialogruta för snabbtangenter</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Inställningar</guimenu
-> <guimenuitem
->Anpassa verktygsrader...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Kommandot <action
->visar &kde;:s <interface
->Inställningsdialogruta för verktygsrader</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Inställningar</guimenu
-> <guimenuitem
->Anpassa &appname;...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Kommandot <action
->visar &appname;s <interface
->Inställningsdialogruta</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</para>
-</sect2>
-
-<sect2>
-<title
->Menyn <guimenu
->Hjälp</guimenu
-></title>
-
-<para
->Detta är &kde;:s standardalternativ i menyn <guimenu
->Hjälp</guimenu
->:</para>
-&help.menu.documentation; <para
->Förutom &kde;:s standardalternativ i menyn <guimenu
->Hjälp</guimenu
-> som beskrivs ovan, har &appname; detta ytterligare menyalternativ:</para>
-
-<variablelist>
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Hjälp</guimenu
-> <guimenuitem
->Dagens tips</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Kommandot <action
->visar dialogrutan Dagens tips</action
->. Du kan bläddra igenom alla tips genom att använda knapparna i dialogrutan.</para>
 </listitem>
 </varlistentry>
 

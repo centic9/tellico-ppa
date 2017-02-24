@@ -12,16 +12,14 @@ or menu bars.
 
 <sect1 id="main-window-menus">
 <title
->Het hoofdvenster van &appname;</title>
+>Het hoofdvenster van &tellico;</title>
 
 <para
 >Alle functies in het menu worden hieronder beschreven. Wanneer voor een bepaalde functie een sneltoets beschikbaar is, zal de standaard sneltoets vermeld worden. </para>
 
 <sect2>
 <title
->Het menu <guimenu
->Bestand</guimenu
-></title>
+>Het menu Bestand</title>
 
 <para>
 <variablelist>
@@ -40,7 +38,7 @@ or menu bars.
 <para
 >Deze opdracht <action
 >maakt een nieuwe verzameling</action
->. &appname; ondersteunt <link linkend="collection-types"
+>. &tellico; ondersteunt <link linkend="collection-types"
 >12 standaard typen verzamelingen</link
 > naast een lege gebruikergedefinieerde aangepaste verzameling.</para>
 </listitem>
@@ -65,7 +63,7 @@ or menu bars.
 <listitem>
 <para
 >Dit commando <action
->opent een &appname;-bestand</action
+>opent een &tellico;-bestand</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -121,7 +119,13 @@ or menu bars.
 <varlistentry>
 <term>
  <menuchoice
-><guimenu
+><shortcut
+> <keycombo
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
 >Bestand</guimenu
 > <guimenuitem
 >Opslaan als...</guimenuitem
@@ -176,7 +180,7 @@ or menu bars.
 <para
 >Deze opdracht <action
 >importeert gegevens uit een ander bestand</action
->. &appname; kan gegevens importeren uit een aantal <link linkend="importing"
+>. &tellico; kan gegevens importeren uit een aantal <link linkend="importing"
 >andere formaten</link
 >.</para>
 </listitem>
@@ -196,7 +200,7 @@ or menu bars.
 <para
 >Deze opdracht <action
 >exporteert gegevens naar een ander formaat</action
-> &appname; kan gegevens exporteren naar een aantal <link linkend="exporting"
+> &tellico; kan gegevens exporteren naar een aantal <link linkend="exporting"
 >andere formaten</link
 >.</para>
 </listitem>
@@ -221,7 +225,7 @@ or menu bars.
 <listitem>
 <para
 >Deze opdracht <action
->sluit het venster van &appname;</action
+>sluit het venster van &tellico;</action
 >. Als de verzameling niet opgeslagen wijzigingen bevat zult u worden gevraagd om ze op te slaan alvorens door te gaan.</para>
 </listitem>
 </varlistentry>
@@ -233,9 +237,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDIT MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Het menu <guimenu
->Bewerken</guimenu
-></title>
+>Het menu Bewerken</title>
 
 <para>
 
@@ -451,9 +453,9 @@ or menu bars.
 ></keycombo
 > </shortcut
 > <guimenu
->Edit</guimenu
+>Bewerken</guimenu
 > <guimenuitem
->Advanced Filter...</guimenuitem
+>Uitgebreid filter...</guimenuitem
 > </menuchoice>
 </term>
 
@@ -475,9 +477,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLLECTION MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->The <guimenu
->Collection</guimenu
-> Menu</title>
+>Het menu Verzameling</title>
 <para>
 
 <variablelist>
@@ -492,9 +492,9 @@ or menu bars.
 ></keycombo
 > </shortcut
 > <guimenu
->Collection</guimenu
+>Verzameling</guimenu
 > <guimenuitem
->New Entry</guimenuitem
+>Nieuw item</guimenuitem
 > </menuchoice>
 </term>
 
@@ -837,51 +837,17 @@ or menu bars.
 </para>
 </sect2>
 
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS / HELP MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Het menu <guimenu
->Instellingen</guimenu
-></title>
-<para>
+>De menu's Instellingen en Help</title>
+
+<para
+>Apart from the common &kde; Settings and Help menus described in the <ulink url="help:/fundamentals/ui.html#menus"
+>Menu</ulink
+> chapter of the &kde; Fundamentals documentation &tellico; has these application specific menu entries: </para>
 
 <variablelist>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Instellingen</guimenu
-> <guimenuitem
->Getoonde werkbalken</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Dit commando <action
->schakelt het tonen van werkbalken om</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Instellingen</guimenu
-> <guimenuitem
->Statusbalk tonen</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Dit commando <action
->schakelt het tonen van de statusbalk om</action
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term>
@@ -938,105 +904,6 @@ or menu bars.
 >This command <action
 >changes the field used to group the entries</action
 > in the collection.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Instellingen</guimenu
-> <guimenuitem
->Sneltoetsen instellen...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->This command <action
->opens the &kde; <interface
->Keyboard Shortcut Configuration Dialog</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Instellingen</guimenu
-> <guimenuitem
->Werkbalken instellen...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->This command <action
->opens the &kde; <interface
->Toolbar Configuration Dialog</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Settings</guimenu
-> <guimenuitem
->Configure &appname;...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->This command <action
->opens the &appname; <interface
->Configuration Dialog</interface
-></action
->.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</para>
-</sect2>
-
-<sect2>
-<title
->Het menu <guimenu
->Help</guimenu
-></title>
-
-<para
->Dit zijn de standaard &kde;-onderdelen van het menu <guimenu
->Help</guimenu
->:</para>
-&help.menu.documentation; <para
->Apart from the standard &kde; <guimenu
->Help</guimenu
-> menu items described above &appname; has this additional menu entry:</para>
-
-<variablelist>
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Help</guimenu
-> <guimenuitem
->Tip of the Day</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->This command <action
->opens the Tip of the Day dialog</action
->. You can page through all the tips by using the buttons on the dialog.</para>
 </listitem>
 </varlistentry>
 

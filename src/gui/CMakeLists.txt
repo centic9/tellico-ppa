@@ -8,6 +8,7 @@ SET(gui_STAT_SRCS
    countdelegate.cpp
    datefieldwidget.cpp
    datewidget.cpp
+   detailedentryitemdelegate.cpp
    drophandler.cpp
    imagefieldwidget.cpp
    imagewidget.cpp
@@ -22,9 +23,11 @@ SET(gui_STAT_SRCS
    parafieldwidget.cpp
    previewdialog.cpp
    progress.cpp
+   ratingdelegate.cpp
    ratingfieldwidget.cpp
    ratingwidget.cpp
    spinbox.cpp
+   starrating.cpp
    statusbar.cpp
    stringmapdialog.cpp
    stringmapwidget.cpp
@@ -41,6 +44,7 @@ TARGET_LINK_LIBRARIES(gui
     Qt5::Widgets
     Qt5::Gui
     KF5::KIOCore
+    KF5::KIOFileWidgets
     KF5::KHtml
     KF5::SonnetCore
     KF5::SonnetUi

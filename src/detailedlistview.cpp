@@ -34,6 +34,9 @@
 #include "models/entrymodel.h"
 #include "models/entrysortmodel.h"
 #include "models/modelmanager.h"
+#include "gui/detailedentryitemdelegate.h"
+#include "gui/ratingdelegate.h"
+#include "utils/string_utils.h"
 
 #include <KLocalizedString>
 #include <KSharedConfig>
@@ -42,33 +45,6 @@
 #include <QMouseEvent>
 #include <QHeaderView>
 #include <QContextMenuEvent>
-#include <QStyledItemDelegate>
-
-namespace Tellico {
-
-class DetailedEntryItemDelegate : public QStyledItemDelegate {
-public:
-  DetailedEntryItemDelegate(QObject* parent) : QStyledItemDelegate(parent) {}
-
-protected:
-  void initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) const {
-    QStyledItemDelegate::initStyleOption(option, index);
-
-    QStyleOptionViewItemV4* opt = ::qstyleoption_cast<QStyleOptionViewItemV4*>(option);
-    const int state = index.data(SaveStateRole).toInt();
-    if(state == NewState || state == ModifiedState) {
-      opt->font.setBold(true);
-      opt->font.setItalic(true);
-    }
-    // since the model returns an icon for the title, turn it off for the list view
-    // here we assume that column 0 is always the title field
-    if(index.column() == 0) {
-      opt->features ^= QStyleOptionViewItemV2::HasDecoration;
-    }
-  }
-};
-
-}
 
 using namespace Tellico;
 using Tellico::DetailedListView;
@@ -103,6 +79,7 @@ DetailedListView::DetailedListView(QWidget* parent_) : GUI::TreeView(parent_)
   ModelManager::self()->setEntryModel(sortModel);
 
   connect(model(), SIGNAL(headerDataChanged(Qt::Orientation, int, int)), SLOT(updateHeaderMenu()));
+  connect(model(), SIGNAL(headerDataChanged(Qt::Orientation, int, int)), SLOT(updateColumnDelegates()));
   connect(model(), SIGNAL(columnsInserted(const QModelIndex&, int, int)), SLOT(hideNewColumn(const QModelIndex&, int, int)));
   connect(header(), SIGNAL(sectionCountChanged(int, int)), SLOT(updateHeaderMenu()));
 }
@@ -187,6 +164,7 @@ void DetailedListView::addCollection(Tellico::Data::CollPtr coll_) {
   }
 
   // because some of the fields got hidden...
+  updateColumnDelegates();
   updateHeaderMenu();
   checkHeader();
 
@@ -563,6 +541,25 @@ void DetailedListView::updateHeaderMenu() {
   connect(actHideAll, SIGNAL(triggered(bool)), this, SLOT(hideAllColumns()));
   QAction* actResize = m_headerMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-fit-width")), i18n("Resize to Content"));
   connect(actResize, SIGNAL(triggered(bool)), this, SLOT(resizeColumnsToContents()));
+}
+
+void DetailedListView::updateColumnDelegates() {
+  for(int ncol = 0; ncol < header()->count(); ++ncol) {
+    Data::FieldPtr field = model()->headerData(ncol, Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    if(field && field->type() == Data::Field::Rating) {
+      /// if we're not using the overall delegate, delete the delegate since we're setting a new on
+      if(itemDelegateForColumn(ncol) != itemDelegate()) {
+        delete itemDelegateForColumn(ncol);
+      }
+      RatingDelegate* delegate = new RatingDelegate(this);
+      bool ok; // not used
+      delegate->setMaxRating(Tellico::toUInt(field->property(QLatin1String("maximum")), &ok));
+      setItemDelegateForColumn(ncol, delegate);
+    } else {
+      // reset column delegate to overall delegate
+      setItemDelegateForColumn(ncol, itemDelegate());
+    }
+  }
 }
 
 void DetailedListView::slotRefreshImages() {

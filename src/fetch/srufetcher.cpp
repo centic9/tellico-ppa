@@ -72,6 +72,9 @@ SRUFetcher::SRUFetcher(const QString& name_, const QString& host_, uint port_, c
       m_host(host_), m_port(port_), m_path(path_), m_format(format_),
       m_job(0), m_MARCXMLHandler(0), m_MODSHandler(0), m_SRWHandler(0), m_started(false) {
   m_name = name_; // m_name is protected in super class
+  if(!m_path.startsWith(QLatin1Char('/'))) {
+    m_path.prepend(QLatin1Char('/'));
+  }
 }
 
 SRUFetcher::~SRUFetcher() {
@@ -127,28 +130,25 @@ void SRUFetcher::search() {
   u.setScheme(QLatin1String("http"));
   u.setHost(m_host);
   u.setPort(m_port);
-//  u.setPath(QLatin1Char('/') + m_path, QUrl::TolerantMode);
-
-/*
-  QString uStr = QLatin1String("http://") + m_host;
-  if(m_port > 0) {
-    uStr += QLatin1Char(':') + QString::number(m_port);
-  }
-  uStr += QLatin1Char('/') + m_path;
-  u = QUrl::fromUserInput(uStr);
-*/
-  // hack to allow (for now) including extra query terms in the path, avoids double encoding
-  u = QUrl::fromUserInput(u.url() + QLatin1Char('/') + m_path);
+  u = QUrl::fromUserInput(u.url() + m_path);
 
   QUrlQuery query;
-  query.addQueryItem(QLatin1String("operation"), QLatin1String("searchRetrieve"));
-  query.addQueryItem(QLatin1String("version"), QLatin1String("1.1"));
-  query.addQueryItem(QLatin1String("maximumRecords"), QString::number(SRU_MAX_RECORDS));
-  if(!m_format.isEmpty() && m_format != QLatin1String("none")) {
-    query.addQueryItem(QLatin1String("recordSchema"), m_format);
-  }
   for(StringMap::ConstIterator it = m_queryMap.constBegin(); it != m_queryMap.constEnd(); ++it) {
     query.addQueryItem(it.key(), it.value());
+  }
+  // allow user to override these so check for existing item first
+  if(!query.hasQueryItem(QLatin1String("operation"))) {
+    query.addQueryItem(QLatin1String("operation"), QLatin1String("searchRetrieve"));
+  }
+  if(!query.hasQueryItem(QLatin1String("version"))) {
+    query.addQueryItem(QLatin1String("version"), QLatin1String("1.1"));
+  }
+  if(!query.hasQueryItem(QLatin1String("maximumRecords"))) {
+    query.addQueryItem(QLatin1String("maximumRecords"), QString::number(SRU_MAX_RECORDS));
+  }
+  if(!m_format.isEmpty() && m_format != QLatin1String("none")
+     && !query.hasQueryItem(QLatin1String("recordSchema"))) {
+    query.addQueryItem(QLatin1String("recordSchema"), m_format);
   }
 
   const int type = collectionType();
@@ -186,7 +186,13 @@ void SRUFetcher::search() {
         }
         QString q;
         for(int i = 0; i < isbnList.count(); ++i) {
-          q += QLatin1String("bath.isbn=") + isbnList.at(i);
+          // make an assumption that DC output uses the dc profile and everything else uses Bath for ISBN
+          // no idea if this holds true universally, but matches LOC, COPAC, and KB
+          if(m_format == QLatin1String("dc")) {
+            q += QLatin1String("dc.identifier=") + isbnList.at(i);
+          } else {
+            q += QLatin1String("bath.isbn=") + isbnList.at(i);
+          }
           if(i < isbnList.count()-1) {
             q += QLatin1String(" or ");
           }
@@ -314,7 +320,13 @@ void SRUFetcher::slotComplete(KJob*) {
 //  } else if(m_format == QLatin1String("marcxml") && initMARCXMLHandler()) {
 // some SRU data sources call it MARC21-xml or something other than marcxml
   } else if(m_format.startsWith(QLatin1String("marc"), Qt::CaseInsensitive) && initMARCXMLHandler()) {
-    modsResult = m_MARCXMLHandler->applyStylesheet(result);
+    // brute force marcxchange conversion. This is probably wrong at some level
+    QString newResult = result;
+    if(m_format.startsWith(QLatin1String("marcxchange"), Qt::CaseInsensitive)) {
+      newResult.replace(QRegExp(QLatin1String("xmlns:marc=\"info:lc/xmlns/marcxchange-v[12]\"")),
+                        QLatin1String("xmlns:marc=\"http://www.loc.gov/MARC21/slim\""));
+    }
+    modsResult = m_MARCXMLHandler->applyStylesheet(newResult);
   }
   if(!modsResult.isEmpty() && initMODSHandler()) {
     Import::TellicoImporter imp(m_MODSHandler->applyStylesheet(modsResult));

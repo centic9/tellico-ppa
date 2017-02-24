@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2012 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2001-2009 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,27 +22,20 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef MASFETCHERTEST_H
-#define MASFETCHERTEST_H
+#ifndef TELLICO_DETAILEDENTRYITEMDELEGATE_H
+#define TELLICO_DETAILEDENTRYITEMDELEGATE_H
 
-#include "abstractfetchertest.h"
+#include <QStyledItemDelegate>
 
-#include <QHash>
+namespace Tellico {
 
-class MASFetcherTest : public AbstractFetcherTest {
-Q_OBJECT
+class DetailedEntryItemDelegate : public QStyledItemDelegate {
 public:
-  MASFetcherTest();
+  DetailedEntryItemDelegate(QObject* parent) : QStyledItemDelegate(parent) {}
 
-private Q_SLOTS:
-  void initTestCase();
-  void testTitle();
-  void testAuthor();
-  void testKeyword();
-  void testContinueSearch();
-
-private:
-  QHash<QString, QString> m_fieldValues;
+protected:
+  void initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) const;
 };
 
+} // end namespace;
 #endif

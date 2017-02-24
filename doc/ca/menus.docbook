@@ -12,16 +12,14 @@ or menu bars.
 
 <sect1 id="main-window-menus">
 <title
->La finestra principal de &appname;</title>
+>La finestra principal de &tellico;</title>
 
 <para
 >Cada element del menú es discuteix a continuació. Quan existeix una drecera del teclat que realitza la funció d'un element del menú, aquesta drecera és llista junt amb l'element del menú. </para>
 
 <sect2>
 <title
->El menú <guimenu
->Fitxer</guimenu
-></title>
+>El menú Fitxer</title>
 
 <para>
 <variablelist>
@@ -40,7 +38,7 @@ or menu bars.
 <para
 >Aquesta ordre <action
 >crea una nova col·lecció</action
->. &appname; implementa <link linkend="collection-types"
+>. &tellico; implementa <link linkend="collection-types"
 >12 tipus de col·leccions per omissió</link
 > juntament amb una col·lecció personalitzada buida definida per l'usuari.</para>
 </listitem>
@@ -65,7 +63,7 @@ or menu bars.
 <listitem>
 <para
 >Aquesta ordre <action
->obre un fitxer de &appname;</action
+>obre un fitxer de &tellico;</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -121,7 +119,13 @@ or menu bars.
 <varlistentry>
 <term>
  <menuchoice
-><guimenu
+><shortcut
+> <keycombo
+>&Ctrl;&Maj;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
 >Fitxer</guimenu
 > <guimenuitem
 >Desa com a...</guimenuitem
@@ -176,7 +180,7 @@ or menu bars.
 <para
 >Aquesta ordre <action
 >importa les dades des d'un altre fitxer</action
->. &appname; pot importar dades d'un nombre d'<link linkend="importing"
+>. &tellico; pot importar dades d'un nombre d'<link linkend="importing"
 >altres formats</link
 >.</para>
 </listitem>
@@ -196,7 +200,7 @@ or menu bars.
 <para
 >Aquesta ordre <action
 >exporta la col·lecció a un altre format</action
->. &appname; pot exportar dades a un nombre d'<link linkend="exporting"
+>. &tellico; pot exportar dades a un nombre d'<link linkend="exporting"
 >altres formats</link
 >.</para>
 </listitem>
@@ -221,7 +225,7 @@ or menu bars.
 <listitem>
 <para
 >Aquesta ordre <action
->tanca la finestra de &appname;</action
+>tanca la finestra de &tellico;</action
 >. Si la col·lecció té canvis sense desar, se us demanarà que els deseu abans de continuar.</para>
 </listitem>
 </varlistentry>
@@ -233,9 +237,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDIT MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->El menú <guimenu
->Edita</guimenu
-></title>
+>El menú Edita</title>
 
 <para>
 
@@ -479,9 +481,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLLECTION MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->El menú <guimenu
->Col·lecció</guimenu
-></title>
+>El menú Col·lecció</title>
 <para>
 
 <variablelist>
@@ -841,51 +841,17 @@ or menu bars.
 </para>
 </sect2>
 
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS / HELP MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->El menú <guimenu
->Arranjament</guimenu
-></title>
-<para>
+>Els menús Arranjament i Ajuda</title>
+
+<para
+>A part dels menús Arranjament i Ajuda comuns al &kde; que es descriuen en el capítol <ulink url="help:/fundamentals/ui.html#menus"
+>Menú</ulink
+> de la documentació Fonaments del &kde;, el &tellico; té aquestes entrades de menú específiques de l'aplicació: </para>
 
 <variablelist>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Arranjament</guimenu
-> <guimenuitem
->Mostra les barres d'eines</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Aquesta ordre <action
->activa o desactiva la visualització de les barres d'eines</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Arranjament</guimenu
-> <guimenuitem
->Mostra la barra d'estat</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Aquesta ordre <action
->activa o desactiva la visualització de la barra d'estat</action
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term>
@@ -942,105 +908,6 @@ or menu bars.
 >Aquesta ordre <action
 >canvia el camp utilitzat per agrupar les entrades</action
 > en la col·lecció.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Arranjament</guimenu
-> <guimenuitem
->Configura dreceres...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Aquesta ordre <action
->obre el <interface
->diàleg de configuració Dreceres de teclat</interface
-> del &kde;</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Arranjament</guimenu
-> <guimenuitem
->Configura barres d'eines...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Aquesta ordre <action
->obre el <interface
->diàleg de configuració per a les barres d'eines</interface
-></action
-> del &kde;.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Arranjament</guimenu
-> <guimenuitem
->Configura &appname;...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Aquesta ordre <action
->obre el <interface
->diàleg de configuració</interface
-> de &appname;</action
->.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</para>
-</sect2>
-
-<sect2>
-<title
->El menú <guimenu
->Ajuda</guimenu
-></title>
-
-<para
->Aquests són els elements estàndards del &kde; per al menú <guimenu
->Ajuda</guimenu
->:</para>
-&help.menu.documentation; <para
->A part dels elements del menú <guimenu
->Ajuda</guimenu
-> estàndards del &kde; descrits més amunt, &appname; té aquesta entrada del menú addicional:</para>
-
-<variablelist>
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Ajuda</guimenu
-> <guimenuitem
->Pista del dia</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Aquesta ordre <action
->obre el diàleg Consell del dia</action
->. Podreu veure tots els consells utilitzant els botons del diàleg.</para>
 </listitem>
 </varlistentry>
 

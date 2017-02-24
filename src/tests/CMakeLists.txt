@@ -371,6 +371,7 @@ TARGET_LINK_LIBRARIES(fetcherstest
   ${LIBXSLT_LIBRARIES}
   ${LIBXSLT_EXSLT_LIBRARIES}
 )
+ADD_DEPENDENCIES(fetcherstest tellico_config)
 
 IF(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
   TARGET_LINK_LIBRARIES(fetcherstest
@@ -645,14 +646,6 @@ ecm_mark_nongui_executable(isbndbfetchertest)
 add_test(isbndbfetchertest isbndbfetchertest)
 ecm_mark_as_test(isbndbfetchertest)
 TARGET_LINK_LIBRARIES(isbndbfetchertest fetcherstest ${TELLICO_TEST_LIBS})
-
-add_executable(masfetchertest masfetchertest.cpp abstractfetchertest.cpp
-  ../fetch/masfetcher.cpp
-)
-ecm_mark_nongui_executable(masfetchertest)
-add_test(masfetchertest masfetchertest)
-ecm_mark_as_test(masfetchertest)
-TARGET_LINK_LIBRARIES(masfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 add_executable(moviemeterfetchertest moviemeterfetchertest.cpp abstractfetchertest.cpp
   ../fetch/moviemeterfetcher.cpp

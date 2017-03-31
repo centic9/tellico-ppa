@@ -647,6 +647,14 @@ add_test(isbndbfetchertest isbndbfetchertest)
 ecm_mark_as_test(isbndbfetchertest)
 TARGET_LINK_LIBRARIES(isbndbfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
+add_executable(kinopoiskfetchertest kinopoiskfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/kinopoiskfetcher.cpp
+)
+ecm_mark_nongui_executable(kinopoiskfetchertest)
+add_test(kinopoiskfetchertest kinopoiskfetchertest)
+ecm_mark_as_test(kinopoiskfetchertest)
+TARGET_LINK_LIBRARIES(kinopoiskfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
 add_executable(moviemeterfetchertest moviemeterfetchertest.cpp abstractfetchertest.cpp
   ../fetch/moviemeterfetcher.cpp
 )
@@ -679,6 +687,14 @@ ecm_mark_nongui_executable(openlibraryfetchertest)
 add_test(openlibraryfetchertest openlibraryfetchertest)
 ecm_mark_as_test(openlibraryfetchertest)
 TARGET_LINK_LIBRARIES(openlibraryfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
+add_executable(omdbfetchertest omdbfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/omdbfetcher.cpp
+)
+ecm_mark_nongui_executable(omdbfetchertest)
+add_test(omdbfetchertest omdbfetchertest)
+ecm_mark_as_test(omdbfetchertest)
+TARGET_LINK_LIBRARIES(omdbfetchertest fetcherstest translatorstest ${TELLICO_TEST_LIBS})
 
 add_executable(springerfetchertest springerfetchertest.cpp abstractfetchertest.cpp
   ../fetch/springerfetcher.cpp
@@ -714,6 +730,14 @@ ecm_mark_nongui_executable(themoviedbfetchertest)
 add_test(themoviedbfetchertest themoviedbfetchertest)
 ecm_mark_as_test(themoviedbfetchertest)
 TARGET_LINK_LIBRARIES(themoviedbfetchertest fetcherstest translatorstest ${TELLICO_TEST_LIBS})
+
+add_executable(videogamegeekfetchertest videogamegeekfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/videogamegeekfetcher.cpp
+)
+ecm_mark_nongui_executable(videogamegeekfetchertest)
+add_test(videogamegeekfetchertest videogamegeekfetchertest)
+ecm_mark_as_test(videogamegeekfetchertest)
+TARGET_LINK_LIBRARIES(videogamegeekfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 add_executable(vndbfetchertest vndbfetchertest.cpp abstractfetchertest.cpp
   ../fetch/vndbfetcher.cpp

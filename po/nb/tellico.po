@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2017-01-07 03:42+0100\n"
+"POT-Creation-Date: 2017-02-20 03:52+0100\n"
 "PO-Revision-Date: 2011-12-10 12:24+0100\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
@@ -642,7 +642,7 @@ msgid "Extended Field Properties"
 msgstr "Utvidete feltegenskaper"
 
 #: src/collectionfieldsdialog.cpp:874 src/collections/filecatalog.cpp:108
-#: src/fetch/srufetcher.cpp:556
+#: src/fetch/srufetcher.cpp:570
 #, kde-format
 msgid "Value"
 msgstr "Verdi"
@@ -771,7 +771,7 @@ msgid "Publisher"
 msgstr "Utgiver"
 
 #: src/collections/bibtexcollection.cpp:139 src/fetch/hathitrustfetcher.cpp:302
-#: src/fetch/srufetcher.cpp:483 src/fetch/z3950fetcher.cpp:562
+#: src/fetch/srufetcher.cpp:497 src/fetch/z3950fetcher.cpp:562
 #, kde-format
 msgid "Address"
 msgstr "Adresse"
@@ -893,7 +893,7 @@ msgid "URL"
 msgstr "URL"
 
 #: src/collections/bibtexcollection.cpp:245 src/fetch/entrezfetcher.cpp:466
-#: src/fetch/hathitrustfetcher.cpp:303 src/fetch/srufetcher.cpp:484
+#: src/fetch/hathitrustfetcher.cpp:303 src/fetch/srufetcher.cpp:498
 #: src/fetch/z3950fetcher.cpp:563
 #, kde-format
 msgid "Abstract"
@@ -1543,11 +1543,12 @@ msgstr "Utvikler"
 #: src/collections/gamecollection.cpp:90
 #, kde-format
 msgctxt ""
-"Video game ratings - Unrated, Adults Only, Mature, Teen, Everyone, Early "
-"Childhood, Pending"
-msgid "Unrated, Adults Only, Mature, Teen, Everyone, Early Childhood, Pending"
+"Video game ratings - Unrated, Adults Only, Mature, Teen, Everyone 10+, "
+"Everyone, Early Childhood, Pending"
+msgid ""
+"Unrated, Adults Only, Mature, Teen, Everyone 10+, Everyone, Early Childhood, "
+"Pending"
 msgstr ""
-"Ikke klassifisert, Voksne, Modne, Tenåring, Alle, Småbarn, Klass. venter"
 
 #: src/collections/gamecollection.cpp:92
 #, kde-format
@@ -2286,7 +2287,7 @@ msgstr "&Formater titler og navn"
 msgid "&Print field headers"
 msgstr "Skriv &ut feltoverskrifter"
 
-#: src/configdialog.cpp:347 src/translators/htmlexporter.cpp:503
+#: src/configdialog.cpp:347 src/translators/htmlexporter.cpp:497
 #, kde-format
 msgid "If checked, the field names will be printed as table headers."
 msgstr ""
@@ -2302,7 +2303,7 @@ msgstr "Grupperingsvalg"
 msgid "&Group the entries"
 msgstr "&Grupper innslagene"
 
-#: src/configdialog.cpp:357 src/translators/htmlexporter.cpp:508
+#: src/configdialog.cpp:357 src/translators/htmlexporter.cpp:502
 #, kde-format
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr ""
@@ -2568,8 +2569,8 @@ msgstr "Slett mal"
 msgid "Select template to delete:"
 msgstr "Velg mal som skal slettes:"
 
-#: src/controller.cpp:140 src/fetchdialog.cpp:308 src/fetchdialog.cpp:400
-#: src/fetchdialog.cpp:522 src/fetchdialog.cpp:582 src/fetchdialog.cpp:596
+#: src/controller.cpp:140 src/fetchdialog.cpp:308 src/fetchdialog.cpp:398
+#: src/fetchdialog.cpp:520 src/fetchdialog.cpp:580 src/fetchdialog.cpp:594
 #: src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
@@ -2871,28 +2872,28 @@ msgstr "Tellico klarte ikke å laste inn et bilde fra fila – %1."
 msgid "Untitled"
 msgstr "Uten tittel"
 
-#: src/detailedlistview.cpp:514
+#: src/detailedlistview.cpp:518
 #, kde-format
 msgid "View Columns"
 msgstr "Vis kolonner"
 
-#: src/detailedlistview.cpp:529
+#: src/detailedlistview.cpp:533
 #, kde-format
 msgctxt "Noun, Menu name"
 msgid "Columns"
 msgstr "Kolonner"
 
-#: src/detailedlistview.cpp:534
+#: src/detailedlistview.cpp:538
 #, kde-format
 msgid "Show All Columns"
 msgstr "Vis alle kolonner"
 
-#: src/detailedlistview.cpp:536
+#: src/detailedlistview.cpp:540
 #, kde-format
 msgid "Hide All Columns"
 msgstr "Skjul alle kolonner"
 
-#: src/detailedlistview.cpp:538
+#: src/detailedlistview.cpp:542
 #, kde-format
 msgid "Resize to Content"
 msgstr "Endre størrelse til innholdet"
@@ -3229,7 +3230,7 @@ msgid "Amazon (Italy)"
 msgstr "Amazon (Italia)"
 
 #: src/fetch/amazonfetcher.cpp:127 src/fetch/filmasterfetcher.cpp:68
-#: src/fetch/masfetcher.cpp:69 src/fetch/springerfetcher.cpp:62
+#: src/fetch/springerfetcher.cpp:62
 #, kde-format
 msgid "This data is licensed under <a href=%1>specific terms</a>."
 msgstr ""
@@ -3429,12 +3430,12 @@ msgstr "AnimeNfo karakter"
 #: src/fetch/bedethequefetcher.cpp:467 src/fetch/bibsonomyfetcher.cpp:186
 #: src/fetch/boardgamegeekfetcher.cpp:189 src/fetch/dblpfetcher.cpp:129
 #: src/fetch/dvdfrfetcher.cpp:178 src/fetch/entrezfetcher.cpp:478
-#: src/fetch/filmasterfetcher.cpp:309 src/fetch/googlescholarfetcher.cpp:271
+#: src/fetch/filmasterfetcher.cpp:309 src/fetch/googlescholarfetcher.cpp:273
 #: src/fetch/hathitrustfetcher.cpp:313 src/fetch/ibsfetcher.cpp:439
-#: src/fetch/masfetcher.cpp:312 src/fetch/moviemeterfetcher.cpp:301
-#: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:343
-#: src/fetch/openlibraryfetcher.cpp:397 src/fetch/springerfetcher.cpp:183
-#: src/fetch/thegamesdbfetcher.cpp:166 src/fetch/vndbfetcher.cpp:323
+#: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
+#: src/fetch/musicbrainzfetcher.cpp:343 src/fetch/openlibraryfetcher.cpp:397
+#: src/fetch/springerfetcher.cpp:183 src/fetch/thegamesdbfetcher.cpp:166
+#: src/fetch/vndbfetcher.cpp:323
 #, kde-format
 msgid "This source has no options."
 msgstr "Denne kilden har ingen valgmuligheter."
@@ -3732,14 +3733,14 @@ msgid "Illustrator"
 msgstr "Illustratør"
 
 #: src/fetch/hathitrustfetcher.cpp:305 src/fetch/isbndbfetcher.cpp:356
-#: src/fetch/srufetcher.cpp:485 src/fetch/z3950fetcher.cpp:565
+#: src/fetch/srufetcher.cpp:499 src/fetch/z3950fetcher.cpp:565
 #, kde-format
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey Desimalt"
 
 #: src/fetch/hathitrustfetcher.cpp:306 src/fetch/isbndbfetcher.cpp:357
-#: src/fetch/srufetcher.cpp:486 src/fetch/z3950fetcher.cpp:566
+#: src/fetch/srufetcher.cpp:500 src/fetch/z3950fetcher.cpp:566
 #, kde-format
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3827,57 +3828,57 @@ msgstr "Mange kilder"
 msgid "OpenLibrary Link"
 msgstr "Åpne bibliotekslenke"
 
-#: src/fetch/srufetcher.cpp:468
+#: src/fetch/srufetcher.cpp:482
 #, kde-format
 msgid "Library of Congress (US)"
 msgstr "Library of Congress (USA)"
 
-#: src/fetch/srufetcher.cpp:473
+#: src/fetch/srufetcher.cpp:487
 #, kde-format
 msgid "SRU Server"
 msgstr "SRU-tjener"
 
-#: src/fetch/srufetcher.cpp:501 src/fetch/z3950fetcher.cpp:588
+#: src/fetch/srufetcher.cpp:515 src/fetch/z3950fetcher.cpp:588
 #, kde-format
 msgid "Hos&t: "
 msgstr "Ver&t:"
 
-#: src/fetch/srufetcher.cpp:508 src/fetch/z3950fetcher.cpp:594
+#: src/fetch/srufetcher.cpp:522 src/fetch/z3950fetcher.cpp:594
 #, kde-format
 msgid "Enter the host name of the server."
 msgstr "Skriv inn vertsnavn på tjeneren."
 
-#: src/fetch/srufetcher.cpp:513 src/fetch/z3950fetcher.cpp:599
+#: src/fetch/srufetcher.cpp:527 src/fetch/z3950fetcher.cpp:599
 #, kde-format
 msgid "&Port: "
 msgstr "&Port:"
 
-#: src/fetch/srufetcher.cpp:521 src/fetch/z3950fetcher.cpp:607
+#: src/fetch/srufetcher.cpp:535 src/fetch/z3950fetcher.cpp:607
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Skriv inn portnummer for tjeneren. Standardport er %1."
 
-#: src/fetch/srufetcher.cpp:526
+#: src/fetch/srufetcher.cpp:540
 #, kde-format
 msgid "Path: "
 msgstr "Sti:"
 
-#: src/fetch/srufetcher.cpp:531
+#: src/fetch/srufetcher.cpp:545
 #, kde-format
 msgid "Enter the path to the database used by the server."
 msgstr "Skriv inn stien til databasen som tjeneren bruker."
 
-#: src/fetch/srufetcher.cpp:536
+#: src/fetch/srufetcher.cpp:550
 #, kde-format
 msgid "Format: "
 msgstr "Format:"
 
-#: src/fetch/srufetcher.cpp:547
+#: src/fetch/srufetcher.cpp:561
 #, kde-format
 msgid "Enter the result format used by the server."
 msgstr "Oppgi resultatformatet som tjeneren bruker."
 
-#: src/fetch/srufetcher.cpp:556
+#: src/fetch/srufetcher.cpp:570
 #, kde-format
 msgid "Field"
 msgstr "Felt"
@@ -4164,74 +4165,74 @@ msgstr "Hent flere resultater fra gjendende datakilde"
 msgid "Clear all search fields and results"
 msgstr "Tøm alle søkefelter og søkeresultater"
 
-#: src/fetchdialog.cpp:368
+#: src/fetchdialog.cpp:366
 #, kde-format
 msgid "Cancelling the search..."
 msgstr "Avbryter søket …"
 
-#: src/fetchdialog.cpp:380 src/fetchdialog.cpp:546
+#: src/fetchdialog.cpp:378 src/fetchdialog.cpp:544
 #, kde-format
 msgid "Searching..."
 msgstr "Søker …"
 
-#: src/fetchdialog.cpp:435
+#: src/fetchdialog.cpp:433
 #, kde-format
 msgid "The search returned no items."
 msgstr "Søket ga ingen treff."
 
-#: src/fetchdialog.cpp:438
+#: src/fetchdialog.cpp:436
 #, kde-format
 msgid "The search returned 1 item."
 msgid_plural "The search returned %1 items."
 msgstr[0] "Søket ga 1 treff."
 msgstr[1] "Søket ga %1 treff."
 
-#: src/fetchdialog.cpp:466
+#: src/fetchdialog.cpp:464
 #, kde-format
 msgid "No results were found for the following ISBN values:"
 msgstr "Ingen treff for søk etter følgende ISBN-nummer:"
 
-#: src/fetchdialog.cpp:468
+#: src/fetchdialog.cpp:466
 #, kde-format
 msgid "No Results"
 msgstr "Ingen resultater"
 
-#: src/fetchdialog.cpp:514 src/fetchdialog.cpp:569
+#: src/fetchdialog.cpp:512 src/fetchdialog.cpp:567
 #, kde-format
 msgid "Fetching %1..."
 msgstr "Henter %1 …"
 
-#: src/fetchdialog.cpp:586
+#: src/fetchdialog.cpp:584
 #, kde-format
 msgid "Attribution"
 msgstr "Tilskrivelse"
 
-#: src/fetchdialog.cpp:618 src/fetchdialog.cpp:844
+#: src/fetchdialog.cpp:621 src/fetchdialog.cpp:846
 #, kde-format
 msgid "No Internet sources are available for your current collection type."
 msgstr "Ingen nettkilder er tilgjengelige for din nåværende samlingstype."
 
-#: src/fetchdialog.cpp:700
+#: src/fetchdialog.cpp:702
 #, kde-format
 msgid "Edit ISBN/UPC Values"
 msgstr "Endre ISBN/UPC-nummer"
 
-#: src/fetchdialog.cpp:711
+#: src/fetchdialog.cpp:713
 #, kde-format
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>Skriv inn ISBN- eller UPC-nummer, ett nummer per linje.</qt>"
 
-#: src/fetchdialog.cpp:727
+#: src/fetchdialog.cpp:729
 #, kde-format
 msgid "&Load From File..."
 msgstr "&Last inn fra fil …"
 
-#: src/fetchdialog.cpp:728
+#: src/fetchdialog.cpp:730
 #, kde-format
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>Last inn lista fra en tekstfil</qt>"
 
-#: src/fetchdialog.cpp:752
+#: src/fetchdialog.cpp:754
 #, kde-format
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
@@ -4376,7 +4377,7 @@ msgid "Group"
 msgstr "Gruppe"
 
 #: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1551
-#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:337
+#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:328
 #, kde-format
 msgid "People"
 msgstr "Personer"
@@ -4455,48 +4456,48 @@ msgstr "inneholder"
 msgid "does not contain"
 msgstr "inneholder ikke"
 
-#: src/gui/imagewidget.cpp:100
+#: src/gui/imagewidget.cpp:102
 #, kde-format
 msgid "Select Image..."
 msgstr "Velg bilde …"
 
-#: src/gui/imagewidget.cpp:105
+#: src/gui/imagewidget.cpp:107
 #, kde-format
 msgid "Scan Image..."
 msgstr "Skann bilde …"
 
-#: src/gui/imagewidget.cpp:114
+#: src/gui/imagewidget.cpp:116
 #, kde-format
 msgid "Open With..."
 msgstr "Åpne med …"
 
-#: src/gui/imagewidget.cpp:148
+#: src/gui/imagewidget.cpp:150
 #, kde-format
 msgctxt "Clear image"
 msgid "Clear"
 msgstr "Tøm"
 
-#: src/gui/imagewidget.cpp:155
+#: src/gui/imagewidget.cpp:157
 #, kde-format
 msgid "Save link only"
 msgstr "Lagre bare lenke"
 
-#: src/gui/imagewidget.cpp:256
+#: src/gui/imagewidget.cpp:262
 #, kde-format
 msgid "All Images (%1)"
 msgstr ""
 
-#: src/gui/imagewidget.cpp:282
+#: src/gui/imagewidget.cpp:289
 #, kde-format
 msgid "Opening the selected scanner failed."
 msgstr "Det lyktes ikke å åpne den valgte skanneren!"
 
-#: src/gui/imagewidget.cpp:340
+#: src/gui/imagewidget.cpp:347
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "Åpner bilde i %1 …"
 
-#: src/gui/imagewidget.cpp:372
+#: src/gui/imagewidget.cpp:379
 #, kde-format
 msgid "Saving a link is only possible for newly added images."
 msgstr "Lenke kan bare lagres for bilder som nylig er lagt til."
@@ -4792,12 +4793,12 @@ msgstr "Låner"
 msgid "Borrower (Sort by Count)"
 msgstr "Låner (sorter etter antall)"
 
-#: src/main.cpp:117
+#: src/main.cpp:118
 #, kde-format
 msgid "Tellico - a collection manager for KDE"
 msgstr "Tellico – en boksamlingshåndterer for KDE"
 
-#: src/main.cpp:119
+#: src/main.cpp:120
 #, kde-format
 msgid "(c) 2001-2016, Robby Stephenson"
 msgstr ""
@@ -6477,32 +6478,32 @@ msgstr "Goodreads-valg"
 msgid "HTML"
 msgstr "HTML"
 
-#: src/translators/htmlexporter.cpp:341
+#: src/translators/htmlexporter.cpp:332
 #, kde-format
 msgid "(grouped by %1)"
 msgstr "(gruppert på %1)"
 
-#: src/translators/htmlexporter.cpp:499
+#: src/translators/htmlexporter.cpp:493
 #, kde-format
 msgid "HTML Options"
 msgstr "Valg for HTML"
 
-#: src/translators/htmlexporter.cpp:502
+#: src/translators/htmlexporter.cpp:496
 #, kde-format
 msgid "Print field headers"
 msgstr "Skriv ut feltoverskrifter"
 
-#: src/translators/htmlexporter.cpp:507
+#: src/translators/htmlexporter.cpp:501
 #, kde-format
 msgid "Group the entries"
 msgstr "Grupper innslagene"
 
-#: src/translators/htmlexporter.cpp:512
+#: src/translators/htmlexporter.cpp:506
 #, kde-format
 msgid "Export individual entry files"
 msgstr "Eksporter innslag til egne filer"
 
-#: src/translators/htmlexporter.cpp:513
+#: src/translators/htmlexporter.cpp:507
 #, kde-format
 msgid "If checked, individual files will be created for each entry."
 msgstr "Om slått på vil hvert innslag få sin egen fil."

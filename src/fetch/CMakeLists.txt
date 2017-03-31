@@ -38,17 +38,20 @@ SET(fetch_STAT_SRCS
    ibsfetcher.cpp
    imdbfetcher.cpp
    isbndbfetcher.cpp
+   kinopoiskfetcher.cpp
    messagehandler.cpp
    moviemeterfetcher.cpp
    mrlookupfetcher.cpp
    multifetcher.cpp
    musicbrainzfetcher.cpp
+   omdbfetcher.cpp
    openlibraryfetcher.cpp
    sha2.c
    springerfetcher.cpp
    srufetcher.cpp
    thegamesdbfetcher.cpp
    themoviedbfetcher.cpp
+   videogamegeekfetcher.cpp
    vndbfetcher.cpp
    winecomfetcher.cpp
    xmlfetcher.cpp

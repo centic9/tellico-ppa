@@ -94,7 +94,10 @@ enum Type {
   VNDB,
   MRLookup,
   BoardGameGeek,
-  Bedetheque
+  Bedetheque,
+  OMDB,
+  KinoPoisk,
+  VideoGameGeek
 };
 
   }

@@ -60,16 +60,16 @@
 > bevat behulpzame tips over het gebruik van &appname; en verschijnt bij het opstarten. U kunt enkele van de tips lezen en daarna de dialoog uitschakelen. </para>
 
 <para
->The <guilabel
->Formatting Options</guilabel
-> control the level of automatic formatting that &appname; does. For examples, see the <link linkend="field-formatting"
->Field Formatting section</link
->. Capitalization and formatting are distinct options, since a field may be capitalized without having the order of the words changed, and vice-versa. The auto-capitalization can be changed to ignore certain words. The automatic formatting includes grammatical articles in titles, along with prefixes and suffixes for personal names. The values are case-insensitive, and should be separated by a semi-colon. </para>
+>De <guilabel
+>Formatteringsopties</guilabel
+> besturen het niveau van automatische formattering dat &appname; doet. Zie bijvoorbeeld de <link linkend="field-formatting"
+>Sectie veldformattering</link
+>. Hoofdletters aanbrengen en formattering zijn aparte opties, omdat een veld hoofdletters moet hebben zonder de volgorde van de woorden te wijzigen, en vice-versa. Het automatisch aanbrengen van hoofdletters kan gewijzigd worden om bepaalde woorden te negeren. De automatische formattering omvat grammaticale elementen in titels, samen met voor- en achtervoegsels voor namen van personen. De waarden zijn ongevoelig voor hoofd- en kleine letters en zouden gescheiden moeten worden door een puntkomma. </para>
 
 <para
->The formatting rules follow general English usage, which may not work for other languages. Articles are appended to the end of the title, with a comma. Personal names are formatted to have the last name first, followed by a comma, then the first name. Personal suffixes, such as Jr., are kept with the last name. Prefixes, such as <emphasis
->von</emphasis
->, are kept with the last name, but are ignored when the values are being sorted.</para>
+>De regels voor formattering volgen algemeen Engels gebruikt, welke niet kunnen werken voor andere talen. Lidwoorden worden aan het eind van de titel gevoegd met een komma. Namen van personen zijn geformatteerd zo dat de achternaam eerst komt, gevolgd door een komma, daarna de voornaam. Personele achtervoegsels, zoals Jr., worden bij de achternaam gehouden. Tussenvoegsels, zoals <emphasis
+>van</emphasis
+>, blijven in de achternaam, maar worden genegeerd wanneer de waarden gesorteerd worden.</para>
 
 <informalexample
 ><para
@@ -127,13 +127,13 @@
 </screenshot>
 
 <para
->The <guilabel
->Printing Options</guilabel
-> allow you to change some formatting when printing a collection. If <guilabel
->Format titles and names</guilabel
-> is checked, then the fields are <link linkend="field-formatting"
->auto-formatted</link
-> when they are printed. Otherwise, they are printed exactly as they were entered. </para>
+>De <guilabel
+>Afdrukopties</guilabel
+> stellen u in staat om enige formattering te wijzigen bij het afdrukken van een verzameling. Als <guilabel
+>Titels en namen formatteren</guilabel
+> is geactiveerd, dan worden de velden <link linkend="field-formatting"
+>automatisch geformatteerd</link
+> bij afdrukken. Anders worden ze afgedrukt precies zoals ze zijn ingevoerd. </para>
 
 <para
 >Het standaard stijlblad drukt de verzameling af met de veldwaarden in kolommen. <guilabel
@@ -249,12 +249,6 @@
 ></listitem>
 <listitem
 ><para
-><link linkend="yahoo"
->Yahoo! Geluid zoeken</link
->,</para
-></listitem>
-<listitem
-><para
 ><link linkend="animenfo"
 >AnimeNfo.com</link
 >,</para
@@ -313,6 +307,18 @@
 ><para
 ><link linkend="tmdb"
 >TheMovieDB.org</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="tgdb"
+>TheGamesDB.net</link
+>,</para
+></listitem>
+<listitem
+><para
+><link linkend="omdb"
+>OMDBAPI.com</link
 >,</para
 ></listitem>
 <listitem
@@ -564,9 +570,18 @@
 > is a free and open online movie database. Registration for a free account is required. </para>
 </sect3>
 
+<sect3 id="omdb">
+<title
+>OMDBAPI.com</title>
+<para
+><ulink url="http://omdbapi.com"
+>The Open Movie Database</ulink
+> is a free web service to obtain movie information. </para>
+</sect3>
+
 </sect2>
 
-<!-- start of movie sources -->
+<!-- start of music sources -->
 <sect2 id="music-sources">
 <title
 >Music Data Sources</title>
@@ -587,15 +602,6 @@
 ><ulink url="http://musicbrainz.org"
 >MusicBrainz.org</ulink
 > is a community music metadatabase that attempts to create a comprehensive music information site. </para>
-</sect3>
-
-<sect3 id="yahoo">
-<title
->Yahoo! Audio zoeken</title>
-<para
->The <ulink url="http://audio.search.yahoo.com"
->Yahoo! Audio Search</ulink
-> may be used to search for music album information. This data source is often unavailable or broken. </para>
 </sect3>
 
 </sect2>
@@ -628,6 +634,15 @@
 ><ulink url="http://giantbomb.com"
 >GiantBomb.com</ulink
 > is a large community-driven video game database. Registration for a free account is required. </para>
+</sect3>
+
+<sect3 id="tgdb">
+<title
+>TheGamesDB.net</title>
+<para
+><ulink url="http://thegamesdb.net"
+>TheGamesDB.net</ulink
+> is an open, online database for video game fans. </para>
 </sect3>
 
 </sect2>

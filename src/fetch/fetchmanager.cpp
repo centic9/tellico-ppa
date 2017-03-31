@@ -313,6 +313,7 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FETCHER_ADD(OpenLibrary);
   FETCHER_ADD(Freebase);
   FETCHER_ADD(GoogleBook);
+  FETCHER_ADD(OMDB);
   QStringList langs = QLocale().uiLanguages();
   if(langs.first().contains(QLatin1Char('-'))) {
     // I'm not sure QT always include two-letter locale codes
@@ -325,6 +326,9 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   if(langs.contains(QLatin1String("fr"))) {
     FETCHER_ADD(DVDFr);
     FETCHER_ADD(Allocine);
+  }
+  if(langs.contains(QLatin1String("ru"))) {
+    FETCHER_ADD(KinoPoisk);
   }
   return vec;
 }

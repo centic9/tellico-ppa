@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2017-02-20 03:52+0100\n"
-"PO-Revision-Date: 2017-02-06 19:08+0100\n"
+"POT-Creation-Date: 2017-03-26 03:40+0200\n"
+"PO-Revision-Date: 2017-03-15 20:36+0100\n"
 "Last-Translator: Josep Ma. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -207,14 +207,17 @@ msgstr "Títol"
 #: src/fetch/animenfofetcher.cpp:314 src/fetch/bedethequefetcher.cpp:333
 #: src/fetch/bedethequefetcher.cpp:341 src/fetch/discogsfetcher.cpp:249
 #: src/fetch/discogsfetcher.cpp:254 src/fetch/discogsfetcher.cpp:259
-#: src/fetch/discogsfetcher.cpp:266 src/fetch/filmasterfetcher.cpp:226
-#: src/fetch/freebasefetcher.cpp:382 src/fetch/googlebookfetcher.cpp:252
-#: src/fetch/googlebookfetcher.cpp:257 src/fetch/imdbfetcher.cpp:706
-#: src/fetch/imdbfetcher.cpp:1081 src/fetch/moviemeterfetcher.cpp:216
-#: src/fetch/moviemeterfetcher.cpp:221 src/fetch/openlibraryfetcher.cpp:249
-#: src/fetch/themoviedbfetcher.cpp:260 src/fetch/themoviedbfetcher.cpp:265
-#: src/fetch/themoviedbfetcher.cpp:270 src/field.cpp:36 src/field.cpp:77
-#: src/translators/gcstarimporter.cpp:89
+#: src/fetch/discogsfetcher.cpp:266 src/fetch/doubanfetcher.cpp:322
+#: src/fetch/doubanfetcher.cpp:346 src/fetch/doubanfetcher.cpp:365
+#: src/fetch/filmasterfetcher.cpp:226 src/fetch/freebasefetcher.cpp:382
+#: src/fetch/googlebookfetcher.cpp:252 src/fetch/googlebookfetcher.cpp:257
+#: src/fetch/imdbfetcher.cpp:706 src/fetch/imdbfetcher.cpp:1081
+#: src/fetch/kinopoiskfetcher.cpp:199 src/fetch/moviemeterfetcher.cpp:216
+#: src/fetch/moviemeterfetcher.cpp:221 src/fetch/omdbfetcher.cpp:217
+#: src/fetch/omdbfetcher.cpp:223 src/fetch/omdbfetcher.cpp:314
+#: src/fetch/openlibraryfetcher.cpp:249 src/fetch/themoviedbfetcher.cpp:260
+#: src/fetch/themoviedbfetcher.cpp:265 src/fetch/themoviedbfetcher.cpp:270
+#: src/field.cpp:36 src/field.cpp:77 src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "General"
 msgstr "General"
@@ -1071,14 +1074,15 @@ msgstr "Els meus llibres"
 msgid "Subtitle"
 msgstr "Subtítol"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:434
-#: src/fetch/ibsfetcher.cpp:332 src/translators/alexandriaimporter.cpp:159
+#: src/collections/bookcollection.cpp:71 src/fetch/doubanfetcher.cpp:387
+#: src/fetch/freebasefetcher.cpp:434 src/fetch/ibsfetcher.cpp:265
+#: src/translators/alexandriaimporter.cpp:159
 #, kde-format
 msgid "Hardback"
 msgstr "Tapa dura"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/freebasefetcher.cpp:436
-#: src/fetch/ibsfetcher.cpp:330
+#: src/collections/bookcollection.cpp:71 src/fetch/doubanfetcher.cpp:389
+#: src/fetch/freebasefetcher.cpp:436 src/fetch/ibsfetcher.cpp:263
 #, kde-format
 msgid "Paperback"
 msgstr "Rústica"
@@ -1088,7 +1092,7 @@ msgstr "Rústica"
 msgid "Trade Paperback"
 msgstr "Rústica econòmica"
 
-#: src/collections/bookcollection.cpp:72
+#: src/collections/bookcollection.cpp:72 src/fetch/ibsfetcher.cpp:267
 #, kde-format
 msgid "E-Book"
 msgstr "Llibre electrònic"
@@ -1588,7 +1592,7 @@ msgid "Album"
 msgstr "Àlbum"
 
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:337
-#: src/translators/freedbimporter.cpp:276
+#: src/fetch/doubanfetcher.cpp:439 src/translators/freedbimporter.cpp:276
 #: src/translators/freedbimporter.cpp:390
 #: src/translators/freedbimporter.cpp:456
 #, kde-format
@@ -1641,7 +1645,7 @@ msgstr "Pistes"
 #: src/translators/xmlstatehandler.cpp:410
 #, kde-format
 msgid "Length"
-msgstr "Durada"
+msgstr "Duració"
 
 #: src/collections/stampcollection.cpp:38
 #, kde-format
@@ -1930,7 +1934,8 @@ msgstr "Mode de color"
 msgid "Director's Cut"
 msgstr "Edició del director"
 
-#: src/collections/videocollection.cpp:190 src/fetch/ibsfetcher.cpp:381
+#: src/collections/videocollection.cpp:190 src/fetch/doubanfetcher.cpp:327
+#: src/fetch/ibsfetcher.cpp:278
 #, kde-format
 msgid "Plot Summary"
 msgstr "Resum de la trama"
@@ -2166,7 +2171,7 @@ msgid ""
 "If checked, the input from a webcam will be used to scan barcodes for "
 "searching."
 msgstr ""
-"Si està marcat, s'usarà l'entrada des d'una càmera web per llegir i cercar "
+"Si està marcat, s'usarà l'entrada des d'una càmera web per llegir i buscar "
 "codis de barres."
 
 #: src/configdialog.cpp:231
@@ -2300,7 +2305,7 @@ msgstr "&Formata els títols i els noms"
 msgid "&Print field headers"
 msgstr "Im&primeix les capçaleres dels camps"
 
-#: src/configdialog.cpp:347 src/translators/htmlexporter.cpp:497
+#: src/configdialog.cpp:347 src/translators/htmlexporter.cpp:498
 #, kde-format
 msgid "If checked, the field names will be printed as table headers."
 msgstr ""
@@ -2317,7 +2322,7 @@ msgstr "Opcions d'agrupament"
 msgid "&Group the entries"
 msgstr "A&grupa les entrades"
 
-#: src/configdialog.cpp:357 src/translators/htmlexporter.cpp:502
+#: src/configdialog.cpp:357 src/translators/htmlexporter.cpp:503
 #, kde-format
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr "Si està marcat, les entrades s'agruparan pel camp seleccionat."
@@ -2330,7 +2335,7 @@ msgstr "Opcions d'imatge"
 #: src/configdialog.cpp:367
 #, kde-format
 msgid "Maximum image &width:"
-msgstr "Amplada mà&xima de la imatge:"
+msgstr "Amplària mà&xima de la imatge:"
 
 #: src/configdialog.cpp:376
 #, kde-format
@@ -2338,13 +2343,13 @@ msgid ""
 "The maximum width of the images in the printout. The aspect ratio is "
 "preserved."
 msgstr ""
-"L'amplada màxima de les imatges en l'eixida d'impressió. Es preserva la "
+"L'amplària màxima de les imatges en l'eixida d'impressió. Es preserva la "
 "relació d'aspecte."
 
 #: src/configdialog.cpp:384
 #, kde-format
 msgid "&Maximum image height:"
-msgstr "Alçada &màxima de la imatge:"
+msgstr "Alçària &màxima de la imatge:"
 
 #: src/configdialog.cpp:393
 #, kde-format
@@ -2352,7 +2357,7 @@ msgid ""
 "The maximum height of the images in the printout. The aspect ratio is "
 "preserved."
 msgstr ""
-"L'alçada màxima de les imatges en l'eixida d'impressió. Es preserva la "
+"L'alçària màxima de les imatges en l'eixida d'impressió. Es preserva la "
 "relació d'aspecte."
 
 #: src/configdialog.cpp:410
@@ -2559,7 +2564,7 @@ msgid "Template Packages"
 msgstr "Paquets de plantilla"
 
 #: src/configdialog.cpp:1122 src/importdialog.cpp:391 src/mainwindow.cpp:1090
-#: src/mainwindow.cpp:1259 src/reportdialog.cpp:228
+#: src/mainwindow.cpp:1259 src/reportdialog.cpp:229
 #: src/translators/bibtexexporter.cpp:65
 #: src/translators/bibtexmlexporter.cpp:52 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:61 src/translators/htmlexporter.cpp:100
@@ -3146,7 +3151,8 @@ msgstr "Codifica el fitxer exportat en la codificació regional."
 #: src/fetch/allocinefetcher.cpp:225 src/fetch/amazonfetcher.cpp:751
 #: src/fetch/discogsfetcher.cpp:190 src/fetch/freebasefetcher.cpp:241
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/moviemeterfetcher.cpp:162
-#: src/fetch/themoviedbfetcher.cpp:207 src/fetch/vndbfetcher.cpp:155
+#: src/fetch/omdbfetcher.cpp:164 src/fetch/themoviedbfetcher.cpp:207
+#: src/fetch/vndbfetcher.cpp:155
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "No s'ha pogut carregar la imatge de la coberta."
@@ -3158,9 +3164,12 @@ msgstr "Enllaç a Allocine"
 
 #: src/fetch/allocinefetcher.cpp:311 src/fetch/allocinefetcher.cpp:503
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
-#: src/fetch/dvdfrfetcher.cpp:169 src/fetch/themoviedbfetcher.cpp:279
-#: src/fetch/themoviedbfetcher.cpp:439 src/fetch/vndbfetcher.cpp:237
-#: src/fetch/vndbfetcher.cpp:315
+#: src/fetch/doubanfetcher.cpp:314 src/fetch/doubanfetcher.cpp:338
+#: src/fetch/doubanfetcher.cpp:357 src/fetch/doubanfetcher.cpp:490
+#: src/fetch/dvdfrfetcher.cpp:169 src/fetch/kinopoiskfetcher.cpp:225
+#: src/fetch/kinopoiskfetcher.cpp:398 src/fetch/omdbfetcher.cpp:232
+#: src/fetch/themoviedbfetcher.cpp:279 src/fetch/themoviedbfetcher.cpp:439
+#: src/fetch/vndbfetcher.cpp:237 src/fetch/vndbfetcher.cpp:315
 #, kde-format
 msgid "Original Title"
 msgstr "Títol original"
@@ -3195,7 +3204,7 @@ msgid ""
 "returned from the search."
 msgstr ""
 "La llista de membres d'emissió pot incloure moltes persones. Estableix el "
-"nombre màxim retornat des de la cerca."
+"nombre màxim retornat des de la busca."
 
 #: src/fetch/amazonfetcher.cpp:66
 #, kde-format
@@ -3282,10 +3291,9 @@ msgstr "Serveis web Amazon.com"
 
 #: src/fetch/amazonfetcher.cpp:907 src/fetch/bibliosharefetcher.cpp:166
 #: src/fetch/crossreffetcher.cpp:313 src/fetch/discogsfetcher.cpp:427
-#: src/fetch/doubanfetcher.cpp:227 src/fetch/freebasefetcher.cpp:948
-#: src/fetch/giantbombfetcher.cpp:212 src/fetch/googlebookfetcher.cpp:378
-#: src/fetch/isbndbfetcher.cpp:368 src/fetch/themoviedbfetcher.cpp:451
-#: src/fetch/winecomfetcher.cpp:300
+#: src/fetch/freebasefetcher.cpp:948 src/fetch/giantbombfetcher.cpp:212
+#: src/fetch/googlebookfetcher.cpp:378 src/fetch/isbndbfetcher.cpp:368
+#: src/fetch/themoviedbfetcher.cpp:451 src/fetch/winecomfetcher.cpp:300
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -3297,9 +3305,8 @@ msgstr ""
 "compte</a>, i introduïu la vostra informació a sota."
 
 #: src/fetch/amazonfetcher.cpp:920 src/fetch/bibliosharefetcher.cpp:179
-#: src/fetch/doubanfetcher.cpp:240 src/fetch/giantbombfetcher.cpp:225
-#: src/fetch/isbndbfetcher.cpp:381 src/fetch/themoviedbfetcher.cpp:464
-#: src/fetch/winecomfetcher.cpp:313
+#: src/fetch/giantbombfetcher.cpp:225 src/fetch/isbndbfetcher.cpp:381
+#: src/fetch/themoviedbfetcher.cpp:464 src/fetch/winecomfetcher.cpp:313
 #, kde-format
 msgid "Access key: "
 msgstr "Clau d'accés: "
@@ -3417,9 +3424,9 @@ msgstr ""
 "Amazon.com, i és inclòs en tots els enllaços al lloc Amazon.com."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/doubanfetcher.cpp:214 src/fetch/dvdfrfetcher.cpp:171
-#: src/fetch/imdbfetcher.cpp:776 src/fetch/imdbfetcher.cpp:1354
-#: src/fetch/moviemeterfetcher.cpp:225 src/fetch/moviemeterfetcher.cpp:294
+#: src/fetch/dvdfrfetcher.cpp:171 src/fetch/imdbfetcher.cpp:776
+#: src/fetch/imdbfetcher.cpp:1354 src/fetch/moviemeterfetcher.cpp:225
+#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:227
 #: src/fetch/themoviedbfetcher.cpp:274 src/fetch/themoviedbfetcher.cpp:438
 #, kde-format
 msgid "Alternative Titles"
@@ -3448,13 +3455,14 @@ msgstr "Puntuació d'AnimeNfo"
 #: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:327
 #: src/fetch/bedethequefetcher.cpp:467 src/fetch/bibsonomyfetcher.cpp:186
 #: src/fetch/boardgamegeekfetcher.cpp:189 src/fetch/dblpfetcher.cpp:129
-#: src/fetch/dvdfrfetcher.cpp:178 src/fetch/entrezfetcher.cpp:478
-#: src/fetch/filmasterfetcher.cpp:309 src/fetch/googlescholarfetcher.cpp:273
-#: src/fetch/hathitrustfetcher.cpp:313 src/fetch/ibsfetcher.cpp:439
+#: src/fetch/doubanfetcher.cpp:498 src/fetch/dvdfrfetcher.cpp:178
+#: src/fetch/entrezfetcher.cpp:478 src/fetch/filmasterfetcher.cpp:309
+#: src/fetch/googlescholarfetcher.cpp:273 src/fetch/hathitrustfetcher.cpp:313
+#: src/fetch/ibsfetcher.cpp:353 src/fetch/kinopoiskfetcher.cpp:406
 #: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
-#: src/fetch/musicbrainzfetcher.cpp:343 src/fetch/openlibraryfetcher.cpp:397
-#: src/fetch/springerfetcher.cpp:183 src/fetch/thegamesdbfetcher.cpp:166
-#: src/fetch/vndbfetcher.cpp:323
+#: src/fetch/musicbrainzfetcher.cpp:343 src/fetch/omdbfetcher.cpp:345
+#: src/fetch/openlibraryfetcher.cpp:397 src/fetch/springerfetcher.cpp:183
+#: src/fetch/thegamesdbfetcher.cpp:166 src/fetch/vndbfetcher.cpp:323
 #, kde-format
 msgid "This source has no options."
 msgstr "Esta font no té opcions."
@@ -3477,7 +3485,7 @@ msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
 "access limits."
 msgstr ""
-"Es pot usar la clau per omissió del Tellico, però la cerca pot fallar a "
+"Es pot usar la clau per omissió del Tellico, però la busca pot fallar a "
 "causa d'assolir els límits d'accés."
 
 #: src/fetch/boardgamegeekfetcher.cpp:182
@@ -3547,24 +3555,18 @@ msgstr "El servidor Discogs.com ha informat un error de testimoni."
 #: src/fetch/discogsfetcher.cpp:405
 #, kde-format
 msgid "Discogs Audio Search"
-msgstr "Cerca d'àudio Discogs"
+msgstr "Busca d'àudio Discogs"
 
 #: src/fetch/discogsfetcher.cpp:440
 #, kde-format
 msgid "User token: "
 msgstr "Testimoni de l'usuari: "
 
-#: src/fetch/doubanfetcher.cpp:215
+#: src/fetch/doubanfetcher.cpp:321 src/fetch/doubanfetcher.cpp:345
+#: src/fetch/doubanfetcher.cpp:364 src/fetch/doubanfetcher.cpp:491
 #, kde-format
 msgid "Douban Link"
 msgstr "Enllaç a Douban"
-
-#: src/fetch/doubanfetcher.cpp:216 src/fetch/imdbfetcher.cpp:705
-#: src/fetch/imdbfetcher.cpp:1352 src/fetch/themoviedbfetcher.cpp:269
-#: src/fetch/themoviedbfetcher.cpp:437
-#, kde-format
-msgid "IMDb Link"
-msgstr "Enllaç IMDb"
 
 #: src/fetch/dvdfrfetcher.cpp:170
 #, kde-format
@@ -3623,7 +3625,7 @@ msgstr ""
 #: src/fetch/execexternalfetcher.cpp:374
 #, kde-format
 msgid "Select the search keys supported by the data source."
-msgstr "Seleccioneu les tecles de cerca acceptades per a la font de les dades."
+msgstr "Seleccioneu les tecles de busca acceptades per a la font de les dades."
 
 #: src/fetch/execexternalfetcher.cpp:376
 #, kde-format
@@ -3632,7 +3634,7 @@ msgid ""
 "search term."
 msgstr ""
 "Afig qualsevol argument que puga ser necessari. <b>%1</b> serà reemplaçat "
-"pel terme de cerca."
+"pel terme de busca."
 
 #. i18ncheckarg
 #: src/fetch/execexternalfetcher.cpp:377
@@ -3653,7 +3655,7 @@ msgid ""
 "where field names are contained inside braces, such as <i>%{author}</i>. See "
 "the documentation for details.</p>"
 msgstr ""
-"<p>Introduïu els arguments que s'han d'utilitzar per cercar les "
+"<p>Introduïu els arguments que s'han d'utilitzar per buscar les "
 "actualitzacions disponibles per a una entrada.</p><p>El format és el mateix "
 "que per als camps amb els valors derivats, on figuren els noms de camp dins "
 "de claus, com ara <i>%{author}</i>. Mireu les documentacions per detalls.</p>"
@@ -3661,7 +3663,7 @@ msgstr ""
 #: src/fetch/fetcher.cpp:78
 #, kde-format
 msgid "%1 does not allow searching for this collection type."
-msgstr "%1 no permet la cerca que a este tipus de col·lecció."
+msgstr "%1 no permet la busca que a este tipus de col·lecció."
 
 #: src/fetch/fetchmanager.cpp:67
 #, kde-format
@@ -3752,7 +3754,7 @@ msgstr "Enllaç a Google Book"
 #: src/fetch/googlebookfetcher.cpp:358
 #, kde-format
 msgid "Google Book Search"
-msgstr "Cerca a Google Book"
+msgstr "Busca a Google Book"
 
 #: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:564
 #, kde-format
@@ -3773,7 +3775,7 @@ msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
 msgstr "Classificació LoC"
 
-#: src/fetch/ibsfetcher.cpp:429
+#: src/fetch/ibsfetcher.cpp:343
 #, kde-format
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Tenda de llibres d'Internet (ibs.it)"
@@ -3808,6 +3810,14 @@ msgstr "Base de dades de pel·lícules d'Internet (italià)"
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Base de dades de pel·lícules d'Internet (portugués)"
 
+#: src/fetch/imdbfetcher.cpp:705 src/fetch/imdbfetcher.cpp:1352
+#: src/fetch/omdbfetcher.cpp:222 src/fetch/omdbfetcher.cpp:313
+#: src/fetch/omdbfetcher.cpp:338 src/fetch/themoviedbfetcher.cpp:269
+#: src/fetch/themoviedbfetcher.cpp:437
+#, kde-format
+msgid "IMDb Link"
+msgstr "Enllaç IMDb"
+
 #: src/fetch/imdbfetcher.cpp:1080 src/fetch/imdbfetcher.cpp:1353
 #, kde-format
 msgid "IMDb Rating"
@@ -3839,6 +3849,11 @@ msgstr ""
 #, kde-format
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
+
+#: src/fetch/kinopoiskfetcher.cpp:198 src/fetch/kinopoiskfetcher.cpp:399
+#, kde-format
+msgid "KinoPoisk Link"
+msgstr "Enllaç KinoPoisk"
 
 #: src/fetch/moviemeterfetcher.cpp:220 src/fetch/moviemeterfetcher.cpp:293
 #, kde-format
@@ -3967,7 +3982,7 @@ msgstr "Error de consulta!"
 #: src/fetch/z3950connection.cpp:217 src/fetch/z3950connection.cpp:333
 #, kde-format
 msgid "Connection search error %1: %2"
-msgstr "Error de cerca de connexió %1: %2"
+msgstr "Error de busca de connexió %1: %2"
 
 #: src/fetch/z3950connection.cpp:299
 #, kde-format
@@ -4081,12 +4096,12 @@ msgstr "Atu&ra"
 #: src/fetchdialog.cpp:131
 #, kde-format
 msgid "Internet Search"
-msgstr "Cerca a Internet"
+msgstr "Busca a Internet"
 
 #: src/fetchdialog.cpp:142
 #, kde-format
 msgid "Search Query"
-msgstr "Consulta de la cerca"
+msgstr "Consulta de la busca"
 
 #: src/fetchdialog.cpp:151
 #, kde-format
@@ -4098,27 +4113,27 @@ msgstr "C&erca:"
 #, kde-format
 msgid "Enter a search value. An ISBN search must include the full ISBN."
 msgstr ""
-"Introduïu un valor de cerca. Una cerca ISBN ha d'incloure l'ISBN complet."
+"Introduïu un valor de busca. Una busca ISBN ha d'incloure l'ISBN complet."
 
 #: src/fetchdialog.cpp:166
 #, kde-format
 msgid "Choose the type of search"
-msgstr "Seleccioneu el tipus de cerca"
+msgstr "Seleccioneu el tipus de busca"
 
 #: src/fetchdialog.cpp:173
 #, kde-format
 msgid "Click to start or stop the search"
-msgstr "Cliqueu per iniciar o aturar la cerca"
+msgstr "Cliqueu per iniciar o aturar la busca"
 
 #: src/fetchdialog.cpp:192
 #, kde-format
 msgid "&Multiple ISBN/UPC search"
-msgstr "Cerca &múltiple ISBN/UPC"
+msgstr "Busca &múltiple ISBN/UPC"
 
 #: src/fetchdialog.cpp:194
 #, kde-format
 msgid "Check this box to search for multiple ISBN or UPC values."
-msgstr "Marqueu esta casella per cercar múltiples valors ISBN o UPC."
+msgstr "Marqueu esta casella per buscar múltiples valors ISBN o UPC."
 
 #: src/fetchdialog.cpp:198
 #, kde-format
@@ -4137,12 +4152,12 @@ msgstr ""
 #: src/fetchdialog.cpp:208
 #, kde-format
 msgid "Search s&ource:"
-msgstr "F&ont de la cerca:"
+msgstr "F&ont de la busca:"
 
 #: src/fetchdialog.cpp:218
 #, kde-format
 msgid "Select the database to search"
-msgstr "Seleccioneu la base de dades a cercar"
+msgstr "Seleccioneu la base de dades a buscar"
 
 #: src/fetchdialog.cpp:236
 #, kde-format
@@ -4191,12 +4206,12 @@ msgstr "Obtenció de més resultats de la font de dades actual"
 #: src/fetchdialog.cpp:282
 #, kde-format
 msgid "Clear all search fields and results"
-msgstr "Neteja tots els camps de cerca i els resultats"
+msgstr "Neteja tots els camps de busca i els resultats"
 
 #: src/fetchdialog.cpp:366
 #, kde-format
 msgid "Cancelling the search..."
-msgstr "S'està cancel·lant la cerca..."
+msgstr "S'està cancel·lant la busca..."
 
 #: src/fetchdialog.cpp:378 src/fetchdialog.cpp:544
 #, kde-format
@@ -4206,14 +4221,14 @@ msgstr "S'està cercant..."
 #: src/fetchdialog.cpp:433
 #, kde-format
 msgid "The search returned no items."
-msgstr "La cerca no ha retornat cap element."
+msgstr "La busca no ha retornat cap element."
 
 #: src/fetchdialog.cpp:436
 #, kde-format
 msgid "The search returned 1 item."
 msgid_plural "The search returned %1 items."
-msgstr[0] "La cerca ha retornat 1 element."
-msgstr[1] "La cerca ha retornat %1 elements."
+msgstr[0] "La busca ha retornat 1 element."
+msgstr[1] "La busca ha retornat %1 elements."
 
 #: src/fetchdialog.cpp:464
 #, kde-format
@@ -4266,7 +4281,7 @@ msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
 "100 values in your list will be used.</qt>"
 msgstr ""
-"<qt>Una cerca ISBN pot contindre un nombre màxim de 100 valors ISBN. Només "
+"<qt>Una busca ISBN pot contindre un nombre màxim de 100 valors ISBN. Només "
 "s'usaran els primers 100 valors de la llista.</qt>"
 
 #: src/fetcherconfigdialog.cpp:75
@@ -4406,7 +4421,7 @@ msgid "Group"
 msgstr "Agrupa"
 
 #: src/groupview.cpp:394 src/mainwindow.cpp:930 src/mainwindow.cpp:1551
-#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:328
+#: src/mainwindow.cpp:1577 src/translators/htmlexporter.cpp:329
 #, kde-format
 msgid "People"
 msgstr "Persones"
@@ -4824,8 +4839,8 @@ msgstr "Prestatari (ordena per comptador)"
 
 #: src/main.cpp:118
 #, kde-format
-msgid "Tellico - a collection manager for KDE"
-msgstr "Tellico - un gestor de col·leccions pel KDE"
+msgid "Tellico - a KDE collection manager"
+msgstr "Tellico - un gestor de col·leccions del KDE"
 
 #: src/main.cpp:120
 #, kde-format
@@ -5396,17 +5411,17 @@ msgstr "Desselecciona totes les entrades de la col·lecció"
 #: src/mainwindow.cpp:489
 #, kde-format
 msgid "Internet Search..."
-msgstr "Cerca d'Internet..."
+msgstr "Busca d'Internet..."
 
 #: src/mainwindow.cpp:490 xslt/tellico2html.xsl:252
 #, kde-format
 msgid "Search"
-msgstr "Cerca"
+msgstr "Busca"
 
 #: src/mainwindow.cpp:493
 #, kde-format
 msgid "Search the internet..."
-msgstr "Cerca a Internet..."
+msgstr "Busca a Internet..."
 
 #: src/mainwindow.cpp:496
 #, kde-format
@@ -5536,12 +5551,12 @@ msgstr "Edita les macros de cadena bibtex"
 #: src/mainwindow.cpp:583
 #, kde-format
 msgid "Check for Duplicate Keys..."
-msgstr "Cerca claus duplicades..."
+msgstr "Busca claus duplicades..."
 
 #: src/mainwindow.cpp:585
 #, kde-format
 msgid "Check for duplicate citation keys"
-msgstr "Cerca claus de citació duplicades"
+msgstr "Busca claus de citació duplicades"
 
 #: src/mainwindow.cpp:592
 #, kde-format
@@ -5897,7 +5912,7 @@ msgstr ""
 "Alguns informes poden trigar uns quants segons a generar-se per a "
 "col·leccions grans."
 
-#: src/reportdialog.cpp:226 src/translators/htmlexporter.cpp:100
+#: src/reportdialog.cpp:227 src/translators/htmlexporter.cpp:100
 #, kde-format
 msgid "HTML Files"
 msgstr "Fitxers HTML"
@@ -6037,13 +6052,13 @@ msgstr "Opcions de fitxer d'àudio"
 #: src/translators/audiofileimporter.cpp:398
 #, kde-format
 msgid "Recursive &folder search"
-msgstr "Cerca recursiva en les &carpetes"
+msgstr "Busca recursiva en les &carpetes"
 
 #: src/translators/audiofileimporter.cpp:399
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr ""
-"Si està marcat, les carpetes són explorades recursivament per cercar fitxers "
+"Si està marcat, les carpetes són explorades recursivament per buscar fitxers "
 "d'àudio."
 
 #: src/translators/audiofileimporter.cpp:403
@@ -6419,13 +6434,13 @@ msgstr "Opcions de llistat de fitxers"
 #: src/translators/filelistingimporter.cpp:234
 #, kde-format
 msgid "Recursive folder search"
-msgstr "Cerca recursiva a les carpetes"
+msgstr "Busca recursiva a les carpetes"
 
 #: src/translators/filelistingimporter.cpp:235
 #, kde-format
 msgid "If checked, folders are recursively searched for all files."
 msgstr ""
-"Si està marcat, les carpetes són explorades recursivament per cercar tots "
+"Si està marcat, les carpetes són explorades recursivament per buscar tots "
 "els fitxers."
 
 #: src/translators/filelistingimporter.cpp:239
@@ -6466,7 +6481,7 @@ msgstr "<qt>No s'han trobat registres que coincidisquen amb el CD.</qt>"
 #: src/translators/freedbimporter.cpp:257
 #, kde-format
 msgid "<qt>Tellico was unable to complete the CD lookup.</qt>"
-msgstr "<qt>Tellico no pot completar la cerca del CD.</qt>"
+msgstr "<qt>Tellico no pot completar la busca del CD.</qt>"
 
 #: src/translators/freedbimporter.cpp:480
 #, kde-format
@@ -6518,32 +6533,32 @@ msgstr "Opcions de Goodreads"
 msgid "HTML"
 msgstr "HTML"
 
-#: src/translators/htmlexporter.cpp:332
+#: src/translators/htmlexporter.cpp:333
 #, kde-format
 msgid "(grouped by %1)"
 msgstr "(agrupat per %1)"
 
-#: src/translators/htmlexporter.cpp:493
+#: src/translators/htmlexporter.cpp:494
 #, kde-format
 msgid "HTML Options"
 msgstr "Opcions de l'HTML"
 
-#: src/translators/htmlexporter.cpp:496
+#: src/translators/htmlexporter.cpp:497
 #, kde-format
 msgid "Print field headers"
 msgstr "Imprimeix les capçaleres dels camps"
 
-#: src/translators/htmlexporter.cpp:501
+#: src/translators/htmlexporter.cpp:502
 #, kde-format
 msgid "Group the entries"
 msgstr "Agrupa les entrades"
 
-#: src/translators/htmlexporter.cpp:506
+#: src/translators/htmlexporter.cpp:507
 #, kde-format
 msgid "Export individual entry files"
 msgstr "Exporta fitxers d'entrades individuals"
 
-#: src/translators/htmlexporter.cpp:507
+#: src/translators/htmlexporter.cpp:508
 #, kde-format
 msgid "If checked, individual files will be created for each entry."
 msgstr "Si està marcat, es crearan fitxers individuals per a cada entrada."

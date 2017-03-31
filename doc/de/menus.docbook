@@ -12,16 +12,14 @@ or menu bars.
 
 <sect1 id="main-window-menus">
 <title
->Das Hauptfenster von &appname;</title>
+>Das Hauptfenster von &tellico;</title>
 
 <para
 >Die einzelnen Menüeinträge sind unten beschrieben. Falls eine Tastenkombination existiert, die die entsprechende Funktion ausführt, wird die Standardkombination neben dem Menüeintrag aufgeführt. </para>
 
 <sect2>
 <title
->Das Menü <guimenu
->Datei</guimenu
-></title>
+>Das Menü Datei</title>
 
 <para>
 <variablelist>
@@ -40,7 +38,7 @@ or menu bars.
 <para
 >Dieser Befehl <action
 >erzeugt eine neue Sammlung</action
->. In &appname; gibt es <link linkend="collection-types"
+>. In &tellico; gibt es <link linkend="collection-types"
 >12 Standardsammlungen</link
 >, dazu noch eine leere benutzerdefinierte Sammlung.</para>
 </listitem>
@@ -65,7 +63,7 @@ or menu bars.
 <listitem>
 <para
 >Dieser Befehl <action
->öffnet eine &appname;-Datei</action
+>öffnet eine &tellico;-Datei</action
 >.</para>
 </listitem>
 </varlistentry>
@@ -117,7 +115,13 @@ or menu bars.
 <varlistentry>
 <term>
  <menuchoice
-><guimenu
+><shortcut
+> <keycombo
+>&Ctrl;&Shift;<keycap
+>S</keycap
+></keycombo
+> </shortcut
+> <guimenu
 >Datei</guimenu
 > <guimenuitem
 >Speichern unter ...</guimenuitem
@@ -172,7 +176,7 @@ or menu bars.
 <para
 >Dieser Befehl <action
 >importiert Daten aus einer anderen Datei</action
->. &appname; kann Daten aus vielen <link linkend="importing"
+>. &tellico; kann Daten aus vielen <link linkend="importing"
 >anderen Formaten</link
 > importieren.</para>
 </listitem>
@@ -192,7 +196,7 @@ or menu bars.
 <para
 >Dieser Befehl <action
 >exportiert Daten in ein anderes Format</action
->. &appname; kann Daten in viele <link linkend="exporting"
+>. &tellico; kann Daten in viele <link linkend="exporting"
 >andere Formate</link
 > exportieren.</para>
 </listitem>
@@ -217,7 +221,7 @@ or menu bars.
 <listitem>
 <para
 ><action
->Beendet &appname;</action
+>Beendet &tellico;</action
 > und schließt das Hauptfenster. Gibt es nicht gespeicherte Änderungen in der Sammlung, können Sie die Änderungen vor dem Beenden speichern oder verwerfen.</para>
 </listitem>
 </varlistentry>
@@ -229,9 +233,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EDIT MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Das Menü <guimenu
->Bearbeiten</guimenu
-></title>
+>Das Menü Bearbeiten</title>
 
 <para>
 
@@ -471,9 +473,7 @@ or menu bars.
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLLECTION MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Das Menü <guimenu
->Sammlung</guimenu
-></title>
+>Das Menü Sammlung</title>
 <para>
 
 <variablelist>
@@ -833,51 +833,17 @@ or menu bars.
 </para>
 </sect2>
 
-<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SETTINGS / HELP MENU %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <sect2>
 <title
->Das Menü <guimenu
->Einstellungen</guimenu
-></title>
-<para>
+>Die Menüs Einstellungen und Hilfe</title>
+
+<para
+>Außer den bekannten &kde;-Menüeinträgen Einstellungen und Hilfe, die im Kapitel <ulink url="help:/fundamentals/ui.html#menus"
+>Menüs</ulink
+> der &kde;-Grundlagen beschrieben werden, gibt es folgende spezielle Menüeinträge für &tellico;: </para>
 
 <variablelist>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Einstellungen</guimenu
-> <guisubmenu
->Angezeigte Werkzeugleisten</guisubmenu
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Dieser Befehl <action
->schaltet die Anzeige der Werkzeugleisten an bzw. aus</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Einstellungen</guimenu
-> <guimenuitem
->Statusleiste anzeigen</guimenuitem
->  </menuchoice>
-</term>
-
-<listitem>
-<para
->Dieser Befehl <action
->blendet die Statusleiste ein bzw. aus</action
->.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term>
@@ -934,107 +900,6 @@ or menu bars.
 >Dieser Befehl <action
 >ändert das zur Gruppierung der Einträge</action
 > benutzte Feld in der Sammlung.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Einstellungen</guimenu
-><guimenuitem
->Kurzbefehle festlegen ...</guimenuitem
->  </menuchoice>
-</term>
-
-<listitem>
-<para
->Dieser Befehl <action
->öffnet den &kde;-<interface
->Einrichtungsdialog</interface
-> zum Festlegen der Tastatur-Kurzbefehle</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Einstellungen</guimenu
-> <guimenuitem
->Werkzeugleisten einrichten ...</guimenuitem
->  </menuchoice>
-</term>
-
-<listitem>
-<para
->Dieser Befehl <action
->öffnet den &kde;-<interface
->Einrichtungsdialog</interface
-> zur Änderung der Einträge in der Werkzeugleiste</action
->.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Einstellungen</guimenu
-> <guimenuitem
->&appname; einrichten ...</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Dieser Befehl <action
->öffnet den <interface
->Einrichtungsdialog</interface
-> für &appname;</action
->.</para>
-</listitem>
-</varlistentry>
-
-</variablelist>
-
-</para>
-</sect2>
-
-<sect2>
-<title
->Das Menü <guimenu
->Hilfe</guimenu
-></title>
-
-<para
->Die &kde;-Standardeinträge des Menüs <guimenu
->Hilfe</guimenu
-> lauten:</para>
-&help.menu.documentation; <para
->Zusätzlich zu den oben beschriebenen Standardeinträgen des &kde;-Menüs <guimenu
->Hilfe</guimenu
-> gibt es folgende Menüeinträge:</para>
-
-<variablelist>
-<varlistentry>
-<term>
- <menuchoice
-><guimenu
->Hilfe</guimenu
-> <guimenuitem
->Tipp des Tages</guimenuitem
-> </menuchoice>
-</term>
-
-<listitem>
-<para
->Dieser Befehl <action
->öffnet den Dialog <interface
->Tipp des Tages</interface
-></action
->. Mit den Köpfen im Dialog können Sie alle Tipps durchblättern.</para>
 </listitem>
 </varlistentry>
 

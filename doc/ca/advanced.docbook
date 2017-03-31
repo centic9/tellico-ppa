@@ -12,9 +12,9 @@
 >. </para>
 
 <programlisting
->Ús: tellico [Opcions de Qt] [Opcions de KDE] [opcions] [nom_fitxer]
+>Ús: tellico [opcions] [nom_fitxer]
 
-&appname; - un gestor de col·leccions pel KDE
+Tellico - un gestor de col·leccions pel KDE
 
 Opcions:
  --nofile         No obris l'últim fitxer obert
@@ -171,7 +171,7 @@ bool addEntryValue(int entryID, QString fieldName, QString valor)
 <prompt
 >%</prompt
 > <userinput
->qdbus org.kde.tellico /&appname; org.kde.tellico.importBibtex "/home/usuari/referència.bib" "replace"</userinput>
+>qdbus org.kde.tellico /Tellico org.kde.tellico.importBibtex "/home/usuari/referència.bib" "replace"</userinput>
 <computeroutput
 >true</computeroutput
 >
@@ -183,7 +183,7 @@ bool addEntryValue(int entryID, QString fieldName, QString valor)
 <prompt
 >%</prompt
 > <userinput
->qdbus org.kde.tellico /&appname; org.kde.tellico.exportBibtex ~/documents/referència.bib</userinput>
+>qdbus org.kde.tellico /Tellico org.kde.tellico.exportBibtex ~/documents/referència.bib</userinput>
 <computeroutput
 >true</computeroutput
 >

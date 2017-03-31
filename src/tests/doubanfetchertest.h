@@ -38,6 +38,8 @@ private Q_SLOTS:
   void testISBN();
   void testVideo();
   void testMusic();
+  void testMusicAdele();
+  void testMusicArtPepper();
 };
 
 #endif

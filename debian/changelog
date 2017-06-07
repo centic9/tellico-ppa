@@ -124,7 +124,12 @@ tellico (2.3.10-0ubuntu0~ppa1) trusty; urgency=medium
 
 tellico (2.3.9+dfsg.1-1ubuntu1) vivid; urgency=low
 
-  * ??
+  * Merge from Debian unstable.  Remaining changes:
+    - debian/control:
+      + Build without Nepomuk, drop nepomuk-core-dev
+        and shared-desktop-ontologies from Build-Depends.
+
+ -- Artur Rona <ari-tczew@ubuntu.com>  Tue, 11 Nov 2014 21:28:48 +0100
 
 tellico (2.3.9+dfsg.1-1) unstable; urgency=low
 

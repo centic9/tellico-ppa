@@ -4,13 +4,11 @@ SET(utils_STAT_SRCS
    bibtexhandler.cpp
    cursorsaver.cpp
    datafileregistry.cpp
-   fieldcomparison.cpp
    guiproxy.cpp
    iso5426converter.cpp
    iso6937converter.cpp
    isbnvalidator.cpp
    lccnvalidator.cpp
-   stringcomparison.cpp
    string_utils.cpp
    tellico_utils.cpp
    upcvalidator.cpp
@@ -21,7 +19,6 @@ SET(utils_STAT_SRCS
 add_library(utils STATIC ${utils_STAT_SRCS})
 
 TARGET_LINK_LIBRARIES(utils
-    images # for FieldComparison
     Qt5::Core
     Qt5::Widgets
     Qt5::Xml
@@ -30,4 +27,5 @@ TARGET_LINK_LIBRARIES(utils
     KF5::I18n
     KF5::WidgetsAddons
     KF5::Codecs
+    KF5::KIOCore
 )

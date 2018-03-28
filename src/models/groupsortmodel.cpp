@@ -24,9 +24,9 @@
 
 #include "groupsortmodel.h"
 #include "models.h"
+#include "stringcomparison.h"
 #include "../field.h"
 #include "../entrygroup.h"
-#include "../utils/stringcomparison.h"
 #include "../document.h"
 #include "../tellico_debug.h"
 
@@ -34,14 +34,14 @@ using Tellico::GroupSortModel;
 
 GroupSortModel::GroupSortModel(QObject* parent) : AbstractSortModel(parent)
      , m_titleComparison(new TitleComparison())
-     , m_groupComparison(0) {
+     , m_groupComparison(nullptr) {
 }
 
 GroupSortModel::~GroupSortModel() {
   delete m_titleComparison;
-  m_titleComparison = 0;
+  m_titleComparison = nullptr;
   delete m_groupComparison;
-  m_groupComparison = 0;
+  m_groupComparison = nullptr;
 }
 
 void GroupSortModel::setSourceModel(QAbstractItemModel* sourceModel_) {
@@ -106,13 +106,13 @@ bool GroupSortModel::lessThan(const QModelIndex& left_, const QModelIndex& right
 
 void GroupSortModel::clearGroupComparison() {
   delete m_groupComparison;
-  m_groupComparison = 0;
+  m_groupComparison = nullptr;
 }
 
 // if 'group_' contains a type of field that merits a non-alphabetic
 // sort, return a pointer to the proper sort function.
 Tellico::StringComparison* GroupSortModel::getComparison(Data::EntryGroup* group_) const {
-  StringComparison* comp = 0;
+  StringComparison* comp = nullptr;
   if(group_) {
     Data::CollPtr coll = Data::Document::self()->collection();
     if(coll && coll->hasField(group_->fieldName())) {
@@ -121,4 +121,3 @@ Tellico::StringComparison* GroupSortModel::getComparison(Data::EntryGroup* group
   }
   return comp;
 }
-

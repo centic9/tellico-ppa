@@ -25,7 +25,6 @@
 #include "filehandler.h"
 #include "tellico_strings.h"
 #include "netaccess.h"
-#include "../images/image.h"
 #include "../utils/cursorsaver.h"
 #include "../utils/guiproxy.h"
 #include "../utils/xmlhandler.h"
@@ -46,9 +45,13 @@
 #include <QTemporaryFile>
 #include <QSaveFile>
 
+namespace {
+  static const int MAX_TEXT_CHUNK_WRITE_SIZE = 100 * 1024 * 1024;
+}
+
 using Tellico::FileHandler;
 
-FileHandler::FileRef::FileRef(const QUrl& url_, bool quiet_) : m_device(0), m_isValid(false) {
+FileHandler::FileRef::FileRef(const QUrl& url_, bool quiet_) : m_device(nullptr), m_isValid(false) {
   if(url_.isEmpty()) {
     return;
   }
@@ -77,7 +80,7 @@ FileHandler::FileRef::~FileRef() {
     m_device->close();
   }
   delete m_device;
-  m_device = 0;
+  m_device = nullptr;
   m_isValid = false;
 }
 
@@ -91,7 +94,7 @@ bool FileHandler::FileRef::open(bool quiet_) {
       GUI::Proxy::sorry(i18n(errorLoad, u.fileName()));
     }
     delete m_device;
-    m_device = 0;
+    m_device = nullptr;
     m_isValid = false;
     return false;
   }
@@ -168,49 +171,7 @@ QByteArray FileHandler::readDataFile(const QUrl& url_, bool quiet_) {
   return f.file()->readAll();
 }
 
-Tellico::Data::Image* FileHandler::readImageFile(const QUrl& url_, const QString& id_, bool quiet_, const QUrl& referrer_) {
-  if(referrer_.isEmpty() || url_.isLocalFile()) {
-    return readImageFile(url_, id_, quiet_);
-  }
-
-  QTemporaryFile tempFile;
-  tempFile.open();
-  QUrl tempURL = QUrl::fromLocalFile(tempFile.fileName());
-
-  KIO::JobFlags flags = KIO::Overwrite;
-  if(quiet_) {
-    flags |= KIO::HideProgressInfo;
-  }
-
-  KIO::Job* job = KIO::file_copy(url_, tempURL, -1, flags);
-  job->addMetaData(QLatin1String("referrer"), referrer_.url());
-
-  KJobWidgets::setWindow(job, GUI::Proxy::widget());
-  if(!job->exec()) {
-    if(!quiet_) {
-      QString str = i18n("Tellico is unable to load the image - %1.", url_.toDisplayString());
-      GUI::Proxy::sorry(str);
-    }
-    return 0;
-  }
-  return readImageFile(tempURL, id_, quiet_);
-}
-
-Tellico::Data::Image* FileHandler::readImageFile(const QUrl& url_, const QString& id_, bool quiet_) {
-  FileRef f(url_, quiet_);
-  if(!f.isValid()) {
-    return 0;
-  }
-
-  Data::Image* img = new Data::Image(f.fileName(), id_);
-  if(img->isNull() && !quiet_) {
-    QString str = i18n("Tellico is unable to load the image - %1.", url_.fileName());
-    GUI::Proxy::sorry(str);
-  }
-  return img;
-}
-
-// really, this should be decoupled from the writeBackupFile() function
+// TODO: really, this should be decoupled from the writeBackupFile() function
 // but every other function that calls it would need to be updated
 bool FileHandler::queryExists(const QUrl& url_) {
   if(url_.isEmpty() || !QFile::exists(url_.toLocalFile())) {
@@ -300,11 +261,14 @@ bool FileHandler::writeTextURL(const QUrl& url_, const QString& text_, bool enco
 }
 
 bool FileHandler::writeTextFile(QSaveFile& file_, const QString& text_, bool encodeUTF8_) {
-  QTextStream t(&file_);
+  QTextStream ts(&file_);
   if(encodeUTF8_) {
-    t.setCodec("UTF-8");
+    ts.setCodec("UTF-8");
   }
-  t << text_;
+  // KDE Bug 380832. If string is longer than MAX_TEXT_CHUNK_WRITE_SIZE characters, split into chunks.
+  for(int i = 0; i < text_.length(); i += MAX_TEXT_CHUNK_WRITE_SIZE) {
+    ts << text_.midRef(i, MAX_TEXT_CHUNK_WRITE_SIZE);
+  }
   file_.flush();
   bool success = file_.commit();
 #ifndef NDEBUG
@@ -359,10 +323,11 @@ bool FileHandler::writeDataURL(const QUrl& url_, const QByteArray& data_, bool f
 }
 
 bool FileHandler::writeDataFile(QSaveFile& file_, const QByteArray& data_) {
+//  myDebug() << "Writing to" << file_.fileName();
   QDataStream s(&file_);
   s.writeRawData(data_.data(), data_.size());
   file_.flush();
-  bool success = file_.commit();
+  const bool success = file_.commit();
 #ifndef NDEBUG
   if(!success) {
     myDebug() << "error = " << file_.error();

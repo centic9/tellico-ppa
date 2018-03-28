@@ -45,20 +45,20 @@ public:
   TableFieldWidget(Data::FieldPtr field, QWidget* parent);
   virtual ~TableFieldWidget() {}
 
-  virtual QString text() const;
-  virtual void setTextImpl(const QString& text);
+  virtual QString text() const Q_DECL_OVERRIDE;
+  virtual void setTextImpl(const QString& text) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-  virtual void clearImpl();
+  virtual void clearImpl() Q_DECL_OVERRIDE;
 
 protected:
-  virtual QWidget* widget();
-  virtual void updateFieldHook(Data::FieldPtr oldField, Data::FieldPtr newField);
+  virtual QWidget* widget() Q_DECL_OVERRIDE;
+  virtual void updateFieldHook(Data::FieldPtr oldField, Data::FieldPtr newField) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
-  void tableContextMenu(const QPoint& point);
-  void horizontalHeaderContextMenu(const QPoint& point);
-  void verticalHeaderContextMenu(const QPoint& point);
+  void tableContextMenu(QPoint point);
+  void horizontalHeaderContextMenu(QPoint point);
+  void verticalHeaderContextMenu(QPoint point);
   void slotCheckRows(int row, int col);
   void slotResizeColumn(QTableWidgetItem* item);
   void slotRenameColumn();
@@ -69,7 +69,7 @@ private Q_SLOTS:
   void slotClear();
 
 private:
-  void makeRowContextMenu(const QPoint& point);
+  void makeRowContextMenu(QPoint point);
   bool emptyRow(int row) const;
   void labelColumns(Data::FieldPtr field);
 

@@ -54,7 +54,7 @@ using Tellico::Fetch::GoogleScholarFetcher;
 
 GoogleScholarFetcher::GoogleScholarFetcher(QObject* parent_)
     : Fetcher(parent_),
-      m_limit(GOOGLE_MAX_RETURNS_TOTAL), m_start(0), m_total(0), m_job(0), m_started(false),
+      m_limit(GOOGLE_MAX_RETURNS_TOTAL), m_start(0), m_total(0), m_job(nullptr), m_started(false),
       m_cookieIsSet(false) {
   m_bibtexRx = QRegExp(QLatin1String("<a\\s.*href\\s*=\\s*\"([^>]*scholar\\.bib[^>]*)\""));
   m_bibtexRx.setMinimal(true);
@@ -95,19 +95,26 @@ void GoogleScholarFetcher::doSearch() {
 
   QUrl u(QString::fromLatin1(SCHOLAR_BASE_URL));
   QUrlQuery q;
-  q.addQueryItem(QLatin1String("start"), QString::number(m_start));
+  q.addQueryItem(QStringLiteral("start"), QString::number(m_start));
 
+  QString value = request().value;
+  if(!value.startsWith(QLatin1Char('"'))) {
+    value = QLatin1Char('"') + value;
+  }
+  if(!value.endsWith(QLatin1Char('"'))) {
+    value += QLatin1Char('"');
+  }
   switch(request().key) {
     case Title:
-      q.addQueryItem(QLatin1String("q"), QString::fromLatin1("allintitle:%1").arg(request().value));
+      q.addQueryItem(QStringLiteral("q"), QStringLiteral("allintitle:%1").arg(request().value));
       break;
 
     case Keyword:
-      q.addQueryItem(QLatin1String("q"), request().value);
+      q.addQueryItem(QStringLiteral("q"), request().value);
       break;
 
     case Person:
-      q.addQueryItem(QLatin1String("q"), QString::fromLatin1("author:%1").arg(request().value));
+      q.addQueryItem(QStringLiteral("q"), QStringLiteral("author:%1").arg(request().value));
       break;
 
     default:
@@ -130,7 +137,7 @@ void GoogleScholarFetcher::stop() {
   }
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
   m_started = false;
   emit signalDone(this);
@@ -140,7 +147,7 @@ void GoogleScholarFetcher::slotComplete(KJob*) {
 //  myDebug();
 
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -153,7 +160,7 @@ void GoogleScholarFetcher::slotComplete(KJob*) {
   }
   // see bug 319662. If fetcher is cancelled, job is killed
   // if the pointer is retained, it gets double-deleted
-  m_job = 0;
+  m_job = nullptr;
 
   const QString text = QString::fromUtf8(data.constData(), data.size());
 
@@ -216,7 +223,7 @@ Tellico::Data::EntryPtr GoogleScholarFetcher::fetchEntryHook(uint uid_) {
 }
 
 Tellico::Fetch::FetchRequest GoogleScholarFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString title = entry_->field(QLatin1String("title"));
+  QString title = entry_->field(QStringLiteral("title"));
   if(!title.isEmpty()) {
     return FetchRequest(Title, title);
   }
@@ -229,7 +236,7 @@ Tellico::Fetch::ConfigWidget* GoogleScholarFetcher::configWidget(QWidget* parent
 
 QString GoogleScholarFetcher::defaultName() {
   // no i18n
-  return QLatin1String("Google Scholar");
+  return QStringLiteral("Google Scholar");
 }
 
 QString GoogleScholarFetcher::defaultIcon() {

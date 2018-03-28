@@ -56,12 +56,12 @@ private:
   QList<Node*> m_children;
 };
 
-BorrowerModel::BorrowerModel(QObject* parent) : QAbstractItemModel(parent), m_rootNode(new Node(0)) {
+BorrowerModel::BorrowerModel(QObject* parent) : QAbstractItemModel(parent), m_rootNode(new Node(nullptr)) {
 }
 
 BorrowerModel::~BorrowerModel() {
   delete m_rootNode;
-  m_rootNode = 0;
+  m_rootNode = nullptr;
 }
 
 int BorrowerModel::rowCount(const QModelIndex& index_) const {
@@ -116,12 +116,12 @@ QVariant BorrowerModel::data(const QModelIndex& index_, int role_) const {
     case Qt::DisplayRole:
       if(parent.isValid()) {
         // it points to an entry
-        return entry(index_)->formattedField(QLatin1String("title"));
+        return entry(index_)->formattedField(QStringLiteral("title"));
       }
       // it points to a borrower
       return borrower(index_)->name();
     case Qt::DecorationRole:
-      return parent.isValid() ? QIcon::fromTheme(CollectionFactory::typeName(entry(index_)->collection()))
+      return parent.isValid() ? QIcon(QLatin1String(":/icons/") + CollectionFactory::typeName(entry(index_)->collection()))
                               : QIcon::fromTheme(QLatin1String("kaddressbook"));
     case RowCountRole:
       return rowCount(index_);
@@ -172,7 +172,7 @@ void BorrowerModel::clear() {
   beginResetModel();
   m_borrowers.clear();
   delete m_rootNode;
-  m_rootNode = new Node(0);
+  m_rootNode = new Node(nullptr);
   endResetModel();
 }
 
@@ -271,4 +271,3 @@ Tellico::Data::LoanPtr BorrowerModel::loan(const QModelIndex& index_) const {
   }
   return loan;
 }
-

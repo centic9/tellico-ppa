@@ -76,8 +76,12 @@ ELSEIF( Libkcddb_FOUND )
 ENDIF( KF5Cddb_FOUND)
 
 IF( Poppler_Qt5_FOUND )
-  TARGET_LINK_LIBRARIES(translators ${Poppler_Qt5_LIBRARIES})
+  TARGET_LINK_LIBRARIES(translators Poppler::Qt5)
 ENDIF( Poppler_Qt5_FOUND )
+
+IF( KF5FileMetaData_FOUND )
+  TARGET_LINK_LIBRARIES(translators KF5::FileMetaData)
+ENDIF( KF5FileMetaData_FOUND )
 
 IF( Exempi_FOUND )
   TARGET_LINK_LIBRARIES(translators ${Exempi_LIBRARIES})
@@ -87,13 +91,9 @@ IF( TAGLIB_FOUND )
   TARGET_LINK_LIBRARIES(translators ${TAGLIB_LIBRARIES})
 ENDIF( TAGLIB_FOUND )
 
-IF( DiscID_FOUND )
-  TARGET_LINK_LIBRARIES(translators ${DiscID_LIBRARIES})
-ENDIF( DiscID_FOUND )
-
-IF( KF5FileMetaData_FOUND )
-  TARGET_LINK_LIBRARIES(translators KF5::FileMetaData)
-ENDIF( KF5FileMetaData_FOUND )
+IF( CDIO_FOUND )
+  TARGET_LINK_LIBRARIES(translators ${CDIO_LIBRARIES})
+ENDIF( CDIO_FOUND )
 
 ADD_DEPENDENCIES(translators tellico_config)
 

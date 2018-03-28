@@ -43,24 +43,25 @@
 #include <QFile>
 #include <QTimer>
 #include <QApplication>
+#include <QPointer>
 
 using Tellico::Import::TellicoImporter;
 
 TellicoImporter::TellicoImporter(const QUrl& url_, bool loadAllImages_) : DataImporter(url_),
     m_loadAllImages(loadAllImages_), m_format(Unknown), m_modified(false),
-    m_cancelled(false), m_hasImages(false), m_buffer(0), m_zip(0), m_imgDir(0) {
+    m_cancelled(false), m_hasImages(false), m_buffer(nullptr), m_zip(nullptr), m_imgDir(nullptr) {
 }
 
 TellicoImporter::TellicoImporter(const QString& text_) : DataImporter(text_),
     m_loadAllImages(true), m_format(Unknown), m_modified(false),
-    m_cancelled(false), m_hasImages(false), m_buffer(0), m_zip(0), m_imgDir(0) {
+    m_cancelled(false), m_hasImages(false), m_buffer(nullptr), m_zip(nullptr), m_imgDir(nullptr) {
 }
 
 TellicoImporter::~TellicoImporter() {
   delete m_zip;
-  m_zip = 0;
+  m_zip = nullptr;
   delete m_buffer;
-  m_buffer = 0;
+  m_buffer = nullptr;
 }
 
 Tellico::Data::CollPtr TellicoImporter::collection() {
@@ -89,6 +90,9 @@ Tellico::Data::CollPtr TellicoImporter::collection() {
     s = QByteArray(data().constData(), 6);
   }
 
+  // hack for processEvents and deletion
+  QPointer<TellicoImporter> thisPtr(this);
+
   // need to decide if the data is xml text, or a zip file
   // if the first 5 characters are <?xml then treat it like text
   if(s[0] == '<' && s[1] == '?' && s[2] == 'x' && s[3] == 'm' && s[4] == 'l') {
@@ -98,7 +102,7 @@ Tellico::Data::CollPtr TellicoImporter::collection() {
     m_format = Zip;
     loadZipData();
   }
-  return m_coll;
+  return thisPtr ? m_coll : Data::CollPtr();
 }
 
 void TellicoImporter::loadXMLData(const QByteArray& data_, bool loadImages_) {
@@ -119,16 +123,21 @@ void TellicoImporter::loadXMLData(const QByteArray& data_, bool loadImages_) {
   int pos = 0;
   emit signalTotalSteps(this, data_.size());
 
-  while(success && !m_cancelled && pos < data_.size()) {
+  // hack to allow processEvents
+  QPointer<TellicoImporter> thisPtr(this);
+  while(thisPtr && success && !m_cancelled && pos < data_.size()) {
     uint size = qMin(blockSize, data_.size() - pos);
     QByteArray block = QByteArray::fromRawData(data_.data() + pos, size);
     source.setData(block);
     success = reader.parseContinue();
     pos += blockSize;
-    if(showProgress) {
+    if(thisPtr && showProgress) {
       emit signalProgress(this, pos);
       qApp->processEvents();
     }
+  }
+  if(!thisPtr) {
+    return;
   }
 
   if(!success) {
@@ -153,7 +162,7 @@ void TellicoImporter::loadZipData() {
   delete m_buffer;
   delete m_zip;
   if(source() == URL) {
-    m_buffer = 0;
+    m_buffer = nullptr;
     m_zip = new KZip(fileRef().fileName());
   } else {
     QByteArray allData = data();
@@ -164,9 +173,9 @@ void TellicoImporter::loadZipData() {
     setStatusMessage(i18n(errorLoad, url().fileName()));
     m_format = Error;
     delete m_zip;
-    m_zip = 0;
+    m_zip = nullptr;
     delete m_buffer;
-    m_buffer = 0;
+    m_buffer = nullptr;
     return;
   }
 
@@ -177,16 +186,16 @@ void TellicoImporter::loadZipData() {
     setStatusMessage(str);
     m_format = Error;
     delete m_zip;
-    m_zip = 0;
+    m_zip = nullptr;
     delete m_buffer;
-    m_buffer = 0;
+    m_buffer = nullptr;
     return;
   }
 
   // main file was changed from bookcase.xml to tellico.xml as of version 0.13
-  const KArchiveEntry* entry = dir->entry(QLatin1String("tellico.xml"));
+  const KArchiveEntry* entry = dir->entry(QStringLiteral("tellico.xml"));
   if(!entry) {
-    entry = dir->entry(QLatin1String("bookcase.xml"));
+    entry = dir->entry(QStringLiteral("bookcase.xml"));
   }
   if(!entry || !entry->isFile()) {
     QString str = i18n(errorLoad, url().fileName()) + QLatin1Char('\n');
@@ -194,37 +203,42 @@ void TellicoImporter::loadZipData() {
     setStatusMessage(str);
     m_format = Error;
     delete m_zip;
-    m_zip = 0;
+    m_zip = nullptr;
     delete m_buffer;
-    m_buffer = 0;
+    m_buffer = nullptr;
     return;
   }
 
   const QByteArray xmlData = static_cast<const KArchiveFile*>(entry)->data();
+  // hack to account for processEvents and deletion
+  QPointer<TellicoImporter> thisPtr(this);
   loadXMLData(xmlData, false);
+  if(!thisPtr) {
+    return;
+  }
   if(!m_coll) {
     m_format = Error;
     delete m_zip;
-    m_zip = 0;
+    m_zip = nullptr;
     delete m_buffer;
-    m_buffer = 0;
+    m_buffer = nullptr;
     return;
   }
 
   if(m_cancelled) {
     delete m_zip;
-    m_zip = 0;
+    m_zip = nullptr;
     delete m_buffer;
-    m_buffer = 0;
+    m_buffer = nullptr;
     return;
   }
 
-  const KArchiveEntry* imgDirEntry = dir->entry(QLatin1String("images"));
+  const KArchiveEntry* imgDirEntry = dir->entry(QStringLiteral("images"));
   if(!imgDirEntry || !imgDirEntry->isDirectory()) {
     delete m_zip;
-    m_zip = 0;
+    m_zip = nullptr;
     delete m_buffer;
-    m_buffer = 0;
+    m_buffer = nullptr;
     return;
   }
   m_imgDir = static_cast<const KArchiveDirectory*>(imgDirEntry);
@@ -254,7 +268,7 @@ void TellicoImporter::loadZipData() {
     }
   }
 
-  if(m_images.isEmpty()) {
+  if(thisPtr && m_images.isEmpty()) {
     // give it some time
     QTimer::singleShot(3000, this, SLOT(deleteLater()));
   }
@@ -285,7 +299,7 @@ bool TellicoImporter::loadImage(const QString& id_) {
 
 KZip* TellicoImporter::takeImages() {
   KZip* zip = m_zip;
-  m_zip = 0;
+  m_zip = nullptr;
   return zip;
 }
 
@@ -323,7 +337,7 @@ bool TellicoImporter::loadAllImages(const QUrl& url_) {
     return false;
   }
 
-  const KArchiveEntry* imgDirEntry = dir->entry(QLatin1String("images"));
+  const KArchiveEntry* imgDirEntry = dir->entry(QStringLiteral("images"));
   if(!imgDirEntry || !imgDirEntry->isDirectory()) {
     return false;
   }

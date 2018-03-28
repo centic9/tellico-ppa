@@ -30,15 +30,12 @@
 #include <KLocalizedString>
 #include <KStandardGuiItem>
 
-#include <QStyle>
-#include <QTimer>
-#include <QToolTip>
 #include <QLabel>
 #include <QPushButton>
 #include <QApplication>
 
 using Tellico::StatusBar;
-StatusBar* StatusBar::s_self = 0;
+StatusBar* StatusBar::s_self = nullptr;
 
 StatusBar::StatusBar(QWidget* parent_) : QStatusBar(parent_) {
   s_self = this;

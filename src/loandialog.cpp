@@ -62,7 +62,7 @@ using Tellico::LoanDialog;
 
 LoanDialog::LoanDialog(const Tellico::Data::EntryList& entries_, QWidget* parent_)
     : QDialog(parent_),
-      m_mode(Add), m_borrower(0), m_entries(entries_), m_loan(0) {
+      m_mode(Add), m_borrower(nullptr), m_entries(entries_), m_loan(nullptr) {
   setModal(true);
   setWindowTitle(i18n("Loan Dialog"));
 
@@ -108,11 +108,13 @@ void LoanDialog::init() {
 
   QLabel* pixLabel = new QLabel(mainWidget);
   mainLayout->addWidget(pixLabel);
-  pixLabel->setPixmap(QIcon::fromTheme(QLatin1String("tellico")).pixmap(QSize(64, 64)));
+  pixLabel->setPixmap(QIcon::fromTheme(QStringLiteral("tellico"),
+                                       QIcon(QLatin1String(":/icons/tellico")))
+                                      .pixmap(QSize(64, 64)));
   pixLabel->setAlignment(Qt::Alignment(Qt::AlignLeft) | Qt::AlignTop);
   topLayout->addWidget(pixLabel, ++row, 0);
 
-  QString entryString = QLatin1String("<qt><p>");
+  QString entryString = QStringLiteral("<qt><p>");
   if(m_mode == Add) {
     entryString += i18n("The following items are being checked out:");
     entryString += QLatin1String("</p><ol>");
@@ -141,7 +143,7 @@ void LoanDialog::init() {
   m_borrowerEdit->completionObject()->setIgnoreCase(true);
   connect(m_borrowerEdit, SIGNAL(textChanged(const QString&)),
           SLOT(slotBorrowerNameChanged(const QString&)));
-  QPushButton* pb = new QPushButton(QIcon::fromTheme(QLatin1String("kaddressbook")), QString(), mainWidget);
+  QPushButton* pb = new QPushButton(QIcon::fromTheme(QStringLiteral("kaddressbook")), QString(), mainWidget);
   mainLayout->addWidget(pb);
   topLayout->addWidget(pb, row, 2);
   connect(pb, SIGNAL(clicked()), SLOT(slotGetBorrower()));
@@ -224,7 +226,7 @@ void LoanDialog::init() {
 }
 
 LoanDialog::~LoanDialog() {
-  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("Loan Dialog Options"));
+  KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Loan Dialog Options"));
   KWindowConfig::saveWindowSize(windowHandle(), config);
 }
 
@@ -283,7 +285,7 @@ QUndoCommand* LoanDialog::createCommand() {
   // first, check to see if the borrower is empty
   QString name = m_borrowerEdit->text();
   if(name.isEmpty()) {
-    return 0;
+    return nullptr;
   }
 
   // ok, first handle creating new loans
@@ -296,13 +298,13 @@ QUndoCommand* LoanDialog::createCommand() {
 
 QUndoCommand* LoanDialog::addLoansCommand() {
   if(m_entries.isEmpty()) {
-    return 0;
+    return nullptr;
   }
 
   const QString name = m_borrowerEdit->text();
 
   // see if there's a borrower with this name already
-  m_borrower = 0;
+  m_borrower = nullptr;
   Data::BorrowerList borrowers = m_entries.at(0)->collection()->borrowers();
   foreach(Data::BorrowerPtr borrower, borrowers) {
     if(borrower->name() == name) {
@@ -328,7 +330,7 @@ QUndoCommand* LoanDialog::addLoansCommand() {
 
 QUndoCommand* LoanDialog::modifyLoansCommand() {
   if(!m_loan) {
-    return 0;
+    return nullptr;
   }
 
   Data::LoanPtr newLoan(new Data::Loan(*m_loan));

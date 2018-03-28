@@ -49,16 +49,16 @@ public:
   /**
    * @return A pointer to a @ref Data::Collection, or 0 if none can be created.
    */
-  virtual Data::CollPtr collection();
+  virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
   /**
    */
-  virtual QWidget* widget(QWidget*) { return 0; }
-  virtual bool canImport(int type) const;
+  virtual QWidget* widget(QWidget*) Q_DECL_OVERRIDE { return nullptr; }
+  virtual bool canImport(int type) const Q_DECL_OVERRIDE;
 
   static bool maybeCIW(const QUrl& url);
 
 public Q_SLOTS:
-  void slotCancel();
+  void slotCancel() Q_DECL_OVERRIDE;
 
 private:
   static void initTagMap();

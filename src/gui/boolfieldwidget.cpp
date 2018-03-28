@@ -39,7 +39,7 @@ BoolFieldWidget::BoolFieldWidget(Tellico::Data::FieldPtr field_, QWidget* parent
 
 QString BoolFieldWidget::text() const {
   if(m_checkBox->isChecked()) {
-    return QLatin1String("true");
+    return QStringLiteral("true");
   }
 
   return QString();
@@ -59,4 +59,3 @@ void BoolFieldWidget::clearImpl() {
 QWidget* BoolFieldWidget::widget() {
   return m_checkBox;
 }
-

@@ -35,6 +35,7 @@ Q_OBJECT
 
 private Q_SLOTS:
   void initTestCase();
+  void init();
 
   void testBookCollection();
   void testEntries();
@@ -43,6 +44,10 @@ private Q_SLOTS:
   void testTableData();
   void testDuplicateLoans();
   void testDuplicateBorrowers();
+  void testLocalImage();
+  void testRemoteImage();
+  void testXMLHandler();
+  void testXMLHandler_data();
 
 private:
   QList<Tellico::Data::CollPtr> m_collections;

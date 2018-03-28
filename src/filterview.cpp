@@ -129,9 +129,9 @@ void FilterView::contextMenuEvent(QContextMenuEvent* event_) {
   QMenu menu(this);
   // no parent means it's a top-level item
   if(!index.parent().isValid()) {
-    menu.addAction(QIcon::fromTheme(QLatin1String("view-filter")),
+    menu.addAction(QIcon::fromTheme(QStringLiteral("view-filter")),
                     i18n("Modify Filter"), this, SLOT(slotModifyFilter()));
-    menu.addAction(QIcon::fromTheme(QLatin1String("edit-delete")),
+    menu.addAction(QIcon::fromTheme(QStringLiteral("edit-delete")),
                     i18n("Delete Filter"), this, SLOT(slotDeleteFilter()));
   } else {
     Controller::self()->plugEntryActions(&menu);
@@ -141,7 +141,9 @@ void FilterView::contextMenuEvent(QContextMenuEvent* event_) {
 
 void FilterView::selectionChanged(const QItemSelection& selected_, const QItemSelection& deselected_) {
 //  DEBUG_BLOCK;
-  QAbstractItemView::selectionChanged(selected_, deselected_);
+  // in Controller::slotUpdateFilter(), filterView->clearSelection() gets called when the filter is empty
+  // which happens when only entries are selected here
+  GUI::TreeView::selectionChanged(selected_, deselected_);
   FilterPtr filter;
   foreach(const QModelIndex& index, selectionModel()->selectedIndexes()) {
     QModelIndex realIndex = sortModel()->mapToSource(index);
@@ -151,9 +153,8 @@ void FilterView::selectionChanged(const QItemSelection& selected_, const QItemSe
       break;
     }
   }
-  if(filter) {
-    emit signalUpdateFilter(filter);
-  }
+  // emitting signal with a null filter is ok and accounts for clearing the selection
+  emit signalUpdateFilter(filter);
 }
 
 void FilterView::slotDoubleClicked(const QModelIndex& index_) {
@@ -196,10 +197,10 @@ void FilterView::invalidate(Tellico::Data::EntryList entries_) {
   const int rows = model()->rowCount();
   for(int row = 0; row < rows; ++row) {
     QModelIndex index = sourceModel()->index(row, 0);
-     FilterPtr filter = sourceModel()->filter(index);
-     if(!filter) {
-       continue;
-     }
+    FilterPtr filter = sourceModel()->filter(index);
+    if(!filter) {
+      continue;
+    }
     // two cases: if the filter used to match the entry and no longer does, then check the children indexes
     // if the filter matches now, check the actual match
     foreach(Data::EntryPtr entry, entries_) {
@@ -210,4 +211,3 @@ void FilterView::invalidate(Tellico::Data::EntryList entries_) {
     }
   }
 }
-

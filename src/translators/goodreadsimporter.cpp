@@ -25,7 +25,7 @@
 #include "goodreadsimporter.h"
 #include "xslthandler.h"
 #include "tellicoimporter.h"
-#include "filehandler.h"
+#include "../core/filehandler.h"
 #include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
@@ -42,22 +42,22 @@
 #include <QUrlQuery>
 
 namespace {
-  static const char* GOODREADS_LIST_URL = "http://www.goodreads.com/review/list.xml";
-  static const char* GOODREADS_USER_URL = "http://www.goodreads.com/user/show.xml";
+  static const char* GOODREADS_LIST_URL = "https://www.goodreads.com/review/list.xml";
+  static const char* GOODREADS_USER_URL = "https://www.goodreads.com/user/show.xml";
   static const char* GOODREADS_API_KEY = "dpgbQvOWk0n4cwL32jQRA";
 }
 
 using Tellico::Import::GoodreadsImporter;
 
-GoodreadsImporter::GoodreadsImporter() : Import::Importer(), m_widget(0), m_userEdit(0) {
-  QString xsltFile = DataFileRegistry::self()->locate(QLatin1String("goodreads2tellico.xsl"));
+GoodreadsImporter::GoodreadsImporter() : Import::Importer(), m_widget(nullptr), m_userEdit(nullptr) {
+  QString xsltFile = DataFileRegistry::self()->locate(QStringLiteral("goodreads2tellico.xsl"));
   if(!xsltFile.isEmpty()) {
     m_xsltURL = QUrl::fromLocalFile(xsltFile);
   } else {
     myWarning() << "unable to find goodreads2tellico.xsl!";
   }
 
-  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - Goodreads"));
+  KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ImportOptions - Goodreads"));
   m_user = config.readEntry("User ID");
   m_key = config.readEntry("Developer Key");
   if(m_key.isEmpty()) {
@@ -110,7 +110,7 @@ Tellico::Data::CollPtr GoodreadsImporter::collection() {
   m_coll = imp.collection();
   setStatusMessage(imp.statusMessage());
 
-  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ImportOptions - Goodreads"));
+  KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ImportOptions - Goodreads"));
   config.writeEntry("User ID", m_user);
   config.writeEntry("Developer Key", m_key);
 
@@ -141,25 +141,25 @@ QWidget* GoodreadsImporter::widget(QWidget* parent_) {
 QString GoodreadsImporter::text() const {
   QUrl u(QString::fromLatin1(GOODREADS_LIST_URL));
   QUrlQuery q;
-  q.addQueryItem(QLatin1String("v"), QLatin1String("2"));
-  q.addQueryItem(QLatin1String("id"), m_user);
-  q.addQueryItem(QLatin1String("key"), m_key);
+  q.addQueryItem(QStringLiteral("v"), QStringLiteral("2"));
+  q.addQueryItem(QStringLiteral("id"), m_user);
+  q.addQueryItem(QStringLiteral("key"), m_key);
   u.setQuery(q);
 //  myDebug() << u;
-  return FileHandler::readTextFile(u, false, true);
+  return FileHandler::readTextFile(u, true /* quiet */, true);
 }
 
 QString GoodreadsImporter::idFromName(const QString& name_) const {
   QUrl u(QString::fromLatin1(GOODREADS_USER_URL));
   QUrlQuery q;
-  q.addQueryItem(QLatin1String("username"), name_);
-  q.addQueryItem(QLatin1String("key"), m_key);
+  q.addQueryItem(QStringLiteral("username"), name_);
+  q.addQueryItem(QStringLiteral("key"), m_key);
   u.setQuery(q);
 //  myDebug() << u;
 
-  QDomDocument dom = FileHandler::readXMLDocument(u, false /* process namespace */);
-  return dom.documentElement().namedItem(QLatin1String("user"))
-                              .namedItem(QLatin1String("id"))
+  QDomDocument dom = FileHandler::readXMLDocument(u, false /* process namespace */, true /* quiet */);
+  return dom.documentElement().namedItem(QStringLiteral("user"))
+                              .namedItem(QStringLiteral("id"))
                               .toElement()
                               .text()
                               .trimmed();

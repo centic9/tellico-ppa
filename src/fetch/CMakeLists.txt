@@ -14,6 +14,7 @@ SET(fetch_STAT_SRCS
    boardgamegeekfetcher.cpp
    configwidget.cpp
    crossreffetcher.cpp
+   dbcfetcher.cpp
    dblpfetcher.cpp
    discogsfetcher.cpp
    doubanfetcher.cpp
@@ -27,7 +28,6 @@ SET(fetch_STAT_SRCS
    fetchmanager.cpp
    fetchresult.cpp
    filmasterfetcher.cpp
-   freebasefetcher.cpp
    gcstarpluginfetcher.cpp
    gcstarthread.cpp
    giantbombfetcher.cpp
@@ -36,8 +36,10 @@ SET(fetch_STAT_SRCS
    hathitrustfetcher.cpp
    hmac_sha2.c
    ibsfetcher.cpp
+   igdbfetcher.cpp
    imdbfetcher.cpp
    isbndbfetcher.cpp
+   kinofetcher.cpp
    kinopoiskfetcher.cpp
    messagehandler.cpp
    moviemeterfetcher.cpp
@@ -53,7 +55,6 @@ SET(fetch_STAT_SRCS
    themoviedbfetcher.cpp
    videogamegeekfetcher.cpp
    vndbfetcher.cpp
-   winecomfetcher.cpp
    xmlfetcher.cpp
    z3950connection.cpp
    z3950fetcher.cpp
@@ -69,6 +70,7 @@ TARGET_LINK_LIBRARIES(fetch
     KF5::Archive
     KF5::IconThemes
     KF5::JobWidgets
+    KF5::KIOWidgets
     )
 
 IF(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")

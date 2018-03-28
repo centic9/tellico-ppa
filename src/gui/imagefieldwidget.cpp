@@ -32,7 +32,7 @@ ImageFieldWidget::ImageFieldWidget(Tellico::Data::FieldPtr field_, QWidget* pare
     : FieldWidget(field_, parent_) {
 
   m_widget = new ImageWidget(this);
-  m_widget->setLinkOnlyChecked(field_->property(QLatin1String("link")) == QLatin1String("true"));
+  m_widget->setLinkOnlyChecked(field_->property(QStringLiteral("link")) == QLatin1String("true"));
   connect(m_widget, SIGNAL(signalModified()), SLOT(checkModified()));
 
   registerWidget();
@@ -54,4 +54,3 @@ void ImageFieldWidget::clearImpl() {
 QWidget* ImageFieldWidget::widget() {
   return m_widget;
 }
-

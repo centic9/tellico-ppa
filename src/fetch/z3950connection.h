@@ -90,7 +90,7 @@ public:
   void reset();
   void setQuery(const QString& query);
   void setUserPassword(const QString& user, const QString& pword);
-  void run();
+  void run() Q_DECL_OVERRIDE;
 
   void abort() { m_aborted = true; }
 
@@ -101,7 +101,7 @@ private:
   bool makeConnection();
   void done();
   void done(const QString& message, int type);
-  const char* toCString(const QString& text);
+  QByteArray toByteArray(const QString& text);
   QString toString(const QByteArray& text);
   void checkPendingEvents();
 

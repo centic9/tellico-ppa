@@ -61,12 +61,12 @@ using namespace Tellico::Fetch;
 using Tellico::Fetch::CrossRefFetcher;
 
 CrossRefFetcher::CrossRefFetcher(QObject* parent_)
-    : Fetcher(parent_), m_xsltHandler(0), m_job(0), m_started(false) {
+    : Fetcher(parent_), m_xsltHandler(nullptr), m_job(nullptr), m_started(false) {
 }
 
 CrossRefFetcher::~CrossRefFetcher() {
   delete m_xsltHandler;
-  m_xsltHandler = 0;
+  m_xsltHandler = nullptr;
 }
 
 QString CrossRefFetcher::source() const {
@@ -115,7 +115,7 @@ void CrossRefFetcher::stop() {
 //  myDebug();
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
   m_started = false;
   emit signalDone(this);
@@ -125,7 +125,7 @@ void CrossRefFetcher::slotComplete(KJob*) {
 //  myDebug();
 
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -138,7 +138,7 @@ void CrossRefFetcher::slotComplete(KJob*) {
   }
 
   // since the fetch is done, don't worry about holding the job pointer
-  m_job = 0;
+  m_job = nullptr;
 #if 0
   myWarning() << "Remove debug from crossreffetcher.cpp";
   QFile f(QLatin1String("/tmp/test.xml"));
@@ -187,19 +187,19 @@ void CrossRefFetcher::slotComplete(KJob*) {
 Tellico::Data::EntryPtr CrossRefFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr entry = m_entries[uid_];
   // if URL but no cover image, fetch it
-  if(!entry->field(QLatin1String("url")).isEmpty()) {
+  if(!entry->field(QStringLiteral("url")).isEmpty()) {
     Data::CollPtr coll = entry->collection();
-    Data::FieldPtr field = coll->fieldByName(QLatin1String("cover"));
+    Data::FieldPtr field = coll->fieldByName(QStringLiteral("cover"));
     if(!field && !coll->imageFields().isEmpty()) {
       field = coll->imageFields().front();
     } else if(!field) {
-      field = new Data::Field(QLatin1String("cover"), i18n("Front Cover"), Data::Field::Image);
+      field = new Data::Field(QStringLiteral("cover"), i18n("Front Cover"), Data::Field::Image);
       coll->addField(field);
     }
     if(entry->field(field).isEmpty()) {
-      QPixmap pix = NetAccess::filePreview(QUrl::fromUserInput(entry->field(QLatin1String("url"))));
+      QPixmap pix = NetAccess::filePreview(QUrl::fromUserInput(entry->field(QStringLiteral("url"))));
       if(!pix.isNull()) {
-        QString id = ImageFactory::addImage(pix, QLatin1String("PNG"));
+        QString id = ImageFactory::addImage(pix, QStringLiteral("PNG"));
         if(!id.isEmpty()) {
           entry->setField(field, id);
         }
@@ -211,7 +211,7 @@ Tellico::Data::EntryPtr CrossRefFetcher::fetchEntryHook(uint uid_) {
 
 void CrossRefFetcher::initXSLTHandler() {
 #ifdef CROSSREF_USE_UNIXREF
-  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("unixref2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("unixref2tellico.xsl"));
 #else
   QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("crossref2tellico.xsl"));
 #endif
@@ -231,7 +231,7 @@ void CrossRefFetcher::initXSLTHandler() {
   if(!m_xsltHandler->isValid()) {
     myWarning() << "error in crossref2tellico.xsl.";
     delete m_xsltHandler;
-    m_xsltHandler = 0;
+    m_xsltHandler = nullptr;
     return;
   }
 }
@@ -239,20 +239,20 @@ void CrossRefFetcher::initXSLTHandler() {
 QUrl CrossRefFetcher::searchURL(FetchKey key_, const QString& value_) const {
   QUrl u(QString::fromLatin1(CROSSREF_BASE_URL));
   QUrlQuery q;
-  q.addQueryItem(QLatin1String("noredirect"), QLatin1String("true"));
-  q.addQueryItem(QLatin1String("multihit"), QLatin1String("true"));
+  q.addQueryItem(QStringLiteral("noredirect"), QStringLiteral("true"));
+  q.addQueryItem(QStringLiteral("multihit"), QStringLiteral("true"));
 #ifdef CROSSREF_USE_UNIXREF
-  q.addQueryItem(QLatin1String("format"), QLatin1String("unixref"));
+  q.addQueryItem(QStringLiteral("format"), QStringLiteral("unixref"));
 #endif
   if(m_email.isEmpty()) {
-    q.addQueryItem(QLatin1String("pid"), QString::fromLatin1("%1:%2").arg(m_user, m_password));
+    q.addQueryItem(QStringLiteral("pid"), QStringLiteral("%1:%2").arg(m_user, m_password));
   } else {
-    q.addQueryItem(QLatin1String("pid"), m_email);
+    q.addQueryItem(QStringLiteral("pid"), m_email);
   }
 
   switch(key_) {
     case DOI:
-      q.addQueryItem(QLatin1String("rft_id"), QString::fromLatin1("info:doi/%1").arg(value_));
+      q.addQueryItem(QStringLiteral("rft_id"), QStringLiteral("info:doi/%1").arg(value_));
       break;
 
     default:
@@ -265,7 +265,7 @@ QUrl CrossRefFetcher::searchURL(FetchKey key_, const QString& value_) const {
 }
 
 Tellico::Fetch::FetchRequest CrossRefFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString doi = entry_->field(QLatin1String("doi"));
+  QString doi = entry_->field(QStringLiteral("doi"));
   if(!doi.isEmpty()) {
     return FetchRequest(Fetch::DOI, doi);
   }
@@ -282,10 +282,10 @@ Tellico::Fetch::FetchRequest CrossRefFetcher::updateRequest(Data::EntryPtr entry
 
 void CrossRefFetcher::readWallet() const {
   if(m_user.isEmpty() || m_password.isEmpty()) {
-    QMap<QString, QString> map = Wallet::self()->readWalletMap(QLatin1String("crossref.org"));
+    QMap<QString, QString> map = Wallet::self()->readWalletMap(QStringLiteral("crossref.org"));
     if(!map.isEmpty()) {
-      m_user = map.value(QLatin1String("username"));
-      m_password = map.value(QLatin1String("password"));
+      m_user = map.value(QStringLiteral("username"));
+      m_password = map.value(QStringLiteral("password"));
     }
   }
 }
@@ -295,7 +295,7 @@ Tellico::Fetch::ConfigWidget* CrossRefFetcher::configWidget(QWidget* parent_) co
 }
 
 QString CrossRefFetcher::defaultName() {
-  return QLatin1String("CrossRef"); // no translation
+  return QStringLiteral("CrossRef"); // no translation
 }
 
 QString CrossRefFetcher::defaultIcon() {

@@ -32,6 +32,7 @@
 #include <QDebug>
 // std::clock_t
 #include <ctime>
+#include <unistd.h>
 
 // linux has __GNUC_PREREQ, NetBSD has __GNUC_PREREQ__
 #if defined(__GNUC_PREREQ) && !defined(__GNUC_PREREQ__)
@@ -103,7 +104,7 @@ private :
 #define DEBUG_FUNC myDebug() << Q_FUNC_INFO;
 
 /// Announce a line
-#define DEBUG_LINE myDebug() << k_lineinfo;
+#define DEBUG_LINE myDebug() << "[" << __FILE__ << ":" << __LINE__ << "]";
 
 /// Convenience macro for making a standard Debug::Block
 #ifndef WIN32

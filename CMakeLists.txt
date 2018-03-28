@@ -2,11 +2,12 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.0.2")
+set(TELLICO_VERSION "3.1.2")
 
 set(QT_MIN_VERSION "5.4.0")
 
-find_package(ECM 1.3.0 REQUIRED NO_MODULE)
+# FindPoppler was added to ECM in 5.19
+find_package(ECM 5.19 REQUIRED NO_MODULE)
 
 CMAKE_POLICY(SET CMP0028 OLD)
 if(POLICY CMP0063)
@@ -153,15 +154,8 @@ if(Yaz_FOUND)
     include_directories(${Yaz_INCLUDE_DIRS})
 endif(Yaz_FOUND)
 
-find_package(PopplerQt5)
-set_package_properties(PopplerQt5 PROPERTIES
-    DESCRIPTION "Support for reading PDF files"
-    URL "http://poppler.freedesktop.org"
-    TYPE OPTIONAL)
-if(Poppler_Qt5_FOUND)
-    add_definitions(${Poppler_Qt5_DEFINITIONS})
-    include_directories(${Poppler_Qt5_INCLUDE_DIRS})
-endif(Poppler_Qt5_FOUND)
+# FindPoppler is part of ECM >= 5.19
+find_package(Poppler COMPONENTS Qt5)
 
 find_package(Exempi 2.0)
 set_package_properties(Exempi PROPERTIES
@@ -184,14 +178,14 @@ else(Btparse_FOUND)
     set(TELLICO_BTPARSE_LIBS btparse-tellico)
 endif(Btparse_FOUND)
 
-find_package(DiscID)
-set_package_properties(DiscID PROPERTIES
-    DESCRIPTION "Support for reading disc IDs from audio CDs"
-    URL "http://musicbrainz.org/doc/libdiscid"
+find_package(CDIO)
+set_package_properties(CDIO PROPERTIES
+    DESCRIPTION "Support for reading cdtext from audio CDs"
+    URL "https://www.gnu.org/software/libcdio/"
     TYPE OPTIONAL)
-if(DiscID_FOUND)
-    include_directories(${DiscID_INCLUDE_DIRS})
-endif(DiscID_FOUND)
+if(CDIO_FOUND)
+    include_directories(${CDIO_INCLUDE_DIRS})
+endif(CDIO_FOUND)
 
 find_package(Csv 3.0)
 set_package_properties(Csv PROPERTIES
@@ -247,7 +241,7 @@ remove_definitions(-DQT_NO_STL)
 include_directories(${LIBXML2_INCLUDE_DIR}
                     ${LIBXSLT_INCLUDE_DIR}
                     ${CMAKE_CURRENT_BINARY_DIR}
-                    ${Tellico_SOURCE_DIR}/src/core
+                    ${Tellico_SOURCE_DIR}/src/config
                     ${Tellico_SOURCE_DIR}/src/3rdparty)
 
 set(TELLICO_DATA_INSTALL_DIR ${KDE_INSTALL_DATADIR}/tellico)
@@ -272,7 +266,7 @@ macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KCAL)
 macro_bool_to_01(LIBV4L_FOUND HAVE_V4L)
 macro_bool_to_01(KF5NewStuff_FOUND ENABLE_KNEWSTUFF3)
 macro_bool_to_01(Btparse_FOUND HAVE_LIBBTPARSE)
-macro_bool_to_01(DiscID_FOUND HAVE_DISCID)
+macro_bool_to_01(CDIO_FOUND HAVE_CDIO)
 macro_bool_to_01(Csv_FOUND HAVE_LIBCSV)
 macro_bool_to_01(KF5FileMetaData_FOUND HAVE_KFILEMETADATA)
 
@@ -289,3 +283,8 @@ feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 find_package(KF5I18n CONFIG REQUIRED)
 ki18n_install(po)
+
+  find_package(KF5DocTools CONFIG)
+  if(KF5DocTools_FOUND)
+    kdoctools_install(po)
+  endif()

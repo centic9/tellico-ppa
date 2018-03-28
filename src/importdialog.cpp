@@ -144,7 +144,7 @@ ImportDialog::ImportDialog(Tellico::Import::Format format_, const QList<QUrl>& u
 
 ImportDialog::~ImportDialog() {
   delete m_importer;
-  m_importer = 0;
+  m_importer = nullptr;
 }
 
 Tellico::Data::CollPtr ImportDialog::collection() {
@@ -154,7 +154,7 @@ Tellico::Data::CollPtr ImportDialog::collection() {
             ProgressManager::self(), SLOT(setTotalSteps(QObject*, qulonglong)));
     connect(m_importer, SIGNAL(signalProgress(QObject*, qulonglong)),
             ProgressManager::self(), SLOT(setProgress(QObject*, qulonglong)));
-    connect(&item, SIGNAL(signalCancelled(ProgressItem*)), m_importer, SLOT(slotCancel()));
+    connect(&item, &Tellico::ProgressItem::signalCancelled, m_importer, &Tellico::Import::Importer::slotCancel);
     ProgressItem::Done done(m_importer);
     m_coll = m_importer->collection();
   }
@@ -179,7 +179,7 @@ Tellico::Import::Action ImportDialog::action() const {
 Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format_, const QList<QUrl>& urls_) {
 #define CHECK_SIZE if(urls_.size() > 1) myWarning() << "only importing first URL"
   QUrl firstURL = urls_.isEmpty() ? QUrl() : urls_[0];
-  Import::Importer* importer = 0;
+  Import::Importer* importer = nullptr;
   switch(format_) {
     case Import::TellicoXML:
       CHECK_SIZE;
@@ -209,7 +209,7 @@ Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format
       CHECK_SIZE;
       importer = new Import::XSLTImporter(firstURL);
       {
-        QString xsltFile = DataFileRegistry::self()->locate(QLatin1String("mods2tellico.xsl"));
+        QString xsltFile = DataFileRegistry::self()->locate(QStringLiteral("mods2tellico.xsl"));
         if(!xsltFile.isEmpty()) {
           QUrl u = QUrl::fromLocalFile(xsltFile);
           static_cast<Import::XSLTImporter*>(importer)->setXSLTURL(u);
@@ -297,7 +297,7 @@ Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format
   }
   if(!importer) {
     myWarning() << "importer not created!";
-    return 0;
+    return nullptr;
   }
   importer->setCurrentCollection(Data::Document::self()->collection());
   return importer;
@@ -306,7 +306,7 @@ Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format
 
 //static
 Tellico::Import::Importer* ImportDialog::importerForText(Tellico::Import::Format format_, const QString& text_) {
-  Import::Importer* importer = 0;
+  Import::Importer* importer = nullptr;
   switch(format_) {
     case Import::Bibtex:
       importer = new Import::BibtexImporter(text_);
@@ -318,7 +318,7 @@ Tellico::Import::Importer* ImportDialog::importerForText(Tellico::Import::Format
 
   if(!importer) {
     myWarning() << "importer not created!";
-    return 0;
+    return nullptr;
   }
   importer->setCurrentCollection(Data::Document::self()->collection());
   return importer;
@@ -413,7 +413,7 @@ QString ImportDialog::startDir(Tellico::Import::Format format_) {
   if(format_ == Import::GCstar) {
     QDir dir = QDir::home();
     // able to cd if exists and readable
-    if(dir.cd(QLatin1String(".local/share/gcstar/"))) {
+    if(dir.cd(QStringLiteral(".local/share/gcstar/"))) {
       return dir.absolutePath();
     }
   }
@@ -445,7 +445,7 @@ Tellico::Data::CollPtr ImportDialog::importURL(Tellico::Import::Format format_, 
           ProgressManager::self(), SLOT(setTotalSteps(QObject*, qulonglong)));
   connect(imp, SIGNAL(signalProgress(QObject*, qulonglong)),
           ProgressManager::self(), SLOT(setProgress(QObject*, qulonglong)));
-  connect(&item, SIGNAL(signalCancelled(ProgressItem*)), imp, SLOT(slotCancel()));
+  connect(&item, &Tellico::ProgressItem::signalCancelled, imp, &Tellico::Import::Importer::slotCancel);
   ProgressItem::Done done(imp);
 
   Data::CollPtr c = imp->collection();
@@ -469,7 +469,7 @@ Tellico::Data::CollPtr ImportDialog::importText(Tellico::Import::Format format_,
           ProgressManager::self(), SLOT(setTotalSteps(QObject*, qulonglong)));
   connect(imp, SIGNAL(signalProgress(QObject*, qulonglong)),
           ProgressManager::self(), SLOT(setProgress(QObject*, qulonglong)));
-  connect(&item, SIGNAL(signalCancelled(ProgressItem*)), imp, SLOT(slotCancel()));
+  connect(&item, &Tellico::ProgressItem::signalCancelled, imp, &Tellico::Import::Importer::slotCancel);
   ProgressItem::Done done(imp);
 */
   Data::CollPtr c = imp->collection();

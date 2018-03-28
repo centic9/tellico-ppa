@@ -42,13 +42,11 @@
 #include "bibsonomyfetcher.h"
 #include "googlescholarfetcher.h"
 #include "discogsfetcher.h"
-#include "winecomfetcher.h"
 #include "themoviedbfetcher.h"
 #include "musicbrainzfetcher.h"
 #include "giantbombfetcher.h"
 #include "openlibraryfetcher.h"
 #include "multifetcher.h"
-#include "freebasefetcher.h"
 #include "filmasterfetcher.h"
 #include "hathitrustfetcher.h"
 #include "vndbfetcher.h"
@@ -67,6 +65,9 @@
 #include "omdbfetcher.h"
 #include "kinopoiskfetcher.h"
 #include "videogamegeekfetcher.h"
+#include "dbcfetcher.h"
+#include "igdbfetcher.h"
+#include "kinofetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -93,14 +94,12 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::ArxivFetcher> registerArxiv(Arxiv);
   RegisterFetcher<Fetch::BibsonomyFetcher> registerBibsonomy(Bibsonomy);
   RegisterFetcher<Fetch::GoogleScholarFetcher> registerGoogle(GoogleScholar);
-  RegisterFetcher<Fetch::WineComFetcher> registerWine(WineCom);
   RegisterFetcher<Fetch::MusicBrainzFetcher> registerMB(MusicBrainz);
   RegisterFetcher<Fetch::GiantBombFetcher> registerBomb(GiantBomb);
   RegisterFetcher<Fetch::OpenLibraryFetcher> registerOpenLibrary(OpenLibrary);
   RegisterFetcher<Fetch::MultiFetcher> registerMulti(Multiple);
   RegisterFetcher<Fetch::DiscogsFetcher> registerDiscogs(Discogs);
   RegisterFetcher<Fetch::TheMovieDBFetcher> registerTMDB(TheMovieDB);
-  RegisterFetcher<Fetch::FreebaseFetcher> registerFreebase(Freebase);
   RegisterFetcher<Fetch::FilmasterFetcher> registerFilmaster(Filmaster);
   RegisterFetcher<Fetch::GoogleBookFetcher> registerGoogleBook(GoogleBook);
   RegisterFetcher<Fetch::HathiTrustFetcher> registerHathiTrust(HathiTrust);
@@ -119,6 +118,9 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::OMDBFetcher> registerOMDB(OMDB);
   RegisterFetcher<Fetch::KinoPoiskFetcher> registerKinoPoisk(KinoPoisk);
   RegisterFetcher<Fetch::VideoGameGeekFetcher> registerVGG(VideoGameGeek);
+  RegisterFetcher<Fetch::DBCFetcher> registerDBC(DBC);
+  RegisterFetcher<Fetch::IGDBFetcher> registerIGDB(IGDB);
+  RegisterFetcher<Fetch::KinoFetcher> registerKino(Kino);
 
   Fetch::Manager::self()->loadFetchers();
 }

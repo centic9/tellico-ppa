@@ -30,7 +30,6 @@
 #include "filter.h"
 #include "filterdialog.h"
 #include "loandialog.h"
-#include "tellico_debug.h"
 #include "commands/collectioncommand.h"
 #include "commands/fieldcommand.h"
 #include "commands/filtercommand.h"
@@ -52,10 +51,13 @@
 #include <QUndoStack>
 
 using Tellico::Kernel;
-Kernel* Kernel::s_self = 0;
+Kernel* Kernel::s_self = nullptr;
 
 Kernel::Kernel(Tellico::MainWindow* parent) : m_widget(parent)
     , m_commandHistory(new QUndoStack(parent)) {
+}
+
+Kernel::~Kernel() {
 }
 
 QUrl Kernel::URL() const {
@@ -79,7 +81,9 @@ QStringList Kernel::valuesByFieldName(const QString& name_) const {
 }
 
 int Kernel::collectionType() const {
-  return Data::Document::self()->collection()->type();
+  return Data::Document::self()->collection() ?
+         Data::Document::self()->collection()->type() :
+         Data::Collection::Base;
 }
 
 QString Kernel::collectionTypeName() const {
@@ -277,7 +281,7 @@ bool Kernel::removeFilter(Tellico::FilterPtr filter_) {
   }
 
   QString str = i18n("Do you really want to delete this filter?");
-  QString dontAsk = QLatin1String("DeleteFilter");
+  QString dontAsk = QStringLiteral("DeleteFilter");
   int ret = KMessageBox::questionYesNo(m_widget, str, i18n("Delete Filter?"),
                                        KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAsk);
   if(ret != KMessageBox::Yes) {
@@ -327,8 +331,8 @@ void Kernel::doCommand(QUndoCommand* command_) {
 
 int Kernel::askAndMerge(Tellico::Data::EntryPtr entry1_, Tellico::Data::EntryPtr entry2_, Tellico::Data::FieldPtr field_,
                         QString value1_, QString value2_) {
-  QString title1 = entry1_->field(QLatin1String("title"));
-  QString title2 = entry2_->field(QLatin1String("title"));
+  QString title1 = entry1_->field(QStringLiteral("title"));
+  QString title2 = entry2_->field(QStringLiteral("title"));
   if(title1 == title2) {
     title1 = i18n("Entry 1");
     title2 = i18n("Entry 2");
@@ -344,8 +348,8 @@ int Kernel::askAndMerge(Tellico::Data::EntryPtr entry1_, Tellico::Data::EntryPtr
                 + QString::fromLatin1("<br/><center><table><tr>"
                                       "<th>%1</th>"
                                       "<th>%2</th></tr>").arg(title1, title2)
-                + QString::fromLatin1("<tr><td><em>%1</em></td>").arg(value1_)
-                + QString::fromLatin1("<td><em>%1</em></td></tr></table></center>").arg(value2_)
+                + QStringLiteral("<tr><td><em>%1</em></td>").arg(value1_)
+                + QStringLiteral("<td><em>%1</em></td></tr></table></center>").arg(value2_)
                 + i18n("Please choose which value to keep.")
                 + QLatin1String("</qt>");
 

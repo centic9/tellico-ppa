@@ -23,16 +23,19 @@
  ***************************************************************************/
 
 #include "string_utils.h"
+#include "../fieldformat.h"
 
 #include <KCharsets>
 #include <KLocalizedString>
 #include <KRandom>
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTextCodec>
+#include <QVariant>
+#include <QCache>
 
 namespace {
-  static const int STRING_STORE_SIZE = 997; // too big, too small?
+  static const int STRING_STORE_SIZE = 4999; // too big, too small?
 }
 
 QString Tellico::decodeHTML(const QByteArray& data_) {
@@ -46,7 +49,7 @@ QString Tellico::decodeHTML(const QString& text) {
 QString Tellico::uid(int l, bool prefix) {
   QString uid;
   if(prefix) {
-    uid = QLatin1String("Tellico");
+    uid = QStringLiteral("Tellico");
   }
   uid.append(KRandom::randomString(qMax(l - uid.length(), 0)));
   return uid;
@@ -70,17 +73,20 @@ uint Tellico::toUInt(const QString& s, bool* ok) {
     }
     return 0;
   }
-  return s.left(idx).toUInt(ok);
+  return s.leftRef(idx).toUInt(ok);
 }
 
 QString Tellico::i18nReplace(QString text) {
   // Because QDomDocument sticks in random newlines, go ahead and grab them too
-  static QRegExp rx(QLatin1String("(?:\\n+ *)*<i18n>([^<]*)</i18n>(?: *\\n+)*"));
-  int pos = rx.indexIn(text);
-  while(pos > -1) {
+  static QRegularExpression rx(QStringLiteral("(?:\\n+ *)*<i18n>(.*?)</i18n>(?: *\\n+)*"),
+                               QRegularExpression::OptimizeOnFirstUsageOption);
+  QRegularExpressionMatch match = rx.match(text);
+  while(match.hasMatch()) {
     // KDE bug 254863, be sure to escape just in case of spurious & entities
-    text.replace(pos, rx.matchedLength(), i18n(rx.cap(1).toUtf8().constData()).toHtmlEscaped());
-    pos = rx.indexIn(text, pos+rx.matchedLength());
+    text.replace(match.capturedStart(),
+                 match.capturedLength(),
+                 i18n(match.captured(1).toUtf8().constData()).toHtmlEscaped());
+    match = rx.match(text, match.capturedStart()+1);
   }
   return text;
 }
@@ -123,10 +129,57 @@ QString Tellico::fromHtmlData(const QByteArray& data_, const char* codecName) {
 }
 
 QString Tellico::removeAccents(const QString& value_) {
-  QString value2 = value_.normalized(QString::NormalizationForm_D);
-  // remove accents from table "Combining Diacritical Marks"
-  for(int i = 0x0300; i <= 0x036F; ++i) {
-    value2.remove(QChar(i));
+  static QCache<QString, QString> stringCache(STRING_STORE_SIZE);
+  if(stringCache.contains(value_)) {
+    return *stringCache.object(value_);
   }
+  static QRegularExpression rx;
+  if(rx.pattern().isEmpty()) {
+    QString pattern(QStringLiteral("(?:"));
+    for(int i = 0x0300; i <= 0x036F; ++i) {
+      pattern += QChar(i) + QLatin1Char('|');
+    }
+    pattern.chop(1);
+    pattern += QLatin1Char(')');
+    rx.setPattern(pattern);
+    rx.optimize();
+  }
+  // remove accents from table "Combining Diacritical Marks"
+  const QString value2 = value_.normalized(QString::NormalizationForm_D).remove(rx);
+  stringCache.insert(value_, new QString(value2));
   return value2;
+}
+
+QString Tellico::mapValue(const QVariantMap& map, const char* name) {
+  const QVariant v = map.value(QLatin1String(name));
+  if(v.isNull())  {
+    return QString();
+  } else if(v.canConvert(QVariant::String)) {
+    return v.toString();
+  } else if(v.canConvert(QVariant::StringList)) {
+    return v.toStringList().join(FieldFormat::delimiterString());
+  } else if(v.canConvert(QVariant::Map)) {
+    // FilmasterFetcher, OpenLibraryFetcher and VNDBFetcher depend on the default "value" field
+    return v.toMap().value(QStringLiteral("value")).toString();
+  } else {
+    return QString();
+  }
+}
+
+QString Tellico::mapValue(const QVariantMap& map, const char* object, const char* name) {
+  const QVariant v = map.value(QLatin1String(object));
+  if(v.isNull())  {
+    return QString();
+  } else if(v.canConvert(QVariant::Map)) {
+    return mapValue(v.toMap(), name);
+  } else if(v.canConvert(QVariant::List)) {
+    QStringList values;
+    foreach(QVariant v, v.toList()) {
+      const QString s = mapValue(v.toMap(), name);
+      if(!s.isEmpty()) values += s;
+    }
+    return values.join(FieldFormat::delimiterString());
+  } else {
+    return QString();
+  }
 }

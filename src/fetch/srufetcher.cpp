@@ -64,13 +64,13 @@ using namespace Tellico;
 using Tellico::Fetch::SRUFetcher;
 
 SRUFetcher::SRUFetcher(QObject* parent_)
-    : Fetcher(parent_), m_port(SRU_DEFAULT_PORT), m_job(0), m_MARCXMLHandler(0), m_MODSHandler(0), m_SRWHandler(0), m_started(false) {
+    : Fetcher(parent_), m_port(SRU_DEFAULT_PORT), m_job(nullptr), m_MARCXMLHandler(nullptr), m_MODSHandler(nullptr), m_SRWHandler(nullptr), m_started(false) {
 }
 
 SRUFetcher::SRUFetcher(const QString& name_, const QString& host_, uint port_, const QString& path_,
                        const QString& format_, QObject* parent_) : Fetcher(parent_),
       m_host(host_), m_port(port_), m_path(path_), m_format(format_),
-      m_job(0), m_MARCXMLHandler(0), m_MODSHandler(0), m_SRWHandler(0), m_started(false) {
+      m_job(nullptr), m_MARCXMLHandler(nullptr), m_MODSHandler(nullptr), m_SRWHandler(nullptr), m_started(false) {
   m_name = name_; // m_name is protected in super class
   if(!m_path.startsWith(QLatin1Char('/'))) {
     m_path.prepend(QLatin1Char('/'));
@@ -79,11 +79,11 @@ SRUFetcher::SRUFetcher(const QString& name_, const QString& host_, uint port_, c
 
 SRUFetcher::~SRUFetcher() {
   delete m_MARCXMLHandler;
-  m_MARCXMLHandler = 0;
+  m_MARCXMLHandler = nullptr;
   delete m_MODSHandler;
-  m_MODSHandler = 0;
+  m_MODSHandler = nullptr;
   delete m_SRWHandler;
-  m_SRWHandler = 0;
+  m_SRWHandler = nullptr;
 }
 
 QString SRUFetcher::source() const {
@@ -127,7 +127,7 @@ void SRUFetcher::search() {
   m_started = true;
 
   QUrl u;
-  u.setScheme(QLatin1String("http"));
+  u.setScheme(QStringLiteral("http"));
   u.setHost(m_host);
   u.setPort(m_port);
   u = QUrl::fromUserInput(u.url() + m_path);
@@ -137,25 +137,25 @@ void SRUFetcher::search() {
     query.addQueryItem(it.key(), it.value());
   }
   // allow user to override these so check for existing item first
-  if(!query.hasQueryItem(QLatin1String("operation"))) {
-    query.addQueryItem(QLatin1String("operation"), QLatin1String("searchRetrieve"));
+  if(!query.hasQueryItem(QStringLiteral("operation"))) {
+    query.addQueryItem(QStringLiteral("operation"), QStringLiteral("searchRetrieve"));
   }
-  if(!query.hasQueryItem(QLatin1String("version"))) {
-    query.addQueryItem(QLatin1String("version"), QLatin1String("1.1"));
+  if(!query.hasQueryItem(QStringLiteral("version"))) {
+    query.addQueryItem(QStringLiteral("version"), QStringLiteral("1.1"));
   }
-  if(!query.hasQueryItem(QLatin1String("maximumRecords"))) {
-    query.addQueryItem(QLatin1String("maximumRecords"), QString::number(SRU_MAX_RECORDS));
+  if(!query.hasQueryItem(QStringLiteral("maximumRecords"))) {
+    query.addQueryItem(QStringLiteral("maximumRecords"), QString::number(SRU_MAX_RECORDS));
   }
   if(!m_format.isEmpty() && m_format != QLatin1String("none")
-     && !query.hasQueryItem(QLatin1String("recordSchema"))) {
-    query.addQueryItem(QLatin1String("recordSchema"), m_format);
+     && !query.hasQueryItem(QStringLiteral("recordSchema"))) {
+    query.addQueryItem(QStringLiteral("recordSchema"), m_format);
   }
 
   const int type = collectionType();
   QString str = QLatin1Char('"') + request().value + QLatin1Char('"');
   switch(request().key) {
     case Title:
-      query.addQueryItem(QLatin1String("query"), QLatin1String("dc.title=") + str);
+      query.addQueryItem(QStringLiteral("query"), QLatin1String("dc.title=") + str);
       break;
 
     case Person:
@@ -166,7 +166,7 @@ void SRUFetcher::search() {
         } else {
           s = QLatin1String("dc.creator=") + str + QLatin1String(" or dc.editor=") + str;
         }
-        query.addQueryItem(QLatin1String("query"), s);
+        query.addQueryItem(QStringLiteral("query"), s);
       }
       break;
 
@@ -197,7 +197,7 @@ void SRUFetcher::search() {
             q += QLatin1String(" or ");
           }
         }
-        query.addQueryItem(QLatin1String("query"), q);
+        query.addQueryItem(QStringLiteral("query"), q);
       }
       break;
 
@@ -213,12 +213,12 @@ void SRUFetcher::search() {
             q += QLatin1String(" or ");
           }
         }
-        query.addQueryItem(QLatin1String("query"), q);
+        query.addQueryItem(QStringLiteral("query"), q);
       }
       break;
 
     case Keyword:
-      query.addQueryItem(QLatin1String("query"), str);
+      query.addQueryItem(QStringLiteral("query"), str);
       break;
 
     case Raw:
@@ -249,7 +249,7 @@ void SRUFetcher::stop() {
   }
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
 
   m_started = false;
@@ -258,7 +258,7 @@ void SRUFetcher::stop() {
 
 void SRUFetcher::slotComplete(KJob*) {
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -270,7 +270,7 @@ void SRUFetcher::slotComplete(KJob*) {
   }
   // see bug 319662. If fetcher is cancelled, job is killed
   // if the pointer is retained, it gets double-deleted
-  m_job = 0;
+  m_job = nullptr;
 
 #if 0
   myWarning() << "Remove debug from srufetcher.cpp";
@@ -293,11 +293,11 @@ void SRUFetcher::slotComplete(KJob*) {
   Import::XMLImporter xmlImporter(result);
   QDomDocument dom = xmlImporter.domDocument();
 
-  QDomNodeList diagList = dom.elementsByTagNameNS(diag, QLatin1String("diagnostic"));
+  QDomNodeList diagList = dom.elementsByTagNameNS(diag, QStringLiteral("diagnostic"));
   for(int i = 0; i < diagList.count(); ++i) {
     QDomElement elem = diagList.item(i).toElement();
-    QDomNodeList nodeList1 = elem.elementsByTagNameNS(diag, QLatin1String("message"));
-    QDomNodeList nodeList2 = elem.elementsByTagNameNS(diag, QLatin1String("details"));
+    QDomNodeList nodeList1 = elem.elementsByTagNameNS(diag, QStringLiteral("message"));
+    QDomNodeList nodeList2 = elem.elementsByTagNameNS(diag, QStringLiteral("details"));
     for(int j = 0; j < nodeList1.count(); ++j) {
       QString d = nodeList1.item(j).toElement().text();
       if(!d.isEmpty()) {
@@ -324,7 +324,7 @@ void SRUFetcher::slotComplete(KJob*) {
     QString newResult = result;
     if(m_format.startsWith(QLatin1String("marcxchange"), Qt::CaseInsensitive)) {
       newResult.replace(QRegExp(QLatin1String("xmlns:marc=\"info:lc/xmlns/marcxchange-v[12]\"")),
-                        QLatin1String("xmlns:marc=\"http://www.loc.gov/MARC21/slim\""));
+                        QStringLiteral("xmlns:marc=\"http://www.loc.gov/MARC21/slim\""));
     }
     modsResult = m_MARCXMLHandler->applyStylesheet(newResult);
   }
@@ -391,18 +391,18 @@ Tellico::Data::EntryPtr SRUFetcher::fetchEntryHook(uint uid_) {
 
 Tellico::Fetch::FetchRequest SRUFetcher::updateRequest(Data::EntryPtr entry_) {
 //  myDebug() << source() << ": " << entry_->title();
-  QString isbn = entry_->field(QLatin1String("isbn"));
+  QString isbn = entry_->field(QStringLiteral("isbn"));
   if(!isbn.isEmpty()) {
     return FetchRequest(Fetch::ISBN, isbn);
   }
 
-  QString lccn = entry_->field(QLatin1String("lccn"));
+  QString lccn = entry_->field(QStringLiteral("lccn"));
   if(!lccn.isEmpty()) {
     return FetchRequest(Fetch::LCCN, lccn);
   }
 
   // optimistically try searching for title and rely on Collection::sameEntry() to figure things out
-  QString t = entry_->field(QLatin1String("title"));
+  QString t = entry_->field(QStringLiteral("title"));
   if(!t.isEmpty()) {
     return FetchRequest(Fetch::Title, t);
   }
@@ -414,7 +414,7 @@ bool SRUFetcher::initMARCXMLHandler() {
     return true;
   }
 
-  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("MARC21slim2MODS3.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("MARC21slim2MODS3.xsl"));
   if(xsltfile.isEmpty()) {
     myWarning() << "can not locate MARC21slim2MODS3.xsl.";
     return false;
@@ -426,7 +426,7 @@ bool SRUFetcher::initMARCXMLHandler() {
   if(!m_MARCXMLHandler->isValid()) {
     myWarning() << "error in MARC21slim2MODS3.xsl.";
     delete m_MARCXMLHandler;
-    m_MARCXMLHandler = 0;
+    m_MARCXMLHandler = nullptr;
     return false;
   }
   return true;
@@ -437,7 +437,7 @@ bool SRUFetcher::initMODSHandler() {
     return true;
   }
 
-  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("mods2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("mods2tellico.xsl"));
   if(xsltfile.isEmpty()) {
     myWarning() << "can not locate mods2tellico.xsl.";
     return false;
@@ -449,7 +449,7 @@ bool SRUFetcher::initMODSHandler() {
   if(!m_MODSHandler->isValid()) {
     myWarning() << "error in mods2tellico.xsl.";
     delete m_MODSHandler;
-    m_MODSHandler = 0;
+    m_MODSHandler = nullptr;
     return false;
   }
   return true;
@@ -460,7 +460,7 @@ bool SRUFetcher::initSRWHandler() {
     return true;
   }
 
-  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("srw2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("srw2tellico.xsl"));
   if(xsltfile.isEmpty()) {
     myWarning() << "can not locate srw2tellico.xsl.";
     return false;
@@ -472,15 +472,15 @@ bool SRUFetcher::initSRWHandler() {
   if(!m_SRWHandler->isValid()) {
     myWarning() << "error in srw2tellico.xsl.";
     delete m_SRWHandler;
-    m_SRWHandler = 0;
+    m_SRWHandler = nullptr;
     return false;
   }
   return true;
 }
 
 Tellico::Fetch::Fetcher::Ptr SRUFetcher::libraryOfCongress(QObject* parent_) {
-  return Fetcher::Ptr(new SRUFetcher(i18n("Library of Congress (US)"), QLatin1String("z3950.loc.gov"), 7090,
-                                     QLatin1String("voyager"), QLatin1String("mods"), parent_));
+  return Fetcher::Ptr(new SRUFetcher(i18n("Library of Congress (US)"), QStringLiteral("z3950.loc.gov"), 7090,
+                                     QStringLiteral("voyager"), QStringLiteral("mods"), parent_));
 }
 
 QString SRUFetcher::defaultName() {
@@ -488,16 +488,17 @@ QString SRUFetcher::defaultName() {
 }
 
 QString SRUFetcher::defaultIcon() {
-  return QLatin1String("network-workgroup"); // just to be different than z3950
+//  return QLatin1String("network-workgroup"); // just to be different than z3950
+  return QStringLiteral(":/icons/sru");
 }
 
 // static
 Tellico::StringHash SRUFetcher::allOptionalFields() {
   StringHash hash;
-  hash[QLatin1String("address")]  = i18n("Address");
-  hash[QLatin1String("abstract")] = i18n("Abstract");
-  hash[QLatin1String("dewey")]    = i18nc("Dewey Decimal classification system", "Dewey Decimal");
-  hash[QLatin1String("lcc")]      = i18nc("Library of Congress classification system", "LoC Classification");
+  hash[QStringLiteral("address")]  = i18n("Address");
+  hash[QStringLiteral("abstract")] = i18n("Abstract");
+  hash[QStringLiteral("dewey")]    = i18nc("Dewey Decimal classification system", "Dewey Decimal");
+  hash[QStringLiteral("lcc")]      = i18nc("Library of Congress classification system", "LoC Classification");
   return hash;
 }
 
@@ -550,10 +551,10 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
   label = new QLabel(i18n("Format: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_formatCombo = new GUI::ComboBox(optionsWidget());
-  m_formatCombo->addItem(QLatin1String("MODS"), QLatin1String("mods"));
-  m_formatCombo->addItem(QLatin1String("MARCXML"), QLatin1String("marcxml"));
-  m_formatCombo->addItem(QLatin1String("PAM"), QLatin1String("pam"));
-  m_formatCombo->addItem(QLatin1String("Dublin Core"), QLatin1String("dc"));
+  m_formatCombo->addItem(QStringLiteral("MODS"), QLatin1String("mods"));
+  m_formatCombo->addItem(QStringLiteral("MARCXML"), QLatin1String("marcxml"));
+  m_formatCombo->addItem(QStringLiteral("PAM"), QLatin1String("pam"));
+  m_formatCombo->addItem(QStringLiteral("Dublin Core"), QLatin1String("dc"));
   m_formatCombo->setEditable(true);
   connect(m_formatCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
   connect(m_formatCombo, SIGNAL(editTextChanged(QString)), SLOT(slotSetModified()));

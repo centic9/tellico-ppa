@@ -52,7 +52,8 @@ void CollectionTypeCombo::reset() {
     addItem(it.key(), it.value());
   }
   // now add the custom type last
-  addItem(nameHash.value(Data::Collection::Base), Data::Collection::Base);
+  ComboBox::addItem(QIcon::fromTheme(QStringLiteral("document-new")),
+                    nameHash.value(Data::Collection::Base), Data::Collection::Base);
 }
 
 void CollectionTypeCombo::setCurrentType(int type_) {
@@ -60,9 +61,9 @@ void CollectionTypeCombo::setCurrentType(int type_) {
 }
 
 void CollectionTypeCombo::addItem(const QString& value_, int collType_) {
-  ComboBox::addItem(QIcon::fromTheme(CollectionFactory::typeName(collType_)), value_, collType_);
+  ComboBox::addItem(QIcon(QLatin1String(":/icons/") + CollectionFactory::typeName(collType_)), value_, collType_);
 }
 
 void CollectionTypeCombo::insertItem(int index_, const QString& value_, int collType_) {
-  ComboBox::insertItem(index_, QIcon::fromTheme(CollectionFactory::typeName(collType_)), value_, collType_);
+  ComboBox::insertItem(index_, QIcon(QLatin1String(":/icons/") + CollectionFactory::typeName(collType_)), value_, collType_);
 }

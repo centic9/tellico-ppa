@@ -40,7 +40,7 @@ public:
   ~Node() { qDeleteAll(m_children); }
 
   Node* parent() const { return m_parent; }
-  Node* child(int row) const { return row < m_children.count() ? m_children.at(row) : 0; }
+  Node* child(int row) const { return row < m_children.count() ? m_children.at(row) : nullptr; }
   int row() const { return m_row; }
   int childCount() const { return m_children.count(); };
 
@@ -64,13 +64,13 @@ private:
   int m_row;
 };
 
-EntryGroupModel::EntryGroupModel(QObject* parent) : QAbstractItemModel(parent), m_rootNode(new Node(0)) {
+EntryGroupModel::EntryGroupModel(QObject* parent) : QAbstractItemModel(parent), m_rootNode(new Node(nullptr)) {
   m_groupHeader = i18nc("Group Name Header", "Group");
 }
 
 EntryGroupModel::~EntryGroupModel() {
   delete m_rootNode;
-  m_rootNode = 0;
+  m_rootNode = nullptr;
 }
 
 int EntryGroupModel::rowCount(const QModelIndex& index_) const {
@@ -118,7 +118,7 @@ QVariant EntryGroupModel::data(const QModelIndex& index_, int role_) const {
         // it probably points to an entry
         Tellico::Data::EntryPtr e = entry(index_);
         if(e) {
-          return e->formattedField(QLatin1String("title"));
+          return e->formattedField(QStringLiteral("title"));
         }
       } else {
         // it probably points to a group
@@ -134,7 +134,7 @@ QVariant EntryGroupModel::data(const QModelIndex& index_, int role_) const {
         // so no need to lookup the entry(index_), just use first one we find
         foreach(Data::EntryGroup* group, m_groups) {
           if(!group->isEmpty()) {
-            return QIcon::fromTheme(CollectionFactory::typeName(group->first()->collection()));
+            return QIcon(QLatin1String(":/icons/") + CollectionFactory::typeName(group->first()->collection()));
           }
         }
       }
@@ -206,7 +206,7 @@ void EntryGroupModel::clear() {
   beginResetModel();
   m_groups.clear();
   delete m_rootNode;
-  m_rootNode = new Node(0);
+  m_rootNode = new Node(nullptr);
   m_groupIconNames.clear();
   endResetModel();
 }
@@ -285,7 +285,7 @@ void EntryGroupModel::removeGroup(Tellico::Data::EntryGroup* group_) {
 Tellico::Data::EntryGroup* EntryGroupModel::group(const QModelIndex& index_) const {
   // if the parent isn't invalid, then it's not a top-level group
   if(!index_.isValid() || hasValidParent(index_) || index_.row() >= m_groups.count()) {
-    return 0;
+    return nullptr;
   }
   return m_groups.at(index_.row());
 }
@@ -329,4 +329,3 @@ bool EntryGroupModel::hasValidParent(const QModelIndex& index_) const {
   // if it's top-level, it has no parent
   return parentNode && parentNode != m_rootNode;
 }
- 

@@ -26,7 +26,6 @@ set(PIC_FILES
     nocover_comic.png
     nocover_game.png
     nocover_video.png
-    palm.png
     person-open.png
     person.png
     README.icons
@@ -34,6 +33,7 @@ set(PIC_FILES
     referencer.png
     script.png
     script.svg
+    sru.png
     stamp.png
     star_off.png
     star_on.png

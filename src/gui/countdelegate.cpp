@@ -49,7 +49,7 @@ QTreeView* CountDelegate::parent() const {
 void CountDelegate::initStyleOption(QStyleOptionViewItem* option_,
                                     const QModelIndex& index_) const {
   if(m_showCount) {
-    QStyleOptionViewItemV4* noTextOption = qstyleoption_cast<QStyleOptionViewItemV4*>(option_);
+    QStyleOptionViewItem* noTextOption = qstyleoption_cast<QStyleOptionViewItem*>(option_);
     QStyledItemDelegate::initStyleOption(noTextOption, index_);
     noTextOption->text.clear();
   } else {
@@ -62,9 +62,8 @@ void CountDelegate::paint(QPainter* painter_,
                           const QModelIndex& index_) const {
   Q_ASSERT(index_.isValid());
 
-  // only paint for first column and for
-  // items having children
-  m_showCount = index_.column() == 0 && index_.model()->hasChildren(index_);
+  // only paint for first column and no parent
+  m_showCount = index_.column() == 0 && !index_.parent().isValid();
 
   // First, paint the basic, but without the text. We remove the text
   // in initStyleOption(), which gets called by QStyledItemDelegate::paint().
@@ -77,39 +76,47 @@ void CountDelegate::paint(QPainter* painter_,
 
   // Now, we retrieve the correct style option by calling initStyleOption from
   // the superclass.
-  QStyleOptionViewItemV4 option4 = option_;
-  QStyledItemDelegate::initStyleOption(&option4, index_);
-  QString text = option4.text;
+  QStyleOptionViewItem option(option_);
+  QStyledItemDelegate::initStyleOption(&option, index_);
+  QString text = option.text;
 
   QVariant countValue = index_.data(RowCountRole);
-  QString countString = QString::fromLatin1(" (%1)").arg(countValue.toInt());
+  QString countString = QStringLiteral(" (%1)").arg(countValue.toInt());
 
   // Now calculate the rectangle for the text
   QStyle* s = parent()->style();
-  const QWidget* widget = option4.widget;
-  const QRect itemRect = s->subElementRect(QStyle::SE_ItemViewItemText, &option4, widget);
+  const QWidget* widget = option.widget;
+  const QRect itemRect = s->subElementRect(QStyle::SE_ItemViewItemText, &option, widget);
 
   // Squeeze the folder text if it is to big and calculate the rectangles
   // where the text and the count will be drawn to
-  QFontMetrics fm = painter_->fontMetrics();
+  QFontMetrics fm(painter_->fontMetrics());
   const int countWidth = fm.width(countString);
   if(fm.width(text) + countWidth > itemRect.width()) {
     text = fm.elidedText(text, Qt::ElideRight, itemRect.width() - countWidth);
   }
 
-  int textWidth = fm.width(text);
+  const int top = itemRect.top() + (itemRect.height() - fm.height()) / 2;
+  const int textWidth = fm.width(text);
   QRect textRect = itemRect;
   textRect.setRight(textRect.left() + textWidth);
+  textRect.setTop(top);
+  textRect.setHeight(fm.height());
   QRect countRect = itemRect;
   countRect.setLeft(textRect.right());
+  countRect.setTop(top);
+  countRect.setHeight(fm.height());
 
-  KColorScheme::ColorSet cs = (option4.state & QStyle::State_Selected) ?
-                               KColorScheme::Selection : KColorScheme::View;
-  QColor countColor = KColorScheme(QPalette::Active, cs).foreground(KColorScheme::LinkText).color();
+  KColorScheme::ColorSet colorSet = (option.state & QStyle::State_Selected) ?
+                                     KColorScheme::Selection : KColorScheme::View;
+  KColorScheme cs(QPalette::Active, colorSet);
+  QColor textColor = cs.foreground(index_.model()->hasChildren(index_) ? KColorScheme::NormalText : KColorScheme::InactiveText).color();
+  QColor countColor = cs.foreground(KColorScheme::LinkText).color();
 
   painter_->save();
-  painter_->drawText(textRect, Qt::AlignLeft, text);
+  painter_->setPen(textColor);
+  painter_->drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, text);
   painter_->setPen(countColor);
-  painter_->drawText(countRect, Qt::AlignLeft, countString);
+  painter_->drawText(countRect, Qt::AlignLeft | Qt::AlignVCenter, countString);
   painter_->restore();
 }

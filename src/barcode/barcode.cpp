@@ -188,12 +188,12 @@ void barcodeRecognitionThread::printArray( int array[10][13][2], int level )
 {
   for (int i = 0; i < 10; i++) {
     QString temp;
-    temp = QString::number( i ) + QString::fromLatin1(" :   ");
+    temp = QString::number( i ) + QLatin1String(" :   ");
     for (int j = 0; j < 13; j++) {
       if (array[i][j][level] == -1)
-        temp += QString::fromLatin1("x  ");
+        temp += QLatin1String("x  ");
       else
-      temp += QString::number( array[i][j][level] ) + QString::fromLatin1("  ");
+      temp += QString::number( array[i][j][level] ) + QLatin1String("  ");
     }
   qDebug() << temp;
   }
@@ -652,7 +652,7 @@ QVector<int> Decoder_EAN13::decode( QVector< QVector<int> > fields, int start_i,
   for (int i = start_i; i < end_i - 56; i++) {
     if (fields[i][0] == 0) {
       if ((fields[i][1] >= min_unit_length) && (fields[i][1] <= max_unit_length)) {
-        if ((abs(fields[i][1] - fields[i + 1][1]) <= max_start_sentry_bar_differences)
+        if ((qAbs(fields[i][1] - fields[i + 1][1]) <= max_start_sentry_bar_differences)
                   && (qAbs(fields[i][1] - fields[i + 2][1]) <= max_start_sentry_bar_differences) && (fields[i + 3][1] < fields[i][1] << 3)) {
           start_sentinel_i = i;
           break;
@@ -880,4 +880,3 @@ MatchMakerResult::MatchMakerResult( bool even, int digit )
   m_even = even;
   m_digit = digit;
 }
-

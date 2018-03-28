@@ -56,7 +56,6 @@ public:
    * The constructor sets up the single column, and initializes the popup menu.
    *
    * @param parent A pointer to the parent widget
-   * @param name The widget name
    */
   GroupView(QWidget* parent);
 
@@ -90,8 +89,6 @@ public:
   void removeCollection(Data::CollPtr coll);
   /**
    * Refresh all the items for the collection.
-   *
-   * @return The item for the collection
    */
   void populateCollection();
   /**
@@ -101,7 +98,7 @@ public:
    */
   void setEntrySelected(Data::EntryPtr entry);
 
-  virtual void modifyField(Data::CollPtr coll, Data::FieldPtr oldField, Data::FieldPtr newField);
+  virtual void modifyField(Data::CollPtr coll, Data::FieldPtr oldField, Data::FieldPtr newField) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
   /**
@@ -117,12 +114,11 @@ public Q_SLOTS:
   void slotModifyGroups(Tellico::Data::CollPtr coll, QList<Tellico::Data::EntryGroup*> groups);
 
 private:
-  void contextMenuEvent(QContextMenuEvent* event);
+  void contextMenuEvent(QContextMenuEvent* event) Q_DECL_OVERRIDE;
   /**
    * Inserts a listviewitem for a given group
    *
    * @param group The group to be added
-   * @return A pointer to the created @ ref ParentItem
    */
   void addGroup(Data::EntryGroup* group);
 

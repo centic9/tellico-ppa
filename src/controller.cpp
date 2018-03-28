@@ -56,10 +56,13 @@
 
 using Tellico::Controller;
 
-Controller* Controller::s_self = 0;
+Controller* Controller::s_self = nullptr;
 
 Controller::Controller(Tellico::MainWindow* parent_)
     : QObject(parent_), m_mainWindow(parent_), m_working(false) {
+}
+
+Controller::~Controller() {
 }
 
 void Controller::addObserver(Tellico::Observer* obs) {
@@ -111,7 +114,7 @@ Tellico::Data::EntryList Controller::visibleEntries() {
 void Controller::slotCollectionAdded(Tellico::Data::CollPtr coll_) {
   MARK;
   // at start-up, this might get called too early, so check and bail
-  if(!m_mainWindow->m_groupView) {
+  if(!coll_ || !m_mainWindow->m_groupView) {
     return;
   }
 
@@ -163,6 +166,10 @@ void Controller::slotCollectionModified(Tellico::Data::CollPtr coll_) {
   // FIXME: Signals for delete collection and then added are yucky
   slotCollectionDeleted(coll_);
   slotCollectionAdded(coll_);
+  // https://bugs.kde.org/show_bug.cgi?id=386549
+  // at some point, I need to revisit the ::setImagesAreAvailable() methodology
+  // there are too many workarounds in the code for that
+  m_mainWindow->m_detailedView->slotRefreshImages();
 }
 
 void Controller::slotCollectionDeleted(Tellico::Data::CollPtr coll_) {
@@ -270,7 +277,11 @@ void Controller::slotClearSelection() {
   blockAllSignals(true);
 
   m_mainWindow->m_detailedView->clearSelection();
+  m_mainWindow->m_iconView->clearSelection();
   m_mainWindow->m_groupView->clearSelection();
+  if(m_mainWindow->m_filterView) {
+    m_mainWindow->m_filterView->clearSelection();
+  }
   if(m_mainWindow->m_loanView) {
     m_mainWindow->m_loanView->clearSelection();
   }
@@ -319,7 +330,7 @@ void Controller::slotDeleteSelectedEntries() {
   // confirm delete
   if(m_selectedEntries.count() == 1) {
     QString str = i18n("Do you really want to delete this entry?");
-    QString dontAsk = QLatin1String("DeleteEntry");
+    QString dontAsk = QStringLiteral("DeleteEntry");
     int ret = KMessageBox::warningContinueCancel(Kernel::self()->widget(), str, i18n("Delete Entry"),
                                                  KStandardGuiItem::del(),
                                                  KStandardGuiItem::cancel(), dontAsk);
@@ -334,7 +345,7 @@ void Controller::slotDeleteSelectedEntries() {
     }
     QString str = i18n("Do you really want to delete these entries?");
     // historically called DeleteMultipleBooks, don't change
-    QString dontAsk = QLatin1String("DeleteMultipleBooks");
+    QString dontAsk = QStringLiteral("DeleteMultipleBooks");
     int ret = KMessageBox::warningContinueCancelList(Kernel::self()->widget(), str, names,
                                                      i18n("Delete Multiple Entries"),
                                                      KStandardGuiItem::del(),
@@ -428,6 +439,12 @@ void Controller::slotUpdateFilter(Tellico::FilterPtr filter_) {
   updateActions();
 
   m_mainWindow->m_detailedView->setFilter(filter_); // takes ownership
+  if(!filter_ && m_mainWindow->m_filterView && !m_mainWindow->m_dontQueueFilter) {
+    // for example, when quick filter clears the selection
+    // the check against m_dontQueueFilter is to prevent the situation when the FilterView has an Entry selected
+    // which sends an empty filter selection, which would then clear the whole FilterView selection
+    m_mainWindow->m_filterView->clearSelection();
+  }
 
   blockAllSignals(false);
 
@@ -474,7 +491,7 @@ void Controller::plugEntryActions(QMenu* popup_) {
 }
 
 void Controller::plugUpdateMenu(QMenu* popup_) {
-  QMenu* updatePopup = 0;
+  QMenu* updatePopup = nullptr;
   foreach(QAction* action, popup_->actions()) {
     if(action && action->text() == m_mainWindow->m_updateEntryMenu->text()) {
       updatePopup = action->menu();
@@ -505,7 +522,7 @@ void Controller::plugUpdateMenu(QMenu* popup_) {
 
 void Controller::updateActions() const {
   const bool emptySelection = m_selectedEntries.isEmpty();
-  m_mainWindow->stateChanged(QLatin1String("empty_selection"),
+  m_mainWindow->stateChanged(QStringLiteral("empty_selection"),
                              emptySelection ? KXMLGUIClient::StateNoReverse : KXMLGUIClient::StateReverse);
   foreach(QAction* action, m_mainWindow->m_fetchActions) {
     action->setEnabled(!emptySelection);
@@ -646,7 +663,7 @@ void Controller::hideTabs() const {
 
 bool Controller::canCheckIn() const {
   foreach(Data::EntryPtr entry, m_selectedEntries) {
-    if(entry->field(QLatin1String("loaned")) == QLatin1String("true")) {
+    if(entry->field(QStringLiteral("loaned")) == QLatin1String("true")) {
       return true;
     }
   }
@@ -656,4 +673,3 @@ bool Controller::canCheckIn() const {
 void Controller::updatedFetchers() {
   m_mainWindow->updateEntrySources();
 }
-

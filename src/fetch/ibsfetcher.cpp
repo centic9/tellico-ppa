@@ -84,7 +84,7 @@ void IBSFetcher::search() {
 
   QUrl u(QString::fromLatin1(IBS_BASE_URL));
   QUrlQuery q;
-  q.addQueryItem(QLatin1String("ts"), QLatin1String("as"));
+  q.addQueryItem(QStringLiteral("ts"), QStringLiteral("as"));
 
   switch(request().key) {
     case Title:
@@ -92,7 +92,7 @@ void IBSFetcher::search() {
         // can't have ampersands
         QString s = request().value;
         s.remove(QLatin1Char('&'));
-        q.addQueryItem(QLatin1String("query"), s);
+        q.addQueryItem(QStringLiteral("query"), s);
       }
       break;
 
@@ -101,16 +101,16 @@ void IBSFetcher::search() {
         QString s = request().value;
         // limit to first isbn
         s = s.section(QLatin1Char(';'), 0, 0);
-        // isbn10 search doesn't work?
-        s = ISBNValidator::isbn13(s);
+        // isbn13 search doesn't work?
+        s = ISBNValidator::isbn10(s);
         // dashes don't work
         s.remove(QLatin1Char('-'));
-        q.addQueryItem(QLatin1String("query"), s);
+        q.addQueryItem(QStringLiteral("query"), s);
       }
       break;
 
     case Keyword:
-      q.addQueryItem(QLatin1String("query"), request().value);
+      q.addQueryItem(QStringLiteral("query"), request().value);
       break;
 
     default:
@@ -133,7 +133,7 @@ void IBSFetcher::stop() {
 
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
   m_started = false;
   emit signalDone(this);
@@ -141,7 +141,7 @@ void IBSFetcher::stop() {
 
 void IBSFetcher::slotComplete(KJob*) {
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -185,7 +185,7 @@ void IBSFetcher::slotComplete(KJob*) {
   }
 
   // since the fetch is done, don't worry about holding the job pointer
-  m_job = 0;
+  m_job = nullptr;
   stop();
 }
 
@@ -230,17 +230,27 @@ Tellico::Data::EntryPtr IBSFetcher::fetchEntryHook(uint uid_) {
 }
 
 Tellico::Data::EntryPtr IBSFetcher::parseEntry(const QString& str_) {
-  QRegExp jsonRx(QLatin1String("<script type=\"application/ld\\+json\">(.*)</"));
+  QRegExp jsonRx(QLatin1String("<script type=\"application/ld\\+json\">(.*)</script"));
   jsonRx.setMinimal(true);
 
   if(!str_.contains(jsonRx)) {
     myDebug() << "No JSON block";
     return Data::EntryPtr();
   }
-  
+
+#if 0
+  myWarning() << "Remove json debug from ibsfetcher.cpp";
+  QFile f(QLatin1String("/tmp/test.json"));
+  if(f.open(QIODevice::WriteOnly)) {
+    QTextStream t(&f);
+    t.setCodec("UTF-8");
+    t << jsonRx.cap(1);
+  }
+  f.close();
+#endif
   QJsonDocument doc = QJsonDocument::fromJson(jsonRx.cap(1).toUtf8());
   QVariantMap objectMap = doc.object().toVariantMap();
-  QVariantMap resultMap = objectMap.value(QLatin1String("mainEntity")).toMap();
+  QVariantMap resultMap = objectMap.value(QStringLiteral("mainEntity")).toMap();
   if(resultMap.isEmpty()) {
     myDebug() << "no JSON object";
     return Data::EntryPtr();
@@ -248,40 +258,37 @@ Tellico::Data::EntryPtr IBSFetcher::parseEntry(const QString& str_) {
 
   Data::CollPtr coll(new Data::BookCollection(true));
   Data::EntryPtr entry(new Data::Entry(coll));
-  
-  // as genre, take the last breadcrumb
-  QString genre = value(objectMap, "breadcrumb");
-  genre = genre.section(QLatin1String(">"), -1);
-  entry->setField(QLatin1String("genre"), genre);  
-  
-  // the title in the embedded loses it's identifier? "La..."
-  entry->setField(QLatin1String("title"), value(resultMap, "name"));
-  entry->setField(QLatin1String("author"), value(resultMap, "author"));
 
-  const QString bookFormat = value(resultMap, "bookFormat");
+  // as genre, take the last breadcrumb
+  QString genre = mapValue(objectMap, "breadcrumb");
+  genre = genre.section(QStringLiteral(">"), -1);
+  entry->setField(QStringLiteral("genre"), genre);
+
+  // the title in the embedded loses it's identifier? "La..."
+  entry->setField(QStringLiteral("title"), mapValue(resultMap, "name"));
+  entry->setField(QStringLiteral("author"), mapValue(resultMap, "author"));
+
+  const QString bookFormat = mapValue(resultMap, "bookFormat");
   if(bookFormat == QLatin1String("http://schema.org/Paperback")) {
-    entry->setField(QLatin1String("binding"), i18n("Paperback"));
+    entry->setField(QStringLiteral("binding"), i18n("Paperback"));
   } else if(bookFormat == QLatin1String("http://schema.org/Hardcover")) {
-    entry->setField(QLatin1String("binding"), i18n("Hardback"));
+    entry->setField(QStringLiteral("binding"), i18n("Hardback"));
   } else if(bookFormat == QLatin1String("http://schema.org/EBook")) {
-    entry->setField(QLatin1String("binding"), i18n("E-Book"));
+    entry->setField(QStringLiteral("binding"), i18n("E-Book"));
   }
 
-  entry->setField(QLatin1String("pub_year"), value(resultMap, "datePublished"));
-  entry->setField(QLatin1String("cover"), value(resultMap, "image"));
-  entry->setField(QLatin1String("isbn"), value(resultMap, "isbn"));
+  entry->setField(QStringLiteral("pub_year"), mapValue(resultMap, "datePublished"));
+  entry->setField(QStringLiteral("cover"), mapValue(resultMap, "image"));
+  entry->setField(QStringLiteral("isbn"), mapValue(resultMap, "isbn"));
 
   // inLanguage is upper-case language code
-  const QString lang = value(resultMap, "inLanguage");
-  entry->setField(QLatin1String("language"), QLocale(lang.toLower()).nativeLanguageName());
-  
-  Data::FieldPtr f(new Data::Field(QLatin1String("plot"), i18n("Plot Summary"), Data::Field::Para));
-  coll->addField(f);
-  entry->setField(f, value(resultMap, "description"));
+  const QString lang = mapValue(resultMap, "inLanguage");
+  entry->setField(QStringLiteral("language"), QLocale(lang.toLower()).nativeLanguageName());
 
-  entry->setField(QLatin1String("pages"), value(resultMap, "numberOfPages"));
-  entry->setField(QLatin1String("publisher"), value(resultMap, "publisher"));
-  
+  entry->setField(QStringLiteral("plot"), mapValue(resultMap, "description"));
+  entry->setField(QStringLiteral("pages"), mapValue(resultMap, "numberOfPages"));
+  entry->setField(QStringLiteral("publisher"), mapValue(resultMap, "publisher"));
+
   // multiple authors do not show up in the embedded JSON
   QRegExp titleDivRx(QLatin1String("<div id=\"title\">(.*)</div>"));
   titleDivRx.setMinimal(true);
@@ -294,15 +301,15 @@ Tellico::Data::EntryPtr IBSFetcher::parseEntry(const QString& str_) {
       authors << authorRx.cap(1).simplified();
     }
     if(!authors.isEmpty()) {
-      entry->setField(QLatin1String("author"), authors.join(FieldFormat::delimiterString()));
+      entry->setField(QStringLiteral("author"), authors.join(FieldFormat::delimiterString()));
     }
-    // the title in the embedded loses it's identifier? "La..."
+    // the title in the embedded loses its identifier? "La..."
     QRegExp labelRx(QLatin1String("<label>(.*)</label>"));
     if(titleDiv.contains(labelRx)) {
-      entry->setField(QLatin1String("title"), labelRx.cap(1).simplified());
+      entry->setField(QStringLiteral("title"), labelRx.cap(1).simplified());
     }
   }
-  
+
   QRegExp tagRx(QLatin1String("<.*>"));
   tagRx.setMinimal(true);
 
@@ -310,25 +317,25 @@ Tellico::Data::EntryPtr IBSFetcher::parseEntry(const QString& str_) {
   QRegExp editorRx(QLatin1String("<strong>Curatore:</strong>(.*)</div"));
   editorRx.setMinimal(true);
   if(str_.contains(editorRx)) {
-    entry->setField(QLatin1String("editor"), editorRx.cap(1).remove(tagRx).simplified());    
+    entry->setField(QStringLiteral("editor"), editorRx.cap(1).remove(tagRx).simplified());
   }
 
   // editor is not in embedded json
   QRegExp translatorRx(QLatin1String("<strong>Traduttore:</strong>(.*)</div"));
   translatorRx.setMinimal(true);
   if(str_.contains(translatorRx)) {
-    entry->setField(QLatin1String("translator"), translatorRx.cap(1).remove(tagRx).simplified());    
+    entry->setField(QStringLiteral("translator"), translatorRx.cap(1).remove(tagRx).simplified());
   }
-  
+
   return entry;
 }
 
 Tellico::Fetch::FetchRequest IBSFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString isbn = entry_->field(QLatin1String("isbn"));
+  QString isbn = entry_->field(QStringLiteral("isbn"));
   if(!isbn.isEmpty()) {
     return FetchRequest(Fetch::ISBN, isbn);
   }
-  QString t = entry_->field(QLatin1String("title"));
+  QString t = entry_->field(QStringLiteral("title"));
   if(!t.isEmpty()) {
     return FetchRequest(Fetch::Title, t);
   }
@@ -344,7 +351,7 @@ QString IBSFetcher::defaultName() {
 }
 
 QString IBSFetcher::defaultIcon() {
-  return favIcon("http://ibs.it");
+  return favIcon("http://www.ibs.it");
 }
 
 IBSFetcher::ConfigWidget::ConfigWidget(QWidget* parent_)
@@ -356,18 +363,4 @@ IBSFetcher::ConfigWidget::ConfigWidget(QWidget* parent_)
 
 QString IBSFetcher::ConfigWidget::preferredName() const {
   return IBSFetcher::defaultName();
-}
-
-// static
-QString IBSFetcher::value(const QVariantMap& map, const char* name) {
-  const QVariant v = map.value(QLatin1String(name));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::String)) {
-    return v.toString();
-  } else if(v.canConvert(QVariant::StringList)) {
-    return v.toStringList().join(Tellico::FieldFormat::delimiterString());
-  } else {
-    return QString();
-  }
 }

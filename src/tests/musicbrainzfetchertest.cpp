@@ -46,16 +46,16 @@ void MusicBrainzFetcherTest::initTestCase() {
   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/musicbrainz2tellico.xsl"));
   Tellico::ImageFactory::init();
 
-  m_fieldValues.insert(QLatin1String("title"), QLatin1String("carried along"));
-  m_fieldValues.insert(QLatin1String("artist"), QLatin1String("Andrew Peterson"));
-  m_fieldValues.insert(QLatin1String("label"), QLatin1String("essential records"));
-  m_fieldValues.insert(QLatin1String("year"), QLatin1String("2000"));
-  m_fieldValues.insert(QLatin1String("medium"), QLatin1String("compact disc"));
+  m_fieldValues.insert(QStringLiteral("title"), QStringLiteral("carried along"));
+  m_fieldValues.insert(QStringLiteral("artist"), QStringLiteral("Andrew Peterson"));
+  m_fieldValues.insert(QStringLiteral("label"), QStringLiteral("essential records"));
+  m_fieldValues.insert(QStringLiteral("year"), QStringLiteral("2000"));
+  m_fieldValues.insert(QStringLiteral("medium"), QStringLiteral("compact disc"));
 }
 
 void MusicBrainzFetcherTest::testTitle() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Title,
-                                       m_fieldValues.value(QLatin1String("title")));
+                                       m_fieldValues.value(QStringLiteral("title")));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
@@ -69,8 +69,9 @@ void MusicBrainzFetcherTest::testTitle() {
     QString result = entry->field(i.key()).toLower();
     QCOMPARE(result, i.value().toLower());
   }
-  QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("track")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
 
 void MusicBrainzFetcherTest::testKeyword() {
@@ -78,7 +79,7 @@ void MusicBrainzFetcherTest::testKeyword() {
   QTest::qWait(1000);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Keyword,
-                                       m_fieldValues.value(QLatin1String("title")));
+                                       m_fieldValues.value(QStringLiteral("title")));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
@@ -92,13 +93,14 @@ void MusicBrainzFetcherTest::testKeyword() {
     QString result = entry->field(i.key()).toLower();
     QCOMPARE(result, i.value().toLower());
   }
-  QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("track")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
 
 void MusicBrainzFetcherTest::testPerson() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Person,
-                                       m_fieldValues.value(QLatin1String("artist")));
+                                       m_fieldValues.value(QStringLiteral("artist")));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 20);
@@ -106,7 +108,7 @@ void MusicBrainzFetcherTest::testPerson() {
   QVERIFY(results.size() > 0);
   Tellico::Data::EntryPtr entry;  //  results can be randomly ordered, loop until we find the one we want
   foreach(Tellico::Data::EntryPtr test, results) {
-    if(test->field(QLatin1String("title")).toLower() == m_fieldValues.value(QLatin1String("title"))) {
+    if(test->field(QStringLiteral("title")).toLower() == m_fieldValues.value(QStringLiteral("title"))) {
       entry = test;
       break;
     } else {
@@ -121,14 +123,15 @@ void MusicBrainzFetcherTest::testPerson() {
     QString result = entry->field(i.key()).toLower();
     QCOMPARE(result, i.value().toLower());
   }
-  QVERIFY(!entry->field(QLatin1String("track")).isEmpty());
-  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("track")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
 
 // test grabbing cover art from coverartarchive.org
 void MusicBrainzFetcherTest::testCoverArt() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Title,
-                                       QLatin1String("Laulut ja tarinat"));
+                                       QStringLiteral("Laulut ja tarinat"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
@@ -136,7 +139,22 @@ void MusicBrainzFetcherTest::testCoverArt() {
   QVERIFY(!results.isEmpty());
 
   Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->title(), QLatin1String("Laulut ja tarinat"));
-  QEXPECT_FAIL("", "MusicBrainz covers from coverartarchive are failing", Abort);
-  QVERIFY(!entry->field(QLatin1String("cover")).isEmpty());
+  QCOMPARE(entry->title(), QStringLiteral("Laulut ja tarinat"));
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+}
+
+void MusicBrainzFetcherTest::testSoundtrack() {
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Title,
+                                       QStringLiteral("legend of bagger vance"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QVERIFY(!results.isEmpty());
+
+  Tellico::Data::EntryPtr entry = results.at(0);
+  QCOMPARE(entry->title(), QStringLiteral("The Legend of Bagger Vance"));
+  // sound tracks are the only genre tag that is read
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Soundtrack"));
 }

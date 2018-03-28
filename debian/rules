@@ -8,18 +8,12 @@
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--no-undefined -Wl,--as-needed
 
 %:
-	dh $@ --with kf5 --parallel
+	dh $@ --with kf5
 
 override_dh_auto_configure:
-	dh_auto_configure -Skf5 --parallel -- \
+	dh_auto_configure -Skf5 -- \
 		-DBUILD_TESTS=false \
 		-DENABLE_WEBCAM=false
 
-override_dh_shlibdeps:
-	dh_shlibdeps -- -xkdepim-runtime
-
-override_dh_compress:
-	dh_compress -Xkde -X.docbook
-
-override_dh_install:
-	dh_install --fail-missing
+override_dh_missing:
+	dh_missing --fail-missing

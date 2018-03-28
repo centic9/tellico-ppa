@@ -42,8 +42,8 @@ using namespace Tellico;
 using Tellico::Export::XSLTExporter;
 
 XSLTExporter::XSLTExporter(Data::CollPtr coll_) : Export::Exporter(coll_),
-    m_widget(0),
-    m_URLRequester(0) {
+    m_widget(nullptr),
+    m_URLRequester(nullptr) {
 }
 
 QString XSLTExporter::formatString() const {
@@ -110,12 +110,12 @@ QWidget* XSLTExporter::widget(QWidget* parent_) {
 }
 
 void XSLTExporter::readOptions(KSharedConfigPtr config_) {
-  KConfigGroup group(config_, QString::fromLatin1("ExportOptions - %1").arg(formatString()));
+  KConfigGroup group(config_, QStringLiteral("ExportOptions - %1").arg(formatString()));
   m_xsltFile = group.readEntry("Last File", QUrl());
 }
 
 void XSLTExporter::saveOptions(KSharedConfigPtr config_) {
-  KConfigGroup group(config_, QString::fromLatin1("ExportOptions - %1").arg(formatString()));
+  KConfigGroup group(config_, QStringLiteral("ExportOptions - %1").arg(formatString()));
   m_xsltFile = m_URLRequester->url();
   // TODO
   group.writeEntry("Last File", QUrl(m_xsltFile.url()));

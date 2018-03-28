@@ -29,7 +29,7 @@
 
 using Tellico::ProgressItem;
 using Tellico::ProgressManager;
-ProgressManager* ProgressManager::s_self = 0;
+ProgressManager* ProgressManager::s_self = nullptr;
 
 template<typename T>
 inline
@@ -90,7 +90,11 @@ void ProgressItem::cancel() {
 ProgressManager::ProgressManager() : QObject() {
 }
 
+ProgressManager::~ProgressManager() {
+}
+
 void ProgressManager::setProgress(QObject* owner_, qulonglong steps_) {
+  Q_ASSERT(owner_);
   if(!owner_ || !m_items.contains(owner_)) {
     return;
   }
@@ -101,7 +105,8 @@ void ProgressManager::setProgress(QObject* owner_, qulonglong steps_) {
 }
 
 void ProgressManager::setTotalSteps(QObject* owner_, qulonglong steps_) {
-  if(!m_items.contains(owner_)) {
+  Q_ASSERT(owner_);
+  if(!owner_ || !m_items.contains(owner_)) {
     return;
   }
 
@@ -111,10 +116,7 @@ void ProgressManager::setTotalSteps(QObject* owner_, qulonglong steps_) {
 
 void ProgressManager::setDone(QObject* owner_) {
   Q_ASSERT(owner_);
-  if(!owner_) {
-    return;
-  }
-  if(!m_items.contains(owner_)) {
+  if(!owner_ || !m_items.contains(owner_)) {
     return;
   }
   setDone(m_items[owner_]);
@@ -130,11 +132,9 @@ void ProgressManager::setDone(ProgressItem* item_) {
 }
 
 void ProgressManager::slotItemDone(ProgressItem* item_) {
-// cancel ends up removing it from the map, so make a copy
-  ProgressMap map = m_items;
-  for(ProgressMap::Iterator it = map.begin(); it != map.end(); ++it) {
-    if(static_cast<ProgressItem*>(it.value()) == item_) {
-      m_items.remove(it.key());
+  for(ProgressMap::Iterator it = m_items.begin(); it != m_items.end(); ++it) {
+    if(it.value() == item_) {
+      m_items.erase(it);
       break;
     }
   }
@@ -145,6 +145,7 @@ void ProgressManager::slotItemDone(ProgressItem* item_) {
 ProgressItem& ProgressManager::newProgressItemImpl(QObject* owner_,
                                                    const QString& label_,
                                                    bool canCancel_) {
+  Q_ASSERT(owner_);
 //  myDebug() << owner_->className() << ":" << label_;
   if(m_items.contains(owner_)) {
     return *m_items[owner_];
@@ -153,13 +154,15 @@ ProgressItem& ProgressManager::newProgressItemImpl(QObject* owner_,
   ProgressItem* item = new ProgressItem(label_, canCancel_);
   m_items.insert(owner_, item);
 
-  connect(item, SIGNAL(signalTotalSteps(ProgressItem*)), SLOT(slotUpdateTotalProgress()));
-  connect(item, SIGNAL(signalProgress(ProgressItem*)),   SLOT(slotUpdateTotalProgress()));
-  connect(item, SIGNAL(signalDone(ProgressItem*)),       SLOT(slotUpdateTotalProgress()));
-  connect(item, SIGNAL(signalDone(ProgressItem*)),       SLOT(slotItemDone(ProgressItem*)));
+  connect(item, &Tellico::ProgressItem::signalTotalSteps,
+          this, &Tellico::ProgressManager::slotUpdateTotalProgress);
+  connect(item, &Tellico::ProgressItem::signalProgress,
+          this, &Tellico::ProgressManager::slotUpdateTotalProgress);
+  connect(item, &Tellico::ProgressItem::signalDone,
+          this, &Tellico::ProgressManager::slotUpdateTotalProgress);
+  connect(item, &Tellico::ProgressItem::signalDone,
+          this, &Tellico::ProgressManager::slotItemDone);
 
-//  connect(item, SIGNAL(signalProgress(ProgressItem*)), SIGNAL(signalItemProgress(ProgressItem*)));
-//  emit signalItemAdded(item);
   return *item;
 }
 
@@ -183,9 +186,7 @@ void ProgressManager::slotUpdateTotalProgress() {
 }
 
 void ProgressManager::slotCancelAll() {
-// cancel ends up removing it from the map, so make a copy
-  ProgressMap map = m_items;
-  for(ProgressMap::ConstIterator it = map.constBegin(), end = map.constEnd(); it != end; ++it) {
+  for(ProgressMap::Iterator it = m_items.begin(), end = m_items.end(); it != end; ++it) {
     if(it.value()) {
       it.value()->cancel();
       setDone(it.value());
@@ -201,4 +202,3 @@ bool ProgressManager::anyCanBeCancelled() const {
   }
   return false;
 }
-

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2018 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,6 +22,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h> // for TELLICO_VERSION
+
 #include "musicbrainzfetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
@@ -31,6 +33,7 @@
 #include "../collection.h"
 #include "../entry.h"
 #include "../utils/datafileregistry.h"
+#include "../utils/xmlhandler.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -46,24 +49,25 @@
 #include <QDomDocument>
 #include <QTextCodec>
 #include <QUrlQuery>
+#include <QThread>
 
 namespace {
   static const int MUSICBRAINZ_MAX_RETURNS_TOTAL = 10;
-  static const char* MUSICBRAINZ_API_URL = "http://musicbrainz.org/ws/1/";
+  static const char* MUSICBRAINZ_API_URL = "https://musicbrainz.org/ws/2/";
 }
 
 using namespace Tellico;
 using Tellico::Fetch::MusicBrainzFetcher;
 
 MusicBrainzFetcher::MusicBrainzFetcher(QObject* parent_)
-    : Fetcher(parent_), m_xsltHandler(0),
+    : Fetcher(parent_), m_xsltHandler(nullptr),
       m_limit(MUSICBRAINZ_MAX_RETURNS_TOTAL), m_total(-1), m_offset(0),
-      m_job(0), m_started(false) {
+      m_job(nullptr), m_started(false) {
 }
 
 MusicBrainzFetcher::~MusicBrainzFetcher() {
   delete m_xsltHandler;
-  m_xsltHandler = 0;
+  m_xsltHandler = nullptr;
 }
 
 QString MusicBrainzFetcher::source() const {
@@ -91,34 +95,27 @@ void MusicBrainzFetcher::continueSearch() {
 
 void MusicBrainzFetcher::doSearch() {
   QUrl u(QString::fromLatin1(MUSICBRAINZ_API_URL));
-  QUrlQuery q;
-  q.addQueryItem(QLatin1String("type"), QLatin1String("xml"));
-  q.addQueryItem(QLatin1String("limit"), QString::number(m_limit));
-  q.addQueryItem(QLatin1String("offset"), QString::number(m_offset));
+  // all searches are for musical releases since Tellico only tracks albums
+  u.setPath(u.path() + QLatin1String("release"));
 
-  QString queryPath;
+  QString queryString;
   switch(request().key) {
     case Title:
-      queryPath = QLatin1String("/release/");
-      q.addQueryItem(QLatin1String("title"), request().value);
+      queryString = QStringLiteral("release:\"%1\"").arg(request().value);
       break;
 
     case Person:
-      queryPath = QLatin1String("/release/");
-      q.addQueryItem(QLatin1String("artist"), request().value);
+      queryString = QStringLiteral("artist:\"%1\"").arg(request().value);
       break;
 
     case Keyword:
-      queryPath = QLatin1String("/release/");
-      q.addQueryItem(QLatin1String("query"), QLatin1String("artist:\"") + request().value + QLatin1String("\" OR ") +
-                                             QLatin1String("release:\"") + request().value + QLatin1String("\" OR ")  +
-                                             QLatin1String("track:\"") + request().value + QLatin1String("\" OR ") +
-                                             QLatin1String("label:\"") + request().value + QLatin1String("\""));
+      queryString = QLatin1String("artist:\"") + request().value + QLatin1String("\" OR ") +
+                    QLatin1String("release:\"") + request().value + QLatin1String("\" OR ")  +
+                    QLatin1String("label:\"") + request().value + QLatin1String("\"");
       break;
 
     case Raw:
-      queryPath = QLatin1String("/release/");
-      q.addQueryItem(QLatin1String("query"), request().value);
+      queryString = request().value;
       break;
 
     default:
@@ -126,12 +123,19 @@ void MusicBrainzFetcher::doSearch() {
       stop();
       return;
   }
+  QUrlQuery q;
+  q.addQueryItem(QStringLiteral("query"), queryString);
+  q.addQueryItem(QStringLiteral("limit"), QString::number(m_limit));
+  q.addQueryItem(QStringLiteral("offset"), QString::number(m_offset));
+  q.addQueryItem(QStringLiteral("fmt"), QStringLiteral("xml"));
   u.setQuery(q);
-  u = u.adjusted(QUrl::StripTrailingSlash);
-  u.setPath(u.path() + queryPath);
 //  myDebug() << "url: " << u.url();
 
+  m_requestTimer.start();
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  // see https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
+  m_job->addMetaData(QStringLiteral("UserAgent"), QStringLiteral("Tellico/%1 ( http://tellico-project.org )")
+                                                                .arg(QLatin1String(TELLICO_VERSION)));
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)),
           SLOT(slotComplete(KJob*)));
@@ -143,7 +147,7 @@ void MusicBrainzFetcher::stop() {
   }
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
   m_started = false;
   emit signalDone(this);
@@ -151,7 +155,7 @@ void MusicBrainzFetcher::stop() {
 
 void MusicBrainzFetcher::slotComplete(KJob* ) {
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -164,7 +168,7 @@ void MusicBrainzFetcher::slotComplete(KJob* ) {
   }
   // see bug 319662. If fetcher is cancelled, job is killed
   // if the pointer is retained, it gets double-deleted
-  m_job = 0;
+  m_job = nullptr;
 
 #if 0
   myWarning() << "Remove debug from musicbrainzfetcher.cpp";
@@ -180,15 +184,15 @@ void MusicBrainzFetcher::slotComplete(KJob* ) {
   if(m_total == -1) {
     QDomDocument dom;
     if(!dom.setContent(data, false)) {
-      myWarning() << "server did not return valid XML.";
+      myWarning() << "server did not return valid XML:" << data;
       stop();
       return;
     }
-    // total is /resp/fetchresults/@numResults
-    QDomNode n = dom.documentElement().namedItem(QLatin1String("release-list"));
+    // total is /metadata/release-list/@count
+    QDomNode n = dom.documentElement().namedItem(QStringLiteral("release-list"));
     QDomElement e = n.toElement();
     if(!e.isNull()) {
-      m_total = e.attribute(QLatin1String("count")).toInt();
+      m_total = e.attribute(QStringLiteral("count")).toInt();
 //      myDebug() << "total = " << m_total;
     }
   }
@@ -243,7 +247,7 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
     return Data::EntryPtr();
   }
 
-  QString mbid = entry->field(QLatin1String("mbid"));
+  QString mbid = entry->field(QStringLiteral("mbid"));
   if(mbid.isEmpty()) {
     return entry;
   }
@@ -251,13 +255,25 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
   QUrl u(QString::fromLatin1(MUSICBRAINZ_API_URL));
   u.setPath(u.path() + QLatin1String("release/") + mbid);
   QUrlQuery q;
-  q.addQueryItem(QLatin1String("type"), QLatin1String("xml"));
-  q.addQueryItem(QLatin1String("inc"), QLatin1String("artist tracks release-events release-groups labels tags url-rels"));
+  q.addQueryItem(QStringLiteral("fmt"), QStringLiteral("xml"));
+  q.addQueryItem(QStringLiteral("inc"), QStringLiteral("artists+recordings+release-groups+labels+url-rels"));
   u.setQuery(q);
 //  myDebug() << u;
 
-  // quiet
-  QString output = FileHandler::readXMLFile(u, true);
+  // limit to one request per second
+  while(m_requestTimer.elapsed() < 1000) {
+    QThread::msleep(300);
+  }
+  m_requestTimer.start();
+
+  KIO::StoredTransferJob* dataJob = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  dataJob->addMetaData(QStringLiteral("UserAgent"), QStringLiteral("Tellico/%1 ( http://tellico-project.org )")
+                                                                .arg(QLatin1String(TELLICO_VERSION)));
+  if(!dataJob->exec()) {
+    myDebug() << "Failed to load" << u;
+    return entry;
+  }
+  const QString output = XMLHandler::readXMLData(dataJob->data());
 #if 0
   myWarning() << "Remove output debug from musicbrainzfetcher.cpp";
   QFile f(QLatin1String("/tmp/test2.xml"));
@@ -284,7 +300,7 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
   }
 
   // don't want to include id
-  coll->removeField(QLatin1String("mbid"));
+  coll->removeField(QStringLiteral("mbid"));
 
   entry = coll->entries().front();
   m_entries.insert(uid_, entry); // replaces old value
@@ -292,7 +308,7 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
 }
 
 void MusicBrainzFetcher::initXSLTHandler() {
-  QString xsltfile = DataFileRegistry::self()->locate(QLatin1String("musicbrainz2tellico.xsl"));
+  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("musicbrainz2tellico.xsl"));
   if(xsltfile.isEmpty()) {
     myWarning() << "can not locate musicbrainz2tellico.xsl.";
     return;
@@ -305,22 +321,20 @@ void MusicBrainzFetcher::initXSLTHandler() {
   if(!m_xsltHandler->isValid()) {
     myWarning() << "error in musicbrainz2tellico.xsl.";
     delete m_xsltHandler;
-    m_xsltHandler = 0;
+    m_xsltHandler = nullptr;
     return;
   }
 }
 
 Tellico::Fetch::FetchRequest MusicBrainzFetcher::updateRequest(Data::EntryPtr entry_) {
-//  myDebug();
-
-  const QString title = entry_->field(QLatin1String("title"));
-  const QString artist = entry_->field(QLatin1String("artist"));
+  const QString title = entry_->field(QStringLiteral("title"));
+  const QString artist = entry_->field(QStringLiteral("artist"));
   if(artist.isEmpty() && !title.isEmpty()) {
     return FetchRequest(Title, title);
   } else if(title.isEmpty() && !artist.isEmpty()) {
     return FetchRequest(Person, artist);
   } else if(!title.isEmpty() && !artist.isEmpty()) {
-    return FetchRequest(Raw, QLatin1String("release:") + title + QLatin1String(" AND artist:") + artist);
+    return FetchRequest(Raw, QStringLiteral("release:\"%1\" AND artist:\"%2\"").arg(title, artist));
   }
   return FetchRequest();
 }
@@ -330,11 +344,11 @@ Tellico::Fetch::ConfigWidget* MusicBrainzFetcher::configWidget(QWidget* parent_)
 }
 
 QString MusicBrainzFetcher::defaultName() {
-  return QLatin1String("MusicBrainz"); // no translation
+  return QStringLiteral("MusicBrainz"); // no translation
 }
 
 QString MusicBrainzFetcher::defaultIcon() {
-  return favIcon("http://www.musicbrainz.org");
+  return favIcon("https://musicbrainz.org");
 }
 
 MusicBrainzFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const MusicBrainzFetcher*)

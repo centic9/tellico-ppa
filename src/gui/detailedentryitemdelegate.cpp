@@ -24,17 +24,20 @@
 
 #include "detailedentryitemdelegate.h"
 #include "../models/models.h"
+#include "../tellico_debug.h"
 
 using namespace Tellico;
 using Tellico::DetailedEntryItemDelegate;
 
+DetailedEntryItemDelegate::DetailedEntryItemDelegate(QObject* parent_) : QStyledItemDelegate(parent_) {
+}
+
 void DetailedEntryItemDelegate::initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) const {
   QStyledItemDelegate::initStyleOption(option, index);
 
-  QStyleOptionViewItemV4* opt = ::qstyleoption_cast<QStyleOptionViewItemV4*>(option);
   const int state = index.data(SaveStateRole).toInt();
-  if(state == NewState || state == ModifiedState) {
-    opt->font.setBold(true);
-    opt->font.setItalic(true);
+  if(option && (state == NewState || state == ModifiedState)) {
+    option->font.setBold(true);
+    option->font.setItalic(true);
   }
 }

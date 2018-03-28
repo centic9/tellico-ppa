@@ -94,12 +94,15 @@ EntryEditDialog::EntryEditDialog(QWidget* parent_)
   connect(m_newButton, SIGNAL(clicked()), SLOT(slotHandleNew()));
 }
 
+EntryEditDialog::~EntryEditDialog() {
+}
+
 void EntryEditDialog::reject() {
   slotClose();
 }
 
 void EntryEditDialog::slotHelp() {
-  KHelpClient::invokeHelp(QLatin1String("entry-editor"));
+  KHelpClient::invokeHelp(QStringLiteral("entry-editor"));
 }
 
 void EntryEditDialog::slotClose() {
@@ -122,7 +125,7 @@ void EntryEditDialog::slotReset() {
   slotSetModified(false);
   m_saveButton->setEnabled(false);
   m_saveButton->setText(i18n("Sa&ve Entry"));
-  m_currColl = 0;
+  m_currColl = nullptr;
   m_currEntries.clear();
 
   while(m_tabs->count() > 0) {
@@ -138,7 +141,7 @@ void EntryEditDialog::resetLayout(Tellico::Data::CollPtr coll_) {
     return;
   }
 
-  m_newButton->setIcon(QIcon::fromTheme(Kernel::self()->collectionTypeName()));
+  m_newButton->setIcon(QIcon(QLatin1String(":/icons/") + Kernel::self()->collectionTypeName()));
 
   setUpdatesEnabled(false);
   if(m_tabs->count() > 0) {
@@ -289,7 +292,9 @@ void EntryEditDialog::slotHandleNew() {
   m_tabs->setFocusToFirstChild();
   clear();
   m_isWorking = true; // clear() will get called again
-  Controller::self()->slotClearSelection();
+  if(!signalsBlocked()) {
+    Controller::self()->slotClearSelection();
+  }
   m_isWorking = false;
 
   Data::EntryPtr entry(new Data::Entry(m_currColl));
@@ -317,7 +322,7 @@ void EntryEditDialog::slotHandleSave() {
       names += entry->title();
     }
     QString str(i18n("Do you really want to modify these entries?"));
-    QString dontAsk = QLatin1String("SaveMultipleBooks"); // don't change 'books', invisible anyway
+    QString dontAsk = QStringLiteral("SaveMultipleBooks"); // don't change 'books', invisible anyway
     int ret = KMessageBox::questionYesNoList(this, str, names, i18n("Modify Multiple Entries"),
                                              KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAsk);
     if(ret != KMessageBox::Yes) {
@@ -348,7 +353,7 @@ void EntryEditDialog::slotHandleSave() {
         }
         entry->setField(field, temp);
         if(temp.isEmpty()) {
-          const QString prop = field->property(QLatin1String("required")).toLower();
+          const QString prop = field->property(QStringLiteral("required")).toLower();
           if(prop == QLatin1String("1") || prop == QLatin1String("true")) {
             fieldsRequiringValues.append(field);
           }
@@ -364,7 +369,7 @@ void EntryEditDialog::slotHandleSave() {
     foreach(Data::FieldPtr it, fieldsRequiringValues) {
       titles << it->title();
     }
-    QString dontAsk = QLatin1String("SaveWithoutRequired");
+    QString dontAsk = QStringLiteral("SaveWithoutRequired");
     int ret = KMessageBox::questionYesNoList(this, str, titles, i18n("Modify Entries"),
                                              KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAsk);
     if(ret != KMessageBox::Yes) {
@@ -750,7 +755,7 @@ void EntryEditDialog::showEvent(QShowEvent* event_) {
 /*
   I attempted to read and restore window size here, but it didn't work (July 2016)
   I discovered that I had to put it in a timer. Somewhere, the resize event or something
-  was overriding any size changes I did here. Calling this->resize() would work but 
+  was overriding any size changes I did here. Calling this->resize() would work but
   windowHandle()->resize() would not (as KWindowConfig::restoreWindowSize uses)
 */
   QTimer::singleShot(0, this, SLOT(slotUpdateSize()));

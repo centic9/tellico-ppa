@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2018-03-19 05:50+0100\n"
+"POT-Creation-Date: 2018-09-02 06:38+0200\n"
 "PO-Revision-Date: 2018-03-01 00:57+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -675,10 +675,10 @@ msgstr "Un campo con un valor derivado debe tener una plantilla de valor."
 #: src/fetch/filmasterfetcher.cpp:234 src/fetch/googlebookfetcher.cpp:252
 #: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:236
 #: src/fetch/igdbfetcher.cpp:241 src/fetch/imdbfetcher.cpp:705
-#: src/fetch/imdbfetcher.cpp:1107 src/fetch/kinopoiskfetcher.cpp:209
+#: src/fetch/imdbfetcher.cpp:1145 src/fetch/kinopoiskfetcher.cpp:209
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/omdbfetcher.cpp:230 src/fetch/omdbfetcher.cpp:236
-#: src/fetch/omdbfetcher.cpp:339 src/fetch/openlibraryfetcher.cpp:249
+#: src/fetch/omdbfetcher.cpp:340 src/fetch/openlibraryfetcher.cpp:249
 #: src/fetch/themoviedbfetcher.cpp:263 src/fetch/themoviedbfetcher.cpp:268
 #: src/fetch/themoviedbfetcher.cpp:273 src/field.cpp:36 src/field.cpp:77
 #: src/field.cpp:296 src/translators/gcstarimporter.cpp:89
@@ -903,7 +903,7 @@ msgstr "Desconocido"
 #: src/collections/gamecollection.cpp:32 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:500 src/field.cpp:289 src/field.cpp:302 src/field.cpp:307
+#: src/document.cpp:501 src/field.cpp:289 src/field.cpp:302 src/field.cpp:307
 #, kde-format
 msgid "Personal"
 msgstr "Personal"
@@ -1016,7 +1016,7 @@ msgstr "Precio de compra"
 #: src/collections/comicbookcollection.cpp:150
 #: src/collections/gamecollection.cpp:123
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:498
+#: src/collections/videocollection.cpp:211 src/document.cpp:499
 #, kde-format
 msgid "Loaned"
 msgstr "Prestado"
@@ -1669,7 +1669,7 @@ msgstr "Año de emisión"
 
 #: src/collections/stampcollection.cpp:76
 #: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:398
-#: src/fetch/imdbfetcher.cpp:1225
+#: src/fetch/imdbfetcher.cpp:1263
 #, kde-format
 msgid "Color"
 msgstr "Color"
@@ -2741,68 +2741,68 @@ msgstr "Seleccione la plantilla a borrar:"
 msgid "Ready."
 msgstr "Listo."
 
-#: src/controller.cpp:332
+#: src/controller.cpp:331
 #, kde-format
 msgid "Do you really want to delete this entry?"
 msgstr "¿Realmente desea borrar esta entrada?"
 
-#: src/controller.cpp:334
+#: src/controller.cpp:333
 #, kde-format
 msgid "Delete Entry"
 msgstr "Borrar la entrada"
 
-#: src/controller.cpp:346
+#: src/controller.cpp:345
 #, kde-format
 msgid "Do you really want to delete these entries?"
 msgstr "¿Realmente desea borrar estas entradas?"
 
-#: src/controller.cpp:350
+#: src/controller.cpp:349
 #, kde-format
 msgid "Delete Multiple Entries"
 msgstr "Borrar varias entradas"
 
-#: src/controller.cpp:539 src/mainwindow.cpp:528
+#: src/controller.cpp:538 src/mainwindow.cpp:528
 #, kde-format
 msgid "&Edit Entry..."
 msgstr "&Editar Entrada..."
 
-#: src/controller.cpp:540 src/mainwindow.cpp:535
+#: src/controller.cpp:539 src/mainwindow.cpp:535
 #, kde-format
 msgid "D&uplicate Entry"
 msgstr "D&uplicar Entrada"
 
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/controller.cpp:541 src/mainwindow.cpp:620 src/tellicoui.rc:82
+#: src/controller.cpp:540 src/mainwindow.cpp:620 src/tellicoui.rc:82
 #, kde-format
 msgid "&Update Entry"
 msgstr "Act&ualizar Entrada"
 
-#: src/controller.cpp:542 src/mainwindow.cpp:542
+#: src/controller.cpp:541 src/mainwindow.cpp:542
 #, kde-format
 msgid "&Delete Entry"
 msgstr "&Borrar Entrada"
 
-#: src/controller.cpp:545
+#: src/controller.cpp:544
 #, kde-format
 msgid "&Edit Entries..."
 msgstr "&Editar Entradas..."
 
-#: src/controller.cpp:546
+#: src/controller.cpp:545
 #, kde-format
 msgid "D&uplicate Entries"
 msgstr "D&uplicar Entradas"
 
-#: src/controller.cpp:547
+#: src/controller.cpp:546
 #, kde-format
 msgid "&Update Entries"
 msgstr "Act&ualizar Entradas"
 
-#: src/controller.cpp:548
+#: src/controller.cpp:547
 #, kde-format
 msgid "&Delete Entries"
 msgstr "Borrar Entra&das"
 
-#: src/controller.cpp:605
+#: src/controller.cpp:604
 #, kde-format
 msgid ""
 "The following items are already loaned, but Tellico does not currently "
@@ -2910,7 +2910,7 @@ msgstr "Ocultar todas las columnas"
 msgid "Resize to Content"
 msgstr "Ajustar el tamaño al contenido"
 
-#: src/document.cpp:205 src/mainwindow.cpp:1230
+#: src/document.cpp:206 src/mainwindow.cpp:1230
 #, kde-format
 msgid "Saving file..."
 msgstr "Guardando el archivo..."
@@ -3137,7 +3137,7 @@ msgstr "Codificar el archivo exportado usando codificación local."
 #: src/fetch/allocinefetcher.cpp:238 src/fetch/amazonfetcher.cpp:760
 #: src/fetch/discogsfetcher.cpp:192 src/fetch/filmasterfetcher.cpp:142
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/igdbfetcher.cpp:180
-#: src/fetch/isbndbfetcher.cpp:232 src/fetch/kinofetcher.cpp:328
+#: src/fetch/isbndbfetcher.cpp:232 src/fetch/kinofetcher.cpp:329
 #: src/fetch/kinopoiskfetcher.cpp:383 src/fetch/moviemeterfetcher.cpp:162
 #: src/fetch/omdbfetcher.cpp:177 src/fetch/themoviedbfetcher.cpp:210
 #: src/fetch/vndbfetcher.cpp:156
@@ -3155,11 +3155,10 @@ msgstr "Enlace a AlloCine"
 #: src/fetch/doubanfetcher.cpp:315 src/fetch/doubanfetcher.cpp:334
 #: src/fetch/doubanfetcher.cpp:353 src/fetch/doubanfetcher.cpp:508
 #: src/fetch/dvdfrfetcher.cpp:169 src/fetch/imdbfetcher.cpp:743
-#: src/fetch/imdbfetcher.cpp:1397 src/fetch/kinofetcher.cpp:360
-#: src/fetch/kinopoiskfetcher.cpp:235 src/fetch/kinopoiskfetcher.cpp:413
-#: src/fetch/omdbfetcher.cpp:245 src/fetch/themoviedbfetcher.cpp:282
-#: src/fetch/themoviedbfetcher.cpp:447 src/fetch/vndbfetcher.cpp:244
-#: src/fetch/vndbfetcher.cpp:332
+#: src/fetch/imdbfetcher.cpp:1435 src/fetch/kinopoiskfetcher.cpp:235
+#: src/fetch/kinopoiskfetcher.cpp:413 src/fetch/omdbfetcher.cpp:245
+#: src/fetch/themoviedbfetcher.cpp:282 src/fetch/themoviedbfetcher.cpp:447
+#: src/fetch/vndbfetcher.cpp:244 src/fetch/vndbfetcher.cpp:332
 #, kde-format
 msgid "Original Title"
 msgstr "Título original"
@@ -3182,12 +3181,12 @@ msgstr "Título original"
 #. m_langCombo->setWhatsThis(w);
 #. label->setBuddy(m_langCombo);
 #.
-#: src/fetch/allocinefetcher.cpp:424 src/fetch/imdbfetcher.cpp:1433
+#: src/fetch/allocinefetcher.cpp:424 src/fetch/imdbfetcher.cpp:1471
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "Reparto &máximo: "
 
-#: src/fetch/allocinefetcher.cpp:432 src/fetch/imdbfetcher.cpp:1441
+#: src/fetch/allocinefetcher.cpp:432 src/fetch/imdbfetcher.cpp:1479
 #, kde-format
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
@@ -3283,7 +3282,7 @@ msgstr "Servicios Web de Amazon.com"
 #: src/fetch/crossreffetcher.cpp:313 src/fetch/discogsfetcher.cpp:426
 #: src/fetch/giantbombfetcher.cpp:214 src/fetch/googlebookfetcher.cpp:378
 #: src/fetch/igdbfetcher.cpp:580 src/fetch/isbndbfetcher.cpp:338
-#: src/fetch/omdbfetcher.cpp:374 src/fetch/themoviedbfetcher.cpp:459
+#: src/fetch/omdbfetcher.cpp:375 src/fetch/themoviedbfetcher.cpp:459
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -3297,7 +3296,7 @@ msgstr ""
 #: src/fetch/amazonfetcher.cpp:934 src/fetch/bibliosharefetcher.cpp:179
 #: src/fetch/giantbombfetcher.cpp:227 src/fetch/googlebookfetcher.cpp:391
 #: src/fetch/igdbfetcher.cpp:593 src/fetch/isbndbfetcher.cpp:351
-#: src/fetch/omdbfetcher.cpp:387 src/fetch/themoviedbfetcher.cpp:472
+#: src/fetch/omdbfetcher.cpp:388 src/fetch/themoviedbfetcher.cpp:472
 #, kde-format
 msgid "Access key: "
 msgstr "Clave de acceso:"
@@ -3391,7 +3390,7 @@ msgstr "Imagen grande"
 msgid "No Image"
 msgstr "Sin imagen"
 
-#: src/fetch/amazonfetcher.cpp:984 src/fetch/imdbfetcher.cpp:1450
+#: src/fetch/amazonfetcher.cpp:984 src/fetch/imdbfetcher.cpp:1488
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3417,34 +3416,29 @@ msgstr ""
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
 #: src/fetch/dvdfrfetcher.cpp:171 src/fetch/imdbfetcher.cpp:797
-#: src/fetch/imdbfetcher.cpp:1395 src/fetch/kinofetcher.cpp:361
-#: src/fetch/moviemeterfetcher.cpp:225 src/fetch/moviemeterfetcher.cpp:294
-#: src/fetch/omdbfetcher.cpp:240 src/fetch/themoviedbfetcher.cpp:277
-#: src/fetch/themoviedbfetcher.cpp:446
+#: src/fetch/imdbfetcher.cpp:1433 src/fetch/moviemeterfetcher.cpp:225
+#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:240
+#: src/fetch/themoviedbfetcher.cpp:277 src/fetch/themoviedbfetcher.cpp:446
 #, kde-format
 msgid "Alternative Titles"
 msgstr "Títulos alternativos"
 
 #: src/fetch/animenfofetcher.cpp:299 src/fetch/animenfofetcher.cpp:493
-#: src/fetch/kinofetcher.cpp:358
 #, kde-format
 msgid "Distributor"
 msgstr "Distribuidor"
 
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
-#: src/fetch/kinofetcher.cpp:359
 #, kde-format
 msgid "Episodes"
 msgstr "Episodios"
 
 #: src/fetch/animenfofetcher.cpp:309 src/fetch/animenfofetcher.cpp:498
-#: src/fetch/kinofetcher.cpp:363
 #, kde-format
 msgid "AnimeNfo Link"
 msgstr "Enlace a AnimeNfo"
 
 #: src/fetch/animenfofetcher.cpp:313 src/fetch/animenfofetcher.cpp:497
-#: src/fetch/kinofetcher.cpp:362
 #, kde-format
 msgid "AnimeNfo Rating"
 msgstr "Valoración de AnimeNfo"
@@ -3456,7 +3450,7 @@ msgstr "Valoración de AnimeNfo"
 #: src/fetch/dvdfrfetcher.cpp:178 src/fetch/entrezfetcher.cpp:479
 #: src/fetch/filmasterfetcher.cpp:317 src/fetch/googlescholarfetcher.cpp:280
 #: src/fetch/hathitrustfetcher.cpp:313 src/fetch/ibsfetcher.cpp:360
-#: src/fetch/kinofetcher.cpp:370 src/fetch/kinopoiskfetcher.cpp:421
+#: src/fetch/kinofetcher.cpp:367 src/fetch/kinopoiskfetcher.cpp:421
 #: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
 #: src/fetch/musicbrainzfetcher.cpp:357 src/fetch/openlibraryfetcher.cpp:397
 #: src/fetch/springerfetcher.cpp:183 src/fetch/thegamesdbfetcher.cpp:166
@@ -3803,7 +3797,7 @@ msgstr "Enlace a IGDB"
 msgid "Internet Game Database (IGDB.com)"
 msgstr "Base de datos de juegos de Internet (IGDB.com)"
 
-#: src/fetch/imdbfetcher.cpp:90 src/fetch/imdbfetcher.cpp:1383
+#: src/fetch/imdbfetcher.cpp:90 src/fetch/imdbfetcher.cpp:1421
 #, kde-format
 msgid "Internet Movie Database"
 msgstr "Base de datos de películas de Internet"
@@ -3833,26 +3827,26 @@ msgstr "Base de datos de películas de Internet (italiano)"
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Base de datos de películas de Internet (portugués)"
 
-#: src/fetch/imdbfetcher.cpp:704 src/fetch/imdbfetcher.cpp:1393
-#: src/fetch/omdbfetcher.cpp:235 src/fetch/omdbfetcher.cpp:338
-#: src/fetch/omdbfetcher.cpp:363 src/fetch/themoviedbfetcher.cpp:272
+#: src/fetch/imdbfetcher.cpp:704 src/fetch/imdbfetcher.cpp:1431
+#: src/fetch/omdbfetcher.cpp:235 src/fetch/omdbfetcher.cpp:339
+#: src/fetch/omdbfetcher.cpp:364 src/fetch/themoviedbfetcher.cpp:272
 #: src/fetch/themoviedbfetcher.cpp:445
 #, kde-format
 msgid "IMDb Link"
 msgstr "Enlace a IMDb"
 
-#: src/fetch/imdbfetcher.cpp:1106 src/fetch/imdbfetcher.cpp:1394
+#: src/fetch/imdbfetcher.cpp:1144 src/fetch/imdbfetcher.cpp:1432
 #, kde-format
 msgid "IMDb Rating"
 msgstr "Valoración en IMDb"
 
-#: src/fetch/imdbfetcher.cpp:1257 src/fetch/imdbfetcher.cpp:1354
-#: src/fetch/imdbfetcher.cpp:1396
+#: src/fetch/imdbfetcher.cpp:1295 src/fetch/imdbfetcher.cpp:1392
+#: src/fetch/imdbfetcher.cpp:1434
 #, kde-format
 msgid "Certifications"
 msgstr "Certificaciones"
 
-#: src/fetch/imdbfetcher.cpp:1446
+#: src/fetch/imdbfetcher.cpp:1484
 #, kde-format
 msgid "Download cover &image"
 msgstr "Descargar &imagen de la carátula"
@@ -6973,7 +6967,7 @@ msgstr "Esta plantilla está pensada solo para colecciones de música."
 msgid "Total:"
 msgstr "Total:"
 
-#: xslt/entry-templates/Video.xsl:193 xslt/report-templates/Tri-Column.xsl:122
+#: xslt/entry-templates/Video.xsl:199 xslt/report-templates/Tri-Column.xsl:122
 #, kde-format
 msgid "This template is meant for video collections only."
 msgstr "Esta plantilla está pensada solo para colecciones de vídeos."

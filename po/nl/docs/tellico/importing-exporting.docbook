@@ -78,13 +78,13 @@
 >Meerdere items kunnen in een keer worden toegevoegd door de standaard &kde;-methode voor meervoudige selectie te gebruiken, wat gewoonlijk het ingedrukt houden van de toets &Shift; or &Ctrl; inhoudt bij het klikken op een item. </para>
 
 <para
->To facilitate the use of barcode scanners, searches can include multiple ISBN/UPC values. Selecting the <guilabel
->Multiple ISBN/UPC search</guilabel
-> check box will disable the search box and enable the <guibutton
->Edit ISBN/UPC values...</guibutton
-> button, which will open a multi-line text entry box. Each ISBN should be entered on a line by itself. After closing the box, each ISBN will be validated for correct formatting. The ISBN validation is able to convert 13-digit EAN values, as well as full <acronym
+>Om het gebruik van barcodescanners te faciliteren kunnen zoekopdrachten meerdere ISBN/UPC waarden bevatten. Selecteren van het keuzevak <guilabel
+>Meerdere ISBN/UPC zoekopdrachten</guilabel
+> zal het zoekvak uitschakelen en de knop <guibutton
+>ISBN/UPC waarden bewerken...</guibutton
+> inschakelen, die een tekstinvoervak opent met meerdere regels. Elke ISBN moet ingevoerd worden op een eigen regel. Na sluiten van het vak, zal elke ISBN gevalideerd worden voor de juiste formattering. De ISBN-validatie is in staat om 13-cijferige EAN-waarden te converteren, evenals volledige <acronym
 >UPC</acronym
-> codes, to the proper formatting. The ISBN list may also be read from a text file. </para>
+>-codes, naar de juiste formattering. De ISBN-lijst kan ook gelezen worden uit een tekstbestand. </para>
 
 </sect1>
 
@@ -93,15 +93,15 @@
 >Gegevens importeren</title>
 
 <para
->&appname; offers three different actions when importing data. <guilabel
->Replace current collection</guilabel
-> will close the current collection, and create a new one with the data from the imported file. <guilabel
->Append to current collection</guilabel
-> tells &appname; to add all the entries in the imported collection to the current one, and to add any fields which don't currently exist. The <guilabel
->Merge collection</guilabel
-> action is the same as appending, except that each imported entry is compared to the current ones, and any identical entries are skipped. Future plans include an improved heuristic for identifying matching entries, but currently, except for music collections, they must be identical for every field. Music collections compare the artist and album only, and the tracks are merged for matching entries. The <link linkend="importing-audio-files"
->audio file importer</link
-> is able to correctly build track lists by merging entries. </para>
+>&appname; biedt drie verschillende acties bij importeren van gegevens. <guilabel
+>Huidige verzameling vervangen</guilabel
+> zal de huidige verzameling sluiten en een nieuwe aanmaken met de gegevens uit het geïmporteerde bestand. <guilabel
+>In huidige verzameling achtervoegen</guilabel
+> vertelt &appname; om alle items in de geïmporteerde verzameling toe te voegen aan de huidige en om elke veld dat nu nog niet bestaat toe te voegen. De actie <guilabel
+>Verzameling samenvoegen</guilabel
+> is hetzelfde als achtervoegen, behalve dat elk geïmporteerd item vergeleken wordt met de huidigen en alle identieke items worden overgeslagen. Toekomstige plannen omvatten een verbeterde heuristiek voor identificeren van overeenkomende items, maar nu, behalve voor muziekverzamelingen, moeten ze identiek zijn voor elk veld. Muziekverzamelingen vergelijken alleen de artiest en het album en de tracks worden samengevoegd voor overeenkomende items. De <link linkend="importing-audio-files"
+>importprogramma voor geluidsbestanden</link
+> is in staat om op de juiste manier tracklijsten te bouwen door items samen te voegen. </para>
 
 <sect2 id="importing-tellico">
 <title
@@ -134,16 +134,16 @@
 </screenshot>
 
 <para
->First, select the type of collection that you are importing. If you are appending or merging to your open collection, the type is limited to your current collection type. If the first line of the CSV file contains the field titles, click the check box and the importer will automatically compare the titles against the fields in the current collection. If a field title matches, the header for that column changes to show that the column has been assigned to that field. If the file uses a delimiter other than a comma, be sure to change that option accordingly. </para>
+>Selecteer eerst het type verzameling dat u wilt importeren. Als u aan het achter- of samenvoegen bent in uw open verzameling, is het type beperkt tot uw huidige type verzameling. Als de eerst regel van het CSV-bestand de veldtitels bevat, klik dan op het keuzevakje en het importprogramma zal automatisch de titels vergelijken tegen de velden in de huidige verzameling. Als een veldtitel overeenkomt, zal de kop voor die kolom wijzigen om te tonen dat de kolom is toegekend aan dat veld. Als het bestand een scheidingsteken gebruikt anders dan een komma, ga dan na dat die optie overeenkomstig wordt gewijzigd. </para>
 
 <para
->In order for &appname; to properly import the file, it must know which field corresponds to each column. <emphasis
->If the column only has a number in the header, the data in that column will not be imported.</emphasis
-> You should assign fields to each column by selecting a column, either by clicking in it or changing the column number itself, then selecting the field to assign from the drop down box and clicking the <guibutton
->Assign Field</guibutton
-> button. If you need to add a new field to the collection, the last item in the drop down box opens the <link linkend="fields-dialog"
+>Om voor &appname; het bestand op de juiste manier te importeren, moet het weten welkh veld overeenkomt met elke kolom. <emphasis
+>Als de kolom alleen een getal in de kop heeft, zal het gegeven in die kolom niet geïmporteerd worden.</emphasis
+> U zou velden aan elke kolom moeten toevoegen door een kolom te selecteren, ofwel door er in te klikken of het kolomnummer zelf te wijzigen, en daarna het veld selecteren om toe te kennen uit het afrolvak en te klikken op de knop <guibutton
+>Veld toekennen</guibutton
+>. Als u een nieuw veld aan de verzameling wilt toevoegen, opent het laatste item in het afrolvak de <link linkend="fields-dialog"
 ><interface
->Collection Fields Dialog</interface
+>Velddialoog van de verzameling</interface
 ></link
 >. </para>
 
@@ -184,9 +184,9 @@
 > in het desktop-bestand worden gebruikt als hoes-illustratie van het album. </para>
 
 <para
->The audio file metadata importer can recursively scan a folder to find all audio files in any subfolder, though symbolic links are not followed. &appname; uses the <ulink url="http://developer.kde.org/~wheeler/taglib.html"
->TagLib library</ulink
-> for reading the audio file metadata, and so can import data from any file type that TagLib understands. </para>
+>Het importprogramma voor metagegevens van audiobestanden kan recursief een map scannen om alle audiobestanden in elke subfolder te scannen, hoewel symbolische koppelingen worden niet gevolgd. &appname; gebruikt de <ulink url="http://developer.kde.org/~wheeler/taglib.html"
+>TagLib-bibliotheek</ulink
+> voor het lezen van de metagegevens van audiobestanden en zo gegevens kan importeren uit elke bestandstype dat TagLib begrijpt. </para>
 
 </sect2>
 
@@ -199,9 +199,9 @@
 ><ulink url="http://alexandria.rubyforge.org"
 >Alexandria</ulink
 ></application
-> is an alternate book collection manager for the <ulink url="http://www.gnome.org"
+> is een alternatieve beheerder van een boekenverzameling voor de bureaubladomgeving <ulink url="http://www.gnome.org"
 >GNOME</ulink
-> desktop environment. The importer offers a choice of importing any of the libraries found in <filename class="directory"
+>. Het importprogramma biedt een keuze voor importeren van elk van de bibliotheken gevonden in <filename class="directory"
 >$<envar
 >HOME</envar
 >/.alexandria/</filename
@@ -232,15 +232,15 @@
 > is een bibliografieformaat gebruikt met het LaTeX document voorbereidingssysteem. Verschillende typen bibliografische referenties kunnen worden ingevoegd in het bestand. &appname; importeert bibtex bestanden als een Bibliografische verzameling. </para>
 
 <para
->If the bibtex importer encounters fields in the file which are not in the default bibliography collection, they are added as <link linkend="line"
->Simple Text</link
-> fields, with two exceptions. If the field value contains more than 100 characters, it becomes a <link linkend="para"
->Paragraph</link
-> field. If the field value appears to contain a &URL; or a file reference, then a <link linkend="url"
+>Als het importprogramma voor bibtex velden in het bestand tegenkomt die niet in de standaard bibliografieverzameling zitten, worden ze toegevoegd als velden <link linkend="line"
+>Eenvoudige tekst</link
+>, met twee uitzonderingen. Als de veldwaarde meer dan 100 tekens bevat, wordt het een <link linkend="para"
+>Paragraaf</link
+>-veld. Als de veldwaarde een &URL; lijkt te bevatten of een bestandsreferentie, dan wordt een <link linkend="url"
 >&URL;</link
-> field is created. &appname; uses an internal copy of the <ulink url="http://www.gerg.ca/software/btOOL/"
->btparse library</ulink
-> for parsing the bibtex files. </para>
+>-veld aangemaakt. &appname; gebruikt een interne kopie van de <ulink url="http://www.gerg.ca/software/btOOL/"
+>btparse bibliotheek</ulink
+> voor ontleden van de bibtex-bestanden. </para>
 </sect2>
 
 <sect2 id="importing-bibtexml">
@@ -250,7 +250,7 @@
 <para
 ><ulink url="http://bibtexml.sf.net"
 >Bibtexml</ulink
-> is an &XML; representation of bibtex data, and the data from the imported bibtexml file is treated in the same way as bibtex data would be. </para>
+> is een &XML; representatie van bibtex-gegevens en de gegevens uit het geïmporteerde bibtexml-bestand wordt behandeld op dezelfde manier als bibtex-gegevens. </para>
 </sect2>
 
 <sect2 id="importing-delicious-library">
@@ -277,17 +277,17 @@
 > is een alternatieve verzamelingenbeheerder. Verzamelingen van boeken, films, muziek, munten, spellen, bordspellen en wijn importeren wordt nu ondersteunt. </para>
 
 <para
->&appname; can also import <application
+>&appname; kan ook <application
 >GCfilms</application
-> data files. <application
+> gegevensbestanden importeren. <application
 ><ulink url="http://home.gna.org/gcfilms/"
 >GCfilms</ulink
 ></application
-> is the predecessor of <application
+> is de voorganger van <application
 >GCstar</application
-> and was an alternate movie collection manager. Normally, <application
+> en was een alternatieve beheerder van filmverzamelingen. Normaal worden <application
 >GCfilms</application
-> data files are found in <filename class="directory"
+>-gegevensbestanden gevonden in <filename class="directory"
 >$<envar
 >HOME</envar
 >/.local/share/gcfilms/</filename
@@ -304,7 +304,7 @@
 ><ulink url="http://griffith.berlios.de/"
 >Griffith</ulink
 ></application
-> is an alternate video collection manager. &appname; is able to import most data from a Griffith database. </para>
+> is een alternatieve beheerder van videoverzamelingen. &appname; kan de meeste gegevens uit een Griffith-database importeren. </para>
 </sect2>
 
 <sect2 id="importing-mods">
@@ -324,11 +324,11 @@
 <title
 >PDF-gegevens importeren</title>
 <para
->If &appname; was compiled with <emphasis
+>Als &appname; is gecompileerd met ondersteuning van <emphasis
 >exempi</emphasis
-> or <emphasis
+> of <emphasis
 >poppler</emphasis
-> support, metadata from PDF files can be imported. Metadata may include title, author, and date information, as well as bibliographic identifiers which are then used to update other information. </para>
+>, kunnen metagegevens uit PDF-bestanden geïmporteerd worden. Metagegevens kunnen titel, auteur en gegevensinformatie bevatten, evenals bibliografische identifiers die dan gebruikt worden om andere informatie bij te werken. </para>
 </sect2>
 
 <sect2 id="importing-referencer">
@@ -339,20 +339,20 @@
 ><ulink url="http://icculus.org/referencer/"
 >Referencer</ulink
 ></application
-> is a document organizer and bibliography manager for the GNOME desktop. &appname; will import most of the data found in a Referencer database. </para>
+> is een programma voor het organiseren van documenten en de bibliografiebeheerder voor het GNOME bureaublad. &appname; zal het meeste van de gegevens gevonden in een Referencer-database importeren. </para>
 </sect2>
 
 <sect2 id="importing-ris">
 <title
 >RIS-gegevens importeren</title>
 <para
->The <ulink url="http://www.adeptscience.co.uk/kb/article/A626"
+>Het <ulink url="http://www.adeptscience.co.uk/kb/article/A626"
 ><acronym
 >RIS</acronym
-> format</ulink
-> is a bibliographic file format used by <application
->Reference Manager</application
-> and others. &appname; imports RIS files as a Bibliographic collection. </para>
+>-formaat</ulink
+> is een bibliografisch bestandsformaat gebruikt door de <application
+>Reference-beheerder</application
+> en anderen. &appname; importeert RIS-bestanden als een Bibliografische verzameling. </para>
 </sect2>
 
 <sect2 id="importing-goodreads">
@@ -361,7 +361,7 @@
 <para
 ><ulink url="http://www.goodreads.com"
 >Goodreads</ulink
-> is an online social network for readers to track book collections. &appname; can import the list of books in a user's collection, given either the user name or user ID, as long as the collection is set to be publicly accessible. </para>
+> is een online sociaal netwerk voor lezers om boekverzamelingen te volgen. &appname; kan de lijst met boeken in een verzameling van een gebruiker importeren, gegeven dat ofwel de gebruikersnaam of gebruikers-ID is gegeven, zolang de verzameling is ingesteld als publiek toegankelijk. </para>
 </sect2>
 
 <sect2 id="importing-file-listing">
@@ -369,11 +369,11 @@
 >Lijsten met bestanden importeren</title>
 
 <para
->The best way to create a <link linkend="file-catalog"
->File Catalog</link
-> is to import the contents of a folder. The folder may be searched recursively, to add all files found within. This importer is most useful for backup listings and media cataloging, such as &CD; or <acronym
+>De beste manier om een <link linkend="file-catalog"
+>Bestandencatalogus</link
+> te maken is om de inhoud van een map te importeren. De map kan recursief doorzocht worden om alle gevonden bestanden erin toe te voegen. Dit importprogramma is het meest nuttig voor backuplijsten en mediacatalogussen, zoals &CD; of <acronym
 >DVD</acronym
-> listings. In addition, image previews of the file contents may be generated, although it can take some time to read a large number of files. The file previews are same as those shown in the &kde; file manager. </para>
+> lijsten. Bovendien kunnen afbeeldingvoorbeelden van de inhoud van bestanden gegenereerd worden, hoewel het enige tijd kan kosten om een groot aantal bestanden te lezen. De bestandsvoorbeelden zijn hetzelfde als die getoond in de &kde; bestandenbeheerder. </para>
 </sect2>
 
 <sect2 id="importing-xslt">
@@ -381,7 +381,7 @@
 >&XML;-gegevens via XSLT importeren</title>
 
 <para
->Any &XML; file may be imported into &appname; provided an &XSL; stylesheet is available to convert the file to &appname; format. &appname; automatically loads the stylesheet and performs the &xslt; processing needed to load the file. </para>
+>Elk &XML;-bestand kan in &appname; geïmporteerd worden gegeven dat een &XSL;-stijlblad beschikbaar is om het bestand naar het &appname; formaat te converteren. &appname; laadt automatisch het stijlblad en voert de &xslt; bewerking uit die nodig is om het bestand`te laden. </para>
 </sect2>
 
 </sect1>
@@ -391,14 +391,14 @@
 >Slepen en neerzetten</title>
 
 <para
->Dragging data files to the main &appname; window and dropping them will import the files, just as if the <link linkend="importing"
->import command</link
-> was made from the menus. Drag and drop works for the following file formats: Tellico, Bibtex, RIS, and PDF. Importing multiple files at once is also supported.</para>
+>Slepen van gegevensbestanden naar het hoofdvenster van &appname; en ze loslaten zal de bestanden importeren, evenals indien het <link linkend="importing"
+>importcommando</link
+> was gegeven vanuit de menu's. Slepen en loslaten werkt voor de volgende bestandsformaten: Tellico, Bibtex, RIS en PDF. Meerdere bestanden tegelijk importeren wordt ook ondersteund.</para>
 
 <para
->So, for example, if you want to catalog several <link linkend="importing-pdf"
->PDF files</link
->, select them in the file manager and drag them to the &appname; window. &appname; will import as much metadata from the files as it can, and then fetch additional information from various configured Internet sources.</para>
+>Dus als u bijvoorbeeld verschillende <link linkend="importing-pdf"
+>PDF-bestanden</link
+> in de catalogus wilt zetten, selecteer ze in de bestandsbeheerder en sleep ze naar het venster van &appname;. &appname; zal zoveel mogelijke metagegevens importeren uit de bestanden als het kan en daarna extra informatie uit verschillende geconfigureerde bronnen in het internet ophalen.</para>
 
 </sect1>
 
@@ -407,11 +407,11 @@
 >Gegevens exporteren</title>
 
 <para
->When exporting the data in the collection, the entry values may be exported as entered, or with the <link linkend="field-formatting"
->automatic formatting</link
-> provided by &appname;. Additionally, the export may be limited to the currently selected entries of the collection as well, where the <link linkend="status-bar"
->statusbar</link
-> shows the number of selected entries. </para>
+>Bij exporteren van de gegevens in de verzameling kunnen de waarden van de items geëxporteerd worden zoals ingevoerd of met de <link linkend="field-formatting"
+>automatische formattering</link
+> geleverd door &appname;. Bovendien kan het exporteren eveneens beperkt worden tot de nu geselecteerd items van de verzameling, waar de <link linkend="status-bar"
+>statusbalk</link
+> het aantal geselecteerde items toont. </para>
 
 <para
 >Tekstbestanden, zoaals Bibtex of CSV, kunnen de Unicode (UTF-8) codering van tekens gebruiken of de huidige instelling van het besturingssysteem. </para>
@@ -434,7 +434,7 @@
 >&XML; exporteren</title>
 
 <para
->The file format for &appname; data is a zipped &XML; file. Exporting to &XML; merely creates the &XML; file without zipping it. Images may be included in the &XML; file as base64-encoded data in an image element, but doing so can create very large text files. </para>
+>Het bestandsformaat voor de gegevens van &appname; is een gezipt &XML;-bestand. Exporteren naar &XML; maakt eenvoudig het &XML;-bestand aan zonder zip te gebruiken. Afbeeldingen kunnen ingevoegd worden in he t&XML;-bestand als base64-encoded gegevens in een afbeeldingselement, maar dat doen kan erg grote tekstbestanden aanmaken. </para>
 </sect2>
 
 <sect2 id="exporting-zip">
@@ -442,7 +442,7 @@
 >Zip exporteren</title>
 
 <para
->The standard file format for &appname; is a zipped file, contained the &XML; collection file, and optionally, all the images referenced in the collection. If the images are being stored in the application folder instead, exporting to a Zip file will create a self-contained data file, which includes all the images in the collection. </para>
+>Het standaard bestandsformaat voor &appname; is een gezipt bestand, met het &XML;-verzamelingsbestand en optioneel, alle afbeeldingen gerefereerd in de verzameling. Als de afbeeldingen in plaats daarvan opgeslagen zijn in de map van de toepassing, zal exporteren naar een zip-bestand een zelf-bevattend gegevensbestand aanmaken, die alle afbeeldingen in de verzameling bevat. </para>
 </sect2>
 
 <sect2 id="exporting-html">
@@ -450,22 +450,22 @@
 >&HTML; exporteren</title>
 
 <para
->The &HTML; export uses the <filename
+>Het exporteren met &HTML; gebruikt de <filename
 >tellico2html.xsl</filename
-> stylesheet. Images are exported to a folder with the same name as the exported &HTML; file with <emphasis
+> stijlsheet. Afbeeldingen worden geëxporteerd naar een map met dezelfde naam als het geëxporteerde &HTML;-bestand met <emphasis
 ><filename
 >_files</filename
 ></emphasis
-> appended. </para>
+> achtergevoegd. </para>
 
 <para
->The default format is similar to the printed output, and allows various options for modifying the &HTML;. Field headers may be printed at the top of each column, but unfortunately, &kde; does not yet allow the table headers to be repeated on each page. The entries may be grouped as in the <interface
->Group View</interface
->, as well. </para>
+>Het standaard formaat is gelijk aan de afgedrukte uitvoer en biedt verschillende opties voor het wijzigen van de &HTML;. Veldkoppen kunnen afgedrukt worden boven iedere kolom, maar helaas laat &kde; nog niet toe om de tabelkoppen te herhalen op elke pagina. De items kunnen eveneens gegroepeerd worden als in de <interface
+>Groepsweergave</interface
+>. </para>
 
 <para
->Additionally, individual files may be created for each entry in the collection, with links created in the top-level &HTML; file. The entry files will be created in the same folder as the images. The entry &HTML; files will use the current stylesheet template, as shown in the <interface
->Entry View</interface
+>Bovendien kunnen individuele bestanden aangemaakt worden voor elk item in de verzameling, met koppelingen aangemaakt in het topniveau &HTML; bestand. De itembestanden zullen aangemaakt worden in dezelfde map als de afbeeldingen. De item &HTML;-bestanden zullen het huidige stylesheetsjabloon gebruiken, zoals getoond in de <interface
+>Itemweergave</interface
 >. </para>
 
 <screenshot>
@@ -512,9 +512,9 @@
 ><ulink url="http://alexandria.rubyforge.net"
 >Alexandria</ulink
 ></application
-> is a book collection manager for the <ulink url="http://www.gnome.org"
+> is een beheerder voor een boekverzameling voor de <ulink url="http://www.gnome.org"
 >GNOME</ulink
-> desktop environment. &appname; is able to export a limited subset of book collection fields to the default Alexandria data location. </para>
+> bureaubladomgeving. &appname; is in staat om een beperkte subset van boekverzamelingsvelden naar de standaard Alexandria gegevenslocatie te exporteren. </para>
 
 </sect2>
 
@@ -525,7 +525,7 @@
 <para
 ><ulink url="http://www.editeur.org/onix.html"
 >ONIX</ulink
-> is an &XML; format for representing and communicating book industry product information, primarily for book vendors. &appname; can export book collections using a small subset of ONIX. </para>
+> is een &XML; formaat voor het representeren en communiceren van productinformatie uit de boekindustrie, primair voor boekverkopers. &appname; kan boekverzamelingen exporteren met een kleine subset van ONIX. </para>
 
 </sect2>
 
@@ -534,11 +534,11 @@
 >Bibtex exporteren</title>
 
 <para
->When exporting to <ulink url="http://en.wikipedia.org/wiki/Bibtex"
+>Bij exporteren naar <ulink url="http://en.wikipedia.org/wiki/Bibtex"
 >Bibtex</ulink
->, the field values may be escaped with braces or quotation marks. If any string macros are used in the collection, they may optionally be exported as macros or expanded. For &URL; fields, &appname; may enclose the field values with the <literal
+> kunnen de veldwaarden escaped worden met haakjes of aanhalingstekens. Als tekenreeksmacro's worden gebruikt in de verzameling, dan kunnen ze optioneel geëxporteerd worden als macro's of geëxpandeerd. Voor &URL;-velden kan &appname; de veldwaarden omgeven met de <literal
 >\url{...}</literal
-> tag. Finally, entries with no citation key may be skipped rather than have &appname; auto-generate the key. </para>
+> tag. Tenslotte kunnen items zonder citatiesleutel beter overgeslagen worden dan dat &appname; de sleutel automatisch genereert. </para>
 
 <screenshot>
 <screeninfo
@@ -574,7 +574,7 @@
 ><ulink url="http://www.gcstar.org"
 >GCstar</ulink
 ></application
-> is another movie collection manager. &appname; is able to export most collection types to a GCstar data file. </para>
+> is een andere beheerder van een filmverzameling. &appname; is in staat om de meeste verzamelingtypen naar een GCstar gegevensbestand te exporteren. </para>
 
 </sect2>
 
@@ -583,7 +583,7 @@
 >&XML; via &xslt; exporteren</title>
 
 <para
->Finally, &appname; is able to process its internal &XML; representation of the collection data through an external &XSL; stylesheet before exporting. This type of export may be useful for generating text reports or other file types. </para>
+>Tenslotte is &appname; in staat om zijn interne &XML;-representatie van de verzamelinggegevens verwerken via een extern &XSL; stijlsheet voor exporteren. Dit type exporteren kan nuttig zijn voor het genereren van tekstrapporten of andere bestandstypes. </para>
 </sect2>
 
 </sect1>
@@ -592,13 +592,13 @@
 <title
 >Werken met citaten</title>
 <para
->When working with a <link linkend="bibliography"
->bibliography</link
->, citations for the currently selected entries may be generated and used in various other applications. A citation in bibtex format can be copied to the clipboard, and then pasted in a latex file. Bibtex citations can also be pushed to an external application such as <application
+>Bij werken met een <link linkend="bibliography"
+>bibliografie</link
+>, kunnen citaten voor de nu geselecteerde items gegenereerd worden en gebruikt in verschillende andere toepassingen. Een citaat in bibtex-formaat kan gekopieerd worden naar het klembord en dan in een latex-bestand geplakt. Bibtex citaten kunnen ook een externe toepassing verzonden worden zoals <application
 >LyX</application
-> or <application
+> of <application
 >Kile</application
-> using the so-called <emphasis
+> met gebruik van de zogenaamde <emphasis
 ><link linkend="hidden-bibtex-options"
 >lyxpipe</link
 ></emphasis

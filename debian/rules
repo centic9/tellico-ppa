@@ -6,14 +6,27 @@
 #export DH_VERBOSE=1
 
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--no-undefined -Wl,--as-needed
+# do not use kdeinit for kio
+export KDE_FORK_SLAVES=1
+
+TESTS_HOME=$(CURDIR)/debian/tests.home
 
 %:
 	dh $@ --with kf5
 
 override_dh_auto_configure:
 	dh_auto_configure -Skf5 -- \
-		-DBUILD_TESTS=false \
 		-DENABLE_WEBCAM=false
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	cd obj-* && $(MAKE) install DESTDIR=$(CURDIR)/test_root
+	mkdir -p "$(TESTS_HOME)"
+	mkdir -p "$(TESTS_HOME)/tmp"
+	mkdir -p -m 700 "$(TESTS_HOME)/runtime"
+	xvfb-run -a --server-args="-screen 0 1024x768x24+32" dh_auto_test --no-parallel -- XDG_DATA_DIRS=$(CURDIR)/test_root/usr/share:/usr/local/share:/usr/share HOME="$(TESTS_HOME)" TMPDIR="$(TESTS_HOME)/tmp" XDG_RUNTIME_DIR="$(TESTS_HOME)/runtime"
+	rm -rf "$(TESTS_HOME)"
+endif
 
 override_dh_missing:
 	dh_missing --fail-missing

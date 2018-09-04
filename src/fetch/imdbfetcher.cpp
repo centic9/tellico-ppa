@@ -317,7 +317,7 @@ void IMDBFetcher::search() {
   m_countOffset = 0;
 
   m_url = QUrl();
-  m_url.setScheme(QStringLiteral("http"));
+  m_url.setScheme(QStringLiteral("https"));
   m_url.setHost(m_host);
   m_url.setPath(QStringLiteral("/find"));
 
@@ -646,7 +646,7 @@ Tellico::Data::EntryPtr IMDBFetcher::fetchEntryHook(uint uid_) {
   } else {
     // now it's sychronous
     // be quiet about failure
-    results = Tellico::fromHtmlData(FileHandler::readDataFile(url, true));
+    results = Tellico::fromHtmlData(FileHandler::readDataFile(url, true), "UTF-8");
     m_url = url; // needed for processing
 #if 0
     myWarning() << "Remove debug from imdbfetcher.cpp for /tmp/testimdbresult.html";
@@ -873,7 +873,7 @@ void IMDBFetcher::doPlot(const QString& str_, Tellico::Data::EntryPtr entry_, co
     QUrl plotURL = baseURL_;
     plotURL.setPath(QStringLiteral("/title/") + idRx.cap(1) + QStringLiteral("/plotsummary"));
     // be quiet about failure
-    QString plotPage = Tellico::fromHtmlData(FileHandler::readDataFile(plotURL, true));
+    QString plotPage = Tellico::fromHtmlData(FileHandler::readDataFile(plotURL, true), "UTF-8");
 
     if(!plotPage.isEmpty()) {
       QRegExp plotRx(QStringLiteral("id=\"plot-summaries-content\">(.*)</p"));
@@ -1024,30 +1024,67 @@ void IMDBFetcher::doCast(const QString& str_, Tellico::Data::EntryPtr entry_, co
     myLog() << "no cast list found";
     return;
   }
-
-  QRegExp tdRx(QStringLiteral("<td[^>]*>(.*)</td>"), Qt::CaseInsensitive);
-  tdRx.setMinimal(true);
-
-  QRegExp tdActorRx(QStringLiteral("<td\\s+[^>]*itemprop=\"actor\"[^>]*>(.*)</td>"), Qt::CaseInsensitive);
-  tdActorRx.setMinimal(true);
-
-  QRegExp tdCharRx(QStringLiteral("<td\\s+[^>]*class=\"character\"[^>]*>(.*)</td>"), Qt::CaseInsensitive);
-  tdCharRx.setMinimal(true);
-
-  QStringList cast;
   // loop until closing table tag
   int endPos = castText.indexOf(QStringLiteral("</table"), pos, Qt::CaseInsensitive);
   castText = castText.mid(pos, endPos-pos+1);
-  pos = tdActorRx.indexIn(castText);
-  while(pos > -1 && cast.count() < m_numCast) {
-    QString actorText = tdActorRx.cap(1).remove(*s_tagRx).simplified();
-    const int pos2 = tdCharRx.indexIn(castText, pos+1);
-    if(pos2 > -1) {
-      cast += actorText
-            + FieldFormat::columnDelimiterString()
-            + tdCharRx.cap(1).remove(*s_tagRx).simplified();
+
+  QStringList actorList, characterList;
+  QRegularExpression tdActorRx(QStringLiteral("<td>.*?<a href=\"/name.+?\".*?>(.+?)</a"),
+                               QRegularExpression::DotMatchesEverythingOption);
+  QRegularExpression tdCharRx(QStringLiteral("<td class=\"character\">(.+?)</td"),
+                              QRegularExpression::DotMatchesEverythingOption);
+
+  QRegularExpressionMatchIterator i = tdActorRx.globalMatch(castText);
+  while(i.hasNext()) {
+    QRegularExpressionMatch match = i.next();
+    actorList += match.captured(1).simplified();
+  }
+  i = tdCharRx.globalMatch(castText);
+  while(i.hasNext()) {
+    QRegularExpressionMatch match = i.next();
+    characterList += match.captured(1).remove(*s_tagRx).simplified();
+  }
+
+  // sanity check
+  while(characterList.length() > actorList.length()) {
+    myDebug() << "Too many characters";
+    characterList.removeLast();
+  }
+  while(characterList.length() < actorList.length()) {
+    characterList += QString();
+  }
+
+  QStringList cast;
+  for(int i = 0; i < actorList.size(); ++i) {
+    cast += actorList.at(i)
+          + FieldFormat::columnDelimiterString()
+          + characterList.at(i);
+    if(cast.count() >= m_numCast) {
+      break;
     }
-    pos = tdActorRx.indexIn(castText, qMax(pos+1, pos2));
+  }
+
+  if(cast.isEmpty()) {
+    QRegExp tdRx(QStringLiteral("<td[^>]*>(.*)</td>"), Qt::CaseInsensitive);
+    tdRx.setMinimal(true);
+
+    QRegExp tdActorRx(QStringLiteral("<td\\s+[^>]*itemprop=\"actor\"[^>]*>(.*)</td>"), Qt::CaseInsensitive);
+    tdActorRx.setMinimal(true);
+
+    QRegExp tdCharRx(QStringLiteral("<td\\s+[^>]*class=\"character\"[^>]*>(.*)</td>"), Qt::CaseInsensitive);
+    tdCharRx.setMinimal(true);
+
+    pos = tdActorRx.indexIn(castText);
+    while(pos > -1 && cast.count() < m_numCast) {
+      QString actorText = tdActorRx.cap(1).remove(*s_tagRx).simplified();
+      const int pos2 = tdCharRx.indexIn(castText, pos+1);
+      if(pos2 > -1) {
+        cast += actorText
+              + FieldFormat::columnDelimiterString()
+              + tdCharRx.cap(1).remove(*s_tagRx).simplified();
+      }
+      pos = tdActorRx.indexIn(castText, qMax(pos+1, pos2));
+    }
   }
 
   if(!cast.isEmpty()) {
@@ -1058,12 +1095,13 @@ void IMDBFetcher::doCast(const QString& str_, Tellico::Data::EntryPtr entry_, co
   QStringList producers;
   pos = castPage.indexOf(data.producer, 0, Qt::CaseInsensitive);
   if(pos > -1) {
-    endPos = castText.indexOf(QStringLiteral("</table"), pos, Qt::CaseInsensitive);
+    int endPos = castText.indexOf(QStringLiteral("</table"), pos, Qt::CaseInsensitive);
     if(endPos == -1) {
       endPos = castText.length();
     }
     const QString prodText = castPage.mid(pos, endPos-pos+1);
-    tdCharRx.setPattern(QStringLiteral("<td\\s+[^>]*class=\"credit\"[^>]*>(.*)</td>"));
+    QRegExp tdCharRx(QStringLiteral("<td\\s+[^>]*class=\"credit\"[^>]*>(.*)</td>"));
+    tdCharRx.setMinimal(true);
 
     pos = s_anchorNameRx->indexIn(prodText);
     while(pos > -1) {
@@ -1203,7 +1241,7 @@ void IMDBFetcher::doLists2(const QString& str_, Tellico::Data::EntryPtr entry_) 
         genres << token.trimmed();
       }
     } else if(tag == data.language) {
-      foreach(const QString& token, value.split(QRegExp(QStringLiteral("[,|]")))) {
+      foreach(const QString& token, value.split(QRegExp(QLatin1String("[,|]")))) {
         langs << token.trimmed();
       }
     } else if(tag == data.sound) {
@@ -1384,7 +1422,7 @@ QString IMDBFetcher::defaultName() {
 }
 
 QString IMDBFetcher::defaultIcon() {
-  return favIcon("http://www.imdb.com");
+  return favIcon("https://www.imdb.com");
 }
 
 //static

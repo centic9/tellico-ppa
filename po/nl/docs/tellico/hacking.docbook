@@ -10,13 +10,13 @@
 >Bestandsformaat</title>
 
 <para
->The default &appname; data file is a zip archive, normally with a <literal role="extension"
+>Het standaard gegevensbestand van &appname; is een zip-archief, normaal met een <literal role="extension"
 >.tc</literal
-> file extension. Inside the archive is a top-level <filename
+> bestandsextensie. In het archief is een bestand op top-niveau <filename
 >tellico.xml</filename
-> file. Images may be included inside the <filename
+>. Afbeeldingen kunnen meegenomen worden in de map <filename
 >images/</filename
-> folder in the archive, or they may be included in the &XML; data directly in a base64 encoding. Images may also be saved inside the application data folder, in which case, they are not in the data file at all. &appname; can also load the &XML; file, by itself, uncompressed. </para>
+> in het archief of ze kunnen direct ingevoegd zijn in de &XML;-gegevens in een base64-codering. Afbeeldingen kunnen ook opgeslagen worden in de gegevensmap van de toepassing, in welk geval, ze helemaal niet in het gegevensbestand zelf zitten. &appname; kan ook het &XML;-bestand, op zichzelf, laden, niet gecomprimeerd. </para>
 
 <sect2 id="xml-format">
 <title
@@ -39,27 +39,27 @@
 </programlisting>
 
 <para
->The file begins with the required &XML; declaration and encoding, followed by the doctype. When a new field type is added or additional properties are set on the default fields, the doctype DTD version is incremented. &appname; is always able to open and read any previous DTD version, but will save files in the current version. The DTD location does point to an actual DTD file. </para>
+>Het bestand begint met de vereiste &XML;-declaratie en codering, gevolgd door het doctype. Wanneer een nieuw veldtype is toegevoegd of extra eigenschappen zijn ingesteld op de standaard velden, the zal de versie van het doctype-DTD verhoogt worden. &appname; is altijd in staat om elke vorige DTD-versie te openen en te lezen, maar zal bestanden opslaan in de huidige versie. De DTD-locatie wijst naar een actueel DTD-bestand. </para>
 
 <para
->The top-level element is a <markup
+>Het hoogste element is een <markup
 >&lt;tellico&gt;</markup
-> element, containing the default namespace declaration and the syntax version of the file, which should always match the DTD. </para>
+> element, die de standaard naamruimte declaratie bevat en de syntaxisversie van het bestand, die altijd overeen zou moeten komen met de DTD. </para>
 
 <para
->The <markup
+>Het element <markup
 >&lt;tellico&gt;</markup
-> element contains one <markup
+> bevat één element <markup
 >&lt;collection&gt;</markup
-> element. Multiple collections are ignored, for now. The <markup
+>. Meerdere verzamelingen worden voor nu genegeerd. Het <markup
 >title</markup
-> attribute contains the collection title, while the <markup
+> attribuut bevat de verzamelingtitel, terwijl het <markup
 >type</markup
-> specifies what kinds of entries are contained in the collection. The allowable types are in <link linkend="collection-type-values"
->listed in a later section</link
->. An optional <markup
+> specificeert welk soort items de verzameling bevat. De toegestane typen staan in een <link linkend="collection-type-values"
+>lijst in een latere sectie</link
+>. Een optioneel attribuut <markup
 >entryTitle</markup
-> attribute may be used to specify the title of the entries for a custom collection, and should be plural. </para>
+> kan gebruikt worden om de titel van de items te specificeren voor een aangepaste verzameling en zou een meervoud moeten zijn. </para>
 </sect3>
 
 <sect3 id="fields-xml-data">
@@ -72,7 +72,8 @@
    <field flags="8" title="Title" category="General" format="1" type="1" name="title" />
    <field flags="7" title="Author" category="General" format="2" type="1" name="author" />
    <field flags="2" title="Binding" category="General" allowed="Hardback;Paperback;Trade Paperback;E-Book;Magazine;Journal" format="4" type="3" name="binding" >
-    <prop name="default">Paperback</prop>
+    <prop name="default"
+>Paperback</prop>
    </field>
    <field flags="6" title="Publisher" category="Publishing" format="0" type="1" name="publisher" />
    <field flags="4" title="Edition" category="Publishing" format="0" type="1" name="edition" />
@@ -84,11 +85,14 @@
    <field flags="0" title="Front Cover" category="Front Cover" format="4" type="10" name="cover" />
    <field flags="0" title="Comments" category="Personal" format="4" type="1" name="comments" />
    <field title="Rating" flags="2" category="Personal" format="4" type="14" name="rating">
-    <prop name="maximum">5</prop>
-    <prop name="minimum">1</prop>
+    <prop name="maximum"
+>5</prop>
+    <prop name="minimum"
+>1</prop>
    </field>
    <field title="ID" flags="32" category="Personal" format="4" type="6" name="id">
-    <prop name="template">%{@id}</prop>
+    <prop name="template"
+>%{@id}</prop>
    </field>
 
   </fields>
@@ -96,22 +100,22 @@
 </programlisting>
 
 <para
->All of the fields are defined inside a <markup
+>Alle velden worden binnen een <markup
 >&lt;fields&gt;</markup
-> element, of which there can be only one. All of the information for a field, except for any properties, are included as attributes of the <markup
+> element gedefinieerd, waarvan er slechts één kan zijn. Alle informatie voor een veld, behalve voor eigenschappen, zijn meegenomen als attributen van het <markup
 >&lt;field&gt;</markup
-> element. The allowable values for the <markup
+> element. De toegestane waarden voor de attributen <markup
 >flags</markup
 >, <markup
 >format</markup
->, and <markup
+> en <markup
 >type</markup
-> attributes are given in a <link linkend="field-type-values"
->following section</link
+> zijn gegeven in een <link linkend="field-type-values"
+>volgende sectie</link
 >. </para>
 
 <para
->Field properties are used for setting default field values, rating value ranges, derived value templates, etc. The examples above include a default value, a maximum rating value, and a template for a derived ID field. </para>
+>Veldeigenschappen worden gebruikt voor instelling van standaard veldwaarden, reeksen waarderingswaarden, afgeleide waardesjablonen, etc. Het bovenstaande voorbeeld bevat een standaard waarde, een maximale waarderingswaarde en een sjabloon voor een afleid ID-veld. </para>
 
  
 
@@ -124,35 +128,45 @@
 <programlisting
 ><![CDATA[
   <entry>
-   <title>C++ Programming Language, The</title>
+   <title
+>C++ Programming Language, The</title>
    <authors>
-    <author>Stroustrup, Bjarne</author>
+    <author
+>Stroustrup, Bjarne</author>
    </authors>
-   <publisher>Addison-Wesley Pub Co</publisher>
-   <edition>3rd</edition>
-   <pub_year>1997</pub_year>
-   <isbn>0-201-88954-4</isbn>
+   <publisher
+>Addison-Wesley Pub Co</publisher>
+   <edition
+>3rd</edition>
+   <pub_year
+>1997</pub_year>
+   <isbn
+>0-201-88954-4</isbn>
    <genres>
-    <genre>Non-Fiction</genre>
+    <genre
+>Non-Fiction</genre>
    </genres>
    <keywords>
-    <keyword>Programming</keyword>
-    <keyword>Computers</keyword>
+    <keyword
+>Programming</keyword>
+    <keyword
+>Computers</keyword>
    </keywords>
-   <cover>cf65a2f023b6cb9e9233323dca10ac7c.jpeg</cover>
+   <cover
+>cf65a2f023b6cb9e9233323dca10ac7c.jpeg</cover>
   </entry>
 ]]>
 </programlisting>
 
 <para
->For every field in the collection, an <markup
->&lt;entry&gt;</markup
-> may contain an element whose name is identical to the field name. If multiple values are allowed for the field, then the letter <emphasis
+>Voor elk veld in de verzameling kan een <markup
+>&lt;item&gt;</markup
+> een element bevatten wiens naam identiek is aan de veldnaam. Als meerdere waarden voor het veld zijn toegestaan, zal de letter <emphasis
 >s</emphasis
-> is added to the field name to create an element, and each value is added as a child of the element, as in the case of the author, genre, and keyword fields above. </para>
+> toegevoegd moeten worden aan de veldnaam om een element aam te maken en elke waarde wordt toegevoegd als een kind van het element, zoals bovenstaand in het geval van de velden auteur, genre en keyword. </para>
 
 <para
->As a result, if additional fields are added to the collection, the data file will no longer conform to the DTD. However, &appname; uses a non-validating &XML; parser, so additional fields do not cause problems. </para>
+>Als resultaat, als extra velden zijn toegevoegd aan de verzameling, zal het gegevensbestand niet langer overeenstemmen met de DTD. &appname; gebruikt echter een niet-validerende &XML;-parser, dus extra velden veroorzaken geen problemen. </para>
 </sect3>
 
 <sect3 id="images-xml-data">
@@ -167,9 +181,9 @@
 </programlisting>
 
 <para
->Inside the <markup
+>Binnen het element <markup
 >&lt;images&gt;</markup
-> element, each image referenced by an entry is listed, along with attributes describing the image's size, format, and id. If the image is contained inside the Zip file, the element is empty. Otherwise, the image data may be contained in the &XML; stream as base64-encoded text. </para>
+> wordt elke afbeelding waarnaar verwezen wordt door een item in een lijst gezet, samen met attributen die de grootte, formaat en id van de afbeelding beschrijven. Als de afbeelding zich in het zip-bestand bevindt, is het element leeg. Anders kunnen de afbeeldingsgegevens zich bevinden in de &XML;-stream als base64 gecodeerde tekst. </para>
 </sect3>
 
 </sect2>
@@ -256,13 +270,13 @@
 ></row>
 <row
 ><entry
->Trading Card Collection</entry
+>Ruilkaartenverzameling</entry
 ><entry
 >10</entry
 ></row>
 <row
 ><entry
->Video Game Collection</entry
+>Videospellenverzameling</entry
 ><entry
 >11</entry
 ></row>
@@ -286,29 +300,29 @@
 
 <sect1 id="field-type-values">
 <title
->Field Type Values</title>
+>Waarden van typen velden</title>
 
 <para
->&appname; will include all the default fields for a collection if the first field element has the name <emphasis
+>&appname; zal alle standaard velden bevatten voor een verzameling als het eerste veldelement de naam <emphasis
 >_default</emphasis
->. For <emphasis
->Paragraph</emphasis
+> heeft. Voor velden <emphasis
+>Paragraaf</emphasis
 >, <emphasis
->Table</emphasis
->, or <emphasis
->Image</emphasis
-> fields, the field category should be identical to the field title. </para>
+>Tabel</emphasis
+> of <emphasis
+>Afbeelding</emphasis
+> zou de veldcategorie identiek moeten zijn aan de veldtitel. </para>
 
 <para
->The type of field is given in the type attribute of the field element. The value is equal to the <type
+>Het type veld is gegeven in het type-attribuut van het veldelement. De waarde is gelijk aan het <type
 >FieldType</type
-> enum value in <filename
+> enum-waarde in <filename
 >src/field.h</filename
 >. </para>
 
 <table>
 <title
->Field Type Values</title>
+>Waarden van typen velden</title>
 <tgroup cols="2">
 <thead>
 <row>
@@ -357,7 +371,7 @@
 ></row>
 <row
 ><entry
->Single-Column Table</entry
+>Tabel met een enkele kolom</entry
 ><entry
 >8</entry
 ></row>
@@ -384,16 +398,16 @@
 </table>
 
 <para
->The field may have different flags set, given as a bitwise OR'd value in the flags attribute on the field element. The flag for preventing the user from deleting a field is intended for such things as the citation key for bibliographic entries. </para>
+>Het veld kan verschillende vlaggen hebben ingesteld, gegeven als een bitsgewijs met OF behandelde waarde in het attribuut vlaggen op het veldelement. De vlag om te voorkomen dat de gebruiker een veld verwijdert is bedoeld voor zulke dingen als de citatiesleutel voor bibliografische items. </para>
 
 <table>
 <title
->Field Flag Values</title>
+>Waarden van veldvlaggen</title>
 <tgroup cols="2">
 <thead>
 <row>
 <entry
->Field Flags</entry>
+>Veldvlaggen</entry>
 <entry
 >Waarde</entry>
 </row>
@@ -417,7 +431,7 @@
 ></row>
 <row
 ><entry
->Allow Completion</entry
+>Aanvulling toestaan</entry
 ><entry
 ><constant
 >0x04</constant
@@ -456,15 +470,15 @@
 </table>
 
 <para
->The format of the field is given in the format attribute on the field element. <emphasis
->Date Formatting</emphasis
-> is not currently used. Grouping by <emphasis
->People</emphasis
-> uses all the fields which use <emphasis
->Name Formatting</emphasis
->. Setting the <emphasis
->Derived Value</emphasis
-> flag implies the value for the field is generated from the template property from other field values. </para>
+>Het formaat van het veld is gegeven in het formaatattribuut op het veldelement. <emphasis
+>Datumformattering</emphasis
+> wordt nu niet gebruikt. Groepering door <emphasis
+>Mensen</emphasis
+> gebruikt alle velden die <emphasis
+>Naamformattering</emphasis
+> gebruiken. Zetten van de vlag <emphasis
+>Afgeleide waarde</emphasis
+> impliceert de waarde voor het veld is gegenereerd uit de sjablooneigenschap uit andere veldwaarden. </para>
 
 <table>
 <title
@@ -481,26 +495,26 @@
 <tbody>
 <row
 ><entry
->Capitalization Only</entry
+>Alleen hoofdletters</entry
 ><entry
 >0</entry
 ></row>
 <row
 ><entry
->Title Formatting</entry
+>Titelformattering</entry
 ><entry
 >1</entry
 ></row>
 <row
 ><entry
->Name Formatting</entry
+>Naamformattering</entry
 ><entry
 >2</entry
 ></row>
 <row
 ><entry
 ><emphasis
->Date Formatting</emphasis
+>Datumformattering</emphasis
 ></entry
 ><entry
 >3</entry
@@ -519,39 +533,39 @@
 
 <sect1 id="hidden-options">
 <title
->Hidden Configuration Options</title>
+>Verborgen configuratieopties</title>
 
 <para
->&appname; has some additional configuration options that are not visible in the <interface
->Configuration Dialog</interface
->. They are not important enough to warrant cluttering the dialog with more settings, but as they represent options which may appeal to various users, the application does read them from the configuration file. </para>
+>&appname; heeft enige extra configuratieopties die niet zichtbaar zijn in de <interface
+>Configuratiedialoog</interface
+>. Ze zijn niet belangrijk genoeg om de dialoog met meer instellingen te overvoeren, maar omdat ze opties representeren die verschillende gebruikers aanspreken, leest de toepassing ze uit het configuratiebestand. </para>
 
 <para
->The settings for &appname; are saved in a file in the user's home folder, namely <filename
+>De instellingen voor &appname; worden opgeslagen in een bestand in de hoofdmap van de gebruiker, namenlijk <filename
 >$<envar
 >KDEHOME</envar
 >/share/config/tellicorc</filename
->. Within that file, settings are put in groups, which appear with bracketed names, such as [General Options]. To add a setting to the <emphasis
+>. Binnen dat bestand worden instellingen in groepen gezet, die van in haakjes gezette namen zijn voorzien, zoals [General Options]. Om een insellting toe te voegen aan de groep <emphasis
 >General Options</emphasis
-> group, find the line in the settings file with that group name. If it does not appear, then create it yourself by adding a line saying [General Options]. Then, the setting can be added underneath the group name. </para>
+>, zoek de regel in het instellingenbestand met die groepsnaam. Als deze niet aanwezig is, maak deze dan zelf door een regel met [General Options] toe te voegen. Daarna kan de instelling toegevoegd worden onder de groepsnaam. </para>
 
 <sect2 id="hidden-general-options">
 <title
 >[Algemene opties]</title>
 
 <para
->These settings should be placed in the <emphasis
+>Deze instellingen kunnen geplaatst worden in de groe <emphasis
 >General Options</emphasis
-> group. </para>
+>. </para>
 
 <sect3>
 <title
 >Max Icon Size</title>
 
 <para
->The maximum size of the icons in the <interface
->Icon View</interface
-> may be changed with this setting. The default value is 96. The size must be in the range of 32 to 512. </para>
+>De maximum grootte van de pictogrammen in de <interface
+>Pictogramweergave</interface
+> kan gewijzigd worden met deze instelling. De standaard waarde is 96. De grootte moet in de reeks 32 tot 512 liggen. </para>
 </sect3>
 
 <sect3>
@@ -570,7 +584,7 @@
 >Icon Cache Size</title>
 
 <para
->The maximum numbers of icons cached in memory may be changed with this setting. The default value is 1000. </para>
+>Het maximum aantal pictogrammen gebufferd in geheugen kan gewijzigd worden met deze instelling. De standaard waarde is 1000. </para>
 </sect3>
 
 <sect3>
@@ -600,7 +614,7 @@
 >Image Cache Size</title>
 
 <para
->The maximum amount of memory in bytes used for caching all the images may be changed with this setting. The default value is 67108864. </para>
+>De maximum hoeveelheid geheugen in bytes gebruikt voor buffering van alle afbeeldingen kan gewijzigd worden met deze instelling. De standaard waarde is 67108864. </para>
 </sect3>
 
 <sect3>
@@ -621,18 +635,18 @@
 >[Options - bibtex]</title>
 
 <para
->These settings should be placed in the <emphasis
+>Deze instellingen zouden geplaatst kunnen worden in de groep <emphasis
 >Options - bibtex</emphasis
-> group. </para>
+>. </para>
 
 <sect3>
 <title
 >lyxpipe</title>
 
 <para
->This setting is for the location of the lyxpipe for sending bibliographic citations. It should not include the <literal role="extension"
+>Deze instelling is voor de locatie van de lyxpipe voor verzenden van bibliografische citaten. Het zou niet het achtervoegsel <literal role="extension"
 >.in</literal
-> suffix. </para>
+> moeten bevatten. </para>
 </sect3>
 
 <sect3>
@@ -654,15 +668,17 @@
 >Bibtex Character Translation</title>
 
 <para
->When bibtex files are imported or exported, certain characters are translated between their TeX equivalents and the Unicode characters. Those character mappings are contained in the <filename
+>Wanneer bibtex-bestanden geïmporteerd of geëxporteerd worden, worden bepaalde tekens vertaald tussen hun TeX-equivalenten en de Unicode tekens. Deze koppelingen tussen tekens zitten in het bestand <filename
 >bibtex-translation.xml</filename
-> file, located in the installation data directory. The mappings can be modified, as desired. The key element contains the Unicode character, and the string elements within contain the TeX equivalents, which may be a one-to-many mapping. The first one is the one used when exporting to bibtex. </para>
+>, gelokaliseerd in de gegevens voor installatie. De koppelingen kunnen, indien gewenst, gewijzigd worden. Het sleutelelement bevat het Unicode-teken en de tekenreekselementen erin bevatten de TeX-equivalenten, die een een-naar-meer koppeling kunnen hebben. De eerste is degene die wordt gebruikt bij exporteren naar bibtex. </para>
 
 <programlisting
 ><![CDATA[
   <key char="À">
-    <string>{\`A}</string>
-    <string>\`{A}</string>
+    <string
+>{\`A}</string>
+    <string
+>\`{A}</string>
   </key>
 ]]>
 </programlisting>
@@ -671,10 +687,10 @@
 
 <sect1 id="xslt-tricks">
 <title
->XSLT Tricks</title>
+>XSLT-trucs</title>
 
 <para
->Here are some tips for writing XSLT to parse &appname; &XML; data: (TBD). </para>
+>Hier zijn enige tips voor het schrijven van XSLT om &XML;-gegevens van &appname; te ontleden: (TBD). </para>
 </sect1>
 
 </chapter>

@@ -81,7 +81,7 @@
 >Cerca múltiple ISBN/UPC</guilabel
 > es desactivarà el quadre de cerca i s'activarà el botó <guibutton
 >Edita els valors ISBN/UPC...</guibutton
->, el qual obrirà un quadre d'entrada de text multi-línia. Cada valor ISBN s'ha d'introduir en una mateixa línia. Després de tancar el quadre, cada valor ISBN serà validat per a un format correcte. La validació ISBN és capaç de convertir valors EAN de 13 dígits, així com codis <acronym
+>, el qual obrirà un quadre d'entrada de text multilínia. Cada valor ISBN s'ha d'introduir en una mateixa línia. Després de tancar el quadre, cada valor ISBN serà validat per a un format correcte. La validació ISBN és capaç de convertir valors EAN de 13 dígits, així com codis <acronym
 >UPC</acronym
 > complets per al format correcte. La llista ISBN també es pot llegir des d'un fitxer de text. </para>
 
@@ -107,7 +107,7 @@
 >Importar dades de &appname;</title>
 
 <para
->Es poden importar altres fitxers de dades de &appname;. El substituir la col·lecció actual important un fitxer de &appname; és el mateix que obrir el fitxer en si. El valor de la importació de dades de &appname; és principalment per afegir o fusionar dues col·leccions. </para>
+>Es poden importar altres fitxers de dades de &appname;. Substituir la col·lecció actual important un fitxer de &appname; és el mateix que obrir el fitxer en si. El valor de la importació de dades de &appname; és principalment per afegir o fusionar dues col·leccions. </para>
 </sect2>
 
 <sect2 id="importing-csv">
@@ -136,7 +136,7 @@
 >Primer, seleccioneu el tipus de col·lecció que importareu. Si l'esteu afegint o fusionant a la vostra col·lecció oberta, el tipus es limita al vostre tipus de col·lecció actual. Si la primera línia del fitxer CSV conté els títols dels camps, feu clic a la casella de selecció i l'importador els compararà automàticament contra els camps a la col·lecció actual. Si un títol de camp coincideix, la capçalera per aquesta columna canviarà per mostrar que la columna ha estat assignada a aquest camp. Si el fitxer utilitza un delimitador diferent de la coma, assegureu-vos de canviar aquesta opció en conseqüència. </para>
 
 <para
->Per a que &appname; importi correctament el fitxer, haurà de saber quin camp correspon a cada columna. <emphasis
+>Perquè &appname; importi correctament el fitxer, haurà de saber quin camp correspon a cada columna. <emphasis
 >Si la columna sols té un número a la capçalera, les dades en aquesta columna no s'importaran.</emphasis
 > Haureu d'assignar camps a cada columna seleccionant una columna fent clic sobre seu o canviant el número de la columna en si, llavors seleccioneu el camp per assignar-li des de la llista desplegable i feu clic al botó <guibutton
 >Assigna camp</guibutton
@@ -158,7 +158,7 @@
 <para
 >&appname; és capaç d'utilitzar el servei <ulink url="http://freedb.org"
 >freedb.org</ulink
-> per a cercar informació sobre un &CD;, incloent la llista de les pistes. Depenent de la vostra distribució, l'arranjament per accedir al servei es pot establir en &systemsettings; del &kde;. S'afegiran l'artista, el títol, el gènere, l'any i llista de les pistes del &CD;. </para>
+> per a cercar informació sobre un &CD;, incloent-hi la llista de les pistes. Depenent de la vostra distribució, l'arranjament per accedir al servei es pot establir en &systemsettings; del &kde;. S'afegiran l'artista, el títol, el gènere, l'any i llista de les pistes del &CD;. </para>
 
 <para
 >A més, si el disc conté &CD;-Text, aquesta informació serà llegida i afegida a l'entrada importada. </para>
@@ -284,7 +284,7 @@
 ></application
 > és el predecessor de <application
 >GCstar</application
-> i era una gestor de col·lecció de pel·lícules alternatiu. Normalment, els fitxers de dades de <application
+> i era un gestor de col·lecció de pel·lícules alternatiu. Normalment, els fitxers de dades de <application
 >GCfilms</application
 > es troben a <filename class="directory"
 >$<envar
@@ -360,7 +360,7 @@
 <para
 ><ulink url="http://www.goodreads.com"
 >Goodreads</ulink
-> és una xarxa social en línia per a que els lectors segueixin les seves col·leccions de llibres. &appname; pot importar la llista de llibres a la col·lecció d'un usuari, ja sigui el nom com la identificació d'usuari, sempre que la col·lecció resti ajustada de manera que sigui accessible públicament. </para>
+> és una xarxa social en línia perquè els lectors segueixin les seves col·leccions de llibres. &appname; pot importar la llista de llibres a la col·lecció d'un usuari, ja sigui el nom com la identificació d'usuari, sempre que la col·lecció resti ajustada de manera que sigui accessible públicament. </para>
 </sect2>
 
 <sect2 id="importing-file-listing">
@@ -458,7 +458,7 @@
 > adjuntat. </para>
 
 <para
->El format per omissió és similar a la sortida impresa, i permet diverses opcions per a modificar el codi &HTML;. Les capçaleres dels camp es poden imprimir a la part superior de cada columna, però malauradament, el &kde; no permet encara que es repeteixi cap capçalera de taula a cada pàgina. Les entrades també es poden agrupar com a la <interface
+>El format per omissió és similar a la sortida impresa, i permet diverses opcions per a modificar el codi &HTML;. Les capçaleres dels camps es poden imprimir a la part superior de cada columna, però malauradament, el &kde; no permet encara que es repeteixi cap capçalera de taula a cada pàgina. Les entrades també es poden agrupar com a la <interface
 >Vista de grup</interface
 >. </para>
 
@@ -537,7 +537,7 @@
 >Bibtex</ulink
 >, els valors dels camps es poden tancar amb marques de bràquets o cometes. Si s'utilitzen macros de cadena a la col·lecció, de manera opcional es poden exportar com a macros o expandir-se. Per als camps d'&URL;, &appname; pot tancar els valors de camp amb l'etiqueta <literal
 >\url{...}</literal
->. Finalment, les entrades sense clau de cita es poden ometre en lloc que &appname; auto-generi la clau. </para>
+>. Finalment, les entrades sense clau de cita es poden ometre en lloc que &appname; autogeneri la clau. </para>
 
 <screenshot>
 <screeninfo
@@ -560,7 +560,7 @@
 <para
 ><ulink url="http://bibtexml.sourceforge.net"
 >Bibtexml</ulink
-> és un format per a expressar dades de «bibtex» a través de &XML;. </para>
+> és un format per a expressar dades de «bibtex» a través d'&XML;. </para>
 
 </sect2>
 

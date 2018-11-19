@@ -37,7 +37,7 @@
 #include <QFileInfo>
 #include <QTemporaryFile>
 
-static QStringList* tmpfiles = 0;
+static QStringList* tmpfiles = nullptr;
 
 QString Tellico::NetAccess::s_lastErrorMessage;
 
@@ -66,14 +66,12 @@ bool NetAccess::download(const QUrl& url_, QString& target_, QWidget* window_, b
     tmpfiles->append(target_);
   }
 
-  QUrl dest = QUrl::fromLocalFile(target_);
   KIO::JobFlags flags = KIO::Overwrite;
   if(quiet_ || !window_) {
     flags |= KIO::HideProgressInfo;
   }
 
   // KIO::storedGet seems to handle Content-Encoding: gzip ok
-  QByteArray data;
   KIO::StoredTransferJob* getJob = KIO::storedGet(url_, KIO::NoReload, flags);
   KJobWidgets::setWindow(getJob, window_);
   if(getJob->exec()) {
@@ -90,12 +88,12 @@ bool NetAccess::download(const QUrl& url_, QString& target_, QWidget* window_, b
       s_lastErrorMessage = i18n(errorOpen, target_);
     }
   } else {
-    s_lastErrorMessage = QString::fromLatin1("Tellico was unable to download %1").arg(url_.url());
+    s_lastErrorMessage = QStringLiteral("Tellico was unable to download %1").arg(url_.url());
     myWarning() << getJob->errorString();
   }
 
-  if(!quiet_ && getJob->ui()) {
-    getJob->ui()->showErrorMessage();
+  if(!quiet_ && getJob->uiDelegate()) {
+    getJob->uiDelegate()->showErrorMessage();
   }
   return false;
 }

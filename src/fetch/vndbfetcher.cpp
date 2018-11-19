@@ -54,12 +54,12 @@ using namespace Tellico;
 using Tellico::Fetch::VNDBFetcher;
 
 VNDBFetcher::VNDBFetcher(QObject* parent_)
-    : Fetcher(parent_), m_started(false), m_socket(0), m_isConnected(false), m_state(PreLogin) {
+    : Fetcher(parent_), m_started(false), m_socket(nullptr), m_isConnected(false), m_state(PreLogin) {
 }
 
 VNDBFetcher::~VNDBFetcher() {
   delete m_socket;
-  m_socket = 0;
+  m_socket = nullptr;
 }
 
 QString VNDBFetcher::source() const {
@@ -79,10 +79,11 @@ void VNDBFetcher::readConfigHook(const KConfigGroup&) {
 
 void VNDBFetcher::search() {
   m_started = true;
+  m_data.clear();
 
   if(!m_socket) {
     m_socket = new QTcpSocket(this);
-    connect(m_socket, SIGNAL(readyRead()), SLOT(slotComplete()));
+    connect(m_socket, SIGNAL(readyRead()), SLOT(slotRead()));
     connect(m_socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)), SLOT(slotState()));
     connect(m_socket, SIGNAL(error(QAbstractSocket::SocketError)), SLOT(slotError()));
   }
@@ -91,7 +92,7 @@ void VNDBFetcher::search() {
   }
 
   //the client ver only wants digits, I think?
-  QString clientVersion(QLatin1String(TELLICO_VERSION));
+  QString clientVersion(QStringLiteral(TELLICO_VERSION));
   clientVersion.remove(QRegExp(QLatin1String("[^0-9.]")));
 
   QByteArray login = "login {"
@@ -148,21 +149,21 @@ Tellico::Data::EntryPtr VNDBFetcher::fetchEntryHook(uint uid_) {
   }
 
   // image might still be a URL
-  const QString image_id = entry->field(QLatin1String("cover"));
+  const QString image_id = entry->field(QStringLiteral("cover"));
   if(image_id.contains(QLatin1Char('/'))) {
     const QString id = ImageFactory::addImage(QUrl::fromUserInput(image_id), true /* quiet */);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
     // empty image ID is ok
-    entry->setField(QLatin1String("cover"), id);
+    entry->setField(QStringLiteral("cover"), id);
   }
 
   return entry;
 }
 
 Tellico::Fetch::FetchRequest VNDBFetcher::updateRequest(Data::EntryPtr entry_) {
-  const QString title = entry_->field(QLatin1String("title"));
+  const QString title = entry_->field(QStringLiteral("title"));
   if(!title.isEmpty()) {
     return FetchRequest(Title, title);
   }
@@ -170,24 +171,22 @@ Tellico::Fetch::FetchRequest VNDBFetcher::updateRequest(Data::EntryPtr entry_) {
 }
 
 void VNDBFetcher::slotComplete() {
-//  myDebug();
-
-  QByteArray data = m_socket->readAll();
-  if(data.isEmpty()) {
+  if(m_data.isEmpty()) {
     myDebug() << "no data";
     stop();
     return;
   }
 
-  // remove the late hex character
+  QByteArray data = m_data;
+  // remove the last hex character
   data.chop(1);
 
   if(data.startsWith("error")) { //krazy:exclude=strings
     QJsonDocument doc = QJsonDocument::fromJson(data.mid(5));
     QVariantMap result = doc.object().toVariantMap();
-    if(result.contains(QLatin1String("msg"))) {
-      myDebug() << result.value(QLatin1String("msg")).toString();
-      message(result.value(QLatin1String("msg")).toString(), MessageHandler::Error);
+    if(result.contains(QStringLiteral("msg"))) {
+      myDebug() << result.value(QStringLiteral("msg")).toString();
+      message(result.value(QStringLiteral("msg")).toString(), MessageHandler::Error);
     }
     stop();
     return;
@@ -197,6 +196,7 @@ void VNDBFetcher::slotComplete() {
   if(m_state == PreLogin) {
     if(data.startsWith("ok")) { //krazy:exclude=strings
       m_state = PostLogin;
+      m_data.clear(); // reset data buffer
     } else {
       stop();
     }
@@ -222,9 +222,16 @@ void VNDBFetcher::slotComplete() {
   f.close();
 #endif
 
-  QJsonDocument doc = QJsonDocument::fromJson(data);
+  QJsonParseError jsonError;
+  QJsonDocument doc = QJsonDocument::fromJson(data, &jsonError);
+  if(doc.isNull()) {
+    myDebug() << "null JSON document:" << jsonError.errorString();
+    message(jsonError.errorString(), MessageHandler::Error);
+    stop();
+    return;
+  }
   QVariantMap topResultMap = doc.object().toVariantMap();
-  QVariantList resultList = topResultMap.value(QLatin1String("items")).toList();
+  QVariantList resultList = topResultMap.value(QStringLiteral("items")).toList();
   if(resultList.isEmpty()) {
     myDebug() << "no results";
     stop();
@@ -234,12 +241,12 @@ void VNDBFetcher::slotComplete() {
   Data::CollPtr coll(new Data::GameCollection(true));
   // add new fields
   if(optionalFields().contains(QLatin1String("origtitle"))) {
-    Data::FieldPtr f(new Data::Field(QLatin1String("origtitle"), i18n("Original Title")));
+    Data::FieldPtr f(new Data::Field(QStringLiteral("origtitle"), i18n("Original Title")));
     f->setFormatType(FieldFormat::FormatTitle);
     coll->addField(f);
   }
   if(optionalFields().contains(QLatin1String("alias"))) {
-    Data::FieldPtr f(new Data::Field(QLatin1String("alias"), i18n("Alias")));
+    Data::FieldPtr f(new Data::Field(QStringLiteral("alias"), i18n("Alias")));
     f->setFlags(Data::Field::AllowMultiple);
     f->setFormatType(FieldFormat::FormatTitle);
     coll->addField(f);
@@ -255,17 +262,17 @@ void VNDBFetcher::slotComplete() {
     resultMap = result.toMap();
 
     Data::EntryPtr entry(new Data::Entry(coll));
-    entry->setField(QLatin1String("title"), value(resultMap, "title"));
-    entry->setField(QLatin1String("year"), value(resultMap, "released").left(4));
-    entry->setField(QLatin1String("genre"), i18n("Visual Novel"));
-    entry->setField(QLatin1String("description"), value(resultMap, "description"));
-    entry->setField(QLatin1String("cover"), value(resultMap, "image"));
+    entry->setField(QStringLiteral("title"), mapValue(resultMap, "title"));
+    entry->setField(QStringLiteral("year"), mapValue(resultMap, "released").left(4));
+    entry->setField(QStringLiteral("genre"), i18n("Visual Novel"));
+    entry->setField(QStringLiteral("description"), mapValue(resultMap, "description"));
+    entry->setField(QStringLiteral("cover"), mapValue(resultMap, "image"));
     if(optionalFields().contains(QLatin1String("origtitle"))) {
-      entry->setField(QLatin1String("origtitle"), value(resultMap, "original"));
+      entry->setField(QStringLiteral("origtitle"), mapValue(resultMap, "original"));
     }
     if(optionalFields().contains(QLatin1String("alias"))) {
-      const QString aliases = value(resultMap, "aliases");
-      entry->setField(QLatin1String("alias"), aliases.split(QLatin1String("\n")).join(FieldFormat::delimiterString()));
+      const QString aliases = mapValue(resultMap, "aliases");
+      entry->setField(QStringLiteral("alias"), aliases.split(QStringLiteral("\n")).join(FieldFormat::delimiterString()));
     }
 
     FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
@@ -298,12 +305,22 @@ void VNDBFetcher::slotError() {
   myDebug() << m_socket->errorString();
 }
 
+void VNDBFetcher::slotRead() {
+  m_data += m_socket->readAll();
+
+  // check the last character, if it's not the hex character, continue waiting
+  if(m_socket->atEnd() && m_data.endsWith(0x04)) {
+    slotComplete();
+  }
+}
+
+
 Tellico::Fetch::ConfigWidget* VNDBFetcher::configWidget(QWidget* parent_) const {
   return new VNDBFetcher::ConfigWidget(parent_, this);
 }
 
 QString VNDBFetcher::defaultName() {
-  return QLatin1String("Visual Novel Database"); // no translation
+  return QStringLiteral("Visual Novel Database"); // no translation
 }
 
 QString VNDBFetcher::defaultIcon() {
@@ -312,8 +329,8 @@ QString VNDBFetcher::defaultIcon() {
 
 Tellico::StringHash VNDBFetcher::allOptionalFields() {
   StringHash hash;
-  hash[QLatin1String("origtitle")] = i18n("Original Title");
-  hash[QLatin1String("alias")] = i18n("Alias");
+  hash[QStringLiteral("origtitle")] = i18n("Original Title");
+  hash[QStringLiteral("alias")] = i18n("Alias");
   return hash;
 }
 
@@ -332,20 +349,4 @@ void VNDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
 
 QString VNDBFetcher::ConfigWidget::preferredName() const {
   return VNDBFetcher::defaultName();
-}
-
-// static
-QString VNDBFetcher::value(const QVariantMap& map, const char* name) {
-  const QVariant v = map.value(QLatin1String(name));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::String)) {
-    return v.toString();
-  } else if(v.canConvert(QVariant::StringList)) {
-    return v.toStringList().join(Tellico::FieldFormat::delimiterString());
-  } else if(v.canConvert(QVariant::Map)) {
-    return v.toMap().value(QLatin1String("value")).toString();
-  } else {
-    return QString();
-  }
 }

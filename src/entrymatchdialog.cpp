@@ -105,7 +105,7 @@ EntryMatchDialog::EntryMatchDialog(QWidget* parent_, Data::EntryPtr entryToUpdat
   // don't bother creating funky gradient images for compact view
   m_entryView->setUseGradientImages(false);
   // set the xslt file AFTER setting the gradient image option
-  m_entryView->setXSLTFile(QLatin1String("Compact.xsl"));
+  m_entryView->setXSLTFile(QStringLiteral("Compact.xsl"));
   m_entryView->addXSLTStringParam("skip-fields", "id,mdate,cdate");
 
   QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
@@ -133,7 +133,7 @@ void EntryMatchDialog::slotShowEntry() {
 Tellico::EntryUpdater::UpdateResult EntryMatchDialog::updateResult() const {
   QTreeWidgetItem* item = m_treeWidget->currentItem();
   if(!item) {
-    return EntryUpdater::UpdateResult(0, false);
+    return EntryUpdater::UpdateResult(nullptr, false);
   }
   return m_itemResults[item];
 }

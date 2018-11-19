@@ -29,10 +29,8 @@
 #include "models.h"
 
 #include <QIcon>
-
 #include <QAbstractItemModel>
-#include <QHash>
-#include <QCache>
+#include <QMultiHash>
 
 namespace Tellico {
 
@@ -46,14 +44,14 @@ public:
   EntryModel(QObject* parent);
   virtual ~EntryModel();
 
-  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
-  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const;
-  virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const;
-  virtual QModelIndex parent(const QModelIndex& index) const;
-  virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-  virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const Q_DECL_OVERRIDE;
+  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const Q_DECL_OVERRIDE;
+  virtual QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const Q_DECL_OVERRIDE;
+  virtual QModelIndex parent(const QModelIndex& index) const Q_DECL_OVERRIDE;
+  virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+  virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
-  virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole);
+  virtual bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
 
   void clear();
   void clearSaveState();
@@ -71,11 +69,13 @@ public:
 
   QModelIndex indexFromEntry(Data::EntryPtr entry) const;
 
+private Q_SLOTS:
+  void refreshImage(const QString& id);
+
 private:
   Data::EntryPtr entry(const QModelIndex& index) const;
   Data::FieldPtr field(const QModelIndex& index) const;
-  const QIcon& defaultIcon(Data::CollPtr coll) const;
-  QString imageField(Data::CollPtr coll) const;
+  QVariant requestImage(Data::EntryPtr entry, const QString& id) const;
 
   Data::EntryList m_entries;
   Data::FieldList m_fields;
@@ -83,9 +83,8 @@ private:
   QHash<int, int> m_saveStates;
   bool m_imagesAreAvailable;
 
-  mutable QHash<int, QIcon*> m_defaultIcons;
-  mutable QHash<long, QString> m_imageFields;
-  mutable QCache<QString, QIcon> m_iconCache;
+  // maps ids of requested images into entries
+  mutable QMultiHash<QString, Data::EntryPtr> m_requestedImages;
 };
 
 } // end namespace

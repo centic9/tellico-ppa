@@ -28,13 +28,14 @@
 #include "image.h"
 #include "imageinfo.h"
 #include "imagedirectory.h"
-#include "../core/filehandler.h"
-#include "../core/tellico_config.h"
+#include "imagejob.h"
+#include "../config/tellico_config.h"
 #include "../utils/tellico_utils.h"
 #include "../tellico_debug.h"
 
 #include <KColorUtils>
 
+#include <QCache>
 #include <QFileInfo>
 #include <QDir>
 #ifdef HAVE_QIMAGEBLITZ
@@ -50,7 +51,7 @@ using Tellico::ImageFactory;
 QHash<QString, Tellico::Data::ImageInfo> ImageFactory::s_imageInfoMap;
 Tellico::StringSet ImageFactory::s_imagesToRelease;
 
-Tellico::ImageFactory* ImageFactory::factory = 0;
+Tellico::ImageFactory* ImageFactory::factory = nullptr;
 
 class ImageFactory::Private {
 public:
@@ -61,10 +62,11 @@ public:
   QHash<QString, Data::Image*> imageDict;
   QCache<QString, Data::Image> imageCache;
   QCache<QString, QPixmap> pixmapCache;
-  ImageDirectory dataImageDir; // kept in $KDEHOME/share/apps/tellico/data/
+  ImageDirectory dataImageDir; // kept in $HOME/.local/share/tellico/data/
   ImageDirectory localImageDir; // kept local to data file
   TemporaryImageDirectory tempImageDir; // kept in tmp directory
   ImageZipArchive imageZipArchive;
+  StringSet nullImages;
 };
 
 ImageFactory::ImageFactory() : QObject(), d(new Private()) {
@@ -81,11 +83,11 @@ void ImageFactory::init() {
   factory = new ImageFactory();
   factory->d->imageCache.setMaxCost(Config::imageCacheSize());
   factory->d->pixmapCache.setMaxCost(Config::imageCacheSize());
-  factory->d->dataImageDir.setPath(Tellico::saveLocation(QLatin1String("data/")));
+  factory->d->dataImageDir.setPath(Tellico::saveLocation(QStringLiteral("data/")));
 }
 
 Tellico::ImageFactory* ImageFactory::self() {
-  Q_ASSERT(factory);
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
   return factory;
 }
 
@@ -128,39 +130,32 @@ QString ImageFactory::addImage(const QUrl& url_, bool quiet_, const QUrl& refer_
 }
 
 const Tellico::Data::Image& ImageFactory::addImageImpl(const QUrl& url_, bool quiet_, const QUrl& refer_, bool link_) {
-  if(url_.isEmpty() || !url_.isValid()) {
+  if(url_.isEmpty() || !url_.isValid() || d->nullImages.contains(url_.url())) {
     return Data::Image::null;
   }
-//  myLog() << url_.toDisplayString();
-  Data::Image* img = FileHandler::readImageFile(url_, QString(), quiet_, refer_);
-  if(!img) {
-    myLog() << "image not found:" << url_.toDisplayString();
-    return Data::Image::null;
-  }
-  if(img->isNull()) {
-    myLog() << "null image:" << url_.toDisplayString();
-    delete img;
-    return Data::Image::null;
-  }
+  ImageJob* job = new ImageJob(url_, QString(), quiet_);
+  job->setLinkOnly(link_);
+  job->setReferrer(refer_);
 
-  if(link_) {
-    img->setLinkOnly(true);
-    img->setID(url_.url());
-  }
-
-  if(hasImage(img->id())) {
-    const Data::Image& img2 = imageById(img->id());
-    if(!img2.isNull()) {
-      delete img;
-      return img2;
+  if(!job->exec()) {
+//    myDebug() << "ImageJob failed to exec";
+    // ERR_UNKNOWN is used when the returned image is truly null
+    // rather than network error or some such
+    if(job->error() == KIO::ERR_UNKNOWN) {
+      d->nullImages.add(url_.url());
     }
+    return Data::Image::null;
   }
 
-  if(!link_) {
-    d->imageDict.insert(img->id(), img);
+  const Data::Image& img = job->image();
+  Q_ASSERT(!img.isNull());
+
+  // hold the image in memory since it probably isn't written locally to disk yet
+  if(!d->imageDict.contains(img.id())) {
+    d->imageDict.insert(img.id(), new Data::Image(img));
+    s_imageInfoMap.insert(img.id(), Data::ImageInfo(img));
   }
-  s_imageInfoMap.insert(img->id(), Data::ImageInfo(*img));
-  return *img;
+  return img;
 }
 
 QString ImageFactory::addImage(const QImage& image_, const QString& format_) {
@@ -175,7 +170,7 @@ QString ImageFactory::addImage(const QPixmap& pix_, const QString& format_) {
 
 const Tellico::Data::Image& ImageFactory::addImageImpl(const QImage& image_, const QString& format_) {
   Data::Image* img = new Data::Image(image_, format_);
-  if(hasImage(img->id())) {
+  if(hasImageInMemory(img->id())) {
     const Data::Image& img2 = imageById(img->id());
     if(!img2.isNull()) {
       delete img;
@@ -232,7 +227,7 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const QByteArray& data_, 
 
 const Tellico::Data::Image& ImageFactory::addCachedImageImpl(const QString& id_, CacheDir dir_) {
 //  myLog() << "dir =" << (dir_ == DataDir ? "DataDir" : "TmpDir" ) << "; id =" << id_;
-  Data::Image* img = 0;
+  Data::Image* img = nullptr;
   switch(dir_) {
     case DataDir:
       img = d->dataImageDir.imageById(id_);
@@ -306,8 +301,8 @@ bool ImageFactory::writeCachedImage(const QString& id_, ImageDirectory* imgDir_,
   if(id_.isEmpty() || !imgDir_) {
     return false;
   }
-// myLog() << "looking in" << imgDir_->path();
-  bool exists = imgDir_->hasImage(id_);
+//  myLog() << "dir =" << imgDir_->path() << "; id =" << id_;
+  const bool exists = imgDir_->hasImage(id_);
   // only write if it doesn't exist
   bool success = (!force_ && exists);
   if(!success) {
@@ -321,8 +316,8 @@ bool ImageFactory::writeCachedImage(const QString& id_, ImageDirectory* imgDir_,
 }
 
 const Tellico::Data::Image& ImageFactory::imageById(const QString& id_) {
-  Q_ASSERT(factory);
-  if(id_.isEmpty() || !factory) {
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
+  if(id_.isEmpty() || !factory || factory->d->nullImages.contains(id_)) {
     return Data::Image::null;
   }
 //  myLog() << "imageById" << id_;
@@ -386,8 +381,8 @@ const Tellico::Data::Image& ImageFactory::imageById(const QString& id_) {
   // to provide confidence that the user's image can be found
   CacheDir configLoc = TempDir;
   CacheDir fallbackLoc = TempDir;
-  ImageDirectory* configImgDir = 0;
-  ImageDirectory* fallbackImgDir = 0;
+  ImageDirectory* configImgDir = nullptr;
+  ImageDirectory* fallbackImgDir = nullptr;
   if(Config::imageLocation() == Config::ImagesInLocalDir) {
     configLoc = LocalDir;
     fallbackLoc = DataDir;
@@ -412,7 +407,7 @@ const Tellico::Data::Image& ImageFactory::imageById(const QString& id_) {
   } else if(fallbackImgDir && fallbackImgDir->hasImage(id_)) {
     const Data::Image& img2 = factory->addCachedImageImpl(id_, fallbackLoc);
     if(!img2.isNull()) {
-//      myLog() << "found image in fallback location" << fallbackImgDir->path();
+//      myLog() << "found image in fallback location" << fallbackImgDir->path() << id_;
       // the img is in the other location
       factory->emitImageMismatch();
       return img2;
@@ -458,8 +453,57 @@ const Tellico::Data::Image& ImageFactory::imageById(const QString& id_) {
     }
   }
 
-  myDebug() << "***not found:" << id_;
+  myDebug() << "***ImageFactory::imageById() - not found:" << id_;
   return Data::Image::null;
+}
+
+bool ImageFactory::hasLocalImage(const QString& id_) {
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
+  if(id_.isEmpty() || !factory) {
+    return false;
+  }
+  const QUrl u(id_);
+  return factory->d->imageCache.contains(id_) ||
+         factory->d->imageDict.contains(id_) ||
+         factory->d->tempImageDir.hasImage(id_) ||
+         factory->d->imageZipArchive.hasImage(id_) ||
+         (u.isValid() && !u.isRelative() && u.isLocalFile()) ||
+         (Config::imageLocation() == Config::ImagesInLocalDir &&
+                                     factory->d->localImageDir.hasImage(id_)) ||
+         (Config::imageLocation() == Config::ImagesInAppDir &&
+                                     factory->d->dataImageDir.hasImage(id_));
+}
+
+void ImageFactory::requestImageById(const QString& id_) {
+  Q_ASSERT(factory && "ImageFactory is not initialized!");
+  if(hasLocalImage(id_)) {
+    emit factory->imageAvailable(id_);
+    return;
+  }
+  if(factory->d->nullImages.contains(id_)) {
+    // don't emit anything
+    return;
+  }
+  const QUrl u(id_);
+  // what does it mean when the Id is an absolute Url and yet the image is not link only?
+  // Probably a heritage image id before the bugs were fixed.
+  const bool linkOnly = (s_imageInfoMap.contains(id_) && s_imageInfoMap[id_].linkOnly);
+  if(linkOnly || !u.isRelative()) {
+    if(u.isValid()) {
+      factory->requestImageByUrlImpl(u, true /* quiet */, QUrl() /* referrer */, linkOnly);
+      if(!linkOnly) {
+        myDebug() << "Loading an image url that is not link only. The image id will get updated.";
+      }
+    }
+  }
+}
+
+void ImageFactory::requestImageByUrlImpl(const QUrl& url_, bool quiet_, const QUrl& refer_, bool link_) {
+  ImageJob* job = new ImageJob(url_, QString() /* id, use calculated one */, quiet_);
+  job->setLinkOnly(link_);
+  job->setReferrer(refer_);
+  connect(job, &ImageJob::result,
+          this, &ImageFactory::slotImageJobResult);
 }
 
 Tellico::Data::ImageInfo ImageFactory::imageInfo(const QString& id_) {
@@ -484,7 +528,7 @@ bool ImageFactory::hasImageInfo(const QString& id_) {
 
 bool ImageFactory::validImage(const QString& id_) {
   // don't try s_imageInfoMap[id_] cause it inserts an empty image info
-  return s_imageInfoMap.contains(id_) || factory->hasImage(id_) || !imageById(id_).isNull();
+  return s_imageInfoMap.contains(id_) || factory->hasImageInMemory(id_) || !imageById(id_).isNull();
 }
 
 QPixmap ImageFactory::pixmap(const QString& id_, int width_, int height_) {
@@ -538,7 +582,7 @@ void ImageFactory::clean(bool purgeTempDirectory_) {
     // be sure to save local image directory if it's not a temp dir!
     const QString localDirName = localDir();
     delete factory;
-    factory = 0;
+    factory = nullptr;
     ImageFactory::init();
     if(QDir(localDirName).exists()) {
       setLocalDirectory(QUrl::fromLocalFile(localDirName));
@@ -554,7 +598,7 @@ void ImageFactory::createStyleImages(int collectionType_, const Tellico::StyleOp
                           ? opt_.highlightedBaseColor
                           : Config::templateHighlightedBaseColor(collectionType_);
 
-  const QString bgname = QLatin1String("gradient_bg.png");
+  const QString bgname(QStringLiteral("gradient_bg.png"));
   const QColor& bgc1 = KColorUtils::mix(baseColor, highColor, 0.3);
 #ifdef HAVE_QIMAGEBLITZ
   QImage bgImage = Blitz::gradient(QSize(400, 1), bgc1, baseColor,
@@ -565,7 +609,7 @@ void ImageFactory::createStyleImages(int collectionType_, const Tellico::StyleOp
 #endif
   bgImage = bgImage.transformed(QTransform().rotate(90));
 
-  const QString hdrname = QLatin1String("gradient_header.png");
+  const QString hdrname(QStringLiteral("gradient_header.png"));
 #ifdef HAVE_QIMAGEBLITZ
   const QColor& bgc2 = KColorUtils::mix(baseColor, highColor, 0.5);
   QImage hdrImage = Blitz::unbalancedGradient(QSize(1, 10), highColor, bgc2,
@@ -579,12 +623,12 @@ void ImageFactory::createStyleImages(int collectionType_, const Tellico::StyleOp
     // write the style images both to the tmp dir and the cache dir
     // doesn't really hurt and lets the user switch back and forth
     ImageFactory::removeImage(bgname, true /*delete */);
-    factory->addImageImpl(Data::Image::byteArray(bgImage, "PNG"), QLatin1String("PNG"), bgname);
+    factory->addImageImpl(Data::Image::byteArray(bgImage, "PNG"), QStringLiteral("PNG"), bgname);
     ImageFactory::writeCachedImage(bgname, cacheDir(), true /*force*/);
     ImageFactory::writeCachedImage(bgname, TempDir, true /*force*/);
 
     ImageFactory::removeImage(hdrname, true /*delete */);
-    factory->addImageImpl(Data::Image::byteArray(hdrImage, "PNG"), QLatin1String("PNG"), hdrname);
+    factory->addImageImpl(Data::Image::byteArray(hdrImage, "PNG"), QStringLiteral("PNG"), hdrname);
     ImageFactory::writeCachedImage(hdrname, cacheDir(), true /*force*/);
     ImageFactory::writeCachedImage(hdrname, TempDir, true /*force*/);
   } else {
@@ -617,8 +661,12 @@ Tellico::StringSet ImageFactory::imagesNotInCache() {
   return set;
 }
 
-bool ImageFactory::hasImage(const QString& id_) const {
+bool ImageFactory::hasImageInMemory(const QString& id_) const {
   return d->imageCache.contains(id_) || d->imageDict.contains(id_);
+}
+
+bool ImageFactory::hasNullImage(const QString& id_) const {
+  return d->nullImages.contains(id_);
 }
 
 // the purpose here is to remove images from the dict if they're is on the disk somewhere,
@@ -631,7 +679,7 @@ void ImageFactory::releaseImages() {
   }
 
   foreach(const QString& id, s_imagesToRelease) {
-    if(!d->imageDict.value(id)) {
+    if(!d->imageDict.contains(id)) {
       continue;
     }
     if(d->dataImageDir.hasImage(id) ||
@@ -678,6 +726,29 @@ void ImageFactory::setZipArchive(KZip* zip_) {
     return;
   }
   factory->d->imageZipArchive.setZip(zip_);
+}
+
+void ImageFactory::slotImageJobResult(KJob* job_) {
+  ImageJob* imageJob = qobject_cast<ImageJob*>(job_);
+  Q_ASSERT(imageJob);
+  if(!imageJob) {
+    myWarning() << "No image job";
+    return;
+  }
+  const Data::Image& img = imageJob->image();
+  if(img.isNull()) {
+     myDebug() << "null image for" << imageJob->url();
+     d->nullImages.add(imageJob->url().url());
+     // don't emit anything
+     return;
+  }
+
+  // hold the image in memory since it probably isn't written locally to disk yet
+  if(!d->imageDict.contains(img.id())) {
+    d->imageDict.insert(img.id(), new Data::Image(img));
+    s_imageInfoMap.insert(img.id(), Data::ImageInfo(img));
+  }
+  emit factory->imageAvailable(img.id());
 }
 
 #undef RELEASE_IMAGES

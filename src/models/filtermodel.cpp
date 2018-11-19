@@ -38,6 +38,8 @@ using Tellico::FilterModel;
 
 class FilterModel::Node {
 public:
+  // for nodes that refer to a filter (not an entry), then overload the id variable to indicate whether
+  // the filter node has been populated or not. m_id == -1 means not populated, m_id == 0 means yes populated
   Node(Node* parent_, Data::ID id_=-1) : m_parent(parent_), m_id(id_) {}
   ~Node() { qDeleteAll(m_children); }
 
@@ -45,6 +47,7 @@ public:
   Node* child(int row) const { return m_children.at(row); }
   int row() const { return m_parent ? m_parent->m_children.indexOf(const_cast<Node*>(this)) : 0; }
   Data::ID id() const { return m_id; }
+  void setID(Data::ID id_) { m_id = id_; }
   int childCount() const { return m_children.count(); }
 
   void addChild(Node* child) {  m_children.append(child); }
@@ -57,12 +60,12 @@ private:
   Data::ID m_id;
 };
 
-FilterModel::FilterModel(QObject* parent) : QAbstractItemModel(parent), m_rootNode(new Node(0)), m_beingInvalidated(false) {
+FilterModel::FilterModel(QObject* parent) : QAbstractItemModel(parent), m_rootNode(new Node(nullptr)), m_beingInvalidated(false) {
 }
 
 FilterModel::~FilterModel() {
   delete m_rootNode;
-  m_rootNode = 0;
+  m_rootNode = nullptr;
 }
 
 int FilterModel::rowCount(const QModelIndex& index_) const {
@@ -76,7 +79,9 @@ int FilterModel::rowCount(const QModelIndex& index_) const {
   Node* node = static_cast<Node*>(index_.internalPointer());
   Q_ASSERT(node);
   // node may not be populated yet, do so unless we're in the middle of invalidating the node
-  if(!m_beingInvalidated && node->childCount() == 0) {
+  // for a filter node, an id == -1 then it means it has not yet been populated (better than checking
+  // if childCount() == 0 since a filter could have zero entry matches)
+  if(!m_beingInvalidated && node->id() == -1) {
     populateFilterNode(node, m_filters.at(index_.row()));
   }
   return node->childCount();
@@ -122,14 +127,14 @@ QVariant FilterModel::data(const QModelIndex& index_, int role_) const {
       if(parent.isValid()) {
         // it points to an entry
         Data::EntryPtr e = entry(index_);
-        return e ? e->formattedField(QLatin1String("title")) : QString();
+        return e ? e->formattedField(QStringLiteral("title")) : QString();
       } else {
         // it points to a filter
         FilterPtr f = filter(index_);
         return f ? f->name() : QString();
       }
     case Qt::DecorationRole:
-      return parent.isValid() ? QIcon::fromTheme(CollectionFactory::typeName(entry(index_)->collection()))
+      return parent.isValid() ? QIcon(QLatin1String(":/icons/") + CollectionFactory::typeName(entry(index_)->collection()))
                               : QIcon::fromTheme(QLatin1String("view-filter"));
     case RowCountRole:
       return rowCount(index_);
@@ -180,7 +185,7 @@ void FilterModel::clear() {
   beginResetModel();
   m_filters.clear();
   delete m_rootNode;
-  m_rootNode = new Node(0);
+  m_rootNode = new Node(nullptr);
   endResetModel();
 }
 
@@ -251,6 +256,9 @@ void FilterModel::invalidate(const QModelIndex& index_) {
 
   Node* filterNode = static_cast<Node*>(index_.internalPointer());
   Q_ASSERT(filterNode);
+  if(!filterNode) {
+    return;
+  }
 
   beginRemoveRows(index_, 0, filterNode->childCount() - 1);
   filterNode->removeAll();
@@ -270,17 +278,21 @@ void FilterModel::invalidate(const QModelIndex& index_) {
 
 bool FilterModel::indexContainsEntry(const QModelIndex& parent_, Data::EntryPtr entry_) const {
   Q_ASSERT(entry_);
-  if(!entry_) {
+  Q_ASSERT(parent_.isValid());
+  if(!entry_ || !parent_.isValid()) {
     return false;
   }
-
-  QModelIndex entryIndex = index(0, 0, parent_);
-  while(entryIndex.isValid()) {
-    Node* node = static_cast<Node*>(entryIndex.internalPointer());
-    if(node && node->id() == entry_->id()) {
+  Node* parentNode = static_cast<Node*>(parent_.internalPointer());
+  Q_ASSERT(parentNode);
+  if(!parentNode) {
+    return false;
+  }
+  for(int i = 0; i < parentNode->childCount(); ++i) {
+    Node* childNode = parentNode->child(i);
+    Q_ASSERT(childNode);
+    if(childNode && childNode->id() == entry_->id()) {
       return true;
     }
-    entryIndex = entryIndex.sibling(entryIndex.row()+1, 0);
   }
   return false;
 }
@@ -297,5 +309,6 @@ void FilterModel::populateFilterNode(Node* node_, const FilterPtr filter_) const
     Node* childNode = new Node(node_, entry->id());
     node_->addChild(childNode);
   }
+  // for filter nodes (which don't need ID), an ID value of 0 instead of -1 means it has been populated
+  node_->setID(0);
 }
-

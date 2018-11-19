@@ -24,7 +24,7 @@
 
 #include "entrysortmodel.h"
 #include "models.h"
-#include "../utils/fieldcomparison.h"
+#include "fieldcomparison.h"
 #include "../field.h"
 #include "../entry.h"
 
@@ -114,7 +114,7 @@ Tellico::FieldComparison* EntrySortModel::getComparison(const QModelIndex& index
   if(m_comparisons.contains(index_.column())) {
     return m_comparisons.value(index_.column());
   }
-  FieldComparison* comp = 0;
+  FieldComparison* comp = nullptr;
   if(index_.isValid()) {
     Data::FieldPtr field = index_.model()->headerData(index_.column(), Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
     if(field) {

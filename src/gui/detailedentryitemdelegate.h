@@ -30,11 +30,13 @@
 namespace Tellico {
 
 class DetailedEntryItemDelegate : public QStyledItemDelegate {
+Q_OBJECT
+
 public:
-  DetailedEntryItemDelegate(QObject* parent) : QStyledItemDelegate(parent) {}
+  DetailedEntryItemDelegate(QObject* parent);
 
 protected:
-  void initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) const;
+  void initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) const Q_DECL_OVERRIDE;
 };
 
 } // end namespace;

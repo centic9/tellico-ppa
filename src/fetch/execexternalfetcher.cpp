@@ -81,7 +81,7 @@ QStringList ExecExternalFetcher::parseArguments(const QString& str_) {
 }
 
 ExecExternalFetcher::ExecExternalFetcher(QObject* parent_) : Fetcher(parent_),
-    m_started(false), m_collType(-1), m_formatType(-1), m_canUpdate(false), m_process(0), m_deleteOnRemove(false) {
+    m_started(false), m_collType(-1), m_formatType(-1), m_canUpdate(false), m_process(nullptr), m_deleteOnRemove(false) {
 }
 
 ExecExternalFetcher::~ExecExternalFetcher() {
@@ -160,7 +160,7 @@ void ExecExternalFetcher::search() {
   }
   QString args = m_args.value(request().key);
   QRegExp rx2(QLatin1String("['\"]%1\\1"));
-  args.replace(rx2, QLatin1String("%1"));
+  args.replace(rx2, QStringLiteral("%1"));
   startSearch(parseArguments(args.arg(value))); // replace %1 with search value
 }
 
@@ -190,7 +190,7 @@ void ExecExternalFetcher::stop() {
   if(m_process) {
     m_process->kill();
     m_process->deleteLater();
-    m_process = 0;
+    m_process = nullptr;
   }
   m_data.clear();
   m_started = false;
@@ -235,7 +235,7 @@ void ExecExternalFetcher::slotProcessExited() {
 
   const QString text = QString::fromUtf8(m_data.constData(), m_data.size());
   Import::Format format = static_cast<Import::Format>(m_formatType > -1 ? m_formatType : Import::TellicoXML);
-  Import::Importer* imp = 0;
+  Import::Importer* imp = nullptr;
   // only 4 formats re supported here
   switch(format) {
     case Import::TellicoXML:
@@ -249,14 +249,14 @@ void ExecExternalFetcher::slotProcessExited() {
     case Import::MODS:
       imp = new Import::XSLTImporter(text);
       {
-        QString xsltFile = DataFileRegistry::self()->locate(QLatin1String("mods2tellico.xsl"));
+        QString xsltFile = DataFileRegistry::self()->locate(QStringLiteral("mods2tellico.xsl"));
         if(!xsltFile.isEmpty()) {
           QUrl u = QUrl::fromLocalFile(xsltFile);
           static_cast<Import::XSLTImporter*>(imp)->setXSLTURL(u);
         } else {
           myWarning() << "unable to find mods2tellico.xml!";
           delete imp;
-          imp = 0;
+          imp = nullptr;
         }
       }
       break;
@@ -326,7 +326,7 @@ QString ExecExternalFetcher::defaultName() {
 }
 
 QString ExecExternalFetcher::defaultIcon() {
-  return QLatin1String("application-x-executable");
+  return QStringLiteral("application-x-executable");
 }
 
 ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExternalFetcher* fetcher_/*=0*/)
@@ -350,10 +350,10 @@ ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExte
   label = new QLabel(i18n("&Result type: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_formatCombo = new GUI::ComboBox(optionsWidget());
-  m_formatCombo->addItem(QLatin1String("Tellico"), Import::TellicoXML);
-  m_formatCombo->addItem(QLatin1String("Bibtex"), Import::Bibtex);
-  m_formatCombo->addItem(QLatin1String("MODS"), Import::MODS);
-  m_formatCombo->addItem(QLatin1String("RIS"), Import::RIS);
+  m_formatCombo->addItem(QStringLiteral("Tellico"), Import::TellicoXML);
+  m_formatCombo->addItem(QStringLiteral("Bibtex"), Import::Bibtex);
+  m_formatCombo->addItem(QStringLiteral("MODS"), Import::MODS);
+  m_formatCombo->addItem(QStringLiteral("RIS"), Import::RIS);
   connect(m_formatCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
   l->addWidget(m_formatCombo, row, 1);
   w = i18n("Set the result type of the data returned from the external application.");
@@ -390,8 +390,8 @@ ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExte
     gridLayout->addWidget(cb, ++row, 0);
     m_cbDict.insert(key, cb);
     GUI::LineEdit* le = new GUI::LineEdit(gbox);
-    le->setPlaceholderText(QLatin1String("%1")); // for example
-    le->completionObject()->addItem(QLatin1String("%1"));
+    le->setPlaceholderText(QStringLiteral("%1")); // for example
+    le->completionObject()->addItem(QStringLiteral("%1"));
     gridLayout->addWidget(le, row, 1);
     m_leDict.insert(key, le);
     if(fetcher_ && fetcher_->m_args.contains(key)) {
@@ -409,9 +409,9 @@ ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExte
   m_cbUpdate = new QCheckBox(i18n("Update"), gbox);
   gridLayout->addWidget(m_cbUpdate, ++row, 0);
   m_leUpdate = new GUI::LineEdit(gbox);
-  m_leUpdate->setPlaceholderText(QLatin1String("%{title}")); // for example
-  m_leUpdate->completionObject()->addItem(QLatin1String("%{title}"));
-  m_leUpdate->completionObject()->addItem(QLatin1String("%{isbn}"));
+  m_leUpdate->setPlaceholderText(QStringLiteral("%{title}")); // for example
+  m_leUpdate->completionObject()->addItem(QStringLiteral("%{title}"));
+  m_leUpdate->completionObject()->addItem(QStringLiteral("%{isbn}"));
   gridLayout->addWidget(m_leUpdate, row, 1);
   /* TRANSLATORS: Do not translate %{author}. */
   w2 = i18n("<p>Enter the arguments which should be used to search for available updates to an entry.</p><p>"
@@ -548,4 +548,3 @@ void ExecExternalFetcher::ConfigWidget::removed() {
 QString ExecExternalFetcher::ConfigWidget::preferredName() const {
   return m_name.isEmpty() ? ExecExternalFetcher::defaultName() : m_name;
 }
-

@@ -28,17 +28,17 @@
 #include "translators/tellicozipexporter.h"
 #include "translators/tellicoxmlexporter.h"
 #include "collection.h"
-#include "filehandler.h"
+#include "core/filehandler.h"
 #include "borrower.h"
 #include "fieldformat.h"
-#include "tellico_strings.h"
+#include "core/tellico_strings.h"
 #include "images/imagefactory.h"
 #include "images/imagedirectory.h"
 #include "images/image.h"
 #include "images/imageinfo.h"
 #include "utils/stringset.h"
 #include "progressmanager.h"
-#include "core/tellico_config.h"
+#include "config/tellico_config.h"
 #include "entrycomparison.h"
 #include "utils/guiproxy.h"
 #include "tellico_debug.h"
@@ -54,10 +54,10 @@
 
 using namespace Tellico;
 using Tellico::Data::Document;
-Document* Document::s_self = 0;
+Document* Document::s_self = nullptr;
 
-Document::Document() : QObject(), m_coll(0), m_isModified(false),
-    m_loadAllImages(false), m_validFile(false), m_importer(0), m_cancelImageWriting(false),
+Document::Document() : QObject(), m_coll(nullptr), m_isModified(false),
+    m_loadAllImages(false), m_validFile(false), m_importer(nullptr), m_cancelImageWriting(false),
     m_fileFormat(Import::TellicoImporter::Unknown) {
   m_allImagesOnDisk = Config::imageLocation() != Config::ImagesInFile;
   newDocument(Collection::Book);
@@ -65,7 +65,7 @@ Document::Document() : QObject(), m_coll(0), m_isModified(false),
 
 Document::~Document() {
   delete m_importer;
-  m_importer = 0;
+  m_importer = nullptr;
 }
 
 Tellico::Data::CollPtr Document::collection() const {
@@ -96,14 +96,17 @@ void Document::slotSetClean(bool clean_) {
 }
 
 bool Document::newDocument(int type_) {
-  delete m_importer;
-  m_importer = 0;
+  if(m_importer) {
+    m_importer->deleteLater();
+    m_importer = nullptr;
+  }
   deleteContents();
 
   m_coll = CollectionFactory::collection(type_, true);
   m_coll->setTrackGroups(true);
 
   emit signalCollectionAdded(m_coll);
+  emit signalCollectionImagesLoaded(m_coll);
 
   slotSetModified(false);
   QUrl url = QUrl::fromLocalFile(i18n(Tellico::untitledFilename));
@@ -122,7 +125,9 @@ bool Document::openDocument(const QUrl& url_) {
     m_loadAllImages = true;
   }
 
-  delete m_importer;
+  if(m_importer) {
+    m_importer->deleteLater();
+  }
   m_importer = new Import::TellicoImporter(url_, m_loadAllImages);
 
   ProgressItem& item = ProgressManager::self()->newProgressItem(m_importer, m_importer->progressLabel(), true);
@@ -130,10 +135,15 @@ bool Document::openDocument(const QUrl& url_) {
           ProgressManager::self(), SLOT(setTotalSteps(QObject*, qulonglong)));
   connect(m_importer, SIGNAL(signalProgress(QObject*, qulonglong)),
           ProgressManager::self(), SLOT(setProgress(QObject*, qulonglong)));
-  connect(&item, SIGNAL(signalCancelled(ProgressItem*)), m_importer, SLOT(slotCancel()));
+  connect(&item, &Tellico::ProgressItem::signalCancelled,
+          m_importer.data(), &Tellico::Import::TellicoImporter::slotCancel);
   ProgressItem::Done done(m_importer);
 
   CollPtr coll = m_importer->collection();
+  if(!m_importer) {
+    myDebug() << "The importer was deleted out from under us";
+    return false;
+  }
   // delayed image loading only works for zip files
   // format is only known AFTER collection() is called
 
@@ -163,13 +173,15 @@ bool Document::openDocument(const QUrl& url_) {
 //  if(pruneImages()) {
 //    slotSetModified(true);
 //  }
-  if(m_importer->hasImages()) {
+  if(m_importer && m_importer->hasImages()) {
     m_cancelImageWriting = false;
     QTimer::singleShot(500, this, SLOT(slotLoadAllImages()));
   } else {
     emit signalCollectionImagesLoaded(m_coll);
-    m_importer->deleteLater();
-    m_importer = 0;
+    if(m_importer) {
+      m_importer->deleteLater();
+      m_importer = nullptr;
+    }
   }
   return true;
 }
@@ -201,7 +213,7 @@ bool Document::saveDocument(const QUrl& url_, bool force_) {
   // write all images to disk cache if needed
   // have to do this before executing exporter in case
   // the user changed the imageInFile setting from Yes to No, in which
-  // case saving will over write the old file that has the images in it!
+  // case saving will overwrite the old file that has the images in it!
   if(includeImages) {
     totalSteps = 10;
     item.setTotalSteps(totalSteps);
@@ -212,13 +224,13 @@ bool Document::saveDocument(const QUrl& url_, bool force_) {
     m_cancelImageWriting = false;
     writeAllImages(imageLocation == Config::ImagesInAppDir ? ImageFactory::DataDir : ImageFactory::LocalDir, url_);
   }
-  Export::Exporter* exporter;
+  QScopedPointer<Export::Exporter> exporter;
   if(m_fileFormat == Import::TellicoImporter::XML) {
-    exporter = new Export::TellicoXMLExporter(m_coll);
-    static_cast<Export::TellicoXMLExporter*>(exporter)->setIncludeImages(includeImages);
+    exporter.reset(new Export::TellicoXMLExporter(m_coll));
+    static_cast<Export::TellicoXMLExporter*>(exporter.data())->setIncludeImages(includeImages);
   } else {
-    exporter = new Export::TellicoZipExporter(m_coll);
-    static_cast<Export::TellicoZipExporter*>(exporter)->setIncludeImages(includeImages);
+    exporter.reset(new Export::TellicoZipExporter(m_coll));
+    static_cast<Export::TellicoZipExporter*>(exporter.data())->setIncludeImages(includeImages);
   }
   item.setProgress(int(0.8*totalSteps));
   exporter->setEntries(m_coll->entries());
@@ -228,7 +240,7 @@ bool Document::saveDocument(const QUrl& url_, bool force_) {
   // only write the image sizes if they're known already
   opt &= ~Export::ExportImageSize;
   exporter->setOptions(opt);
-  bool success = exporter->exec();
+  const bool success = exporter->exec();
   item.setProgress(int(0.9*totalSteps));
 
   if(success) {
@@ -236,15 +248,16 @@ bool Document::saveDocument(const QUrl& url_, bool force_) {
     // if successful, doc is no longer modified
     slotSetModified(false);
   } else {
-    myDebug() << "not successful saving to " << url_.url();
+    myDebug() << "Document::saveDocument() - not successful saving to" << url_.url();
   }
-  delete exporter;
   return success;
 }
 
 bool Document::closeDocument() {
-  delete m_importer;
-  m_importer = 0;
+  if(m_importer) {
+    m_importer->deleteLater();
+    m_importer = nullptr;
+  }
   deleteContents();
   return true;
 }
@@ -261,7 +274,7 @@ void Document::deleteContents() {
   if(m_coll) {
     m_coll->clear();
   }
-  m_coll = 0; // old collection gets deleted as refcount goes to 0
+  m_coll = nullptr; // old collection gets deleted as refcount goes to 0
   m_cancelImageWriting = true;
 }
 
@@ -309,8 +322,8 @@ Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll1_
 
   EntryList currEntries = coll1_->entries();
   EntryList newEntries = coll2_->entries();
-  std::sort(currEntries.begin(), currEntries.end(), Data::EntryCmp(QLatin1String("title")));
-  std::sort(newEntries.begin(), newEntries.end(), Data::EntryCmp(QLatin1String("title")));
+  std::sort(currEntries.begin(), currEntries.end(), Data::EntryCmp(QStringLiteral("title")));
+  std::sort(newEntries.begin(), newEntries.end(), Data::EntryCmp(QStringLiteral("title")));
 
   const int currTotal = currEntries.count();
   int lastMatchId = 0;
@@ -428,7 +441,7 @@ void Document::unMergeCollection(Tellico::Data::CollPtr coll_, Tellico::Data::Fi
   m_coll->removeEntries(entries);
 
   // second item in pair are the entries which got modified by the original merge command
-  const QString track = QLatin1String("track");
+  const QString track = QStringLiteral("track");
   PairVector trackChanges = entryPair_.second;
   // need to go through them in reverse since one entry may have been modified multiple times
   // first item in the pair is the entry pointer
@@ -459,7 +472,7 @@ bool Document::loadAllImagesNow() const {
     return false;
   }
   if(m_loadAllImages) {
-    myDebug() << "all valid images should already be loaded!";
+    myDebug() << "Document::loadAllImagesNow() - all valid images should already be loaded!";
     return false;
   }
   return Import::TellicoImporter::loadAllImages(m_url);
@@ -481,14 +494,14 @@ void Document::checkOutEntry(Tellico::Data::EntryPtr entry_) {
     return;
   }
 
-  const QString loaned = QLatin1String("loaned");
+  const QString loaned = QStringLiteral("loaned");
   if(!m_coll->hasField(loaned)) {
     FieldPtr f(new Field(loaned, i18n("Loaned"), Field::Bool));
     f->setFlags(Field::AllowGrouped);
     f->setCategory(i18n("Personal"));
     m_coll->addField(f);
   }
-  entry_->setField(loaned, QLatin1String("true"));
+  entry_->setField(loaned, QStringLiteral("true"));
   EntryList vec;
   vec.append(entry_);
   m_coll->updateDicts(vec, QStringList() << loaned);
@@ -499,7 +512,7 @@ void Document::checkInEntry(Tellico::Data::EntryPtr entry_) {
     return;
   }
 
-  const QString loaned = QLatin1String("loaned");
+  const QString loaned = QStringLiteral("loaned");
   if(!m_coll->hasField(loaned)) {
     return;
   }
@@ -513,14 +526,12 @@ void Document::renameCollection(const QString& newTitle_) {
 
 // this only gets called when a zip file with images is opened
 // by loading every image, it gets pulled out of the zip file and
-// copied to disk. then the zip file can be closed and not retained in memory
+// copied to disk. Then the zip file can be closed and not retained in memory
 void Document::slotLoadAllImages() {
   QString id;
   StringSet images;
-  Data::EntryList entries = m_coll->entries();
-  Data::FieldList imageFields = m_coll->imageFields();
-  foreach(EntryPtr entry, entries) {
-    foreach(FieldPtr field, imageFields) {
+  foreach(EntryPtr entry, m_coll->entries()) {
+    foreach(FieldPtr field, m_coll->imageFields()) {
       id = entry->field(field);
       if(id.isEmpty() || images.has(id)) {
         continue;
@@ -528,8 +539,9 @@ void Document::slotLoadAllImages() {
       // this is the early loading, so just by calling imageById()
       // the image gets sucked from the zip file and written to disk
       // by ImageFactory::imageById()
+      // TODO:: does this need to check against images with link only?
       if(ImageFactory::imageById(id).isNull()) {
-        myDebug() << "entry title:" << entry->title();
+        myDebug() << "Null image for entry:" << entry->title() << id;
       }
       images.add(id);
       if(m_cancelImageWriting) {
@@ -544,14 +556,16 @@ void Document::slotLoadAllImages() {
   }
 
   if(m_cancelImageWriting) {
-    myLog() << "cancel image writing";
+    myLog() << "slotLoadAllImages() - cancel image writing";
   } else {
     emit signalCollectionImagesLoaded(m_coll);
   }
 
   m_cancelImageWriting = false;
-  m_importer->deleteLater();
-  m_importer = 0;
+  if(m_importer) {
+    m_importer->deleteLater();
+    m_importer = nullptr;
+  }
 }
 
 // cacheDir_ is the location dir to write the images
@@ -606,7 +620,7 @@ void Document::writeAllImages(int cacheDir_, const QUrl& localDir_) {
   }
 
   if(m_cancelImageWriting) {
-    myDebug() << "cancel image writing";
+    myDebug() << "Document::writeAllImages() - cancel image writing";
   }
 
   m_cancelImageWriting = false;

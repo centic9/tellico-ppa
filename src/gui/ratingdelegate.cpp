@@ -27,9 +27,8 @@ RatingDelegate::RatingDelegate(QObject* parent /* = 0 */) : QStyledItemDelegate(
 }
 
 void RatingDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const {
-  QStyleOptionViewItemV4 opt(option);
-  QStyle* style = opt.widget ? opt.widget->style() : QApplication::style();
-  style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
+  QStyle* style = option.widget ? option.widget->style() : QApplication::style();
+  style->drawPrimitive(QStyle::PE_PanelItemViewItem, &option, painter, option.widget);
 
   const int left = option.rect.left();
   const int top = option.rect.top();
@@ -43,7 +42,7 @@ void RatingDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
   p.translate(-option.rect.topLeft());
 
   //Paint rating
-  const int rating = index.data(Qt::DisplayRole).toInt();
+  const int rating = qRound(index.data(Qt::DisplayRole).toFloat());
   StarRating starRating = StarRating(rating, StarRating::Medium);
   starRating.setMaxRating(m_maxRating);
   QSize ratingSize = starRating.sizeHint();

@@ -42,7 +42,8 @@ FilterRule::FilterRule(const QString& fieldName_, const QString& pattern_, Funct
 
 bool FilterRule::matches(Tellico::Data::EntryPtr entry_) const {
   Q_ASSERT(entry_);
-  if(!entry_) {
+  Q_ASSERT(entry_->collection());
+  if(!entry_ || !entry_->collection()) {
     return false;
   }
   switch (m_function) {
@@ -88,7 +89,9 @@ bool FilterRule::equals(Tellico::Data::EntryPtr entry_) const {
     }
   } else {
     return m_pattern.compare(entry_->field(m_fieldName), Qt::CaseInsensitive) == 0 ||
-           m_pattern.compare(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat), Qt::CaseInsensitive) == 0;
+           (entry_->collection()->hasField(m_fieldName) &&
+            entry_->collection()->fieldByName(m_fieldName)->formatType() != FieldFormat::FormatNone &&
+            m_pattern.compare(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat), Qt::CaseInsensitive) == 0);
   }
 
   return false;
@@ -119,21 +122,27 @@ bool FilterRule::contains(Tellico::Data::EntryPtr entry_) const {
       }
     }
   } else {
-    QString value = entry_->field(m_fieldName);
+    const QString value = entry_->field(m_fieldName);
     if(value.contains(m_pattern, Qt::CaseInsensitive)) {
-        return true;
+      return true;
     }
     QString value2 = removeAccents(value);
     if(value2 != value && value2.contains(m_pattern, Qt::CaseInsensitive)) {
       return true;
     }
-    value = entry_->formattedField(m_fieldName);
-    if(value.contains(m_pattern, Qt::CaseInsensitive)) {
-      return true;
-    }
-    value2 = removeAccents(value);
-    if(value2 != value && value2.contains(m_pattern, Qt::CaseInsensitive)) {
-      return true;
+    if(entry_->collection()->hasField(m_fieldName) &&
+       entry_->collection()->fieldByName(m_fieldName)->formatType() != FieldFormat::FormatNone) {
+      const QString fvalue = entry_->formattedField(m_fieldName);
+      if(fvalue == value) {
+        return false; // if the formatted value is equal to original value, no need to recheck
+      }
+      if(fvalue.contains(m_pattern, Qt::CaseInsensitive)) {
+        return true;
+      }
+      value2 = removeAccents(fvalue);
+      if(value2 != fvalue && value2.contains(m_pattern, Qt::CaseInsensitive)) {
+        return true;
+      }
     }
   }
 
@@ -156,7 +165,9 @@ bool FilterRule::matchesRegExp(Tellico::Data::EntryPtr entry_) const {
     }
   } else {
     return pattern.indexIn(entry_->field(m_fieldName)) >= 0 ||
-           pattern.indexIn(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat)) >= 0;
+           (entry_->collection()->hasField(m_fieldName) &&
+            entry_->collection()->fieldByName(m_fieldName)->formatType() != FieldFormat::FormatNone &&
+            pattern.indexIn(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat)) >= 0);
   }
 
   return false;
@@ -171,7 +182,7 @@ bool FilterRule::before(Tellico::Data::EntryPtr entry_) const {
   const QDate pattern = m_patternVariant.toDate();
 //  const QDate value = QDate::fromString(entry_->field(m_fieldName), Qt::ISODate);
   // Bug 361625: some older versions of Tellico serialized the date with single digit month and day
-  const QDate value = QDate::fromString(entry_->field(m_fieldName), QLatin1String("yyyy-M-d"));
+  const QDate value = QDate::fromString(entry_->field(m_fieldName), QStringLiteral("yyyy-M-d"));
   return value.isValid() && value < pattern;
 }
 
@@ -184,7 +195,7 @@ bool FilterRule::after(Tellico::Data::EntryPtr entry_) const {
   const QDate pattern = m_patternVariant.toDate();
 //  const QDate value = QDate::fromString(entry_->field(m_fieldName), Qt::ISODate);
   // Bug 361625: some older versions of Tellico serialized the date with single digit month and day
-  const QDate value = QDate::fromString(entry_->field(m_fieldName), QLatin1String("yyyy-M-d"));
+  const QDate value = QDate::fromString(entry_->field(m_fieldName), QStringLiteral("yyyy-M-d"));
   return value.isValid() && value > pattern;
 }
 
@@ -257,18 +268,17 @@ bool Filter::matches(Tellico::Data::EntryPtr entry_) const {
   bool match = false;
   foreach(const FilterRule* rule, *this) {
     if(rule->matches(entry_)) {
+      match = true;
       if(m_op == Filter::MatchAny) {
-        return true;
-      } else {
-        match = true;
+        break; // don't need to check other rules
       }
     } else {
+      match = false;
       if(m_op == Filter::MatchAll) {
-        return false;
+        break; // no need to check further
       }
     }
   }
-
   return match;
 }
 

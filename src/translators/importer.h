@@ -89,14 +89,14 @@ public:
    *
    * @return A pointer to the setting widget
    */
-  virtual QWidget* widget(QWidget*) { return 0; }
+  virtual QWidget* widget(QWidget*) { return nullptr; }
   /**
    * Checks to see if the importer can return a collection of this type
    *
    * @param type The collection type to check
    * @return Whether the importer could return a collection of that type
    */
-  virtual bool canImport(int) const { return true; }
+  virtual bool canImport(int type) const = 0;
   /**
    * Validate the import settings
    */
@@ -118,6 +118,7 @@ public Q_SLOTS:
    * The import action was changed in the import dialog
    */
   virtual void slotActionChanged(int) {}
+  virtual void slotCancel() = 0;
 
 Q_SIGNALS:
   void signalTotalSteps(QObject* obj, qulonglong steps);

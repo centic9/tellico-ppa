@@ -42,14 +42,14 @@
 using Tellico::Fetch::XMLFetcher;
 
 XMLFetcher::XMLFetcher(QObject* parent_) : Fetcher(parent_)
-    , m_xsltHandler(0)
+    , m_xsltHandler(nullptr)
     , m_started(false)
     , m_limit(0) {
 }
 
 XMLFetcher::~XMLFetcher() {
   delete m_xsltHandler;
-  m_xsltHandler = 0;
+  m_xsltHandler = nullptr;
 }
 
 void XMLFetcher::search() {
@@ -83,7 +83,7 @@ void XMLFetcher::stop() {
   }
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
   m_started = false;
   emit signalDone(this);
@@ -92,7 +92,7 @@ void XMLFetcher::stop() {
 void XMLFetcher::slotComplete(KJob* ) {
   Q_ASSERT(m_job);
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -113,7 +113,7 @@ void XMLFetcher::slotComplete(KJob* ) {
   }
   // see bug 319662. If fetcher is cancelled, job is killed
   // if the pointer is retained, it gets double-deleted
-  m_job = 0;
+  m_job = nullptr;
 
 #if 0
   myWarning() << "Remove debug from xmlfetcher.cpp";
@@ -200,7 +200,7 @@ void XMLFetcher::initXSLTHandler() {
   if(!m_xsltHandler->isValid()) {
     myWarning() << "error in" << m_xsltFilename;
     delete m_xsltHandler;
-    m_xsltHandler = 0;
+    m_xsltHandler = nullptr;
     return;
   }
 }
@@ -209,7 +209,7 @@ void XMLFetcher::setXSLTFilename(const QString& filename_) {
   if(!filename_.isEmpty() && filename_ != m_xsltFilename) {
     m_xsltFilename = filename_;
     delete m_xsltHandler;
-    m_xsltHandler = 0;
+    m_xsltHandler = nullptr;
   }
 }
 
@@ -222,4 +222,3 @@ Tellico::XSLTHandler* XMLFetcher::xsltHandler() {
   Q_ASSERT(m_xsltHandler);
   return m_xsltHandler;
 }
-

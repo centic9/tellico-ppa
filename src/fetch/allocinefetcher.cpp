@@ -22,6 +22,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h> // for TELLICO_VERSION
+
 #include "allocinefetcher.h"
 #include "../collections/videocollection.h"
 #include "../images/imagefactory.h"
@@ -97,7 +99,7 @@ void AbstractAllocineFetcher::search() {
 
   // the order of the parameters appears to matter
   QList<QPair<QString, QString> > params;
-  params.append(qMakePair(QString::fromLatin1("partner"), m_apiKey));
+  params.append(qMakePair(QStringLiteral("partner"), m_apiKey));
 
   // I can't figure out how to encode accent marks, but they don't
   // seem to be necessary
@@ -110,7 +112,7 @@ void AbstractAllocineFetcher::search() {
 
   switch(request().key) {
     case Keyword:
-      params.append(qMakePair(QString::fromLatin1("q"), q));
+      params.append(qMakePair(QStringLiteral("q"), q));
       break;
 
     default:
@@ -118,21 +120,24 @@ void AbstractAllocineFetcher::search() {
       return;
   }
 
-  params.append(qMakePair(QString::fromLatin1("format"), QString::fromLatin1("json")));
-  params.append(qMakePair(QString::fromLatin1("filter"), QString::fromLatin1("movie")));
+  params.append(qMakePair(QStringLiteral("format"), QStringLiteral("json")));
+  params.append(qMakePair(QStringLiteral("filter"), QStringLiteral("movie")));
 
-  const QString sed = QDateTime::currentDateTime().toUTC().toString(QLatin1String("yyyyMMdd"));
-  params.append(qMakePair(QString::fromLatin1("sed"), sed));
+  const QString sed = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd"));
+  params.append(qMakePair(QStringLiteral("sed"), sed));
 
   const QByteArray sig = calculateSignature(params);
 
   QUrlQuery query;
   query.setQueryItems(params);
-  query.addQueryItem(QLatin1String("sig"), QLatin1String(sig));
+  query.addQueryItem(QStringLiteral("sig"), QLatin1String(sig));
   u.setQuery(query);
 //  myDebug() << u;
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  // 10/8/17: UserAgent appears necessary to receive data
+  m_job->addMetaData(QStringLiteral("UserAgent"), QStringLiteral("Tellico/%1")
+                                                                .arg(QLatin1String(TELLICO_VERSION)));
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
 }
@@ -155,7 +160,7 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
     return Data::EntryPtr();
   }
 
-  QString code = entry->field(QLatin1String("allocine-code"));
+  QString code = entry->field(QStringLiteral("allocine-code"));
   if(code.isEmpty()) {
     // could mean we already updated the entry
     myDebug() << "no allocine release found";
@@ -168,27 +173,35 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
 
   // the order of the parameters appears to matter
   QList<QPair<QString, QString> > params;
-  params.append(qMakePair(QString::fromLatin1("partner"), m_apiKey));
-  params.append(qMakePair(QString::fromLatin1("code"), code));
-  params.append(qMakePair(QString::fromLatin1("profile"), QString::fromLatin1("large")));
-  params.append(qMakePair(QString::fromLatin1("filter"), QString::fromLatin1("movie")));
-  params.append(qMakePair(QString::fromLatin1("format"), QString::fromLatin1("json")));
+  params.append(qMakePair(QStringLiteral("partner"), m_apiKey));
+  params.append(qMakePair(QStringLiteral("code"), code));
+  params.append(qMakePair(QStringLiteral("profile"), QStringLiteral("large")));
+  params.append(qMakePair(QStringLiteral("filter"), QStringLiteral("movie")));
+  params.append(qMakePair(QStringLiteral("format"), QStringLiteral("json")));
 
-  const QString sed = QDateTime::currentDateTime().toUTC().toString(QLatin1String("yyyyMMdd"));
-  params.append(qMakePair(QString::fromLatin1("sed"), sed));
+  const QString sed = QDateTime::currentDateTimeUtc().toString(QStringLiteral("yyyyMMdd"));
+  params.append(qMakePair(QStringLiteral("sed"), sed));
 
   const QByteArray sig = calculateSignature(params);
 
   QUrlQuery query;
   query.setQueryItems(params);
-  query.addQueryItem(QLatin1String("sig"), QLatin1String(sig));
+  query.addQueryItem(QStringLiteral("sig"), QLatin1String(sig));
   u.setQuery(query);
 //  myDebug() << "url: " << u;
-  // quiet
-  QByteArray data = FileHandler::readDataFile(u, true);
+  // 10/8/17: UserAgent appears necessary to receive data
+//  QByteArray data = FileHandler::readDataFile(u, true);
+  KIO::StoredTransferJob* dataJob = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  dataJob->addMetaData(QStringLiteral("UserAgent"), QStringLiteral("Tellico/%1")
+                                                                  .arg(QLatin1String(TELLICO_VERSION)));
+  if(!dataJob->exec()) {
+    myDebug() << "Failed to load" << u;
+    return entry;
+  }
+  const QByteArray data = dataJob->data();
 
 #if 0
-  myWarning() << "Remove debug from allocinefetcher.cpp";
+  myWarning() << "Remove debug2 from allocinefetcher.cpp";
   QFile f(QString::fromLatin1("/tmp/test2.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
@@ -200,11 +213,11 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
 
   QJsonParseError error;
   QJsonDocument doc = QJsonDocument::fromJson(data, &error);
-  QVariantMap result = doc.object().toVariantMap().value(QLatin1String("movie")).toMap();
+  QVariantMap result = doc.object().toVariantMap().value(QStringLiteral("movie")).toMap();
   if(error.error != QJsonParseError::NoError) {
     myDebug() << "Bad JSON results";
 #if 0
-    myWarning() << "Remove debug from allocinefetcher.cpp";
+    myWarning() << "Remove debug3 from allocinefetcher.cpp";
     QFile f2(QString::fromLatin1("/tmp/test3.json"));
     if(f2.open(QIODevice::WriteOnly)) {
       QTextStream t(&f2);
@@ -218,29 +231,29 @@ Tellico::Data::EntryPtr AbstractAllocineFetcher::fetchEntryHook(uint uid_) {
   populateEntry(entry, result);
 
   // image might still be a URL
-  const QString image_id = entry->field(QLatin1String("cover"));
+  const QString image_id = entry->field(QStringLiteral("cover"));
   if(image_id.contains(QLatin1Char('/'))) {
     const QString id = ImageFactory::addImage(QUrl::fromUserInput(image_id), true /* quiet */);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
     // empty image ID is ok
-    entry->setField(QLatin1String("cover"), id);
+    entry->setField(QStringLiteral("cover"), id);
   }
 
   // don't want to include id
-  entry->collection()->removeField(QLatin1String("allocine-code"));
-  QStringList castRows = FieldFormat::splitTable(entry->field(QLatin1String("cast")));
+  entry->collection()->removeField(QStringLiteral("allocine-code"));
+  QStringList castRows = FieldFormat::splitTable(entry->field(QStringLiteral("cast")));
   while(castRows.count() > m_numCast) {
     castRows.removeLast();
   }
-  entry->setField(QLatin1String("cast"), castRows.join(FieldFormat::rowDelimiterString()));
+  entry->setField(QStringLiteral("cast"), castRows.join(FieldFormat::rowDelimiterString()));
   return entry;
 }
 
 void AbstractAllocineFetcher::slotComplete(KJob*) {
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -253,7 +266,7 @@ void AbstractAllocineFetcher::slotComplete(KJob*) {
   }
   // see bug 319662. If fetcher is cancelled, job is killed
   // if the pointer is retained, it gets double-deleted
-  m_job = 0;
+  m_job = nullptr;
 
 #if 0
   myWarning() << "Remove debug from allocinefetcher.cpp";
@@ -267,10 +280,10 @@ void AbstractAllocineFetcher::slotComplete(KJob*) {
 #endif
 
   QJsonDocument doc = QJsonDocument::fromJson(data);
-  QVariantMap result = doc.object().toVariantMap().value(QLatin1String("feed")).toMap();
+  QVariantMap result = doc.object().toVariantMap().value(QStringLiteral("feed")).toMap();
 //  myDebug() << "total:" << result.value(QLatin1String("totalResults"));
 
-  QVariantList resultList = result.value(QLatin1String("movie")).toList();
+  QVariantList resultList = result.value(QStringLiteral("movie")).toList();
   if(resultList.isEmpty()) {
     myDebug() << "no results";
     stop();
@@ -297,18 +310,18 @@ void AbstractAllocineFetcher::slotComplete(KJob*) {
 Tellico::Data::CollPtr AbstractAllocineFetcher::createCollection() const {
   Data::CollPtr coll(new Data::VideoCollection(true));
   // always add the allocine release code for fetchEntryHook
-  Data::FieldPtr field(new Data::Field(QLatin1String("allocine-code"), QLatin1String("Allocine Code"), Data::Field::Number));
+  Data::FieldPtr field(new Data::Field(QStringLiteral("allocine-code"), QStringLiteral("Allocine Code"), Data::Field::Number));
   field->setCategory(i18n("General"));
   coll->addField(field);
 
   // add new fields
   if(optionalFields().contains(QLatin1String("allocine"))) {
-    Data::FieldPtr field(new Data::Field(QLatin1String("allocine"), i18n("Allocine Link"), Data::Field::URL));
+    Data::FieldPtr field(new Data::Field(QStringLiteral("allocine"), i18n("Allocine Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
   }
   if(optionalFields().contains(QLatin1String("origtitle"))) {
-    Data::FieldPtr f(new Data::Field(QLatin1String("origtitle"), i18n("Original Title")));
+    Data::FieldPtr f(new Data::Field(QStringLiteral("origtitle"), i18n("Original Title")));
     f->setFormatType(FieldFormat::FormatTitle);
     coll->addField(f);
   }
@@ -317,83 +330,83 @@ Tellico::Data::CollPtr AbstractAllocineFetcher::createCollection() const {
 }
 
 void AbstractAllocineFetcher::populateEntry(Data::EntryPtr entry, const QVariantMap& resultMap) {
-  if(entry->collection()->hasField(QLatin1String("allocine-code"))) {
-    entry->setField(QLatin1String("allocine-code"), value(resultMap, "code"));
+  if(entry->collection()->hasField(QStringLiteral("allocine-code"))) {
+    entry->setField(QStringLiteral("allocine-code"), mapValue(resultMap, "code"));
   }
 
-  entry->setField(QLatin1String("title"), value(resultMap, "title"));
+  entry->setField(QStringLiteral("title"), mapValue(resultMap, "title"));
   if(optionalFields().contains(QLatin1String("origtitle"))) {
-    entry->setField(QLatin1String("origtitle"), value(resultMap, "originalTitle"));
+    entry->setField(QStringLiteral("origtitle"), mapValue(resultMap, "originalTitle"));
   }
   if(entry->title().isEmpty()) {
-    entry->setField(QLatin1String("title"), value(resultMap,  "originalTitle"));
+    entry->setField(QStringLiteral("title"), mapValue(resultMap,  "originalTitle"));
   }
-  entry->setField(QLatin1String("year"), value(resultMap, "productionYear"));
-  entry->setField(QLatin1String("plot"), value(resultMap, "synopsis"));
+  entry->setField(QStringLiteral("year"), mapValue(resultMap, "productionYear"));
+  entry->setField(QStringLiteral("plot"), mapValue(resultMap, "synopsis"));
 
-  const int runTime = value(resultMap, "runtime").toInt();
-  entry->setField(QLatin1String("running-time"), QString::number(runTime/60));
+  const int runTime = mapValue(resultMap, "runtime").toInt();
+  entry->setField(QStringLiteral("running-time"), QString::number(runTime/60));
 
-  const QVariantList castList = resultMap.value(QLatin1String("castMember")).toList();
+  const QVariantList castList = resultMap.value(QStringLiteral("castMember")).toList();
   QStringList actors, directors, producers, composers;
   foreach(const QVariant& castVariant, castList) {
     const QVariantMap castMap = castVariant.toMap();
-    const int code = value(castMap, "activity", "code").toInt();
+    const int code = mapValue(castMap, "activity", "code").toInt();
     switch(code) {
       case 8001:
-        actors << (value(castMap, "person", "name") + FieldFormat::columnDelimiterString() + value(castMap, "role"));
+        actors << (mapValue(castMap, "person", "name") + FieldFormat::columnDelimiterString() + mapValue(castMap, "role"));
         break;
       case 8002:
-        directors << value(castMap, "person", "name");
+        directors << mapValue(castMap, "person", "name");
         break;
       case 8029:
-        producers << value(castMap, "person", "name");
+        producers << mapValue(castMap, "person", "name");
         break;
       case 8003:
-        composers << value(castMap, "person", "name");
+        composers << mapValue(castMap, "person", "name");
         break;
     }
   }
-  entry->setField(QLatin1String("cast"), actors.join(FieldFormat::rowDelimiterString()));
-  entry->setField(QLatin1String("director"), directors.join(FieldFormat::delimiterString()));
-  entry->setField(QLatin1String("producer"), producers.join(FieldFormat::delimiterString()));
-  entry->setField(QLatin1String("composer"), composers.join(FieldFormat::delimiterString()));
+  entry->setField(QStringLiteral("cast"), actors.join(FieldFormat::rowDelimiterString()));
+  entry->setField(QStringLiteral("director"), directors.join(FieldFormat::delimiterString()));
+  entry->setField(QStringLiteral("producer"), producers.join(FieldFormat::delimiterString()));
+  entry->setField(QStringLiteral("composer"), composers.join(FieldFormat::delimiterString()));
 
-  const QVariantMap releaseMap = resultMap.value(QLatin1String("release")).toMap();
-  entry->setField(QLatin1String("studio"), value(releaseMap, "distributor", "name"));
+  const QVariantMap releaseMap = resultMap.value(QStringLiteral("release")).toMap();
+  entry->setField(QStringLiteral("studio"), mapValue(releaseMap, "distributor", "name"));
 
   QStringList genres;
-  foreach(const QVariant& variant, resultMap.value(QLatin1String("genre")).toList()) {
-    genres << i18n(value(variant.toMap(), "$").toUtf8().constData());
+  foreach(const QVariant& variant, resultMap.value(QStringLiteral("genre")).toList()) {
+    genres << i18n(mapValue(variant.toMap(), "$").toUtf8().constData());
   }
-  entry->setField(QLatin1String("genre"), genres.join(FieldFormat::delimiterString()));
+  entry->setField(QStringLiteral("genre"), genres.join(FieldFormat::delimiterString()));
 
   QStringList nats;
-  foreach(const QVariant& variant, resultMap.value(QLatin1String("nationality")).toList()) {
-    nats << value(variant.toMap(), "$");
+  foreach(const QVariant& variant, resultMap.value(QStringLiteral("nationality")).toList()) {
+    nats << mapValue(variant.toMap(), "$");
   }
-  entry->setField(QLatin1String("nationality"), nats.join(FieldFormat::delimiterString()));
+  entry->setField(QStringLiteral("nationality"), nats.join(FieldFormat::delimiterString()));
 
   QStringList langs;
-  foreach(const QVariant& variant, resultMap.value(QLatin1String("language")).toList()) {
-    langs << value(variant.toMap(), "$");
+  foreach(const QVariant& variant, resultMap.value(QStringLiteral("language")).toList()) {
+    langs << mapValue(variant.toMap(), "$");
   }
-  entry->setField(QLatin1String("language"), langs.join(FieldFormat::delimiterString()));
+  entry->setField(QStringLiteral("language"), langs.join(FieldFormat::delimiterString()));
 
-  const QVariantMap colorMap = resultMap.value(QLatin1String("color")).toMap();
-  if(colorMap.value(QLatin1String("code")) == QLatin1String("12001")) {
-    entry->setField(QLatin1String("color"), i18n("Color"));
+  const QVariantMap colorMap = resultMap.value(QStringLiteral("color")).toMap();
+  if(colorMap.value(QStringLiteral("code")) == QLatin1String("12001")) {
+    entry->setField(QStringLiteral("color"), i18n("Color"));
   }
 
-  entry->setField(QLatin1String("cover"), value(resultMap, "poster", "href"));
+  entry->setField(QStringLiteral("cover"), mapValue(resultMap, "poster", "href"));
 
-  if(optionalFields().contains(QLatin1String("allocine"))) {
-    entry->setField(QLatin1String("allocine"), value(resultMap, "link", "href"));
+  if(optionalFields().contains(QStringLiteral("allocine"))) {
+    entry->setField(QStringLiteral("allocine"), mapValue(resultMap, "link", "href"));
   }
 }
 
 Tellico::Fetch::FetchRequest AbstractAllocineFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString title = entry_->field(QLatin1String("title"));
+  QString title = entry_->field(QStringLiteral("title"));
   if(!title.isEmpty()) {
     return FetchRequest(Keyword, title);
   }
@@ -430,34 +443,6 @@ void AbstractAllocineFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_
   config_.writeEntry("Max Cast", m_numCast->value());
 }
 
-// static
-QString AbstractAllocineFetcher::value(const QVariantMap& map, const char* name) {
-  const QVariant v = map.value(QLatin1String(name));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::String)) {
-    return v.toString();
-  } else if(v.canConvert(QVariant::StringList)) {
-    return v.toStringList().join(Tellico::FieldFormat::delimiterString());
-  } else {
-    return QString();
-  }
-}
-
-QString AbstractAllocineFetcher::value(const QVariantMap& map, const char* object, const char* name) {
-  const QVariant v = map.value(QLatin1String(object));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::Map)) {
-    return value(v.toMap(), name);
-  } else if(v.canConvert(QVariant::List)) {
-    QVariantList list = v.toList();
-    return list.isEmpty() ? QString() : value(list.at(0).toMap(), name);
-  } else {
-    return QString();
-  }
-}
-
 QByteArray AbstractAllocineFetcher::calculateSignature(const QList<QPair<QString, QString> >& params_) {
   typedef QPair<QString, QString> StringPair;
   QByteArray queryString;
@@ -491,7 +476,7 @@ Tellico::Fetch::ConfigWidget* AllocineFetcher::configWidget(QWidget* parent_) co
 }
 
 QString AllocineFetcher::defaultName() {
-  return QString::fromUtf8("AlloCiné.fr");
+  return QStringLiteral("AlloCiné.fr");
 }
 
 QString AllocineFetcher::defaultIcon() {
@@ -500,8 +485,8 @@ QString AllocineFetcher::defaultIcon() {
 
 Tellico::StringHash AllocineFetcher::allOptionalFields() {
   StringHash hash;
-  hash[QLatin1String("origtitle")] = i18n("Original Title");
-  hash[QLatin1String("allocine")]  = i18n("Allocine Link");
+  hash[QStringLiteral("origtitle")] = i18n("Original Title");
+  hash[QStringLiteral("allocine")]  = i18n("Allocine Link");
   return hash;
 }
 
@@ -514,4 +499,3 @@ AllocineFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AbstractAllo
 QString AllocineFetcher::ConfigWidget::preferredName() const {
   return AllocineFetcher::defaultName();
 }
-

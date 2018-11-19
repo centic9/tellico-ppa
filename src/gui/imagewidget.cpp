@@ -79,10 +79,10 @@ namespace {
 
 using Tellico::GUI::ImageWidget;
 
-ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
-  m_editProcess(0), m_waitDlg(0)
+ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(nullptr),
+  m_editProcess(nullptr), m_waitDlg(nullptr)
 #ifdef HAVE_KSANE
-  , m_saneWidget(0), m_saneDlg(0), m_saneDeviceIsOpen(false)
+  , m_saneWidget(nullptr), m_saneDlg(nullptr), m_saneDeviceIsOpen(false)
 #endif
 {
   QHBoxLayout* l = new QHBoxLayout(this);
@@ -100,12 +100,12 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
   boxLayout->addStretch(1);
 
   QPushButton* button1 = new QPushButton(i18n("Select Image..."), this);
-  button1->setIcon(QIcon::fromTheme(QLatin1String("insert-image")));
+  button1->setIcon(QIcon::fromTheme(QStringLiteral("insert-image")));
   connect(button1, SIGNAL(clicked()), this, SLOT(slotGetImage()));
   boxLayout->addWidget(button1);
 
   QPushButton* button2 = new QPushButton(i18n("Scan Image..."), this);
-  button2->setIcon(QIcon::fromTheme(QLatin1String("scanner")));
+  button2->setIcon(QIcon::fromTheme(QStringLiteral("scanner")));
   connect(button2, SIGNAL(clicked()), this, SLOT(slotScanImage()));
   boxLayout->addWidget(button2);
 #ifndef HAVE_KSANE
@@ -124,9 +124,9 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
   m_editMenu = new QMenu(this);
   QActionGroup* grp = new QActionGroup(this);
   grp->setExclusive(true);
-  QAction* selectedAction = 0;
-  KService::List offers = KMimeTypeTrader::self()->query(QLatin1String("image/png"),
-                                                         QLatin1String("Application"));
+  QAction* selectedAction = nullptr;
+  KService::List offers = KMimeTypeTrader::self()->query(QStringLiteral("image/png"),
+                                                         QStringLiteral("Application"));
   QSet<QString> offerNames;
   foreach(KService::Ptr service, offers) {
     if(offerNames.contains(service->name())) {
@@ -148,7 +148,7 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(0),
     m_edit->setEnabled(false);
   }
   QPushButton* button4 = new QPushButton(i18nc("Clear image", "Clear"), this);
-  button4->setIcon(QIcon::fromTheme(QLatin1String("edit-clear")));
+  button4->setIcon(QIcon::fromTheme(QStringLiteral("edit-clear")));
   connect(button4, SIGNAL(clicked()), this, SLOT(slotClear()));
   boxLayout->addWidget(button4);
 
@@ -343,7 +343,7 @@ void ImageWidget::slotEditImage() {
       m_editProcess->start();
       if(!m_waitDlg) {
         m_waitDlg = new QProgressDialog(this);
-        m_waitDlg->setCancelButton(0);
+        m_waitDlg->setCancelButton(nullptr);
         m_waitDlg->setLabelText(i18n("Opening image in %1...", m_editor->name()));
         m_waitDlg->setRange(0, 0);
       }
@@ -435,7 +435,7 @@ void ImageWidget::dropEvent(QDropEvent* event_) {
   if(event_->mimeData()->hasImage()) {
     QVariant imageData = event_->mimeData()->imageData();
     // Qt reads PNG data by default
-    const QString& id = ImageFactory::addImage(qvariant_cast<QPixmap>(imageData), QLatin1String("PNG"));
+    const QString& id = ImageFactory::addImage(qvariant_cast<QPixmap>(imageData), QStringLiteral("PNG"));
     if(!id.isEmpty() && id != m_imageID) {
       setImage(id);
       emit signalModified();

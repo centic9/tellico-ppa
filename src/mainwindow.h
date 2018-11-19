@@ -92,7 +92,7 @@ public:
   /**
    * The main window constructor, calls all init functions to create the application.
    */
-  MainWindow(QWidget* parent=0);
+  MainWindow(QWidget* parent=nullptr);
   ~MainWindow();
 
   /**
@@ -125,17 +125,17 @@ public:
    */
   virtual bool importFile(Import::Format format, const QUrl& url, Import::Action action);
   /**
-   * Used by DCOP to export to a file.
+   * Used by DBUS to export to a file.
    */
-  virtual bool exportCollection(Export::Format format, const QUrl& url);
+  virtual bool exportCollection(Export::Format format, const QUrl& url, bool filtered);
   /**
-   * Used by DCOP
+   * Used by DBUS
    */
   virtual void openFile(const QString& file);
   virtual void setFilter(const QString& text);
   virtual bool showEntry(Data::ID id);
 
-  bool eventFilter(QObject* watched, QEvent* event);
+  bool eventFilter(QObject* watched, QEvent* event) Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
   /**
@@ -340,7 +340,7 @@ private:
    * i.e. without the user losing some data.
    * @see KMainWindow::queryClose
    */
-  bool queryClose();
+  bool queryClose() Q_DECL_OVERRIDE;
   /**
    * Actual method used when opening a URL. Updating for the list views is turned off
    * as well as sorting, in order to more quickly load the document.
@@ -450,6 +450,7 @@ private Q_SLOTS:
   void slotFilterLabelActivated();
   void slotClearFilter();
   void slotRenameCollection();
+  void slotImageLocationMismatch();
   void slotImageLocationChanged();
   /**
    * Toggle full screen mode

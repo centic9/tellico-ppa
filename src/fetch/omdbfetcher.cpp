@@ -39,6 +39,7 @@
 
 #include <QUrl>
 #include <QLabel>
+#include <QLineEdit>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
@@ -76,7 +77,11 @@ bool OMDBFetcher::canFetch(int type) const {
   return type == Data::Collection::Video;
 }
 
-void OMDBFetcher::readConfigHook(const KConfigGroup&) {
+void OMDBFetcher::readConfigHook(const KConfigGroup& config_) {
+  QString k = config_.readEntry("API Key", QString());
+  if(!k.isEmpty()) {
+    m_apiKey = k;
+  }
 }
 
 void OMDBFetcher::saveConfigHook(KConfigGroup&) {
@@ -89,17 +94,23 @@ void OMDBFetcher::search() {
 void OMDBFetcher::continueSearch() {
   m_started = true;
 
-  QUrl u(QString::fromLatin1(OMDB_API_URL));
+  if(m_apiKey.isEmpty()) {
+    myDebug() << "No API key";
+    message(i18n("An access key is required to use this data source.")
+            + QLatin1Char(' ') +
+            i18n("Those values must be entered in the data source settings."), MessageHandler::Error);
+    stop();
+    return;
+  }
 
+  QUrl u(QString::fromLatin1(OMDB_API_URL));
+  QUrlQuery q;
+  q.addQueryItem(QStringLiteral("apikey"), m_apiKey);
   switch(request().key) {
     case Title:
-      {
-        QUrlQuery q;
-        q.addQueryItem(QLatin1String("type"), QLatin1String("movie"));
-        q.addQueryItem(QLatin1String("r"), QLatin1String("json"));
-        q.addQueryItem(QLatin1String("s"), request().value);
-        u.setQuery(q);
-      }
+      q.addQueryItem(QStringLiteral("type"), QStringLiteral("movie"));
+      q.addQueryItem(QStringLiteral("r"), QStringLiteral("json"));
+      q.addQueryItem(QStringLiteral("s"), request().value);
       break;
 
     default:
@@ -107,6 +118,7 @@ void OMDBFetcher::continueSearch() {
       stop();
       return;
   }
+  u.setQuery(q);
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
@@ -119,7 +131,7 @@ void OMDBFetcher::stop() {
   }
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
   m_started = false;
   emit signalDone(this);
@@ -132,14 +144,15 @@ Tellico::Data::EntryPtr OMDBFetcher::fetchEntryHook(uint uid_) {
     return Data::EntryPtr();
   }
 
-  QString id = entry->field(QLatin1String("imdb-id"));
+  QString id = entry->field(QStringLiteral("imdb-id"));
   if(!id.isEmpty()) {
     // quiet
     QUrl u(QString::fromLatin1(OMDB_API_URL));
     QUrlQuery q;
-    q.addQueryItem(QLatin1String("type"), QLatin1String("movie"));
-    q.addQueryItem(QLatin1String("r"), QLatin1String("json"));
-    q.addQueryItem(QLatin1String("i"), id);
+    q.addQueryItem(QStringLiteral("type"), QStringLiteral("movie"));
+    q.addQueryItem(QStringLiteral("r"), QStringLiteral("json"));
+    q.addQueryItem(QStringLiteral("i"), id);
+    q.addQueryItem(QStringLiteral("apikey"), m_apiKey);
     u.setQuery(q);
     QByteArray data = FileHandler::readDataFile(u, true);
 #if 0
@@ -157,24 +170,24 @@ Tellico::Data::EntryPtr OMDBFetcher::fetchEntryHook(uint uid_) {
   }
 
   // image might still be a URL
-  const QString image_id = entry->field(QLatin1String("cover"));
+  const QString image_id = entry->field(QStringLiteral("cover"));
   if(image_id.contains(QLatin1Char('/'))) {
     const QString id = ImageFactory::addImage(QUrl::fromUserInput(image_id), true /* quiet */);
     if(id.isEmpty()) {
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
     // empty image ID is ok
-    entry->setField(QLatin1String("cover"), id);
+    entry->setField(QStringLiteral("cover"), id);
   }
 
   // don't want to include IMDb ID field
-  entry->setField(QLatin1String("imdb-id"), QString());
+  entry->setField(QStringLiteral("imdb-id"), QString());
 
   return entry;
 }
 
 Tellico::Fetch::FetchRequest OMDBFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString title = entry_->field(QLatin1String("title"));
+  QString title = entry_->field(QStringLiteral("title"));
   if(!title.isEmpty()) {
     return FetchRequest(Title, title);
   }
@@ -185,7 +198,7 @@ void OMDBFetcher::slotComplete(KJob* job_) {
   KIO::StoredTransferJob* job = static_cast<KIO::StoredTransferJob*>(job_);
 
   if(job->error()) {
-    job->ui()->showErrorMessage();
+    job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -198,7 +211,7 @@ void OMDBFetcher::slotComplete(KJob* job_) {
   }
   // see bug 319662. If fetcher is cancelled, job is killed
   // if the pointer is retained, it gets double-deleted
-  m_job = 0;
+  m_job = nullptr;
 
 #if 0
   myWarning() << "Remove debug from omdbfetcher.cpp";
@@ -213,7 +226,7 @@ void OMDBFetcher::slotComplete(KJob* job_) {
 
   Data::CollPtr coll(new Data::VideoCollection(true));
   // always add the imdb-id for fetchEntryHook
-  Data::FieldPtr field(new Data::Field(QLatin1String("imdb-id"), QLatin1String("IMDb ID"), Data::Field::Line));
+  Data::FieldPtr field(new Data::Field(QStringLiteral("imdb-id"), QStringLiteral("IMDb ID"), Data::Field::Line));
   field->setCategory(i18n("General"));
   coll->addField(field);
 
@@ -238,13 +251,22 @@ void OMDBFetcher::slotComplete(KJob* job_) {
   QJsonDocument doc = QJsonDocument::fromJson(data);
   QVariantMap result = doc.object().toVariantMap();
 
-  QVariantList resultList = result.value(QLatin1String("Search")).toList();
+  const bool response = result.value(QStringLiteral("Response")).toBool();
+  if(!response) {
+    myDebug() << "Error:" << result.value(QStringLiteral("Error")).toString();
+    message(result.value(QStringLiteral("Error")).toString(), MessageHandler::Error);
+    stop();
+    return;
+  }
+
+  QVariantList resultList = result.value(QStringLiteral("Search")).toList();
   if(resultList.isEmpty()) {
     myDebug() << "no results";
     stop();
     return;
   }
 
+  int count = 0;
   foreach(const QVariant& result, resultList) {
 //    myDebug() << "found result:" << result;
 
@@ -254,68 +276,72 @@ void OMDBFetcher::slotComplete(KJob* job_) {
     FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
+    ++count;
+    if(count >= OMDB_MAX_RETURNS_TOTAL) {
+      break;
+    }
   }
 
   stop();
 }
 
 void OMDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& resultMap_, bool fullData_) {
-  entry_->setField(QLatin1String("imdb-id"), value(resultMap_, "imdbID"));
-  entry_->setField(QLatin1String("title"), value(resultMap_, "Title"));
-  entry_->setField(QLatin1String("year"),  value(resultMap_, "Year"));
+  entry_->setField(QStringLiteral("imdb-id"), mapValue(resultMap_, "imdbID"));
+  entry_->setField(QStringLiteral("title"), mapValue(resultMap_, "Title"));
+  entry_->setField(QStringLiteral("year"),  mapValue(resultMap_, "Year"));
 
   if(!fullData_) {
     return;
   }
 
-  const QString cert = value(resultMap_, "Rated");
-  Data::FieldPtr certField = entry_->collection()->fieldByName(QLatin1String("certification"));
+  const QString cert = mapValue(resultMap_, "Rated");
+  Data::FieldPtr certField = entry_->collection()->fieldByName(QStringLiteral("certification"));
   if(certField) {
     foreach(const QString& value, certField->allowed()) {
       if(value.startsWith(cert)) {
-        entry_->setField(QLatin1String("certification"), value);
+        entry_->setField(QStringLiteral("certification"), value);
         break;
       }
     }
   }
-  entry_->setField(QLatin1String("running-time"), value(resultMap_, "Runtime")
+  entry_->setField(QStringLiteral("running-time"), mapValue(resultMap_, "Runtime")
                                                   .remove(QRegExp(QLatin1String("[^\\d]"))));
 
-  const QStringList genres = value(resultMap_, "Genre").split(QLatin1String(", "));
-  entry_->setField(QLatin1String("genre"), genres.join(FieldFormat::delimiterString()));
+  const QStringList genres = mapValue(resultMap_, "Genre").split(QStringLiteral(", "));
+  entry_->setField(QStringLiteral("genre"), genres.join(FieldFormat::delimiterString()));
 
-  const QStringList directors = value(resultMap_, "Director").split(QLatin1String(", "));
-  entry_->setField(QLatin1String("director"), directors.join(FieldFormat::delimiterString()));
+  const QStringList directors = mapValue(resultMap_, "Director").split(QStringLiteral(", "));
+  entry_->setField(QStringLiteral("director"), directors.join(FieldFormat::delimiterString()));
 
-  QStringList writers = value(resultMap_, "Writer").split(QLatin1String(", "));
+  QStringList writers = mapValue(resultMap_, "Writer").split(QStringLiteral(", "));
   // some wrtiers have parentheticals, remove those
-  entry_->setField(QLatin1String("writer"), writers
+  entry_->setField(QStringLiteral("writer"), writers
                                            .replaceInStrings(QRegExp(QLatin1String("\\s*\\(.+\\)\\s*")), QString())
                                            .join(FieldFormat::delimiterString()));
 
-  const QStringList producers = value(resultMap_, "Producer").split(QLatin1String(", "));
-  entry_->setField(QLatin1String("producer"), producers.join(FieldFormat::delimiterString()));
+  const QStringList producers = mapValue(resultMap_, "Producer").split(QStringLiteral(", "));
+  entry_->setField(QStringLiteral("producer"), producers.join(FieldFormat::delimiterString()));
 
-  const QStringList actors = value(resultMap_, "Actors").split(QLatin1String(", "));
-  entry_->setField(QLatin1String("cast"), actors.join(FieldFormat::rowDelimiterString()));
+  const QStringList actors = mapValue(resultMap_, "Actors").split(QStringLiteral(", "));
+  entry_->setField(QStringLiteral("cast"), actors.join(FieldFormat::rowDelimiterString()));
 
-  const QStringList countries = value(resultMap_, "Country").split(QLatin1String(", "));
-  entry_->setField(QLatin1String("nationality"), countries.join(FieldFormat::delimiterString()));
+  const QStringList countries = mapValue(resultMap_, "Country").split(QStringLiteral(", "));
+  entry_->setField(QStringLiteral("nationality"), countries.join(FieldFormat::delimiterString()));
 
-  const QStringList langs = value(resultMap_, "Language").split(QLatin1String(", "));
-  entry_->setField(QLatin1String("language"), langs.join(FieldFormat::delimiterString()));
+  const QStringList langs = mapValue(resultMap_, "Language").split(QStringLiteral(", "));
+  entry_->setField(QStringLiteral("language"), langs.join(FieldFormat::delimiterString()));
 
-  entry_->setField(QLatin1String("cover"), value(resultMap_, "Poster"));
-  entry_->setField(QLatin1String("plot"), value(resultMap_, "Plot"));
-  
+  entry_->setField(QStringLiteral("cover"), mapValue(resultMap_, "Poster"));
+  entry_->setField(QStringLiteral("plot"), mapValue(resultMap_, "Plot"));
+
   if(optionalFields().contains(QLatin1String("imdb"))) {
-    if(!entry_->collection()->hasField(QLatin1String("imdb"))) {
-      Data::FieldPtr field(new Data::Field(QLatin1String("imdb"), i18n("IMDb Link"), Data::Field::URL));
+    if(!entry_->collection()->hasField(QStringLiteral("imdb"))) {
+      Data::FieldPtr field(new Data::Field(QStringLiteral("imdb"), i18n("IMDb Link"), Data::Field::URL));
       field->setCategory(i18n("General"));
       entry_->collection()->addField(field);
     }
-    entry_->setField(QLatin1String("imdb"), QLatin1String("http://www.imdb.com/title/")
-                                          + entry_->field(QLatin1String("imdb-id"))
+    entry_->setField(QStringLiteral("imdb"), QLatin1String("http://www.imdb.com/title/")
+                                          + entry_->field(QStringLiteral("imdb-id"))
                                           + QLatin1Char('/'));
   }
 
@@ -326,7 +352,7 @@ Tellico::Fetch::ConfigWidget* OMDBFetcher::configWidget(QWidget* parent_) const 
 }
 
 QString OMDBFetcher::defaultName() {
-  return QLatin1String("The Open Movie Database");
+  return QStringLiteral("The Open Movie Database");
 }
 
 QString OMDBFetcher::defaultIcon() {
@@ -335,37 +361,55 @@ QString OMDBFetcher::defaultIcon() {
 
 Tellico::StringHash OMDBFetcher::allOptionalFields() {
   StringHash hash;
-  hash[QLatin1String("imdb")] = i18n("IMDb Link");
+  hash[QStringLiteral("imdb")] = i18n("IMDb Link");
   return hash;
 }
 
 OMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const OMDBFetcher* fetcher_)
     : Fetch::ConfigWidget(parent_) {
-  QVBoxLayout* l = new QVBoxLayout(optionsWidget());
-  l->addWidget(new QLabel(i18n("This source has no options."), optionsWidget()));
-  l->addStretch();
+  QGridLayout* l = new QGridLayout(optionsWidget());
+  l->setSpacing(4);
+  l->setColumnStretch(1, 10);
+
+  int row = -1;
+  QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
+                               "If you agree to the terms and conditions, <a href='%2'>sign "
+                               "up for an account</a>, and enter your information below.",
+                                preferredName(),
+                                QLatin1String("http://www.omdbapi.com")),
+                          optionsWidget());
+  al->setOpenExternalLinks(true);
+  al->setWordWrap(true);
+  ++row;
+  l->addWidget(al, row, 0, 1, 2);
+  // richtext gets weird with size
+  al->setMinimumWidth(al->sizeHint().width());
+
+  QLabel* label = new QLabel(i18n("Access key: "), optionsWidget());
+  l->addWidget(label, ++row, 0);
+
+  m_apiKeyEdit = new QLineEdit(optionsWidget());
+  connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  l->addWidget(m_apiKeyEdit, row, 1);
+  label->setBuddy(m_apiKeyEdit);
+
+  l->setRowStretch(++row, 10);
+
+  if(fetcher_) {
+    m_apiKeyEdit->setText(fetcher_->m_apiKey);
+  }
 
   // now add additional fields widget
   addFieldsWidget(OMDBFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 }
 
-void OMDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
+void OMDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
+  const QString apiKey = m_apiKeyEdit->text().trimmed();
+  if(!apiKey.isEmpty()) {
+    config_.writeEntry("API Key", apiKey);
+  }
 }
 
 QString OMDBFetcher::ConfigWidget::preferredName() const {
   return OMDBFetcher::defaultName();
-}
-
-// static
-QString OMDBFetcher::value(const QVariantMap& map, const char* name) {
-  const QVariant v = map.value(QLatin1String(name));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::String)) {
-    return v.toString();
-  } else if(v.canConvert(QVariant::StringList)) {
-    return v.toStringList().join(Tellico::FieldFormat::delimiterString());
-  } else {
-    return QString();
-  }
 }

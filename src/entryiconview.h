@@ -46,21 +46,23 @@ class EntryIconView : public QListView, public Observer {
 Q_OBJECT
 
 public:
-  EntryIconView(QAbstractItemModel* model, QWidget* parent);
+  EntryIconView(QWidget* parent);
   ~EntryIconView();
 
+  void setModel(QAbstractItemModel* model) Q_DECL_OVERRIDE;
   int maxAllowedIconWidth() const { return m_maxAllowedIconWidth; }
 
 public Q_SLOTS:
   void setMaxAllowedIconWidth(int width);
 
 protected:
-  void contextMenuEvent(QContextMenuEvent* event);
+  void contextMenuEvent(QContextMenuEvent* event) Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
   void slotDoubleClicked(const QModelIndex& index);
   void slotSortMenuActivated(QAction* action);
-  void slotOpenUrlMenuActivated(QAction* action=0);
+  void slotOpenUrlMenuActivated(QAction* action=nullptr);
+  void updateModelColumn();
 
 private:
   int m_maxAllowedIconWidth;

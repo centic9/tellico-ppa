@@ -44,12 +44,12 @@
 #include <QDesktopServices>
 
 namespace {
-  static const int ENTRY_ICON_SIZE_PAD = 6;
+  static const int ENTRY_ICON_SIZE_PAD = 2;
 }
 
 using Tellico::EntryIconView;
 
-EntryIconView::EntryIconView(QAbstractItemModel* model_, QWidget* parent_)
+EntryIconView::EntryIconView(QWidget* parent_)
     : QListView(parent_), m_maxAllowedIconWidth(MAX_ENTRY_ICON_SIZE) {
   setViewMode(QListView::IconMode);
   setMovement(QListView::Static);
@@ -60,12 +60,6 @@ EntryIconView::EntryIconView(QAbstractItemModel* model_, QWidget* parent_)
   setWordWrap(true);
   setSpacing(ENTRY_ICON_SIZE_PAD);
 
-  Q_ASSERT(::qobject_cast<EntryModel*>(model_));
-  EntrySortModel* sortModel = new EntrySortModel(this);
-  sortModel->setSortRole(EntryPtrRole);
-  sortModel->setSourceModel(model_);
-  setModel(sortModel);
-
   connect(this, SIGNAL(doubleClicked(const QModelIndex&)), SLOT(slotDoubleClicked(const QModelIndex&)));
 
   setWhatsThis(i18n("<qt>The <i>Icon View</i> shows each entry in the collection or group using "
@@ -73,6 +67,14 @@ EntryIconView::EntryIconView(QAbstractItemModel* model_, QWidget* parent_)
 }
 
 EntryIconView::~EntryIconView() {
+}
+
+void EntryIconView::setModel(QAbstractItemModel* model_) {
+  QListView::setModel(model_);
+  if(!model_) {
+    return;
+  }
+  connect(model_, &QAbstractItemModel::columnsInserted, this, &EntryIconView::updateModelColumn);
 }
 
 void EntryIconView::setMaxAllowedIconWidth(int width_) {
@@ -109,7 +111,7 @@ void EntryIconView::contextMenuEvent(QContextMenuEvent* ev_) {
       }
     }
     foreach(Data::FieldPtr urlField, urlFields) {
-      QAction* act = menu.addAction(QIcon::fromTheme(QLatin1String("bookmarks")),
+      QAction* act = menu.addAction(QIcon::fromTheme(QStringLiteral("bookmarks")),
                                     i18nc("Open URL", "Open %1", urlField->title()));
       const QString value = entry->field(urlField);
       act->setData(value);
@@ -159,4 +161,18 @@ void EntryIconView::slotOpenUrlMenuActivated(QAction* action_/*=0*/) {
   if(!link.isEmpty()) {
     QDesktopServices::openUrl(Kernel::self()->URL().resolved(QUrl::fromUserInput(link)));
   }
+}
+
+void EntryIconView::updateModelColumn() {
+  //default model column is 0
+  int modelColumn = 0;
+  // iterate over model columns, find the one whose name is "title"
+  for(int ncol = 0; ncol < model()->columnCount(); ++ncol) {
+    Data::FieldPtr field = model()->headerData(ncol, Qt::Horizontal, FieldPtrRole).value<Data::FieldPtr>();
+    if(field && field->name() == QLatin1String("title")) {
+      modelColumn = ncol;
+      break;
+    }
+  }
+  setModelColumn(modelColumn);
 }

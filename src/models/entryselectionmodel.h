@@ -43,19 +43,21 @@ Q_OBJECT
 public:
   EntrySelectionModel(QAbstractItemModel* targetModel,
                       QItemSelectionModel* selModel,
-                      QObject* parent=0);
+                      QObject* parent=nullptr);
 
   void addSelectionProxy(QItemSelectionModel* selModel);
+  Tellico::Data::EntryList selectedEntries() const { return m_selectedEntries; }
 
 Q_SIGNALS:
   void entriesSelected(Tellico::Data::EntryList entries);
 
 private Q_SLOTS:
-  void selectedEntriesChanged();
+  void selectedEntriesChanged(const QItemSelection& selected, const QItemSelection& deselected);
 
 private:
   Data::EntryList m_selectedEntries;
   QList< QPointer<QItemSelectionModel> > m_modelList;
+  QPointer<QItemSelectionModel> m_recentSelectionModel;
   bool m_processing;
 };
 

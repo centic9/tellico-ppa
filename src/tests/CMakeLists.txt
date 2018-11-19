@@ -7,11 +7,11 @@ SET( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 # which is generated in the build directory
 INCLUDE_DIRECTORIES( ${Tellico_BINARY_DIR}/src )
 
-add_executable(entitytest entitytest.cpp)
+add_executable(entitytest entitytest.cpp ../fieldformat.cpp)
 ecm_mark_nongui_executable(entitytest)
 add_test(entitytest entitytest)
 ecm_mark_as_test(entitytest)
-TARGET_LINK_LIBRARIES(entitytest utils Qt5::Test )
+TARGET_LINK_LIBRARIES(entitytest utils config Qt5::Test )
 
 add_executable(cuecattest cuecattest.cpp)
 ecm_mark_nongui_executable(cuecattest)
@@ -35,31 +35,43 @@ add_executable(lcctest lcctest.cpp ../field.cpp ../fieldformat.cpp)
 ecm_mark_nongui_executable(lcctest)
 add_test(lcctest lcctest)
 ecm_mark_as_test(lcctest)
-TARGET_LINK_LIBRARIES(lcctest utils core Qt5::Test)
+TARGET_LINK_LIBRARIES(lcctest tellicomodels Qt5::Test)
 
 add_executable(formattest formattest.cpp ../fieldformat.cpp)
 ecm_mark_nongui_executable(formattest)
 add_test(formattest formattest)
 ecm_mark_as_test(formattest)
-TARGET_LINK_LIBRARIES(formattest core Qt5::Test)
+TARGET_LINK_LIBRARIES(formattest config Qt5::Test)
 
 add_executable(fieldtest fieldtest.cpp ../field.cpp ../fieldformat.cpp)
 ecm_mark_nongui_executable(fieldtest)
 add_test(fieldtest fieldtest)
 ecm_mark_as_test(fieldtest)
-TARGET_LINK_LIBRARIES(fieldtest core Qt5::Test)
+TARGET_LINK_LIBRARIES(fieldtest config utils Qt5::Test)
 
 add_executable(comparisontest comparisontest.cpp ../field.cpp ../fieldformat.cpp)
 ecm_mark_nongui_executable(comparisontest)
 add_test(comparisontest comparisontest)
 ecm_mark_as_test(comparisontest)
-TARGET_LINK_LIBRARIES(comparisontest utils core Qt5::Test)
+TARGET_LINK_LIBRARIES(comparisontest tellicomodels Qt5::Test)
 
-add_executable(imagetest imagetest.cpp ../utils/tellico_utils.cpp ../utils/guiproxy.cpp ../utils/cursorsaver.cpp)
+add_executable(imagetest imagetest.cpp ../utils/tellico_utils.cpp ../utils/guiproxy.cpp ../utils/cursorsaver.cpp ../fieldformat.cpp)
 ecm_mark_nongui_executable(imagetest)
 add_test(imagetest imagetest)
 ecm_mark_as_test(imagetest)
 TARGET_LINK_LIBRARIES(imagetest images KF5::Archive Qt5::Test)
+
+add_executable(imagejobtest imagejobtest.cpp ../fieldformat.cpp)
+ecm_mark_nongui_executable(imagejobtest)
+add_test(imagejobtest imagejobtest)
+ecm_mark_as_test(imagejobtest)
+TARGET_LINK_LIBRARIES(imagejobtest images KF5::Archive Qt5::Test)
+
+add_executable(iso6937test iso6937test.cpp)
+ecm_mark_nongui_executable(iso6937test)
+add_test(iso6937test iso6937test)
+ecm_mark_as_test(iso6937test)
+TARGET_LINK_LIBRARIES(iso6937test utils Qt5::Test)
 
 SET(tellicotest_SRCS
    ../collection.cpp
@@ -101,6 +113,7 @@ TARGET_LINK_LIBRARIES(translatorstest
   KF5::I18n
   KF5::Archive
   KF5::KIOWidgets
+  KF5::ConfigWidgets
   ${LIBXML2_LIBRARIES}
   ${LIBXSLT_LIBRARIES}
   ${LIBXSLT_EXSLT_LIBRARIES}
@@ -111,6 +124,7 @@ set(TELLICO_TEST_LIBS
    collections
    utils
    images
+   core
    tellicomodels
    Qt5::Test
    KF5::KIOCore
@@ -143,7 +157,24 @@ add_executable(filtertest filtertest.cpp)
 ecm_mark_nongui_executable(filtertest)
 add_test(filtertest filtertest)
 ecm_mark_as_test(filtertest)
-TARGET_LINK_LIBRARIES(filtertest ${TELLICO_TEST_LIBS})
+TARGET_LINK_LIBRARIES(filtertest gui ${TELLICO_TEST_LIBS})
+
+add_executable(tellicomodeltest tellicomodeltest.cpp modeltest.cpp
+  ../document.cpp
+  ../translators/tellicoimporter.cpp
+  ../translators/dataimporter.cpp
+  ../translators/importer.cpp
+  ../translators/tellicoxmlexporter.cpp
+  ../translators/tellicozipexporter.cpp
+  ../translators/exporter.cpp
+  ../translators/tellicoxmlhandler.cpp
+  ../translators/tellico_xml.cpp
+  ../translators/xmlstatehandler.cpp
+)
+ecm_mark_nongui_executable(tellicomodeltest)
+add_test(tellicomodeltest tellicomodeltest)
+ecm_mark_as_test(tellicomodeltest)
+TARGET_LINK_LIBRARIES(tellicomodeltest ${TELLICO_TEST_LIBS} ${LIBXML2_LIBRARIES})
 
 ######################################################
 
@@ -197,15 +228,16 @@ add_executable(bibtexmltest bibtexmltest.cpp
 ecm_mark_nongui_executable(bibtexmltest)
 add_test(bibtexmltest bibtexmltest)
 ecm_mark_as_test(bibtexmltest)
-TARGET_LINK_LIBRARIES(bibtexmltest translatorstest ${TELLICO_TEST_LIBS})
+TARGET_LINK_LIBRARIES(bibtexmltest translatorstest core ${TELLICO_TEST_LIBS})
 
 add_executable(citetest citetest.cpp
   ../collections/bibtexcollection.cpp
+  ../core/filehandler.cpp
 )
 ecm_mark_nongui_executable(citetest)
 add_test(citetest citetest)
 ecm_mark_as_test(citetest)
-TARGET_LINK_LIBRARIES(citetest cite tellicotest Qt5::Test)
+TARGET_LINK_LIBRARIES(citetest cite tellicotest config images Qt5::Test)
 ADD_DEPENDENCIES(citetest tellico_config)
 
 add_executable(ciwtest ciwtest.cpp
@@ -238,6 +270,7 @@ TARGET_LINK_LIBRARIES(delicioustest rtf2html-tellico translatorstest ${TELLICO_T
 
 add_executable(filelistingtest filelistingtest.cpp
   ../translators/filelistingimporter.cpp
+  ../translators/xmphandler.cpp
 )
 ecm_mark_nongui_executable(filelistingtest)
 add_test(filelistingtest filelistingtest)
@@ -250,6 +283,9 @@ TARGET_LINK_LIBRARIES(filelistingtest
 IF( KF5FileMetaData_FOUND )
   TARGET_LINK_LIBRARIES(filelistingtest KF5::FileMetaData)
 ENDIF( KF5FileMetaData_FOUND )
+IF( Exempi_FOUND )
+  TARGET_LINK_LIBRARIES(filelistingtest ${Exempi_LIBRARIES})
+ENDIF( Exempi_FOUND )
 
 add_executable(gcstartest gcstartest.cpp
   ../translators/gcstarimporter.cpp
@@ -393,7 +429,7 @@ IF( Exempi_FOUND )
   TARGET_LINK_LIBRARIES(pdftest ${Exempi_LIBRARIES})
 ENDIF( Exempi_FOUND )
 IF( Poppler_Qt5_FOUND )
-  TARGET_LINK_LIBRARIES(pdftest ${Poppler_Qt5_LIBRARIES})
+  TARGET_LINK_LIBRARIES(pdftest Poppler::Qt5)
 ENDIF( Poppler_Qt5_FOUND )
 
 # fetcher tests from here down
@@ -502,6 +538,14 @@ TARGET_LINK_LIBRARIES(darkhorsefetchertest
   ${TELLICO_TEST_LIBS}
 )
 
+add_executable(dbcfetchertest dbcfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/dbcfetcher.cpp
+)
+ecm_mark_nongui_executable(dbcfetchertest)
+add_test(dbcfetchertest dbcfetchertest)
+ecm_mark_as_test(dbcfetchertest)
+TARGET_LINK_LIBRARIES(dbcfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
 add_executable(dblpfetchertest dblpfetchertest.cpp abstractfetchertest.cpp
   ../fetch/dblpfetcher.cpp
 )
@@ -569,14 +613,6 @@ add_test(filmasterfetchertest filmasterfetchertest)
 ecm_mark_as_test(filmasterfetchertest)
 TARGET_LINK_LIBRARIES(filmasterfetchertest fetcherstest translatorstest ${TELLICO_TEST_LIBS})
 
-add_executable(freebasefetchertest freebasefetchertest.cpp abstractfetchertest.cpp
-  ../fetch/freebasefetcher.cpp
-)
-ecm_mark_nongui_executable(freebasefetchertest)
-add_test(freebasefetchertest freebasefetchertest)
-ecm_mark_as_test(freebasefetchertest)
-TARGET_LINK_LIBRARIES(freebasefetchertest fetcherstest ${TELLICO_TEST_LIBS})
-
 # running gcstar in the fetcher is really unreliable
 add_executable(gcstarfetchertest gcstarfetchertest.cpp abstractfetchertest
   ../fetch/gcstarpluginfetcher.cpp
@@ -630,6 +666,14 @@ add_test(ibsfetchertest ibsfetchertest)
 ecm_mark_as_test(ibsfetchertest)
 TARGET_LINK_LIBRARIES(ibsfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
+add_executable(igdbfetchertest igdbfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/igdbfetcher.cpp
+)
+ecm_mark_nongui_executable(igdbfetchertest)
+add_test(igdbfetchertest igdbfetchertest)
+ecm_mark_as_test(igdbfetchertest)
+TARGET_LINK_LIBRARIES(igdbfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
 add_executable(imdbfetchertest imdbfetchertest.cpp abstractfetchertest.cpp
   ../fetch/imdbfetcher.cpp
   ../gui/listwidgetitem.cpp
@@ -646,6 +690,14 @@ ecm_mark_nongui_executable(isbndbfetchertest)
 add_test(isbndbfetchertest isbndbfetchertest)
 ecm_mark_as_test(isbndbfetchertest)
 TARGET_LINK_LIBRARIES(isbndbfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
+add_executable(kinofetchertest kinofetchertest.cpp abstractfetchertest.cpp
+  ../fetch/kinofetcher.cpp
+)
+ecm_mark_nongui_executable(kinofetchertest)
+add_test(kinofetchertest kinofetchertest)
+ecm_mark_as_test(kinofetchertest)
+TARGET_LINK_LIBRARIES(kinofetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 add_executable(kinopoiskfetchertest kinopoiskfetchertest.cpp abstractfetchertest.cpp
   ../fetch/kinopoiskfetcher.cpp
@@ -746,14 +798,6 @@ ecm_mark_nongui_executable(vndbfetchertest)
 add_test(vndbfetchertest vndbfetchertest)
 ecm_mark_as_test(vndbfetchertest)
 TARGET_LINK_LIBRARIES(vndbfetchertest fetcherstest ${TELLICO_TEST_LIBS})
-
-add_executable(winecomfetchertest winecomfetchertest.cpp abstractfetchertest.cpp
-  ../fetch/winecomfetcher.cpp
-)
-ecm_mark_nongui_executable(winecomfetchertest)
-add_test(winecomfetchertest winecomfetchertest)
-ecm_mark_as_test(winecomfetchertest)
-TARGET_LINK_LIBRARIES(winecomfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 IF( Yaz_FOUND )
   add_executable(z3950fetchertest z3950fetchertest.cpp abstractfetchertest.cpp

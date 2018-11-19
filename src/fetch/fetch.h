@@ -74,7 +74,7 @@ enum Type {
   GiantBomb,
   OpenLibrary,
   Multiple,
-  Freebase,
+  Freebase, // Removed
   DVDFr,
   Filmaster,
   Douban,
@@ -97,7 +97,10 @@ enum Type {
   Bedetheque,
   OMDB,
   KinoPoisk,
-  VideoGameGeek
+  VideoGameGeek,
+  DBC,
+  IGDB,
+  Kino
 };
 
   }

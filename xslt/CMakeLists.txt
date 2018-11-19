@@ -12,6 +12,7 @@ SET(XSLT_FILES
     cassette-logo.png
     cd-logo.png
     crossref2tellico.xsl
+    dbc2tellico.xsl
     dblp2tellico.xsl
     delicious2tellico.xsl
     dvd-logo.png
@@ -21,7 +22,6 @@ SET(XSLT_FILES
     goodreads2tellico.xsl
     griffith2tellico.xsl
     hddvd-logo.png
-    isbndb2tellico.xsl
     MARC21slim2MODS3.xsl
     MARC21slimUtils.xsl
     mods2tellico.xsl
@@ -46,9 +46,7 @@ SET(XSLT_FILES
     vhs-logo.png
     vinoxml2tellico.xsl
     welcome.html
-    winecom2tellico.xsl
     xmp2tellico.xsl
-    yahoo2tellico.xsl
     )
 
 INSTALL(FILES ${XSLT_FILES} DESTINATION ${TELLICO_DATA_INSTALL_DIR} )

@@ -99,7 +99,8 @@ void EntryUpdater::init() {
   Kernel::self()->beginCommandGroup(i18n("Update Entries"));
   ProgressItem& item = ProgressManager::self()->newProgressItem(this, label, true /*canCancel*/);
   item.setTotalSteps(m_fetchers.count() * m_origEntryCount);
-  connect(&item, SIGNAL(signalCancelled(ProgressItem*)), SLOT(slotCancel()));
+  connect(&item, &Tellico::ProgressItem::signalCancelled,
+          this, &Tellico::EntryUpdater::slotCancel);
 
   // done if no fetchers available
   if(m_fetchers.isEmpty()) {
@@ -216,7 +217,7 @@ void EntryUpdater::handleResults() {
     return;
   }
 //  myDebug() << "best match = " << best << " (" << matches.count() << " matches)";
-  UpdateResult match(0, true);
+  UpdateResult match(nullptr, true);
   if(matches.count() == 1) {
     match = matches.front();
   } else if(matches.count() > 1) {
@@ -233,7 +234,7 @@ Tellico::EntryUpdater::UpdateResult EntryUpdater::askUser(const ResultList& resu
                        m_fetchers[m_fetchIndex], results);
 
   if(dlg.exec() != QDialog::Accepted) {
-    return UpdateResult(0, false);
+    return UpdateResult(nullptr, false);
   }
   return dlg.updateResult();
 }
@@ -263,4 +264,3 @@ void EntryUpdater::slotCleanup() {
   Kernel::self()->endCommandGroup();
   deleteLater();
 }
-

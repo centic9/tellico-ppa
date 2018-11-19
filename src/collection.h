@@ -136,6 +136,13 @@ public:
    */
   const FieldList& imageFields() const { return m_imageFields; }
   /**
+   * Return the primary image field, which is used for icons for the entry.
+   * By default, the first image field is returned.
+   *
+   * @return The primary image field
+   */
+  FieldPtr primaryImageField() const;
+  /**
    * Returns a reference to the list of field groups. This value is cached rather
    * than generated with each call, so the method should be fairly fast.
    *
@@ -329,15 +336,6 @@ public:
    * The string used for the people pseudo-group. This forces consistency.
    */
   static const QString s_peopleGroupName;
-
-  enum DefaultField {
-    IDField,
-    TitleField,
-    CreatedDateField,
-    ModifiedDateField
-  };
-
-  static FieldPtr createDefaultField(DefaultField field);
 
 Q_SIGNALS:
   void signalGroupsModified(Tellico::Data::CollPtr coll, QList<Tellico::Data::EntryGroup*> groups);

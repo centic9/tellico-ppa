@@ -1,4 +1,5 @@
 ADD_SUBDIRECTORY( core )
+ADD_SUBDIRECTORY(config )
 ADD_SUBDIRECTORY( gui )
 ADD_SUBDIRECTORY( collections )
 ADD_SUBDIRECTORY( images )
@@ -64,6 +65,10 @@ SET(tellico_SRCS
    tellico_kernel.cpp
    viewstack.cpp
    )
+
+qt5_add_resources(tellico_SRCS
+   ../icons/icons.qrc
+)
 
 add_executable(tellico ${tellico_SRCS})
 

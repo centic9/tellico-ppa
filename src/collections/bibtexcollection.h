@@ -51,23 +51,23 @@ public:
    */
   virtual ~BibtexCollection() {}
 
-  virtual Type type() const { return Bibtex; }
-  virtual bool addField(FieldPtr field);
-  virtual bool modifyField(FieldPtr field);
-  virtual bool removeField(FieldPtr field, bool force=false);
-  virtual bool removeField(const QString& name, bool force=false);
+  virtual Type type() const Q_DECL_OVERRIDE { return Bibtex; }
+  virtual bool addField(FieldPtr field) Q_DECL_OVERRIDE;
+  virtual bool modifyField(FieldPtr field) Q_DECL_OVERRIDE;
+  virtual bool removeField(FieldPtr field, bool force=false) Q_DECL_OVERRIDE;
+  virtual bool removeField(const QString& name, bool force=false) Q_DECL_OVERRIDE;
 
   FieldPtr fieldByBibtexName(const QString& name) const;
   EntryPtr entryByBibtexKey(const QString& key) const;
   const QString& preamble() const { return m_preamble; }
   void setPreamble(const QString& preamble) { m_preamble = preamble; }
   const StringMap& macroList() const { return m_macros; }
-  void setMacroList(StringMap map) { m_macros = map; }
+  void setMacroList(const StringMap& map) { m_macros = map; }
   void addMacro(const QString& key, const QString& value) { m_macros.insert(key, value); }
 
-  virtual QString prepareText(const QString& text) const;
-  virtual int sameEntry(Data::EntryPtr entry1, Data::EntryPtr entry2) const;
-  
+  virtual QString prepareText(const QString& text) const Q_DECL_OVERRIDE;
+  virtual int sameEntry(Data::EntryPtr entry1, Data::EntryPtr entry2) const Q_DECL_OVERRIDE;
+
   EntryList duplicateBibtexKeys() const;
 
   static FieldList defaultFields();

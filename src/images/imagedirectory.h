@@ -57,12 +57,13 @@ public:
   virtual QString path();
   virtual void setPath(const QString& path);
 
-  bool hasImage(const QString& id);
-  Data::Image* imageById(const QString& id);
+  bool hasImage(const QString& id) Q_DECL_OVERRIDE;
+  Data::Image* imageById(const QString& id) Q_DECL_OVERRIDE;
   bool writeImage(const Data::Image& image);
   bool removeImage(const QString& id);
 
 private:
+  Q_DISABLE_COPY(ImageDirectory)
   QString m_path;
   bool m_pathExists;
   // until the file gets saved, the local directory is temporary
@@ -74,11 +75,12 @@ public:
   TemporaryImageDirectory();
   virtual ~TemporaryImageDirectory();
 
-  virtual QString path();
+  virtual QString path() Q_DECL_OVERRIDE;
   void purge();
 
 private:
-  void setPath(const QString& path);
+  Q_DISABLE_COPY(TemporaryImageDirectory)
+  void setPath(const QString& path) Q_DECL_OVERRIDE;
 
   QTemporaryDir* m_dir;
 };
@@ -90,10 +92,11 @@ public:
 
   void setZip(KZip* zip);
 
-  bool hasImage(const QString& id);
-  Data::Image* imageById(const QString& id);
+  bool hasImage(const QString& id) Q_DECL_OVERRIDE;
+  Data::Image* imageById(const QString& id) Q_DECL_OVERRIDE;
 
 private:
+  Q_DISABLE_COPY(ImageZipArchive)
   KZip* m_zip;
   const KArchiveDirectory* m_imgDir;
   StringSet m_images;

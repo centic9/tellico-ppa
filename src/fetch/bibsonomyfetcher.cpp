@@ -51,7 +51,7 @@ using namespace Tellico;
 using Tellico::Fetch::BibsonomyFetcher;
 
 BibsonomyFetcher::BibsonomyFetcher(QObject* parent_)
-    : Fetcher(parent_), m_job(0), m_started(false) {
+    : Fetcher(parent_), m_job(nullptr), m_started(false) {
 }
 
 BibsonomyFetcher::~BibsonomyFetcher() {
@@ -74,15 +74,15 @@ void BibsonomyFetcher::search() {
 //  myDebug() << "value = " << value_;
 
   QUrl u(QString::fromLatin1(BIBSONOMY_BASE_URL));
-  u.setPath(QLatin1String("/bib/"));
+  u.setPath(QStringLiteral("/bib/"));
 
   switch(request().key) {
     case Person:
-      u.setPath(u.path() + QString::fromLatin1("author/%1").arg(request().value));
+      u.setPath(u.path() + QStringLiteral("author/%1").arg(request().value));
       break;
 
     case Keyword:
-      u.setPath(u.path() + QString::fromLatin1("search/%1").arg(request().value));
+      u.setPath(u.path() + QStringLiteral("search/%1").arg(request().value));
       break;
 
     default:
@@ -91,7 +91,7 @@ void BibsonomyFetcher::search() {
       return;
   }
   QUrlQuery q;
-  q.addQueryItem(QLatin1String("items"), QString::number(BIBSONOMY_MAX_RESULTS));
+  q.addQueryItem(QStringLiteral("items"), QString::number(BIBSONOMY_MAX_RESULTS));
   u.setQuery(q);
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
@@ -107,7 +107,7 @@ void BibsonomyFetcher::stop() {
 //  myDebug();
   if(m_job) {
     m_job->kill();
-    m_job = 0;
+    m_job = nullptr;
   }
   m_started = false;
   emit signalDone(this);
@@ -117,7 +117,7 @@ void BibsonomyFetcher::slotComplete(KJob*) {
 //  myDebug();
 
   if(m_job->error()) {
-    m_job->ui()->showErrorMessage();
+    m_job->uiDelegate()->showErrorMessage();
     stop();
     return;
   }
@@ -130,7 +130,7 @@ void BibsonomyFetcher::slotComplete(KJob*) {
   }
 
   // since the fetch is done, don't worry about holding the job pointer
-  m_job = 0;
+  m_job = nullptr;
 
   Import::BibtexImporter imp(QString::fromUtf8(data.constData(), data.size()));
   Data::CollPtr coll = imp.collection();
@@ -161,7 +161,7 @@ Tellico::Data::EntryPtr BibsonomyFetcher::fetchEntryHook(uint uid_) {
 }
 
 Tellico::Fetch::FetchRequest BibsonomyFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString title = entry_->field(QLatin1String("title"));
+  QString title = entry_->field(QStringLiteral("title"));
   if(!title.isEmpty()) {
     return FetchRequest(Fetch::Keyword, title);
   }
@@ -173,11 +173,11 @@ Tellico::Fetch::ConfigWidget* BibsonomyFetcher::configWidget(QWidget* parent_) c
 }
 
 QString BibsonomyFetcher::defaultName() {
-  return QLatin1String("Bibsonomy");
+  return QStringLiteral("Bibsonomy");
 }
 
 QString BibsonomyFetcher::defaultIcon() {
-  return favIcon("http://bibsonomy.org");
+  return favIcon("https://www.bibsonomy.org");
 }
 
 BibsonomyFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BibsonomyFetcher*)
@@ -193,4 +193,3 @@ void BibsonomyFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {
 QString BibsonomyFetcher::ConfigWidget::preferredName() const {
   return BibsonomyFetcher::defaultName();
 }
-

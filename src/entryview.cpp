@@ -32,12 +32,12 @@
 #include "images/imageinfo.h"
 #include "tellico_kernel.h"
 #include "utils/tellico_utils.h"
+#include "utils/datafileregistry.h"
 #include "core/filehandler.h"
-#include "core/tellico_config.h"
+#include "config/tellico_config.h"
 #include "gui/drophandler.h"
 #include "document.h"
-#include "../utils/datafileregistry.h"
-#include "../tellico_debug.h"
+#include "tellico_debug.h"
 
 #include <KMessageBox>
 #include <KHTMLView>
@@ -75,7 +75,7 @@ void EntryViewWidget::changeEvent(QEvent* event_) {
 }
 
 EntryView::EntryView(QWidget* parent_) : KHTMLPart(new EntryViewWidget(this, parent_), parent_),
-    m_handler(0), m_tempFile(0), m_useGradientImages(true), m_checkCommonFile(true) {
+    m_handler(nullptr), m_tempFile(nullptr), m_useGradientImages(true), m_checkCommonFile(true) {
   setJScriptEnabled(false);
   setJavaEnabled(false);
   setMetaRefreshEnabled(false);
@@ -88,19 +88,17 @@ EntryView::EntryView(QWidget* parent_) : KHTMLPart(new EntryViewWidget(this, par
 
   connect(browserExtension(), SIGNAL(openUrlRequestDelayed(const QUrl&, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&)),
           SLOT(slotOpenURL(const QUrl&)));
-
-  view()->setWhatsThis(i18n("<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</qt>"));
 }
 
 EntryView::~EntryView() {
   delete m_handler;
-  m_handler = 0;
+  m_handler = nullptr;
   delete m_tempFile;
-  m_tempFile = 0;
+  m_tempFile = nullptr;
 }
 
 void EntryView::clear() {
-  m_entry = 0;
+  m_entry = nullptr;
 
   // just clear the view
   begin();
@@ -112,7 +110,6 @@ void EntryView::clear() {
 }
 
 void EntryView::showEntries(Tellico::Data::EntryList entries_) {
-  Q_ASSERT(!entries_.isEmpty());
   if(!entries_.isEmpty()) {
     showEntry(entries_.first());
   }
@@ -223,7 +220,7 @@ void EntryView::setXSLTFile(const QString& file_) {
   if(file_.at(0) == QLatin1Char('/')) {
     m_xsltFile = file_;
   } else {
-    const QString templateDir = QLatin1String("entry-templates/");
+    const QString templateDir = QStringLiteral("entry-templates/");
     m_xsltFile = DataFileRegistry::self()->locate(templateDir + file_);
     if(m_xsltFile.isEmpty()) {
       if(!file_.isEmpty()) {
@@ -231,7 +228,7 @@ void EntryView::setXSLTFile(const QString& file_) {
       }
       m_xsltFile = DataFileRegistry::self()->locate(templateDir + QLatin1String("Fancy.xsl"));
       if(m_xsltFile.isEmpty()) {
-        QString str = QLatin1String("<qt>");
+        QString str = QStringLiteral("<qt>");
         str += i18n("Tellico is unable to locate the default entry stylesheet.");
         str += QLatin1Char(' ');
         str += i18n("Please check your installation.");
@@ -274,7 +271,7 @@ void EntryView::setXSLTFile(const QString& file_) {
       myWarning() << "invalid xslt handler";
       clear();
       delete m_handler;
-      m_handler = 0;
+      m_handler = nullptr;
       return;
     }
   }
@@ -292,7 +289,7 @@ void EntryView::setXSLTFile(const QString& file_) {
     m_handler->addStringParam("imgdir", QFile::encodeName(ImageFactory::tempDir()));
   }
 
-  m_handler->addStringParam("datadir", QFile::encodeName(Tellico::dataDir()));
+  m_handler->addStringParam("datadir", QFile::encodeName(Tellico::installationDir()));
 
   // if we don't have to reload the images, then just show the entry and we're done
   if(reloadImages) {
@@ -350,7 +347,7 @@ void EntryView::slotReloadEntry() {
     clear();
   }
   delete m_tempFile;
-  m_tempFile = 0;
+  m_tempFile = nullptr;
 }
 
 void EntryView::addXSLTStringParam(const QByteArray& name_, const QByteArray& value_) {
@@ -375,7 +372,7 @@ void EntryView::setXSLTOptions(const Tellico::StyleOptions& opt_) {
 
 void EntryView::resetView() {
   delete m_handler;
-  m_handler = 0;
+  m_handler = nullptr;
   setXSLTFile(m_xsltFile); // this ends up calling resetColors()
 }
 
@@ -395,16 +392,16 @@ void EntryView::resetColors() {
   // this is a rather bad hack to get around the fact that the image cache is not reloaded when
   // the gradient files are changed on disk. Setting the URLArgs for write() calls doesn't seem to
   // work. So force a reload with a temp file, then catch the completed signal and repaint
-  QString s = QString::fromLatin1("<html><body><img src=\"%1\"><img src=\"%2\"></body></html>")
-                             .arg(dir + QLatin1String("gradient_bg.png"))
-                             .arg(dir + QLatin1String("gradient_header.png"));
+  QString s = QStringLiteral("<html><body><img src=\"%1\"><img src=\"%2\"></body></html>")
+                             .arg(dir + QLatin1String("gradient_bg.png"),
+                                  dir + QLatin1String("gradient_header.png"));
 
   delete m_tempFile;
   m_tempFile = new QTemporaryFile();
   if(!m_tempFile->open()) {
     myDebug() << "failed to open temp file";
     delete m_tempFile;
-    m_tempFile = 0;
+    m_tempFile = nullptr;
     return;
   }
   QTextStream stream(m_tempFile);

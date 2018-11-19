@@ -35,7 +35,7 @@
 #include "utils/cursorsaver.h"
 #include "utils/datafileregistry.h"
 #include "utils/tellico_utils.h"
-#include "core/tellico_config.h"
+#include "config/tellico_config.h"
 
 #include <KLocalizedString>
 #include <KHTMLPart>
@@ -54,7 +54,6 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QDialogButtonBox>
-#include <QTimer>
 
 namespace {
   static const int REPORT_MIN_WIDTH = 600;
@@ -66,7 +65,7 @@ using Tellico::ReportDialog;
 
 // default button is going to be used as a print button, so it's separated
 ReportDialog::ReportDialog(QWidget* parent_)
-    : QDialog(parent_), m_exporter(0) {
+    : QDialog(parent_), m_exporter(nullptr) {
   setModal(false);
   setWindowTitle(i18n("Collection Report"));
 
@@ -82,7 +81,7 @@ ReportDialog::ReportDialog(QWidget* parent_)
   QLabel* l = new QLabel(i18n("&Report template:"), mainWidget);
   hlay->addWidget(l);
 
-  QStringList files = Tellico::locateAllFiles(QLatin1String("tellico/report-templates/*.xsl"));
+  QStringList files = Tellico::locateAllFiles(QStringLiteral("tellico/report-templates/*.xsl"));
   QMap<QString, QString> templates; // gets sorted by title
   foreach(const QString& file, files) {
     QFileInfo fi(file);
@@ -101,7 +100,7 @@ ReportDialog::ReportDialog(QWidget* parent_)
   l->setBuddy(m_templateCombo);
 
   QPushButton* pb1 = new QPushButton(mainWidget);
-  KGuiItem::assign(pb1, KGuiItem(i18n("&Generate"), QLatin1String("application-x-executable")));
+  KGuiItem::assign(pb1, KGuiItem(i18n("&Generate"), QStringLiteral("application-x-executable")));
   hlay->addWidget(pb1);
   connect(pb1, SIGNAL(clicked()), SLOT(slotGenerate()));
 
@@ -149,7 +148,7 @@ ReportDialog::ReportDialog(QWidget* parent_)
 
 ReportDialog::~ReportDialog() {
   delete m_exporter;
-  m_exporter = 0;
+  m_exporter = nullptr;
 
   KConfigGroup config(KSharedConfig::openConfig(), QLatin1String(dialogOptionsString));
   KWindowConfig::saveWindowSize(windowHandle(), config);

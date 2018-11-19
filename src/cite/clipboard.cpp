@@ -44,7 +44,7 @@ bool Clipboard::cite(Tellico::Data::EntryList entries_) {
     return false;
   }
 
-  QString s = QLatin1String("\\cite{");
+  QString s = QStringLiteral("\\cite{");
   foreach(Data::EntryPtr entry, entries_) {
     s += BibtexHandler::bibtexKey(entry);
     s += QLatin1String(", ");
@@ -57,4 +57,3 @@ bool Clipboard::cite(Tellico::Data::EntryList entries_) {
   cb->setText(s, QClipboard::Clipboard);
   return true;
 }
-

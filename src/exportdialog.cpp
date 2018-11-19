@@ -24,9 +24,8 @@
 
 #include "exportdialog.h"
 #include "collection.h"
-#include "filehandler.h"
+#include "core/filehandler.h"
 #include "controller.h"
-#include "document.h"
 #include "tellico_debug.h"
 
 #include "translators/exporter.h"
@@ -54,6 +53,7 @@
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <QScopedPointer>
 
 using namespace Tellico;
 using Tellico::ExportDialog;
@@ -142,7 +142,7 @@ ExportDialog::ExportDialog(Tellico::Export::Format format_, Tellico::Data::CollP
 
 ExportDialog::~ExportDialog() {
   delete m_exporter;
-  m_exporter = 0;
+  m_exporter = nullptr;
 }
 
 QString ExportDialog::fileFilter() {
@@ -176,7 +176,7 @@ void ExportDialog::slotSaveOptions() {
 
 // static
 Tellico::Export::Exporter* ExportDialog::exporter(Tellico::Export::Format format_, Data::CollPtr coll_) {
-  Export::Exporter* exporter = 0;
+  Export::Exporter* exporter = nullptr;
 
   switch(format_) {
     case Export::TellicoXML:
@@ -287,11 +287,10 @@ Tellico::Export::Target ExportDialog::exportTarget(Tellico::Export::Format forma
 }
 
 // static
-bool ExportDialog::exportCollection(Tellico::Export::Format format_, const QUrl& url_) {
-  Export::Exporter* exp = exporter(format_, Data::Document::self()->collection());
-
+bool ExportDialog::exportCollection(Data::CollPtr coll_, Data::EntryList entries_, Export::Format format_, const QUrl& url_) {
+  QScopedPointer<Export::Exporter> exp(exporter(format_, coll_));
   exp->setURL(url_);
-  exp->setEntries(Data::Document::self()->collection()->entries());
+  exp->setEntries(entries_);
 
   KConfigGroup config(KSharedConfig::openConfig(), "ExportOptions");
   long options = 0;
@@ -303,7 +302,5 @@ bool ExportDialog::exportCollection(Tellico::Export::Format format_, const QUrl&
   }
   exp->setOptions(options | Export::ExportForce);
 
-  bool success = exp->exec();
-  delete exp;
-  return success;
+  return exp->exec();
 }

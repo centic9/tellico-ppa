@@ -33,6 +33,12 @@ Q_OBJECT
 private Q_SLOTS:
   void testEntities();
   void testEntities_data();
+  void testAccents();
+  void testAccents_data();
+  void testI18nReplace();
+  void testI18nReplace_data();
+  void testMinutes();
+  void testMinutes_data();
 };
 
 #endif

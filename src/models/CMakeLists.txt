@@ -4,21 +4,22 @@ SET(models_STAT_SRCS
    abstractsortmodel.cpp
    borrowermodel.cpp
    entrygroupmodel.cpp
+   entryiconmodel.cpp
    entrymodel.cpp
    entryselectionmodel.cpp
    entrysortmodel.cpp
+   fieldcomparison.cpp
    filtermodel.cpp
    groupsortmodel.cpp
    modeliterator.cpp
    modelmanager.cpp
-   modeltest.cpp
-   )
+   stringcomparison.cpp
+)
 
 add_library(tellicomodels STATIC ${models_STAT_SRCS})
 
 target_link_libraries(tellicomodels
     core
-    utils
     images
     Qt5::Core
     Qt5::Gui

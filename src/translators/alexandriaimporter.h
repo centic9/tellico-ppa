@@ -50,23 +50,23 @@ Q_OBJECT
 public:
   /**
    */
-  AlexandriaImporter() : Importer(), m_widget(0), m_library(0), m_cancelled(false) {}
+  AlexandriaImporter() : Importer(), m_widget(nullptr), m_library(nullptr), m_cancelled(false) {}
   /**
    */
   virtual ~AlexandriaImporter() {}
 
   /**
    */
-  virtual Data::CollPtr collection();
+  virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
   /**
    */
-  virtual QWidget* widget(QWidget* parent);
-  virtual bool canImport(int type) const;
+  virtual QWidget* widget(QWidget* parent) Q_DECL_OVERRIDE;
+  virtual bool canImport(int type) const Q_DECL_OVERRIDE;
 
   void setLibraryPath(const QString& libraryPath) { m_libraryPath = libraryPath; }
 
 public Q_SLOTS:
-  void slotCancel();
+  void slotCancel() Q_DECL_OVERRIDE;
 
 private:
   static QString& cleanLine(QString& str);

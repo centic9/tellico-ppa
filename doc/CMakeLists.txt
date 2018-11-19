@@ -1,10 +1,4 @@
-add_subdirectory(es)
-add_subdirectory(fr)
-add_subdirectory(nl)
-add_subdirectory(pt)
-add_subdirectory(uk)
-add_subdirectory(sv)
-add_subdirectory(en)
-add_subdirectory(de)
-add_subdirectory(pt_BR)
-add_subdirectory(ca)
+kdoctools_create_handbook( index.docbook
+  INSTALL_DESTINATION ${KDE_INSTALL_DOCBUNDLEDIR}/en
+  SUBDIR tellico
+  )

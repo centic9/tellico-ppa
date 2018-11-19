@@ -29,7 +29,7 @@
 #include "../document.h"
 #include "../core/filehandler.h"
 #include "../core/netaccess.h"
-#include "../core/tellico_config.h"
+#include "../config/tellico_config.h"
 #include "../core/tellico_strings.h"
 #include "../images/image.h"
 #include "../images/imagefactory.h"
@@ -69,7 +69,7 @@ extern "C" {
 using Tellico::Export::HTMLExporter;
 
 HTMLExporter::HTMLExporter(Tellico::Data::CollPtr coll_) : Tellico::Export::Exporter(coll_),
-    m_handler(0),
+    m_handler(nullptr),
     m_printHeaders(true),
     m_printGrouped(false),
     m_exportEntryFiles(false),
@@ -79,17 +79,17 @@ HTMLExporter::HTMLExporter(Tellico::Data::CollPtr coll_) : Tellico::Export::Expo
     m_checkCommonFile(true),
     m_imageWidth(0),
     m_imageHeight(0),
-    m_widget(0),
-    m_checkPrintHeaders(0),
-    m_checkPrintGrouped(0),
-    m_checkExportEntryFiles(0),
-    m_checkExportImages(0),
-    m_xsltFile(QLatin1String("tellico2html.xsl")) {
+    m_widget(nullptr),
+    m_checkPrintHeaders(nullptr),
+    m_checkPrintGrouped(nullptr),
+    m_checkExportEntryFiles(nullptr),
+    m_checkExportImages(nullptr),
+    m_xsltFile(QStringLiteral("tellico2html.xsl")) {
 }
 
 HTMLExporter::~HTMLExporter() {
   delete m_handler;
-  m_handler = 0;
+  m_handler = nullptr;
 }
 
 QString HTMLExporter::formatString() const {
@@ -103,7 +103,7 @@ QString HTMLExporter::fileFilter() const {
 void HTMLExporter::reset() {
   // since the ExportUTF8 option may have changed, need to delete handler
   delete m_handler;
-  m_handler = 0;
+  m_handler = nullptr;
   m_files.clear();
   m_links.clear();
   m_copiedFiles.clear();
@@ -127,7 +127,7 @@ bool HTMLExporter::exec() {
   if(options() & ExportProgress) {
     ProgressItem& item = ProgressManager::self()->newProgressItem(this, QString(), true);
     item.setTotalSteps(100);
-    connect(&item, SIGNAL(signalCancelled(ProgressItem*)), SLOT(slotCancel()));
+    connect(&item, &Tellico::ProgressItem::signalCancelled, this, &Tellico::Export::HTMLExporter::slotCancel);
   }
   // ok if not ExportProgress, no worries
   ProgressItem::Done done(this);
@@ -177,7 +177,7 @@ bool HTMLExporter::loadXSLTFile() {
   }
   if(!m_handler->isValid()) {
     delete m_handler;
-    m_handler = 0;
+    m_handler = nullptr;
     return false;
   }
   m_handler->addStringParam("date", QDate::currentDate().toString(Qt::ISODate).toLatin1());
@@ -200,7 +200,7 @@ bool HTMLExporter::loadXSLTFile() {
   // if parseDOM, that means we want the locations to be the actual location
   // otherwise, we assume it'll be relative
   if(m_parseDOM && m_dataDir.isEmpty()) {
-    m_dataDir = Tellico::dataDir();
+    m_dataDir = Tellico::installationDir();
   } else if(!m_parseDOM) {
     m_dataDir.clear();
   }
@@ -267,9 +267,9 @@ QString HTMLExporter::text() {
     return outputText;
   }
 
-  htmlDocPtr htmlDoc = htmlParseDoc(reinterpret_cast<xmlChar*>(outputText.toUtf8().data()), 0);
+  htmlDocPtr htmlDoc = htmlParseDoc(reinterpret_cast<xmlChar*>(outputText.toUtf8().data()), nullptr);
   xmlNodePtr root = xmlDocGetRootElement(htmlDoc);
-  if(root == 0) {
+  if(root == nullptr) {
     myDebug() << "no root";
     return outputText;
   }
@@ -347,7 +347,7 @@ void HTMLExporter::setFormattingOptions(Tellico::Data::CollPtr coll) {
       int ncols = 0;
       if(f->type() == Data::Field::Table) {
         bool ok;
-        ncols = Tellico::toUInt(f->property(QLatin1String("columns")), &ok);
+        ncols = Tellico::toUInt(f->property(QStringLiteral("columns")), &ok);
         if(!ok) {
           ncols = 1;
         }
@@ -411,7 +411,8 @@ void HTMLExporter::writeImages(Tellico::Data::CollPtr coll_) {
     // add all image fields to string list
     Data::FieldList iFields = coll_->imageFields();
     // take intersection with the fields to be exported
-    iFields = QSet<Data::FieldPtr>::fromList(iFields).intersect(fields().toSet()).toList();
+    QSet<Data::FieldPtr> iFieldsSet = iFields.toSet();
+    iFields = iFieldsSet.intersect(fields().toSet()).toList();
     foreach(Data::FieldPtr field, iFields) {
       imageFields.add(field->name());
     }
@@ -518,7 +519,7 @@ QWidget* HTMLExporter::widget(QWidget* parent_) {
 }
 
 void HTMLExporter::readOptions(KSharedConfigPtr config_) {
-  KConfigGroup exportConfig(config_, QString::fromLatin1("ExportOptions - %1").arg(formatString()));
+  KConfigGroup exportConfig(config_, QStringLiteral("ExportOptions - %1").arg(formatString()));
   m_printHeaders = exportConfig.readEntry("Print Field Headers", m_printHeaders);
   m_printGrouped = exportConfig.readEntry("Print Grouped", m_printGrouped);
   m_exportEntryFiles = exportConfig.readEntry("Export Entry Files", m_exportEntryFiles);
@@ -530,7 +531,7 @@ void HTMLExporter::readOptions(KSharedConfigPtr config_) {
 }
 
 void HTMLExporter::saveOptions(KSharedConfigPtr config_) {
-  KConfigGroup cfg(config_, QString::fromLatin1("ExportOptions - %1").arg(formatString()));
+  KConfigGroup cfg(config_, QStringLiteral("ExportOptions - %1").arg(formatString()));
   m_printHeaders = m_checkPrintHeaders->isChecked();
   cfg.writeEntry("Print Field Headers", m_printHeaders);
   m_printGrouped = m_checkPrintGrouped->isChecked();
@@ -578,7 +579,7 @@ QUrl HTMLExporter::fileDir() const {
 
 QString HTMLExporter::fileDirName() const {
   if(!m_collectionURL.isEmpty()) {
-    return QLatin1String("/");
+    return QStringLiteral("/");
   }
   QFileInfo fi(url().fileName());
   return fi.completeBaseName() + QLatin1String("_files/");
@@ -627,7 +628,7 @@ QString HTMLExporter::handleLink(const QString& link_) {
   const bool isPic = link_.startsWith(m_dataDir + QLatin1String("pics/"));
   QString midDir;
   if(m_exportEntryFiles && isPic) {
-    midDir = QLatin1String("pics/");
+    midDir = QStringLiteral("pics/");
   }
   // pictures are special since they might not exist when the HTML is exported, since they might get copied later
   // on the other hand, don't change the file location if it doesn't exist
@@ -649,7 +650,7 @@ QString HTMLExporter::analyzeInternalCSS(const QString& str_) {
   QString str = str_;
   int start = 0;
   int end = 0;
-  const QString url = QLatin1String("url(");
+  const QString url = QStringLiteral("url(");
   for(int pos = str.indexOf(url); pos >= 0; pos = str.indexOf(url, pos+1)) {
     pos += 4; // url(
     if(str[pos] ==  QLatin1Char('"') || str[pos] == QLatin1Char('\'')) {
@@ -757,8 +758,8 @@ bool HTMLExporter::writeEntryFiles() {
   exporter.setCollectionURL(url());
   bool parseDOM = true;
 
-  const QString title = QLatin1String("title");
-  const QString html = QLatin1String(".html");
+  const QString title = QStringLiteral("title");
+  const QString html = QStringLiteral(".html");
   bool multipleTitles = collection()->fieldByName(title)->hasFlag(Data::Field::AllowMultiple);
   Data::EntryList entries = this->entries(); // not const since the pointer has to be copied
   foreach(Data::EntryPtr entryIt, entries) {
@@ -768,7 +769,7 @@ bool HTMLExporter::writeEntryFiles() {
     if(multipleTitles) {
       file = file.section(QLatin1Char(';'), 0, 0);
     }
-    file.replace(badChars, QLatin1String("_"));
+    file.replace(badChars, QStringLiteral("_"));
     file += QLatin1Char('-') + QString::number(entryIt->id()) + html;
     outputFile = outputFile.adjusted(QUrl::RemoveFilename);
     outputFile.setPath(outputFile.path() + file);
@@ -799,11 +800,12 @@ bool HTMLExporter::writeEntryFiles() {
   // the images in "pics/" are special data images, copy them always
   // since the entry files may refer to them, but we don't know that
   QStringList dataImages;
-  dataImages << QLatin1String("checkmark.png");
+  dataImages.reserve(1 + 10);
+  dataImages << QStringLiteral("checkmark.png");
   for(uint i = 1; i <= 10; ++i) {
-    dataImages << QString::fromLatin1("stars%1.png").arg(i);
+    dataImages << QStringLiteral("stars%1.png").arg(i);
   }
-  QUrl dataDir = QUrl::fromLocalFile(Tellico::dataDir() + QLatin1String("pics/"));
+  QUrl dataDir = QUrl::fromLocalFile(Tellico::installationDir() + QLatin1String("pics/"));
   QUrl target = fileDir();
   target = target.adjusted(QUrl::StripTrailingSlash);
   target.setPath(target.path() + QLatin1Char('/') + (QLatin1String("pics/")));
@@ -828,7 +830,7 @@ void HTMLExporter::slotCancel() {
 }
 
 void HTMLExporter::parseDOM(xmlNode* node_) {
-  if(node_ == 0) {
+  if(node_ == nullptr) {
     myDebug() << "no node";
     return;
   }

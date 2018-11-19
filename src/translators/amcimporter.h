@@ -40,11 +40,11 @@ public:
   AMCImporter(const QUrl& url);
   virtual ~AMCImporter();
 
-  virtual Data::CollPtr collection();
-  bool canImport(int type) const;
+  virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
+  bool canImport(int type) const Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-  void slotCancel();
+  void slotCancel() Q_DECL_OVERRIDE;
 
 private:
   bool readBool();

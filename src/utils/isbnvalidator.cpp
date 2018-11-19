@@ -118,16 +118,17 @@ QValidator::State ISBNValidator::validate(QString& input_, int& pos_) const {
 }
 
 void ISBNValidator::fixup(QString& input_) const {
-  return staticFixup(input_);
+  staticFixup(input_);
 }
 
 void ISBNValidator::staticFixup(QString& input_) {
   if((input_.startsWith(QLatin1String("978"))
        || input_.startsWith(QLatin1String("979")))
      && input_.count(QRegExp(QLatin1String("\\d"))) > 10) {
-    return fixup13(input_);
+    fixup13(input_);
+  } else {
+    fixup10(input_);
   }
-  return fixup10(input_);
 }
 
 QValidator::State ISBNValidator::validate10(QString& input_, int& pos_) const {
@@ -168,7 +169,6 @@ QValidator::State ISBNValidator::validate10(QString& input_, int& pos_) const {
   if(atEnd && input_.count(digit) == 9 && input_[len-1] == QLatin1Char('-')) {
     input_.truncate(len-2);
     pos_ -= 2;
-    len -= 2;
   }
 
   // now fixup the hyphens and maybe add a checksum
@@ -222,7 +222,6 @@ QValidator::State ISBNValidator::validate13(QString& input_, int& pos_) const {
   if(atEnd && (countN == 12 || countN == 9) && input_[len-1] == QLatin1Char('-')) {
     input_.truncate(len-2);
     pos_ -= 2;
-    len -= 2;
   }
 
   // now fixup the hyphens and maybe add a checksum
@@ -565,4 +564,3 @@ bool Tellico::ISBNComparison::operator()(const QString& value1_, const QString& 
   }
   return value1 == value2;
 }
-

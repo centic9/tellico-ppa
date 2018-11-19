@@ -53,14 +53,14 @@ public:
   /**
    * @return A pointer to a @ref Data::Collection, or 0 if none can be created.
    */
-  virtual Data::CollPtr collection();
+  virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
   /**
    */
-  virtual QWidget* widget(QWidget*);
-  virtual bool canImport(int type) const;
+  virtual QWidget* widget(QWidget*) Q_DECL_OVERRIDE;
+  virtual bool canImport(int type) const Q_DECL_OVERRIDE;
 
 public Q_SLOTS:
-  void slotCancel();
+  void slotCancel() Q_DECL_OVERRIDE;
 
 private Q_SLOTS:
   void slotEntries(KIO::Job* job, const KIO::UDSEntryList& list);

@@ -65,7 +65,7 @@ bool TellicoZipExporter::exec() {
   // TODO: maybe need label?
   ProgressItem& item = ProgressManager::self()->newProgressItem(this, QString(), true);
   item.setTotalSteps(100);
-  connect(&item, SIGNAL(signalCancelled(ProgressItem*)), SLOT(slotCancel()));
+  connect(&item, &Tellico::ProgressItem::signalCancelled, this, &Tellico::Export::TellicoZipExporter::slotCancel);
   ProgressItem::Done done(this);
 
   TellicoXMLExporter exp(coll);
@@ -90,18 +90,19 @@ bool TellicoZipExporter::exec() {
 
   KZip zip(&buf);
   zip.open(QIODevice::WriteOnly);
-  zip.writeFile(QLatin1String("tellico.xml"), xml);
+  zip.writeFile(QStringLiteral("tellico.xml"), xml);
 
   if(m_includeImages) {
     ProgressManager::self()->setProgress(this, 10);
     // gonna be lazy and just increment progress every 3 images
     // it might be less, might be more
     int j = 0;
-    const QString imagesDir = QLatin1String("images/");
+    const QString imagesDir = QStringLiteral("images/");
     StringSet imageSet;
     Data::FieldList imageFields = coll->imageFields();
     // take intersection with the fields to be exported
-    imageFields = QSet<Data::FieldPtr>::fromList(imageFields).intersect(fields().toSet()).toList();
+    QSet<Data::FieldPtr> imageFieldSet = imageFields.toSet();
+    imageFields = imageFieldSet.intersect(fields().toSet()).toList();
     // already took 10%, only 90% left
     const int stepSize = qMax(1, (coll->entryCount() * imageFields.count()) / 90);
     foreach(Data::EntryPtr entry, entries()) {
@@ -145,8 +146,7 @@ bool TellicoZipExporter::exec() {
     return true;
   }
 
-  bool success = FileHandler::writeDataURL(url(), data, options() & Export::ExportForce);
-  return success;
+  return FileHandler::writeDataURL(url(), data, options() & Export::ExportForce);
 }
 
 void TellicoZipExporter::slotCancel() {

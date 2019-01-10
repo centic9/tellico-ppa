@@ -5,6 +5,8 @@ Description: Disable tests that require networking
 Last-Updated: 2018-05-26
 Forwarded: not-needed
 
+Index: b/src/tests/tellicoreadtest.cpp
+===================================================================
 --- a/src/tests/tellicoreadtest.cpp
 +++ b/src/tests/tellicoreadtest.cpp
 @@ -258,6 +258,7 @@ void TellicoReadTest::testLocalImage() {
@@ -25,3 +27,40 @@ Forwarded: not-needed
  }
  
  void TellicoReadTest::testXMLHandler() {
+Index: b/src/tests/imagejobtest.cpp
+===================================================================
+--- a/src/tests/imagejobtest.cpp
++++ b/src/tests/imagejobtest.cpp
+@@ -191,6 +191,7 @@ void ImageJobTest::testImageLink() {
+   QCOMPARE(img.linkOnly(), true);
+ }
+ 
++#if 0
+ void ImageJobTest::testNetworkImage() {
+   if(!networkIsAvailable()) {
+     QSKIP("This test requires network access", SkipSingle);
+@@ -371,3 +372,4 @@ void ImageJobTest::testFactoryRequestNet
+   QCOMPARE(img.format(), QByteArray("png"));
+   QCOMPARE(img.linkOnly(), true);
+ }
++#endif
+Index: b/src/tests/imagejobtest.h
+===================================================================
+--- a/src/tests/imagejobtest.h
++++ b/src/tests/imagejobtest.h
+@@ -44,6 +44,7 @@ private Q_SLOTS:
+   void testImageLoad();
+   void testImageLoadWithId();
+   void testImageLink();
++#if 0
+   void testNetworkImage();
+   void testNetworkImageLink();
+   void testNetworkImageInvalid();
+@@ -51,6 +52,7 @@ private Q_SLOTS:
+   void testFactoryRequestLocalInvalid();
+   void testFactoryRequestNetwork();
+   void testFactoryRequestNetworkLinkOnly();
++#endif
+ 
+ Q_SIGNALS:
+   void exitLoop();

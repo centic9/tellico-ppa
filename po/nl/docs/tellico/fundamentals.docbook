@@ -521,23 +521,23 @@
 >Veldeigenschappen</title>
 
 <para
->Een veld is gedefinieerd door zijn titel, type, categorie, beschrijving en mogelijk een standaard waarde of enige toegestane waarden. De titel wordt overal gebruikt om naar het veld te refereren in het gebruikersinterface. De <interface
+>Een veld is gedefineerd door zijn titel, type, categorie, beschrijving en mogelijk een standaard waarde of enige toegestane waarden. De titel wordt overal gebruikt om naar het veld te refereren in het gebruikersinterface. De <interface
 >Itembewerker</interface
-> gebruikt deze om naar waarden te vragen. De <interface
+> gebruikt het om te vragen om waarden. De <interface
 >Kolomweergave</interface
-> gebruikt deze als een kolomkop. De verschillende typen velden worden <link linkend="field-types"
+> gebruikt het als een kolomkop. De verschillende typen velden worden <link linkend="field-types"
 >uitgelegd in de sectie Veldtypen</link
->. De beschrijving wordt gebruikt als een tekstballon in de <interface
+>. De deschrijving wordt gebruikt als een tekstballon in de <interface
 >Itembewerker</interface
->, misschien om een uitleg te geven over de inhoud van het veld. Bovendien wordt voor <link linkend="derived"
+>, misschien om een uitleg te geven over de inhoud van de velden. Bovendien wordt voor <link linkend="derived"
 >velden met <emphasis
 >afgeleide</emphasis
 > waarden</link
->, een waardesjabloon gebruikt om de veldwaarde in te delen. De standaard waarde wordt automatisch toegevoegd bij aanmaken van een nieuw item. De lijst met toegestane waarden voor <link linkend="choice"
+>, een waardesjabloon gebruikt om de waarde van het veld te formatteren. De standaard waarde wordt automatisch toegevoegd bij aanmaken van een nieuw item. De lijst met toegestane waarden voor <link linkend="choice"
 ><emphasis
 >Keuze</emphasis
 ></link
->velden moeten gescheiden worden door een puntkomma. </para>
+>velden moet gescheiden worden door een puntkomma. </para>
 
 <para
 >Nieuwe velden kunnen elk type zijn, maar het type van bestaande velden wijzigen is beperkt tot compatibele typen, zoals te zien in de onderstaande tabel: </para>
@@ -719,11 +719,11 @@
 >Opmaak van veld</title>
 
 <para
->&appname; levert enige mogelijkheden voor automatische indeling van veldwaarden. De eenvoudigste is automatisch hoofdletters, die in elk woord alles hoofdletters maakt behalve de artikelen. Indeling van de titel verplaatst bepaalde artikelen van het begin naar het eind van het veld, bijvoorbeeld, wijziging van "The Return of the King" naar "Return of the King, The". De titelartikelen zijn te configureren. Tenslotte zal indelen van de naam, de tekenreeks zo indelen dat de achter- of familienaam van de persoon als eerste komt. Voor- en achtervoegsels van de naam kunnen geconfigureerd worden. Ook de speciale <emphasis
+>&appname; biedt enige mogelijkheden voor automatisch formatteren ven veldwaarden. de eenvoudiste is automatisch hoofdletters, die elk woord behalve de artikelen hoofdletters maakt. Formatteren van titels verplaatst bepaalde artikelen van het begin naar het eind van het veld, bijvoorbeeld, wijzigen van "The Return of the King" naar "Return of the King, The". De titel van artikelen zijn te configureren. Tenslotte probeert formatteren van namen de tekenreeks op te breken zodat de achternaam of familienaam van de persoon eerst wordt getoond. Voor- en achtervoegsels van namen zijn ook te configureren. Ook de speciale <emphasis
 ><link linkend="people-group"
 >Mensen</link
 ></emphasis
->groep gebruikt alle velden met naamindeling, zelfs als de globale instelling is uitgeschakeld. </para>
+>groep gebruikt alle velden met naam formatteren, zelfs als de globale instelling is uitgeschakeld. </para>
 
 <para
 >Alle automatische formattering kan uitgeschakeld worden door de globale opties in de <link linkend="general-options"
@@ -859,15 +859,15 @@
 
 <informalexample>
 <para
->Om de science-fiction-boeken te zoeken die u niet hebt gelezen, activeert u de knop <guilabel
->Elk van de volgende laten overeenkomen</guilabel
->, zet de eerste regel op <emphasis
->Genre bevat Science-fiction</emphasis
+>Om de science fiction boeken te vinden, die u niet hebt gelezen, activeer de knop <guilabel
+>Alle volgenden overeen laten komen</guilabel
+>, stel de eerste regele in op <emphasis
+>Genre bevat Science Fiction</emphasis
 > en de tweede op <emphasis
->Lezen bevat geen waar</emphasis
+>Gelezen bevat geen waar</emphasis
 >. (Voor <link linkend="bool"
 >Keuzevak</link
-> velden is de interne waarde <emphasis
+>velden, is de interne waarde <emphasis
 >waar</emphasis
 >). </para>
 
@@ -887,15 +887,15 @@
 <title
 >Rapporten genereren</title>
 <para
->&appname; kan verschillende rapporten genereren over uw huidige verzameling. De <interface
+>&appname; kan verschillende rapporten over uw huidige verzameling genereren. De <interface
 >Rapportdialoog</interface
 > controleert op alle &xslt;-sjablonen in het installatiepad en in <filename class="directory"
 >$<envar
 >KDEHOME</envar
 >/share/apps/tellico/report-templates/</filename
->. U kunt dus nieuwe aanmaken en deze worden automatisch gevonden en meegenomen als opties in de <interface
->Rapportdialoog</interface
->. Sommige complexe rapporten kunnen even duren om ze te genereren voor grote verzamelingen. </para>
+>. U kunt dus nieuwe aanmaken en ze worden automatisch gevonden en als opties meegenomen in de <interface
+>Rapportendialoog</interface
+>. Sommige complexe rapporten kunnen even duren om gegenereerd te worden voor grote verzamelingen. </para>
 
 <para
 >De sjablonen die geïnstalleerd zijn met &appname; bevatten een lijst met alleen titels, de standaard kolomweergave, een groepsweergave, een samenvatting van alle groepen en de meest populaire waarden in die groepen, een uitleenrapport en een groot rapport met afbeeldingen van covers. Selecteer het gewenste sjabloon en klik op de knop <guibutton
@@ -1062,9 +1062,9 @@
 
 <tip>
 <para
->U Kunt afgeleide waarden gebruiken om waarden te combineren uit meerdere velden naar een enkele waarde. Activeer eenvoudig het vakje afgeleide waarde en gebruik een waardesjabloon lijkend op "<userinput
+>U kunt verkregen waarden combineren met waarden uit meerdere velden in een enkele waarde. Activeer eenvoudig het afgeleide waardevakje en gebruik een waardesjabloon gelijkend op "<userinput
 >Waarde: %{fielda}%{fieldb}</userinput
->" waar %{...} vervangen wordt door de van toepassing zijnde veldwaarde. Dit is nuttig om meerdere waarden in een enkel veld te verzamelen, &eg; voor betere groepering en om velden met verschillende typen te combineren door juiste sortering op hetzelfde moment te respecteren. Kijk eens naar een nummerveld gevolgd door een tekstsubveld met items 3b, 14a. </para>
+>" waar %{...} vervangen wordt door de van toepassing zijnde veldwaarde. Dit is nuttig om meerdere waarden in een enkel veld te verzamelen, &eg; Voor betere groepering en om velden met verschillende typen te combineren door respect te tonen voor juiste sortering op hetzelfde moment. Beschouw bijvoorbeeld een nummerveld gevolgd door een text subveld met items b, 14a. </para>
 </tip>
 
 </sect1>

@@ -214,128 +214,124 @@
 ></title>
 
 <para
->&appname; kan verschillende bronnen voor importeren van gegevens gebruiken, die geconfigureerd kunnen worden in de dialoog Gegevensbronnen. Er zijn vele typen en hulpbronnen beschikbaar. Onderstaand staan er een paar in een lijst.</para>
+>&appname; kan verschillende bronnen voor importeren van gegevens gebruiken, die geconfigureerd kunnen worden in de dialoog Gegevensbronnen. Er zijn vele typen en hulpbronnen beschikbaar. Onderstaand staan er een paar in een lijst, terwijl de volledige lijst beschikbaar is op <ulink url="http://tellico-project.org/data-sources"
+>de Tellico website</ulink
+>.</para>
 
 <itemizedlist>
 <listitem
-><para
+><simpara
 ><link linkend="amazon-web-services"
 >Amazon.com Webservices</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 >de <link linkend="imdb"
 >Internet filmdatabase</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
+><link linkend="allocine"
+>AlloCiné</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
 ><link linkend="z3950"
 >z39.50-servers</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="sru"
 >SRU-servers</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="entrez"
 >Entrez (PubMed) databases</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="animenfo"
 >AnimeNfo.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
-><link linkend="ibs"
->Internet Bookshop Italia</link
->,</para
+><simpara
+><link linkend="bedetheque"
+>BDGest</link
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="isbndb"
 >ISBNdb.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="bib-sources"
 >arxiv.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
-><link linkend="bib-sources"
->bibsonomy.org</link
->,</para
-></listitem>
-<listitem
-><para
-><link linkend="bib-sources"
->crossref.org</link
->,</para
-></listitem>
-<listitem
-><para
+><simpara
 ><link linkend="discogs"
 >Discogs.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="tmdb"
 >TheMovieDB.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="tgdb"
 >TheGamesDB.net</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="omdb"
 >OMDBAPI.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="musicbrainz"
 >MusicBrainz.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="giantbomb"
 >GiantBomb.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="openlibrary"
 >OpenLibrary.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="externalexec"
 >andere externe scripts of toepassingen</link
-> en</para
+> en</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="multiple-sources"
 >combinaties van elk van de bovenstaande bronnen</link
->.</para
+>.</simpara
 ></listitem>
 </itemizedlist>
 
@@ -360,11 +356,6 @@
 > of <guibutton
 >Verwijderen</guibutton
 >. De volgorde van de bronnen, die verschijnen in het item menu's bijwerken, kan ook gewijzigd worden. </para>
-
-<para
->Additionele sjablonen kunnne gedownload worden vanaf de online opslagruimte van de auteur door op de knop <guilabel
->Downloaden</guilabel
-> te klikken. Deze scripts zijn met GPG ondertekend door de auteur om te beschermen tegen gevaarlijke scripts uit onbekende bronnen, die uw systeem kunnen beschadigen. </para>
 
 <warning>
 <para
@@ -470,22 +461,13 @@
 > en uw accountinformatie toevoegen aan de gegevensbronconfiguratie.</para>
 </sect3>
 
-<sect3 id="ibs">
-<title
->Internet boekwinkel Italia</title>
-<para
-><ulink url="http://ibs.it"
->IBS of Internet Bookstore Italia</ulink
->, is een online Italiaanse boekhandel. </para>
-</sect3>
-
 <sect3 id="isbndb">
 <title
 >ISBNdb.com</title>
 <para
 ><ulink url="http://isbndb.com"
 >ISBNdb.com</ulink
-> is een online boekendatabase, met bibliotheken met gegevensverzamelingen uit de de gehele wereld. </para>
+> is een online boekendatabase, met bibliotheken uit de de gehele wereld. </para>
 </sect3>
 
 <sect3 id="openlibrary">
@@ -512,6 +494,15 @@
 ><ulink url="http://www.animenfo.com"
 >AnimeNfo</ulink
 > is een populaire site voor informatie over anime of Japanse animatie. </para>
+</sect3>
+
+<sect3 id="bedetheque">
+<title
+>Bedetheque</title>
+<para
+><ulink url="http://www.bedetheque.com"
+>Bedetheque</ulink
+> is een Franse stripboekdatabase, beheerd door BDGest. </para>
 </sect3>
 
 </sect2>
@@ -557,6 +548,15 @@
 ><ulink url="http://omdbapi.com"
 >De open filmdatabase</ulink
 > is een vrije webservice om filminformatie te verkrijgen. </para>
+</sect3>
+
+<sect3 id="allocine">
+<title
+>AlloCiné</title>
+<para
+><ulink url="http://allocine.fr"
+>AlloCiné</ulink
+> is een online informatieservice voor films, gebaseerd in Frankrijk. </para>
 </sect3>
 
 </sect2>
@@ -628,9 +628,9 @@
 >Amazon.com</title>
 
 <para
->Met de Webservices van Amazon kan &appname; elk van negen verschillende internationale sites gerund door <ulink url="http://amazon.com"
+>Met de Webservices van Amazon kan &appname; elk van veertien verschillende internationale sites gerund door <ulink url="http://amazon.com"
 >Amazon.com</ulink
-> voor informatie doorzoeken: Verenigde Staten, Verenigd Koningkrijk, Duitsland, Japan, Frankrijk, Canada, China, Spanje en Italië. </para>
+> voor informatie doorzoeken: Verenigde Staten, Verenigd Koninkrijk, Duitsland, Japan, Frankrijk, Canada, China, Spanje, Italië, Brazilië, Australië, India, Mexico en Turkije. </para>
 
 <screenshot>
 <mediaobject>
@@ -644,6 +644,11 @@
 >Amazon.com</ulink
 > kan een afbeelding omvatten, zoals een boek- of videocover. Die afbeelding kan gedownload worden in drie verschillende groottes, afhankelijk van het item. De geassocieerde ID moet gebruikt worden voor toegang tot de webservices Amazon.com en zit in de koppelingen terug naar het item, zoals gedicteerd door de licentie-overeenkomst voor het gebruik van de webservices van Amazon.com. </para>
 
+<para
+>Toegang tot de <ulink url="https://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html"
+>Amazon Product Advertising API</ulink
+> kan beperkingen hebben gerelateerd tot verkoopverwijzigen of adverteren. Kijk op de Amazon-documentatie voor verdere informatie bij abonneren voor API-toegang. </para>
+
 </sect3>
 
 <sect3 id="externalexec">
@@ -653,19 +658,11 @@
 >Als een gemakkelijker manier voor &appname; om te integreren met plug-ins van derden, kunnen externe scripts of toepassingen gebruikt worden als een interface voor doorzoeken van andere informatiebronnen. &appname; zal een commando uitvoeren en de zoektermen als opties op de commandoregel doorgeven. </para>
 
 <para
->Sommige scripts worden meegeleverd met &appname; zelf. <ulink url="http://www.allocine.fr"
->Allocine.fr</ulink
-> is een Franse website voor films. Het <ulink url="http://www.mcu.es"
->Spaanse Ministerie van Cultuur</ulink
-> is een online Spaanse boekendatabase. <ulink url="http://darkhorse.com"
->Dark Horse Comics</ulink
-> is een uitgever van stripboeken. Alle drie deze gegevensbronnen vereisen <ulink url="http://python.org"
+>Sommige scripts worden met &appname; zelf geleverd. <ulink url="http://python.org"
 >Python</ulink
->. <ulink url="http://boardgamegeek.com"
->BoardGameGeek</ulink
-> is een website met uitgebreide gegevens voor bordspellen en het script vereist <ulink url="http://www.ruby-lang.org"
->ruby</ulink
->. </para>
+> is vereist om in <ulink url="http://darkhorse.com"
+>Dark Horse Comics</ulink
+> te zoeken, een uitgever van strips, bijvoorbeeld. </para>
 
 <screenshot>
 <mediaobject>

@@ -168,10 +168,10 @@ void Manager::startSearch(const QString& source_, Tellico::Fetch::FetchKey key_,
   foreach(Fetcher::Ptr fetcher, m_fetchers) {
     if(source_ == fetcher->source()) {
       ++m_count; // Fetcher::search() might emit done(), so increment before calling search()
-      connect(fetcher.data(), SIGNAL(signalResultFound(Tellico::Fetch::FetchResult*)),
-              SIGNAL(signalResultFound(Tellico::Fetch::FetchResult*)));
-      connect(fetcher.data(), SIGNAL(signalDone(Tellico::Fetch::Fetcher*)),
-              SLOT(slotFetcherDone(Tellico::Fetch::Fetcher*)));
+      connect(fetcher.data(), &Fetcher::signalResultFound,
+              this, &Manager::signalResultFound);
+      connect(fetcher.data(), &Fetcher::signalDone,
+              this, &Manager::slotFetcherDone);
       fetcher->startSearch(request);
       m_currentFetcherIndex = i;
       break;
@@ -189,10 +189,10 @@ void Manager::continueSearch() {
   Fetcher::Ptr fetcher = m_fetchers[m_currentFetcherIndex];
   if(fetcher && fetcher->hasMoreResults()) {
     ++m_count;
-    connect(fetcher.data(), SIGNAL(signalResultFound(Tellico::Fetch::FetchResult*)),
-            SIGNAL(signalResultFound(Tellico::Fetch::FetchResult*)));
-    connect(fetcher.data(), SIGNAL(signalDone(Tellico::Fetch::Fetcher*)),
-            SLOT(slotFetcherDone(Tellico::Fetch::Fetcher*)));
+    connect(fetcher.data(), &Fetcher::signalResultFound,
+            this, &Manager::signalResultFound);
+    connect(fetcher.data(), &Fetcher::signalDone,
+            this, &Manager::slotFetcherDone);
     fetcher->continueSearch();
   } else {
     emit signalDone();
@@ -271,7 +271,7 @@ Tellico::Fetch::Fetcher::Ptr Manager::createFetcher(KSharedConfigPtr config_, co
   // now, it's available as a builtin data source, so prefer the new version
   // so check for fetcher version and switch to the newer if version is missing or lower
   if(fetchType == Fetch::ExecExternal &&
-     config.readPathEntry("ExecPath", QString()).endsWith(QLatin1String("bedetheque.py"))) {
+     config.readPathEntry("ExecPath", QString()).endsWith(QStringLiteral("bedetheque.py"))) {
     KConfigGroup generalConfig(config_, QStringLiteral("General Options"));
     if(generalConfig.readEntry("FetchVersion", 0) < 2) {
       fetchType = Fetch::Bedetheque;
@@ -297,37 +297,62 @@ Tellico::Fetch::Fetcher::Ptr Manager::createFetcher(KSharedConfigPtr config_, co
 // static
 Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FetcherVec vec;
+  vec.append(SRUFetcher::libraryOfCongress(this));
+// books
+  FETCHER_ADD(ISBNdb);
+  FETCHER_ADD(OpenLibrary);
+  FETCHER_ADD(GoogleBook);
+// comic books
+  FETCHER_ADD(AnimeNfo);
+  FETCHER_ADD(Bedetheque);
+  FETCHER_ADD(ComicVine);
+// bibliographic
+  FETCHER_ADD(Arxiv);
+  FETCHER_ADD(GoogleScholar);
+  FETCHER_ADD(BiblioShare);
+  FETCHER_ADD(DBLP);
+  FETCHER_ADD(HathiTrust);
+// music
+  FETCHER_ADD(MusicBrainz);
+// video games
+  FETCHER_ADD(TheGamesDB);
+  FETCHER_ADD(IGDB);
+  FETCHER_ADD(VNDB);
+  FETCHER_ADD(VideoGameGeek);
+// board games
+  FETCHER_ADD(BoardGameGeek);
+// movies
+  FETCHER_ADD(TheMovieDB);
 #ifdef ENABLE_IMDB
   FETCHER_ADD(IMDB);
 #endif
-  vec.append(SRUFetcher::libraryOfCongress(this));
-  FETCHER_ADD(ISBNdb);
-  FETCHER_ADD(AnimeNfo);
-  FETCHER_ADD(Arxiv);
-  FETCHER_ADD(GoogleScholar);
-  FETCHER_ADD(MusicBrainz);
-  FETCHER_ADD(BiblioShare);
-  FETCHER_ADD(TheGamesDB);
-  FETCHER_ADD(BoardGameGeek);
-  FETCHER_ADD(TheMovieDB);
-  FETCHER_ADD(OpenLibrary);
-  FETCHER_ADD(GoogleBook);
-  FETCHER_ADD(OMDB);
   QStringList langs = QLocale().uiLanguages();
   if(langs.first().contains(QLatin1Char('-'))) {
     // I'm not sure QT always include two-letter locale codes
     langs << langs.first().section(QLatin1Char('-'), 0, 0);
   }
 // only add IBS if user includes italian
-  if(langs.contains(QLatin1String("it"))) {
+  if(langs.contains(QStringLiteral("it"))) {
     FETCHER_ADD(IBS);
   }
-  if(langs.contains(QLatin1String("fr"))) {
+  if(langs.contains(QStringLiteral("fr"))) {
     FETCHER_ADD(DVDFr);
     FETCHER_ADD(Allocine);
   }
-  if(langs.contains(QLatin1String("ru"))) {
+  if(langs.contains(QStringLiteral("ru"))) {
     FETCHER_ADD(KinoPoisk);
+  }
+  if(langs.contains(QStringLiteral("ua"))) {
+    FETCHER_ADD(KinoTeatr);
+  }
+  if(langs.contains(QStringLiteral("de"))) {
+    FETCHER_ADD(Kino);
+  }
+  if(langs.contains(QStringLiteral("cn"))) {
+    FETCHER_ADD(Douban);
+  }
+  if(langs.contains(QStringLiteral("dk"))) {
+    FETCHER_ADD(DBC);
   }
   return vec;
 }
@@ -474,17 +499,17 @@ QPixmap Manager::fetcherIcon(Tellico::Fetch::Fetcher::Ptr fetcher_, int group_, 
     const Fetch::ExecExternalFetcher* f = static_cast<const Fetch::ExecExternalFetcher*>(fetcher_.data());
     const QString p = f->execPath();
     QUrl u;
-    if(p.contains(QLatin1String("allocine"))) {
+    if(p.contains(QStringLiteral("allocine"))) {
       u = QUrl(QStringLiteral("http://www.allocine.fr"));
-    } else if(p.contains(QLatin1String("ministerio_de_cultura"))) {
+    } else if(p.contains(QStringLiteral("ministerio_de_cultura"))) {
       u = QUrl(QStringLiteral("http://www.mcu.es"));
-    } else if(p.contains(QLatin1String("dark_horse_comics"))) {
+    } else if(p.contains(QStringLiteral("dark_horse_comics"))) {
       u = QUrl(QStringLiteral("http://www.darkhorse.com"));
-    } else if(p.contains(QLatin1String("boardgamegeek"))) {
+    } else if(p.contains(QStringLiteral("boardgamegeek"))) {
       u = QUrl(QStringLiteral("http://www.boardgamegeek.com"));
-    } else if(p.contains(QLatin1String("supercat"))) {
+    } else if(p.contains(QStringLiteral("supercat"))) {
       u = QUrl(QStringLiteral("https://evergreen-ils.org"));
-    } else if(f->source().contains(QLatin1String("amarok"), Qt::CaseInsensitive)) {
+    } else if(f->source().contains(QStringLiteral("amarok"), Qt::CaseInsensitive)) {
       return LOAD_ICON(QStringLiteral("amarok"), group_, size_);
     }
     if(!u.isEmpty() && u.isValid()) {

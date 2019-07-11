@@ -99,19 +99,64 @@
 >In huidige verzameling achtervoegen</guilabel
 > vertelt &appname; om alle items in de geïmporteerde verzameling toe te voegen aan de huidige en om elke veld dat nu nog niet bestaat toe te voegen. De actie <guilabel
 >Verzameling samenvoegen</guilabel
-> is hetzelfde als achtervoegen, behalve dat elk geïmporteerd item vergeleken wordt met de huidigen en alle identieke items worden overgeslagen. Toekomstige plannen omvatten een verbeterde heuristiek voor identificeren van overeenkomende items, maar nu, behalve voor muziekverzamelingen, moeten ze identiek zijn voor elk veld. Muziekverzamelingen vergelijken alleen de artiest en het album en de tracks worden samengevoegd voor overeenkomende items. De <link linkend="importing-audio-files"
+> is hetzelfde als achtervoegen, behalve dat elk geïmporteerd item vergeleken wordt met de huidige en alle identieke items worden overgeslagen. &appname; probeert overeenkomstige items te identificeren die niet volledig identiek zijn door belangrijke velden te vergelijken en dan de items samen te voegen. Muziekverzamelingen, bijvoorbeeld, vergelijken de artiest en het album en de tracks zouden gemengd worden bij overeenkomende items. Het <link linkend="importing-audio-files"
 >importprogramma voor geluidsbestanden</link
-> is in staat om op de juiste manier tracklijsten te bouwen door items samen te voegen. </para>
+> is in staat om op de juiste manier de listen met track te bouwen door items samen te voegen. </para>
 
-<sect2 id="importing-tellico">
+<sect2 id="alternate-software">
+<title
+>Gegevens importeren uit andere software</title>
+
+<para
+>&appname; kan gegevens direct importeren uit een variëteit van andere programma's voor beheer van verzamelingen, inclusief <application
+><ulink url="http://www.gcstar.org"
+>GCstar</ulink
+></application
+>, <application
+><ulink url="https://github.com/mvz/alexandria-book-collection-manager"
+>Alexandria</ulink
+></application
+>, <application
+><ulink url="https://www.delicious-monster.com"
+>Delicious Library</ulink
+></application
+>, <application
+><ulink url="http://www.antp.be/software/moviecatalog/"
+>Ant Movie Catalog</ulink
+></application
+>, <application
+><ulink url="https://en.wikipedia.org/wiki/Referencer"
+>Referencer</ulink
+></application
+> en <application
+><ulink url="https://launchpad.net/griffith"
+>Griffith</ulink
+></application
+>.</para>
+
+</sect2>
+
+<sect2 id="import-data-files">
+<title
+>Andere gegevensformaten importeren</title>
+<para
+>&appname; kan gegevens importeren uit een variëteit van andere bestandsformaten, inclusief <acronym
+>CSV</acronym
+>, bibtex, audio discs en bestanden, <acronym
+>MODS</acronym
+>, &PDF; en <acronym
+>RIS</acronym
+>.</para>
+
+<sect3 id="importing-tellico">
 <title
 >Gegevens in &appname; importeren</title>
 
 <para
->Andere gegevensbestanden van &appname; kunnen geïmporteerd worden. Vervanging van de huidige verzameling door een &appname;-bestand te importeren, is hetzelfde als het bestand zelf openen. De waarde van het importeren van &appname;-gegevens is primair om iets toe te voegen of twee verzamelingen samen te voegen. </para>
-</sect2>
+>Andere gegevensbestanden van &appname; kunnen direct geïmporteerd worden. Vervanging van de huidige verzameling door een &appname;-bestand te importeren, is hetzelfde als het bestand zelf openen. De waarde van het importeren van &appname;-gegevens is primair om iets toe te voegen of twee verzamelingen samen te voegen. </para>
+</sect3>
 
-<sect2 id="importing-csv">
+<sect3 id="importing-csv">
 <title
 >CSV-gegevens worden geïmporteerd</title>
 
@@ -148,11 +193,11 @@
 >. </para>
 
 <para
->Alleen de eerste vijf regels van het geïmporteerde CSV-bestand worden in de dialoog getoond. </para>
+>Om het compact te houden worden alleen de eerste vijf regels van het geïmporteerde CSV-bestand in de dialoog getoond. Alle regels in het bestand zullen echter geïmporteerd worden. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-audio">
+<sect3 id="importing-audio">
 <title
 >Gegevens van audio-cd's importeren</title>
 
@@ -163,9 +208,9 @@
 
 <para
 >Bovendien, als de schijf &CD;-tekst bevat, dan wordt die informatie gelezen en toegevoegd aan het geïmporteerde item. </para>
-</sect2>
+</sect3>
 
-<sect2 id="importing-audio-files">
+<sect3 id="importing-audio-files">
 <title
 >Metagegevens van audiobestanden importeren</title>
 
@@ -184,52 +229,22 @@
 > in het desktop-bestand worden gebruikt als hoes-illustratie van het album. </para>
 
 <para
->Het importprogramma voor metagegevens van audiobestanden kan recursief een map scannen om alle audiobestanden in elke subfolder te scannen, hoewel symbolische koppelingen worden niet gevolgd. &appname; gebruikt de <ulink url="http://developer.kde.org/~wheeler/taglib.html"
+>Het importprogramma voor metagegevens van audiobestanden kan recursief een map scannen om alle audiobestanden in elke subfolder te scannen, hoewel symbolische koppelingen worden niet gevolgd. &appname; gebruikt de <ulink url="https://taglib.org"
 >TagLib-bibliotheek</ulink
 > voor het lezen van de metagegevens van audiobestanden en zo gegevens kan importeren uit elke bestandstype dat TagLib begrijpt. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-alexandria">
-<title
->Alexandria bibliotheken importeren</title>
-
-<para
-><application
-><ulink url="http://alexandria.rubyforge.org"
->Alexandria</ulink
-></application
-> is een alternatieve beheerder van een boekenverzameling voor de bureaubladomgeving <ulink url="http://www.gnome.org"
->GNOME</ulink
->. Het importprogramma biedt een keuze voor importeren van elk van de bibliotheken gevonden in <filename class="directory"
->$<envar
->HOME</envar
->/.alexandria/</filename
->. </para>
-
-</sect2>
-
-<sect2 id="importing-amc">
-<title
->Gegevens uit Ant Movie Catalog importeren</title>
-
-<para
-><application
-><ulink url="http://www.antp.be/software/moviecatalog/"
->Ant Movie Catalog</ulink
-></application
-> is een alternatieve verzamelingenbeheerder van films. </para>
-
-</sect2>
-
-<sect2 id="importing-bibtex">
+<sect3 id="importing-bibtex">
 <title
 >Gegevens van Bibtex importeren</title>
 
 <para
 ><ulink url="http://en.wikipedia.org/wiki/Bibtex"
 >Bibtex</ulink
-> is een bibliografieformaat gebruikt met het LaTeX document voorbereidingssysteem. Verschillende typen bibliografische referenties kunnen worden ingevoegd in het bestand. &appname; importeert bibtex bestanden als een Bibliografische verzameling. </para>
+> is een bibliografieformaat gebruikt met het LaTeX document voorbereidingssysteem. Verschillende typen bibliografische referenties kunnen worden ingevoegd in het bestand. &appname; importeert bibtex bestanden als een <link linkend="bibliography"
+>Bibliografische verzameling</link
+>. </para>
 
 <para
 >Als het importprogramma voor bibtex velden in het bestand tegenkomt die niet in de standaard bibliografieverzameling zitten, worden ze toegevoegd als velden <link linkend="line"
@@ -241,73 +256,14 @@
 >-veld aangemaakt. &appname; gebruikt een interne kopie van de <ulink url="http://www.gerg.ca/software/btOOL/"
 >btparse bibliotheek</ulink
 > voor ontleden van de bibtex-bestanden. </para>
-</sect2>
-
-<sect2 id="importing-bibtexml">
-<title
->Bibtexml-gegevens importeren</title>
 
 <para
 ><ulink url="http://bibtexml.sf.net"
 >Bibtexml</ulink
 > is een &XML; representatie van bibtex-gegevens en de gegevens uit het geïmporteerde bibtexml-bestand wordt behandeld op dezelfde manier als bibtex-gegevens. </para>
-</sect2>
+</sect3>
 
-<sect2 id="importing-delicious-library">
-<title
->Importeer Delicious Library gegevens</title>
-
-<para
-><application
-><ulink url="http://www.delicious-monster.com/"
->Delicious Library</ulink
-></application
-> is een alternatieve verzamelingenbeheerder voor de &Mac; OS X desktop. &appname; importeert een subset van de gegevens gebruikt door Delicious Library. </para>
-</sect2>
-
-<sect2 id="importing-gcstar">
-<title
->GCstar-gegevens importeren</title>
-
-<para
-><application
-><ulink url="http://www.gcstar.org"
->GCstar</ulink
-></application
-> is een alternatieve verzamelingenbeheerder. Verzamelingen van boeken, films, muziek, munten, spellen, bordspellen en wijn importeren wordt nu ondersteunt. </para>
-
-<para
->&appname; kan ook <application
->GCfilms</application
-> gegevensbestanden importeren. <application
-><ulink url="http://home.gna.org/gcfilms/"
->GCfilms</ulink
-></application
-> is de voorganger van <application
->GCstar</application
-> en was een alternatieve beheerder van filmverzamelingen. Normaal worden <application
->GCfilms</application
->-gegevensbestanden gevonden in <filename class="directory"
->$<envar
->HOME</envar
->/.local/share/gcfilms/</filename
->. </para>
-
-</sect2>
-
-<sect2 id="importing-griffith">
-<title
->Griffith-gegevens importeren</title>
-
-<para
-><application
-><ulink url="http://griffith.berlios.de/"
->Griffith</ulink
-></application
-> is een alternatieve beheerder van videoverzamelingen. &appname; kan de meeste gegevens uit een Griffith-database importeren. </para>
-</sect2>
-
-<sect2 id="importing-mods">
+<sect3 id="importing-mods">
 <title
 >MODS-gegevens importeren</title>
 
@@ -316,52 +272,65 @@
 ><ulink url="http://www.loc.gov/standards/mods/"
 >MODS</ulink
 ></acronym
-> is een formaat voor het representeren van verschillende typen verzamelingen van media. &appname; importeert op dit moment alleen boeken als een bibliografische verzameling. </para>
+> is een formaat voor het representeren van verschillende typen verzamelingen van media. &appname; importeert op dit moment alleen boeken als een <link linkend="bibliography"
+>Bibliografische verzameling</link
+>. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-pdf">
+<sect3 id="importing-pdf">
 <title
->PDF-gegevens importeren</title>
+>&PDF;-gegevens importeren</title>
 <para
 >Als &appname; is gecompileerd met ondersteuning van <emphasis
 >exempi</emphasis
 > of <emphasis
 >poppler</emphasis
->, kunnen metagegevens uit PDF-bestanden geïmporteerd worden. Metagegevens kunnen titel, auteur en gegevensinformatie bevatten, evenals bibliografische identifiers die dan gebruikt worden om andere informatie bij te werken. </para>
-</sect2>
+>, kunnen metagegevens uit &PDF;-bestanden geïmporteerd worden. Metagegevens kunnen titel, auteur en gegevensinformatie bevatten, evenals bibliografische identifiers die dan gebruikt worden om andere informatie bij te werken. </para>
+</sect3>
 
-<sect2 id="importing-referencer">
-<title
->Referencer-gegevens importeren</title>
-<para
-><application
-><ulink url="http://icculus.org/referencer/"
->Referencer</ulink
-></application
-> is een programma voor het organiseren van documenten en de bibliografiebeheerder voor het GNOME bureaublad. &appname; zal het meeste van de gegevens gevonden in een Referencer-database importeren. </para>
-</sect2>
-
-<sect2 id="importing-ris">
+<sect3 id="importing-ris">
 <title
 >RIS-gegevens importeren</title>
 <para
->Het <ulink url="http://www.adeptscience.co.uk/kb/article/A626"
+>Het <ulink url="https://en.wikipedia.org/wiki/RIS_(file_format)"
 ><acronym
 >RIS</acronym
 >-formaat</ulink
-> is een bibliografisch bestandsformaat gebruikt door de <application
+> is een bibliografisch bestandsformaat gebruikt door <application
+>EndNote</application
+>, <application
 >Reference-beheerder</application
-> en anderen. &appname; importeert RIS-bestanden als een Bibliografische verzameling. </para>
+> en anderen. &appname; importeert RIS-bestanden als een <link linkend="bibliography"
+>Bibliografische verzameling</link
+>. </para>
+</sect3>
+
 </sect2>
 
-<sect2 id="importing-goodreads">
+<sect2 id="import-online-collection">
+<title
+>Online verzamelingen importeren</title>
+<para
+>&appname; kan verbinden met en importeren uit websites die persoonlijke verzamelingen beheren.</para>
+
+<sect3 id="importing-boardgamegeek">
+<title
+>BoardGameGeek-verzameling importeren</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> is een online hulpbron en gemeenschap voor bordspellen. &appname; kan de bordspellen importeren in een verzameling van een gebruiker, zolang de verzameling is ingesteld voor publieke toegang. De geïmporteerde verzameling kan beperkt zijn tot die items gemarkeerd als behorend bij een eigenaar. </para>
+</sect3>
+
+<sect3 id="importing-goodreads">
 <title
 >Goodreads-verzameling importeren</title>
 <para
-><ulink url="http://www.goodreads.com"
+><ulink url="https://www.goodreads.com"
 >Goodreads</ulink
 > is een online sociaal netwerk voor lezers om boekverzamelingen te volgen. &appname; kan de lijst met boeken in een verzameling van een gebruiker importeren, gegeven dat ofwel de gebruikersnaam of gebruikers-ID is gegeven, zolang de verzameling is ingesteld als publiek toegankelijk. </para>
+</sect3>
 </sect2>
 
 <sect2 id="importing-file-listing">
@@ -393,11 +362,11 @@
 <para
 >Slepen van gegevensbestanden naar het hoofdvenster van &appname; en ze loslaten zal de bestanden importeren, evenals indien het <link linkend="importing"
 >importcommando</link
-> was gegeven vanuit de menu's. Slepen en loslaten werkt voor de volgende bestandsformaten: Tellico, Bibtex, RIS en PDF. Meerdere bestanden tegelijk importeren wordt ook ondersteund.</para>
+> was gegeven vanuit de menu's. Slepen en loslaten werkt voor de volgende bestandsformaten: Tellico, Bibtex, RIS en &PDF;. Meerdere bestanden tegelijk importeren wordt ook ondersteund.</para>
 
 <para
 >Dus als u bijvoorbeeld verschillende <link linkend="importing-pdf"
->PDF-bestanden</link
+>&PDF;-bestanden</link
 > in de catalogus wilt zetten, selecteer ze in de bestandsbeheerder en sleep ze naar het venster van &appname;. &appname; zal zoveel mogelijke metagegevens importeren uit de bestanden als het kan en daarna extra informatie uit verschillende geconfigureerde bronnen in het internet ophalen.</para>
 
 </sect1>
@@ -552,17 +521,6 @@
 ></textobject>
 </mediaobject>
 </screenshot>
-</sect2>
-
-<sect2 id="exporting-bibtexml">
-<title
->Bibtexml exporteren</title>
-
-<para
-><ulink url="http://bibtexml.sourceforge.net"
->Bibtexml</ulink
-> is een formaat voor bibtex-gegevens in &XML;. </para>
-
 </sect2>
 
 <sect2 id="exporting-gcstar">

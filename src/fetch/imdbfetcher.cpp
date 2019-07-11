@@ -344,10 +344,10 @@ void IMDBFetcher::search() {
 
   m_job = KIO::storedGet(m_url, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)),
-          SLOT(slotComplete(KJob*)));
-  connect(m_job, SIGNAL(redirection(KIO::Job*, const QUrl&)),
-          SLOT(slotRedirection(KIO::Job*, const QUrl&)));
+  connect(m_job.data(), &KJob::result,
+          this, &IMDBFetcher::slotComplete);
+  connect(m_job.data(), &KIO::TransferJob::redirection,
+          this, &IMDBFetcher::slotRedirection);
 }
 
 void IMDBFetcher::continueSearch() {
@@ -383,7 +383,6 @@ void IMDBFetcher::stop() {
   if(!m_started) {
     return;
   }
-//  myLog();
   if(m_job) {
     m_job->kill();
     m_job = nullptr;
@@ -568,13 +567,21 @@ void IMDBFetcher::parseTitleBlock(const QString& str_) {
       if(end == -1) {
         end = str_.length();
       }
-      QString text = str_.mid(start, end-start);
+      const QString text = str_.mid(start, end-start);
       pPos = text.indexOf(QLatin1Char('('));
       if(pPos > -1) {
-        int pNewLine = text.indexOf(QStringLiteral("<br"));
+        const int pNewLine = text.indexOf(QStringLiteral("<br"));
         if(pNewLine == -1 || pPos < pNewLine) {
-          int pPos2 = text.indexOf(QLatin1Char(')'), pPos);
+          const int pPos2 = text.indexOf(QLatin1Char(')'), pPos);
           desc = text.mid(pPos+1, pPos2-pPos-1);
+        }
+        // IMDB occasionally has (I) in results. If so, continue parsing string
+        if(desc == QStringLiteral("I") || desc == QStringLiteral("II")) {
+          pPos = text.indexOf(QLatin1Char('('), pPos+1);
+          if(pPos > -1 && (pNewLine == -1 || pPos < pNewLine)) {
+            const int pPos2 = text.indexOf(QLatin1Char(')'), pPos);
+            desc = text.mid(pPos+1, pPos2-pPos-1);
+          }
         }
         pPos = -1;
       }
@@ -644,13 +651,14 @@ Tellico::Data::EntryPtr IMDBFetcher::fetchEntryHook(uint uid_) {
 //    myDebug() << "matches previous URL, no downloading needed.";
     results = Tellico::decodeHTML(m_text);
   } else {
-    // now it's sychronous
+    // now it's synchronous
     // be quiet about failure
     results = Tellico::fromHtmlData(FileHandler::readDataFile(url, true), "UTF-8");
     m_url = url; // needed for processing
 #if 0
     myWarning() << "Remove debug from imdbfetcher.cpp for /tmp/testimdbresult.html";
-    QFile f(QString::fromLatin1("/tmp/testimdbresult.html"));
+    myDebug() << m_url;
+    QFile f(QStringLiteral("/tmp/testimdbresult.html"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
       t << results;
@@ -1055,6 +1063,7 @@ void IMDBFetcher::doCast(const QString& str_, Tellico::Data::EntryPtr entry_, co
   }
 
   QStringList cast;
+  cast.reserve(actorList.size());
   for(int i = 0; i < actorList.size(); ++i) {
     cast += actorList.at(i)
           + FieldFormat::columnDelimiterString()
@@ -1154,6 +1163,9 @@ void IMDBFetcher::doRating(const QString& str_, Tellico::Data::EntryPtr entry_) 
     if(ratingRx.indexIn(text) > -1) {
       bool ok;
       float value = ratingRx.cap(1).toFloat(&ok);
+      if(!ok) {
+        value = QLocale().toFloat(ratingRx.cap(1), &ok);
+      }
       if(ok) {
         entry_->setField(QStringLiteral("imdb-rating"), QString::number(value));
       }
@@ -1183,9 +1195,54 @@ void IMDBFetcher::doCover(const QString& str_, Tellico::Data::EntryPtr entry_, c
     pos = posterRx.indexIn(str_, pos+posterRx.matchedLength());
   }
 
+  // <link rel='image_src'
+  QRegExp linkRx(QStringLiteral("<link (.*)>"), Qt::CaseInsensitive);
+  linkRx.setMinimal(true);
+
+  const QString src = QStringLiteral("image_src");
+  pos = linkRx.indexIn(str_);
+  while(pos > -1) {
+    const QString tag = linkRx.cap(1);
+    if(tag.contains(src, Qt::CaseInsensitive)) {
+      QRegExp hrefRx(QStringLiteral("href=['\"](.*)['\"]"), Qt::CaseInsensitive);
+      hrefRx.setMinimal(true);
+      if(hrefRx.indexIn(tag) > -1) {
+        QUrl u = QUrl(baseURL_).resolved(QUrl(hrefRx.cap(1)));
+        // imdb uses amazon media image, where the img src "encodes" requests for image sizing and cropping
+        // strip everything after the "@." and add UY64 to limit the max image dimension to 640
+        int n = u.url().indexOf(QStringLiteral("@."));
+        if(n > -1) {
+          const QString newLink = u.url().left(n) + QStringLiteral("@.UY640.jpg");
+          const QString id = ImageFactory::addImage(QUrl(newLink), true);
+          if(!id.isEmpty()) {
+            entry_->setField(cover, id);
+            return;
+          }
+        }
+        const QString id = ImageFactory::addImage(u, true);
+        if(!id.isEmpty()) {
+          entry_->setField(cover, id);
+          return;
+        }
+      }
+    }
+    pos = linkRx.indexIn(str_, pos+linkRx.matchedLength());
+  }
+
+  // <img alt="poster"
+  posterRx.setPattern(QStringLiteral("<img\\s+[^>]*alt\\s*=\\s*\"poster\"[^>]+src\\s*=\\s*\"([^\"]+)\""));
+  pos = posterRx.indexIn(str_);
+  if(pos > -1) {
+    QUrl u = QUrl(baseURL_).resolved(QUrl(posterRx.cap(1)));
+    QString id = ImageFactory::addImage(u, true);
+    if(!id.isEmpty()) {
+      entry_->setField(cover, id);
+      return;
+    }
+  }
+
   // didn't find the cover, IMDb also used to put "cover" inside the url
   // cover is the img with the "cover" alt text
-
   pos = imgRx.indexIn(str_);
   while(pos > -1) {
     const QString url = imgRx.cap(0).toLower();
@@ -1198,30 +1255,6 @@ void IMDBFetcher::doCover(const QString& str_, Tellico::Data::EntryPtr entry_, c
       }
     }
     pos = imgRx.indexIn(str_, pos+imgRx.matchedLength());
-  }
-
-  // also check for <link rel='image_src'
-  QRegExp linkRx(QStringLiteral("<link (.*)>"), Qt::CaseInsensitive);
-  linkRx.setMinimal(true);
-
-  const QString src = QStringLiteral("image_src");
-
-  pos = linkRx.indexIn(str_);
-  while(pos > -1) {
-    const QString tag = linkRx.cap(1);
-    if(tag.contains(src, Qt::CaseInsensitive)) {
-      QRegExp hrefRx(QStringLiteral("href=['\"](.*)['\"]"), Qt::CaseInsensitive);
-      hrefRx.setMinimal(true);
-      if(hrefRx.indexIn(tag) > -1) {
-        QUrl u = QUrl(baseURL_).resolved(QUrl(hrefRx.cap(1)));
-        QString id = ImageFactory::addImage(u, true);
-        if(!id.isEmpty()) {
-          entry_->setField(cover, id);
-          return;
-        }
-      }
-    }
-    pos = linkRx.indexIn(str_, pos+linkRx.matchedLength());
   }
 }
 
@@ -1474,7 +1507,8 @@ IMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IMDBFetcher* fet
   m_numCast->setMaximum(99);
   m_numCast->setMinimum(0);
   m_numCast->setValue(10);
-  connect(m_numCast, SIGNAL(valueChanged(const QString&)), SLOT(slotSetModified()));
+  void (QSpinBox::* valueChanged)(const QString&) = &QSpinBox::valueChanged;
+  connect(m_numCast, valueChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_numCast, row, 1);
   QString w = i18n("The list of cast members may include many people. Set the maximum number returned from the search.");
   label->setWhatsThis(w);
@@ -1482,7 +1516,7 @@ IMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IMDBFetcher* fet
   label->setBuddy(m_numCast);
 
   m_fetchImageCheck = new QCheckBox(i18n("Download cover &image"), optionsWidget());
-  connect(m_fetchImageCheck, SIGNAL(clicked()), SLOT(slotSetModified()));
+  connect(m_fetchImageCheck, &QAbstractButton::clicked, this, &ConfigWidget::slotSetModified);
   ++row;
   l->addWidget(m_fetchImageCheck, row, 0, 1, 2);
   w = i18n("The cover image may be downloaded as well. However, too many large images in the "

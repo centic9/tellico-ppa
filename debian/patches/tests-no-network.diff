@@ -5,19 +5,17 @@ Description: Disable tests that require networking
 Last-Updated: 2018-05-26
 Forwarded: not-needed
 
-Index: b/src/tests/tellicoreadtest.cpp
-===================================================================
 --- a/src/tests/tellicoreadtest.cpp
 +++ b/src/tests/tellicoreadtest.cpp
-@@ -258,6 +258,7 @@ void TellicoReadTest::testLocalImage() {
+@@ -259,6 +259,7 @@ void TellicoReadTest::testLocalImage() {
  }
  
  void TellicoReadTest::testRemoteImage() {
 +#if 0
    // this is the md5 hash of the logo.png icon, used as an image id
-   const QString imageId(QL1("757322046f4aa54290a3d92b05b71ca1.png"));
+   const QString imageId(QSL("757322046f4aa54290a3d92b05b71ca1.png"));
    // not yet loaded
-@@ -290,6 +291,9 @@ void TellicoReadTest::testRemoteImage()
+@@ -291,6 +292,9 @@ void TellicoReadTest::testRemoteImage()
  
    const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(imageId);
    QVERIFY(!img.isNull());

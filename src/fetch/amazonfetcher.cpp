@@ -57,6 +57,7 @@
 #include <QTextStream>
 #include <QTextCodec>
 #include <QGridLayout>
+#include <QStandardPaths>
 
 namespace {
   static const int AMAZON_RETURNS_PER_REQUEST = 10;
@@ -71,36 +72,79 @@ using Tellico::Fetch::AmazonFetcher;
 
 // static
 const AmazonFetcher::SiteData& AmazonFetcher::siteData(int site_) {
-  Q_ASSERT(site_>= 0);
-  Q_ASSERT(site_< 10);
-  static SiteData dataVector[9] = {
+  Q_ASSERT(site_ >= 0);
+  Q_ASSERT(site_ < 15);
+  static SiteData dataVector[14] = {
     {
       i18n("Amazon (US)"),
-      QUrl(QLatin1String("http://webservices.amazon.com/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.com/onca/xml")),
+      QLatin1String("us"),
+      i18n("United States")
     }, {
       i18n("Amazon (UK)"),
-      QUrl(QLatin1String("http://webservices.amazon.co.uk/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.co.uk/onca/xml")),
+      QLatin1String("gb"),
+      i18n("United Kingdom")
     }, {
       i18n("Amazon (Germany)"),
-      QUrl(QLatin1String("http://webservices.amazon.de/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.de/onca/xml")),
+      QLatin1String("de"),
+      i18n("Germany")
     }, {
       i18n("Amazon (Japan)"),
-      QUrl(QLatin1String("http://webservices.amazon.co.jp/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.co.jp/onca/xml")),
+      QLatin1String("jp"),
+      i18n("Japan")
     }, {
       i18n("Amazon (France)"),
-      QUrl(QLatin1String("http://webservices.amazon.fr/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.fr/onca/xml")),
+      QLatin1String("fr"),
+      i18n("France")
     }, {
       i18n("Amazon (Canada)"),
-      QUrl(QLatin1String("http://webservices.amazon.ca/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.ca/onca/xml")),
+      QLatin1String("ca"),
+      i18n("Canada")
     }, {
       i18n("Amazon (China)"),
-      QUrl(QLatin1String("http://webservices.amazon.cn/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.cn/onca/xml")),
+      QLatin1String("ch"),
+      i18n("China")
     }, {
       i18n("Amazon (Spain)"),
-      QUrl(QLatin1String("http://webservices.amazon.es/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.es/onca/xml")),
+      QLatin1String("es"),
+      i18n("Spain")
     }, {
       i18n("Amazon (Italy)"),
-      QUrl(QLatin1String("http://webservices.amazon.it/onca/xml"))
+      QUrl(QLatin1String("http://webservices.amazon.it/onca/xml")),
+      QLatin1String("it"),
+      i18n("Italy")
+    }, {
+      i18n("Amazon (Brazil)"),
+      QUrl(QLatin1String("http://webservices.amazon.com.br/onca/xml")),
+      QLatin1String("br"),
+      i18n("Brazil")
+    }, {
+      i18n("Amazon (Australia)"),
+      QUrl(QLatin1String("http://webservices.amazon.com.au/onca/xml")),
+      QLatin1String("au"),
+      i18n("Australia")
+    }, {
+      i18n("Amazon (India)"),
+      QUrl(QLatin1String("http://webservices.amazon.in/onca/xml")),
+      QLatin1String("in"),
+      i18n("India")
+    }, {
+      i18n("Amazon (Mexico)"),
+      QUrl(QLatin1String("http://webservices.amazon.com.mx/onca/xml")),
+      QLatin1String("mx"),
+      i18n("Mexico")
+    }, {
+      i18n("Amazon (Turkey)"),
+      QUrl(QLatin1String("http://webservices.amazon.com.tr/onca/xml")),
+      QLatin1String("tr"),
+      i18n("Turkey")
     }
   };
 
@@ -384,8 +428,8 @@ void AmazonFetcher::doSearch() {
 
   m_job = KIO::storedGet(newUrl, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)),
-          SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result,
+          this, &AmazonFetcher::slotComplete);
 }
 
 void AmazonFetcher::stop() {
@@ -626,7 +670,7 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
     case Data::Collection::Book:
     case Data::Collection::ComicBook:
     case Data::Collection::Bibtex:
-      if(optionalFields().contains(QLatin1String("keyword"))) {
+      if(optionalFields().contains(QStringLiteral("keyword"))) {
         StringSet newWords;
         const QStringList keywords = FieldFormat::splitValue(entry->field(QStringLiteral("keyword")));
         foreach(const QString& keyword, keywords) {
@@ -934,7 +978,7 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
   QLabel* label = new QLabel(i18n("Access key: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_accessEdit = new QLineEdit(optionsWidget());
-  connect(m_accessEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_accessEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_accessEdit, row, 1);
   QString w = i18n("Access to data from Amazon.com requires an AWS Access Key ID and a Secret Key.");
   label->setWhatsThis(w);
@@ -945,7 +989,7 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
   l->addWidget(label, ++row, 0);
   m_secretKeyEdit = new QLineEdit(optionsWidget());
 //  m_secretKeyEdit->setEchoMode(QLineEdit::PasswordEchoOnEdit);
-  connect(m_secretKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_secretKeyEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_secretKeyEdit, row, 1);
   label->setWhatsThis(w);
   m_secretKeyEdit->setWhatsThis(w);
@@ -954,17 +998,17 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
   label = new QLabel(i18n("Country: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_siteCombo = new GUI::ComboBox(optionsWidget());
-  m_siteCombo->addItem(i18n("United States"), US);
-  m_siteCombo->addItem(i18n("United Kingdom"), UK);
-  m_siteCombo->addItem(i18n("Germany"), DE);
-  m_siteCombo->addItem(i18n("Japan"), JP);
-  m_siteCombo->addItem(i18n("France"), FR);
-  m_siteCombo->addItem(i18n("Canada"), CA);
-  m_siteCombo->addItem(i18n("China"), CN);
-  m_siteCombo->addItem(i18n("Spain"), ES);
-  m_siteCombo->addItem(i18n("Italy"), IT);
-  connect(m_siteCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
-  connect(m_siteCombo, SIGNAL(activated(int)), SLOT(slotSiteChanged()));
+  for(int i = 0; i < XX; ++i) {
+    const AmazonFetcher::SiteData& siteData = AmazonFetcher::siteData(i);
+    QIcon icon(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                      QStringLiteral("kf5/locale/countries/%1/flag.png").arg(siteData.country)));
+    m_siteCombo->addItem(icon, siteData.countryName, i);
+    m_siteCombo->model()->sort(0);
+  }
+
+  void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
+  connect(m_siteCombo, activatedInt, this, &ConfigWidget::slotSetModified);
+  connect(m_siteCombo, activatedInt, this, &ConfigWidget::slotSiteChanged);
   l->addWidget(m_siteCombo, row, 1);
   w = i18n("Amazon.com provides data from several different localized sites. Choose the one "
            "you wish to use for this data source.");
@@ -979,7 +1023,7 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
   m_imageCombo->addItem(i18n("Medium Image"), MediumImage);
   m_imageCombo->addItem(i18n("Large Image"), LargeImage);
   m_imageCombo->addItem(i18n("No Image"), NoImage);
-  connect(m_imageCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
+  connect(m_imageCombo, activatedInt, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_imageCombo, row, 1);
   w = i18n("The cover image may be downloaded as well. However, too many large images in the "
            "collection may degrade performance.");
@@ -990,7 +1034,8 @@ AmazonFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const AmazonFetcher*
   label = new QLabel(i18n("&Associate's ID: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_assocEdit = new QLineEdit(optionsWidget());
-  connect(m_assocEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  void (QLineEdit::* textChanged)(const QString&) = &QLineEdit::textChanged;
+  connect(m_assocEdit, textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_assocEdit, row, 1);
   w = i18n("The associate's id identifies the person accessing the Amazon.com Web Services, and is included "
            "in any links to the Amazon.com site.");

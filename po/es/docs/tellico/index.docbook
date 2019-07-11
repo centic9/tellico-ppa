@@ -36,16 +36,27 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
 
-<!-- Date and version information of the documentation
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (DD/MM/YYYY) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
+<!-- Date of the documentation
+Change date/releaseinfo only if
+   docbook is updated and verified to be valid for the current app version
+   or
+   docbook is proofread and verified to be valid for the current app version
+Don't forget to include this last date.
+Please respect the format of the date (YYYY-MM-DD),it is used by scripts.
+-->
 <date
->28 de agosto de 2009</date>
+>2019-05-12</date>
+
+<!--version information of Frameworks/Plasma/Applications this documentation is valid for.
+Example:
+Frameworks xx.yy for docbooks in frameworks
+Plasma xx.yy for docbooks in plasma workspace
+Applications xx.yy for docbooks released as Applications
+xx.yy (Applications xx.yy) for docbooks with own version released as Applications
+$applicationname xx.yy for applications with independent release schedule (extragear/playground)
+-->
 <releaseinfo
->2.0</releaseinfo>
+>Tellico 3.2</releaseinfo>
 
 <title
 >Manual de &tellico;</title>
@@ -96,27 +107,7 @@ Do NOT change these in the translation. -->
 
 <copyright>
 <year
->2001</year>
-<year
->2002</year>
-<year
->2003</year>
-<year
->2004</year>
-<year
->2005</year>
-<year
->2006</year>
-<year
->2007</year>
-<year
->2008</year>
-<year
->2009</year>
-<year
->2010</year>
-<year
->2011</year>
+>2001-2019</year>
 <holder
 >&robby;</holder>
 </copyright>
@@ -198,7 +189,7 @@ revision history. (see installation appendix comment) -->
 >&tellico; hace un seguimiento de los elementos de una colección y ofrece una forma fácil de introducir datos para cada entrada. Proporciona diversos tipos de campos y permite un número ilimitado de campos definidos por el usuario. Las entradas de una colección se pueden agrupar según cualquier campo para una organización más fácil y las vistas personalizadas muestran tanta información como desee. </para>
 
 <para
->A los préstamos se les puede seguir la pista, con integración opcional en &korganizer;. Las colecciones se pueden importar o exportar usando una variedad de formatos para permitir un intercambio fácil o la publicación de los datos. </para>
+>Puede seguir el rastro de los elementos de su colección que haya prestado, incluida la fecha de devolución. Puede importar y exportar colecciones en diversos formatos para permitir un intercambio fácil o la publicación de los datos. </para>
 
 </sect2>
 
@@ -292,11 +283,11 @@ file included in the KDE distribution. -->
 <para
 >&tellico; </para>
 <para
->Derecho de autor del programa 2001-2011 &robby; <email
+>Copyright del programa 2001-2019 &robby; <email
 >&email;</email
 > </para>
 <para
->Derechos de autor de la documentación 2001-2011 &robby; <email
+>Copyright de la documentación 2001-2019 &robby; <email
 >&email;</email
 > </para>
 
@@ -304,8 +295,7 @@ file included in the KDE distribution. -->
 >Traducido por Cristina Yenyxe González García <email
 >the.blue.valkyrie@gmail.com</email
 ></para
-> 
-&underGPL; &underFDL; <para
+> &underGPL; &underFDL; <para
 >El autor de esta documentación le garantiza también el permiso para usar el contenido bajo los términos de la <ulink url="http://www.freebsd.org/copyright/freebsd-doc-license.html"
 >Licencia de documentación de FreeBSD</ulink
 >, si así lo elige. Si desea permitir el uso de su versión de este contenido solo bajo los términos de la Licencia de documentación de FreeBSD, pero no permitir que otros usen su versión de este archivo bajo los términos de la GFDL, indique su decisión eliminando el aviso de GFDL y reemplazándolo con el aviso y otras provisiones requeridas por la Licencia de documentación de FreeBSD. Si no elimina el aviso GFDL de arriba, un destinatario podría usar su versión de este archivo bajo los términos tanto de GFDL como de la Licencia de documentación de FreeBSD.</para>

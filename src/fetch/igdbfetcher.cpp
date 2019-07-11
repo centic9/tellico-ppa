@@ -45,11 +45,11 @@
 #include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonArray>
-#include <QUrlQuery>
 
 namespace {
   static const int IGDB_MAX_RETURNS_TOTAL = 20;
-  static const char* IGDB_API_URL = "https://api-endpoint.igdb.com";
+  static const char* IGDB_API_URL = "https://api-v3.igdb.com";
+  static const char* IGDB_MAGIC_TOKEN = "dabb2142d9bca4936809251194acd4b25635dfe74d7f1d2d8ced8ab241700a3320111d7995f741769ca94b7de88b487812738fb9043247707a4e281e48786051";
 }
 
 using namespace Tellico;
@@ -57,7 +57,6 @@ using Tellico::Fetch::IGDBFetcher;
 
 IGDBFetcher::IGDBFetcher(QObject* parent_)
     : Fetcher(parent_), m_started(false) {
-  //  setLimit(IGDB_MAX_RETURNS_TOTAL);
   if(m_genreHash.isEmpty()) {
     populateHashes();
   }
@@ -71,7 +70,7 @@ QString IGDBFetcher::source() const {
 }
 
 QString IGDBFetcher::attribution() const {
-  return i18n("This information was freely provided by <a href=\"http://igdb.com\">IGDB.com</a>.");
+  return i18n("This information was freely provided by <a href=\"https://igdb.com\">IGDB.com</a>.");
 }
 
 bool IGDBFetcher::canSearch(FetchKey k) const {
@@ -83,7 +82,7 @@ bool IGDBFetcher::canFetch(int type) const {
 }
 
 void IGDBFetcher::readConfigHook(const KConfigGroup& config_) {
-  QString k = config_.readEntry("API Key");
+  QString k = config_.readEntry("APIv3 Key");
   if(!k.isEmpty()) {
     m_apiKey = k;
   }
@@ -97,20 +96,16 @@ void IGDBFetcher::continueSearch() {
   m_started = true;
 
   if(m_apiKey.isEmpty()) {
-    myDebug() << "empty API key";
-    message(i18n("An access key is required to use this data source.")
-            + QLatin1Char(' ') +
-            i18n("Those values must be entered in the data source settings."), MessageHandler::Error);
-    stop();
-    return;
+    m_apiKey = Tellico::reverseObfuscate(IGDB_MAGIC_TOKEN);
   }
 
   QUrl u(QString::fromLatin1(IGDB_API_URL));
-  u.setPath(u.path() + QLatin1String("/games/"));
-  QUrlQuery q;
+  u.setPath(u.path() + QStringLiteral("/games/"));
+
+  QStringList clauseList;
   switch(request().key) {
     case Keyword:
-      q.addQueryItem(QStringLiteral("search"), request().value);
+      clauseList += QString(QStringLiteral("search \"%1\";")).arg(request().value);
       break;
 
     default:
@@ -118,14 +113,14 @@ void IGDBFetcher::continueSearch() {
       stop();
       return;
   }
-//  q.addQueryItem(QLatin1String("fields"), QLatin1String("id,name"));
-  q.addQueryItem(QStringLiteral("fields"), QStringLiteral("*"));
-  q.addQueryItem(QStringLiteral("limit"), QString::number(IGDB_MAX_RETURNS_TOTAL));
-  u.setQuery(q);
-//  myDebug() << u;
+  clauseList += QStringLiteral("fields *,cover.url,age_ratings.*,involved_companies.*;");
+  // exclude some of the bigger unused fields
+  clauseList += QStringLiteral("exclude keywords,screenshots,tags;");
+  clauseList += QString(QStringLiteral("limit %1;")).arg(QString::number(IGDB_MAX_RETURNS_TOTAL));
+//  myDebug() << u << clauseList.join(QStringLiteral(" "));
 
-  m_job = igdbJob(u, m_apiKey);
-  connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
+  m_job = igdbJob(u, m_apiKey, clauseList.join(QStringLiteral(" ")));
+  connect(m_job.data(), &KJob::result, this, &IGDBFetcher::slotComplete);
 }
 
 void IGDBFetcher::stop() {
@@ -151,7 +146,7 @@ Tellico::Data::EntryPtr IGDBFetcher::fetchEntryHook(uint uid_) {
   QStringList publishers;
   // grab the publisher data
   if(entry->field(QStringLiteral("publisher")).isEmpty()) {
-    foreach(const QString& pid, FieldFormat::splitValue(entry->field(QLatin1String("pub-id")))) {
+    foreach(const QString& pid, FieldFormat::splitValue(entry->field(QStringLiteral("pub-id")))) {
       const QString publisher = companyName(pid);
       if(!publisher.isEmpty()) {
         publishers << publisher;
@@ -163,7 +158,7 @@ Tellico::Data::EntryPtr IGDBFetcher::fetchEntryHook(uint uid_) {
   QStringList developers;
   // grab the developer data
   if(entry->field(QStringLiteral("developer")).isEmpty()) {
-    foreach(const QString& did, FieldFormat::splitValue(entry->field(QLatin1String("dev-id")))) {
+    foreach(const QString& did, FieldFormat::splitValue(entry->field(QStringLiteral("dev-id")))) {
       const QString developer = companyName(did);
       if(!developer.isEmpty()) {
         developers << developer;
@@ -218,7 +213,7 @@ void IGDBFetcher::slotComplete(KJob* job_) {
 
 #if 0
   myWarning() << "Remove debug from igdbfetcher.cpp";
-  QFile file(QString::fromLatin1("/tmp/test.json"));
+  QFile file(QStringLiteral("/tmp/test.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
     t.setCodec("UTF-8");
@@ -228,15 +223,15 @@ void IGDBFetcher::slotComplete(KJob* job_) {
 #endif
 
   Data::CollPtr coll(new Data::GameCollection(true));
-  if(optionalFields().contains(QLatin1String("pegi"))) {
+  if(optionalFields().contains(QStringLiteral("pegi"))) {
     QStringList pegi = QStringLiteral("PEGI 3, PEGI 7, PEGI 12, PEGI 16, PEGI 18")
-                                    .split(QRegExp(QLatin1String("\\s*,\\s*")), QString::SkipEmptyParts);
+                                    .split(QRegExp(QStringLiteral("\\s*,\\s*")), QString::SkipEmptyParts);
     Data::FieldPtr field(new Data::Field(QStringLiteral("pegi"), i18n("PEGI Rating"), pegi));
     field->setFlags(Data::Field::AllowGrouped);
     field->setCategory(i18n("General"));
     coll->addField(field);
   }
-  if(optionalFields().contains(QLatin1String("igdb"))) {
+  if(optionalFields().contains(QStringLiteral("igdb"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("igdb"), i18n("IGDB Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
@@ -267,13 +262,10 @@ void IGDBFetcher::slotComplete(KJob* job_) {
 void IGDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& resultMap_) {
   entry_->setField(QStringLiteral("title"), mapValue(resultMap_, "name"));
   entry_->setField(QStringLiteral("description"), mapValue(resultMap_, "summary"));
-  entry_->setField(QStringLiteral("certification"), m_esrbHash.value(mapValue(resultMap_, "esrb", "rating")));
-  entry_->setField(QStringLiteral("pub-id"), mapValue(resultMap_, "publishers"));
-  entry_->setField(QStringLiteral("dev-id"), mapValue(resultMap_, "developers"));
 
   QString cover = mapValue(resultMap_, "cover", "url");
   if(cover.startsWith(QLatin1Char('/'))) {
-    cover.prepend(QLatin1String("https:"));
+    cover.prepend(QStringLiteral("https:"));
   }
   entry_->setField(QStringLiteral("cover"), cover);
 
@@ -287,48 +279,55 @@ void IGDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& result
   }
   entry_->setField(QStringLiteral("genre"), genres.join(FieldFormat::delimiterString()));
 
-  QVariantList releases = resultMap_.value(QStringLiteral("release_dates")).toList();
-  if(!releases.isEmpty()) {
-    QVariantMap releaseMap = releases.at(0).toMap();
-    // for now just grab the year of the first release
-    entry_->setField(QStringLiteral("year"), mapValue(releaseMap, "y"));
-    const QString platform = m_platformHash.value(releaseMap.value(QStringLiteral("platform")).toInt());
-    if(platform == QLatin1String("Nintendo Entertainment System (NES)")) {
-      entry_->setField(QStringLiteral("platform"), i18n("Nintendo"));
-    } else if(platform == QLatin1String("Nintendo PlayStation")) {
-      entry_->setField(QStringLiteral("platform"), i18n("PlayStation"));
-    } else if(platform == QLatin1String("PlayStation 2")) {
-      entry_->setField(QStringLiteral("platform"), i18n("PlayStation2"));
-    } else if(platform == QLatin1String("PlayStation 3")) {
-      entry_->setField(QStringLiteral("platform"), i18n("PlayStation3"));
-    } else if(platform == QLatin1String("PlayStation 4")) {
-      entry_->setField(QStringLiteral("platform"), i18n("PlayStation4"));
-    } else if(platform == QLatin1String("PlayStation Portable")) {
-      entry_->setField(QStringLiteral("platform"), i18nc("PlayStation Portable", "PSP"));
-    } else if(platform == QLatin1String("Wii")) {
-      entry_->setField(QStringLiteral("platform"), i18n("Nintendo Wii"));
-    } else if(platform == QLatin1String("Nintendo GameCube")) {
-      entry_->setField(QStringLiteral("platform"), i18n("GameCube"));
-    } else if(platform == QLatin1String("PC (Microsoft Windows)")) {
-      entry_->setField(QStringLiteral("platform"), i18nc("Windows Platform", "Windows"));
-    } else if(platform == QLatin1String("Mac")) {
-      entry_->setField(QStringLiteral("platform"), i18n("Mac OS"));
-    } else {
-      // TODO all the other platform translations
-      // also make the assumption that if the platform name isn't already in the allowed list, it should be added
-      Data::FieldPtr f = entry_->collection()->fieldByName(QStringLiteral("platform"));
-      if(f && !f->allowed().contains(platform)) {
-        f->setAllowed(QStringList(f->allowed()) << platform);
-      }
-      entry_->setField(QStringLiteral("platform"), platform);
+  qlonglong release_t = mapValue(resultMap_, "first_release_date").toLongLong();
+  if(release_t > 0) {
+    // could use QDateTime::fromSecsSinceEpoch but that was introduced in Qt 5.8
+    // while I still support Qt 5.6, in theory...
+    QDateTime dt = QDateTime::fromMSecsSinceEpoch(release_t * 1000);
+    entry_->setField(QStringLiteral("year"), QString::number(dt.date().year()));
+  }
+
+  QVariantList platforms = resultMap_.value(QStringLiteral("platforms")).toList();
+  if(!platforms.isEmpty()) {
+    // just take the first one for now
+    // TODO:: suport multiple
+    QString platform = m_platformHash.value(platforms.first().toInt());
+    platform = Data::GameCollection::normalizePlatform(platform);
+    // make the assumption that if the platform name isn't already in the allowed list, it should be added
+    Data::FieldPtr f = entry_->collection()->fieldByName(QStringLiteral("platform"));
+    if(f && !f->allowed().contains(platform)) {
+      f->setAllowed(QStringList(f->allowed()) << platform);
+    }
+    entry_->setField(QStringLiteral("platform"), platform);
+  }
+
+  const QVariantList ageRatingList = resultMap_.value(QStringLiteral("age_ratings")).toList();
+  foreach(const QVariant& ageRating, ageRatingList) {
+    const QVariantMap ratingMap = ageRating.toMap();
+    // per Age Rating Enums, ESRB==1, PEGI==2
+    const int category = ratingMap.value(QStringLiteral("category")).toInt();
+    const int rating = ratingMap.value(QStringLiteral("rating")).toInt();
+    if(category == 1) {
+      entry_->setField(QStringLiteral("certification"), m_esrbHash.value(rating));
+    } else if(category == 2 && optionalFields().contains(QStringLiteral("pegi"))) {
+      entry_->setField(QStringLiteral("pegi"), m_pegiHash.value(rating));
     }
   }
 
-  if(optionalFields().contains(QLatin1String("pegi"))) {
-    entry_->setField(QStringLiteral("pegi"), m_pegiHash.value(mapValue(resultMap_, "pegi", "rating")));
+  QStringList pubs, devs;
+  const QVariantList companyList = resultMap_.value(QStringLiteral("involved_companies")).toList();
+  foreach(const QVariant& company, companyList) {
+    const QVariantMap companyMap = company.toMap();
+    if(companyMap.value(QStringLiteral("publisher")).toBool()) {
+      pubs += companyMap.value(QStringLiteral("company")).toString();
+    } else if(companyMap.value(QStringLiteral("developer")).toBool()) {
+      devs += companyMap.value(QStringLiteral("company")).toString();
+    }
   }
+  entry_->setField(QStringLiteral("pub-id"), pubs.join(FieldFormat::delimiterString()));
+  entry_->setField(QStringLiteral("dev-id"), devs.join(FieldFormat::delimiterString()));
 
-  if(optionalFields().contains(QLatin1String("igdb"))) {
+  if(optionalFields().contains(QStringLiteral("igdb"))) {
     entry_->setField(QStringLiteral("igdb"), mapValue(resultMap_, "url"));
   }
 }
@@ -337,14 +336,16 @@ QString IGDBFetcher::companyName(const QString& companyId_) const {
   if(m_companyHash.contains(companyId_)) {
     return m_companyHash.value(companyId_);
   }
+
   QUrl u(QString::fromLatin1(IGDB_API_URL));
-  u.setPath(u.path() + QLatin1String("/companies/") + companyId_);
+  u.setPath(u.path() + QStringLiteral("/companies/"));
 
-  QUrlQuery q;
-  q.addQueryItem(QStringLiteral("fields"), QStringLiteral("*"));
-  u.setQuery(q);
+  QStringList clauseList;
+  clauseList += QStringLiteral("fields name;");
+  clauseList += QString(QStringLiteral("where id = %1;")).arg(companyId_);
+//  myDebug() << u << clauseList.join(QStringLiteral(" "));
 
-  QPointer<KIO::StoredTransferJob> job = igdbJob(u, m_apiKey);
+  QPointer<KIO::StoredTransferJob> job = igdbJob(u, m_apiKey, clauseList.join(QStringLiteral(" ")));
   if(!job->exec()) {
     myDebug() << job->errorString() << u;
     return QString();
@@ -356,7 +357,7 @@ QString IGDBFetcher::companyName(const QString& companyId_) const {
   }
 #if 0
   myWarning() << "Remove company debug from igdbfetcher.cpp";
-  QFile file(QString::fromLatin1("/tmp/igdb-company.json"));
+  QFile file(QStringLiteral("/tmp/igdb-company.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
     t.setCodec("UTF-8");
@@ -366,7 +367,11 @@ QString IGDBFetcher::companyName(const QString& companyId_) const {
 #endif
 
   QJsonDocument doc = QJsonDocument::fromJson(data);
-  const QString company = mapValue(doc.array().toVariantList().at(0).toMap(), "name");
+  QVariantList companyList = doc.array().toVariantList();
+  if(companyList.isEmpty()) {
+    return QString();
+  }
+  const QString company = mapValue(companyList.at(0).toMap(), "name");
   m_companyHash.insert(companyId_, company);
   return company;
 }
@@ -531,19 +536,19 @@ void IGDBFetcher::populateHashes() {
   while(esrb.size() < 8) {
     esrb << QString();
   }
-  m_esrbHash.insert(QStringLiteral("1"), esrb.at(7));
-  m_esrbHash.insert(QStringLiteral("2"), esrb.at(6));
-  m_esrbHash.insert(QStringLiteral("3"), esrb.at(5));
-  m_esrbHash.insert(QStringLiteral("4"), esrb.at(4));
-  m_esrbHash.insert(QStringLiteral("5"), esrb.at(3));
-  m_esrbHash.insert(QStringLiteral("6"), esrb.at(2));
-  m_esrbHash.insert(QStringLiteral("7"), esrb.at(1));
+  m_esrbHash.insert(1, esrb.at(7));
+  m_esrbHash.insert(2, esrb.at(6));
+  m_esrbHash.insert(3, esrb.at(5));
+  m_esrbHash.insert(4, esrb.at(4));
+  m_esrbHash.insert(5, esrb.at(3));
+  m_esrbHash.insert(6, esrb.at(2));
+  m_esrbHash.insert(7, esrb.at(1));
 
-  m_pegiHash.insert(QStringLiteral("1"), QStringLiteral("PEGI 3"));
-  m_pegiHash.insert(QStringLiteral("2"), QStringLiteral("PEGI 7"));
-  m_pegiHash.insert(QStringLiteral("3"), QStringLiteral("PEGI 12"));
-  m_pegiHash.insert(QStringLiteral("4"), QStringLiteral("PEGI 16"));
-  m_pegiHash.insert(QStringLiteral("5"), QStringLiteral("PEGI 18"));
+  m_pegiHash.insert(1, QStringLiteral("PEGI 3"));
+  m_pegiHash.insert(2, QStringLiteral("PEGI 7"));
+  m_pegiHash.insert(3, QStringLiteral("PEGI 12"));
+  m_pegiHash.insert(4, QStringLiteral("PEGI 16"));
+  m_pegiHash.insert(5, QStringLiteral("PEGI 18"));
 }
 
 QString IGDBFetcher::defaultName() {
@@ -561,9 +566,9 @@ Tellico::StringHash IGDBFetcher::allOptionalFields() {
   return hash;
 }
 
-QPointer<KIO::StoredTransferJob> IGDBFetcher::igdbJob(const QUrl& url_, const QString& apiKey_) {
-  QPointer<KIO::StoredTransferJob> job = KIO::storedGet(url_, KIO::NoReload, KIO::HideProgressInfo);
-  job->addMetaData(QStringLiteral("customHTTPHeader"), QLatin1String("user-key: ") + apiKey_);
+QPointer<KIO::StoredTransferJob> IGDBFetcher::igdbJob(const QUrl& url_, const QString& apiKey_, const QString& query_) {
+  QPointer<KIO::StoredTransferJob> job = KIO::storedHttpPost(query_.toUtf8(), url_, KIO::HideProgressInfo);
+  job->addMetaData(QStringLiteral("customHTTPHeader"), QStringLiteral("user-key: ") + apiKey_);
   job->addMetaData(QStringLiteral("accept"), QStringLiteral("application/json"));
   KJobWidgets::setWindow(job, GUI::Proxy::widget());
   return job;
@@ -581,7 +586,7 @@ IGDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IGDBFetcher* fet
                                "If you agree to the terms and conditions, <a href='%2'>sign "
                                "up for an account</a>, and enter your information below.",
                                 IGDBFetcher::defaultName(),
-                                QLatin1String("https://api.igdb.com/signup")),
+                                QStringLiteral("https://api.igdb.com/signup")),
                           optionsWidget());
   al->setOpenExternalLinks(true);
   al->setWordWrap(true);
@@ -594,7 +599,7 @@ IGDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IGDBFetcher* fet
   l->addWidget(label, ++row, 0);
 
   m_apiKeyEdit = new QLineEdit(optionsWidget());
-  connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_apiKeyEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_apiKeyEdit, row, 1);
   label->setBuddy(m_apiKeyEdit);
 
@@ -603,7 +608,8 @@ IGDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IGDBFetcher* fet
   // now add additional fields widget
   addFieldsWidget(IGDBFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 
-  if(fetcher_) {
+  // don't show the default API key
+  if(fetcher_ && fetcher_->m_apiKey != Tellico::reverseObfuscate(IGDB_MAGIC_TOKEN)) {
     m_apiKeyEdit->setText(fetcher_->m_apiKey);
   }
 }
@@ -611,7 +617,7 @@ IGDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IGDBFetcher* fet
 void IGDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   const QString apiKey = m_apiKeyEdit->text().trimmed();
   if(!apiKey.isEmpty()) {
-    config_.writeEntry("API Key", apiKey);
+    config_.writeEntry("APIv3 Key", apiKey);
   }
 }
 

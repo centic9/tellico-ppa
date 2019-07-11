@@ -93,24 +93,69 @@
 
 <para
 >&appname; ofrece tres acciones diferentes cuando se importan datos. <guilabel
->Reemplazar la colección actual</guilabel
+>Sustituir la colección actual</guilabel
 > cerrará la colección actual y creará una nueva con los datos del archivo importado. <guilabel
->Adjuntar a la colección actual</guilabel
-> le dice a &appname; que añada todas las entradas de la colección importada a la actual, y añadir también cualquier campo que no exista actualmente. La acción <guilabel
->Refundir colección</guilabel
-> es lo mismo que adjuntar, excepto que cada entrada importada se compara con las actuales, y los valores idénticos se omiten. Planes futuros incluyen una mejora heurística para identificar entradas coincidentes pero, actualmente, excepto para las colecciones de música, deben ser idénticas en todos los campos. Las colecciones de música comparan solo el artista y el álbum, y las pistas son refundidas para las entradas coincidentes. El <link linkend="importing-audio-files"
+>Añadir a la colección actual</guilabel
+> le dice a &appname; que añada todas las entradas de la colección importada a la actual, además de añadir también cualquier campo que no exista actualmente. La acción <guilabel
+>Fusionar la colección</guilabel
+> es lo mismo que añadir, excepto que cada entrada importada se compara con las actuales, omitiendo los valores idénticos. &appname; trata de identificar las entradas coincidentes que no son completamente idénticas comparando los campos más significativos y fusionando después las entradas. Por ejemplo, las colecciones de música comparan el artista y el álbum, y luego se fusionarían las pistas de las entradas coincidentes. El <link linkend="importing-audio-files"
 >importador de archivos de audio</link
-> puede construir listas de pistas correctamente refundiendo las entradas. </para>
+> puede construir listas de pistas correctamente  las entradas. </para>
 
-<sect2 id="importing-tellico">
+<sect2 id="alternate-software">
+<title
+>Importar datos de otro software</title>
+
+<para
+>&appname; puede importar datos directamente de otros programas de gestión de colecciones, como <application
+><ulink url="http://www.gcstar.org"
+>GCstar</ulink
+></application
+>, <application
+><ulink url="https://github.com/mvz/alexandria-book-collection-manager"
+>Alexandria</ulink
+></application
+>, <application
+><ulink url="https://www.delicious-monster.com"
+>Delicious Library</ulink
+></application
+>, <application
+><ulink url="http://www.antp.be/software/moviecatalog/"
+>Ant Movie Catalog</ulink
+></application
+>, <application
+><ulink url="https://en.wikipedia.org/wiki/Referencer"
+>Referencer</ulink
+></application
+> y <application
+><ulink url="https://launchpad.net/griffith"
+>Griffith</ulink
+></application
+>.</para>
+
+</sect2>
+
+<sect2 id="import-data-files">
+<title
+>Importar otros formatos de datos</title>
+<para
+>&appname; puede importar datos de varios formatos de archivos, como <acronym
+>CSV</acronym
+>, bibtex, discos y archivos de audio, <acronym
+>MODS</acronym
+>, &PDF; y <acronym
+>RIS</acronym
+>.</para>
+
+<sect3 id="importing-tellico">
 <title
 >Importar datos de &appname;</title>
 
 <para
->Se pueden importar otros archivos de datos de &appname;. Reemplazar la colección actual importando otro archivo de &appname; es lo mismo que abrir el propio archivo. El valor de importar los datos de &appname; es poder añadir o refundir dos colecciones. </para>
-</sect2>
+>Se pueden importar directamente otros archivos de datos de &appname;. Sustituir la colección actual importando otro archivo de &appname; es lo mismo que abrir el propio archivo. Importar datos de &appname; sirve para poder añadir datos o para fusionar dos colecciones. </para>
+</sect3>
 
-<sect2 id="importing-csv">
+<sect3 id="importing-csv">
 <title
 >Importar datos CSV</title>
 
@@ -133,7 +178,7 @@
 </screenshot>
 
 <para
->Primero, seleccione el tipo de colección que está importando. Si la está añadiendo o refundiendo con su colección abierta, el tipo está limitado al tipo de su colección actual. Si la primera línea del archivo CSV contiene los títulos de los campos, haga click en la casilla de verificación y el importador comparará automáticamente los títulos con los de los campos en la colección actual. Si el título de un campo coincide, la cabecera para esa columna cambiará para mostrar que la columna se ha asignado a ese campo. Si el archivo usa un separador distinto a la coma, asegúrese de cambiar esa opción de acuerdo con él. </para>
+>Primero, seleccione el tipo de colección que está importando. Si la está añadiendo o fusionando con su colección abierta, el tipo está limitado al tipo de su colección actual. Si la primera línea del archivo CSV contiene los títulos de los campos, haga click en la casilla de verificación y el importador comparará automáticamente los títulos con los de los campos en la colección actual. Si el título de un campo coincide, la cabecera para esa columna cambiará para mostrar que la columna se ha asignado a ese campo. Si el archivo usa un separador distinto a la coma, asegúrese de cambiar esa opción de acuerdo con él. </para>
 
 <para
 >Para que &appname; importe el archivo correctamente, debe saber qué campo corresponde a cada columna. <emphasis
@@ -147,11 +192,11 @@
 >. </para>
 
 <para
->Solo se muestran en el diálogo las primeras cinco líneas del archivo CSV importado. </para>
+>Para simplificar, solo se muestran en el diálogo las primeras cinco líneas del archivo CSV importado. No obstante, se importarán todas las líneas del archivo. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-audio">
+<sect3 id="importing-audio">
 <title
 >Importar datos de un &CD; de audio</title>
 
@@ -162,9 +207,9 @@
 
 <para
 >Además, si el disco contiene texto de &CD;, se leerá esa información y se añadirá a la entrada importada. </para>
-</sect2>
+</sect3>
 
-<sect2 id="importing-audio-files">
+<sect3 id="importing-audio-files">
 <title
 >Importar metadatos de archivos de audio</title>
 
@@ -183,52 +228,22 @@
 > en el archivo de escritorio se utiliza como imagen de portada para ese álbum. </para>
 
 <para
->El importador de metadatos de archivos de audio puede explorar recursivamente una carpeta para encontrar todos los archivos de audio en cualquier subcarpeta, aunque no se siguen los enlaces simbólicos. &appname; usa la <ulink url="http://developer.kde.org/~wheeler/taglib.html"
->librería TagLib</ulink
-> para leer los metadatos de archivos de audio, y así puede importar datos desde cualquier tipo de archivo que entienda TagLib. </para>
+>El importador de metadatos de archivos de audio puede explorar recursivamente una carpeta para encontrar todos los archivos de audio en cualquier subcarpeta, aunque no se siguen los enlaces simbólicos. &appname; usa la <ulink url="https://taglib.org"
+>biblioteca TagLib</ulink
+> para leer metadatos de archivos de sonido, por lo que puede importar datos de cualquier tipo de archivo que entienda TagLib. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-alexandria">
-<title
->Importar bibliotecas Alexandria</title>
-
-<para
-><application
-><ulink url="http://alexandria.rubyforge.org"
->Alexandria</ulink
-></application
-> es un gestor alternativo de colecciones de libros para el entorno de escritorio <ulink url="http://www.gnome.org"
->GNOME</ulink
->. El importador ofrece la opción de importar cualquiera de las bibliotecas encontradas en <filename class="directory"
->$<envar
->HOME</envar
->/.alexandria/</filename
->. </para>
-
-</sect2>
-
-<sect2 id="importing-amc">
-<title
->Importar datos de Ant Movie Catalog</title>
-
-<para
-><application
-><ulink url="http://www.antp.be/software/moviecatalog/"
->Ant Movie Catalog</ulink
-></application
-> es un gestor alternativo de colecciones de películas. </para>
-
-</sect2>
-
-<sect2 id="importing-bibtex">
+<sect3 id="importing-bibtex">
 <title
 >Importar datos de Bibtex</title>
 
 <para
 ><ulink url="http://en.wikipedia.org/wiki/Bibtex"
 >Bibtex</ulink
-> es un formato de bibliografía usado con el sistema de preparación de documentos LaTeX. Se pueden incluir varios tipos de referencias bibliográficas en el archivo. &appname; importa archivos bibtex como una colección bibliográfica. </para>
+> es un formato de bibliografía usado con el sistema de preparación de documentos LaTeX. Se pueden incluir varios tipos de referencias bibliográficas en el archivo. &appname; importa archivos bibtex como una <link linkend="bibliography"
+>colección bibliográfica</link
+>. </para>
 
 <para
 >Si el importador bibtex encuentra campos en el archivo que no están en la colección de bibliografía predeterminada, se añadirán como campos de <link linkend="line"
@@ -240,73 +255,14 @@
 >. &appname; usa una copia interna de la <ulink url="http://www.gerg.ca/software/btOOL/"
 >librería btparse</ulink
 > para analizar sintácticamente los archivos bibtex. </para>
-</sect2>
-
-<sect2 id="importing-bibtexml">
-<title
->Importar datos de Bibtexml</title>
 
 <para
 ><ulink url="http://bibtexml.sf.net"
 >Bibtexml</ulink
 > es una representación &XML; de datos de bibtex, y los datos de los archivos bibtexml importados se tratan de la misma forma que los datos de bigbtex. </para>
-</sect2>
+</sect3>
 
-<sect2 id="importing-delicious-library">
-<title
->Importar datos de Delicious Library</title>
-
-<para
-><application
-><ulink url="http://www.delicious-monster.com/"
->Delicious Library</ulink
-></application
-> es un gestor alternativo de colecciones para el escritorio de &Mac; OS X. &appname; importa un subconjunto de los datos utilizados por Delicious Library. </para>
-</sect2>
-
-<sect2 id="importing-gcstar">
-<title
->Importar datos de GCstar</title>
-
-<para
-><application
-><ulink url="http://www.gcstar.org"
->GCstar</ulink
-></application
-> es un gestor alternativo de colecciones. Actualmente admite colecciones de libros, películas, música, monedas, juegos, juegos de tablero y vinos. </para>
-
-<para
->&appname; también puede importar archivos de datos de <application
->GCfilms</application
->. <application
-><ulink url="http://home.gna.org/gcfilms/"
->GCfilms</ulink
-></application
-> es el predecesor de <application
->GCstar</application
->, y era un gestor alternativo de colecciones de películas. Normalmente, los archivos de datos de <application
->GCfilms</application
-> se encuentran en <filename class="directory"
->$<envar
->HOME</envar
->/.local/share/gcfilms/</filename
->. </para>
-
-</sect2>
-
-<sect2 id="importing-griffith">
-<title
->Importar datos de Griffith</title>
-
-<para
-><application
-><ulink url="http://griffith.berlios.de/"
->Griffith</ulink
-></application
-> es un gestor alternativo de colecciones de vídeo. &appname; puede importar la mayoría de datos desde una base de datos Griffith. </para>
-</sect2>
-
-<sect2 id="importing-mods">
+<sect3 id="importing-mods">
 <title
 >Importar datos MODS</title>
 
@@ -315,52 +271,65 @@
 ><ulink url="http://www.loc.gov/standards/mods/"
 >MODS</ulink
 ></acronym
-> es un formato para representar varios tipos de colecciones. actualmente, &appname; solo importa libros como colección de bibliografía. </para>
+> es un formato para representar varios tipos de colecciones. En la actualidad, &appname; solo importa libros como <link linkend="bibliography"
+>colección bibliográfica</link
+>. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-pdf">
+<sect3 id="importing-pdf">
 <title
->Importar datos PDF</title>
+>Importar datos &PDF;</title>
 <para
 >Si &appname; se ha compilado con <emphasis
 >exempi</emphasis
 > o <emphasis
 >poppler</emphasis
->, se podrán importar los metadatos de los archivos PDF. Los metadatos pueden incluir información del título, el autor y la fecha, además de identificadores bibliográficos que se utilizarán para actualizar otra información. </para>
-</sect2>
+>, se podrán importar los metadatos de los archivos &PDF;. Los metadatos pueden incluir información del título, el autor y la fecha, además de identificadores bibliográficos que se utilizarán para actualizar otra información. </para>
+</sect3>
 
-<sect2 id="importing-referencer">
-<title
->Importar datos de Referencer</title>
-<para
-><application
-><ulink url="http://icculus.org/referencer/"
->Referencer</ulink
-></application
-> es un organizador de documentos y gestor de bibliografía para el escritorio GNOME. &appname; importa la mayoría de los datos encontrados en una base de datos de Referencer. </para>
-</sect2>
-
-<sect2 id="importing-ris">
+<sect3 id="importing-ris">
 <title
 >Importar datos RIS</title>
 <para
->El formato <ulink url="http://www.adeptscience.co.uk/kb/article/A626"
-> <acronym
+>El formato <ulink url="https://en.wikipedia.org/wiki/RIS_(file_format)"
+><acronym
 >RIS</acronym
 ></ulink
-> es un formato de archivo bibliográfico usado por la aplicación <application
+> es un formato de archivo bibliográfico usado por <application
+>EndNote</application
+>, <application
 >Reference Manager</application
-> y por otras. &appname; importa archivos RIS como colección bibliográfica. </para>
+> y por otras aplicaciones. &appname; importa archivos RIS como <link linkend="bibliography"
+>colección bibliográfica</link
+>. </para>
+</sect3>
+
 </sect2>
 
-<sect2 id="importing-goodreads">
+<sect2 id="import-online-collection">
+<title
+>Importar colecciones en línea</title>
+<para
+>&appname; puede conectarse e importar datos de sitios web que gestionan colecciones personales.</para>
+
+<sect3 id="importing-boardgamegeek">
+<title
+>Importar colección de BoardGameGeek</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> es un recurso y comunidad de juegos de mesa. &appname; puede importar los juegos de mesa en una colección del usuario, siempre que la colección sea accesible públicamente. La colección importada puede estar limitada a los elementos marcados como propios. </para>
+</sect3>
+
+<sect3 id="importing-goodreads">
 <title
 >Importar colección de Goodreads</title>
 <para
-><ulink url="http://www.goodreads.com"
+><ulink url="https://www.goodreads.com"
 >Goodreads</ulink
 > es una red social en línea para que los lectores sigan sus colecciones de libros. &appname; puede importar la lista de libros de la colección de un usuario, dados tanto el nombre como la identificación del usuario, siempre que la colección esté configurada para ser accesible públicamente. </para>
+</sect3>
 </sect2>
 
 <sect2 id="importing-file-listing">
@@ -392,11 +361,11 @@
 <para
 >Arrastrar archivos de datos a la ventana principal de &appname; y soltarlos importará los archivos, de la misma forma que si se hubiera seleccionado la <link linkend="importing"
 >orden de importar</link
-> desde un menú. Arrastrar y soltar funciona para los siguientes tipos de archivos: Tellico, Bibtex, RIS, and PDF. También se admite la importación de múltiples archivos a la vez.</para>
+> desde un menú. Arrastrar y soltar funciona para los siguientes tipos de archivos: Tellico, Bibtex, RIS y &PDF;. También se admite la importación de múltiples archivos a la vez.</para>
 
 <para
 >Así que, por ejemplo, si desea catalogar varios <link linkend="importing-pdf"
->archivos PDF</link
+>archivos &PDF;</link
 >, selecciónelos en el gestor de archivos y arrástrelos a la ventana de &appname;. &appname; importará tantos metadatos de los archivos como pueda, y después buscará información adicional de varias fuentes configuradas de internet.</para>
 
 </sect1>
@@ -551,17 +520,6 @@
 ></textobject>
 </mediaobject>
 </screenshot>
-</sect2>
-
-<sect2 id="exporting-bibtexml">
-<title
->Exportar Bibtexml</title>
-
-<para
-><ulink url="http://bibtexml.sourceforge.net"
->Bibtexml</ulink
-> es un formato para representar datos de bibtex vía &XML;. </para>
-
 </sect2>
 
 <sect2 id="exporting-gcstar">

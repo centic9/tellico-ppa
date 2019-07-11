@@ -10,13 +10,13 @@
 >Format de fitxer</title>
 
 <para
->El fitxer de dades per omissió de &appname; és un arxiu zip, normalment amb una extensió de fitxer <literal role="extension"
+>El fitxer de dades per omissió del &appname; és un arxiu zip, normalment amb una extensió de fitxer <literal role="extension"
 >.tc</literal
 >. Dins del fitxer hi haurà un fitxer <filename
 >tellico.xml</filename
 > de nivell superior. Les imatges es poden incloure dins de la carpeta <filename
 >images/</filename
-> a l'arxiu, o es poden incloure directament a les dades &XML; en una codificació base64. Les imatges també es poden desar dins de la carpeta de dades de l'aplicació, en aquest cas, no restaran al fitxer de dades. &appname; també pot carregar el fitxer &XML;, sense comprimir. </para>
+> a l'arxiu, o es poden incloure directament a les dades &XML; en una codificació base64. Les imatges també es poden desar dins de la carpeta de dades de l'aplicació, en aquest cas, no restaran al fitxer de dades. El &appname; també pot carregar el fitxer &XML;, sense comprimir. </para>
 
 <sect2 id="xml-format">
 <title
@@ -39,7 +39,7 @@
 </programlisting>
 
 <para
->El fitxer comença amb la declaració i la codificació &XML; requerides, seguides pel tipus de document. Quan s'afegeix un nou tipus de camp o s'estableixen propietats addicionals en els camps per omissió, s'incrementarà la versió del tipus de document DTD. &appname; sempre és capaç d'obrir i llegir qualsevol versió anterior de DTD, però desarà els fitxers en la versió actual. La ubicació de DTD apunta a un fitxer DTD real. </para>
+>El fitxer comença amb la declaració i la codificació &XML; requerides, seguides pel tipus de document. Quan s'afegeix un nou tipus de camp o s'estableixen propietats addicionals en els camps per omissió, s'incrementarà la versió del tipus de document DTD. El &appname; sempre és capaç d'obrir i llegir qualsevol versió anterior de DTD, però desarà els fitxers en la versió actual. La ubicació de DTD apunta a un fitxer DTD real. </para>
 
 <para
 >L'element de nivell superior és un element <markup
@@ -166,7 +166,7 @@
 > serà afegida al nom del camp per a crear un element, i cada valor serà afegit com un fill de l'element, com en el cas dels camps autor, gènere i paraules clau anteriors. </para>
 
 <para
->Com a resultat, si s'afegeixen camps addicionals a la col·lecció, el fitxer de dades ja no restarà conforme al DTD. No obstant això, &appname; utilitza un analitzador &XML; sense validar, de manera que els camps addicionals no causaran problemes. </para>
+>Com a resultat, si s'afegeixen camps addicionals a la col·lecció, el fitxer de dades ja no restarà conforme al DTD. No obstant això, el &appname;utilitza un analitzador &XML; sense validar, de manera que els camps addicionals no causaran problemes. </para>
 </sect3>
 
 <sect3 id="images-xml-data">
@@ -303,7 +303,7 @@
 >Els valors de Tipus de camp</title>
 
 <para
->&appname; inclourà tots els camps per omissió per a una col·lecció si el primer element del camp s'anomena <emphasis
+>El &appname; inclourà tots els camps per omissió per a una col·lecció si el primer element del camp s'anomena <emphasis
 >_default</emphasis
 >. Per als camps <emphasis
 >Paràgraf</emphasis
@@ -536,12 +536,12 @@
 >Opcions ocultes de la configuració</title>
 
 <para
->&appname; té algunes opcions de configuració addicionals que no són visibles en el <interface
+>El &appname; té algunes opcions de configuració addicionals que no són visibles en el <interface
 >diàleg de configuració</interface
 >. No són prou importants per a justificar que saturin el diàleg amb més opcions, però ja que representen opcions que poden resultar interessants per a diversos usuaris, l'aplicació les llegeix des del fitxer de configuració. </para>
 
 <para
->Els ajustaments per a &appname; es desen en un fitxer a la carpeta d'inici de l'usuari, anomenada <filename
+>Els ajustaments per al &appname; es desen en un fitxer a la carpeta d'inici de l'usuari, anomenada <filename
 >$<envar
 >KDEHOME</envar
 >/share/config/tellicorc</filename
@@ -690,7 +690,7 @@
 >Consells XSLT</title>
 
 <para
->Aquests són alguns consells per escriure XSLT per analitzar dades &XML; de &appname;: (encara s'ha d'escriure). </para>
+>Aquests són alguns consells per escriure XSLT per analitzar dades &XML; del &appname;: (encara s'ha d'escriure). </para>
 </sect1>
 
 </chapter>

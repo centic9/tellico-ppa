@@ -79,6 +79,9 @@ public:
 public Q_SLOTS:
   void slotResetCollection();
 
+protected:
+  void closeEvent(QCloseEvent* event) Q_DECL_OVERRIDE;
+
 private Q_SLOTS:
   void slotSearchClicked();
   void slotClearClicked();
@@ -90,7 +93,8 @@ private Q_SLOTS:
   void slotStatus(const QString& status);
   void slotUpdateStatus();
 
-  void slotFetchDone(bool checkISBN = true);
+  // for slot connection, can't use a default value for checkIsbn
+  void slotFetchDone();
   void slotResultFound(Tellico::Fetch::FetchResult* result);
   void slotKeyChanged(int);
   void slotSourceChanged(const QString& source);
@@ -106,6 +110,7 @@ private Q_SLOTS:
   void slotBarcodeGotImage(const QImage&);
 
 private:
+  void fetchDone(bool checkISBN);
   void startProgress();
   void stopProgress();
   void setStatus(const QString& text);

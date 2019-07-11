@@ -86,8 +86,8 @@ EntryView::EntryView(QWidget* parent_) : KHTMLPart(new EntryViewWidget(this, par
   DropHandler* drophandler = new DropHandler(this);
   view()->installEventFilter(drophandler);
 
-  connect(browserExtension(), SIGNAL(openUrlRequestDelayed(const QUrl&, const KParts::OpenUrlArguments&, const KParts::BrowserArguments&)),
-          SLOT(slotOpenURL(const QUrl&)));
+  connect(browserExtension(), &KParts::BrowserExtension::openUrlRequestDelayed,
+          this, &EntryView::slotOpenURL);
 }
 
 EntryView::~EntryView() {
@@ -308,7 +308,7 @@ void EntryView::slotRefresh() {
 
 // do some contortions in case the url is relative
 // need to interpret it relative to document URL instead of xslt file
-// the current node under the mouse vould be the text node inside
+// the current node under the mouse would be the text node inside
 // the anchor node, so iterate up the parents
 void EntryView::slotOpenURL(const QUrl& url_) {
   if(url_.scheme() == QLatin1String("tc")) {
@@ -322,7 +322,7 @@ void EntryView::slotOpenURL(const QUrl& url_) {
     if(node.nodeType() == DOM::Node::ELEMENT_NODE && static_cast<DOM::Element>(node).tagName() == "a") {
       QString href = static_cast<DOM::Element>(node).getAttribute("href").string();
       if(!href.isEmpty()) {
-        // interpet url relative to document url
+        // interpret url relative to document url
         u = Kernel::self()->URL().resolved(QUrl(href));
       }
       break;
@@ -335,7 +335,8 @@ void EntryView::slotOpenURL(const QUrl& url_) {
 void EntryView::slotReloadEntry() {
   // this slot should only be connected in setXSLTFile()
   // must disconnect the signal first, otherwise, get an infinite loop
-  disconnect(SIGNAL(completed()));
+  void (EntryView::* completed)() = &EntryView::completed;
+  disconnect(this, completed, this, &EntryView::slotReloadEntry);
   closeUrl(); // this is needed to stop everything, for some reason
   view()->setUpdatesEnabled(true);
 
@@ -415,5 +416,6 @@ void EntryView::resetColors() {
   // don't flicker
   view()->setUpdatesEnabled(false);
   openUrl(QUrl::fromLocalFile(m_tempFile->fileName()));
-  connect(this, SIGNAL(completed()), SLOT(slotReloadEntry()));
+  void (EntryView::* completed)() = &EntryView::completed;
+  connect(this, completed, this, &EntryView::slotReloadEntry);
 }

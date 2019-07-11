@@ -97,8 +97,8 @@ void KinoFetcher::search() {
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)),
-          SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result,
+          this, &KinoFetcher::slotComplete);
 }
 
 void KinoFetcher::stop() {
@@ -134,7 +134,7 @@ void KinoFetcher::slotComplete(KJob*) {
   QString s = Tellico::decodeHTML(data);
 #if 0
   myWarning() << "Remove debug from kinofetcher.cpp";
-  QFile f(QLatin1String("/tmp/test.html"));
+  QFile f(QStringLiteral("/tmp/test.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
     t.setCodec("UTF-8");
@@ -155,8 +155,8 @@ void KinoFetcher::slotComplete(KJob*) {
     if(u.isEmpty()) {
       continue;
     }
-    if(u.startsWith(QStringLiteral("//"))) {
-      u.prepend(QStringLiteral("https:"));
+    if(u.startsWith(QLatin1String("//"))) {
+      u.prepend(QLatin1String("https:"));
     }
     Data::CollPtr coll(new Data::VideoCollection(true));
     Data::EntryPtr entry(new Data::Entry(coll));
@@ -205,7 +205,7 @@ Tellico::Data::EntryPtr KinoFetcher::fetchEntryHook(uint uid_) {
 
 #if 0
   myWarning() << "Remove debug from kinofetcher.cpp";
-  QFile f(QLatin1String("/tmp/test2.html"));
+  QFile f(QStringLiteral("/tmp/test2.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
     t.setCodec("UTF-8");
@@ -227,7 +227,7 @@ void KinoFetcher::parseEntry(Data::EntryPtr entry, const QString& str_) {
   while(i.hasNext()) {
     QJsonDocument doc = QJsonDocument::fromJson(i.next().captured(1).toUtf8());
     QVariantMap objectMap = doc.object().toVariantMap();
-    if(mapValue(objectMap, "@type") != QLatin1String("Movie")) {
+    if(mapValue(objectMap, "@type") != QStringLiteral("Movie")) {
       continue;
     }
     entry->setField(QStringLiteral("director"), mapValue(objectMap, "director", "name"));
@@ -240,7 +240,12 @@ void KinoFetcher::parseEntry(Data::EntryPtr entry, const QString& str_) {
     if(!actors.isEmpty()) {
       entry->setField(QStringLiteral("cast"), actors.join(FieldFormat::rowDelimiterString()));
     }
-    entry->setField(QStringLiteral("cover"), mapValue(objectMap, "image"));
+    // cover could be a relative link
+    QString coverLink = mapValue(objectMap, "image");
+    if(coverLink.startsWith(QLatin1String("//"))) {
+      coverLink.prepend(QLatin1String("https:"));
+    }
+    entry->setField(QStringLiteral("cover"), coverLink);
   }
 
   QRegularExpression tagRx(QStringLiteral("<.+?>"));
@@ -278,7 +283,7 @@ void KinoFetcher::parseEntry(Data::EntryPtr entry, const QString& str_) {
     QStringList allowed = entry->collection()->hasField(QStringLiteral("certification")) ?
                           entry->collection()->fieldByName(QStringLiteral("certification"))->allowed() :
                           QStringList();
-    if(!allowed.contains(QLatin1String("FSK 0 (DE)"))) {
+    if(!allowed.contains(QStringLiteral("FSK 0 (DE)"))) {
       allowed << QStringLiteral("FSK 0 (DE)")
               << QStringLiteral("FSK 6 (DE)")
               << QStringLiteral("FSK 12 (DE)")
@@ -287,7 +292,7 @@ void KinoFetcher::parseEntry(Data::EntryPtr entry, const QString& str_) {
       entry->collection()->fieldByName(QStringLiteral("certification"))->setAllowed(allowed);
     }
     QString c = certMatch.captured(1).remove(tagRx);
-    if(c == QLatin1String("ab 0")) {
+    if(c == QStringLiteral("ab 0")) {
       c = QStringLiteral("FSK 0 (DE)");
     } else if(c == QLatin1String("ab 6")) {
       c = QStringLiteral("FSK 6 (DE)");

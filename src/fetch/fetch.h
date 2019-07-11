@@ -100,7 +100,10 @@ enum Type {
   VideoGameGeek,
   DBC,
   IGDB,
-  Kino
+  Kino,
+  MobyGames,
+  ComicVine,
+  KinoTeatr
 };
 
   }

@@ -57,7 +57,7 @@ using Tellico::Data::Document;
 Document* Document::s_self = nullptr;
 
 Document::Document() : QObject(), m_coll(nullptr), m_isModified(false),
-    m_loadAllImages(false), m_validFile(false), m_importer(nullptr), m_cancelImageWriting(false),
+    m_loadAllImages(false), m_validFile(false), m_importer(nullptr), m_cancelImageWriting(true),
     m_fileFormat(Import::TellicoImporter::Unknown) {
   m_allImagesOnDisk = Config::imageLocation() != Config::ImagesInFile;
   newDocument(Collection::Book);
@@ -80,11 +80,15 @@ void Document::setURL(const QUrl& url_) {
   }
 }
 
-void Document::slotSetModified(bool modified_/*=true*/) {
+void Document::setModified(bool modified_) {
   if(modified_ != m_isModified) {
     m_isModified = modified_;
     emit signalModified(m_isModified);
   }
+}
+
+void Document::slotSetModified() {
+  setModified(true);
 }
 
 /**
@@ -92,7 +96,7 @@ void Document::slotSetModified(bool modified_/*=true*/) {
  * the document modified flag
  */
 void Document::slotSetClean(bool clean_) {
-   slotSetModified(!clean_);
+  setModified(!clean_);
 }
 
 bool Document::newDocument(int type_) {
@@ -108,7 +112,7 @@ bool Document::newDocument(int type_) {
   emit signalCollectionAdded(m_coll);
   emit signalCollectionImagesLoaded(m_coll);
 
-  slotSetModified(false);
+  setModified(false);
   QUrl url = QUrl::fromLocalFile(i18n(Tellico::untitledFilename));
   setURL(url);
   m_validFile = false;
@@ -131,12 +135,11 @@ bool Document::openDocument(const QUrl& url_) {
   m_importer = new Import::TellicoImporter(url_, m_loadAllImages);
 
   ProgressItem& item = ProgressManager::self()->newProgressItem(m_importer, m_importer->progressLabel(), true);
-  connect(m_importer, SIGNAL(signalTotalSteps(QObject*, qulonglong)),
-          ProgressManager::self(), SLOT(setTotalSteps(QObject*, qulonglong)));
-  connect(m_importer, SIGNAL(signalProgress(QObject*, qulonglong)),
-          ProgressManager::self(), SLOT(setProgress(QObject*, qulonglong)));
-  connect(&item, &Tellico::ProgressItem::signalCancelled,
-          m_importer.data(), &Tellico::Import::TellicoImporter::slotCancel);
+  connect(m_importer, &Import::Importer::signalTotalSteps,
+          ProgressManager::self(), &ProgressManager::setTotalSteps);
+  connect(m_importer, &Import::Importer::signalProgress,
+          ProgressManager::self(), &ProgressManager::setProgress);
+  connect(&item, &ProgressItem::signalCancelled, m_importer, &Import::Importer::slotCancel);
   ProgressItem::Done done(m_importer);
 
   CollPtr coll = m_importer->collection();
@@ -169,13 +172,13 @@ bool Document::openDocument(const QUrl& url_) {
   emit signalCollectionAdded(m_coll);
 
   // m_importer might have been deleted?
-  slotSetModified(m_importer && m_importer->modifiedOriginal());
+  setModified(m_importer && m_importer->modifiedOriginal());
 //  if(pruneImages()) {
 //    slotSetModified(true);
 //  }
   if(m_importer && m_importer->hasImages()) {
     m_cancelImageWriting = false;
-    QTimer::singleShot(500, this, SLOT(slotLoadAllImages()));
+    QTimer::singleShot(500, this, &Document::slotLoadAllImages);
   } else {
     emit signalCollectionImagesLoaded(m_coll);
     if(m_importer) {
@@ -246,7 +249,7 @@ bool Document::saveDocument(const QUrl& url_, bool force_) {
   if(success) {
     setURL(url_);
     // if successful, doc is no longer modified
-    slotSetModified(false);
+    setModified(false);
   } else {
     myDebug() << "Document::saveDocument() - not successful saving to" << url_.url();
   }
@@ -333,9 +336,8 @@ Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll1_
     Data::EntryPtr matchEntry, currEntry;
     // first, if we're checking against same ID
     if(checkSameId) {
-      currEntry = currEntries.first()->collection()->entryById(newEntry->id());
-      if(currEntry &&
-         currEntry->collection()->sameEntry(currEntry, newEntry) >= EntryComparison::ENTRY_PERFECT_MATCH) {
+      currEntry = coll1_->entryById(newEntry->id());
+      if(currEntry && coll1_->sameEntry(currEntry, newEntry) >= EntryComparison::ENTRY_PERFECT_MATCH) {
         // only have to compare against perfect match
         matchEntry = currEntry;
       }
@@ -343,9 +345,9 @@ Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll1_
     if(!matchEntry) {
       // alternative is to loop over them all
       for(int i = 0; i < currTotal; ++i) {
-        // since we're sorted by title, track the index of the previous match and starts comparison there
+        // since we're sorted by title, track the index of the previous match and start comparison there
         currEntry = currEntries.at((i+lastMatchId) % currTotal);
-        int match = currEntry->collection()->sameEntry(currEntry, newEntry);
+        const int match = coll1_->sameEntry(currEntry, newEntry);
         if(match >= EntryComparison::ENTRY_PERFECT_MATCH) {
           matchEntry = currEntry;
           lastMatchId = (i+lastMatchId) % currTotal;
@@ -795,7 +797,7 @@ bool Document::mergeEntry(Data::EntryPtr e1, Data::EntryPtr e2, MergeConflictRes
       ret = true;
 #endif
     } else if(resolver_) {
-      int resolverResponse = resolver_->resolve(e1, e2, field);
+      const int resolverResponse = resolver_->resolve(e1, e2, field);
       if(resolverResponse == MergeConflictResolver::CancelMerge) {
         ret = false; // we got cancelled
         return false; // cancel all the merge right now
@@ -803,7 +805,7 @@ bool Document::mergeEntry(Data::EntryPtr e1, Data::EntryPtr e2, MergeConflictRes
         e1->setField(field, e2->field(field));
       }
     } else {
-      myDebug() << "Doing nothing for" << field->name();
+//      myDebug() << "Keeping value of" << field->name() << "for" << e1->field(QStringLiteral("title"));
     }
   }
   return ret;

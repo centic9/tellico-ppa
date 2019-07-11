@@ -92,7 +92,7 @@ void BedethequeFetcher::search() {
     m_job->addMetaData(QStringLiteral("referrer"), QString::fromLatin1(BD_BASE_URL));
     KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
     // different slot here
-    connect(m_job, SIGNAL(result(KJob*)), SLOT(slotLinkComplete(KJob*)));
+    connect(m_job.data(), &KJob::result, this, &BedethequeFetcher::slotLinkComplete);
     return;
   }
 
@@ -133,7 +133,7 @@ void BedethequeFetcher::search() {
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   m_job->addMetaData(QStringLiteral("referrer"), QString::fromLatin1(BD_BASE_URL));
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result, this, &BedethequeFetcher::slotComplete);
 }
 
 void BedethequeFetcher::stop() {
@@ -321,14 +321,12 @@ Tellico::Data::EntryPtr BedethequeFetcher::parseEntry(const QString& str_) {
   fieldMap.insert(QStringLiteral("Tome"),            QStringLiteral("issue"));
   fieldMap.insert(QStringLiteral("Collection"),      QStringLiteral("edition"));
 
-  if(optionalFields().contains(QLatin1String("isbn"))) {
-    Data::FieldPtr field(new Data::Field(QStringLiteral("isbn"), i18n("ISBN#")));
-    field->setCategory(i18n("Publishing"));
-    field->setDescription(i18n("International Standard Book Number"));
+  if(optionalFields().contains(QStringLiteral("isbn"))) {
+    Data::FieldPtr field = Data::Field::createDefaultField(Data::Field::IsbnField);
     coll->addField(field);
-    fieldMap.insert(QStringLiteral("ISBN"), QStringLiteral("isbn"));
+    fieldMap.insert(QStringLiteral("ISBN"), field->name());
   }
-  if(optionalFields().contains(QLatin1String("colorist"))) {
+  if(optionalFields().contains(QStringLiteral("colorist"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("colorist"), i18n("Colorist")));
     field->setCategory(i18n("General"));
     field->setFlags(Data::Field::AllowCompletion | Data::Field::AllowMultiple | Data::Field::AllowGrouped);
@@ -336,7 +334,7 @@ Tellico::Data::EntryPtr BedethequeFetcher::parseEntry(const QString& str_) {
     coll->addField(field);
     fieldMap.insert(QStringLiteral("Couleurs"), QStringLiteral("colorist"));
   }
-  if(optionalFields().contains(QLatin1String("lien-bel"))) {
+  if(optionalFields().contains(QStringLiteral("lien-bel"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("lien-bel"), i18n("Bedetheque Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
@@ -393,7 +391,7 @@ Tellico::Data::EntryPtr BedethequeFetcher::parseEntry(const QString& str_) {
     }
   }
 
-  if(optionalFields().contains(QLatin1String("comments"))) {
+  if(optionalFields().contains(QStringLiteral("comments"))) {
     QRegExp chronRx(QLatin1String("La chronique\\s*</li>\\s*<li[^>]*>(.*)</ul>"));
     chronRx.setMinimal(true);
     if(chronRx.indexIn(str_) > -1) {
@@ -401,7 +399,7 @@ Tellico::Data::EntryPtr BedethequeFetcher::parseEntry(const QString& str_) {
     }
   }
 
-  if(optionalFields().contains(QLatin1String("lien-bel"))) {
+  if(optionalFields().contains(QStringLiteral("lien-bel"))) {
     QRegExp linkRx(QLatin1String("<link\\s+rel\\s*=\\s*\"canonical\"\\s+href\\s*=\\s*\"([^\"]+)\""));
     linkRx.setMinimal(true);
     if(linkRx.indexIn(str_) > -1) {

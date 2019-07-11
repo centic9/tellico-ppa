@@ -67,14 +67,14 @@
 
 namespace {
   static const int Z3950_DEFAULT_PORT = 210;
-  static const QString Z3950_DEFAULT_ESN = QStringLiteral("F");
+  static const char* Z3950_DEFAULT_ESN = "F";
 }
 
 using namespace Tellico;
 using Tellico::Fetch::Z3950Fetcher;
 
 Z3950Fetcher::Z3950Fetcher(QObject* parent_)
-    : Fetcher(parent_), m_conn(nullptr), m_port(Z3950_DEFAULT_PORT), m_esn(Z3950_DEFAULT_ESN),
+    : Fetcher(parent_), m_conn(nullptr), m_port(Z3950_DEFAULT_PORT), m_esn(QLatin1String(Z3950_DEFAULT_ESN)),
       m_started(false), m_done(true), m_MARC21XMLHandler(nullptr),
       m_UNIMARCXMLHandler(nullptr), m_MODSHandler(nullptr) {
 }
@@ -106,7 +106,7 @@ Z3950Fetcher::Z3950Fetcher(QObject* parent_, const QString& preset_)
 Z3950Fetcher::Z3950Fetcher(QObject* parent_, const QString& host_, int port_,
                            const QString& dbName_, const QString& syntax_)
     : Fetcher(parent_), m_conn(nullptr), m_host(host_), m_port(port_), m_dbname(dbName_)
-    , m_syntax(syntax_), m_esn(Z3950_DEFAULT_ESN)
+    , m_syntax(syntax_), m_esn(QLatin1String(Z3950_DEFAULT_ESN))
     , m_started(false), m_done(true), m_MARC21XMLHandler(nullptr)
     , m_UNIMARCXMLHandler(nullptr), m_MODSHandler(nullptr) {
 }
@@ -258,7 +258,7 @@ void Z3950Fetcher::search() {
       return;
   }
 //  m_pqn = QLatin1String("@attr 1=7 0253333490");
-  myLog() << "PQN query = " << m_pqn;
+//  myLog() << "PQN query = " << m_pqn;
 
   if(m_conn) {
     m_conn->reset(); // reset counts
@@ -577,9 +577,10 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
 
   m_usePreset = new QCheckBox(i18n("Use preset &server:"), optionsWidget());
   l->addWidget(m_usePreset, ++row, 0);
-  connect(m_usePreset, SIGNAL(toggled(bool)), SLOT(slotTogglePreset(bool)));
+  connect(m_usePreset, &QAbstractButton::toggled, this, &ConfigWidget::slotTogglePreset);
   m_serverCombo = new GUI::ComboBox(optionsWidget());
-  connect(m_serverCombo, SIGNAL(activated(int)), SLOT(slotPresetChanged()));
+  void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
+  connect(m_serverCombo, activatedInt, this, &ConfigWidget::slotPresetChanged);
   l->addWidget(m_serverCombo, row, 1);
   ++row;
   l->addWidget(new KSeparator(optionsWidget()), row, 0, 1, 2);
@@ -588,8 +589,8 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   QLabel* label = new QLabel(i18n("Hos&t: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_hostEdit = new GUI::LineEdit(optionsWidget());
-  connect(m_hostEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
-  connect(m_hostEdit, SIGNAL(textChanged(const QString&)), SIGNAL(signalName(const QString&)));
+  connect(m_hostEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
+  connect(m_hostEdit, &QLineEdit::textChanged, this, &ConfigWidget::signalName);
   l->addWidget(m_hostEdit, row, 1);
   QString w = i18n("Enter the host name of the server.");
   label->setWhatsThis(w);
@@ -602,7 +603,8 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   m_portSpinBox->setMaximum(999999);
   m_portSpinBox->setMinimum(0);
   m_portSpinBox->setValue(Z3950_DEFAULT_PORT);
-  connect(m_portSpinBox, SIGNAL(valueChanged(int)), SLOT(slotSetModified()));
+  void (QSpinBox::* valueChanged)(int) = &QSpinBox::valueChanged;
+  connect(m_portSpinBox, valueChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_portSpinBox, row, 1);
   w = i18n("Enter the port number of the server. The default is %1.", Z3950_DEFAULT_PORT);
   label->setWhatsThis(w);
@@ -612,7 +614,7 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   label = new QLabel(i18n("&Database: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_databaseEdit = new GUI::LineEdit(optionsWidget());
-  connect(m_databaseEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_databaseEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_databaseEdit, row, 1);
   w = i18n("Enter the database name used by the server.");
   label->setWhatsThis(w);
@@ -626,7 +628,7 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   m_charSetCombo->addItem(QStringLiteral("marc8"));
   m_charSetCombo->addItem(QStringLiteral("iso-8859-1"));
   m_charSetCombo->addItem(QStringLiteral("utf-8"));
-  connect(m_charSetCombo, SIGNAL(currentTextChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_charSetCombo, &QComboBox::currentTextChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_charSetCombo, row, 1);
   w = i18n("Enter the character set encoding used by the z39.50 server. The most likely choice "
            "is MARC-8, although ISO-8859-1 is common as well.");
@@ -644,7 +646,7 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   m_syntaxCombo->addItem(QStringLiteral("USMARC"), QLatin1String("usmarc"));
   m_syntaxCombo->addItem(QStringLiteral("ADS"), QLatin1String("ads"));
   m_syntaxCombo->addItem(QStringLiteral("GRS-1"), QLatin1String("grs-1"));
-  connect(m_syntaxCombo, SIGNAL(currentTextChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_syntaxCombo, &QComboBox::currentTextChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_syntaxCombo, row, 1);
   w = i18n("Enter the data format used by the z39.50 server. Tellico will attempt to "
            "automatically detect the best setting if <i>auto-detect</i> is selected.");
@@ -656,7 +658,7 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   l->addWidget(label, ++row, 0);
   m_userEdit = new GUI::LineEdit(optionsWidget());
   m_userEdit->setPlaceholderText(i18n("Optional"));
-  connect(m_userEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_userEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_userEdit, row, 1);
   w = i18n("Enter the authentication user name used by the z39.50 database. Most servers "
            "do not need one.");
@@ -669,7 +671,7 @@ Z3950Fetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Z3950Fetcher* f
   m_passwordEdit = new GUI::LineEdit(optionsWidget());
   m_passwordEdit->setPlaceholderText(i18n("Optional"));
   m_passwordEdit->setEchoMode(QLineEdit::Password);
-  connect(m_passwordEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_passwordEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_passwordEdit, row, 1);
   w = i18n("Enter the authentication password used by the z39.50 database. Most servers "
            "do not need one. The password will be saved in plain text in the Tellico "

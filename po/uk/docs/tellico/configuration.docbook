@@ -206,128 +206,124 @@
 ></title>
 
 <para
->&appname; може використовувати різноманітні джерела імпортування даних, які можна налаштувати за допомогою діалогового вікна джерел даних. Існує багато типів і окремих джерел. Декілька з них наведено нижче.</para>
+>&appname; може використовувати різноманітні джерела імпортування даних, які можна налаштувати за допомогою діалогового вікна джерел даних. Існує багато типів і окремих джерел. Декілька з них наведено нижче. З повним списком можна ознайомитися на <ulink url="http://tellico-project.org/data-sources"
+>сайті Tellico</ulink
+>.</para>
 
 <itemizedlist>
 <listitem
-><para
+><simpara
 ><link linkend="amazon-web-services"
 >Вебслужби Amazon.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="imdb"
 >База даних фільмів у Інтернеті</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
+><link linkend="allocine"
+>AlloCiné</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
 ><link linkend="z3950"
 >Сервери z39.50</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="sru"
 >Сервери SRU</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="entrez"
 >Бази даних Entrez (PubMed)</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="animenfo"
 >AnimeNfo.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
-><link linkend="ibs"
->Internet Bookshop Italia</link
->,</para
+><simpara
+><link linkend="bedetheque"
+>BDGest</link
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="isbndb"
 >ISBNdb.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="bib-sources"
 >arxiv.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
-><link linkend="bib-sources"
->bibsonomy.org</link
->,</para
-></listitem>
-<listitem
-><para
-><link linkend="bib-sources"
->crossref.org</link
->,</para
-></listitem>
-<listitem
-><para
+><simpara
 ><link linkend="discogs"
 >Discogs.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="tmdb"
 >TheMovieDB.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="tgdb"
 >TheGamesDB.net</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="omdb"
 >OMDBAPI.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="musicbrainz"
 >MusicBrainz.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="giantbomb"
 >GiantBomb.com</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="openlibrary"
 >OpenLibrary.org</link
->,</para
+>,</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="externalexec"
 >інші зовнішні скрипти або програми</link
-> та</para
+> та</simpara
 ></listitem>
 <listitem
-><para
+><simpara
 ><link linkend="multiple-sources"
 >комбінації будь-яких зі згаданих вище джерел</link
->.</para
+>.</simpara
 ></listitem>
 </itemizedlist>
 
@@ -352,11 +348,6 @@
 > і <guibutton
 >Вилучити</guibutton
 >. Крім того, ви можете змінити порядок джерел, у якому їх буде показано у меню оновлення записів. </para>
-
-<para
->Додаткові шаблони можна отримати з мережевого сховища автора програми натисканням кнопки <guilabel
->Отримати</guilabel
->. Ці скрипти підписано gpg-підписом автора програми з метою захисту від потенційно небезпечних скриптів з невідомих джерел, які можуть спричинити пошкодження даних у вашій системі. </para>
 
 <warning>
 <para
@@ -462,15 +453,6 @@
 >, а потім вказати реєстраційні дані у налаштуваннях джерела даних.</para>
 </sect3>
 
-<sect3 id="ibs">
-<title
->Internet Bookstore Italia</title>
-<para
-><ulink url="http://ibs.it"
->IBS або Internet Bookshop Italia</ulink
-> є італійським мережевим книжковим магазином. </para>
-</sect3>
-
 <sect3 id="isbndb">
 <title
 >ISBNdb.com</title>
@@ -504,6 +486,15 @@
 ><ulink url="http://www.animenfo.com"
 >AnimeNfo</ulink
 > є популярним сайтом, присвяченим аніме або японській мультиплікації. </para>
+</sect3>
+
+<sect3 id="bedetheque">
+<title
+>Bedetheque</title>
+<para
+><ulink url="http://www.bedetheque.com"
+>Bedetheque</ulink
+> — французька база даних коміксів, керується BDGest. </para>
 </sect3>
 
 </sect2>
@@ -549,6 +540,15 @@
 ><ulink url="http://omdbapi.com"
 >Open Movie Database</ulink
 > — вільне служба для отримання даних щодо фільмів. </para>
+</sect3>
+
+<sect3 id="allocine">
+<title
+>AlloCiné</title>
+<para
+><ulink url="http://allocine.fr"
+>AlloCiné</ulink
+> — інформаційна інтернет-служба, дані якої стосуються Франції. </para>
 </sect3>
 
 </sect2>
@@ -620,9 +620,9 @@
 >Amazon.com</title>
 
 <para
->За допомогою мережевих служб Amazon Web &appname; може виконувати пошук даних на дев’яти різних міжнародних сайтах, якими керує <ulink url="http://amazon.com"
+>За допомогою мережевих служб Amazon Web &appname; може виконувати пошук даних на чотирнадцяти різних міжнародних сайтах, якими керує <ulink url="http://amazon.com"
 >Amazon.com</ulink
->: у США, Великобританії, Німеччині, Японії, Франції, Канаді, Китаї, Іспанії та Італії. </para>
+>: у США, Великобританії, Німеччині, Японії, Франції, Канаді, Китаї, Іспанії, Італії, Бразилії, Австралії, Індії, Мексиці та Туреччині. </para>
 
 <screenshot>
 <mediaobject>
@@ -636,6 +636,11 @@
 >Amazon.com</ulink
 >, зображення, зокрема обкладинки книг і відеодисків. Ви можете отримати зображення трьох різних розмірів, залежно від елемента. Для доступу до мережевих служб Amazon.com слід використовувати ідентифікатор партнерства, його слід включати у зворотні посилання на елемент, оскільки цього вимагає ліцензійна угода з використання мережевих служб Amazon.com. </para>
 
+<para
+>Доступ до <ulink url="https://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html"
+>програмного інтерфейсу рекламування продуктів Amazon</ulink
+> може бути обмежено щодо посилань на товари або реклами. Зверніться до документації Amazon, щоб дізнатися більше про те, як отримати доступ до програмного інтерфейсу. </para>
+
 </sect3>
 
 <sect3 id="externalexec">
@@ -645,22 +650,10 @@
 >За допомогою скриптів і сторонніх програм, використаних  як інтерфейс для пошуку у інших джерелах даних, ви можете полегшити інтеграцію &appname; зі сторонніми додатками. &appname; виконає команду і передасть параметри пошуку як аргументи командного рядка. </para>
 
 <para
->Деякі зі скриптів постачаються разом з &appname;. <ulink url="http://www.allocine.fr"
->Allocine.fr</ulink
-> є французьким сайтом, присвяченим кінофільмам. Для користування цим джерелом даних вам слід встановити <ulink url="http://python.org"
->Python</ulink
->. Сайт <ulink url="http://www.mcu.es"
->міністерства культури Іспанії</ulink
-> є іспанською мережевою базою даних книг. Для користування цим джерелом даних також знадобиться <ulink url="http://python.org"
->Python</ulink
->. <ulink url="http://darkhorse.com"
+>Деякі зі скриптів постачаються із самою &appname;. Наприклад, для пошуку на сайті видавництва коміксів <ulink url="http://darkhorse.com"
 >Dark Horse Comics</ulink
-> є видавцем книг коміксів. Для користування цим джерелом даних вам також слід встановити <ulink url="http://python.org"
+> потрібен <ulink url="http://python.org"
 >Python</ulink
->. <ulink url="http://boardgamegeek.com"
->BoardGameGeek</ulink
-> є вебсайтом, який надає широкий діапазон даних щодо ігор на дошці, для роботи відповідного скрипту слід встановити <ulink url="http://www.ruby-lang.org"
->ruby</ulink
 >. </para>
 
 <screenshot>

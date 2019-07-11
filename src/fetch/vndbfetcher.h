@@ -82,21 +82,25 @@ public:
   static StringHash allOptionalFields();
 
 private Q_SLOTS:
-  void slotComplete();
   void slotState();
   void slotError();
   void slotRead();
+  void parseVNResults();
 
 private:
   enum State {
-    PreLogin,
-    PostLogin
+    PreLogin = 0,
+    PostLogin,
+    GetVN,
+    GetRelease
   };
 
   virtual void search() Q_DECL_OVERRIDE;
   virtual FetchRequest updateRequest(Data::EntryPtr entry) Q_DECL_OVERRIDE;
+  bool verifyData();
+  void parseReleaseResults(Data::EntryPtr entry);
 
-  QHash<int, Data::EntryPtr> m_entries;
+  QHash<uint, Data::EntryPtr> m_entries;
 
   bool m_started;
   QTcpSocket* m_socket;

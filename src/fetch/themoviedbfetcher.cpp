@@ -38,8 +38,8 @@
 #include <KJobWidgets/KJobWidgets>
 #include <KIO/StoredTransferJob>
 
-#include <QUrl>
 #include <QLabel>
+#include <QLineEdit>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
@@ -153,7 +153,7 @@ void TheMovieDBFetcher::continueSearch() {
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result, this, &TheMovieDBFetcher::slotComplete);
 }
 
 void TheMovieDBFetcher::stop() {
@@ -190,7 +190,7 @@ Tellico::Data::EntryPtr TheMovieDBFetcher::fetchEntryHook(uint uid_) {
     QByteArray data = FileHandler::readDataFile(u, true);
 #if 0
     myWarning() << "Remove debug2 from themoviedbfetcher.cpp";
-    QFile f(QString::fromLatin1("/tmp/test2.json"));
+    QFile f(QStringLiteral("/tmp/test2.json"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
       t.setCodec("UTF-8");
@@ -236,7 +236,7 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
     return;
   }
 
-  QByteArray data = job->data();
+  const QByteArray data = job->data();
   if(data.isEmpty()) {
     myDebug() << "no data";
     stop();
@@ -248,7 +248,7 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
 
 #if 0
   myWarning() << "Remove debug from themoviedbfetcher.cpp";
-  QFile f(QString::fromLatin1("/tmp/test.json"));
+  QFile f(QStringLiteral("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
     t.setCodec("UTF-8");
@@ -263,22 +263,22 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
   field->setCategory(i18n("General"));
   coll->addField(field);
 
-  if(optionalFields().contains(QLatin1String("tmdb"))) {
+  if(optionalFields().contains(QStringLiteral("tmdb"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("tmdb"), i18n("TMDb Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
   }
-  if(optionalFields().contains(QLatin1String("imdb"))) {
+  if(optionalFields().contains(QStringLiteral("imdb"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("imdb"), i18n("IMDb Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
   }
-  if(optionalFields().contains(QLatin1String("alttitle"))) {
+  if(optionalFields().contains(QStringLiteral("alttitle"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("alttitle"), i18n("Alternative Titles"), Data::Field::Table));
     field->setFormatType(FieldFormat::FormatTitle);
     coll->addField(field);
   }
-  if(optionalFields().contains(QLatin1String("origtitle"))) {
+  if(optionalFields().contains(QStringLiteral("origtitle"))) {
     Data::FieldPtr f(new Data::Field(QStringLiteral("origtitle"), i18n("Original Title")));
     f->setFormatType(FieldFormat::FormatTitle);
     coll->addField(f);
@@ -432,11 +432,11 @@ Tellico::Fetch::ConfigWidget* TheMovieDBFetcher::configWidget(QWidget* parent_) 
 }
 
 QString TheMovieDBFetcher::defaultName() {
-  return QStringLiteral("TheMovieDB.org");
+  return QStringLiteral("The Movie DB (TMDb)");
 }
 
 QString TheMovieDBFetcher::defaultIcon() {
-  return favIcon("http://www.themoviedb.org");
+  return favIcon("https://www.themoviedb.org");
 }
 
 Tellico::StringHash TheMovieDBFetcher::allOptionalFields() {
@@ -473,7 +473,7 @@ TheMovieDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const TheMovieDB
   l->addWidget(label, ++row, 0);
 
   m_apiKeyEdit = new QLineEdit(optionsWidget());
-  connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_apiKeyEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_apiKeyEdit, row, 1);
   QString w = i18n("The default Tellico key may be used, but searching may fail due to reaching access limits.");
   label->setWhatsThis(w);
@@ -487,8 +487,9 @@ TheMovieDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const TheMovieDB
   m_langCombo->addItem(i18nc("Language", "French"), QLatin1String("fr"));
   m_langCombo->addItem(i18nc("Language", "German"), QLatin1String("de"));
   m_langCombo->addItem(i18nc("Language", "Spanish"), QLatin1String("es"));
-  connect(m_langCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
-  connect(m_langCombo, SIGNAL(activated(int)), SLOT(slotLangChanged()));
+  void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
+  connect(m_langCombo, activatedInt, this, &ConfigWidget::slotSetModified);
+  connect(m_langCombo, activatedInt, this, &ConfigWidget::slotLangChanged);
   l->addWidget(m_langCombo, row, 1);
   label->setBuddy(m_langCombo);
 

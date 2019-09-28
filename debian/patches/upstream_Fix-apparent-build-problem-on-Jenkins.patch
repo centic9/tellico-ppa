@@ -1,0 +1,24 @@
+From d3c56eca11cd059d4348ab6696822c23d85af61a Mon Sep 17 00:00:00 2001
+From: Robby Stephenson <robby@periapsis.org>
+Date: Sun, 21 Jul 2019 19:17:35 -0400
+Subject: [PATCH] Fix apparent build problem on Jenkins
+
+---
+ src/mainwindow.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/mainwindow.cpp b/src/mainwindow.cpp
+index d8348e80..8250c562 100644
+--- a/src/mainwindow.cpp
++++ b/src/mainwindow.cpp
+@@ -108,6 +108,7 @@
+ #include <QMimeType>
+ #include <QMenuBar>
+ #include <QFileDialog>
++#include <QMetaMethod>
+ 
+ #include <unistd.h>
+ 
+-- 
+2.23.0
+

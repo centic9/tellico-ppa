@@ -7,9 +7,11 @@ SET(XSLT_FILES
     amazon2tellico.xsl
     arxiv2tellico.xsl
     biblioshare2tellico.xsl
+    bibtexml2tellico.xsl
     bluray-logo.png
     boardgamegeek2tellico.xsl
     cassette-logo.png
+    comicvine2tellico.xsl
     cd-logo.png
     crossref2tellico.xsl
     dbc2tellico.xsl
@@ -40,7 +42,6 @@ SET(XSLT_FILES
     tellico-by-title.xsl
     tellico-common.xsl
     tellico-printing.xsl
-    thegamesdb2tellico.xsl
     UNIMARC2MODS3.xsl
     unixref2tellico.xsl
     vhs-logo.png

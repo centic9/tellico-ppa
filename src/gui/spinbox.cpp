@@ -35,7 +35,7 @@ SpinBox::SpinBox(int min_, int max_, QWidget * parent_) : QSpinBox(parent_) {
   // I want to be able to have an empty value
   // an empty string just removes the special value, so set white space
   setSpecialValueText(QStringLiteral(" "));
-  connect(lineEdit(), SIGNAL(textChanged(const QString&)), SLOT(checkValue(const QString&)));
+  connect(lineEdit(), &QLineEdit::textChanged, this, &SpinBox::checkValue);
 }
 
 void SpinBox::checkValue(const QString& text_) {
@@ -61,7 +61,7 @@ void SpinBox::stepBy(int steps_) {
   QSpinBox::stepBy(steps_);
 
   // QT bug? Apparently, after the line edit is cleared, the internal value is not changed
-  // then when the little buttons are clickeed, the internal value is inserted in the line edit
+  // then when the little buttons are clicked, the internal value is inserted in the line edit
   // but the valueChanged signal is not emitted
   if(oldText != lineEdit()->text() && oldValue == value()) {
     emit valueChanged(value());

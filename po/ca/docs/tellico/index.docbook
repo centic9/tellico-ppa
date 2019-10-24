@@ -36,19 +36,30 @@ as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
 
-<!-- Date and version information of the documentation
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (DD/MM/YYYY) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
+<!-- Date of the documentation
+Change date/releaseinfo only if
+   docbook is updated and verified to be valid for the current app version
+   or
+   docbook is proofread and verified to be valid for the current app version
+Don't forget to include this last date.
+Please respect the format of the date (YYYY-MM-DD),it is used by scripts.
+-->
 <date
->28 d'agost de 2009</date>
+>12 de maig de 2019</date>
+
+<!--version information of Frameworks/Plasma/Applications this documentation is valid for.
+Example:
+Frameworks xx.yy for docbooks in frameworks
+Plasma xx.yy for docbooks in plasma workspace
+Applications xx.yy for docbooks released as Applications
+xx.yy (Applications xx.yy) for docbooks with own version released as Applications
+$applicationname xx.yy for applications with independent release schedule (extragear/playground)
+-->
 <releaseinfo
->2.0</releaseinfo>
+>Tellico 3.2</releaseinfo>
 
 <title
->El manual de &tellico;</title>
+>El manual del &tellico;</title>
 
 <authorgroup>
 <author
@@ -68,27 +79,7 @@ Do NOT change these in the translation. -->
 
 <copyright>
 <year
->2001</year>
-<year
->2002</year>
-<year
->2003</year>
-<year
->2004</year>
-<year
->2005</year>
-<year
->2006</year>
-<year
->2007</year>
-<year
->2008</year>
-<year
->2009</year>
-<year
->2010</year>
-<year
->2011</year>
+>2001-2019</year>
 <holder
 >&robby;</holder>
 </copyright>
@@ -106,7 +97,7 @@ Do NOT change these in the translation. -->
 
 <abstract>
 <para
->Aquest document és un manual per a l'ús de &tellico;, una aplicació per a gestionar col·leccions. </para>
+>Aquest document és un manual per a l'ús del &tellico;, una aplicació per a gestionar col·leccions. </para>
 </abstract>
 
 <!-- This is a set of Keywords for indexing by search engines.
@@ -160,29 +151,29 @@ revision history. (see installation appendix comment) -->
 >&tellico;</title>
 
 <para
->&tellico; és un programa per a gestionar col·leccions. Va començar com un simple gestor de col·leccions de llibres, i s'ha estès per incloure plantilles de col·lecció per omissió per a bibliografies, còmics, vídeos, música, monedes, segells, cromos, videojocs, vins, jocs de taula i llistats de fitxers. A més, es poden construir col·leccions personalitzades per a qualsevol altre tipus d'objecte col·leccionable. </para>
+>El &tellico; és un programa per a gestionar col·leccions. Va començar com un simple gestor de col·leccions de llibres, i s'ha estès per incloure plantilles de col·lecció per omissió per a bibliografies, còmics, vídeos, música, monedes, segells, cromos, videojocs, vins, jocs de taula i llistats de fitxers. A més, es poden construir col·leccions personalitzades per a qualsevol altre tipus d'objecte col·leccionable. </para>
 
 <sect2 id="what-tellico-is">
 <title
->Què és &tellico;</title>
+>Què és el &tellico;</title>
 
 <para
->&tellico; realitza un seguiment dels elements en una col·lecció, i ofereix una manera senzilla d'introduir dades per a cada entrada. Proporciona diversos tipus de camp, i permet un nombre il·limitat de camps definits per l'usuari. Les entrades en una col·lecció es poden agrupar per qualsevol camp per a una fàcil organització i vistes personalitzables mostren tanta o tan poca informació com vulgueu. </para>
+>El &tellico; realitza un seguiment dels elements en una col·lecció, i ofereix una manera senzilla d'introduir dades per a cada entrada. Proporciona diversos tipus de camp, i permet un nombre il·limitat de camps definits per l'usuari. Les entrades en una col·lecció es poden agrupar per qualsevol camp per a una fàcil organització i vistes personalitzables mostren tanta o tan poca informació com vulgueu. </para>
 
 <para
->Es poden seguir els préstecs, amb integració opcional amb &korganizer;. Les col·leccions es poden importar o exportar utilitzant una varietat de formats, per a permetre un fàcil intercanvi o la publicació de les dades. </para>
+>Es pot fer el seguiment dels préstecs dels elements a la vostra col·lecció, incloent-hi una data de venciment. Les col·leccions es poden importar o exportar utilitzant una varietat de formats, per a permetre un fàcil intercanvi o la publicació de les dades. </para>
 
 </sect2>
 
 <sect2 id="what-tellico-is-not">
 <title
->Què no és &tellico;</title>
+>Què no és el &tellico;</title>
 
 <para
->&tellico; no és un reproductor d'àudio o vídeo. No proporciona instal·lacions per a llegir o modificar els fitxers multimèdia. Tampoc proporciona cap funcionalitat per a l'edició d'imatges. Encara que &tellico; té alguna funcionalitat per a la gestió de llistes de bibliografia, no és un gestor dedicat de referència bibliogràfica. &tellico; tampoc pretén tenir totes les capacitats d'una base de dades relacional en tota regla. </para>
+>El &tellico; no és un reproductor d'àudio o vídeo. No proporciona instal·lacions per a llegir o modificar els fitxers multimèdia. Tampoc proporciona cap funcionalitat per a l'edició d'imatges. Encara que el &tellico; té alguna funcionalitat per a la gestió de llistes de bibliografia, no és un gestor dedicat de referència bibliogràfica. El &tellico; tampoc pretén tenir totes les capacitats d'una base de dades relacional en tota regla. </para>
 
 <para
->Com certa forma d'un descàrrec de responsabilitat, &tellico; és una afició per a l'autor, i no es donen garanties sobre la seva funcionalitat, utilitat o qualsevol altra cosa. S'inclou més informació a la <link linkend="credits"
+>Com certa forma d'un descàrrec de responsabilitat, el &tellico; és una afició per a l'autor, i no es donen garanties sobre la seva funcionalitat, utilitat o qualsevol altra cosa. S'inclou més informació a la <link linkend="credits"
 >declaració de llicència</link
 >. </para>
 
@@ -197,18 +188,18 @@ revision history. (see installation appendix comment) -->
 <title
 >Col·leccions</title>
 <para
->A &tellico;, una col·lecció és el document. Sols existeix una col·lecció a cada fitxer de &tellico;. Una col·lecció conté qualsevol nombre de <link linkend="fields"
+>Al &tellico;, una col·lecció és el document. Sols existeix una col·lecció a cada fitxer del &tellico;. Una col·lecció conté qualsevol nombre de <link linkend="fields"
 >camps</link
 > i <link linkend="entries"
 >entrades</link
->. Per omissió, &tellico; implementa 12 tipus de col·leccions específiques: llibres, entrades bibliogràfiques, còmics, vídeos, música, cromos, monedes, segells, videojocs, vins, jocs de taula, i llistats de fitxers. A més, hi ha disponible una plantilla de col·lecció genèrica buida per a qualsevol altre tipus d'objecte de col·leccions o llistes. </para>
+>. Per omissió, el &tellico; implementa 12 tipus de col·leccions específiques: llibres, entrades bibliogràfiques, còmics, vídeos, música, cromos, monedes, segells, videojocs, vins, jocs de taula, i llistats de fitxers. A més, hi ha disponible una plantilla de col·lecció genèrica buida per a qualsevol altre tipus d'objecte de col·leccions o llistes. </para>
 </sect2>
 
 <sect2 id="fields">
 <title
 >Camps de la col·lecció</title>
 <para
->Cada col·lecció pot tenir un nombre il·limitat de camps. &tellico; suporta onze tipus de camps, que permeten una àmplia gamma de dades diferents. Els camps es poden editar amb el <link linkend="fields-dialog"
+>Cada col·lecció pot tenir un nombre il·limitat de camps. El &tellico; admet onze tipus de camps, que permeten una àmplia gamma de dades diferents. Els camps es poden editar amb el <link linkend="fields-dialog"
 ><interface
 >diàleg Camps de la col·lecció</interface
 ></link
@@ -222,10 +213,10 @@ revision history. (see installation appendix comment) -->
 >Entrades de la col·lecció</title>
 
 <para
->Una entrada és el registre bàsic en &tellico;. Cada entrada conté un sol valor per a cada camp a la col·lecció. Una col·lecció pot tenir un nombre il·limitat d'entrades, en teoria, encara que tota la col·lecció sempre resideix en la memòria, massa entrades podrien alentir l'aplicació. </para>
+>Una entrada és el registre bàsic en el &tellico;. Cada entrada conté un sol valor per a cada camp a la col·lecció. Una col·lecció pot tenir un nombre il·limitat d'entrades, en teoria, encara que tota la col·lecció sempre resideix en la memòria, massa entrades podrien alentir l'aplicació. </para>
 
 <para
->&tellico; ha estat provada amb una col·lecció de 10.000 entrades, i la velocitat era satisfactòria. No obstant això, si s'inclouen moltes imatges grans a la col·lecció, el temps de càrrega i el processament es poden alentir dràsticament. El rendiment pot millorar fent que &tellico; emmagatzemi les imatges per separat del fitxer de dades en si, ja sigui a la carpeta específica de l'aplicació o en una carpeta relativa al fitxer de dades. Podeu trobar més informació a la <link linkend="configuration"
+>El &tellico; ha estat provada amb una col·lecció de 10.000 entrades, i la velocitat era satisfactòria. No obstant això, si s'inclouen moltes imatges grans a la col·lecció, el temps de càrrega i el processament es poden alentir dràsticament. El rendiment pot millorar fent que el &tellico; emmagatzemi les imatges per separat del fitxer de dades en si, ja sigui a la carpeta específica de l'aplicació o en una carpeta relativa al fitxer de dades. Podeu trobar més informació a la <link linkend="configuration"
 >secció de configuració</link
 >. </para>
 
@@ -264,18 +255,17 @@ file included in the KDE distribution. -->
 <para
 >&tellico; </para>
 <para
->Copyright del programa 2001-2011 &robby; <email
+>Copyright del programa 2001-2019 &robby; <email
 >&email;</email
 > </para>
 <para
->Copyright de la documentació 2001-2011 &robby; <email
+>Copyright de la documentació 2001-2019 &robby; <email
 >&email;</email
 > </para>
 
 <para
 >Traductor de la documentació: &credits.Antoni.Bella;</para
-> 
-&underGPL; &underFDL; <para
+> &underGPL; &underFDL; <para
 >L'autor d'aquesta documentació també ha donat permís per utilitzar el contingut sota els termes de la <ulink url="http://www.freebsd.org/copyright/freebsd-doc-license.html"
 >Llicència de la documentació de FreeBSD</ulink
 >, si així ho voleu. Per a permetre l'ús de la vostra versió d'aquest contingut només en els termes de la Llicència de la documentació de FreeBSD, i no permetre que altres utilitzin la vostra versió del fitxer sota els termes de la GFDL, indiqueu la vostra decisió suprimint la notificació GFDL i substituint-la per la notificació i altres disposicions requerides per la Llicència de la documentació de FreeBSD. Si no se suprimeix la notificació GFDL anterior, un receptor podrà utilitzar la vostra versió del fitxer sota els termes de la GFDL o la Llicència de la documentació de FreeBSD.</para>

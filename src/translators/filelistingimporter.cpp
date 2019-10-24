@@ -80,7 +80,7 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
 
   ProgressItem& item = ProgressManager::self()->newProgressItem(this, i18n("Scanning files..."), true);
   item.setTotalSteps(100);
-  connect(&item, &Tellico::ProgressItem::signalCancelled, this, &Tellico::Import::FileListingImporter::slotCancel);
+  connect(&item, &Tellico::ProgressItem::signalCancelled, this, &FileListingImporter::slotCancel);
   ProgressItem::Done done(this);
 
   // going to assume only one volume will ever be imported
@@ -91,8 +91,8 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
           ? KIO::listRecursive(url(), KIO::DefaultFlags, false /* include hidden */)
           : KIO::listDir(url(), KIO::DefaultFlags, false /* include hidden */);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(entries(KIO::Job*, const KIO::UDSEntryList&)),
-          SLOT(slotEntries(KIO::Job*, const KIO::UDSEntryList&)));
+  void (KIO::ListJob::* jobEntries)(KIO::Job*, const KIO::UDSEntryList&) = &KIO::ListJob::entries;
+  connect(static_cast<KIO::ListJob*>(m_job.data()), jobEntries, this, &FileListingImporter::slotEntries);
 
   if(!m_job->exec() || m_cancelled) {
     myDebug() << "did not run job:" << m_job->errorString();
@@ -128,6 +128,9 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
   const QString modified = QStringLiteral("modified");
   const QString metainfo = QStringLiteral("metainfo");
   const QString icon     = QStringLiteral("icon");
+
+  // cache the icon image ids to avoid repeated creation of Data::Image objects
+  QHash<QString, QString> iconImageId;
 
   m_coll = new Data::FileCatalog(true);
   QString tmp;
@@ -206,18 +209,23 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
     entry->setField(metainfo, strings.join(FieldFormat::rowDelimiterString()));
 #endif
 
+    QPixmap pixmap;
     if(!m_cancelled && usePreview) {
-      m_pixmap = Tellico::NetAccess::filePreview(item, FILE_PREVIEW_SIZE);
-      if(m_pixmap.isNull()) {
-        m_pixmap = QIcon::fromTheme(item.iconName()).pixmap(QSize(FILE_PREVIEW_SIZE, FILE_PREVIEW_SIZE));
+      pixmap = Tellico::NetAccess::filePreview(item, FILE_PREVIEW_SIZE);
+    }
+    if(pixmap.isNull()) {
+      if(iconImageId.contains(item.iconName())) {
+        entry->setField(icon, iconImageId.value(item.iconName()));
+      } else {
+        pixmap = QIcon::fromTheme(item.iconName()).pixmap(QSize(FILE_PREVIEW_SIZE, FILE_PREVIEW_SIZE));
+        const QString id = ImageFactory::addImage(pixmap, QStringLiteral("PNG"));
+        if(!id.isEmpty()) {
+          entry->setField(icon, id);
+          iconImageId.insert(item.iconName(), id);
+        }
       }
     } else {
-      m_pixmap = QIcon::fromTheme(item.iconName()).pixmap(QSize(FILE_PREVIEW_SIZE, FILE_PREVIEW_SIZE));
-    }
-
-    if(!m_pixmap.isNull()) {
-      // is png best option?
-      const QString id = ImageFactory::addImage(m_pixmap, QStringLiteral("PNG"));
+      const QString id = ImageFactory::addImage(pixmap, QStringLiteral("PNG"));
       if(!id.isEmpty()) {
         entry->setField(icon, id);
       }

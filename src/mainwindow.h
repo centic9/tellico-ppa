@@ -40,11 +40,12 @@ class KToolBar;
 class QAction;
 class KSelectAction;
 class KToggleAction;
+class KDualAction;
 class KRecentFilesAction;
 class KActionMenu;
 
 class QCloseEvent;
-class QSplitter;
+class QDockWidget;
 class QSignalMapper;
 
 namespace Tellico {
@@ -52,6 +53,7 @@ namespace Tellico {
   namespace GUI {
     class LineEdit;
     class TabWidget;
+    class DockWidget;
   }
   class Controller;
   class ViewStack;
@@ -201,10 +203,6 @@ public Q_SLOTS:
    */
   void slotEditDeselect();
   /**
-   * Toggles the group widget.
-   */
-  void slotToggleGroupWidget();
-  /**
    * Toggles the edit widget.
    */
   void slotToggleEntryEditor();
@@ -333,7 +331,7 @@ private:
   bool querySaveModified();
 
   /**
-   * Called before the window is closed, either by the user or indirectely by the
+   * Called before the window is closed, either by the user or indirectly by the
    * session manager.
    *
    * The purpose of this function is to prepare the window in a way that it is safe to close it,
@@ -400,7 +398,7 @@ private Q_SLOTS:
    * Update the filter to match any field with text. If a non-word character appears, the
    * text is interpreted as a regexp.
    */
-  void slotUpdateFilter();
+  void slotCheckFilterQueue();
   void slotUpdateFilter(Tellico::FilterPtr filter);
   /**
    * Updates the collection toolbar.
@@ -460,6 +458,9 @@ private Q_SLOTS:
    * Toggle menubar visibility
    */
   void slotToggleMenuBarVisibility();
+  void slotToggleLayoutLock(bool lock);
+  void slotResetLayout();
+  void guiFactoryReset();
 
 private:
   void importFile(Import::Format format, const QList<QUrl>& kurls);
@@ -479,16 +480,15 @@ private:
   QAction* m_updateAll;
   QAction* m_checkInEntry;
   QAction* m_checkOutEntry;
-  KToggleAction* m_toggleGroupWidget;
   KToggleAction* m_toggleEntryEditor;
+  KDualAction* m_lockLayout;
 
   KSelectAction* m_entryGrouping;
   GUI::LineEdit* m_quickFilter;
 
-  // m_split is used between the stuff on the left and stuff on the right
-  QSplitter* m_split;
-  // m_leftSplit is used between detailed view and entry view
-  QSplitter* m_rightSplit;
+  QMainWindow* m_dummyWindow;
+  GUI::DockWidget* m_groupViewDock;
+  GUI::DockWidget* m_collectionViewDock;
 
   Tellico::StatusBar* m_statusBar;
 

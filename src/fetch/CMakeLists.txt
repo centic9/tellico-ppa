@@ -12,6 +12,7 @@ SET(fetch_STAT_SRCS
    bibliosharefetcher.cpp
    bibsonomyfetcher.cpp
    boardgamegeekfetcher.cpp
+   comicvinefetcher.cpp
    configwidget.cpp
    crossreffetcher.cpp
    dbcfetcher.cpp
@@ -41,7 +42,9 @@ SET(fetch_STAT_SRCS
    isbndbfetcher.cpp
    kinofetcher.cpp
    kinopoiskfetcher.cpp
+   kinoteatrfetcher.cpp
    messagehandler.cpp
+   mobygamesfetcher.cpp
    moviemeterfetcher.cpp
    mrlookupfetcher.cpp
    multifetcher.cpp

@@ -98,8 +98,8 @@ void ArxivFetcher::doSearch() {
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)),
-          SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result,
+          this, &ArxivFetcher::slotComplete);
 }
 
 void ArxivFetcher::stop() {
@@ -156,6 +156,7 @@ void ArxivFetcher::slotComplete(KJob*) {
     QDomDocument dom;
     if(!dom.setContent(data, true /*namespace*/)) {
       myWarning() << "server did not return valid XML.";
+      stop();
       return;
     }
     // total is top level element, with attribute totalResultsAvailable

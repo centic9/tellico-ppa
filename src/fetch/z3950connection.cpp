@@ -228,7 +228,7 @@ void Z3950Connection::run() {
 
   QString newSyntax = m_syntax;
   if(numResults > 0) {
-    myLog() << "current syntax is " << m_syntax << " (" << numResults << " results)";
+//    myLog() << "current syntax is " << m_syntax << " (" << numResults << " results)";
     // so now we know that results exist, might have to check syntax
 
     if(m_syntax == QLatin1String("ads")) {
@@ -419,6 +419,8 @@ bool Z3950Connection::makeConnection() {
     done(s, MessageHandler::Error);
     return false;
   }
+#else
+  Q_UNUSED(m_port);
 #endif
   m_connected = true;
   return true;

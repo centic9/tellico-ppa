@@ -139,8 +139,8 @@ void EntrezFetcher::search() {
 //  myLog() << "search url: " << u.url();
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)),
-          SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result,
+          this, &EntrezFetcher::slotComplete);
 }
 
 void EntrezFetcher::continueSearch() {
@@ -258,8 +258,8 @@ void EntrezFetcher::doSummary() {
 //  myLog() << "summary url:" << u.url();
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)),
-          SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result,
+          this, &EntrezFetcher::slotComplete);
 }
 
 void EntrezFetcher::summaryResults(const QByteArray& data_) {
@@ -343,7 +343,7 @@ Tellico::Data::EntryPtr EntrezFetcher::fetchEntryHook(uint uid_) {
   q.addQueryItem(QStringLiteral("id"),         QString::number(id));
   u.setQuery(q);
 
-  // now it's sychronous
+  // now it's synchronous
   QString xmlOutput = FileHandler::readXMLFile(u, true /*quiet*/);
   if(xmlOutput.isEmpty()) {
     myWarning() << "unable to download " << u;
@@ -376,7 +376,7 @@ Tellico::Data::EntryPtr EntrezFetcher::fetchEntryHook(uint uid_) {
   Data::EntryPtr e = coll->entries().front();
 
   // try to get a link, but only if necessary
-  if(optionalFields().contains(QLatin1String("url"))) {
+  if(optionalFields().contains(QStringLiteral("url"))) {
     QUrl link(QString::fromLatin1(ENTREZ_BASE_URL));
     link.setPath(link.path() + QLatin1String(ENTREZ_LINK_CGI));
     QUrlQuery q;

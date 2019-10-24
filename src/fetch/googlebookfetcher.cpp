@@ -148,7 +148,7 @@ void GoogleBookFetcher::doSearch(const QString& term_) {
 
   QPointer<KIO::StoredTransferJob> job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(job, GUI::Proxy::widget());
-  connect(job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
+  connect(job.data(), &KJob::result, this, &GoogleBookFetcher::slotComplete);
   m_jobs << job;
 }
 
@@ -252,7 +252,7 @@ void GoogleBookFetcher::slotComplete(KJob* job_) {
   field->setCategory(i18n("General"));
   coll->addField(field);
 
-  if(!coll->hasField(QStringLiteral("googlebook")) && optionalFields().contains(QLatin1String("googlebook"))) {
+  if(!coll->hasField(QStringLiteral("googlebook")) && optionalFields().contains(QStringLiteral("googlebook"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("googlebook"), i18n("Google Book Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
@@ -345,7 +345,7 @@ void GoogleBookFetcher::populateEntry(Data::EntryPtr entry, const QVariantMap& r
     entry->setField(QStringLiteral("cover"), mapValue(imageMap, "smallThumbnail"));
   }
 
-  if(optionalFields().contains(QLatin1String("googlebook"))) {
+  if(optionalFields().contains(QStringLiteral("googlebook"))) {
     entry->setField(QStringLiteral("googlebook"), mapValue(volumeMap, "infoLink"));
   }
 }
@@ -392,7 +392,7 @@ GoogleBookFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const GoogleBook
   l->addWidget(label, ++row, 0);
 
   m_apiKeyEdit = new QLineEdit(optionsWidget());
-  connect(m_apiKeyEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_apiKeyEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_apiKeyEdit, row, 1);
   QString w = i18n("The default Tellico key may be used, but searching may fail due to reaching access limits.");
   label->setWhatsThis(w);

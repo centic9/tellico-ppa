@@ -107,7 +107,7 @@ void MovieMeterFetcher::search() {
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
-  connect(m_job, SIGNAL(result(KJob*)), SLOT(slotComplete(KJob*)));
+  connect(m_job.data(), &KJob::result, this, &MovieMeterFetcher::slotComplete);
 }
 
 void MovieMeterFetcher::stop() {
@@ -216,12 +216,12 @@ void MovieMeterFetcher::slotComplete(KJob* job_) {
   field->setCategory(i18n("General"));
   coll->addField(field);
 
-  if(optionalFields().contains(QLatin1String("moviemeter"))) {
+  if(optionalFields().contains(QStringLiteral("moviemeter"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("moviemeter"), i18n("MovieMeter Link"), Data::Field::URL));
     field->setCategory(i18n("General"));
     coll->addField(field);
   }
-  if(optionalFields().contains(QLatin1String("alttitle"))) {
+  if(optionalFields().contains(QStringLiteral("alttitle"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("alttitle"), i18n("Alternative Titles"), Data::Field::Table));
     field->setFormatType(FieldFormat::FormatTitle);
     coll->addField(field);

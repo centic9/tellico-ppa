@@ -59,6 +59,11 @@ QString BiblioShareFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
+// https://www.booknetcanada.ca/get-a-token
+QString BiblioShareFetcher::attribution() const {
+  return i18n("Data provided by <a href=\"https://www.booknetcanada.ca/biblioshare\">BNC BiblioShare</a>.");
+}
+
 bool BiblioShareFetcher::canFetch(int type) const {
   return type == Data::Collection::Book || type == Data::Collection::Bibtex;
 }
@@ -72,7 +77,7 @@ void BiblioShareFetcher::readConfigHook(const KConfigGroup& config_) {
 
 QUrl BiblioShareFetcher::searchUrl() {
   QUrl u(QString::fromLatin1(BIBLIOSHARE_BASE_URL));
-  u.setPath(u.path() + QLatin1String("BiblioSimple"));
+  u.setPath(u.path() + QStringLiteral("BiblioSimple"));
 
   QUrlQuery q;
   q.addQueryItem(QStringLiteral("Token"), m_token);
@@ -112,13 +117,13 @@ Tellico::Data::EntryPtr BiblioShareFetcher::fetchEntryHookData(Data::EntryPtr en
       isbn.remove(QLatin1Char('-'));
 
       QUrl imageUrl(QString::fromLatin1(BIBLIOSHARE_BASE_URL));
-      imageUrl.setPath(imageUrl.path() + QLatin1String("Images"));
+      imageUrl.setPath(imageUrl.path() + QStringLiteral("Images"));
       QUrlQuery q;
       q.addQueryItem(QStringLiteral("Token"), m_token);
-      // QUrl does not had the "=" for empty SAN and Thumbnail query items
-      q.addQueryItem(QStringLiteral("SAN"), QStringLiteral(" "));
-      q.addQueryItem(QStringLiteral("Thumbnail"), QStringLiteral(" "));
       q.addQueryItem(QStringLiteral("EAN"), isbn);
+      // the actual values for SAN Thumbnail don't seem to matter, they just can't be empty
+      q.addQueryItem(QStringLiteral("SAN"), QStringLiteral("string"));
+      q.addQueryItem(QStringLiteral("Thumbnail"), QStringLiteral("cover"));
       imageUrl.setQuery(q);
       const QString id = ImageFactory::addImage(imageUrl, true);
       if(!id.isEmpty()) {
@@ -153,7 +158,7 @@ QString BiblioShareFetcher::defaultName() {
 }
 
 QString BiblioShareFetcher::defaultIcon() {
-  return favIcon("https://www.biblioshare.org");
+  return favIcon("https://www.booknetcanada.ca/biblioshare");
 }
 
 BiblioShareFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BiblioShareFetcher* fetcher_)
@@ -167,7 +172,7 @@ BiblioShareFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BiblioSha
                                "If you agree to the terms and conditions, <a href='%2'>sign "
                                "up for an account</a>, and enter your information below.",
                                 preferredName(),
-                                QLatin1String("http://www.booknetcanada.ca/biblioshare-web-services/#onixweb")),
+                                QStringLiteral("https://www.booknetcanada.ca/get-a-token")),
                           optionsWidget());
   al->setOpenExternalLinks(true);
   al->setWordWrap(true);
@@ -180,7 +185,7 @@ BiblioShareFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BiblioSha
   l->addWidget(label, ++row, 0);
 
   m_tokenEdit = new QLineEdit(optionsWidget());
-  connect(m_tokenEdit, SIGNAL(textChanged(const QString&)), SLOT(slotSetModified()));
+  connect(m_tokenEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_tokenEdit, row, 1);
   QString w = i18n("The default Tellico key may be used, but searching may fail due to reaching access limits.");
   label->setWhatsThis(w);

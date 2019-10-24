@@ -71,7 +71,13 @@ public:
     CA = 5,
     CN = 6,
     ES = 7,
-    IT = 8
+    IT = 8,
+    BR = 9,
+    AU = 10,
+    IN = 11,
+    MX = 12,
+    TR = 13,
+    XX = 14
   };
 
   enum ImageSize {
@@ -98,6 +104,8 @@ public:
   struct SiteData {
     QString title;
     QUrl url;
+    QString country;
+    QString countryName;
   };
   static const SiteData& siteData(int site);
 
@@ -141,7 +149,7 @@ private:
   int m_page;
   int m_total;
   int m_numResults;
-  QHash<int, Data::EntryPtr> m_entries; // they get modified after collection is created, so can't be const
+  QHash<uint, Data::EntryPtr> m_entries; // they get modified after collection is created, so can't be const
   QPointer<KIO::StoredTransferJob> m_job;
 
   bool m_started;

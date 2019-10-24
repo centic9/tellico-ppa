@@ -221,7 +221,6 @@ TARGET_LINK_LIBRARIES(bibtextest ${TELLICO_BTPARSE_LIBS} ${TELLICO_TEST_LIBS})
 
 add_executable(bibtexmltest bibtexmltest.cpp
   ../translators/bibtexmlimporter.cpp
-  ../translators/xmlimporter.cpp
   ../translators/bibtexmlexporter.cpp
   ../translators/exporter.cpp
 )
@@ -261,7 +260,6 @@ TARGET_LINK_LIBRARIES(csvtest ${TELLICO_CSV_LIBS} translatorstest ${TELLICO_TEST
 
 add_executable(delicioustest delicioustest.cpp
   ../translators/deliciousimporter.cpp
-  ../translators/xmlimporter.cpp
 )
 ecm_mark_nongui_executable(delicioustest)
 add_test(delicioustest delicioustest)
@@ -302,7 +300,6 @@ TARGET_LINK_LIBRARIES(gcstartest translatorstest ${TELLICO_TEST_LIBS})
 
 add_executable(griffithtest griffithtest.cpp
   ../translators/griffithimporter.cpp
-  ../translators/xmlimporter.cpp
 )
 ecm_mark_nongui_executable(griffithtest)
 add_test(griffithtest griffithtest)
@@ -382,7 +379,6 @@ SET(fetcherstest_SRCS
   ${fetcherstest_SRCS}
   ../fetch/srufetcher.cpp
   ../fetch/xmlfetcher.cpp
-  ../translators/xmlimporter.cpp
   ../gui/lineedit.cpp
   ../gui/combobox.cpp
   ../gui/stringmapwidget.cpp
@@ -513,6 +509,14 @@ ecm_mark_nongui_executable(boardgamegeekfetchertest)
 add_test(boardgamegeekfetchertest boardgamegeekfetchertest)
 ecm_mark_as_test(boardgamegeekfetchertest)
 TARGET_LINK_LIBRARIES(boardgamegeekfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
+add_executable(comicvinefetchertest comicvinefetchertest.cpp abstractfetchertest.cpp
+  ../fetch/comicvinefetcher.cpp
+)
+ecm_mark_nongui_executable(comicvinefetchertest)
+add_test(comicvinefetchertest comicvinefetchertest)
+ecm_mark_as_test(comicvinefetchertest)
+TARGET_LINK_LIBRARIES(comicvinefetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 add_executable(crossreffetchertest crossreffetchertest.cpp abstractfetchertest.cpp
   ../fetch/crossreffetcher.cpp
@@ -706,6 +710,22 @@ ecm_mark_nongui_executable(kinopoiskfetchertest)
 add_test(kinopoiskfetchertest kinopoiskfetchertest)
 ecm_mark_as_test(kinopoiskfetchertest)
 TARGET_LINK_LIBRARIES(kinopoiskfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
+add_executable(kinoteatrfetchertest kinoteatrfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/kinoteatrfetcher.cpp
+)
+ecm_mark_nongui_executable(kinoteatrfetchertest)
+add_test(kinoteatrfetchertest kinoteatrfetchertest)
+ecm_mark_as_test(kinoteatrfetchertest)
+TARGET_LINK_LIBRARIES(kinoteatrfetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
+add_executable(mobygamesfetchertest mobygamesfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/mobygamesfetcher.cpp
+)
+ecm_mark_nongui_executable(mobygamesfetchertest)
+add_test(mobygamesfetchertest mobygamesfetchertest)
+ecm_mark_as_test(mobygamesfetchertest)
+TARGET_LINK_LIBRARIES(mobygamesfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 add_executable(moviemeterfetchertest moviemeterfetchertest.cpp abstractfetchertest.cpp
   ../fetch/moviemeterfetcher.cpp

@@ -31,7 +31,6 @@
 
 #include <QLineEdit>
 #include <QPointer>
-#include <QDate>
 
 class KJob;
 namespace KIO {
@@ -92,18 +91,18 @@ private:
   void populateHashes();
   QString companyName(const QString& companyId) const;
 
-  static QPointer<KIO::StoredTransferJob> igdbJob(const QUrl& url, const QString& apiKey);
+  static QPointer<KIO::StoredTransferJob> igdbJob(const QUrl& url, const QString& apiKey, const QString& query);
 
   bool m_started;
 
   QString m_apiKey;
-  QHash<int, Data::EntryPtr> m_entries;
+  QHash<uint, Data::EntryPtr> m_entries;
   QPointer<KIO::StoredTransferJob> m_job;
 
   QHash<int, QString> m_genreHash;
   QHash<int, QString> m_platformHash;
-  QHash<QString, QString> m_esrbHash;
-  QHash<QString, QString> m_pegiHash;
+  QHash<int, QString> m_esrbHash;
+  QHash<int, QString> m_pegiHash;
   mutable QHash<QString, QString> m_companyHash;
 };
 

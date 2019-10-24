@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.1.4")
+set(TELLICO_VERSION "3.2.1+git")
 
 set(QT_MIN_VERSION "5.4.0")
 
@@ -104,18 +104,6 @@ set_package_properties(KF5Sane PROPERTIES
 if(KF5Sane_FOUND)
     include_directories(${KF5Sane_INCLUDE_DIR})
 endif(KF5Sane_FOUND)
-
-# Use pkg-config just to check QImageBlitz library version since CMake doesn't
-# can't just use pkg-config because qimageblitz.pc doesn't seem to have correct includes and linking
-pkg_check_modules (QImageBlitz qimageblitz>=5.0)
-if(QImageBlitz_FOUND)
-    find_package(QImageBlitz 5.0)
-    set_package_properties(QImageBlitz PROPERTIES
-        DESCRIPTION "Support for image gradients in the default template"
-        URL "http://api.kde.org/kdesupport-api/kdesupport-apidocs/qimageblitz/html/"
-        TYPE OPTIONAL)
-        include_directories(${QIMAGEBLITZ_INCLUDES})
-endif(QImageBlitz_FOUND)
 
 #macro_optional_find_package(KdepimLibs 4.5)
 #macro_log_feature(KDEPIMLIBS_FOUND "kdepimlibs" "Support for using the address book and calendar for loans" "http://pim.kde.org" FALSE "4.5.0" "")
@@ -253,7 +241,6 @@ add_subdirectory(doc)
 
 ########## Wrap tests results around the tests done within the source
 
-macro_bool_to_01(QIMAGEBLITZ_FOUND HAVE_QIMAGEBLITZ)
 macro_bool_to_01(TAGLIB_FOUND HAVE_TAGLIB)
 macro_bool_to_01(Poppler_Qt5_FOUND HAVE_POPPLER)
 macro_bool_to_01(Exempi_FOUND HAVE_EXEMPI)

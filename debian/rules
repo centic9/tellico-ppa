@@ -16,7 +16,8 @@ TESTS_HOME=$(CURDIR)/debian/tests.home
 
 override_dh_auto_configure:
 	dh_auto_configure -Skf5 -- \
-		-DENABLE_WEBCAM=false
+		-DBUILD_TESTS=false \
+		-DENABLE_WEBCAM=true
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))

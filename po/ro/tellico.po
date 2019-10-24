@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico 1.2\n"
 "Report-Msgid-Bugs-To: http://bugs.kde.org\n"
-"POT-Creation-Date: 2018-09-02 06:38+0200\n"
+"POT-Creation-Date: 2018-12-18 07:11+0100\n"
 "PO-Revision-Date: 2012-12-22 11:53+0200\n"
 "Last-Translator: Sergiu Bivol <sergiu@ase.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -3066,7 +3066,7 @@ msgstr ""
 #: src/fetch/discogsfetcher.cpp:192 src/fetch/filmasterfetcher.cpp:142
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/igdbfetcher.cpp:180
 #: src/fetch/isbndbfetcher.cpp:232 src/fetch/kinofetcher.cpp:329
-#: src/fetch/kinopoiskfetcher.cpp:383 src/fetch/moviemeterfetcher.cpp:162
+#: src/fetch/kinopoiskfetcher.cpp:397 src/fetch/moviemeterfetcher.cpp:162
 #: src/fetch/omdbfetcher.cpp:177 src/fetch/themoviedbfetcher.cpp:210
 #: src/fetch/vndbfetcher.cpp:156
 #, kde-format
@@ -3084,7 +3084,7 @@ msgstr ""
 #: src/fetch/doubanfetcher.cpp:353 src/fetch/doubanfetcher.cpp:508
 #: src/fetch/dvdfrfetcher.cpp:169 src/fetch/imdbfetcher.cpp:743
 #: src/fetch/imdbfetcher.cpp:1435 src/fetch/kinopoiskfetcher.cpp:235
-#: src/fetch/kinopoiskfetcher.cpp:413 src/fetch/omdbfetcher.cpp:245
+#: src/fetch/kinopoiskfetcher.cpp:427 src/fetch/omdbfetcher.cpp:245
 #: src/fetch/themoviedbfetcher.cpp:282 src/fetch/themoviedbfetcher.cpp:447
 #: src/fetch/vndbfetcher.cpp:244 src/fetch/vndbfetcher.cpp:332
 #, kde-format
@@ -3363,7 +3363,7 @@ msgstr "Personal"
 #: src/fetch/dvdfrfetcher.cpp:178 src/fetch/entrezfetcher.cpp:479
 #: src/fetch/filmasterfetcher.cpp:317 src/fetch/googlescholarfetcher.cpp:280
 #: src/fetch/hathitrustfetcher.cpp:313 src/fetch/ibsfetcher.cpp:360
-#: src/fetch/kinofetcher.cpp:367 src/fetch/kinopoiskfetcher.cpp:421
+#: src/fetch/kinofetcher.cpp:367 src/fetch/kinopoiskfetcher.cpp:435
 #: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
 #: src/fetch/musicbrainzfetcher.cpp:357 src/fetch/openlibraryfetcher.cpp:397
 #: src/fetch/springerfetcher.cpp:183 src/fetch/thegamesdbfetcher.cpp:166
@@ -3755,7 +3755,7 @@ msgstr ""
 msgid "ISBNdb.com"
 msgstr ""
 
-#: src/fetch/kinopoiskfetcher.cpp:208 src/fetch/kinopoiskfetcher.cpp:414
+#: src/fetch/kinopoiskfetcher.cpp:208 src/fetch/kinopoiskfetcher.cpp:428
 #, kde-format
 msgid "KinoPoisk Link"
 msgstr ""
@@ -4317,18 +4317,18 @@ msgstr "Pliază toate grupurile"
 msgid "Filter by Group"
 msgstr ""
 
-#: src/groupview.cpp:380
+#: src/groupview.cpp:384
 #, kde-format
 msgid "%1 (Sort by Count)"
 msgstr ""
 
-#: src/groupview.cpp:387 src/models/entrygroupmodel.cpp:68
+#: src/groupview.cpp:391 src/models/entrygroupmodel.cpp:68
 #, fuzzy, kde-format
 msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Grupează după: "
 
-#: src/groupview.cpp:393 src/mainwindow.cpp:956 src/mainwindow.cpp:1578
+#: src/groupview.cpp:397 src/mainwindow.cpp:956 src/mainwindow.cpp:1578
 #: src/mainwindow.cpp:1604 src/translators/htmlexporter.cpp:329
 #, kde-format
 msgid "People"
@@ -4350,60 +4350,60 @@ msgstr "Opțiuni colecții audio"
 msgid "Edit..."
 msgstr "Ies..."
 
-#: src/gui/filterrulewidget.cpp:257 src/gui/filterrulewidget.cpp:265
-#: src/gui/filterrulewidget.cpp:275
-#, kde-format
-msgid "equals"
-msgstr ""
-
 #: src/gui/filterrulewidget.cpp:258 src/gui/filterrulewidget.cpp:266
 #: src/gui/filterrulewidget.cpp:276
 #, kde-format
-msgid "does not equal"
+msgid "equals"
 msgstr ""
 
 #: src/gui/filterrulewidget.cpp:259 src/gui/filterrulewidget.cpp:267
 #: src/gui/filterrulewidget.cpp:277
 #, kde-format
-msgid "matches regexp"
+msgid "does not equal"
 msgstr ""
 
 #: src/gui/filterrulewidget.cpp:260 src/gui/filterrulewidget.cpp:268
 #: src/gui/filterrulewidget.cpp:278
 #, kde-format
+msgid "matches regexp"
+msgstr ""
+
+#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
+#: src/gui/filterrulewidget.cpp:279
+#, kde-format
 msgid "does not match regexp"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:261
+#: src/gui/filterrulewidget.cpp:262
 #, kde-format
 msgctxt "is before a date"
 msgid "is before"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:262
+#: src/gui/filterrulewidget.cpp:263
 #, kde-format
 msgctxt "is after a date"
 msgid "is after"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:269
+#: src/gui/filterrulewidget.cpp:270
 #, kde-format
 msgctxt "is less than a number"
 msgid "is less than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:270
+#: src/gui/filterrulewidget.cpp:271
 #, kde-format
 msgctxt "is greater than a number"
 msgid "is greater than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:273
+#: src/gui/filterrulewidget.cpp:274
 #, kde-format
 msgid "contains"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:274
+#: src/gui/filterrulewidget.cpp:275
 #, kde-format
 msgid "does not contain"
 msgstr ""

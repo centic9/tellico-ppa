@@ -40,8 +40,9 @@
 ></title>
 
 <screenshot>
-<screeninfo
->El diàleg Opcions generals</screeninfo>
+<!-- <screeninfo
+>The General Options Dialog</screeninfo
+> -->
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="general-options.png"/></imageobject>
@@ -219,6 +220,7 @@
 >.</para>
 
 <itemizedlist>
+<!-- books -->
 <listitem
 ><simpara
 ><link linkend="amazon-web-services"
@@ -227,15 +229,122 @@
 ></listitem>
 <listitem
 ><simpara
+><link linkend="isbndb"
+>ISBNdb.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="openlibrary"
+>OpenLibrary.org</link
+>,</simpara
+></listitem>
+<!-- movies -->
+<listitem
+><simpara
 >la <link linkend="imdb"
->base de dades de pel·lícules d'Internet
-></link
+>base de dades de pel·lícules d'Internet</link
 >,</simpara
 ></listitem>
 <listitem
 ><simpara
 ><link linkend="allocine"
 >AlloCiné</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="tmdb"
+>TheMovieDB.org</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+>la <link linkend="omdb"
+>base de dades Open Movie</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="animenfo"
+>AnimeNfo.com</link
+>,</simpara
+></listitem>
+<!-- comics -->
+<listitem
+><simpara
+><link linkend="bedetheque"
+>BDGest</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="comicvine"
+>Comic Vine</link
+>,</simpara
+></listitem>
+<!-- music -->
+<listitem
+><simpara
+><link linkend="discogs"
+>Discogs.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="musicbrainz"
+>MusicBrainz.org</link
+>,</simpara
+></listitem>
+<!-- video games -->
+<listitem
+><simpara
+><link linkend="tgdb"
+>TheGamesDB.net</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="giantbomb"
+>GiantBomb.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="mobygames"
+>MobyGames.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="igdb"
+>IGDB.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="videogamegeek"
+>VideoGameGeek</link
+>,</simpara
+></listitem>
+<!-- board games -->
+<listitem
+><simpara
+><link linkend="boardgamegeek"
+>BoardGameGeek</link
+>,</simpara
+></listitem>
+<!-- bibliographic and others -->
+<listitem
+><simpara
+><link linkend="bib-sources"
+>arxiv.org</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="entrez"
+>bases de dades Entrez (PubMed)</link
 >,</simpara
 ></listitem>
 <listitem
@@ -248,78 +357,6 @@
 ><simpara
 ><link linkend="sru"
 >servidors SRU</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="entrez"
->bases de dades Entrez (PubMed)</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="animenfo"
->AnimeNfo.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="bedetheque"
->BDGest</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="isbndb"
->ISBNdb.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="bib-sources"
->arxiv.org</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="discogs"
->Discogs.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="tmdb"
->TheMovieDB.org</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="tgdb"
->TheGamesDB.net</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="omdb"
->OMDBAPI.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="musicbrainz"
->MusicBrainz.org</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="giantbomb"
->GiantBomb.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="openlibrary"
->OpenLibrary.org</link
 >,</simpara
 ></listitem>
 <listitem
@@ -488,15 +525,6 @@
 <title
 >Fonts de dades per a còmics</title>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> és un lloc popular per obtenir informació sobre anime, o animació japonesa. </para>
-</sect3>
-
 <sect3 id="bedetheque">
 <title
 >Bedetheque</title>
@@ -504,6 +532,15 @@
 ><ulink url="http://www.bedetheque.com"
 >Bedetheque</ulink
 > és una base de dades de còmics francesa, gestionada per BDGest. </para>
+</sect3>
+
+<sect3 id="comicvine">
+<title
+>Comic Vine</title>
+<para
+><ulink url="https://comicvine.gamespot.com/"
+>Comic Vine</ulink
+> s'anuncia com el wiki de còmics més gran de l'univers. </para>
 </sect3>
 
 </sect2>
@@ -544,10 +581,10 @@
 
 <sect3 id="omdb">
 <title
->OMDBAPI.com</title>
+>La base de dades Open Movie</title>
 <para
 ><ulink url="http://omdbapi.com"
->La base de dades oberta de pel·lícules</ulink
+>La base de dades Open Movie (OMDBAPI.com)</ulink
 > és un servei web gratuït per obtenir informació sobre les pel·lícules. </para>
 </sect3>
 
@@ -560,6 +597,14 @@
 > és un servei en línia d'informació de pel·lícules, amb seu a França. </para>
 </sect3>
 
+<sect3 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> és un lloc popular per obtenir informació sobre anime, o animació japonesa. </para>
+</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -616,6 +661,49 @@
 ><ulink url="http://thegamesdb.net"
 >TheGamesDB.net</ulink
 > és una base de dades oberta que està en línia per aficionats als videojocs. </para>
+</sect3>
+
+<sect3 id="mobygames">
+<title
+>MobyGames</title>
+<para
+><ulink url="https://www.mobygames.com"
+>MobyGames.com</ulink
+> es descriu en primer lloc com la base de dades de videojocs més antiga, gran i precisa. </para>
+</sect3>
+
+<sect3 id="igdb">
+<title
+>IGDB.com</title>
+<para
+><ulink url="https://www.igdb.com"
+>IGDB.com</ulink
+> es diu a si mateix un lloc web de jocs per a tots els que estimen els jocs. </para>
+</sect3>
+
+<sect3 id="videogamegeek">
+<title
+>VideoGameGeek</title>
+<para
+><ulink url="https://videogamegeek.com"
+>VideoGameGeek</ulink
+> és un recurs i comunitat en línia per a videojocs. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of board game sources -->
+<sect2 id="boardgame-sources">
+<title
+>Fonts de dades per a jocs de taula</title>
+
+<sect3 id="boardgamegeek">
+<title
+>BoardGameGeek</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> és un recurs i comunitat en línia per a jocs de taula. </para>
 </sect3>
 
 </sect2>

@@ -35,6 +35,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QFrame>
+#include <QDate>
 #include <QEvent>
 #include <QMenu>
 #include <QWidgetAction>
@@ -45,6 +46,8 @@ using Tellico::GUI::DateWidget;
 
 class DateWidget::DatePickerAction : public QWidgetAction
 {
+  Q_OBJECT
+
   public:
     DatePickerAction( KDatePicker *widget, QObject *parent )
       : QWidgetAction( parent ),
@@ -322,3 +325,5 @@ void DateWidget::slotDateEntered(QDate date_) {
     emit signalModified();
   }
 }
+
+#include "datewidget.moc"

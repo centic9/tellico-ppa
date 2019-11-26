@@ -49,7 +49,8 @@ namespace Tellico {
       Goodreads,
       CIW,
       VinoXML,
-      BoardGameGeek
+      BoardGameGeek,
+      LibraryThing
     };
 
     enum Action {

@@ -40,8 +40,9 @@
 ></title>
 
 <screenshot>
-<screeninfo
->El diálogo de opciones generales</screeninfo>
+<!-- <screeninfo
+>The General Options Dialog</screeninfo
+> -->
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="general-options.png"/></imageobject>
@@ -219,12 +220,26 @@
 >.</para>
 
 <itemizedlist>
+<!-- books -->
 <listitem
 ><simpara
 ><link linkend="amazon-web-services"
 >Servicios web de Amazon.com</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="isbndb"
+>ISBNdb.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="openlibrary"
+>OpenLibrary.org</link
+>,</simpara
+></listitem>
+<!-- movies -->
 <listitem
 ><simpara
 >la <link linkend="imdb"
@@ -239,20 +254,14 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="z3950"
->z39.50 servers</link
+><link linkend="tmdb"
+>TheMovieDB.org</link
 >,</simpara
 ></listitem>
 <listitem
 ><simpara
-><link linkend="sru"
->servidores SRU</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="entrez"
->Bases de datos Entrez (PubMed)</link
+>la <link linkend="omdb"
+>Open Movie Database</link
 >,</simpara
 ></listitem>
 <listitem
@@ -261,6 +270,7 @@
 >AnimeNfo.com</link
 >,</simpara
 ></listitem>
+<!-- comics -->
 <listitem
 ><simpara
 ><link linkend="bedetheque"
@@ -269,16 +279,11 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="isbndb"
->ISBNdb.com</link
+><link linkend="comicvine"
+>Comic Vine</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="bib-sources"
->arxiv.org</link
->,</simpara
-></listitem>
+<!-- music -->
 <listitem
 ><simpara
 ><link linkend="discogs"
@@ -287,26 +292,15 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="tmdb"
->TheMovieDB.org</link
+><link linkend="musicbrainz"
+>MusicBrainz.org</link
 >,</simpara
 ></listitem>
+<!-- video games -->
 <listitem
 ><simpara
 ><link linkend="tgdb"
 >TheGamesDB.net</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="omdb"
->OMDBAPI.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="musicbrainz"
->MusicBrainz.org</link
 >,</simpara
 ></listitem>
 <listitem
@@ -317,8 +311,52 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="openlibrary"
->OpenLibrary.org</link
+><link linkend="mobygames"
+>MobyGames.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="igdb"
+>IGDB.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="videogamegeek"
+>VideoGameGeek</link
+>,</simpara
+></listitem>
+<!-- board games -->
+<listitem
+><simpara
+><link linkend="boardgamegeek"
+>BoardGameGeek</link
+>,</simpara
+></listitem>
+<!-- bibliographic and others -->
+<listitem
+><simpara
+><link linkend="bib-sources"
+>arxiv.org</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="entrez"
+>Bases de datos Entrez (PubMed)</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="z3950"
+>z39.50 servers</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="sru"
+>servidores SRU</link
 >,</simpara
 ></listitem>
 <listitem
@@ -487,15 +525,6 @@
 <title
 >Fuentes de datos de Comics</title>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> es una popular página de información sobre anime, o animación japonesa. </para>
-</sect3>
-
 <sect3 id="bedetheque">
 <title
 >Bedetheque</title>
@@ -503,6 +532,15 @@
 ><ulink url="http://www.bedetheque.com"
 >Bedetheque</ulink
 > es una base de datos francesa de libros de cómics gestionada por BDGest. </para>
+</sect3>
+
+<sect3 id="comicvine">
+<title
+>Comic Vine</title>
+<para
+><ulink url="https://comicvine.gamespot.com/"
+>Comic Vine</ulink
+> se promociona como la wiki de cómics más grande del universo. </para>
 </sect3>
 
 </sect2>
@@ -543,11 +581,11 @@
 
 <sect3 id="omdb">
 <title
->OMDBAPI.com</title>
+>La Open Movie Database</title>
 <para
-><ulink url="http://omdbapi.com"
->The Open Movie Database</ulink
-> es un servicio web libre para obtener información sobre películas. </para>
+>La <ulink url="http://omdbapi.com"
+>Open Movie Database (OMDBAPI.com)</ulink
+> es un servicio web gratuito para obtener información sobre películas. </para>
 </sect3>
 
 <sect3 id="allocine">
@@ -559,6 +597,14 @@
 > es un servicio de información de películas en línea con sede en Francia. </para>
 </sect3>
 
+<sect3 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> es una popular página de información sobre anime, o animación japonesa. </para>
+</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -615,6 +661,49 @@
 ><ulink url="http://thegamesdb.net"
 >TheGamesDB.net</ulink
 > es una base de datos en línea y abierta para los aficionados a los videojuegos. </para>
+</sect3>
+
+<sect3 id="mobygames">
+<title
+>MobyGames</title>
+<para
+><ulink url="https://www.mobygames.com"
+>MobyGames.com</ulink
+> se define a sí misma como la base de datos de videojuegos más antigua, más grande y más rigurosa. </para>
+</sect3>
+
+<sect3 id="igdb">
+<title
+>IGDB.com</title>
+<para
+><ulink url="https://www.igdb.com"
+>IGDB.com</ulink
+> se define a sí misma como un sitio web de juego para los amantes de los juegos. </para>
+</sect3>
+
+<sect3 id="videogamegeek">
+<title
+>VideoGameGeek</title>
+<para
+><ulink url="https://videogamegeek.com"
+>VideoGameGeek</ulink
+> es un recurso y una comunidad de videojuegos en línea. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of board game sources -->
+<sect2 id="boardgame-sources">
+<title
+>Fuentes de datos de juegos de mesa</title>
+
+<sect3 id="boardgamegeek">
+<title
+>BoardGameGeek</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> es un recurso y una comunidad de juegos de mesa en línea. </para>
 </sect3>
 
 </sect2>

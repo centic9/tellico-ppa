@@ -1,3 +1,35 @@
+tellico (3.2.3-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update lintian overrides.
+
+ -- Pino Toscano <pino@debian.org>  Tue, 26 Nov 2019 07:15:16 +0100
+
+tellico (3.2.2-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update the patches:
+    - upstream_Fix-build-with-Qt-5.13.patch: drop, backported from upstream
+    - upstream_Fix-apparent-build-problem-on-Jenkins.patch: drop, backported
+      from upstream
+    - fix-version.diff: drop, no more needed (the version string is correct)
+  * Bump Standards-Version to 4.4.1, no changes required.
+  * Add the configuration for the CI on salsa.
+  * tellico-project.org supports https now, so use it for Homepage, and in the
+    watch file.
+  * Remove the extra copyright notices files, i.e.
+    /usr/share/tellico/pics/README.*.
+  * Bump the debhelper compatibility to 12:
+    - switch the debhelper build dependency to debhelper-compat 12
+    - remove debian/compat
+  * Extend tests-no-network.diff to always consider the network unavailable in
+    imagejobtest. (Closes: #901527, #942896)
+  * Use a temporary directory in $TMPDIR (or /tmp) for the home directory when
+    running the tests: using a subdirectory of the source directory may be a
+    too long path for local unix sockets.
+
+ -- Pino Toscano <pino@debian.org>  Sun, 10 Nov 2019 11:54:15 +0100
+
 tellico (3.2.1-2) unstable; urgency=medium
 
   * Backport upstream commits 43851a0a655a3a961f289087bdea989aa32cc028, and

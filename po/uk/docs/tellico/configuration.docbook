@@ -40,8 +40,9 @@
 ></title>
 
 <screenshot>
-<screeninfo
->Діалогове вікно загальних параметрів</screeninfo>
+<!-- <screeninfo
+>The General Options Dialog</screeninfo
+> -->
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="general-options.png"/></imageobject>
@@ -211,12 +212,26 @@
 >.</para>
 
 <itemizedlist>
+<!-- books -->
 <listitem
 ><simpara
 ><link linkend="amazon-web-services"
 >Вебслужби Amazon.com</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="isbndb"
+>ISBNdb.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="openlibrary"
+>OpenLibrary.org</link
+>,</simpara
+></listitem>
+<!-- movies -->
 <listitem
 ><simpara
 ><link linkend="imdb"
@@ -231,20 +246,14 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="z3950"
->Сервери z39.50</link
+><link linkend="tmdb"
+>TheMovieDB.org</link
 >,</simpara
 ></listitem>
 <listitem
 ><simpara
-><link linkend="sru"
->Сервери SRU</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="entrez"
->Бази даних Entrez (PubMed)</link
+>the <link linkend="omdb"
+>Open Movie Database</link
 >,</simpara
 ></listitem>
 <listitem
@@ -253,6 +262,7 @@
 >AnimeNfo.com</link
 >,</simpara
 ></listitem>
+<!-- comics -->
 <listitem
 ><simpara
 ><link linkend="bedetheque"
@@ -261,16 +271,11 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="isbndb"
->ISBNdb.com</link
+><link linkend="comicvine"
+>Comic Vine</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="bib-sources"
->arxiv.org</link
->,</simpara
-></listitem>
+<!-- music -->
 <listitem
 ><simpara
 ><link linkend="discogs"
@@ -279,26 +284,15 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="tmdb"
->TheMovieDB.org</link
+><link linkend="musicbrainz"
+>MusicBrainz.org</link
 >,</simpara
 ></listitem>
+<!-- video games -->
 <listitem
 ><simpara
 ><link linkend="tgdb"
 >TheGamesDB.net</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="omdb"
->OMDBAPI.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="musicbrainz"
->MusicBrainz.org</link
 >,</simpara
 ></listitem>
 <listitem
@@ -309,8 +303,52 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="openlibrary"
->OpenLibrary.org</link
+><link linkend="mobygames"
+>MobyGames.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="igdb"
+>IGDB.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="videogamegeek"
+>VideoGameGeek</link
+>,</simpara
+></listitem>
+<!-- board games -->
+<listitem
+><simpara
+><link linkend="boardgamegeek"
+>BoardGameGeek</link
+>,</simpara
+></listitem>
+<!-- bibliographic and others -->
+<listitem
+><simpara
+><link linkend="bib-sources"
+>arxiv.org</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="entrez"
+>Бази даних Entrez (PubMed)</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="z3950"
+>Сервери z39.50</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="sru"
+>Сервери SRU</link
 >,</simpara
 ></listitem>
 <listitem
@@ -479,15 +517,6 @@
 <title
 >Джерела даних щодо коміксів</title>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> є популярним сайтом, присвяченим аніме або японській мультиплікації. </para>
-</sect3>
-
 <sect3 id="bedetheque">
 <title
 >Bedetheque</title>
@@ -495,6 +524,15 @@
 ><ulink url="http://www.bedetheque.com"
 >Bedetheque</ulink
 > — французька база даних коміксів, керується BDGest. </para>
+</sect3>
+
+<sect3 id="comicvine">
+<title
+>Comic Vine</title>
+<para
+><ulink url="https://comicvine.gamespot.com/"
+>Comic Vine</ulink
+> вважається найбільшою вікі з коміксів у світі. </para>
 </sect3>
 
 </sect2>
@@ -535,11 +573,11 @@
 
 <sect3 id="omdb">
 <title
->OMDBAPI.com</title>
+>Open Movie Database</title>
 <para
 ><ulink url="http://omdbapi.com"
->Open Movie Database</ulink
-> — вільне служба для отримання даних щодо фільмів. </para>
+>Open Movie Database (OMDBAPI.com)</ulink
+> — вільна служба для отримання даних щодо фільмів. </para>
 </sect3>
 
 <sect3 id="allocine">
@@ -551,6 +589,14 @@
 > — інформаційна інтернет-служба, дані якої стосуються Франції. </para>
 </sect3>
 
+<sect3 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> є популярним сайтом, присвяченим аніме або японській мультиплікації. </para>
+</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -607,6 +653,49 @@
 ><ulink url="http://thegamesdb.net"
 >TheGamesDB.net</ulink
 > — вільна мережева база даних для фанатів відеоігор. </para>
+</sect3>
+
+<sect3 id="mobygames">
+<title
+>MobyGames</title>
+<para
+><ulink url="https://www.mobygames.com"
+>MobyGames.com</ulink
+> називає себе найстарішою, найбільшою і найточнішою базою даних відеоігор. </para>
+</sect3>
+
+<sect3 id="igdb">
+<title
+>IGDB.com</title>
+<para
+><ulink url="https://www.igdb.com"
+>IGDB.com</ulink
+> називає себе ігровим сайтом для усіх, хто полюбляє грати. </para>
+</sect3>
+
+<sect3 id="videogamegeek">
+<title
+>VideoGameGeek</title>
+<para
+><ulink url="https://videogamegeek.com"
+>VideoGameGeek</ulink
+> — інтернет-ресурс і спільнота любителів відеоігор. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of board game sources -->
+<sect2 id="boardgame-sources">
+<title
+>Джерела даних щодо ігор на дошці</title>
+
+<sect3 id="boardgamegeek">
+<title
+>BoardGameGeek</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> — інтернет ресурс і спільнота любителів ігор на дошці. </para>
 </sect3>
 
 </sect2>

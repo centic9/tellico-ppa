@@ -26,6 +26,7 @@
 #define TELLICO_URLFIELDWIDGET_H
 
 #include "fieldwidget.h"
+#include "urlfieldlogic.h"
 
 #include <KUrlCompletion>
 
@@ -67,7 +68,7 @@ private:
   };
 
   KUrlRequester* m_requester;
-  bool m_isRelative;
+  mutable UrlFieldLogic m_logic; // mutable so the base url can be modified in text()
 };
 
   } // end GUI namespace

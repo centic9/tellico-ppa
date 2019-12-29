@@ -40,8 +40,9 @@
 ></title>
 
 <screenshot>
-<screeninfo
->Dialogrutan Allmänna alternativ</screeninfo>
+<!-- <screeninfo
+>The General Options Dialog</screeninfo
+> -->
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="general-options.png"/></imageobject>
@@ -217,12 +218,26 @@
 >.</para>
 
 <itemizedlist>
+<!-- books -->
 <listitem
 ><simpara
 ><link linkend="amazon-web-services"
 >Amazon.com webbtjänster</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="isbndb"
+>ISBNdb.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="openlibrary"
+>OpenLibrary.org</link
+>,</simpara
+></listitem>
+<!-- movies -->
 <listitem
 ><simpara
 ><link linkend="imdb"
@@ -237,20 +252,14 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="z3950"
->z39.50-servrar</link
+><link linkend="tmdb"
+>TheMovieDB.org</link
 >,</simpara
 ></listitem>
 <listitem
 ><simpara
-><link linkend="sru"
->SRU-servrar</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="entrez"
->Entrez (PubMed)-databaser</link
+>the <link linkend="omdb"
+>Open Movie Database</link
 >,</simpara
 ></listitem>
 <listitem
@@ -259,6 +268,7 @@
 >AnimeNfo.com</link
 >,</simpara
 ></listitem>
+<!-- comics -->
 <listitem
 ><simpara
 ><link linkend="bedetheque"
@@ -267,16 +277,11 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="isbndb"
->ISBNdb.com</link
+><link linkend="comicvine"
+>Comic Vine</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="bib-sources"
->arxiv.org</link
->,</simpara
-></listitem>
+<!-- music -->
 <listitem
 ><simpara
 ><link linkend="discogs"
@@ -285,26 +290,15 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="tmdb"
->TheMovieDB.org</link
+><link linkend="musicbrainz"
+>MusicBrainz.org</link
 >,</simpara
 ></listitem>
+<!-- video games -->
 <listitem
 ><simpara
 ><link linkend="tgdb"
 >TheGamesDB.net</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="omdb"
->OMDBAPI.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="musicbrainz"
->MusicBrainz.org</link
 >,</simpara
 ></listitem>
 <listitem
@@ -315,8 +309,52 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="openlibrary"
->OpenLibrary.org</link
+><link linkend="mobygames"
+>MobyGames.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="igdb"
+>IGDB.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="videogamegeek"
+>VideoGameGeek</link
+>,</simpara
+></listitem>
+<!-- board games -->
+<listitem
+><simpara
+><link linkend="boardgamegeek"
+>BoardGameGeek</link
+>,</simpara
+></listitem>
+<!-- bibliographic and others -->
+<listitem
+><simpara
+><link linkend="bib-sources"
+>arxiv.org</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="entrez"
+>Entrez (PubMed)-databaser</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="z3950"
+>z39.50-servrar</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="sru"
+>SRU-servrar</link
 >,</simpara
 ></listitem>
 <listitem
@@ -485,15 +523,6 @@
 <title
 >Seriedatakällor</title>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> är en populär sida för information om anime, eller japanska serier. </para>
-</sect3>
-
 <sect3 id="bedetheque">
 <title
 >Bedetheque</title>
@@ -501,6 +530,15 @@
 ><ulink url="http://www.bedetheque.com"
 >Bedetheque</ulink
 > är en fransk seriedatabas som hanteras av BDGest. </para>
+</sect3>
+
+<sect3 id="comicvine">
+<title
+>Comic Vine</title>
+<para
+><ulink url="https://comicvine.gamespot.com/"
+>Comic Vine</ulink
+> beskriver sig som universums största seriewiki. </para>
 </sect3>
 
 </sect2>
@@ -541,11 +579,11 @@
 
 <sect3 id="omdb">
 <title
->OMDBAPI.com</title>
+>Open Movie Database</title>
 <para
 ><ulink url="http://omdbapi.com"
->Open Movie Database</ulink
-> är en fri webbtjänst för att hämta information om filmer. </para>
+>Open Movie Database (OMDBAPI.com)</ulink
+> är en fri webbtjänst för att erhålla information om filmer. </para>
 </sect3>
 
 <sect3 id="allocine">
@@ -557,6 +595,14 @@
 > är en filminformationstjänst på nätet, baserad i Frankrike. </para>
 </sect3>
 
+<sect3 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> är en populär sida för information om anime, eller japanska serier. </para>
+</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -613,6 +659,49 @@
 ><ulink url="http://themoviedb.org"
 >TheGamesDB.net</ulink
 > är en gratis och öppen filmdatabas på nätet för videospel. </para>
+</sect3>
+
+<sect3 id="mobygames">
+<title
+>MobyGames</title>
+<para
+><ulink url="https://www.mobygames.com"
+>MobyGames.com</ulink
+> beskriver sig själv som den äldsta, största och mest exakta databasen över videospel. </para>
+</sect3>
+
+<sect3 id="igdb">
+<title
+>IGDB.com</title>
+<para
+><ulink url="https://www.igdb.com"
+>IGDB.com</ulink
+> kallar sig själv en spelwebbplats för alla som älskar spel. </para>
+</sect3>
+
+<sect3 id="videogamegeek">
+<title
+>VideoGameGeek</title>
+<para
+><ulink url="https://videogamegeek.com"
+>VideoGameGeek</ulink
+> är en resurs och gemenskap på nätet för videospel. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of board game sources -->
+<sect2 id="boardgame-sources">
+<title
+>Datakällor för brädspel</title>
+
+<sect3 id="boardgamegeek">
+<title
+>BoardGameGeek</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> är en resurs och gemenskap på nätet för brädspel. </para>
 </sect3>
 
 </sect2>

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2005-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2019 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,69 +22,32 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_BORROWERDIALOG_H
-#define TELLICO_BORROWERDIALOG_H
+#include "urlfieldlogic.h"
 
-#include <config.h>
-#include "borrower.h"
+#include <QDir>
 
-#include <QDialog>
-#include <QHash>
-#include <QTreeWidget>
+using Tellico::UrlFieldLogic;
 
-class KLineEdit;
-class KJob;
-#ifdef HAVE_KABC
-namespace KContacts {
-  class Addressee;
+UrlFieldLogic::UrlFieldLogic()
+  : m_isRelative(false) {
 }
-#endif
 
-namespace Tellico {
+void UrlFieldLogic::setRelative(bool relative_) {
+  m_isRelative = relative_;
+}
 
-/**
- * @author Robby Stephenson
- */
-class BorrowerDialog : public QDialog {
-Q_OBJECT
+void UrlFieldLogic::setBaseUrl(const QUrl& baseUrl_) {
+  m_baseUrl = baseUrl_;
+}
 
-public:
-  static Data::BorrowerPtr getBorrower(QWidget* parent);
-
-private Q_SLOTS:
-  void selectItem(const QString& name);
-  void updateEdit(QTreeWidgetItem* item);
-  void akonadiSearchResult(KJob*);
-
-private:
-  /**
-   * The constructor sets up the dialog.
-   *
-   * @param parent A pointer to the parent widget
-   */
-  BorrowerDialog(QWidget* parent);
-  Data::BorrowerPtr borrower();
-  void populateBorrowerList();
-
-  QString m_uid;
-  QTreeWidget* m_treeWidget;
-  KLineEdit* m_lineEdit;
-  QHash<QString, QTreeWidgetItem*> m_itemHash;
-
-class Item : public QTreeWidgetItem {
-public:
-#ifdef HAVE_KABC
-  Item(QTreeWidget* parent, const KContacts::Addressee& addressee);
-#endif
-  Item(QTreeWidget* parent, const Data::Borrower& borrower);
-  const QString& uid() const { return m_uid; }
-
-private:
-  Q_DISABLE_COPY(Item)
-  QString m_uid;
-};
-
-};
-
-} // end namespace
-#endif
+QString UrlFieldLogic::urlText(const QUrl& url_) const {
+  // if it's not relative or if the base URL is not set,
+  // then there's nothing to do. Return the URL as-is.
+  // Also, if the base URL is not a local file, then ignore it
+  if(url_.isEmpty() || !m_isRelative || m_baseUrl.isEmpty() || !m_baseUrl.isLocalFile()) {
+    return url_.url();
+  }
+  // BUG 410551: use the directory of the base url, not the file itself, in the QDir c'tor
+  return QDir(m_baseUrl.adjusted(QUrl::RemoveFilename).path())
+             .relativeFilePath(url_.path());
+}

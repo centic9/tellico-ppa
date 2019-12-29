@@ -81,7 +81,7 @@
     <p xml:lang="et">Tellico on kõikvõimalike kogude haldamiseks mõeldud rakendus. See pakub vaikimisi malle raamatute, bibliograafiate, videode, muusika, videomängude, müntide, markide, mängukaartide, koomiksite ja veinide tarbeks. Rakenduses saab oma kogu sisestada kataloogi andmebaasi, kuhu salvestatakse hulk omadusi, näiteks nimi, autor jne.</p>
     <p xml:lang="fi">Tellico on sovellus kokoelmiesi järjestämiseen. Se tarjoaa oletusmallit kirjoille, lähdeluetteloille, videoille, musiikille, videopeleille, kolikoille, postimerkeille, keräilykorteille, sarjakuville ja viineille. Sen avulla voit syöttää kokoelmasi luettelotietokantaan eri ominaisuudet kuten otsikon, tekijän jne. säilyttäen.</p>
     <p xml:lang="fr">Tellico est une application pour organiser vos collections. Il fournit des modèles par défaut pour les livres, les bibliographies, les vidéos, la musique, les jeux vidéo, les monnaies, les timbres, les cartes à collectionner, les bandes dessinées et les vins. Il vous permet de saisir votre collection dans une base de données de catalogue, enregistrant différentes propriétés telles que le titre, l'auteur, etc.</p>
-    <p xml:lang="gl">Tellico é un aplicativo para organizar coleccións. Fornece modelos predeterminados para libros, bibliografías, vídeos, música, videoxogos, moedas, selos, cartas de colección, banda deseñada, e vinos. Permítelle inserir a súa colección a unha base de datos de catálogo na que pode gardar moitas propiedades distintas, como o título de cada elemento, o seu autor, etc.</p>
+    <p xml:lang="gl">Tellico é unha aplicación para organizar coleccións. Fornece modelos predeterminados para libros, bibliografías, vídeos, música, videoxogos, moedas, selos, cartas de colección, banda deseñada, e vinos. Permítelle inserir a súa colección a unha base de datos de catálogo na que pode gardar moitas propiedades distintas, como o título de cada elemento, o seu autor, etc.</p>
     <p xml:lang="ia">Tellico es un application pro organisar tu collectiones. Il forni patronos predefinite pro libros, bibliographias, videos, musica, video jocos, numisma, timbros, cartas de commercio, libros in designos e vinos. Il permitte te insertar tu collection inn un base de datos de catalogo, salveguardante multe proprietates como titulo, autor, etc.</p>
     <p xml:lang="id">Tellico adalah aplikasi untuk mengatur koleksi Anda. Ini menyediakan template baku untuk buku, bibliografi, video, musik, video game, koin, perangko, kartu perdagangan, buku komik, dan wine. Ini memungkinkan Anda untuk memasukkan koleksi Anda di database katalog, menyimpan banyak properti berbeda seperti judul, penulis, dll.</p>
     <p xml:lang="it">Tellico è un'applicazione per organizzare le tue collezioni. Fornisce modelli predefiniti per libri, bibliografie, video, musica, videogiochi, monete, francobolli, carte da gioco, fumetti e vini. Ti permette di inserire la tua collezione in una base di dati, salvando molte proprietà differenti come titolo, autore, ecc.</p>
@@ -378,6 +378,7 @@
       <li xml:lang="de">Export zu Bibtex, ONIX, CSV, HTML, und andere Formate</li>
       <li xml:lang="en-GB">Exports to Bibtex, ONIX, CSV, HTML, and other formats</li>
       <li xml:lang="es">Exporta a Bibtex, ONIX, CSV, HTML y otros formatos</li>
+      <li xml:lang="et">Eksport Bibtexi, ONIX-i, CSV, HTML-i ja veel paljudesse vormingutesse</li>
       <li xml:lang="fi">Vie BibTeX-, ONIX-, CSV-, HTML- ja muihin tiedostomuotoihin</li>
       <li xml:lang="fr">Exporte vers Bibtex, ONIX, CSV, HTML et beaucoup d'autres formats</li>
       <li xml:lang="gl">Pode exportar coleccións nos formatos Bibtex, CSV, e HTML, entre outros.</li>
@@ -478,9 +479,9 @@
       <li xml:lang="x-test">xxScans and imports audio file collections, such as mp3 or oggxx</li>
     </ul>
   </description>
-  <url type="homepage">http://tellico-project.org</url>
+  <url type="homepage">https://tellico-project.org</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=tellico</url>
-  <url type="faq">http://tellico-project.org/faq</url>
+  <url type="faq">https://tellico-project.org/faq</url>
   <url type="help">https://docs.kde.org/development/en/extragear-office/tellico/index.html</url>
   <screenshots>
     <screenshot type="default" width="1002" height="765">
@@ -490,6 +491,7 @@
       <caption xml:lang="de">Das Hauptfenster mit einem einfachen Eintrag einer Bücher-Sammlung</caption>
       <caption xml:lang="en-GB">The main window showing a simple item in a book collection</caption>
       <caption xml:lang="es">La ventana principal mostrando un elemento sencillo de una colección de libros</caption>
+      <caption xml:lang="et">Peaaken raamatukollektsiooni kirjega</caption>
       <caption xml:lang="fr">La fenêtre principale, qui affiche un élément simple au sein d'une collection de livres</caption>
       <caption xml:lang="gl">A xanela principal, mostrando un elemento sinxelo nunha colección de libros</caption>
       <caption xml:lang="id">Window utama menampilkan item sederhana dalam koleksi buku</caption>
@@ -500,6 +502,7 @@
       <caption xml:lang="pl">Okno główne pokazujące prosty element w zbiorze książek</caption>
       <caption xml:lang="pt">A janela principal a mostrar um único item numa colecção de livros</caption>
       <caption xml:lang="pt-BR">A janela principal a mostrar um único item em uma coleção de livros</caption>
+      <caption xml:lang="sk">Hlavné okno zobrazujúce jednoduchú položku v kolekcii kníh</caption>
       <caption xml:lang="sv">Huvudfönstret som visar ett enkelt objekt i en boksamling</caption>
       <caption xml:lang="uk">Головне вікно програми із простим записом у збірці книжок</caption>
       <caption xml:lang="x-test">xxThe main window showing a simple item in a book collectionxx</caption>
@@ -509,16 +512,21 @@
       <caption>The main window showing side-by-side views of a game collection</caption>
       <caption xml:lang="ca">La finestra principal mostra vistes un al costat de l'altra d'una col·lecció de jocs</caption>
       <caption xml:lang="ca-valencia">La finestra principal mostra vistes un al costat de l'altra d'una col·lecció de jocs</caption>
+      <caption xml:lang="de">Das Hauptfenster mit einer zweispaltigen Ansicht einer Spiele-Sammlung</caption>
       <caption xml:lang="en-GB">The main window showing side-by-side views of a game collection</caption>
       <caption xml:lang="es">La ventana principal mostrando vistas en paralelo de una colección de juegos</caption>
+      <caption xml:lang="et">Peaaken mängude kõrvutivaatega</caption>
+      <caption xml:lang="fr">La fenêtre principale, qui affiche des vues côte-à-côte d'une collection de jeux</caption>
       <caption xml:lang="gl">A xanela principal mostrando as vistas lado a lado dunha colección de xogos</caption>
       <caption xml:lang="id">Window utama menampilkan tampilan sisi ke sisi dari sebuah koleksi permainan</caption>
       <caption xml:lang="it">La finestra principale che mostra le viste affiancate di una collezione di libri</caption>
       <caption xml:lang="ko">게임 소장품을 나란히 표시하는 주 창</caption>
       <caption xml:lang="nl">Het hoofdvenster die een spellenverzameling naast elkaar toont</caption>
+      <caption xml:lang="nn">Hovudvindauget som viser side-ved-side-visingaar av ei spelsamling</caption>
       <caption xml:lang="pl">Okno główne pokazujące widoki zbioru gier obok siebie</caption>
       <caption xml:lang="pt">A janela principal a mostrar vistas lado-a-lado de uma colecção de jogos</caption>
       <caption xml:lang="pt-BR">A janela principal mostrando visões lado a lado de uma coleção de jogos</caption>
+      <caption xml:lang="sk">Hlavné okno zobrazujúce pohľady vedľa seba kolekcie hier</caption>
       <caption xml:lang="sv">Huvudfönstret som visar en spelsamling med visning sida vid sida</caption>
       <caption xml:lang="uk">Головне вікно програми із панелями паралельного перегляду збірки ігор</caption>
       <caption xml:lang="x-test">xxThe main window showing side-by-side views of a game collectionxx</caption>
@@ -530,26 +538,32 @@
     <binary>tellico</binary>
   </provides>
   <releases>
-    <release version="3.1" date="2017-10-14">
-      <url>https://tellico-project.org/tellico-31-released</url>
+    <release version="3.2.3" date="2019-11-25">
+      <url>https://tellico-project.org/tellico-323-released</url>
     </release>
-    <release version="3.1.1" date="2018-01-15">
-      <url>https://tellico-project.org/tellico-311-released</url>
+    <release version="3.2.2" date="2019-11-09">
+      <url>https://tellico-project.org/tellico-322-released</url>
     </release>
-    <release version="3.1.2" date="2018-03-28">
-      <url>https://tellico-project.org/tellico-312-released</url>
-    </release>
-    <release version="3.1.3" date="2018-09-03">
-      <url>https://tellico-project.org/tellico-313-released</url>
-    </release>
-    <release version="3.1.4" date="2018-12-20">
-      <url>https://tellico-project.org/tellico-314-released</url>
+    <release version="3.2.1" date="2019-07-09">
+      <url>https://tellico-project.org/tellico-321-released</url>
     </release>
     <release version="3.2" date="2019-05-25">
       <url>https://tellico-project.org/tellico-32-released</url>
     </release>
-    <release version="3.2.1" date="2019-07-09">
-      <url>https://tellico-project.org/tellico-321-released</url>
+    <release version="3.1.4" date="2018-12-20">
+      <url>https://tellico-project.org/tellico-314-released</url>
+    </release>
+    <release version="3.1.3" date="2018-09-03">
+      <url>https://tellico-project.org/tellico-313-released</url>
+    </release>
+    <release version="3.1.2" date="2018-03-28">
+      <url>https://tellico-project.org/tellico-312-released</url>
+    </release>
+    <release version="3.1.1" date="2018-01-15">
+      <url>https://tellico-project.org/tellico-311-released</url>
+    </release>
+    <release version="3.1" date="2017-10-14">
+      <url>https://tellico-project.org/tellico-31-released</url>
     </release>
   </releases>
 </component>

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2005-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2019 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,69 +22,41 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_BORROWERDIALOG_H
-#define TELLICO_BORROWERDIALOG_H
+#ifndef TELLICO_IMPORT_LIBRARYTHINGIMPORTER_H
+#define TELLICO_IMPORT_LIBRARYTHINGIMPORTER_H
 
-#include <config.h>
-#include "borrower.h"
+#include "importer.h"
 
-#include <QDialog>
-#include <QHash>
-#include <QTreeWidget>
-
-class KLineEdit;
-class KJob;
-#ifdef HAVE_KABC
-namespace KContacts {
-  class Addressee;
-}
-#endif
+class KUrlRequester;
 
 namespace Tellico {
+  namespace Import {
 
 /**
  * @author Robby Stephenson
- */
-class BorrowerDialog : public QDialog {
+*/
+class LibraryThingImporter : public Importer {
 Q_OBJECT
 
 public:
-  static Data::BorrowerPtr getBorrower(QWidget* parent);
-
-private Q_SLOTS:
-  void selectItem(const QString& name);
-  void updateEdit(QTreeWidgetItem* item);
-  void akonadiSearchResult(KJob*);
-
-private:
   /**
-   * The constructor sets up the dialog.
-   *
-   * @param parent A pointer to the parent widget
    */
-  BorrowerDialog(QWidget* parent);
-  Data::BorrowerPtr borrower();
-  void populateBorrowerList();
+  LibraryThingImporter();
 
-  QString m_uid;
-  QTreeWidget* m_treeWidget;
-  KLineEdit* m_lineEdit;
-  QHash<QString, QTreeWidgetItem*> m_itemHash;
+  virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
+  virtual bool canImport(int type) const Q_DECL_OVERRIDE;
 
-class Item : public QTreeWidgetItem {
-public:
-#ifdef HAVE_KABC
-  Item(QTreeWidget* parent, const KContacts::Addressee& addressee);
-#endif
-  Item(QTreeWidget* parent, const Data::Borrower& borrower);
-  const QString& uid() const { return m_uid; }
+  virtual QWidget* widget(QWidget* parent) Q_DECL_OVERRIDE;
+
+public Q_SLOTS:
+  void slotCancel() Q_DECL_OVERRIDE {}
 
 private:
-  Q_DISABLE_COPY(Item)
-  QString m_uid;
+  Data::CollPtr m_coll;
+  QWidget* m_widget;
+  KUrlRequester* m_URLRequester;
 };
 
-};
-
+  } // end namespace
 } // end namespace
 #endif

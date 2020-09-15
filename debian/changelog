@@ -1,3 +1,66 @@
+tellico (3.3.3-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Pino Toscano <pino@debian.org>  Tue, 15 Sep 2020 07:29:10 +0200
+
+tellico (3.3.2-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop the Debian man page, as it offers no useful information over the
+    --help output.
+  * Add Rules-Requires-Root: no.
+  * Bump the debhelper compatibility to 13:
+    - switch the debhelper-compat build dependency to 13
+    - stop passing --fail-missing to dh_missing, as it is the default now
+
+ -- Pino Toscano <pino@debian.org>  Sat, 08 Aug 2020 12:37:15 +0200
+
+tellico (3.3.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update the patches:
+    - upstream_Use-unnamespaced-hex-for-Qt-5.14.patch: drop, backported from
+      upstream
+    - upstream_Normalize-return-value-of-TitleComparison-compare.patch: drop,
+      backported from upstream
+    - upstream_Account-for-QByteArray-at-returning-char-not-uchar.patch: drop,
+      backported from upstream
+
+ -- Pino Toscano <pino@debian.org>  Tue, 02 Jun 2020 00:25:31 +0200
+
+tellico (3.3-2) unstable; urgency=medium
+
+  * Backport upstream commit ab305dd0d8b720c8e01dae8a66f6527442fb73f1 to fix
+    the ISO 5426 decoder on architectures where char is unsigned; patch
+    upstream_Account-for-QByteArray-at-returning-char-not-uchar.patch.
+
+ -- Pino Toscano <pino@debian.org>  Sun, 26 Apr 2020 23:59:29 +0200
+
+tellico (3.3-1) unstable; urgency=medium
+
+  * New upstream release:
+    - the SHA-related sources were dropped (Closes: #775589)
+  * Update watch file to the new archive location/layout.
+  * Update the patches:
+    - tests-no-network.diff: update to simply mark network as always
+      unavailable
+  * Backport upstream commit aee9e90c1ce0257d12ea85029435db8ffa65a6a1 to build
+    with Qt < 5.14; patch upstream_Use-unnamespaced-hex-for-Qt-5.14.patch.
+  * Backport upstream commit a5dec9e16a0972107a39e76caaea170c03dd276e to
+    harmonize the return value of TitleComparison::compare on Qt < 5.14 to what
+    newer Qt versions do.
+  * Switch the Python scripts to Python 3:
+    - add the dh-python, and python3:any build dependencies
+    - use the python3 dh addon
+    - invoke dh_python3 on the proper data directory in tellico-scripts
+    - use the ${python3:Depends} substvar in tellico-scripts, removing the
+      manual python suggest
+  * Bump Standards-Version to 4.5.0, no changes required.
+  * Recommend kio-extras for file previews. (Closes: #945872)
+
+ -- Pino Toscano <pino@debian.org>  Thu, 23 Apr 2020 10:50:27 +0200
+
 tellico (3.2.3-1) unstable; urgency=medium
 
   * New upstream release.

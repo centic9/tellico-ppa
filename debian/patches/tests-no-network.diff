@@ -1,38 +1,30 @@
 Author: Pino Toscano <pino@debian.org>
-Description: Disable tests that require networking
- Networking is not available during package building on buildds, so skip the
- checks that require network access.
- .
- Also, make sure the network is considered unavailable.
-Last-Updated: 2019-11-10
+Description: Make sure the network is considered unavailable.
+Last-Updated: 2020-04-23
 Forwarded: not-needed
 
 --- a/src/tests/tellicoreadtest.cpp
 +++ b/src/tests/tellicoreadtest.cpp
-@@ -257,6 +257,7 @@ void TellicoReadTest::testLocalImage() {
- }
+@@ -46,11 +46,13 @@ QTEST_GUILESS_MAIN( TellicoReadTest )
+ #define TELLICOREAD_NUMBER_OF_CASES 10
  
- void TellicoReadTest::testRemoteImage() {
+ static bool hasNetwork() {
 +#if 0
-   // this is the md5 hash of the logo.png icon, used as an image id
-   const QString imageId(QSL("757322046f4aa54290a3d92b05b71ca1.png"));
-   // not yet loaded
-@@ -289,6 +290,9 @@ void TellicoReadTest::testRemoteImage()
- 
-   const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(imageId);
-   QVERIFY(!img.isNull());
-+#else
-+  QSKIP("disabled network test");
+   foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
+     if(net.flags().testFlag(QNetworkInterface::IsUp) && !net.flags().testFlag(QNetworkInterface::IsLoopBack)) {
+       return true;
+     }
+   }
 +#endif
+   return false;
  }
  
- void TellicoReadTest::testXMLHandler() {
 --- a/src/tests/imagejobtest.cpp
 +++ b/src/tests/imagejobtest.cpp
 @@ -37,11 +37,13 @@
  QTEST_GUILESS_MAIN( ImageJobTest )
  
- bool ImageJobTest::networkIsAvailable() {
+ static bool hasNetwork() {
 +#if 0
    foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
      if(net.flags().testFlag(QNetworkInterface::IsUp) && !net.flags().testFlag(QNetworkInterface::IsLoopBack)) {

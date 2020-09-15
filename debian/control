@@ -3,7 +3,7 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Pino Toscano <pino@debian.org>,
-Build-Depends: debhelper-compat (= 12),
+Build-Depends: debhelper-compat (= 13),
  , cmake, extra-cmake-modules
  , pkg-config, pkg-kde-tools, qtbase5-dev
  , libkf5archive-dev
@@ -34,8 +34,10 @@ Build-Depends: debhelper-compat (= 12),
  , libcdio-dev
  , gettext
  , xvfb, xauth, kio
+ , python3:any, dh-python
 Build-Conflicts: libqimageblitz-dev
-Standards-Version: 4.4.1
+Standards-Version: 4.5.0
+Rules-Requires-Root: no
 Homepage: https://tellico-project.org/
 Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/tellico
 Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/tellico.git
@@ -47,7 +49,7 @@ Architecture: any
 Depends: tellico-data (= ${source:Version})
  , tellico-scripts (>= ${source:Version})
  , ${shlibs:Depends}, ${misc:Depends}
-Recommends: tellico-doc
+Recommends: tellico-doc, kio-extras
 Description: Collection manager for books, videos, music, etc
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading
@@ -118,9 +120,8 @@ Description: Collection manager for books, videos, music, etc [data]
 
 Package: tellico-scripts
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, ${python3:Depends}
 Recommends: tellico
-Suggests: python
 Description: Collection manager for books, videos, music, etc [scripts]
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading

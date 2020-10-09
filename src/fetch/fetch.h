@@ -103,7 +103,8 @@ enum Type {
   Kino,
   MobyGames,
   ComicVine,
-  KinoTeatr
+  KinoTeatr,
+  Colnect
 };
 
   }

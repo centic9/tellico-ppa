@@ -29,7 +29,7 @@
 > a la secció relativa del manual del &appname;. </para>
 
 <para
->Alguns ajustaments menors només es poden canviar editant el fitxer de configuració. Veure <link linkend="hidden-options"
+>Alguns ajustaments secundaris només es poden canviar editant el fitxer de configuració. Veure <link linkend="hidden-options"
 >Opcions ocultes</link
 >. </para>
 
@@ -182,7 +182,7 @@
 >store.kde.org</ulink
 > fent clic al botó <guilabel
 >Baixa</guilabel
->. Qualsevol plantilla instal·lada per l'usuari també es pot eliminar. Les plantilles d'entrada es desen a <filename class="directory"
+>. Qualsevol plantilla instal·lada per l'usuari també es pot suprimir. Les plantilles d'entrada es desen a <filename class="directory"
 >$<envar
 >KDEHOME</envar
 >/share/apps/tellico/entry-templates/</filename
@@ -215,7 +215,7 @@
 ></title>
 
 <para
->El &appname; pot utilitzar diverses fonts per importar dades, les quals es poden configurar en el diàleg Fonts de dades. Hi ha disponibles molts tipus i fonts. Alguns d'ells es llisten a continuació, mentre que la llista completa està <ulink url="http://tellico-project.org/data-sources"
+>El &appname; pot utilitzar diverses fonts per importar dades, les quals es poden configurar en el diàleg Fonts de dades. Hi ha disponibles molts tipus i fonts. Alguns d'ells es llisten a continuació, mentre que la llista completa està <ulink url="https://tellico-project.org/data-sources"
 >disponible al lloc web del &appname;</ulink
 >.</para>
 
@@ -334,7 +334,7 @@
 >BoardGameGeek</link
 >,</simpara
 ></listitem>
-<!-- bibliographic and others -->
+<!-- bibliographic -->
 <listitem
 ><simpara
 ><link linkend="bib-sources"
@@ -359,6 +359,14 @@
 >servidors SRU</link
 >,</simpara
 ></listitem>
+<!-- coins -->
+<listitem
+><simpara
+><link linkend="colnect"
+>Colnect</link
+>,</simpara
+></listitem>
+<!-- others -->
 <listitem
 ><simpara
 ><link linkend="externalexec"
@@ -397,7 +405,7 @@
 
 <warning>
 <para
->Mai instal·leu i executeu un script des d'una font no fiable. Doncs s'executen amb els mateixos permisos que l'usuari, i com a resultat, podrien modificar o eliminar fitxers o perjudicar el vostre sistema de qualsevol altra forma. </para>
+>Mai instal·leu i executeu un script des d'una font no fiable. Doncs s'executen amb els mateixos permisos que l'usuari, i com a resultat, podrien modificar o suprimir fitxers o perjudicar el vostre sistema de qualsevol altra forma. </para>
 </warning>
 
 <para
@@ -460,7 +468,7 @@
 <para
 >SRU significa <ulink url="http://www.loc.gov/standards/sru/"
 >Search/Retrieve via &URL; (Cerca i obtén via &URL;)</ulink
-> i és un protocol de cerca estàndard per a les recerques a Internet. Algunes biblioteques l'utilitzen per a proporcionar accés als seus catàlegs de dades. Entre elles, la <ulink url="http://www.loc.gov/z3950/lcserver.html#oppr"
+> i és un protocol de cerca estàndard per a les cerques a Internet. Algunes biblioteques l'utilitzen per a proporcionar accés als seus catàlegs de dades. Entre elles, la <ulink url="http://www.loc.gov/z3950/lcserver.html#oppr"
 >Biblioteca del congrés dels EUA</ulink
 > probablement és la més coneguda. </para>
 
@@ -594,7 +602,7 @@
 <para
 ><ulink url="http://allocine.fr"
 >AlloCiné</ulink
-> és un servei en línia d'informació de pel·lícules, amb seu a França. </para>
+> és un servei en línia d'informació de pel·lícules, amb seu a França. La identificació del navegador haurà d'estar habilitada a l'&systemsettings;. </para>
 </sect3>
 
 <sect3 id="animenfo">
@@ -618,7 +626,7 @@
 <para
 ><ulink url="http://discogs.com"
 >Discogs.com</ulink
-> és una base de dades de música construïda pels usuaris que conté informació sobre els artistes, segells i les seves gravacions. Es requereix registre per obtenir un compte gratuït. </para>
+> és una base de dades de música construïda pels usuaris que conté informació sobre els artistes, segells i les seves gravacions. Es requereix registre per obtenir un compte gratuït. La identificació del navegador haurà d'estar habilitada a l'&systemsettings;. </para>
 </sect3>
 
 <sect3 id="musicbrainz">
@@ -627,7 +635,7 @@
 <para
 ><ulink url="http://musicbrainz.org"
 >MusicBrainz.org</ulink
-> és una base de dades de metadades comunitària de música que intenta crear un lloc d'informació de música exhaustiu. </para>
+> és una base de dades de metadades comunitària de música que intenta crear un lloc d'informació de música exhaustiu. La identificació del navegador haurà d'estar habilitada a l'&systemsettings;. </para>
 </sect3>
 
 </sect2>
@@ -704,6 +712,22 @@
 ><ulink url="https://boardgamegeek.com"
 >BoardGameGeek</ulink
 > és un recurs i comunitat en línia per a jocs de taula. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of coin sources -->
+<sect2 id="coin-sources">
+<title
+>Fonts de dades per a monedes</title>
+
+<sect3 id="colnect">
+<title
+>Colnect</title>
+<para
+><ulink url="https://colnect.com"
+>Colnect</ulink
+> és una comunitat en línia per a col·leccionables que proporciona gestió de col·leccions personals. El &tellico; pot cercar a Colnect informació sobre les monedes. </para>
 </sect3>
 
 </sect2>

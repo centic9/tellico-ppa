@@ -27,6 +27,7 @@
 #include "../translators/tellicoimporter.h"
 #include "../collections/bookcollection.h"
 #include "../collections/coincollection.h"
+#include "../collections/musiccollection.h"
 #include "../collectionfactory.h"
 #include "../translators/tellicoxmlexporter.h"
 #include "../translators/tellico_xml.h"
@@ -37,17 +38,29 @@
 #include "../utils/xmlhandler.h"
 
 #include <QTest>
+#include <QNetworkInterface>
+#include <QDate>
 
 QTEST_GUILESS_MAIN( TellicoReadTest )
 
 #define QSL(x) QStringLiteral(x)
 #define TELLICOREAD_NUMBER_OF_CASES 10
 
+static bool hasNetwork() {
+  foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
+    if(net.flags().testFlag(QNetworkInterface::IsUp) && !net.flags().testFlag(QNetworkInterface::IsLoopBack)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 void TellicoReadTest::initTestCase() {
   // need to register this first
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
   Tellico::RegisterCollection<Tellico::Data::CoinCollection> registerCoin(Tellico::Data::Collection::Coin, "coin");
   Tellico::RegisterCollection<Tellico::Data::Collection> registerBase(Tellico::Data::Collection::Base, "entry");
+  Tellico::RegisterCollection<Tellico::Data::MusicCollection> registerAlbum(Tellico::Data::Collection::Album, "album");
 
   for(int i = 1; i < TELLICOREAD_NUMBER_OF_CASES; ++i) {
     QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QSL("data/books-format%1.bc").arg(i)));
@@ -257,8 +270,10 @@ void TellicoReadTest::testLocalImage() {
 }
 
 void TellicoReadTest::testRemoteImage() {
+  if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
+
   // this is the md5 hash of the logo.png icon, used as an image id
-  const QString imageId(QSL("757322046f4aa54290a3d92b05b71ca1.png"));
+  const QString imageId(QSL("ecaf5185c4016881aaabb4933211d5d6.png"));
   // not yet loaded
   QVERIFY(!Tellico::ImageFactory::self()->hasImageInMemory(imageId));
   QVERIFY(!Tellico::ImageFactory::self()->hasImageInfo(imageId));
@@ -272,7 +287,7 @@ void TellicoReadTest::testRemoteImage() {
   QString fileText = in.readAll();
   // replace %COVER% with image file location
   fileText.replace(QSL("%COVER%"),
-                   QSL("https://tellico-project.org/sites/default/files/logo.png"));
+                   QSL("https://tellico-project.org/wp-content/uploads/96-tellico.png"));
 
   Tellico::Import::TellicoImporter importer(fileText);
   Tellico::Data::CollPtr coll = importer.collection();
@@ -333,7 +348,62 @@ void TellicoReadTest::testXmlName_data() {
   // an empty string is handled in CollectionFieldsDialog when creating the field name
   QTest::newRow("42")     << false << QSL("42")     << QString();
   QTest::newRow("she is") << false << QSL("she is") << QSL("she-is");
-  QTest::newRow("colon:") << true  << QSL("colon:") << QSL("colon:");
+  QTest::newRow("colon:") << false << QSL("colon:") << QSL("colon");
   QTest::newRow("Svět")   << true  << QSL("Svět")   << QSL("Svět");
   QTest::newRow("<test>") << false << QSL("<test>") << QSL("test");
+  QTest::newRow("is-€:")  << false << QSL("is-€:")  << QSL("is-");
+}
+
+void TellicoReadTest::testRecoverXmlName() {
+  QFETCH(QByteArray, input);
+  QFETCH(QByteArray, modified);
+
+  QCOMPARE(Tellico::XML::recoverFromBadXMLName(input), modified);
+}
+
+void TellicoReadTest::testRecoverXmlName_data() {
+  QTest::addColumn<QByteArray>("input");
+  QTest::addColumn<QByteArray>("modified");
+
+  QTest::newRow("<nr:>")   << QByteArray("<fields><field name=\"nr:\"/></fields><nr:>x</nr:>")
+                           << QByteArray("<fields><field name=\"nr\"/></fields><nr>x</nr>");
+  QTest::newRow("<nr:>2")  << QByteArray("<fields><field name=\"nr:\" d=\"d\"/></fields><nr:>x</nr:>")
+                           << QByteArray("<fields><field name=\"nr\" d=\"d\"/></fields><nr>x</nr>");
+  QTest::newRow("<nr:>3")  << QByteArray("<fields><field name=\"nr:\"/></fields><nr:s><nr:>x</nr:></nr:s>")
+                           << QByteArray("<fields><field name=\"nr\"/></fields><nrs><nr>x</nr></nrs>");
+  QTest::newRow("<nr:>4")  << QByteArray("<fields><field d=\"nr:\" name=\"nr:\" d=\"nr:\"/></fields><nr:>x</nr:>")
+                           << QByteArray("<fields><field d=\"nr:\" name=\"nr\" d=\"nr:\"/></fields><nr>x</nr>");
+  QTest::newRow("<is-€:>") << QByteArray("<fields><field name=\"is-€:\"/></fields><is-€:>x</is-€:>")
+                           << QByteArray("<fields><field name=\"is-\"/></fields><is->x</is->");
+}
+
+void TellicoReadTest::testBug418067() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QSL("data/bug418067.xml")));
+
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  QVERIFY(coll);
+  QVERIFY(coll->hasField(QSL("lc-no.")));
+  QVERIFY(coll->hasField(QSL("mein-wunschpreis-")));
+}
+
+void TellicoReadTest::testNoCreationDate() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QSL("data/no_cdate.xml")));
+
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  QVERIFY(coll);
+  QVERIFY(coll->hasField(QStringLiteral("cdate")));
+  QVERIFY(coll->hasField(QStringLiteral("mdate")));
+  QCOMPARE(coll->entries().count(), 1);
+
+  Tellico::Data::EntryPtr entry = coll->entries().at(0);
+  QVERIFY(entry);
+  // entry data has an mdate but no cdate
+  // cdate should be set to same as mdate
+  QString mdate(QStringLiteral("2020-05-30"));
+  QCOMPARE(entry->field(QStringLiteral("cdate")), mdate);
+  QCOMPARE(entry->field(QStringLiteral("mdate")), mdate);
 }

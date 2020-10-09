@@ -45,6 +45,7 @@
 #include <QApplication>
 #include <QUrlQuery>
 #include <QThread>
+#include <QElapsedTimer>
 
 namespace {
   static const char* BGG_THING_URL  = "http://boardgamegeek.com/xmlapi2/thing";
@@ -115,12 +116,12 @@ Tellico::Data::CollPtr BoardGameGeekImporter::collection() {
   QStringList idList;
   QDomDocument dom = FileHandler::readXMLDocument(u, false, true);
   // could return HTTP 202 while the caching system generates the file
-  // see http://boardgamegeek.com/thread/1188687/export-collections-has-been-updated-xmlapi-develop
+  // see https://boardgamegeek.com/thread/1188687/export-collections-has-been-updated-xmlapi-develop
   // also has a root node of message. Try 5 times, waiting by 2 seconds each time
   bool hasMessage = dom.documentElement().tagName() == QStringLiteral("message");
   for(int loopCount = 0; hasMessage && loopCount < 5; ++loopCount) {
     // wait 2 seconds and try again
-    QTime timer;
+    QElapsedTimer timer;
     timer.start();
     while(timer.elapsed() < 2000) {
       QCoreApplication::processEvents(QEventLoop::AllEvents, 100);

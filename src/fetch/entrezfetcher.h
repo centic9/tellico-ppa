@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2005-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2005-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -29,6 +29,9 @@
 #include "configwidget.h"
 
 #include <QPointer>
+#include <QElapsedTimer>
+
+class QLineEdit;
 
 class KJob;
 namespace KIO {
@@ -67,7 +70,10 @@ public:
   class ConfigWidget : public Fetch::ConfigWidget {
   public:
     explicit ConfigWidget(QWidget* parent_, const EntrezFetcher* fetcher=nullptr);
+    virtual void saveConfigHook(KConfigGroup&) Q_DECL_OVERRIDE;
     virtual QString preferredName() const Q_DECL_OVERRIDE;
+  private:
+    QLineEdit* m_apiKeyEdit;
   };
   friend class ConfigWidget;
 
@@ -86,6 +92,8 @@ private:
 
   void searchResults(const QByteArray& data);
   void summaryResults(const QByteArray& data);
+  // honor throttle limit for the API
+  void markTime();
 
   enum Step {
     Begin,
@@ -100,9 +108,12 @@ private:
   int m_start;
   int m_total;
 
+  QString m_apiKey;
+
   QHash<uint, Data::EntryPtr> m_entries; // map from search result id to entry
   QHash<uint, int> m_matches; // search result id to pubmed id
   QPointer<KIO::StoredTransferJob> m_job;
+  QElapsedTimer m_idleTime;
 
   QString m_queryKey;
   QString m_webEnv;

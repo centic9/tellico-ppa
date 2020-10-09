@@ -63,6 +63,7 @@ public:
   virtual void stop() Q_DECL_OVERRIDE;
   virtual Data::EntryPtr fetchEntryHook(uint uid) Q_DECL_OVERRIDE;
   virtual bool canFetch(int type) const Q_DECL_OVERRIDE;
+  virtual bool needsUserAgent() const Q_DECL_OVERRIDE { return true; }
   virtual void readConfigHook(const KConfigGroup& config) Q_DECL_OVERRIDE;
 
   class ConfigWidget : public Fetch::ConfigWidget {
@@ -79,7 +80,7 @@ private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:
-  static QByteArray calculateSignature(const QList<QPair<QString, QString> >& params);
+  static QByteArray calculateSignature(const QString& method, const QList<QPair<QString, QString> >& params);
 
   virtual void search() Q_DECL_OVERRIDE;
   virtual FetchRequest updateRequest(Data::EntryPtr entry) Q_DECL_OVERRIDE;

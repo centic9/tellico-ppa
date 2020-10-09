@@ -71,18 +71,15 @@
 #include "mobygamesfetcher.h"
 #include "comicvinefetcher.h"
 #include "kinoteatrfetcher.h"
+#include "colnectfetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
  * but as a static variable, they weren't always being initialized, so do it the manual way.
  */
 Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
-#ifdef ENABLE_AMAZON
   RegisterFetcher<Fetch::AmazonFetcher> registerAmazon(Amazon);
-#endif
-#ifdef ENABLE_IMDB
   RegisterFetcher<Fetch::IMDBFetcher> registerIMDB(IMDB);
-#endif
 #ifdef HAVE_YAZ
   RegisterFetcher<Fetch::Z3950Fetcher> registerZ3950(Z3950);
 #endif
@@ -127,6 +124,7 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::MobyGamesFetcher> registerMobyGames(MobyGames);
   RegisterFetcher<Fetch::ComicVineFetcher> registerComicVine(ComicVine);
   RegisterFetcher<Fetch::KinoTeatrFetcher> registerTeatr(KinoTeatr);
+  RegisterFetcher<Fetch::ColnectFetcher> registerColnect(Colnect);
 
   Fetch::Manager::self()->loadFetchers();
 }

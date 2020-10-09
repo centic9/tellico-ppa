@@ -140,6 +140,7 @@ Tellico::Data::FieldList GameCollection::defaultFields() {
 
 
 QString GameCollection::normalizePlatform(const QString& platformName_) {
+  if(platformName_.isEmpty()) return QString();
   GamePlatform platform = guessPlatform(platformName_);
   if(platform == UnknownPlatform) {
     QString platformName = platformName_;
@@ -162,6 +163,8 @@ Tellico::Data::GameCollection::GamePlatform GameCollection::guessPlatform(const 
       return PlayStationVita;
     } else if(name_.contains(QStringLiteral("Portable"))) {
       return PlayStationPortable;
+    } else if(name_.contains(QStringLiteral("5"))) {
+      return PlayStation5;
     } else if(name_.contains(QStringLiteral("4"))) {
       return PlayStation4;
     } else if(name_.contains(QStringLiteral("3"))) {
@@ -178,6 +181,8 @@ Tellico::Data::GameCollection::GamePlatform GameCollection::guessPlatform(const 
       return XboxOne;
     } else if(name_.contains(QStringLiteral("360"))) {
       return Xbox360;
+    } else if(name_.endsWith(QStringLiteral("X"))) {
+      return XboxSeriesX;
     } else {
       return Xbox;
     }
@@ -204,14 +209,17 @@ Tellico::Data::GameCollection::GamePlatform GameCollection::guessPlatform(const 
     return NintendoGameCube;
   } else if(name_.contains(QStringLiteral("Advance"))) {
     return GameBoyAdvance;
-  } else if(name_ == QStringLiteral("Game Boy Color")) {
+  } else if(name_.contains(QStringLiteral("Game Boy Color")) || name_.contains(QStringLiteral("GameBoy Color"), Qt::CaseInsensitive)) {
     return GameBoyColor;
-  } else if(name_ == QStringLiteral("Game Boy")) {
+  } else if(name_.contains(QStringLiteral("Game Boy")) || name_.contains(QStringLiteral("GameBoy"), Qt::CaseInsensitive)) {
     return GameBoy;
   } else if(name_.contains(QStringLiteral("SNES")) || name_.contains(QStringLiteral("Super Nintendo"))) {
     return SuperNintendo;
-    // nothing left for Nintendo except original
-  } else if(name_.contains(QStringLiteral("Nintendo"))) {
+    // only return Nintendo if equal or includes Original or Entertainment
+    // could be platforms like "Nintendo Virtual Boy"
+  } else if(name_ == QStringLiteral("Nintendo")
+            || name_ == QStringLiteral("NES")
+            || name_.contains(QStringLiteral("Nintendo Entertainment"))) {
     return Nintendo;
   } else if(name_.contains(QStringLiteral("Genesis"))) {
     return Genesis;
@@ -224,7 +232,7 @@ Tellico::Data::GameCollection::GamePlatform GameCollection::guessPlatform(const 
   } else if(name_.contains(QStringLiteral("Android"))) {
     return Android;
   }
-  myDebug() << "No platform guess for" << name_;
+//  myDebug() << "No platform guess for" << name_;
   return UnknownPlatform;
 }
 
@@ -238,10 +246,12 @@ QString GameCollection::platformName(GamePlatform platform_) {
     case Xbox:                return i18n("Xbox");
     case Xbox360:             return i18n("Xbox 360");
     case XboxOne:             return i18n("Xbox One");
+    case XboxSeriesX:         return i18n("Xbox Series X");
     case PlayStation:         return i18n("PlayStation");
     case PlayStation2:        return i18n("PlayStation2");
     case PlayStation3:        return i18n("PlayStation3");
     case PlayStation4:        return i18n("PlayStation4");
+    case PlayStation5:        return i18n("PlayStation5");
     case PlayStationPortable: return i18nc("PlayStation Portable", "PSP");
     case PlayStationVita:     return i18n("PlayStation Vita");
     case GameBoy:             return i18n("Game Boy");

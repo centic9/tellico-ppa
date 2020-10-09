@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2019 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2019-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -25,9 +25,11 @@
 #include "mobygamesfetcher.h"
 #include "../collections/gamecollection.h"
 #include "../images/imagefactory.h"
+#include "../gui/combobox.h"
 #include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
+#include "../utils/tellico_utils.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -47,6 +49,7 @@
 #include <QJsonObject>
 #include <QUrlQuery>
 #include <QThread>
+#include <QTimer>
 
 namespace {
   static const int MOBYGAMES_MAX_RETURNS_TOTAL = 10;
@@ -57,11 +60,13 @@ using namespace Tellico;
 using Tellico::Fetch::MobyGamesFetcher;
 
 MobyGamesFetcher::MobyGamesFetcher(QObject* parent_)
-    : Fetcher(parent_), m_started(false) {
+    : Fetcher(parent_)
+    , m_started(false)
+    , m_imageSize(SmallImage) {
   //  setLimit(MOBYGAMES_MAX_RETURNS_TOTAL);
-  if(m_esrbHash.isEmpty()) {
-    populateHashes();
-  }
+  m_idleTime.start();
+  // delay reading the platform names from the cache file
+  QTimer::singleShot(0, this, &MobyGamesFetcher::populateHashes);
 }
 
 MobyGamesFetcher::~MobyGamesFetcher() {
@@ -76,7 +81,7 @@ QString MobyGamesFetcher::attribution() const {
 }
 
 bool MobyGamesFetcher::canSearch(FetchKey k) const {
-  return k == Title;
+  return k == Title || k == Keyword;
 }
 
 bool MobyGamesFetcher::canFetch(int type) const {
@@ -88,6 +93,10 @@ void MobyGamesFetcher::readConfigHook(const KConfigGroup& config_) {
   if(!k.isEmpty()) {
     m_apiKey = k;
   }
+  const int imageSize = config_.readEntry("Image Size", -1);
+  if(imageSize > -1) {
+    m_imageSize = static_cast<ImageSize>(imageSize);
+  }
 }
 
 void MobyGamesFetcher::search() {
@@ -96,6 +105,7 @@ void MobyGamesFetcher::search() {
 
 void MobyGamesFetcher::continueSearch() {
   m_started = true;
+  m_requestPlatformId = 0;
 
   if(m_apiKey.isEmpty()) {
     myDebug() << "empty API key";
@@ -115,6 +125,38 @@ void MobyGamesFetcher::continueSearch() {
       q.addQueryItem(QStringLiteral("title"), request().value);
       break;
 
+    case Keyword:
+      {
+      // figure out if the platform is part of the search string
+      int pId = 0;
+      QString value = request().value; // resulting value
+      QString matchedPlatform;
+      // iterate over all known platforms; this doesn't seem to be too much of a performance hit
+      QHash<int, QString>::const_iterator i = m_platforms.constBegin();
+      while(i != m_platforms.constEnd()) {
+        // don't forget that some platform names are substrings of others, like Wii and WiiU
+        if(i.value().length() > matchedPlatform.length() && request().value.contains(i.value())) {
+          pId = i.key();
+          matchedPlatform = i.value();
+          QString v = request().value; // reset search value
+          v.remove(matchedPlatform); // remove platform from search value
+          value = v.simplified();
+          // can't break, because of potential substring platform name
+        }
+        ++i;
+      }
+      q.addQueryItem(QStringLiteral("title"), value);
+      if(pId > 0) {
+        m_requestPlatformId = pId;
+        q.addQueryItem(QStringLiteral("platform"), QString::number(pId));
+      }
+      }
+      break;
+
+    case Raw:
+      q.setQuery(request().value);
+      break;
+
     default:
       myWarning() << "key not recognized:" << request().key;
       stop();
@@ -127,6 +169,7 @@ void MobyGamesFetcher::continueSearch() {
 //  u = QUrl::fromLocalFile(QStringLiteral("/home/robby/games.json"));
 //  myDebug() << u;
 
+  markTime();
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job.data(), &KJob::result, this, &MobyGamesFetcher::slotComplete);
@@ -161,8 +204,7 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
   u.setQuery(q);
 //  myDebug() << u;
 
-  // need to wait a bit after previous query, Moby error message say 1 sec
-  QThread::msleep(1000);
+  markTime();
   QPointer<KIO::StoredTransferJob> job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(job, GUI::Proxy::widget());
   if(!job->exec()) {
@@ -176,7 +218,7 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
   }
 #if 0
   myWarning() << "Remove platforms debug from mobygamesfetcher.cpp";
-  QFile file(QStringLiteral("/tmp/moby-platforms.json"));
+  QFile file(QStringLiteral("/tmp/moby-game-info.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
     t.setCodec("UTF-8");
@@ -221,6 +263,12 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
     entry->setField(QStringLiteral("developer"), devs.join(FieldFormat::delimiterString()));
   }
 
+  if(m_imageSize == NoImage) {
+    entry->setField(QStringLiteral("moby-id"), QString());
+    entry->setField(QStringLiteral("platform-id"), QString());
+    return entry;
+  }
+
   // check for empty cover
   const QString image_id = entry->field(QStringLiteral("cover"));
   if(!image_id.isEmpty()) {
@@ -234,8 +282,7 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
   u.setQuery(q);
 //  myDebug() << u;
 
-  // need to wait a bit after previous query
-  QThread::msleep(1000);
+  markTime();
   job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(job, GUI::Proxy::widget());
   if(!job->exec()) {
@@ -261,26 +308,33 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
   QString coverUrl;
   doc = QJsonDocument::fromJson(data);
   map = doc.object().toVariantMap();
+  // prefer "Front Cover" but fall back to "Media"
+  QString front, media;
   QVariantList coverGroupList = map.value(QStringLiteral("cover_groups")).toList();
   foreach(const QVariant& coverGroup, coverGroupList) {
-    // just take the first cover
+    // just take the cover from the first group with front cover, appear to be grouped by country
     QVariantList coverList = coverGroup.toMap().value(QStringLiteral("covers")).toList();
-    // take the cover that is a scan of "Media" unless there is none
-    bool foundCover = false;
     foreach(const QVariant& coverVariant, coverList) {
       const QVariantMap coverMap = coverVariant.toMap();
-      if(coverMap.value(QStringLiteral("scan_of")) == QStringLiteral("Media") ||
-         coverMap.value(QStringLiteral("scan_of")) == QStringLiteral("Front Cover")) {
-        coverUrl = coverMap.value(QStringLiteral("thumbnail_image")).toString();
-        foundCover = true;
+      if(media.isEmpty() &&
+         coverMap.value(QStringLiteral("scan_of")) == QStringLiteral("Media")) {
+        media = m_imageSize == SmallImage ?
+                coverMap.value(QStringLiteral("thumbnail_image")).toString() :
+                coverMap.value(QStringLiteral("image")).toString();
+      } else if(coverMap.value(QStringLiteral("scan_of")) == QStringLiteral("Front Cover")) {
+        front = m_imageSize == SmallImage ?
+                coverMap.value(QStringLiteral("thumbnail_image")).toString() :
+                coverMap.value(QStringLiteral("image")).toString();
         break;
       }
     }
-    if(foundCover) {
+    if(!front.isEmpty()) {
       // no need to continue iteration through cover groups
       break;
     }
   }
+
+  coverUrl = front.isEmpty() ? media : front; // fall back to media image
 
   if(!coverUrl.isEmpty()) {
 //    myDebug() << coverUrl;
@@ -299,7 +353,24 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
 }
 
 Tellico::Fetch::FetchRequest MobyGamesFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString title = entry_->field(QStringLiteral("title"));
+  const QString title = entry_->field(QStringLiteral("title"));
+  const QString platform = entry_->field(QStringLiteral("platform"));
+  // if the platform name is not empty, we can use that to limit the title search
+  if(!platform.isEmpty()) {
+    // iterate through platform map to potentially match name
+    // would ultimately be faster to have a second hash to map name to id or a bidirectional
+    // could assume the platform name is already normalized, but allow user to have entered something
+    // not quite the same
+    if(m_platforms.isEmpty()) {
+      updatePlatforms();
+    }
+    const int pId = m_platforms.key(Data::GameCollection::normalizePlatform(platform));
+    if(pId > 0) {
+      return FetchRequest(Raw, QString::fromLatin1("title=%1&platform=%2").arg(title, QString::number(pId)));
+    }
+  }
+
+  // fallback to pure title search
   if(!title.isEmpty()) {
     return FetchRequest(Title, title);
   }
@@ -327,7 +398,7 @@ void MobyGamesFetcher::slotComplete(KJob* job_) {
 
 #if 0
   myWarning() << "Remove debug from mobygamesfetcher.cpp";
-  QFile file(QStringLiteral("/tmp/test.json"));
+  QFile file(QStringLiteral("/tmp/moby-results.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
     t.setCodec("UTF-8");
@@ -358,6 +429,20 @@ void MobyGamesFetcher::slotComplete(KJob* job_) {
 
   QJsonDocument doc = QJsonDocument::fromJson(data);
   QVariantMap map = doc.object().toVariantMap();
+
+  // check for error
+  if(map.contains(QStringLiteral("error"))) {
+    const QString msg = map.value(QStringLiteral("message")).toString();
+    message(msg, MessageHandler::Error);
+    myDebug() << "MobyGamesFetcher -" << msg;
+    stop();
+    return;
+  }
+
+  if(m_platforms.isEmpty()) {
+    updatePlatforms();
+  }
+
   foreach(const QVariant& result, map.value(QStringLiteral("games")).toList()) {
     QVariantMap resultMap = result.toMap();
     Data::EntryList entries = createEntries(coll, resultMap);
@@ -379,7 +464,7 @@ Tellico::Data::EntryList MobyGamesFetcher::createEntries(Data::CollPtr coll_, co
 
   QStringList genres;
   foreach(const QVariant& genreMap, resultMap_.value(QStringLiteral("genres")).toList()) {
-    QString g = genreMap.toMap().value(QStringLiteral("genre_name")).toString();
+    const QString g = genreMap.toMap().value(QStringLiteral("genre_name")).toString();
     if(!g.isEmpty()) {
       genres << g;
     }
@@ -390,36 +475,48 @@ Tellico::Data::EntryList MobyGamesFetcher::createEntries(Data::CollPtr coll_, co
     entry->setField(QStringLiteral("mobygames"), mapValue(resultMap_, "moby_url"));
   }
 
+  const QString platformS(QStringLiteral("platform"));
+
+  // for efficiency, check if the search includes a platform
+  // since the results will include all the platforms, not just the searched one
+  if(request().key == Raw &&
+     request().value.contains(platformS)) {
+    QUrlQuery q(request().value);
+    m_requestPlatformId = q.queryItemValue(platformS).toInt();
+  }
+
   Data::EntryList entries;
   // return a new entry for every platform
   foreach(const QVariant& platformMapV, resultMap_.value(QStringLiteral("platforms")).toList()) {
     Data::EntryPtr newEntry(new Data::Entry(*entry));
 
     const QVariantMap platformMap = platformMapV.toMap();
-    const QString platform = platformMap.value(QStringLiteral("platform_name")).toString();
-    if(platform == QStringLiteral("Wii")) {
-      newEntry->setField(QStringLiteral("platform"), i18n("Nintendo Wii"));
-    } else if(platform == QStringLiteral("Wii U")) {
-      // TODO:: add WII U to defaults?
-      newEntry->setField(QStringLiteral("platform"), i18n("Nintendo Wii"));
-    } else if(platform == QStringLiteral("Nintendo GameCube")) {
-      newEntry->setField(QStringLiteral("platform"), i18n("GameCube"));
-    } else {
-      // also make the assumption that if the platform name isn't already in the allowed list, it should be added
-      Data::FieldPtr f = coll_->fieldByName(QStringLiteral("platform"));
+    const int platformId = platformMap.value(QStringLiteral("platform_id")).toInt();
+    if(m_platforms.contains(platformId)) {
+      const QString platform = m_platforms[platformId];
+      // make the assumption that if the platform name isn't already in the allowed list, it should be added
+      Data::FieldPtr f = newEntry->collection()->fieldByName(platformS);
       if(f && !f->allowed().contains(platform)) {
         f->setAllowed(QStringList(f->allowed()) << platform);
       }
-      newEntry->setField(QStringLiteral("platform"), platform);
+      newEntry->setField(platformS, platform);
+    } else {
+      myDebug() << "platform list does not contain" << platformId << mapValue(platformMap, "platform_name");
     }
 
     newEntry->setField(QStringLiteral("platform-id"),
                        platformMap.value(QStringLiteral("platform_id")).toString());
     newEntry->setField(QStringLiteral("year"),
                        platformMap.value(QStringLiteral("first_release_date")).toString().left(4));
-    entries << newEntry;
+    if(m_requestPlatformId == 0 || m_requestPlatformId == platformId) entries << newEntry;
   }
   return entries;
+}
+
+void MobyGamesFetcher::markTime() {
+  // need to wait a bit after previous query, Moby error message say 1 sec
+  if(m_idleTime.elapsed() < 1000) QThread::msleep(1000);
+  m_idleTime.restart();
 }
 
 void MobyGamesFetcher::populateHashes() {
@@ -442,6 +539,47 @@ void MobyGamesFetcher::populateHashes() {
   m_esrbHash.insert(93, esrb.at(2));
   m_esrbHash.insert(94, esrb.at(1));
   m_esrbHash.insert(95, esrb.at(7));
+
+  // Read the cached data for the platform list
+  QFile file(Tellico::saveLocation(QStringLiteral("mobygames-data/")) + QLatin1String("platforms.json"));
+  if(file.open(QIODevice::ReadOnly)) {
+    m_platforms.clear();
+    const QVariantMap topMap = QJsonDocument::fromJson(file.readAll()).object().toVariantMap();
+    foreach(const QVariant& platform, topMap.value(QStringLiteral("platforms")).toList()) {
+      const QVariantMap m = platform.toMap();
+      Data::GameCollection::GamePlatform pId = Data::GameCollection::guessPlatform(mapValue(m, "platform_name"));
+      if(pId == Data::GameCollection::UnknownPlatform) {
+        // platform is not in the default list, just keep it as is
+        m_platforms.insert(m.value(QStringLiteral("platform_id")).toInt(),
+                           mapValue(m, "platform_name"));
+      } else {
+        m_platforms.insert(m.value(QStringLiteral("platform_id")).toInt(),
+                           Data::GameCollection::platformName(pId));
+      }
+    }
+  } else if(file.exists()) { // don't want errors for non-existing file
+    myDebug() << "Failed to read from" << file.fileName() << file.errorString();
+  }
+}
+
+void MobyGamesFetcher::updatePlatforms() {
+  QUrl u(QString::fromLatin1(MOBYGAMES_API_URL));
+  u.setPath(u.path() + QStringLiteral("/platforms"));
+  QUrlQuery q;
+  q.addQueryItem(QStringLiteral("api_key"), m_apiKey);
+  u.setQuery(q);
+
+//  u = QUrl::fromLocalFile(QStringLiteral("/home/robby/platforms.json")); // for testing
+//  myDebug() << "Reading platforms from" << u;
+  markTime();
+  const QByteArray data = FileHandler::readDataFile(u, true);
+  QFile file(Tellico::saveLocation(QStringLiteral("mobygames-data/")) + QLatin1String("platforms.json"));
+  if(!file.open(QIODevice::WriteOnly) || file.write(data) == -1) {
+    myDebug() << "unable to write to" << file.fileName() << file.errorString();
+    return;
+  }
+  file.close();
+  populateHashes();
 }
 
 Tellico::Fetch::ConfigWidget* MobyGamesFetcher::configWidget(QWidget* parent_) const {
@@ -492,6 +630,22 @@ MobyGamesFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const MobyGamesFe
   l->addWidget(m_apiKeyEdit, row, 1);
   label->setBuddy(m_apiKeyEdit);
 
+  label = new QLabel(i18n("&Image size: "), optionsWidget());
+  l->addWidget(label, ++row, 0);
+  m_imageCombo = new GUI::ComboBox(optionsWidget());
+  m_imageCombo->addItem(i18n("Small Image"), SmallImage);
+//  m_imageCombo->addItem(i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
+  m_imageCombo->addItem(i18n("Large Image"), LargeImage);
+  m_imageCombo->addItem(i18n("No Image"), NoImage);
+  void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
+  connect(m_imageCombo, activatedInt, this, &ConfigWidget::slotSetModified);
+  l->addWidget(m_imageCombo, row, 1);
+  QString w = i18n("The cover image may be downloaded as well. However, too many large images in the "
+                   "collection may degrade performance.");
+  label->setWhatsThis(w);
+  m_imageCombo->setWhatsThis(w);
+  label->setBuddy(m_imageCombo);
+
   l->setRowStretch(++row, 10);
 
   // now add additional fields widget
@@ -499,6 +653,9 @@ MobyGamesFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const MobyGamesFe
 
   if(fetcher_) {
     m_apiKeyEdit->setText(fetcher_->m_apiKey);
+    m_imageCombo->setCurrentData(fetcher_->m_imageSize);
+  } else { // defaults
+    m_imageCombo->setCurrentData(SmallImage);
   }
 }
 
@@ -507,6 +664,8 @@ void MobyGamesFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   if(!apiKey.isEmpty()) {
     config_.writeEntry("API Key", apiKey);
   }
+  const int n = m_imageCombo->currentData().toInt();
+  config_.writeEntry("Image Size", n);
 }
 
 QString MobyGamesFetcher::ConfigWidget::preferredName() const {

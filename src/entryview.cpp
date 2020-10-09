@@ -147,6 +147,7 @@ void EntryView::showEntry(Tellico::Data::EntryPtr entry_) {
   long opt = exporter.options();
   // verify images for the view
   opt |= Export::ExportVerifyImages;
+  opt |= Export::ExportComplete;
   // on second thought, don't auto-format everything, just clean it
 //  if(Data::Field::autoFormat()) {
 //    opt = Export::ExportFormatted;
@@ -284,12 +285,12 @@ void EntryView::setXSLTFile(const QString& file_) {
   m_handler->addStringParam("color2",   Config::templateHighlightedBaseColor(type).name().toLatin1());
 
   if(Data::Document::self()->allImagesOnDisk()) {
-    m_handler->addStringParam("imgdir", QFile::encodeName(ImageFactory::imageDir()));
+    m_handler->addStringParam("imgdir", QUrl::fromLocalFile(ImageFactory::imageDir()).toEncoded());
   } else {
-    m_handler->addStringParam("imgdir", QFile::encodeName(ImageFactory::tempDir()));
+    m_handler->addStringParam("imgdir", QUrl::fromLocalFile(ImageFactory::tempDir()).toEncoded());
   }
 
-  m_handler->addStringParam("datadir", QFile::encodeName(Tellico::installationDir()));
+  m_handler->addStringParam("datadir", QUrl::fromLocalFile(Tellico::installationDir()).toEncoded());
 
   // if we don't have to reload the images, then just show the entry and we're done
   if(reloadImages) {

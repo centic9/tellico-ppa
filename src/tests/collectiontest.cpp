@@ -158,8 +158,10 @@ void CollectionTest::testCollection() {
                      + QStringLiteral("Value2");
   entry2->setField(QStringLiteral("table"), tableValue);
   QCOMPARE(entry2->formattedField(QStringLiteral("table")), tableValue);
-  QCOMPARE(QSet<QString>::fromList(entry2->groupNamesByFieldName(QStringLiteral("table"))),
-           QSet<QString>() << QStringLiteral("Value1") << QStringLiteral("Value2"));
+  groupNames = entry2->groupNamesByFieldName(QStringLiteral("table"));
+  QCOMPARE(groupNames.count(), 2);
+  QVERIFY(groupNames.contains(QStringLiteral("Value1")));
+  QVERIFY(groupNames.contains(QStringLiteral("Value2")));
 }
 
 void CollectionTest::testFields() {
@@ -442,16 +444,39 @@ void CollectionTest::testDuplicate() {
 
   Tellico::Data::EntryPtr entry1(new Tellico::Data::Entry(coll));
   entry1->setField(QStringLiteral("title"), QStringLiteral("title1"));
+  entry1->setField(QStringLiteral("cdate"), QStringLiteral("2019-01-01"));
+  entry1->setField(QStringLiteral("mdate"), QStringLiteral("2019-04-01"));
   coll->addEntries(entry1);
   QCOMPARE(coll->entryCount(), 1);
 
   // this is how Controller::slotCopySelectedEntries() does it
   Tellico::Data::EntryPtr entry2(new Tellico::Data::Entry(*entry1));
+  QVERIFY(entry2->field(QStringLiteral("cdate")).isEmpty());
+  QVERIFY(entry2->field(QStringLiteral("mdate")).isEmpty());
   coll->addEntries(entry2);
   QCOMPARE(coll->entryCount(), 2);
 
   QCOMPARE(entry1->title(), entry2->title());
   QVERIFY(entry1->id() != entry2->id());
+  // creation date should reflect current date in the duplicated entry
+  QVERIFY(entry1->field(QStringLiteral("cdate")) != entry2->field(QStringLiteral("cdate")));
+  QCOMPARE(entry2->field(QStringLiteral("cdate")), QDate::currentDate().toString(Qt::ISODate));
+
+  // also test operator= which is how ModifyEntries::swapValues() works
+  Tellico::Data::Entry* entryPtr = new Tellico::Data::Entry(coll);
+  *entryPtr = *entry1;
+  Tellico::Data::EntryPtr entry3(entryPtr);
+  QVERIFY(entry3->field(QStringLiteral("cdate")).isEmpty());
+  QVERIFY(entry3->field(QStringLiteral("mdate")).isEmpty());
+  coll->addEntries(entry3);
+  QCOMPARE(coll->entryCount(), 3);
+
+  QCOMPARE(entry1->title(), entry3->title());
+  // entry id should be different
+  QVERIFY(entry1->id() != entry3->id());
+  // creation date should reflect current date in the duplicated entry
+  QVERIFY(entry1->field(QStringLiteral("cdate")) != entry3->field(QStringLiteral("cdate")));
+  QCOMPARE(entry3->field(QStringLiteral("cdate")), QDate::currentDate().toString(Qt::ISODate));
 
   bool ret = Tellico::Data::Document::mergeEntry(entry1, entry2);
   QCOMPARE(ret, true);
@@ -703,4 +728,21 @@ void CollectionTest::testGamePlatform() {
     int pGuess = Tellico::Data::GameCollection::guessPlatform(pName);
     QCOMPARE(i, pGuess);
   }
+
+  // test some specific platform names that some data sources might return
+  // thegamesdb.net returns "Nintendo Game Boy"
+  int gameBoy = Tellico::Data::GameCollection::guessPlatform(QStringLiteral("Nintendo Game Boy"));
+  QCOMPARE(gameBoy, int(Tellico::Data::GameCollection::GameBoy));
+  gameBoy = Tellico::Data::GameCollection::guessPlatform(QStringLiteral("gameboy"));
+  QCOMPARE(gameBoy, int(Tellico::Data::GameCollection::GameBoy));
+  gameBoy = Tellico::Data::GameCollection::guessPlatform(QStringLiteral("gameboy color"));
+  QCOMPARE(gameBoy, int(Tellico::Data::GameCollection::GameBoyColor));
+  gameBoy = Tellico::Data::GameCollection::guessPlatform(QStringLiteral("Gameboy Advance"));
+  QCOMPARE(gameBoy, int(Tellico::Data::GameCollection::GameBoyAdvance));
+
+  // don't match Nintendo Virtual Boy with Nintendo
+  int guess = Tellico::Data::GameCollection::guessPlatform(QStringLiteral("Nintendo Virtual Boy"));
+  QCOMPARE(guess, int(Tellico::Data::GameCollection::UnknownPlatform));
+  guess = Tellico::Data::GameCollection::guessPlatform(QStringLiteral("Nintendo Entertainment System"));
+  QCOMPARE(guess, int(Tellico::Data::GameCollection::Nintendo));
 }

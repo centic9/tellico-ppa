@@ -12,9 +12,9 @@ ADD_SUBDIRECTORY( models )
 ADD_SUBDIRECTORY( utils )
 ADD_SUBDIRECTORY( 3rdparty )
 
-IF( BUILD_TESTS )
+IF( BUILD_TESTING )
   ADD_SUBDIRECTORY( tests )
-ENDIF( BUILD_TESTS )
+ENDIF( BUILD_TESTING )
 
 IF( ENABLE_WEBCAM )
   ADD_SUBDIRECTORY( barcode )
@@ -22,7 +22,19 @@ ENDIF( ENABLE_WEBCAM )
 
 ########### next target ###############
 
+set(ICONS_PNG
+  ${CMAKE_SOURCE_DIR}/icons/16-apps-tellico.png
+  ${CMAKE_SOURCE_DIR}/icons/22-apps-tellico.png
+  ${CMAKE_SOURCE_DIR}/icons/32-apps-tellico.png
+  ${CMAKE_SOURCE_DIR}/icons/48-apps-tellico.png
+  ${CMAKE_SOURCE_DIR}/icons/64-apps-tellico.png
+  ${CMAKE_SOURCE_DIR}/icons/128-apps-tellico.png
+)
+
+ecm_add_app_icon(ICONS_SOURCES ICONS ${ICONS_PNG})
+
 SET(tellico_SRCS
+   ${ICONS_SOURCES}
    bibtexkeydialog.cpp
    borrower.cpp
    borrowerdialog.cpp

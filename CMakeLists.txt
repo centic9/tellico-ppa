@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.2.3")
+set(TELLICO_VERSION "3.3.3")
 
 set(QT_MIN_VERSION "5.4.0")
 
@@ -14,18 +14,19 @@ if(POLICY CMP0063)
   cmake_policy(SET CMP0063 NEW)
 endif(POLICY CMP0063)
 
-# http://www.cmake.org/Wiki/CMake_Useful_Variables
+# https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/Useful-Variables
 # automatically add CMAKE_CURRENT_SOURCE_DIR and CMAKE_CURRENT_BINARY_DIR
 # to the include directories in every processed CMakeLists.txt
 set(CMAKE_INCLUDE_CURRENT_DIR TRUE)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
-                      ${ECM_MODULE_PATH}
-                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+                      ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
+                      ${ECM_MODULE_PATH})
 
 #include(ECMAddTests)
 #include(ECMMarkNonGuiExecutable)
 #include(ECMInstallIcons)
+include(ECMAddAppIcon)
 include(ECMUninstallTarget)
 include(FeatureSummary)
 
@@ -36,11 +37,8 @@ include(KDECMakeSettings)
 
 ############# Options #################
 
-option(ENABLE_AMAZON       "Enable Amazon.com searching" TRUE)
-option(ENABLE_IMDB         "Enable IMDb searching" TRUE)
 option(ENABLE_CDTEXT       "Enable cdtext" TRUE)
 option(ENABLE_WEBCAM       "Enable support for webcams" FALSE)
-option(BUILD_TESTS         "Build the tests" TRUE)
 option(BUILD_FETCHER_TESTS "Build tests which verify data sources" FALSE)
 
 include(CheckSymbolExists)
@@ -87,30 +85,30 @@ find_package(LibXslt REQUIRED)
 find_package(KF5FileMetaData)
 set_package_properties(KF5FileMetaData PROPERTIES
     DESCRIPTION "Support for reading file metadata"
-    URL "http://www.kde.org"
+    URL "https://www.kde.org"
     TYPE OPTIONAL)
 
 find_package(KF5NewStuff)
 set_package_properties(KF5NewStuff PROPERTIES
     DESCRIPTION "Support for fetching new templates and scripts"
-    URL "http://www.kde.org"
+    URL "https://www.kde.org"
     TYPE OPTIONAL)
 
 find_package(KF5Sane)
 set_package_properties(KF5Sane PROPERTIES
     DESCRIPTION "Support for adding scanned images to a collection"
-    URL "http://www.kde.org"
+    URL "https://www.kde.org"
     TYPE OPTIONAL)
 if(KF5Sane_FOUND)
     include_directories(${KF5Sane_INCLUDE_DIR})
 endif(KF5Sane_FOUND)
 
 #macro_optional_find_package(KdepimLibs 4.5)
-#macro_log_feature(KDEPIMLIBS_FOUND "kdepimlibs" "Support for using the address book and calendar for loans" "http://pim.kde.org" FALSE "4.5.0" "")
+#macro_log_feature(KDEPIMLIBS_FOUND "kdepimlibs" "Support for using the address book and calendar for loans" "https://community.kde.org/PIM" FALSE "4.5.0" "")
 #find_package(KdepimLibs 4.5)
 #set_package_properties(KdepimLibs PROPERTIES
 #    DESCRIPTION "Support for using the address book and calendar for loans"
-#    URL "http://pim.kde.org"
+#    URL "https://community.kde.org/PIM"
 #    TYPE OPTIONAL)
 if(KDEPIMLIBS_FOUND)
     include_directories(${KDEPIMLIBS_INCLUDE_DIRS})
@@ -126,7 +124,7 @@ set_package_properties(KF5Cddb PROPERTIES
 find_package(Taglib)
 set_package_properties(Taglib PROPERTIES
     DESCRIPTION "Support for reading multimedia files"
-    URL "http://taglib.github.io"
+    URL "https://taglib.org/"
     TYPE OPTIONAL)
 if(TAGLIB_FOUND)
     add_definitions(${TAGLIB_CFLAGS})
@@ -136,7 +134,7 @@ endif(TAGLIB_FOUND)
 find_package(Yaz 2.0)
 set_package_properties(Yaz PROPERTIES
     DESCRIPTION "Support for searching z39.50 databases"
-    URL "http://www.indexdata.dk/yaz/"
+    URL "https://www.indexdata.com/resources/software/yaz/"
     TYPE OPTIONAL)
 if(Yaz_FOUND)
     include_directories(${Yaz_INCLUDE_DIRS})
@@ -148,7 +146,7 @@ find_package(Poppler COMPONENTS Qt5)
 find_package(Exempi 2.0)
 set_package_properties(Exempi PROPERTIES
     DESCRIPTION "Support for reading PDF/XMP metadata"
-    URL "http://libopenraw.freedesktop.org/wiki/Exempi/"
+    URL "https://libopenraw.freedesktop.org/exempi/"
     TYPE OPTIONAL)
 if(Exempi_FOUND)
     include_directories(${Exempi_INCLUDE_DIRS})
@@ -196,10 +194,10 @@ if(ENABLE_WEBCAM)
         set( ENABLE_WEBCAM FALSE )
     else(NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
         pkg_check_modules(LIBV4L libv4l1>=0.6)
-        #macro_log_feature(LIBV4L_FOUND "libv4l" "Support for barcode scanning with a webcam" "http://hansdegoede.livejournal.com/3636.html"  FALSE "" "")
+        #macro_log_feature(LIBV4L_FOUND "libv4l" "Support for barcode scanning with a webcam" "https://hansdegoede.livejournal.com/3636.html"  FALSE "" "")
         set_package_properties(LIBV4L PROPERTIES
             DESCRIPTION "Support for barcode scanning with a webcam"
-            URL "http://hansdegoede.livejournal.com/3636.html"
+            URL "https://hansdegoede.livejournal.com/3636.html"
             TYPE OPTIONAL)
         if(LIBV4L_FOUND)
             if(LIBV4L_VERSION VERSION_LESS "0.8.3" AND CMAKE_SYSTEM_VERSION VERSION_GREATER "2.6.37")

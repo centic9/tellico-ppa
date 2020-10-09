@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -27,6 +27,7 @@
 #include "isbndbfetchertest.h"
 
 #include "../fetch/isbndbfetcher.h"
+#include "../fetch/messagelogger.h"
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
@@ -55,20 +56,23 @@ void ISBNdbFetcherTest::testIsbn() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::ISBN,
                                        QStringLiteral("0789312239"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
+  Tellico::Fetch::MessageLogger* logger = new Tellico::Fetch::MessageLogger;
+  fetcher->setMessageHandler(logger);
   fetcher->readConfig(cg, cg.name());
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
+  QVERIFY(logger->errorList.isEmpty());
 
   QCOMPARE(results.size(), 1);
 
   Tellico::Data::EntryPtr entry = results.at(0);
   QCOMPARE(entry->field(QStringLiteral("title")).toLower(), QStringLiteral("this is venice"));
-  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("M. Sasek"));
+  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Sasek, M. (miroslav)"));
   QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("0789312239"));
-  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2008"));
-  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Universe Publishing Inc.,U.S."));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2005"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Universe"));
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Hardback"));
-  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Children's Non-Fiction; People & Places"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Description And Travel"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
@@ -91,12 +95,12 @@ void ISBNdbFetcherTest::testIsbn13() {
 
   Tellico::Data::EntryPtr entry = results.at(0);
   QCOMPARE(entry->field(QStringLiteral("title")).toLower(), QStringLiteral("this is venice"));
-  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("M. Sasek"));
+  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Sasek, M. (miroslav)"));
   QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("0789312239"));
-  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2008"));
-  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Universe Publishing Inc.,U.S."));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2005"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Universe"));
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Hardback"));
-  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Children's Non-Fiction; People & Places"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Description And Travel"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
@@ -109,14 +113,44 @@ void ISBNdbFetcherTest::testMultipleIsbn() {
   KConfigGroup cg(&m_config, groupName);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::ISBN,
-                                       QStringLiteral("0789312239; 9780596000486"));
+                                       QStringLiteral("0789312239; 0393339912"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
   fetcher->readConfig(cg, cg.name());
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
 
-  QEXPECT_FAIL("", "ISBNdb fetcher does not yet support searching for multiple ISBNs", Continue);
   QCOMPARE(results.size(), 2);
+
+  // can't be sure which entry matches which ISBN
+
+  Tellico::Data::EntryPtr entry = results.at(0);
+  QVERIFY(entry);
+  const bool veniceIsFirst = entry->field(QStringLiteral("isbn")) == QStringLiteral("0789312239");
+  if(!veniceIsFirst) {
+    entry = results.at(1);
+    QVERIFY(entry);
+  }
+
+  QCOMPARE(entry->field(QStringLiteral("title")).toLower(), QStringLiteral("this is venice"));
+  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Sasek, M. (miroslav)"));
+  QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("0789312239"));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2005"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Universe"));
+  QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Hardback"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Description And Travel"));
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+
+  entry = results.at(veniceIsFirst ? 1 : 0);
+  QVERIFY(entry);
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Packing For Mars: The Curious Science Of Life In The Void"));
+  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Mary Roach"));
+  QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("0393339912"));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2011"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("W. W. Norton & Company"));
+  QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Paperback"));
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
 
 void ISBNdbFetcherTest::testTitle() {
@@ -135,20 +169,19 @@ void ISBNdbFetcherTest::testTitle() {
 
   Tellico::Data::EntryPtr entry;
   foreach(Tellico::Data::EntryPtr testEntry, results) {
-    if(testEntry->field(QStringLiteral("isbn")) == QStringLiteral("0393339912")) {
+    if(testEntry->field(QStringLiteral("isbn")).remove('-') == QStringLiteral("0393339912")) {
       entry = testEntry;
       break;
     }
   }
   QVERIFY(entry);
 
-  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Packing for Mars: The Curious Science of Life in the Void"));
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Packing For Mars: The Curious Science Of Life In The Void"));
   QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Mary Roach"));
   QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("0393339912"));
   QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2011"));
   QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("W. W. Norton & Company"));
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Paperback"));
-  QCOMPARE(entry->field(QStringLiteral("edition")), QStringLiteral("0"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
@@ -165,15 +198,22 @@ void ISBNdbFetcherTest::testAuthor() {
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
   fetcher->readConfig(cg, cg.name());
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
 
-  QCOMPARE(results.size(), 1);
+  Tellico::Data::EntryPtr entry;
+  foreach(Tellico::Data::EntryPtr testEntry, results) {
+    if(testEntry->field(QStringLiteral("isbn")).remove('-') == QStringLiteral("0143120530")) {
+      entry = testEntry;
+      break;
+    }
+  }
+  QVERIFY(entry);
 
-  Tellico::Data::EntryPtr entry= results.at(0);
-  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Moonwalking with Einstein"));
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Moonwalking With Einstein: The Art And Science Of Remembering Everything"));
   QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Joshua Foer"));
   QCOMPARE(entry->field(QStringLiteral("isbn")).remove('-'), QStringLiteral("0143120530"));
   QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2012"));
-  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Penguin (Non-Classics)"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Penguin Books"));
+  QEXPECT_FAIL("", "ISBNdb author search does not seem to include binding", Continue);
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Paperback"));
 }

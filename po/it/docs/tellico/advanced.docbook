@@ -56,7 +56,7 @@ Argomenti:
 
 <para
 >Di seguito è mostrata la lista completa dei comandi &DBus; per l'oggetto <constant
->Tellico</constant
+>tellico</constant
 >:</para>
 
 <programlisting
@@ -121,12 +121,12 @@ bool showEntry(int id)
 <programlisting
 >int addEntry()
 bool removeEntry(int entryID)
-QStringList values(QString fieldName)
-QStringList values(int entryID,QString fieldName)
+QStringList allValues(QString fieldName)
+QStringList entryValues(int entryID, QString fieldName)
 QStringList selectedBibtexKeys()
 QString entryBibtexKey(int entryID)
-bool setEntryValue(int entryID,QString fieldName,QString value)
-bool addEntryValue(int entryID,QString fieldName,QString value)
+bool setEntryValue(int entryID, QString fieldName, QString value)
+bool addEntryValue(int entryID, QString fieldName, QString value)
 </programlisting>
 
 <para
@@ -145,7 +145,7 @@ bool addEntryValue(int entryID,QString fieldName,QString value)
 >Se la collezione corrente è una bibliografia, l'invocazione di <command
 >selectedBibtexKeys()</command
 > restituirà le chiavi di citazione Bibtex per tutti gli elementi selezionati. La chiave Bibtex di uno specifico elemento può essere individuata con il comando <command
->entryBibtekKey()</command
+>entryBibtexKey()</command
 >. </para>
 
 <para
@@ -171,7 +171,7 @@ bool addEntryValue(int entryID,QString fieldName,QString value)
 <prompt
 >%</prompt
 > <userinput
->qdbus org.kde.tellico /Tellico org.kde.tellico.importBibtex "~/documents/reference.bib" "replace"</userinput>
+>qdbus org.kde.tellico /Tellico org.kde.tellico.importBibtex "/home/roberto/reference.bib" "replace"</userinput>
 <computeroutput
 >true</computeroutput
 >

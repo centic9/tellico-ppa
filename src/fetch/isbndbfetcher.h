@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2006-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2006-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -53,7 +53,7 @@ public:
   virtual QString source() const Q_DECL_OVERRIDE;
   virtual bool isSearching() const Q_DECL_OVERRIDE { return m_started; }
   virtual void continueSearch() Q_DECL_OVERRIDE;
-  virtual bool canSearch(FetchKey k) const Q_DECL_OVERRIDE { return k == Title || k == Person || k == Keyword || k == ISBN; }
+  virtual bool canSearch(FetchKey k) const Q_DECL_OVERRIDE;
   virtual void stop() Q_DECL_OVERRIDE;
   virtual Data::EntryPtr fetchEntryHook(uint uid) Q_DECL_OVERRIDE;
   virtual Type type() const Q_DECL_OVERRIDE { return ISBNdb; }
@@ -82,18 +82,17 @@ private Q_SLOTS:
 
 private:
   virtual void search() Q_DECL_OVERRIDE;
-  void doSearch();
+  void doSearch(const QString& term);
   virtual FetchRequest updateRequest(Data::EntryPtr entry) Q_DECL_OVERRIDE;
   void populateEntry(Data::EntryPtr entry, const QVariantMap& resultMap);
-
-  static QPointer<KIO::StoredTransferJob> isbndbJob(const QUrl& url, const QString& apiKey);
+  void endJob(KIO::StoredTransferJob* job);
 
   int m_limit;
   int m_total;
   int m_numResults;
 
   QHash<uint, Data::EntryPtr> m_entries;
-  QPointer<KIO::StoredTransferJob> m_job;
+  QList< QPointer<KIO::StoredTransferJob> > m_jobs;
 
   bool m_started;
   QString m_apiKey;

@@ -3,7 +3,7 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Pino Toscano <pino@debian.org>,
-Build-Depends: debhelper-compat (= 13),
+Build-Depends: debhelper (>= 12),
  , cmake, extra-cmake-modules
  , pkg-config, pkg-kde-tools, qtbase5-dev
  , libkf5archive-dev
@@ -35,6 +35,7 @@ Build-Depends: debhelper-compat (= 13),
  , gettext
  , xvfb, xauth, kio
  , python3:any, dh-python
+ , libv4l-dev
 Build-Conflicts: libqimageblitz-dev
 Standards-Version: 4.5.0
 Rules-Requires-Root: no

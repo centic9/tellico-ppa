@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   KAboutData aboutData(QStringLiteral("tellico"), QStringLiteral("Tellico"),
                        QStringLiteral(TELLICO_VERSION), i18n("Tellico - a KDE collection manager"),
                        KAboutLicense::GPL_V2,
-                       i18n("(c) 2001-2019, Robby Stephenson"),
+                       i18n("(c) 2001-2020, Robby Stephenson"),
                        QString(),
                        QStringLiteral("https://tellico-project.org"));
   aboutData.addAuthor(QStringLiteral("Robby Stephenson"), QString(), QStringLiteral("robby@periapsis.org"));
@@ -131,7 +131,7 @@ int main(int argc, char* argv[]) {
 
   aboutData.addCredit(QStringLiteral("Virginie Quesnay"), i18n("Icons"));
   aboutData.addCredit(QStringLiteral("Amarok"), i18n("Code examples and general inspiration"),
-                      QString(), QStringLiteral("http://amarok.kde.org"));
+                      QString(), QStringLiteral("https://amarok.kde.org"));
   aboutData.addCredit(QStringLiteral("Greg Ward"), i18n("Author of btparse library"));
   aboutData.addCredit(QStringLiteral("Robert Gamble"), i18n("Author of libcsv library"));
   aboutData.addCredit(QStringLiteral("Valentin Lavrinenko"), i18n("Author of rtf2html library"));

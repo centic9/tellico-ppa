@@ -25,7 +25,7 @@
 >, mentre <guibutton
 >Aiuto</guibutton
 > <action
-> apre l'&khelpcenter;</action
+> apre &khelpcenter;</action
 > alla relativa sezione del manuale di &appname;. </para>
 
 <para
@@ -40,8 +40,9 @@
 ></title>
 
 <screenshot>
-<screeninfo
->La finestra Opzioni generali</screeninfo>
+<!-- <screeninfo
+>The General Options Dialog</screeninfo
+> -->
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="general-options.png"/></imageobject>
@@ -107,11 +108,11 @@
 ></title>
 
 <para
->&appname; usa un modello &xslt; per generare il codice &html; che poi viene passato al servizio di stampa di &kde;. Soltanto i campi visibili nella <link linkend="detailed-view"
+>&appname; usa un modello &xslt; per generare il codice &HTML; che poi viene passato al servizio di stampa di &kde;. Soltanto i campi visibili nella <link linkend="detailed-view"
 ><interface
 >Vista a colonna</interface
 ></link
-> verranno stampati. Inoltre, se la collezione è stata filtrata, verranno stampati solo gli elementi visibili. Nel caso di filtri attivi verrà visualizzato un avvertimento. </para>
+> verranno stampati. Inoltre, se la collezione è stata filtrata, saranno stampati solo gli elementi visibili. Nel caso di filtri attivi sarà visualizzato un avvertimento. </para>
 
 <screenshot>
 <screeninfo
@@ -194,7 +195,7 @@
 
 <screenshot>
 <screeninfo
->Finestra Opzioni modello</screeninfo>
+>La finestra Opzioni modello</screeninfo>
 <mediaobject>
 <imageobject
 ><imagedata format="PNG" fileref="template-options.png"/></imageobject>
@@ -214,17 +215,31 @@
 ></title>
 
 <para
->&appname; può usare varie fonti per importare dati, che possono essere configurate nella finestra di dialogo Fonti dei dati. Sono disponibili numerosi tipi e fonti, una parte dei quali è elencata qui sotto, mentre l'elenco completo è <ulink url="http://tellico-project.org/data-sources"
+>&appname; può usare varie fonti per importare dati, che possono essere configurate nella finestra di dialogo Fonti dei dati. Sono disponibili numerosi tipi e fonti, una parte dei quali è elencata qui sotto, mentre l'elenco completo è <ulink url="https://tellico-project.org/data-sources"
 >disponibile nel sito web di Tellico</ulink
 >.</para>
 
 <itemizedlist>
+<!-- books -->
 <listitem
 ><simpara
 ><link linkend="amazon-web-services"
 >Amazon.com Web Services</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="isbndb"
+>ISBNdb.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="openlibrary"
+>OpenLibrary.org</link
+>,</simpara
+></listitem>
+<!-- movies -->
 <listitem
 ><simpara
 ><link linkend="imdb"
@@ -239,20 +254,14 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="z3950"
->server z39.50</link
+><link linkend="tmdb"
+>TheMovieDB.org</link
 >,</simpara
 ></listitem>
 <listitem
 ><simpara
-><link linkend="sru"
->server SRU</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="entrez"
->Database Entrez (PubMed)</link
+><link linkend="omdb"
+>Open Movie Database</link
 >,</simpara
 ></listitem>
 <listitem
@@ -261,6 +270,7 @@
 >AnimeNfo.com</link
 >,</simpara
 ></listitem>
+<!-- comics -->
 <listitem
 ><simpara
 ><link linkend="bedetheque"
@@ -269,16 +279,11 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="isbndb"
->ISBNdb.com</link
+><link linkend="comicvine"
+>Comic Vine</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="bib-sources"
->arxiv.org</link
->,</simpara
-></listitem>
+<!-- music -->
 <listitem
 ><simpara
 ><link linkend="discogs"
@@ -287,26 +292,15 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="tmdb"
->TheMovieDB.org</link
+><link linkend="musicbrainz"
+>MusicBrainz.org</link
 >,</simpara
 ></listitem>
+<!-- video games -->
 <listitem
 ><simpara
 ><link linkend="tgdb"
 >TheGamesDB.net</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="omdb"
->OMDBAPI.com</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="musicbrainz"
->MusicBrainz.org</link
 >,</simpara
 ></listitem>
 <listitem
@@ -317,10 +311,62 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="openlibrary"
->OpenLibrary.org</link
+><link linkend="mobygames"
+>MobyGames.com</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="igdb"
+>IGDB.com</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="videogamegeek"
+>VideoGameGeek</link
+>,</simpara
+></listitem>
+<!-- board games -->
+<listitem
+><simpara
+><link linkend="boardgamegeek"
+>BoardGameGeek</link
+>,</simpara
+></listitem>
+<!-- bibliographic -->
+<listitem
+><simpara
+><link linkend="bib-sources"
+>arxiv.org</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="entrez"
+>Database Entrez (PubMed)</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="z3950"
+>server z39.50</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="sru"
+>server SRU</link
+>,</simpara
+></listitem>
+<!-- coins -->
+<listitem
+><simpara
+><link linkend="colnect"
+>Colnect</link
+>,</simpara
+></listitem>
+<!-- others -->
 <listitem
 ><simpara
 ><link linkend="externalexec"
@@ -485,15 +531,6 @@
 <title
 >Fonte dei dati sui fumetti</title>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> è un popolare sito contenente informazioni sugli anime e l'animazione giapponese. </para>
-</sect3>
-
 <sect3 id="bedetheque">
 <title
 >Bedetheque</title>
@@ -501,6 +538,15 @@
 ><ulink url="http://www.bedetheque.com"
 >Bedetheque</ulink
 > è una banca dati di libri che permette la ricerca in varie biblioteche nel mondo. </para>
+</sect3>
+
+<sect3 id="comicvine">
+<title
+>Comic Vine</title>
+<para
+><ulink url="https://comicvine.gamespot.com/"
+>Comic Vine</ulink
+> viene pubblicizzato come il più grande wiki di fumetti dell'universo. </para>
 </sect3>
 
 </sect2>
@@ -541,10 +587,10 @@
 
 <sect3 id="omdb">
 <title
->OMDBAPI.com</title>
+>Open Movie Database</title>
 <para
 ><ulink url="http://omdbapi.com"
->The Open Movie Database</ulink
+>The Open Movie Database (OMDBAPI.com)</ulink
 > è un servizio web gratuito per ottenere informazioni sui film. </para>
 </sect3>
 
@@ -554,9 +600,17 @@
 <para
 ><ulink url="http://allocine.fr"
 >AlloCiné</ulink
-> è un servizio online di informazioni sui film, con sede in Francia. </para>
+> è un servizio online di informazioni sui film, con sede in Francia. L'identificazione del browser deve essere abilitata nelle &systemsettings; </para>
 </sect3>
 
+<sect3 id="animenfo">
+<title
+>AnimeNfo.com</title>
+<para
+><ulink url="http://www.animenfo.com"
+>AnimeNfo</ulink
+> è un popolare sito contenente informazioni sugli anime e l'animazione giapponese. </para>
+</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -570,7 +624,7 @@
 <para
 ><ulink url="http://discogs.com"
 >Discogs.com</ulink
-> è un database musicale costruito dagli utenti e contenente informazioni sugli artisti, le etichette e le loro registrazioni. È richiesta la registrazione per un account gratuito. </para>
+> è un database musicale costruito dagli utenti e contenente informazioni sugli artisti, le etichette e le loro registrazioni. È richiesta la registrazione per un account gratuito. L'identificazione del browser deve essere abilitata nelle &systemsettings; </para>
 </sect3>
 
 <sect3 id="musicbrainz">
@@ -579,7 +633,7 @@
 <para
 ><ulink url="http://musicbrainz.org"
 >MusicBrainz.org</ulink
-> è un metadatabase musicale comunitario che tenta di creare un sito di informazione completa sulla musica. </para>
+> è un metadatabase musicale comunitario che tenta di creare un sito di informazione completa sulla musica. L'identificazione del browser deve essere abilitata nelle &systemsettings; </para>
 </sect3>
 
 </sect2>
@@ -613,6 +667,65 @@
 ><ulink url="http://thegamesdb.net"
 >TheGamesDB.net</ulink
 > è un database online aperto per i videogiocatori. </para>
+</sect3>
+
+<sect3 id="mobygames">
+<title
+>MobyGames</title>
+<para
+><ulink url="https://www.mobygames.com"
+>MobyGames.com</ulink
+> si auto descrive come la più antica, la più grande e la più precisa banca dati di videogiochi. </para>
+</sect3>
+
+<sect3 id="igdb">
+<title
+>IGDB.com</title>
+<para
+><ulink url="https://www.igdb.com"
+>IGDB.com</ulink
+> si definisce un sito Web di gioco per tutti coloro che amano giocare. </para>
+</sect3>
+
+<sect3 id="videogamegeek">
+<title
+>VideoGameGeek</title>
+<para
+><ulink url="https://videogamegeek.com"
+>VideoGameGeek</ulink
+> è una risorsa e una comunità di videogiochi online. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of board game sources -->
+<sect2 id="boardgame-sources">
+<title
+>Fonti di dati sui giochi da tavolo</title>
+
+<sect3 id="boardgamegeek">
+<title
+>BoardGameGeek</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> è una risorsa e una comunità di giochi da tavolo online. </para>
+</sect3>
+
+</sect2>
+
+<!-- start of coin sources -->
+<sect2 id="coin-sources">
+<title
+>Fonti di dati sulle monete</title>
+
+<sect3 id="colnect">
+<title
+>Colnect</title>
+<para
+><ulink url="https://colnect.com"
+>Colnect</ulink
+> è una comunità online di oggetti da collezione che fornisce la gestione personale delle collezioni. &tellico; può cercare le informazioni sulle monete in Colnect. </para>
 </sect3>
 
 </sect2>

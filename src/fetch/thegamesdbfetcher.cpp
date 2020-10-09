@@ -53,7 +53,7 @@
 namespace {
   static const int THEGAMESDB_MAX_RETURNS_TOTAL = 20;
   static const char* THEGAMESDB_API_URL = "https://api.thegamesdb.net";
-  static const char* THEGAMESDB_API_VERSION = "1.1"; // krazy:exclude=doublequote_chars
+  static const char* THEGAMESDB_API_VERSION = "1"; // krazy:exclude=doublequote_chars
   static const char* THEGAMESDB_MAGIC_TOKEN = "f7c4fd9c5d6d4a2fcefe3157192f87e260038abe86b0f3977716596edaebdbb82315586e98fc88b0fb9ff4c01576e4d47b4e556d487a4325221abbddfac36f59d7e114753b5fa6c77a1e73423d5f72460f3b526bcbae4f2be0d86a5854600436784e3a5c5d6bc1a3e2d395f798fb35073051f2c232014023e9dda99edfea5767";
 }
 
@@ -232,8 +232,7 @@ void TheGamesDBFetcher::slotComplete(KJob* job_) {
     myDebug() << "No data in result!";
   }
   readPlatformList(topLevelMap.value(QStringLiteral("include")).toMap()
-                              .value(QStringLiteral("platform")).toMap()
-                              .value(QStringLiteral("data")).toMap());
+                              .value(QStringLiteral("platform")).toMap());
   readCoverList(topLevelMap.value(QStringLiteral("include")).toMap()
                            .value(QStringLiteral("boxart")).toMap());
 
@@ -410,7 +409,6 @@ void TheGamesDBFetcher::loadCachedData() {
 }
 
 void TheGamesDBFetcher::updateData(TgdbDataType dataType_, const QByteArray& jsonData_) {
-  const QString dataString = QStringLiteral("data");
   QString dataName;
   switch(dataType_) {
     case Genre:
@@ -426,8 +424,8 @@ void TheGamesDBFetcher::updateData(TgdbDataType dataType_, const QByteArray& jso
 
   QHash<int, QString> dataHash;
   const QVariantMap topMap = QJsonDocument::fromJson(jsonData_).object().toVariantMap();
-  const QVariantMap resultMap = topMap.value(dataString).toMap()
-                                        .value(dataName).toMap();
+  const QVariantMap resultMap = topMap.value(QStringLiteral("data")).toMap()
+                                      .value(dataName).toMap();
   for(QMapIterator<QString, QVariant> i(resultMap); i.hasNext(); ) {
     i.next();
     const QVariantMap m = i.value().toMap();
@@ -450,6 +448,7 @@ void TheGamesDBFetcher::updateData(TgdbDataType dataType_, const QByteArray& jso
 
 void TheGamesDBFetcher::readDataList(TgdbDataType dataType_) {
   QUrl u(QString::fromLatin1(THEGAMESDB_API_URL));
+  u.setPath(QLatin1String("/v") + QLatin1String(THEGAMESDB_API_VERSION));
   switch(dataType_) {
     case Genre:
       u.setPath(u.path() + QLatin1String("/Genres"));
@@ -470,7 +469,7 @@ void TheGamesDBFetcher::readDataList(TgdbDataType dataType_) {
   const QByteArray data = FileHandler::readDataFile(u, true);
   QFile file(dataFileName(dataType_));
   if(!file.open(QIODevice::WriteOnly) || file.write(data) == -1) {
-    myDebug() << "unable to write to" << dataFileName(dataType_);
+    myDebug() << "unable to write to" << file.fileName() << file.errorString();
     return;
   }
   file.close();

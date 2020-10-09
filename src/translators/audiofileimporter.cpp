@@ -44,6 +44,7 @@
 #include <vorbisfile.h>
 #include <flacfile.h>
 #include <audioproperties.h>
+#include <tpropertymap.h>
 #endif
 
 #include <KLocalizedString>
@@ -63,11 +64,36 @@ AudioFileImporter::AudioFileImporter(const QUrl& url_) : Tellico::Import::Import
     , m_recursive(nullptr)
     , m_addFilePath(nullptr)
     , m_addBitrate(nullptr)
-    , m_cancelled(false) {
+    , m_cancelled(false)
+    , m_options(0){
 }
 
 bool AudioFileImporter::canImport(int type) const {
   return type == Data::Collection::Album;
+}
+
+void AudioFileImporter::setRecursive(bool recursive_) {
+  if(recursive_) {
+    m_options |= Recursive;
+  } else {
+    m_options ^= Recursive;
+  }
+}
+
+void AudioFileImporter::setAddFilePath(bool addFilePath_) {
+  if(addFilePath_) {
+    m_options |= AddFilePath;
+  } else {
+    m_options ^= AddFilePath;
+  }
+}
+
+void AudioFileImporter::setAddBitrate(bool addBitrate_) {
+  if(addBitrate_) {
+    m_options |= AddBitrate;
+  } else {
+    m_options ^= AddBitrate;
+  }
 }
 
 Tellico::Data::CollPtr AudioFileImporter::collection() {
@@ -79,42 +105,49 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     return m_coll;
   }
 
+  if(m_recursive) setRecursive(m_recursive->isChecked());
+  if(m_addFilePath) setAddFilePath(m_addFilePath->isChecked());
+  if(m_addBitrate) setAddBitrate(m_addBitrate->isChecked());
+
   ProgressItem& item = ProgressManager::self()->newProgressItem(this, i18n("Scanning audio files..."), true);
   item.setTotalSteps(100);
   connect(&item, &Tellico::ProgressItem::signalCancelled, this, &Tellico::Import::AudioFileImporter::slotCancel);
   ProgressItem::Done done(this);
-
-  // TODO: allow remote audio file importing
-  QStringList dirs;
-  dirs += url().path();
-  if(m_recursive->isChecked()) {
-    dirs += Tellico::findAllSubDirs(dirs[0]);
-  }
-
-  if(m_cancelled) {
-    return Data::CollPtr();
-  }
-
   const bool showProgress = options() & ImportProgress;
 
+  // TODO: allow remote audio file importing
   QStringList files;
-  for(QStringList::ConstIterator it = dirs.constBegin(); !m_cancelled && it != dirs.constEnd(); ++it) {
-    if((*it).isEmpty()) {
-      continue;
+  const QString urlFileName = url().fileName();
+  if(urlFileName.isEmpty()) {
+    // url is a directory
+    QStringList dirs = QStringList() << url().path();
+    if(m_options & Recursive) {
+      dirs += Tellico::findAllSubDirs(dirs[0]);
     }
 
-    QDir dir(*it);
-    dir.setFilter(QDir::Files | QDir::Readable | QDir::Hidden); // hidden since I want directory files
-    const QStringList list = dir.entryList();
-    for(QStringList::ConstIterator it2 = list.begin(); it2 != list.end(); ++it2) {
-      files += dir.absoluteFilePath(*it2);
+    // grab every file in the dirs list
+    for(QStringList::ConstIterator it = dirs.constBegin(); !m_cancelled && it != dirs.constEnd(); ++it) {
+      if((*it).isEmpty()) {
+        continue;
+      }
+
+      QDir dir(*it);
+      dir.setFilter(QDir::Files | QDir::Readable | QDir::Hidden); // hidden since I want directory files
+      const QStringList list = dir.entryList();
+      for(QStringList::ConstIterator it2 = list.begin(); it2 != list.end(); ++it2) {
+        files += dir.absoluteFilePath(*it2);
+      }
     }
-//    qApp->processEvents(); not needed ?
+  } else {
+    // single file import
+    // TODO: allow for multiple file list in urls
+    files += url().path();
   }
 
   if(m_cancelled) {
     return Data::CollPtr();
   }
+
   item.setTotalSteps(files.count());
 
   const QString title    = QStringLiteral("title");
@@ -127,8 +160,8 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
 
   m_coll = new Data::MusicCollection(true);
 
-  const bool addFile = m_addFilePath->isChecked();
-  const bool addBitrate = m_addBitrate->isChecked();
+  const bool addFile = m_options & AddFilePath;
+  const bool addBitrate = m_options & AddBitrate;
 
   Data::FieldPtr f;
   if(addFile) {
@@ -228,6 +261,9 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
         albumKey += FieldFormat::columnDelimiterString() + albumArtist.toLower();
       }
     }
+    if(albumArtist.isEmpty()) {
+      albumArtist = TStringToQString(f.file()->properties()["ALBUMARTIST"].front());
+    }
 
     entry = albumMap[albumKey];
     if(!entry) {
@@ -238,7 +274,7 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     // album entries use the album name as the title
     entry->setField(title, album);
     QString a = TStringToQString(tag->artist()).trimmed();
-    // If no album artist identified, we use track artist as album artist, or  "(Various)" if tracks have various artists.
+    // If no album artist identified, we use track artist as album artist, or "(Various)" if tracks have various artists.
     if(!albumArtist.isEmpty()) {
       entry->setField(artist, albumArtist);
     } else if(!a.isEmpty()) {

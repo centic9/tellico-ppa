@@ -75,7 +75,11 @@ Tellico::BoolComparison::BoolComparison() : StringComparison() {
 }
 
 int Tellico::BoolComparison::compare(const QString& str1_, const QString& str2_) {
-  return str1_.compare(str2_);
+  const bool b1 = str1_.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0
+                  || str1_ == QLatin1String("1");
+  const bool b2 = str2_.compare(QLatin1String("true"), Qt::CaseInsensitive) == 0
+                  || str2_ == QLatin1String("1");
+  return b1 == b2 ? 0 : (b1 ? 1 : -1);
 }
 
 Tellico::TitleComparison::TitleComparison() : StringComparison() {
@@ -84,7 +88,8 @@ Tellico::TitleComparison::TitleComparison() : StringComparison() {
 int Tellico::TitleComparison::compare(const QString& str1_, const QString& str2_) {
   const QString title1 = FieldFormat::sortKeyTitle(str1_).toLower();
   const QString title2 = FieldFormat::sortKeyTitle(str2_).toLower();
-  return title1.localeAwareCompare(title2);
+  const int ret = title1.localeAwareCompare(title2);
+  return ret > 0 ? 1 : (ret < 0 ? -1 : 0);
 }
 
 Tellico::NumberComparison::NumberComparison() : StringComparison() {
@@ -138,6 +143,12 @@ Tellico::LCCComparison::LCCComparison() : StringComparison(),
 }
 
 int Tellico::LCCComparison::compare(const QString& str1_, const QString& str2_) {
+  if(str1_.isEmpty()) {
+    return str2_.isEmpty() ? 0 : -1;
+  }
+  if(str2_.isEmpty()) {
+    return 1;
+  }
 //  myDebug() << str1_ << " to " << str2_;
   int pos1 = m_regexp.indexIn(str1_);
   const QStringList cap1 = m_regexp.capturedTexts();
@@ -185,11 +196,12 @@ int Tellico::ISODateComparison::compare(const QString& str1, const QString& str2
   // modelled after Field::formatDate()
   // so dates would sort as expected without padding month and day with zero
   // and accounting for "current year - 1 - 1" default scheme
+  const QDate now = QDate::currentDate();
   QStringList dlist1 = str1.split(QLatin1Char('-'), QString::KeepEmptyParts);
   bool ok = true;
-  int y1 = dlist1.count() > 0 ? dlist1[0].toInt(&ok) : QDate::currentDate().year();
+  int y1 = dlist1.count() > 0 ? dlist1[0].toInt(&ok) : now.year();
   if(!ok) {
-    y1 = QDate::currentDate().year();
+    y1 = now.year();
   }
   int m1 = dlist1.count() > 1 ? dlist1[1].toInt(&ok) : 1;
   if(!ok) {
@@ -202,9 +214,9 @@ int Tellico::ISODateComparison::compare(const QString& str1, const QString& str2
   QDate date1(y1, m1, d1);
 
   QStringList dlist2 = str2.split(QLatin1Char('-'), QString::KeepEmptyParts);
-  int y2 = dlist2.count() > 0 ? dlist2[0].toInt(&ok) : QDate::currentDate().year();
+  int y2 = dlist2.count() > 0 ? dlist2[0].toInt(&ok) : now.year();
   if(!ok) {
-    y2 = QDate::currentDate().year();
+    y2 = now.year();
   }
   int m2 = dlist2.count() > 1 ? dlist2[1].toInt(&ok) : 1;
   if(!ok) {

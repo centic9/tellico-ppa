@@ -16,7 +16,7 @@
 >tellico.xml</filename
 >. Le immagini possono stare nella cartella <filename
 >images/</filename
-> dell'archivio o essere incluse direttamente nel file &xml;, codificate come base64. Le immagini possono essere anche salvate nella cartella dell'applicazione e in questo caso non saranno affatto incluse nel file dati. &appname; può anche caricare il solo file &xml; non compresso. </para>
+> dell'archivio o essere incluse direttamente nel file &XML;, codificate come base64. Le immagini possono essere anche salvate nella cartella dell'applicazione e in questo caso non saranno affatto incluse nel file dati. &appname; può anche caricare il solo file &XML; non compresso. </para>
 
 <sect2 id="xml-format">
 <title
@@ -39,7 +39,7 @@
 </programlisting>
 
 <para
->Il file inizia con le necessarie dichiarazioni e codifiche &XML;, seguite dal tipo di documento. Quando un nuovo tipo di campo viene aggiunto o viene impostata una nuova proprietà per i campi predefiniti la versione di "doctype DTD" viene incrementata. &appname; sarà sempre in grado di leggere file di versioni DTD successive, ma salverà sempre i file nella versione corrente. Il percorso DTD deve puntare ad un file DTD esitente. </para>
+>Il file inizia con le necessarie dichiarazioni e codifiche &XML;, seguite dal tipo di documento. Quando un nuovo tipo di campo viene aggiunto o viene impostata una nuova proprietà per i campi predefiniti la versione di "doctype DTD" viene incrementata. &appname; sarà sempre in grado di leggere file di versioni DTD successive, ma salverà sempre i file nella versione corrente. Il percorso DTD deve puntare ad un file DTD esistente. </para>
 
 <para
 >L'elemento top-level è del tipo <markup
@@ -49,7 +49,7 @@
 <para
 >L'elemento <markup
 >&lt;tellico&gt;</markup
-> contine l'elemento <markup
+> contiene l'elemento <markup
 >&lt;collection&gt;</markup
 >. Al momento più collezioni sono ignorate. L'attributo <markup
 >title</markup
@@ -166,7 +166,7 @@
 > viene aggiunta al nome del campo per creare l'elemento, e ogni valore è aggiunto come un "child" di quell'elemento, come nel caso dei campi author, genre e keyword qui sopra. </para>
 
 <para
->Come risultato se vengono aggiunti campi alla collezione il file dati non sarà più conforme al DTD. Tuttavia &appname; utilizza un parser &xml; di tipo non-validating, quindi i campi addizionali non dovrebbero causare problemi. </para>
+>Come risultato se vengono aggiunti campi alla collezione il file dati non sarà più conforme al DTD. Tuttavia &appname; utilizza un parser &XML; di tipo non-validating, quindi i campi addizionali non dovrebbero causare problemi. </para>
 </sect3>
 
 <sect3 id="images-xml-data">
@@ -183,7 +183,7 @@
 <para
 >All'interno dell'elemento <markup
 >&lt;images&gt;</markup
-> vengono elencate tutte le immagini collegate ad un oggetto con gli attributi che ne descrivono le dimensioni e il suo ID. Se l'immagine è contenuta in un file zip l'elemento è vuoto. Altrimenti l'immagine può essere inserita nel file &xml; codificandola come testo base64. </para>
+> vengono elencate tutte le immagini collegate ad un oggetto con gli attributi che ne descrivono le dimensioni e il suo ID. Se l'immagine è contenuta in un file zip l'elemento è vuoto. Altrimenti l'immagine può essere inserita nel file &XML; codificandola come testo base64. </para>
 </sect3>
 
 </sect2>
@@ -690,7 +690,7 @@
 >Trucchi XSLT</title>
 
 <para
->Ecco alcuni trucchi per scrivere dell'XSLT per analizzare i dati &XML; di &appname; (TBD). </para>
+>Ecco alcuni suggerimenti per scrivere XSLT per analizzare i dati &XML; di &appname; (TBD). </para>
 </sect1>
 
 </chapter>

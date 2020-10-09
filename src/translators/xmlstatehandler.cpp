@@ -182,7 +182,6 @@ bool CollectionHandler::end(const QString&, const QString&, const QString&) {
   // here, we need to scan all the image values in all the entries and check
   // maybe this is too costly, especially since the capability wasn't advertised?
 
-  const bool hasMDate = d->coll->hasField(QStringLiteral("mdate"));
   const int maxImageWarnings = 3;
   int imageWarnings = 0;
 
@@ -211,15 +210,8 @@ bool CollectionHandler::end(const QString&, const QString&, const QString&) {
         } else {
           value = Data::Image::idClean(value);
         }
-        if(hasMDate) {
-          // since the modified date gets reset, keep a copy
-          const QString mdate = entry->field(QStringLiteral("mdate"));
-          entry->setField(field->name(), value);
-          entry->setField(QStringLiteral("mdate"), mdate);
-        } else {
-          // reset the image id to be whatever was loaded
-          entry->setField(field->name(), value);
-        }
+        // reset the image id to be whatever was loaded
+        entry->setField(field->name(), value, false /* no modified date update */);
       }
     }
   }
@@ -296,7 +288,7 @@ bool FieldHandler::start(const QString&, const QString&, const QString&, const Q
   }
 
   QString title  = attValue(atts_, "title", i18n("Unknown"));
-  if(isI18n) {
+  if(isI18n && !title.isEmpty()) {
     title = i18n(title.toUtf8().constData());
   }
 
@@ -323,7 +315,7 @@ bool FieldHandler::start(const QString&, const QString&, const QString&, const Q
     if(d->syntaxVersion < 9) {
       cat.remove(QLatin1Char('&'));
     }
-    if(isI18n) {
+    if(isI18n && !cat.isEmpty()) {
       cat = i18n(cat.toUtf8().constData());
     }
     field->setCategory(cat);
@@ -356,7 +348,7 @@ bool FieldHandler::start(const QString&, const QString&, const QString&, const Q
   idx = atts_.index(QLatin1String("description"));
   if(idx > -1) {
     QString desc = atts_.value(idx);
-    if(isI18n) {
+    if(isI18n && !desc.isEmpty()) {
       desc = i18n(desc.toUtf8().constData());
     }
     field->setDescription(desc);

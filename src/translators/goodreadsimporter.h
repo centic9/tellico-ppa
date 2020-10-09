@@ -27,6 +27,8 @@
 
 #include "importer.h"
 
+#include <KSharedConfig>
+
 class QLineEdit;
 
 namespace Tellico {
@@ -48,6 +50,8 @@ public:
 
   virtual QWidget* widget(QWidget* parent) Q_DECL_OVERRIDE;
 
+  void setConfig(KSharedConfig::Ptr config);
+
 public Q_SLOTS:
   void slotCancel() Q_DECL_OVERRIDE {}
 
@@ -58,6 +62,7 @@ private:
   Data::CollPtr m_coll;
   QWidget* m_widget;
   QLineEdit* m_userEdit;
+  KSharedConfig::Ptr m_config;
 
   QUrl m_xsltURL;
   QString m_user;

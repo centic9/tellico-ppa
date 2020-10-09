@@ -31,12 +31,14 @@
 
 using Tellico::Fetch::ManagerMessage;
 
-// all messages go to manager
+// default: all messages go to manager
 void ManagerMessage::send(const QString& message_, Type type_) {
   GUI::CursorSaver cs(Qt::ArrowCursor);
   // plus errors get a message box
   if(type_ == Error) {
     KMessageBox::sorry(GUI::Proxy::widget(), message_);
+//                       QString(), // caption
+//                       KMessageBox::Options(KMessageBox::Notify | KMessageBox::AllowLink));
   } else if(type_ == Warning) {
     KMessageBox::information(GUI::Proxy::widget(), message_);
   } else {

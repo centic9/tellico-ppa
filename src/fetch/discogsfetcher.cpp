@@ -57,6 +57,7 @@ using Tellico::Fetch::DiscogsFetcher;
 
 DiscogsFetcher::DiscogsFetcher(QObject* parent_)
     : Fetcher(parent_)
+    , m_limit(DISCOGS_MAX_RETURNS_TOTAL)
     , m_started(false) {
 }
 
@@ -80,6 +81,10 @@ void DiscogsFetcher::readConfigHook(const KConfigGroup& config_) {
   if(!k.isEmpty()) {
     m_apiKey = k;
   }
+}
+
+void DiscogsFetcher::setLimit(int limit_) {
+  m_limit = qBound(1, limit_, DISCOGS_MAX_RETURNS_TOTAL);
 }
 
 void DiscogsFetcher::search() {
@@ -176,8 +181,12 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHook(uint uid_) {
 
     QJsonParseError error;
     QJsonDocument doc = QJsonDocument::fromJson(data, &error);
-    if(error.error == QJsonParseError::NoError) {
-      populateEntry(entry, doc.object().toVariantMap(), true);
+    const QVariantMap resultMap = doc.object().toVariantMap();
+    if(resultMap.contains(QStringLiteral("message")) && mapValue(resultMap, "id").isEmpty()) {
+      message(mapValue(resultMap, "message"), MessageHandler::Error);
+      myLog() << "DiscogsFetcher -" << mapValue(resultMap, "message");
+    } else if(error.error == QJsonParseError::NoError) {
+      populateEntry(entry, resultMap, true);
     } else {
       myDebug() << "Bad JSON results";
     }
@@ -281,7 +290,7 @@ void DiscogsFetcher::slotComplete(KJob*) {
 
   int count = 0;
   foreach(const QVariant& result, resultMap.value(QLatin1String("results")).toList()) {
-    if(count >= DISCOGS_MAX_RETURNS_TOTAL) {
+    if(count >= m_limit) {
       break;
     }
 
@@ -309,6 +318,7 @@ void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& res
   foreach(const QVariant& artist, resultMap_.value(QLatin1String("artists")).toList()) {
     artists << mapValue(artist.toMap(), "name");
   }
+  artists.removeDuplicates(); // sometimes the same value is repeated
   entry_->setField(QStringLiteral("artist"), artists.join(FieldFormat::delimiterString()));
 
   QStringList labels;
@@ -318,7 +328,7 @@ void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& res
   entry_->setField(QStringLiteral("label"), labels.join(FieldFormat::delimiterString()));
 
   /* thumb value is not always in the full data, so go ahead and set it now */
-  QString coverUrl = mapValue(resultMap_, "thumb");
+  const QString coverUrl = mapValue(resultMap_, "thumb");
   if(!coverUrl.isEmpty()) {
     entry_->setField(QStringLiteral("cover"), coverUrl);
   }
@@ -332,14 +342,15 @@ void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& res
   // if there is a CD, prefer that in the track list
   bool hasCD = false;
   foreach(const QVariant& format, resultMap_.value(QLatin1String("formats")).toList()) {
-    if(mapValue(format.toMap(), "name") == QLatin1String("CD")) {
+    const QString formatName = mapValue(format.toMap(), "name");
+    if(formatName == QLatin1String("CD")) {
       entry_->setField(QStringLiteral("medium"), i18n("Compact Disc"));
       hasCD = true;
-    } else if(mapValue(format.toMap(), "name") == QLatin1String("Vinyl")) {
+    } else if(formatName == QLatin1String("Vinyl")) {
       entry_->setField(QStringLiteral("medium"), i18n("Vinyl"));
-    } else if(mapValue(format.toMap(), "name") == QLatin1String("Cassette")) {
+    } else if(formatName == QLatin1String("Cassette")) {
       entry_->setField(QStringLiteral("medium"), i18n("Cassette"));
-    } else if(!hasCD && mapValue(format.toMap(), "name") == QLatin1String("DVD")) {
+    } else if(!hasCD && formatName == QLatin1String("DVD")) {
       // sometimes a CD and DVD both are included. If we're using the CD, ignore the DVD
       entry_->setField(QStringLiteral("medium"), i18n("DVD"));
     }

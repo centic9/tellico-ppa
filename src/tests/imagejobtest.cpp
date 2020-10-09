@@ -36,7 +36,7 @@
 
 QTEST_GUILESS_MAIN( ImageJobTest )
 
-bool ImageJobTest::networkIsAvailable() {
+static bool hasNetwork() {
   foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
     if(net.flags().testFlag(QNetworkInterface::IsUp) && !net.flags().testFlag(QNetworkInterface::IsLoopBack)) {
       return true;
@@ -192,12 +192,9 @@ void ImageJobTest::testImageLink() {
 }
 
 void ImageJobTest::testNetworkImage() {
-  if(!networkIsAvailable()) {
-    QSKIP("This test requires network access", SkipSingle);
-    return;
-  }
+  if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
 
-  QUrl u(QStringLiteral("http://tellico-project.org/sites/default/files/logo.png"));
+  QUrl u(QStringLiteral("https://tellico-project.org/wp-content/uploads/96-tellico.png"));
 
   QPointer<Tellico::ImageJob> job = new Tellico::ImageJob(u);
   connect(job.data(), &KJob::result,
@@ -209,7 +206,7 @@ void ImageJobTest::testNetworkImage() {
 
   const Tellico::Data::Image& img = job->image();
   QVERIFY(!img.isNull());
-  QCOMPARE(img.id(), QStringLiteral("757322046f4aa54290a3d92b05b71ca1.png"));
+  QCOMPARE(img.id(), QStringLiteral("ecaf5185c4016881aaabb4933211d5d6.png"));
   QCOMPARE(img.format(), QByteArray("png"));
   QCOMPARE(img.linkOnly(), false);
 
@@ -219,12 +216,9 @@ void ImageJobTest::testNetworkImage() {
 }
 
 void ImageJobTest::testNetworkImageLink() {
-  if(!networkIsAvailable()) {
-    QSKIP("This test requires network access", SkipSingle);
-    return;
-  }
+  if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
 
-  QUrl u(QStringLiteral("https://tellico-project.org/sites/default/files/logo.png"));
+  QUrl u(QStringLiteral("https://tellico-project.org/wp-content/uploads/96-tellico.png"));
 
   QPointer<Tellico::ImageJob> job = new Tellico::ImageJob(u,
                                                           QString() /* id */,
@@ -245,10 +239,7 @@ void ImageJobTest::testNetworkImageLink() {
 }
 
 void ImageJobTest::testNetworkImageInvalid() {
-  if(!networkIsAvailable()) {
-    QSKIP("This test requires network access", SkipSingle);
-    return;
-  }
+  if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
 
   QUrl u(QStringLiteral("https://tellico-project.org"));
 
@@ -311,16 +302,13 @@ void ImageJobTest::testFactoryRequestLocalInvalid() {
 }
 
 void ImageJobTest::testFactoryRequestNetwork() {
-  if(!networkIsAvailable()) {
-    QSKIP("This test requires network access", SkipSingle);
-    return;
-  }
+  if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
 
   QVERIFY(m_imageId.isEmpty());
   connect(Tellico::ImageFactory::self(), &Tellico::ImageFactory::imageAvailable,
           this, &ImageJobTest::slotAvailable);
 
-  QUrl u(QStringLiteral("https://tellico-project.org/sites/default/files/logo.png"));
+  QUrl u(QStringLiteral("https://tellico-project.org/wp-content/uploads/96-tellico.png"));
   Tellico::ImageFactory::requestImageById(u.url());
 
   enterLoop();
@@ -334,22 +322,19 @@ void ImageJobTest::testFactoryRequestNetwork() {
   const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(m_imageId);
   QVERIFY(!img.isNull());
   // id is the MD5 hash, since it's not link only
-  QCOMPARE(img.id(), QStringLiteral("757322046f4aa54290a3d92b05b71ca1.png"));
+  QCOMPARE(img.id(), QStringLiteral("ecaf5185c4016881aaabb4933211d5d6.png"));
   QCOMPARE(img.format(), QByteArray("png"));
   QCOMPARE(img.linkOnly(), false);
 }
 
 void ImageJobTest::testFactoryRequestNetworkLinkOnly() {
-  if(!networkIsAvailable()) {
-    QSKIP("This test requires network access", SkipSingle);
-    return;
-  }
+  if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
 
   QVERIFY(m_imageId.isEmpty());
   connect(Tellico::ImageFactory::self(), &Tellico::ImageFactory::imageAvailable,
           this, &ImageJobTest::slotAvailable);
 
-  QUrl u(QStringLiteral("https://tellico-project.org/sites/default/files/logo.png"));
+  QUrl u(QStringLiteral("https://tellico-project.org/wp-content/uploads/96-tellico.png"));
   // first, tell the image factory that the image is link only
   Tellico::Data::ImageInfo info(u.url(), "PNG", 64, 64, true /* link only */);
   Tellico::ImageFactory::cacheImageInfo(info);

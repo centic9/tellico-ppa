@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2006-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2006-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -43,10 +43,11 @@
 #include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QUrlQuery>
 
 namespace {
   static const int ISBNDB_MAX_RETURNS_TOTAL = 25;
-  static const char* ISBNDB_BASE_URL = "https://api.isbndb.com";
+  static const char* ISBNDB_BASE_URL = "https://api2.isbndb.com";
 }
 
 using namespace Tellico;
@@ -55,7 +56,7 @@ using Tellico::Fetch::ISBNdbFetcher;
 ISBNdbFetcher::ISBNdbFetcher(QObject* parent_)
     : Fetcher(parent_),
       m_limit(ISBNDB_MAX_RETURNS_TOTAL), m_total(-1), m_numResults(0),
-      m_job(nullptr), m_started(false) {
+      m_started(false) {
 }
 
 ISBNdbFetcher::~ISBNdbFetcher() {
@@ -67,6 +68,10 @@ QString ISBNdbFetcher::source() const {
 
 bool ISBNdbFetcher::canFetch(int type) const {
   return type == Data::Collection::Book || type == Data::Collection::Bibtex;
+}
+
+bool ISBNdbFetcher::canSearch(FetchKey k) const {
+  return k == Title || k == Person || k == ISBN || k == Keyword;
 }
 
 void ISBNdbFetcher::readConfigHook(const KConfigGroup& config_) {
@@ -81,7 +86,19 @@ void ISBNdbFetcher::search() {
   m_total = -1;
   m_numResults = 0;
 
-  doSearch();
+  // we only split ISBN
+  QStringList searchTerms;
+  if(request().key == ISBN) {
+    searchTerms = FieldFormat::splitValue(request().value);
+  } else  {
+    searchTerms += request().value;
+  }
+  foreach(const QString& searchTerm, searchTerms) {
+    doSearch(searchTerm);
+  }
+  if(m_jobs.isEmpty()) {
+    stop();
+  }
 }
 
 void ISBNdbFetcher::continueSearch() {
@@ -96,29 +113,49 @@ void ISBNdbFetcher::continueSearch() {
     return;
   }
 
-  doSearch();
+  doSearch(request().value);
 }
 
-void ISBNdbFetcher::doSearch() {
+void ISBNdbFetcher::doSearch(const QString& term_) {
 //  myDebug() << "value = " << value_;
+
+  const bool multipleIsbn = request().key == ISBN && term_.contains(QLatin1Char(';'));
 
   QUrl u(QString::fromLatin1(ISBNDB_BASE_URL));
   switch(request().key) {
     case Title:
-      u.setPath(QStringLiteral("/books/") + request().value);
+      u.setPath(QStringLiteral("/books/") + term_);
       break;
 
     case Person:
-      u.setPath(QStringLiteral("/author/") + request().value);
+      // the /books/query search endpoint seems to not work with the author column yet [2020-09-02]
+      // so continue to user /author/query search (which may not return all the same info)
+      u.setPath(QStringLiteral("/author/") + term_);
       break;
 
     case ISBN:
-      u.setPath(QStringLiteral("/book/"));
-      {
+      if(multipleIsbn) {
+        u.setPath(QStringLiteral("/books"));
+      } else {
+        u.setPath(QStringLiteral("/book/"));
         // can only grab first value
-        QString v = request().value.section(QLatin1Char(';'), 0);
+        QString v = term_.section(QLatin1Char(';'), 0);
         v.remove(QLatin1Char('-'));
         u.setPath(u.path() + v);
+      }
+      break;
+
+    case Keyword:
+      // the /books/query search endpoint seems to not work with the author column yet [2020-09-02]
+      // so continue to user /author/query search (which may not return all the same info)
+      u.setPath(QStringLiteral("/books/") + term_);
+      {
+         QUrlQuery q;
+         q.addQueryItem(QStringLiteral("page"), QLatin1String("1"));
+         q.addQueryItem(QStringLiteral("pageSize"), QString::number(ISBNDB_MAX_RETURNS_TOTAL));
+         // disable beta searching
+         q.addQueryItem(QStringLiteral("beta"), QLatin1String("0"));
+         u.setQuery(q);
       }
       break;
 
@@ -129,20 +166,43 @@ void ISBNdbFetcher::doSearch() {
   }
 //  myDebug() << "url: " << u.url();
 
-  m_job = isbndbJob(u, m_apiKey);
-  connect(m_job.data(), &KJob::result, this, &ISBNdbFetcher::slotComplete);
+  QPointer<KIO::StoredTransferJob> job;
+  if(multipleIsbn) {
+    QString postData = request().value;
+    postData = postData.replace(QLatin1Char(';'), QLatin1Char(','))
+                       .remove(QLatin1Char('-'))
+                       .remove(QLatin1Char(' '));
+    postData.prepend(QStringLiteral("isbns="));
+//    myDebug() << "posting" << postData;
+    job = KIO::storedHttpPost(postData.toUtf8(), u, KIO::HideProgressInfo);
+  } else {
+    job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  }
+
+  job->addMetaData(QStringLiteral("customHTTPHeader"), QStringLiteral("Authorization: ") + m_apiKey);
+  job->addMetaData(QStringLiteral("content-type"), QStringLiteral("application/json"));
+  KJobWidgets::setWindow(job, GUI::Proxy::widget());
+  connect(job.data(), &KJob::result, this, &ISBNdbFetcher::slotComplete);
+  m_jobs << job;
+}
+
+void ISBNdbFetcher::endJob(KIO::StoredTransferJob* job_) {
+  m_jobs.removeAll(job_);
+  if(m_jobs.isEmpty())  {
+    stop();
+  }
 }
 
 void ISBNdbFetcher::stop() {
   if(!m_started) {
     return;
   }
-//  myDebug();
-  if(m_job) {
-    m_job->kill();
-    m_job = nullptr;
+  foreach(QPointer<KIO::StoredTransferJob> job, m_jobs) {
+    if(job) {
+      job->kill();
+    }
   }
-
+  m_jobs.clear();
   m_started = false;
   emit signalDone(this);
 }
@@ -152,23 +212,20 @@ void ISBNdbFetcher::slotComplete(KJob* job_) {
 
   if(job->error()) {
     job->uiDelegate()->showErrorMessage();
-    stop();
+    endJob(job);
     return;
   }
 
   const QByteArray data = job->data();
   if(data.isEmpty()) {
     myDebug() << "no data";
-    stop();
+    endJob(job);
     return;
   }
-  // see bug 319662. If fetcher is cancelled, job is killed
-  // if the pointer is retained, it gets double-deleted
-  m_job = nullptr;
 
 #if 0
   myWarning() << "Remove debug from isbndbfetcher.cpp";
-  QFile file(QString::fromLatin1("/tmp/test.json"));
+  QFile file(QString::fromLatin1("/tmp/test-isbndb.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
     t.setCodec("UTF-8");
@@ -186,10 +243,15 @@ void ISBNdbFetcher::slotComplete(KJob* job_) {
   } else if(result.contains(QStringLiteral("books"))) {
     m_total = result.value(QStringLiteral("total")).toInt();
     resultList = result.value(QStringLiteral("books")).toList();
+  } else if(result.contains(QStringLiteral("data"))) {
+    m_total = result.value(QStringLiteral("total")).toInt();
+    resultList = result.value(QStringLiteral("data")).toList();
   } else {
-    const QString msg = result.value(QStringLiteral("message")).toString();
-    myDebug() << "no results:" << msg;
-    stop();
+    QString msg = result.value(QStringLiteral("message")).toString();
+    if(msg.isEmpty()) msg = result.value(QStringLiteral("errorMessage")).toString();
+    myDebug() << "no results from ISBNDBFetcher:" << msg;
+    message(msg, MessageHandler::Error);
+    endJob(job);
     return;
   }
 //  myDebug() << "Total:" << m_total;
@@ -213,7 +275,7 @@ void ISBNdbFetcher::slotComplete(KJob* job_) {
     }
   }
 
-  stop(); // required
+  endJob(job);
 }
 
 Tellico::Data::EntryPtr ISBNdbFetcher::fetchEntryHook(uint uid_) {
@@ -318,14 +380,6 @@ Tellico::StringHash ISBNdbFetcher::allOptionalFields() {
   StringHash hash;
   hash[QStringLiteral("dewey")] = i18nc("Dewey Decimal classification system", "Dewey Decimal");
   return hash;
-}
-
-QPointer<KIO::StoredTransferJob> ISBNdbFetcher::isbndbJob(const QUrl& url_, const QString& apiKey_) {
-  QPointer<KIO::StoredTransferJob> job = KIO::storedGet(url_, KIO::NoReload, KIO::HideProgressInfo);
-  job->addMetaData(QStringLiteral("customHTTPHeader"), QStringLiteral("X-API-Key: ") + apiKey_);
-  job->addMetaData(QStringLiteral("accept"), QStringLiteral("application/json"));
-  KJobWidgets::setWindow(job, GUI::Proxy::widget());
-  return job;
 }
 
 ISBNdbFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ISBNdbFetcher* fetcher_)

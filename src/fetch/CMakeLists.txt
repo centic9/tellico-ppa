@@ -12,6 +12,7 @@ SET(fetch_STAT_SRCS
    bibliosharefetcher.cpp
    bibsonomyfetcher.cpp
    boardgamegeekfetcher.cpp
+   colnectfetcher.cpp
    comicvinefetcher.cpp
    configwidget.cpp
    crossreffetcher.cpp
@@ -35,7 +36,6 @@ SET(fetch_STAT_SRCS
    googlebookfetcher.cpp
    googlescholarfetcher.cpp
    hathitrustfetcher.cpp
-   hmac_sha2.c
    ibsfetcher.cpp
    igdbfetcher.cpp
    imdbfetcher.cpp
@@ -44,6 +44,7 @@ SET(fetch_STAT_SRCS
    kinopoiskfetcher.cpp
    kinoteatrfetcher.cpp
    messagehandler.cpp
+   messagelogger.cpp
    mobygamesfetcher.cpp
    moviemeterfetcher.cpp
    mrlookupfetcher.cpp
@@ -51,7 +52,6 @@ SET(fetch_STAT_SRCS
    musicbrainzfetcher.cpp
    omdbfetcher.cpp
    openlibraryfetcher.cpp
-   sha2.c
    springerfetcher.cpp
    srufetcher.cpp
    thegamesdbfetcher.cpp

@@ -43,11 +43,11 @@
 >Buscar</guibutton
 > se convierte en <guibutton
 >Detener</guibutton
->, que finalizará la búsqueda. A medida que se encuentren resultados, se añadirán a la lista directamente bajo la caja de búsqueda, donde seleccionar un elemento mostrará el resultado sin añadirlo a la colección. Hacer click en el botón <guibutton
+>, que finalizará la búsqueda. A medida que se encuentren resultados, se añadirán a la lista directamente bajo la caja de búsqueda, donde seleccionar un elemento mostrará el resultado sin añadirlo a la colección. Hacer clic en el botón <guibutton
 >Añadir entrada</guibutton
 > añadirá los elementos seleccionados a su colección. Si la fuente de datos tiene más resultados de los que se solicitaron inicialmente, el botón <guibutton
 >Obtener más resultados</guibutton
-> se volverá activo. Hacer click en <guibutton
+> se volverá activo. Hacer clic en <guibutton
 >Limpiar</guibutton
 > eliminará todos los resultados actuales y reiniciará la búsqueda. </para>
 
@@ -74,7 +74,7 @@
 > proporciona información adicional acerca de la entrada para diferenciar entre videos en diferentes formatos o libros con distinta encuadernación, por ejemplo. Una vez una entrada se ha añadido con éxito a la colección, se añadirá una marca de verificación a la primera columna de la lista. </para>
 
 <para
->Se pueden añadir entradas múltiples usando el método estándar de &kde; para la selección múltiple, que normalmente incluye mantener pulsada la tecla &Shift; o &Ctrl; cuando se hace click en un elemento. </para>
+>Se pueden añadir entradas múltiples usando el método estándar de &kde; para la selección múltiple, que normalmente incluye mantener pulsada la tecla &Shift; o &Ctrl; cuando se hace clic en un elemento. </para>
 
 <para
 >Para facilitar el uso de los escáneres de código de barras, las búsquedas pueden incluir múltiples valores de ISBN/UPC. Seleccionar la casilla de verificación <guilabel
@@ -178,12 +178,12 @@
 </screenshot>
 
 <para
->Primero, seleccione el tipo de colección que está importando. Si la está añadiendo o fusionando con su colección abierta, el tipo está limitado al tipo de su colección actual. Si la primera línea del archivo CSV contiene los títulos de los campos, haga click en la casilla de verificación y el importador comparará automáticamente los títulos con los de los campos en la colección actual. Si el título de un campo coincide, la cabecera para esa columna cambiará para mostrar que la columna se ha asignado a ese campo. Si el archivo usa un separador distinto a la coma, asegúrese de cambiar esa opción de acuerdo con él. </para>
+>Primero, seleccione el tipo de colección que está importando. Si la está añadiendo o fusionando con su colección abierta, el tipo está limitado al tipo de su colección actual. Si la primera línea del archivo CSV contiene los títulos de los campos, haga clic en la casilla de verificación y el importador comparará automáticamente los títulos con los de los campos en la colección actual. Si el título de un campo coincide, la cabecera para esa columna cambiará para mostrar que la columna se ha asignado a ese campo. Si el archivo usa un separador distinto a la coma, asegúrese de cambiar esa opción de acuerdo con él. </para>
 
 <para
 >Para que &appname; importe el archivo correctamente, debe saber qué campo corresponde a cada columna. <emphasis
 >Si la columna solo tiene un número en la cabecera, los datos de esa columna no serán importados</emphasis
->. Debería asignar campos a cada columna seleccionando una columna haciendo click en ella o cambiando el número de columna, y después seleccionando el campo que asignarle de la caja desplegable y haciendo click en el botón <guibutton
+>. Debería asignar campos a cada columna seleccionando una columna haciendo clic en ella o cambiando el número de columna, y después seleccionando el campo que asignarle de la caja desplegable y haciendo clic en el botón <guibutton
 >Asignar campo</guibutton
 >. Si necesita añadir un nuevo campo a la colección, el último elemento en la caja desplegable abrirá el <link linkend="fields-dialog"
 ><interface
@@ -330,6 +330,18 @@
 >Goodreads</ulink
 > es una red social en línea para que los lectores sigan sus colecciones de libros. &appname; puede importar la lista de libros de la colección de un usuario, dados tanto el nombre como la identificación del usuario, siempre que la colección esté configurada para ser accesible públicamente. </para>
 </sect3>
+
+<sect3 id="importing-librarything">
+<title
+>Importar colecciones de LibraryThing</title>
+<para
+><ulink url="https://www.librarything.com"
+>LibraryThing</ulink
+> es un service en línea para ayudar a catalogar libros de forma fácil. &appname; puede importar la lista de libros en una colección del usuario, <ulink url="https://www.librarything.com/export.php?export_type=json"
+>exportada en formato JSON</ulink
+>. </para>
+</sect3>
+
 </sect2>
 
 <sect2 id="importing-file-listing">

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2019 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2019-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -31,13 +31,18 @@
 
 #include <QLineEdit>
 #include <QPointer>
+#include <QElapsedTimer>
 
 class KJob;
 namespace KIO {
   class StoredTransferJob;
 }
 
+class MobyGamesFetcherTest;
 namespace Tellico {
+  namespace GUI {
+    class ComboBox;
+  }
   namespace Fetch {
 
 /**
@@ -47,6 +52,8 @@ namespace Tellico {
  */
 class MobyGamesFetcher : public Fetcher {
 Q_OBJECT
+
+friend class ::MobyGamesFetcherTest;
 
 public:
   /**
@@ -82,6 +89,7 @@ public:
 
   private:
     QLineEdit* m_apiKeyEdit;
+    GUI::ComboBox* m_imageCombo;
   };
   friend class ConfigWidget;
 
@@ -91,20 +99,38 @@ public:
 
 private Q_SLOTS:
   void slotComplete(KJob* job);
+  // read all cached data
+  void populateHashes();
 
 private:
   virtual void search() Q_DECL_OVERRIDE;
   virtual FetchRequest updateRequest(Data::EntryPtr entry) Q_DECL_OVERRIDE;
   Data::EntryList createEntries(Data::CollPtr coll, const QVariantMap& resultMap);
-  void populateHashes();
+
+  // honor throttle limit for the API
+  void markTime();
+  // update cached data
+  void updatePlatforms();
+
+  enum ImageSize {
+    SmallImage=0, // small is really the thumb size
+    MediumImage=1,
+    LargeImage=2,
+    NoImage=3
+  };
 
   bool m_started;
+  ImageSize m_imageSize;
 
   QString m_apiKey;
   QHash<uint, Data::EntryPtr> m_entries;
   QPointer<KIO::StoredTransferJob> m_job;
+  QElapsedTimer m_idleTime;
+  int m_requestPlatformId;
 
   QHash<int, QString> m_esrbHash;
+  // key is the mobygames platform id
+  QHash<int, QString> m_platforms;
 };
 
   } // end namespace

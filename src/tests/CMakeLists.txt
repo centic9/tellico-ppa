@@ -49,12 +49,6 @@ add_test(fieldtest fieldtest)
 ecm_mark_as_test(fieldtest)
 TARGET_LINK_LIBRARIES(fieldtest config utils Qt5::Test)
 
-add_executable(comparisontest comparisontest.cpp ../field.cpp ../fieldformat.cpp)
-ecm_mark_nongui_executable(comparisontest)
-add_test(comparisontest comparisontest)
-ecm_mark_as_test(comparisontest)
-TARGET_LINK_LIBRARIES(comparisontest tellicomodels Qt5::Test)
-
 add_executable(imagetest imagetest.cpp ../utils/tellico_utils.cpp ../utils/guiproxy.cpp ../utils/cursorsaver.cpp ../fieldformat.cpp)
 ecm_mark_nongui_executable(imagetest)
 add_test(imagetest imagetest)
@@ -72,6 +66,12 @@ ecm_mark_nongui_executable(iso6937test)
 add_test(iso6937test iso6937test)
 ecm_mark_as_test(iso6937test)
 TARGET_LINK_LIBRARIES(iso6937test utils Qt5::Test)
+
+add_executable(iso5426test iso5426test.cpp)
+ecm_mark_nongui_executable(iso5426test)
+add_test(iso5426test iso5426test)
+ecm_mark_as_test(iso5426test)
+TARGET_LINK_LIBRARIES(iso5426test utils Qt5::Test)
 
 SET(tellicotest_SRCS
    ../collection.cpp
@@ -142,6 +142,12 @@ add_test(collectiontest collectiontest)
 ecm_mark_as_test(collectiontest)
 TARGET_LINK_LIBRARIES(collectiontest translatorstest ${TELLICO_TEST_LIBS})
 
+add_executable(comparisontest comparisontest.cpp)
+ecm_mark_nongui_executable(comparisontest)
+add_test(comparisontest comparisontest)
+ecm_mark_as_test(comparisontest)
+TARGET_LINK_LIBRARIES(comparisontest tellicotest tellicomodels Qt5::Test)
+
 add_executable(documenttest documenttest.cpp
   ../document.cpp
   ../translators/tellicoxmlexporter.cpp
@@ -207,6 +213,20 @@ ecm_mark_nongui_executable(amctest)
 add_test(amctest amctest)
 ecm_mark_as_test(amctest)
 TARGET_LINK_LIBRARIES(amctest ${TELLICO_TEST_LIBS})
+
+IF( TAGLIB_FOUND )
+
+add_executable(audiofiletest audiofiletest.cpp
+  ../translators/audiofileimporter.cpp
+  ../translators/dataimporter.cpp
+  ../translators/importer.cpp
+)
+ecm_mark_nongui_executable(audiofiletest)
+add_test(audiofiletest audiofiletest)
+ecm_mark_as_test(audiofiletest)
+TARGET_LINK_LIBRARIES(audiofiletest ${TELLICO_TEST_LIBS} ${TAGLIB_LIBRARIES})
+
+ENDIF( TAGLIB_FOUND )
 
 add_executable(bibtextest bibtextest.cpp
   ../translators/bibteximporter.cpp
@@ -462,8 +482,7 @@ TARGET_LINK_LIBRARIES(allocinefetchertest
 add_executable(amazonfetchertest amazonfetchertest.cpp abstractfetchertest.cpp
   ../fetch/amazonfetcher.cpp
   ../fetch/amazonrequest.cpp
-  ../fetch/hmac_sha2.c
-  ../fetch/sha2.c
+  ../fetch/messagelogger.cpp
 )
 ecm_mark_nongui_executable(amazonfetchertest)
 add_test(amazonfetchertest amazonfetchertest)
@@ -517,6 +536,14 @@ ecm_mark_nongui_executable(comicvinefetchertest)
 add_test(comicvinefetchertest comicvinefetchertest)
 ecm_mark_as_test(comicvinefetchertest)
 TARGET_LINK_LIBRARIES(comicvinefetchertest fetcherstest ${TELLICO_TEST_LIBS})
+
+add_executable(colnectfetchertest colnectfetchertest.cpp abstractfetchertest.cpp
+  ../fetch/colnectfetcher.cpp
+)
+ecm_mark_nongui_executable(colnectfetchertest)
+add_test(colnectfetchertest colnectfetchertest)
+ecm_mark_as_test(colnectfetchertest)
+TARGET_LINK_LIBRARIES(colnectfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 add_executable(crossreffetchertest crossreffetchertest.cpp abstractfetchertest.cpp
   ../fetch/crossreffetcher.cpp
@@ -637,6 +664,14 @@ add_test(giantbombfetchertest giantbombfetchertest)
 ecm_mark_as_test(giantbombfetchertest)
 TARGET_LINK_LIBRARIES(giantbombfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
+add_executable(goodreadstest goodreadstest.cpp
+  ../translators/goodreadsimporter.cpp
+)
+ecm_mark_nongui_executable(goodreadstest)
+add_test(goodreadstest goodreadstest)
+ecm_mark_as_test(goodreadstest)
+TARGET_LINK_LIBRARIES(goodreadstest translatorstest ${TELLICO_TEST_LIBS})
+
 add_executable(googlebookfetchertest googlebookfetchertest.cpp abstractfetchertest.cpp
   ../fetch/googlebookfetcher.cpp
 )
@@ -689,6 +724,7 @@ TARGET_LINK_LIBRARIES(imdbfetchertest fetcherstest ${TELLICO_TEST_LIBS})
 
 add_executable(isbndbfetchertest isbndbfetchertest.cpp abstractfetchertest.cpp
   ../fetch/isbndbfetcher.cpp
+  ../fetch/messagelogger.cpp
 )
 ecm_mark_nongui_executable(isbndbfetchertest)
 add_test(isbndbfetchertest isbndbfetchertest)

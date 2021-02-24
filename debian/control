@@ -3,7 +3,7 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Pino Toscano <pino@debian.org>,
-Build-Depends: debhelper (>= 12),
+Build-Depends: debhelper-compat (= 13),
  , cmake, extra-cmake-modules
  , pkg-config, pkg-kde-tools, qtbase5-dev
  , libkf5archive-dev
@@ -35,9 +35,8 @@ Build-Depends: debhelper (>= 12),
  , gettext
  , xvfb, xauth, kio
  , python3:any, dh-python
- , libv4l-dev
 Build-Conflicts: libqimageblitz-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Rules-Requires-Root: no
 Homepage: https://tellico-project.org/
 Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/tellico

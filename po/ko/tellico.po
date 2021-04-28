@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2020-11-23 08:04+0100\n"
+"POT-Creation-Date: 2021-01-17 09:10+0100\n"
 "PO-Revision-Date: 2020-09-05 23:20+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -649,12 +649,12 @@ msgstr "값이 파생된 필드는 값 템플릿이 있어야 합니다."
 #: src/fetch/kinopoiskfetcher.cpp:243 src/fetch/kinoteatrfetcher.cpp:240
 #: src/fetch/mobygamesfetcher.cpp:416 src/fetch/mobygamesfetcher.cpp:421
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
-#: src/fetch/omdbfetcher.cpp:230 src/fetch/omdbfetcher.cpp:236
-#: src/fetch/omdbfetcher.cpp:340 src/fetch/openlibraryfetcher.cpp:249
-#: src/fetch/thegamesdbfetcher.cpp:220 src/fetch/thegamesdbfetcher.cpp:225
-#: src/fetch/themoviedbfetcher.cpp:263 src/fetch/themoviedbfetcher.cpp:268
-#: src/fetch/themoviedbfetcher.cpp:273 src/field.cpp:36 src/field.cpp:77
-#: src/field.cpp:296 src/translators/gcstarimporter.cpp:89
+#: src/fetch/omdbfetcher.cpp:230 src/fetch/omdbfetcher.cpp:324
+#: src/fetch/openlibraryfetcher.cpp:248 src/fetch/thegamesdbfetcher.cpp:220
+#: src/fetch/thegamesdbfetcher.cpp:225 src/fetch/themoviedbfetcher.cpp:263
+#: src/fetch/themoviedbfetcher.cpp:268 src/fetch/themoviedbfetcher.cpp:273
+#: src/field.cpp:36 src/field.cpp:77 src/field.cpp:296
+#: src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "General"
 msgstr "일반"
@@ -1605,7 +1605,7 @@ msgstr "매체"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:213
+#: src/translators/audiofileimporter.cpp:214
 #: src/translators/xmlstatehandler.cpp:402
 #, kde-format
 msgid "Artist"
@@ -1623,14 +1623,14 @@ msgstr "트랙"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
 #: src/fetch/fetchmanager.cpp:66 src/fetchdialog.cpp:249 src/field.cpp:295
-#: src/translators/audiofileimporter.cpp:212
+#: src/translators/audiofileimporter.cpp:213
 #: src/translators/xmlstatehandler.cpp:401
 #, kde-format
 msgid "Title"
 msgstr "제목"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:214
+#: src/translators/audiofileimporter.cpp:215
 #: src/translators/xmlstatehandler.cpp:403
 #, kde-format
 msgid "Length"
@@ -3125,9 +3125,9 @@ msgstr "알로시네 링크"
 #: src/fetch/dvdfrfetcher.cpp:169 src/fetch/imdbfetcher.cpp:751
 #: src/fetch/imdbfetcher.cpp:1468 src/fetch/kinopoiskfetcher.cpp:310
 #: src/fetch/kinopoiskfetcher.cpp:506 src/fetch/kinoteatrfetcher.cpp:263
-#: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/omdbfetcher.cpp:245
-#: src/fetch/themoviedbfetcher.cpp:282 src/fetch/themoviedbfetcher.cpp:447
-#: src/fetch/vndbfetcher.cpp:279 src/fetch/vndbfetcher.cpp:427
+#: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/themoviedbfetcher.cpp:282
+#: src/fetch/themoviedbfetcher.cpp:447 src/fetch/vndbfetcher.cpp:279
+#: src/fetch/vndbfetcher.cpp:427
 #, kde-format
 msgid "Original Title"
 msgstr "원래 제목"
@@ -3367,7 +3367,7 @@ msgstr "Amazon.com 웹 서비스"
 #: src/fetch/discogsfetcher.cpp:450 src/fetch/giantbombfetcher.cpp:214
 #: src/fetch/googlebookfetcher.cpp:378 src/fetch/igdbfetcher.cpp:590
 #: src/fetch/isbndbfetcher.cpp:392 src/fetch/mobygamesfetcher.cpp:612
-#: src/fetch/omdbfetcher.cpp:375 src/fetch/thegamesdbfetcher.cpp:522
+#: src/fetch/omdbfetcher.cpp:359 src/fetch/thegamesdbfetcher.cpp:522
 #: src/fetch/themoviedbfetcher.cpp:459
 #, kde-format
 msgid ""
@@ -3382,7 +3382,7 @@ msgstr ""
 #: src/fetch/comicvinefetcher.cpp:244 src/fetch/entrezfetcher.cpp:531
 #: src/fetch/giantbombfetcher.cpp:227 src/fetch/googlebookfetcher.cpp:391
 #: src/fetch/igdbfetcher.cpp:603 src/fetch/isbndbfetcher.cpp:405
-#: src/fetch/mobygamesfetcher.cpp:625 src/fetch/omdbfetcher.cpp:388
+#: src/fetch/mobygamesfetcher.cpp:625 src/fetch/omdbfetcher.cpp:372
 #: src/fetch/thegamesdbfetcher.cpp:535 src/fetch/themoviedbfetcher.cpp:472
 #, kde-format
 msgid "Access key: "
@@ -3464,8 +3464,8 @@ msgstr ""
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
 #: src/fetch/dvdfrfetcher.cpp:171 src/fetch/imdbfetcher.cpp:805
 #: src/fetch/imdbfetcher.cpp:1466 src/fetch/moviemeterfetcher.cpp:225
-#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:240
-#: src/fetch/themoviedbfetcher.cpp:277 src/fetch/themoviedbfetcher.cpp:446
+#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/themoviedbfetcher.cpp:277
+#: src/fetch/themoviedbfetcher.cpp:446
 #, kde-format
 msgid "Alternative Titles"
 msgstr "대체 제목"
@@ -3499,7 +3499,7 @@ msgstr "AnimeNfo 등급"
 #: src/fetch/ibsfetcher.cpp:393 src/fetch/kinofetcher.cpp:373
 #: src/fetch/kinopoiskfetcher.cpp:514 src/fetch/kinoteatrfetcher.cpp:514
 #: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
-#: src/fetch/musicbrainzfetcher.cpp:374 src/fetch/openlibraryfetcher.cpp:401
+#: src/fetch/musicbrainzfetcher.cpp:374 src/fetch/openlibraryfetcher.cpp:400
 #: src/fetch/springerfetcher.cpp:183 src/fetch/videogamegeekfetcher.cpp:193
 #: src/fetch/vndbfetcher.cpp:435
 #, kde-format
@@ -3924,9 +3924,8 @@ msgid "Internet Movie Database (Portuguese)"
 msgstr "인터넷 영화 데이터베이스(포르투갈어)"
 
 #: src/fetch/imdbfetcher.cpp:712 src/fetch/imdbfetcher.cpp:1464
-#: src/fetch/omdbfetcher.cpp:235 src/fetch/omdbfetcher.cpp:339
-#: src/fetch/omdbfetcher.cpp:364 src/fetch/themoviedbfetcher.cpp:272
-#: src/fetch/themoviedbfetcher.cpp:445
+#: src/fetch/omdbfetcher.cpp:323 src/fetch/omdbfetcher.cpp:348
+#: src/fetch/themoviedbfetcher.cpp:272 src/fetch/themoviedbfetcher.cpp:445
 #, kde-format
 msgid "IMDb Link"
 msgstr "IMDb 링크"
@@ -3996,7 +3995,7 @@ msgstr "여러 원본"
 msgid "Data source:"
 msgstr "데이터 원본:"
 
-#: src/fetch/openlibraryfetcher.cpp:248 src/fetch/openlibraryfetcher.cpp:394
+#: src/fetch/openlibraryfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:393
 #, kde-format
 msgid "OpenLibrary Link"
 msgstr "OpenLibrary 링크"
@@ -5001,8 +5000,9 @@ msgid "Tellico - a KDE collection manager"
 msgstr "Tellico - KDE 소장품 관리 도구"
 
 #: src/main.cpp:123
-#, kde-format
-msgid "(c) 2001-2020, Robby Stephenson"
+#, fuzzy, kde-format
+#| msgid "(c) 2001-2020, Robby Stephenson"
+msgid "(c) 2001-2021, Robby Stephenson"
 msgstr "(c) 2001-2020, Robby Stephenson"
 
 #: src/main.cpp:127
@@ -6258,48 +6258,48 @@ msgstr "파일"
 msgid "Bitrate"
 msgstr "비트 전송률"
 
-#: src/translators/audiofileimporter.cpp:208
-#: src/translators/audiofileimporter.cpp:218
+#: src/translators/audiofileimporter.cpp:209
+#: src/translators/audiofileimporter.cpp:219
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "트랙(디스크 %1)"
 
-#: src/translators/audiofileimporter.cpp:282 xslt/entry-templates/Album.xsl:242
+#: src/translators/audiofileimporter.cpp:283 xslt/entry-templates/Album.xsl:242
 #, kde-format
 msgid "(Various)"
 msgstr "(다양함)"
 
-#: src/translators/audiofileimporter.cpp:431
+#: src/translators/audiofileimporter.cpp:436
 #, kde-format
 msgid "Audio File Options"
 msgstr "오디오 파일 옵션"
 
-#: src/translators/audiofileimporter.cpp:434
+#: src/translators/audiofileimporter.cpp:439
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "재귀적 폴더 검색(&F)"
 
-#: src/translators/audiofileimporter.cpp:435
+#: src/translators/audiofileimporter.cpp:440
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr "이 옵션을 선택하면 폴더에서 재귀적으로 오디오 파일을 검색합니다."
 
-#: src/translators/audiofileimporter.cpp:439
+#: src/translators/audiofileimporter.cpp:444
 #, kde-format
 msgid "Include file &location"
 msgstr "파일 위치 포함(&L)"
 
-#: src/translators/audiofileimporter.cpp:440
+#: src/translators/audiofileimporter.cpp:445
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "이 옵션을 선택하면 각 트랙의 파일 이름이 항목에 추가됩니다."
 
-#: src/translators/audiofileimporter.cpp:444
+#: src/translators/audiofileimporter.cpp:449
 #, kde-format
 msgid "Include &bitrate"
 msgstr "비트 전송률 포함(&B)"
 
-#: src/translators/audiofileimporter.cpp:445
+#: src/translators/audiofileimporter.cpp:450
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "이 옵션을 선택하면 각 트랙의 비트 전송률이 항목에 추가됩니다."

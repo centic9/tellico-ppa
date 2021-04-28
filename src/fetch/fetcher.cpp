@@ -46,7 +46,6 @@ using namespace Tellico::Fetch;
 using Tellico::Fetch::Fetcher;
 
 Fetcher::Fetcher(QObject* parent) : QObject(parent)
-    , QSharedData()
     , m_updateOverwrite(false)
     , m_hasMoreResults(false)
     , m_messager(nullptr) {
@@ -57,7 +56,7 @@ Fetcher::~Fetcher() {
 }
 
 int Fetcher::collectionType() const {
-  return m_request.collectionType;
+  return m_request.collectionType();
 }
 
 /// virtual, overridden by subclasses
@@ -75,7 +74,8 @@ const Tellico::Fetch::FetchRequest& Fetcher::request() const {
 
 void Fetcher::startSearch(const FetchRequest& request_) {
   m_request = request_;
-  if(!canFetch(m_request.collectionType)) {
+  if(!canFetch(m_request.collectionType())) {
+    myDebug() << "Bad collection type:" << source() << m_request.collectionType();
     message(i18n("%1 does not allow searching for this collection type.", source()),
             MessageHandler::Warning);
     emit signalDone(this);
@@ -89,7 +89,7 @@ void Fetcher::startSearch(const FetchRequest& request_) {
                                                                        QStringLiteral("SendUserAgent")).toLower();
     if(sendUserAgent == QLatin1String("false")) {
       myDebug() << "Fetcher - Need user agent for" << source();
-      // TODO: I'd like to link to kcmshell5 useragent as th eKonqueror about page does
+      // TODO: I'd like to link to kcmshell5 useragent as the Konqueror about page does
       // but KIO complains about unable to open exec links
 //      message(i18n("<html>%1 requires the network request to include identification.\n"
 //                   "Check the network configuration in <a href=\"%2\">KDE System Settings</a>.</html>", source(), QStringLiteral("exec:/kcmshell5 useragent")),
@@ -109,19 +109,17 @@ void Fetcher::startUpdate(Tellico::Data::EntryPtr entry_) {
   Q_ASSERT(entry_);
   Q_ASSERT(entry_->collection());
   m_request = updateRequest(entry_);
-  m_request.collectionType = entry_->collection()->type();
-  if(!m_request.isNull()) {
-    search();
-  } else {
-    myDebug() << "insufficient info to search";
+  m_request.setCollectionType(entry_->collection()->type());
+  if(m_request.isNull()) {
+    myLog() << "insufficient info to update" << entry_->title();
     emit signalDone(this); // always need to emit this if not continuing with the search
+    return;
   }
-//  updateEntry(entry_);
+  search();
 }
 
-void Fetcher::readConfig(const KConfigGroup& config_, const QString& groupName_) {
-  Q_ASSERT(config_.name() == groupName_);
-  m_configGroup = groupName_;
+void Fetcher::readConfig(const KConfigGroup& config_) {
+  m_configGroup = config_;
 
   QString s = config_.readEntry("Name");
   if(!s.isEmpty()) {
@@ -140,15 +138,15 @@ void Fetcher::readConfig(const KConfigGroup& config_, const QString& groupName_)
 }
 
 void Fetcher::saveConfig() {
-  if(m_configGroup.isEmpty()) {
+  if(!m_configGroup.isValid() || m_configGroup.isImmutable()) {
     return;
   }
-  KConfigGroup config(KSharedConfig::openConfig(), m_configGroup);
-  config.writeEntry("Uuid", m_uuid);
-  saveConfigHook(config);
+  m_configGroup.writeEntry("Uuid", m_uuid);
+  saveConfigHook(m_configGroup);
+  m_configGroup.sync();
 }
 
-void Fetcher::setConfigGroup(const QString& group_) {
+void Fetcher::setConfigGroup(const KConfigGroup& group_) {
   m_configGroup = group_;
 }
 
@@ -177,6 +175,10 @@ Tellico::Data::EntryPtr Fetcher::fetchEntry(uint uid_) {
   return entry;
 }
 
+void Fetcher::setMessageHandler(MessageHandler* handler) {
+  m_messager = handler;
+}
+
 void Fetcher::message(const QString& message_, int type_) const {
   if(m_messager) {
     m_messager->send(message_, static_cast<MessageHandler::Type>(type_));
@@ -197,9 +199,20 @@ QString Fetcher::favIcon(const QUrl& url_) {
   if(!url_.isValid()) {
     return QString();
   }
+
 #if KIO_VERSION >= QT_VERSION_CHECK(5,19,0)
   KIO::FavIconRequestJob* job = new KIO::FavIconRequestJob(url_);
-  Q_UNUSED(job);
+  // if the url has a meaningful path, then use it as the icon url
+  if(url_.path().size() > 4 && url_.path().contains(QLatin1Char('.'))) {
+    job->setIconUrl(url_);
+  }
+/*
+  connect(job, &KIO::FavIconRequestJob::result, [job](KJob *) {
+         if(job->error()) {
+           myDebug() << "error:" << job->errorString();
+         }
+     });
+*/
 #endif
   QString name = KIO::favIconForUrl(url_);
 

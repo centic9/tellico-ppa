@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2005-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2005-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -24,11 +24,17 @@
 
 #include "fetchresult.h"
 #include "fetcher.h"
+#include "fetchmanager.h"
 #include "../entry.h"
 #include "../collection.h"
 #include "../tellico_debug.h"
 
+#include <QPixmap>
+#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
 #include <KRandom>
+#else
+#include <QRandomGenerator>
+#endif
 
 namespace {
   bool append(QString& text, Tellico::Data::EntryPtr entry, const char* field) {
@@ -48,24 +54,40 @@ using namespace Tellico;
 using namespace Tellico::Fetch;
 using Tellico::Fetch::FetchResult;
 
-FetchResult::FetchResult(Fetcher::Ptr fetcher_, Data::EntryPtr entry_)
+FetchResult::FetchResult(Fetcher* fetcher_, Data::EntryPtr entry_)
+#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
    : uid(KRandom::random())
-   , fetcher(fetcher_)
+#else
+   : uid(QRandomGenerator::global()->generate())
+#endif
    , title(entry_->title())
    , desc(makeDescription(entry_))
-   , isbn(entry_->field(QStringLiteral("isbn"))) {
+   , isbn(entry_->field(QStringLiteral("isbn")))
+   , m_fetcher(fetcher_) {
+  Q_ASSERT(fetcher_);
 }
 
-FetchResult::FetchResult(Fetcher::Ptr fetcher_, const QString& title_, const QString& desc_, const QString& isbn_)
+FetchResult::FetchResult(Fetcher* fetcher_, const QString& title_, const QString& desc_, const QString& isbn_)
+#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
    : uid(KRandom::random())
-   , fetcher(fetcher_)
+#else
+   : uid(QRandomGenerator::global()->generate())
+#endif
    , title(title_)
    , desc(desc_)
-   , isbn(isbn_) {
+   , isbn(isbn_)
+   , m_fetcher(fetcher_) {
+  Q_ASSERT(fetcher_);
 }
 
 Tellico::Data::EntryPtr FetchResult::fetchEntry() {
-  return fetcher->fetchEntry(uid);
+  return m_fetcher ? m_fetcher->fetchEntry(uid) : Data::EntryPtr();
+}
+
+Tellico::Fetch::Fetcher* FetchResult::fetcher() {
+  Q_ASSERT(m_fetcher);
+  if(!m_fetcher) myLog() << "FetchResult::fetcher() - null pointer";
+  return m_fetcher;
 }
 
 QString FetchResult::makeDescription(Data::EntryPtr entry) {
@@ -118,6 +140,10 @@ QString FetchResult::makeDescription(Data::EntryPtr entry) {
     case Data::Collection::Coin:
       append(desc, entry, "country");
       append(desc, entry, "description");
+      break;
+
+    case Data::Collection::Stamp:
+      append(desc, entry, "country");
       break;
 
     default:

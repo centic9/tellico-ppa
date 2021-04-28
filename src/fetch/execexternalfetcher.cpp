@@ -52,6 +52,7 @@
 #include <QRegExp>
 #include <QGroupBox>
 #include <QGridLayout>
+#include <QStandardItemModel>
 
 using namespace Tellico;
 using Tellico::Fetch::ExecExternalFetcher;
@@ -68,14 +69,22 @@ QStringList ExecExternalFetcher::parseArguments(const QString& str_) {
   int pos = 0;
   for(int nextPos = quotes.indexIn(str_); nextPos > -1; pos = nextPos+1, nextPos = quotes.indexIn(str_, pos)) {
     // a non-quotes arguments runs from pos to nextPos
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
     args += str_.mid(pos, nextPos-pos).split(spaces, QString::SkipEmptyParts);
+#else
+    args += str_.mid(pos, nextPos-pos).split(spaces, Qt::SkipEmptyParts);
+#endif
     // move nextpos marker to end of match
     pos = quotes.pos(2); // skip quotation mark
     nextPos += quotes.matchedLength();
     args += str_.mid(pos, nextPos-pos-1);
   }
   // catch the end stuff
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
   args += str_.mid(pos).split(spaces, QString::SkipEmptyParts);
+#else
+  args += str_.mid(pos).split(spaces, Qt::SkipEmptyParts);
+#endif
 
   return args;
 }
@@ -131,15 +140,15 @@ void ExecExternalFetcher::readConfigHook(const KConfigGroup& config_) {
 void ExecExternalFetcher::search() {
   m_started = true;
 
-  if(request().key != ExecUpdate && !m_args.contains(request().key)) {
+  if(request().key() != ExecUpdate && !m_args.contains(request().key())) {
     myDebug() << "stopping: not an update and no matching argument for search key";
     stop();
     return;
   }
 
-  if(request().key == ExecUpdate) {
+  if(request().key() == ExecUpdate) {
     // because the rowDelimiterString() is used below
-    QStringList args = FieldFormat::splitTable(request().value);
+    QStringList args = FieldFormat::splitTable(request().value());
     startSearch(args);
     return;
   }
@@ -149,8 +158,8 @@ void ExecExternalFetcher::search() {
   // the search value needs to be enclosed in quotation marks
   // but first check to make sure the user didn't do that already
   // AND the "%1" wasn't used in the settings
-  QString value = request().value;
-  if(request().key == ISBN) {
+  QString value = request().value();
+  if(request().key() == ISBN) {
     value.remove(QLatin1Char('-')); // remove hyphens from isbn values
     // shouldn't hurt and might keep from confusing stupid search sources
   }
@@ -158,7 +167,7 @@ void ExecExternalFetcher::search() {
   if(!rx1.exactMatch(value)) {
     value = QLatin1Char('"') + value + QLatin1Char('"');
   }
-  QString args = m_args.value(request().key);
+  QString args = m_args.value(request().key());
   QRegExp rx2(QLatin1String("['\"]%1\\1"));
   args.replace(rx2, QStringLiteral("%1"));
   startSearch(parseArguments(args.arg(value))); // replace %1 with search value
@@ -294,7 +303,7 @@ void ExecExternalFetcher::slotProcessExited() {
 
   Data::EntryList entries = coll->entries();
   foreach(Data::EntryPtr entry, entries) {
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }
@@ -362,6 +371,15 @@ ExecExternalFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ExecExte
   label->setWhatsThis(w);
   m_formatCombo->setWhatsThis(w);
   label->setBuddy(m_formatCombo);
+#ifndef ENABLE_BTPARSE
+  // disable the option for bibtex
+  auto formatModel = qobject_cast<const QStandardItemModel*>(m_formatCombo->model());
+  auto matchList = formatModel->match(formatModel->index(0, 0), Qt::UserRole, Import::Bibtex);
+  if(!matchList.isEmpty()) {
+    auto item = formatModel->itemFromIndex(matchList.front());
+    item->setEnabled(false);
+  }
+#endif
 
   label = new QLabel(i18n("Application &path: "), optionsWidget());
   l->addWidget(label, ++row, 0);

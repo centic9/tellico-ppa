@@ -211,7 +211,7 @@ bool AmazonFetcher::canFetch(int type) const {
          || type == Data::Collection::BoardGame;
 }
 
-bool AmazonFetcher::canSearch(FetchKey k) const {
+bool AmazonFetcher::canSearch(Fetch::FetchKey k) const {
   // no UPC in Canada
   return k == Title
       || k == Person
@@ -445,7 +445,7 @@ void AmazonFetcher::slotComplete(KJob*) {
     }
 
 //    myDebug() << entry->title();
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
     ++m_numResults;
@@ -466,10 +466,11 @@ void AmazonFetcher::slotComplete(KJob*) {
     ++m_page;
     m_countOffset = 0;
     doSearch();
-  } else if(request().value.count(QLatin1Char(';')) > 9) {
+  } else if(request().value().count(QLatin1Char(';')) > 9) {
     // start new request after cutting off first 10 isbn values
-    FetchRequest newRequest = request();
-    newRequest.value = request().value.section(QLatin1Char(';'), 10);
+    FetchRequest newRequest(request().collectionType(),
+                            request().key(),
+                            request().value().section(QLatin1Char(';'), 10));
     startSearch(newRequest);
   } else {
     m_countOffset = m_entries.count() % AMAZON_RETURNS_PER_REQUEST;
@@ -494,7 +495,7 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
     case Data::Collection::ComicBook:
     case Data::Collection::Bibtex:
       if(optionalFields().contains(QStringLiteral("keyword"))) {
-        StringSet newWords;
+        QStringList newWords;
         const QStringList keywords = FieldFormat::splitValue(entry->field(QStringLiteral("keyword")));
         foreach(const QString& keyword, keywords) {
           if(keyword == QLatin1String("General") ||
@@ -505,9 +506,10 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
              keyword.startsWith(QLatin1String("Authors"))) {
             continue;
           }
-          newWords.add(keyword);
+          newWords += keyword;
         }
-        entry->setField(QStringLiteral("keyword"), newWords.values().join(FieldFormat::delimiterString()));
+        newWords.removeDuplicates();
+        entry->setField(QStringLiteral("keyword"), newWords.join(FieldFormat::delimiterString()));
       }
       entry->setField(QStringLiteral("comments"), Tellico::decodeHTML(entry->field(QStringLiteral("comments"))));
       break;
@@ -516,7 +518,7 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
       {
         const QString genres = QStringLiteral("genre");
         QStringList oldWords = FieldFormat::splitValue(entry->field(genres));
-        StringSet words;
+        QStringList newWords;
         // only care about genres that have "Genres" in the amazon response
         // and take the first word after that
         for(QStringList::Iterator it = oldWords.begin(); it != oldWords.end(); ++it) {
@@ -532,16 +534,17 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
             }
             ++it2;
             if(it2 != nodes.end() && *it2 != QLatin1String("General")) {
-              words.add(*it2);
+              newWords += *it2;
             }
             break; // we're done
           }
         }
-        entry->setField(genres, words.values().join(FieldFormat::delimiterString()));
+        newWords.removeDuplicates();
+        entry->setField(genres, newWords.join(FieldFormat::delimiterString()));
         // language tracks get duplicated, too
-        words.clear();
-        words.add(FieldFormat::splitValue(entry->field(QStringLiteral("language"))));
-        entry->setField(QStringLiteral("language"), words.values().join(FieldFormat::delimiterString()));
+        newWords = FieldFormat::splitValue(entry->field(QStringLiteral("language")));
+        newWords.removeDuplicates();
+        entry->setField(QStringLiteral("language"), newWords.join(FieldFormat::delimiterString()));
       }
       entry->setField(QStringLiteral("plot"), Tellico::decodeHTML(entry->field(QStringLiteral("plot"))));
       break;
@@ -550,7 +553,7 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
       {
         const QString genres = QStringLiteral("genre");
         QStringList oldWords = FieldFormat::splitValue(entry->field(genres));
-        StringSet words;
+        QStringList newWords;
         // only care about genres that have "Styles" in the amazon response
         // and take the first word after that
         for(QStringList::Iterator it = oldWords.begin(); it != oldWords.end(); ++it) {
@@ -569,11 +572,12 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
               continue;
             }
             if(*it2 != QLatin1String("General")) {
-              words.add(*it2);
+              newWords += *it2;
             }
           }
         }
-        entry->setField(genres, words.values().join(FieldFormat::delimiterString()));
+        newWords.removeDuplicates();
+        entry->setField(genres, newWords.join(FieldFormat::delimiterString()));
       }
       entry->setField(QStringLiteral("comments"), Tellico::decodeHTML(entry->field(QStringLiteral("comments"))));
       break;
@@ -665,7 +669,7 @@ Tellico::Fetch::FetchRequest AmazonFetcher::updateRequest(Data::EntryPtr entry_)
   return FetchRequest();
 }
 
-QByteArray AmazonFetcher::requestPayload(FetchRequest request_) {
+QByteArray AmazonFetcher::requestPayload(Fetch::FetchRequest request_) {
   QJsonObject payload;
   payload.insert(QLatin1String("PartnerTag"), m_assoc);
   payload.insert(QLatin1String("PartnerType"), QLatin1String("Associates"));
@@ -684,7 +688,7 @@ QByteArray AmazonFetcher::requestPayload(FetchRequest request_) {
   resources.append(QLatin1String("ItemInfo.ByLineInfo"));
   resources.append(QLatin1String("ItemInfo.TechnicalInfo"));
 
-  const int type = request_.collectionType;
+  const int type = request_.collectionType();
   switch(type) {
     case Data::Collection::Book:
     case Data::Collection::ComicBook:
@@ -729,27 +733,27 @@ QByteArray AmazonFetcher::requestPayload(FetchRequest request_) {
       return QByteArray();
   }
 
-  switch(request_.key) {
+  switch(request_.key()) {
     case Title:
-      payload.insert(QLatin1String("Title"), request_.value);
+      payload.insert(QLatin1String("Title"), request_.value());
       break;
 
     case Person:
       if(type == Data::Collection::Video) {
-        payload.insert(QStringLiteral("Actor"), request_.value);
-//        payload.insert(QStringLiteral("Director"), request_.value);
+        payload.insert(QStringLiteral("Actor"), request_.value());
+//        payload.insert(QStringLiteral("Director"), request_.value());
       } else if(type == Data::Collection::Album) {
-        payload.insert(QStringLiteral("Artist"), request_.value);
+        payload.insert(QStringLiteral("Artist"), request_.value());
       } else if(type == Data::Collection::Book) {
-        payload.insert(QLatin1String("Author"), request_.value);
+        payload.insert(QLatin1String("Author"), request_.value());
       } else {
-        payload.insert(QLatin1String("Keywords"), request_.value);
+        payload.insert(QLatin1String("Keywords"), request_.value());
       }
       break;
 
     case ISBN:
       {
-        QString cleanValue = request_.value;
+        QString cleanValue = request_.value();
         cleanValue.remove(QLatin1Char('-'));
         // ISBN only get digits or 'X'
         QStringList isbns = FieldFormat::splitValue(cleanValue);
@@ -786,7 +790,7 @@ QByteArray AmazonFetcher::requestPayload(FetchRequest request_) {
 
     case UPC:
       {
-        QString cleanValue = request_.value;
+        QString cleanValue = request_.value();
         cleanValue.remove(QLatin1Char('-'));
         // for EAN values, add 0 to beginning if not 13 characters
         // in order to assume US country code from UPC value
@@ -808,19 +812,19 @@ QByteArray AmazonFetcher::requestPayload(FetchRequest request_) {
       break;
 
     case Keyword:
-      payload.insert(QLatin1String("Keywords"), request_.value);
+      payload.insert(QLatin1String("Keywords"), request_.value());
       break;
 
     case Raw:
       {
-        QString key = request_.value.section(QLatin1Char('='), 0, 0).trimmed();
-        QString str = request_.value.section(QLatin1Char('='), 1).trimmed();
+        QString key = request_.value().section(QLatin1Char('='), 0, 0).trimmed();
+        QString str = request_.value().section(QLatin1Char('='), 1).trimmed();
         payload.insert(key, str);
       }
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       return QByteArray();
   }
 
@@ -1032,11 +1036,12 @@ bool AmazonFetcher::parseTitleToken(Tellico::Data::EntryPtr entry_, const QStrin
     entry_->setField(QStringLiteral("directors-cut"), QStringLiteral("true"));
     // res = true; leave it in the title
   }
-  if(token_.toLower() == QLatin1String("ntsc")) {
+  const QString tokenLower = token_.toLower();
+  if(tokenLower == QLatin1String("ntsc")) {
     entry_->setField(QStringLiteral("format"), i18n("NTSC"));
     res = true;
   }
-  if(token_.toLower() == QLatin1String("dvd")) {
+  if(tokenLower == QLatin1String("dvd")) {
     entry_->setField(QStringLiteral("medium"), i18n("DVD"));
     res = true;
   }

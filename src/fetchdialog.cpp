@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2003-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2003-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -50,7 +50,6 @@
 #endif
 
 #include <KLocalizedString>
-#include <KHTMLView>
 #include <KSharedConfig>
 #include <KAcceleratorManager>
 #include <KTextEdit>
@@ -122,8 +121,8 @@ class FetchDialog::FetchResultItem : public QTreeWidgetItem {
       : QTreeWidgetItem(lv), m_result(r) {
     setData(1, Qt::DisplayRole, r->title);
     setData(2, Qt::DisplayRole, r->desc);
-    setData(3, Qt::DisplayRole, r->fetcher->source());
-    setData(3, Qt::DecorationRole, Fetch::Manager::self()->fetcherIcon(r->fetcher));
+    setData(3, Qt::DisplayRole, r->fetcher()->source());
+    setData(3, Qt::DecorationRole, Fetch::Manager::self()->fetcherIcon(r->fetcher()));
   }
   Fetch::FetchResult* m_result;
 
@@ -225,10 +224,14 @@ FetchDialog::FetchDialog(QWidget* parent_)
   label->setBuddy(m_sourceCombo);
   Fetch::FetcherVec sources = Fetch::Manager::self()->fetchers(m_collType);
   foreach(Fetch::Fetcher::Ptr fetcher, sources) {
-    m_sourceCombo->addItem(Fetch::Manager::self()->fetcherIcon(fetcher), fetcher->source());
+    m_sourceCombo->addItem(Fetch::Manager::self()->fetcherIcon(fetcher.data()), fetcher->source());
   }
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
   void (QComboBox::* activatedString)(const QString&) = &QComboBox::activated;
   connect(m_sourceCombo, activatedString, this, &FetchDialog::slotSourceChanged);
+#else
+  connect(m_sourceCombo, &QComboBox::textActivated, this, &FetchDialog::slotSourceChanged);
+#endif
   m_sourceCombo->setWhatsThis(i18n("Select the database to search"));
 
   // for whatever reason, the dialog window could get shrunk and truncate the text
@@ -268,8 +271,12 @@ FetchDialog::FetchDialog(QWidget* parent_)
   // set the xslt file AFTER setting the gradient image option
   m_entryView->setXSLTFile(QStringLiteral("Compact.xsl"));
   m_entryView->addXSLTStringParam("skip-fields", "id,mdate,cdate");
-  m_entryView->view()->setWhatsThis(i18n("An entry may be shown here before adding it to the "
-                                         "current collection by selecting it in the list above"));
+  m_entryView->
+#ifdef USE_KHTML
+               view()->
+#endif
+               setWhatsThis(i18n("An entry may be shown here before adding it to the "
+                                 "current collection by selecting it in the list above"));
 
   QWidget* box3 = new QWidget(mainWidget);
   QHBoxLayout* box3HBoxLayout = new QHBoxLayout(box3);
@@ -279,7 +286,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
   m_addButton = new QPushButton(i18n("&Add Entry"), box3);
   box3HBoxLayout->addWidget(m_addButton);
   m_addButton->setEnabled(false);
-  m_addButton->setIcon(QIcon::fromTheme(QLatin1String(":/icons/") + Kernel::self()->collectionTypeName()));
+  m_addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
   connect(m_addButton, &QAbstractButton::clicked, this, &FetchDialog::slotAddEntry);
   m_addButton->setWhatsThis(i18n("Add the selected entry to the current collection"));
 
@@ -621,10 +628,10 @@ void FetchDialog::slotShowEntry() {
     entry->collection()->addField(f);
   }
 
-  const QPixmap sourceIcon = Fetch::Manager::self()->fetcherIcon(r->fetcher);
+  const QPixmap sourceIcon = Fetch::Manager::self()->fetcherIcon(r->fetcher());
   const QByteArray ba = Data::Image::byteArray(sourceIcon.toImage(), "PNG");
   QString text = QStringLiteral("<qt><img src='data:image/png;base64,%1'/> %2<br/>%3</qt>")
-                 .arg(QLatin1String(ba.toBase64()), r->fetcher->source(), r->fetcher->attribution());
+                 .arg(QLatin1String(ba.toBase64()), r->fetcher()->source(), r->fetcher()->attribution());
   entry->setField(QStringLiteral("fetchdialog_source"), text);
 
   setStatus(i18n("Ready."));
@@ -871,10 +878,8 @@ void FetchDialog::slotResetCollection() {
   m_sourceCombo->clear();
   Fetch::FetcherVec sources = Fetch::Manager::self()->fetchers(m_collType);
   foreach(Fetch::Fetcher::Ptr fetcher, sources) {
-    m_sourceCombo->addItem(Fetch::Manager::self()->fetcherIcon(fetcher), fetcher->source());
+    m_sourceCombo->addItem(Fetch::Manager::self()->fetcherIcon(fetcher.data()), fetcher->source());
   }
-
-  m_addButton->setIcon(QIcon(QLatin1String(":/icons/") + Kernel::self()->collectionTypeName()));
 
   if(Fetch::Manager::self()->canFetch()) {
     m_searchButton->setEnabled(true);

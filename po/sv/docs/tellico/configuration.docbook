@@ -262,12 +262,6 @@
 >Open Movie Database</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="animenfo"
->AnimeNfo.com</link
->,</simpara
-></listitem>
 <!-- comics -->
 <listitem
 ><simpara
@@ -362,6 +356,12 @@
 ><simpara
 ><link linkend="colnect"
 >Colnect</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="numista"
+>Numista</link
 >,</simpara
 ></listitem>
 <!-- others -->
@@ -600,17 +600,9 @@
 <para
 ><ulink url="http://allocine.fr"
 >AlloCiné</ulink
-> är en filminformationstjänst på nätet, baserad i Frankrike. Webbläsaridentifikation måste vara aktiverat i systeminställningarna. </para>
+> är en filminformationstjänst på nätet, baserad i Frankrike. Webbläsaridentifiering måste vara aktiverad i systeminställningarna. </para>
 </sect3>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> är en populär sida för information om anime, eller japanska serier. </para>
-</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -624,7 +616,7 @@
 <para
 ><ulink url="http://discogs.com"
 >Discogs.com</ulink
-> är en användarframtagen musikdatabas som innehåller information om artister, skivbolag och deras inspelningar. Registrering för att få ett gratis konto krävs. Webbläsaridentifikation måste vara aktiverat i systeminställningarna. </para>
+> är en användarframtagen musikdatabas som innehåller information om artister, skivbolag och deras inspelningar. Registrering för att få ett gratis konto krävs. Webbläsaridentifiering måste vara aktiverad i systeminställningarna. </para>
 </sect3>
 
 <sect3 id="musicbrainz">
@@ -633,7 +625,7 @@
 <para
 ><ulink url="http://musicbrainz.org"
 >MusicBrainz.org</ulink
-> är en gemensam metadatabas för musik som försöker skapa en innehållsrik musikinformationsplats. Webbläsaridentifikation måste vara aktiverat i systeminställningarna. </para>
+> är en gemensam metadatabas för musik som försöker skapa en innehållsrik musikinformationsplats.  Webbläsaridentifiering måste vara aktiverad i systeminställningarna. </para>
 </sect3>
 
 </sect2>
@@ -717,7 +709,7 @@
 <!-- start of coin sources -->
 <sect2 id="coin-sources">
 <title
->Myntdatakällor</title>
+>Mynt- och frimärksdatakällor</title>
 
 <sect3 id="colnect">
 <title
@@ -725,7 +717,16 @@
 <para
 ><ulink url="https://colnect.com"
 >Colnect</ulink
-> är en nätgemenskap för samlingsobjekt som tillhandahåller personlig samlingshantering. &tellico; kan söka på Colnect efter myntinformation. </para>
+> är en nätgemenskap för samlingar som tillhandahåller personlig samlingshantering. &tellico; kan sök i Colnect efter mynt- och frimärksinformation. </para>
+</sect3>
+
+<sect3 id="numista">
+<title
+>Numista</title>
+<para
+><ulink url="https://numista.com"
+>Numista</ulink
+> är en världsomfattande myntkatalog som växer tack vara medlemsbidrag, som erbjuder samlingshantering på nätet, verktyg för enkelt utbyte med andra samlare, och ett forum. </para>
 </sect3>
 
 </sect2>
@@ -804,7 +805,7 @@
 <title
 >Flera kombinerade datakällor</title>
 <para
->Kombinationer av upp till åtta befintliga datakällor kan användas som en enda källa, där sökresultaten från källorna sammanfogas. Samlingstypen som ska användas måste anges innan källor läggs till. </para>
+>Kombinationer av upp till åtta befintliga datakällor kan användas som en enda källa, där varje sökresultat från den första källan uppdateras från de följande källorna. Samlingstypen som ska användas måste anges innan källor läggs till. </para>
 
 <screenshot>
 <mediaobject>
@@ -814,7 +815,7 @@
 </screenshot>
 
 <para
->Bara befintliga datakällor kan användas i kombination. Sökbegäran skickas till varje källa, och resultaten kombineras. Eftersom de sammanfogade resultaten beror på sökresultatens ordning, kan den kombinerade mängden vara olika beroende på nätverket och källornas hastighet. </para>
+>Bara befintliga datakällor kan användas i kombination. Bara söktypen för den första källan kan användas i den här källan eftersom resultaten kommer från den första datakällan. Exempelvis kan en sökning först göras på UPCitemDb, där varje resultat sedan uppdateras från TheMovieDB. </para>
 </sect2>
 
 </sect1>

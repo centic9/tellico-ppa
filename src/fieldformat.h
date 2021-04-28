@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -27,7 +27,7 @@
 
 #include <QString>
 #include <QStringList>
-#include <QRegExp>
+#include <QRegularExpression>
 
 namespace Tellico {
 
@@ -68,12 +68,9 @@ public:
    */
   enum SplitParsing { StringSplit, RegExpSplit };
   static QStringList splitValue(const QString& string,
-                                SplitParsing parsing = RegExpSplit,
-                                QString::SplitBehavior behavior = QString::KeepEmptyParts);
-  static QStringList splitRow(const QString& string,
-                              QString::SplitBehavior behavior = QString::KeepEmptyParts);
-  static QStringList splitTable(const QString& string,
-                                QString::SplitBehavior behavior = QString::KeepEmptyParts);
+                                SplitParsing parsing = RegExpSplit);
+  static QStringList splitRow(const QString& string);
+  static QStringList splitTable(const QString& string);
  /**
    * Returns the delimiter used to split field values
    *
@@ -85,9 +82,11 @@ public:
    *
    * @return The delimiter regexp
    */
-  static QRegExp delimiterRegExp();
+  static QRegularExpression delimiterRegularExpression();
+  static QRegularExpression commaSplitRegularExpression();
   static QString columnDelimiterString();
   static QString rowDelimiterString();
+  static QString matchValueRegularExpression(const QString& value);
 
   static QString fixupValue(const QString& value);
   /**
@@ -130,10 +129,6 @@ public:
    * @param str String to fix
    */
   static QString capitalize(QString str);
-
-private:
-  static QRegExp delimiterRx;
-  static QRegExp commaSplitRx;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(FieldFormat::Options)

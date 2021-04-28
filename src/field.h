@@ -29,7 +29,6 @@
 #include "fieldformat.h"
 
 #include <QStringList>
-#include <QRegExp>
 
 namespace Tellico {
   namespace Data {
@@ -316,14 +315,14 @@ public:
     TitleField,
     CreatedDateField,
     ModifiedDateField,
-    IsbnField
+    IsbnField,
+    PegiField,
+    ImdbField
   };
 
   static FieldPtr createDefaultField(DefaultField field);
 
 private:
-  static QRegExp s_delimiter;
-
   QString m_name;
   QString m_title;
   QString m_category;

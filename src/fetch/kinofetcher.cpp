@@ -82,13 +82,13 @@ void KinoFetcher::search() {
   QUrlQuery q;
   q.addQueryItem(QStringLiteral("sp_search_filter"), QStringLiteral("movie"));
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
-      q.addQueryItem(QStringLiteral("searchterm"), request().value);
+      q.addQueryItem(QStringLiteral("searchterm"), request().value());
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       stop();
       return;
   }
@@ -174,7 +174,7 @@ void KinoFetcher::slotComplete(KJob*) {
     }
     entry->setField(QStringLiteral("year"), y);
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     QUrl url = QUrl(QString::fromLatin1(KINO_BASE_URL)).resolved(QUrl(u));
     m_matches.insert(r->uid, url);
     m_entries.insert(r->uid, entry);

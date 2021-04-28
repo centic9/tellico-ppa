@@ -39,12 +39,12 @@
 QTEST_GUILESS_MAIN( IGDBFetcherTest )
 
 IGDBFetcherTest::IGDBFetcherTest() : AbstractFetcherTest()
-    , m_config(QFINDTESTDATA("tellicotest_private.config"), KConfig::SimpleConfig) {
+    , m_config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig) {
 }
 
 void IGDBFetcherTest::initTestCase() {
   Tellico::ImageFactory::init();
-  m_hasConfigFile = QFile::exists(QFINDTESTDATA("tellicotest_private.config"));
+  m_hasConfigFile = QFile::exists(QFINDTESTDATA("tellicotest.config"));
 }
 
 void IGDBFetcherTest::testKeyword() {
@@ -57,9 +57,10 @@ void IGDBFetcherTest::testKeyword() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Game, Tellico::Fetch::Keyword,
                                        QStringLiteral("Zelda Twilight Princess"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::IGDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 5);
+  fetcher->saveConfig(); // to save the access token
 
   QVERIFY(!results.isEmpty());
   // want the Wii version

@@ -25,9 +25,13 @@
 #include "filter.h"
 #include "entry.h"
 #include "utils/string_utils.h"
+#include "images/imageinfo.h"
+#include "images/imagefactory.h"
 #include "tellico_debug.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
+
+#include <functional>
 
 using Tellico::Filter;
 using Tellico::FilterRule;
@@ -92,6 +96,11 @@ bool FilterRule::equals(Tellico::Data::EntryPtr entry_) const {
         return true;
       }
     }
+  } else if(entry_->collection()->hasField(m_fieldName) &&
+            entry_->collection()->fieldByName(m_fieldName)->type() == Data::Field::Image) {
+    // this is just for image size comparison, all other number comparisons are ok
+    // falling back to the string comparison after this
+    return numberCompare(entry_, std::equal_to<double>());
   } else {
     return m_pattern.compare(entry_->field(m_fieldName), Qt::CaseInsensitive) == 0 ||
            (entry_->collection()->hasField(m_fieldName) &&
@@ -156,23 +165,23 @@ bool FilterRule::contains(Tellico::Data::EntryPtr entry_) const {
 
 bool FilterRule::matchesRegExp(Tellico::Data::EntryPtr entry_) const {
   // empty field name means search all
-  const QRegExp pattern = m_patternVariant.toRegExp();
+  const QRegularExpression pattern = m_patternVariant.toRegularExpression();
   if(m_fieldName.isEmpty()) {
     foreach(const QString& value, entry_->fieldValues()) {
-      if(pattern.indexIn(value) >= 0) {
+      if(pattern.match(value).hasMatch()) {
         return true;
       }
     }
     foreach(const QString& value, entry_->formattedFieldValues()) {
-      if(pattern.indexIn(value) >= 0) {
+      if(pattern.match(value).hasMatch()) {
         return true;
       }
     }
   } else {
-    return pattern.indexIn(entry_->field(m_fieldName)) >= 0 ||
+    return pattern.match(entry_->field(m_fieldName)).hasMatch() ||
            (entry_->collection()->hasField(m_fieldName) &&
             entry_->collection()->fieldByName(m_fieldName)->formatType() != FieldFormat::FormatNone &&
-            pattern.indexIn(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat)) >= 0);
+            pattern.match(entry_->formattedField(m_fieldName, FieldFormat::ForceFormat)).hasMatch());
   }
 
   return false;
@@ -205,37 +214,24 @@ bool FilterRule::after(Tellico::Data::EntryPtr entry_) const {
 }
 
 bool FilterRule::lessThan(Tellico::Data::EntryPtr entry_) const {
-  // empty field name means search all
-  // but the rule widget should limit this function to number fields only
-  if(m_fieldName.isEmpty()) {
-    return false;
-  }
-  const double pattern = m_patternVariant.toDouble();
-  bool ok = false;
-  const double value = entry_->field(m_fieldName).toDouble(&ok);
-  return ok && value < pattern;
+  return numberCompare(entry_, std::less<double>());
 }
 
 bool FilterRule::greaterThan(Tellico::Data::EntryPtr entry_) const {
-  // empty field name means search all
-  // but the rule widget should limit this function to number fields only
-  if(m_fieldName.isEmpty()) {
-    return false;
-  }
-  const double pattern = m_patternVariant.toDouble();
-  bool ok = false;
-  const double value = entry_->field(m_fieldName).toDouble(&ok);
-  return ok && value > pattern;
+  return numberCompare(entry_, std::greater<double>());
 }
 
 void FilterRule::updatePattern() {
   if(m_function == FuncRegExp || m_function == FuncNotRegExp) {
-    m_patternVariant = QRegExp(m_pattern, Qt::CaseInsensitive);
+    m_patternVariant = QRegularExpression(m_pattern, QRegularExpression::CaseInsensitiveOption);
   } else if(m_function == FuncBefore || m_function == FuncAfter)  {
     m_patternVariant = QDate::fromString(m_pattern, Qt::ISODate);
   } else if(m_function == FuncLess || m_function == FuncGreater)  {
     m_patternVariant = m_pattern.toDouble();
   } else {
+    if(m_pattern.isEmpty()) {
+      m_pattern = m_patternVariant.toString();
+    }
     // we don't even use it
     m_patternVariant = QVariant();
   }
@@ -248,6 +244,34 @@ void FilterRule::setFunction(Function func_) {
 
 QString FilterRule::pattern() const {
   return m_pattern;
+}
+
+template <typename Func>
+bool FilterRule::numberCompare(Tellico::Data::EntryPtr entry_, Func func) const {
+  // empty field name means search all
+  // but the rule widget should limit this function to number fields only
+  if(m_fieldName.isEmpty()) {
+    return false;
+  }
+
+  bool ok = false;
+  const QString valueString = entry_->field(m_fieldName);
+  double value;
+  if(entry_->collection()->hasField(m_fieldName) &&
+     entry_->collection()->fieldByName(m_fieldName)->type() == Data::Field::Image) {
+    ok = true;
+    const Data::ImageInfo info = ImageFactory::imageInfo(valueString);
+    // image size comparison presumes "fitting inside a box" so
+    // consider the pattern value to be the size of the square and compare against biggest dimension
+    // an empty empty (null info) should match against 0 size
+    value = info.isNull() ? 0 : qMax(info.width(), info.height());
+  } else {
+    value = valueString.toDouble(&ok);
+  }
+  // the equal compare is assumed to use the pattern string and the variant will be empty
+  // TODO: switch to using the variant for everything
+  return ok && func(value, m_patternVariant.isNull() ? m_pattern.toDouble()
+                                                     : m_patternVariant.toDouble());
 }
 
 /*******************************************************/

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2021 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -34,15 +34,25 @@ namespace Tellico {
 
 class FetchRequest {
 public:
-  FetchRequest() : collectionType(0), key(FetchFirst) {}
-  FetchRequest(FetchKey key_, const QString& value_) : collectionType(0), key(key_), value(value_) {}
-  FetchRequest(int type_, FetchKey key_, const QString& value_) : collectionType(type_), key(key_), value(value_) {}
+  FetchRequest();
+  FetchRequest(FetchKey key, const QString& value);
+  FetchRequest(int type, FetchKey key, const QString& value);
 
-  bool isNull() const { return key == FetchFirst || value.isEmpty(); }
+  bool isNull() const;
 
-  int collectionType;
-  FetchKey key;
-  QString value;
+  int collectionType() const { return m_collectionType; }
+  void setCollectionType(int type) { m_collectionType = type; }
+
+  FetchKey key() const { return m_key; }
+  QString value() const { return m_value; }
+  QString data() const { return m_data; }
+  void setData(const QString& data) { m_data = data; }
+
+private:
+  int m_collectionType;
+  FetchKey m_key;
+  QString m_value;
+  QString m_data;
 };
 
   } // end namespace

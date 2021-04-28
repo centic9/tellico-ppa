@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2005-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2005-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h>
 #include "reportdialog.h"
 #include "translators/htmlexporter.h"
 #include "images/imagefactory.h"
@@ -36,10 +37,12 @@
 #include "utils/datafileregistry.h"
 #include "utils/tellico_utils.h"
 #include "config/tellico_config.h"
+#ifdef HAVE_QCHARTS
+#include "charts/chartmanager.h"
+#include "charts/chartreport.h"
+#endif
 
 #include <KLocalizedString>
-#include <KHTMLPart>
-#include <KHTMLView>
 #include <KStandardGuiItem>
 #include <KWindowConfig>
 #include <KConfigGroup>
@@ -54,11 +57,27 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QDialogButtonBox>
+#include <QStackedWidget>
+#include <QScrollArea>
+#include <QPainter>
+#include <QPrinter>
+#include <QPrintDialog>
+
+#ifdef USE_KHTML
+#include <KHTMLPart>
+#include <KHTMLView>
+#else
+#include <QWebEngineView>
+#include <QWebEnginePage>
+#include <QWebEngineSettings>
+#endif
 
 namespace {
   static const int REPORT_MIN_WIDTH = 600;
   static const int REPORT_MIN_HEIGHT = 420;
   static const char* dialogOptionsString = "Report Dialog Options";
+  static const int INDEX_HTML = 0;
+  static const int INDEX_CHART = 1;
 }
 
 using Tellico::ReportDialog;
@@ -82,19 +101,33 @@ ReportDialog::ReportDialog(QWidget* parent_)
   hlay->addWidget(l);
 
   QStringList files = Tellico::locateAllFiles(QStringLiteral("tellico/report-templates/*.xsl"));
-  QMap<QString, QString> templates; // gets sorted by title
+  QMap<QString, QVariant> templates; // gets sorted by title
   foreach(const QString& file, files) {
     QFileInfo fi(file);
-    QString lfile = fi.fileName();
+    const QString lfile = fi.fileName();
+    // the Group Summary report template doesn't work with QWebView
+#ifndef USE_KHTML
+    if(lfile == QStringLiteral("Group_Summary.xsl")) {
+      continue;
+    }
+#endif
     QString name = lfile.section(QLatin1Char('.'), 0, -2);
     name.replace(QLatin1Char('_'), QLatin1Char(' '));
     QString title = i18nc((name + QLatin1String(" XSL Template")).toUtf8().constData(), name.toUtf8().constData());
     templates.insert(title, lfile);
   }
+#ifdef HAVE_QCHARTS
+  // add the chart reports
+  foreach(const auto& report, ChartManager::self()->allReports()) {
+    templates.insert(report->title(), report->uuid());
+  }
+#endif
 
   m_templateCombo = new GUI::ComboBox(mainWidget);
-  for(QMap<QString, QString>::ConstIterator it = templates.constBegin(); it != templates.constEnd(); ++it) {
-    m_templateCombo->addItem(it.key(), it.value());
+  for(auto it = templates.constBegin(); it != templates.constEnd(); ++it) {
+    const bool isChart = static_cast<QMetaType::Type>(it.value().type()) == QMetaType::QUuid;
+    m_templateCombo->addItem(QIcon::fromTheme(isChart ? QStringLiteral("kchart") : QStringLiteral("text-rdf")),
+                             it.key(), it.value());
   }
   hlay->addWidget(m_templateCombo);
   l->setBuddy(m_templateCombo);
@@ -116,23 +149,39 @@ ReportDialog::ReportDialog(QWidget* parent_)
   hlay->addWidget(pb3);
   connect(pb3, &QAbstractButton::clicked, this, &ReportDialog::slotPrint);
 
-  m_HTMLPart = new KHTMLPart(mainWidget);
-  m_HTMLPart->setJScriptEnabled(true);
-  m_HTMLPart->setJavaEnabled(false);
-  m_HTMLPart->setMetaRefreshEnabled(false);
-  m_HTMLPart->setPluginsEnabled(false);
-  topLayout->addWidget(m_HTMLPart->view());
-
   QColor color = palette().color(QPalette::Link);
-  QString text = QString::fromLatin1("<html><style>p{font-weight:bold;width:50%;"
+  QString text = QString::fromLatin1("<html><style>p{font-family:sans-serif;font-weight:bold;width:50%;"
                                      "margin:20% auto auto auto;text-align:center;"
                                      "color:%1;}</style><body><p>").arg(color.name())
                + i18n("Select a report template and click <em>Generate</em>.") + QLatin1Char(' ')
                + i18n("Some reports may take several seconds to generate for large collections.")
                + QLatin1String("</p></body></html>");
+
+  m_reportView = new QStackedWidget(mainWidget);
+  topLayout->addWidget(m_reportView);
+
+#ifdef USE_KHTML
+  m_HTMLPart = new KHTMLPart(m_reportView);
+  m_HTMLPart->setJScriptEnabled(true);
+  m_HTMLPart->setJavaEnabled(false);
+  m_HTMLPart->setMetaRefreshEnabled(false);
+  m_HTMLPart->setPluginsEnabled(false);
+
   m_HTMLPart->begin();
   m_HTMLPart->write(text);
   m_HTMLPart->end();
+  m_reportView->insertWidget(INDEX_HTML, m_HTMLPart->view());
+#else
+  m_webView = new QWebEngineView(m_reportView);
+  QWebEngineSettings* settings = m_webView->page()->settings();
+  settings->setAttribute(QWebEngineSettings::JavascriptEnabled, true);
+  settings->setAttribute(QWebEngineSettings::PluginsEnabled, false);
+  settings->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
+  settings->setAttribute(QWebEngineSettings::LocalContentCanAccessFileUrls, true);
+
+  m_webView->setHtml(text);
+  m_reportView->insertWidget(INDEX_HTML, m_webView);
+#endif
 
   QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
   mainLayout->addWidget(buttonBox);
@@ -157,6 +206,32 @@ ReportDialog::~ReportDialog() {
 void ReportDialog::slotGenerate() {
   GUI::CursorSaver cs(Qt::WaitCursor);
 
+  QVariant curData = m_templateCombo->currentData();
+  if(static_cast<QMetaType::Type>(curData.type()) == QMetaType::QUuid) {
+    generateChart();
+    m_reportView->setCurrentIndex(INDEX_CHART);
+  } else {
+    generateHtml();
+    m_reportView->setCurrentIndex(INDEX_HTML);
+  }
+}
+
+void ReportDialog::generateChart() {
+#ifdef HAVE_QCHARTS
+  const QUuid uuid = m_templateCombo->currentData().toUuid();
+  auto oldWidget = m_reportView->widget(INDEX_CHART);
+  auto newWidget = ChartManager::self()->report(uuid)->createWidget();
+  if(newWidget) {
+    m_reportView->insertWidget(INDEX_CHART, newWidget);
+  }
+  if(oldWidget) {
+    m_reportView->removeWidget(oldWidget);
+    delete oldWidget;
+  }
+#endif
+}
+
+void ReportDialog::generateHtml() {
   QString fileName = QLatin1String("report-templates/") + m_templateCombo->currentData().toString();
   QString xsltFile = DataFileRegistry::self()->locate(fileName);
   if(xsltFile.isEmpty()) {
@@ -201,8 +276,13 @@ void ReportDialog::slotRefresh() {
   // by setting the xslt file as the URL, any images referenced in the xslt "theme" can be found
   // by simply using a relative path in the xslt file
   QUrl u = QUrl::fromLocalFile(m_xsltFile);
+#ifdef USE_KHTML
   m_HTMLPart->begin(u);
   m_HTMLPart->write(m_exporter->text());
+  m_HTMLPart->end();
+#else
+  m_webView->setHtml(m_exporter->text(), u);
+#endif
 #if 0
   myDebug() << "Remove debug from reportdialog.cpp";
   QFile f(QLatin1String("/tmp/test.html"));
@@ -212,14 +292,47 @@ void ReportDialog::slotRefresh() {
   }
   f.close();
 #endif
-  m_HTMLPart->end();
-  // is this needed?
-//  view()->layout();
 }
 
 // actually the print button
 void ReportDialog::slotPrint() {
-  m_HTMLPart->view()->print();
+  if(m_reportView->currentIndex() == INDEX_CHART) {
+    QPrinter printer;
+    printer.setResolution(600);
+    QPointer<QPrintDialog> dialog = new QPrintDialog(&printer, this);
+    if(dialog->exec() == QDialog::Accepted) {
+      QWidget* widget = m_reportView->currentWidget();
+      // there might be a widget inside a scroll area
+      if(QScrollArea* scrollArea = qobject_cast<QScrollArea*>(widget)) {
+        widget = scrollArea->widget();
+      }
+      QPainter painter;
+      painter.begin(&printer);
+      auto const paintRect = printer.pageLayout().paintRectPixels(printer.resolution());
+      const double xscale = paintRect.width() / double(widget->width());
+      const double yscale = paintRect.height() / double(widget->height());
+      const double scale = 0.95*qMin(xscale, yscale);
+      auto const paperRect = printer.pageLayout().fullRectPixels(printer.resolution());
+      painter.translate(paperRect.center());
+      painter.scale(scale, scale);
+      painter.translate(-widget->width()/2, -widget->height()/2);
+      widget->render(&painter);
+    }
+  } else {
+#ifdef USE_KHTML
+    m_HTMLPart->view()->print();
+#else
+    QPrinter printer;
+    printer.setResolution(300);
+    QPointer<QPrintDialog> dialog = new QPrintDialog(&printer, this);
+    if(dialog->exec() == QDialog::Accepted) {
+      QEventLoop loop;
+      GUI::CursorSaver cs(Qt::WaitCursor);
+      m_webView->page()->print(&printer, [&](bool) { loop.quit(); });
+      loop.exec();
+    }
+#endif
+  }
 }
 
 void ReportDialog::slotSaveAs() {

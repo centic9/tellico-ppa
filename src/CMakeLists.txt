@@ -1,5 +1,5 @@
 ADD_SUBDIRECTORY( core )
-ADD_SUBDIRECTORY(config )
+ADD_SUBDIRECTORY( config )
 ADD_SUBDIRECTORY( gui )
 ADD_SUBDIRECTORY( collections )
 ADD_SUBDIRECTORY( images )
@@ -11,6 +11,10 @@ ADD_SUBDIRECTORY( newstuff )
 ADD_SUBDIRECTORY( models )
 ADD_SUBDIRECTORY( utils )
 ADD_SUBDIRECTORY( 3rdparty )
+
+IF( Qt5Charts_FOUND )
+  ADD_SUBDIRECTORY( charts )
+ENDIF( Qt5Charts_FOUND )
 
 IF( BUILD_TESTING )
   ADD_SUBDIRECTORY( tests )
@@ -72,17 +76,14 @@ SET(tellico_SRCS
    loanview.cpp
    main.cpp
    mainwindow.cpp
+   printhandler.cpp
    progressmanager.cpp
    reportdialog.cpp
    tellico_kernel.cpp
    viewstack.cpp
    )
 
-qt5_add_resources(tellico_SRCS
-   ../icons/icons.qrc
-)
-
-add_executable(tellico ${tellico_SRCS})
+add_executable(tellico ${tellico_SRCS} ../icons/icons.qrc)
 
 TARGET_LINK_LIBRARIES(tellico
     core
@@ -105,8 +106,8 @@ TARGET_LINK_LIBRARIES(tellico
     Qt5::Core
     Qt5::Widgets
     Qt5::DBus
+    Qt5::PrintSupport
     KF5::Crash
-    KF5::KHtml
     KF5::KIOCore
     KF5::KIOFileWidgets
     KF5::WindowSystem
@@ -114,6 +115,17 @@ TARGET_LINK_LIBRARIES(tellico
     ${LIBXSLT_LIBRARIES}
     ${LIBXSLT_EXSLT_LIBRARIES}
     )
+
+IF( Qt5Charts_FOUND )
+  TARGET_LINK_LIBRARIES(tellico charts)
+ENDIF( Qt5Charts_FOUND )
+
+IF(USE_KHTML)
+  TARGET_LINK_LIBRARIES(tellico KF5::KHtml)
+  ADD_DEFINITIONS(-DUSE_KHTML=${USE_KHTML})
+ELSE()
+  TARGET_LINK_LIBRARIES(tellico Qt5::WebEngineWidgets)
+ENDIF()
 
 IF( KF5NewStuff_FOUND )
   TARGET_LINK_LIBRARIES(tellico KF5::NewStuff)

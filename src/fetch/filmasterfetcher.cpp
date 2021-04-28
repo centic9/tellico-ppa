@@ -69,7 +69,7 @@ QString FilmasterFetcher::attribution() const {
               QLatin1String("http://filmaster.com/license/"));
 }
 
-bool FilmasterFetcher::canSearch(FetchKey k) const {
+bool FilmasterFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person || k == Keyword;
 }
 
@@ -85,7 +85,7 @@ void FilmasterFetcher::search() {
 
   QUrl u(QString::fromLatin1(FILMASTER_QUERY_URL));
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       u.setPath(u.path() + QLatin1String("film/"));
       break;
@@ -98,7 +98,7 @@ void FilmasterFetcher::search() {
       break;
   }
   QUrlQuery q;
-  q.addQueryItem(QStringLiteral("phrase"), request().value);
+  q.addQueryItem(QStringLiteral("phrase"), request().value());
   u.setQuery(q);
 
 //  myDebug() << "url:" << u;
@@ -189,7 +189,7 @@ void FilmasterFetcher::slotComplete(KJob* job_) {
   QJsonDocument doc = QJsonDocument::fromJson(data);
   QVariantMap resultsMap = doc.object().toVariantMap();
   QVariantList resultList;
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       resultList = resultsMap.value(QStringLiteral("best_results")).toList()
                  + resultsMap.value(QStringLiteral("results")).toList();
@@ -240,7 +240,7 @@ void FilmasterFetcher::slotComplete(KJob* job_) {
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, result.toMap());
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }
@@ -302,7 +302,7 @@ QString FilmasterFetcher::defaultName() {
 }
 
 QString FilmasterFetcher::defaultIcon() {
-  return favIcon("http://www.filmaster.com");
+  return favIcon("https://filmaster.com/static/favicon.ico");
 }
 
 Tellico::StringHash FilmasterFetcher::allOptionalFields() {

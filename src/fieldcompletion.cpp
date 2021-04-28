@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2003-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2003-2021 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -42,17 +42,18 @@ QString FieldCompletion::makeCompletion(const QString& string_) {
     return KCompletion::makeCompletion(string_);
   }
 
-  static QRegExp rx = FieldFormat::delimiterRegExp();
-  int pos = rx.lastIndexIn(string_);
-  if(pos == -1) {
+  static const QRegularExpression rx = FieldFormat::delimiterRegularExpression();
+  QRegularExpressionMatch match;
+  const int index = string_.lastIndexOf(rx, -1, &match);
+  if(index < 0) {
     m_beginText.clear();
     return KCompletion::makeCompletion(string_);
   }
 
-  pos += rx.matchedLength();
-  QString final = string_.mid(pos);
+  const int pos = match.capturedEnd();
   m_beginText = string_.mid(0, pos);
-  return m_beginText + KCompletion::makeCompletion(final);
+  // m_beginText is added back to the string in postProcessMatch
+  return KCompletion::makeCompletion(string_.mid(pos));
 }
 
 void FieldCompletion::clear() {

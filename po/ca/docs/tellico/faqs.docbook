@@ -51,7 +51,7 @@ application work. -->
 >, però modificar aquest fitxer és com canviar el disseny de la impressió. L'&HTML; es genera a partir d'aquest fitxer, i la millor manera de canviar l'aparença de la impressió és modificar el &CSS; a la part superior.</para>
 
 <para
->Tingueu en compte que el <filename
+>Cal tenir en compte que el <filename
 >tellico-printing.xsl</filename
 > fa referència a un altre fitxer, <filename
 >tellico-common.xsl</filename
@@ -71,7 +71,7 @@ application work. -->
 </question>
 <answer>
 <para
->Per a permetre l'agrupació per un camp que per omissió no ho permet, marqueu la casella «Permet agrupament» per a aquest camp en particular en el diàleg «Camps de la col·lecció». </para>
+>Per a permetre l'agrupació per a un camp que no ho permet de manera predeterminada, marqueu la casella «Permet agrupament» per a aquest camp en particular en el diàleg «Camps de la col·lecció». </para>
 </answer>
 </qandaentry>
 
@@ -101,7 +101,7 @@ or does not exist</computeroutput>
 ><option
 >--enable-final</option
 ></userinput
->, que prendrà una mica més de memòria en compilar, però és més eficaç quan s'executa l'aplicació.</para>
+>, el qual prendrà una mica més de memòria en compilar, però és més eficaç quan s'executa l'aplicació.</para>
 
 <para
 >L'últim missatge és una mica diferent, i sols significa que la vostra instal·lació de les &Qt; s'ha compilat amb alguna informació de depuració.</para>
@@ -111,7 +111,7 @@ or does not exist</computeroutput>
 ><command
 >kdebugdialog</command
 ></userinput
-> i assegureu-vos que «0 (generic)» no està marcada. Això desactivarà els missatges de depuració per a totes les aplicacions del &kde; genèriques, &ead;, aquelles que no estan distribuïdes oficialment pel &kde;.</para>
+> i assegureu-vos que «0 (generic)» no està marcada. Això desactivarà els missatges de depuració per a totes les aplicacions del &kde; genèriques, &ead;, aquelles que no són distribuïdes oficialment pel &kde;.</para>
 
 </answer>
 </qandaentry>
@@ -123,7 +123,7 @@ or does not exist</computeroutput>
 ></question>
 <answer>
 <para
->Feu clic dret sobre la barra del títol. També podeu arrossegar les capçaleres per a tornar a ordenar les columnes, i fer clic sobre seu per ordenar-les per aquest camp.</para>
+>Feu clic dret sobre la barra del títol. També podeu arrossegar les capçaleres per a tornar a ordenar les columnes, i fer clic sobre seu per a ordenar-les per aquest camp.</para>
 </answer>
 </qandaentry>
 
@@ -134,10 +134,10 @@ or does not exist</computeroutput>
 ></question>
 <answer>
 <para
->Internament, els camps de casella de selecció al &appname; es desen com a «verdader», de manera que si sols voleu filtrar els llibres de ciència-ficció que no heu llegit, per exemple, llavors tindreu dues regles. Assegureu-vos que el botó «Coincideix amb tots els següents» està marcat. Establint la primera regla per tenir «Gènere» «conté» «ciència-ficció» (sense les cometes) i la segona «Llegit» «no conté» «verdader» (sense les cometes).</para>
+>Internament, els camps de casella de selecció al &appname; es desen com a «verdader», de manera que si sols voleu filtrar els llibres de ciència-ficció que no heu llegit, per exemple, llavors tindreu dues regles. Assegureu-vos que el botó «Coincideix amb tots els següents» està marcat. Establint la primera regla per a tenir «Gènere» «conté» «ciència-ficció» (sense les cometes) i la segona «Llegit» «no conté» «verdader» (sense les cometes).</para>
 
 <para
->A més, el filtre ràpid a la barra d'eines coincidirà amb qualsevol camp, i si hi ha un caràcter que no sigui una paraula, el text s'interpretarà amb una expressió regular. De manera que si voleu filtrar els llibres per mostrar els de Weber o Bujold, llavors escriviu «weber|bujold» (sense les cometes) a la barra d'eines.</para>
+>A més, el filtre ràpid a la barra d'eines coincidirà amb qualsevol camp, i si hi ha un caràcter que no sigui una paraula, el text s'interpretarà amb una expressió regular. De manera que si voleu filtrar els llibres per a mostrar els de Weber o Bujold, llavors escriviu «weber|bujold» (sense les cometes) a la barra d'eines.</para>
 </answer>
 </qandaentry>
 
@@ -157,7 +157,7 @@ or does not exist</computeroutput>
 >$<envar
 >KDEDIR</envar
 >/share/apps/tellico/entry-templates/</filename
-> per l'accés de tothom. Les plantilles a $<envar
+> per a l'accés de tothom. Les plantilles a $<envar
 >KDEHOME</envar
 > substituiran qualsevol fitxer amb el mateix nom a $<envar
 >KDEDIRS</envar
@@ -188,7 +188,7 @@ or does not exist</computeroutput>
 >/usr/local</filename
 >, però $<envar
 >KDEDIRS</envar
-> és buida o sols especifica <filename class="directory"
+> està buida o sols especifica <filename class="directory"
 >/usr</filename
 >, llavors el &appname; no serà capaç de trobar els fitxers que necessita. Això és particularment cert per a &SuSE;, per això haureu de compilar amb <userinput
 ><option
@@ -233,7 +233,7 @@ or does not exist</computeroutput>
 
 <answer>
 <para
->A causa d'un conflicte de marca, va passar a anomenar-se &appname; el setembre de 2004. El &appname; 0.12 es va alliberar a continuació, el qual era idèntic a Bookcase 0.11, excepte pel canvi de nom.</para>
+>A causa d'un conflicte de marca, va passar a anomenar-se &appname; el setembre de 2004. El &appname; 0.12 es va alliberar a continuació, el qual era idèntic a Bookcase 0.11, excepte per al canvi de nom.</para>
 </answer>
 </qandaentry>
 
@@ -260,7 +260,7 @@ or does not exist</computeroutput>
 <answer>
 <para
 >Els <ulink url="http://www.amazon.com/gp/browse.html/002-0927720-5265623?node=3440661"
->termes d'acord per accedir als serveis web a Amazon.com</ulink
+>termes d'acord per a accedir als serveis web a Amazon.com</ulink
 > requereixen totes les imatges que s'obtinguin del servei tinguin un enllaç a Amazon.com, a més d'un enllaç addicional. L'identificador associat a Amazon.com està necessàriament inclòs, de manera que els pagaments per referència estan degudament recollits. </para>
 </answer>
 </qandaentry>

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2008-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2008-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -23,7 +23,7 @@
  ***************************************************************************/
 
 #include "tellicoimporter.h"
-#include "tellicoxmlhandler.h"
+#include "tellicoxmlreader.h"
 #include "tellico_xml.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
@@ -45,6 +45,10 @@
 #include <QApplication>
 #include <QPointer>
 
+namespace {
+  static const int MIN_BLOCK_SIZE = 100*1024; // minimum read size of 100 kB
+}
+
 using Tellico::Import::TellicoImporter;
 
 TellicoImporter::TellicoImporter(const QUrl& url_, bool loadAllImages_) : DataImporter(url_),
@@ -58,10 +62,6 @@ TellicoImporter::TellicoImporter(const QString& text_) : DataImporter(text_),
 }
 
 TellicoImporter::~TellicoImporter() {
-  delete m_zip;
-  m_zip = nullptr;
-  delete m_buffer;
-  m_buffer = nullptr;
 }
 
 Tellico::Data::CollPtr TellicoImporter::collection() {
@@ -108,30 +108,22 @@ Tellico::Data::CollPtr TellicoImporter::collection() {
 void TellicoImporter::loadXMLData(const QByteArray& data_, bool loadImages_) {
   const bool showProgress = options() & ImportProgress;
 
-  TellicoXMLHandler handler;
-  handler.setLoadImages(loadImages_);
-  handler.setShowImageLoadErrors(options() & ImportShowImageErrors);
+  TellicoXmlReader reader;
+  reader.setLoadImages(loadImages_);
+  reader.setShowImageLoadErrors(options() & ImportShowImageErrors);
+  bool success = true;
 
-  QXmlSimpleReader reader;
-  reader.setContentHandler(&handler);
-  reader.setErrorHandler(&handler);
-
-  QXmlInputSource source;
-  source.setData(QByteArray()); // necessary
-  bool success = reader.parse(&source, true);
-
-  const int blockSize = data_.size()/100 + 1;
+  const int blockSize = qMax(data_.size()/100 + 1, MIN_BLOCK_SIZE);
   int pos = 0;
   emit signalTotalSteps(this, data_.size());
 
   // hack to allow processEvents
   QPointer<TellicoImporter> thisPtr(this);
   while(thisPtr && success && !m_cancelled && pos < data_.size()) {
-    uint size = qMin(blockSize, data_.size() - pos);
-    QByteArray block = QByteArray::fromRawData(data_.data() + pos, size);
-    source.setData(block);
-    success = reader.parseContinue();
-    if(!success) {
+    const uint size = qMin(blockSize, data_.size() - pos);
+    const QByteArray block = QByteArray::fromRawData(data_.data() + pos, size);
+    success = reader.readNext(block);
+    if(!success && reader.isNotWellFormed()) {
       // could be bug 418067 where version of Tellico < 3.3 could use invalid XML names
       // try to recover. If it's not a bad field name, this should be a pretty quick check
       myDebug() << "XML parsing failed. Attempting to recover.";
@@ -158,7 +150,7 @@ void TellicoImporter::loadXMLData(const QByteArray& data_, bool loadImages_) {
     if(!url().isEmpty()) {
       error = i18n(errorLoad).arg(url().fileName());
     }
-    const QString errorString = handler.errorString();
+    const QString errorString = reader.errorString();
     if(!errorString.isEmpty()) {
       error += QStringLiteral("\n") + errorString;
     }
@@ -168,42 +160,34 @@ void TellicoImporter::loadXMLData(const QByteArray& data_, bool loadImages_) {
   }
 
   if(!m_cancelled) {
-    m_hasImages = handler.hasImages();
-    m_coll = handler.collection();
+    m_hasImages = reader.hasImages();
+    m_coll = reader.collection();
   }
 }
 
 void TellicoImporter::loadZipData() {
-  delete m_buffer;
-  delete m_zip;
+  std::unique_ptr<KZip> zip;
+  std::unique_ptr<QBuffer> buffer;
   if(source() == URL) {
-    m_buffer = nullptr;
-    m_zip = new KZip(fileRef().fileName());
+    buffer.reset();
+    zip.reset(new KZip(fileRef().fileName()));
   } else {
     QByteArray allData = data();
-    m_buffer = new QBuffer(&allData);
-    m_zip = new KZip(m_buffer);
+    buffer.reset(new QBuffer(&allData));
+    zip.reset(new KZip(buffer.get()));
   }
-  if(!m_zip->open(QIODevice::ReadOnly)) {
+  if(!zip->open(QIODevice::ReadOnly)) {
     setStatusMessage(i18n(errorLoad, url().fileName()));
     m_format = Error;
-    delete m_zip;
-    m_zip = nullptr;
-    delete m_buffer;
-    m_buffer = nullptr;
     return;
   }
 
-  const KArchiveDirectory* dir = m_zip->directory();
+  const KArchiveDirectory* dir = zip->directory();
   if(!dir) {
     QString str = i18n(errorLoad, url().fileName()) + QLatin1Char('\n');
     str += i18n("The file is empty.");
     setStatusMessage(str);
     m_format = Error;
-    delete m_zip;
-    m_zip = nullptr;
-    delete m_buffer;
-    m_buffer = nullptr;
     return;
   }
 
@@ -217,10 +201,6 @@ void TellicoImporter::loadZipData() {
     str += i18n("The file contains no collection data.");
     setStatusMessage(str);
     m_format = Error;
-    delete m_zip;
-    m_zip = nullptr;
-    delete m_buffer;
-    m_buffer = nullptr;
     return;
   }
 
@@ -233,29 +213,22 @@ void TellicoImporter::loadZipData() {
   }
   if(!m_coll) {
     m_format = Error;
-    delete m_zip;
-    m_zip = nullptr;
-    delete m_buffer;
-    m_buffer = nullptr;
     return;
   }
 
   if(m_cancelled) {
-    delete m_zip;
-    m_zip = nullptr;
-    delete m_buffer;
-    m_buffer = nullptr;
     return;
   }
 
   const KArchiveEntry* imgDirEntry = dir->entry(QStringLiteral("images"));
   if(!imgDirEntry || !imgDirEntry->isDirectory()) {
-    delete m_zip;
-    m_zip = nullptr;
-    delete m_buffer;
-    m_buffer = nullptr;
     return;
   }
+
+  // past the point of dropping errors, so retain ownership of the objects
+  m_zip = std::move(zip);
+  m_buffer = std::move(buffer);
+
   m_imgDir = static_cast<const KArchiveDirectory*>(imgDirEntry);
   m_images.clear();
   m_images.add(m_imgDir->entries());
@@ -312,10 +285,8 @@ bool TellicoImporter::loadImage(const QString& id_) {
   return !newID.isEmpty();
 }
 
-KZip* TellicoImporter::takeImages() {
-  KZip* zip = m_zip;
-  m_zip = nullptr;
-  return zip;
+std::unique_ptr<KZip> TellicoImporter::takeImages() {
+  return std::move(m_zip);
 }
 
 void TellicoImporter::slotCancel() {

@@ -167,7 +167,6 @@ while the full list is <ulink url="https://tellico-project.org/data-sources">ava
 <listitem><simpara><link linkend="allocine">AlloCiné</link>,</simpara></listitem>
 <listitem><simpara><link linkend="tmdb">TheMovieDB.org</link>,</simpara></listitem>
 <listitem><simpara>the <link linkend="omdb">Open Movie Database</link>,</simpara></listitem>
-<listitem><simpara><link linkend="animenfo">AnimeNfo.com</link>,</simpara></listitem>
 <!-- comics -->
 <listitem><simpara><link linkend="bedetheque">BDGest</link>,</simpara></listitem>
 <listitem><simpara><link linkend="comicvine">Comic Vine</link>,</simpara></listitem>
@@ -189,6 +188,7 @@ while the full list is <ulink url="https://tellico-project.org/data-sources">ava
 <listitem><simpara><link linkend="sru">SRU servers</link>,</simpara></listitem>
 <!-- coins -->
 <listitem><simpara><link linkend="colnect">Colnect</link>,</simpara></listitem>
+<listitem><simpara><link linkend="numista">Numista</link>,</simpara></listitem>
 <!-- others -->
 <listitem><simpara><link linkend="externalexec">other external scripts or applications</link>, and</simpara></listitem>
 <listitem><simpara><link linkend="multiple-sources">combinations of any of the above sources</link>.</simpara></listitem>
@@ -365,12 +365,6 @@ The <ulink url="http://www.imdb.com">Internet Movie Database</ulink> provides in
 </para>
 </sect3>
 
-<sect3 id="animenfo">
-<title>AnimeNfo.com</title>
-<para>
-<ulink url="http://www.animenfo.com">AnimeNfo</ulink> is a popular site for information on anime, or Japanese animation.
-</para>
-</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -455,13 +449,21 @@ The <ulink url="http://www.imdb.com">Internet Movie Database</ulink> provides in
 
 <!-- start of coin sources -->
 <sect2 id="coin-sources">
-<title>Coin Data Sources</title>
+<title>Coin &amp; Stamp Data Sources</title>
 
 <sect3 id="colnect">
 <title>Colnect</title>
 <para>
 <ulink url="https://colnect.com">Colnect</ulink> is an online community for collectibles providing personal collection management.
-&tellico; can search Colnect for coin information.
+&tellico; can search Colnect for coin and stamp information.
+</para>
+</sect3>
+
+<sect3 id="numista">
+<title>Numista</title>
+<para>
+<ulink url="https://numista.com">Numista</ulink> is a world coin catalog which grows thanks to member contributions, offering
+online collection management, tools to easily exchange with other collectors, and a forum.
 </para>
 </sect3>
 
@@ -527,7 +529,7 @@ For updating entries already in the collection, the final check box and edit box
 <sect2 id="multiple-sources">
 <title>Multiple Combined Data Sources</title>
 <para>
-Combinations of up to eight existing data sources can be used as a single source, where the search results from all the sources are merged. The collection type to be used must be set before adding sources.
+Combinations of up to eight existing data sources can be used as a single source, where each search result from the first source is updated from the subsequent sources. The collection type to be used must be set before adding sources.
 </para>
 
 <screenshot>
@@ -537,7 +539,7 @@ Combinations of up to eight existing data sources can be used as a single source
 </screenshot>
 
 <para>
-Only existing data sources can be used in combination. The search request is sent to each source, and the results are combined. Since the merged results depend on the order of the search results, the combined set may be different depending on network and source speed.
+Only existing data sources can be used in combination. Only the search type for the first source can be used in this source since the results come from the first data source. For example, a UPCitemDb search may first be done, with each result then updated from the TheMovieDB.
 </para>
 </sect2>
 

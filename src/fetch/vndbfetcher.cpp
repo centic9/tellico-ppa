@@ -71,7 +71,7 @@ QString VNDBFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool VNDBFetcher::canSearch(FetchKey k) const {
+bool VNDBFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title;
 }
 
@@ -87,12 +87,16 @@ void VNDBFetcher::search() {
   m_data.clear();
 
   if(!m_socket) {
+    m_socket = new QTcpSocket(this);
+    QObject::connect(m_socket, &QTcpSocket::readyRead,     this, &VNDBFetcher::slotRead);
+    QObject::connect(m_socket, &QTcpSocket::stateChanged,  this, &VNDBFetcher::slotState);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
     // see https://wiki.qt.io/New_Signal_Slot_Syntax#Overload for why this is necessary
     void (QTcpSocket::* errorSignal)(QAbstractSocket::SocketError) = &QAbstractSocket::error;
-    m_socket = new QTcpSocket(this);
-    QObject::connect(m_socket, &QTcpSocket::readyRead,    this, &VNDBFetcher::slotRead);
-    QObject::connect(m_socket, &QTcpSocket::stateChanged, this, &VNDBFetcher::slotState);
-    QObject::connect(m_socket, errorSignal,               this, &VNDBFetcher::slotError);
+    QObject::connect(m_socket, errorSignal,                this, &VNDBFetcher::slotError);
+#else
+    QObject::connect(m_socket, &QTcpSocket::errorOccurred, this, &VNDBFetcher::slotError);
+#endif
   }
   if(!m_isConnected) {
     m_socket->connectToHost(QLatin1String(VNDB_HOSTNAME), VNDB_PORT);
@@ -120,13 +124,13 @@ void VNDBFetcher::search() {
   }
 
   QByteArray get("get vn basic,details ");
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
-      get += "(search ~ \"" + request().value.toUtf8() + "\")";
+      get += "(search ~ \"" + request().value().toUtf8() + "\")";
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key;
+      myWarning() << "key not recognized:" << request().key();
       return;
   }
 
@@ -182,7 +186,7 @@ Tellico::Data::EntryPtr VNDBFetcher::fetchEntryHook(uint uid_) {
   // clear the placeholder fields
   entry->setField(QStringLiteral("vn-id"), QString());
 
-  if(m_socket && m_socket->isValid()) {
+  if(m_socket->isValid()) {
     m_socket->disconnectFromHost();
     m_state = PreLogin;
   }
@@ -311,7 +315,7 @@ void VNDBFetcher::parseVNResults() {
       entry->setField(QStringLiteral("alias"), aliases.split(QStringLiteral("\n")).join(FieldFormat::delimiterString()));
     }
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }

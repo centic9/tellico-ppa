@@ -28,12 +28,14 @@
 
 #include <KLocalizedString>
 
+#include <algorithm>
+
 using namespace Tellico;
 using Tellico::Data::Field;
 
 // this constructor is for anything but Choice type
 Field::Field(const QString& name_, const QString& title_, Type type_/*=Line*/)
-    : QSharedData(), m_name(name_), m_title(title_),  m_category(i18n("General")), m_desc(title_),
+    : QSharedData(), m_name(Tellico::shareString(name_)), m_title(title_),  m_category(i18n("General")), m_desc(title_),
       m_type(type_), m_flags(0), m_formatType(FieldFormat::FormatNone) {
 
   Q_ASSERT(m_type != Choice);
@@ -74,7 +76,7 @@ Field::Field(const QString& name_, const QString& title_, Type type_/*=Line*/)
 
 // if this constructor is called, the type is necessarily Choice
 Field::Field(const QString& name_, const QString& title_, const QStringList& allowed_)
-    : QSharedData(), m_name(name_), m_title(title_), m_category(i18n("General")), m_desc(title_),
+    : QSharedData(), m_name(Tellico::shareString(name_)), m_title(title_), m_category(i18n("General")), m_desc(title_),
       m_type(Field::Choice), m_allowed(allowed_), m_flags(0), m_formatType(FieldFormat::FormatNone) {
 }
 
@@ -312,11 +314,45 @@ Tellico::Data::FieldPtr Field::createDefaultField(DefaultField fieldEnum) {
       field->setCategory(i18n("Publishing"));
       field->setDescription(i18n("International Standard Book Number"));
       break;
+    case PegiField:
+      {
+      QStringList pegi = QStringLiteral("PEGI 3, PEGI 7, PEGI 12, PEGI 16, PEGI 18")
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+                         .split(QRegularExpression(QStringLiteral("\\s*,\\s*")), QString::SkipEmptyParts);
+#else
+                         .split(QRegularExpression(QStringLiteral("\\s*,\\s*")), Qt::SkipEmptyParts);
+#endif
+      field = new Field(QStringLiteral("pegi"), i18n("PEGI Rating"), pegi);
+      }
+      field->setCategory(i18n("General"));
+      field->setFlags(Field::AllowGrouped);
+      break;
+    case ImdbField:
+      field = new Field(QStringLiteral("imdb"), i18n("IMDb Link"), Field::URL);
+      field->setCategory(i18n("General"));
+      break;
   }
   Q_ASSERT(field);
   return field;
 }
 
 Tellico::Data::FieldList Tellico::listIntersection(const Tellico::Data::FieldList& list1, const Tellico::Data::FieldList& list2) {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  // QList::toSet is deprecated
   return list1.toSet().intersect(list2.toSet()).values();
+#else
+  // std::set_intersection requires sorted lists. Just do the set intersection manually
+  Data::FieldList returnList;
+  QSet<Tellico::Data::FieldPtr> set(list1.begin(), list1.end());
+
+  std::for_each(list2.begin(), list2.end(),
+        [&set, &returnList](const Data::FieldPtr& f) {
+          if(set.contains(f)) {
+            returnList.append(f);
+            set.remove(f);
+          }
+        }
+      );
+  return returnList;
+#endif
 }

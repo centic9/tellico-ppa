@@ -42,6 +42,7 @@ public:
   /**
    */
   LibraryThingImporter();
+  LibraryThingImporter(const QUrl& url);
 
   virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
   virtual bool canImport(int type) const Q_DECL_OVERRIDE;

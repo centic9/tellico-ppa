@@ -36,6 +36,7 @@
 #include <QPixmap>
 
 class QUrl;
+class MultiFetcherTest;
 
 namespace Tellico {
   namespace Fetch {
@@ -75,17 +76,17 @@ public:
     FETCHER_OPTIONALFIELDS_FN optionalFields;
     FETCHER_CONFIGWIDGET_FN configWidget;
   };
-  static Manager* self() { if(!s_self) s_self = new Manager(); return s_self; }
+  static Manager* self();
 
   ~Manager();
 
-  KeyMap keyMap(const QString& source = QString()) const;
+  KeyMap keyMap(const QString& source = QString());
   void startSearch(const QString& source, FetchKey key, const QString& value);
   void continueSearch();
   bool canFetch() const;
   bool hasMoreResults() const;
   void loadFetchers();
-  const FetcherVec& fetchers() const;
+  const FetcherVec& fetchers();
   FetcherVec fetchers(int type);
   Fetcher::Ptr fetcherByUuid(const QString& uuid);
   NameTypeMap nameTypeMap();
@@ -104,7 +105,7 @@ public:
 
   static QString typeName(Type type);
   static QPixmap fetcherIcon(Type type, int iconGroup=3 /*Small*/, int size=0 /* default */);
-  static QPixmap fetcherIcon(Fetcher::Ptr ptr, int iconGroup=3 /*Small*/, int size=0 /* default*/);
+  static QPixmap fetcherIcon(Fetcher* ptr, int iconGroup=3 /*Small*/, int size=0 /* default*/);
   static StringHash optionalFields(Type type);
 
 Q_SIGNALS:
@@ -121,9 +122,10 @@ private Q_SLOTS:
 private:
   friend class ManagerMessage;
   friend class FetcherInitializer;
-  static Manager* s_self;
+  friend class ::MultiFetcherTest;
 
   Manager();
+  void addFetcher(Fetcher::Ptr fetcher);
   Fetcher::Ptr createFetcher(KSharedConfigPtr config, const QString& configGroup);
   FetcherVec defaultFetchers();
   void updateStatus(const QString& message);

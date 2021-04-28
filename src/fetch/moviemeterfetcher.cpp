@@ -69,7 +69,7 @@ QString MovieMeterFetcher::attribution() const {
   return QStringLiteral("<a href=\"http://www.moviemeter.nl\">MovieMeter</a>");
 }
 
-bool MovieMeterFetcher::canSearch(FetchKey k) const {
+bool MovieMeterFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Keyword;
 }
 
@@ -87,18 +87,18 @@ void MovieMeterFetcher::search() {
   QUrlQuery q;
   q.addQueryItem(QStringLiteral("api_key"), QLatin1String(MOVIEMETER_API_KEY));
 
-  switch(request().key) {
+  switch(request().key()) {
     case Keyword:
-      q.addQueryItem(QStringLiteral("q"), request().value);
+      q.addQueryItem(QStringLiteral("q"), request().value());
       //u.addQueryItem(QLatin1String("type"), QLatin1String("all"));
       break;
 
     case Raw:
-      q.setQuery(request().value);
+      q.setQuery(request().value());
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key;
+      myWarning() << "key not recognized:" << request().key();
       stop();
       return;
   }
@@ -235,7 +235,7 @@ void MovieMeterFetcher::slotComplete(KJob* job_) {
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, array.at(i).toObject().toVariantMap(), false);
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }

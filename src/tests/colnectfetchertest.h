@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2019 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2019-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -27,6 +27,8 @@
 
 #include "abstractfetchertest.h"
 
+#include <KConfigGroup>
+
 class ColnectFetcherTest : public AbstractFetcherTest {
 Q_OBJECT
 public:
@@ -38,6 +40,10 @@ private Q_SLOTS:
   void testSlug_data();
   void testRaw();
   void testSacagawea();
+  void testSkylab();
+
+private:
+  KConfigGroup m_config;
 };
 
 #endif

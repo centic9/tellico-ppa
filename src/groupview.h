@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2001-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2001-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -35,7 +35,6 @@ namespace Tellico {
   class Filter;
   class GroupIterator;
   class EntryGroupModel;
-  class EntrySortModel;
 
 /**
  * The GroupView shows the entries grouped, as well as the saved filters.
@@ -73,6 +72,8 @@ public:
    * @param groupFieldName The field name
    */
   void setGroupField(const QString& groupFieldName);
+  QString entrySortField() const;
+  void setEntrySortField(const QString& groupSortName);
   /**
    * Adds a collection, along with all all the groups for the collection in
    * the groupFieldribute. This method gets called as well when the groupFieldribute
@@ -142,6 +143,7 @@ private Q_SLOTS:
   void slotFilterGroup();
   void slotDoubleClicked(const QModelIndex& index);
   void slotSortingChanged(int column, Qt::SortOrder order);
+  void slotSortMenuActivated(QAction* action);
 
 Q_SIGNALS:
   /**
@@ -157,6 +159,7 @@ private:
   bool m_notSortedYet;
   Data::CollPtr m_coll;
   QString m_groupBy;
+  QString m_entrySortField;
 
   QString m_groupOpenIconName;
   QString m_groupClosedIconName;

@@ -26,6 +26,7 @@
 
 #include "../translators/tellicoimporter.h"
 #include "../collections/bookcollection.h"
+#include "../collections/bibtexcollection.h"
 #include "../collections/coincollection.h"
 #include "../collections/musiccollection.h"
 #include "../collectionfactory.h"
@@ -40,11 +41,12 @@
 #include <QTest>
 #include <QNetworkInterface>
 #include <QDate>
+#include <QTextCodec>
 
 QTEST_GUILESS_MAIN( TellicoReadTest )
 
 #define QSL(x) QStringLiteral(x)
-#define TELLICOREAD_NUMBER_OF_CASES 10
+#define TELLICOREAD_NUMBER_OF_CASES 11
 
 static bool hasNetwork() {
   foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
@@ -58,11 +60,12 @@ static bool hasNetwork() {
 void TellicoReadTest::initTestCase() {
   // need to register this first
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+  Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
   Tellico::RegisterCollection<Tellico::Data::CoinCollection> registerCoin(Tellico::Data::Collection::Coin, "coin");
   Tellico::RegisterCollection<Tellico::Data::Collection> registerBase(Tellico::Data::Collection::Base, "entry");
   Tellico::RegisterCollection<Tellico::Data::MusicCollection> registerAlbum(Tellico::Data::Collection::Album, "album");
 
-  for(int i = 1; i < TELLICOREAD_NUMBER_OF_CASES; ++i) {
+  for(int i = 1; i <= TELLICOREAD_NUMBER_OF_CASES; ++i) {
     QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QSL("data/books-format%1.bc").arg(i)));
 
     Tellico::Import::TellicoImporter importer(url);
@@ -152,6 +155,68 @@ void TellicoReadTest::testCoinCollection() {
   QCOMPARE(entry->title(), QSL("1974D Jefferson Nickel 0.05"));
 }
 
+void TellicoReadTest::testBibtexCollection() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/bibtex-format11.tc"));
+
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+  Tellico::Data::BibtexCollection* bColl = dynamic_cast<Tellico::Data::BibtexCollection*>(coll.data());
+
+  QVERIFY(coll);
+  QCOMPARE(coll->type(), Tellico::Data::Collection::Bibtex);
+  QVERIFY(bColl);
+  QVERIFY(!bColl->preamble().isEmpty());
+
+  auto macroList = bColl->macroList();
+  QCOMPARE(macroList.count(), 13); // includes 12 months plus the one in the file
+  QVERIFY(!macroList.value(QLatin1String("SPE")).isEmpty());
+
+  auto borrowerList = coll->borrowers();
+  QCOMPARE(borrowerList.count(), 1);
+  auto borr1 = borrowerList.front();
+  QCOMPARE(borr1->count(), 1);
+  QCOMPARE(borr1->name(), QStringLiteral("кириллица"));
+
+  auto filterList = coll->filters();
+  QCOMPARE(filterList.count(), 1);
+  auto filter1 = filterList.front();
+  QCOMPARE(filter1->name(), QStringLiteral("1990"));
+
+  Tellico::Export::TellicoXMLExporter exporter(coll);
+  exporter.setEntries(coll->entries());
+  exporter.setOptions(exporter.options() | Tellico::Export::ExportComplete);
+  Tellico::Import::TellicoImporter importer2(exporter.text());
+  Tellico::Data::CollPtr coll2 = importer2.collection();
+  Tellico::Data::BibtexCollection* bColl2 = dynamic_cast<Tellico::Data::BibtexCollection*>(coll2.data());
+
+  QVERIFY(coll2);
+  QCOMPARE(coll2->type(), coll->type());
+  QCOMPARE(coll2->entryCount(), coll->entryCount());
+  QVERIFY(bColl2);
+  QCOMPARE(bColl2->preamble(), bColl->preamble());
+  QCOMPARE(bColl2->macroList(), bColl->macroList());
+
+  QCOMPARE(coll2->filters().count(), coll->filters().count());
+  auto filter2 = coll->filters().front();
+  QCOMPARE(filter1->name(), filter2->name());
+  QCOMPARE(filter1->count(), filter2->count());
+  QCOMPARE(filter1->op(), filter2->op());
+
+  QCOMPARE(coll2->borrowers().count(), coll->borrowers().count());
+  auto borr2 = coll2->borrowers().front();
+  QCOMPARE(borr1->name(), borr2->name());
+  QCOMPARE(borr1->uid(), borr2->uid());
+  QCOMPARE(borr1->count(), borr2->count());
+  auto loan1 = borr1->loans().front();
+  auto loan2 = borr2->loans().front();
+  QCOMPARE(loan1->loanDate(), loan2->loanDate());
+  QCOMPARE(loan1->borrower()->name(), borr1->name());
+  QCOMPARE(loan1->dueDate(), loan2->dueDate());
+  QCOMPARE(loan1->note(), loan2->note());
+  QCOMPARE(loan1->uid(), loan2->uid());
+  QCOMPARE(loan1->entry()->title(), loan2->entry()->title());
+}
+
 void TellicoReadTest::testTableData() {
   QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("/data/tabletest.tc"));
 
@@ -191,7 +256,10 @@ void TellicoReadTest::testTableData() {
   QStringList groups = e3->groupNamesByFieldName(QStringLiteral("table"));
   QCOMPARE(groups.count(), 3);
   // the order of the group names is not stable (it uses QSet::toList)
-  QCOMPARE(groups.toSet(), QSet<QString>() << QSL("11a") << QSL("11b") << QSL("21"));
+  QCOMPARE(groups.size(), 3);
+  QVERIFY(groups.contains(QSL("11a")));
+  QVERIFY(groups.contains(QSL("11b")));
+  QVERIFY(groups.contains(QSL("21")));
 
   // test having empty value in table
   Tellico::Data::EntryPtr e = coll2->entryById(2);
@@ -322,10 +390,24 @@ void TellicoReadTest::testXMLHandler_data() {
   QTest::addColumn<bool>("changeEncoding");
 
   QTest::newRow("basic") << QByteArray("<x>value</x>") << QStringLiteral("<x>value</x>") << false;
-  QTest::newRow("utf8") << QByteArray("<?xml encoding=\"utf-8\"?>\n<x>value</x>")
-                        << QStringLiteral("<?xml encoding=\"utf-8\"?>\n<x>value</x>") << false;
-  QTest::newRow("latin1") << QByteArray("<?xml encoding=\"latin1\"?>\n<x>value</x>")
-                          << QStringLiteral("<?xml encoding=\"utf-8\"?>\n<x>value</x>") << true;
+  QTest::newRow("utf8") << QByteArray("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x>value</x>")
+                        << QStringLiteral("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x>value</x>") << false;
+  QTest::newRow("UTF8") << QByteArray("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<x>value</x>")
+                        << QStringLiteral("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<x>value</x>") << false;
+  QTest::newRow("latin1") << QByteArray("<?xml version=\"1.0\" encoding=\"latin1\"?>\n<x>value</x>")
+                          << QStringLiteral("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x>value</x>") << true;
+  QTest::newRow("LATIN1") << QByteArray("<?xml version=\"1.0\" encoding=\"LATIN1\"?>\n<x>value</x>")
+                          << QStringLiteral("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x>value</x>") << true;
+
+  QString usa = QString::fromUtf8("США");
+  QTextCodec* cp1251 = QTextCodec::codecForName("cp1251");
+  QByteArray usaBytes = QByteArray("<?xml version=\"1.0\" encoding=\"cp1251\"?>\n<x>")
+                      + cp1251->fromUnicode(usa)
+                      + QByteArray("</x>");
+  QString usaString = QStringLiteral("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<x>")
+                    + usa
+                    + QStringLiteral("</x>");
+  QTest::newRow("cp1251") << usaBytes << usaString << true;
 }
 
 void TellicoReadTest::testXmlName() {
@@ -406,4 +488,14 @@ void TellicoReadTest::testNoCreationDate() {
   QString mdate(QStringLiteral("2020-05-30"));
   QCOMPARE(entry->field(QStringLiteral("cdate")), mdate);
   QCOMPARE(entry->field(QStringLiteral("mdate")), mdate);
+}
+
+void TellicoReadTest::testFutureVersion() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QSL("data/future_version.xml")));
+
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  QVERIFY(!coll);
+  QVERIFY(!importer.statusMessage().isEmpty());
 }

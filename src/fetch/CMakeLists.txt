@@ -28,6 +28,7 @@ SET(fetch_STAT_SRCS
    fetcherinitializer.cpp
    fetcherjob.cpp
    fetchmanager.cpp
+   fetchrequest.cpp
    fetchresult.cpp
    filmasterfetcher.cpp
    gcstarpluginfetcher.cpp
@@ -50,12 +51,15 @@ SET(fetch_STAT_SRCS
    mrlookupfetcher.cpp
    multifetcher.cpp
    musicbrainzfetcher.cpp
+   numistafetcher.cpp
    omdbfetcher.cpp
    openlibraryfetcher.cpp
    springerfetcher.cpp
    srufetcher.cpp
    thegamesdbfetcher.cpp
    themoviedbfetcher.cpp
+   tvmazefetcher.cpp
+   upcitemdbfetcher.cpp
    videogamegeekfetcher.cpp
    vndbfetcher.cpp
    xmlfetcher.cpp

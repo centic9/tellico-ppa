@@ -115,7 +115,7 @@ void EntryUpdater::slotStartNext() {
   ProgressManager::self()->setProgress(this, m_fetchers.count() * (m_origEntryCount - m_entriesToUpdate.count()) + m_fetchIndex);
 
   Fetch::Fetcher::Ptr f = m_fetchers[m_fetchIndex];
-//  myDebug() << "starting " << f->source();
+//  myDebug() << "starting update from" << f->source();
   f->startUpdate(m_entriesToUpdate.front());
 }
 
@@ -149,18 +149,22 @@ void EntryUpdater::slotDone() {
 }
 
 void EntryUpdater::slotResult(Tellico::Fetch::FetchResult* result_) {
-  if(!result_ || m_cancelled || !result_->fetcher->isSearching()) {
+  if(!result_ || m_cancelled) {
+    return;
+  }
+  auto fetcher = m_fetchers[m_fetchIndex];
+  if(!fetcher || !fetcher->isSearching()) {
     return;
   }
 
-//  myDebug() << result_->title << " [" << result_->fetcher->source() << "]";
-  m_results.append(UpdateResult(result_, m_fetchers[m_fetchIndex]->updateOverwrite()));
+//  myDebug() << "update result:" << result_->title << " [" << fetcher->source() << "]";
+  m_results.append(UpdateResult(result_, fetcher->updateOverwrite()));
   Data::EntryPtr e = result_->fetchEntry();
   if(e && !m_entriesToUpdate.isEmpty()) {
     m_fetchedEntries.append(e);
     const int match = m_coll->sameEntry(m_entriesToUpdate.front(), e);
-    if(match > EntryComparison::ENTRY_PERFECT_MATCH) {
-      result_->fetcher->stop();
+    if(match >= EntryComparison::ENTRY_PERFECT_MATCH) {
+      fetcher->stop();
     }
   }
   qApp->processEvents();
@@ -207,6 +211,13 @@ void EntryUpdater::handleResults() {
       best = match;
       matches.clear();
       matches.append(res);
+    } else if(m_results.count() == 1 && best == 0 && entry->title().isEmpty()) {
+      // special case for updates which may backfire, but let's go with it
+      // if there is a single result AND the best match is zero AND title is empty
+      // let's assume it's a case where an entry with a single url or link was updated
+      myLog() << "Updating entry with 0 score and empty title:" << e->title();
+      best = EntryComparison::ENTRY_PERFECT_MATCH;
+      matches.append(res);
     }
   }
   if(best < EntryComparison::ENTRY_GOOD_MATCH) {
@@ -230,7 +241,7 @@ void EntryUpdater::handleResults() {
 
 Tellico::EntryUpdater::UpdateResult EntryUpdater::askUser(const ResultList& results) {
   EntryMatchDialog dlg(Kernel::self()->widget(), m_entriesToUpdate.front(),
-                       m_fetchers[m_fetchIndex], results);
+                       m_fetchers[m_fetchIndex].data(), results);
 
   if(dlg.exec() != QDialog::Accepted) {
     return UpdateResult(nullptr, false);

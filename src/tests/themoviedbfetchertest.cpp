@@ -31,7 +31,7 @@
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
-#include <KConfig>
+#include <KSharedConfig>
 #include <KConfigGroup>
 
 #include <QTest>
@@ -46,7 +46,7 @@ void TheMovieDBFetcherTest::initTestCase() {
 
   m_fieldValues.insert(QStringLiteral("title"), QStringLiteral("Superman Returns"));
   m_fieldValues.insert(QStringLiteral("studio"), QStringLiteral("Warner Bros. Pictures; Red Sun Productions Pty. Ltd.; "
-                                                                "Peters Entertainment; DC Comics; Legendary Entertainment; "
+                                                                "Peters Entertainment; DC Comics; Legendary Pictures; "
                                                                 "Bad Hat Harry Productions"));
   m_fieldValues.insert(QStringLiteral("year"), QStringLiteral("2006"));
   m_fieldValues.insert(QStringLiteral("genre"), QStringLiteral("action; adventure; science fiction"));
@@ -81,17 +81,13 @@ void TheMovieDBFetcherTest::testTitle() {
 }
 
 void TheMovieDBFetcherTest::testTitleFr() {
-  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
-  QString groupName = QStringLiteral("TMDB FR");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("TMDB FR"));
+  cg.writeEntry("Locale", QStringLiteral("fr"));
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title,
                                        QStringLiteral("superman returns"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::TheMovieDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -129,4 +125,27 @@ void TheMovieDBFetcherTest::testBabel() {
   QCOMPARE(entry->field("year"), QStringLiteral("2006"));
   QCOMPARE(set(entry, "director"), set(QString::fromUtf8("Alejandro González Iñárritu")));
   QCOMPARE(set(entry, "producer"), set(QString::fromUtf8("Alejandro González Iñárritu; Steve Golin; Jon Kilik; Ann Ruark; Corinne Golden Weber")));
+}
+
+void TheMovieDBFetcherTest::testUpdate() {
+  Tellico::Data::CollPtr coll(new Tellico::Data::VideoCollection(true));
+  Tellico::Data::FieldPtr field(new Tellico::Data::Field(QStringLiteral("imdb"),
+                                                         QStringLiteral("IMDB"),
+                                                         Tellico::Data::Field::URL));
+  QCOMPARE(coll->addField(field), true);
+  Tellico::Data::EntryPtr entry(new Tellico::Data::Entry(coll));
+  coll->addEntries(entry);
+  entry->setField(QStringLiteral("title"), QStringLiteral("The Man From Snowy River"));
+  entry->setField(QStringLiteral("year"), QStringLiteral("1982"));
+
+  Tellico::Fetch::TheMovieDBFetcher fetcher(this);
+  auto request = fetcher.updateRequest(entry);
+  QCOMPARE(request.key(), Tellico::Fetch::Raw);
+  QVERIFY(request.value().contains(QStringLiteral("year=1982")));
+
+  entry->setField(QStringLiteral("imdb"), QStringLiteral("https://www.imdb.com/title/tt0084296/?ref_=nv_sr_srsg_0"));
+  request = fetcher.updateRequest(entry);
+  QCOMPARE(request.key(), Tellico::Fetch::Raw);
+  QCOMPARE(request.value(), QStringLiteral("external_source=imdb_id"));
+  QCOMPARE(request.data(), QStringLiteral("/find/tt0084296"));
 }

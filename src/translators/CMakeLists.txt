@@ -12,6 +12,7 @@ SET(translators_STAT_SRCS
    bibtexmlimporter.cpp
    boardgamegeekimporter.cpp
    ciwimporter.cpp
+   collectorzimporter.cpp
    csvexporter.cpp
    csvimporter.cpp
    csvparser.cpp
@@ -36,7 +37,7 @@ SET(translators_STAT_SRCS
    tellico_xml.cpp
    tellicoimporter.cpp
    tellicoxmlexporter.cpp
-   tellicoxmlhandler.cpp
+   tellicoxmlreader.cpp
    tellicozipexporter.cpp
    textimporter.cpp
    vinoxmlimporter.cpp

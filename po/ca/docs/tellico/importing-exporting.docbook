@@ -43,7 +43,7 @@
 >Cerca</guibutton
 > es convertirà en <guibutton
 >Atura</guibutton
-> per aturar una cerca. A mesura que es trobin resultats, s'afegiran a la llista directament sota el quadre de cerca, on la selecció d'un element mostrarà el resultat sense necessitat d'afegir-lo a la col·lecció. Fent clic al botó <guibutton
+> per a aturar una cerca. A mesura que es trobin resultats, s'afegiran a la llista directament sota el quadre de cerca, on la selecció d'un element mostrarà el resultat sense necessitat d'afegir-lo a la col·lecció. Fent clic al botó <guibutton
 >Afegeix una entrada</guibutton
 > s'afegiran tots els elements seleccionats a la vostra col·lecció. Si la font de dades té més resultats dels que es van sol·licitar inicialment, el botó <guibutton
 >Obtén més resultats</guibutton
@@ -93,7 +93,7 @@
 
 <para
 >El &appname; ofereix tres accions diferents quan s'importen dades. <guilabel
->Reemplaça la col·lecció actual</guilabel
+>Substitueix la col·lecció actual</guilabel
 > tancarà la col·lecció actual i en crearà una de nova amb les dades del fitxer importat. <guilabel
 >Annexa a la col·lecció actual</guilabel
 > li diu al &appname; que afegeixi totes les entrades de la col·lecció importada a l'actual i que afegeixi els camps que actualment no existeixen. L'acció <guilabel
@@ -118,6 +118,10 @@
 >, <application
 ><ulink url="https://www.delicious-monster.com"
 >Delicious Library</ulink
+></application
+>, <application
+><ulink url="https://www.collectorz.com"
+>Collectorz</ulink
 ></application
 >, <application
 ><ulink url="http://www.antp.be/software/moviecatalog/"
@@ -152,7 +156,7 @@
 >Importar dades del &appname;</title>
 
 <para
->Es poden importar altres fitxers de dades directament des del &appname;. Substituir la col·lecció actual important un fitxer del &appname; és el mateix que obrir el fitxer en si. El valor de la importació de dades del &appname; és principalment per afegir o fusionar dues col·leccions. </para>
+>Es poden importar altres fitxers de dades directament des del &appname;. Substituir la col·lecció actual important un fitxer del &appname; és el mateix que obrir el fitxer en si. El valor de la importació de dades del &appname; és principalment per a afegir o fusionar dues col·leccions. </para>
 </sect3>
 
 <sect3 id="importing-csv">
@@ -178,12 +182,12 @@
 </screenshot>
 
 <para
->Primer, seleccioneu el tipus de col·lecció que importareu. Si l'esteu afegint o fusionant a la vostra col·lecció oberta, el tipus es limita al vostre tipus de col·lecció actual. Si la primera línia del fitxer CSV conté els títols dels camps, feu clic a la casella de selecció i l'importador els compararà automàticament contra els camps a la col·lecció actual. Si un títol de camp coincideix, la capçalera per aquesta columna canviarà per mostrar que la columna ha estat assignada a aquest camp. Si el fitxer utilitza un delimitador diferent de la coma, assegureu-vos de canviar aquesta opció en conseqüència. </para>
+>Primer, seleccioneu el tipus de col·lecció que importareu. Si l'esteu afegint o fusionant a la vostra col·lecció oberta, el tipus es limita al vostre tipus de col·lecció actual. Si la primera línia del fitxer CSV conté els títols dels camps, feu clic a la casella de selecció i l'importador els compararà automàticament contra els camps a la col·lecció actual. Si un títol de camp coincideix, la capçalera per a aquesta columna canviarà per a mostrar que la columna ha estat assignada a aquest camp. Si el fitxer utilitza un delimitador diferent de la coma, assegureu-vos de canviar aquesta opció en conseqüència. </para>
 
 <para
 >Perquè el &appname; importi correctament el fitxer, haurà de saber quin camp correspon a cada columna. <emphasis
 >Si la columna sols té un número a la capçalera, les dades en aquesta columna no s'importaran.</emphasis
-> Haureu d'assignar camps a cada columna seleccionant una columna fent clic sobre seu o canviant el número de la columna en si, llavors seleccioneu el camp per assignar-li des de la llista desplegable i feu clic al botó <guibutton
+> Haureu d'assignar camps a cada columna seleccionant una columna fent clic sobre seu o canviant el número de la columna en si, llavors seleccioneu el camp a assignar-li des de la llista desplegable i feu clic al botó <guibutton
 >Assigna camp</guibutton
 >. Si cal afegir un nou camp a la col·lecció, l'últim element de la llista desplegable obre el <link linkend="fields-dialog"
 ><interface
@@ -203,7 +207,7 @@
 <para
 >El &appname; és capaç d'utilitzar el servei <ulink url="http://freedb.org"
 >freedb.org</ulink
-> per a cercar informació sobre un &CD;, incloent-hi la llista de les pistes. Depenent de la vostra distribució, l'arranjament per accedir al servei es pot establir en &systemsettings; del &kde;. S'afegiran l'artista, el títol, el gènere, l'any i llista de les pistes del &CD;. </para>
+> per a cercar informació sobre un &CD;, incloent-hi la llista de les pistes. Depenent de la vostra distribució, l'arranjament per a accedir al servei es pot establir en &systemsettings; del &kde;. S'afegiran l'artista, el títol, el gènere, l'any i llista de les pistes del &CD;. </para>
 
 <para
 >A més, si el disc conté &CD;-Text, aquesta informació serà llegida i afegida a l'entrada importada. </para>
@@ -244,7 +248,7 @@
 >» és un format de bibliografia utilitzat amb el sistema de preparació de documents LaTeX. Es poden incloure diferents tipus de referències bibliogràfiques en el fitxer. El &appname; importarà els fitxers «bibtex» com a una col·lecció bibliogràfica. </para>
 
 <para
->Si l'importador «bibtex» troba camps en el fitxer que no es troben a la col·lecció bibliogràfica per omissió, llavors seran afegits com a camps <link linkend="line"
+>Si l'importador «bibtex» troba camps en el fitxer que no es troben a la col·lecció bibliogràfica predeterminada, llavors seran afegits com a camps <link linkend="line"
 >Text pla</link
 >, amb dues excepcions. Si el valor del camp conté més de 100 caràcters, es convertirà en un camp <link linkend="para"
 >Paràgraf</link
@@ -252,7 +256,7 @@
 >&URL;</link
 >. El &appname; utilitza una còpia interna de la <ulink url="http://www.gerg.ca/software/btOOL/"
 >biblioteca btparse</ulink
-> per analitzar els fitxers «bibtex». </para>
+> per a analitzar els fitxers «bibtex». </para>
 
 <para
 >«<ulink url="http://bibtexml.sf.net"
@@ -283,7 +287,7 @@
 >exempi</emphasis
 > o <emphasis
 >poppler</emphasis
->, les metadades dels fitxers &PDF; es podran importar. Les metadades poden incloure informació sobre el títol, l'autor, i la data, així com identificadors bibliogràfics que després s'utilitzaran per actualitzar d'altra informació. </para>
+>, les metadades dels fitxers &PDF; es podran importar. Les metadades poden incloure informació sobre el títol, l'autor, i la data, així com identificadors bibliogràfics que després s'utilitzaran per a actualitzar d'altra informació. </para>
 </sect3>
 
 <sect3 id="importing-ris">
@@ -331,8 +335,8 @@
 <para
 ><ulink url="https://www.librarything.com"
 >LibraryThing</ulink
-> és un servei en línia per ajudar la gent a catalogar els seus llibres amb facilitat. El &appname; pot importar la llista de llibres de la col·lecció d'un usuari, <ulink url="https://www.librarything.com/export.php?export_type=json"
->exportats en format JSON</ulink
+> és un servei en línia per a ajudar les persones a catalogar els seus llibres amb facilitat. El &appname; pot importar la llista de llibres que hi ha a la col·lecció d'un usuari, <ulink url="https://www.librarything.com/export.php?export_type=json"
+>exportada en el format JSON</ulink
 >. </para>
 </sect3>
 
@@ -345,7 +349,7 @@
 <para
 >La millor manera de crear un <link linkend="file-catalog"
 >catàleg de fitxers</link
-> és importar el contingut d'una carpeta. La carpeta es pot cercar de manera recursiva, per afegir tots els fitxers que es trobin al seu interior. Aquest importador és més útil per a les llistes de còpia de seguretat i suports de catalogació, com llistats de &CD; o <acronym
+> és importar el contingut d'una carpeta. La carpeta es pot cercar de manera recursiva, per a afegir tots els fitxers que es trobin al seu interior. Aquest importador és més útil per a les llistes de còpia de seguretat i suports de catalogació, com llistats de &CD; o <acronym
 >DVD</acronym
 >. A més, es poden generar les vistes prèvies de les imatges contingudes al fitxer, tot i que podria portar el seu temps llegir un gran nombre de fitxers. Les vistes prèvies de fitxers són les mateixes que es mostren al gestor de fitxers del &kde;. </para>
 </sect2>
@@ -416,7 +420,7 @@
 >Exportar a Zip</title>
 
 <para
->El format de fitxer estàndard per al &appname; és un fitxer comprimit, que contindrà el fitxer de col·lecció &XML;, i de manera opcional, totes les imatges referenciades a la col·lecció. Si les imatges s'emmagatzemen a la carpeta de l'aplicació, exportar a un fitxer Zip crearà un fitxer de dades independent, que inclourà totes les imatges de la col·lecció. </para>
+>El format de fitxer estàndard per al &appname; és un fitxer comprimit, que contindrà el fitxer de col·lecció &XML;, i de manera opcional, totes les imatges referenciades a la col·lecció. Si les imatges s'emmagatzemen a la carpeta de l'aplicació, exportar a un fitxer Zip crearà un fitxer de dades independent, el qual inclourà totes les imatges de la col·lecció. </para>
 </sect2>
 
 <sect2 id="exporting-html">
@@ -433,7 +437,7 @@
 > adjuntat. </para>
 
 <para
->El format per omissió és similar a la sortida impresa, i permet diverses opcions per a modificar el codi &HTML;. Les capçaleres dels camps es poden imprimir a la part superior de cada columna, però malauradament, el &kde; no permet encara que es repeteixi cap capçalera de taula a cada pàgina. Les entrades també es poden agrupar com a la <interface
+>El format predeterminat és similar a la sortida impresa, i permet diverses opcions per a modificar el codi &HTML;. Les capçaleres dels camps es poden imprimir a la part superior de cada columna, però malauradament, el &kde; no permet encara que es repeteixi cap capçalera de taula a cada pàgina. Les entrades també es poden agrupar com a la <interface
 >Vista de grup</interface
 >. </para>
 
@@ -488,7 +492,7 @@
 ></application
 > és un gestor de col·lecció de llibres per a l'entorn d'escriptori <ulink url="http://www.gnome.org"
 >GNOME</ulink
->. El &appname; és capaç d'exportar un subconjunt limitat de camps de col·lecció de llibres a la ubicació per omissió de les dades d'Alexandria. </para>
+>. El &appname; és capaç d'exportar un subconjunt limitat de camps de col·lecció de llibres a la ubicació predeterminada de les dades d'Alexandria. </para>
 
 </sect2>
 
@@ -510,7 +514,7 @@
 <para
 >Quan s'exporta a <ulink url="http://en.wikipedia.org/wiki/Bibtex"
 >Bibtex</ulink
->, els valors dels camps es poden tancar amb marques de bràquets o cometes. Si s'utilitzen macros de cadena a la col·lecció, de manera opcional es poden exportar com a macros o expandir-se. Per als camps d'&URL;, el &appname; pot tancar els valors de camp amb l'etiqueta <literal
+>, els valors dels camps es poden tancar amb marques de claus o cometes. Si s'utilitzen macros de cadena a la col·lecció, de manera opcional es poden exportar com a macros o expandir-se. Per als camps d'&URL;, el &appname; pot tancar els valors de camp amb l'etiqueta <literal
 >\url{...}</literal
 >. Finalment, les entrades sense clau de cita es poden ometre en lloc que el &appname; autogeneri la clau. </para>
 
@@ -557,7 +561,7 @@
 <para
 >Quan es treballa amb una <link linkend="bibliography"
 >bibliografia</link
->, es poden generar cites a partir de les entrades seleccionades i utilitzar-les en altres aplicacions. Una cita en el format «bibtex» es pot copiar al porta-retalls, i després enganxar-la a un fitxer de «latex». Les cites «bibtex» també es poden incloure a una aplicació externa, com ara <application
+>, es poden generar cites a partir de les entrades seleccionades i utilitzar-les en altres aplicacions. Una cita en el format «bibtex» es pot copiar al porta-retalls, i després enganxar-la a un fitxer de LaTeX. Les cites «bibtex» també es poden incloure a una aplicació externa, com ara <application
 >LyX</application
 > o <application
 >Kile</application

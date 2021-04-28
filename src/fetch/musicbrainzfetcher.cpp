@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2018 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -74,7 +74,7 @@ QString MusicBrainzFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool MusicBrainzFetcher::canSearch(FetchKey k) const {
+bool MusicBrainzFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person || k == Keyword || k == UPC;
 }
 
@@ -107,31 +107,26 @@ void MusicBrainzFetcher::doSearch() {
   u.setPath(u.path() + QStringLiteral("release"));
 
   QString queryString;
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
-      queryString = QStringLiteral("release:\"%1\"").arg(request().value);
+      queryString = QStringLiteral("release:\"%1\"").arg(request().value());
       break;
 
     case Person:
-      queryString = QStringLiteral("artist:\"%1\"").arg(request().value);
+      queryString = QStringLiteral("artist:\"%1\"").arg(request().value());
       break;
 
     case UPC:
-      queryString = QStringLiteral("barcode:\"%1\"").arg(request().value);
+      queryString = QStringLiteral("barcode:\"%1\"").arg(request().value());
       break;
 
     case Keyword:
-      queryString = QStringLiteral("artist:\"") + request().value + QStringLiteral("\" OR ") +
-                    QStringLiteral("release:\"") + request().value + QStringLiteral("\" OR ")  +
-                    QStringLiteral("label:\"") + request().value + QStringLiteral("\"");
-      break;
-
     case Raw:
-      queryString = request().value;
+      queryString = request().value();
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       stop();
       return;
   }
@@ -240,7 +235,7 @@ void MusicBrainzFetcher::slotComplete(KJob* ) {
       break;
     }
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, Data::EntryPtr(entry));
     emit signalResultFound(r);
     ++count;
@@ -368,11 +363,21 @@ QString MusicBrainzFetcher::defaultIcon() {
   return favIcon("https://musicbrainz.org");
 }
 
-MusicBrainzFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const MusicBrainzFetcher*)
+Tellico::StringHash MusicBrainzFetcher::allOptionalFields() {
+  StringHash hash;
+//  hash[QStringLiteral("nationality")] = i18n("Nationality");
+  hash[QStringLiteral("barcode")] = i18n("Barcode");
+  return hash;
+}
+
+MusicBrainzFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const MusicBrainzFetcher* fetcher_)
     : Fetch::ConfigWidget(parent_) {
   QVBoxLayout* l = new QVBoxLayout(optionsWidget());
   l->addWidget(new QLabel(i18n("This source has no options."), optionsWidget()));
   l->addStretch();
+
+  // now add additional fields widget
+  addFieldsWidget(MusicBrainzFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 }
 
 void MusicBrainzFetcher::ConfigWidget::saveConfigHook(KConfigGroup&) {

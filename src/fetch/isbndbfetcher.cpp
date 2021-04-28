@@ -36,6 +36,7 @@
 #include <KJobWidgets/KJobWidgets>
 
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
@@ -56,7 +57,8 @@ using Tellico::Fetch::ISBNdbFetcher;
 ISBNdbFetcher::ISBNdbFetcher(QObject* parent_)
     : Fetcher(parent_),
       m_limit(ISBNDB_MAX_RETURNS_TOTAL), m_total(-1), m_numResults(0),
-      m_started(false) {
+      m_started(false),
+      m_batchIsbn(false) {
 }
 
 ISBNdbFetcher::~ISBNdbFetcher() {
@@ -70,7 +72,7 @@ bool ISBNdbFetcher::canFetch(int type) const {
   return type == Data::Collection::Book || type == Data::Collection::Bibtex;
 }
 
-bool ISBNdbFetcher::canSearch(FetchKey k) const {
+bool ISBNdbFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person || k == ISBN || k == Keyword;
 }
 
@@ -79,6 +81,7 @@ void ISBNdbFetcher::readConfigHook(const KConfigGroup& config_) {
   if(!k.isEmpty()) {
     m_apiKey = k;
   }
+  m_batchIsbn = config_.readEntry("Batch ISBN", false);
 }
 
 void ISBNdbFetcher::search() {
@@ -86,12 +89,12 @@ void ISBNdbFetcher::search() {
   m_total = -1;
   m_numResults = 0;
 
-  // we only split ISBN
+  // we only split ISBN when not doing batch searching
   QStringList searchTerms;
-  if(request().key == ISBN) {
-    searchTerms = FieldFormat::splitValue(request().value);
+  if(request().key() == ISBN && !m_batchIsbn) {
+    searchTerms = FieldFormat::splitValue(request().value());
   } else  {
-    searchTerms += request().value;
+    searchTerms += request().value();
   }
   foreach(const QString& searchTerm, searchTerms) {
     doSearch(searchTerm);
@@ -113,16 +116,14 @@ void ISBNdbFetcher::continueSearch() {
     return;
   }
 
-  doSearch(request().value);
+  doSearch(request().value());
 }
 
 void ISBNdbFetcher::doSearch(const QString& term_) {
-//  myDebug() << "value = " << value_;
-
-  const bool multipleIsbn = request().key == ISBN && term_.contains(QLatin1Char(';'));
+  const bool multipleIsbn = request().key() == ISBN && term_.contains(QLatin1Char(';'));
 
   QUrl u(QString::fromLatin1(ISBNDB_BASE_URL));
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       u.setPath(QStringLiteral("/books/") + term_);
       break;
@@ -160,7 +161,7 @@ void ISBNdbFetcher::doSearch(const QString& term_) {
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       stop();
       return;
   }
@@ -168,7 +169,7 @@ void ISBNdbFetcher::doSearch(const QString& term_) {
 
   QPointer<KIO::StoredTransferJob> job;
   if(multipleIsbn) {
-    QString postData = request().value;
+    QString postData = request().value();
     postData = postData.replace(QLatin1Char(';'), QLatin1Char(','))
                        .remove(QLatin1Char('-'))
                        .remove(QLatin1Char(' '));
@@ -265,7 +266,7 @@ void ISBNdbFetcher::slotComplete(KJob* job_) {
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, result.toMap());
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
     ++count;
@@ -315,10 +316,11 @@ Tellico::Fetch::FetchRequest ISBNdbFetcher::updateRequest(Data::EntryPtr entry_)
 }
 
 void ISBNdbFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& resultMap_) {
+  static const QRegularExpression nonDigits(QStringLiteral("[^\\d]"));
   entry_->setField(QStringLiteral("title"), mapValue(resultMap_, "title"));
   entry_->setField(QStringLiteral("isbn"), mapValue(resultMap_, "isbn"));
   // "date_published" can be "2008-12-13" or "July 2012"
-  QString pubYear = mapValue(resultMap_, "date_published").remove(QRegExp(QStringLiteral("[^\\d]"))).left(4);
+  QString pubYear = mapValue(resultMap_, "date_published").remove(nonDigits).left(4);
   entry_->setField(QStringLiteral("pub_year"), pubYear);
   QStringList authors;
   foreach(const QVariant& author, resultMap_.value(QLatin1String("authors")).toList()) {
@@ -372,7 +374,7 @@ QString ISBNdbFetcher::defaultName() {
 }
 
 QString ISBNdbFetcher::defaultIcon() {
-  return favIcon("http://isbndb.com");
+  return favIcon("https://isbndb.com/sites/default/files/favicon_0.ico");
 }
 
 Tellico::StringHash ISBNdbFetcher::allOptionalFields() {
@@ -410,10 +412,20 @@ ISBNdbFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ISBNdbFetcher*
   l->addWidget(m_apiKeyEdit, row, 1);
   label->setBuddy(m_apiKeyEdit);
 
+  m_enableBatchIsbn = new QCheckBox(i18n("Enable batch ISBN searching (requires Premium or Pro plan)"), optionsWidget());
+  connect(m_enableBatchIsbn, &QAbstractButton::clicked, this, &ConfigWidget::slotSetModified);
+  ++row;
+  l->addWidget(m_enableBatchIsbn, row, 0, 1, 2);
+  QString w = i18n("Batch searching for ISBN values is faster but only available for Premium or Pro plans.");
+  m_enableBatchIsbn->setWhatsThis(w);
+
   l->setRowStretch(++row, 10);
 
   if(fetcher_) {
     m_apiKeyEdit->setText(fetcher_->m_apiKey);
+    m_enableBatchIsbn->setChecked(fetcher_->m_batchIsbn);
+  } else { //defaults
+    m_enableBatchIsbn->setChecked(false);
   }
 
   // now add additional fields widget
@@ -425,6 +437,7 @@ void ISBNdbFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   if(!apiKey.isEmpty()) {
     config_.writeEntry("API Key", apiKey);
   }
+  config_.writeEntry("Batch ISBN", m_enableBatchIsbn->isChecked());
 }
 
 QString ISBNdbFetcher::ConfigWidget::preferredName() const {

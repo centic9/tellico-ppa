@@ -5,7 +5,7 @@
 <para
 >El <interface
 >diàleg de configuració</interface
-> conté totes les opcions per a canviar alguns dels comportaments per omissió del &appname;. </para>
+> conté totes les opcions per a canviar alguns dels comportaments predeterminats del &appname;. </para>
 
 <para
 >En fer clic al botó <guibutton
@@ -22,7 +22,7 @@
 >Omissió</guibutton
 > <action
 >reverteix les opcions</action
-> a la pàgina actual del diàleg als seus valors per omissió, mentre que <guibutton
+> a la pàgina actual del diàleg als seus valors predeterminats, mentre que <guibutton
 >Ajuda</guibutton
 > <action
 >obrirà el &khelpcenter;</action
@@ -65,10 +65,10 @@
 >Opcions de format</guilabel
 > controlen el nivell de format automàtic que fa el &appname;. Per a exemples, veure la <link linkend="field-formatting"
 >secció Donar format al camp</link
->. La capitalització i el format són opcions diferents, ja que un camp es pot capitalitzar sense tenir canviat l'ordre de les paraules, i viceversa. La capitalització automàtica es pot canviar per ignorar certes paraules. El format automàtic inclou articles gramaticals en els títols, juntament amb prefixos i sufixos per als noms propis. Els valors distingeixen entre majúscules i minúscules, i han d'estar separats per un punt i coma. </para>
+>. La capitalització i el format són opcions diferents, ja que un camp es pot capitalitzar sense tenir canviat l'ordre de les paraules, i viceversa. La capitalització automàtica es pot canviar per a ignorar certes paraules. El format automàtic inclou articles gramaticals en els títols, juntament amb prefixos i sufixos per als noms propis. Els valors distingeixen entre majúscules i minúscules, i han d'estar separats per un punt i coma. </para>
 
 <para
->Les regles de format segueixen l'ús general de l'anglès, que potser no funciona per altres idiomes. Els articles s'afegeixen al final del títol, amb una coma. Els noms propis es disposen per tenir primer el cognom, seguit d'una coma i després el nom. Els sufixos personals, com ara Jr, es mantenen amb el cognom. Els prefixos, com ara <emphasis
+>Les regles de format segueixen l'ús general de l'anglès, el qual potser no funciona per a altres idiomes. Els articles s'afegeixen al final del títol, amb una coma. Els noms propis es disposen per a tenir primer el cognom, seguit d'una coma i després el nom. Els sufixos personals, com ara Jr, es mantenen amb el cognom. Els prefixos, com ara <emphasis
 >von</emphasis
 >, es mantenen amb el cognom, però s'ignoren quan s'ordenen els valors.</para>
 
@@ -130,14 +130,14 @@
 <para
 >Les <guilabel
 >Opcions d'impressió</guilabel
-> us permeten canviar algun format per imprimir una col·lecció. Si <guilabel
+> permeten canviar algun format per a imprimir una col·lecció. Si <guilabel
 >Formata els títols i els noms</guilabel
 > està marcada, els camps seran <link linkend="field-formatting"
 >formatats automàticament</link
 > quan s'imprimeixin. En cas contrari, s'imprimiran exactament com es van introduir. </para>
 
 <para
->El full d'estil d'impressió per omissió imprimeix la col·lecció amb els valors de camp en columnes. <guilabel
+>El full d'estil d'impressió predeterminat imprimeix la col·lecció amb els valors de camp en columnes. <guilabel
 >Imprimeix les capçaleres dels camps</guilabel
 > controla si el títol del camp s'imprimirà a la part superior de la columna. </para>
 
@@ -175,7 +175,7 @@
 >Vista d'entrada</interface
 > si s'utilitzen per a altres tipus. El botó <guilabel
 >Vista prèvia</guilabel
-> fa aparèixer una finestra per mostrar una vista prèvia de l'aspecte de la plantilla. Els tipus de lletra i colors personalitzats es poden passar a la plantilla, i totes les plantilles per omissió faran honor a aquestes opcions. No obstant això, les plantilles personalitzades podran optar per ignorar-los.</para>
+> fa aparèixer una finestra per a mostrar una vista prèvia de l'aspecte de la plantilla. Els tipus de lletra i colors personalitzats es poden passar a la plantilla, i totes les plantilles predeterminades faran honor a aquestes opcions de configuració. No obstant això, les plantilles personalitzades podran optar per ignorar-los.</para>
 
 <para
 >Es poden instal·lar directament plantilles addicionals, o descarregar-les des de <ulink url="https://store.kde.org/"
@@ -215,7 +215,7 @@
 ></title>
 
 <para
->El &appname; pot utilitzar diverses fonts per importar dades, les quals es poden configurar en el diàleg Fonts de dades. Hi ha disponibles molts tipus i fonts. Alguns d'ells es llisten a continuació, mentre que la llista completa està <ulink url="https://tellico-project.org/data-sources"
+>El &appname; pot utilitzar diverses fonts per a importar les dades, el qual es pot configurar en el diàleg Fonts de dades. Hi ha disponibles molts tipus i fonts. Alguns d'ells es llisten a continuació, mentre que la llista completa està <ulink url="https://tellico-project.org/data-sources"
 >disponible al lloc web del &appname;</ulink
 >.</para>
 
@@ -261,13 +261,7 @@
 <listitem
 ><simpara
 >la <link linkend="omdb"
->base de dades Open Movie</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="animenfo"
->AnimeNfo.com</link
+>base de dades oberta de pel·lícules</link
 >,</simpara
 ></listitem>
 <!-- comics -->
@@ -366,6 +360,12 @@
 >Colnect</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="numista"
+>Numista</link
+>,</simpara
+></listitem>
 <!-- others -->
 <listitem
 ><simpara
@@ -401,7 +401,7 @@
 >Modifica...</guibutton
 > o <guibutton
 >Suprimeix</guibutton
->. L'ordre de les fonts, que es mostra en els menús d'actualització de les entrades, també es pot canviar. </para>
+>. L'ordre de les fonts, el qual es mostra en els menús d'actualització de les entrades, també es pot canviar. </para>
 
 <warning>
 <para
@@ -409,7 +409,7 @@
 </warning>
 
 <para
->Moltes de les fonts de dades ofereixen més informació que els camps per omissió del &appname;. Aquests altres camps es mostren a la dreta del quadre de configuració. Si es marca qualsevol d'aquests camps, s'afegiran a la col·lecció quan s'afegeixi una entrada des d'aquesta font. </para>
+>Moltes de les fonts de dades ofereixen més informació que els camps predeterminats del &appname;. Aquests altres camps es mostren a la dreta del quadre de configuració. Si es marca qualsevol d'aquests camps, s'afegiran a la col·lecció quan s'afegeixi una entrada des d'aquesta font. </para>
 
 <!-- start book sources -->
 
@@ -424,7 +424,7 @@
 <para
 >El <ulink url="http://www.cni.org/pub/NISO/docs/Z39.50-brochure/50.brochure.toc.html"
 >protocol z39.50</ulink
-> s'utilitza per accedir a les biblioteques i als proveïdors d'informació bibliogràfica de tot el món. Les llistes de servidors z39.50 públics estan <ulink url="http://www.indexdata.dk/targettest/"
+> s'utilitza per a accedir a les biblioteques i als proveïdors d'informació bibliogràfica de tot el món. Les llistes de servidors z39.50 públics estan <ulink url="http://www.indexdata.dk/targettest/"
 >disponibles a indexdata.dk</ulink
 >, entre d'altres. El &appname; ve amb diverses configuracions preestablertes per a les biblioteques més importants, o pot especificar la informació de connexió de forma manual.</para>
 
@@ -451,13 +451,13 @@
 </screenshot>
 
 <para
->Per utilitzar una de les biblioteques preestablertes, marqueu la casella i seleccioneu la biblioteca. Les altres entrades de configuració es desactivaran. Si necessiteu ajustar la informació manualment, desmarqueu la casella preestablerta. </para>
+>Per a utilitzar una de les biblioteques preestablertes, marqueu la casella i seleccioneu la biblioteca. Les altres entrades de configuració es desactivaran. Si necessiteu ajustar la informació manualment, desmarqueu la casella preestablerta. </para>
 
 <para
->El port per omissió per a l'accés a z39.50 és el 210, però alguns servidors poden utilitzar un de diferent. El &appname; assumeix que el servidor utilitza la codificació de caràcters MARC-8, llevat que es configuri una altra. Si s'utilitza una codificació de caràcters incorrecta, podrà aparèixer un missatge d'error a la sortida del programa, o potser no s'obtenen entrades. </para>
+>El port predeterminat per a l'accés a z39.50 és el 210, però alguns servidors poden utilitzar un de diferent. El &appname; assumeix que el servidor utilitza la codificació de caràcters MARC-8, llevat que es configuri una altra. Si s'utilitza una codificació de caràcters incorrecta, podrà aparèixer un missatge d'error a la sortida del programa, o potser no s'obtenen entrades. </para>
 
 <para
->Alguns servidors requereixen un nom d'usuari i contrasenya d'accés. El &appname; pot utilitzar i desar aquesta contrasenya, però tingueu en compte que s'escriurà al fitxer de configuració del &appname; en text net i que no és segur. Per a la majoria dels servidors públics, els camps de nom d'usuari i contrasenya es poden deixar buits. </para>
+>Alguns servidors requereixen un nom d'usuari i contrasenya d'accés. El &appname; pot utilitzar i desar aquesta contrasenya, però cal tenir en compte que s'escriurà al fitxer de configuració del &appname; en text net i que no és segur. Per a la majoria dels servidors públics, els camps de nom d'usuari i contrasenya es poden deixar buits. </para>
 
 </sect3>
 
@@ -489,7 +489,7 @@
 >Entrez</ulink
 > és el sistema integrat de cerca i obtenció basat en text utilitzat en el Centre nacional d'informació sobre biotecnologia (Center for Biotechnology Information -NCBI-). La base de dades Entrez més coneguda és <ulink url="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=PubMed"
 >PubMed</ulink
->, la base de dades per articles de ciències de la vida de moltes revistes sobre biologia. De moment, l'única base de dades Entrez implementada pel &appname; és PubMed.</para>
+>, la base de dades per a articles de ciències de la vida de moltes revistes sobre biologia. De moment, l'única base de dades Entrez implementada pel &appname; és PubMed.</para>
 </sect3>
 
 <sect3 id="bib-sources">
@@ -502,7 +502,7 @@
 >Bibsonomy</ulink
 > i <ulink url="http://crossref.org"
 >CrossRef</ulink
-> són bases de dades en línia per a articles acadèmics i informació bibliogràfica. Per accedir a la font de CrossRef, haureu de <ulink url="http://www.crossref.org/requestaccount/"
+> són bases de dades en línia per a articles acadèmics i informació bibliogràfica. Per a accedir a la font de CrossRef, haureu de <ulink url="http://www.crossref.org/requestaccount/"
 >sol·licitar un compte</ulink
 > i afegir la informació del vostre compte en la configuració de les fonts de dades.</para>
 </sect3>
@@ -548,7 +548,7 @@
 <para
 ><ulink url="https://comicvine.gamespot.com/"
 >Comic Vine</ulink
-> s'anuncia com el wiki de còmics més gran de l'univers. </para>
+> es manifesta com la wiki de còmics més gran de l'univers. </para>
 </sect3>
 
 </sect2>
@@ -584,16 +584,16 @@
 <para
 ><ulink url="http://themoviedb.org"
 >TheMovieDB.org</ulink
-> és una base de dades de pel·lícules en línia lliure i oberta. Us podeu registrar per obtenir un compte gratuït. </para>
+> és una base de dades de pel·lícules en línia lliure i oberta. Us podeu registrar per a obtenir un compte gratuït. </para>
 </sect3>
 
 <sect3 id="omdb">
 <title
->La base de dades Open Movie</title>
+>La base de dades oberta de pel·lícules</title>
 <para
 ><ulink url="http://omdbapi.com"
->La base de dades Open Movie (OMDBAPI.com)</ulink
-> és un servei web gratuït per obtenir informació sobre les pel·lícules. </para>
+>La base de dades oberta de pel·lícules (OMDBAPI.com)</ulink
+> és un servei web gratuït per a obtenir informació sobre les pel·lícules. </para>
 </sect3>
 
 <sect3 id="allocine">
@@ -602,17 +602,9 @@
 <para
 ><ulink url="http://allocine.fr"
 >AlloCiné</ulink
-> és un servei en línia d'informació de pel·lícules, amb seu a França. La identificació del navegador haurà d'estar habilitada a l'&systemsettings;. </para>
+> és un servei en línia d'informació de pel·lícules, amb seu a França. S'hauria d'habilitar la identificació del navegador a l'&systemsettings;. </para>
 </sect3>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> és un lloc popular per obtenir informació sobre anime, o animació japonesa. </para>
-</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -626,7 +618,7 @@
 <para
 ><ulink url="http://discogs.com"
 >Discogs.com</ulink
-> és una base de dades de música construïda pels usuaris que conté informació sobre els artistes, segells i les seves gravacions. Es requereix registre per obtenir un compte gratuït. La identificació del navegador haurà d'estar habilitada a l'&systemsettings;. </para>
+> és una base de dades de música construïda pels usuaris que conté informació sobre els artistes, segells i les seves gravacions. Es requereix registre per a obtenir un compte gratuït. S'hauria d'habilitar la identificació del navegador a l'&systemsettings;. </para>
 </sect3>
 
 <sect3 id="musicbrainz">
@@ -635,7 +627,7 @@
 <para
 ><ulink url="http://musicbrainz.org"
 >MusicBrainz.org</ulink
-> és una base de dades de metadades comunitària de música que intenta crear un lloc d'informació de música exhaustiu. La identificació del navegador haurà d'estar habilitada a l'&systemsettings;. </para>
+> és una base de dades de metadades comunitària de música que intenta crear un lloc d'informació de música exhaustiu. S'hauria d'habilitar la identificació del navegador a l'&systemsettings;. </para>
 </sect3>
 
 </sect2>
@@ -659,7 +651,7 @@
 <para
 ><ulink url="http://giantbomb.com"
 >GiantBomb.com</ulink
-> és una gran base de dades de videojocs impulsada per la comunitat. Es requereix registre per obtenir un compte gratuït. </para>
+> és una gran base de dades de videojocs impulsada per la comunitat. Es requereix registre per a obtenir un compte gratuït. </para>
 </sect3>
 
 <sect3 id="tgdb">
@@ -668,7 +660,7 @@
 <para
 ><ulink url="http://thegamesdb.net"
 >TheGamesDB.net</ulink
-> és una base de dades oberta que està en línia per aficionats als videojocs. </para>
+> és una base de dades oberta que està en línia per als aficionats a videojocs. </para>
 </sect3>
 
 <sect3 id="mobygames">
@@ -677,7 +669,7 @@
 <para
 ><ulink url="https://www.mobygames.com"
 >MobyGames.com</ulink
-> es descriu en primer lloc com la base de dades de videojocs més antiga, gran i precisa. </para>
+> es descriu a si mateixa com la base de dades de videojocs més antiga, més gran i precisa. </para>
 </sect3>
 
 <sect3 id="igdb">
@@ -686,7 +678,7 @@
 <para
 ><ulink url="https://www.igdb.com"
 >IGDB.com</ulink
-> es diu a si mateix un lloc web de jocs per a tots els que estimen els jocs. </para>
+> es descriu a si mateixa com un lloc web de jocs per a tots els amants dels jocs. </para>
 </sect3>
 
 <sect3 id="videogamegeek">
@@ -695,7 +687,7 @@
 <para
 ><ulink url="https://videogamegeek.com"
 >VideoGameGeek</ulink
-> és un recurs i comunitat en línia per a videojocs. </para>
+> és un recurs i comunitat en línia per als videojocs. </para>
 </sect3>
 
 </sect2>
@@ -711,7 +703,7 @@
 <para
 ><ulink url="https://boardgamegeek.com"
 >BoardGameGeek</ulink
-> és un recurs i comunitat en línia per a jocs de taula. </para>
+> és un recurs i comunitat en línia per als jocs de taula. </para>
 </sect3>
 
 </sect2>
@@ -719,7 +711,7 @@
 <!-- start of coin sources -->
 <sect2 id="coin-sources">
 <title
->Fonts de dades per a monedes</title>
+>Fonts de dades per a moneda i segells</title>
 
 <sect3 id="colnect">
 <title
@@ -727,7 +719,16 @@
 <para
 ><ulink url="https://colnect.com"
 >Colnect</ulink
-> és una comunitat en línia per a col·leccionables que proporciona gestió de col·leccions personals. El &tellico; pot cercar a Colnect informació sobre les monedes. </para>
+> és una comunitat en línia per a col·leccionistes que proporciona gestió de les col·leccions personals. El &tellico; pot cercar informació a Colnect sobre les monedes i segells. </para>
+</sect3>
+
+<sect3 id="numista">
+<title
+>Numista</title>
+<para
+><ulink url="https://numista.com"
+>Numista</ulink
+> és un catàleg mundial de monedes que creix gràcies a les contribucions dels membres, el qual ofereix gestió de col·leccions en línia, eines per a intercanviar fàcilment amb altres col·leccionistes i un fòrum. </para>
 </sect3>
 
 </sect2>
@@ -755,12 +756,12 @@
 <para
 >La configuració de cada font de Amazon.com implica tres opcions: la ubicació del servidor, la mida de la imatge i l'identificador de l'associat. Part de la informació de <ulink url="http://amazon.com"
 >Amazon.com</ulink
-> pot incloure una imatge, com la coberta d'un llibre o d'un vídeo. Aquesta imatge es pot descarregar en tres mides diferents, segons l'element. La identificació de l'associat s'utilitzarà per accedir als serveis web de Amazon.com, i s'inclourà als enllaços cap a l'element, tal com es dicta a l'acord de llicència per a l'ús dels serveis web de Amazon.com. </para>
+> pot incloure una imatge, com la coberta d'un llibre o d'un vídeo. Aquesta imatge es pot descarregar en tres mides diferents, segons l'element. La identificació de l'associat s'utilitzarà per a accedir als serveis web de Amazon.com, i s'inclourà als enllaços cap a l'element, tal com es dicta a l'acord de llicència per a l'ús dels serveis web de Amazon.com. </para>
 
 <para
 >L'accés a l'<ulink url="https://docs.aws.amazon.com/AWSECommerceService/latest/DG/Welcome.html"
 >API de publicitat dels productes d'Amazon</ulink
-> pot tenir restriccions relacionades amb les referències de vendes o la publicitat. Consulteu la documentació d'Amazon per obtenir més informació en registrar-vos per accedir a l'API. </para>
+> pot tenir restriccions relacionades amb les referències de vendes o la publicitat. Consulteu la documentació d'Amazon per a obtenir més informació en registrar-vos per a accedir a l'API. </para>
 
 </sect3>
 
@@ -786,16 +787,16 @@
 
 <para
 >Haureu d'establir el tipus de col·lecció retornat per l'script, juntament amb el format de les dades. El &appname; no només pot importar dades des de scripts que utilitzen el <link linkend="file-format"
->format &XML; per omissió del &appname;</link
+>format &XML; predeterminat del &appname;</link
 >, sinó que també pot importar altres formats, així com «bibtex». </para>
 
 <para
->El camí complet a l'aplicació s'ha d'introduir a les opcions de la font. Tingueu en compte que l'aplicació s'executa en el sistema amb els mateixos permisos que l'usuari actual, de manera que no utilitzeu scripts de fonts no fiables. Marqueu les caselles al costat de les claus de cerca suportades per l'aplicació, i introduïu les opcions de la línia d'ordres requerides al quadre d'edició. El valor de cerca s'insereix on apareix <userinput
+>El camí complet a l'aplicació s'ha d'introduir a les opcions de la font. Cal tenir en compte que l'aplicació s'executa en el sistema amb els mateixos permisos que l'usuari actual, de manera que no utilitzeu scripts de fonts no fiables. Marqueu les caselles al costat de les claus de cerca admeses per l'aplicació, i introduïu les opcions de la línia d'ordres requerides al quadre d'edició. El valor de cerca s'insereix on apareix <userinput
 >%1</userinput
 >. </para>
 
 <para
->Per actualitzar les entrades que ja estan a la col·lecció, s'utilitzen les caselles de selecció finals i el quadre d'edició per a determinar les opcions de la línia d'ordres. Els camps d'entrada s'utilitzen per a trobar una actualització, en el mateix format a l'utilitzat per als camps de <link linkend="derived"
+>Per a actualitzar les entrades que ja estan a la col·lecció, s'utilitzen les caselles de selecció finals i el quadre d'edició per a determinar les opcions de la línia d'ordres. Els camps d'entrada s'utilitzen per a trobar una actualització, en el mateix format a l'utilitzat per als camps de <link linkend="derived"
 >valor derivat</link
 >. </para>
 </sect3>
@@ -806,7 +807,7 @@
 <title
 >Combinar múltiples fonts de dades</title>
 <para
->Es poden utilitzar combinacions de fins a vuit fonts de dades existents com una font única, on es fusionaran els resultats de cerca de totes les fonts. Abans d'afegir les fonts s'haurà d'establir el tipus de col·lecció que s'utilitzarà. </para>
+>Es poden utilitzar combinacions de fins a vuit fonts de dades existents com una font única, on cada resultat de la cerca des de la primera font serà actualitzat a partir de les fonts posteriors. Abans d'afegir les fonts s'haurà d'establir el tipus de col·lecció que s'utilitzarà. </para>
 
 <screenshot>
 <mediaobject>
@@ -816,7 +817,7 @@
 </screenshot>
 
 <para
->En la combinació sols es poden utilitzar fonts de dades existents. La sol·licitud de cerca s'enviarà a cada font, i els resultats seran combinats. Atès que els resultats combinats depenen de l'ordre dels resultats de la cerca, el conjunt combinat podria ser diferent depenent de la xarxa i la velocitat font. </para>
+>En la combinació només es poden utilitzar fonts de dades existents. Només es pot utilitzar el tipus de cerca per a la primera font, ja que els resultats provenen de la primera font de dades. Per exemple, primer es pot realitzar una cerca de UPCitemDb i després s'actualitzarà cada resultat des de TheMovieDB. </para>
 </sect2>
 
 </sect1>

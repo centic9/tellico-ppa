@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009-2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -72,6 +72,9 @@
 #include "comicvinefetcher.h"
 #include "kinoteatrfetcher.h"
 #include "colnectfetcher.h"
+#include "numistafetcher.h"
+#include "tvmazefetcher.h"
+#include "upcitemdbfetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -92,8 +95,6 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::GCstarPluginFetcher> registerGCstar(GCstarPlugin);
   RegisterFetcher<Fetch::CrossRefFetcher> registerCrossRef(CrossRef);
   RegisterFetcher<Fetch::ArxivFetcher> registerArxiv(Arxiv);
-  RegisterFetcher<Fetch::BibsonomyFetcher> registerBibsonomy(Bibsonomy);
-  RegisterFetcher<Fetch::GoogleScholarFetcher> registerGoogle(GoogleScholar);
   RegisterFetcher<Fetch::MusicBrainzFetcher> registerMB(MusicBrainz);
   RegisterFetcher<Fetch::GiantBombFetcher> registerBomb(GiantBomb);
   RegisterFetcher<Fetch::OpenLibraryFetcher> registerOpenLibrary(OpenLibrary);
@@ -112,7 +113,6 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::SpringerFetcher> registerSpringer(Springer);
   RegisterFetcher<Fetch::TheGamesDBFetcher> registerTheGamesDB(TheGamesDB);
   RegisterFetcher<Fetch::DBLPFetcher> registerDBLP(DBLP);
-  RegisterFetcher<Fetch::MRLookupFetcher> registerMRLookup(MRLookup);
   RegisterFetcher<Fetch::BoardGameGeekFetcher> registerBGG(BoardGameGeek);
   RegisterFetcher<Fetch::BedethequeFetcher> registerBD(Bedetheque);
   RegisterFetcher<Fetch::OMDBFetcher> registerOMDB(OMDB);
@@ -125,6 +125,14 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::ComicVineFetcher> registerComicVine(ComicVine);
   RegisterFetcher<Fetch::KinoTeatrFetcher> registerTeatr(KinoTeatr);
   RegisterFetcher<Fetch::ColnectFetcher> registerColnect(Colnect);
+  RegisterFetcher<Fetch::NumistaFetcher> registerNumista(Numista);
+  RegisterFetcher<Fetch::TVmazeFetcher> registerTVmaze(TVmaze);
+  RegisterFetcher<Fetch::UPCItemDbFetcher> registerUPCItemDb(UPCItemDb);
 
-  Fetch::Manager::self()->loadFetchers();
+// these data sources depend on being able to import bibtex
+#ifdef ENABLE_BTPARSE
+  RegisterFetcher<Fetch::MRLookupFetcher> registerMRLookup(MRLookup);
+  RegisterFetcher<Fetch::GoogleScholarFetcher> registerGoogle(GoogleScholar);
+  RegisterFetcher<Fetch::BibsonomyFetcher> registerBibsonomy(Bibsonomy);
+#endif
 }

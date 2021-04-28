@@ -2,14 +2,13 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.3.5")
+set(TELLICO_VERSION "3.4")
 
 set(QT_MIN_VERSION "5.4.0")
 
 # FindPoppler was added to ECM in 5.19
 find_package(ECM 5.19 REQUIRED NO_MODULE)
 
-CMAKE_POLICY(SET CMP0028 OLD)
 if(POLICY CMP0063)
   cmake_policy(SET CMP0063 NEW)
 endif(POLICY CMP0063)
@@ -40,6 +39,13 @@ include(KDECMakeSettings)
 option(ENABLE_CDTEXT       "Enable cdtext" TRUE)
 option(ENABLE_WEBCAM       "Enable support for webcams" FALSE)
 option(BUILD_FETCHER_TESTS "Build tests which verify data sources" FALSE)
+option(USE_KHTML           "Build with KHTML rather than QWebEngine" FALSE)
+option(ENABLE_BTPARSE      "Build with bibtex importing using btparse, whether internal or external" TRUE)
+
+# btparse does not compile with msvc
+if(ENABLE_BTPARSE AND MSVC)
+  set(ENABLE_BTPARSE FALSE)
+endif()
 
 include(CheckSymbolExists)
 check_symbol_exists(strlwr "string.h" HAVE_STRLWR)
@@ -52,6 +58,7 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     DBus
     Test
     Network
+    PrintSupport
 )
 
 find_package(KF5 REQUIRED COMPONENTS
@@ -69,12 +76,31 @@ find_package(KF5 REQUIRED COMPONENTS
     JobWidgets
     KIO
     Solid
+    Sonnet
+    TextWidgets
     Wallet
     WidgetsAddons
     WindowSystem
     XmlGui
 )
-find_package(KF5KHtml REQUIRED NO_MODULE)
+if(NOT USE_KHTML)
+  find_package(Qt5 ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
+    WebEngineWidgets
+  )
+  set_package_properties(Qt5WebEngineWidgets PROPERTIES
+    DESCRIPTION "Building with QWebEngine is preferrable to KHTML"
+    TYPE OPTIONAL)
+endif()
+if(USE_KHTML OR NOT Qt5WebEngineWidgets_FOUND)
+  set(USE_KHTML ON)
+  find_package(KF5KHtml REQUIRED NO_MODULE)
+  set_package_properties(KF5Html PROPERTIES
+    DESCRIPTION "Building with QWebEngine is preferrable to KHTML")
+endif()
+
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
+  Charts
+)
 
 include(MacroBoolTo01)
 
@@ -114,21 +140,25 @@ if(KDEPIMLIBS_FOUND)
     include_directories(${KDEPIMLIBS_INCLUDE_DIRS})
 endif(KDEPIMLIBS_FOUND)
 
-# There is a port of libkcddb to use KF5 style linking and headers
 find_package(KF5Cddb)
 set_package_properties(KF5Cddb PROPERTIES
     DESCRIPTION "Support for CDDB searches"
-    URL "https://cgit.kde.org/libkcddb.git"
+    URL "https://invent.kde.org/multimedia/libkcddb"
     TYPE OPTIONAL)
 
 find_package(Taglib)
 set_package_properties(Taglib PROPERTIES
     DESCRIPTION "Support for reading multimedia files"
-    URL "https://taglib.org/"
+    URL "https://taglib.org"
     TYPE OPTIONAL)
 if(TAGLIB_FOUND)
-    add_definitions(${TAGLIB_CFLAGS})
-    include_directories(${TAGLIB_INCLUDES})
+    if(TAGLIB_LIBRARIES)
+        # Older taglib
+        add_definitions(${TAGLIB_CFLAGS})
+        include_directories(${TAGLIB_INCLUDES})
+    else()
+        set(TAGLIB_LIBRARIES Taglib::Taglib)
+    endif()
 endif(TAGLIB_FOUND)
 
 find_package(Yaz 2.0)
@@ -152,6 +182,7 @@ if(Exempi_FOUND)
     include_directories(${Exempi_INCLUDE_DIRS})
 endif(Exempi_FOUND)
 
+if(ENABLE_BTPARSE)
 find_package(Btparse)
 set_package_properties(Btparse PROPERTIES
     DESCRIPTION "External support for parsing and processing BibTeX data files"
@@ -163,6 +194,7 @@ if(Btparse_FOUND)
 else(Btparse_FOUND)
     set(TELLICO_BTPARSE_LIBS btparse-tellico)
 endif(Btparse_FOUND)
+endif(ENABLE_BTPARSE)
 
 find_package(CDIO)
 set_package_properties(CDIO PROPERTIES
@@ -221,7 +253,7 @@ endif(CMAKE_COMPILER_IS_GNUCXX)
 #add_definitions(${QT_DEFINITIONS}
 #                ${KDE4_DEFINITIONS}
 #                ${YAZ_CFLAGS})
-add_definitions(-DQT_STL -DQT_NO_CAST_FROM_ASCII -DQT_NO_URL_CAST_FROM_STRING)
+add_definitions(-DQT_STL -DQT_NO_CAST_FROM_ASCII -DQT_NO_URL_CAST_FROM_STRING -DQT_USE_QSTRINGBUILDER)
 remove_definitions(-DQT_NO_STL)
 
 include_directories(${LIBXML2_INCLUDE_DIR}
@@ -254,6 +286,8 @@ macro_bool_to_01(Btparse_FOUND HAVE_LIBBTPARSE)
 macro_bool_to_01(CDIO_FOUND HAVE_CDIO)
 macro_bool_to_01(Csv_FOUND HAVE_LIBCSV)
 macro_bool_to_01(KF5FileMetaData_FOUND HAVE_KFILEMETADATA)
+macro_bool_to_01(Qt5Charts_FOUND HAVE_QCHARTS)
+macro_bool_to_01(ENABLE_BTPARSE ENABLE_BTPARSE)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 

@@ -41,6 +41,7 @@ private Q_SLOTS:
   void testEntries();
   void testEntries_data();
   void testCoinCollection();
+  void testBibtexCollection();
   void testTableData();
   void testDuplicateLoans();
   void testDuplicateBorrowers();
@@ -54,6 +55,7 @@ private Q_SLOTS:
   void testRecoverXmlName_data();
   void testBug418067();
   void testNoCreationDate();
+  void testFutureVersion();
 
 private:
   QList<Tellico::Data::CollPtr> m_collections;

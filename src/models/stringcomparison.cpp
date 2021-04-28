@@ -28,6 +28,8 @@
 
 #include <QDateTime>
 
+using namespace Tellico;
+
 namespace {
   int compareFloat(const QString& s1, const QString& s2) {
     bool ok1, ok2;
@@ -86,8 +88,10 @@ Tellico::TitleComparison::TitleComparison() : StringComparison() {
 }
 
 int Tellico::TitleComparison::compare(const QString& str1_, const QString& str2_) {
-  const QString title1 = FieldFormat::sortKeyTitle(str1_).toLower();
-  const QString title2 = FieldFormat::sortKeyTitle(str2_).toLower();
+  // sortKeyTitle compares against the article list (which is already in lower-case)
+  // additionally, we want lower case for localeAwareCompare
+  const QString title1 = FieldFormat::sortKeyTitle(str1_.toLower());
+  const QString title2 = FieldFormat::sortKeyTitle(str2_.toLower());
   const int ret = title1.localeAwareCompare(title2);
   return ret > 0 ? 1 : (ret < 0 ? -1 : 0);
 }
@@ -150,26 +154,33 @@ int Tellico::LCCComparison::compare(const QString& str1_, const QString& str2_) 
     return 1;
   }
 //  myDebug() << str1_ << " to " << str2_;
-  int pos1 = m_regexp.indexIn(str1_);
-  const QStringList cap1 = m_regexp.capturedTexts();
-  int pos2 = m_regexp.indexIn(str2_);
-  const QStringList cap2 = m_regexp.capturedTexts();
-  if(pos1 > -1 && pos2 > -1) {
-    int res = compareLCC(cap1, cap2);
-//    myLog() << "...result = " << res;
-    return res;
-  } else {
-    if(pos1 == -1) {
-      myDebug() << "no regexp match:" << str1_;
-    }
-    if(pos2 == -1) {
-      myDebug() << "no regexp match:" << str2_;
-    }
+  QRegularExpressionMatch match1 = m_regexp.match(str1_);
+  if(!match1.hasMatch()) {
+    myDebug() << "no regexp match:" << str1_;
+    return StringComparison::compare(str1_, str2_);
   }
-  return StringComparison::compare(str1_, str2_);
+  QRegularExpressionMatch match2 = m_regexp.match(str2_);
+  if(!match2.hasMatch()) {
+    myDebug() << "no regexp match:" << str2_;
+    return StringComparison::compare(str1_, str2_);
+  }
+  QStringList cap1 = match1.capturedTexts();
+  QStringList cap2 = match2.capturedTexts();
+  // In contrast to QRegExp, QRegularExpression doesn't include an empty string
+  // in optional captured groups that don't exist
+  while(cap1.size() < 8) {
+    cap1 += QString();
+  }
+  while(cap2.size() < 8) {
+    cap2 += QString();
+  }
+  return compareLCC(cap1, cap2);
 }
 
 int Tellico::LCCComparison::compareLCC(const QStringList& cap1, const QStringList& cap2) const {
+
+  Q_ASSERT(cap1.size() == 8);
+  Q_ASSERT(cap2.size() == 8);
   // the first item in the list is the full match, so start array index at 1
   int res = 0;
   return (res = cap1[1].compare(cap2[1]))                    != 0 ? res :
@@ -197,7 +208,11 @@ int Tellico::ISODateComparison::compare(const QString& str1, const QString& str2
   // so dates would sort as expected without padding month and day with zero
   // and accounting for "current year - 1 - 1" default scheme
   const QDate now = QDate::currentDate();
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
   QStringList dlist1 = str1.split(QLatin1Char('-'), QString::KeepEmptyParts);
+#else
+  QStringList dlist1 = str1.split(QLatin1Char('-'), Qt::KeepEmptyParts);
+#endif
   bool ok = true;
   int y1 = dlist1.count() > 0 ? dlist1[0].toInt(&ok) : now.year();
   if(!ok) {
@@ -213,7 +228,11 @@ int Tellico::ISODateComparison::compare(const QString& str1, const QString& str2
   }
   QDate date1(y1, m1, d1);
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
   QStringList dlist2 = str2.split(QLatin1Char('-'), QString::KeepEmptyParts);
+#else
+  QStringList dlist2 = str2.split(QLatin1Char('-'), Qt::KeepEmptyParts);
+#endif
   int y2 = dlist2.count() > 0 ? dlist2[0].toInt(&ok) : now.year();
   if(!ok) {
     y2 = now.year();

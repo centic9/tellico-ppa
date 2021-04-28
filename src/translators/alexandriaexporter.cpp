@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2003-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2003-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -84,7 +84,7 @@ bool AlexandriaExporter::exec() {
     libraryDir = QDir::home();
   } else {
     if(u.isLocalFile()) {
-      if(!libraryDir.cd(u.path())) {
+      if(!libraryDir.cd(u.toLocalFile())) {
         myWarning() << "can't change to directory:" << u.path();
         return false;
       }
@@ -178,7 +178,7 @@ bool AlexandriaExporter::writeFile(const QDir& dir_, Tellico::Data::EntryPtr ent
   // I have no idea how to debug ruby, so err on safe side and add quotes
   ts << "isbn: \"" << isbn << "\"\n";
 
-  static const QRegExp rx(QLatin1String("<br/?>"), Qt::CaseInsensitive);
+  static const QRegularExpression rx(QLatin1String("<br/?>"), QRegularExpression::CaseInsensitiveOption);
   tmp = entry_->formattedField(QStringLiteral("comments"), format);
   tmp.replace(rx, QStringLiteral("\n"));
   ts << "notes: |-\n";

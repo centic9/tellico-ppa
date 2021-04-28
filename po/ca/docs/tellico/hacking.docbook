@@ -3,14 +3,14 @@
 >Hacking del &appname;</title>
 
 <para
->En l'esperit del programari lliure, us convidem a fer hacking del &appname; tant com vulgueu. Haureu de ser capaç d'escriure scripts per importar, exportar o modificar les dades amb molta facilitat. Aquest capítol us donarà més informació sobre com fer-ho. </para>
+>En l'esperit del programari lliure, us convidem a fer hacking del &appname; tant com vulgueu. Haureu de ser capaç d'escriure scripts per a importar, exportar o modificar les dades amb molta facilitat. Aquest capítol us donarà més informació sobre com fer-ho. </para>
 
 <sect1 id="file-format">
 <title
 >Format de fitxer</title>
 
 <para
->El fitxer de dades per omissió del &appname; és un arxiu zip, normalment amb una extensió de fitxer <literal role="extension"
+>El fitxer de dades predeterminat del &appname; és un arxiu zip, normalment amb una extensió de fitxer <literal role="extension"
 >.tc</literal
 >. Dins del fitxer hi haurà un fitxer <filename
 >tellico.xml</filename
@@ -39,12 +39,12 @@
 </programlisting>
 
 <para
->El fitxer comença amb la declaració i la codificació &XML; requerides, seguides pel tipus de document. Quan s'afegeix un nou tipus de camp o s'estableixen propietats addicionals en els camps per omissió, s'incrementarà la versió del tipus de document DTD. El &appname; sempre és capaç d'obrir i llegir qualsevol versió anterior de DTD, però desarà els fitxers en la versió actual. La ubicació de DTD apunta a un fitxer DTD real. </para>
+>El fitxer comença amb la declaració i la codificació &XML; requerides, seguides pel tipus de document. Quan s'afegeix un nou tipus de camp o s'estableixen propietats addicionals en els camps predeterminats, s'incrementarà la versió del tipus de document DTD. El &appname; sempre és capaç d'obrir i llegir qualsevol versió anterior de DTD, però desarà els fitxers en la versió actual. La ubicació de DTD apunta a un fitxer DTD real. </para>
 
 <para
 >L'element de nivell superior és un element <markup
 >&lt;tellico&gt;</markup
->, que conté la declaració per omissió d'espai de noms i la versió de la sintaxi del fitxer, que sempre haurà de coincidir amb el DTD. </para>
+>, que conté la declaració predeterminada d'espai de noms i la versió de la sintaxi del fitxer, el qual sempre haurà de coincidir amb el DTD. </para>
 
 <para
 >L'element <markup
@@ -59,7 +59,7 @@
 >llistats en una secció posterior</link
 >. Un atribut opcional <markup
 >entryTitle</markup
-> es pot utilitzar per especificar el títol de les entrades per a una col·lecció personalitzada, i hauria de ser plural. </para>
+> es pot utilitzar per a especificar el títol de les entrades per a una col·lecció personalitzada, i hauria de ser plural. </para>
 </sect3>
 
 <sect3 id="fields-xml-data">
@@ -115,7 +115,7 @@
 >. </para>
 
 <para
->Les propietats del camp s'utilitzen per establir els valors per omissió per al camp, els intervals dels valors de puntuació, plantilles dels valors derivats, &etc; Els exemples anteriors inclouen un valor per omissió, un valor de puntuació màxim, i una plantilla per a un camp ID derivat. </para>
+>Les propietats del camp s'utilitzen per a establir els valors predeterminats per al camp, els intervals dels valors de puntuació, plantilles dels valors derivats, &etc; Els exemples anteriors inclouen un valor predeterminat, un valor de puntuació màxim, i una plantilla per a un camp ID derivat. </para>
 
  
 
@@ -303,7 +303,7 @@
 >Els valors de Tipus de camp</title>
 
 <para
->El &appname; inclourà tots els camps per omissió per a una col·lecció si el primer element del camp s'anomena <emphasis
+>El &appname; inclourà tots els camps predeterminats per a una col·lecció si el primer element del camp s'anomena <emphasis
 >_default</emphasis
 >. Per als camps <emphasis
 >Paràgraf</emphasis
@@ -398,7 +398,7 @@
 </table>
 
 <para
->El camp pot tenir establertes diferents etiquetes, donades com a un valor de bit amb OR a l'atribut «flags» en l'element «field». L'etiqueta per prevenir que l'usuari suprimeixi un camp està destinada a coses com la clau de cita per a registres bibliogràfics. </para>
+>El camp pot tenir establertes diferents etiquetes, donades com a un valor de bit amb OR a l'atribut «flags» en l'element «field». L'etiqueta per a prevenir que l'usuari suprimeixi un camp està destinada a coses com la clau de cita per a registres bibliogràfics. </para>
 
 <table>
 <title
@@ -670,7 +670,7 @@
 <para
 >Quan s'importin o exportin els fitxers de «bibtex», alguns caràcters es traduiran entre els seus equivalents TeX i els caràcters Unicode. Aquestes assignacions de caràcters estan contingudes en el fitxer <filename
 >bibtex-translation.xml</filename
->, ubicat al directori d'instal·lació de les dades. Les assignacions es poden modificar, com vulgueu. L'element «key» contindrà el caràcter Unicode, i els elements «string» contindran els equivalents TeX, que podran ser una combinació d'un-a-molts. La primera serà la que s'utilitzi per exportar a «bibtex». </para>
+>, ubicat al directori d'instal·lació de les dades. Les assignacions es poden modificar, com vulgueu. L'element «key» contindrà el caràcter Unicode, i els elements «string» contindran els equivalents TeX, els quals podran ser una combinació d'un-a-molts. La primera serà la que s'utilitzi per a exportar a «bibtex». </para>
 
 <programlisting
 ><![CDATA[
@@ -690,7 +690,7 @@
 >Consells XSLT</title>
 
 <para
->Aquests són alguns consells per escriure XSLT per analitzar dades &XML; del &appname;: (encara s'ha d'escriure). </para>
+>Aquests són alguns consells per a escriure XSLT per a analitzar les dades en &XML; del &appname;: (encara s'ha d'escriure). </para>
 </sect1>
 
 </chapter>

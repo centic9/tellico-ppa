@@ -96,7 +96,7 @@ void CrossRefFetcher::search() {
 
 //  myDebug() << "value = " << value_;
 
-  QUrl u = searchURL(request().key, request().value);
+  QUrl u = searchURL(request().key(), request().value());
   if(u.isEmpty()) {
     stop();
     return;
@@ -176,7 +176,7 @@ void CrossRefFetcher::slotComplete(KJob*) {
       break;
     }
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, Data::EntryPtr(entry));
     emit signalResultFound(r);
   }

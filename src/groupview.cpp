@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2001-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2001-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -42,7 +42,6 @@
 #include <QIcon>
 #include <QStringList>
 #include <QColor>
-#include <QRegExp>
 #include <QHeaderView>
 #include <QContextMenuEvent>
 
@@ -96,6 +95,7 @@ void GroupView::addCollection(Tellico::Data::CollPtr coll_) {
 
   updateHeader();
   populateCollection();
+  setEntrySortField(m_entrySortField);
 }
 
 void GroupView::removeCollection(Tellico::Data::CollPtr coll_) {
@@ -267,6 +267,9 @@ void GroupView::contextMenuEvent(QContextMenuEvent* event_) {
   } else {
     Controller::self()->plugEntryActions(&menu);
   }
+  menu.addSeparator();
+  QMenu* sortMenu = Controller::self()->plugSortActions(&menu);
+  connect(sortMenu, &QMenu::triggered, this, &GroupView::slotSortMenuActivated);
   menu.exec(event_->globalPos());
 }
 
@@ -304,6 +307,17 @@ void GroupView::setGroupField(const QString& groupField_) {
   populateCollection();
 }
 
+QString GroupView::entrySortField() const {
+  return m_entrySortField;
+}
+
+void GroupView::setEntrySortField(const QString& groupSortName_) {
+  m_entrySortField = groupSortName_;
+  GroupSortModel* model = static_cast<GroupSortModel*>(sortModel());
+  Q_ASSERT(model);
+  model->setEntrySortField(groupSortName_);
+}
+
 void GroupView::slotFilterGroup() {
   QModelIndexList indexes = selectionModel()->selectedIndexes();
   if(indexes.isEmpty()) {
@@ -328,7 +342,9 @@ void GroupView::slotFilterGroup() {
       Q_ASSERT(entry);
       Data::FieldList fields = entry->collection()->peopleFields();
       foreach(Data::FieldPtr field, fields) {
-        filter->append(new FilterRule(field->name(), model()->data(index).toString(), FilterRule::FuncContains));
+        filter->append(new FilterRule(field->name(),
+                                      FieldFormat::matchValueRegularExpression(model()->data(index).toString()),
+                                      FilterRule::FuncRegExp));
       }
     } else {
       Data::EntryGroup* group = model()->data(index, GroupPtrRole).value<Data::EntryGroup*>();
@@ -336,13 +352,16 @@ void GroupView::slotFilterGroup() {
         if(group->hasEmptyGroupName()) {
           filter->append(new FilterRule(m_groupBy, QString(), FilterRule::FuncEquals));
         } else {
-          // TODO:: should not hard-code the semi-colon. Use FieldFormat::delimiterString()
-          // but without trailing space
-          // TODO:: switch to QRegularExpression one day
-          const QString rxPattern(QLatin1String("(^|[;") + FieldFormat::rowDelimiterString() + QLatin1String("])") +
-                                  QRegExp::escape(group->groupName()) +
-                                  QLatin1String("($|[;:") + FieldFormat::rowDelimiterString() + QLatin1String("])"));
-          filter->append(new FilterRule(m_groupBy, rxPattern, FilterRule::FuncRegExp));
+          // if the field does not allow multiple values and is not a table
+          // then can just do an equal match
+          Data::FieldPtr field = group->at(0)->collection()->fieldByName(group->fieldName());
+          if(field && field->type() != Data::Field::Table && !field->hasFlag(Data::Field::AllowMultiple)) {
+            filter->append(new FilterRule(m_groupBy, group->groupName(), FilterRule::FuncEquals));
+          } else {
+            filter->append(new FilterRule(m_groupBy,
+                                          FieldFormat::matchValueRegularExpression(group->groupName()),
+                                          FilterRule::FuncRegExp));
+          }
         }
       }
     }
@@ -374,6 +393,15 @@ void GroupView::slotSortingChanged(int col_, Qt::SortOrder order_) {
 
   updateHeader();
   m_notSortedYet = false;
+}
+
+void GroupView::slotSortMenuActivated(QAction* action_) {
+  Data::FieldPtr field = action_->data().value<Data::FieldPtr>();
+  Q_ASSERT(field);
+  if(!field) {
+    return;
+  }
+  setEntrySortField(field->name());
 }
 
 void GroupView::updateHeader(Tellico::Data::FieldPtr field_/*=0*/) {

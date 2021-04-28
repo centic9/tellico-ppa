@@ -83,7 +83,7 @@ void AnimeNfoFetcher::search() {
   q.addQueryItem(QStringLiteral("action"),   QStringLiteral("Go"));
   q.addQueryItem(QStringLiteral("option"),   QStringLiteral("keywords"));
 
-  switch(request().collectionType) {
+  switch(request().collectionType()) {
     case Data::Collection::Book:
       q.addQueryItem(QStringLiteral("queryin"),  QStringLiteral("manga_titles"));
       break;
@@ -93,18 +93,18 @@ void AnimeNfoFetcher::search() {
       break;
 
     default:
-      myWarning() << "collection type not valid:" << request().collectionType;
+      myWarning() << "collection type not valid:" << request().collectionType();
       stop();
       return;
   }
 
-  switch(request().key) {
+  switch(request().key()) {
     case Keyword:
-      q.addQueryItem(QStringLiteral("query"), request().value);
+      q.addQueryItem(QStringLiteral("query"), request().value());
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       stop();
       return;
   }
@@ -173,7 +173,7 @@ void AnimeNfoFetcher::slotComplete(KJob*) {
 
   for(int pos = infoRx.indexIn(s); m_started && pos > -1; pos = infoRx.indexIn(s, pos+1)) {
     if(n == 0 && !u.isEmpty()) {
-      FetchResult* r = new FetchResult(Fetcher::Ptr(this), t, y);
+      FetchResult* r = new FetchResult(this, t, y);
       QUrl url = QUrl(QString::fromLatin1(ANIMENFO_BASE_URL)).resolved(QUrl(u));
       url.setQuery(QString());
       m_matches.insert(r->uid, url);
@@ -208,7 +208,7 @@ void AnimeNfoFetcher::slotComplete(KJob*) {
 
   // grab last response
   if(!u.isEmpty()) {
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), t, y, QString());
+    FetchResult* r = new FetchResult(this, t, y, QString());
     QUrl url = QUrl(QString::fromLatin1(ANIMENFO_BASE_URL)).resolved(QUrl(u));
     url.setQuery(QString());
     m_matches.insert(r->uid, url);
@@ -274,7 +274,7 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_, const Q
   s.remove(jsRx);
 
   Data::CollPtr coll;
-  switch(request().collectionType) {
+  switch(request().collectionType()) {
     case Data::Collection::Book:
     case Data::Collection::Bibtex:
       coll = Data::CollPtr(new Data::BookCollection(true));
@@ -332,7 +332,7 @@ Tellico::Data::EntryPtr AnimeNfoFetcher::parseEntry(const QString& str_, const Q
   fieldMap.insert(QStringLiteral("Music"), QStringLiteral("composer"));
   fieldMap.insert(QStringLiteral("User Rating"), QStringLiteral("animenfo-rating"));
 
-  switch(request().collectionType) {
+  switch(request().collectionType()) {
     case Data::Collection::Book:
     case Data::Collection::Bibtex:
       fieldMap.insert(QStringLiteral("Year Published"), QStringLiteral("pub_year"));

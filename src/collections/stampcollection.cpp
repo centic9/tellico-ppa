@@ -57,9 +57,16 @@ Tellico::Data::FieldList StampCollection::defaultFields() {
   field->setFormatType(FieldFormat::FormatTitle);
   list.append(field);
 
-  field = new Field(QStringLiteral("denomination"), i18n("Denomination"));
+  /* TRANSLATORS: denomination refers to the monetary value. */
+  field = new Field(QStringLiteral("denomination"), i18nc("monetary denomination", "Denomination"));
   field->setCategory(i18n(stamp_general));
   field->setFlags(Field::AllowCompletion | Field::AllowGrouped);
+  list.append(field);
+
+  field = new Field(QStringLiteral("currency"), i18n("Currency"));
+  field->setCategory(i18n(stamp_general));
+  field->setFlags(Field::AllowCompletion | Field::AllowGrouped);
+  field->setFormatType(FieldFormat::FormatPlain);
   list.append(field);
 
   field = new Field(QStringLiteral("country"), i18n("Country"));
@@ -85,7 +92,11 @@ Tellico::Data::FieldList StampCollection::defaultFields() {
   QStringList grade = i18nc("Stamp grade levels - "
                             "Superb,Extremely Fine,Very Fine,Fine,Average,Poor",
                             "Superb,Extremely Fine,Very Fine,Fine,Average,Poor")
-                      .split(QRegExp(QLatin1String("\\s*,\\s*")), QString::SkipEmptyParts);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+                      .split(QRegularExpression(QLatin1String("\\s*,\\s*")), QString::SkipEmptyParts);
+#else
+                      .split(QRegularExpression(QLatin1String("\\s*,\\s*")), Qt::SkipEmptyParts);
+#endif
   field = new Field(QStringLiteral("grade"), i18n("Grade"), grade);
   field->setCategory(i18n(stamp_condition));
   field->setFlags(Field::AllowGrouped);

@@ -1,10 +1,36 @@
+2021-03-13  Robby Stephenson  <robby@periapsis.org>
+
+	* Released Tellico 3.4.
+
+2021-03-07  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated Douban data source.
+	* Fixed crashing bug on Windows (Bug 422468).
+
 2021-02-23  Robby Stephenson  <robby@periapsis.org>
 
 	* Released Tellico 3.3.5.
 
+2021-02-15  Robby Stephenson  <robby@periapsis.org>
+
+	* Improved MultiFetcher to chain data source searches in order.
+
+2021-02-07  Robby Stephenson  <robby@periapsis.org>
+
+	* Added UPCItemDB.com data source.
+	* Added flag for conditional bibtex importing with btparse.
+
+2020-12-27  Robby Stephenson  <robby@periapsis.org>
+
+	* Added additional report with QtCharts.
+
 2020-12-25  Robby Stephenson  <robby@periapsis.org>
 
 	* Improved template refresh on palette or color change.
+
+2020-12-13  Robby Stephenson  <robby@periapsis.org>
+
+	* Switched to use QWebEngine over KHTML by default, when available.
 
 2020-12-08  Robby Stephenson  <robby@periapsis.org>
 
@@ -16,20 +42,42 @@
 
 2020-11-25  Robby Stephenson  <robby@periapsis.org>
 
-	* Released Tellico 3.3.4
+	* Released Tellico 3.3.4.
 
 2020-11-22  Robby Stephenson  <robby@periapsis.org>
 
 	* Fixed text in group view to use correct color (Bug 429475).
+	* Added data source for TVmaze.com.
 	* Added barcode searching to MusicBrainz data source (Bug 429483).
 
 2020-11-01  Robby Stephenson  <robby@periapsis.org>
 
 	* Added barcode searching to Discogs data source.
 
+2020-10-25  Robby Stephenson  <robby@periapsis.org>
+
+	* Added sorting in the group view, via context menu.
+
+2020-10-11  Robby Stephenson  <robby@periapsis.org>
+
+	* Improve "Filter by Group" expression to account for tables (Bug 427145).
+	* Switch to QRegularExpression from QRegExp for filtering.
+
+2020-10-04  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated IGDB data source to APIv4.
+
 2020-09-22  Robby Stephenson  <robby@periapsis.org>
 
 	* Fixed crashing bug when checking in a loan (Bug 426815).
+
+2020-09-17  Robby Stephenson  <robby@periapsis.org>
+
+	* Added data source for Numista.com.
+
+2020-09-16  Robby Stephenson  <robby@periapsis.org>
+
+	* Enabled general keyword search for MusicBrainz data source (Bug 426560).
 
 2020-09-13  Robby Stephenson  <robby@periapsis.org>
 
@@ -42,7 +90,7 @@
 
 2020-08-30  Robby Stephenson  <robby@periapsis.org>
 
-	* Updated ISBNdb v2 API end point.
+	* Updated ISBNdb to API v2.
 
 2020-08-22  Robby Stephenson  <robby@periapsis.org>
 
@@ -89,6 +137,14 @@
 2020-05-27  Robby Stephenson  <robby@periapsis.org>
 
 	* Fixed bug with creation date for duplicated entries (Bug 422127).
+
+2020-05-20  Robby Stephenson  <robby@periapsis.org>
+
+	* Added entry filtering by image size.
+
+2020-05-11  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated Colnect data source to include stamp collections.
 
 2020-04-27  Robby Stephenson  <robby@periapsis.org>
 

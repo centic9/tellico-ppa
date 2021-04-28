@@ -37,28 +37,30 @@
 
 QTEST_GUILESS_MAIN( ISBNdbFetcherTest )
 
-ISBNdbFetcherTest::ISBNdbFetcherTest() : AbstractFetcherTest()
-    , m_config(QFINDTESTDATA("tellicotest_private.config"), KConfig::SimpleConfig) {
-  m_hasConfigFile = QFile::exists(QFINDTESTDATA("tellicotest_private.config"));
+ISBNdbFetcherTest::ISBNdbFetcherTest() : AbstractFetcherTest() {
 }
 
 void ISBNdbFetcherTest::initTestCase() {
   Tellico::ImageFactory::init();
+  m_hasConfigFile = QFile::exists(QFINDTESTDATA("tellicotest_private.config"));
+  if(m_hasConfigFile) {
+    m_config = KSharedConfig::openConfig(QFINDTESTDATA("tellicotest_private.config"), KConfig::SimpleConfig);
+  }
 }
 
 void ISBNdbFetcherTest::testIsbn() {
   QString groupName = QStringLiteral("ISBNdb");
-  if(!m_hasConfigFile || !m_config.hasGroup(groupName)) {
+  if(!m_hasConfigFile || !m_config->hasGroup(groupName)) {
     QSKIP("This test requires a config file with ISBNdb settings.", SkipAll);
   }
-  KConfigGroup cg(&m_config, groupName);
+  KConfigGroup cg(m_config, groupName);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::ISBN,
                                        QStringLiteral("0789312239"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
   Tellico::Fetch::MessageLogger* logger = new Tellico::Fetch::MessageLogger;
   fetcher->setMessageHandler(logger);
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
   QVERIFY(logger->errorList.isEmpty());
@@ -79,15 +81,15 @@ void ISBNdbFetcherTest::testIsbn() {
 
 void ISBNdbFetcherTest::testIsbn13() {
   QString groupName = QStringLiteral("ISBNdb");
-  if(!m_hasConfigFile || !m_config.hasGroup(groupName)) {
+  if(!m_hasConfigFile || !m_config->hasGroup(groupName)) {
     QSKIP("This test requires a config file with ISBNdb settings.", SkipAll);
   }
-  KConfigGroup cg(&m_config, groupName);
+  KConfigGroup cg(m_config, groupName);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::ISBN,
                                        QStringLiteral("9780789312235"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
 
@@ -106,16 +108,18 @@ void ISBNdbFetcherTest::testIsbn13() {
 }
 
 void ISBNdbFetcherTest::testMultipleIsbn() {
+  const bool batchIsbn = true;
   QString groupName = QStringLiteral("ISBNdb");
-  if(!m_hasConfigFile || !m_config.hasGroup(groupName)) {
+  if(!m_hasConfigFile || !m_config->hasGroup(groupName)) {
     QSKIP("This test requires a config file with ISBNdb settings.", SkipAll);
   }
-  KConfigGroup cg(&m_config, groupName);
+  KConfigGroup cg(m_config, groupName);
+  cg.writeEntry("Batch ISBN", batchIsbn);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::ISBN,
                                        QStringLiteral("0789312239; 0393339912"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
 
@@ -138,8 +142,11 @@ void ISBNdbFetcherTest::testMultipleIsbn() {
   QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Universe"));
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Hardback"));
   QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Description And Travel"));
-  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
-  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+  // no cover in batch mode
+  if(!batchIsbn) {
+    QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+    QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+  }
 
   entry = results.at(veniceIsFirst ? 1 : 0);
   QVERIFY(entry);
@@ -149,21 +156,23 @@ void ISBNdbFetcherTest::testMultipleIsbn() {
   QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2011"));
   QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("W. W. Norton & Company"));
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Paperback"));
-  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
-  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+  if(!batchIsbn) {
+    QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+    QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+  }
 }
 
 void ISBNdbFetcherTest::testTitle() {
   QString groupName = QStringLiteral("ISBNdb");
-  if(!m_hasConfigFile || !m_config.hasGroup(groupName)) {
+  if(!m_hasConfigFile || !m_config->hasGroup(groupName)) {
     QSKIP("This test requires a config file with ISBNdb settings.", SkipAll);
   }
-  KConfigGroup cg(&m_config, groupName);
+  KConfigGroup cg(m_config, groupName);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::Title,
                                        QStringLiteral("PACKING FOR MARS The Curious Science of Life in the Void"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
 
@@ -188,15 +197,15 @@ void ISBNdbFetcherTest::testTitle() {
 
 void ISBNdbFetcherTest::testAuthor() {
   QString groupName = QStringLiteral("ISBNdb");
-  if(!m_hasConfigFile || !m_config.hasGroup(groupName)) {
+  if(!m_hasConfigFile || !m_config->hasGroup(groupName)) {
     QSKIP("This test requires a config file with ISBNdb settings.", SkipAll);
   }
-  KConfigGroup cg(&m_config, groupName);
+  KConfigGroup cg(m_config, groupName);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::Person,
                                        QStringLiteral("Joshua Foer"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ISBNdbFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
 

@@ -22,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h>
 #include "importdialog.h"
 #include "document.h"
 #include "tellico_debug.h"
@@ -51,6 +52,7 @@
 #include "translators/vinoxmlimporter.h"
 #include "translators/boardgamegeekimporter.h"
 #include "translators/librarythingimporter.h"
+#include "translators/collectorzimporter.h"
 #include "utils/datafileregistry.h"
 
 #include <KLocalizedString>
@@ -121,8 +123,13 @@ ImportDialog::ImportDialog(Tellico::Import::Format format_, const QList<QUrl>& u
     topLayout->addWidget(w, 0);
   }
 
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
   connect(m_buttonGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),
           m_importer, &Tellico::Import::Importer::slotActionChanged);
+#else
+  connect(m_buttonGroup, &QButtonGroup::idClicked,
+          m_importer, &Tellico::Import::Importer::slotActionChanged);
+#endif
 
   topLayout->addStretch();
 
@@ -190,6 +197,9 @@ Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format
 
     case Import::Bibtex:
       importer = new Import::BibtexImporter(urls_);
+#ifndef ENABLE_BTPARSE
+      myLog() << "Bibtex importing is not available due to lack of btparse library";
+#endif
       break;
 
     case Import::Bibtexml:
@@ -301,6 +311,11 @@ Tellico::Import::Importer* ImportDialog::importer(Tellico::Import::Format format
       CHECK_SIZE;
       importer = new Import::LibraryThingImporter();
       break;
+
+    case Import::Collectorz:
+      CHECK_SIZE;
+      importer = new Import::CollectorzImporter(firstURL);
+      break;
   }
   if(!importer) {
     myWarning() << "importer not created!";
@@ -353,6 +368,7 @@ QString ImportDialog::fileFilter(Tellico::Import::Format format_) {
     case Import::MODS:
     case Import::Delicious:
     case Import::Griffith:
+    case Import::Collectorz:
       text = i18n("XML Files") + QLatin1String(" (*.xml)") + QLatin1String(";;");
       break;
 

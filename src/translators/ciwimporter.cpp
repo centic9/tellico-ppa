@@ -31,7 +31,7 @@
 #include "../utils/isbnvalidator.h"
 #include "../tellico_debug.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTextStream>
 #include <QApplication>
 
@@ -131,19 +131,19 @@ void CIWImporter::readText(const QString& text_, int n) {
   Data::EntryPtr entry(new Data::Entry(m_coll));
   // no idea what the "formal" format is, take it as two characters, followed by a space and then value
   // the entry ends with just ER
-  QRegExp rx(QLatin1String("^(\\w\\w) ?(.*)$"));
+  QRegularExpression rx(QLatin1String("^(\\w\\w) ?(.*)$"));
   QString currLine, nextLine;
   for(currLine = t.readLine(); !m_cancelled && !t.atEnd(); currLine = nextLine, j += currLine.length()) {
     nextLine = t.readLine();
-    rx.indexIn(currLine);
-    QString tag = rx.cap(1);
-    QString value = rx.cap(2).trimmed();
+    QRegularExpressionMatch m = rx.match(currLine);
+    QString tag = m.captured(1);
+    QString value = m.captured(2).trimmed();
     if(tag.isEmpty()) {
       continue;
     }
 //    myDebug() << tag << ": " << value;
     // if the next line is not empty and does not match start regexp, append to value
-    while(!nextLine.isEmpty() && rx.indexIn(nextLine) == -1) {
+    while(!nextLine.isEmpty() && !rx.match(nextLine).hasMatch()) {
       // authors and editors get the value separator
       if(tag == QLatin1String("AU") || tag == QLatin1String("AF") || tag == QLatin1String("BE")) {
         value += FieldFormat::delimiterString();
@@ -220,10 +220,6 @@ void CIWImporter::readText(const QString& text_, int n) {
     // harmless for non-choice fields
     // for entry-type, want it in lower case
     f->addAllowed(value);
-    // if the field can have multiple values, append current values to new value
-//    if(f->hasFlag(Data::Field::AllowMultiple) && !entry->field(f->name()).isEmpty()) {
-//      value.prepend(entry->field(f->name()) + FieldFormat::delimiterString());
-//    }
     entry->setField(f, value);
 
     if(showProgress && j%stepSize == 0) {
@@ -259,7 +255,7 @@ bool CIWImporter::maybeCIW(const QUrl& url_) {
   // and then first text line must be valid CIW, i.e. two letters followed by a space
   QTextStream t(&text);
 
-  QRegExp rx(QLatin1String("^(\\w\\w) \\w(.*)$"));
+  QRegularExpression rx(QLatin1String("^(\\w\\w) \\w(.*)$"));
   QString currLine;
   for(currLine = t.readLine(); !t.atEnd(); currLine = t.readLine()) {
     if(currLine.trimmed().isEmpty()) {
@@ -267,5 +263,5 @@ bool CIWImporter::maybeCIW(const QUrl& url_) {
     }
     break;
   }
-  return rx.exactMatch(currLine);
+  return rx.match(currLine).hasMatch();
 }

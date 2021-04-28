@@ -34,10 +34,10 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include <QExplicitlySharedDataPointer>
+#include <QSharedPointer>
+#include <QUrl>
 
-class KConfigGroup;
-class QUrl;
+#include <KConfigGroup>
 
 namespace Tellico {
   namespace Fetch {
@@ -49,11 +49,11 @@ class ConfigWidget;
  *
  * @author Robby Stephenson
  */
-class Fetcher : public QObject, public QSharedData {
+class Fetcher : public QObject {
 Q_OBJECT
 
 public:
-  typedef QExplicitlySharedDataPointer<Fetcher> Ptr;
+  typedef QSharedPointer<Fetcher> Ptr;
 
   /**
    */
@@ -120,7 +120,7 @@ public:
    */
   Data::EntryPtr fetchEntry(uint uid);
 
-  void setMessageHandler(MessageHandler* handler) { m_messager = handler; }
+  void setMessageHandler(MessageHandler* handler);
   MessageHandler* messageHandler() const { return m_messager; }
   /**
    */
@@ -130,9 +130,9 @@ public:
   /**
    * Reads the config for the widget, given a config group.
    */
-  void readConfig(const KConfigGroup& config, const QString& groupName);
+  void readConfig(const KConfigGroup& config);
   void saveConfig();
-  void setConfigGroup(const QString& group);
+  void setConfigGroup(const KConfigGroup& config);
   /**
    * Returns a widget for modifying the fetcher's config.
    */
@@ -163,7 +163,7 @@ private:
   virtual Data::EntryPtr fetchEntryHook(uint uid) = 0;
 
   MessageHandler* m_messager;
-  QString m_configGroup;
+  KConfigGroup m_configGroup;
   QStringList m_fields;
   QString m_uuid;
   QHash<uint, Data::EntryPtr> m_entries;

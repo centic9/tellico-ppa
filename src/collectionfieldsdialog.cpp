@@ -46,7 +46,7 @@
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QCheckBox>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QTimer>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -189,8 +189,12 @@ CollectionFieldsDialog::CollectionFieldsDialog(Tellico::Data::CollPtr coll_, QWi
   m_typeCombo->addItems(Data::Field::typeTitles());
   void (QComboBox::* activatedInt)(int) = &QComboBox::activated;
   connect(m_typeCombo, activatedInt, this, &CollectionFieldsDialog::slotModified);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
   void (QComboBox::* activatedString)(const QString&) = &QComboBox::activated;
   connect(m_typeCombo, activatedString, this, &CollectionFieldsDialog::slotTypeChanged);
+#else
+  connect(m_typeCombo, &QComboBox::textActivated, this, &CollectionFieldsDialog::slotTypeChanged);
+#endif
 
   label = new QLabel(i18n("Cate&gory:"), grid);
   layout->addWidget(label, ++row, 0);
@@ -680,8 +684,12 @@ void CollectionFieldsDialog::updateField() {
   }
 
   if(field->type() == Data::Field::Choice) {
-    const QRegExp rx(QLatin1String("\\s*;\\s*"));
+    const QRegularExpression rx(QLatin1String("\\s*;\\s*"));
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
     field->setAllowed(m_allowEdit->text().split(rx, QString::SkipEmptyParts));
+#else
+    field->setAllowed(m_allowEdit->text().split(rx, Qt::SkipEmptyParts));
+#endif
     field->setProperty(QStringLiteral("minimum"), QString());
     field->setProperty(QStringLiteral("maximum"), QString());
   } else if(field->type() == Data::Field::Rating) {

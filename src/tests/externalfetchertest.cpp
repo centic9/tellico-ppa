@@ -32,7 +32,7 @@
 #include "../collectionfactory.h"
 #include "../utils/datafileregistry.h"
 
-#include <KConfig>
+#include <KSharedConfig>
 #include <KConfigGroup>
 
 #include <QTest>
@@ -50,13 +50,17 @@ void ExternalFetcherTest::initTestCase() {
 
 void ExternalFetcherTest::testMods() {
   // fake the fetcher by 'cat'ting the MODS file
+  // the search request is a dummy title search
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::Title,
-                                       QFINDTESTDATA("data/example_mods.xml"));
+                                       QString());
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ExecExternalFetcher(this));
 
-  KConfig config(QFINDTESTDATA("data/cat_mods.spec"), KConfig::SimpleConfig);
-  KConfigGroup cg = config.group(QStringLiteral("<default>"));
-  fetcher->readConfig(cg, cg.name());
+  KSharedConfig::Ptr config = KSharedConfig::openConfig(QFINDTESTDATA("data/cat_mods.spec"), KConfig::SimpleConfig);
+  KConfigGroup cg = config->group(QStringLiteral("<default>"));
+  cg.writeEntry("ExecPath", QFINDTESTDATA("data/cat_mods.sh")); // update command path to local script
+  cg.markAsClean(); // don't edit the file on sync()
+
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 

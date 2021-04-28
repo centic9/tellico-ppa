@@ -29,12 +29,16 @@
 #include "../filter.h"
 #include "../entry.h"
 #include "../collections/bookcollection.h"
+#include "../collections/videocollection.h"
+#include "../images/imageinfo.h"
+#include "../images/imagefactory.h"
 
 #include <QTest>
 
 QTEST_GUILESS_MAIN( FilterTest )
 
 void FilterTest::initTestCase() {
+  Tellico::ImageFactory::init();
 }
 
 void FilterTest::testFilter() {
@@ -208,7 +212,44 @@ void FilterTest::testFilter() {
   entry->setField(QStringLiteral("rating"), QStringLiteral("1"));
   QVERIFY(filter.matches(entry));
 
-  // test a filter for matchign against an empty string
+  // check image size comparisons
+  Tellico::Data::FieldPtr imageField(new Tellico::Data::Field(QStringLiteral("image"),
+                                                              QStringLiteral("image"),
+                                                              Tellico::Data::Field::Image));
+  coll->addField(imageField);
+  const QString imageName(QStringLiteral("image.png"));
+  entry->setField(QStringLiteral("image"), imageName);
+  // insert image size into cache (128x128)
+  Tellico::Data::ImageInfo imageInfo(imageName, "PNG", 128, 96, false);
+  Tellico::ImageFactory::cacheImageInfo(imageInfo);
+
+  Tellico::FilterRule* rule9 = new Tellico::FilterRule(QStringLiteral("image"),
+                                                       QStringLiteral("96"),
+                                                       Tellico::FilterRule::FuncGreater);
+  QVERIFY(!rule9->isEmpty());
+  QCOMPARE(rule9->pattern(), QStringLiteral("96"));
+  filter.clear();
+  filter.append(rule9);
+  // compares against larger image dimension, so 128 > 96 matches
+  QVERIFY(filter.matches(entry));
+
+  // compares against larger image dimension, so 128 < 96 fails
+  rule9->setFunction(Tellico::FilterRule::FuncLess);
+  QVERIFY(!filter.matches(entry));
+
+  Tellico::Data::ImageInfo imageInfo2(imageName, "PNG", 96, 96, false);
+  Tellico::ImageFactory::cacheImageInfo(imageInfo2);
+
+  rule9->setFunction(Tellico::FilterRule::FuncLess);
+  QVERIFY(!filter.matches(entry));
+  rule9->setFunction(Tellico::FilterRule::FuncEquals);
+  QVERIFY(filter.matches(entry));
+  // an empty image should also match less than size
+  entry->setField(QStringLiteral("image"), QString());
+  rule9->setFunction(Tellico::FilterRule::FuncLess);
+  QVERIFY(filter.matches(entry));
+
+  // test a filter for matching against an empty string
   Tellico::Data::FieldPtr testField(new Tellico::Data::Field(QStringLiteral("test"),
                                                              QStringLiteral("Test")));
   coll->addField(testField);
@@ -255,7 +296,7 @@ void FilterTest::testGroupViewFilter() {
   QVERIFY(filter1.matches(entry4));
   QVERIFY(filter1.matches(entry5));
 
-  QString rxPattern(QStringLiteral("(^|;\\s)") + pattern + QStringLiteral("($|;)"));
+  QString rxPattern = Tellico::FieldFormat::matchValueRegularExpression(pattern);
   // the filter should match entry1, entry3, and entry 4 but not entry2 or entry5
   Tellico::Filter filter2(Tellico::Filter::MatchAny);
   filter2.append(new Tellico::FilterRule(QStringLiteral("author"), rxPattern, Tellico::FilterRule::FuncRegExp));
@@ -264,4 +305,27 @@ void FilterTest::testGroupViewFilter() {
   QVERIFY(filter2.matches(entry3));
   QVERIFY(filter2.matches(entry4));
   QVERIFY(!filter2.matches(entry5));
+
+  // Bug 415886
+  Tellico::Data::CollPtr coll2(new Tellico::Data::VideoCollection(true, QStringLiteral("TestCollection2")));
+  Tellico::Data::EntryPtr movie(new Tellico::Data::Entry(coll2));
+  movie->setField(QStringLiteral("cast"), QStringLiteral("John Author") +
+                                          Tellico::FieldFormat::columnDelimiterString() +
+                                          QStringLiteral("role"));
+  Tellico::Filter castFilter(Tellico::Filter::MatchAny);
+  castFilter.append(new Tellico::FilterRule(QStringLiteral("cast"), rxPattern, Tellico::FilterRule::FuncRegExp));
+  // single table row with value
+  QVERIFY(castFilter.matches(movie));
+  movie->setField(QStringLiteral("cast"), QStringLiteral("John Author") +
+                                          Tellico::FieldFormat::rowDelimiterString() +
+                                          QStringLiteral("Second Author"));
+  // multiple table row with value only
+  QVERIFY(castFilter.matches(movie));
+  movie->setField(QStringLiteral("cast"), QStringLiteral("No one") +
+                                          Tellico::FieldFormat::rowDelimiterString() +
+                                          QStringLiteral("John Author") +
+                                          Tellico::FieldFormat::rowDelimiterString() +
+                                          QStringLiteral("Second Author"));
+  // multiple table row with value second
+  QVERIFY(castFilter.matches(movie));
 }

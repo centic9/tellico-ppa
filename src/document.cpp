@@ -46,10 +46,7 @@
 #include <KMessageBox>
 #include <KLocalizedString>
 
-#include <QRegExp>
 #include <QApplication>
-
-#include <unistd.h>
 
 using namespace Tellico;
 using Tellico::Data::Document;
@@ -613,7 +610,6 @@ void Document::writeAllImages(int cacheDir_, const QUrl& localDir_) {
     }
     if(j%stepSize == 0) {
       ProgressManager::self()->setProgress(this, j/stepSize);
-      qApp->processEvents();
     }
     ++j;
     if(m_cancelImageWriting) {
@@ -662,7 +658,7 @@ int Document::imageCount() const {
   EntryList entries = m_coll->entries();
   foreach(FieldPtr field, fields) {
     foreach(EntryPtr entry, entries) {
-      images.add(entry->field(field->name()));
+      images.add(entry->field(field));
     }
   }
   return images.count();
@@ -675,10 +671,10 @@ void Document::removeImagesNotInCollection(Tellico::Data::EntryList entries_, Te
   EntryList allEntries = m_coll->entries();
   foreach(FieldPtr field, fields) {
     foreach(EntryPtr entry, allEntries) {
-      images.add(entry->field(field->name()));
+      images.add(entry->field(field));
     }
     foreach(EntryPtr entry, entriesToKeep_) {
-      images.add(entry->field(field->name()));
+      images.add(entry->field(field));
     }
   }
 
@@ -690,7 +686,7 @@ void Document::removeImagesNotInCollection(Tellico::Data::EntryList entries_, Te
   StringSet imagesToRemove;
   foreach(FieldPtr field, fields) {
     foreach(EntryPtr entry, entries_) {
-      QString id = entry->field(field->name());
+      QString id = entry->field(field);
       if(!id.isEmpty() && imagesToCheck.has(id) && !images.has(id)) {
         imagesToRemove.add(id);
       }
@@ -828,7 +824,7 @@ QPair<Tellico::Data::FieldList, Tellico::Data::FieldList> Document::mergeFields(
             // could be slow for large merges, but we do only want to add new value
             // IF that value is actually used by an entry
             foreach(Data::EntryPtr entry, entries_) {
-              if(entry->field(field->name()) == newAllowedValue) {
+              if(entry->field(field) == newAllowedValue) {
                 a1 += newAllowedValue;
                 break;
               }

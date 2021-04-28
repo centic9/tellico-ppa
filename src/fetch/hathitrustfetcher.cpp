@@ -68,7 +68,7 @@ QString HathiTrustFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool HathiTrustFetcher::canSearch(FetchKey k) const {
+bool HathiTrustFetcher::canSearch(Fetch::FetchKey k) const {
   return k == ISBN || k == LCCN;
 }
 
@@ -89,9 +89,9 @@ void HathiTrustFetcher::doSearch() {
 
   QStringList searchValues;
   // we split ISBN and LCCN values, which are the only ones we accept anyway
-  const QStringList searchTerms = FieldFormat::splitValue(request().value);
+  const QStringList searchTerms = FieldFormat::splitValue(request().value());
   foreach(const QString& searchTerm, searchTerms) {
-    if(request().key == ISBN) {
+    if(request().key() == ISBN) {
       searchValues += QStringLiteral("isbn:%1").arg(ISBNValidator::cleanValue(searchTerm));
     } else {
       searchValues += QStringLiteral("lccn:%1").arg(LCCNValidator::formalize(searchTerm));
@@ -246,7 +246,7 @@ void HathiTrustFetcher::slotComplete(KJob* job_) {
     if(dom.setContent(marcxml, true /* namespace processing */) && dom.documentElement().namespaceURI().isEmpty()) {
       const QString rootName = dom.documentElement().tagName();
       myDebug() << "no namespace, attempting to set on" << rootName << "element";
-      QRegExp rootRx(QLatin1Char('<') + rootName + QLatin1Char('>'));
+      QRegularExpression rootRx(QLatin1Char('<') + rootName + QLatin1Char('>'));
       QString newRoot = QLatin1Char('<') + rootName + QLatin1String(" xmlns=\"http://www.loc.gov/MARC21/slim\">");
       marcxml.replace(rootRx, newRoot);
     }
@@ -274,7 +274,7 @@ void HathiTrustFetcher::slotComplete(KJob* job_) {
     }
 
     foreach(Data::EntryPtr entry, coll->entries()) {
-      FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+      FetchResult* r = new FetchResult(this, entry);
       m_entries.insert(r->uid, entry);
       emit signalResultFound(r);
     }

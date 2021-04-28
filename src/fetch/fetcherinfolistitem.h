@@ -25,12 +25,17 @@
 #ifndef TELLICO_FETCHERINFOLISTITEM_H
 #define TELLICO_FETCHERINFOLISTITEM_H
 
-#include "fetcher.h"
+#include "fetch.h"
 
 #include <QListWidgetItem>
+#include <QPointer>
+
+#include <KConfigGroup>
 
 namespace Tellico {
   namespace Fetch {
+
+class Fetcher;
 
 class FetcherInfo {
 public:
@@ -45,28 +50,24 @@ public:
 
 class FetcherInfoListItem : public QListWidgetItem {
 public:
-  explicit FetcherInfoListItem(const Fetch::FetcherInfo& info,
-                          const QString& groupName = QString());
-  FetcherInfoListItem(QListWidget* parent, const Fetch::FetcherInfo& info,
-                 const QString& groupName = QString());
+  FetcherInfoListItem(QListWidget* parent_, const Fetch::FetcherInfo& info_);
 
-  void setConfigGroup(const QString& s);
-  const QString& configGroup() const;
+  void setConfigGroup(const KConfigGroup& group);
   Fetch::Type fetchType() const;
   void setUpdateOverwrite(bool b);
   bool updateOverwrite() const;
   void setNewSource(bool b);
   bool isNewSource() const;
   QString uuid() const;
-  void setFetcher(Fetch::Fetcher::Ptr fetcher);
-  Fetch::Fetcher::Ptr fetcher() const;
+  void setFetcher(Fetch::Fetcher* fetcher);
+  Fetch::Fetcher* fetcher() const;
 
 private:
   Q_DISABLE_COPY(FetcherInfoListItem)
   Fetch::FetcherInfo m_info;
-  QString m_configGroup;
+  KConfigGroup m_configGroup;
   bool m_newSource;
-  Fetch::Fetcher::Ptr m_fetcher;
+  QPointer<Fetch::Fetcher> m_fetcher;
 };
 
 } // end namespace

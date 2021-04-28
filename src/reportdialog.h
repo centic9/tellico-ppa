@@ -27,7 +27,12 @@
 
 #include <QDialog>
 
+class QStackedWidget;
+#ifdef USE_KHTML
 class KHTMLPart;
+#else
+class QWebEngineView;
+#endif
 
 namespace Tellico {
   namespace Export {
@@ -65,7 +70,15 @@ private Q_SLOTS:
   void slotUpdateSize();
 
 private:
+  void generateChart();
+  void generateHtml();
+
+  QStackedWidget* m_reportView;
+#ifdef USE_KHTML
   KHTMLPart* m_HTMLPart;
+#else
+  QWebEngineView* m_webView;
+#endif
   GUI::ComboBox* m_templateCombo;
   Export::HTMLExporter* m_exporter;
   QString m_xsltFile;

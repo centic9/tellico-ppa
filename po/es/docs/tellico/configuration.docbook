@@ -264,12 +264,6 @@
 >Open Movie Database</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="animenfo"
->AnimeNfo.com</link
->,</simpara
-></listitem>
 <!-- comics -->
 <listitem
 ><simpara
@@ -364,6 +358,12 @@
 ><simpara
 ><link linkend="colnect"
 >Colnect</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="numista"
+>Numista</link
 >,</simpara
 ></listitem>
 <!-- others -->
@@ -605,14 +605,6 @@
 > es un servicio de información de películas en línea con sede en Francia. La identificación del navegador debe estar activada en &systemsettings;. </para>
 </sect3>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> es una popular página de información sobre anime, o animación japonesa. </para>
-</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -719,7 +711,7 @@
 <!-- start of coin sources -->
 <sect2 id="coin-sources">
 <title
->Fuentes de datos de monedas</title>
+>Fuentes de datos de monedas y sellos</title>
 
 <sect3 id="colnect">
 <title
@@ -727,7 +719,16 @@
 <para
 ><ulink url="https://colnect.com"
 >Colnect</ulink
-> es una comunidad en línea para artículos coleccionables que proporciona gestión de colecciones personales. &tellico; puede buscar información de monedas en Colnect. </para>
+> es una comunidad en línea para artículos coleccionables que proporciona gestión de colecciones personales. &tellico; puede buscar información de monedas y sellos en Colnect. </para>
+</sect3>
+
+<sect3 id="numista">
+<title
+>Numista</title>
+<para
+><ulink url="https://numista.com"
+>Numista</ulink
+> es un catálogo de monedas del mundo que crece gracias a la contribución de sus miembros y que ofrece gestión de colecciones en línea, herramientas para realizar intercambios de forma fácil con otros coleccionistas y un foro. </para>
 </sect3>
 
 </sect2>
@@ -806,7 +807,7 @@
 <title
 >Múltiples fuentes de datos combinadas</title>
 <para
->Se pueden usar combinaciones de hasta ocho fuentes de datos existentes como una fuente única, donde se refundirán todos los resultados de búsqueda. Debe establecerse el tipo de colección que se utilizará antes de añadir fuentes. </para>
+>Se pueden usar combinaciones de hasta ocho fuentes de datos existentes como una fuente única, donde cada resultado de la búsqueda de la primera fuente se actualiza desde las siguientes fuentes. Debe establecerse el tipo de colección que se utilizará antes de añadir fuentes. </para>
 
 <screenshot>
 <mediaobject>
@@ -816,7 +817,7 @@
 </screenshot>
 
 <para
->Solo se pueden usar en combinación las fuentes de datos existentes. La petición de búsqueda se envía a cada fuente, y luego se combinan los resultados. Como los resultados combinados dependen del orden de los resultados de búsqueda, el conjunto combinado puede ser diferente dependiendo de la red y la velocida de cada fuente. </para>
+>Solo se pueden usar en combinación las fuentes de datos existentes. Solo el tipo de búsqueda de la primera fuente se puede usar en esta fuente, ya que el resultado procede de la primera fuente de datos. Por ejemplo, se puede hacer primero una búsqueda en UPCitemDb, con la que cada resultado se actualiza después desde TheMovieDB. </para>
 </sect2>
 
 </sect1>

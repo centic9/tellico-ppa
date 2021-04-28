@@ -104,7 +104,10 @@ enum Type {
   MobyGames,
   ComicVine,
   KinoTeatr,
-  Colnect
+  Colnect,
+  Numista,
+  TVmaze,
+  UPCItemDb
 };
 
   }

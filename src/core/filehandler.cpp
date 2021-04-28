@@ -57,7 +57,7 @@ FileHandler::FileRef::FileRef(const QUrl& url_, bool quiet_) : m_device(nullptr)
   }
 
   if(!Tellico::NetAccess::download(url_, m_filename, GUI::Proxy::widget(), quiet_)) {
-    myDebug() << "can't download" << url_;
+    myDebug() << "can't download" << url_.toDisplayString(QUrl::RemoveQuery);
     QString s = Tellico::NetAccess::lastErrorString();
     if(!s.isEmpty()) {
       myDebug() << s;
@@ -196,7 +196,7 @@ bool FileHandler::queryExists(const QUrl& url_) {
 bool FileHandler::writeBackupFile(const QUrl& url_) {
   bool success = true;
   if(url_.isLocalFile()) {
-    success = KBackup::backupFile(url_.toLocalFile());
+    success = KBackup::simpleBackupFile(url_.toLocalFile());
   } else {
     QUrl backup(url_);
     backup.setPath(backup.toLocalFile() + QLatin1Char('~'));

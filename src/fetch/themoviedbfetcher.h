@@ -33,11 +33,13 @@
 #include <QDate>
 
 class QLineEdit;
+class QSpinBox;
 
 class KJob;
 namespace KIO {
   class StoredTransferJob;
 }
+class TheMovieDBFetcherTest;
 
 namespace Tellico {
 
@@ -93,6 +95,7 @@ private Q_SLOTS:
   void slotComplete(KJob* job);
 
 private:
+  friend class ::TheMovieDBFetcherTest;
   virtual void search() Q_DECL_OVERRIDE;
   virtual FetchRequest updateRequest(Data::EntryPtr entry) Q_DECL_OVERRIDE;
   void populateEntry(Data::EntryPtr entry, const QVariantMap& resultMap, bool fullData);
@@ -104,6 +107,7 @@ private:
   QDate m_serverConfigDate;
   QString m_apiKey;
   QString m_imageBase;
+  int m_numCast;
 
   QHash<uint, Data::EntryPtr> m_entries;
   QPointer<KIO::StoredTransferJob> m_job;
@@ -123,6 +127,7 @@ private Q_SLOTS:
 private:
   QLineEdit* m_apiKeyEdit;
   GUI::ComboBox* m_langCombo;
+  QSpinBox* m_numCast;
 };
 
   } // end namespace

@@ -27,6 +27,8 @@
 
 #include "abstractfetchertest.h"
 
+#include <KConfigGroup>
+
 #include <QHash>
 
 class OMDBFetcherTest : public AbstractFetcherTest {
@@ -38,6 +40,10 @@ private Q_SLOTS:
   void initTestCase();
   void testTitle();
   void testBabel();
+  void testUpdate();
+
+private:
+  KConfigGroup m_config;
 };
 
 #endif

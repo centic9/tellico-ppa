@@ -73,7 +73,7 @@ AbstractAllocineFetcher::AbstractAllocineFetcher(QObject* parent_, const QString
 AbstractAllocineFetcher::~AbstractAllocineFetcher() {
 }
 
-bool AbstractAllocineFetcher::canSearch(FetchKey k) const {
+bool AbstractAllocineFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Keyword;
 }
 
@@ -105,20 +105,20 @@ void AbstractAllocineFetcher::search() {
 
   // I can't figure out how to encode accent marks, but they don't
   // seem to be necessary
-  QString q = removeAccents(request().value);
+  QString q = removeAccents(request().value());
   // should I just remove all non alphabetical characters?
   // see https://bugs.kde.org/show_bug.cgi?id=337432
-  q.remove(QRegExp(QStringLiteral("[,:!?;\\(\\)]")));
+  q.remove(QRegularExpression(QStringLiteral("[,:!?;\\(\\)]")));
   q.replace(QLatin1Char('\''), QLatin1Char('+'));
   q.replace(QLatin1Char(' '), QLatin1Char('+'));
 
-  switch(request().key) {
+  switch(request().key()) {
     case Keyword:
       params.append(qMakePair(QStringLiteral("q"), q));
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       return;
   }
 
@@ -302,7 +302,7 @@ void AbstractAllocineFetcher::slotComplete(KJob*) {
     Data::EntryPtr entry(new Data::Entry(createCollection()));
     populateEntry(entry, result.toMap());
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }
@@ -431,8 +431,12 @@ AbstractAllocineFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const Abst
   m_numCast->setMaximum(99);
   m_numCast->setMinimum(0);
   m_numCast->setValue(10);
-  void (QSpinBox::* valueChanged)(const QString&) = &QSpinBox::valueChanged;
-  connect(m_numCast, valueChanged, this, &ConfigWidget::slotSetModified);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  void (QSpinBox::* textChanged)(const QString&) = &QSpinBox::valueChanged;
+#else
+  void (QSpinBox::* textChanged)(const QString&) = &QSpinBox::textChanged;
+#endif
+  connect(m_numCast, textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_numCast, row, 1);
   QString w = i18n("The list of cast members may include many people. Set the maximum number returned from the search.");
   label->setWhatsThis(w);
@@ -469,6 +473,9 @@ QByteArray AbstractAllocineFetcher::calculateSignature(const QString& method, co
 
 AllocineFetcher::AllocineFetcher(QObject* parent_)
     : AbstractAllocineFetcher(parent_, QLatin1String(ALLOCINE_API_URL)) {
+}
+
+AllocineFetcher::~AllocineFetcher() {
 }
 
 QString AllocineFetcher::source() const {

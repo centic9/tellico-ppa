@@ -179,7 +179,6 @@ void Z3950Fetcher::readConfigHook(const KConfigGroup& config_) {
 
 void Z3950Fetcher::saveConfigHook(KConfigGroup& config_) {
   config_.writeEntry("Syntax", m_syntax);
-  config_.sync();
 }
 
 void Z3950Fetcher::search() {
@@ -193,25 +192,25 @@ void Z3950Fetcher::search() {
   }
   m_started = true;
 
-  QString svalue = request().value;
-  QRegExp rx1(QLatin1String("['\"].*\\1"));
+  QString svalue = request().value();
+  QRegExp rx1(QLatin1String("^['\"].*\\1$"));
   if(!rx1.exactMatch(svalue)) {
     svalue = QLatin1Char('"') + svalue + QLatin1Char('"');
   }
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       m_pqn = QLatin1String("@attr 1=4 ") + svalue;
       break;
     case Person:
 //      m_pqn = QLatin1String("@or ");
-//      m_pqn += QLatin1String("@attr 1=1 \"") + request().value + QLatin1Char('"');
+//      m_pqn += QLatin1String("@attr 1=1 \"") + request().value() + QLatin1Char('"');
       m_pqn = QLatin1String(" @attr 1=1003 ") + svalue;
       break;
     case ISBN:
       {
         m_pqn.clear();
-        QString s = request().value;
+        QString s = request().value();
         s.remove(QLatin1Char('-'));
         QStringList isbnList = FieldFormat::splitValue(s);
         // also search for isbn10 values
@@ -238,7 +237,7 @@ void Z3950Fetcher::search() {
     case LCCN:
       {
         m_pqn.clear();
-        QString s = request().value;
+        QString s = request().value();
         s.remove(QLatin1Char('-'));
         QStringList lccnList = FieldFormat::splitValue(s);
         while(!lccnList.isEmpty()) {
@@ -255,10 +254,10 @@ void Z3950Fetcher::search() {
       m_pqn = QLatin1String("@attr 1=1016 ") + svalue;
       break;
     case Raw:
-      m_pqn = request().value;
+      m_pqn = request().value();
       break;
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       stop();
       return;
   }
@@ -486,7 +485,7 @@ void Z3950Fetcher::handleResult(const QString& result_) {
 
   Data::EntryList entries = coll->entries();
   foreach(Data::EntryPtr entry, entries) {
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }

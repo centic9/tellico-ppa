@@ -47,6 +47,10 @@
 
 #include <sys/types.h>
 #include <sys/stat.h>
+// for msvc
+#ifndef S_IXUSR
+#define S_IXUSR 00100
+#endif
 
 namespace Tellico {
   namespace NewStuff {
@@ -63,14 +67,20 @@ Q_GLOBAL_STATIC(Tellico::NewStuff::ManagerSingleton, s_instance)
 
 using Tellico::NewStuff::Manager;
 
-Manager::Manager(QObject* parent_) : QObject(parent_) {
+Manager::Manager() : QObject(nullptr) {
   QDBusConnection::sessionBus().registerService(QStringLiteral("org.kde.tellico"));
   new NewstuffAdaptor(this);
   QDBusConnection::sessionBus().registerObject(QStringLiteral("/NewStuff"), this);
 }
 
 Manager::~Manager() {
-  QDBusConnection::sessionBus().unregisterService(QStringLiteral("org.kde.tellico"));
+  QDBusConnection::sessionBus().unregisterObject(QStringLiteral("/NewStuff"));
+  auto interface = QDBusConnection::sessionBus().interface();
+  if(interface) {
+    // the windows build was crashing here when the interface was null
+    // see https://bugs.kde.org/show_bug.cgi?id=422468
+    interface->unregisterService(QStringLiteral("org.kde.tellico"));
+  }
 }
 
 Manager* Manager::self() {
@@ -103,7 +113,7 @@ bool Manager::installTemplate(const QString& file_) {
     if(!name.endsWith(QLatin1String(".xsl"))) {
       name += QLatin1String(".xsl");
     }
-    name.remove(QRegExp(QLatin1String("^\\d+-"))); // Remove possible kde-files.org id
+    name.remove(QRegularExpression(QLatin1String("^\\d+-"))); // Remove possible kde-files.org id
     name = Tellico::saveLocation(QStringLiteral("entry-templates/")) + name;
     // Should overwrite since we might be upgrading
     if(QFile::exists(name)) {
@@ -273,7 +283,7 @@ bool Manager::installScript(const QString& file_) {
   } else { // assume it's an script file
     exeFile = QFileInfo(file_).fileName();
 
-    exeFile.remove(QRegExp(QLatin1String("^\\d+-"))); // Remove possible kde-files.org id
+    exeFile.remove(QRegularExpression(QLatin1String("^\\d+-"))); // Remove possible kde-files.org id
     sourceName = QFileInfo(exeFile).completeBaseName();
     if(sourceName.isEmpty()) {
       myDebug() << "Invalid packet name";

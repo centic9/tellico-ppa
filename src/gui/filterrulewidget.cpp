@@ -152,6 +152,8 @@ void FilterRuleWidget::slotRuleFieldChanged(int which_) {
       m_ruleType = Date;
     } else if(field->type() == Data::Field::Number || field->type() == Data::Field::Rating) {
       m_ruleType = Number;
+    } else if(field->type() == Data::Field::Image) {
+      m_ruleType = Image;
     }
   }
   updateFunctionList();
@@ -258,26 +260,32 @@ void FilterRuleWidget::updateFunctionList() {
     case Date:
       m_ruleFunc->addItem(i18n("equals"), FilterRule::FuncEquals);
       m_ruleFunc->addItem(i18n("does not equal"), FilterRule::FuncNotEquals);
-      m_ruleFunc->addItem(i18n("matches regexp"), FilterRule::FuncRegExp);
-      m_ruleFunc->addItem(i18n("does not match regexp"), FilterRule::FuncNotRegExp);
+      m_ruleFunc->addItem(i18n("matches regular expression"), FilterRule::FuncRegExp);
+      m_ruleFunc->addItem(i18n("does not match regular expression"), FilterRule::FuncNotRegExp);
       m_ruleFunc->addItem(i18nc("is before a date", "is before"), FilterRule::FuncBefore);
       m_ruleFunc->addItem(i18nc("is after a date", "is after"), FilterRule::FuncAfter);
       break;
     case Number:
       m_ruleFunc->addItem(i18n("equals"), FilterRule::FuncEquals);
       m_ruleFunc->addItem(i18n("does not equal"), FilterRule::FuncNotEquals);
-      m_ruleFunc->addItem(i18n("matches regexp"), FilterRule::FuncRegExp);
-      m_ruleFunc->addItem(i18n("does not match regexp"), FilterRule::FuncNotRegExp);
+      m_ruleFunc->addItem(i18n("matches regular expression"), FilterRule::FuncRegExp);
+      m_ruleFunc->addItem(i18n("does not match regular expression"), FilterRule::FuncNotRegExp);
       m_ruleFunc->addItem(i18nc("is less than a number", "is less than"), FilterRule::FuncLess);
       m_ruleFunc->addItem(i18nc("is greater than a number", "is greater than"), FilterRule::FuncGreater);
+      break;
+    case Image:
+      m_ruleFunc->addItem(i18n("image size equals"), FilterRule::FuncEquals);
+      m_ruleFunc->addItem(i18n("image size does not equal"), FilterRule::FuncNotEquals);
+      m_ruleFunc->addItem(i18nc("image size is less than a number", "image size is less than"), FilterRule::FuncLess);
+      m_ruleFunc->addItem(i18nc("image size is greater than a number", "image size is greater than"), FilterRule::FuncGreater);
       break;
     case General:
       m_ruleFunc->addItem(i18n("contains"), FilterRule::FuncContains);
       m_ruleFunc->addItem(i18n("does not contain"), FilterRule::FuncNotContains);
       m_ruleFunc->addItem(i18n("equals"), FilterRule::FuncEquals);
       m_ruleFunc->addItem(i18n("does not equal"), FilterRule::FuncNotEquals);
-      m_ruleFunc->addItem(i18n("matches regexp"), FilterRule::FuncRegExp);
-      m_ruleFunc->addItem(i18n("does not match regexp"), FilterRule::FuncNotRegExp);
+      m_ruleFunc->addItem(i18n("matches regular expression"), FilterRule::FuncRegExp);
+      m_ruleFunc->addItem(i18n("does not match regular expression"), FilterRule::FuncNotRegExp);
       break;
   }
   m_ruleFunc->setCurrentData(data);

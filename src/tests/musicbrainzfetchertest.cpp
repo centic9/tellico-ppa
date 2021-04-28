@@ -33,6 +33,8 @@
 #include "../images/imagefactory.h"
 #include "../utils/datafileregistry.h"
 
+#include <KSharedConfig>
+
 #include <QTest>
 
 QTEST_GUILESS_MAIN( MusicBrainzFetcherTest )
@@ -100,6 +102,25 @@ void MusicBrainzFetcherTest::testKeyword() {
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
 
+void MusicBrainzFetcherTest::testBug426560() {
+  // the total test case ends up exceeding the throttle limit so pause for a second
+  QTest::qWait(1000);
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Keyword,
+                                       QStringLiteral("lily allen - no shame"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
+
+  static_cast<Tellico::Fetch::MusicBrainzFetcher*>(fetcher.data())->setLimit(1);
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QCOMPARE(results.size(), 1);
+
+  Tellico::Data::EntryPtr entry = results.at(0);
+  QVERIFY(entry);
+  QCOMPARE(entry->title(), QStringLiteral("No Shame"));
+  QCOMPARE(entry->field(QStringLiteral("artist")), QStringLiteral("Lily Allen"));
+}
+
 void MusicBrainzFetcherTest::testPerson() {
   const QString artist(QStringLiteral("artist"));
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Person,
@@ -115,6 +136,22 @@ void MusicBrainzFetcherTest::testPerson() {
   Tellico::Data::EntryPtr entry = results.at(0);
   QVERIFY(entry);
   QCOMPARE(entry->field(artist), m_fieldValues.value(artist));
+}
+
+void MusicBrainzFetcherTest::testACDC() {
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Person,
+                                       QStringLiteral("AC/DC"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
+
+  // TODO: Fetcher::setLimit should be virtual in Fetcher class
+  static_cast<Tellico::Fetch::MusicBrainzFetcher*>(fetcher.data())->setLimit(1);
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QVERIFY(results.size() > 0);
+
+  Tellico::Data::EntryPtr entry = results.at(0);
+  QVERIFY(entry);
+  QCOMPARE(entry->field(QStringLiteral("artist")), QStringLiteral("AC/DC"));
 }
 
 // test grabbing cover art from coverartarchive.org
@@ -150,9 +187,13 @@ void MusicBrainzFetcherTest::testSoundtrack() {
 }
 
 void MusicBrainzFetcherTest::testBarcode() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("musicbrainz"));
+  cg.writeEntry("Custom Fields", QStringLiteral("barcode"));
+
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::UPC,
                                        QStringLiteral("8024391054123"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::MusicBrainzFetcher(this));
+  fetcher->readConfig(cg);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -160,4 +201,5 @@ void MusicBrainzFetcherTest::testBarcode() {
 
   Tellico::Data::EntryPtr entry = results.at(0);
   QCOMPARE(entry->title(), QStringLiteral("The Old Man and the Spirit"));
+  QCOMPARE(entry->field(QStringLiteral("barcode")), QStringLiteral("8024391054123"));
 }

@@ -50,8 +50,8 @@ Tellico::Data::FieldList GameCollection::defaultFields() {
   list.append(Field::createDefaultField(Field::TitleField));
 
   QStringList platform;
-  platform << platformName(XboxOne) << platformName(Xbox360) << platformName(Xbox)
-           << platformName(PlayStation4) << platformName(PlayStation3) << platformName(PlayStation2) << platformName(PlayStation)
+  platform << platformName(XboxSeriesX) << platformName(XboxOne) << platformName(Xbox360) << platformName(Xbox)
+           << platformName(PlayStation5) << platformName(PlayStation4) << platformName(PlayStation3) << platformName(PlayStation2) << platformName(PlayStation)
            << platformName(PlayStationPortable) << platformName(PlayStationVita)
            << platformName(NintendoSwitch) << platformName(NintendoWiiU)
            << platformName(NintendoWii)  << platformName(Nintendo3DS) << platformName(NintendoDS)
@@ -89,7 +89,11 @@ Tellico::Data::FieldList GameCollection::defaultFields() {
   QStringList cert = i18nc("Video game ratings - "
                            "Unrated, Adults Only, Mature, Teen, Everyone 10+, Everyone, Early Childhood, Pending",
                            "Unrated, Adults Only, Mature, Teen, Everyone 10+, Everyone, Early Childhood, Pending")
-                     .split(QRegExp(QLatin1String("\\s*,\\s*")), QString::SkipEmptyParts);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+                     .split(QRegularExpression(QLatin1String("\\s*,\\s*")), QString::SkipEmptyParts);
+#else
+                     .split(QRegularExpression(QLatin1String("\\s*,\\s*")), Qt::SkipEmptyParts);
+#endif
   field = new Field(QStringLiteral("certification"), i18n("ESRB Rating"), cert);
   field->setCategory(i18n(game_general));
   field->setFlags(Field::AllowGrouped);

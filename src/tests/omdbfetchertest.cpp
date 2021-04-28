@@ -31,8 +31,7 @@
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
-#include <KConfig>
-#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QTest>
 
@@ -43,21 +42,23 @@ OMDBFetcherTest::OMDBFetcherTest() : AbstractFetcherTest() {
 
 void OMDBFetcherTest::initTestCase() {
   Tellico::ImageFactory::init();
+
+  QString configFile = QFINDTESTDATA("tellicotest_private.config");
+  if(!configFile.isEmpty()) {
+    m_config = KSharedConfig::openConfig(configFile, KConfig::SimpleConfig)->group(QStringLiteral("OMDB"));
+  }
 }
 
 void OMDBFetcherTest::testTitle() {
   // all the private API test config is in tellicotest_private.config right now
-  KConfig config(QFINDTESTDATA("tellicotest_private.config"), KConfig::SimpleConfig);
-  QString groupName = QStringLiteral("OMDB");
-  if(!config.hasGroup(groupName)) {
+  if(!m_config.isValid()) {
     QSKIP("This test requires a config file.", SkipAll);
   }
-  KConfigGroup cg(&config, groupName);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title,
                                        QStringLiteral("superman returns"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::OMDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(m_config);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -73,7 +74,7 @@ void OMDBFetcherTest::testTitle() {
            set("Michael Dougherty; Dan Harris; Bryan Singer; Michael Dougherty; Dan Harris; Jerry Siegel; Joe Shuster"));
 //  QCOMPARE(entry->field(QStringLiteral("producer")), QStringLiteral("Bryan Singer; Jon Peters; Gilbert Adler"));
   QCOMPARE(entry->field(QStringLiteral("running-time")), QStringLiteral("154"));
-  QCOMPARE(entry->field(QStringLiteral("nationality")), QStringLiteral("USA"));
+  QCOMPARE(entry->field(QStringLiteral("nationality")), QStringLiteral("USA; Australia"));
   QStringList castList = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("cast")));
   QVERIFY(!castList.isEmpty());
   QCOMPARE(castList.at(0), QStringLiteral("Brandon Routh"));
@@ -85,18 +86,14 @@ void OMDBFetcherTest::testTitle() {
 
 // see https://bugs.kde.org/show_bug.cgi?id=336765
 void OMDBFetcherTest::testBabel() {
-  // all the private API test config is in tellicotest_private.config right now
-  KConfig config(QFINDTESTDATA("tellicotest_private.config"), KConfig::SimpleConfig);
-  QString groupName = QStringLiteral("OMDB");
-  if(!config.hasGroup(groupName)) {
+  if(!m_config.isValid()) {
     QSKIP("This test requires a config file.", SkipAll);
   }
-  KConfigGroup cg(&config, groupName);
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Title,
                                        QStringLiteral("babel"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::OMDBFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(m_config);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -106,4 +103,26 @@ void OMDBFetcherTest::testBabel() {
   QCOMPARE(entry->field("title"), QStringLiteral("Babel"));
   QCOMPARE(entry->field("year"), QStringLiteral("2006"));
   QCOMPARE(entry->field("director"), QString::fromUtf8("Alejandro G. Iñárritu"));
+}
+
+void OMDBFetcherTest::testUpdate() {
+  Tellico::Data::CollPtr coll(new Tellico::Data::VideoCollection(true));
+  Tellico::Data::FieldPtr field(new Tellico::Data::Field(QStringLiteral("imdb"),
+                                                         QStringLiteral("IMDB"),
+                                                         Tellico::Data::Field::URL));
+  QCOMPARE(coll->addField(field), true);
+  Tellico::Data::EntryPtr entry(new Tellico::Data::Entry(coll));
+  coll->addEntries(entry);
+  entry->setField(QStringLiteral("title"), QStringLiteral("The Man From Snowy River"));
+  entry->setField(QStringLiteral("year"), QStringLiteral("1982"));
+
+  Tellico::Fetch::OMDBFetcher fetcher(this);
+  auto request = fetcher.updateRequest(entry);
+  QCOMPARE(request.key(), Tellico::Fetch::Raw);
+  QVERIFY(request.value().contains(QStringLiteral("y=1982")));
+
+  entry->setField(QStringLiteral("imdb"), QStringLiteral("https://www.imdb.com/title/tt0084296/?ref_=nv_sr_srsg_0"));
+  request = fetcher.updateRequest(entry);
+  QCOMPARE(request.key(), Tellico::Fetch::Raw);
+  QVERIFY(request.value().contains(QStringLiteral("i=tt0084296")));
 }

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2014 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2014-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -60,7 +60,7 @@ QString MRLookupFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool MRLookupFetcher::canSearch(FetchKey k) const {
+bool MRLookupFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person;
 }
 
@@ -77,17 +77,17 @@ void MRLookupFetcher::search() {
 
   QUrl u(QString::fromLatin1(MRLOOKUP_URL));
   QUrlQuery q;
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
-      q.addQueryItem(QStringLiteral("ti"), request().value);
+      q.addQueryItem(QStringLiteral("ti"), request().value());
       break;
 
     case Person:
-      q.addQueryItem(QStringLiteral("au"), request().value);
+      q.addQueryItem(QStringLiteral("au"), request().value());
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key;
+      myWarning() << "key not recognized:" << request().key();
       stop();
       return;
   }
@@ -144,15 +144,15 @@ void MRLookupFetcher::slotComplete(KJob* job_) {
   m_job = nullptr;
 
   const QString text = QString::fromUtf8(data.constData(), data.size());
-  // grab everything within the <pre></pre> block
-  QRegExp preRx(QLatin1String("<pre>(.*)</pre>"));
-  preRx.setMinimal(true);
-
   QString bibtexString;
-  for(int pos = preRx.indexIn(text); pos > -1; pos = preRx.indexIn(text, pos-1)) {
-    bibtexString += preRx.cap(1);
-    pos += preRx.matchedLength();
- }
+
+  // grab everything within the <pre></pre> block
+  QRegularExpression preRx(QLatin1String("<pre>(.+?)</pre>"), QRegularExpression::DotMatchesEverythingOption);
+  QRegularExpressionMatchIterator i = preRx.globalMatch(text);
+  while(i.hasNext()) {
+    QRegularExpressionMatch match = i.next();
+    bibtexString += match.captured(1);
+  }
   if(bibtexString.isEmpty()) {
     myDebug() << "no bibtex response";
     stop();
@@ -195,7 +195,7 @@ void MRLookupFetcher::slotComplete(KJob* job_) {
       break;
     }
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, Data::EntryPtr(entry));
     emit signalResultFound(r);
   }

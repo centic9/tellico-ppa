@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -27,59 +27,94 @@
 
 using Tellico::FieldFormat;
 
-QRegExp FieldFormat::delimiterRx = QRegExp(QLatin1String("\\s*;\\s*"));
-QRegExp FieldFormat::commaSplitRx = QRegExp(QLatin1String("\\s*,\\s*"));
-
 QString FieldFormat::delimiterString() {
-  return QStringLiteral("; ");
+  static QString ds(QStringLiteral("; "));
+  return ds;
 }
 
-QRegExp FieldFormat::delimiterRegExp() {
-  return delimiterRx;
+QRegularExpression FieldFormat::delimiterRegularExpression() {
+  static const QRegularExpression drx(QStringLiteral("\\s*;\\s*"));
+  return drx;
+}
+
+QRegularExpression FieldFormat::commaSplitRegularExpression() {
+  static const QRegularExpression commaSplitRx(QStringLiteral("\\s*,\\s*"));
+  return commaSplitRx;
 }
 
 QString FieldFormat::fixupValue(const QString& value_) {
   QString value = value_;
-  value.replace(delimiterRx, delimiterString());
+  value.replace(delimiterRegularExpression(), delimiterString());
   return value;
 }
 
 QString FieldFormat::columnDelimiterString() {
-  return QStringLiteral("::");
+  static QString cds(QStringLiteral("::"));
+  return cds;
 }
 
 QString FieldFormat::rowDelimiterString() {
   return QChar(0x2028);
 }
 
-QStringList FieldFormat::splitValue(const QString& string_, SplitParsing parsing_, QString::SplitBehavior behavior_) {
+QString FieldFormat::matchValueRegularExpression(const QString& value_) {
+  // The regular expression accounts for values serialized either with multiple values,
+  // values in table columns, or values in table rows
+  // Beginning characters don't have to include the column delimiter since the filter
+  // only matches values in the first column
+  static const QString beginChars = FieldFormat::delimiterString()
+                                  + QLatin1String("|")
+                                  + FieldFormat::rowDelimiterString();
+  static const QString endChars = QLatin1String("[")
+                                + FieldFormat::delimiterString().front()
+                                + FieldFormat::columnDelimiterString().front()
+                                + FieldFormat::rowDelimiterString().front()
+                                + QLatin1String("]");
+  return QLatin1String("(^|") + beginChars + QLatin1String(")") +
+         QRegularExpression::escape(value_) +
+         QLatin1String("($|") + endChars + QLatin1String(")");
+}
+
+QStringList FieldFormat::splitValue(const QString& string_, SplitParsing parsing_) {
   if(string_.isEmpty()) {
     return QStringList();
   }
-  return parsing_ == StringSplit ? string_.split(delimiterString(), behavior_)
-                                 : string_.split(delimiterRx, behavior_);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  return parsing_ == StringSplit ? string_.split(delimiterString(), QString::KeepEmptyParts)
+                                 : string_.split(delimiterRegularExpression(), QString::KeepEmptyParts);
+#else
+  return parsing_ == StringSplit ? string_.split(delimiterString(), Qt::KeepEmptyParts)
+                                 : string_.split(delimiterRegularExpression(), Qt::KeepEmptyParts);
+#endif
 }
 
-QStringList FieldFormat::splitRow(const QString& string_, QString::SplitBehavior behavior_) {
-  return string_.isEmpty() ? QStringList() : string_.split(columnDelimiterString(), behavior_);
+QStringList FieldFormat::splitRow(const QString& string_) {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  return string_.isEmpty() ? QStringList() : string_.split(columnDelimiterString(), QString::KeepEmptyParts);
+#else
+  return string_.isEmpty() ? QStringList() : string_.split(columnDelimiterString(), Qt::KeepEmptyParts);
+#endif
 }
 
-QStringList FieldFormat::splitTable(const QString& string_, QString::SplitBehavior behavior_) {
-  return string_.isEmpty() ? QStringList() : string_.split(rowDelimiterString(), behavior_);
+QStringList FieldFormat::splitTable(const QString& string_) {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  return string_.isEmpty() ? QStringList() : string_.split(rowDelimiterString(), QString::KeepEmptyParts);
+#else
+  return string_.isEmpty() ? QStringList() : string_.split(rowDelimiterString(), Qt::KeepEmptyParts);
+#endif
 }
 
 QString FieldFormat::sortKeyTitle(const QString& title_) {
-  const QString lower = title_.toLower();
   foreach(const QString& article, Config::articleList()) {
     // assume white space is already stripped
     // the articles are already in lower-case
-    if(lower.startsWith(article + QLatin1Char(' '))) {
+    if(title_.startsWith(article + QLatin1Char(' '))) {
       return title_.mid(article.length() + 1);
     }
   }
   // check apostrophes, too
   foreach(const QString& article, Config::articleAposList()) {
-    if(lower.startsWith(article)) {
+    if(title_.startsWith(article)) {
       return title_.mid(article.length());
     }
   }
@@ -88,18 +123,17 @@ QString FieldFormat::sortKeyTitle(const QString& title_) {
 
 void FieldFormat::stripArticles(QString& value) {
   static QStringList oldArticleList;
-  static QList<QRegExp> rxList;
+  static QList<QRegularExpression> rxList;
   if(oldArticleList != Config::articleList()) {
     oldArticleList = Config::articleList();
     rxList.clear();
     foreach(const QString& article, oldArticleList) {
-      QRegExp rx(QLatin1String("\\b") +
-                 QRegExp::escape(article) +
-                 QLatin1String("\\b"));
-      rxList << rx;
+      rxList << QRegularExpression(QLatin1String("\\b") +
+                                   QRegularExpression::escape(article) +
+                                   QLatin1String("\\b"));
     }
   }
-  foreach(const QRegExp& rx, rxList) {
+  foreach(const QRegularExpression& rx, rxList) {
     value.remove(rx);
   }
   value = value.trimmed();
@@ -155,7 +189,7 @@ QString FieldFormat::title(const QString& title_, Options opt_) {
 
     // arbitrarily impose rule that a space must follow every comma
     // has to come before the capitalization since the space is significant
-    newTitle.replace(commaSplitRx, QStringLiteral(", "));
+    newTitle.replace(commaSplitRegularExpression(), QStringLiteral(", "));
   }
 
   if(opt_.testFlag(FormatCapitalize)) {
@@ -169,10 +203,11 @@ QString FieldFormat::title(const QString& title_, Options opt_) {
       // assume white space is already stripped
       // the articles are already in lower-case
       if(lower.startsWith(article + QLatin1Char(' '))) {
-        QRegExp regexp(QLatin1Char('^') + QRegExp::escape(article) + QLatin1String("\\s*"), Qt::CaseInsensitive);
+        QRegularExpression rx(QLatin1Char('^') + QRegularExpression::escape(article) + QLatin1String("\\s*"),
+                              QRegularExpression::CaseInsensitiveOption);
         // can't just use article since it's in lower-case
         QString titleArticle = newTitle.left(article.length());
-        newTitle = newTitle.remove(regexp)
+        newTitle = newTitle.remove(rx)
                            .append(QLatin1String(", "))
                            .append(titleArticle);
         break;
@@ -184,9 +219,9 @@ QString FieldFormat::title(const QString& title_, Options opt_) {
 }
 
 QString FieldFormat::name(const QString& name_, Options opt_) {
-  static const QRegExp spaceComma(QLatin1String("[\\s,]"));
+  static const QRegularExpression spaceComma(QLatin1String("[\\s,]"));
   // the ending look-ahead is so that a space is not added at the end
-  static const QRegExp periodSpace(QLatin1String("\\.\\s*(?=.)"));
+  static const QRegularExpression periodSpace(QLatin1String("\\.\\s*(?=.)"));
 
   QString name = name_;
   name.replace(periodSpace, QStringLiteral(". "));
@@ -195,7 +230,11 @@ QString FieldFormat::name(const QString& name_, Options opt_) {
   }
 
   // split the name by white space and commas
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
   QStringList words = name.split(spaceComma, QString::SkipEmptyParts);
+#else
+  QStringList words = name.split(spaceComma, Qt::SkipEmptyParts);
+#endif
   // psycho case where name == ","
   if(words.isEmpty()) {
     return name;
@@ -206,7 +245,7 @@ QString FieldFormat::name(const QString& name_, Options opt_) {
       (name.indexOf(QLatin1Char(',')) > -1 && !Config::nameSuffixList().contains(words.last(), Qt::CaseInsensitive))) {
     // arbitrarily impose rule that no spaces before a comma and
     // a single space after every comma
-    name.replace(commaSplitRx, QStringLiteral(", "));
+    name.replace(commaSplitRegularExpression(), QStringLiteral(", "));
   } else if(words.count() > 1) {
     // otherwise split it by white space, move the last word to the front
     // but only if there is more than one word
@@ -273,15 +312,15 @@ QString FieldFormat::capitalize(QString str_) {
     return str_;
   }
 
-  // regexp to split words
-  const QRegExp rx(QLatin1String("[-\\s,.;]"));
-
   // first letter is always capitalized
   str_.replace(0, 1, str_.at(0).toUpper());
 
-  // special case for french words like l'espace
+  // regexp to split words
+  static const QRegularExpression rx(QLatin1String("[-\\s,.;]"));
 
-  int pos = rx.indexIn(str_, 1);
+  // special case for french words like l'espace
+  QRegularExpressionMatch match = rx.match(str_, 1);
+  int pos = match.capturedStart();
   int nextPos;
 
   QString word = str_.mid(0, pos);
@@ -296,7 +335,8 @@ QString FieldFormat::capitalize(QString str_) {
 
   while(pos > -1) {
     // also need to compare against list of non-capitalized words
-    nextPos = rx.indexIn(str_, pos+1);
+    match = rx.match(str_, pos+1);
+    nextPos = match.capturedStart();
     if(nextPos == -1) {
       nextPos = str_.length();
     }
@@ -322,7 +362,8 @@ QString FieldFormat::capitalize(QString str_) {
       }
     }
 
-    pos = rx.indexIn(str_, pos+1);
+    match = rx.match(str_, pos+1);
+    pos = match.capturedStart();
   }
   return str_;
 }

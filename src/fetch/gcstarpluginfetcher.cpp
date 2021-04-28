@@ -73,11 +73,12 @@ GCstarPluginFetcher::PluginList GCstarPluginFetcher::plugins(int collType_) {
         QString output = QString::fromLocal8Bit(proc.readAllStandardOutput());
         if(!output.isEmpty()) {
           // always going to be x.y[.z] ?
-          QRegExp versionRx(QLatin1String("(\\d+)\\.(\\d+)(?:\\.(\\d+))?"));
-          if(versionRx.indexIn(output) > -1) {
-            int x = versionRx.cap(1).toInt();
-            int y = versionRx.cap(2).toInt();
-            int z = versionRx.cap(3).toInt(); // ok to be empty
+          QRegularExpression versionRx(QLatin1String("(\\d+)\\.(\\d+)(?:\\.(\\d+))?"));
+          QRegularExpressionMatch m = versionRx.match(output);
+          if(m.hasMatch()) {
+            int x = m.captured(1).toInt();
+            int y = m.captured(2).toInt();
+            int z = m.captured(3).toInt(); // ok to be empty
             myDebug() << QStringLiteral("found %1.%2.%3").arg(x).arg(y).arg(z);
             // --list-plugins argument was added for 1.3 release
             pluginParse = (x >= 1 && y >=3) ? New : Old;
@@ -153,8 +154,7 @@ void GCstarPluginFetcher::readPluginsOld(int collType_, const QString& gcstar_) 
   QDir dir(gcstar_, QStringLiteral("GC*.pm"));
   dir.cd(QStringLiteral("../../lib/gcstar/GCPlugins/"));
 
-  QRegExp rx(QLatin1String("get(Name|Author|Lang)\\s*\\{\\s*return\\s+['\"](.+)['\"]"));
-  rx.setMinimal(true);
+  QRegularExpression rx(QLatin1String("get(Name|Author|Lang)\\s*\\{\\s*return\\s+['\"](.+?)['\"]"));
 
   PluginList plugins;
 
@@ -168,8 +168,10 @@ void GCstarPluginFetcher::readPluginsOld(int collType_, const QString& gcstar_) 
     QUrl u = QUrl::fromLocalFile(dir.filePath(file));
     PluginInfo info;
     QString text = FileHandler::readTextFile(u);
-    for(int pos = rx.indexIn(text); pos > -1; pos = rx.indexIn(text, pos+rx.matchedLength())) {
-      info.insert(rx.cap(1).toLower(), rx.cap(2));
+    QRegularExpressionMatchIterator i = rx.globalMatch(text);
+    while(i.hasNext()) {
+      QRegularExpressionMatch match = i.next();
+      info.insert(match.captured(1).toLower(), match.captured(2));
     }
     // only add if it has a name
     if(info.contains(QStringLiteral("name"))) {
@@ -241,7 +243,7 @@ void GCstarPluginFetcher::search() {
        << QStringLiteral("--export")      << QStringLiteral("TarGz")
        << QStringLiteral("--exportprefs") << QStringLiteral("collection=>/tmp/test.gcs,file=>/tmp/test1.tar.gz")
        << QStringLiteral("--website")     << m_plugin
-       << QStringLiteral("--download")    << KShell::quoteArg(request().value);
+       << QStringLiteral("--download")    << KShell::quoteArg(request().value());
   myLog() << args;
 
   m_thread = new GCstarThread(this);
@@ -353,7 +355,7 @@ void GCstarPluginFetcher::slotProcessExited() {
   }
 
   foreach(Data::EntryPtr entry, coll->entries()) {
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
     if(!m_started) {

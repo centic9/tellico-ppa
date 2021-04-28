@@ -66,7 +66,7 @@ bool KinoTeatrFetcher::canFetch(int type) const {
   return type == Data::Collection::Video;
 }
 
-bool KinoTeatrFetcher::canSearch(FetchKey k) const {
+bool KinoTeatrFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title;
 }
 
@@ -81,15 +81,15 @@ void KinoTeatrFetcher::search() {
   QUrl u(QString::fromLatin1(KINOTEATR_SEARCH_URL));
   QUrlQuery q;
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       // TODO: allow year in search query and parse it out?
       //q.addQueryItem(QStringLiteral("year"), QStringLiteral("yes"));
-      q.addQueryItem(QStringLiteral("title"), request().value);
+      q.addQueryItem(QStringLiteral("title"), request().value());
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       stop();
       return;
   }
@@ -166,7 +166,7 @@ void KinoTeatrFetcher::slotComplete(KJob*) {
       QUrl url(QString::fromLatin1(KINOTEATR_SEARCH_URL));
       url = url.resolved(QUrl(href));
 //      myDebug() << url << title << year;
-      FetchResult* r = new FetchResult(Fetcher::Ptr(this), title, year);
+      FetchResult* r = new FetchResult(this, title, year);
       m_matches.insert(r->uid, url);
       emit signalResultFound(r);
     }

@@ -68,7 +68,7 @@ QString DiscogsFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool DiscogsFetcher::canSearch(FetchKey k) const {
+bool DiscogsFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person || k == Keyword || k == UPC;
 }
 
@@ -100,34 +100,34 @@ void DiscogsFetcher::search() {
   }
 
   QUrl u(QString::fromLatin1(DISCOGS_API_URL));
+  u.setPath(QStringLiteral("/database/search"));
 
   QUrlQuery q;
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
-      u.setPath(QStringLiteral("/database/search"));
-      q.addQueryItem(QStringLiteral("release_title"), request().value);
+      q.addQueryItem(QStringLiteral("release_title"), request().value());
       q.addQueryItem(QStringLiteral("type"), QStringLiteral("release"));
       break;
 
     case Person:
-      u.setPath(QStringLiteral("/database/search"));
-      q.addQueryItem(QStringLiteral("artist"), request().value);
+      q.addQueryItem(QStringLiteral("artist"), request().value());
       q.addQueryItem(QStringLiteral("type"), QStringLiteral("release"));
       break;
 
     case Keyword:
+      q.addQueryItem(QStringLiteral("q"), request().value());
+      break;
+
     case UPC:
-      u.setPath(QStringLiteral("/database/search"));
-      q.addQueryItem(QStringLiteral("q"), request().value);
+      q.addQueryItem(QStringLiteral("barcode"), request().value());
       break;
 
     case Raw:
-      u.setPath(QStringLiteral("/database/search"));
-      q.setQuery(request().value);
+      q.setQuery(request().value());
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key;
+      myWarning() << "key not recognized:" << request().key();
       stop();
       return;
   }
@@ -170,8 +170,8 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHook(uint uid_) {
     QByteArray data = FileHandler::readDataFile(u, true);
 
 #if 0
-    myWarning() << "Remove debug2 from discogsfetcher.cpp (/tmp/test2.json)";
-    QFile f(QString::fromLatin1("/tmp/test2.json"));
+    myWarning() << "Remove debug from discogsfetcher.cpp";
+    QFile f(QString::fromLatin1("/tmp/test-discogs-data.json"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
       t.setCodec("UTF-8");
@@ -223,7 +223,17 @@ Tellico::Fetch::FetchRequest DiscogsFetcher::updateRequest(Data::EntryPtr entry_
   // if any two of those are non-empty, combine them for a keyword search
   const int sum = (title.isEmpty() ? 0:1) + (artist.isEmpty() ? 0:1) + (year.isEmpty() ? 0:1);
   if(sum > 1) {
-    return FetchRequest(Keyword, title + QLatin1Char(' ') + artist + QLatin1Char(' ') + year);
+    QUrlQuery q;
+    if(!title.isEmpty()) {
+      q.addQueryItem(QStringLiteral("title"), title);
+    }
+    if(!artist.isEmpty()) {
+      q.addQueryItem(QStringLiteral("artist"), artist);
+    }
+    if(!year.isEmpty()) {
+      q.addQueryItem(QStringLiteral("year"), year);
+    }
+    return FetchRequest(Raw, q.toString());
   }
 
   if(!title.isEmpty()) {
@@ -255,7 +265,7 @@ void DiscogsFetcher::slotComplete(KJob*) {
 
 #if 0
   myWarning() << "Remove debug from discogsfetcher.cpp";
-  QFile f(QString::fromLatin1("/tmp/test.json"));
+  QFile f(QString::fromLatin1("/tmp/test-discogs.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
     t.setCodec("UTF-8");
@@ -289,6 +299,11 @@ void DiscogsFetcher::slotComplete(KJob*) {
     field->setFormatType(FieldFormat::FormatName);
     coll->addField(field);
   }
+  if(optionalFields().contains(QStringLiteral("barcode"))) {
+    Data::FieldPtr field(new Data::Field(QStringLiteral("barcode"), i18n("Barcode")));
+    field->setCategory(i18n("General"));
+    coll->addField(field);
+  }
 
   QJsonDocument doc = QJsonDocument::fromJson(data);
 //  const QVariantMap resultMap = doc.object().toVariantMap().value(QStringLiteral("feed")).toMap();
@@ -312,7 +327,7 @@ void DiscogsFetcher::slotComplete(KJob*) {
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, result.toMap(), false);
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
     ++count;
@@ -340,8 +355,11 @@ void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& res
   }
   entry_->setField(QStringLiteral("label"), labels.join(FieldFormat::delimiterString()));
 
-  /* thumb value is not always in the full data, so go ahead and set it now */
-  const QString coverUrl = mapValue(resultMap_, "thumb");
+  /* cover value is not always in the full data, so go ahead and set it now */
+  QString coverUrl = mapValue(resultMap_, "cover_image");
+  if(coverUrl.isEmpty()) {
+    coverUrl = mapValue(resultMap_, "thumb");
+  }
   if(!coverUrl.isEmpty()) {
     entry_->setField(QStringLiteral("cover"), coverUrl);
   }
@@ -407,6 +425,16 @@ void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& res
     entry_->setField(QStringLiteral("nationality"), mapValue(resultMap_, "country"));
   }
 
+  if(entry_->collection()->hasField(QStringLiteral("barcode"))) {
+    foreach(const QVariant& identifier, resultMap_.value(QLatin1String("identifiers")).toList()) {
+      const QVariantMap idMap = identifier.toMap();
+      if(mapValue(idMap, "type") == QLatin1String("Barcode")) {
+        entry_->setField(QStringLiteral("barcode"), mapValue(idMap, "value"));
+        break;
+      }
+    }
+  }
+
   if(entry_->collection()->hasField(QStringLiteral("producer"))) {
     QStringList producers;
     foreach(const QVariant& extraartist, resultMap_.value(QLatin1String("extraartists")).toList()) {
@@ -437,6 +465,7 @@ Tellico::StringHash DiscogsFetcher::allOptionalFields() {
   hash[QStringLiteral("producer")] = i18n("Producer");
   hash[QStringLiteral("nationality")] = i18n("Nationality");
   hash[QStringLiteral("discogs")] = i18n("Discogs Link");
+  hash[QStringLiteral("barcode")] = i18n("Barcode");
   return hash;
 }
 

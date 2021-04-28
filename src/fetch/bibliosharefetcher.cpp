@@ -82,11 +82,11 @@ QUrl BiblioShareFetcher::searchUrl() {
   QUrlQuery q;
   q.addQueryItem(QStringLiteral("Token"), m_token);
 
-  switch(request().key) {
+  switch(request().key()) {
     case ISBN:
       {
         // only grab first value
-        QString v = request().value.section(QLatin1Char(';'), 0);
+        QString v = request().value().section(QLatin1Char(';'), 0);
         v = ISBNValidator::isbn13(v);
         v.remove(QLatin1Char('-'));
         q.addQueryItem(QStringLiteral("EAN"), v);
@@ -158,7 +158,7 @@ QString BiblioShareFetcher::defaultName() {
 }
 
 QString BiblioShareFetcher::defaultIcon() {
-  return favIcon("https://www.booknetcanada.ca/biblioshare");
+  return favIcon("https://www.booknetcanada.ca");
 }
 
 BiblioShareFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BiblioShareFetcher* fetcher_)

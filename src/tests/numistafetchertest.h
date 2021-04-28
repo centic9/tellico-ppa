@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2008-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,43 +22,25 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_IMPORT_TELLICOXMLHANDLER_H
-#define TELLICO_IMPORT_TELLICOXMLHANDLER_H
+#ifndef NUMISTAFETCHERTEST_H
+#define NUMISTAFETCHERTEST_H
 
-#include "xmlstatehandler.h"
+#include "abstractfetchertest.h"
 
-#include <QStack>
+#include <KConfigGroup>
 
-namespace Tellico {
-  namespace Import {
-
-class TellicoXMLHandler : public QXmlDefaultHandler {
+class NumistaFetcherTest : public AbstractFetcherTest {
+Q_OBJECT
 public:
-  TellicoXMLHandler();
-  ~TellicoXMLHandler();
+  NumistaFetcherTest();
 
-  virtual bool startElement(const QString& namespaceURI, const QString& localName,
-                            const QString& qName, const QXmlAttributes& atts) Q_DECL_OVERRIDE;
-  virtual bool endElement(const QString& namespaceURI, const QString& localName,
-                          const QString& qName) Q_DECL_OVERRIDE;
-  virtual bool characters(const QString& ch) Q_DECL_OVERRIDE;
-
-  virtual QString errorString() const Q_DECL_OVERRIDE;
-
-  Data::CollPtr collection() const;
-  bool hasImages() const;
-
-  void setLoadImages(bool loadImages);
-  void setShowImageLoadErrors(bool showImageErrors);
-
-  bool fatalError(const QXmlParseException& exception) Q_DECL_OVERRIDE;
+private Q_SLOTS:
+  void initTestCase();
+  void testSacagawea();
+  void testJefferson();
 
 private:
-  QStack<SAX::StateHandler*> m_handlers;
-  SAX::StateData* m_data;
-  QString m_errorString;
+  KConfigGroup m_config;
 };
 
-  }
-}
 #endif

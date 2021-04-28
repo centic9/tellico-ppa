@@ -52,14 +52,16 @@
 #define LOAD_ICON(name, group, size) \
   KIconLoader::global()->loadIcon(name, static_cast<KIconLoader::Group>(group), size_)
 
+using namespace Tellico;
 using Tellico::Fetch::Manager;
-Manager* Manager::s_self = nullptr;
+
+Tellico::Fetch::Manager* Tellico::Fetch::Manager::self() {
+  static Manager self;
+  return &self;
+}
 
 Manager::Manager() : QObject(), m_currentFetcherIndex(-1), m_messager(new ManagerMessage()),
                      m_count(0), m_loadDefaults(false) {
-  // must create static pointer first
-  Q_ASSERT(!s_self);
-  s_self = this;
   // no need to load fetchers since the initializer does it for us
 
 //  m_keyMap.insert(FetchFirst, QString());
@@ -96,9 +98,7 @@ void Manager::loadFetchers() {
       QString group = QStringLiteral("Data Source %1").arg(i);
       Fetcher::Ptr f = createFetcher(config, group);
       if(f) {
-        m_fetchers.append(f);
-        f->setMessageHandler(m_messager);
-        m_uuidHash.insert(f->uuid(), f);
+        addFetcher(f);
       }
     }
     m_loadDefaults = false;
@@ -108,13 +108,27 @@ void Manager::loadFetchers() {
   }
 }
 
-const Tellico::Fetch::FetcherVec& Manager::fetchers() const {
+void Manager::addFetcher(Fetch::Fetcher::Ptr fetcher_) {
+  Q_ASSERT(fetcher_);
+  if(fetcher_) {
+    m_fetchers.append(fetcher_);
+    if(!fetcher_->messageHandler()) {
+      fetcher_->setMessageHandler(m_messager);
+    }
+    m_uuidHash.insert(fetcher_->uuid(), fetcher_);
+  }
+}
+
+const Tellico::Fetch::FetcherVec& Manager::fetchers() {
+  if(m_fetchers.isEmpty()) {
+    loadFetchers();
+  }
   return m_fetchers;
 }
 
 Tellico::Fetch::FetcherVec Manager::fetchers(int type_) {
   FetcherVec vec;
-  foreach(Fetcher::Ptr fetcher, m_fetchers) {
+  foreach(Fetcher::Ptr fetcher, fetchers()) {
     if(fetcher->canFetch(type_)) {
       vec.append(fetcher);
     }
@@ -126,7 +140,7 @@ Tellico::Fetch::Fetcher::Ptr Manager::fetcherByUuid(const QString& uuid_) {
   return m_uuidHash.contains(uuid_) ? m_uuidHash[uuid_] : Fetcher::Ptr();
 }
 
-Tellico::Fetch::KeyMap Manager::keyMap(const QString& source_) const {
+Tellico::Fetch::KeyMap Manager::keyMap(const QString& source_) {
   // an empty string means return all
   if(source_.isEmpty()) {
     return m_keyMap;
@@ -134,7 +148,7 @@ Tellico::Fetch::KeyMap Manager::keyMap(const QString& source_) const {
 
   // assume there's only one fetcher match
   Fetcher::Ptr foundFetcher;
-  foreach(Fetcher::Ptr fetcher, m_fetchers) {
+  foreach(Fetcher::Ptr fetcher, fetchers()) {
     if(source_ == fetcher->source()) {
       foundFetcher = fetcher;
       break;
@@ -165,7 +179,7 @@ void Manager::startSearch(const QString& source_, Tellico::Fetch::FetchKey key_,
   // assume there's only one fetcher match
   int i = 0;
   m_currentFetcherIndex = -1;
-  foreach(Fetcher::Ptr fetcher, m_fetchers) {
+  foreach(Fetcher::Ptr fetcher, fetchers()) {
     if(source_ == fetcher->source()) {
       ++m_count; // Fetcher::search() might emit done(), so increment before calling search()
       connect(fetcher.data(), &Fetcher::signalResultFound,
@@ -208,7 +222,6 @@ bool Manager::hasMoreResults() const {
 }
 
 void Manager::stop() {
-//  DEBUG_LINE;
   foreach(Fetcher::Ptr fetcher, m_fetchers) {
     if(fetcher->isSearching()) {
       fetcher->stop();
@@ -280,7 +293,7 @@ Tellico::Fetch::Fetcher::Ptr Manager::createFetcher(KSharedConfigPtr config_, co
   Fetcher::Ptr f;
   if(functionRegistry.contains(fetchType)) {
     f = functionRegistry.value(fetchType).create(this);
-    f->readConfig(config, group_);
+    f->readConfig(config);
   }
   return f;
 }
@@ -301,7 +314,7 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FETCHER_ADD(OpenLibrary);
   FETCHER_ADD(GoogleBook);
 // comic books
-  FETCHER_ADD(AnimeNfo);
+//  FETCHER_ADD(AnimeNfo);
   FETCHER_ADD(Bedetheque);
   FETCHER_ADD(ComicVine);
 // bibliographic
@@ -324,6 +337,7 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FETCHER_ADD(IMDB);
 // coins and stamps
   FETCHER_ADD(Colnect);
+  FETCHER_ADD(Numista);
   QStringList langs = QLocale().uiLanguages();
   if(langs.first().contains(QLatin1Char('-'))) {
     // I'm not sure QT always include two-letter locale codes
@@ -359,7 +373,7 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
 
 Tellico::Fetch::FetcherVec Manager::createUpdateFetchers(int collType_) {
   if(m_loadDefaults) {
-    return defaultFetchers();
+    return fetchers(collType_);
   }
 
   FetcherVec vec;
@@ -480,10 +494,14 @@ QString Manager::typeName(Tellico::Fetch::Type type_) {
   return QString();
 }
 
-QPixmap Manager::fetcherIcon(Tellico::Fetch::Fetcher::Ptr fetcher_, int group_, int size_) {
+QPixmap Manager::fetcherIcon(Tellico::Fetch::Fetcher* fetcher_, int group_, int size_) {
+  Q_ASSERT(fetcher_);
+  if(!fetcher_) {
+    return QPixmap();
+  }
   if(fetcher_->type() == Fetch::Z3950) {
 #ifdef HAVE_YAZ
-    const Fetch::Z3950Fetcher* f = static_cast<const Fetch::Z3950Fetcher*>(fetcher_.data());
+    const Fetch::Z3950Fetcher* f = static_cast<const Fetch::Z3950Fetcher*>(fetcher_);
     QUrl u;
     u.setScheme(QStringLiteral("http"));
     u.setHost(f->host());
@@ -494,7 +512,7 @@ QPixmap Manager::fetcherIcon(Tellico::Fetch::Fetcher::Ptr fetcher_, int group_, 
 #endif
   } else
   if(fetcher_->type() == Fetch::ExecExternal) {
-    const Fetch::ExecExternalFetcher* f = static_cast<const Fetch::ExecExternalFetcher*>(fetcher_.data());
+    const Fetch::ExecExternalFetcher* f = static_cast<const Fetch::ExecExternalFetcher*>(fetcher_);
     const QString p = f->execPath();
     QUrl u;
     if(p.contains(QStringLiteral("allocine"))) {
@@ -543,12 +561,12 @@ QPixmap Manager::fetcherIcon(Tellico::Fetch::Type type_, int group_, int size_) 
     pix = icon.pixmap(size_, size_);
   }
   if(pix.isNull()) {
-    pix = BarIcon(name);
+    pix = KIconLoader::global()->loadIcon(name, KIconLoader::Toolbar);
   }
   return pix;
 }
 
-Tellico::StringHash Manager::optionalFields(Type type_) {
+Tellico::StringHash Manager::optionalFields(Fetch::Type type_) {
   if(self()->functionRegistry.contains(type_)) {
     return self()->functionRegistry.value(type_).optionalFields();
   }

@@ -47,12 +47,15 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
+#include <QStandardPaths>
+#include <QSpinBox>
 
 namespace {
   static const int THEMOVIEDB_MAX_RETURNS_TOTAL = 20;
   static const char* THEMOVIEDB_API_URL = "https://api.themoviedb.org";
   static const char* THEMOVIEDB_API_VERSION = "3"; // krazy:exclude=doublequote_chars
   static const char* THEMOVIEDB_API_KEY = "919890b4128d33c729dc368209ece555";
+  static const uint THEMOVIEDB_DEFAULT_CAST_SIZE = 10;
 }
 
 using namespace Tellico;
@@ -62,7 +65,8 @@ TheMovieDBFetcher::TheMovieDBFetcher(QObject* parent_)
     : Fetcher(parent_)
     , m_started(false)
     , m_locale(QStringLiteral("en"))
-    , m_apiKey(QLatin1String(THEMOVIEDB_API_KEY)) {
+    , m_apiKey(QLatin1String(THEMOVIEDB_API_KEY))
+    , m_numCast(THEMOVIEDB_DEFAULT_CAST_SIZE) {
   //  setLimit(THEMOVIEDB_MAX_RETURNS_TOTAL);
 }
 
@@ -78,7 +82,7 @@ QString TheMovieDBFetcher::attribution() const {
   return QStringLiteral("This product uses the TMDb API but is not endorsed or certified by TMDb.");
 }
 
-bool TheMovieDBFetcher::canSearch(FetchKey k) const {
+bool TheMovieDBFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title;
 }
 
@@ -100,6 +104,7 @@ void TheMovieDBFetcher::readConfigHook(const KConfigGroup& config_) {
     m_imageBase = k;
   }
   m_serverConfigDate = config_.readEntry("ServerConfigDate", QDate());
+  m_numCast = config_.readEntry("Max Cast", THEMOVIEDB_DEFAULT_CAST_SIZE);
 }
 
 void TheMovieDBFetcher::saveConfigHook(KConfigGroup& config_) {
@@ -107,7 +112,6 @@ void TheMovieDBFetcher::saveConfigHook(KConfigGroup& config_) {
     config_.writeEntry("ServerConfigDate", m_serverConfigDate);
   }
   config_.writeEntry("ImageBase", m_imageBase);
-  config_.sync();
 }
 
 void TheMovieDBFetcher::search() {
@@ -131,25 +135,33 @@ void TheMovieDBFetcher::continueSearch() {
 
   QUrl u(QString::fromLatin1(THEMOVIEDB_API_URL));
   u.setPath(QLatin1Char('/') + QLatin1String(THEMOVIEDB_API_VERSION));
+  u = u.adjusted(QUrl::StripTrailingSlash);
 
-  switch(request().key) {
+  QUrlQuery q;
+  switch(request().key()) {
     case Title:
-      u = u.adjusted(QUrl::StripTrailingSlash);
       u.setPath(u.path() + QLatin1String("/search/movie"));
-      {
-        QUrlQuery q;
-        q.addQueryItem(QStringLiteral("api_key"), m_apiKey);
-        q.addQueryItem(QStringLiteral("language"), m_locale);
-        q.addQueryItem(QStringLiteral("query"), request().value);
-        u.setQuery(q);
+      q.addQueryItem(QStringLiteral("query"), request().value());
+      break;
+
+    case Raw:
+      if(request().data().isEmpty()) {
+        u.setPath(u.path() + QLatin1String("/search/movie"));
+      } else {
+        u.setPath(u.path() + request().data());
       }
+      q.setQuery(request().value());
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key;
+      myWarning() << "key not recognized:" << request().key();
       stop();
       return;
   }
+  q.addQueryItem(QStringLiteral("language"), m_locale);
+  q.addQueryItem(QStringLiteral("api_key"), m_apiKey);
+  u.setQuery(q);
+//  myDebug() << u;
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
@@ -220,9 +232,28 @@ Tellico::Data::EntryPtr TheMovieDBFetcher::fetchEntryHook(uint uid_) {
 }
 
 Tellico::Fetch::FetchRequest TheMovieDBFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString title = entry_->field(QStringLiteral("title"));
+  QString imdb = entry_->field(QStringLiteral("imdb"));
+  if(imdb.isEmpty()) {
+    imdb = entry_->field(QStringLiteral("imdb-id"));
+  }
+  if(!imdb.isEmpty()) {
+    QRegularExpression ttRx(QStringLiteral("tt\\d+"));
+    auto ttMatch = ttRx.match(imdb);
+    if(ttMatch.hasMatch()) {
+      FetchRequest req(Raw, QStringLiteral("external_source=imdb_id"));
+      req.setData(QLatin1String("/find/") + ttMatch.captured()); // tell the request to use a different endpoint
+      return req;
+    }
+  }
+
+  const QString title = entry_->field(QStringLiteral("title"));
+  const QString year = entry_->field(QStringLiteral("year"));
   if(!title.isEmpty()) {
-    return FetchRequest(Title, title);
+    if(year.isEmpty()) {
+      return FetchRequest(Title, title);
+    } else {
+      return FetchRequest(Raw, QStringLiteral("query=\"%1\"&year=%2").arg(title, year));
+    }
   }
   return FetchRequest();
 }
@@ -269,9 +300,7 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
     coll->addField(field);
   }
   if(optionalFields().contains(QStringLiteral("imdb"))) {
-    Data::FieldPtr field(new Data::Field(QStringLiteral("imdb"), i18n("IMDb Link"), Data::Field::URL));
-    field->setCategory(i18n("General"));
-    coll->addField(field);
+    coll->addField(Data::Field::createDefaultField(Data::Field::ImdbField));
   }
   if(optionalFields().contains(QStringLiteral("alttitle"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("alttitle"), i18n("Alternative Titles"), Data::Field::Table));
@@ -289,6 +318,10 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
 
   QVariantList resultList = result.value(QStringLiteral("results")).toList();
   if(resultList.isEmpty()) {
+    resultList = result.value(QStringLiteral("movie_results")).toList();
+  }
+
+  if(resultList.isEmpty()) {
     myDebug() << "no results";
     stop();
     return;
@@ -301,7 +334,7 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, result.toMap(), false);
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
     ++count;
@@ -345,10 +378,10 @@ void TheMovieDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& 
   }
 
   if(entry_->collection()->hasField(QStringLiteral("tmdb"))) {
-    entry_->setField(QStringLiteral("tmdb"), QLatin1String("http://www.themoviedb.org/movie/") + mapValue(resultMap_, "id"));
+    entry_->setField(QStringLiteral("tmdb"), QLatin1String("https://www.themoviedb.org/movie/") + mapValue(resultMap_, "id"));
   }
   if(entry_->collection()->hasField(QStringLiteral("imdb"))) {
-    entry_->setField(QStringLiteral("imdb"), QLatin1String("http://www.imdb.com/title/") + mapValue(resultMap_, "imdb_id"));
+    entry_->setField(QStringLiteral("imdb"), QLatin1String("https://www.imdb.com/title/") + mapValue(resultMap_, "imdb_id"));
   }
   if(entry_->collection()->hasField(QStringLiteral("origtitle"))) {
     entry_->setField(QStringLiteral("origtitle"), mapValue(resultMap_, "original_title"));
@@ -366,8 +399,11 @@ void TheMovieDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& 
   QVariantList castList = resultMap_.value(QStringLiteral("credits")).toMap()
                                     .value(QStringLiteral("cast")).toList();
   foreach(const QVariant& cast, castList) {
-    QVariantMap castMap = cast.toMap();
+    const QVariantMap castMap = cast.toMap();
     actors << mapValue(castMap, "name") + FieldFormat::columnDelimiterString() + mapValue(castMap, "character");
+    if(actors.count() >= m_numCast) {
+      break;
+    }
   }
   entry_->setField(QStringLiteral("cast"), actors.join(FieldFormat::rowDelimiterString()));
 
@@ -480,13 +516,39 @@ TheMovieDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const TheMovieDB
   m_apiKeyEdit->setWhatsThis(w);
   label->setBuddy(m_apiKeyEdit);
 
+  label = new QLabel(i18n("&Maximum cast: "), optionsWidget());
+  l->addWidget(label, ++row, 0);
+  m_numCast = new QSpinBox(optionsWidget());
+  m_numCast->setMaximum(99);
+  m_numCast->setMinimum(0);
+  m_numCast->setValue(THEMOVIEDB_DEFAULT_CAST_SIZE);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  void (QSpinBox::* textChanged)(const QString&) = &QSpinBox::valueChanged;
+#else
+  void (QSpinBox::* textChanged)(const QString&) = &QSpinBox::textChanged;
+#endif
+  connect(m_numCast, textChanged, this, &ConfigWidget::slotSetModified);
+  l->addWidget(m_numCast, row, 1);
+  w = i18n("The list of cast members may include many people. Set the maximum number returned from the search.");
+  label->setWhatsThis(w);
+  m_numCast->setWhatsThis(w);
+  label->setBuddy(m_numCast);
+
   label = new QLabel(i18n("Language: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_langCombo = new GUI::ComboBox(optionsWidget());
-  m_langCombo->addItem(i18nc("Language", "English"), QLatin1String("en"));
-  m_langCombo->addItem(i18nc("Language", "French"), QLatin1String("fr"));
-  m_langCombo->addItem(i18nc("Language", "German"), QLatin1String("de"));
-  m_langCombo->addItem(i18nc("Language", "Spanish"), QLatin1String("es"));
+  QIcon iconUS(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                      QStringLiteral("kf5/locale/countries/us/flag.png")));
+  m_langCombo->addItem(iconUS, i18nc("Language", "English"), QLatin1String("en"));
+  QIcon iconFR(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                      QStringLiteral("kf5/locale/countries/fr/flag.png")));
+  m_langCombo->addItem(iconFR, i18nc("Language", "French"), QLatin1String("fr"));
+  QIcon iconDE(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                      QStringLiteral("kf5/locale/countries/de/flag.png")));
+  m_langCombo->addItem(iconDE, i18nc("Language", "German"), QLatin1String("de"));
+  QIcon iconES(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                      QStringLiteral("kf5/locale/countries/es/flag.png")));
+  m_langCombo->addItem(iconES, i18nc("Language", "Spanish"), QLatin1String("es"));
   void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
   connect(m_langCombo, activatedInt, this, &ConfigWidget::slotSetModified);
   connect(m_langCombo, activatedInt, this, &ConfigWidget::slotLangChanged);
@@ -505,6 +567,7 @@ TheMovieDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const TheMovieDB
       m_apiKeyEdit->setText(fetcher_->m_apiKey);
     }
     m_langCombo->setCurrentData(fetcher_->m_locale);
+    m_numCast->setValue(fetcher_->m_numCast);
   }
 }
 
@@ -515,6 +578,7 @@ void TheMovieDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   }
   const QString lang = m_langCombo->currentData().toString();
   config_.writeEntry("Locale", lang);
+  config_.writeEntry("Max Cast", m_numCast->value());
 }
 
 QString TheMovieDBFetcher::ConfigWidget::preferredName() const {

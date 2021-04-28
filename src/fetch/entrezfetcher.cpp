@@ -76,7 +76,7 @@ QString EntrezFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool EntrezFetcher::canSearch(FetchKey k) const {
+bool EntrezFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person || k == Keyword || k == Raw || k == PubmedID || k == DOI;
 }
 
@@ -112,8 +112,8 @@ void EntrezFetcher::search() {
   q.addQueryItem(QStringLiteral("usehistory"), QStringLiteral("y"));
   q.addQueryItem(QStringLiteral("retmax"),     QStringLiteral("1")); // we're just getting the count
   q.addQueryItem(QStringLiteral("db"),         m_dbname);
-  q.addQueryItem(QStringLiteral("term"),       request().value);
-  switch(request().key) {
+  q.addQueryItem(QStringLiteral("term"),       request().value());
+  switch(request().key()) {
     case Title:
       q.addQueryItem(QStringLiteral("field"), QStringLiteral("titl"));
       break;
@@ -134,11 +134,11 @@ void EntrezFetcher::search() {
     case DOI:
     case Raw:
       // for DOI, enough to match any field to DOI value
-      //q.setQuery(u.query() + QLatin1Char('&') + request().value);
+      //q.setQuery(u.query() + QLatin1Char('&') + request().value());
       break;
 
     default:
-      myWarning() << "key not supported:" << request().key;
+      myWarning() << "key not supported:" << request().key();
       stop();
       return;
   }
@@ -320,7 +320,7 @@ void EntrezFetcher::summaryResults(const QByteArray& data_) {
         break; // done now
       }
     }
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), title, pubdate + QLatin1Char('/') + authors);
+    FetchResult* r = new FetchResult(this, title, pubdate + QLatin1Char('/') + authors);
     m_matches.insert(r->uid, id);
     emit signalResultFound(r);
   }

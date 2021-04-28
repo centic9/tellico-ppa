@@ -24,6 +24,7 @@
 
 #undef QT_NO_CAST_FROM_ASCII
 
+#include <config.h>
 #include "bibtextest.h"
 
 #include "../collections/bibtexcollection.h"
@@ -32,7 +33,8 @@
 #include "../utils/bibtexhandler.h"
 #include "../utils/datafileregistry.h"
 
-#include <KConfig>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <QTest>
 
@@ -46,7 +48,10 @@ void BibtexTest::initTestCase() {
 }
 
 void BibtexTest::testImport() {
-  KSharedConfigPtr config = KSharedConfig::openConfig(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
+#ifdef ENABLE_BTPARSE
+  KSharedConfigPtr config = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig);
+  KConfigGroup cg = config->group(QStringLiteral("ExportOptions - Bibtex"));
+  cg.writeEntry("URL Package", true);
 
   QList<QUrl> urls;
   urls << QUrl::fromLocalFile(QFINDTESTDATA("data/test.bib"));
@@ -100,6 +105,22 @@ void BibtexTest::testImport() {
       }
     }
   }
+#endif
+}
+
+void BibtexTest::testPages() {
+  // small test to check the pages value ends up with 2 hyphens
+  Tellico::Data::CollPtr coll(new Tellico::Data::BibtexCollection(true));
+  Tellico::Data::EntryPtr entry1(new Tellico::Data::Entry(coll));
+  coll->addEntries(entry1);
+  entry1->setField(QStringLiteral("title"), QStringLiteral("Title 1"));
+  entry1->setField(QStringLiteral("entry-type"), QStringLiteral("article"));
+  entry1->setField(QStringLiteral("pages"), QStringLiteral("2-8"));
+
+  Tellico::Export::BibtexExporter exporter(coll);
+  exporter.setEntries(coll->entries());
+  QString text = exporter.text();
+  QVERIFY(text.contains(QStringLiteral("2--8")));
 }
 
 void BibtexTest::testDuplicateKeys() {

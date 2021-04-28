@@ -48,7 +48,6 @@
 #include <KLocalizedString>
 #include <KConfig>
 #include <KAcceleratorManager>
-#include <KHTMLView>
 #include <KColorCombo>
 #include <KHelpClient>
 #include <KRecentDirs>
@@ -65,7 +64,7 @@
 #include <QLabel>
 #include <QCheckBox>
 #include <QPixmap>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QFileInfo>
 #include <QRadioButton>
 #include <QFrame>
@@ -247,8 +246,12 @@ void ConfigDialog::initGeneralPage(QFrame* frame) {
   imageGroup->addButton(m_rbImageInFile);
   imageGroup->addButton(m_rbImageInAppDir);
   imageGroup->addButton(m_rbImageInLocalDir);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
   void (QButtonGroup::* buttonClicked)(int) = &QButtonGroup::buttonClicked;
   connect(imageGroup, buttonClicked, this, &ConfigDialog::slotModified);
+#else
+  connect(imageGroup, &QButtonGroup::idClicked, this, &ConfigDialog::slotModified);
+#endif
 
   QGroupBox* formatGroup = new QGroupBox(i18n("Formatting Options"), frame);
   l->addWidget(formatGroup);
@@ -700,7 +703,7 @@ void ConfigDialog::readGeneralConfig() {
   bool autoFormat = Config::autoFormat();
   m_cbFormat->setChecked(autoFormat);
 
-  const QRegExp comma(QLatin1String("\\s*,\\s*"));
+  const QRegularExpression comma(QLatin1String("\\s*,\\s*"));
 
   m_leCapitals->setText(Config::noCapitalizationString().replace(comma, FieldFormat::delimiterString()));
   m_leArticles->setText(Config::articlesString().replace(comma, FieldFormat::delimiterString()));
@@ -753,7 +756,7 @@ void ConfigDialog::readFetchConfig() {
     Fetch::FetcherInfo info(fetcher->type(), fetcher->source(),
                             fetcher->updateOverwrite(), fetcher->uuid());
     FetcherInfoListItem* item = new FetcherInfoListItem(m_sourceListWidget, info);
-    item->setFetcher(fetcher);
+    item->setFetcher(fetcher.data());
   }
   m_sourceListWidget->setUpdatesEnabled(true);
 
@@ -794,7 +797,7 @@ void ConfigDialog::saveGeneralConfig() {
   Config::setAutoCapitalization(m_cbCapitalize->isChecked());
   Config::setAutoFormat(m_cbFormat->isChecked());
 
-  const QRegExp semicolon(QLatin1String("\\s*;\\s*"));
+  const QRegularExpression semicolon(QLatin1String("\\s*;\\s*"));
   const QChar comma = QLatin1Char(',');
 
   Config::setNoCapitalizationString(m_leCapitals->text().replace(semicolon, comma));
@@ -849,7 +852,7 @@ void ConfigDialog::saveFetchConfig() {
     cw->saveConfig(configGroup);
     item->setNewSource(false);
     // in case the ordering changed
-    item->setConfigGroup(group);
+    item->setConfigGroup(configGroup);
     reloadFetchers = true;
   }
   // now update total number of sources
@@ -924,7 +927,7 @@ void ConfigDialog::slotNewSourceClicked() {
 
 void ConfigDialog::slotModifySourceClicked() {
   FetcherInfoListItem* item = static_cast<FetcherInfoListItem*>(m_sourceListWidget->currentItem());
-  if(!item) {
+  if(!item || !item->fetcher()) {
     return;
   }
 
@@ -1044,7 +1047,7 @@ Tellico::FetcherInfoListItem* ConfigDialog::findItem(const QString& path_) const
     if(item->fetchType() != Fetch::ExecExternal) {
       continue;
     }
-    Fetch::ExecExternalFetcher* f = dynamic_cast<Fetch::ExecExternalFetcher*>(item->fetcher().data());
+    Fetch::ExecExternalFetcher* f = dynamic_cast<Fetch::ExecExternalFetcher*>(item->fetcher());
     if(f && f->execPath() == path_) {
       return item;
     }
@@ -1160,7 +1163,7 @@ void ConfigDialog::slotCreateConfigWidgets() {
   for(int count = 0; count < m_sourceListWidget->count(); ++count) {
     FetcherInfoListItem* item = static_cast<FetcherInfoListItem*>(m_sourceListWidget->item(count));
     // only create a new config widget if we don't have one already
-    if(!m_configWidgets.contains(item)) {
+    if(!m_configWidgets.contains(item) && item->fetcher()) {
       Fetch::ConfigWidget* cw = item->fetcher()->configWidget(this);
       if(cw) { // might return 0 when no widget available for fetcher type
         m_configWidgets.insert(item, cw);

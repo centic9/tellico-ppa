@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -44,7 +44,7 @@ namespace Tellico {
   namespace Fetch {
 
 /**
- * A fetcher for discogs.com
+ * A fetcher for musicbrainz.com
  *
  * @author Robby Stephenson
  */
@@ -88,7 +88,7 @@ public:
 
   static QString defaultName();
   static QString defaultIcon();
-  static StringHash allOptionalFields() { return StringHash(); }
+  static StringHash allOptionalFields();
 
 private Q_SLOTS:
   void slotComplete(KJob* job);

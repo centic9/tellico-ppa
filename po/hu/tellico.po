@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-01-17 09:10+0100\n"
+"POT-Creation-Date: 2021-03-15 03:12+0100\n"
 "PO-Revision-Date: 2021-01-13 22:01+0100\n"
 "Last-Translator: Kristóf Kiszel <kiszel.kristof@gmail.com>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -115,32 +115,32 @@ msgctxt "Title Listing (Horizontal) XSL Template"
 msgid "Title Listing (Horizontal)"
 msgstr "Cím listázás (vízszintes)"
 
-#: src/bibtexkeydialog.cpp:48
+#: src/bibtexkeydialog.cpp:49
 #, kde-format
 msgid "Citation Key Manager"
 msgstr "Idézet kulcskezelő"
 
-#: src/bibtexkeydialog.cpp:58 src/bibtexkeydialog.cpp:96
+#: src/bibtexkeydialog.cpp:59 src/bibtexkeydialog.cpp:101
 #, kde-format
 msgid "Checking for entries with duplicate citation keys..."
 msgstr "Kettőzött idézet kulcsú bejegyzések ellenőrzése…"
 
-#: src/bibtexkeydialog.cpp:68
+#: src/bibtexkeydialog.cpp:73
 #, kde-format
 msgid "Check for duplicates"
 msgstr "Kettőzések ellenőrzése"
 
-#: src/bibtexkeydialog.cpp:71
+#: src/bibtexkeydialog.cpp:76
 #, kde-format
 msgid "Filter for duplicates"
 msgstr "Kettőzések szűrése"
 
-#: src/bibtexkeydialog.cpp:106
+#: src/bibtexkeydialog.cpp:111
 #, kde-format
 msgid "There are no duplicate citation keys."
 msgstr "Nincs kettőzött idézet kulcs."
 
-#: src/bibtexkeydialog.cpp:109
+#: src/bibtexkeydialog.cpp:114
 #, kde-format
 msgid "There is %1 duplicate citation key."
 msgid_plural "There are %1 duplicate citation keys."
@@ -157,12 +157,56 @@ msgstr "Válassza ki a kölcsönvevőt"
 msgid "Name"
 msgstr "Név"
 
+#: src/charts/collectionsizereport.cpp:45
+#: src/charts/collectionsizereport.cpp:116
+#, fuzzy, kde-format
+#| msgid "Collection View"
+msgid "Collection Size"
+msgstr "Gyűjtemény nézet"
+
+#: src/charts/collectionsizereport.cpp:87 src/mainwindow.cpp:1550
+#, kde-format
+msgid "Total entries: %1"
+msgstr "Összes bejegyzés: %1"
+
+#: src/charts/collectionsizereport.cpp:91
+#, fuzzy, kde-format
+#| msgid "Collection View"
+msgid "Collection Size Over Time"
+msgstr "Gyűjtemény nézet"
+
+#: src/charts/groupsummaryreport.cpp:60
+#, fuzzy, kde-format
+#| msgctxt "Group Summary XSL Template"
+#| msgid "Group Summary"
+msgid "Group Summary: %1"
+msgstr "Csoport összegző"
+
+#: src/charts/groupsummaryreport.cpp:66
+#, fuzzy, kde-format
+#| msgid "Total number of entries:"
+msgid "Total number of entries: %1"
+msgstr "Bejegyzések összesen:"
+
+#: src/charts/groupsummaryreport.cpp:117
+#, fuzzy, kde-format
+#| msgid "Total entries: %1"
+msgid "Top Values: %1"
+msgstr "Összes bejegyzés: %1"
+
+#: src/charts/groupsummaryreport.cpp:189
+#, fuzzy, kde-format
+#| msgctxt "Group Summary XSL Template"
+#| msgid "Group Summary"
+msgid "Group Summary Report"
+msgstr "Csoport összegző"
+
 #: src/cite/lyxpipe.cpp:57
 #, kde-format
 msgid "<qt>Tellico is unable to write to the server pipe at <b>%1</b>.</qt>"
 msgstr "<qt>A Tellico nem tud a fájlba írni: <b>%1</b>.</qt>"
 
-#: src/collection.cpp:53
+#: src/collection.cpp:51
 #, kde-format
 msgid "My Collection"
 msgstr "Gyűjteményem"
@@ -361,22 +405,22 @@ msgid "A <i>Rating</i> field uses stars to show a rating number. "
 msgstr ""
 "Az <i>Értékelés</i> mező csillagok segítségével mutatja az értékelés számát."
 
-#: src/collectionfieldsdialog.cpp:195
+#: src/collectionfieldsdialog.cpp:199
 #, kde-format
 msgid "Cate&gory:"
 msgstr "Kategória:"
 
-#: src/collectionfieldsdialog.cpp:200
+#: src/collectionfieldsdialog.cpp:204
 #, kde-format
 msgid "The field category determines where the field is placed in the editor."
 msgstr "A mező kategória határozza meg azt, hol van a mező a szerkesztőben."
 
-#: src/collectionfieldsdialog.cpp:217
+#: src/collectionfieldsdialog.cpp:221
 #, kde-format
 msgid "Set &properties..."
 msgstr "&Részletes tulajdonságok..."
 
-#: src/collectionfieldsdialog.cpp:221
+#: src/collectionfieldsdialog.cpp:225
 #, kde-format
 msgid ""
 "Extended field properties are used to specify things such as the "
@@ -385,12 +429,12 @@ msgstr ""
 "Kíbővített mező tulajdonságokat használjuk például a bibtex mező "
 "specifikálásához."
 
-#: src/collectionfieldsdialog.cpp:226
+#: src/collectionfieldsdialog.cpp:230
 #, kde-format
 msgid "Description:"
 msgstr "Leírás:"
 
-#: src/collectionfieldsdialog.cpp:233
+#: src/collectionfieldsdialog.cpp:237
 #, kde-format
 msgid ""
 "The description is a useful reminder of what information is contained in the "
@@ -399,27 +443,27 @@ msgstr ""
 "A leírás egy hasznos emlékeztető arról, hogy a mező milyen információt "
 "tartalmaz."
 
-#: src/collectionfieldsdialog.cpp:238
+#: src/collectionfieldsdialog.cpp:242
 #, kde-format
 msgid "Value Options"
 msgstr "Érték beállítások"
 
-#: src/collectionfieldsdialog.cpp:243
+#: src/collectionfieldsdialog.cpp:247
 #, kde-format
 msgid "Default value:"
 msgstr "Alapértelmezett érték:"
 
-#: src/collectionfieldsdialog.cpp:248
+#: src/collectionfieldsdialog.cpp:252
 #, kde-format
 msgid "<qt>A default value can be set for new entries.</qt>"
 msgstr "<qt>Egy alapértelmezett értéket meg kell adni az új bejegyzéshez.</qt>"
 
-#: src/collectionfieldsdialog.cpp:253
+#: src/collectionfieldsdialog.cpp:257
 #, kde-format
 msgid "Value template:"
 msgstr "Érték sablon:"
 
-#: src/collectionfieldsdialog.cpp:261
+#: src/collectionfieldsdialog.cpp:265
 #, kde-format
 msgid ""
 "Derived values are formed from the values of other fields according to the "
@@ -430,17 +474,17 @@ msgstr ""
 "sablonban szerepel. Adott mezők, például \"%{year} %{title}\" értékekkel "
 "lesznek helyettesítve."
 
-#: src/collectionfieldsdialog.cpp:267
+#: src/collectionfieldsdialog.cpp:271
 #, kde-format
 msgid "Use derived value"
 msgstr "Származott értékek használata"
 
-#: src/collectionfieldsdialog.cpp:273
+#: src/collectionfieldsdialog.cpp:277
 #, kde-format
 msgid "A&llowed values:"
 msgstr "&Engedélyezett értékek:"
 
-#: src/collectionfieldsdialog.cpp:278
+#: src/collectionfieldsdialog.cpp:282
 #, kde-format
 msgid ""
 "<qt>For <i>Choice</i>-type fields, these are the only values allowed. They "
@@ -450,42 +494,42 @@ msgstr ""
 "<qt>A <i>Választás</i> típusú mezők esetében csak az adott értékek léteznek. "
 "Ezek a combo boxban találhatók.</qt>"
 
-#: src/collectionfieldsdialog.cpp:285
+#: src/collectionfieldsdialog.cpp:289
 #, kde-format
 msgid "Format options:"
 msgstr "Formázási beállítások:"
 
-#: src/collectionfieldsdialog.cpp:291
+#: src/collectionfieldsdialog.cpp:295
 #, kde-format
 msgid "No formatting"
 msgstr "Nincs formázás"
 
-#: src/collectionfieldsdialog.cpp:292
+#: src/collectionfieldsdialog.cpp:296
 #, kde-format
 msgid "Allow auto-capitalization only"
 msgstr "Csak az automatikus nagybetűsítés engedélyezett"
 
-#: src/collectionfieldsdialog.cpp:293
+#: src/collectionfieldsdialog.cpp:297
 #, kde-format
 msgid "Format as a title"
 msgstr "Formázás címként"
 
-#: src/collectionfieldsdialog.cpp:294
+#: src/collectionfieldsdialog.cpp:298
 #, kde-format
 msgid "Format as a name"
 msgstr "Formázás névként"
 
-#: src/collectionfieldsdialog.cpp:298
+#: src/collectionfieldsdialog.cpp:302
 #, kde-format
 msgid "Field Options"
 msgstr "Mező beállítások"
 
-#: src/collectionfieldsdialog.cpp:301
+#: src/collectionfieldsdialog.cpp:305
 #, kde-format
 msgid "Enable auto-completion"
 msgstr "Automatikus kiegészítés engedélyezése"
 
-#: src/collectionfieldsdialog.cpp:302
+#: src/collectionfieldsdialog.cpp:306
 #, kde-format
 msgid ""
 "If checked, KDE auto-completion will be enabled in the text edit box for "
@@ -494,12 +538,12 @@ msgstr ""
 "Ha kijelöli, a szöveg szerkesztő mezőben a KDE automatikus kiegészítés "
 "engedélyezett lesz."
 
-#: src/collectionfieldsdialog.cpp:304
+#: src/collectionfieldsdialog.cpp:308
 #, kde-format
 msgid "Allow multiple values"
 msgstr "Többszörös érték engedélyezése"
 
-#: src/collectionfieldsdialog.cpp:305
+#: src/collectionfieldsdialog.cpp:309
 #, kde-format
 msgid ""
 "If checked, Tellico will parse the values in the field for multiple values, "
@@ -508,12 +552,12 @@ msgstr ""
 "Ha kijelölt, a Tellico a mezőben megadott értékeket pontosvesszővel "
 "elválasztott többszörös értéké alakítja."
 
-#: src/collectionfieldsdialog.cpp:307
+#: src/collectionfieldsdialog.cpp:311
 #, kde-format
 msgid "Allow grouping"
 msgstr "Csoportosítás engedélyezése"
 
-#: src/collectionfieldsdialog.cpp:308
+#: src/collectionfieldsdialog.cpp:312
 #, kde-format
 msgid ""
 "If checked, this field may be used to group the entries in the group view."
@@ -521,18 +565,18 @@ msgstr ""
 "Ha kijelöli, a mezőt használja a csoport nézetben a bejegyzések "
 "csoportosításához."
 
-#: src/collectionfieldsdialog.cpp:338
+#: src/collectionfieldsdialog.cpp:342
 #, kde-format
 msgid "Revert the selected field's properties to the default values."
 msgstr ""
 "A kiválaszott mező tulajdonságait visszaállítja az alapértelmezett értékekre."
 
-#: src/collectionfieldsdialog.cpp:395
+#: src/collectionfieldsdialog.cpp:399
 #, kde-format
 msgid "Modify Fields"
 msgstr "Mezők módosítása"
 
-#: src/collectionfieldsdialog.cpp:408
+#: src/collectionfieldsdialog.cpp:412
 #, kde-format
 msgid ""
 "<qt>Removing allowed values from the <i>%1</i> field which currently exist "
@@ -543,22 +587,22 @@ msgstr ""
 "sérüléséhez vezethet. Meg akarja tartani a módosított értékeket, vagy "
 "visszaállítja a jelenlegire?</qt>"
 
-#: src/collectionfieldsdialog.cpp:413
+#: src/collectionfieldsdialog.cpp:417
 #, kde-format
 msgid "Keep modified values"
 msgstr "Megváltozott értékek megtartása"
 
-#: src/collectionfieldsdialog.cpp:512 src/collectionfieldsdialog.cpp:515
+#: src/collectionfieldsdialog.cpp:516 src/collectionfieldsdialog.cpp:519
 #, kde-format
 msgid "New Field %1"
 msgstr "%1 új mező"
 
-#: src/collectionfieldsdialog.cpp:799
+#: src/collectionfieldsdialog.cpp:807
 #, kde-format
 msgid "Revert Field Properties"
 msgstr "Mező tulajdonságok visszaállítása"
 
-#: src/collectionfieldsdialog.cpp:800
+#: src/collectionfieldsdialog.cpp:808
 #, kde-format
 msgid ""
 "<qt><p>Do you really want to revert the properties for the <em>%1</em> field "
@@ -567,38 +611,38 @@ msgstr ""
 "<qt><p>Tényleg vissza akarja állítani a <em>%1</em> mező tulajdonságait az "
 "alapértelmezettre?</p></qt>"
 
-#: src/collectionfieldsdialog.cpp:803
+#: src/collectionfieldsdialog.cpp:811
 #, kde-format
 msgid "Revert"
 msgstr "Visszaállítás"
 
-#: src/collectionfieldsdialog.cpp:877
+#: src/collectionfieldsdialog.cpp:885
 #, kde-format
 msgid "Extended Field Properties"
 msgstr "Kibővített mező tulajdonságok"
 
-#: src/collectionfieldsdialog.cpp:878 src/collections/filecatalog.cpp:108
+#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:108
 #: src/fetch/srufetcher.cpp:577
 #, kde-format
 msgid "Value"
 msgstr "Érték"
 
-#: src/collectionfieldsdialog.cpp:878 src/collections/filecatalog.cpp:107
+#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:107
 #, kde-format
 msgid "Property"
 msgstr "Tulajdonság"
 
-#: src/collectionfieldsdialog.cpp:914
+#: src/collectionfieldsdialog.cpp:922
 #, kde-format
 msgid "A field with this title already exists. Please enter a different title."
 msgstr "A mező ezzel a névvel már létezik. Adjon meg más nevet."
 
-#: src/collectionfieldsdialog.cpp:921
+#: src/collectionfieldsdialog.cpp:929
 #, kde-format
 msgid "<qt>The category may not be empty. Please enter a category.</qt>"
 msgstr "<qt>A kategória nem lehet üres. Adja meg a kategóriát.</qt>"
 
-#: src/collectionfieldsdialog.cpp:929
+#: src/collectionfieldsdialog.cpp:937
 #, kde-format
 msgid ""
 "<qt>A field may not be in the same category as a <em>Paragraph</em>, "
@@ -608,7 +652,7 @@ msgstr ""
 "<qt>A mező nem lehet azonos kategóriában, mint a <em>Bekezdés</em>, "
 "<em>Táblázat</em> vagy a <em>Kép</em>. Adjon meg másik kategóriát.</qt>"
 
-#: src/collectionfieldsdialog.cpp:937
+#: src/collectionfieldsdialog.cpp:945
 #, kde-format
 msgid ""
 "A field's title may not be the same as an existing category. Please enter a "
@@ -617,7 +661,7 @@ msgstr ""
 "A mező címe nem egyezhet meg egy létező kategóriával. Adjon meg egy másik "
 "címet."
 
-#: src/collectionfieldsdialog.cpp:949
+#: src/collectionfieldsdialog.cpp:957
 #, kde-format
 msgid ""
 "The range for a rating field must be between 1 and 10, and the lower bound "
@@ -627,12 +671,12 @@ msgstr ""
 "Az értékelés mező tartománya 1 és 10 közé essen, valamint az alsó határ "
 "alacsonyabb legyen, mint a felső. Adjon meg más alsó, felső értéket."
 
-#: src/collectionfieldsdialog.cpp:964
+#: src/collectionfieldsdialog.cpp:972
 #, kde-format
 msgid "Tables are limited to a maximum of ten columns."
 msgstr "A táblázatok maximum 10 oszlopot tartalmazhatnak."
 
-#: src/collectionfieldsdialog.cpp:970
+#: src/collectionfieldsdialog.cpp:978
 #, kde-format
 msgid "A field with a derived value must have a value template."
 msgstr "A származott értéket tartalmazó mezőnek érték sablonnak kell lennie."
@@ -647,27 +691,29 @@ msgstr "A származott értéket tartalmazó mezőnek érték sablonnak kell lenn
 #: src/collections/musiccollection.cpp:31
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31 src/collections/winecollection.cpp:30
-#: src/configdialog.cpp:143 src/configdialog.cpp:170 src/configdialog.cpp:184
-#: src/configdialog.cpp:201 src/fetch/allocinefetcher.cpp:318
-#: src/fetch/allocinefetcher.cpp:324 src/fetch/amazonfetcher.cpp:859
+#: src/configdialog.cpp:142 src/configdialog.cpp:169 src/configdialog.cpp:183
+#: src/configdialog.cpp:200 src/fetch/allocinefetcher.cpp:318
+#: src/fetch/allocinefetcher.cpp:324 src/fetch/amazonfetcher.cpp:863
 #: src/fetch/animenfofetcher.cpp:310 src/fetch/animenfofetcher.cpp:314
 #: src/fetch/bedethequefetcher.cpp:331 src/fetch/bedethequefetcher.cpp:339
-#: src/fetch/colnectfetcher.cpp:286 src/fetch/colnectfetcher.cpp:299
-#: src/fetch/discogsfetcher.cpp:270 src/fetch/discogsfetcher.cpp:275
-#: src/fetch/discogsfetcher.cpp:280 src/fetch/discogsfetcher.cpp:287
-#: src/fetch/doubanfetcher.cpp:323 src/fetch/doubanfetcher.cpp:342
-#: src/fetch/doubanfetcher.cpp:361 src/fetch/filmasterfetcher.cpp:234
-#: src/fetch/googlebookfetcher.cpp:252 src/fetch/googlebookfetcher.cpp:257
-#: src/fetch/igdbfetcher.cpp:231 src/fetch/igdbfetcher.cpp:236
-#: src/fetch/imdbfetcher.cpp:713 src/fetch/imdbfetcher.cpp:1154
-#: src/fetch/kinopoiskfetcher.cpp:243 src/fetch/kinoteatrfetcher.cpp:240
-#: src/fetch/mobygamesfetcher.cpp:416 src/fetch/mobygamesfetcher.cpp:421
+#: src/fetch/colnectfetcher.cpp:317 src/fetch/colnectfetcher.cpp:330
+#: src/fetch/colnectfetcher.cpp:337 src/fetch/colnectfetcher.cpp:344
+#: src/fetch/discogsfetcher.cpp:280 src/fetch/discogsfetcher.cpp:285
+#: src/fetch/discogsfetcher.cpp:290 src/fetch/discogsfetcher.cpp:297
+#: src/fetch/discogsfetcher.cpp:304 src/fetch/doubanfetcher.cpp:294
+#: src/fetch/doubanfetcher.cpp:312 src/fetch/doubanfetcher.cpp:330
+#: src/fetch/filmasterfetcher.cpp:234 src/fetch/googlebookfetcher.cpp:252
+#: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:225
+#: src/fetch/imdbfetcher.cpp:1176 src/fetch/kinopoiskfetcher.cpp:243
+#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:417
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
-#: src/fetch/omdbfetcher.cpp:230 src/fetch/omdbfetcher.cpp:324
-#: src/fetch/openlibraryfetcher.cpp:248 src/fetch/thegamesdbfetcher.cpp:220
-#: src/fetch/thegamesdbfetcher.cpp:225 src/fetch/themoviedbfetcher.cpp:263
-#: src/fetch/themoviedbfetcher.cpp:268 src/fetch/themoviedbfetcher.cpp:273
-#: src/field.cpp:36 src/field.cpp:77 src/field.cpp:296
+#: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
+#: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:248
+#: src/fetch/thegamesdbfetcher.cpp:241 src/fetch/thegamesdbfetcher.cpp:246
+#: src/fetch/themoviedbfetcher.cpp:294 src/fetch/themoviedbfetcher.cpp:299
+#: src/fetch/tvmazefetcher.cpp:177 src/fetch/tvmazefetcher.cpp:182
+#: src/fetch/upcitemdbfetcher.cpp:209 src/field.cpp:38 src/field.cpp:79
+#: src/field.cpp:298 src/field.cpp:327 src/field.cpp:332
 #: src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "General"
@@ -675,9 +721,9 @@ msgstr "Általános"
 
 #: src/collections/bibtexcollection.cpp:39
 #: src/collections/bookcollection.cpp:32
-#: src/collections/comicbookcollection.cpp:32 src/fetch/isbndbfetcher.cpp:359
-#: src/field.cpp:312 src/translators/grs1importer.cpp:75
-#: src/translators/pdfimporter.cpp:212
+#: src/collections/comicbookcollection.cpp:32 src/fetch/isbndbfetcher.cpp:361
+#: src/field.cpp:314 src/translators/grs1importer.cpp:75
+#: src/translators/pdfimporter.cpp:214
 #, kde-format
 msgid "Publishing"
 msgstr "Kiadás"
@@ -741,7 +787,7 @@ msgid "Publisher"
 msgstr "Kiadó"
 
 #: src/collections/bibtexcollection.cpp:141 src/fetch/hathitrustfetcher.cpp:302
-#: src/fetch/srufetcher.cpp:502 src/fetch/z3950fetcher.cpp:573
+#: src/fetch/srufetcher.cpp:502 src/fetch/z3950fetcher.cpp:572
 #, kde-format
 msgid "Address"
 msgstr "Postacím"
@@ -773,7 +819,7 @@ msgstr "Év"
 msgid "Journal"
 msgstr "Folyóirat"
 
-#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:71
+#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:73
 #, kde-format
 msgid "DOI"
 msgstr "DOI"
@@ -788,7 +834,7 @@ msgstr "Digitális objektum azonosító"
 msgid "Month"
 msgstr "Hónap"
 
-#: src/collections/bibtexcollection.cpp:191 src/field.cpp:198
+#: src/collections/bibtexcollection.cpp:191 src/field.cpp:200
 #, kde-format
 msgid "Number"
 msgstr "Szám"
@@ -811,8 +857,8 @@ msgstr "Fejezet"
 
 #: src/collections/bibtexcollection.cpp:213
 #: src/collections/bookcollection.cpp:143 src/collections/cardcollection.cpp:82
-#: src/collections/comicbookcollection.cpp:70 src/fetch/colnectfetcher.cpp:285
-#: src/fetch/colnectfetcher.cpp:433
+#: src/collections/comicbookcollection.cpp:70 src/fetch/colnectfetcher.cpp:316
+#: src/fetch/colnectfetcher.cpp:551
 #, kde-format
 msgid "Series"
 msgstr "Sorozat"
@@ -837,21 +883,21 @@ msgstr "Keresztreferencia"
 #: src/collections/cardcollection.cpp:111
 #: src/collections/comicbookcollection.cpp:120
 #: src/collections/musiccollection.cpp:113
-#: src/collections/videocollection.cpp:215 src/fetch/amazonfetcher.cpp:1073
+#: src/collections/videocollection.cpp:219 src/fetch/amazonfetcher.cpp:1078
 #, kde-format
 msgid "Keywords"
 msgstr "Kulcsszavak"
 
 #: src/collections/bibtexcollection.cpp:241 src/collections/filecatalog.cpp:53
 #: src/fetch/entrezfetcher.cpp:439 src/fetch/entrezfetcher.cpp:515
-#: src/field.cpp:199 src/translators/gcstarimporter.cpp:88
+#: src/field.cpp:201 src/translators/gcstarimporter.cpp:88
 #, kde-format
 msgid "URL"
 msgstr "URL"
 
 #: src/collections/bibtexcollection.cpp:246 src/fetch/entrezfetcher.cpp:514
 #: src/fetch/hathitrustfetcher.cpp:303 src/fetch/srufetcher.cpp:503
-#: src/fetch/z3950fetcher.cpp:574
+#: src/fetch/z3950fetcher.cpp:573
 #, kde-format
 msgid "Abstract"
 msgstr "Összefoglalás"
@@ -862,7 +908,7 @@ msgid "Notes"
 msgstr "Megjegyzések"
 
 #: src/collections/bibtexcollection.cpp:480
-#: src/translators/xmlstatehandler.cpp:290
+#: src/translators/xmlstatehandler.cpp:293
 #, kde-format
 msgid "Unknown"
 msgstr "Ismeretlen"
@@ -874,7 +920,7 @@ msgstr "Ismeretlen"
 #: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:503 src/field.cpp:289 src/field.cpp:302 src/field.cpp:307
+#: src/document.cpp:500 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
 #, kde-format
 msgid "Personal"
 msgstr "Személyes"
@@ -888,7 +934,7 @@ msgstr "Társasjátékaim"
 #: src/collections/bookcollection.cpp:131
 #: src/collections/comicbookcollection.cpp:114
 #: src/collections/gamecollection.cpp:66 src/collections/musiccollection.cpp:77
-#: src/collections/videocollection.cpp:74
+#: src/collections/videocollection.cpp:78
 #, kde-format
 msgid "Genre"
 msgstr "Fajta"
@@ -910,7 +956,7 @@ msgid "Designer"
 msgstr "Tervező"
 
 #: src/collections/boardgamecollection.cpp:80
-#: src/fetch/thegamesdbfetcher.cpp:224 src/fetch/thegamesdbfetcher.cpp:494
+#: src/fetch/thegamesdbfetcher.cpp:245 src/fetch/thegamesdbfetcher.cpp:553
 #, kde-format
 msgid "Number of Players"
 msgstr "Játékosok száma"
@@ -926,32 +972,33 @@ msgid "Minimum Age"
 msgstr "Alsó korhatár"
 
 #: src/collections/boardgamecollection.cpp:95
-#: src/collections/filecatalog.cpp:57 src/collections/gamecollection.cpp:98
+#: src/collections/filecatalog.cpp:57 src/collections/gamecollection.cpp:102
 #: src/collections/stampcollection.cpp:54
 #: src/collections/winecollection.cpp:125 src/entrymatchdialog.cpp:94
-#: src/fetch/colnectfetcher.cpp:292 src/fetch/colnectfetcher.cpp:436
-#: src/fetchdialog.cpp:250
+#: src/fetch/colnectfetcher.cpp:323 src/fetch/colnectfetcher.cpp:554
+#: src/fetch/numistafetcher.cpp:350 src/fetch/numistafetcher.cpp:398
+#: src/fetchdialog.cpp:253
 #, kde-format
 msgid "Description"
 msgstr "Leírás"
 
 #: src/collections/boardgamecollection.cpp:98
 #: src/collections/bookcollection.cpp:174
-#: src/collections/comicbookcollection.cpp:154
+#: src/collections/comicbookcollection.cpp:158
 #: src/collections/musiccollection.cpp:91
-#: src/collections/winecollection.cpp:113 src/field.cpp:203
+#: src/collections/winecollection.cpp:113 src/field.cpp:205
 #, kde-format
 msgid "Rating"
 msgstr "Értékelés"
 
 #: src/collections/boardgamecollection.cpp:103
 #: src/collections/bookcollection.cpp:78 src/collections/cardcollection.cpp:93
-#: src/collections/coincollection.cpp:117
-#: src/collections/comicbookcollection.cpp:133
-#: src/collections/gamecollection.cpp:110
+#: src/collections/coincollection.cpp:125
+#: src/collections/comicbookcollection.cpp:137
+#: src/collections/gamecollection.cpp:114
 #: src/collections/musiccollection.cpp:96
-#: src/collections/stampcollection.cpp:114
-#: src/collections/videocollection.cpp:198
+#: src/collections/stampcollection.cpp:125
+#: src/collections/videocollection.cpp:202
 #: src/collections/winecollection.cpp:90
 #, kde-format
 msgid "Purchase Date"
@@ -960,12 +1007,12 @@ msgstr "Vásárlás dátuma"
 #: src/collections/boardgamecollection.cpp:108
 #: src/collections/bookcollection.cpp:166
 #: src/collections/cardcollection.cpp:107
-#: src/collections/coincollection.cpp:132
-#: src/collections/comicbookcollection.cpp:146
-#: src/collections/gamecollection.cpp:115
+#: src/collections/coincollection.cpp:140
+#: src/collections/comicbookcollection.cpp:150
+#: src/collections/gamecollection.cpp:119
 #: src/collections/musiccollection.cpp:101
-#: src/collections/stampcollection.cpp:129
-#: src/collections/videocollection.cpp:203
+#: src/collections/stampcollection.cpp:140
+#: src/collections/videocollection.cpp:207
 #: src/collections/winecollection.cpp:118
 #, kde-format
 msgid "Gift"
@@ -973,12 +1020,12 @@ msgstr "Ajándék"
 
 #: src/collections/boardgamecollection.cpp:112
 #: src/collections/bookcollection.cpp:83 src/collections/cardcollection.cpp:98
-#: src/collections/coincollection.cpp:122
-#: src/collections/comicbookcollection.cpp:138
-#: src/collections/gamecollection.cpp:119
+#: src/collections/coincollection.cpp:130
+#: src/collections/comicbookcollection.cpp:142
+#: src/collections/gamecollection.cpp:123
 #: src/collections/musiccollection.cpp:105
-#: src/collections/stampcollection.cpp:119
-#: src/collections/videocollection.cpp:207
+#: src/collections/stampcollection.cpp:130
+#: src/collections/videocollection.cpp:211
 #: src/collections/winecollection.cpp:95
 #, kde-format
 msgid "Purchase Price"
@@ -986,18 +1033,18 @@ msgstr "Vásárlási ár"
 
 #: src/collections/boardgamecollection.cpp:116
 #: src/collections/bookcollection.cpp:170
-#: src/collections/comicbookcollection.cpp:150
-#: src/collections/gamecollection.cpp:123
+#: src/collections/comicbookcollection.cpp:154
+#: src/collections/gamecollection.cpp:127
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:211 src/document.cpp:501
+#: src/collections/videocollection.cpp:215 src/document.cpp:498
 #, kde-format
 msgid "Loaned"
 msgstr "Kölcsön adva"
 
 #: src/collections/boardgamecollection.cpp:120
-#: src/collections/gamecollection.cpp:127
+#: src/collections/gamecollection.cpp:131
 #: src/collections/musiccollection.cpp:118
-#: src/collections/videocollection.cpp:220
+#: src/collections/videocollection.cpp:224
 #, kde-format
 msgid "Cover"
 msgstr "Címlap"
@@ -1005,12 +1052,12 @@ msgstr "Címlap"
 #: src/collections/boardgamecollection.cpp:123
 #: src/collections/bookcollection.cpp:185
 #: src/collections/cardcollection.cpp:126
-#: src/collections/coincollection.cpp:142
-#: src/collections/comicbookcollection.cpp:165
-#: src/collections/gamecollection.cpp:130
+#: src/collections/coincollection.cpp:150
+#: src/collections/comicbookcollection.cpp:169
+#: src/collections/gamecollection.cpp:134
 #: src/collections/musiccollection.cpp:121
-#: src/collections/stampcollection.cpp:136
-#: src/collections/videocollection.cpp:223
+#: src/collections/stampcollection.cpp:147
+#: src/collections/videocollection.cpp:227
 #: src/collections/winecollection.cpp:128 src/fetch/bedethequefetcher.cpp:455
 #, kde-format
 msgid "Comments"
@@ -1033,17 +1080,17 @@ msgstr "Könyveim"
 msgid "Subtitle"
 msgstr "Alcím"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:961
-#: src/fetch/doubanfetcher.cpp:385 src/fetch/ibsfetcher.cpp:285
-#: src/translators/librarythingimporter.cpp:109
+#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
+#: src/fetch/doubanfetcher.cpp:363 src/fetch/doubanfetcher.cpp:415
+#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
 #, kde-format
 msgid "Paperback"
 msgstr "Kartonált"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:963
-#: src/fetch/doubanfetcher.cpp:383 src/fetch/ibsfetcher.cpp:287
-#: src/translators/alexandriaimporter.cpp:156
-#: src/translators/librarythingimporter.cpp:111
+#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:967
+#: src/fetch/doubanfetcher.cpp:361 src/fetch/doubanfetcher.cpp:413
+#: src/fetch/ibsfetcher.cpp:287 src/translators/alexandriaimporter.cpp:158
+#: src/translators/librarythingimporter.cpp:148
 #, kde-format
 msgid "Hardback"
 msgstr "Kemény tábla"
@@ -1106,8 +1153,7 @@ msgstr "Nyelv"
 msgid "Series Number"
 msgstr "Sorozatszám"
 
-#: src/collections/bookcollection.cpp:153 src/mainwindow.cpp:249
-#: src/mainwindow.cpp:531
+#: src/collections/bookcollection.cpp:153
 #, kde-format
 msgid "New"
 msgstr "Új"
@@ -1118,14 +1164,14 @@ msgid "Used"
 msgstr "Használt"
 
 #: src/collections/bookcollection.cpp:154
-#: src/collections/comicbookcollection.cpp:129
+#: src/collections/comicbookcollection.cpp:133
 #: src/collections/stampcollection.cpp:31
 #, kde-format
 msgid "Condition"
 msgstr "Állapot"
 
 #: src/collections/bookcollection.cpp:158
-#: src/collections/comicbookcollection.cpp:142
+#: src/collections/comicbookcollection.cpp:146
 #, kde-format
 msgid "Signed"
 msgstr "Dedikált"
@@ -1136,16 +1182,16 @@ msgid "Read"
 msgstr "Olvasva"
 
 #: src/collections/bookcollection.cpp:179
-#: src/collections/comicbookcollection.cpp:159 src/fetch/arxivfetcher.cpp:205
-#: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:242
+#: src/collections/comicbookcollection.cpp:163 src/fetch/arxivfetcher.cpp:205
+#: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:244
 #: src/translators/referencerimporter.cpp:62
 #, kde-format
 msgid "Front Cover"
 msgstr "Fedlap"
 
 #: src/collections/bookcollection.cpp:182
-#: src/collections/comicbookcollection.cpp:162
-#: src/collections/videocollection.cpp:190
+#: src/collections/comicbookcollection.cpp:166
+#: src/collections/videocollection.cpp:194
 #, kde-format
 msgid "Plot Summary"
 msgstr "Tartalom összefoglalója"
@@ -1181,8 +1227,8 @@ msgid "Card Type"
 msgstr "Kártya típusa"
 
 #: src/collections/cardcollection.cpp:102
-#: src/collections/coincollection.cpp:126
-#: src/collections/stampcollection.cpp:123
+#: src/collections/coincollection.cpp:134
+#: src/collections/stampcollection.cpp:134
 #: src/collections/winecollection.cpp:99
 #, kde-format
 msgid "Location"
@@ -1214,7 +1260,7 @@ msgstr "Érméim"
 msgid "Type"
 msgstr "Típus"
 
-#: src/collections/coincollection.cpp:61
+#: src/collections/coincollection.cpp:61 src/collections/stampcollection.cpp:61
 #, kde-format
 msgctxt "monetary denomination"
 msgid "Denomination"
@@ -1227,12 +1273,12 @@ msgstr "Pénzverde jele"
 
 #: src/collections/coincollection.cpp:77
 #: src/collections/comicbookcollection.cpp:102
-#: src/collections/stampcollection.cpp:65 src/collections/winecollection.cpp:84
+#: src/collections/stampcollection.cpp:72 src/collections/winecollection.cpp:84
 #, kde-format
 msgid "Country"
 msgstr "Ország"
 
-#: src/collections/coincollection.cpp:83
+#: src/collections/coincollection.cpp:83 src/collections/stampcollection.cpp:66
 #, kde-format
 msgid "Currency"
 msgstr "Pénznem"
@@ -1257,29 +1303,31 @@ msgstr ""
 "kiváló-55,Majdnem kiváló-50,Kiváló-40,Nagyon szép-30,Nagyon szép-20,Szép-12, "
 "Nagyon jó-8,Jó-4,Gyenge"
 
-#: src/collections/coincollection.cpp:103
-#: src/collections/stampcollection.cpp:89
+#: src/collections/coincollection.cpp:107
+#: src/collections/stampcollection.cpp:100
 #, kde-format
 msgid "Grade"
 msgstr "Fajta"
 
-#: src/collections/coincollection.cpp:110
+#: src/collections/coincollection.cpp:114
 #, kde-format
 msgctxt "Coin grading services - PCGS,NGC,ANACS,ICG,ASA,PCI"
 msgid "PCGS,NGC,ANACS,ICG,ASA,PCI"
 msgstr "PCGS,NGC,ANACS,ICG,ASA,PCI"
 
-#: src/collections/coincollection.cpp:112
+#: src/collections/coincollection.cpp:120
 #, kde-format
 msgid "Grading Service"
 msgstr "Osztályozás"
 
-#: src/collections/coincollection.cpp:136 src/fetch/colnectfetcher.cpp:431
+#: src/collections/coincollection.cpp:144 src/fetch/colnectfetcher.cpp:549
+#: src/fetch/numistafetcher.cpp:400
 #, kde-format
 msgid "Obverse"
 msgstr "Fej"
 
-#: src/collections/coincollection.cpp:139 src/fetch/colnectfetcher.cpp:432
+#: src/collections/coincollection.cpp:147 src/fetch/colnectfetcher.cpp:550
+#: src/fetch/numistafetcher.cpp:401
 #, kde-format
 msgid "Reverse"
 msgstr "Irás"
@@ -1290,14 +1338,14 @@ msgid "My Comic Books"
 msgstr "Képregényeim"
 
 #: src/collections/comicbookcollection.cpp:58
-#: src/collections/videocollection.cpp:129
+#: src/collections/videocollection.cpp:133
 #, kde-format
 msgid "Writer"
 msgstr "Szerző"
 
 #: src/collections/comicbookcollection.cpp:64
 #: src/fetch/boardgamegeekfetcher.cpp:185
-#: src/translators/boardgamegeekimporter.cpp:218
+#: src/translators/boardgamegeekimporter.cpp:217
 #, kde-format
 msgctxt "Comic Book Illustrator"
 msgid "Artist"
@@ -1411,173 +1459,173 @@ msgstr ""
 "Kategória nélküli, Felnőtt, Tinédszer, Mindenki 10+, Mindenki, Kisgyermek, "
 "Nem eldöntött"
 
-#: src/collections/gamecollection.cpp:93
+#: src/collections/gamecollection.cpp:97
 #, kde-format
 msgid "ESRB Rating"
 msgstr "ESRB Értékelés"
 
-#: src/collections/gamecollection.cpp:101
-#: src/collections/videocollection.cpp:193
+#: src/collections/gamecollection.cpp:105
+#: src/collections/videocollection.cpp:197
 #, kde-format
 msgid "Personal Rating"
 msgstr "Személyes értékelés"
 
-#: src/collections/gamecollection.cpp:106
+#: src/collections/gamecollection.cpp:110
 #, kde-format
 msgid "Completed"
 msgstr "Befejezve"
 
-#: src/collections/gamecollection.cpp:241
+#: src/collections/gamecollection.cpp:245
 #, kde-format
 msgid "Linux"
 msgstr "Linux"
 
-#: src/collections/gamecollection.cpp:242
+#: src/collections/gamecollection.cpp:246
 #, kde-format
 msgid "Mac OS"
 msgstr "Mac OS"
 
-#: src/collections/gamecollection.cpp:243
+#: src/collections/gamecollection.cpp:247
 #, kde-format
 msgctxt "Windows Platform"
 msgid "Windows"
 msgstr "Windows"
 
-#: src/collections/gamecollection.cpp:244
+#: src/collections/gamecollection.cpp:248
 #, kde-format
 msgctxt "iOS Platform"
 msgid "iOS"
 msgstr "iOS"
 
-#: src/collections/gamecollection.cpp:245
+#: src/collections/gamecollection.cpp:249
 #, kde-format
 msgctxt "Android Platform"
 msgid "Android"
 msgstr "Android"
 
-#: src/collections/gamecollection.cpp:246
+#: src/collections/gamecollection.cpp:250
 #, kde-format
 msgid "Xbox"
 msgstr "Xbox"
 
-#: src/collections/gamecollection.cpp:247
+#: src/collections/gamecollection.cpp:251
 #, kde-format
 msgid "Xbox 360"
 msgstr "Xbox 360"
 
-#: src/collections/gamecollection.cpp:248
+#: src/collections/gamecollection.cpp:252
 #, kde-format
 msgid "Xbox One"
 msgstr "Xbox One"
 
-#: src/collections/gamecollection.cpp:249
+#: src/collections/gamecollection.cpp:253
 #, kde-format
 msgid "Xbox Series X"
 msgstr "Xbox Series X"
 
-#: src/collections/gamecollection.cpp:250
+#: src/collections/gamecollection.cpp:254
 #, kde-format
 msgid "PlayStation"
 msgstr "PlayStation"
 
-#: src/collections/gamecollection.cpp:251
+#: src/collections/gamecollection.cpp:255
 #, kde-format
 msgid "PlayStation2"
 msgstr "PlayStation2"
 
-#: src/collections/gamecollection.cpp:252
+#: src/collections/gamecollection.cpp:256
 #, kde-format
 msgid "PlayStation3"
 msgstr "PlayStation3"
 
-#: src/collections/gamecollection.cpp:253
+#: src/collections/gamecollection.cpp:257
 #, kde-format
 msgid "PlayStation4"
 msgstr "PlayStation4"
 
-#: src/collections/gamecollection.cpp:254
+#: src/collections/gamecollection.cpp:258
 #, kde-format
 msgid "PlayStation5"
 msgstr "PlayStation5"
 
-#: src/collections/gamecollection.cpp:255
+#: src/collections/gamecollection.cpp:259
 #, kde-format
 msgctxt "PlayStation Portable"
 msgid "PSP"
 msgstr "PSP"
 
-#: src/collections/gamecollection.cpp:256
+#: src/collections/gamecollection.cpp:260
 #, kde-format
 msgid "PlayStation Vita"
 msgstr "PlayStation Vita"
 
-#: src/collections/gamecollection.cpp:257
+#: src/collections/gamecollection.cpp:261
 #, kde-format
 msgid "Game Boy"
 msgstr "Game Boy"
 
-#: src/collections/gamecollection.cpp:258
+#: src/collections/gamecollection.cpp:262
 #, kde-format
 msgid "Game Boy Color"
 msgstr "Game Boy Color"
 
-#: src/collections/gamecollection.cpp:259
+#: src/collections/gamecollection.cpp:263
 #, kde-format
 msgid "Game Boy Advance"
 msgstr "Game Boy Advance"
 
-#: src/collections/gamecollection.cpp:260
+#: src/collections/gamecollection.cpp:264
 #, kde-format
 msgid "Nintendo"
 msgstr "Nintendo"
 
-#: src/collections/gamecollection.cpp:261
+#: src/collections/gamecollection.cpp:265
 #, kde-format
 msgid "Super Nintendo"
 msgstr "Super Nintendo"
 
-#: src/collections/gamecollection.cpp:262
+#: src/collections/gamecollection.cpp:266
 #, kde-format
 msgid "Nintendo 64"
 msgstr "Nintendo 64"
 
-#: src/collections/gamecollection.cpp:263
+#: src/collections/gamecollection.cpp:267
 #, kde-format
 msgid "GameCube"
 msgstr "GameCube"
 
-#: src/collections/gamecollection.cpp:264
+#: src/collections/gamecollection.cpp:268
 #, kde-format
 msgid "Nintendo Wii"
 msgstr "Nintendo Wii"
 
-#: src/collections/gamecollection.cpp:265
+#: src/collections/gamecollection.cpp:269
 #, kde-format
 msgid "Nintendo WiiU"
 msgstr "Nintendo WiiU"
 
-#: src/collections/gamecollection.cpp:266
+#: src/collections/gamecollection.cpp:270
 #, kde-format
 msgid "Nintendo Switch"
 msgstr "Nintendo Switch"
 
-#: src/collections/gamecollection.cpp:267
+#: src/collections/gamecollection.cpp:271
 #, kde-format
 msgid "Nintendo DS"
 msgstr "Nintendo DS"
 
-#: src/collections/gamecollection.cpp:268
+#: src/collections/gamecollection.cpp:272
 #, kde-format
 msgid "Nintendo 3DS"
 msgstr "Nintendo 3DS"
 
-#: src/collections/gamecollection.cpp:269
+#: src/collections/gamecollection.cpp:273
 #, kde-format
 msgctxt "Sega Genesis"
 msgid "Genesis"
 msgstr "Genesis"
 
-#: src/collections/gamecollection.cpp:270
+#: src/collections/gamecollection.cpp:274
 #, kde-format
 msgid "Dreamcast"
 msgstr "Dreamcast"
@@ -1592,8 +1640,10 @@ msgstr "Zenéim"
 msgid "Album"
 msgstr "Album"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:360
-#: src/fetch/doubanfetcher.cpp:437 src/translators/freedbimporter.cpp:275
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:378
+#: src/fetch/doubanfetcher.cpp:369 src/fetch/doubanfetcher.cpp:502
+#: src/fetch/upcitemdbfetcher.cpp:291 src/fetch/upcitemdbfetcher.cpp:411
+#: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:392
 #: src/translators/freedbimporter.cpp:459
 #, kde-format
@@ -1601,18 +1651,19 @@ msgid "Compact Disc"
 msgstr "CD lemez"
 
 #: src/collections/musiccollection.cpp:54
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1040
-#: src/fetch/discogsfetcher.cpp:368
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1045
+#: src/fetch/discogsfetcher.cpp:386 src/fetch/upcitemdbfetcher.cpp:407
+#: src/fetch/upcitemdbfetcher.cpp:415
 #, kde-format
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:363
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:381
 #, kde-format
 msgid "Vinyl"
 msgstr "LP"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:365
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:383
 #, kde-format
 msgid "Cassette"
 msgstr "Kazetta"
@@ -1625,8 +1676,8 @@ msgstr "Hordozó"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:214
-#: src/translators/xmlstatehandler.cpp:402
+#: src/translators/audiofileimporter.cpp:215
+#: src/translators/xmlstatehandler.cpp:396
 #, kde-format
 msgid "Artist"
 msgstr "Előadó"
@@ -1642,16 +1693,17 @@ msgid "Tracks"
 msgstr "Sávok"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
-#: src/fetch/fetchmanager.cpp:66 src/fetchdialog.cpp:249 src/field.cpp:295
-#: src/translators/audiofileimporter.cpp:213
-#: src/translators/xmlstatehandler.cpp:401
+#: src/fetch/fetchmanager.cpp:68 src/fetch/tvmazefetcher.cpp:192
+#: src/fetchdialog.cpp:252 src/field.cpp:297
+#: src/translators/audiofileimporter.cpp:214
+#: src/translators/xmlstatehandler.cpp:395
 #, kde-format
 msgid "Title"
 msgstr "Cím"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:215
-#: src/translators/xmlstatehandler.cpp:403
+#: src/translators/audiofileimporter.cpp:216
+#: src/translators/xmlstatehandler.cpp:397
 #, kde-format
 msgid "Length"
 msgstr "Hossz"
@@ -1661,56 +1713,51 @@ msgstr "Hossz"
 msgid "My Stamps"
 msgstr "Bélyegeim"
 
-#: src/collections/stampcollection.cpp:60
-#, kde-format
-msgid "Denomination"
-msgstr "Névérték"
-
-#: src/collections/stampcollection.cpp:71
+#: src/collections/stampcollection.cpp:78
 #, kde-format
 msgid "Issue Year"
 msgstr "Kiadás éve"
 
-#: src/collections/stampcollection.cpp:76
-#: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:402
-#: src/fetch/imdbfetcher.cpp:1296
+#: src/collections/stampcollection.cpp:83
+#: src/collections/videocollection.cpp:184 src/fetch/allocinefetcher.cpp:402
+#: src/fetch/imdbfetcher.cpp:1318
 #, kde-format
 msgid "Color"
 msgstr "Színes"
 
-#: src/collections/stampcollection.cpp:81
+#: src/collections/stampcollection.cpp:88
 #, kde-format
 msgid "Scott#"
 msgstr "Épség"
 
-#: src/collections/stampcollection.cpp:87
+#: src/collections/stampcollection.cpp:94
 #, kde-format
 msgctxt ""
 "Stamp grade levels - Superb,Extremely Fine,Very Fine,Fine,Average,Poor"
 msgid "Superb,Extremely Fine,Very Fine,Fine,Average,Poor"
 msgstr "Kíváló,Igen nagyszerű,Meglehetősen nagyszerű,Nagyszerű,Átlagos,Gyenge"
 
-#: src/collections/stampcollection.cpp:94
+#: src/collections/stampcollection.cpp:105
 #, kde-format
 msgid "Cancelled"
 msgstr "Visszavonva"
 
-#: src/collections/stampcollection.cpp:99
+#: src/collections/stampcollection.cpp:110
 #, kde-format
 msgid "Hinged"
 msgstr "Fogazott"
 
-#: src/collections/stampcollection.cpp:104
+#: src/collections/stampcollection.cpp:115
 #, kde-format
 msgid "Centering"
 msgstr "Középre állított"
 
-#: src/collections/stampcollection.cpp:109
+#: src/collections/stampcollection.cpp:120
 #, kde-format
 msgid "Gummed"
 msgstr "Enyvezett hátú"
 
-#: src/collections/stampcollection.cpp:133 src/field.cpp:201
+#: src/collections/stampcollection.cpp:144 src/field.cpp:203
 #, kde-format
 msgid "Image"
 msgstr "Kép"
@@ -1730,17 +1777,20 @@ msgstr "Jellemzők"
 msgid "My Videos"
 msgstr "Videóim"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1021
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1025
+#: src/fetch/upcitemdbfetcher.cpp:387
 #, kde-format
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1024
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1028
+#: src/fetch/upcitemdbfetcher.cpp:390
 #, kde-format
 msgid "HD DVD"
 msgstr "HD DVD"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1027
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1031
+#: src/fetch/upcitemdbfetcher.cpp:393
 #, kde-format
 msgid "VHS"
 msgstr "VHS"
@@ -1766,176 +1816,179 @@ msgctxt "Movie ratings - G (USA),PG (USA),PG-13 (USA),R (USA), U (USA)"
 msgid "G (USA),PG (USA),PG-13 (USA),R (USA), U (USA)"
 msgstr "12, 16, 18, KN, G (USA),PG (USA),PG-13 (USA),R (USA), U (USA)"
 
-#: src/collections/videocollection.cpp:69
+#: src/collections/videocollection.cpp:73
 #, kde-format
 msgid "Certification"
 msgstr "Osztályozás"
 
-#: src/collections/videocollection.cpp:81
+#: src/collections/videocollection.cpp:85
 #, kde-format
 msgid "Region 0"
 msgstr "0 régió"
 
-#: src/collections/videocollection.cpp:82
+#: src/collections/videocollection.cpp:86
 #, kde-format
 msgid "Region 1"
 msgstr "1 régió"
 
-#: src/collections/videocollection.cpp:83
+#: src/collections/videocollection.cpp:87
 #, kde-format
 msgid "Region 2"
 msgstr "2 régió"
 
-#: src/collections/videocollection.cpp:84
+#: src/collections/videocollection.cpp:88
 #, kde-format
 msgid "Region 3"
 msgstr "3 régió"
 
-#: src/collections/videocollection.cpp:85
+#: src/collections/videocollection.cpp:89
 #, kde-format
 msgid "Region 4"
 msgstr "4 régió"
 
-#: src/collections/videocollection.cpp:86
+#: src/collections/videocollection.cpp:90
 #, kde-format
 msgid "Region 5"
 msgstr "5 régió"
 
-#: src/collections/videocollection.cpp:87
+#: src/collections/videocollection.cpp:91
 #, kde-format
 msgid "Region 6"
 msgstr "6 régió"
 
-#: src/collections/videocollection.cpp:88
+#: src/collections/videocollection.cpp:92
 #, kde-format
 msgid "Region 7"
 msgstr "7 régió"
 
-#: src/collections/videocollection.cpp:89
+#: src/collections/videocollection.cpp:93
 #, kde-format
 msgid "Region 8"
 msgstr "8 régió"
 
-#: src/collections/videocollection.cpp:90
+#: src/collections/videocollection.cpp:94
 #, kde-format
 msgid "Region"
 msgstr "Régió"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:279
-#: src/fetch/discogsfetcher.cpp:438
+#: src/collections/videocollection.cpp:99 src/fetch/discogsfetcher.cpp:289
+#: src/fetch/discogsfetcher.cpp:466
 #, kde-format
 msgid "Nationality"
 msgstr "Nemzetiség"
 
-#: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:1036
+#: src/collections/videocollection.cpp:106 src/fetch/amazonfetcher.cpp:1041
+#: src/fetch/upcitemdbfetcher.cpp:403
 #, kde-format
 msgid "NTSC"
 msgstr "NTSC"
 
-#: src/collections/videocollection.cpp:102
+#: src/collections/videocollection.cpp:106
 #, kde-format
 msgid "PAL"
 msgstr "PAL"
 
-#: src/collections/videocollection.cpp:102
+#: src/collections/videocollection.cpp:106
 #, kde-format
 msgid "SECAM"
 msgstr "SECAM"
 
-#: src/collections/videocollection.cpp:103
+#: src/collections/videocollection.cpp:107
 #, kde-format
 msgid "Format"
 msgstr "Formátum"
 
-#: src/collections/videocollection.cpp:108
+#: src/collections/videocollection.cpp:112
 #, kde-format
 msgid "Cast"
 msgstr "Szereposztás"
 
-#: src/collections/videocollection.cpp:110
-#: src/translators/xmlstatehandler.cpp:405
+#: src/collections/videocollection.cpp:114
+#: src/translators/xmlstatehandler.cpp:399
 #, kde-format
 msgid "Actor/Actress"
 msgstr "Színész/nő"
 
-#: src/collections/videocollection.cpp:111
-#: src/translators/xmlstatehandler.cpp:406
+#: src/collections/videocollection.cpp:115
+#: src/translators/xmlstatehandler.cpp:400
 #, kde-format
 msgid "Role"
 msgstr "Szerep"
 
-#: src/collections/videocollection.cpp:114
+#: src/collections/videocollection.cpp:118
 #, kde-format
 msgid "A table for the cast members, along with the roles they play"
 msgstr "A szereplők táblázata az alakított szerepekkel"
 
-#: src/collections/videocollection.cpp:117
+#: src/collections/videocollection.cpp:121
 #, kde-format
 msgid "Director"
 msgstr "Rendező"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:286
-#: src/fetch/discogsfetcher.cpp:437
+#: src/collections/videocollection.cpp:127 src/fetch/discogsfetcher.cpp:296
+#: src/fetch/discogsfetcher.cpp:465
 #, kde-format
 msgid "Producer"
 msgstr "Producer"
 
-#: src/collections/videocollection.cpp:135
+#: src/collections/videocollection.cpp:139
 #, kde-format
 msgid "Composer"
 msgstr "Zeneszerző"
 
-#: src/collections/videocollection.cpp:141
+#: src/collections/videocollection.cpp:145
 #, kde-format
 msgid "Studio"
 msgstr "Stúdió"
 
-#: src/collections/videocollection.cpp:147
+#: src/collections/videocollection.cpp:151
 #, kde-format
 msgid "Language Tracks"
 msgstr "Nyelvek"
 
-#: src/collections/videocollection.cpp:153
+#: src/collections/videocollection.cpp:157
 #, kde-format
 msgid "Subtitle Languages"
 msgstr "Feliratok nyelve"
 
-#: src/collections/videocollection.cpp:159
+#: src/collections/videocollection.cpp:163
 #, kde-format
 msgid "Audio Tracks"
 msgstr "Hangsávok"
 
-#: src/collections/videocollection.cpp:165
+#: src/collections/videocollection.cpp:169
 #, kde-format
 msgid "Running Time"
 msgstr "Játékidő"
 
-#: src/collections/videocollection.cpp:167
+#: src/collections/videocollection.cpp:171
 #, kde-format
 msgid "The running time of the video (in minutes)"
 msgstr "Videó játékideje (percben)"
 
-#: src/collections/videocollection.cpp:170
+#: src/collections/videocollection.cpp:174
 #, kde-format
 msgid "Aspect Ratio"
 msgstr "Képarány"
 
-#: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:1010
+#: src/collections/videocollection.cpp:179 src/fetch/amazonfetcher.cpp:1014
+#: src/fetch/upcitemdbfetcher.cpp:373
 #, kde-format
 msgid "Widescreen"
 msgstr "Szélesvásznú"
 
-#: src/collections/videocollection.cpp:180
+#: src/collections/videocollection.cpp:184
 #, kde-format
 msgid "Black & White"
 msgstr "Fekete - fehér"
 
-#: src/collections/videocollection.cpp:181
+#: src/collections/videocollection.cpp:185
 #, kde-format
 msgid "Color Mode"
 msgstr "Szín mód"
 
-#: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:1031
+#: src/collections/videocollection.cpp:190 src/fetch/amazonfetcher.cpp:1035
+#: src/fetch/upcitemdbfetcher.cpp:397
 #, kde-format
 msgid "Director's Cut"
 msgstr "Rendezői vágás"
@@ -2257,39 +2310,39 @@ msgstr "Sablon kiemelés színe"
 msgid "Template highlighted text color"
 msgstr "Sablon kiemelt szöveg színe"
 
-#: src/configdialog.cpp:96
+#: src/configdialog.cpp:95
 #, kde-format
 msgid "Configure Tellico"
 msgstr "Tellico beállítása"
 
-#: src/configdialog.cpp:145 src/configdialog.cpp:172 src/configdialog.cpp:186
-#: src/configdialog.cpp:328
+#: src/configdialog.cpp:144 src/configdialog.cpp:171 src/configdialog.cpp:185
+#: src/configdialog.cpp:331
 #, kde-format
 msgid "Printing"
 msgstr "Nyomtatás"
 
-#: src/configdialog.cpp:147 src/configdialog.cpp:174 src/configdialog.cpp:188
-#: src/configdialog.cpp:405
+#: src/configdialog.cpp:146 src/configdialog.cpp:173 src/configdialog.cpp:187
+#: src/configdialog.cpp:408
 #, kde-format
 msgid "Templates"
 msgstr "Sablonok"
 
-#: src/configdialog.cpp:149 src/configdialog.cpp:190 src/configdialog.cpp:589
+#: src/configdialog.cpp:148 src/configdialog.cpp:189 src/configdialog.cpp:592
 #, kde-format
 msgid "Data Sources"
 msgstr "Adatforrások"
 
-#: src/configdialog.cpp:202
+#: src/configdialog.cpp:201
 #, kde-format
 msgid "General Options"
 msgstr "Általános beállítások"
 
-#: src/configdialog.cpp:213
+#: src/configdialog.cpp:212
 #, kde-format
 msgid "&Reopen file at startup"
 msgstr "&Fájl újbóli megnyitása a program indításakor"
 
-#: src/configdialog.cpp:214
+#: src/configdialog.cpp:213
 #, kde-format
 msgid ""
 "If checked, the file that was last open will be re-opened at program start-"
@@ -2298,49 +2351,49 @@ msgstr ""
 "Ha kijelöli, akkor az utoljára megnyitott fájl a program indításakor "
 "automatikusan betöltődik."
 
-#: src/configdialog.cpp:219
+#: src/configdialog.cpp:218
 #, kde-format
 msgid "&Show \"Tip of the Day\" at startup"
 msgstr "&Mutassa a \"Nap tippjét\" induláskor"
 
-#: src/configdialog.cpp:220
+#: src/configdialog.cpp:219
 #, kde-format
 msgid "If checked, the \"Tip of the Day\" will be shown at program start-up."
 msgstr "Ha kijelöli, a program indításakor a \"Nap tippjét\" elolvashatja."
 
-#: src/configdialog.cpp:225
+#: src/configdialog.cpp:224
 #, kde-format
 msgid "&Enable webcam for barcode scanning"
 msgstr "&Webkamera engedélyezése vonalkód leolvasásához"
 
-#: src/configdialog.cpp:226
+#: src/configdialog.cpp:225
 #, kde-format
 msgid ""
 "If checked, the input from a webcam will be used to scan barcodes for "
 "searching."
 msgstr "Ha kijelöli, a webkamera képét használjuk a vonalkód kereséshez."
 
-#: src/configdialog.cpp:231
+#: src/configdialog.cpp:230
 #, kde-format
 msgid "Image Storage Options"
 msgstr "Kép tárolási beállítások"
 
-#: src/configdialog.cpp:233
+#: src/configdialog.cpp:232
 #, kde-format
 msgid "Store images in data file"
 msgstr "Képek tárolása az adatfájlban"
 
-#: src/configdialog.cpp:234
+#: src/configdialog.cpp:233
 #, kde-format
 msgid "Store images in common application directory"
 msgstr "Képek tárolása a közös alkalmazás könyvtárban"
 
-#: src/configdialog.cpp:235
+#: src/configdialog.cpp:234
 #, kde-format
 msgid "Store images in directory relative to data file"
 msgstr "Képek tárolása az adatfájl könyvtárában"
 
-#: src/configdialog.cpp:236
+#: src/configdialog.cpp:235
 #, kde-format
 msgid ""
 "Images may be saved in the data file itself, which can cause Tellico to run "
@@ -2351,39 +2404,39 @@ msgstr ""
 "tárolhatja a Tellico alkalmazás könyvtárban, vagy tárolhatja abban a "
 "könyvtárban, ahol az adatfájl is van."
 
-#: src/configdialog.cpp:253 src/configdialog.cpp:337
+#: src/configdialog.cpp:256 src/configdialog.cpp:340
 #, kde-format
 msgid "Formatting Options"
 msgstr "Formázási beállítások"
 
-#: src/configdialog.cpp:258
+#: src/configdialog.cpp:261
 #, kde-format
 msgid "Auto capitalize &titles and names"
 msgstr "&Címek és szerzők automatikusan nagybetűvel"
 
-#: src/configdialog.cpp:259
+#: src/configdialog.cpp:262
 #, kde-format
 msgid "If checked, titles and names will be automatically capitalized."
 msgstr ""
 "Ha kijelöli, akkor a címek és a szerzők automatikusan nagybetűvel íródnak."
 
-#: src/configdialog.cpp:264
+#: src/configdialog.cpp:267
 #, kde-format
 msgid "Auto &format titles and names"
 msgstr "Cí&mek és szerzők automatikus formázása"
 
-#: src/configdialog.cpp:265 src/configdialog.cpp:343
+#: src/configdialog.cpp:268 src/configdialog.cpp:346
 #, kde-format
 msgid "If checked, titles and names will be automatically formatted."
 msgstr ""
 "Ha kijelöli, akkor a Tellico automatikusan formázza a címeket és a szerzőket."
 
-#: src/configdialog.cpp:275
+#: src/configdialog.cpp:278
 #, kde-format
 msgid "No capitali&zation:"
 msgstr "&Nincs nagybetűsítés:"
 
-#: src/configdialog.cpp:280
+#: src/configdialog.cpp:283
 #, kde-format
 msgid ""
 "<qt>A list of words which should not be capitalized. Multiple values should "
@@ -2392,12 +2445,12 @@ msgstr ""
 "<qt>A vezetékneveknél használható előtagok listája. Többszörös értéket "
 "pontosvesszővel kell elválasztani.</qt>"
 
-#: src/configdialog.cpp:286
+#: src/configdialog.cpp:289
 #, kde-format
 msgid "Artic&les:"
 msgstr "&Bekezdések:"
 
-#: src/configdialog.cpp:291
+#: src/configdialog.cpp:294
 #, kde-format
 msgid ""
 "<qt>A list of words which should be considered as articles if they are the "
@@ -2407,12 +2460,12 @@ msgstr ""
 "<qt>Szavak listája, melyek acím első szavai. Többszörös értékeket pontos "
 "vesszővel kell elválasztani.</qt>"
 
-#: src/configdialog.cpp:298
+#: src/configdialog.cpp:301
 #, kde-format
 msgid "Personal suffi&xes:"
 msgstr "&Személyes utótagok:"
 
-#: src/configdialog.cpp:303
+#: src/configdialog.cpp:306
 #, kde-format
 msgid ""
 "<qt>A list of suffixes which might be used in personal names. Multiple "
@@ -2421,12 +2474,12 @@ msgstr ""
 "<qt>A személyi neveknél használható adatok listája. Többszörös értéket "
 "pontosvesszővel kell elválasztani.</qt>"
 
-#: src/configdialog.cpp:309
+#: src/configdialog.cpp:312
 #, kde-format
 msgid "Surname &prefixes:"
 msgstr "&Vezetéknév előtagjai:"
 
-#: src/configdialog.cpp:314
+#: src/configdialog.cpp:317
 #, kde-format
 msgid ""
 "<qt>A list of prefixes which might be used in surnames. Multiple values "
@@ -2435,89 +2488,89 @@ msgstr ""
 "<qt>A vezetékneveknél használható előtagok listája. Többszörös értéket "
 "pontosvesszővel kell elválasztani.</qt>"
 
-#: src/configdialog.cpp:329
+#: src/configdialog.cpp:332
 #, kde-format
 msgid "Printing Options"
 msgstr "Nyomtatási beállítások"
 
-#: src/configdialog.cpp:342
+#: src/configdialog.cpp:345
 #, kde-format
 msgid "&Format titles and names"
 msgstr "Címe&k és nevek formázása"
 
-#: src/configdialog.cpp:347
+#: src/configdialog.cpp:350
 #, kde-format
 msgid "&Print field headers"
 msgstr "Me&ző fejlécek nyomtatása"
 
-#: src/configdialog.cpp:348 src/translators/htmlexporter.cpp:497
+#: src/configdialog.cpp:351 src/translators/htmlexporter.cpp:497
 #, kde-format
 msgid "If checked, the field names will be printed as table headers."
 msgstr "Ha kijelöli, a mezőnevek fejlécként nyomtatja ki."
 
-#: src/configdialog.cpp:352
+#: src/configdialog.cpp:355
 #, kde-format
 msgid "Grouping Options"
 msgstr "Csoportosítási beállítások"
 
-#: src/configdialog.cpp:357
+#: src/configdialog.cpp:360
 #, kde-format
 msgid "&Group the entries"
 msgstr "&Bejegyzések csoportosítása"
 
-#: src/configdialog.cpp:358 src/translators/htmlexporter.cpp:502
+#: src/configdialog.cpp:361 src/translators/htmlexporter.cpp:502
 #, kde-format
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr "Ha kijelöli, a kiválasztott mező alapján csoportosíthatja az elemeket."
 
-#: src/configdialog.cpp:362
+#: src/configdialog.cpp:365
 #, kde-format
 msgid "Image Options"
 msgstr "Kép beállítások"
 
-#: src/configdialog.cpp:368
+#: src/configdialog.cpp:371
 #, kde-format
 msgid "Maximum image &width:"
 msgstr "Maximális &kép szélesség:"
 
-#: src/configdialog.cpp:377
+#: src/configdialog.cpp:380
 #, kde-format
 msgid ""
 "The maximum width of the images in the printout. The aspect ratio is "
 "preserved."
 msgstr "A nyomtatásnál a maximális kép szélesség. Az oldal arány rögzített."
 
-#: src/configdialog.cpp:383
+#: src/configdialog.cpp:386
 #, kde-format
 msgid "&Maximum image height:"
 msgstr "Maximális ké&p magasság:"
 
-#: src/configdialog.cpp:392
+#: src/configdialog.cpp:395
 #, kde-format
 msgid ""
 "The maximum height of the images in the printout. The aspect ratio is "
 "preserved."
 msgstr "A nyomtatásnál a maximális kép magasság. Az oldal arány rögzített."
 
-#: src/configdialog.cpp:406
+#: src/configdialog.cpp:409
 #, kde-format
 msgid "Template Options"
 msgstr "Sablon beállítások"
 
 #. i18n string, a plain label can't have an '&'
-#: src/configdialog.cpp:420 src/fetch/execexternalfetcher.cpp:341
-#: src/fetch/gcstarpluginfetcher.cpp:399 src/fetch/multifetcher.cpp:193
-#: src/translators/csvimporter.cpp:216
+#: src/configdialog.cpp:423 src/fetch/execexternalfetcher.cpp:350
+#: src/fetch/gcstarpluginfetcher.cpp:401 src/fetch/multifetcher.cpp:227
+#: src/translators/csvimporter.cpp:215
 #, kde-format
 msgid "Collection &type:"
 msgstr "Gyű&jtemény típusa:"
 
-#: src/configdialog.cpp:427
+#: src/configdialog.cpp:430
 #, kde-format
 msgid "Template:"
 msgstr "Sablonok:"
 
-#: src/configdialog.cpp:432
+#: src/configdialog.cpp:435
 #, kde-format
 msgid ""
 "Select the template to use for the current type of collections. Not all "
@@ -2526,12 +2579,12 @@ msgstr ""
 "Válassza ki a jelenlegi gyűjteményhez alkalmazadnó sablont. Nem mindegyik "
 "sablon használ betűkészlet és szín beállításokat."
 
-#: src/configdialog.cpp:439
+#: src/configdialog.cpp:442
 #, kde-format
 msgid "&Preview..."
 msgstr "&Előnézet..."
 
-#: src/configdialog.cpp:440
+#: src/configdialog.cpp:443
 #, kde-format
 msgid "Show a preview of the template"
 msgstr "Sablon előnézetének mutatása"
@@ -2541,103 +2594,103 @@ msgstr "Sablon előnézetének mutatása"
 #. "specified directly in the template."), frame);
 #. l1->setTextFormat(Qt::RichText);
 #. l->addWidget(l1);
-#: src/configdialog.cpp:457
+#: src/configdialog.cpp:460
 #, kde-format
 msgid "Font Options"
 msgstr "Betűkészlet beállítások"
 
-#: src/configdialog.cpp:464
+#: src/configdialog.cpp:467
 #, kde-format
 msgid "Font:"
 msgstr "Betűkészlet:"
 
-#: src/configdialog.cpp:470
+#: src/configdialog.cpp:473
 #, kde-format
 msgid "This font is passed to the template used in the Entry View."
 msgstr ""
 "Ez a betűkészlet a bejegyzés nézetben használt sablonhoz lett rendelve."
 
-#: src/configdialog.cpp:474
+#: src/configdialog.cpp:477
 #, kde-format
 msgid "Size:"
 msgstr "Méret:"
 
-#: src/configdialog.cpp:486
+#: src/configdialog.cpp:489
 #, kde-format
 msgid "Color Options"
 msgstr "Szín beállítások"
 
-#: src/configdialog.cpp:493
+#: src/configdialog.cpp:496
 #, kde-format
 msgid "Background color:"
 msgstr "Háttér szín:"
 
-#: src/configdialog.cpp:499
+#: src/configdialog.cpp:502
 #, kde-format
 msgid "This color is passed to the template used in the Entry View."
 msgstr "Ez a szín a bejegyzés nézetben használt sablonhoz lett rendelve."
 
-#: src/configdialog.cpp:503
+#: src/configdialog.cpp:506
 #, kde-format
 msgid "Text color:"
 msgstr "Szöveg színe:"
 
-#: src/configdialog.cpp:512
+#: src/configdialog.cpp:515
 #, kde-format
 msgid "Highlight color:"
 msgstr "Kiemelés színe:"
 
-#: src/configdialog.cpp:521
+#: src/configdialog.cpp:524
 #, kde-format
 msgid "Highlighted text color:"
 msgstr "Kiemelt szöveg színe:"
 
-#: src/configdialog.cpp:530
+#: src/configdialog.cpp:533
 #, kde-format
 msgid "Manage Templates"
 msgstr "Sablonok kezelése"
 
-#: src/configdialog.cpp:541
+#: src/configdialog.cpp:544
 #, kde-format
 msgid "Install..."
 msgstr "Telepítés..."
 
-#: src/configdialog.cpp:545
+#: src/configdialog.cpp:548
 #, kde-format
 msgid "Click to install a new template directly."
 msgstr "Kattintson az új sablon közvetlen telepítéshez."
 
-#: src/configdialog.cpp:548 src/configdialog.cpp:653
+#: src/configdialog.cpp:551 src/configdialog.cpp:656
 #, kde-format
 msgid "Download..."
 msgstr "Letöltés..."
 
-#: src/configdialog.cpp:552
+#: src/configdialog.cpp:555
 #, kde-format
 msgid "Click to download additional templates."
 msgstr "Kattintson további sablonok internetről történő letöltéséhez."
 
-#: src/configdialog.cpp:555
+#: src/configdialog.cpp:558
 #, kde-format
 msgid "Delete..."
 msgstr "Törlés..."
 
-#: src/configdialog.cpp:559
+#: src/configdialog.cpp:562
 #, kde-format
 msgid "Click to select and remove installed templates."
 msgstr "Kattintson a telepített sablonok kijelöléshez és eltávolításához."
 
-#: src/configdialog.cpp:590
+#: src/configdialog.cpp:593
 #, kde-format
 msgid "Data Sources Options"
 msgstr "Adatforrás beállítások"
 
-#: src/configdialog.cpp:611
+#: src/configdialog.cpp:614
 #, kde-format
 msgid "Move &Up"
 msgstr "Mozgatás &felfele"
 
-#: src/configdialog.cpp:614 src/configdialog.cpp:619
+#: src/configdialog.cpp:617 src/configdialog.cpp:622
 #, kde-format
 msgid ""
 "The order of the data sources sets the order that Tellico uses when entries "
@@ -2646,68 +2699,68 @@ msgstr ""
 "Az adatforrások sorrendje meghatározza, hogy a Tellico melyiket használja a "
 "bejegyzések automatikus frissítéséhez."
 
-#: src/configdialog.cpp:616
+#: src/configdialog.cpp:619
 #, kde-format
 msgid "Move &Down"
 msgstr "Mozgatás &lefele"
 
-#: src/configdialog.cpp:626
+#: src/configdialog.cpp:629
 #, kde-format
 msgid "Filter by type:"
 msgstr "Szűrés csoport szerint:"
 
-#: src/configdialog.cpp:644
+#: src/configdialog.cpp:647
 #, kde-format
 msgid "&New..."
 msgstr "&Új"
 
-#: src/configdialog.cpp:646
+#: src/configdialog.cpp:649
 #, kde-format
 msgid "Click to add a new data source."
 msgstr "Kattintson új adatforrás megadásához."
 
-#: src/configdialog.cpp:647
+#: src/configdialog.cpp:650
 #, kde-format
 msgid "&Modify..."
 msgstr "&Módosítás..."
 
-#: src/configdialog.cpp:649
+#: src/configdialog.cpp:652
 #, kde-format
 msgid "Click to modify the selected data source."
 msgstr "Kattintson a kijelölt adatforrrás módosításához."
 
-#: src/configdialog.cpp:650
+#: src/configdialog.cpp:653
 #, kde-format
 msgid "&Delete"
 msgstr "&Törlés"
 
-#: src/configdialog.cpp:652
+#: src/configdialog.cpp:655
 #, kde-format
 msgid "Click to delete the selected data source."
 msgstr "Kattintson a kijelölt adatforrás törléséhez."
 
-#: src/configdialog.cpp:655
+#: src/configdialog.cpp:658
 #, kde-format
 msgid "Click to download additional data sources."
 msgstr "Kattintson további adatforrások letöltéséhez."
 
-#: src/configdialog.cpp:1118 src/translators/xsltexporter.cpp:99
+#: src/configdialog.cpp:1121 src/translators/xsltexporter.cpp:99
 #: src/translators/xsltimporter.cpp:125
 #, kde-format
 msgid "XSL Files"
 msgstr "XSL-fájlok"
 
-#: src/configdialog.cpp:1119
+#: src/configdialog.cpp:1122
 #, kde-format
 msgid "Template Packages"
 msgstr "Sabloncsomagok"
 
-#: src/configdialog.cpp:1120 src/importdialog.cpp:399 src/mainwindow.cpp:1125
-#: src/mainwindow.cpp:1295 src/reportdialog.cpp:228
+#: src/configdialog.cpp:1123 src/importdialog.cpp:415 src/mainwindow.cpp:1207
+#: src/mainwindow.cpp:1377 src/reportdialog.cpp:341
 #: src/translators/bibtexexporter.cpp:65
-#: src/translators/bibtexmlexporter.cpp:52 src/translators/csvexporter.cpp:64
+#: src/translators/bibtexmlexporter.cpp:51 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:61 src/translators/htmlexporter.cpp:100
-#: src/translators/librarythingimporter.cpp:152
+#: src/translators/librarythingimporter.cpp:187
 #: src/translators/onixexporter.cpp:71
 #: src/translators/tellicoxmlexporter.cpp:71
 #: src/translators/tellicozipexporter.cpp:54
@@ -2717,84 +2770,89 @@ msgstr "Sabloncsomagok"
 msgid "All Files"
 msgstr "Minden fájl"
 
-#: src/configdialog.cpp:1149
+#: src/configdialog.cpp:1152
 #, kde-format
 msgid "Delete Template"
 msgstr "Sablon törlése"
 
-#: src/configdialog.cpp:1150
+#: src/configdialog.cpp:1153
 #, kde-format
 msgid "Select template to delete:"
 msgstr "Adatbázis kiválasztása törléshez:"
 
-#: src/controller.cpp:144 src/fetchdialog.cpp:323 src/fetchdialog.cpp:421
-#: src/fetchdialog.cpp:555 src/fetchdialog.cpp:616 src/fetchdialog.cpp:630
+#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:428
+#: src/fetchdialog.cpp:562 src/fetchdialog.cpp:623 src/fetchdialog.cpp:637
 #: src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
 msgstr "Kész."
 
-#: src/controller.cpp:332
+#: src/controller.cpp:330
 #, kde-format
 msgid "Do you really want to delete this entry?"
 msgstr "Tényleg törölni akarja a bejegyzést?"
 
-#: src/controller.cpp:334
+#: src/controller.cpp:332
 #, kde-format
 msgid "Delete Entry"
 msgstr "Bejegyzés törlése"
 
-#: src/controller.cpp:346
+#: src/controller.cpp:344
 #, kde-format
 msgid "Do you really want to delete these entries?"
 msgstr "Tényleg törölni akarja a bejegyzéseket?"
 
-#: src/controller.cpp:350
+#: src/controller.cpp:348
 #, kde-format
 msgid "Delete Multiple Entries"
 msgstr "Több bejegyzés törlése"
 
-#: src/controller.cpp:540 src/mainwindow.cpp:537
+#: src/controller.cpp:497
+#, kde-format
+msgid "&Sort By"
+msgstr "&E szerint rendezve"
+
+#: src/controller.cpp:559 src/mainwindow.cpp:584
 #, kde-format
 msgid "&Edit Entry..."
 msgstr "B&ejegyzés szerkesztése..."
 
-#: src/controller.cpp:541 src/mainwindow.cpp:544
+#: src/controller.cpp:560 src/mainwindow.cpp:591
 #, kde-format
 msgid "D&uplicate Entry"
 msgstr "&Bejegyzés megduplázása"
 
-#: src/controller.cpp:542 src/mainwindow.cpp:630
+#: src/controller.cpp:561 src/mainwindow.cpp:685
 #, kde-format
 msgid "&Update Entry"
 msgstr "B&ejegyzés frissítése"
 
-#: src/controller.cpp:543 src/mainwindow.cpp:551
+#: src/controller.cpp:562 src/mainwindow.cpp:598
 #, kde-format
 msgid "&Delete Entry"
 msgstr "B&ejegyzés törlése"
 
-#: src/controller.cpp:546
+#: src/controller.cpp:565
 #, kde-format
 msgid "&Edit Entries..."
 msgstr "Bejegyzések szerkesztése..."
 
-#: src/controller.cpp:547
+#: src/controller.cpp:566
 #, kde-format
 msgid "D&uplicate Entries"
 msgstr "&Bejegyzések megduplázása"
 
-#: src/controller.cpp:548
+#: src/controller.cpp:567
 #, kde-format
 msgid "&Update Entries"
 msgstr "&Bejegyzések frissítése"
 
-#: src/controller.cpp:549
+#: src/controller.cpp:568
 #, kde-format
 msgid "&Delete Entries"
 msgstr "Bejegyzések &törlése"
 
-#: src/controller.cpp:606
+#: src/controller.cpp:625
 #, kde-format
 msgid ""
 "The following items are already loaned, but Tellico does not currently "
@@ -2905,7 +2963,7 @@ msgstr "Összes oszlop mutatása"
 msgid "Hide All Columns"
 msgstr "Oszlopok elrejtése"
 
-#: src/document.cpp:209 src/mainwindow.cpp:1239
+#: src/document.cpp:206 src/mainwindow.cpp:1321
 #, kde-format
 msgid "Saving file..."
 msgstr "Fájl mentése..."
@@ -2966,7 +3024,7 @@ msgstr ""
 msgid "Save Entry"
 msgstr "Bejegyzés mentése"
 
-#: src/entryeditdialog.cpp:658 src/mainwindow.cpp:1051
+#: src/entryeditdialog.cpp:658 src/mainwindow.cpp:1133
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "Nem mentett változások"
@@ -2976,7 +3034,7 @@ msgstr "Nem mentett változások"
 msgid "(Empty)"
 msgstr "(Üres)"
 
-#: src/entryiconview.cpp:65 src/mainwindow.cpp:782
+#: src/entryiconview.cpp:65 src/mainwindow.cpp:850
 #, kde-format
 msgid ""
 "<qt>The <i>Icon View</i> shows each entry in the collection or group using "
@@ -2990,11 +3048,6 @@ msgstr ""
 msgctxt "Open URL"
 msgid "Open %1"
 msgstr "%1 megnyitása"
-
-#: src/entryiconview.cpp:129
-#, kde-format
-msgid "&Sort By"
-msgstr "&E szerint rendezve"
 
 #: src/entrymatchdialog.cpp:56
 #, kde-format
@@ -3046,12 +3099,12 @@ msgstr "Bejegyzések frissítése"
 msgid "Updating <b>%1</b>..."
 msgstr "<b>%1</b> frissítése..."
 
-#: src/entryview.cpp:233
+#: src/entryview.cpp:309
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico nem találja az alapértelmezett bejegyzés stíluslapot."
 
-#: src/entryview.cpp:235 src/mainwindow.cpp:1666
+#: src/entryview.cpp:311 src/mainwindow.cpp:1703
 #, kde-format
 msgid "Please check your installation."
 msgstr "Kérem, ellenőrizze a rendszer beállításait."
@@ -3126,63 +3179,49 @@ msgstr "Kódolás helyi felhasználóként (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Exportált fájl kódolása helyi formátumban."
 
-#: src/fetch/allocinefetcher.cpp:241 src/fetch/amazonfetcher.cpp:629
-#: src/fetch/colnectfetcher.cpp:203 src/fetch/colnectfetcher.cpp:213
-#: src/fetch/discogsfetcher.cpp:202 src/fetch/filmasterfetcher.cpp:142
+#: src/fetch/allocinefetcher.cpp:241 src/fetch/amazonfetcher.cpp:633
+#: src/fetch/colnectfetcher.cpp:527 src/fetch/discogsfetcher.cpp:202
+#: src/fetch/doubanfetcher.cpp:391 src/fetch/filmasterfetcher.cpp:142
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:298
-#: src/fetch/igdbfetcher.cpp:175 src/fetch/isbndbfetcher.cpp:294
+#: src/fetch/igdbfetcher.cpp:161 src/fetch/isbndbfetcher.cpp:295
 #: src/fetch/kinofetcher.cpp:335 src/fetch/kinopoiskfetcher.cpp:235
-#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:343
-#: src/fetch/moviemeterfetcher.cpp:162 src/fetch/omdbfetcher.cpp:177
-#: src/fetch/thegamesdbfetcher.cpp:167 src/fetch/themoviedbfetcher.cpp:210
-#: src/fetch/vndbfetcher.cpp:177
+#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:344
+#: src/fetch/moviemeterfetcher.cpp:162 src/fetch/numistafetcher.cpp:285
+#: src/fetch/numistafetcher.cpp:293 src/fetch/omdbfetcher.cpp:182
+#: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:222
+#: src/fetch/tvmazefetcher.cpp:274 src/fetch/upcitemdbfetcher.cpp:251
+#: src/fetch/vndbfetcher.cpp:181
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "Nem tölthető be a címlap kép."
 
-#: src/fetch/allocinefetcher.cpp:323 src/fetch/allocinefetcher.cpp:493
+#: src/fetch/allocinefetcher.cpp:323 src/fetch/allocinefetcher.cpp:500
 #, kde-format
 msgid "Allocine Link"
 msgstr "Allocine hivatkozás"
 
-#: src/fetch/allocinefetcher.cpp:328 src/fetch/allocinefetcher.cpp:492
+#: src/fetch/allocinefetcher.cpp:328 src/fetch/allocinefetcher.cpp:499
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
-#: src/fetch/doubanfetcher.cpp:315 src/fetch/doubanfetcher.cpp:334
-#: src/fetch/doubanfetcher.cpp:353 src/fetch/doubanfetcher.cpp:508
-#: src/fetch/dvdfrfetcher.cpp:169 src/fetch/imdbfetcher.cpp:751
-#: src/fetch/imdbfetcher.cpp:1468 src/fetch/kinopoiskfetcher.cpp:310
+#: src/fetch/doubanfetcher.cpp:287 src/fetch/doubanfetcher.cpp:305
+#: src/fetch/doubanfetcher.cpp:323 src/fetch/doubanfetcher.cpp:554
+#: src/fetch/dvdfrfetcher.cpp:176 src/fetch/imdbfetcher.cpp:771
+#: src/fetch/imdbfetcher.cpp:1490 src/fetch/kinopoiskfetcher.cpp:310
 #: src/fetch/kinopoiskfetcher.cpp:506 src/fetch/kinoteatrfetcher.cpp:263
-#: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/themoviedbfetcher.cpp:282
-#: src/fetch/themoviedbfetcher.cpp:447 src/fetch/vndbfetcher.cpp:279
-#: src/fetch/vndbfetcher.cpp:427
+#: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/omdbfetcher.cpp:262
+#: src/fetch/themoviedbfetcher.cpp:311 src/fetch/themoviedbfetcher.cpp:483
+#: src/fetch/vndbfetcher.cpp:283 src/fetch/vndbfetcher.cpp:431
 #, kde-format
 msgid "Original Title"
 msgstr "Eredeti cím"
 
-#. i18n("Country: "), optionsWidget());
-#. l->addWidget(label, ++row, 0);
-#. m_langCombo = new GUI::ComboBox(optionsWidget());
-#. m_langCombo->addItem(i18n("United States"), EN);
-#. m_langCombo->addItem(i18n("France"), FR);
-#. m_langCombo->addItem(i18n("Spain"), ES);
-#. m_langCombo->addItem(i18n("Germany"), DE);
-#. m_langCombo->addItem(i18n("Italy"), IT);
-#. m_langCombo->addItem(i18n("Portugal"), PT);
-#. connect(m_langCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
-#. connect(m_langCombo, SIGNAL(activated(int)), SLOT(slotSiteChanged()));
-#. l->addWidget(m_langCombo, row, 1);
-#. QString w = i18n("The Internet Movie Database provides data from several different localized sites. "
-#. "Choose the one you wish to use for this data source.");
-#. label->setWhatsThis(w);
-#. m_langCombo->setWhatsThis(w);
-#. label->setBuddy(m_langCombo);
-#.
-#: src/fetch/allocinefetcher.cpp:428 src/fetch/imdbfetcher.cpp:1504
+#: src/fetch/allocinefetcher.cpp:428 src/fetch/imdbfetcher.cpp:1506
+#: src/fetch/themoviedbfetcher.cpp:519
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "&Maximális stáb:"
 
-#: src/fetch/allocinefetcher.cpp:437 src/fetch/imdbfetcher.cpp:1513
+#: src/fetch/allocinefetcher.cpp:441 src/fetch/imdbfetcher.cpp:1519
+#: src/fetch/themoviedbfetcher.cpp:532
 #, kde-format
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
@@ -3357,7 +3396,7 @@ msgstr "Egyesült Arab Emirátusok"
 msgid "This data is licensed under <a href=%1>specific terms</a>."
 msgstr "Ez az adat a <a href=%1>megadott feltételek</a> alatt van licencelve."
 
-#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1108
+#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1113
 #, kde-format
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
@@ -3367,9 +3406,9 @@ msgstr ""
 "kulcsra van szüksége."
 
 #: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:97
-#: src/fetch/isbndbfetcher.cpp:111 src/fetch/mobygamesfetcher.cpp:114
-#: src/fetch/omdbfetcher.cpp:101 src/fetch/thegamesdbfetcher.cpp:104
-#: src/fetch/themoviedbfetcher.cpp:127
+#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:115
+#: src/fetch/omdbfetcher.cpp:101 src/fetch/thegamesdbfetcher.cpp:106
+#: src/fetch/themoviedbfetcher.cpp:131
 #, kde-format
 msgid "Those values must be entered in the data source settings."
 msgstr "Ezeket az értékeket meg kell adnia az adat forrás beállításoknál."
@@ -3379,23 +3418,22 @@ msgstr "Ezeket az értékeket meg kell adnia az adat forrás beállításoknál.
 msgid "Results from %1: %2/%3"
 msgstr "Eredmény %1 -ből: %2/%3"
 
-#: src/fetch/amazonfetcher.cpp:858 src/fetch/amazonfetcher.cpp:1074
+#: src/fetch/amazonfetcher.cpp:862 src/fetch/amazonfetcher.cpp:1079
 #, kde-format
 msgid "Amazon Link"
 msgstr "Amazon kapcsolat"
 
-#: src/fetch/amazonfetcher.cpp:1064
+#: src/fetch/amazonfetcher.cpp:1069
 #, kde-format
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com Web Szervízek"
 
-#: src/fetch/amazonfetcher.cpp:1090 src/fetch/bibliosharefetcher.cpp:171
+#: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:171
 #: src/fetch/comicvinefetcher.cpp:231 src/fetch/crossreffetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:450 src/fetch/giantbombfetcher.cpp:214
-#: src/fetch/googlebookfetcher.cpp:378 src/fetch/igdbfetcher.cpp:590
-#: src/fetch/isbndbfetcher.cpp:392 src/fetch/mobygamesfetcher.cpp:612
-#: src/fetch/omdbfetcher.cpp:359 src/fetch/thegamesdbfetcher.cpp:522
-#: src/fetch/themoviedbfetcher.cpp:459
+#: src/fetch/discogsfetcher.cpp:479 src/fetch/giantbombfetcher.cpp:220
+#: src/fetch/googlebookfetcher.cpp:380 src/fetch/isbndbfetcher.cpp:394
+#: src/fetch/mobygamesfetcher.cpp:608 src/fetch/omdbfetcher.cpp:408
+#: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:495
 #, kde-format
 msgid ""
 "Registration is required for accessing the %1 data source. If you agree to "
@@ -3406,27 +3444,27 @@ msgstr ""
 "feltételekkel, <a href='%2'>kérjen hozzáférést</a>. Adja meg a hozzáférési "
 "információkat."
 
-#: src/fetch/amazonfetcher.cpp:1103 src/fetch/bibliosharefetcher.cpp:184
+#: src/fetch/amazonfetcher.cpp:1108 src/fetch/bibliosharefetcher.cpp:184
 #: src/fetch/comicvinefetcher.cpp:244 src/fetch/entrezfetcher.cpp:531
-#: src/fetch/giantbombfetcher.cpp:227 src/fetch/googlebookfetcher.cpp:391
-#: src/fetch/igdbfetcher.cpp:603 src/fetch/isbndbfetcher.cpp:405
-#: src/fetch/mobygamesfetcher.cpp:625 src/fetch/omdbfetcher.cpp:372
-#: src/fetch/thegamesdbfetcher.cpp:535 src/fetch/themoviedbfetcher.cpp:472
+#: src/fetch/giantbombfetcher.cpp:233 src/fetch/googlebookfetcher.cpp:393
+#: src/fetch/isbndbfetcher.cpp:407 src/fetch/mobygamesfetcher.cpp:621
+#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:421
+#: src/fetch/thegamesdbfetcher.cpp:597 src/fetch/themoviedbfetcher.cpp:508
 #, kde-format
 msgid "Access key: "
 msgstr "Hozzáférési kulcs:"
 
-#: src/fetch/amazonfetcher.cpp:1113
+#: src/fetch/amazonfetcher.cpp:1118
 #, kde-format
 msgid "Secret key: "
 msgstr "Titkos kulcs:"
 
-#: src/fetch/amazonfetcher.cpp:1123
+#: src/fetch/amazonfetcher.cpp:1128
 #, kde-format
 msgid "Country: "
 msgstr "Ország: "
 
-#: src/fetch/amazonfetcher.cpp:1138
+#: src/fetch/amazonfetcher.cpp:1143
 #, kde-format
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
@@ -3435,38 +3473,38 @@ msgstr ""
 "Az Amazon.com számos különböző helyi oldalról nyújt adatokat. Válasszon "
 "egyet, melyet az adatforráshoz használni akar."
 
-#: src/fetch/amazonfetcher.cpp:1144 src/fetch/mobygamesfetcher.cpp:633
-#: src/fetch/thegamesdbfetcher.cpp:543
+#: src/fetch/amazonfetcher.cpp:1149 src/fetch/mobygamesfetcher.cpp:629
+#: src/fetch/thegamesdbfetcher.cpp:605
 #, kde-format
 msgid "&Image size: "
 msgstr "&Kép méret: "
 
-#: src/fetch/amazonfetcher.cpp:1147 src/fetch/mobygamesfetcher.cpp:636
-#: src/fetch/thegamesdbfetcher.cpp:546
+#: src/fetch/amazonfetcher.cpp:1152 src/fetch/mobygamesfetcher.cpp:632
+#: src/fetch/thegamesdbfetcher.cpp:608
 #, kde-format
 msgid "Small Image"
 msgstr "Kis méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:1148 src/fetch/thegamesdbfetcher.cpp:547
+#: src/fetch/amazonfetcher.cpp:1153 src/fetch/thegamesdbfetcher.cpp:609
 #, kde-format
 msgid "Medium Image"
 msgstr "Közepes méretű kép"
 
 #. i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
-#: src/fetch/amazonfetcher.cpp:1149 src/fetch/mobygamesfetcher.cpp:638
-#: src/fetch/thegamesdbfetcher.cpp:548
+#: src/fetch/amazonfetcher.cpp:1154 src/fetch/mobygamesfetcher.cpp:634
+#: src/fetch/thegamesdbfetcher.cpp:610
 #, kde-format
 msgid "Large Image"
 msgstr "Nagy méretű kép"
 
-#: src/fetch/amazonfetcher.cpp:1150 src/fetch/mobygamesfetcher.cpp:639
-#: src/fetch/thegamesdbfetcher.cpp:549
+#: src/fetch/amazonfetcher.cpp:1155 src/fetch/mobygamesfetcher.cpp:635
+#: src/fetch/thegamesdbfetcher.cpp:611
 #, kde-format
 msgid "No Image"
 msgstr "Nincs kép"
 
-#: src/fetch/amazonfetcher.cpp:1153 src/fetch/imdbfetcher.cpp:1522
-#: src/fetch/mobygamesfetcher.cpp:643 src/fetch/thegamesdbfetcher.cpp:553
+#: src/fetch/amazonfetcher.cpp:1158 src/fetch/imdbfetcher.cpp:1528
+#: src/fetch/mobygamesfetcher.cpp:639 src/fetch/thegamesdbfetcher.cpp:615
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3475,12 +3513,12 @@ msgstr ""
 "A fedlap kép feltehetőleg megfelelően töltődött be. Azonban a gyűjteményben "
 "lévő túl sok nagyméretű kép csökkenti a teljesítményt."
 
-#: src/fetch/amazonfetcher.cpp:1159
+#: src/fetch/amazonfetcher.cpp:1164
 #, kde-format
 msgid "&Associate's ID: "
 msgstr "&Társított azonosító:"
 
-#: src/fetch/amazonfetcher.cpp:1165
+#: src/fetch/amazonfetcher.cpp:1170
 #, kde-format
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
@@ -3490,10 +3528,11 @@ msgstr ""
 "azonosítja, ez benne van minden Amazon.com webehlyre mutató linkben."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/dvdfrfetcher.cpp:171 src/fetch/imdbfetcher.cpp:805
-#: src/fetch/imdbfetcher.cpp:1466 src/fetch/moviemeterfetcher.cpp:225
-#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/themoviedbfetcher.cpp:277
-#: src/fetch/themoviedbfetcher.cpp:446
+#: src/fetch/dvdfrfetcher.cpp:178 src/fetch/imdbfetcher.cpp:825
+#: src/fetch/imdbfetcher.cpp:1488 src/fetch/moviemeterfetcher.cpp:225
+#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:257
+#: src/fetch/themoviedbfetcher.cpp:306 src/fetch/themoviedbfetcher.cpp:482
+#: src/fetch/tvmazefetcher.cpp:198 src/fetch/tvmazefetcher.cpp:390
 #, kde-format
 msgid "Alternative Titles"
 msgstr "Alternatív címek"
@@ -3504,6 +3543,7 @@ msgid "Distributor"
 msgstr "Forgalmazó"
 
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
+#: src/fetch/tvmazefetcher.cpp:189 src/fetch/tvmazefetcher.cpp:388
 #, kde-format
 msgid "Episodes"
 msgstr "Epizódok"
@@ -3521,15 +3561,16 @@ msgstr "AnimeNfo értékelés"
 #: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:328
 #: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:186
 #: src/fetch/boardgamegeekfetcher.cpp:193 src/fetch/dbcfetcher.cpp:156
-#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:516
-#: src/fetch/dvdfrfetcher.cpp:178 src/fetch/filmasterfetcher.cpp:317
+#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:562
+#: src/fetch/dvdfrfetcher.cpp:186 src/fetch/filmasterfetcher.cpp:317
 #: src/fetch/googlescholarfetcher.cpp:280 src/fetch/hathitrustfetcher.cpp:313
-#: src/fetch/ibsfetcher.cpp:393 src/fetch/kinofetcher.cpp:373
-#: src/fetch/kinopoiskfetcher.cpp:514 src/fetch/kinoteatrfetcher.cpp:514
-#: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
-#: src/fetch/musicbrainzfetcher.cpp:374 src/fetch/openlibraryfetcher.cpp:400
-#: src/fetch/springerfetcher.cpp:183 src/fetch/videogamegeekfetcher.cpp:193
-#: src/fetch/vndbfetcher.cpp:435
+#: src/fetch/ibsfetcher.cpp:393 src/fetch/igdbfetcher.cpp:586
+#: src/fetch/kinofetcher.cpp:373 src/fetch/kinopoiskfetcher.cpp:514
+#: src/fetch/kinoteatrfetcher.cpp:514 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:376
+#: src/fetch/openlibraryfetcher.cpp:400 src/fetch/springerfetcher.cpp:183
+#: src/fetch/tvmazefetcher.cpp:398 src/fetch/upcitemdbfetcher.cpp:466
+#: src/fetch/videogamegeekfetcher.cpp:197 src/fetch/vndbfetcher.cpp:439
 #, kde-format
 msgid "This source has no options."
 msgstr "A forrás nem rendelkezik beállításokkal."
@@ -3544,7 +3585,7 @@ msgstr "Színező"
 msgid "Bedetheque Link"
 msgstr "Bedetheque hivatkozás"
 
-#: src/fetch/bedethequefetcher.cpp:456 src/field.cpp:311
+#: src/fetch/bedethequefetcher.cpp:456 src/field.cpp:313
 #, kde-format
 msgid "ISBN#"
 msgstr "ISBN#"
@@ -3557,8 +3598,8 @@ msgid ""
 msgstr ""
 
 #: src/fetch/bibliosharefetcher.cpp:190 src/fetch/comicvinefetcher.cpp:250
-#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:233
-#: src/fetch/googlebookfetcher.cpp:397 src/fetch/themoviedbfetcher.cpp:478
+#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:239
+#: src/fetch/googlebookfetcher.cpp:399 src/fetch/themoviedbfetcher.cpp:514
 #, kde-format
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
@@ -3579,13 +3620,26 @@ msgstr ""
 msgid "BoardGameGeek Link"
 msgstr "BoardGameGeek hivatkozás"
 
-#: src/fetch/colnectfetcher.cpp:298 src/fetch/colnectfetcher.cpp:435
+#: src/fetch/colnectfetcher.cpp:329 src/fetch/colnectfetcher.cpp:553
 #, fuzzy, kde-format
 #| msgid "Vintage"
 msgid "Mintage"
 msgstr "Évjárat"
 
-#: src/fetch/colnectfetcher.cpp:508 src/fetch/themoviedbfetcher.cpp:483
+#: src/fetch/colnectfetcher.cpp:336 src/fetch/colnectfetcher.cpp:555
+#, kde-format
+msgctxt "Stanley Gibbons stamp catalog code"
+msgid "Stanley Gibbons"
+msgstr ""
+
+#: src/fetch/colnectfetcher.cpp:343 src/fetch/colnectfetcher.cpp:556
+#, kde-format
+msgctxt "Michel stamp catalog code"
+msgid "Michel"
+msgstr ""
+
+#: src/fetch/colnectfetcher.cpp:658 src/fetch/numistafetcher.cpp:422
+#: src/fetch/themoviedbfetcher.cpp:537
 #, kde-format
 msgid "Language: "
 msgstr "Nyelv: "
@@ -3649,41 +3703,49 @@ msgstr "E-mail: "
 msgid "Danish Bibliographic Center (DBC.dk)"
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:95 src/fetch/isbndbfetcher.cpp:109
-#: src/fetch/mobygamesfetcher.cpp:112 src/fetch/omdbfetcher.cpp:99
-#: src/fetch/thegamesdbfetcher.cpp:102 src/fetch/themoviedbfetcher.cpp:125
+#: src/fetch/discogsfetcher.cpp:95 src/fetch/isbndbfetcher.cpp:112
+#: src/fetch/mobygamesfetcher.cpp:113 src/fetch/omdbfetcher.cpp:99
+#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:129
 #, kde-format
 msgid "An access key is required to use this data source."
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:274 src/fetch/discogsfetcher.cpp:439
+#: src/fetch/discogsfetcher.cpp:284 src/fetch/discogsfetcher.cpp:467
 #, kde-format
 msgid "Discogs Link"
 msgstr "Discogs kapcsolat"
 
-#: src/fetch/discogsfetcher.cpp:298
+#. i18n("Nationality");
+#: src/fetch/discogsfetcher.cpp:303 src/fetch/discogsfetcher.cpp:468
+#: src/fetch/dvdfrfetcher.cpp:179 src/fetch/musicbrainzfetcher.cpp:369
+#: src/fetch/upcitemdbfetcher.cpp:208 src/fetch/upcitemdbfetcher.cpp:459
+#, kde-format
+msgid "Barcode"
+msgstr ""
+
+#: src/fetch/discogsfetcher.cpp:313
 #, kde-format
 msgid "The Discogs.com server reports a token error."
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:428
+#: src/fetch/discogsfetcher.cpp:456
 #, kde-format
 msgid "Discogs Audio Search"
 msgstr "Discogs Audió keresés"
 
-#: src/fetch/discogsfetcher.cpp:463
+#: src/fetch/discogsfetcher.cpp:492
 #, fuzzy, kde-format
 #| msgid "&User: "
 msgid "User token: "
 msgstr "&Felhasználó: "
 
-#: src/fetch/doubanfetcher.cpp:322 src/fetch/doubanfetcher.cpp:341
-#: src/fetch/doubanfetcher.cpp:360 src/fetch/doubanfetcher.cpp:509
+#: src/fetch/doubanfetcher.cpp:293 src/fetch/doubanfetcher.cpp:311
+#: src/fetch/doubanfetcher.cpp:329 src/fetch/doubanfetcher.cpp:555
 #, kde-format
 msgid "Douban Link"
 msgstr "Douban kapcsolat"
 
-#: src/fetch/dvdfrfetcher.cpp:170
+#: src/fetch/dvdfrfetcher.cpp:177
 #, kde-format
 msgid "DVDFr Link"
 msgstr "DVDFr kapcsolat"
@@ -3698,34 +3760,34 @@ msgstr "Belépő adatbázis"
 msgid "Institution"
 msgstr "Állapot"
 
-#: src/fetch/execexternalfetcher.cpp:326
+#: src/fetch/execexternalfetcher.cpp:335
 #, kde-format
 msgid "External Application"
 msgstr "Külső alkalmazás"
 
-#: src/fetch/execexternalfetcher.cpp:347
+#: src/fetch/execexternalfetcher.cpp:356
 #, kde-format
 msgid ""
 "Set the collection type of the data returned from the external application."
 msgstr ""
 "Állítsa be a külső alkalmazás által visszaadott adat gyűjtemény típusát."
 
-#: src/fetch/execexternalfetcher.cpp:352
+#: src/fetch/execexternalfetcher.cpp:361
 #, kde-format
 msgid "&Result type: "
 msgstr "&Eredmény típusa: "
 
-#: src/fetch/execexternalfetcher.cpp:361
+#: src/fetch/execexternalfetcher.cpp:370
 #, kde-format
 msgid "Set the result type of the data returned from the external application."
 msgstr "Állítsa be a külső alkalmazás által visszaadott adat típusát."
 
-#: src/fetch/execexternalfetcher.cpp:366
+#: src/fetch/execexternalfetcher.cpp:384
 #, kde-format
 msgid "Application &path: "
 msgstr "&Alkalmazás elérési útja:"
 
-#: src/fetch/execexternalfetcher.cpp:371
+#: src/fetch/execexternalfetcher.cpp:389
 #, kde-format
 msgid ""
 "Set the path of the application to run that should output a valid Tellico "
@@ -3734,12 +3796,12 @@ msgstr ""
 "Állítsa be a futtatandó alkalmazás elérési útvonalát, mely érvényes Tellico "
 "adatfájlt hoz létre."
 
-#: src/fetch/execexternalfetcher.cpp:376
+#: src/fetch/execexternalfetcher.cpp:394
 #, kde-format
 msgid "Select the search keys supported by the data source."
 msgstr "Válassza ki az adat forrásnak megfelelő keresési kulcsokat."
 
-#: src/fetch/execexternalfetcher.cpp:378
+#: src/fetch/execexternalfetcher.cpp:396
 #, kde-format
 msgid ""
 "Add any arguments that may be needed. <b>%1</b> will be replaced by the "
@@ -3749,17 +3811,17 @@ msgstr ""
 "lesz helyettesítve."
 
 #. i18ncheckarg
-#: src/fetch/execexternalfetcher.cpp:379
+#: src/fetch/execexternalfetcher.cpp:397
 #, kde-format
 msgid "Arguments"
 msgstr "Változók"
 
-#: src/fetch/execexternalfetcher.cpp:411
+#: src/fetch/execexternalfetcher.cpp:429
 #, kde-format
 msgid "Update"
 msgstr "Frissítés"
 
-#: src/fetch/execexternalfetcher.cpp:419
+#: src/fetch/execexternalfetcher.cpp:437
 #, kde-format
 msgid ""
 "<p>Enter the arguments which should be used to search for available updates "
@@ -3786,42 +3848,42 @@ msgid ""
 "Check the network configuration in KDE System Settings."
 msgstr ""
 
-#: src/fetch/fetchmanager.cpp:67
+#: src/fetch/fetchmanager.cpp:69
 #, kde-format
 msgid "Person"
 msgstr "Személy"
 
-#: src/fetch/fetchmanager.cpp:68
+#: src/fetch/fetchmanager.cpp:70
 #, kde-format
 msgid "ISBN"
 msgstr "ISBN"
 
-#: src/fetch/fetchmanager.cpp:69
+#: src/fetch/fetchmanager.cpp:71
 #, kde-format
 msgid "UPC/EAN"
 msgstr "UPC/EAN"
 
-#: src/fetch/fetchmanager.cpp:70
+#: src/fetch/fetchmanager.cpp:72
 #, kde-format
 msgid "Keyword"
 msgstr "Kulcsszó"
 
-#: src/fetch/fetchmanager.cpp:72 src/translators/pdfimporter.cpp:211
+#: src/fetch/fetchmanager.cpp:74 src/translators/pdfimporter.cpp:213
 #, kde-format
 msgid "arXiv ID"
 msgstr "arXiv azonosító"
 
-#: src/fetch/fetchmanager.cpp:73
+#: src/fetch/fetchmanager.cpp:75
 #, kde-format
 msgid "PubMed ID"
 msgstr "PubMed azonosító"
 
-#: src/fetch/fetchmanager.cpp:74
+#: src/fetch/fetchmanager.cpp:76
 #, kde-format
 msgid "LCCN"
 msgstr "LCCN"
 
-#: src/fetch/fetchmanager.cpp:75
+#: src/fetch/fetchmanager.cpp:77
 #, kde-format
 msgid "Raw Query"
 msgstr "Nyers lekérdezés"
@@ -3831,67 +3893,66 @@ msgstr "Nyers lekérdezés"
 msgid "Filmaster Link"
 msgstr "Filmaster kapcsolat"
 
-#: src/fetch/gcstarpluginfetcher.cpp:384
+#: src/fetch/gcstarpluginfetcher.cpp:386
 #, kde-format
 msgid "GCstar Plugin"
 msgstr "GCstar beépülő modul"
 
-#: src/fetch/gcstarpluginfetcher.cpp:406
+#: src/fetch/gcstarpluginfetcher.cpp:408
 #, kde-format
 msgid "Set the collection type of the data returned from the plugin."
 msgstr "Állítsa be a beépülő modul által visszaadott adat gyűjtemény típusát."
 
-#: src/fetch/gcstarpluginfetcher.cpp:411
+#: src/fetch/gcstarpluginfetcher.cpp:413
 #, kde-format
 msgid "&Plugin: "
 msgstr "&Beépülő modul"
 
-#: src/fetch/gcstarpluginfetcher.cpp:417
+#: src/fetch/gcstarpluginfetcher.cpp:419
 #, kde-format
 msgid "Select the GCstar plugin used for the data source."
 msgstr "Válassza ki a GCstar beépülő modult az adat forráshoz."
 
-#: src/fetch/gcstarpluginfetcher.cpp:422
+#: src/fetch/gcstarpluginfetcher.cpp:424
 #, kde-format
 msgid "Author: "
 msgstr "Szerző : "
 
-#: src/fetch/giantbombfetcher.cpp:201
+#: src/fetch/giantbombfetcher.cpp:207
 #, kde-format
 msgid "GiantBomb Link"
 msgstr "GiantBomb hivatkozás"
 
-#: src/fetch/giantbombfetcher.cpp:202 src/fetch/igdbfetcher.cpp:229
-#: src/fetch/igdbfetcher.cpp:569 src/fetch/mobygamesfetcher.cpp:414
-#: src/fetch/mobygamesfetcher.cpp:599
+#: src/fetch/giantbombfetcher.cpp:208 src/fetch/igdbfetcher.cpp:549
+#: src/fetch/mobygamesfetcher.cpp:595 src/field.cpp:325
 #, kde-format
 msgid "PEGI Rating"
 msgstr "PEGI besorolás"
 
-#: src/fetch/googlebookfetcher.cpp:256 src/fetch/googlebookfetcher.cpp:367
+#: src/fetch/googlebookfetcher.cpp:256 src/fetch/googlebookfetcher.cpp:369
 #, kde-format
 msgid "Google Book Link"
 msgstr "Google Book kapcsolat"
 
-#: src/fetch/googlebookfetcher.cpp:358
+#: src/fetch/googlebookfetcher.cpp:360
 #, kde-format
 msgid "Google Book Search"
 msgstr "Google Book keresés"
 
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:575
+#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:574
 #, kde-format
 msgid "Illustrator"
 msgstr "Illusztrátor"
 
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/isbndbfetcher.cpp:381
-#: src/fetch/srufetcher.cpp:504 src/fetch/z3950fetcher.cpp:576
+#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/isbndbfetcher.cpp:383
+#: src/fetch/srufetcher.cpp:504 src/fetch/z3950fetcher.cpp:575
 #, kde-format
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey decimális"
 
 #: src/fetch/hathitrustfetcher.cpp:306 src/fetch/srufetcher.cpp:505
-#: src/fetch/z3950fetcher.cpp:577
+#: src/fetch/z3950fetcher.cpp:576
 #, kde-format
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3902,85 +3963,97 @@ msgstr "LoC besorolás"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Internet Bookshop (ibs.it)"
 
-#: src/fetch/igdbfetcher.cpp:73
+#: src/fetch/igdbfetcher.cpp:80
 #, kde-format
 msgid ""
 "This information was freely provided by <a href=\"https://igdb.com\">IGDB."
 "com</a>."
 msgstr ""
 
-#: src/fetch/igdbfetcher.cpp:235 src/fetch/igdbfetcher.cpp:570
+#: src/fetch/igdbfetcher.cpp:224 src/fetch/igdbfetcher.cpp:550
 #, kde-format
 msgid "IGDB Link"
 msgstr "IGDB hivatkozás"
 
-#: src/fetch/igdbfetcher.cpp:560
+#: src/fetch/igdbfetcher.cpp:540
 #, kde-format
 msgid "Internet Game Database (IGDB.com)"
 msgstr "Internetes Játékadatbázis (IGDB.com)"
 
-#: src/fetch/imdbfetcher.cpp:90 src/fetch/imdbfetcher.cpp:1454
+#: src/fetch/imdbfetcher.cpp:109 src/fetch/imdbfetcher.cpp:1476
 #, kde-format
 msgid "Internet Movie Database"
 msgstr "Internet Movie Database"
 
-#: src/fetch/imdbfetcher.cpp:118
+#: src/fetch/imdbfetcher.cpp:137
 #, kde-format
 msgid "Internet Movie Database (French)"
 msgstr "Internetes Filmadatbázis (IMDB - francia)"
 
-#: src/fetch/imdbfetcher.cpp:146
+#: src/fetch/imdbfetcher.cpp:165
 #, kde-format
 msgid "Internet Movie Database (Spanish)"
 msgstr "Internetes Filmadatbázis (IMDB - spanyol)"
 
-#: src/fetch/imdbfetcher.cpp:174
+#: src/fetch/imdbfetcher.cpp:193
 #, kde-format
 msgid "Internet Movie Database (German)"
 msgstr "Internetes Filmadatbázis (IMDB - német)"
 
-#: src/fetch/imdbfetcher.cpp:202
+#: src/fetch/imdbfetcher.cpp:221
 #, kde-format
 msgid "Internet Movie Database (Italian)"
 msgstr "Internetes Filmadatbázis (IMDB - olasz)"
 
-#: src/fetch/imdbfetcher.cpp:230
+#: src/fetch/imdbfetcher.cpp:249
 #, kde-format
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Internetes Filmadatbázis (IMDB - portugál)"
 
-#: src/fetch/imdbfetcher.cpp:712 src/fetch/imdbfetcher.cpp:1464
-#: src/fetch/omdbfetcher.cpp:323 src/fetch/omdbfetcher.cpp:348
-#: src/fetch/themoviedbfetcher.cpp:272 src/fetch/themoviedbfetcher.cpp:445
-#, kde-format
-msgid "IMDb Link"
-msgstr "IMDb kapcsolat"
-
-#: src/fetch/imdbfetcher.cpp:1153 src/fetch/imdbfetcher.cpp:1465
+#: src/fetch/imdbfetcher.cpp:1175 src/fetch/imdbfetcher.cpp:1487
 #, kde-format
 msgid "IMDb Rating"
 msgstr "IMDb értékelés"
 
-#: src/fetch/imdbfetcher.cpp:1328 src/fetch/imdbfetcher.cpp:1425
-#: src/fetch/imdbfetcher.cpp:1467
+#: src/fetch/imdbfetcher.cpp:1350 src/fetch/imdbfetcher.cpp:1447
+#: src/fetch/imdbfetcher.cpp:1489
 #, kde-format
 msgid "Certifications"
 msgstr "Tanúsítványok"
 
-#: src/fetch/imdbfetcher.cpp:1518
+#: src/fetch/imdbfetcher.cpp:1486 src/fetch/omdbfetcher.cpp:397
+#: src/fetch/themoviedbfetcher.cpp:481 src/fetch/tvmazefetcher.cpp:387
+#: src/field.cpp:331
+#, kde-format
+msgid "IMDb Link"
+msgstr "IMDb kapcsolat"
+
+#: src/fetch/imdbfetcher.cpp:1524
 #, kde-format
 msgid "Download cover &image"
 msgstr "&Fedlap kép letöltése"
 
-#: src/fetch/isbndbfetcher.cpp:358
+#: src/fetch/isbndbfetcher.cpp:360
 #, kde-format
 msgid "Dewey Decimal"
 msgstr "Dewey decimális"
 
-#: src/fetch/isbndbfetcher.cpp:371
+#: src/fetch/isbndbfetcher.cpp:373
 #, kde-format
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
+
+#: src/fetch/isbndbfetcher.cpp:415
+#, kde-format
+msgid "Enable batch ISBN searching (requires Premium or Pro plan)"
+msgstr ""
+
+#: src/fetch/isbndbfetcher.cpp:419
+#, kde-format
+msgid ""
+"Batch searching for ISBN values is faster but only available for Premium or "
+"Pro plans."
+msgstr ""
 
 #: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:507
 #, kde-format
@@ -3992,14 +4065,14 @@ msgstr "KinoPoisk hivatkozás"
 msgid "Kino-Teatr Link"
 msgstr "Kino-Teatr hivatkozás"
 
-#: src/fetch/mobygamesfetcher.cpp:80
+#: src/fetch/mobygamesfetcher.cpp:81
 #, kde-format
 msgid ""
 "This information was freely provided by <a href=\"https://mobygames.com"
 "\">MobyGames</a>."
 msgstr ""
 
-#: src/fetch/mobygamesfetcher.cpp:420 src/fetch/mobygamesfetcher.cpp:600
+#: src/fetch/mobygamesfetcher.cpp:416 src/fetch/mobygamesfetcher.cpp:596
 #, kde-format
 msgid "MobyGames Link"
 msgstr "MobyGames hivatkozás"
@@ -4009,15 +4082,43 @@ msgstr "MobyGames hivatkozás"
 msgid "MovieMeter Link"
 msgstr "MovieMeter kapcsolat"
 
-#: src/fetch/multifetcher.cpp:172
+#: src/fetch/multifetcher.cpp:206
 #, kde-format
 msgid "Multiple Sources"
 msgstr "Többszörös források"
 
-#: src/fetch/multifetcher.cpp:244
+#: src/fetch/multifetcher.cpp:278
 #, kde-format
 msgid "Data source:"
 msgstr "Adatforrás:"
+
+#: src/fetch/numistafetcher.cpp:342 src/fetch/numistafetcher.cpp:397
+#, kde-format
+msgid "Numista Link"
+msgstr "Numista hivatkozás"
+
+#: src/fetch/numistafetcher.cpp:402
+#, kde-format
+msgctxt "Standard catalog of world coins number"
+msgid "Krause-Mishler"
+msgstr "Krause-Mishler"
+
+#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:542
+#, kde-format
+msgctxt "Language"
+msgid "English"
+msgstr "Angol"
+
+#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:545
+#, kde-format
+msgctxt "Language"
+msgid "French"
+msgstr "Francia"
+
+#: src/fetch/numistafetcher.cpp:461
+#, kde-format
+msgid "Numista (%1)"
+msgstr "Numista (%1)"
 
 #: src/fetch/openlibraryfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:393
 #, kde-format
@@ -4034,22 +4135,22 @@ msgstr "Kongresszusi könyvtár (Egyesült Államok)"
 msgid "SRU Server"
 msgstr "SRU szerver"
 
-#: src/fetch/srufetcher.cpp:520 src/fetch/z3950fetcher.cpp:600
+#: src/fetch/srufetcher.cpp:520 src/fetch/z3950fetcher.cpp:599
 #, kde-format
 msgid "Hos&t: "
 msgstr "&Hoszt:"
 
-#: src/fetch/srufetcher.cpp:527 src/fetch/z3950fetcher.cpp:606
+#: src/fetch/srufetcher.cpp:527 src/fetch/z3950fetcher.cpp:605
 #, kde-format
 msgid "Enter the host name of the server."
 msgstr "Adja meg a szerver nevét."
 
-#: src/fetch/srufetcher.cpp:532 src/fetch/z3950fetcher.cpp:611
+#: src/fetch/srufetcher.cpp:532 src/fetch/z3950fetcher.cpp:610
 #, kde-format
 msgid "&Port: "
 msgstr "&Port szám:"
 
-#: src/fetch/srufetcher.cpp:541 src/fetch/z3950fetcher.cpp:620
+#: src/fetch/srufetcher.cpp:541 src/fetch/z3950fetcher.cpp:619
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Adja meg a szerver nevét. Az alapértelmezett: %1."
@@ -4079,102 +4180,114 @@ msgstr "Adja meg a szerver által használt formátumot."
 msgid "Field"
 msgstr "Mező"
 
-#: src/fetch/themoviedbfetcher.cpp:267 src/fetch/themoviedbfetcher.cpp:444
+#: src/fetch/themoviedbfetcher.cpp:298 src/fetch/themoviedbfetcher.cpp:480
 #, kde-format
 msgid "TMDb Link"
 msgstr "TMDb kapcsolat"
 
-#: src/fetch/themoviedbfetcher.cpp:486
-#, kde-format
-msgctxt "Language"
-msgid "English"
-msgstr "Angol"
-
-#: src/fetch/themoviedbfetcher.cpp:487
-#, kde-format
-msgctxt "Language"
-msgid "French"
-msgstr "Francia"
-
-#: src/fetch/themoviedbfetcher.cpp:488
+#: src/fetch/themoviedbfetcher.cpp:548
 #, kde-format
 msgctxt "Language"
 msgid "German"
 msgstr "Német"
 
-#: src/fetch/themoviedbfetcher.cpp:489
+#: src/fetch/themoviedbfetcher.cpp:551
 #, kde-format
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Spanyol"
 
-#: src/fetch/themoviedbfetcher.cpp:521
+#: src/fetch/themoviedbfetcher.cpp:585
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/videogamegeekfetcher.cpp:186
+#: src/fetch/tvmazefetcher.cpp:73
+#, kde-format
+msgid ""
+"This information was freely provided by <a href=\"https://tvmaze.com"
+"\">TVmaze</a>."
+msgstr ""
+
+#: src/fetch/tvmazefetcher.cpp:181 src/fetch/tvmazefetcher.cpp:389
+#, kde-format
+msgid "Network"
+msgstr "Csatorna"
+
+#: src/fetch/tvmazefetcher.cpp:193
+#, kde-format
+msgctxt "TV Season"
+msgid "Season"
+msgstr "Évad"
+
+#: src/fetch/tvmazefetcher.cpp:194
+#, kde-format
+msgctxt "TV Episode"
+msgid "Episode"
+msgstr "Epizód"
+
+#: src/fetch/videogamegeekfetcher.cpp:190
 #, kde-format
 msgid "VideoGameGeek Link"
 msgstr "VideoGameGeek hivatkozás"
 
-#: src/fetch/vndbfetcher.cpp:284 src/fetch/vndbfetcher.cpp:428
+#: src/fetch/vndbfetcher.cpp:288 src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Alias"
 msgstr "Álnév"
 
-#: src/fetch/vndbfetcher.cpp:303
+#: src/fetch/vndbfetcher.cpp:307
 #, kde-format
 msgid "Visual Novel"
 msgstr "Visual Novel"
 
-#: src/fetch/z3950connection.cpp:181
+#: src/fetch/z3950connection.cpp:183
 #, kde-format
 msgid "Query error!"
 msgstr "Lekérdezési hiba!"
 
-#: src/fetch/z3950connection.cpp:221 src/fetch/z3950connection.cpp:340
+#: src/fetch/z3950connection.cpp:223 src/fetch/z3950connection.cpp:344
 #, kde-format
 msgid "Connection search error %1: %2"
 msgstr "Csatlakozás keresési hiba %1: %2"
 
-#: src/fetch/z3950connection.cpp:303
+#: src/fetch/z3950connection.cpp:305
 #, kde-format
 msgid "Record syntax error"
 msgstr "Rekord szintaxis hiba"
 
-#: src/fetch/z3950connection.cpp:420
+#: src/fetch/z3950connection.cpp:425
 #, kde-format
 msgid "Connection error %1: %2"
 msgstr "Csatlakozási hiba %1: %2"
 
-#: src/fetch/z3950fetcher.cpp:562 src/fetch/z3950fetcher.cpp:878
+#: src/fetch/z3950fetcher.cpp:561 src/fetch/z3950fetcher.cpp:877
 #, kde-format
 msgid "z39.50 Server"
 msgstr "z39.50 Szerver"
 
-#: src/fetch/z3950fetcher.cpp:589
+#: src/fetch/z3950fetcher.cpp:588
 #, kde-format
 msgid "Use preset &server:"
 msgstr "&Használja az előre beállított szervert:"
 
-#: src/fetch/z3950fetcher.cpp:625
+#: src/fetch/z3950fetcher.cpp:624
 #, kde-format
 msgid "&Database: "
 msgstr "&Adatbázis:"
 
-#: src/fetch/z3950fetcher.cpp:630
+#: src/fetch/z3950fetcher.cpp:629
 #, kde-format
 msgid "Enter the database name used by the server."
 msgstr "Adja meg a szerver által használt adatbázis nevét."
 
-#: src/fetch/z3950fetcher.cpp:635
+#: src/fetch/z3950fetcher.cpp:634
 #, fuzzy, kde-format
 #| msgid "Ch&aracter set: "
 msgid "Query character set: "
 msgstr "Karakter készlet:"
 
-#: src/fetch/z3950fetcher.cpp:644
+#: src/fetch/z3950fetcher.cpp:643
 #, fuzzy, kde-format
 #| msgid ""
 #| "Enter the character set encoding used by the z39.50 server. The most "
@@ -4186,13 +4299,13 @@ msgstr ""
 "Adja meg a z39.50 szerver által használt karakter készlet kódolását. A "
 "legvalószínűbb választás a MARC-8, habár ISO-8859-1 az általános."
 
-#: src/fetch/z3950fetcher.cpp:650
+#: src/fetch/z3950fetcher.cpp:649
 #, fuzzy, kde-format
 #| msgid "Ch&aracter set: "
 msgid "Results character set: "
 msgstr "Karakter készlet:"
 
-#: src/fetch/z3950fetcher.cpp:659
+#: src/fetch/z3950fetcher.cpp:658
 #, fuzzy, kde-format
 #| msgid ""
 #| "Enter the character set encoding used by the z39.50 server. The most "
@@ -4204,17 +4317,17 @@ msgstr ""
 "Adja meg a z39.50 szerver által használt karakter készlet kódolását. A "
 "legvalószínűbb választás a MARC-8, habár ISO-8859-1 az általános."
 
-#: src/fetch/z3950fetcher.cpp:665
+#: src/fetch/z3950fetcher.cpp:664
 #, kde-format
 msgid "&Format: "
 msgstr "&Formátum: "
 
-#: src/fetch/z3950fetcher.cpp:668
+#: src/fetch/z3950fetcher.cpp:667
 #, kde-format
 msgid "Auto-detect"
 msgstr "Automatikus detektálás"
 
-#: src/fetch/z3950fetcher.cpp:677
+#: src/fetch/z3950fetcher.cpp:676
 #, kde-format
 msgid ""
 "Enter the data format used by the z39.50 server. Tellico will attempt to "
@@ -4224,17 +4337,17 @@ msgstr ""
 "automatikusan a legjobb beállítást választja, ha az <i>Automatikus "
 "kijelölés</i>t kiválasztotta."
 
-#: src/fetch/z3950fetcher.cpp:683
+#: src/fetch/z3950fetcher.cpp:682
 #, kde-format
 msgid "&User: "
 msgstr "&Felhasználó: "
 
-#: src/fetch/z3950fetcher.cpp:686 src/fetch/z3950fetcher.cpp:698
+#: src/fetch/z3950fetcher.cpp:685 src/fetch/z3950fetcher.cpp:697
 #, kde-format
 msgid "Optional"
 msgstr "Opcionális"
 
-#: src/fetch/z3950fetcher.cpp:689
+#: src/fetch/z3950fetcher.cpp:688
 #, kde-format
 msgid ""
 "Enter the authentication user name used by the z39.50 database. Most servers "
@@ -4243,12 +4356,12 @@ msgstr ""
 "Adja meg a z39.50 adatbázishoz az érvényes felhasználó nevét. A legtöbb "
 "szervernél ez nem szükséges."
 
-#: src/fetch/z3950fetcher.cpp:695
+#: src/fetch/z3950fetcher.cpp:694
 #, kde-format
 msgid "Pass&word: "
 msgstr "&Jelszó: "
 
-#: src/fetch/z3950fetcher.cpp:702
+#: src/fetch/z3950fetcher.cpp:701
 #, kde-format
 msgid ""
 "Enter the authentication password used by the z39.50 database. Most servers "
@@ -4259,65 +4372,65 @@ msgstr ""
 "nem szükséges. A jelszót nyílt szövegként a Tellico beállítási fáljba kerül "
 "elmentésre."
 
-#: src/fetchdialog.cpp:83
+#: src/fetchdialog.cpp:82
 #, kde-format
 msgid "&Search"
 msgstr "&Keresés"
 
-#: src/fetchdialog.cpp:84
+#: src/fetchdialog.cpp:83
 #, kde-format
 msgid "&Stop"
 msgstr "&Állj"
 
-#: src/fetchdialog.cpp:143
+#: src/fetchdialog.cpp:142 src/mainwindow.cpp:574
 #, kde-format
 msgid "Internet Search"
 msgstr "Internet keresés"
 
-#: src/fetchdialog.cpp:154
+#: src/fetchdialog.cpp:153
 #, kde-format
 msgid "Search Query"
 msgstr "Keresés itt:"
 
-#: src/fetchdialog.cpp:163
+#: src/fetchdialog.cpp:162
 #, kde-format
 msgctxt "Start the search"
 msgid "S&earch:"
 msgstr "&Keresés:"
 
-#: src/fetchdialog.cpp:169
+#: src/fetchdialog.cpp:168
 #, kde-format
 msgid "Enter a search value. An ISBN search must include the full ISBN."
 msgstr ""
 "Adja meg a keresendő értéket. Az ISBN keresésnek a teljes ISBN-t "
 "tartalmaznia kell."
 
-#: src/fetchdialog.cpp:179
+#: src/fetchdialog.cpp:178
 #, kde-format
 msgid "Choose the type of search"
 msgstr "Keresés típusának kiválasztása"
 
-#: src/fetchdialog.cpp:186
+#: src/fetchdialog.cpp:185
 #, kde-format
 msgid "Click to start or stop the search"
 msgstr "Kattintson a keresés elindításához, leállításához"
 
-#: src/fetchdialog.cpp:205
+#: src/fetchdialog.cpp:204
 #, kde-format
 msgid "&Multiple ISBN/UPC search"
 msgstr "&Többszörös ISBN/UPC keresés"
 
-#: src/fetchdialog.cpp:207
+#: src/fetchdialog.cpp:206
 #, kde-format
 msgid "Check this box to search for multiple ISBN or UPC values."
 msgstr "Jelölje ki a többszörös ISBN vagy UPC értékek kereséséhez."
 
-#: src/fetchdialog.cpp:211
+#: src/fetchdialog.cpp:210
 #, kde-format
 msgid "Edit ISBN/UPC values..."
 msgstr "ISBN/UPC értékek szerkesztése..."
 
-#: src/fetchdialog.cpp:215
+#: src/fetchdialog.cpp:214
 #, kde-format
 msgid ""
 "Click to open a text edit box for entering or editing multiple ISBN or UPC "
@@ -4326,22 +4439,22 @@ msgstr ""
 "Kattintson a szöveg szerkesztési ablak kinyitásához, ahol a többszörös ISBN "
 "vagy UPC értékeket megadhatja, vagy megváltoztathatja."
 
-#: src/fetchdialog.cpp:221
+#: src/fetchdialog.cpp:220
 #, kde-format
 msgid "Search s&ource:"
 msgstr "Forrás keresése:"
 
-#: src/fetchdialog.cpp:232
+#: src/fetchdialog.cpp:235
 #, kde-format
 msgid "Select the database to search"
 msgstr "Adatbázis kiválasztása kereséshez"
 
-#: src/fetchdialog.cpp:251
+#: src/fetchdialog.cpp:254
 #, kde-format
 msgid "Source"
 msgstr "Forrás"
 
-#: src/fetchdialog.cpp:262
+#: src/fetchdialog.cpp:265
 #, kde-format
 msgid ""
 "As results are found, they are added to this list. Selecting one will fetch "
@@ -4350,7 +4463,7 @@ msgstr ""
 "A találati eredmények hozzáadódnak a listához. Egyet kiválasztva a teljes "
 "bejegyzés bekerül és az alábbi nézetben látható."
 
-#: src/fetchdialog.cpp:271
+#: src/fetchdialog.cpp:278
 #, kde-format
 msgid ""
 "An entry may be shown here before adding it to the current collection by "
@@ -4359,99 +4472,99 @@ msgstr ""
 "A fenti listából kiválasztott bejegyzés itt látható mielőtt a jelenlegi "
 "gyűjteményhez hozzáadná."
 
-#: src/fetchdialog.cpp:279
+#: src/fetchdialog.cpp:286
 #, kde-format
 msgid "&Add Entry"
 msgstr "Bejegyzés hozzáadása"
 
-#: src/fetchdialog.cpp:284
+#: src/fetchdialog.cpp:291
 #, kde-format
 msgid "Add the selected entry to the current collection"
 msgstr "Kiválasztott bejegyzés hozzáadása a jelenlegi gyűjteményhez"
 
-#: src/fetchdialog.cpp:287
+#: src/fetchdialog.cpp:294
 #, kde-format
 msgid "Get More Results"
 msgstr "Több eredmény kérése"
 
-#: src/fetchdialog.cpp:291
+#: src/fetchdialog.cpp:298
 #, kde-format
 msgid "Fetch more results from the current data source"
 msgstr "Több eredmény lekérése az aktuális adatforrásból"
 
-#: src/fetchdialog.cpp:297
+#: src/fetchdialog.cpp:304
 #, kde-format
 msgid "Clear all search fields and results"
 msgstr "Az összes keresési mező és az eredmények törlése"
 
-#: src/fetchdialog.cpp:388
+#: src/fetchdialog.cpp:395
 #, kde-format
 msgid "Cancelling the search..."
 msgstr "A keresés leállítása..."
 
-#: src/fetchdialog.cpp:401 src/fetchdialog.cpp:580
+#: src/fetchdialog.cpp:408 src/fetchdialog.cpp:587
 #, kde-format
 msgid "Searching..."
 msgstr "Keresés..."
 
-#: src/fetchdialog.cpp:460
+#: src/fetchdialog.cpp:467
 #, kde-format
 msgid "The search returned no items."
 msgstr "A keresés nem talált semmit."
 
-#: src/fetchdialog.cpp:463
+#: src/fetchdialog.cpp:470
 #, kde-format
 msgid "The search returned 1 item."
 msgid_plural "The search returned %1 items."
 msgstr[0] "1 keresési találat."
 msgstr[1] "%1 keresési találat."
 
-#: src/fetchdialog.cpp:492
+#: src/fetchdialog.cpp:499
 #, kde-format
 msgid "No results were found for the following ISBN values:"
 msgstr "A következő ISBN számban nem található az érték:"
 
-#: src/fetchdialog.cpp:494
+#: src/fetchdialog.cpp:501
 #, kde-format
 msgid "No Results"
 msgstr "Nincs eredmény"
 
-#: src/fetchdialog.cpp:547 src/fetchdialog.cpp:603
+#: src/fetchdialog.cpp:554 src/fetchdialog.cpp:610
 #, kde-format
 msgid "Fetching %1..."
 msgstr "%1 feldolgozása..."
 
-#: src/fetchdialog.cpp:620
+#: src/fetchdialog.cpp:627
 #, kde-format
 msgid "Attribution"
 msgstr "Jellemző"
 
-#: src/fetchdialog.cpp:657 src/fetchdialog.cpp:883
+#: src/fetchdialog.cpp:664 src/fetchdialog.cpp:888
 #, kde-format
 msgid "No Internet sources are available for your current collection type."
 msgstr "A jelenlegi gyűjtemény típusához nincs elérhető internet forrás."
 
-#: src/fetchdialog.cpp:738
+#: src/fetchdialog.cpp:745
 #, kde-format
 msgid "Edit ISBN/UPC Values"
 msgstr "ISBN/UPC értékek szerkesztése"
 
-#: src/fetchdialog.cpp:749
+#: src/fetchdialog.cpp:756
 #, kde-format
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>Soronként egy ISBN vagy UPC érték megadása.</qt>"
 
-#: src/fetchdialog.cpp:765
+#: src/fetchdialog.cpp:772
 #, kde-format
 msgid "&Load From File..."
 msgstr "&Betöltés fájlból..."
 
-#: src/fetchdialog.cpp:766
+#: src/fetchdialog.cpp:773
 #, kde-format
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>Szöveg fájlból lista betöltése.</qt>"
 
-#: src/fetchdialog.cpp:790
+#: src/fetchdialog.cpp:797
 #, kde-format
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
@@ -4498,53 +4611,53 @@ msgid "If checked, updating entries will overwrite any existing information."
 msgstr ""
 "Ha kijelöli, a frissülő bejegyzések felülírják a meglévő információkat."
 
-#: src/field.cpp:194
+#: src/field.cpp:196
 #, kde-format
 msgid "Simple Text"
 msgstr "Egyszerű szöveg"
 
-#: src/field.cpp:195
+#: src/field.cpp:197
 #, kde-format
 msgid "Paragraph"
 msgstr "Bekezdés"
 
-#: src/field.cpp:196
+#: src/field.cpp:198
 #, kde-format
 msgid "Choice"
 msgstr "Választás"
 
-#: src/field.cpp:197
+#: src/field.cpp:199
 #, kde-format
 msgid "Checkbox"
 msgstr "Kijelölés"
 
-#: src/field.cpp:200
+#: src/field.cpp:202
 #, kde-format
 msgid "Table"
 msgstr "Táblázat"
 
-#: src/field.cpp:202
+#: src/field.cpp:204
 #, kde-format
 msgid "Date"
 msgstr "Dátum"
 
-#: src/field.cpp:288
+#: src/field.cpp:290
 #, kde-format
 msgctxt "ID # of the entry"
 msgid "ID"
 msgstr "ID"
 
-#: src/field.cpp:301
+#: src/field.cpp:303
 #, kde-format
 msgid "Date Created"
 msgstr "Dátum létrehozva"
 
-#: src/field.cpp:306
+#: src/field.cpp:308
 #, kde-format
 msgid "Date Modified"
 msgstr "Dátum módosítva"
 
-#: src/field.cpp:313
+#: src/field.cpp:315
 #, kde-format
 msgid "International Standard Book Number"
 msgstr "International Standard Book Number"
@@ -4569,18 +4682,18 @@ msgstr "&Minden alábbival egyező"
 msgid "Match an&y of the following"
 msgstr "&Az alábbiakkal nem egyező"
 
-#: src/filterdialog.cpp:109
+#: src/filterdialog.cpp:113
 #, kde-format
 msgid "Filter name:"
 msgstr "Szűrő neve:"
 
-#: src/filterdialog.cpp:118
+#: src/filterdialog.cpp:122
 #, kde-format
 msgid "&Save Filter"
 msgstr "&Szűrő mentése"
 
-#: src/filterview.cpp:190 src/mainwindow.cpp:519 src/mainwindow.cpp:694
-#: src/mainwindow.cpp:712
+#: src/filterview.cpp:190 src/mainwindow.cpp:547 src/mainwindow.cpp:757
+#: src/mainwindow.cpp:775
 #, kde-format
 msgid "Filter"
 msgstr "Szűrő"
@@ -4605,24 +4718,24 @@ msgstr "Csoportok összecsukása"
 msgid "Filter by Group"
 msgstr "Szűrés csoport szerint"
 
-#: src/groupview.cpp:384
+#: src/groupview.cpp:412
 #, kde-format
 msgid "%1 (Sort by Count)"
 msgstr "%1 (Mennyiség szerint csoportosítva)"
 
-#: src/groupview.cpp:391 src/models/entrygroupmodel.cpp:68
+#: src/groupview.cpp:419 src/models/entrygroupmodel.cpp:68
 #, kde-format
 msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Csoport"
 
-#: src/groupview.cpp:397 src/mainwindow.cpp:986 src/mainwindow.cpp:1573
-#: src/mainwindow.cpp:1607 src/translators/htmlexporter.cpp:329
+#: src/groupview.cpp:425 src/mainwindow.cpp:1061 src/mainwindow.cpp:1638
+#: src/mainwindow.cpp:1672 src/translators/htmlexporter.cpp:329
 #, kde-format
 msgid "People"
 msgstr "Személy"
 
-#: src/gui/fieldwidget.cpp:108 src/gui/fieldwidget.cpp:218
+#: src/gui/fieldwidget.cpp:107 src/gui/fieldwidget.cpp:217
 #, kde-format
 msgctxt "Edit Label"
 msgid "%1:"
@@ -4638,106 +4751,132 @@ msgstr "Bármelyik mező"
 msgid "Edit..."
 msgstr "Szerkesztés..."
 
-#: src/gui/filterrulewidget.cpp:259 src/gui/filterrulewidget.cpp:267
-#: src/gui/filterrulewidget.cpp:277
+#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
+#: src/gui/filterrulewidget.cpp:285
 #, kde-format
 msgid "equals"
 msgstr "egyenlő"
 
-#: src/gui/filterrulewidget.cpp:260 src/gui/filterrulewidget.cpp:268
-#: src/gui/filterrulewidget.cpp:278
+#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
+#: src/gui/filterrulewidget.cpp:286
 #, kde-format
 msgid "does not equal"
 msgstr "nem egyenlő"
 
-#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
-#: src/gui/filterrulewidget.cpp:279
-#, kde-format
-msgid "matches regexp"
+#: src/gui/filterrulewidget.cpp:263 src/gui/filterrulewidget.cpp:271
+#: src/gui/filterrulewidget.cpp:287
+#, fuzzy, kde-format
+#| msgid "matches regexp"
+msgid "matches regular expression"
 msgstr "egyező reguláris kifejezés"
 
-#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
-#: src/gui/filterrulewidget.cpp:280
-#, kde-format
-msgid "does not match regexp"
+#: src/gui/filterrulewidget.cpp:264 src/gui/filterrulewidget.cpp:272
+#: src/gui/filterrulewidget.cpp:288
+#, fuzzy, kde-format
+#| msgid "does not match regexp"
+msgid "does not match regular expression"
 msgstr "nem egyező reguláris kifejezés"
 
-#: src/gui/filterrulewidget.cpp:263
+#: src/gui/filterrulewidget.cpp:265
 #, kde-format
 msgctxt "is before a date"
 msgid "is before"
 msgstr "előtte"
 
-#: src/gui/filterrulewidget.cpp:264
+#: src/gui/filterrulewidget.cpp:266
 #, kde-format
 msgctxt "is after a date"
 msgid "is after"
 msgstr "utána"
 
-#: src/gui/filterrulewidget.cpp:271
+#: src/gui/filterrulewidget.cpp:273
 #, kde-format
 msgctxt "is less than a number"
 msgid "is less than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:272
+#: src/gui/filterrulewidget.cpp:274
 #, kde-format
 msgctxt "is greater than a number"
 msgid "is greater than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:275
+#: src/gui/filterrulewidget.cpp:277
+#, fuzzy, kde-format
+#| msgid "&Image size: "
+msgid "image size equals"
+msgstr "&Kép méret: "
+
+#: src/gui/filterrulewidget.cpp:278
+#, fuzzy, kde-format
+#| msgid "does not equal"
+msgid "image size does not equal"
+msgstr "nem egyenlő"
+
+#: src/gui/filterrulewidget.cpp:279
+#, kde-format
+msgctxt "image size is less than a number"
+msgid "image size is less than"
+msgstr ""
+
+#: src/gui/filterrulewidget.cpp:280
+#, kde-format
+msgctxt "image size is greater than a number"
+msgid "image size is greater than"
+msgstr ""
+
+#: src/gui/filterrulewidget.cpp:283
 #, kde-format
 msgid "contains"
 msgstr "tartalmaz"
 
-#: src/gui/filterrulewidget.cpp:276
+#: src/gui/filterrulewidget.cpp:284
 #, kde-format
 msgid "does not contain"
 msgstr "nem tartalmaz"
 
-#: src/gui/imagewidget.cpp:102
+#: src/gui/imagewidget.cpp:101
 #, kde-format
 msgid "Select Image..."
 msgstr "Kép kiválasztása..."
 
-#: src/gui/imagewidget.cpp:107
+#: src/gui/imagewidget.cpp:106
 #, kde-format
 msgid "Scan Image..."
 msgstr "Kép beolvasása..."
 
-#: src/gui/imagewidget.cpp:116
+#: src/gui/imagewidget.cpp:115
 #, kde-format
 msgid "Open With..."
 msgstr "Fájl megnyitása ezzel..."
 
-#: src/gui/imagewidget.cpp:150
+#: src/gui/imagewidget.cpp:149
 #, kde-format
 msgctxt "Clear image"
 msgid "Clear"
 msgstr "Kép eltávolítása"
 
-#: src/gui/imagewidget.cpp:157
+#: src/gui/imagewidget.cpp:156
 #, kde-format
 msgid "Save link only"
 msgstr "Csak a hivatkozás mentése"
 
-#: src/gui/imagewidget.cpp:262
+#: src/gui/imagewidget.cpp:261
 #, kde-format
 msgid "All Images (%1)"
 msgstr "Minden kép (%1)"
 
-#: src/gui/imagewidget.cpp:289
+#: src/gui/imagewidget.cpp:288
 #, kde-format
 msgid "Opening the selected scanner failed."
 msgstr "A kiválasztott szkenner megnyitása sikertelen."
 
-#: src/gui/imagewidget.cpp:348
+#: src/gui/imagewidget.cpp:347
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "Kép megnyitása %1-ben..."
 
-#: src/gui/imagewidget.cpp:380
+#: src/gui/imagewidget.cpp:379
 #, kde-format
 msgid "Saving a link is only possible for newly added images."
 msgstr "Hivatkozást csak újonnan hozzáadott képek esetében lehet elmenteni."
@@ -4754,7 +4893,7 @@ msgctxt "fewer widgets"
 msgid "Fewer"
 msgstr "Kevesebb"
 
-#: src/gui/previewdialog.cpp:44
+#: src/gui/previewdialog.cpp:43
 #, kde-format
 msgid "Template Preview"
 msgstr "Sablon előnézet"
@@ -4826,27 +4965,27 @@ msgstr "Sor mozgatása lefelé"
 msgid "Tellico is unable to load the image - %1."
 msgstr "Nem sikerült a(z) %1 fájl betöltése."
 
-#: src/importdialog.cpp:74 src/importdialog.cpp:83
+#: src/importdialog.cpp:76 src/importdialog.cpp:85
 #, kde-format
 msgid "Import Options"
 msgstr "Importálás beállításai"
 
-#: src/importdialog.cpp:87
+#: src/importdialog.cpp:89
 #, kde-format
 msgid "&Replace current collection"
 msgstr "&Jelenlegi gyűjtemény kicserélése"
 
-#: src/importdialog.cpp:88
+#: src/importdialog.cpp:90
 #, kde-format
 msgid "Replace the current collection with the contents of the imported file."
 msgstr "A jelenlegi gyűjtemény kicserélése az importált fájl tartalmával."
 
-#: src/importdialog.cpp:90
+#: src/importdialog.cpp:92
 #, kde-format
 msgid "A&ppend to current collection"
 msgstr "&Hozzáfűzés a jelenlegi gyűtményhez"
 
-#: src/importdialog.cpp:91
+#: src/importdialog.cpp:93
 #, kde-format
 msgid ""
 "Append the contents of the imported file to the current collection. This is "
@@ -4855,12 +4994,12 @@ msgstr ""
 "Az importált fájl tartalmának hozzáfűzése a jelenlegi gyűjteményhez. Ez csak "
 "akkor lehetséges, ha egyezik a gyűjtemény típusa."
 
-#: src/importdialog.cpp:94
+#: src/importdialog.cpp:96
 #, kde-format
 msgid "&Merge with current collection"
 msgstr "Össze&fésülés a jelenlegi gyűjteménnyel"
 
-#: src/importdialog.cpp:95
+#: src/importdialog.cpp:97
 #, kde-format
 msgid ""
 "Merge the contents of the imported file to the current collection. This is "
@@ -4871,64 +5010,64 @@ msgstr ""
 "csak akkor lehetséges, ha egyezik a gyűjtemény típusa. A bejegyzéseknek "
 "pontosan egyezniük kell az összefésüléshez."
 
-#: src/importdialog.cpp:139 src/mainwindow.cpp:345
+#: src/importdialog.cpp:146 src/mainwindow.cpp:362
 #, kde-format
 msgid "&Import"
 msgstr "&Importálás"
 
-#: src/importdialog.cpp:339 src/mainwindow.cpp:1121 src/mainwindow.cpp:1293
+#: src/importdialog.cpp:354 src/mainwindow.cpp:1203 src/mainwindow.cpp:1375
 #: src/translators/tellicozipexporter.cpp:54
 #, kde-format
 msgid "Tellico Files"
 msgstr "Tellico-fájlok"
 
-#: src/importdialog.cpp:340 src/importdialog.cpp:356 src/importdialog.cpp:385
-#: src/mainwindow.cpp:1123 src/translators/tellicoxmlexporter.cpp:71
+#: src/importdialog.cpp:355 src/importdialog.cpp:372 src/importdialog.cpp:401
+#: src/mainwindow.cpp:1205 src/translators/tellicoxmlexporter.cpp:71
 #, kde-format
 msgid "XML Files"
 msgstr "XML-fájlok"
 
-#: src/importdialog.cpp:344 src/translators/bibtexexporter.cpp:65
+#: src/importdialog.cpp:359 src/translators/bibtexexporter.cpp:65
 #, kde-format
 msgid "Bibtex Files"
 msgstr "Bibtex-fájlok"
 
-#: src/importdialog.cpp:348 src/translators/csvexporter.cpp:64
+#: src/importdialog.cpp:363 src/translators/csvexporter.cpp:64
 #, kde-format
 msgid "CSV Files"
 msgstr "CSV-fájlok"
 
-#: src/importdialog.cpp:360
+#: src/importdialog.cpp:376
 #, kde-format
 msgid "RIS Files"
 msgstr "RIS-fájlok"
 
-#: src/importdialog.cpp:364 src/translators/gcstarexporter.cpp:61
+#: src/importdialog.cpp:380 src/translators/gcstarexporter.cpp:61
 #, kde-format
 msgid "GCstar Data Files"
 msgstr "GCStar adatfájlok"
 
-#: src/importdialog.cpp:368
+#: src/importdialog.cpp:384
 #, kde-format
 msgid "AMC Data Files"
 msgstr "AMC adatfájlok"
 
-#: src/importdialog.cpp:372
+#: src/importdialog.cpp:388
 #, kde-format
 msgid "PDF Files"
 msgstr "PDF-fájlok"
 
-#: src/importdialog.cpp:376
+#: src/importdialog.cpp:392
 #, kde-format
 msgid "Referencer Files"
 msgstr "Referencer fájlok"
 
-#: src/importdialog.cpp:380
+#: src/importdialog.cpp:396
 #, kde-format
 msgid "CIW Files"
 msgstr "CIW-fájlok"
 
-#: src/importdialog.cpp:384
+#: src/importdialog.cpp:400
 #, kde-format
 msgid "VinoXML Data Files"
 msgstr "VinoXML adatfájlok"
@@ -5026,7 +5165,7 @@ msgstr "Visszavétel"
 msgid "Modify Loan..."
 msgstr "Kölcsön módosítása"
 
-#: src/loanview.cpp:200 xslt/report-templates/Loan_View.xsl:133
+#: src/loanview.cpp:200 xslt/report-templates/Loan_View.xsl:134
 #, kde-format
 msgid "Borrower"
 msgstr "Kölcsönvevő"
@@ -5037,10 +5176,9 @@ msgid "Borrower (Sort by Count)"
 msgstr "Kölcsönvevő (mennyiség szerint rendezve)"
 
 #: src/main.cpp:121
-#, fuzzy, kde-format
-#| msgid "Tellico - a collection manager for KDE"
-msgid "Tellico - a KDE collection manager"
-msgstr "Tellico -  gyűjtemény kezelő program KDE-hez"
+#, kde-format
+msgid "Tellico - collection management software, free and simple"
+msgstr "Tellico - egy szabad és egyszerű gyűjteménykezelő szoftver"
 
 #: src/main.cpp:123
 #, kde-format
@@ -5102,768 +5240,793 @@ msgstr "<filename> RIS fájlként importálása"
 msgid "File to open"
 msgstr "Megnyitandó fájl"
 
-#: src/mainwindow.cpp:251
+#: src/mainwindow.cpp:253
+#, kde-format
+msgid "New Collection"
+msgstr "Új gyűjtemény"
+
+#: src/mainwindow.cpp:255
 #, kde-format
 msgid "Create a new collection"
 msgstr "Új gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:266
+#: src/mainwindow.cpp:274
 #, kde-format
 msgid "New &Book Collection"
 msgstr "Új &Könyv gyűjtemény"
 
-#: src/mainwindow.cpp:267
+#: src/mainwindow.cpp:275
 #, kde-format
 msgid "Create a new book collection"
 msgstr "Új könyv gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:269
+#: src/mainwindow.cpp:277
 #, kde-format
 msgid "New B&ibliography"
 msgstr "Új B&ibliográfia"
 
-#: src/mainwindow.cpp:270
+#: src/mainwindow.cpp:278
 #, kde-format
 msgid "Create a new bibtex bibliography"
 msgstr "Új bibtex bibliográfia létrehozása"
 
-#: src/mainwindow.cpp:272
+#: src/mainwindow.cpp:280
 #, kde-format
 msgid "New &Comic Book Collection"
 msgstr "Új Ké&pregény gyűjtemény"
 
-#: src/mainwindow.cpp:273
+#: src/mainwindow.cpp:281
 #, kde-format
 msgid "Create a new comic book collection"
 msgstr "Új Képregény gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:275
+#: src/mainwindow.cpp:283
 #, kde-format
 msgid "New &Video Collection"
 msgstr "Új Fi&lm gyűjtemény"
 
-#: src/mainwindow.cpp:276
+#: src/mainwindow.cpp:284
 #, kde-format
 msgid "Create a new video collection"
 msgstr "Új Film gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:286
 #, kde-format
 msgid "New &Music Collection"
 msgstr "Új &Zene gyűjtemény"
 
-#: src/mainwindow.cpp:279
+#: src/mainwindow.cpp:287
 #, kde-format
 msgid "Create a new music collection"
 msgstr "Új Zene gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:281
+#: src/mainwindow.cpp:289
 #, kde-format
 msgid "New C&oin Collection"
 msgstr "Új Ér&me gyűjtemény"
 
-#: src/mainwindow.cpp:282
+#: src/mainwindow.cpp:290
 #, kde-format
 msgid "Create a new coin collection"
 msgstr "Új Érme gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:284
+#: src/mainwindow.cpp:292
 #, kde-format
 msgid "New &Stamp Collection"
 msgstr "Új &Bélyeg gyűjtemény"
 
-#: src/mainwindow.cpp:285
+#: src/mainwindow.cpp:293
 #, kde-format
 msgid "Create a new stamp collection"
 msgstr "Új Bélyeg gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:287
+#: src/mainwindow.cpp:295
 #, kde-format
 msgid "New C&ard Collection"
 msgstr "Új Kár&tya gyűjtemény"
 
-#: src/mainwindow.cpp:288
+#: src/mainwindow.cpp:296
 #, kde-format
 msgid "Create a new trading card collection"
 msgstr "Új Névkártya gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:290
+#: src/mainwindow.cpp:298
 #, kde-format
 msgid "New &Wine Collection"
 msgstr "Új Bo&r gyűjtemény"
 
-#: src/mainwindow.cpp:291
+#: src/mainwindow.cpp:299
 #, kde-format
 msgid "Create a new wine collection"
 msgstr "Új Bor gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:293
+#: src/mainwindow.cpp:301
 #, kde-format
 msgid "New &Game Collection"
 msgstr "Új &Játék gyűjtemény"
 
-#: src/mainwindow.cpp:294
+#: src/mainwindow.cpp:302
 #, kde-format
 msgid "Create a new game collection"
 msgstr "Új Játék gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:296
+#: src/mainwindow.cpp:304
 #, kde-format
 msgid "New Boa&rd Game Collection"
 msgstr "Új &Társasjáték gyűjtemény"
 
-#: src/mainwindow.cpp:297
+#: src/mainwindow.cpp:305
 #, kde-format
 msgid "Create a new board game collection"
 msgstr "Új Társasjáték gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:299
+#: src/mainwindow.cpp:307
 #, kde-format
 msgid "New &File Catalog"
 msgstr "Új &Fájl gyűjtemény"
 
-#: src/mainwindow.cpp:300
+#: src/mainwindow.cpp:308
 #, kde-format
 msgid "Create a new file catalog"
 msgstr "Új Fájl gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:303
+#: src/mainwindow.cpp:311
 #, kde-format
 msgid "New C&ustom Collection"
 msgstr "Új &Egyedi gyűjtemény"
 
-#: src/mainwindow.cpp:304
+#: src/mainwindow.cpp:312
 #, kde-format
 msgid "Create a new custom collection"
 msgstr "Új Egyedi gyűjtemény létrehozása"
 
-#: src/mainwindow.cpp:315
+#: src/mainwindow.cpp:323
 #, kde-format
 msgid "Open an existing document"
 msgstr "Meglévő dokumentum megnyitása"
 
-#: src/mainwindow.cpp:317
+#: src/mainwindow.cpp:325
 #, kde-format
 msgid "Open a recently used file"
 msgstr "Mostanában használt fájl megnyitása"
 
-#: src/mainwindow.cpp:319
+#: src/mainwindow.cpp:327
 #, kde-format
 msgid "Save the document"
 msgstr "Jelenlegi dokumentum mentése"
 
-#: src/mainwindow.cpp:321
+#: src/mainwindow.cpp:329
 #, kde-format
 msgid "Save the document as a different file..."
 msgstr "Jelenlegi dokumentum mentése másként..."
 
-#: src/mainwindow.cpp:335
+#: src/mainwindow.cpp:331
 #, kde-format
 msgid "Print the contents of the document..."
 msgstr "Dokumentum tartalmának nyomtatása..."
 
-#: src/mainwindow.cpp:337
+#: src/mainwindow.cpp:347
+#, kde-format
+msgid "Preview the contents of the document..."
+msgstr "Dokumentum tartalmának előnézete…"
+
+#: src/mainwindow.cpp:351
 #, kde-format
 msgid "Quit the application"
 msgstr "Kilépés a programból"
 
-#: src/mainwindow.cpp:347
+#: src/mainwindow.cpp:364
 #, kde-format
 msgid "Import the collection data from other formats"
 msgstr "Gyűjtemény adat importálása más formátumokból"
 
-#: src/mainwindow.cpp:359
+#: src/mainwindow.cpp:380
 #, kde-format
 msgid "Import Tellico Data..."
 msgstr "Tellico adat importálása..."
 
-#: src/mainwindow.cpp:360
+#: src/mainwindow.cpp:381
 #, kde-format
 msgid "Import another Tellico data file"
 msgstr "Más Tellico adat fájl importálása"
 
-#: src/mainwindow.cpp:363
+#: src/mainwindow.cpp:384
 #, kde-format
 msgid "Import CSV Data..."
 msgstr "CSV adat importálása"
 
-#: src/mainwindow.cpp:364
+#: src/mainwindow.cpp:385
 #, kde-format
 msgid "Import a CSV file"
 msgstr "CSV fájl importálása..."
 
-#: src/mainwindow.cpp:366
+#: src/mainwindow.cpp:387
 #, kde-format
 msgid "Import MODS Data..."
 msgstr "MODS adat importálása..."
 
-#: src/mainwindow.cpp:367
+#: src/mainwindow.cpp:388
 #, kde-format
 msgid "Import a MODS data file"
 msgstr "MODS adat fájl importálása..."
 
-#: src/mainwindow.cpp:369
+#: src/mainwindow.cpp:390
 #, kde-format
 msgid "Import Alexandria Data..."
 msgstr "Alexandria adat importálása..."
 
-#: src/mainwindow.cpp:370
+#: src/mainwindow.cpp:391
 #, kde-format
 msgid "Import data from the Alexandria book collection manager"
 msgstr "Adat importálása Alexandria könyv gyűjtemény kezelőből"
 
-#: src/mainwindow.cpp:373
+#: src/mainwindow.cpp:394
 #, kde-format
 msgid "Import Delicious Library Data..."
 msgstr "Delicious Library adat importálása..."
 
-#: src/mainwindow.cpp:374
+#: src/mainwindow.cpp:395
 #, kde-format
 msgid "Import data from Delicious Library"
 msgstr "Adat importálása a Delicious Library-ból"
 
-#: src/mainwindow.cpp:377
+#: src/mainwindow.cpp:398
+#, kde-format
+msgid "Import Collectorz Data..."
+msgstr "Collectorz adatok importálása…"
+
+#: src/mainwindow.cpp:399
+#, kde-format
+msgid "Import data from Collectorz"
+msgstr "Adat importálása a Collectorzból"
+
+#: src/mainwindow.cpp:402
 #, kde-format
 msgid "Import Referencer Data..."
 msgstr "Rerefencia adat importálása"
 
-#: src/mainwindow.cpp:378
+#: src/mainwindow.cpp:403
 #, kde-format
 msgid "Import data from Referencer"
 msgstr "Adat importálása referenciából"
 
-#: src/mainwindow.cpp:381
+#: src/mainwindow.cpp:406
 #, kde-format
 msgid "Import Bibtex Data..."
 msgstr "Bibtex adat importálása..."
 
-#: src/mainwindow.cpp:382
+#: src/mainwindow.cpp:407
 #, kde-format
 msgid "Import a bibtex bibliography file"
 msgstr "Bibtex bibliográfia fájl importálása..."
 
-#: src/mainwindow.cpp:384
+#: src/mainwindow.cpp:412
 #, kde-format
 msgid "Import Bibtexml Data..."
 msgstr "Bibtexml adat importálása..."
 
-#: src/mainwindow.cpp:385
+#: src/mainwindow.cpp:413
 #, kde-format
 msgid "Import a Bibtexml bibliography file"
 msgstr "Bibtexml bibliográfia fájl importálása..."
 
-#: src/mainwindow.cpp:387
+#: src/mainwindow.cpp:415
 #, kde-format
 msgid "Import RIS Data..."
 msgstr "RIS adat importálása"
 
-#: src/mainwindow.cpp:388
+#: src/mainwindow.cpp:416
 #, kde-format
 msgid "Import an RIS reference file"
 msgstr "RIS referencia fájl importálása..."
 
-#: src/mainwindow.cpp:390
+#: src/mainwindow.cpp:418
 #, kde-format
 msgid "Import Goodreads Collection..."
 msgstr "Goodreads gyűjtemény importálása..."
 
-#: src/mainwindow.cpp:391
+#: src/mainwindow.cpp:419
 #, kde-format
 msgid "Import a collection from Goodreads.com"
 msgstr "Gyűjtemény importálása a Goodreads.com-ról"
 
-#: src/mainwindow.cpp:393
+#: src/mainwindow.cpp:421
 #, kde-format
 msgid "Import LibraryThing Collection..."
 msgstr "LibraryThing gyűjtemény importálása…"
 
-#: src/mainwindow.cpp:394
+#: src/mainwindow.cpp:422
 #, kde-format
 msgid "Import a collection from LibraryThing.com"
 msgstr "Gyűjtemény importálása a LibraryThing.com-ról"
 
-#: src/mainwindow.cpp:396
+#: src/mainwindow.cpp:424
 #, kde-format
 msgid "Import PDF File..."
 msgstr "PDF fájl importálása..."
 
-#: src/mainwindow.cpp:397
+#: src/mainwindow.cpp:425
 #, kde-format
 msgid "Import a PDF file"
 msgstr "Egy PDF fájl importálása..."
 
-#: src/mainwindow.cpp:399
+#: src/mainwindow.cpp:427
 #, kde-format
 msgid "Import Audio File Metadata..."
 msgstr "Hang fájl metaadat importálása..."
 
-#: src/mainwindow.cpp:400
+#: src/mainwindow.cpp:428
 #, kde-format
 msgid "Import meta-data from audio files"
 msgstr "Metaadat importálása hang fájlból..."
 
-#: src/mainwindow.cpp:405
+#: src/mainwindow.cpp:433
 #, kde-format
 msgid "Import Audio CD Data..."
 msgstr "Hang CD adat importálása…"
 
-#: src/mainwindow.cpp:406
+#: src/mainwindow.cpp:434
 #, kde-format
 msgid "Import audio CD information"
 msgstr "Hang CD információ importálása"
 
-#: src/mainwindow.cpp:411
+#: src/mainwindow.cpp:439
 #, kde-format
 msgid "Import GCstar Data..."
 msgstr "GCstar adat importálása…"
 
-#: src/mainwindow.cpp:412
+#: src/mainwindow.cpp:440
 #, kde-format
 msgid "Import a GCstar data file"
 msgstr "GCstar adat fájl importálása"
 
-#: src/mainwindow.cpp:415
+#: src/mainwindow.cpp:443
 #, kde-format
 msgid "Import Griffith Data..."
 msgstr "Griffith adat importálása…"
 
-#: src/mainwindow.cpp:416
+#: src/mainwindow.cpp:444
 #, kde-format
 msgid "Import a Griffith database"
 msgstr "Exportálás Griffith adatbázisba…"
 
-#: src/mainwindow.cpp:419
+#: src/mainwindow.cpp:447
 #, kde-format
 msgid "Import Ant Movie Catalog Data..."
 msgstr "Ant mozi katalógus adat importálása…"
 
-#: src/mainwindow.cpp:420
+#: src/mainwindow.cpp:448
 #, kde-format
 msgid "Import an Ant Movie Catalog data file"
 msgstr "Ant mozi katalógus adat fájl importálása"
 
-#: src/mainwindow.cpp:423
+#: src/mainwindow.cpp:451
 #, kde-format
 msgid "Import BoardGameGeek Collection..."
 msgstr "BoardGameGeek gyűjtemény importálása…"
 
-#: src/mainwindow.cpp:424
+#: src/mainwindow.cpp:452
 #, kde-format
 msgid "Import a collection from BoardGameGeek.com"
 msgstr "Gyűjtemény importálása a BoardGameGeek.com-ról"
 
-#: src/mainwindow.cpp:426
+#: src/mainwindow.cpp:454
 #, kde-format
 msgid "Import VinoXML..."
 msgstr "VinoXML importálása…"
 
-#: src/mainwindow.cpp:427
+#: src/mainwindow.cpp:455
 #, kde-format
 msgid "Import VinoXML data"
 msgstr "VinoXML adat importálása"
 
-#: src/mainwindow.cpp:429
+#: src/mainwindow.cpp:457
 #, kde-format
 msgid "Import File Listing..."
 msgstr "Fájl lista importálása…"
 
-#: src/mainwindow.cpp:430
+#: src/mainwindow.cpp:458
 #, kde-format
 msgid "Import information about files in a folder"
 msgstr "Fájl információ importálása egy könyvtárba"
 
-#: src/mainwindow.cpp:432
+#: src/mainwindow.cpp:460
 #, kde-format
 msgid "Import XSL Transform..."
 msgstr "Importálás XSL átalakító segítségével…"
 
-#: src/mainwindow.cpp:433
+#: src/mainwindow.cpp:461
 #, kde-format
 msgid "Import using an XSL Transform"
 msgstr "Fájl importálása az XSL átalakító segítségével…"
 
-#: src/mainwindow.cpp:443
+#: src/mainwindow.cpp:474
 #, kde-format
 msgid "&Export"
 msgstr "&Exportálás"
 
-#: src/mainwindow.cpp:445
+#: src/mainwindow.cpp:476
 #, kde-format
 msgid "Export the collection data to other formats"
 msgstr "Gyűjtemény adatainak exportálása más formátumba"
 
-#: src/mainwindow.cpp:457
+#: src/mainwindow.cpp:492
 #, kde-format
 msgid "Export to XML..."
 msgstr "Exportálás XML-be…"
 
-#: src/mainwindow.cpp:458
+#: src/mainwindow.cpp:493
 #, kde-format
 msgid "Export to a Tellico XML file"
 msgstr "Exportálás Tellcio XML fájlba"
 
-#: src/mainwindow.cpp:461
+#: src/mainwindow.cpp:496
 #, kde-format
 msgid "Export to Zip..."
 msgstr "Exportálás Zip-be…"
 
-#: src/mainwindow.cpp:462
+#: src/mainwindow.cpp:497
 #, kde-format
 msgid "Export to a Tellico Zip file"
 msgstr "Exportálás Tellcio Zip fájlba"
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:500
 #, kde-format
 msgid "Export to HTML..."
 msgstr "Exportálás HTML-be…"
 
-#: src/mainwindow.cpp:466
+#: src/mainwindow.cpp:501
 #, kde-format
 msgid "Export to an HTML file"
 msgstr "Exportálás HTML fájlba..."
 
-#: src/mainwindow.cpp:468
+#: src/mainwindow.cpp:503
 #, kde-format
 msgid "Export to CSV..."
 msgstr "&Exportálás CSV-be…"
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:504
 #, kde-format
 msgid "Export to a comma-separated values file"
 msgstr "Exportálás vesszővel határolt fájlba..."
 
-#: src/mainwindow.cpp:471
+#: src/mainwindow.cpp:506
 #, kde-format
 msgid "Export to Alexandria..."
 msgstr "Exportálás Alexandriába…"
 
-#: src/mainwindow.cpp:472
+#: src/mainwindow.cpp:507
 #, kde-format
 msgid "Export to an Alexandria library"
 msgstr "Exportálás egy Alexandria könyvtárba..."
 
-#: src/mainwindow.cpp:475
+#: src/mainwindow.cpp:510
 #, kde-format
 msgid "Export to Bibtex..."
 msgstr "Exportálás Bibtex-be…"
 
-#: src/mainwindow.cpp:476
+#: src/mainwindow.cpp:511
 #, kde-format
 msgid "Export to a bibtex file"
 msgstr "Exportálás Bibtex fájlba..."
 
-#: src/mainwindow.cpp:478
+#: src/mainwindow.cpp:513
 #, kde-format
 msgid "Export to Bibtexml..."
 msgstr "Exportálás Bibtexml fájlba…"
 
-#: src/mainwindow.cpp:479
+#: src/mainwindow.cpp:514
 #, kde-format
 msgid "Export to a Bibtexml file"
 msgstr "Exportálás Bibtexml fájlba..."
 
-#: src/mainwindow.cpp:481
+#: src/mainwindow.cpp:516
 #, kde-format
 msgid "Export to ONIX..."
 msgstr "Exportálás ONIX-ba…"
 
-#: src/mainwindow.cpp:482
+#: src/mainwindow.cpp:517
 #, kde-format
 msgid "Export to an ONIX file"
 msgstr "Exportálás ONIX fájlba..."
 
-#: src/mainwindow.cpp:484
+#: src/mainwindow.cpp:519
 #, kde-format
 msgid "Export to GCstar..."
 msgstr "Exportálás GCstarba…"
 
-#: src/mainwindow.cpp:485
+#: src/mainwindow.cpp:520
 #, kde-format
 msgid "Export to a GCstar data file"
 msgstr "Exportálás GCstar adatfájlba"
 
-#: src/mainwindow.cpp:488
+#: src/mainwindow.cpp:523
 #, kde-format
 msgid "Export XSL Transform..."
 msgstr "Exportálás XSL átalakító segítségével…"
 
-#: src/mainwindow.cpp:489
+#: src/mainwindow.cpp:524
 #, kde-format
 msgid "Export using an XSL Transform"
 msgstr "Fájl exportálása az XSL átalakító segítségével..."
 
-#: src/mainwindow.cpp:500
+#: src/mainwindow.cpp:535
 #, kde-format
 msgid "Cut the selected text and puts it in the clipboard"
 msgstr "Kivágja a kiválasztott szöveget és átmásolja a vágólapra"
 
-#: src/mainwindow.cpp:502
+#: src/mainwindow.cpp:537
 #, kde-format
 msgid "Copy the selected text to the clipboard"
 msgstr "A kijelölt szöveg másolása a vágólapra"
 
-#: src/mainwindow.cpp:504
+#: src/mainwindow.cpp:539
 #, kde-format
 msgid "Paste the clipboard contents"
 msgstr "A vágólap tartalmának beillesztése ide"
 
-#: src/mainwindow.cpp:506
+#: src/mainwindow.cpp:541
 #, kde-format
 msgid "Select all the entries in the collection"
 msgstr "A gyűjteményben lévő összes mező kiválasztása"
 
-#: src/mainwindow.cpp:508
+#: src/mainwindow.cpp:543
 #, kde-format
 msgid "Deselect all the entries in the collection"
 msgstr "A gyüjteményben lévő összes mező kiválasztásának megszüntetése"
 
-#: src/mainwindow.cpp:511
-#, kde-format
-msgid "Internet Search..."
-msgstr "Internet keresés…"
-
-#: src/mainwindow.cpp:512 xslt/tellico2html.xsl:252
-#, kde-format
-msgid "Search"
-msgstr "Keresés"
-
-#: src/mainwindow.cpp:515
-#, kde-format
-msgid "Search the internet..."
-msgstr "Keresés az interneten…"
-
-#: src/mainwindow.cpp:518
+#: src/mainwindow.cpp:546
 #, kde-format
 msgid "Advanced &Filter..."
 msgstr "&Finomított szűrés…"
 
-#: src/mainwindow.cpp:522 src/mainwindow.cpp:713
+#: src/mainwindow.cpp:550 src/mainwindow.cpp:776
 #, kde-format
 msgid "Filter the collection"
 msgstr "Gyűjtemény szűrése"
 
-#: src/mainwindow.cpp:529
+#: src/mainwindow.cpp:557
 #, kde-format
 msgid "&New Entry..."
 msgstr "&Új bejegyzés…"
 
-#: src/mainwindow.cpp:533
+#: src/mainwindow.cpp:559
+#, kde-format
+msgid "New Entry"
+msgstr "Új bejegyzés"
+
+#: src/mainwindow.cpp:561
 #, kde-format
 msgid "Create a new entry"
 msgstr "Új bejegyzés létrehozása"
 
-#: src/mainwindow.cpp:540
+#: src/mainwindow.cpp:563
+#, kde-format
+msgid "Add Entry"
+msgstr "Bejegyzés hozzáadása"
+
+#: src/mainwindow.cpp:573
+#, kde-format
+msgid "Internet Search..."
+msgstr "Internet keresés…"
+
+#: src/mainwindow.cpp:577
+#, kde-format
+msgid "Search the internet..."
+msgstr "Keresés az interneten…"
+
+#: src/mainwindow.cpp:587
 #, kde-format
 msgid "Edit the selected entries"
 msgstr "Kiválasztott bejegyzés szerkesztése"
 
-#: src/mainwindow.cpp:547
+#: src/mainwindow.cpp:594
 #, kde-format
 msgid "Copy the selected entries"
 msgstr "Kiválasztott bejegyzés másolása"
 
-#: src/mainwindow.cpp:554
+#: src/mainwindow.cpp:601
 #, kde-format
 msgid "Delete the selected entries"
 msgstr "Kiválasztott bejegyzés törlése"
 
-#: src/mainwindow.cpp:558
+#: src/mainwindow.cpp:605
 #, kde-format
 msgid "&Merge Entries"
 msgstr "Bejegyzések &összefűzése"
 
-#: src/mainwindow.cpp:562
+#: src/mainwindow.cpp:609
 #, kde-format
 msgid "Merge the selected entries"
 msgstr "Kiválasztott bejegyzések összefűzése"
 
-#: src/mainwindow.cpp:566
+#: src/mainwindow.cpp:613
 #, kde-format
 msgid "Check-&out..."
 msgstr "Kölcsönadás…"
 
-#: src/mainwindow.cpp:568
+#: src/mainwindow.cpp:615
 #, kde-format
 msgid "Check-out the selected items"
 msgstr "Kiválasztott elem kölcsönadása"
 
-#: src/mainwindow.cpp:571
+#: src/mainwindow.cpp:618
 #, kde-format
 msgid "Check-&in"
 msgstr "Visszavétel"
 
-#: src/mainwindow.cpp:573
+#: src/mainwindow.cpp:620
 #, kde-format
 msgid "Check-in the selected items"
 msgstr "Kiválasztott elemek visszavétele"
 
-#: src/mainwindow.cpp:576
+#: src/mainwindow.cpp:623
 #, kde-format
 msgid "&Rename Collection..."
 msgstr "&Gyűjtemény átnevezése…"
 
-#: src/mainwindow.cpp:579
+#: src/mainwindow.cpp:626
 #, kde-format
 msgid "Rename the collection"
 msgstr "Gyűjtemény átnevezése"
 
-#: src/mainwindow.cpp:582
+#: src/mainwindow.cpp:629
 #, kde-format
 msgid "Collection &Fields..."
 msgstr "Gyűjtemény &mezői…"
 
-#: src/mainwindow.cpp:583
+#: src/mainwindow.cpp:630
 #, kde-format
 msgid "Fields"
 msgstr "Mezők"
 
-#: src/mainwindow.cpp:586
+#: src/mainwindow.cpp:633
 #, kde-format
 msgid "Modify the collection fields"
 msgstr "Gyűjtemény mezőinek módosítása"
 
-#: src/mainwindow.cpp:589
+#: src/mainwindow.cpp:636
 #, kde-format
 msgid "&Generate Reports..."
 msgstr "&Riportok létrehozása…"
 
-#: src/mainwindow.cpp:590
+#: src/mainwindow.cpp:637
 #, kde-format
 msgid "Reports"
 msgstr "Riportok"
 
-#: src/mainwindow.cpp:592
+#: src/mainwindow.cpp:639
 #, kde-format
 msgid "Generate collection reports"
 msgstr "Gyűjtemény riportok létrehozása"
 
-#: src/mainwindow.cpp:595
+#: src/mainwindow.cpp:642
 #, kde-format
 msgid "Convert to &Bibliography"
 msgstr "&Bibliográfiába konvertálás"
 
-#: src/mainwindow.cpp:597
+#: src/mainwindow.cpp:644
 #, kde-format
 msgid "Convert a book collection to a bibliography"
 msgstr "Könyv gyűjtemény bibliográfiába konvertálása"
 
-#: src/mainwindow.cpp:600
+#: src/mainwindow.cpp:647
 #, kde-format
 msgid "String &Macros..."
 msgstr "&Karakterlánc makrók…"
 
-#: src/mainwindow.cpp:602
+#: src/mainwindow.cpp:649
 #, kde-format
 msgid "Edit the bibtex string macros"
 msgstr "Bibtex karakterlánc makrók szerkesztése"
 
-#: src/mainwindow.cpp:605
+#: src/mainwindow.cpp:652
 #, kde-format
 msgid "Check for Duplicate Keys..."
 msgstr "Kettőzött kulcsok ellenőrzése…"
 
-#: src/mainwindow.cpp:607
+#: src/mainwindow.cpp:654
 #, kde-format
 msgid "Check for duplicate citation keys"
 msgstr "Kettőzött idézet kulcsok ellenőrzése"
 
-#: src/mainwindow.cpp:614
+#: src/mainwindow.cpp:664
 #, kde-format
 msgid "Copy Bibtex to Cli&pboard"
 msgstr "Bibtex másolása a vágólapra"
 
-#: src/mainwindow.cpp:615
+#: src/mainwindow.cpp:665
 #, kde-format
 msgid "Copy bibtex citations to the clipboard"
 msgstr "Bibtex idézet másolása a vágólapra"
 
-#: src/mainwindow.cpp:620
+#: src/mainwindow.cpp:670
 #, kde-format
 msgid "Cite Entry in &LyX"
 msgstr "B&ejegyzés idézése LyX-ben"
 
-#: src/mainwindow.cpp:621
+#: src/mainwindow.cpp:671
 #, kde-format
 msgid "Cite the selected entries in LyX"
 msgstr "Kiválasztott bejegyzés idézése LyX-ben"
 
-#: src/mainwindow.cpp:632
+#: src/mainwindow.cpp:687
 #, kde-format
 msgctxt "Update Entry"
 msgid "Update"
 msgstr "Frissítés"
 
-#: src/mainwindow.cpp:637
+#: src/mainwindow.cpp:696
 #, kde-format
 msgid "All Sources"
 msgstr "Források"
 
-#: src/mainwindow.cpp:638
+#: src/mainwindow.cpp:697
 #, kde-format
 msgid "Update entry data from all available sources"
 msgstr "Bejegyzés frissítése az összes elérhető forrásból"
 
-#: src/mainwindow.cpp:649
+#: src/mainwindow.cpp:708
 #, kde-format
 msgid "Unlock Layout"
 msgstr ""
 
-#: src/mainwindow.cpp:650
+#: src/mainwindow.cpp:709
 #, kde-format
 msgid "Unlock the window's layout"
 msgstr ""
 
-#: src/mainwindow.cpp:652
+#: src/mainwindow.cpp:711
 #, kde-format
 msgid "Lock Layout"
 msgstr ""
 
-#: src/mainwindow.cpp:653
+#: src/mainwindow.cpp:712
 #, kde-format
 msgid "Lock the window's layout"
 msgstr ""
 
-#: src/mainwindow.cpp:658
+#: src/mainwindow.cpp:717
 #, kde-format
 msgid "Reset Layout"
 msgstr ""
 
-#: src/mainwindow.cpp:659
+#: src/mainwindow.cpp:718
 #, kde-format
 msgid "Reset the window's layout"
 msgstr ""
 
-#: src/mainwindow.cpp:662
+#: src/mainwindow.cpp:721
 #, kde-format
 msgid "Entry &Editor"
 msgstr "Bejegyzéssz&erkesztő"
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:723
 #, kde-format
 msgid "Enable/disable the editor"
 msgstr "Szerkesztő be/kikapcsolása"
 
-#: src/mainwindow.cpp:684
+#: src/mainwindow.cpp:743
 #, kde-format
 msgid "Change Grouping"
 msgstr "Csoportosítás megváltoztatása"
 
-#: src/mainwindow.cpp:687
+#: src/mainwindow.cpp:746
 #, kde-format
 msgid "&Group Selection"
 msgstr "&Csoport kiválasztása"
 
-#: src/mainwindow.cpp:688
+#: src/mainwindow.cpp:747
 #, kde-format
 msgid "Change the grouping of the collection"
 msgstr "A gyűjtemények csoportosításának megváltoztatása"
 
-#: src/mainwindow.cpp:698
+#: src/mainwindow.cpp:761
 #, kde-format
 msgid "Filter here..."
 msgstr "Szűrés innen…"
 
-#: src/mainwindow.cpp:755
+#: src/mainwindow.cpp:824 src/mainwindow.cpp:827
 #, kde-format
 msgid ""
 "<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</"
@@ -5872,12 +6035,12 @@ msgstr ""
 "<qt>A <i>Bejegyzés nézet</i> a bejegyzések tartalmának formázott nézetét "
 "mutatja.</qt>"
 
-#: src/mainwindow.cpp:765
+#: src/mainwindow.cpp:833
 #, kde-format
 msgid "Collection View"
 msgstr "Gyűjtemény nézet"
 
-#: src/mainwindow.cpp:772
+#: src/mainwindow.cpp:840
 #, kde-format
 msgid ""
 "<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
@@ -5886,17 +6049,17 @@ msgstr ""
 "<qt>Az <i>Oszlop nézet</i> megmutatja az egyes bejegyzések többértékű mezőit."
 "</qt>"
 
-#: src/mainwindow.cpp:789
+#: src/mainwindow.cpp:857
 #, kde-format
 msgid "Group View"
 msgstr "Csoport nézet"
 
-#: src/mainwindow.cpp:798
+#: src/mainwindow.cpp:866
 #, kde-format
 msgid "Groups"
 msgstr "Csoportok"
 
-#: src/mainwindow.cpp:799
+#: src/mainwindow.cpp:867
 #, kde-format
 msgid ""
 "<qt>The <i>Group View</i> sorts the entries into groupings based on a "
@@ -5905,12 +6068,12 @@ msgstr ""
 "<qt>A kiválasztott mező alapján a <i>Csoport nézet</i> csoportokba rendezi a "
 "bejegyzéseket.</qt>"
 
-#: src/mainwindow.cpp:873
+#: src/mainwindow.cpp:941
 #, kde-format
 msgid "Welcome to the Tellico Collection Manager"
 msgstr "Üdvözöljük a Tellico gyűjtemény kezelőben"
 
-#: src/mainwindow.cpp:875
+#: src/mainwindow.cpp:943
 #, kde-format
 msgid ""
 "<h3>Tellico is a tool for managing collections of books, videos, music, and "
@@ -5924,29 +6087,29 @@ msgstr ""
 "coll_new_entry\">manuálisan</a>, vagy <a href=\"tc:///edit_search_internet"
 "\">letöltheti az adatokat</a> különböző internetes forrásokból.</h3>"
 
-#: src/mainwindow.cpp:1049
+#: src/mainwindow.cpp:1131
 #, kde-format
 msgid ""
 "The current file has been modified.\n"
 "Do you want to save it?"
 msgstr "A jelenlegi fájl megváltozott. Menti a módosításokat?"
 
-#: src/mainwindow.cpp:1085
+#: src/mainwindow.cpp:1167
 #, kde-format
 msgid "Creating new document..."
 msgstr "Új dokumentum létrehozása..."
 
-#: src/mainwindow.cpp:1118 src/mainwindow.cpp:1141 src/mainwindow.cpp:1159
+#: src/mainwindow.cpp:1200 src/mainwindow.cpp:1223 src/mainwindow.cpp:1241
 #, kde-format
 msgid "Opening file..."
 msgstr "Fájl megnyitása…"
 
-#: src/mainwindow.cpp:1129
+#: src/mainwindow.cpp:1211
 #, kde-format
 msgid "Open File"
 msgstr "Fájl megnyitása"
 
-#: src/mainwindow.cpp:1250
+#: src/mainwindow.cpp:1332
 #, kde-format
 msgid ""
 "<qt><p>You are saving a file with many images, which causes Tellico to slow "
@@ -5959,32 +6122,32 @@ msgstr ""
 "Tellico adat könyvtárba elmenteni?</p><p>Választását bármikor "
 "megváltoztathatja a beállítások között.</p></qt>"
 
-#: src/mainwindow.cpp:1255
+#: src/mainwindow.cpp:1337
 #, kde-format
 msgid "Save Images Separately"
 msgstr "Képek mentése különállóan"
 
-#: src/mainwindow.cpp:1256
+#: src/mainwindow.cpp:1338
 #, kde-format
 msgid "Save Images in File"
 msgstr "Képek mentése a fájlba"
 
-#: src/mainwindow.cpp:1291
+#: src/mainwindow.cpp:1373
 #, kde-format
 msgid "Saving file with a new filename..."
 msgstr "Fájl mentése új néven..."
 
-#: src/mainwindow.cpp:1300
+#: src/mainwindow.cpp:1382
 #, kde-format
 msgid "Save As"
 msgstr "Mentés másként"
 
-#: src/mainwindow.cpp:1334 src/mainwindow.cpp:1384
+#: src/mainwindow.cpp:1424
 #, kde-format
 msgid "Printing..."
 msgstr "Nyomtatás…"
 
-#: src/mainwindow.cpp:1343
+#: src/mainwindow.cpp:1428
 #, kde-format
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
@@ -5993,95 +6156,85 @@ msgstr ""
 "A gyűjtemény jelenleg a bejegyzések egy részét mutatja a szűrésnek "
 "megfelelően. Csak a látható bejegyzéseket nyomtatjuk ki. Folytatja?"
 
-#: src/mainwindow.cpp:1368
-#, kde-format
-msgid "Processing document..."
-msgstr "Dokumentum feldolgozása..."
-
-#: src/mainwindow.cpp:1391
+#: src/mainwindow.cpp:1451
 #, kde-format
 msgid "Exiting..."
 msgstr "Kilépés…"
 
-#: src/mainwindow.cpp:1485
-#, kde-format
-msgid "Total entries: %1"
-msgstr "Összes bejegyzés: %1"
-
-#: src/mainwindow.cpp:1492
+#: src/mainwindow.cpp:1557
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 szűrt; %2 kiválasztott)"
 
-#: src/mainwindow.cpp:1495
+#: src/mainwindow.cpp:1560
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 szűrt)"
 
-#: src/mainwindow.cpp:1498
+#: src/mainwindow.cpp:1563
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 kiválasztott)"
 
-#: src/mainwindow.cpp:1665 src/translators/boardgamegeekimporter.cpp:99
-#: src/translators/gcstarimporter.cpp:261
-#: src/translators/goodreadsimporter.cpp:109
+#: src/mainwindow.cpp:1702 src/translators/boardgamegeekimporter.cpp:98
+#: src/translators/gcstarimporter.cpp:264
+#: src/translators/goodreadsimporter.cpp:110
 #: src/translators/xsltimporter.cpp:92
 #, kde-format
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Hiba keletkezett az XSLT feldolgozásakor."
 
-#: src/mainwindow.cpp:1791
+#: src/mainwindow.cpp:1828
 #, kde-format
 msgid "Importing data..."
 msgstr "Adat importálása…"
 
-#: src/mainwindow.cpp:1802
+#: src/mainwindow.cpp:1839
 #, kde-format
 msgid "Import File"
 msgstr "Fájl importálása..."
 
-#: src/mainwindow.cpp:1815
+#: src/mainwindow.cpp:1852
 #, kde-format
 msgid "Import Directory"
 msgstr "Könyvtár importálása"
 
-#: src/mainwindow.cpp:1838
+#: src/mainwindow.cpp:1875
 #, kde-format
 msgid "Exporting data..."
 msgstr "Adat exportálása…"
 
-#: src/mainwindow.cpp:1861
+#: src/mainwindow.cpp:1898
 #, kde-format
 msgid "Export As"
 msgstr "Exportálás mint"
 
-#: src/mainwindow.cpp:1889
+#: src/mainwindow.cpp:1926
 #, kde-format
 msgid "String Macros"
 msgstr "Karakterlánc makrók"
 
-#: src/mainwindow.cpp:1890
+#: src/mainwindow.cpp:1927
 #, kde-format
 msgid "Macro"
 msgstr "Makró"
 
-#: src/mainwindow.cpp:1890
+#: src/mainwindow.cpp:1927
 #, kde-format
 msgid "String"
 msgstr "Karakterlánc"
 
-#: src/mainwindow.cpp:1977
+#: src/mainwindow.cpp:2014
 #, kde-format
 msgid "Creating citations..."
 msgstr "Idézet létrehozása…"
 
-#: src/mainwindow.cpp:2087
+#: src/mainwindow.cpp:2124
 #, kde-format
 msgid "Filters"
 msgstr "Szűrők"
 
-#: src/mainwindow.cpp:2088
+#: src/mainwindow.cpp:2125
 #, kde-format
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
@@ -6090,12 +6243,12 @@ msgstr ""
 "<qt>A <i>Szűrő nézet</i> az adott szűrési feltételnek megfelelő "
 "bejegyzéseket mutatja.</qt>"
 
-#: src/mainwindow.cpp:2111
+#: src/mainwindow.cpp:2148
 #, kde-format
 msgid "Loans"
 msgstr "Kölcsön adva"
 
-#: src/mainwindow.cpp:2112
+#: src/mainwindow.cpp:2149
 #, kde-format
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
@@ -6104,7 +6257,7 @@ msgstr ""
 "<qt>A <i>Kölcsönadás nézet</i> azokat a személyeket mutatja, akik a "
 "gyűjteményből kölcsönöztek.</qt>"
 
-#: src/mainwindow.cpp:2199
+#: src/mainwindow.cpp:2232
 #, kde-format
 msgid ""
 "Some images are not saved in the configured location. The current file must "
@@ -6113,12 +6266,12 @@ msgstr ""
 "Néhány képet nem mentett el a megadott elérési helyre. A jelenlegi fájlt el "
 "kell mentenie, a képek az új elérési helyre lesznek másolva."
 
-#: src/mainwindow.cpp:2237
+#: src/mainwindow.cpp:2270
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Bejegyzés frissítése innen: %1"
 
-#: src/mainwindow.cpp:2258
+#: src/mainwindow.cpp:2291
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -6127,27 +6280,27 @@ msgstr ""
 "Tellico csak egy ilyen típusú fájlt tud egy időben importálni., Csak a %1 "
 "importálódik."
 
-#: src/reportdialog.cpp:70
+#: src/reportdialog.cpp:89
 #, kde-format
 msgid "Collection Report"
 msgstr "Gyűjtemény riport"
 
-#: src/reportdialog.cpp:81
+#: src/reportdialog.cpp:100
 #, kde-format
 msgid "&Report template:"
 msgstr "&Riport sablon:"
 
-#: src/reportdialog.cpp:103
+#: src/reportdialog.cpp:136
 #, kde-format
 msgid "&Generate"
 msgstr "&Létrehozás"
 
-#: src/reportdialog.cpp:130
+#: src/reportdialog.cpp:156
 #, kde-format
 msgid "Select a report template and click <em>Generate</em>."
 msgstr "Válassza ki a riport sablont, majd kattinson a <em>Létrehozásra</em>."
 
-#: src/reportdialog.cpp:131
+#: src/reportdialog.cpp:157
 #, kde-format
 msgid ""
 "Some reports may take several seconds to generate for large collections."
@@ -6155,7 +6308,7 @@ msgstr ""
 "Nagy méretű gyűjtemény esetén néhány riport létrehozása hosszabb időt is "
 "igénybe vehet."
 
-#: src/reportdialog.cpp:226 src/translators/htmlexporter.cpp:100
+#: src/reportdialog.cpp:339 src/translators/htmlexporter.cpp:100
 #, kde-format
 msgid "HTML Files"
 msgstr "HTML-fájlok"
@@ -6209,8 +6362,8 @@ msgstr "&Fájl"
 #. i18n: ectx: Menu (file_new_collection)
 #: src/tellicoui.rc:8
 #, kde-format
-msgid "&New"
-msgstr "&Új"
+msgid "&New Collection"
+msgstr "Ú&j gyűjtemény"
 
 #. i18n: ectx: Menu (file_import)
 #: src/tellicoui.rc:24
@@ -6220,7 +6373,7 @@ msgid "&Import"
 msgstr "&Importálás"
 
 #. i18n: ectx: Menu (file_export)
-#: src/tellicoui.rc:55
+#: src/tellicoui.rc:56
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Export"
@@ -6261,7 +6414,7 @@ msgid "Main Toolbar"
 msgstr "Fő eszköztár"
 
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: src/tellicoui.rc:132
+#: src/tellicoui.rc:130
 #, kde-format
 msgid "Collection Toolbar"
 msgstr "Gyűjtemény eszköztár"
@@ -6280,74 +6433,74 @@ msgstr ""
 "<qt>A kért <i>%1</i> Alexandria könyvtár már létezik. A könyvtárban "
 "bármelyik létező könyv felülírható.</qt>"
 
-#: src/translators/alexandriaimporter.cpp:232
+#: src/translators/alexandriaimporter.cpp:234
 #, kde-format
 msgid "Alexandria Options"
 msgstr "Alexandria beállítások"
 
-#: src/translators/alexandriaimporter.cpp:235
+#: src/translators/alexandriaimporter.cpp:237
 #, kde-format
 msgid "&Library:"
 msgstr "&Könyvtár:"
 
-#: src/translators/audiofileimporter.cpp:112
+#: src/translators/audiofileimporter.cpp:113
 #, kde-format
 msgid "Scanning audio files..."
 msgstr "Hang fájlok átvizsgálása"
 
-#: src/translators/audiofileimporter.cpp:170
-#: src/translators/audiofileimporter.cpp:173
+#: src/translators/audiofileimporter.cpp:171
+#: src/translators/audiofileimporter.cpp:174
 #, kde-format
 msgid "Files"
 msgstr "Fájlok"
 
-#: src/translators/audiofileimporter.cpp:176
+#: src/translators/audiofileimporter.cpp:177
 #, kde-format
 msgid "Bitrate"
 msgstr "Bitráta"
 
-#: src/translators/audiofileimporter.cpp:209
-#: src/translators/audiofileimporter.cpp:219
+#: src/translators/audiofileimporter.cpp:210
+#: src/translators/audiofileimporter.cpp:220
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "Sávok (lemez %1)"
 
-#: src/translators/audiofileimporter.cpp:283 xslt/entry-templates/Album.xsl:242
+#: src/translators/audiofileimporter.cpp:284 xslt/entry-templates/Album.xsl:243
 #, kde-format
 msgid "(Various)"
 msgstr "(Különböző)"
 
-#: src/translators/audiofileimporter.cpp:436
+#: src/translators/audiofileimporter.cpp:445
 #, kde-format
 msgid "Audio File Options"
 msgstr "Hang fájlok beállításai"
 
-#: src/translators/audiofileimporter.cpp:439
+#: src/translators/audiofileimporter.cpp:448
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "&Rekurzív könyvtár keresés"
 
-#: src/translators/audiofileimporter.cpp:440
+#: src/translators/audiofileimporter.cpp:449
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr "Ha kijelöli, a hang fáljokat rekurzívan keresi a könyvtárakban."
 
-#: src/translators/audiofileimporter.cpp:444
+#: src/translators/audiofileimporter.cpp:453
 #, kde-format
 msgid "Include file &location"
 msgstr "&Fájl helyének belefoglalása"
 
-#: src/translators/audiofileimporter.cpp:445
+#: src/translators/audiofileimporter.cpp:454
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "Ha kijelöli, az egyes sávok fájl nevei hozzáadódnak a bejegyzésekhez."
 
-#: src/translators/audiofileimporter.cpp:449
+#: src/translators/audiofileimporter.cpp:458
 #, kde-format
 msgid "Include &bitrate"
 msgstr "&Bitráta tartalmazása"
 
-#: src/translators/audiofileimporter.cpp:450
+#: src/translators/audiofileimporter.cpp:459
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "Ha kijelöli, az egyes sávok bitrátái hozzáadódnak a bejegyzésekhez."
@@ -6358,7 +6511,7 @@ msgid "Bibtex"
 msgstr "Bibtex"
 
 #: src/translators/bibtexexporter.cpp:218
-#: src/translators/bibteximporter.cpp:327
+#: src/translators/bibteximporter.cpp:342
 #, kde-format
 msgid "Bibtex Options"
 msgstr "Bibtex beállítások"
@@ -6429,71 +6582,71 @@ msgstr ""
 "zárójellel, vagy idézőjellel ellátott mezők értékét figyelmen kívül hagyja.</"
 "qt>"
 
-#: src/translators/bibteximporter.cpp:100
+#: src/translators/bibteximporter.cpp:106
 #, kde-format
 msgid "No valid bibtex entries were found"
 msgstr "Nem található érvényes bibtex bejegyzés"
 
-#: src/translators/bibteximporter.cpp:119
+#: src/translators/bibteximporter.cpp:125
 #, kde-format
 msgid "No valid bibtex entries were found in file - %1"
 msgstr "Nem található érvényes bibtex bejegyzés a fájlban - %1"
 
-#: src/translators/bibteximporter.cpp:330
+#: src/translators/bibteximporter.cpp:345
 #, kde-format
 msgid "Use Unicode (UTF-8) encoding"
 msgstr "Használja a Unicode (UTF-8) kódolást"
 
-#: src/translators/bibteximporter.cpp:331
+#: src/translators/bibteximporter.cpp:346
 #, kde-format
 msgid "Read the imported file in Unicode (UTF-8)."
 msgstr "Exportált fájl beolvasása Unicode (UTF-8)-ban."
 
-#: src/translators/bibteximporter.cpp:332
+#: src/translators/bibteximporter.cpp:347
 #, kde-format
 msgid "Use user locale (%1) encoding"
 msgstr "A felhasználói (%1) kódolás használata"
 
-#: src/translators/bibteximporter.cpp:336
+#: src/translators/bibteximporter.cpp:351
 #, kde-format
 msgid "Read the imported file in the local encoding."
 msgstr "Exportált fájl olvasása helyi kódolási formátumban."
 
-#: src/translators/bibtexmlexporter.cpp:48
+#: src/translators/bibtexmlexporter.cpp:47
 #, kde-format
 msgid "Bibtexml"
 msgstr "Bibtexml"
 
-#: src/translators/bibtexmlexporter.cpp:52
+#: src/translators/bibtexmlexporter.cpp:51
 #, kde-format
 msgid "Bibtexml Files"
 msgstr "Bibtexml fájlok"
 
-#: src/translators/boardgamegeekimporter.cpp:82
-#: src/translators/goodreadsimporter.cpp:86 src/translators/xsltimporter.cpp:79
+#: src/translators/boardgamegeekimporter.cpp:81
+#: src/translators/goodreadsimporter.cpp:87 src/translators/xsltimporter.cpp:79
 #: src/translators/xsltimporter.cpp:85
 #, kde-format
 msgid "A valid XSLT file is needed to import the file."
 msgstr "Érvényes XSLT fájlra van szükség az importáláshoz."
 
-#: src/translators/boardgamegeekimporter.cpp:93
-#: src/translators/goodreadsimporter.cpp:103
+#: src/translators/boardgamegeekimporter.cpp:92
+#: src/translators/goodreadsimporter.cpp:104
 #, kde-format
 msgid "A valid user ID must be entered."
 msgstr "Érvényes felhasználóazonosítót kell megadni."
 
-#: src/translators/boardgamegeekimporter.cpp:247
+#: src/translators/boardgamegeekimporter.cpp:246
 #, kde-format
 msgid "BoardGameGeek Options"
 msgstr "BoardGameGeek beállítások"
 
-#: src/translators/boardgamegeekimporter.cpp:253
+#: src/translators/boardgamegeekimporter.cpp:252
 #, kde-format
 msgid "Import owned items only"
 msgstr "Csak a saját tulajdonú elemek importálása"
 
-#: src/translators/boardgamegeekimporter.cpp:256
-#: src/translators/goodreadsimporter.cpp:152
+#: src/translators/boardgamegeekimporter.cpp:255
+#: src/translators/goodreadsimporter.cpp:153
 #, kde-format
 msgid "User ID:"
 msgstr "Felhasználóazonosító:"
@@ -6503,7 +6656,7 @@ msgstr "Felhasználóazonosító:"
 msgid "CSV"
 msgstr "CSV"
 
-#: src/translators/csvexporter.cpp:139 src/translators/csvimporter.cpp:211
+#: src/translators/csvexporter.cpp:139 src/translators/csvimporter.cpp:210
 #, kde-format
 msgid "CSV Options"
 msgstr "CSV beállítások"
@@ -6523,7 +6676,7 @@ msgstr "Ha kijelöli, a mező cimekkel együtt a fejléc sort is hozzáadja."
 msgid "Delimiter"
 msgstr "Határoló"
 
-#: src/translators/csvexporter.cpp:150 src/translators/csvimporter.cpp:236
+#: src/translators/csvexporter.cpp:150 src/translators/csvimporter.cpp:242
 #, kde-format
 msgid ""
 "In addition to a comma, other characters may be used as a delimiter, "
@@ -6537,7 +6690,7 @@ msgstr ""
 msgid "Comma"
 msgstr "Vessző"
 
-#: src/translators/csvexporter.cpp:156 src/translators/csvimporter.cpp:243
+#: src/translators/csvexporter.cpp:156 src/translators/csvimporter.cpp:249
 #, kde-format
 msgid "Use a comma as the delimiter."
 msgstr "Vesszőt használja határolóként."
@@ -6547,7 +6700,7 @@ msgstr "Vesszőt használja határolóként."
 msgid "Semicolon"
 msgstr "Pontos vessző"
 
-#: src/translators/csvexporter.cpp:161 src/translators/csvimporter.cpp:248
+#: src/translators/csvexporter.cpp:161 src/translators/csvimporter.cpp:254
 #, kde-format
 msgid "Use a semi-colon as the delimiter."
 msgstr "Pontos vesszőt használja határolóként."
@@ -6557,7 +6710,7 @@ msgstr "Pontos vesszőt használja határolóként."
 msgid "Tab"
 msgstr "Tabulátor"
 
-#: src/translators/csvexporter.cpp:166 src/translators/csvimporter.cpp:253
+#: src/translators/csvexporter.cpp:166 src/translators/csvimporter.cpp:259
 #, kde-format
 msgid "Use a tab as the delimiter."
 msgstr "Tabulátort használja határolóként."
@@ -6568,22 +6721,22 @@ msgstr "Tabulátort használja határolóként."
 msgid "Other"
 msgstr "Más"
 
-#: src/translators/csvexporter.cpp:171 src/translators/csvimporter.cpp:258
+#: src/translators/csvexporter.cpp:171 src/translators/csvimporter.cpp:264
 #, kde-format
 msgid "Use a custom string as the delimiter."
 msgstr "Az egyedi karaktert használja határolóként."
 
-#: src/translators/csvexporter.cpp:176 src/translators/csvimporter.cpp:265
+#: src/translators/csvexporter.cpp:176 src/translators/csvimporter.cpp:271
 #, kde-format
 msgid "A custom string, such as a colon, may be used as a delimiter."
 msgstr "Egyedi karakter, pl. vessző, használható határolóként."
 
-#: src/translators/csvexporter.cpp:193 src/translators/csvimporter.cpp:285
+#: src/translators/csvexporter.cpp:193 src/translators/csvimporter.cpp:295
 #, kde-format
 msgid "Table column delimiter:"
 msgstr "Táblázat oszlop határoló:"
 
-#: src/translators/csvexporter.cpp:198 src/translators/csvimporter.cpp:284
+#: src/translators/csvexporter.cpp:198 src/translators/csvimporter.cpp:294
 #, kde-format
 msgid ""
 "The column delimiter separates values in each column of a <i>Table</i> field."
@@ -6591,63 +6744,63 @@ msgstr ""
 "Az oszlop határoló elválasztja az egyes oszlopok értékekeit a "
 "<i>Táblázatban</i>."
 
-#: src/translators/csvexporter.cpp:202 src/translators/csvimporter.cpp:296
+#: src/translators/csvexporter.cpp:202 src/translators/csvimporter.cpp:306
 #, kde-format
 msgid "Table row delimiter:"
 msgstr "Táblázat sor határoló:"
 
-#: src/translators/csvexporter.cpp:207 src/translators/csvimporter.cpp:295
+#: src/translators/csvexporter.cpp:207 src/translators/csvimporter.cpp:305
 #, kde-format
 msgid "The row delimiter separates values in each row of a <i>Table</i> field."
 msgstr ""
 "A sor határoló elválasztja az egyes sorok értékekeit a <i>Táblázatban</i>."
 
-#: src/translators/csvimporter.cpp:221
+#: src/translators/csvimporter.cpp:220
 #, kde-format
 msgid "Select the type of collection being imported."
 msgstr "Jelölje ki az importálandó gyűjtemény típusát."
 
-#: src/translators/csvimporter.cpp:225
+#: src/translators/csvimporter.cpp:224
 #, kde-format
 msgid "&First row contains field titles"
 msgstr "&Első sor a mező címeit tartalmazza"
 
-#: src/translators/csvimporter.cpp:226
+#: src/translators/csvimporter.cpp:225
 #, kde-format
 msgid "If checked, the first row is used as field titles."
 msgstr "Ha kijelöli, az első sormező címként kerül feldolgozásra."
 
-#: src/translators/csvimporter.cpp:235
+#: src/translators/csvimporter.cpp:241
 #, kde-format
 msgid "Delimiter:"
 msgstr "Határoló"
 
-#: src/translators/csvimporter.cpp:241
+#: src/translators/csvimporter.cpp:247
 #, kde-format
 msgid "&Comma"
 msgstr "&Vessző"
 
-#: src/translators/csvimporter.cpp:247
+#: src/translators/csvimporter.cpp:253
 #, kde-format
 msgid "&Semicolon"
 msgstr "&Pontos vessző"
 
-#: src/translators/csvimporter.cpp:252
+#: src/translators/csvimporter.cpp:258
 #, kde-format
 msgid "Ta&b"
 msgstr "&Tabulátor"
 
-#: src/translators/csvimporter.cpp:257
+#: src/translators/csvimporter.cpp:263
 #, kde-format
 msgid "Ot&her:"
 msgstr "&Más:"
 
-#: src/translators/csvimporter.cpp:315
+#: src/translators/csvimporter.cpp:325
 #, kde-format
 msgid "The table shows up to the first five lines of the CSV file."
 msgstr "A táblázat a CSV fájl első öt sorát mutatja."
 
-#: src/translators/csvimporter.cpp:322
+#: src/translators/csvimporter.cpp:332
 #, kde-format
 msgid ""
 "<qt>Set each column to correspond to a field in the collection by choosing a "
@@ -6658,22 +6811,22 @@ msgstr ""
 "gyűjtemény mezőivel, válassza ki a mezőt, majd kattintson a <i>Mező "
 "hozzárendelése</i> gombra.</qt>"
 
-#: src/translators/csvimporter.cpp:324
+#: src/translators/csvimporter.cpp:334
 #, kde-format
 msgid "Co&lumn:"
 msgstr "&Oszlop:"
 
-#: src/translators/csvimporter.cpp:337
+#: src/translators/csvimporter.cpp:347
 #, kde-format
 msgid "&Data field in this column:"
 msgstr "&Adatmező az oszlopban:"
 
-#: src/translators/csvimporter.cpp:350
+#: src/translators/csvimporter.cpp:361
 #, kde-format
 msgid "&Assign Field"
 msgstr "&Kapcsolt mező"
 
-#: src/translators/csvimporter.cpp:386
+#: src/translators/csvimporter.cpp:397
 #, kde-format
 msgid ""
 "At least one column must be assigned to a field. Only assigned columns will "
@@ -6682,12 +6835,12 @@ msgstr ""
 "Legalább egy oszlopot hozzá kell rendelnie a mezőhöz. Csak a hozzárendelt "
 "oszlopok importálódnak."
 
-#: src/translators/csvimporter.cpp:561
+#: src/translators/csvimporter.cpp:572
 #, kde-format
 msgid "Review"
 msgstr ""
 
-#: src/translators/csvimporter.cpp:653
+#: src/translators/csvimporter.cpp:664
 #, kde-format
 msgid "<New Field>"
 msgstr "<Új mező>"
@@ -6787,12 +6940,12 @@ msgstr ""
 "olvasása."
 
 #: src/translators/gcstarimporter.cpp:125
-#: src/translators/gcstarimporter.cpp:272
+#: src/translators/gcstarimporter.cpp:275
 #, kde-format
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>A fájl nem GCstar adat fájl.</qt>"
 
-#: src/translators/goodreadsimporter.cpp:146
+#: src/translators/goodreadsimporter.cpp:147
 #, kde-format
 msgid "Goodreads Options"
 msgstr "Goodreads beállítások"
@@ -6842,24 +6995,24 @@ msgstr "Adat betöltése…"
 msgid "Loading %1..."
 msgstr "%1 betöltése…"
 
-#: src/translators/librarythingimporter.cpp:142
+#: src/translators/librarythingimporter.cpp:177
 #, kde-format
 msgid "LibraryThing Options"
 msgstr "LibraryThing beállítások"
 
-#: src/translators/librarythingimporter.cpp:145
+#: src/translators/librarythingimporter.cpp:180
 #, kde-format
 msgid ""
 "Export your LibraryThing collection in <a href=\"https://www.librarything."
 "com/export.php?export_type=json\">JSON format</a>."
 msgstr ""
 
-#: src/translators/librarythingimporter.cpp:150
+#: src/translators/librarythingimporter.cpp:185
 #, kde-format
 msgid "JSON Files"
 msgstr "JSON-fájlok"
 
-#: src/translators/librarythingimporter.cpp:155
+#: src/translators/librarythingimporter.cpp:190
 #, kde-format
 msgid "LibraryThing file:"
 msgstr ""
@@ -6898,7 +7051,7 @@ msgstr ""
 msgid "Tellico was unable to read any metadata from the PDF file."
 msgstr "Nem sikerült a PDF fájlból a metaadatok kiolvasása."
 
-#: src/translators/pdfimporter.cpp:269
+#: src/translators/pdfimporter.cpp:271
 #, kde-format
 msgid ""
 "Tellico is able to download information about entries with a DOI from "
@@ -6914,12 +7067,12 @@ msgstr ""
 msgid "PDF"
 msgstr "PDF"
 
-#: src/translators/tellicoimporter.cpp:200
+#: src/translators/tellicoimporter.cpp:188
 #, kde-format
 msgid "The file is empty."
 msgstr "A fájl üres."
 
-#: src/translators/tellicoimporter.cpp:217
+#: src/translators/tellicoimporter.cpp:201
 #, kde-format
 msgid "The file contains no collection data."
 msgstr "A fájl nem tartalmaz gyűjtemény adatot."
@@ -6929,17 +7082,17 @@ msgstr "A fájl nem tartalmaz gyűjtemény adatot."
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:518
+#: src/translators/tellicoxmlexporter.cpp:522
 #, kde-format
 msgid "Tellico XML Options"
 msgstr "Tellico XML beállítások"
 
-#: src/translators/tellicoxmlexporter.cpp:521
+#: src/translators/tellicoxmlexporter.cpp:525
 #, kde-format
 msgid "Include images in XML document"
 msgstr "Az XML dokumentum tartalmazza a képeket"
 
-#: src/translators/tellicoxmlexporter.cpp:523
+#: src/translators/tellicoxmlexporter.cpp:527
 #, kde-format
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "
@@ -6953,7 +7106,7 @@ msgstr ""
 msgid "Tellico Zip File"
 msgstr "Tellico Zip fájl"
 
-#: src/translators/xmlstatehandler.cpp:129
+#: src/translators/xmlstatehandler.cpp:127
 #, kde-format
 msgid "It is from a future version of Tellico."
 msgstr "Ez egy későbbi verzióhoz tartozik."
@@ -7190,63 +7343,68 @@ msgstr ""
 "\"Value: %{fielda}%{fieldb}\" ahol %{...} a megfelelő mezőnevet tartalmazza. "
 "Ez jól használható több érték egy mezőben kezelésekor.</p>\n"
 
-#: xslt/entry-templates/Album.xsl:169
+#: xslt/entry-templates/Album.xsl:170
 #, kde-format
 msgid "This template is meant for music collections only."
 msgstr "Ez a sablon csak zene gyűjteményhez használható."
 
-#: xslt/entry-templates/Album.xsl:486
+#: xslt/entry-templates/Album.xsl:487
 #, kde-format
 msgid "Total:"
 msgstr "Teljes:"
 
-#: xslt/entry-templates/Video.xsl:199 xslt/report-templates/Tri-Column.xsl:122
+#: xslt/entry-templates/Video.xsl:200 xslt/report-templates/Tri-Column.xsl:123
 #, kde-format
 msgid "This template is meant for video collections only."
 msgstr "Ez a sablon csak film gyűjteményhez használható."
 
-#: xslt/report-templates/Group_Summary.xsl:161
+#: xslt/report-templates/Group_Summary.xsl:162
 #, kde-format
 msgid ": Group Summary"
 msgstr ": Csoport összegző"
 
-#: xslt/report-templates/Group_Summary.xsl:169
+#: xslt/report-templates/Group_Summary.xsl:170
 #, kde-format
 msgid "Total number of fields:"
 msgstr "Mezők összesen:"
 
-#: xslt/report-templates/Group_Summary.xsl:173
+#: xslt/report-templates/Group_Summary.xsl:174
 #, kde-format
 msgid "Total number of entries:"
 msgstr "Bejegyzések összesen:"
 
-#: xslt/report-templates/Group_Summary.xsl:189
-#: xslt/report-templates/Loan_View.xsl:195 xslt/tellico2html.xsl:413
+#: xslt/report-templates/Group_Summary.xsl:190
+#: xslt/report-templates/Loan_View.xsl:196 xslt/tellico2html.xsl:413
 #, kde-format
 msgid "Generated by Tellico"
 msgstr "Létrehozta Tellico-val"
 
-#: xslt/report-templates/Group_Summary.xsl:287
+#: xslt/report-templates/Group_Summary.xsl:288
 #, kde-format
 msgid "Distinct values: "
 msgstr "Különállő értékek: "
 
-#: xslt/report-templates/Loan_View.xsl:134
-#: xslt/report-templates/Loan_View.xsl:168
+#: xslt/report-templates/Loan_View.xsl:135
+#: xslt/report-templates/Loan_View.xsl:169
 #, kde-format
 msgid "Loan Date"
 msgstr "Kölcsönadás dátuma"
 
-#: xslt/report-templates/Loan_View.xsl:135
-#: xslt/report-templates/Loan_View.xsl:170
+#: xslt/report-templates/Loan_View.xsl:136
+#: xslt/report-templates/Loan_View.xsl:171
 #, kde-format
 msgid "Note"
 msgstr "Megjegyzés"
 
-#: xslt/report-templates/Loan_View.xsl:169
+#: xslt/report-templates/Loan_View.xsl:170
 #, kde-format
 msgid "Due Date"
 msgstr "Lejárat dátuma"
+
+#: xslt/tellico2html.xsl:252
+#, kde-format
+msgid "Search"
+msgstr "Keresés"
 
 #: xslt/tellico2html.xsl:255
 #, kde-format

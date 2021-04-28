@@ -33,6 +33,9 @@
 #include <QTextCodec>
 #include <QVariant>
 #include <QCache>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
+#include <QRandomGenerator>
+#endif
 
 namespace {
   static const int STRING_STORE_SIZE = 4999; // too big, too small?
@@ -102,7 +105,7 @@ int Tellico::stringHash(const QString& str) {
     h &= ~g;
   }
 
-  int index = h;
+  const int index = h;
   return index < 0 ? -index : index;
 }
 
@@ -199,7 +202,11 @@ QByteArray Tellico::obfuscate(const QString& string) {
   QByteArray b;
   b.reserve(string.length() * 2);
   for(int p = 0; p < string.length(); p++) {
+#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
     char c = KRandom::random() % 255;
+#else
+    char c = QRandomGenerator::global()->generate() % 255;
+#endif
     b.prepend(c ^ string.at(p).unicode());
     b.prepend(c);
   }
@@ -225,7 +232,8 @@ QString Tellico::removeControlCodes(const QString& string) {
   for(int i = 0; i < string.size(); ++i) {
     const ushort c = string.at(i).unicode();
     // legal control codes in XML 1.0 are U+0009, U+000A, U+000D
-    if(c > 31 || c == 9 || c == 10 || c == 13) {
+    // https://www.w3.org/TR/xml/#charsets
+    if(c > 0x1F || c == 0x9 || c == 0xA || c == 0xD) {
       result += string.at(i);
     }
   }

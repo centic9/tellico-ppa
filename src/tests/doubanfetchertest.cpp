@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2011-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -34,8 +34,7 @@
 #include "../entry.h"
 #include "../images/imagefactory.h"
 
-#include <KConfig>
-#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QTest>
 
@@ -49,6 +48,9 @@ void DoubanFetcherTest::initTestCase() {
   Tellico::RegisterCollection<Tellico::Data::VideoCollection> registerVideo(Tellico::Data::Collection::Video, "video");
   Tellico::RegisterCollection<Tellico::Data::MusicCollection> registerMusic(Tellico::Data::Collection::Album, "album");
   Tellico::ImageFactory::init();
+
+  m_config = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("douban"));
+  m_config.writeEntry("Custom Fields", QStringLiteral("douban,origtitle"));
 }
 
 void DoubanFetcherTest::testBookTitle() {
@@ -80,17 +82,10 @@ void DoubanFetcherTest::testBookTitle() {
 }
 
 void DoubanFetcherTest::testISBN() {
-  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
-  QString groupName = QStringLiteral("douban");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::ISBN,
                                        QStringLiteral("9787535765444"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DoubanFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(m_config);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -118,17 +113,10 @@ void DoubanFetcherTest::testISBN() {
 }
 
 void DoubanFetcherTest::testVideo() {
-  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
-  QString groupName = QStringLiteral("douban");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Video, Tellico::Fetch::Keyword,
                                        QStringLiteral("钢铁侠2"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DoubanFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(m_config);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -143,7 +131,8 @@ void DoubanFetcherTest::testVideo() {
   QCOMPARE(entry->field("origtitle"), QStringLiteral("Iron Man 2"));
   QCOMPARE(entry->field("year"), QStringLiteral("2010"));
   QCOMPARE(entry->field("director"), QString::fromUtf8("乔恩·费儒"));
-//  QCOMPARE(entry->field("running-time"), QStringLiteral("124"));
+  QCOMPARE(entry->field("writer"), QString::fromUtf8("贾斯汀·塞洛克斯"));
+  QCOMPARE(entry->field("running-time"), QStringLiteral("124"));
   QVERIFY(!entry->field(QStringLiteral("genre")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cast")).isEmpty());
 //  QVERIFY(!entry->field(QStringLiteral("nationality")).isEmpty());
@@ -168,11 +157,11 @@ void DoubanFetcherTest::testMusic() {
 
   QCOMPARE(entry->collection()->type(), Tellico::Data::Collection::Album);
 
-  QCOMPARE(entry->field("title"), QStringLiteral("Top Gun: Original Motion Picture Soundtrack"));
-  QCOMPARE(entry->field("year"), QStringLiteral("1990"));
-  QCOMPARE(entry->field("artist"), QStringLiteral("Various Artists"));
-  QCOMPARE(entry->field("label"), QStringLiteral("Sony"));
-  QCOMPARE(entry->field("medium"), QStringLiteral("Compact Disc"));
+  QCOMPARE(entry->field("title"), QStringLiteral("TOP GUN/SOUNDTRACK"));
+  QCOMPARE(entry->field("year"), QStringLiteral("2013"));
+  QCOMPARE(entry->field("artist"), QStringLiteral("Original Motion Picture Soundtrack"));
+  QCOMPARE(entry->field("label"), QString::fromUtf8("索尼音乐"));
+//  QCOMPARE(entry->field("medium"), QStringLiteral("Compact Disc"));
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("track")));
   QCOMPARE(trackList.count(), 10);
   QCOMPARE(trackList.front(), QStringLiteral("Danger Zone::Kenny Loggins"));
@@ -183,7 +172,7 @@ void DoubanFetcherTest::testMusic() {
 
 void DoubanFetcherTest::testMusicAdele() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Keyword,
-                                       QLatin1String("Adele"));
+                                       QLatin1String("Adele 21"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DoubanFetcher(this));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
@@ -200,8 +189,8 @@ void DoubanFetcherTest::testMusicAdele() {
   QCOMPARE(entry->field("artist"), QStringLiteral("Adele"));
   QCOMPARE(entry->field("medium"), QStringLiteral("Compact Disc"));
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("track")));
-  QCOMPARE(trackList.count(), 15);
-  QCOMPARE(trackList.front(), QStringLiteral("Rolling in the Deep"));
+  QCOMPARE(trackList.count(), 12);
+  QCOMPARE(trackList.front(), QStringLiteral("Rolling In the Deep::Adele::3:48"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
@@ -227,7 +216,8 @@ void DoubanFetcherTest::testMusicArtPepper() {
   QCOMPARE(entry->field("medium"), QStringLiteral("Compact Disc"));
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("track")));
   QCOMPARE(trackList.count(), 9);
-  QCOMPARE(trackList.front(), QStringLiteral("You'd Be So Nice To Come Home To::Art Pepper::5:25"));
+  // doesn't seem to have the duration
+  QVERIFY(trackList.front().startsWith(QStringLiteral("You'd Be So Nice To Come Home To::Art Pepper")));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }

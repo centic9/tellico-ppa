@@ -33,6 +33,7 @@
 #include "../tellico_debug.h"
 
 #include <KColorUtils>
+#include <KZip>
 
 #include <QCache>
 #include <QFileInfo>
@@ -40,6 +41,7 @@
 
 #define RELEASE_IMAGES
 
+using namespace Tellico;
 using Tellico::ImageFactory;
 
 // this image info map is primarily for big images that don't fit
@@ -110,12 +112,17 @@ QString ImageFactory::imageDir() {
 }
 
 Tellico::ImageFactory::CacheDir ImageFactory::cacheDir() {
+  CacheDir dir = TempDir;
   switch(Config::imageLocation()) {
-    case Config::ImagesInLocalDir: return LocalDir;
-    case Config::ImagesInAppDir: return DataDir;
-    case Config::ImagesInFile: return TempDir;
+    case Config::ImagesInLocalDir: dir = LocalDir; break;
+    case Config::ImagesInAppDir:   dir = DataDir;  break;
+    case Config::ImagesInFile:     dir = TempDir;  break;
   }
-  return TempDir;
+  // special case when configured to use local dir but for a new collection when no local dir exists
+  if(dir == LocalDir && factory->d->localImageDir.path().isEmpty()) {
+    dir = TempDir;
+  }
+  return dir;
 }
 
 QString ImageFactory::addImage(const QUrl& url_, bool quiet_, const QUrl& refer_, bool link_) {
@@ -270,9 +277,26 @@ bool ImageFactory::writeCachedImage(const QString& id_, CacheDir dir_, bool forc
     return false;
   }
 //  myLog() << "dir =" << (dir_ == DataDir ? "DataDir" : "TmpDir" ) << "; id =" << id_;
-  ImageDirectory* imgDir = dir_ == DataDir ? &factory->d->dataImageDir :
-                          (dir_ == TempDir ? &factory->d->tempImageDir :
-                                             &factory->d->localImageDir);
+  ImageDirectory* imgDir;
+  switch(dir_) {
+    case DataDir:
+      imgDir = &factory->d->dataImageDir;
+      break;
+    case TempDir:
+      imgDir = &factory->d->tempImageDir;
+      break;
+    case LocalDir:
+      // special case when configured to use local dir but for a new collection when no local dir exists
+      imgDir = factory->d->localImageDir.path().isEmpty() ?
+                 &factory->d->tempImageDir :
+                 &factory->d->localImageDir;
+      break;
+    case ZipArchive:
+      myDebug() << "writeCachedImage() - ZipArchive - should never be called";
+      imgDir = &factory->d->tempImageDir;
+      break;
+  }
+
   Q_ASSERT(imgDir);
   bool success = writeCachedImage(id_, imgDir, force_);
 
@@ -295,14 +319,13 @@ bool ImageFactory::writeCachedImage(const QString& id_, ImageDirectory* imgDir_,
   if(id_.isEmpty() || !imgDir_) {
     return false;
   }
-//  myLog() << "dir =" << imgDir_->path() << "; id =" << id_;
+//  myLog() << "ImageFactory::writeCachedImage() - dir =" << imgDir_->path() << "; id =" << id_;
   const bool exists = imgDir_->hasImage(id_);
   // only write if it doesn't exist
   bool success = (!force_ && exists);
   if(!success) {
     const Data::Image& img = imageById(id_);
     if(!img.isNull()) {
-//      myLog() << "writing image";
       success = imgDir_->writeImage(img);
     }
   }
@@ -594,7 +617,7 @@ void ImageFactory::createStyleImages(int collectionType_, const Tellico::StyleOp
 
   const QString bgname(QStringLiteral("gradient_bg.png"));
   const QColor& bgc1 = KColorUtils::mix(baseColor, highColor, 0.3);
-  QImage bgImage = Tellico::gradient(QSize(400, 1), bgc1, baseColor,
+  QImage bgImage = Tellico::gradient(QSize(600, 1), bgc1, baseColor,
                                      Tellico::PipeCrossGradient);
   bgImage = bgImage.transformed(QTransform().rotate(90));
 
@@ -604,17 +627,13 @@ void ImageFactory::createStyleImages(int collectionType_, const Tellico::StyleOp
                                                 Tellico::VerticalGradient, 100, -100);
 
   if(opt_.imgDir.isEmpty()) {
-    // write the style images both to the tmp dir and the cache dir
-    // doesn't really hurt and lets the user switch back and forth
     ImageFactory::removeImage(bgname, true /*delete */);
     factory->addImageImpl(Data::Image::byteArray(bgImage, "PNG"), QStringLiteral("PNG"), bgname);
     ImageFactory::writeCachedImage(bgname, cacheDir(), true /*force*/);
-    ImageFactory::writeCachedImage(bgname, TempDir, true /*force*/);
 
     ImageFactory::removeImage(hdrname, true /*delete */);
     factory->addImageImpl(Data::Image::byteArray(hdrImage, "PNG"), QStringLiteral("PNG"), hdrname);
     ImageFactory::writeCachedImage(hdrname, cacheDir(), true /*force*/);
-    ImageFactory::writeCachedImage(hdrname, TempDir, true /*force*/);
   } else {
     bgImage.save(opt_.imgDir + bgname, "PNG");
     hdrImage.save(opt_.imgDir + hdrname, "PNG");
@@ -689,7 +708,7 @@ QString ImageFactory::localDirectory(const QUrl& url_) {
     myWarning() << "unable to save to " << url_;
     return QString();
   }
-  QString dir = url_.adjusted(QUrl::RemoveFilename).path();
+  QString dir = url_.adjusted(QUrl::RemoveFilename).toLocalFile();
   // could have already been set once
   if(!dir.contains(QLatin1String("_files"))) {
     QFileInfo fi(url_.fileName());
@@ -705,11 +724,11 @@ void ImageFactory::setLocalDirectory(const QUrl& url_) {
   }
 }
 
-void ImageFactory::setZipArchive(KZip* zip_) {
+void ImageFactory::setZipArchive(std::unique_ptr<KZip> zip_) {
   if(!zip_) {
     return;
   }
-  factory->d->imageZipArchive.setZip(zip_);
+  factory->d->imageZipArchive.setZip(std::move(zip_));
 }
 
 void ImageFactory::slotImageJobResult(KJob* job_) {

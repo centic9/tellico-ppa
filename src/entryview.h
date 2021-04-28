@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2003-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2003-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -27,10 +27,15 @@
 
 #include "datavectors.h"
 
+
+#ifdef USE_KHTML
 #include <KHTMLPart>
 #include <KHTMLView>
-
-#include <QPointer>
+#else
+#include <QWebEngineView>
+#include <QWebEnginePage>
+#include <QPrinter>
+#endif
 
 class QTemporaryFile;
 
@@ -42,7 +47,13 @@ namespace Tellico {
 /**
  * @author Robby Stephenson
  */
-class EntryView : public KHTMLPart {
+class EntryView : public
+#ifdef USE_KHTML
+  KHTMLPart {
+#else
+  QWebEngineView {
+#endif
+
 Q_OBJECT
 
 public:
@@ -81,9 +92,10 @@ public:
   void resetView();
 
 Q_SIGNALS:
-  void signalAction(const QUrl& url);
+  void signalTellicoAction(const QUrl& url);
 
 public Q_SLOTS:
+  void copy();
   /**
    * Helper function to refresh view.
    */
@@ -99,8 +111,23 @@ private Q_SLOTS:
   void slotOpenURL(const QUrl& url);
   void slotReloadEntry();
 
+protected:
+#ifdef USE_KHTML
+  void changeEvent(QEvent* event);
+#else
+  void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
+#endif
+
+private Q_SLOTS:
+  void slotPrint();
+
 private:
   void resetColors();
+#ifdef USE_KHTML
+  void contextMenuEvent(QContextMenuEvent* event);
+#else
+  void contextMenuEvent(QContextMenuEvent* event) Q_DECL_OVERRIDE;
+#endif
 
   Data::EntryPtr m_entry;
   XSLTHandler* m_handler;
@@ -110,10 +137,12 @@ private:
   QTemporaryFile* m_tempFile;
   bool m_useGradientImages;
   bool m_checkCommonFile;
+#ifndef USE_KHTML
+  QPrinter m_printer;
+#endif
 };
 
-// stupid naming on my part, I need to subclass the view to
-// add a slot. EntryView is really a part though
+#ifdef USE_KHTML
 class EntryViewWidget : public KHTMLView {
 Q_OBJECT
 public:
@@ -125,6 +154,19 @@ public Q_SLOTS:
 protected:
   void changeEvent(QEvent* event) Q_DECL_OVERRIDE;
 };
+#else
+class EntryViewPage : public QWebEnginePage {
+Q_OBJECT
+public:
+  EntryViewPage(QWidget* parent);
+
+Q_SIGNALS:
+  void signalTellicoAction(const QUrl& url);
+
+protected:
+  virtual bool acceptNavigationRequest(const QUrl& url, QWebEnginePage::NavigationType type, bool isMainFrame) Q_DECL_OVERRIDE;
+};
+#endif
 
 } //end namespace
 #endif

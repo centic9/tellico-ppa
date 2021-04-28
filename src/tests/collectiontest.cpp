@@ -41,6 +41,7 @@
 
 #include <QTest>
 #include <QStandardPaths>
+#include <QRandomGenerator>
 
 QTEST_GUILESS_MAIN( CollectionTest )
 
@@ -371,7 +372,7 @@ void CollectionTest::testDtd() {
     QSKIP("This test requires xmllint", SkipAll);
   }
   // xmllint doesn't seem to support spaces in path. Is this an XML thing?
-  if(QFINDTESTDATA("../../tellico.dtd").contains(QRegExp(QStringLiteral("\\s")))) {
+  if(QFINDTESTDATA("../../tellico.dtd").contains(QRegularExpression(QStringLiteral("\\s")))) {
     QSKIP("This test prohibits whitespace in the build path", SkipAll);
   }
 
@@ -550,6 +551,21 @@ void CollectionTest::testMergeFields() {
   QVERIFY(addedFields.isEmpty());
 }
 
+void CollectionTest::testFieldsIntersection() {
+  // simple test for the list intersection utility method
+  Tellico::Data::CollPtr coll(new Tellico::Data::BookCollection(true));
+  Tellico::Data::FieldList imageFields = coll->imageFields();
+
+  Tellico::Data::FieldList list = Tellico::listIntersection(imageFields, coll->fields());
+  QCOMPARE(imageFields.count(), list.count());
+
+  QBENCHMARK {
+    // should be something less than 0.020 msecs :)
+    Tellico::Data::FieldList list = Tellico::listIntersection(coll->fields(), coll->fields());
+    Q_UNUSED(list);
+  }
+}
+
 void CollectionTest::testAppendCollection() {
   // appending a collection adds new fields, merges existing one, and add new entries
   // the new entries should belong to the original collection and the existing entries should
@@ -676,7 +692,7 @@ void CollectionTest::testMergeBenchmark() {
     entriesToAdd.clear();
     for(int i = 0; i < 500; ++i) {
       Tellico::Data::EntryPtr entryToAdd(new Tellico::Data::Entry(coll2));
-      entryToAdd->setField(QStringLiteral("title"), QString::number(qrand()));
+      entryToAdd->setField(QStringLiteral("title"), QString::number(QRandomGenerator::global()->generate()));
       entryToAdd->setField(QStringLiteral("studio"), QString::number(i));
       entriesToAdd += entryToAdd;
     }

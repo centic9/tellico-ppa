@@ -264,12 +264,6 @@
 >Open filmdatabase</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="animenfo"
->AnimeNfo.com</link
->,</simpara
-></listitem>
 <!-- comics -->
 <listitem
 ><simpara
@@ -364,6 +358,12 @@
 ><simpara
 ><link linkend="colnect"
 >Colnect</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="numista"
+>Numista</link
 >,</simpara
 ></listitem>
 <!-- others -->
@@ -592,7 +592,7 @@
 >De  open filmdatabase</title>
 <para
 ><ulink url="http://omdbapi.com"
->De open filmdatabase  (OMDBAPI.com)</ulink
+>De open filmdatabase (OMDBAPI.com)</ulink
 > is een vrije webservice om filminformatie te verkrijgen. </para>
 </sect3>
 
@@ -605,14 +605,6 @@
 > is een online informatieservice voor films, gebaseerd in Frankrijk. Identificatie van browser moet zijn ingeschakeld in &systemsettings; </para>
 </sect3>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> is een populaire site voor informatie over anime of Japanse animatie. </para>
-</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -719,7 +711,7 @@
 <!-- start of coin sources -->
 <sect2 id="coin-sources">
 <title
->Gegevensbronnen over munten</title>
+>Munt- &amp; postzegelgegevensbronnen </title>
 
 <sect3 id="colnect">
 <title
@@ -727,7 +719,16 @@
 <para
 ><ulink url="https://colnect.com"
 >Colnect</ulink
-> is een online gemeenschap voor verzamelobjecten die persoonlijk beheer van verzamelingen levert. &tellico; kan Colnect doorzoeken op informatie over munten. </para>
+> is een online gemeenschap voor verzamelobjecten die persoonlijk beheer van verzamelingen levert. &tellico; kan Colnect doorzoeken op informatie over munten en postzegels. </para>
+</sect3>
+
+<sect3 id="numista">
+<title
+>Numista</title>
+<para
+><ulink url="https://numista.com"
+>Numista</ulink
+> is een wereldmuntencatalogus die groeit dankzij bijdragen van leden, online beheer van verzamelingen biedt, hulpmiddelen om gemakkelijk te ruilen met andere verzamelaars en een forum. </para>
 </sect3>
 
 </sect2>
@@ -806,7 +807,7 @@
 <title
 >Meerdere gecombineerde gegevensbronnen</title>
 <para
->Combinaties van tot acht bestaande gegevensbronnen kunnen gebruikt worden als een enkele bron, waar de zoekresultaten uit alle bronnen zijn samengevoegd. Het te gebruiken type verzameling moet ingesteld worden voor het toevoegen van bronnen. </para>
+>Combinaties van tot acht bestaande gegevensbronnen kunnen gebruikt worden als een enkele bron, waar elk zoekresultaat uit de eerste bron wordt bijgewerkt door de volgende bronnen. Het te gebruiken type verzameling moet ingesteld worden voor het toevoegen van bronnen. </para>
 
 <screenshot>
 <mediaobject>
@@ -816,7 +817,7 @@
 </screenshot>
 
 <para
->Alleen bestaande gegevensbronnen kunnen in combinatie gebruikt worden. Het zoekverzoek wordt verzonden naar elke bron en de resultaten worden gecombineerd. Omdat de samengevoegde resultaten afhankelijk zijn van de volgorde van de zoekresultaten, de gecombineerde set kan anders zijn afhankelijk van netwerk en snelheid van de bron. </para>
+>Alleen bestaande gegevensbronnen kunnen in combinatie gebruikt worden. Alleen het zoektype voor de eerste bron kan gebruikt worden in deze bron omdat de resultaten uit de eerste bron komen. Bijvoorbeeld, een zoekopdracht in UPCitemDb kan eerste gedaan worden, waarna elk resultaat wordt bijgewerkt vanuit de TheMovieDB. </para>
 </sect2>
 
 </sect1>

@@ -52,6 +52,7 @@
 
 namespace {
   static const uint IMDB_MAX_RESULTS = 20;
+  static const uint IMDB_DEFAULT_CAST_SIZE = 10;
 }
 
 using namespace Tellico;
@@ -62,6 +63,7 @@ QRegExp* IMDBFetcher::s_anchorRx = nullptr;
 QRegExp* IMDBFetcher::s_anchorTitleRx = nullptr;
 QRegExp* IMDBFetcher::s_anchorNameRx = nullptr;
 QRegExp* IMDBFetcher::s_titleRx = nullptr;
+int IMDBFetcher::s_instanceCount = 0;
 
 // static
 void IMDBFetcher::initRegExps() {
@@ -79,6 +81,23 @@ void IMDBFetcher::initRegExps() {
 
   s_titleRx = new QRegExp(QStringLiteral("<title>(.*)</title>"), Qt::CaseInsensitive);
   s_titleRx->setMinimal(true);
+}
+
+void IMDBFetcher::deleteRegExps() {
+  delete s_tagRx;
+  s_tagRx = nullptr;
+
+  delete s_anchorRx;
+  s_anchorRx = nullptr;
+
+  delete s_anchorTitleRx;
+  s_anchorTitleRx = nullptr;
+
+  delete s_anchorNameRx;
+  s_anchorNameRx = nullptr;
+
+  delete s_titleRx;
+  s_titleRx = nullptr;
 }
 
 // static
@@ -262,15 +281,18 @@ const IMDBFetcher::LangData& IMDBFetcher::langData(int lang_) {
 
 IMDBFetcher::IMDBFetcher(QObject* parent_) : Fetcher(parent_),
     m_job(nullptr), m_started(false), m_fetchImages(true),
-    m_numCast(10), m_redirected(false), m_limit(IMDB_MAX_RESULTS), m_lang(EN),
+    m_numCast(IMDB_DEFAULT_CAST_SIZE), m_redirected(false), m_limit(IMDB_MAX_RESULTS), m_lang(EN),
     m_currentTitleBlock(Unknown), m_countOffset(0) {
-  if(!s_tagRx) {
+  if(!s_instanceCount++) {
     initRegExps();
   }
   m_host = langData(m_lang).siteHost;
 }
 
 IMDBFetcher::~IMDBFetcher() {
+  if(!--s_instanceCount) {
+    deleteRegExps();
+  }
 }
 
 QString IMDBFetcher::source() const {
@@ -282,7 +304,7 @@ bool IMDBFetcher::canFetch(int type) const {
 }
 
 // imdb can search title only
-bool IMDBFetcher::canSearch(FetchKey k) const {
+bool IMDBFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title;
 }
 
@@ -300,7 +322,7 @@ void IMDBFetcher::readConfigHook(const KConfigGroup& config_) {
   } else {
     m_host = h;
   }
-  m_numCast = config_.readEntry("Max Cast", 10);
+  m_numCast = config_.readEntry("Max Cast", IMDB_DEFAULT_CAST_SIZE);
   m_fetchImages = config_.readEntry("Fetch Images", true);
 }
 
@@ -323,20 +345,20 @@ void IMDBFetcher::search() {
 
   // as far as I can tell, the url encoding should always be iso-8859-1?
   QUrlQuery q;
-  q.addQueryItem(QStringLiteral("q"), request().value);
+  q.addQueryItem(QStringLiteral("q"), request().value());
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       q.addQueryItem(QStringLiteral("s"), QStringLiteral("tt"));
       m_url.setQuery(q);
       break;
 
     case Raw:
-      m_url = QUrl(request().value);
+      m_url = QUrl(request().value());
       break;
 
     default:
-      myWarning() << "not supported:" << request().key;
+      myWarning() << "not supported:" << request().key();
       stop();
       return;
   }
@@ -431,7 +453,7 @@ void IMDBFetcher::slotComplete(KJob*) {
 #endif
 
   // a single result was found if we got redirected
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       if(m_redirected) {
         parseSingleTitleResult();
@@ -456,7 +478,7 @@ void IMDBFetcher::parseSingleTitleResult() {
   const QString cap1 = s_titleRx->cap(1);
   int pPos = cap1.indexOf(QLatin1Char('('));
   // FIXME: maybe remove parentheses here?
-  FetchResult* r = new FetchResult(Fetcher::Ptr(this),
+  FetchResult* r = new FetchResult(this,
                                    pPos == -1 ? cap1 : cap1.left(pPos),
                                    pPos == -1 ? QString() : cap1.mid(pPos));
   // IMDB returns different HTML for single title results and has a query in the url
@@ -613,7 +635,7 @@ void IMDBFetcher::parseTitleBlock(const QString& str_) {
       break;
     }
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), pPos == -1 ? cap2 : cap2.left(pPos), desc);
+    FetchResult* r = new FetchResult(this, pPos == -1 ? cap2 : cap2.left(pPos), desc);
     QUrl u = QUrl(m_url).resolved(QUrl(cap1));
     u.setQuery(QString());
     m_matches.insert(r->uid, u);
@@ -709,9 +731,7 @@ Tellico::Data::EntryPtr IMDBFetcher::parseEntry(const QString& str_) {
 
   const QString imdb = QStringLiteral("imdb");
   if(!coll->hasField(imdb) && optionalFields().contains(imdb)) {
-    Data::FieldPtr field(new Data::Field(imdb, i18n("IMDb Link"), Data::Field::URL));
-    field->setCategory(i18n("General"));
-    coll->addField(field);
+    coll->addField(Data::Field::createDefaultField(Data::Field::ImdbField));
   }
   if(coll->hasField(imdb) && coll->fieldByName(imdb)->type() == Data::Field::URL) {
     m_url.setQuery(QString());
@@ -951,22 +971,24 @@ void IMDBFetcher::doPerson(const QString& str_, Tellico::Data::EntryPtr entry_,
   divRx.setMinimal(true);
 
   const QString name = QStringLiteral("/name/");
-  StringSet people;
+  QStringList people;
   for(int pos = str_.indexOf(divRx); pos > -1; pos = str_.indexOf(divRx, pos+divRx.matchedLength())) {
     const QString infoBlock = divRx.cap(1);
     if(infoBlock.contains(imdbHeader_, Qt::CaseInsensitive)) {
       int pos2 = s_anchorRx->indexIn(infoBlock);
       while(pos2 > -1) {
         if(s_anchorRx->cap(1).contains(name)) {
-          people.add(s_anchorRx->cap(2).trimmed());
+          people += s_anchorRx->cap(2).trimmed();
         }
         pos2 = s_anchorRx->indexIn(infoBlock, pos2+s_anchorRx->matchedLength());
       }
       break;
     }
   }
+  people.removeDuplicates();
   if(!people.isEmpty()) {
-    entry_->setField(fieldName_, people.values().join(FieldFormat::delimiterString()));
+    people.removeDuplicates();
+    entry_->setField(fieldName_, people.join(FieldFormat::delimiterString()));
   }
 }
 
@@ -1432,7 +1454,6 @@ void IMDBFetcher::doLists(const QString& str_, Tellico::Data::EntryPtr entry_) {
 }
 
 Tellico::Fetch::FetchRequest IMDBFetcher::updateRequest(Data::EntryPtr entry_) {
-  const QString t = entry_->field(QStringLiteral("title"));
   QUrl link = QUrl::fromUserInput(entry_->field(QStringLiteral("imdb")));
 
   if(!link.isEmpty() && link.isValid()) {
@@ -1444,6 +1465,7 @@ Tellico::Fetch::FetchRequest IMDBFetcher::updateRequest(Data::EntryPtr entry_) {
   }
 
   // optimistically try searching for title and rely on Collection::sameEntry() to figure things out
+  const QString t = entry_->field(QStringLiteral("title"));
   if(!t.isEmpty()) {
     return FetchRequest(Fetch::Title, t);
   }
@@ -1480,35 +1502,19 @@ IMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IMDBFetcher* fet
   l->setColumnStretch(1, 10);
 
   int row = -1;
-  /*
-  IMDB.fr and others now redirects to imdb.com
-  QLabel* label = new QLabel(i18n("Country: "), optionsWidget());
-  l->addWidget(label, ++row, 0);
-  m_langCombo = new GUI::ComboBox(optionsWidget());
-  m_langCombo->addItem(i18n("United States"), EN);
-  m_langCombo->addItem(i18n("France"), FR);
-  m_langCombo->addItem(i18n("Spain"), ES);
-  m_langCombo->addItem(i18n("Germany"), DE);
-  m_langCombo->addItem(i18n("Italy"), IT);
-  m_langCombo->addItem(i18n("Portugal"), PT);
-  connect(m_langCombo, SIGNAL(activated(int)), SLOT(slotSetModified()));
-  connect(m_langCombo, SIGNAL(activated(int)), SLOT(slotSiteChanged()));
-  l->addWidget(m_langCombo, row, 1);
-  QString w = i18n("The Internet Movie Database provides data from several different localized sites. "
-                   "Choose the one you wish to use for this data source.");
-  label->setWhatsThis(w);
-  m_langCombo->setWhatsThis(w);
-  label->setBuddy(m_langCombo);
-  */
 
   QLabel* label = new QLabel(i18n("&Maximum cast: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_numCast = new QSpinBox(optionsWidget());
   m_numCast->setMaximum(99);
   m_numCast->setMinimum(0);
-  m_numCast->setValue(10);
-  void (QSpinBox::* valueChanged)(const QString&) = &QSpinBox::valueChanged;
-  connect(m_numCast, valueChanged, this, &ConfigWidget::slotSetModified);
+  m_numCast->setValue(IMDB_DEFAULT_CAST_SIZE);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
+  void (QSpinBox::* textChanged)(const QString&) = &QSpinBox::valueChanged;
+#else
+  void (QSpinBox::* textChanged)(const QString&) = &QSpinBox::textChanged;
+#endif
+  connect(m_numCast, textChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_numCast, row, 1);
   QString w = i18n("The list of cast members may include many people. Set the maximum number returned from the search.");
   label->setWhatsThis(w);
@@ -1530,26 +1536,20 @@ IMDBFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const IMDBFetcher* fet
   KAcceleratorManager::manage(optionsWidget());
 
   if(fetcher_) {
-    // m_langCombo->setCurrentData(fetcher_->m_lang);
     m_numCast->setValue(fetcher_->m_numCast);
     m_fetchImageCheck->setChecked(fetcher_->m_fetchImages);
   } else { //defaults
-    // m_langCombo->setCurrentData(EN);
-    m_numCast->setValue(10);
     m_fetchImageCheck->setChecked(true);
   }
 }
 
 void IMDBFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
-  // int n = m_langCombo->currentData().toInt();
-  // config_.writeEntry("Lang", n);
   config_.writeEntry("Host", QString()); // clear old host entry
   config_.writeEntry("Max Cast", m_numCast->value());
   config_.writeEntry("Fetch Images", m_fetchImageCheck->isChecked());
 }
 
 QString IMDBFetcher::ConfigWidget::preferredName() const {
-  // return IMDBFetcher::langData(m_langCombo->currentData().toInt()).siteTitle;
   return IMDBFetcher::langData(EN).siteTitle;
 }
 

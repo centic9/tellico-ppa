@@ -51,7 +51,7 @@
 namespace {
   static const int GOOGLEBOOK_MAX_RETURNS = 20;
   static const char* GOOGLEBOOK_API_URL = "https://www.googleapis.com/books/v1/volumes";
-  static const char* GOOGLEBOOK_API_KEY = "AIzaSyBdsa_DEGpDQ6PzZyYHHHokRIBY8thOdUQ";
+  static const char* GOOGLEBOOK_API_KEY = "b0e1702513773b743b53b1c5566ea0f93e7c3b720351bad197f801491951d29afca54b32712ba6dc4e1e4c7a5b0ad99d9dedfdbab4f10642b7e821403340fc98692bcdb4dc8fd0b14339236ae4a5";
 }
 
 using namespace Tellico;
@@ -61,8 +61,8 @@ GoogleBookFetcher::GoogleBookFetcher(QObject* parent_)
     : Fetcher(parent_)
     , m_started(false)
     , m_start(0)
-    , m_total(0)
-    , m_apiKey(QLatin1String(GOOGLEBOOK_API_KEY)) {
+    , m_total(0) {
+  m_apiKey = Tellico::reverseObfuscate(GOOGLEBOOK_API_KEY);
 }
 
 GoogleBookFetcher::~GoogleBookFetcher() {
@@ -72,7 +72,7 @@ QString GoogleBookFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool GoogleBookFetcher::canSearch(FetchKey k) const {
+bool GoogleBookFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person || k == ISBN || k == Keyword;
 }
 
@@ -95,10 +95,10 @@ void GoogleBookFetcher::continueSearch() {
   m_started = true;
   // we only split ISBN and LCCN values
   QStringList searchTerms;
-  if(request().key == ISBN) {
-    searchTerms = FieldFormat::splitValue(request().value);
+  if(request().key() == ISBN) {
+    searchTerms = FieldFormat::splitValue(request().value());
   } else  {
-    searchTerms += request().value;
+    searchTerms += request().value();
   }
   foreach(const QString& searchTerm, searchTerms) {
     doSearch(searchTerm);
@@ -119,7 +119,7 @@ void GoogleBookFetcher::doSearch(const QString& term_) {
     q.addQueryItem(QStringLiteral("key"), m_apiKey);
   }
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       q.addQueryItem(QStringLiteral("q"), QLatin1String("intitle:") + term_);
       break;
@@ -140,7 +140,7 @@ void GoogleBookFetcher::doSearch(const QString& term_) {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key;
+      myWarning() << "key not recognized:" << request().key();
       return;
   }
   u.setQuery(q);
@@ -276,13 +276,13 @@ void GoogleBookFetcher::slotComplete(KJob* job_) {
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, result.toMap());
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }
 
   m_start = m_entries.count();
-  m_hasMoreResults = request().key != ISBN && m_start <= m_total;
+  m_hasMoreResults = request().key() != ISBN && m_start <= m_total;
   endJob(job);
 }
 
@@ -307,17 +307,19 @@ void GoogleBookFetcher::populateEntry(Data::EntryPtr entry, const QVariantMap& r
   entry->setField(QStringLiteral("language"),  mapValue(volumeMap, "language"));
   entry->setField(QStringLiteral("comments"),  mapValue(volumeMap, "description"));
 
-  QStringList catList = volumeMap.value(QStringLiteral("categories")).toStringList();
+  const QStringList catList = volumeMap.value(QStringLiteral("categories")).toStringList();
   // google is going to give us a lot of categories
-  QSet<QString> cats;
+  const QRegularExpression slash(QLatin1String("\\s*/\\s*"));
+  QStringList cleanCategories;
   foreach(const QString& cat, catList) {
-    cats += cat.split(QRegExp(QLatin1String("\\s*/\\s*"))).toSet();
+    // split them by the '/' character, too
+    cleanCategories += cat.split(slash);
   }
-  // remove General
-  cats.remove(QStringLiteral("General"));
-  catList = cats.values();
-  catList.sort();
-  entry->setField(QStringLiteral("keyword"), catList.join(FieldFormat::delimiterString()));
+  cleanCategories.sort();
+  cleanCategories.removeDuplicates();
+  // remove General since it's vague enough to not matter
+  cleanCategories.removeOne(QStringLiteral("General"));
+  entry->setField(QStringLiteral("keyword"), cleanCategories.join(FieldFormat::delimiterString()));
 
   QString isbn;
   foreach(const QVariant& idVariant, volumeMap.value(QLatin1String("industryIdentifiers")).toList()) {

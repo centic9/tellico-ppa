@@ -72,7 +72,7 @@ bool KinoPoiskFetcher::canFetch(int type) const {
   return type == Data::Collection::Video;
 }
 
-bool KinoPoiskFetcher::canSearch(FetchKey k) const {
+bool KinoPoiskFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title;
 }
 
@@ -87,15 +87,15 @@ void KinoPoiskFetcher::search() {
   QUrl u(QString::fromLatin1(KINOPOISK_SEARCH_URL));
   QUrlQuery q;
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       // first means return first result only
       //q.addQueryItem(QStringLiteral("first"), QStringLiteral("yes"));
-      q.addQueryItem(QStringLiteral("kp_query"), request().value);
+      q.addQueryItem(QStringLiteral("kp_query"), request().value());
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       stop();
       return;
   }
@@ -162,7 +162,7 @@ void KinoPoiskFetcher::slotComplete(KJob*) {
       QUrl url(QString::fromLatin1(KINOPOISK_SEARCH_URL));
       url = url.resolved(QUrl(href));
 //      myDebug() << url << title << year;
-      FetchResult* r = new FetchResult(Fetcher::Ptr(this), title, year);
+      FetchResult* r = new FetchResult(this, title, year);
       m_matches.insert(r->uid, url);
       emit signalResultFound(r);
     }

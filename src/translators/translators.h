@@ -50,7 +50,8 @@ namespace Tellico {
       CIW,
       VinoXML,
       BoardGameGeek,
-      LibraryThing
+      LibraryThing,
+      Collectorz
     };
 
     enum Action {

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2019 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2019-2020 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -34,8 +34,7 @@
 #include "../fieldformat.h"
 #include "../fetch/fetcherjob.h"
 
-#include <KConfig>
-#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QTest>
 
@@ -47,6 +46,9 @@ ColnectFetcherTest::ColnectFetcherTest() : AbstractFetcherTest() {
 void ColnectFetcherTest::initTestCase() {
   Tellico::ImageFactory::init();
   Tellico::RegisterCollection<Tellico::Data::CoinCollection> registerMe(Tellico::Data::Collection::Coin, "coin");
+
+  m_config = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect"));
+  m_config.writeEntry("Custom Fields", QStringLiteral("obverse,reverse,series,mintage,description"));
 }
 
 void ColnectFetcherTest::testSlug() {
@@ -66,18 +68,11 @@ void ColnectFetcherTest::testSlug_data() {
 }
 
 void ColnectFetcherTest::testRaw() {
-  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
-  QString groupName = QStringLiteral("colnect");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Coin,
                                        Tellico::Fetch::Raw,
                                        QStringLiteral("147558"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(m_config);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -98,18 +93,11 @@ void ColnectFetcherTest::testRaw() {
 }
 
 void ColnectFetcherTest::testSacagawea() {
-  KConfig config(QFINDTESTDATA("tellicotest.config"), KConfig::SimpleConfig);
-  QString groupName = QStringLiteral("colnect");
-  if(!config.hasGroup(groupName)) {
-    QSKIP("This test requires a config file.", SkipAll);
-  }
-  KConfigGroup cg(&config, groupName);
-
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Coin,
                                        Tellico::Fetch::Keyword,
                                        QStringLiteral("2007 Sacagawea"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
-  fetcher->readConfig(cg, cg.name());
+  fetcher->readConfig(m_config);
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -127,4 +115,33 @@ void ColnectFetcherTest::testSacagawea() {
   QVERIFY(!entry->field(QStringLiteral("obverse")).contains(QLatin1Char('/')));
   QVERIFY(!entry->field(QStringLiteral("reverse")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("reverse")).contains(QLatin1Char('/')));
+}
+
+void ColnectFetcherTest::testSkylab() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect stamps"));
+  cg.writeEntry("Custom Fields", QStringLiteral("image,series,description,stanley-gibbons,michel"));
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Stamp,
+                                       Tellico::Fetch::Title,
+                                       QStringLiteral("2013 Skylab"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
+  fetcher->readConfig(cg);
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QCOMPARE(results.size(), 1);
+  Tellico::Data::EntryPtr entry = results.at(0);
+
+  QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("2013"));
+  QCOMPARE(entry->field(QStringLiteral("country")), QStringLiteral("Papua New Guinea"));
+  QCOMPARE(entry->field(QStringLiteral("stanley-gibbons")), QStringLiteral("PG 1638"));
+  QCOMPARE(entry->field(QStringLiteral("michel")), QStringLiteral("PG 1902"));
+  QCOMPARE(entry->field(QStringLiteral("series")), QStringLiteral("15th Anniversary of Launch of International Space Station"));
+  QCOMPARE(entry->field(QStringLiteral("gummed")), QStringLiteral("PVA (Polyvinyl Alcohol)"));
+  QCOMPARE(entry->field(QStringLiteral("denomination")), QStringLiteral("K1.30"));
+  QCOMPARE(entry->field(QStringLiteral("currency")), QStringLiteral("K - Papua New Guinean kina"));
+  QCOMPARE(entry->field(QStringLiteral("color")), QStringLiteral("Multicolor"));
+  QVERIFY(!entry->field(QStringLiteral("description")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("image")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("image")).contains(QLatin1Char('/')));
 }

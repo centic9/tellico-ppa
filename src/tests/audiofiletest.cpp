@@ -65,7 +65,6 @@ void AudioFileTest::testDirectory() {
   QVERIFY(entry);
   QCOMPARE(entry->field("title"), QStringLiteral("The Album"));
   QVERIFY(entry->field("file").contains(QStringLiteral("data/test.ogg")));
-  QVERIFY(entry->field("file").contains(QStringLiteral("::610"))); // bitrate
 
   entry = coll->entryById(2);
   QVERIFY(entry);
@@ -81,6 +80,8 @@ void AudioFileTest::testOgg() {
   QVERIFY(!url.isEmpty());
   Tellico::Import::AudioFileImporter importer(url);
   importer.setOptions(importer.options() ^ Tellico::Import::ImportProgress);
+  importer.setAddFilePath(true);
+  importer.setAddBitrate(true);
   Tellico::Data::CollPtr coll = importer.collection();
 
   QVERIFY(coll);
@@ -91,9 +92,10 @@ void AudioFileTest::testOgg() {
   QVERIFY(entry);
   QCOMPARE(entry->field("title"), QStringLiteral("The Album"));
   QCOMPARE(entry->field("artist"), QStringLiteral("Album Artist"));
-  QCOMPARE(entry->field("track"), QStringLiteral("Test OGG::The Artist"));
+  QCOMPARE(entry->field("track"), QStringLiteral("Test OGG::The Artist::0:03"));
   QCOMPARE(entry->field("year"), QStringLiteral("2020"));
   QCOMPARE(entry->field("genre"), QStringLiteral("The Genre"));
+  QVERIFY(entry->field("file").contains(QStringLiteral("::160"))); // bitrate
 }
 
 void AudioFileTest::testMp3() {

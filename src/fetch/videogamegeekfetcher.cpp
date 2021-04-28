@@ -67,6 +67,10 @@ QString VideoGameGeekFetcher::attribution() const {
   return i18n("This information was freely provided by <a href=\"https://boardgamegeek.com\">BoardGameGeek</a>.");
 }
 
+bool VideoGameGeekFetcher::canSearch(Fetch::FetchKey k) const {
+  return k == Title || k == Keyword;
+}
+
 bool VideoGameGeekFetcher::canFetch(int type) const {
   return type == Data::Collection::Game;
 }
@@ -75,26 +79,26 @@ QUrl VideoGameGeekFetcher::searchUrl() {
   QUrl u(QString::fromLatin1(BGG_SEARCH_URL));
 
   QUrlQuery q;
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
-      q.addQueryItem(QStringLiteral("query"), request().value);
+      q.addQueryItem(QStringLiteral("query"), request().value());
       q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame,videogameexpansion"));
       q.addQueryItem(QStringLiteral("exact"), QStringLiteral("1"));
       break;
 
     case Keyword:
-      q.addQueryItem(QStringLiteral("query"), request().value);
+      q.addQueryItem(QStringLiteral("query"), request().value());
       q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame,videogameexpansion"));
       break;
 
     case Raw:
       u.setUrl(QLatin1String(BGG_THING_URL));
-      q.addQueryItem(QStringLiteral("id"), request().value);
+      q.addQueryItem(QStringLiteral("id"), request().value());
       q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame,videogameexpansion"));
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key;
+      myWarning() << "key not recognized: " << request().key();
       return QUrl();
   }
   u.setQuery(q);
@@ -178,7 +182,7 @@ QString VideoGameGeekFetcher::defaultName() {
 }
 
 QString VideoGameGeekFetcher::defaultIcon() {
-  return favIcon("https://www.videogamegeek.com");
+  return favIcon("https://cf.geekdo-static.com/icons/favicon2.ico");
 }
 
 Tellico::StringHash VideoGameGeekFetcher::allOptionalFields() {

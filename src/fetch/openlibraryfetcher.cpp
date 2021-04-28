@@ -65,7 +65,7 @@ QString OpenLibraryFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
-bool OpenLibraryFetcher::canSearch(FetchKey k) const {
+bool OpenLibraryFetcher::canSearch(Fetch::FetchKey k) const {
   return k == Title || k == Person || k == ISBN || k == LCCN || k == Keyword;
 }
 
@@ -80,10 +80,10 @@ void OpenLibraryFetcher::search() {
   m_started = true;
   // we only split ISBN and LCCN values
   QStringList searchTerms;
-  if(request().key == ISBN || request().key == LCCN) {
-    searchTerms = FieldFormat::splitValue(request().value);
+  if(request().key() == ISBN || request().key() == LCCN) {
+    searchTerms = FieldFormat::splitValue(request().value());
   } else  {
-    searchTerms += request().value;
+    searchTerms += request().value();
   }
   foreach(const QString& searchTerm, searchTerms) {
     doSearch(searchTerm);
@@ -100,7 +100,7 @@ void OpenLibraryFetcher::doSearch(const QString& term_) {
   q.addQueryItem(QStringLiteral("type"), QStringLiteral("/type/edition"));
   q.addQueryItem(QStringLiteral("*"), QString());
 
-  switch(request().key) {
+  switch(request().key()) {
     case Title:
       q.addQueryItem(QStringLiteral("title"), term_);
       break;
@@ -136,7 +136,7 @@ void OpenLibraryFetcher::doSearch(const QString& term_) {
       return;
 
     default:
-      myWarning() << "key not recognized:" << request().key;
+      myWarning() << "key not recognized:" << request().key();
       return;
   }
   u.setQuery(q);
@@ -350,7 +350,7 @@ void OpenLibraryFetcher::slotComplete(KJob* job_) {
       entry->setField(QStringLiteral("language"), langs.join(FieldFormat::delimiterString()));
     }
 
-    FetchResult* r = new FetchResult(Fetcher::Ptr(this), entry);
+    FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
     emit signalResultFound(r);
   }

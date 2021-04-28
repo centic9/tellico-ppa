@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2001-2014 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2001-2020 Robby Stephenson <robby@periapsis.org>
     Copyright (C) 2011 Pedro Miguel Carvalho <kde@pmc.com.pt>
  ***************************************************************************/
 
@@ -41,7 +41,7 @@
 #include "importdialog.h"
 #include "exportdialog.h"
 #include "core/filehandler.h" // needed so static mainWindow variable can be set
-#include "translators/htmlexporter.h" // for printing
+#include "printhandler.h"
 #include "entryview.h"
 #include "entryiconview.h"
 #include "images/imagefactory.h" // needed so tmp files can get cleaned
@@ -82,7 +82,6 @@
 #include <KStandardAction>
 #include <KWindowSystem>
 #include <KWindowConfig>
-#include <KHTMLView>
 #include <KMessageBox>
 #include <KTipDialog>
 #include <KRecentDocument>
@@ -93,10 +92,11 @@
 #include <KToggleAction>
 #include <KActionCollection>
 #include <KActionMenu>
-#include <KAboutData>
 #include <KFileWidget>
 #include <KDualAction>
 #include <KXMLGUIFactory>
+#include <KAboutData>
+#include <kwidgetsaddons_version.h>
 
 #include <QApplication>
 #include <QUndoStack>
@@ -110,10 +110,7 @@
 #include <QFileDialog>
 #include <QMetaMethod>
 
-#include <unistd.h>
-
 namespace {
-  static const int MAIN_WINDOW_MIN_WIDTH = 600;
   static const int MAX_IMAGES_WARN_PERFORMANCE = 200;
 
 QIcon mimeIcon(const char* s) {
@@ -207,14 +204,18 @@ MainWindow::MainWindow(QWidget* parent_/*=0*/) : KXmlGuiWindow(parent_),
 MainWindow::~MainWindow() {
   qDeleteAll(m_fetchActions);
   m_fetchActions.clear();
+  // when closing the mainwindow, immediately after running Tellico, often there was a long pause
+  // before the application eventually quit, something related to polling on eventfd, I don't
+  // know what. So when closing the window, make sure to immediately quit the application
+  QTimer::singleShot(0, qApp, &QCoreApplication::quit);
 }
 
 void MainWindow::slotInit() {
-  MARK;
   // if the edit dialog exists, we know we've already called this function
   if(m_editDialog) {
     return;
   }
+  MARK;
 
   m_editDialog = new EntryEditDialog(this);
   Controller::self()->addObserver(m_editDialog);
@@ -226,7 +227,7 @@ void MainWindow::slotInit() {
   initConnections();
   connect(ImageFactory::self(), &ImageFactory::imageLocationMismatch,
           this, &MainWindow::slotImageLocationMismatch);
-  // Init DBUS
+  // Init DBUS for new stuff manager
   NewStuff::Manager::self();
 }
 
@@ -242,14 +243,21 @@ void MainWindow::initActions() {
    * File->New menu
    *************************************************/
   QSignalMapper* collectionMapper = new QSignalMapper(this);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
   void (QSignalMapper::* mappedInt)(int) = &QSignalMapper::mapped;
-  connect(collectionMapper, mappedInt,
-          this, &MainWindow::slotFileNew);
+  connect(collectionMapper, mappedInt, this, &MainWindow::slotFileNew);
+#else
+  connect(collectionMapper, &QSignalMapper::mappedInt, this, &MainWindow::slotFileNew);
+#endif
 
-  KActionMenu* fileNewMenu = new KActionMenu(i18n("New"), this);
+  KActionMenu* fileNewMenu = new KActionMenu(i18n("New Collection"), this);
   fileNewMenu->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
   fileNewMenu->setToolTip(i18n("Create a new collection"));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,77,0)
+  fileNewMenu->setPopupMode(QToolButton::InstantPopup);
+#else
   fileNewMenu->setDelayed(false);
+#endif
   actionCollection()->addAction(QStringLiteral("file_new_collection"), fileNewMenu);
 
   QAction* action;
@@ -320,6 +328,8 @@ void MainWindow::initActions() {
   action = KStandardAction::saveAs(this, SLOT(slotFileSaveAs()), actionCollection());
   action->setToolTip(i18n("Save the document as a different file..."));
   action = KStandardAction::print(this, SLOT(slotFilePrint()), actionCollection());
+  action->setToolTip(i18n("Print the contents of the document..."));
+#ifdef USE_KHTML
   {
     KHTMLPart w;
     // KHTMLPart printing was broken in KDE until KHTML 5.16
@@ -331,21 +341,32 @@ void MainWindow::initActions() {
       action->setEnabled(false);
     }
   }
+#else
+  // print preview is only available with QWebEngine
+  action = KStandardAction::printPreview(this, SLOT(slotFilePrintPreview()), actionCollection());
+  action->setToolTip(i18n("Preview the contents of the document..."));
+#endif
 
-  action->setToolTip(i18n("Print the contents of the document..."));
   action = KStandardAction::quit(this, SLOT(slotFileQuit()), actionCollection());
   action->setToolTip(i18n("Quit the application"));
 
 /**************** Import Menu ***************************/
 
   QSignalMapper* importMapper = new QSignalMapper(this);
-  connect(importMapper, mappedInt,
-          this, &MainWindow::slotFileImport);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+  connect(importMapper, mappedInt, this, &MainWindow::slotFileImport);
+#else
+  connect(importMapper, &QSignalMapper::mappedInt, this, &MainWindow::slotFileImport);
+#endif
 
   KActionMenu* importMenu = new KActionMenu(i18n("&Import"), this);
   importMenu->setIcon(QIcon::fromTheme(QStringLiteral("document-import")));
   importMenu->setToolTip(i18n("Import the collection data from other formats"));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,77,0)
+  importMenu->setPopupMode(QToolButton::InstantPopup);
+#else
   importMenu->setDelayed(false);
+#endif
   actionCollection()->addAction(QStringLiteral("file_import"), importMenu);
 
 #define IMPORT_ACTION(TYPE, NAME, TEXT, TIP, ICON) \
@@ -374,12 +395,19 @@ void MainWindow::initActions() {
                 i18n("Import data from Delicious Library"),
                 QIcon::fromTheme(QStringLiteral("deliciouslibrary"), QIcon(QLatin1String(":/icons/deliciouslibrary"))));
 
+  IMPORT_ACTION(Import::Collectorz, "file_import_collectorz", i18n("Import Collectorz Data..."),
+                i18n("Import data from Collectorz"),
+                QIcon::fromTheme(QStringLiteral("collectorz"), QIcon(QLatin1String(":/icons/collectorz"))));
+
   IMPORT_ACTION(Import::Referencer, "file_import_referencer", i18n("Import Referencer Data..."),
                 i18n("Import data from Referencer"),
                 QIcon::fromTheme(QStringLiteral("referencer"), QIcon(QLatin1String(":/icons/referencer"))));
 
   IMPORT_ACTION(Import::Bibtex, "file_import_bibtex", i18n("Import Bibtex Data..."),
                 i18n("Import a bibtex bibliography file"), mimeIcon("text/x-bibtex"));
+#ifndef ENABLE_BTPARSE
+  action->setEnabled(false);
+#endif
 
   IMPORT_ACTION(Import::Bibtexml, "file_import_bibtexml", i18n("Import Bibtexml Data..."),
                 i18n("Import a Bibtexml bibliography file"), mimeIcon("text/xml"));
@@ -437,13 +465,20 @@ void MainWindow::initActions() {
 /**************** Export Menu ***************************/
 
   QSignalMapper* exportMapper = new QSignalMapper(this);
-  connect(exportMapper, mappedInt,
-          this, &MainWindow::slotFileExport);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+  connect(exportMapper, mappedInt, this, &MainWindow::slotFileExport);
+#else
+  connect(exportMapper, &QSignalMapper::mappedInt, this, &MainWindow::slotFileExport);
+#endif
 
   KActionMenu* exportMenu = new KActionMenu(i18n("&Export"), this);
   exportMenu->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
   exportMenu->setToolTip(i18n("Export the collection data to other formats"));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,77,0)
+  exportMenu->setPopupMode(QToolButton::InstantPopup);
+#else
   exportMenu->setDelayed(false);
+#endif
   actionCollection()->addAction(QStringLiteral("file_export"), exportMenu);
 
 #define EXPORT_ACTION(TYPE, NAME, TEXT, TIP, ICON) \
@@ -507,13 +542,6 @@ void MainWindow::initActions() {
   action = KStandardAction::deselect(this, SLOT(slotEditDeselect()), actionCollection());
   action->setToolTip(i18n("Deselect all the entries in the collection"));
 
-  action = actionCollection()->addAction(QStringLiteral("edit_search_internet"), this, SLOT(slotShowFetchDialog()));
-  action->setText(i18n("Internet Search..."));
-  action->setIconText(i18n("Search"));  // find a better word for this?
-  action->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
-  actionCollection()->setDefaultShortcut(action, Qt::CTRL + Qt::Key_I);
-  action->setToolTip(i18n("Search the internet..."));
-
   action = actionCollection()->addAction(QStringLiteral("filter_dialog"), this, SLOT(slotShowFilterDialog()));
   action->setText(i18n("Advanced &Filter..."));
   action->setIconText(i18n("Filter"));
@@ -528,9 +556,28 @@ void MainWindow::initActions() {
                                              this, SLOT(slotNewEntry()));
   m_newEntry->setText(i18n("&New Entry..."));
   m_newEntry->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
-  m_newEntry->setIconText(i18n("New"));
+  m_newEntry->setIconText(i18n("New Entry"));
   actionCollection()->setDefaultShortcut(m_newEntry, Qt::CTRL + Qt::Key_N);
   m_newEntry->setToolTip(i18n("Create a new entry"));
+
+  KActionMenu* addEntryMenu = new KActionMenu(i18n("Add Entry"), this);
+  addEntryMenu->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,77,0)
+  addEntryMenu->setPopupMode(QToolButton::InstantPopup);
+#else
+  addEntryMenu->setDelayed(false);
+#endif
+  actionCollection()->addAction(QStringLiteral("coll_add_entry"), addEntryMenu);
+
+  action = actionCollection()->addAction(QStringLiteral("edit_search_internet"), this, SLOT(slotShowFetchDialog()));
+  action->setText(i18n("Internet Search..."));
+  action->setIconText(i18n("Internet Search"));
+  action->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
+  actionCollection()->setDefaultShortcut(action, Qt::CTRL + Qt::Key_I);
+  action->setToolTip(i18n("Search the internet..."));
+
+  addEntryMenu->addAction(m_newEntry);
+  addEntryMenu->addAction(actionCollection()->action(QStringLiteral("edit_search_internet")));
 
   m_editEntry = actionCollection()->addAction(QStringLiteral("coll_edit_entry"),
                                               this, SLOT(slotShowEntryEditor()));
@@ -607,8 +654,11 @@ void MainWindow::initActions() {
   action->setToolTip(i18n("Check for duplicate citation keys"));
 
   QSignalMapper* citeMapper = new QSignalMapper(this);
-  connect(citeMapper, mappedInt,
-          this, &MainWindow::slotCiteEntry);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+  connect(citeMapper, mappedInt, this, &MainWindow::slotCiteEntry);
+#else
+  connect(citeMapper, &QSignalMapper::mappedInt, this, &MainWindow::slotCiteEntry);
+#endif
 
   action = actionCollection()->addAction(QStringLiteral("cite_clipboard"), citeMapper, mapVoid);
   action->setText(i18n("Copy Bibtex to Cli&pboard"));
@@ -623,14 +673,23 @@ void MainWindow::initActions() {
   citeMapper->setMapping(action, Cite::CiteLyxpipe);
 
   m_updateMapper = new QSignalMapper(this);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
   void (QSignalMapper::* mappedString)(const QString&) = &QSignalMapper::mapped;
   connect(m_updateMapper, mappedString,
           Controller::self(), &Controller::slotUpdateSelectedEntries);
+#else
+  connect(m_updateMapper, &QSignalMapper::mappedString,
+          Controller::self(), &Controller::slotUpdateSelectedEntries);
+#endif
 
   m_updateEntryMenu = new KActionMenu(i18n("&Update Entry"), this);
   m_updateEntryMenu->setIcon(QIcon::fromTheme(QStringLiteral("document-export")));
   m_updateEntryMenu->setIconText(i18nc("Update Entry", "Update"));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,77,0)
+  m_updateEntryMenu->setPopupMode(QToolButton::InstantPopup);
+#else
   m_updateEntryMenu->setDelayed(false);
+#endif
   actionCollection()->addAction(QStringLiteral("coll_update_entry"), m_updateEntryMenu);
 
   m_updateAll = actionCollection()->addAction(QStringLiteral("update_entry_all"), m_updateMapper, mapVoid);
@@ -686,7 +745,11 @@ void MainWindow::initActions() {
 
   m_entryGrouping = new KSelectAction(i18n("&Group Selection"), this);
   m_entryGrouping->setToolTip(i18n("Change the grouping of the collection"));
+#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,78,0)
+  void (KSelectAction::* triggeredInt)(int) = &KSelectAction::indexTriggered;
+#else
   void (KSelectAction::* triggeredInt)(int) = &KSelectAction::triggered;
+#endif
   connect(m_entryGrouping, triggeredInt, this, &MainWindow::slotChangeGrouping);
   actionCollection()->addAction(QStringLiteral("change_entry_grouping"), m_entryGrouping);
 
@@ -750,15 +813,20 @@ void MainWindow::initView() {
   ImageFactory::init();
 
   m_entryView = new EntryView(this);
-  connect(m_entryView, &EntryView::signalAction,
+  connect(m_entryView, &EntryView::signalTellicoAction,
           this, &MainWindow::slotURLAction);
-  m_entryView->view()->setWhatsThis(i18n("<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</qt>"));
 
   // trick to make sure the group views always extend along the entire left or right side
   // using QMainWindow::setCorner does not seem to work
   // https://wiki.qt.io/Technical_FAQ#Is_it_possible_for_either_the_left_or_right_dock_areas_to_have_full_height_of_their_side_rather_than_having_the_bottom_take_the_full_width.3F
   m_dummyWindow = new QMainWindow(this);
+#ifdef USE_KHTML
+  m_entryView->view()->setWhatsThis(i18n("<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</qt>"));
   m_dummyWindow->setCentralWidget(m_entryView->view());
+#else
+  m_entryView->setWhatsThis(i18n("<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</qt>"));
+  m_dummyWindow->setCentralWidget(m_entryView);
+#endif
   m_dummyWindow->setWindowFlags(Qt::Widget);
   setCentralWidget(m_dummyWindow);
 
@@ -807,9 +875,9 @@ void MainWindow::initView() {
                                                              this);
   m_iconView->setSelectionModel(proxySelect);
 
-  setMinimumWidth(MAIN_WINDOW_MIN_WIDTH);
   // setting up GUI now rather than in initActions
-  setupGUI(Keys | ToolBar);
+  // initial parameter is default window size
+  setupGUI(QSize(1280,800), Keys | ToolBar);
   createGUI();
 }
 
@@ -868,7 +936,7 @@ void MainWindow::initFileOpen(bool nofile_) {
   text.replace(QLatin1String("$BGCOLOR$"), Config::templateBaseColor(type).name());
   text.replace(QLatin1String("$COLOR1$"),  Config::templateHighlightedTextColor(type).name());
   text.replace(QLatin1String("$COLOR2$"),  Config::templateHighlightedBaseColor(type).name());
-  text.replace(QLatin1String("$IMGDIR$"),  QUrl::fromLocalFile(ImageFactory::tempDir()).url());
+  text.replace(QLatin1String("$IMGDIR$"),  QUrl::fromLocalFile(ImageFactory::imageDir()).url());
   text.replace(QLatin1String("$BANNER$"),
                 i18n("Welcome to the Tellico Collection Manager"));
   text.replace(QLatin1String("$WELCOMETEXT$"),
@@ -938,15 +1006,17 @@ void MainWindow::readCollectionOptions(Tellico::Data::CollPtr coll_) {
   KConfigGroup group(KSharedConfig::openConfig(), configGroup);
 
   QString defaultGroup = coll_->defaultGroupField();
-  QString entryGroup;
+  QString entryGroup, groupSortField;
   if(coll_->type() != Data::Collection::Base) {
     entryGroup = group.readEntry("Group By", defaultGroup);
+    groupSortField = group.readEntry("GroupEntrySortField", QString());
   } else {
     QUrl url = Kernel::self()->URL();
     for(int i = 0; i < Config::maxCustomURLSettings(); ++i) {
       QUrl u(group.readEntry(QStringLiteral("URL_%1").arg(i)));
       if(url == u) {
         entryGroup = group.readEntry(QStringLiteral("Group By_%1").arg(i), defaultGroup);
+        groupSortField = group.readEntry(QStringLiteral("GroupEntrySortField_%1").arg(i), QString());
         break;
       }
     }
@@ -960,6 +1030,10 @@ void MainWindow::readCollectionOptions(Tellico::Data::CollPtr coll_) {
     entryGroup = defaultGroup;
   }
   m_groupView->setGroupField(entryGroup);
+
+  if(!groupSortField.isEmpty()) {
+    m_groupView->setEntrySortField(groupSortField);
+  }
 
   QString entryXSLTFile = Config::templateName(coll_->type());
   if(entryXSLTFile.isEmpty()) {
@@ -981,6 +1055,7 @@ void MainWindow::saveCollectionOptions(Tellico::Data::CollPtr coll_) {
   QString configGroup = QStringLiteral("Options - %1").arg(CollectionFactory::typeName(coll_));
   KConfigGroup config(KSharedConfig::openConfig(), configGroup);
   QString groupName;
+  const QString groupEntrySort = m_groupView->entrySortField();
   if(m_entryGrouping->currentItem() > -1 &&
      static_cast<int>(coll_->entryGroups().count()) > m_entryGrouping->currentItem()) {
     if(m_entryGrouping->currentText() == (QLatin1Char('<') + i18n("People") + QLatin1Char('>'))) {
@@ -990,6 +1065,9 @@ void MainWindow::saveCollectionOptions(Tellico::Data::CollPtr coll_) {
     }
     if(coll_->type() != Data::Collection::Base) {
       config.writeEntry("Group By", groupName);
+      if(!groupEntrySort.isEmpty()) {
+        config.writeEntry("GroupEntrySortField", groupEntrySort);
+      }
     }
   }
 
@@ -998,12 +1076,15 @@ void MainWindow::saveCollectionOptions(Tellico::Data::CollPtr coll_) {
     QUrl url = Kernel::self()->URL();
     QList<QUrl> urls = QList<QUrl>() << url;
     QStringList groupBys = QStringList() << groupName;
+    QStringList groupSorts = QStringList() << groupEntrySort;
     for(int i = 0; i < Config::maxCustomURLSettings(); ++i) {
       QUrl u = config.readEntry(QStringLiteral("URL_%1").arg(i), QUrl());
       QString g = config.readEntry(QStringLiteral("Group By_%1").arg(i), QString());
+      QString gs = config.readEntry(QStringLiteral("GroupEntrySortField_%1").arg(i), QString());
       if(!u.isEmpty() && url != u) {
         urls.append(u);
         groupBys.append(g);
+        groupSorts.append(gs);
       } else if(!u.isEmpty()) {
         configIndex = i;
       }
@@ -1012,6 +1093,7 @@ void MainWindow::saveCollectionOptions(Tellico::Data::CollPtr coll_) {
     for(int i = 0; i < limit; ++i) {
       config.writeEntry(QStringLiteral("URL_%1").arg(i), urls[i].url());
       config.writeEntry(QStringLiteral("Group By_%1").arg(i), groupBys[i]);
+      config.writeEntry(QStringLiteral("GroupEntrySortField_%1").arg(i), groupSorts[i]);
     }
   }
   m_detailedView->saveConfig(coll_, configIndex);
@@ -1074,7 +1156,7 @@ bool MainWindow::queryClose() {
   // in case we're still loading the images, cancel that
   Data::Document::self()->cancelImageWriting();
   const bool willClose = m_editDialog->queryModified() && querySaveModified();
-  if (willClose) {
+  if(willClose) {
     ImageFactory::clean(true);
     saveOptions();
   }
@@ -1331,12 +1413,15 @@ bool MainWindow::fileSaveAs() {
 }
 
 void MainWindow::slotFilePrint() {
-  slotStatusMsg(i18n("Printing..."));
+  doPrint(Print);
+}
 
-  bool printGrouped = Config::printGrouped();
-  bool printHeaders = Config::printFieldHeaders();
-  int imageWidth = Config::maxImageWidth();
-  int imageHeight = Config::maxImageHeight();
+void MainWindow::slotFilePrintPreview() {
+  doPrint(PrintPreview);
+}
+
+void MainWindow::doPrint(PrintAction action_) {
+  slotStatusMsg(i18n("Printing..."));
 
   // If the collection is being filtered, warn the user
   if(m_detailedView->filter()) {
@@ -1350,39 +1435,14 @@ void MainWindow::slotFilePrint() {
     }
   }
 
-  GUI::CursorSaver cs(Qt::WaitCursor);
-
-  Export::HTMLExporter exporter(Data::Document::self()->collection());
-  // only print visible entries
-  exporter.setEntries(m_detailedView->visibleEntries());
-  exporter.setXSLTFile(QStringLiteral("tellico-printing.xsl"));
-  exporter.setPrintHeaders(printHeaders);
-  exporter.setPrintGrouped(printGrouped);
-  exporter.setGroupBy(Controller::self()->expandedGroupBy());
-  if(!printGrouped) { // the sort titles are only used if the entries are not grouped
-    exporter.setSortTitles(Controller::self()->sortTitles());
-  }
-  exporter.setColumns(m_detailedView->visibleColumns());
-  exporter.setMaxImageSize(imageWidth, imageHeight);
-
-  slotStatusMsg(i18n("Processing document..."));
-  if(Config::printFormatted()) {
-    exporter.setOptions(Export::ExportUTF8 | Export::ExportFormatted);
+  PrintHandler printHandler(this);
+  printHandler.setEntries(m_detailedView->visibleEntries());
+  printHandler.setColumns(m_detailedView->visibleColumns());
+  if(action_ == Print) {
+    printHandler.print();
   } else {
-    exporter.setOptions(Export::ExportUTF8);
+    printHandler.printPreview();
   }
-  QString html = exporter.text();
-  if(html.isEmpty()) {
-    XSLTError();
-    StatusBar::self()->clearStatus();
-    return;
-  }
-
-  // don't have busy cursor when showing the print dialog
-  cs.restore();
-//  myDebug() << html;
-  slotStatusMsg(i18n("Printing..."));
-  doPrint(html);
 
   StatusBar::self()->clearStatus();
 }
@@ -1409,6 +1469,7 @@ void MainWindow::slotEditPaste() {
 
 void MainWindow::activateEditSlot(const char* slot_) {
   // the edit widget is the only one that copies, cuts, and pastes
+  // the entry view can copy
   QWidget* w;
   if(m_editDialog->isVisible()) {
     w = m_editDialog->focusWidget();
@@ -1416,12 +1477,16 @@ void MainWindow::activateEditSlot(const char* slot_) {
     w = qApp->focusWidget();
   }
 
-  if(w && w->isVisible()) {
+  while(w && w->isVisible()) {
     const QMetaObject* meta = w->metaObject();
     const int idx = meta->indexOfSlot(slot_);
     if(idx > -1) {
-      //myDebug() << "MainWindow invoking" << meta->method(idx).signature();
+//      myDebug() << "MainWindow invoking" << meta->method(idx).methodSignature();
       meta->method(idx).invoke(w, Qt::DirectConnection);
+      break;
+    } else {
+//      myDebug() << "did not find" << slot_ << "in" << meta->className();
+      w = qobject_cast<QWidget*>(w->parent());
     }
   }
 }
@@ -1595,7 +1660,7 @@ void MainWindow::slotUpdateCollectionToolBar(Tellico::Data::CollPtr coll_) {
   // TODO::I have no idea how to get the combobox to update its size
   // this is the hackiest of hacks, taken from KXmlGuiWindow::saveNewToolbarConfig()
   // the window flickers as toolbar resizes, unavoidable?
-  // crashes if removeCLient//addClient is called here, need to do later in event loop
+  // crashes if removeClient//addClient is called here, need to do later in event loop
   QTimer::singleShot(0, this, &MainWindow::guiFactoryReset);
 }
 
@@ -1631,34 +1696,6 @@ void MainWindow::slotHideReportDialog() {
     m_reportDlg->deleteLater();
     m_reportDlg = nullptr;
   }
-}
-
-void MainWindow::doPrint(const QString& html_) {
-  KHTMLPart w;
-
-  // KHTMLPart printing was broken in KDE until KHTML 5.16
-  // see https://git.reviewboard.kde.org/r/125681/
-  const QString version =  w.componentData().version();
-  const uint major = version.section(QLatin1Char('.'), 0, 0).toUInt();
-  const uint minor = version.section(QLatin1Char('.'), 1, 1).toUInt();
-  if(major == 5 && minor < 16) {
-    myWarning() << "Printing is broken for KDE Frameworks < 5.16. Please upgrade";
-    return;
-  }
-
-  w.setJScriptEnabled(false);
-  w.setJavaEnabled(false);
-  w.setMetaRefreshEnabled(false);
-  w.setPluginsEnabled(false);
-  w.begin(Data::Document::self()->URL());
-  w.write(html_);
-  w.end();
-
-// the problem with doing my own layout is that the text gets truncated, both at the
-// top and at the bottom. Even adding the overlap parameter, there were problems.
-// KHTMLView takes care of that with a truncatedAt() parameter, but that's hidden in
-// the khtml::render_root class. So for now, just use the KHTMLView::print() method.
-  w.view()->print();
 }
 
 void MainWindow::XSLTError() {
@@ -1736,23 +1773,23 @@ void MainWindow::setFilter(const QString& text_) {
     }
     // if the text contains any non-word characters, assume it's a regexp
     // but \W in qt is letter, number, or '_', I want to be a bit less strict
-    QRegExp rx(QLatin1String("[^\\w\\s-']"));
-    if(rx.indexIn(text) == -1) {
+    QRegularExpression rx(QLatin1String("[^\\w\\s\\-']"));
+    if(!rx.match(text).hasMatch()) {
       // split by whitespace, and add rules for each word
-      const QStringList tokens = text.split(QRegExp(QLatin1String("\\s")));
+      const QStringList tokens = text.split(QRegularExpression(QLatin1String("\\s")));
       foreach(const QString& token, tokens) {
         // an empty field string means check every field
         filter->append(new FilterRule(fieldName, token, FilterRule::FuncContains));
       }
     } else {
       // if it isn't valid, hold off on applying the filter
-      QRegExp tx(text);
+      QRegularExpression tx(text);
       if(!tx.isValid()) {
-        text = QRegExp::escape(text);
+        text = QRegularExpression::escape(text);
         tx.setPattern(text);
       }
       if(!tx.isValid()) {
-        myDebug() << "invalid regexp:" << text;
+        myDebug() << "invalid regular expression:" << text;
         return;
       }
       filter->append(new FilterRule(fieldName, text, FilterRule::FuncRegExp));
@@ -2133,15 +2170,11 @@ void MainWindow::updateCaption(bool modified_) {
        caption += QLatin1String(" - ");
     }
     QUrl u = Data::Document::self()->URL();
-    if(u.isLocalFile()) {
+    if(u.isLocalFile() && u.fileName() == i18n(Tellico::untitledFilename)) {
       // for new files, the filename is set to Untitled in Data::Document
-      if(u.fileName() == i18n(Tellico::untitledFilename)) {
-        caption += u.fileName();
-      } else {
-        caption += u.path();
-      }
+      caption += u.fileName();
     } else {
-      caption += u.toDisplayString();
+      caption += u.toDisplayString(QUrl::PreferLocalFile);
     }
   }
   setCaption(caption, modified_);
@@ -2233,7 +2266,7 @@ void MainWindow::updateEntrySources() {
 
   Fetch::FetcherVec vec = Fetch::Manager::self()->fetchers(Kernel::self()->collectionType());
   foreach(Fetch::Fetcher::Ptr fetcher, vec) {
-    QAction* action = new QAction(Fetch::Manager::fetcherIcon(fetcher), fetcher->source(), actionCollection());
+    QAction* action = new QAction(Fetch::Manager::fetcherIcon(fetcher.data()), fetcher->source(), actionCollection());
     action->setToolTip(i18n("Update entry data from %1", fetcher->source()));
     void (QAction::* triggeredBool)(bool) = &QAction::triggered;
     void (QSignalMapper::* mapVoid)() = &QSignalMapper::map;

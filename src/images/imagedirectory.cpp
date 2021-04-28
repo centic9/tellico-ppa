@@ -53,14 +53,6 @@ ImageDirectory::~ImageDirectory() {
 }
 
 QString ImageDirectory::path() {
-  if(m_path.isEmpty()) {
-    // an empty path means the file hasn't been saved yet
-    if(!m_dir) {
-      m_dir = new QTemporaryDir(); // default is to auto-delete, aka autoRemove()
-    }
-    // in KDE4, the way this worked included the final slash.
-    setPath(m_dir->path() + QLatin1Char('/'));
-  }
   return m_path;
 }
 
@@ -147,30 +139,25 @@ void TemporaryImageDirectory::setPath(const QString& path) {
   Q_ASSERT(path.isEmpty()); // should never be called, that's why it's private
 }
 
-ImageZipArchive::ImageZipArchive() : ImageStorage(), m_zip(nullptr), m_imgDir(nullptr) {
+ImageZipArchive::ImageZipArchive() : ImageStorage(), m_imgDir(nullptr) {
 }
 
 ImageZipArchive::~ImageZipArchive() {
-  delete m_zip;
-  m_zip = nullptr;
 }
 
-void ImageZipArchive::setZip(KZip* zip_) {
+void ImageZipArchive::setZip(std::unique_ptr<KZip> zip_) {
   m_images.clear();
-  delete m_zip;
-  m_zip = zip_;
+  m_zip = std::move(zip_);
   m_imgDir = nullptr;
 
   const KArchiveDirectory* dir = m_zip->directory();
   if(!dir) {
-    delete m_zip;
-    m_zip = nullptr;
+    m_zip.reset();
     return;
   }
   const KArchiveEntry* imgDirEntry = dir->entry(QStringLiteral("images"));
   if(!imgDirEntry || !imgDirEntry->isDirectory()) {
-    delete m_zip;
-    m_zip = nullptr;
+    m_zip.reset();
     return;
   }
   m_imgDir = static_cast<const KArchiveDirectory*>(imgDirEntry);
@@ -195,8 +182,7 @@ Tellico::Data::Image* ImageZipArchive::imageById(const QString& id_) {
   // all images are read, we need to consider the image gone now
   m_images.remove(id_);
   if(m_images.isEmpty()) {
-    delete m_zip;
-    m_zip = nullptr;
+    m_zip.reset();
     m_imgDir = nullptr;
   }
   if(!img) {

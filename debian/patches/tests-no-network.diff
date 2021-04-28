@@ -3,10 +3,12 @@ Description: Make sure the network is considered unavailable.
 Last-Updated: 2020-04-23
 Forwarded: not-needed
 
---- a/src/tests/tellicoreadtest.cpp
-+++ b/src/tests/tellicoreadtest.cpp
-@@ -46,11 +46,13 @@ QTEST_GUILESS_MAIN( TellicoReadTest )
- #define TELLICOREAD_NUMBER_OF_CASES 10
+Index: git/src/tests/tellicoreadtest.cpp
+===================================================================
+--- git.orig/src/tests/tellicoreadtest.cpp	2021-04-28 17:18:23.884872780 +0200
++++ git/src/tests/tellicoreadtest.cpp	2021-04-28 17:18:23.880872767 +0200
+@@ -49,11 +49,13 @@
+ #define TELLICOREAD_NUMBER_OF_CASES 11
  
  static bool hasNetwork() {
 +#if 0
@@ -19,8 +21,10 @@ Forwarded: not-needed
    return false;
  }
  
---- a/src/tests/imagejobtest.cpp
-+++ b/src/tests/imagejobtest.cpp
+Index: git/src/tests/imagejobtest.cpp
+===================================================================
+--- git.orig/src/tests/imagejobtest.cpp	2021-04-28 17:18:23.884872780 +0200
++++ git/src/tests/imagejobtest.cpp	2021-04-28 17:18:23.880872767 +0200
 @@ -37,11 +37,13 @@
  QTEST_GUILESS_MAIN( ImageJobTest )
  

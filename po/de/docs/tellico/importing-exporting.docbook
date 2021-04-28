@@ -98,20 +98,65 @@
 > wird die gerade geöffnete Sammlung geschlossen und mit den importierten Daten eine neue Sammlung erstellt. Mit <guilabel
 >Zur aktuellen Sammlung hinzufügen</guilabel
 > werden alle importierten Daten einschließlich aller noch nicht vorhandene Felder in die geöffnete Sammlung eingefügt . <guilabel
->Mit aktueller Sammlung verschmelzen</guilabel
-> funktioniert wie das Hinzufügen, nur dass dabei jedes importierte Feld mit den bereits vorhandenen Felder verglichen wird und alle identische Einträge übersprungen werden. Für zukünftige Programmversionen ist eine verbessertes Verfahren zur Erkennung von identischen Einträgen geplant. Mit Ausnahme von Musik-Sammlungen müssen zurzeit alle Felder identisch sein. Bei Musik-Sammlungen wird nur der Künstler und das Album verglichen, bei gleichen Einträgen werden die Stücke zusammenfügt. Mit dem <link linkend="importing-audio-files"
+>Mit Sammlung zusammenführen </guilabel
+> funktioniert wie das Hinzufügen, nur dass dabei jedes importierte Feld mit den bereits vorhandenen Felder verglichen wird und alle identische Einträge übersprungen werden. Dabei werden bei passenden, aber nicht vollständig identischen Einträgen signifikante Felder verglichen und dann zusammengeführt. Bei Musik-Sammlungen wird zum Beispiel nur der Künstler und das Album verglichen, bei gleichen Einträgen werden die Stücke zusammenfügt. Mit dem <link linkend="importing-audio-files"
 >Audio-Importmodul</link
 > können korrekte Stücklisten durch Zusammenfügen von Einträgen erstellt werden. </para>
 
-<sect2 id="importing-tellico">
+<sect2 id="alternate-software">
+<title
+>Datenimport von anderen Programmen</title>
+
+<para
+>&appname; kann Daten direkt von anderen Anwendungen zur Verwaltung von Sammlungen importieren, einschließlich <application
+><ulink url="http://www.gcstar.org"
+>GCstar</ulink
+></application
+>, <application
+><ulink url="https://github.com/mvz/alexandria-book-collection-manager"
+>Alexandria</ulink
+></application
+>, <application
+><ulink url="https://www.delicious-monster.com"
+>Delicious Library</ulink
+></application
+>, <application
+><ulink url="http://www.antp.be/software/moviecatalog/"
+>Ant Movie Catalog</ulink
+></application
+>, <application
+><ulink url="https://en.wikipedia.org/wiki/Referencer"
+>Referencer</ulink
+></application
+> und <application
+><ulink url="https://launchpad.net/griffith"
+>Griffith</ulink
+></application
+>.</para>
+
+</sect2>
+
+<sect2 id="import-data-files">
+<title
+>Andere Datenformate importieren</title>
+<para
+>&appname; kann Daten aus eine Vielzahl von Dateiformaten importieren, einschließlich <acronym
+>CSV</acronym
+>, Bibtex, Audio-CDS, <acronym
+>MODS</acronym
+>, &PDF;, und <acronym
+>RIS</acronym
+>.</para>
+
+<sect3 id="importing-tellico">
 <title
 >&appname;-Daten importieren</title>
 
 <para
->Auch andere &appname;-Datendateien können importiert werden. Ersetzen Sie die gerade geöffnete Sammlung durch eine importierte &appname;-Datei, dann entspricht das dem normalen Öffnen der Datei. Die Importfunktion von &appname; sollte in erster Linie dazu benutzt werden, Daten anzufügen oder zwei Sammlungen zusammenzulegen. </para>
-</sect2>
+>Auch andere &appname;-Datendateien können direkt importiert werden. Ersetzen Sie die gerade geöffnete Sammlung durch eine importierte &appname;-Datei, dann entspricht das dem normalen Öffnen der Datei. Die Importfunktion von &appname; sollte in erster Linie dazu benutzt werden, Daten anzufügen oder zwei Sammlungen zusammenzulegen. </para>
+</sect3>
 
-<sect2 id="importing-csv">
+<sect3 id="importing-csv">
 <title
 >CSV-Daten importieren</title>
 
@@ -148,11 +193,11 @@
 >. </para>
 
 <para
->Nur die ersten fünf Zeilen der importierten CSV-Datei werden im Dialog angezeigt. </para>
+>Nur die ersten fünf Zeilen der importierten CSV-Datei werden im Dialog angezeigt, es werden aber alle Zeilen in der Datei importiert. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-audio">
+<sect3 id="importing-audio">
 <title
 >Audio-&CD;-Daten importieren</title>
 
@@ -163,9 +208,9 @@
 
 <para
 >Zusätzlich wird ein &CD;-Text, der auf der CD enthalten ist, eingelesen und zu den importierten Daten hinzugefügt. </para>
-</sect2>
+</sect3>
 
-<sect2 id="importing-audio-files">
+<sect3 id="importing-audio-files">
 <title
 >Audio-Datei-Metadaten importieren </title>
 
@@ -184,52 +229,22 @@
 > in der Datei als Coverbild für das Album benutzt. </para>
 
 <para
->Das Modul zum Importieren von Metadaten aus Audio-Dateien durchsucht rekursiv einen Ordner und alle Unterordner nach Audio-Dateien, aber folgt keinen symbolischen Verknüpfungen. &appname; verwendet die <ulink url="http://developer.kde.org/~wheeler/taglib.html"
+>Das Modul zum Importieren von Metadaten aus Audio-Dateien durchsucht rekursiv einen Ordner und alle Unterordner nach Audio-Dateien, aber folgt keinen symbolischen Verknüpfungen. &appname; verwendet die <ulink url="https://taglib.org"
 >TagLib-Bibliothek</ulink
 >, um die Metadaten der  Audio-Dateien auszulesen und kann Daten von allen Dateitypen importieren, die TagLib-Bibliothek verarbeitet. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-alexandria">
-<title
->Alexandria-Bibliotheken importieren</title>
-
-<para
-><application
-><ulink url="http://alexandria.rubyforge.org"
->Alexandria</ulink
-></application
-> ist eine andere Sammlungsverwaltung für Bücher für die <ulink url="http://www.gnome.org"
->GNOME</ulink
->-Arbeitsumgebung. Beim Importieren können Sie auswählen, welcher der in <filename class="directory"
->$<envar
->HOME</envar
->/.alexandria/</filename
-> gefundenen Dateien eingefügt werden sollen.. </para>
-
-</sect2>
-
-<sect2 id="importing-amc">
-<title
->„Ant Movie Catalog“-Daten importieren </title>
-
-<para
-><application
-><ulink url="http://www.antp.be/software/moviecatalog/"
->Ant Movie Catalog</ulink
-></application
-> ist ein weiteres Programm zur Verwaltung von Filmdaten. </para>
-
-</sect2>
-
-<sect2 id="importing-bibtex">
+<sect3 id="importing-bibtex">
 <title
 >Bibtex-Daten importieren</title>
 
 <para
 ><ulink url="http://en.wikipedia.org/wiki/Bibtex"
 >Bibtex</ulink
-> ist ein Format für Literaturverzeichnisse, das mit dem LaTeX-Dokumentsystem benutzt wird. Viele Arten von Literaturnachweisen können in der Datei enthalten sein. &appname; importiert Bibtex-Dateien als Literaturverzeichnisse. </para>
+> ist ein Format für Literaturverzeichnisse, das mit dem LaTeX-Dokumentsystem benutzt wird. Viele Arten von Literaturnachweisen können in der Datei enthalten sein. &appname; importiert Bibtex-Dateien als <link linkend="bibliography"
+>Literaturverzeichnisse</link
+>. </para>
 
 <para
 >Treten beim Bibtex-Import Felder in der Importdatei auf, die in den Standardfeldern eines Literaturverzeichnisses nicht enthalten sind, werden diese Felder mit zwei Ausnahmen als <link linkend="line"
@@ -241,73 +256,14 @@
 >-Feld erstellt. &appname; benutzt eine interne Kopie der Bibliothek <ulink url="http://www.gerg.ca/software/btOOL/"
 >btparse</ulink
 > zum Lesen von Bibtex-Dateien. </para>
-</sect2>
-
-<sect2 id="importing-bibtexml">
-<title
->Bibtexml-Daten importieren</title>
 
 <para
 ><ulink url="http://bibtexml.sf.net"
 >Bibtexml</ulink
 > sind Bibtex-Daten im &XML;-Format. Die Daten einer importierten Bibtexml-Datei werden wie Bibtex-Daten verarbeitet. </para>
-</sect2>
+</sect3>
 
-<sect2 id="importing-delicious-library">
-<title
->Delicious-Bibliotheksdaten importieren </title>
-
-<para
-><application
-><ulink url="http://www.delicious-monster.com/"
->Delicious Library</ulink
-></application
-> ist eine weitere Sammlungsverwaltung für  &Mac; OS X. &appname; import eine Teilmenge der Daten, die in der Delicious-Bibliothek gespeichert sind. </para>
-</sect2>
-
-<sect2 id="importing-gcstar">
-<title
->GCstar-Daten importieren</title>
-
-<para
-><application
-><ulink url="http://www.gcstar.org"
->GCstar</ulink
-></application
-> ist eine weitere Sammlungsverwaltung. Der Import von Buch-, Film-, Musik-, Münz-, Spiel-, Brettspiel- und Weinsammlungen ist möglich. </para>
-
-<para
->&appname; kann auch <application
->GCfilms</application
->-Datendateien importieren. <application
-><ulink url="http://home.gna.org/gcfilms/"
->GCfilms</ulink
-></application
-> ist der Vorgänger von <application
->GCstar</application
-> und war eine weitere Sammlungsverwaltung für Filme. Normalerweise werden <application
->GCfilms</application
->-Datendateien in <filename class="directory"
->$<envar
->HOME</envar
->/.local/share/gcfilms/</filename
-> gespeichert. </para>
-
-</sect2>
-
-<sect2 id="importing-griffith">
-<title
->Griffith-Daten importieren</title>
-
-<para
-><application
-><ulink url="http://griffith.berlios.de/"
->Griffith</ulink
-></application
-> ist eine Verwaltung für Videodaten. &appname; kann die meisten Daten einer Griffith-Datenbank importieren. </para>
-</sect2>
-
-<sect2 id="importing-mods">
+<sect3 id="importing-mods">
 <title
 >MODS-Daten importieren</title>
 
@@ -316,52 +272,77 @@
 ><ulink url="http://www.loc.gov/standards/mods/"
 >MODS</ulink
 ></acronym
-> ist ein Format für verschiedenen Arten von Mediensammlungen. Zur Zeit werden nur Bücher als Literaturverzeichnisse durch &appname; importiert. </para>
+> ist ein Format für verschiedenen Arten von Mediensammlungen. Zur Zeit werden nur Bücher als <link linkend="bibliography"
+>Literaturverzeichnisse</link
+> durch &appname; importiert. </para>
 
-</sect2>
+</sect3>
 
-<sect2 id="importing-pdf">
+<sect3 id="importing-pdf">
 <title
->PDF-Daten importieren</title>
+>&PDF;-Daten importieren</title>
 <para
 >Wenn &appname; mit den Bibliotheken <emphasis
 >exempi</emphasis
 > oder <emphasis
 >poppler</emphasis
-> kompiliert wurde, können Metadaten aus PDF-Dateien importiert werden. Metadaten enthalten den Titel, Autor und Datumsinformationen wie auch Bezeichner für Literaturverzeichnisse, die für die Aktualisierung anderer Daten verwendet werden können. </para>
-</sect2>
+> kompiliert wurde, können Metadaten aus &PDF;-Dateien importiert werden. Metadaten enthalten den Titel, Autor und Datumsinformationen wie auch Bezeichner für Literaturverzeichnisse, die für die Aktualisierung anderer Daten verwendet werden können. </para>
+</sect3>
 
-<sect2 id="importing-referencer">
-<title
->Referencer-Daten importieren</title>
-<para
-><application
-><ulink url="http://icculus.org/referencer/"
->Referencer</ulink
-></application
-> ist ein Programm zur Organisation von Dokumenten und Verwaltung von Literaturverzeichnisses für die GNOME-Abeitsplatzumgebung. &appname; kann den größten Teil der Daten aus einer Referencer-Datenbank importieren. </para>
-</sect2>
-
-<sect2 id="importing-ris">
+<sect3 id="importing-ris">
 <title
 >RIS-Daten importieren</title>
 <para
->Das <ulink url="http://www.adeptscience.co.uk/kb/article/A626"
+>Das <ulink url="https://en.wikipedia.org/wiki/RIS_(file_format)"
 ><acronym
 >RIS</acronym
 >-Format</ulink
 > ist ein Format für Literaturverzeichnisse, das von <application
+>EndNote</application
+>, <application
 >Reference Manager</application
-> und weiteren Programmen verwendet wird. &appname; importiert RIS-Dateien als Literaturverzeichnisse. </para>
+> und weiteren Programmen verwendet wird. &appname; importiert RIS-Dateien als <link linkend="bibliography"
+>Literaturverzeichnisse</link
+>. </para>
+</sect3>
+
 </sect2>
 
-<sect2 id="importing-goodreads">
+<sect2 id="import-online-collection">
+<title
+>Online-Sammlungen importieren</title>
+<para
+>&appname; kann Verbindungen zu Webseiten herstellen und Daten davon importieren, auf denen persönliche Sammlungen verwaltet werden.</para>
+
+<sect3 id="importing-boardgamegeek">
+<title
+>BoardGameGee-Sammlung importieren</title>
+<para
+><ulink url="https://boardgamegeek.com"
+>BoardGameGeek</ulink
+> ist eine Online-Ressource und -Gemeinschaft für Brettspiele. &appname; kann die Brettspiele in eine eigene Sammlung importieren, wenn die Sammlung öffentlich verfügbar ist. Sie importierte Sammlung kann auf eigene Einträge begrenzt werden. </para>
+</sect3>
+
+<sect3 id="importing-goodreads">
 <title
 >Goodreads-Sammlung importieren</title>
 <para
-><ulink url="http://www.goodreads.com"
+><ulink url="https://www.goodreads.com"
 >Goodreads</ulink
 > ist eine soziales Netzwerk von Lesern im Internet mit Informationen über Bücher-Sammlungen. &appname; kann die Liste der Bücher aus der Sammlung eines Benutzers importieren, wenn entweder der Benutzername oder die Benutzerkennung angegeben wurde und die Sammlung allgemein zugänglich ist. </para>
+</sect3>
+
+<sect3 id="importing-librarything">
+<title
+>LibraryThing-Sammlungen importieren</title>
+<para
+><ulink url="https://www.librarything.com"
+>LibraryThing</ulink
+> ist ein Online-Dienst, um Bücher einfach zu katalogisieren. Listen von Büchern, die im <ulink url="https://www.librarything.com/export.php?export_type=json"
+>JSON-Format</ulink
+> exportiert werden, in eine eigene Sammlung importieren. </para>
+</sect3>
+
 </sect2>
 
 <sect2 id="importing-file-listing">
@@ -393,11 +374,11 @@
 <para
 >Das Ziehen und Ablegen von Datendateien in das Hauptfenster von &appname; importiert diese Dateien genauso wie mit dem <link linkend="importing"
 >Import-Befehl</link
-> aus dem Menü. Ziehen und Ablegen funktioniert mit den Dateiformaten Tellico, Bibtex, RIS, und PDF. Auch der Import mehrerer Dateien auf einmal ist möglich.</para>
+> aus dem Menü. Ziehen und Ablegen funktioniert mit den Dateiformaten Tellico, Bibtex, RIS, und &PDF;. Auch der Import mehrerer Dateien auf einmal ist möglich.</para>
 
 <para
 >Möchten Sie zum Beispiel mehrere <link linkend="importing-pdf"
->PDF-Dateien</link
+>&PDF;-Dateien</link
 > in eine Sammlung einfügen, wählen Sie diese Dateien im Dateiverwaltungsprogramm aus und ziehen Sie sie in das Hauptfenster von &appname;. &appname; wird dann möglichst viele Metadaten aus den Dateien importieren und dann zusätzliche Informationen von den eingerichteten Internet-Datenquellen abfragen.</para>
 
 </sect1>
@@ -554,17 +535,6 @@
 ></textobject>
 </mediaobject>
 </screenshot>
-</sect2>
-
-<sect2 id="exporting-bibtexml">
-<title
->Export als Bibtexml</title>
-
-<para
-><ulink url="http://bibtexml.sourceforge.net"
->Bibtexml</ulink
-> ist ein Format von Bibtex-Daten als &XML;-Datei. </para>
-
 </sect2>
 
 <sect2 id="exporting-gcstar">

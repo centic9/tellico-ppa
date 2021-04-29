@@ -5,8 +5,8 @@ Forwarded: not-needed
 
 Index: git/src/tests/tellicoreadtest.cpp
 ===================================================================
---- git.orig/src/tests/tellicoreadtest.cpp	2021-04-28 17:18:23.884872780 +0200
-+++ git/src/tests/tellicoreadtest.cpp	2021-04-28 17:18:23.880872767 +0200
+--- git.orig/src/tests/tellicoreadtest.cpp	2021-04-29 06:39:15.126360460 +0200
++++ git/src/tests/tellicoreadtest.cpp	2021-04-29 06:39:15.122360452 +0200
 @@ -49,11 +49,13 @@
  #define TELLICOREAD_NUMBER_OF_CASES 11
  
@@ -23,10 +23,28 @@ Index: git/src/tests/tellicoreadtest.cpp
  
 Index: git/src/tests/imagejobtest.cpp
 ===================================================================
---- git.orig/src/tests/imagejobtest.cpp	2021-04-28 17:18:23.884872780 +0200
-+++ git/src/tests/imagejobtest.cpp	2021-04-28 17:18:23.880872767 +0200
+--- git.orig/src/tests/imagejobtest.cpp	2021-04-29 06:39:15.126360460 +0200
++++ git/src/tests/imagejobtest.cpp	2021-04-29 06:39:15.122360452 +0200
 @@ -37,11 +37,13 @@
  QTEST_GUILESS_MAIN( ImageJobTest )
+ 
+ static bool hasNetwork() {
++#if 0
+   foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
+     if(net.flags().testFlag(QNetworkInterface::IsUp) && !net.flags().testFlag(QNetworkInterface::IsLoopBack)) {
+       return true;
+     }
+   }
++#endif
+   return false;
+ }
+ 
+Index: git/src/tests/goodreadstest.cpp
+===================================================================
+--- git.orig/src/tests/goodreadstest.cpp	2021-04-29 06:39:17.390364834 +0200
++++ git/src/tests/goodreadstest.cpp	2021-04-29 06:39:28.694386680 +0200
+@@ -40,11 +40,13 @@
+ QTEST_GUILESS_MAIN( GoodreadsTest )
  
  static bool hasNetwork() {
 +#if 0

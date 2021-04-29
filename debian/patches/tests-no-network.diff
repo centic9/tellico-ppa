@@ -5,8 +5,8 @@ Forwarded: not-needed
 
 Index: git/src/tests/tellicoreadtest.cpp
 ===================================================================
---- git.orig/src/tests/tellicoreadtest.cpp	2021-04-29 06:39:15.126360460 +0200
-+++ git/src/tests/tellicoreadtest.cpp	2021-04-29 06:39:15.122360452 +0200
+--- git.orig/src/tests/tellicoreadtest.cpp	2021-04-29 07:20:30.263271567 +0200
++++ git/src/tests/tellicoreadtest.cpp	2021-04-29 07:20:30.259271561 +0200
 @@ -49,11 +49,13 @@
  #define TELLICOREAD_NUMBER_OF_CASES 11
  
@@ -23,8 +23,8 @@ Index: git/src/tests/tellicoreadtest.cpp
  
 Index: git/src/tests/imagejobtest.cpp
 ===================================================================
---- git.orig/src/tests/imagejobtest.cpp	2021-04-29 06:39:15.126360460 +0200
-+++ git/src/tests/imagejobtest.cpp	2021-04-29 06:39:15.122360452 +0200
+--- git.orig/src/tests/imagejobtest.cpp	2021-04-29 07:20:30.263271567 +0200
++++ git/src/tests/imagejobtest.cpp	2021-04-29 07:20:30.259271561 +0200
 @@ -37,11 +37,13 @@
  QTEST_GUILESS_MAIN( ImageJobTest )
  
@@ -41,8 +41,8 @@ Index: git/src/tests/imagejobtest.cpp
  
 Index: git/src/tests/goodreadstest.cpp
 ===================================================================
---- git.orig/src/tests/goodreadstest.cpp	2021-04-29 06:39:17.390364834 +0200
-+++ git/src/tests/goodreadstest.cpp	2021-04-29 06:39:28.694386680 +0200
+--- git.orig/src/tests/goodreadstest.cpp	2021-04-29 07:20:30.263271567 +0200
++++ git/src/tests/goodreadstest.cpp	2021-04-29 07:20:30.259271561 +0200
 @@ -40,11 +40,13 @@
  QTEST_GUILESS_MAIN( GoodreadsTest )
  
@@ -57,3 +57,23 @@ Index: git/src/tests/goodreadstest.cpp
    return false;
  }
  
+Index: git/src/tests/newstufftest.cpp
+===================================================================
+--- git.orig/src/tests/newstufftest.cpp	2021-04-28 17:10:19.355099933 +0200
++++ git/src/tests/newstufftest.cpp	2021-04-29 07:23:22.775569947 +0200
+@@ -36,6 +36,7 @@
+ }
+ 
+ void NewStuffTest::testConnection() {
++#if 0
+   auto conn = QDBusConnection::sessionBus();
+   QVERIFY(conn.isConnected());
+   auto obj = conn.objectRegisteredAt(QStringLiteral("/NewStuff"));
+@@ -49,6 +50,7 @@
+   msg.setArguments(QVariantList() << QString()); // one arg, file to install
+   auto reply = conn.call(msg);
+   QVERIFY(reply.type() == QDBusMessage::ReplyMessage);
++#endif
+ }
+ 
+ void NewStuffTest::testNewStuff() {

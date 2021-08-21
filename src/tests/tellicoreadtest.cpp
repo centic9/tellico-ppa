@@ -22,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h>
 #include "tellicoreadtest.h"
 
 #include "../translators/tellicoimporter.h"
@@ -32,16 +33,19 @@
 #include "../collectionfactory.h"
 #include "../translators/tellicoxmlexporter.h"
 #include "../translators/tellico_xml.h"
+#include "../translators/xslthandler.h"
 #include "../images/imagefactory.h"
 #include "../images/image.h"
 #include "../fieldformat.h"
 #include "../entry.h"
+#include "../document.h"
 #include "../utils/xmlhandler.h"
 
 #include <QTest>
 #include <QNetworkInterface>
 #include <QDate>
 #include <QTextCodec>
+#include <QStandardPaths>
 
 QTEST_GUILESS_MAIN( TellicoReadTest )
 
@@ -49,15 +53,18 @@ QTEST_GUILESS_MAIN( TellicoReadTest )
 #define TELLICOREAD_NUMBER_OF_CASES 11
 
 static bool hasNetwork() {
+#ifdef ENABLE_NETWORK_TESTS
   foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
     if(net.flags().testFlag(QNetworkInterface::IsUp) && !net.flags().testFlag(QNetworkInterface::IsLoopBack)) {
       return true;
     }
   }
+#endif
   return false;
 }
 
 void TellicoReadTest::initTestCase() {
+  QStandardPaths::setTestModeEnabled(true);
   // need to register this first
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
@@ -498,4 +505,58 @@ void TellicoReadTest::testFutureVersion() {
 
   QVERIFY(!coll);
   QVERIFY(!importer.statusMessage().isEmpty());
+}
+
+void TellicoReadTest::testRelativeLink() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QSL("data/relative-link.xml")));
+
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  QVERIFY(coll);
+  QVERIFY(coll->hasField(QStringLiteral("url")));
+  Tellico::Data::EntryPtr entry = coll->entries().at(0);
+  QVERIFY(entry);
+  QCOMPARE(entry->field(QStringLiteral("url")), QLatin1String("collectorz/image.png"));
+
+  Tellico::XSLTHandler handler(QFile::encodeName(QFINDTESTDATA("data/output-url.xsl")));
+  QVERIFY(handler.isValid());
+
+  Tellico::Data::Document::self()->setURL(url); // set the base url
+  QUrl expected = url.resolved(QUrl(QLatin1String("collectorz/image.png")));
+
+  Tellico::Export::TellicoXMLExporter exp(coll);
+  exp.setEntries(coll->entries());
+  QString output = handler.applyStylesheet(exp.text());
+  // first, the link should remain completely relative
+  QVERIFY(output.contains(QLatin1String("href=\"collectorz/image.png")));
+
+  exp.setOptions(exp.options() | Tellico::Export::ExportAbsoluteLinks);
+  output = handler.applyStylesheet(exp.text());
+  // now, the link should be absolute
+  QVERIFY(output.contains(expected.url()));
+}
+
+void TellicoReadTest::testEmptyFirstTableRow() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QSL("data/table-empty-first-row.xml")));
+
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  QVERIFY(coll);
+  QVERIFY(coll->hasField(QStringLiteral("table")));
+  Tellico::Data::EntryPtr entry = coll->entries().at(0);
+  QVERIFY(entry);
+  const QStringList rows = Tellico::FieldFormat::splitTable(entry->field(QSL("table")));
+  QCOMPARE(rows.count(), 2);
+
+  Tellico::Export::TellicoXMLExporter exporter(coll);
+  exporter.setEntries(coll->entries());
+  Tellico::Import::TellicoImporter importer2(exporter.text());
+  Tellico::Data::CollPtr coll2 = importer2.collection();
+  QVERIFY(coll2);
+  Tellico::Data::EntryPtr entry2 = coll2->entries().at(0);
+  QVERIFY(entry2);
+  const QStringList rows2 = Tellico::FieldFormat::splitTable(entry2->field(QSL("table")));
+  QCOMPARE(rows2.count(), 2);
 }

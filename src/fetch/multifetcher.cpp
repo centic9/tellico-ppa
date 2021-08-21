@@ -25,7 +25,7 @@
 #include "multifetcher.h"
 #include "fetchmanager.h"
 #include "../entrycomparison.h"
-#include "../document.h"
+#include "../utils/mergeconflictresolver.h"
 #include "../gui/collectiontypecombo.h"
 #include "../tellico_debug.h"
 
@@ -56,7 +56,7 @@ bool MultiFetcher::canFetch(int type) const {
 
 bool MultiFetcher::canSearch(Fetch::FetchKey k) const {
   // can fetch anything supported by the first data source
-  return m_fetchers.isEmpty() || m_fetchers.front()->canSearch(k);;
+  return !m_fetchers.isEmpty() && m_fetchers.front()->canSearch(k);
 }
 
 void MultiFetcher::readConfigHook(const KConfigGroup& config_) {
@@ -146,7 +146,7 @@ void MultiFetcher::slotDone() {
     if(bestIndex > -1 && bestScore >= EntryComparison::ENTRY_GOOD_MATCH) {
       auto newEntry = m_matches.at(bestIndex);
 //      myDebug() << "...merging from" << newEntry->title() << "into" << entry->title();
-      Data::Document::mergeEntry(entry, newEntry);
+      Merge::mergeEntry(entry, newEntry);
     } else {
 //      myDebug() << "___no match for" << entry->title();
     }

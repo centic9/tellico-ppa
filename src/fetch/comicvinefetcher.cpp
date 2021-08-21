@@ -27,6 +27,7 @@
 #include "../translators/tellicoimporter.h"
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
+#include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -67,7 +68,7 @@ QString ComicVineFetcher::source() const {
 }
 
 QString ComicVineFetcher::attribution() const {
-  return i18n("This information was freely provided by <a href=\"https://comicvine.gamespot.com/\">Comic Vine</a>.");
+  return i18n(providedBy).arg(QLatin1String("https://comicvine.gamespot.com"), QLatin1String("Comic Vine"));
 }
 
 bool ComicVineFetcher::canFetch(int type) const {
@@ -228,10 +229,9 @@ ComicVineFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ComicVineFe
 
   int row = -1;
 
-  QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
-                               "If you agree to the terms and conditions, <a href='%2'>sign "
+  QLabel* al = new QLabel(i18n("Registration is required for accessing this data source. "
+                               "If you agree to the terms and conditions, <a href='%1'>sign "
                                "up for an account</a>, and enter your information below.",
-                                preferredName(),
                                 QLatin1String("http://api.comicvine.com")),
                           optionsWidget());
   al->setOpenExternalLinks(true);

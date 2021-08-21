@@ -29,6 +29,7 @@
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
 #include "../utils/tellico_utils.h"
+#include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -77,7 +78,7 @@ QString IGDBFetcher::source() const {
 }
 
 QString IGDBFetcher::attribution() const {
-  return i18n("This information was freely provided by <a href=\"https://igdb.com\">IGDB.com</a>.");
+  return i18n(providedBy).arg(QLatin1String("https://igdb.com"), QLatin1String("IGDB.com"));
 }
 
 bool IGDBFetcher::canSearch(Fetch::FetchKey k) const {
@@ -89,7 +90,7 @@ bool IGDBFetcher::canFetch(int type) const {
 }
 
 void IGDBFetcher::readConfigHook(const KConfigGroup& config_) {
-  QString k = config_.readEntry("Access Token");
+  const QString k = config_.readEntry("Access Token");
   if(!k.isEmpty()) {
     m_accessToken = k;
   }
@@ -503,7 +504,8 @@ void IGDBFetcher::markTime() const {
 }
 
 void IGDBFetcher::checkAccessToken() {
-  if(!m_accessToken.isEmpty() && m_accessTokenExpires > QDateTime::currentDateTimeUtc()) {
+  const QDateTime now = QDateTime::currentDateTimeUtc();
+  if(!m_accessToken.isEmpty() && m_accessTokenExpires > now) {
     // access token should be fine, nothing to do
     return;
   }
@@ -531,7 +533,7 @@ void IGDBFetcher::checkAccessToken() {
   m_accessToken = response.value(QLatin1String("access_token")).toString();
   const int expires = response.value(QLatin1String("expires_in")).toInt();
   if(expires > 0) {
-    m_accessTokenExpires = QDateTime::currentDateTimeUtc().addSecs(expires);
+    m_accessTokenExpires = now.addSecs(expires);
   }
 //  myDebug() << "Received access token" << m_accessToken << m_accessTokenExpires;
 }

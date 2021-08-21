@@ -90,6 +90,11 @@ QString SRUFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
 }
 
+// No Raw for now.
+bool SRUFetcher::canSearch(Fetch::FetchKey k) const {
+  return k == Title || k == Person || k == ISBN || k == Keyword || k == LCCN;
+}
+
 bool SRUFetcher::canFetch(int type) const {
   return type == Data::Collection::Book || type == Data::Collection::Bibtex;
 }
@@ -118,13 +123,12 @@ void SRUFetcher::readConfigHook(const KConfigGroup& config_) {
 }
 
 void SRUFetcher::search() {
+  m_started = true;
   if(m_host.isEmpty() || m_path.isEmpty() || m_format.isEmpty()) {
     myDebug() << "settings are not set!";
     stop();
     return;
   }
-
-  m_started = true;
 
   QUrl u;
   u.setScheme(QStringLiteral("http"));

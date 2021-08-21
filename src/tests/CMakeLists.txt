@@ -137,6 +137,7 @@ set(TELLICO_TEST_LIBS
 
 ecm_add_test(collectiontest.cpp
              ../document.cpp
+             ../utils/mergeconflictresolver.cpp
              ../translators/tellicoxmlexporter.cpp
              ../translators/tellicozipexporter.cpp
              ../translators/exporter.cpp
@@ -259,6 +260,31 @@ ecm_add_test(delicioustest.cpp
              ../translators/deliciousimporter.cpp
     TEST_NAME delicioustest
     LINK_LIBRARIES ${TELLICO_TEST_LIBS} translatorstest rtf2html-tellico
+)
+
+ecm_add_test(fieldwidgettest.cpp
+             ../gui/boolfieldwidget.cpp
+             ../gui/choicefieldwidget.cpp
+             ../gui/datefieldwidget.cpp
+             ../gui/datewidget.cpp
+             ../gui/spinbox.cpp
+             ../gui/linefieldwidget.cpp
+             ../gui/lineedit.cpp
+             ../gui/numberfieldwidget.cpp
+             ../gui/parafieldwidget.cpp
+             ../gui/ratingwidget.cpp
+             ../gui/ratingfieldwidget.cpp
+             ../gui/tablefieldwidget.cpp
+             ../gui/urlfieldwidget.cpp
+             ../gui/urlfieldlogic.cpp
+             ../gui/fieldwidget.cpp
+             ../document.cpp
+             ../fieldcompletion.cpp
+             ../translators/tellicoxmlexporter.cpp
+             ../translators/tellicozipexporter.cpp
+             ../translators/exporter.cpp
+    TEST_NAME fieldwidgettest
+    LINK_LIBRARIES translatorstest ${TELLICO_TEST_LIBS} KF5::XmlGui KF5::SonnetCore KF5::SonnetUi KF5::TextWidgets
 )
 
 ecm_add_test(filelistingtest.cpp
@@ -397,6 +423,25 @@ add_dependencies(fetcherstest tellico_config)
 if(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
   target_link_libraries(fetcherstest KF5::KIOGui)
 endif(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
+
+# the fetch library really depends on the GUI static library
+# but rather than linking all of that in, selectively choose the
+# specific classes used
+ecm_add_test(fetchertest.cpp
+             ../fetch/fetcherinitializer.cpp
+             ../gui/collectiontypecombo.cpp
+             ../gui/combobox.cpp
+             ../gui/kwidgetlister.cpp
+             ../gui/lineedit.cpp
+             ../gui/stringmapwidget.cpp
+             ../translators/adsimporter.cpp
+             ../translators/bibteximporter.cpp
+             ../translators/gcstarimporter.cpp
+             ../translators/grs1importer.cpp
+             ../translators/risimporter.cpp
+    TEST_NAME fetchertest
+    LINK_LIBRARIES fetch translatorstest ${TELLICO_TEST_LIBS} KF5::XmlGui KF5::SonnetCore KF5::SonnetUi
+)
 
 # the PDF importer uses CrossRefFetcher, so include the test near the fetchers section
 ecm_add_test(pdftest.cpp
@@ -709,6 +754,12 @@ ecm_add_test(themoviedbfetchertest.cpp
              ../fetch/themoviedbfetcher.cpp
     TEST_NAME themoviedbfetchertest
     LINK_LIBRARIES fetcherstest translatorstest translatorstest ${TELLICO_TEST_LIBS}
+)
+
+ecm_add_test(thetvdbfetchertest.cpp
+             ../fetch/thetvdbfetcher.cpp
+    TEST_NAME thetvdbfetchertest
+    LINK_LIBRARIES fetcherstest translatorstest ${TELLICO_TEST_LIBS}
 )
 
 ecm_add_test(tvmazefetchertest.cpp

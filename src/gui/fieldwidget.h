@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2003-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2003-2021 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -68,15 +68,13 @@ public:
   // only used by LineFieldWidget, really
   virtual void addCompletionObjectItem(const QString&) {}
 
-  // factory function
-  static FieldWidget* create(Data::FieldPtr field, QWidget* parent);
-
 public Q_SLOTS:
   virtual void insertDefault();
   void setEnabled(bool enabled);
 
 Q_SIGNALS:
   void valueChanged(Tellico::Data::FieldPtr field);
+  void fieldChanged(Tellico::Data::FieldPtr field);
 
 protected Q_SLOTS:
   void checkModified();
@@ -85,6 +83,7 @@ protected:
   QLabel* label() { return m_label; } // needed so the URLField can handle clicks on the label
   virtual QWidget* widget() = 0;
   void registerWidget();
+  void setField(Tellico::Data::FieldPtr field);
   virtual void setTextImpl(const QString& text) = 0;
   virtual void clearImpl() = 0;
 

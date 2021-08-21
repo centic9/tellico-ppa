@@ -30,6 +30,7 @@
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
 #include "../utils/tellico_utils.h"
+#include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -78,7 +79,7 @@ QString MobyGamesFetcher::source() const {
 }
 
 QString MobyGamesFetcher::attribution() const {
-  return i18n("This information was freely provided by <a href=\"https://mobygames.com\">MobyGames</a>.");
+  return i18n(providedBy).arg(QLatin1String("https://mobygames.com"), QLatin1String("MobyGames"));
 }
 
 bool MobyGamesFetcher::canSearch(Fetch::FetchKey k) const {
@@ -605,10 +606,9 @@ MobyGamesFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const MobyGamesFe
 
   int row = -1;
 
-  QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
-                               "If you agree to the terms and conditions, <a href='%2'>sign "
+  QLabel* al = new QLabel(i18n("Registration is required for accessing this data source. "
+                               "If you agree to the terms and conditions, <a href='%1'>sign "
                                "up for an account</a>, and enter your information below.",
-                                MobyGamesFetcher::defaultName(),
                                 QStringLiteral("https://www.mobygames.com/info/api")),
                           optionsWidget());
   al->setOpenExternalLinks(true);

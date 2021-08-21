@@ -25,6 +25,7 @@
 #include "chartmanager.h"
 #include "collectionsizereport.h"
 #include "groupsummaryreport.h"
+#include "yeardistributionreport.h"
 
 using Tellico::ChartManager;
 
@@ -37,6 +38,8 @@ ChartManager::ChartManager() {
   ChartReport* report = new CollectionSizeReport;
   m_chartReports.insert(report->uuid(), report);
   report = new GroupSummaryReport;
+  m_chartReports.insert(report->uuid(), report);
+  report = new YearDistributionReport;
   m_chartReports.insert(report->uuid(), report);
 }
 

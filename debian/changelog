@@ -1,3 +1,33 @@
+tellico (3.4.1-2) unstable; urgency=medium
+
+  * Disable fetchertest for now, as it is seems it tries to do network
+    connections; patch tests-disable-fetchertest.diff.
+
+ -- Pino Toscano <pino@debian.org>  Sat, 21 Aug 2021 11:48:56 +0200
+
+tellico (3.4.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards-Version to 4.6.0, no changes required.
+  * Update the build dependencies according to the upstream build system:
+    - bump extra-cmake-modules to 5.19.0
+    - add libqt5charts5-dev, qtwebengine5-dev, libkf5sonnet-dev, and
+      libkf5textwidgets-dev
+  * Update the patches:
+    - tests-no-network.diff: drop, the tests that may use the network are not
+      built anymore by default
+  * Stop adding custom LDFLAGS, as they are not needed anymore.
+  * Use execute_after_dh_auto_install to avoid invoking dh_auto_install
+    manually.
+  * Unregister tellico-script.knsrc, and tellico-template.knsrc as conffiles,
+    as they are no more in /etc.
+  * Few tests require a D-Bus session, so:
+    - add the dbus build dependency
+    - run dh_auto_test with dbus-run-session
+  * Update install files.
+
+ -- Pino Toscano <pino@debian.org>  Sat, 21 Aug 2021 10:17:16 +0200
+
 tellico (3.3.5-1) unstable; urgency=medium
 
   * New upstream release.

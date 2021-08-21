@@ -32,6 +32,8 @@
 #include <QValidator>
 #include <QBoxLayout>
 
+#include <limits>
+
 using Tellico::GUI::NumberFieldWidget;
 
 NumberFieldWidget::NumberFieldWidget(Tellico::Data::FieldPtr field_, QWidget* parent_)
@@ -57,8 +59,9 @@ void NumberFieldWidget::initLineEdit() {
 }
 
 void NumberFieldWidget::initSpinBox() {
-  // intentionally allow only positive numbers
-  m_spinBox = new GUI::SpinBox(-1, INT_MAX, this);
+  // intentionally allow only positive numbers. -1 means non empty
+  m_spinBox = new GUI::SpinBox(-1, std::numeric_limits<int>::max(), this);
+  m_spinBox->setValue(-1);
 #if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
   void (GUI::SpinBox::* textChanged)(const QString&) = &GUI::SpinBox::valueChanged;
 #else
@@ -90,7 +93,7 @@ void NumberFieldWidget::setTextImpl(const QString& text_) {
     if(ok) {
       // did just allow positive
       if(n < m_spinBox->minimum()+1) {
-        m_spinBox->setMinimum(INT_MIN+1);
+        m_spinBox->setMinimum(std::numeric_limits<int>::min()+1);
       }
       m_spinBox->setValue(n);
     }
@@ -119,7 +122,7 @@ void NumberFieldWidget::updateFieldHook(Tellico::Data::FieldPtr, Tellico::Data::
   const int widgetIndex = layout()->indexOf(widget());
   Q_ASSERT(widgetIndex > -1);
 
-  QString value = text();
+  const QString value = text();
   if(wasLineEdit && !nowLineEdit) {
     layout()->removeWidget(m_lineEdit);
     delete m_lineEdit;

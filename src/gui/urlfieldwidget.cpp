@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2005-2019 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2005-2021 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -24,7 +24,7 @@
 
 #include "urlfieldwidget.h"
 #include "../field.h"
-#include "../tellico_kernel.h"
+#include "../document.h"
 
 #include <KLineEdit>
 #include <KUrlRequester>
@@ -42,7 +42,7 @@ using Tellico::GUI::URLFieldWidget;
 QString URLFieldWidget::URLCompletion::makeCompletion(const QString& text_) {
   // KUrlCompletion::makeCompletion() uses an internal variable instead
   // of calling KUrlCompletion::dir() so need to set the base dir before completing
-  setDir(Kernel::self()->URL().adjusted(QUrl::PreferLocalFile | QUrl::RemoveFilename));
+  setDir(Data::Document::self()->URL().adjusted(QUrl::PreferLocalFile | QUrl::RemoveFilename));
   return KUrlCompletion::makeCompletion(text_);
 }
 
@@ -76,13 +76,21 @@ URLFieldWidget::~URLFieldWidget() {
 QString URLFieldWidget::text() const {
   // for comparison purposes and to be consistent with the file listing importer
   // I want the full url here, including the protocol
-  m_logic.setBaseUrl(Kernel::self()->URL());
+  m_logic.setBaseUrl(Data::Document::self()->URL());
   return m_logic.urlText(m_requester->url());
 }
 
 void URLFieldWidget::setTextImpl(const QString& text_) {
-  m_requester->setUrl(QUrl::fromUserInput(text_));
-  static_cast<KUrlLabel*>(label())->setUrl(text_);
+  if(text_.isEmpty()) {
+    m_requester->clear();
+    return;
+  }
+
+  QUrl url = m_logic.isRelative() ?
+             Data::Document::self()->URL().resolved(QUrl(text_)) :
+             QUrl::fromUserInput(text_);
+  m_requester->setUrl(url);
+  static_cast<KUrlLabel*>(label())->setUrl(url.url());
 }
 
 void URLFieldWidget::clearImpl() {
@@ -100,7 +108,7 @@ void URLFieldWidget::slotOpenURL() {
     return;
   }
   QDesktopServices::openUrl(m_logic.isRelative() ?
-                            Kernel::self()->URL().resolved(QUrl::fromUserInput(url)) :
+                            Data::Document::self()->URL().resolved(QUrl(url)) :
                             QUrl::fromUserInput(url));
 }
 

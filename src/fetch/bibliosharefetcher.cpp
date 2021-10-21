@@ -27,6 +27,7 @@
 #include "../entry.h"
 #include "../images/imagefactory.h"
 #include "../images/imageinfo.h"
+#include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -61,7 +62,7 @@ QString BiblioShareFetcher::source() const {
 
 // https://www.booknetcanada.ca/get-a-token
 QString BiblioShareFetcher::attribution() const {
-  return i18n("Data provided by <a href=\"https://www.booknetcanada.ca/biblioshare\">BNC BiblioShare</a>.");
+  return i18n(providedBy).arg(QLatin1String("https://www.booknetcanada.ca/biblioshare"), QLatin1String("BNC BiblioShare"));
 }
 
 bool BiblioShareFetcher::canFetch(int type) const {
@@ -168,10 +169,9 @@ BiblioShareFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const BiblioSha
   l->setColumnStretch(1, 10);
 
   int row = -1;
-  QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
-                               "If you agree to the terms and conditions, <a href='%2'>sign "
+  QLabel* al = new QLabel(i18n("Registration is required for accessing this data source. "
+                               "If you agree to the terms and conditions, <a href='%1'>sign "
                                "up for an account</a>, and enter your information below.",
-                                preferredName(),
                                 QStringLiteral("https://www.booknetcanada.ca/get-a-token")),
                           optionsWidget());
   al->setOpenExternalLinks(true);

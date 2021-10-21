@@ -26,20 +26,23 @@
 #define TELLICO_ENTRYMERGER_H
 
 #include "datavectors.h"
-#include "document.h"
+#include "utils/mergeconflictresolver.h"
 
 #include <QObject>
 
 namespace Tellico {
+  namespace Merge {
 
-class AskUserResolver : public MergeConflictResolver {
+class AskUserResolver : public ConflictResolver {
 public:
   AskUserResolver()  {};
   ~AskUserResolver() {};
-  virtual MergeConflictResolver::Result resolve(Data::EntryPtr entry1, Data::EntryPtr entry2, Data::FieldPtr field,
-                                                const QString& value1 = QString(), const QString& value2 = QString()) Q_DECL_OVERRIDE;
+  virtual ConflictResolver::Result resolve(Data::EntryPtr entry1, Data::EntryPtr entry2, Data::FieldPtr field,
+                                           const QString& value1 = QString(), const QString& value2 = QString()) Q_DECL_OVERRIDE;
 
 };
+
+} // end namespace Merge
 
 /**
  * @author Robby Stephenson
@@ -66,7 +69,7 @@ private:
   Data::EntryList m_entriesLeft;
   int m_origCount;
   bool m_cancelled;
-  MergeConflictResolver* m_resolver;
+  Merge::ConflictResolver* m_resolver;
 };
 
 } // end namespace

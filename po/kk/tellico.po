@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-03-15 03:12+0100\n"
+"POT-Creation-Date: 2021-05-09 01:45+0000\n"
 "PO-Revision-Date: 2013-07-11 02:26+0600\n"
 "Last-Translator: Sairan Kikkarin <sairan@computer.org>\n"
 "Language-Team: Kazakh <kde-i18n-doc@kde.org>\n"
@@ -27,29 +27,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sairan@computer.org"
 
-#. i18n: file: xslt/entry-templates/Default.xsl
-#, kde-format
-msgctxt "Default XSL Template"
-msgid "Default"
-msgstr "Әдетті"
-
 #. i18n: file: xslt/entry-templates/Album.xsl
 #, kde-format
 msgctxt "Album XSL Template"
 msgid "Album"
 msgstr "Альбом"
 
-#. i18n: file: xslt/entry-templates/Compact.xsl
+#. i18n: file: xslt/entry-templates/Default.xsl
 #, kde-format
-msgctxt "Compact XSL Template"
-msgid "Compact"
-msgstr "Ықшамды"
-
-#. i18n: file: xslt/entry-templates/Video.xsl
-#, kde-format
-msgctxt "Video XSL Template"
-msgid "Video"
-msgstr "Видео"
+msgctxt "Default XSL Template"
+msgid "Default"
+msgstr "Әдетті"
 
 #. i18n: file: xslt/entry-templates/Fancy.xsl
 #, kde-format
@@ -57,35 +45,17 @@ msgctxt "Fancy XSL Template"
 msgid "Fancy"
 msgstr "Әсем"
 
-#. i18n: file: xslt/report-templates/Column_View.xsl
+#. i18n: file: xslt/entry-templates/Video.xsl
 #, kde-format
-msgctxt "Column View XSL Template"
-msgid "Column View"
-msgstr "Бағанды көрініс"
+msgctxt "Video XSL Template"
+msgid "Video"
+msgstr "Видео"
 
-#. i18n: file: xslt/report-templates/Tri-Column.xsl
+#. i18n: file: xslt/entry-templates/Compact.xsl
 #, kde-format
-msgctxt "Tri-Column XSL Template"
-msgid "Tri-Column"
-msgstr "Үш-баған"
-
-#. i18n: file: xslt/report-templates/Group_Statistics.xsl
-#, kde-format
-msgctxt "Group Statistics XSL Template"
-msgid "Group Statistics"
-msgstr "Топ статистикасы"
-
-#. i18n: file: xslt/report-templates/Loan_View.xsl
-#, kde-format
-msgctxt "Loan View XSL Template"
-msgid "Loan View"
-msgstr "Қолға берілгендері"
-
-#. i18n: file: xslt/report-templates/Image_List.xsl
-#, kde-format
-msgctxt "Image List XSL Template"
-msgid "Image List"
-msgstr "Кескіндер тізімі"
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "Ықшамды"
 
 #. i18n: file: xslt/report-templates/Title_Listing_(Vertical).xsl
 #, kde-format
@@ -99,17 +69,47 @@ msgctxt "Group View XSL Template"
 msgid "Group View"
 msgstr "Топтық көрініс"
 
-#. i18n: file: xslt/report-templates/Group_Summary.xsl
+#. i18n: file: xslt/report-templates/Loan_View.xsl
 #, kde-format
-msgctxt "Group Summary XSL Template"
-msgid "Group Summary"
-msgstr "Топ тұжырымдамасы"
+msgctxt "Loan View XSL Template"
+msgid "Loan View"
+msgstr "Қолға берілгендері"
 
 #. i18n: file: xslt/report-templates/Title_Listing_(Horizontal).xsl
 #, kde-format
 msgctxt "Title Listing (Horizontal) XSL Template"
 msgid "Title Listing (Horizontal)"
 msgstr "Атаулар тізімі (жатық)"
+
+#. i18n: file: xslt/report-templates/Group_Summary.xsl
+#, kde-format
+msgctxt "Group Summary XSL Template"
+msgid "Group Summary"
+msgstr "Топ тұжырымдамасы"
+
+#. i18n: file: xslt/report-templates/Image_List.xsl
+#, kde-format
+msgctxt "Image List XSL Template"
+msgid "Image List"
+msgstr "Кескіндер тізімі"
+
+#. i18n: file: xslt/report-templates/Tri-Column.xsl
+#, kde-format
+msgctxt "Tri-Column XSL Template"
+msgid "Tri-Column"
+msgstr "Үш-баған"
+
+#. i18n: file: xslt/report-templates/Group_Statistics.xsl
+#, kde-format
+msgctxt "Group Statistics XSL Template"
+msgid "Group Statistics"
+msgstr "Топ статистикасы"
+
+#. i18n: file: xslt/report-templates/Column_View.xsl
+#, kde-format
+msgctxt "Column View XSL Template"
+msgid "Column View"
+msgstr "Бағанды көрініс"
 
 #: src/bibtexkeydialog.cpp:49
 #, kde-format
@@ -196,6 +196,20 @@ msgstr "Жалпы жазулары: %1"
 #| msgid "Group Summary"
 msgid "Group Summary Report"
 msgstr "Топ тұжырымдамасы"
+
+#: src/charts/yeardistributionreport.cpp:69
+#: src/charts/yeardistributionreport.cpp:133
+#, fuzzy, kde-format
+#| msgid "Distributor"
+msgid "Year Distribution"
+msgstr "Үлестіргіш"
+
+#: src/charts/yeardistributionreport.cpp:158
+#, fuzzy, kde-format
+#| msgid "Country"
+msgctxt "Distinct number of items"
+msgid "Count"
+msgstr "Мемлекет"
 
 #: src/cite/lyxpipe.cpp:57
 #, kde-format
@@ -612,16 +626,16 @@ msgstr "Қайтару"
 msgid "Extended Field Properties"
 msgstr "Қосымша өрістің қасиеттері"
 
-#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:108
-#: src/fetch/srufetcher.cpp:577
-#, kde-format
-msgid "Value"
-msgstr "Мәні"
-
 #: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:107
 #, kde-format
 msgid "Property"
 msgstr "Қасиеті"
+
+#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:108
+#: src/fetch/srufetcher.cpp:581
+#, kde-format
+msgid "Value"
+msgstr "Мәні"
 
 #: src/collectionfieldsdialog.cpp:922
 #, kde-format
@@ -683,29 +697,31 @@ msgstr "Туынды мәнді өрісінде мәннің үлгісі бо�
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31 src/collections/winecollection.cpp:30
 #: src/configdialog.cpp:142 src/configdialog.cpp:169 src/configdialog.cpp:183
-#: src/configdialog.cpp:200 src/fetch/allocinefetcher.cpp:318
-#: src/fetch/allocinefetcher.cpp:324 src/fetch/amazonfetcher.cpp:863
+#: src/configdialog.cpp:200 src/fetch/allocinefetcher.cpp:319
+#: src/fetch/allocinefetcher.cpp:325 src/fetch/amazonfetcher.cpp:863
 #: src/fetch/animenfofetcher.cpp:310 src/fetch/animenfofetcher.cpp:314
 #: src/fetch/bedethequefetcher.cpp:331 src/fetch/bedethequefetcher.cpp:339
 #: src/fetch/colnectfetcher.cpp:317 src/fetch/colnectfetcher.cpp:330
 #: src/fetch/colnectfetcher.cpp:337 src/fetch/colnectfetcher.cpp:344
 #: src/fetch/discogsfetcher.cpp:280 src/fetch/discogsfetcher.cpp:285
 #: src/fetch/discogsfetcher.cpp:290 src/fetch/discogsfetcher.cpp:297
-#: src/fetch/discogsfetcher.cpp:304 src/fetch/doubanfetcher.cpp:294
-#: src/fetch/doubanfetcher.cpp:312 src/fetch/doubanfetcher.cpp:330
-#: src/fetch/filmasterfetcher.cpp:234 src/fetch/googlebookfetcher.cpp:252
-#: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:225
+#: src/fetch/discogsfetcher.cpp:304 src/fetch/doubanfetcher.cpp:310
+#: src/fetch/doubanfetcher.cpp:328 src/fetch/doubanfetcher.cpp:346
+#: src/fetch/filmasterfetcher.cpp:240 src/fetch/googlebookfetcher.cpp:252
+#: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:226
 #: src/fetch/imdbfetcher.cpp:1176 src/fetch/kinopoiskfetcher.cpp:243
-#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:417
+#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:418
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
 #: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:248
 #: src/fetch/thegamesdbfetcher.cpp:241 src/fetch/thegamesdbfetcher.cpp:246
-#: src/fetch/themoviedbfetcher.cpp:294 src/fetch/themoviedbfetcher.cpp:299
-#: src/fetch/tvmazefetcher.cpp:177 src/fetch/tvmazefetcher.cpp:182
-#: src/fetch/upcitemdbfetcher.cpp:209 src/field.cpp:38 src/field.cpp:79
-#: src/field.cpp:298 src/field.cpp:327 src/field.cpp:332
-#: src/translators/gcstarimporter.cpp:89
+#: src/fetch/themoviedbfetcher.cpp:312 src/fetch/themoviedbfetcher.cpp:315
+#: src/fetch/themoviedbfetcher.cpp:320 src/fetch/themoviedbfetcher.cpp:338
+#: src/fetch/thetvdbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:245
+#: src/fetch/thetvdbfetcher.cpp:250 src/fetch/tvmazefetcher.cpp:178
+#: src/fetch/tvmazefetcher.cpp:183 src/fetch/upcitemdbfetcher.cpp:209
+#: src/field.cpp:38 src/field.cpp:79 src/field.cpp:298 src/field.cpp:327
+#: src/field.cpp:332 src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "General"
 msgstr "Жалпы"
@@ -777,8 +793,8 @@ msgstr "Ұйымы"
 msgid "Publisher"
 msgstr "Шығарушысы"
 
-#: src/collections/bibtexcollection.cpp:141 src/fetch/hathitrustfetcher.cpp:302
-#: src/fetch/srufetcher.cpp:502 src/fetch/z3950fetcher.cpp:572
+#: src/collections/bibtexcollection.cpp:141 src/fetch/hathitrustfetcher.cpp:307
+#: src/fetch/srufetcher.cpp:506 src/fetch/z3950fetcher.cpp:577
 #, kde-format
 msgid "Address"
 msgstr "Адресі"
@@ -810,7 +826,7 @@ msgstr "Жылы"
 msgid "Journal"
 msgstr "Кәсіби журнал"
 
-#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:73
+#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:72
 #, kde-format
 msgid "DOI"
 msgstr "DOI"
@@ -887,8 +903,8 @@ msgid "URL"
 msgstr "URL"
 
 #: src/collections/bibtexcollection.cpp:246 src/fetch/entrezfetcher.cpp:514
-#: src/fetch/hathitrustfetcher.cpp:303 src/fetch/srufetcher.cpp:503
-#: src/fetch/z3950fetcher.cpp:573
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:507
+#: src/fetch/z3950fetcher.cpp:578
 #, kde-format
 msgid "Abstract"
 msgstr "Түйіндеме"
@@ -911,7 +927,7 @@ msgstr "Беймәлім"
 #: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:500 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
+#: src/document.cpp:501 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
 #, kde-format
 msgid "Personal"
 msgstr "Дербес"
@@ -1028,7 +1044,7 @@ msgstr "Сатып алған бағасы"
 #: src/collections/comicbookcollection.cpp:154
 #: src/collections/gamecollection.cpp:127
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:215 src/document.cpp:498
+#: src/collections/videocollection.cpp:215 src/document.cpp:499
 #, kde-format
 msgid "Loaned"
 msgstr "Бүреудікі"
@@ -1072,20 +1088,20 @@ msgstr "Кітаптарым"
 msgid "Subtitle"
 msgstr "Тақырыпшасы"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
-#: src/fetch/doubanfetcher.cpp:363 src/fetch/doubanfetcher.cpp:415
-#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
-#, kde-format
-msgid "Paperback"
-msgstr "Жұмсақ мұқаба"
-
 #: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:967
-#: src/fetch/doubanfetcher.cpp:361 src/fetch/doubanfetcher.cpp:413
+#: src/fetch/doubanfetcher.cpp:377 src/fetch/doubanfetcher.cpp:429
 #: src/fetch/ibsfetcher.cpp:287 src/translators/alexandriaimporter.cpp:158
 #: src/translators/librarythingimporter.cpp:148
 #, kde-format
 msgid "Hardback"
 msgstr "Қатты мұқаба"
+
+#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
+#: src/fetch/doubanfetcher.cpp:379 src/fetch/doubanfetcher.cpp:431
+#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
+#, kde-format
+msgid "Paperback"
+msgstr "Жұмсақ мұқаба"
 
 #: src/collections/bookcollection.cpp:71
 #, kde-format
@@ -1174,7 +1190,7 @@ msgid "Read"
 msgstr "Оқылған"
 
 #: src/collections/bookcollection.cpp:179
-#: src/collections/comicbookcollection.cpp:163 src/fetch/arxivfetcher.cpp:205
+#: src/collections/comicbookcollection.cpp:163 src/fetch/arxivfetcher.cpp:209
 #: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:244
 #: src/translators/referencerimporter.cpp:62
 #, kde-format
@@ -1336,7 +1352,7 @@ msgid "Writer"
 msgstr "Жазушысы"
 
 #: src/collections/comicbookcollection.cpp:64
-#: src/fetch/boardgamegeekfetcher.cpp:185
+#: src/fetch/boardgamegeekfetcher.cpp:190
 #: src/translators/boardgamegeekimporter.cpp:217
 #, kde-format
 msgctxt "Comic Book Illustrator"
@@ -1648,7 +1664,7 @@ msgid "Album"
 msgstr "Альбом"
 
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:378
-#: src/fetch/doubanfetcher.cpp:369 src/fetch/doubanfetcher.cpp:502
+#: src/fetch/doubanfetcher.cpp:385 src/fetch/doubanfetcher.cpp:518
 #: src/fetch/upcitemdbfetcher.cpp:291 src/fetch/upcitemdbfetcher.cpp:411
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:392
@@ -1665,15 +1681,15 @@ msgstr "Компакт-диск"
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:381
-#, kde-format
-msgid "Vinyl"
-msgstr "Винил күйтабағы"
-
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:383
 #, kde-format
 msgid "Cassette"
 msgstr "Кассета"
+
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:381
+#, kde-format
+msgid "Vinyl"
+msgstr "Винил күйтабағы"
 
 #: src/collections/musiccollection.cpp:55
 #: src/collections/videocollection.cpp:55
@@ -1683,7 +1699,7 @@ msgstr "Тасушысы"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:215
+#: src/translators/audiofileimporter.cpp:214
 #: src/translators/xmlstatehandler.cpp:396
 #, kde-format
 msgid "Artist"
@@ -1700,16 +1716,15 @@ msgid "Tracks"
 msgstr "Жолсызықтары"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
-#: src/fetch/fetchmanager.cpp:68 src/fetch/tvmazefetcher.cpp:192
-#: src/fetchdialog.cpp:252 src/field.cpp:297
-#: src/translators/audiofileimporter.cpp:214
+#: src/fetch/fetchmanager.cpp:67 src/fetchdialog.cpp:252 src/field.cpp:297
+#: src/field.cpp:338 src/translators/audiofileimporter.cpp:213
 #: src/translators/xmlstatehandler.cpp:395
 #, kde-format
 msgid "Title"
 msgstr "Атауы"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:216
+#: src/translators/audiofileimporter.cpp:215
 #: src/translators/xmlstatehandler.cpp:397
 #, kde-format
 msgid "Length"
@@ -1726,7 +1741,7 @@ msgid "Issue Year"
 msgstr "Шыққан жылы"
 
 #: src/collections/stampcollection.cpp:83
-#: src/collections/videocollection.cpp:184 src/fetch/allocinefetcher.cpp:402
+#: src/collections/videocollection.cpp:184 src/fetch/allocinefetcher.cpp:403
 #: src/fetch/imdbfetcher.cpp:1318
 #, kde-format
 msgid "Color"
@@ -1784,18 +1799,6 @@ msgstr "Ерекшеліктері"
 msgid "My Videos"
 msgstr "Менің видеоларым"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1025
-#: src/fetch/upcitemdbfetcher.cpp:387
-#, kde-format
-msgid "Blu-ray"
-msgstr "Blu-ray"
-
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1028
-#: src/fetch/upcitemdbfetcher.cpp:390
-#, kde-format
-msgid "HD DVD"
-msgstr "HD DVD"
-
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1031
 #: src/fetch/upcitemdbfetcher.cpp:393
 #, kde-format
@@ -1811,6 +1814,18 @@ msgstr "VCD"
 #, kde-format
 msgid "DivX"
 msgstr "DivX"
+
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1025
+#: src/fetch/upcitemdbfetcher.cpp:387
+#, kde-format
+msgid "Blu-ray"
+msgstr "Blu-ray"
+
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1028
+#: src/fetch/upcitemdbfetcher.cpp:390
+#, kde-format
+msgid "HD DVD"
+msgstr "HD DVD"
 
 #: src/collections/videocollection.cpp:60
 #, kde-format
@@ -2120,13 +2135,13 @@ msgid "Delete Filter"
 msgstr "Сүзгіні өшіру"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:379
+#: src/entryeditdialog.cpp:381
 #, kde-format
 msgid "Modify Entries"
 msgstr "Жазуларые өзгерту"
 
 #: src/commands/modifyentries.cpp:51 src/commands/modifyentries.cpp:71
-#: src/commands/updateentries.cpp:92
+#: src/commands/updateentries.cpp:91
 #, kde-format
 msgctxt "Modify (Entry Title)"
 msgid "Modify %1"
@@ -2159,7 +2174,7 @@ msgctxt "Check-in (Entry Title)"
 msgid "Check-in %1"
 msgstr "%1 дегенді қайтару "
 
-#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:321
+#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:305
 #, kde-format
 msgid "Rename Collection"
 msgstr "Жинақтың атауын өзгерту"
@@ -2564,7 +2579,7 @@ msgid "Template Options"
 msgstr "Үлгінің параметрлері"
 
 #. i18n string, a plain label can't have an '&'
-#: src/configdialog.cpp:423 src/fetch/execexternalfetcher.cpp:350
+#: src/configdialog.cpp:423 src/fetch/execexternalfetcher.cpp:354
 #: src/fetch/gcstarpluginfetcher.cpp:401 src/fetch/multifetcher.cpp:227
 #: src/translators/csvimporter.cpp:215
 #, kde-format
@@ -2763,7 +2778,7 @@ msgid "Template Packages"
 msgstr "Үлгілер"
 
 #: src/configdialog.cpp:1123 src/importdialog.cpp:415 src/mainwindow.cpp:1207
-#: src/mainwindow.cpp:1377 src/reportdialog.cpp:341
+#: src/mainwindow.cpp:1377 src/reportdialog.cpp:342 src/reportdialog.cpp:357
 #: src/translators/bibtexexporter.cpp:65
 #: src/translators/bibtexmlexporter.cpp:51 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:61 src/translators/htmlexporter.cpp:100
@@ -2788,8 +2803,8 @@ msgstr "Үлгіні өшіру"
 msgid "Select template to delete:"
 msgstr "Өшірілетін үлгі:"
 
-#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:428
-#: src/fetchdialog.cpp:562 src/fetchdialog.cpp:623 src/fetchdialog.cpp:637
+#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:429
+#: src/fetchdialog.cpp:563 src/fetchdialog.cpp:624 src/fetchdialog.cpp:638
 #: src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
@@ -2939,6 +2954,11 @@ msgstr "Tellico кескінді файлдан жүктеп ала алмады
 msgid "Untitled"
 msgstr "Аталмаған"
 
+#: src/core/tellico_strings.cpp:42
+#, kde-format
+msgid "This information was freely provided by <a href=\"%1\">%2</a>."
+msgstr ""
+
 #: src/detailedlistview.cpp:523
 #, kde-format
 msgid "View Columns"
@@ -2971,54 +2991,54 @@ msgstr "Бүкіл бағандарды көрсету"
 msgid "Hide All Columns"
 msgstr "Бүкіл бағандарды жасыру"
 
-#: src/document.cpp:206 src/mainwindow.cpp:1321
+#: src/document.cpp:207 src/mainwindow.cpp:1321
 #, kde-format
 msgid "Saving file..."
 msgstr "Файлды сақтау..."
 
-#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:400
-#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:518
+#: src/entryeditdialog.cpp:70 src/entryeditdialog.cpp:402
+#: src/entryeditdialog.cpp:425 src/entryeditdialog.cpp:520
 #, kde-format
 msgid "Edit Entry"
 msgstr "Жазуды өңдеу"
 
-#: src/entryeditdialog.cpp:84
+#: src/entryeditdialog.cpp:85
 #, kde-format
 msgid "&New Entry"
 msgstr "&Жаңа жазу"
 
-#: src/entryeditdialog.cpp:89 src/entryeditdialog.cpp:129
-#: src/entryeditdialog.cpp:433 src/entryeditdialog.cpp:539
+#: src/entryeditdialog.cpp:90 src/entryeditdialog.cpp:130
+#: src/entryeditdialog.cpp:435 src/entryeditdialog.cpp:541
 #, kde-format
 msgid "Sa&ve Entry"
 msgstr "Жазуды са&қтау"
 
-#: src/entryeditdialog.cpp:330
+#: src/entryeditdialog.cpp:332
 #, kde-format
 msgid "Do you really want to modify these entries?"
 msgstr "Шынымен осы жазуларын өзгертпексіз бе?"
 
-#: src/entryeditdialog.cpp:332
+#: src/entryeditdialog.cpp:334
 #, kde-format
 msgid "Modify Multiple Entries"
 msgstr "Бірнеше жазуларын өзгерту"
 
-#: src/entryeditdialog.cpp:373
+#: src/entryeditdialog.cpp:375
 #, kde-format
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Келесі өрістеріне мәні қажет. Жалғастыра берейік пе?"
 
-#: src/entryeditdialog.cpp:469
+#: src/entryeditdialog.cpp:471
 #, kde-format
 msgid "Edit Entries"
 msgstr "Жазуларын өзгерту"
 
-#: src/entryeditdialog.cpp:495
+#: src/entryeditdialog.cpp:497
 #, kde-format
 msgid "Sa&ve Entries"
 msgstr "Жазуларын са&қтау"
 
-#: src/entryeditdialog.cpp:654
+#: src/entryeditdialog.cpp:656
 #, kde-format
 msgid ""
 "The current entry has been modified.\n"
@@ -3027,12 +3047,12 @@ msgstr ""
 "Назардағы жазу өзгертілген.\n"
 "Өзгерістерін енгізуін қалайсыз ба?"
 
-#: src/entryeditdialog.cpp:657
+#: src/entryeditdialog.cpp:659
 #, kde-format
 msgid "Save Entry"
 msgstr "Жазуды сақтау"
 
-#: src/entryeditdialog.cpp:658 src/mainwindow.cpp:1133
+#: src/entryeditdialog.cpp:660 src/mainwindow.cpp:1133
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "Сақталмаған өзгерістер"
@@ -3072,7 +3092,7 @@ msgstr ""
 "<qt><b>%1</b> деген назардағы <b>%2</b> жинағында бірнеше нәтиже берді. "
 "Дұрысын таңдап алыңыз.</qt>"
 
-#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:358
+#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:342
 #, kde-format
 msgid "Merge Entries"
 msgstr "Жазуларын біріктіру"
@@ -3107,12 +3127,12 @@ msgstr "Жазуларын жаңарту"
 msgid "Updating <b>%1</b>..."
 msgstr "<b>%1</b> жаңартуы..."
 
-#: src/entryview.cpp:309
+#: src/entryview.cpp:311
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico әдетті жазу стиль кестесін таба алмады."
 
-#: src/entryview.cpp:311 src/mainwindow.cpp:1703
+#: src/entryview.cpp:313 src/mainwindow.cpp:1703
 #, kde-format
 msgid "Please check your installation."
 msgstr "Орнатылғанын тексеріңіз."
@@ -3187,49 +3207,49 @@ msgstr "Жергілікті стандартпен (%1) кодталсын"
 msgid "Encode the exported file in the local encoding."
 msgstr "Файлды жергілікті кодтауымен экспорттап шығару."
 
-#: src/fetch/allocinefetcher.cpp:241 src/fetch/amazonfetcher.cpp:633
+#: src/fetch/allocinefetcher.cpp:242 src/fetch/amazonfetcher.cpp:633
 #: src/fetch/colnectfetcher.cpp:527 src/fetch/discogsfetcher.cpp:202
-#: src/fetch/doubanfetcher.cpp:391 src/fetch/filmasterfetcher.cpp:142
+#: src/fetch/doubanfetcher.cpp:407 src/fetch/filmasterfetcher.cpp:148
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:298
-#: src/fetch/igdbfetcher.cpp:161 src/fetch/isbndbfetcher.cpp:295
+#: src/fetch/igdbfetcher.cpp:162 src/fetch/isbndbfetcher.cpp:295
 #: src/fetch/kinofetcher.cpp:335 src/fetch/kinopoiskfetcher.cpp:235
-#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:344
+#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:345
 #: src/fetch/moviemeterfetcher.cpp:162 src/fetch/numistafetcher.cpp:285
 #: src/fetch/numistafetcher.cpp:293 src/fetch/omdbfetcher.cpp:182
-#: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:222
-#: src/fetch/tvmazefetcher.cpp:274 src/fetch/upcitemdbfetcher.cpp:251
-#: src/fetch/vndbfetcher.cpp:181
+#: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:239
+#: src/fetch/thetvdbfetcher.cpp:373 src/fetch/tvmazefetcher.cpp:269
+#: src/fetch/upcitemdbfetcher.cpp:251 src/fetch/vndbfetcher.cpp:182
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "Мұқаба кескіні жүктелмеді."
 
-#: src/fetch/allocinefetcher.cpp:323 src/fetch/allocinefetcher.cpp:500
+#: src/fetch/allocinefetcher.cpp:324 src/fetch/allocinefetcher.cpp:501
 #, kde-format
 msgid "Allocine Link"
 msgstr "Allocine сілтемесі"
 
-#: src/fetch/allocinefetcher.cpp:328 src/fetch/allocinefetcher.cpp:499
+#: src/fetch/allocinefetcher.cpp:329 src/fetch/allocinefetcher.cpp:500
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
-#: src/fetch/doubanfetcher.cpp:287 src/fetch/doubanfetcher.cpp:305
-#: src/fetch/doubanfetcher.cpp:323 src/fetch/doubanfetcher.cpp:554
-#: src/fetch/dvdfrfetcher.cpp:176 src/fetch/imdbfetcher.cpp:771
+#: src/fetch/doubanfetcher.cpp:303 src/fetch/doubanfetcher.cpp:321
+#: src/fetch/doubanfetcher.cpp:339 src/fetch/doubanfetcher.cpp:570
+#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/imdbfetcher.cpp:771
 #: src/fetch/imdbfetcher.cpp:1490 src/fetch/kinopoiskfetcher.cpp:310
-#: src/fetch/kinopoiskfetcher.cpp:506 src/fetch/kinoteatrfetcher.cpp:263
+#: src/fetch/kinopoiskfetcher.cpp:510 src/fetch/kinoteatrfetcher.cpp:263
 #: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/omdbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:311 src/fetch/themoviedbfetcher.cpp:483
-#: src/fetch/vndbfetcher.cpp:283 src/fetch/vndbfetcher.cpp:431
+#: src/fetch/themoviedbfetcher.cpp:332 src/fetch/themoviedbfetcher.cpp:576
+#: src/fetch/vndbfetcher.cpp:284 src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Original Title"
 msgstr "Бастапқы атауы"
 
-#: src/fetch/allocinefetcher.cpp:428 src/fetch/imdbfetcher.cpp:1506
-#: src/fetch/themoviedbfetcher.cpp:519
+#: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1506
+#: src/fetch/themoviedbfetcher.cpp:613
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "Актерлер санның шегі:  "
 
-#: src/fetch/allocinefetcher.cpp:441 src/fetch/imdbfetcher.cpp:1519
-#: src/fetch/themoviedbfetcher.cpp:532
+#: src/fetch/allocinefetcher.cpp:442 src/fetch/imdbfetcher.cpp:1519
+#: src/fetch/themoviedbfetcher.cpp:626
 #, kde-format
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
@@ -3412,7 +3432,7 @@ msgstr "Құрама Штаттар"
 msgid "This data is licensed under <a href=%1>specific terms</a>."
 msgstr "Деректер <a href=%1>ерекше шартпен</a> лицензияланған."
 
-#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1113
+#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1112
 #, kde-format
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
@@ -3422,9 +3442,9 @@ msgstr ""
 "керек."
 
 #: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:97
-#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:115
+#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:116
 #: src/fetch/omdbfetcher.cpp:101 src/fetch/thegamesdbfetcher.cpp:106
-#: src/fetch/themoviedbfetcher.cpp:131
+#: src/fetch/themoviedbfetcher.cpp:136
 #, kde-format
 msgid "Those values must be entered in the data source settings."
 msgstr "Ол мәндер деректер көзінің параметрлерінде келтірілу керек."
@@ -3444,80 +3464,86 @@ msgstr "Amazon сілтемесі"
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com веб-қызметтері"
 
-#: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:171
-#: src/fetch/comicvinefetcher.cpp:231 src/fetch/crossreffetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:479 src/fetch/giantbombfetcher.cpp:220
+#: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:172
+#: src/fetch/comicvinefetcher.cpp:232 src/fetch/crossreffetcher.cpp:313
+#: src/fetch/discogsfetcher.cpp:479 src/fetch/giantbombfetcher.cpp:219
 #: src/fetch/googlebookfetcher.cpp:380 src/fetch/isbndbfetcher.cpp:394
-#: src/fetch/mobygamesfetcher.cpp:608 src/fetch/omdbfetcher.cpp:408
-#: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:495
-#, kde-format
+#: src/fetch/mobygamesfetcher.cpp:609 src/fetch/omdbfetcher.cpp:408
+#: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:590
+#: src/fetch/thetvdbfetcher.cpp:577
+#, fuzzy, kde-format
+#| msgid ""
+#| "Registration is required for accessing the %1 data source. If you agree "
+#| "to the terms and conditions, <a href='%2'>sign up for an account</a>, and "
+#| "enter your information below."
 msgid ""
-"Registration is required for accessing the %1 data source. If you agree to "
-"the terms and conditions, <a href='%2'>sign up for an account</a>, and enter "
+"Registration is required for accessing this data source. If you agree to the "
+"terms and conditions, <a href='%1'>sign up for an account</a>, and enter "
 "your information below."
 msgstr ""
 "%1 дерек көзіне қатынау үшін тіркелу керек. Шарттарымен келіссеңіз <a "
 "href='%2'>тіркеліңіз</a> де төменде мәліметіңізді келтіріңіз."
 
-#: src/fetch/amazonfetcher.cpp:1108 src/fetch/bibliosharefetcher.cpp:184
+#: src/fetch/amazonfetcher.cpp:1107 src/fetch/bibliosharefetcher.cpp:184
 #: src/fetch/comicvinefetcher.cpp:244 src/fetch/entrezfetcher.cpp:531
-#: src/fetch/giantbombfetcher.cpp:233 src/fetch/googlebookfetcher.cpp:393
-#: src/fetch/isbndbfetcher.cpp:407 src/fetch/mobygamesfetcher.cpp:621
-#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:421
-#: src/fetch/thegamesdbfetcher.cpp:597 src/fetch/themoviedbfetcher.cpp:508
+#: src/fetch/giantbombfetcher.cpp:231 src/fetch/googlebookfetcher.cpp:392
+#: src/fetch/isbndbfetcher.cpp:406 src/fetch/mobygamesfetcher.cpp:621
+#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:420
+#: src/fetch/thegamesdbfetcher.cpp:596 src/fetch/themoviedbfetcher.cpp:602
+#: src/fetch/thetvdbfetcher.cpp:589
 #, kde-format
 msgid "Access key: "
 msgstr "Қатынау кілті: "
 
-#: src/fetch/amazonfetcher.cpp:1118
+#: src/fetch/amazonfetcher.cpp:1117
 #, kde-format
 msgid "Secret key: "
 msgstr "Құпия кілті: "
 
-#: src/fetch/amazonfetcher.cpp:1128
+#: src/fetch/amazonfetcher.cpp:1127
 #, kde-format
 msgid "Country: "
 msgstr "Ел: "
 
-#: src/fetch/amazonfetcher.cpp:1143
+#: src/fetch/amazonfetcher.cpp:1142
 #, kde-format
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
 "one you wish to use for this data source."
 msgstr "Amazon.com бірнеше жергілікті серверді қолданады. Біреуін таңдаңыз."
 
-#: src/fetch/amazonfetcher.cpp:1149 src/fetch/mobygamesfetcher.cpp:629
-#: src/fetch/thegamesdbfetcher.cpp:605
+#: src/fetch/amazonfetcher.cpp:1148 src/fetch/mobygamesfetcher.cpp:629
+#: src/fetch/thegamesdbfetcher.cpp:604
 #, kde-format
 msgid "&Image size: "
 msgstr "&Кескіннің өлшемі: "
 
-#: src/fetch/amazonfetcher.cpp:1152 src/fetch/mobygamesfetcher.cpp:632
-#: src/fetch/thegamesdbfetcher.cpp:608
+#: src/fetch/amazonfetcher.cpp:1151 src/fetch/mobygamesfetcher.cpp:632
+#: src/fetch/thegamesdbfetcher.cpp:607
 #, kde-format
 msgid "Small Image"
 msgstr "Шағын кескін"
 
-#: src/fetch/amazonfetcher.cpp:1153 src/fetch/thegamesdbfetcher.cpp:609
+#: src/fetch/amazonfetcher.cpp:1152 src/fetch/thegamesdbfetcher.cpp:608
 #, kde-format
 msgid "Medium Image"
 msgstr "Орташа кескін"
 
 #. i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
-#: src/fetch/amazonfetcher.cpp:1154 src/fetch/mobygamesfetcher.cpp:634
-#: src/fetch/thegamesdbfetcher.cpp:610
+#: src/fetch/amazonfetcher.cpp:1153 src/fetch/mobygamesfetcher.cpp:634
+#: src/fetch/thegamesdbfetcher.cpp:609
 #, kde-format
 msgid "Large Image"
 msgstr "Үлкен кескін"
 
-#: src/fetch/amazonfetcher.cpp:1155 src/fetch/mobygamesfetcher.cpp:635
-#: src/fetch/thegamesdbfetcher.cpp:611
+#: src/fetch/amazonfetcher.cpp:1154 src/fetch/mobygamesfetcher.cpp:635
+#: src/fetch/thegamesdbfetcher.cpp:610
 #, kde-format
 msgid "No Image"
 msgstr "Кескін жоқ"
 
-#: src/fetch/amazonfetcher.cpp:1158 src/fetch/imdbfetcher.cpp:1528
-#: src/fetch/mobygamesfetcher.cpp:639 src/fetch/thegamesdbfetcher.cpp:615
+#: src/fetch/amazonfetcher.cpp:1157 src/fetch/imdbfetcher.cpp:1528
+#: src/fetch/mobygamesfetcher.cpp:639 src/fetch/thegamesdbfetcher.cpp:614
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3526,12 +3552,12 @@ msgstr ""
 "Мұқаба кескінің де жүктеп алуға болады. Байқаңыз, үлкен кескіндер көбейіп "
 "кетсе, жинақпен істеу баяулап кетеді."
 
-#: src/fetch/amazonfetcher.cpp:1164
+#: src/fetch/amazonfetcher.cpp:1163
 #, kde-format
 msgid "&Associate's ID: "
 msgstr "&Associate's ID: "
 
-#: src/fetch/amazonfetcher.cpp:1170
+#: src/fetch/amazonfetcher.cpp:1169
 #, kde-format
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
@@ -3541,11 +3567,11 @@ msgstr ""
 "идентификатор."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/dvdfrfetcher.cpp:178 src/fetch/imdbfetcher.cpp:825
+#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:825
 #: src/fetch/imdbfetcher.cpp:1488 src/fetch/moviemeterfetcher.cpp:225
 #: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:257
-#: src/fetch/themoviedbfetcher.cpp:306 src/fetch/themoviedbfetcher.cpp:482
-#: src/fetch/tvmazefetcher.cpp:198 src/fetch/tvmazefetcher.cpp:390
+#: src/fetch/themoviedbfetcher.cpp:327 src/fetch/themoviedbfetcher.cpp:575
+#: src/fetch/tvmazefetcher.cpp:193 src/fetch/tvmazefetcher.cpp:385
 #, kde-format
 msgid "Alternative Titles"
 msgstr "Басқа атаулары"
@@ -3556,7 +3582,8 @@ msgid "Distributor"
 msgstr "Үлестіргіш"
 
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
-#: src/fetch/tvmazefetcher.cpp:189 src/fetch/tvmazefetcher.cpp:388
+#: src/fetch/themoviedbfetcher.cpp:578 src/fetch/thetvdbfetcher.cpp:564
+#: src/fetch/tvmazefetcher.cpp:383 src/field.cpp:335
 #, kde-format
 msgid "Episodes"
 msgstr "Үзінділер"
@@ -3571,19 +3598,19 @@ msgstr "AnimeNfo сілтемесі"
 msgid "AnimeNfo Rating"
 msgstr "AnimeNfo бағасы"
 
-#: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:328
-#: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:186
-#: src/fetch/boardgamegeekfetcher.cpp:193 src/fetch/dbcfetcher.cpp:156
-#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:562
-#: src/fetch/dvdfrfetcher.cpp:186 src/fetch/filmasterfetcher.cpp:317
-#: src/fetch/googlescholarfetcher.cpp:280 src/fetch/hathitrustfetcher.cpp:313
-#: src/fetch/ibsfetcher.cpp:393 src/fetch/igdbfetcher.cpp:586
-#: src/fetch/kinofetcher.cpp:373 src/fetch/kinopoiskfetcher.cpp:514
+#: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:332
+#: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:190
+#: src/fetch/boardgamegeekfetcher.cpp:198 src/fetch/dbcfetcher.cpp:161
+#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:578
+#: src/fetch/dvdfrfetcher.cpp:190 src/fetch/filmasterfetcher.cpp:323
+#: src/fetch/googlescholarfetcher.cpp:284 src/fetch/hathitrustfetcher.cpp:318
+#: src/fetch/ibsfetcher.cpp:393 src/fetch/igdbfetcher.cpp:588
+#: src/fetch/kinofetcher.cpp:373 src/fetch/kinopoiskfetcher.cpp:518
 #: src/fetch/kinoteatrfetcher.cpp:514 src/fetch/moviemeterfetcher.cpp:301
 #: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:376
 #: src/fetch/openlibraryfetcher.cpp:400 src/fetch/springerfetcher.cpp:183
-#: src/fetch/tvmazefetcher.cpp:398 src/fetch/upcitemdbfetcher.cpp:466
-#: src/fetch/videogamegeekfetcher.cpp:197 src/fetch/vndbfetcher.cpp:439
+#: src/fetch/tvmazefetcher.cpp:393 src/fetch/upcitemdbfetcher.cpp:466
+#: src/fetch/videogamegeekfetcher.cpp:198 src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "Бұл көздің параметрі жоқ."
@@ -3605,16 +3632,10 @@ msgstr "Bedetheque.com"
 msgid "ISBN#"
 msgstr "ISBN#"
 
-#: src/fetch/bibliosharefetcher.cpp:64
-#, kde-format
-msgid ""
-"Data provided by <a href=\"https://www.booknetcanada.ca/biblioshare\">BNC "
-"BiblioShare</a>."
-msgstr ""
-
 #: src/fetch/bibliosharefetcher.cpp:190 src/fetch/comicvinefetcher.cpp:250
-#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:239
-#: src/fetch/googlebookfetcher.cpp:399 src/fetch/themoviedbfetcher.cpp:514
+#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:237
+#: src/fetch/googlebookfetcher.cpp:398 src/fetch/themoviedbfetcher.cpp:608
+#: src/fetch/thetvdbfetcher.cpp:595
 #, kde-format
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
@@ -3623,14 +3644,7 @@ msgstr ""
 "Әдетті Tellico кілтін қолдануға болады, бірақ онда іздеу болмауы мүмкін, "
 "катынау шегіне жеткен сөң."
 
-#: src/fetch/boardgamegeekfetcher.cpp:66 src/fetch/videogamegeekfetcher.cpp:67
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://boardgamegeek.com"
-"\">BoardGameGeek</a>."
-msgstr ""
-
-#: src/fetch/boardgamegeekfetcher.cpp:186
+#: src/fetch/boardgamegeekfetcher.cpp:191
 #, fuzzy, kde-format
 #| msgid "BoardGameGeek"
 msgid "BoardGameGeek Link"
@@ -3655,20 +3669,13 @@ msgid "Michel"
 msgstr ""
 
 #: src/fetch/colnectfetcher.cpp:658 src/fetch/numistafetcher.cpp:422
-#: src/fetch/themoviedbfetcher.cpp:537
+#: src/fetch/themoviedbfetcher.cpp:631
 #, kde-format
 msgid "Language: "
 msgstr "Тілі: "
 
-#: src/fetch/comicvinefetcher.cpp:70
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://comicvine.gamespot."
-"com/\">Comic Vine</a>."
-msgstr ""
-
 #. i18n("Colorist");
-#: src/fetch/comicvinefetcher.cpp:219
+#: src/fetch/comicvinefetcher.cpp:220
 #, fuzzy, kde-format
 #| msgid "Allocine Link"
 msgid "Comic Vine Link"
@@ -3689,39 +3696,39 @@ msgstr "Бар өрістері"
 msgid "%1 requires a username and password."
 msgstr "%1 дегенге пайдаланушы мен паролі керек."
 
-#: src/fetch/crossreffetcher.cpp:325
+#: src/fetch/crossreffetcher.cpp:324
 #, kde-format
 msgid "&Username: "
 msgstr "&Пайдаланушы: "
 
-#: src/fetch/crossreffetcher.cpp:330
+#: src/fetch/crossreffetcher.cpp:329
 #, kde-format
 msgid "A username and password is required to access the CrossRef service."
 msgstr "CrossRef қызметіне қатынау үшін пайдаланушы мен паролі керек."
 
-#: src/fetch/crossreffetcher.cpp:335
+#: src/fetch/crossreffetcher.cpp:334
 #, kde-format
 msgid "&Password: "
 msgstr "&Паролі: "
 
-#: src/fetch/crossreffetcher.cpp:345
+#: src/fetch/crossreffetcher.cpp:344
 #, kde-format
 msgid "For some accounts, only an email address is required."
 msgstr "Кейбір тіркелгілеріне эл.пошта адресіңіз ғана қажет."
 
-#: src/fetch/crossreffetcher.cpp:348
+#: src/fetch/crossreffetcher.cpp:347
 #, kde-format
 msgid "Email: "
 msgstr "Эл.пошта: "
 
-#: src/fetch/dbcfetcher.cpp:141
+#: src/fetch/dbcfetcher.cpp:146
 #, kde-format
 msgid "Danish Bibliographic Center (DBC.dk)"
 msgstr ""
 
 #: src/fetch/discogsfetcher.cpp:95 src/fetch/isbndbfetcher.cpp:112
-#: src/fetch/mobygamesfetcher.cpp:113 src/fetch/omdbfetcher.cpp:99
-#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:129
+#: src/fetch/mobygamesfetcher.cpp:114 src/fetch/omdbfetcher.cpp:99
+#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:134
 #, kde-format
 msgid "An access key is required to use this data source."
 msgstr ""
@@ -3733,7 +3740,7 @@ msgstr "Discogs сілтемесі"
 
 #. i18n("Nationality");
 #: src/fetch/discogsfetcher.cpp:303 src/fetch/discogsfetcher.cpp:468
-#: src/fetch/dvdfrfetcher.cpp:179 src/fetch/musicbrainzfetcher.cpp:369
+#: src/fetch/dvdfrfetcher.cpp:183 src/fetch/musicbrainzfetcher.cpp:369
 #: src/fetch/upcitemdbfetcher.cpp:208 src/fetch/upcitemdbfetcher.cpp:459
 #, kde-format
 msgid "Barcode"
@@ -3749,19 +3756,19 @@ msgstr ""
 msgid "Discogs Audio Search"
 msgstr "Discogs Audio іздеуі"
 
-#: src/fetch/discogsfetcher.cpp:492
+#: src/fetch/discogsfetcher.cpp:491
 #, fuzzy, kde-format
 #| msgid "&User: "
 msgid "User token: "
 msgstr "&Пайдаланушы: "
 
-#: src/fetch/doubanfetcher.cpp:293 src/fetch/doubanfetcher.cpp:311
-#: src/fetch/doubanfetcher.cpp:329 src/fetch/doubanfetcher.cpp:555
+#: src/fetch/doubanfetcher.cpp:309 src/fetch/doubanfetcher.cpp:327
+#: src/fetch/doubanfetcher.cpp:345 src/fetch/doubanfetcher.cpp:571
 #, kde-format
 msgid "Douban Link"
 msgstr "Douban сілтемесі"
 
-#: src/fetch/dvdfrfetcher.cpp:177
+#: src/fetch/dvdfrfetcher.cpp:181
 #, kde-format
 msgid "DVDFr Link"
 msgstr "DVDFr сілтемесі"
@@ -3776,45 +3783,45 @@ msgstr "Entrez деректер қоры"
 msgid "Institution"
 msgstr "Институты"
 
-#: src/fetch/execexternalfetcher.cpp:335
+#: src/fetch/execexternalfetcher.cpp:339
 #, kde-format
 msgid "External Application"
 msgstr "Сыртқы қолданба"
 
-#: src/fetch/execexternalfetcher.cpp:356
+#: src/fetch/execexternalfetcher.cpp:360
 #, kde-format
 msgid ""
 "Set the collection type of the data returned from the external application."
 msgstr "Сыртқы қолданбада қайтарған дерегінен құрылған жинақтың түрін орнату."
 
-#: src/fetch/execexternalfetcher.cpp:361
+#: src/fetch/execexternalfetcher.cpp:365
 #, kde-format
 msgid "&Result type: "
 msgstr "&Нәтижесінің түрі: "
 
-#: src/fetch/execexternalfetcher.cpp:370
+#: src/fetch/execexternalfetcher.cpp:374
 #, kde-format
 msgid "Set the result type of the data returned from the external application."
 msgstr "Сыртқы қолданбада қайтарған дерегінен құрылған нәтиже түрін орнату."
 
-#: src/fetch/execexternalfetcher.cpp:384
+#: src/fetch/execexternalfetcher.cpp:388
 #, kde-format
 msgid "Application &path: "
 msgstr "Қолданба &жолы:"
 
-#: src/fetch/execexternalfetcher.cpp:389
+#: src/fetch/execexternalfetcher.cpp:393
 #, kde-format
 msgid ""
 "Set the path of the application to run that should output a valid Tellico "
 "data file."
 msgstr "Шығысы Tellico дерек файлы болуға жарайтын қолданбаның жегу жолы."
 
-#: src/fetch/execexternalfetcher.cpp:394
+#: src/fetch/execexternalfetcher.cpp:398
 #, kde-format
 msgid "Select the search keys supported by the data source."
 msgstr "Дерек көзі танитын іздеу кілттерін таңдау."
 
-#: src/fetch/execexternalfetcher.cpp:396
+#: src/fetch/execexternalfetcher.cpp:400
 #, kde-format
 msgid ""
 "Add any arguments that may be needed. <b>%1</b> will be replaced by the "
@@ -3823,17 +3830,17 @@ msgstr ""
 "Кез-келген керек аргументін қосыңыз. <b>%1</b> орнында іздеу нәтижесі болады."
 
 #. i18ncheckarg
-#: src/fetch/execexternalfetcher.cpp:397
+#: src/fetch/execexternalfetcher.cpp:401
 #, kde-format
 msgid "Arguments"
 msgstr "Аргументтері"
 
-#: src/fetch/execexternalfetcher.cpp:429
+#: src/fetch/execexternalfetcher.cpp:433
 #, kde-format
 msgid "Update"
 msgstr "Жаңарту"
 
-#: src/fetch/execexternalfetcher.cpp:437
+#: src/fetch/execexternalfetcher.cpp:441
 #, kde-format
 msgid ""
 "<p>Enter the arguments which should be used to search for available updates "
@@ -3845,61 +3852,61 @@ msgstr ""
 "туынды мәндердің өрістеріндегідей, мәнерлі жақшаға алынған өріс атауы, "
 "мысалы, <i>%{author}</i>. Толығырақ құжатасасынан қараңыз.</p>"
 
-#: src/fetch/fetcher.cpp:79
+#: src/fetch/fetcher.cpp:80
 #, kde-format
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 дегенді бұл жинақ түрі іздеуге мүмкіндік бермейді."
 
 #. i18n("<html>%1 requires the network request to include identification.\n"
 #. "Check the network configuration in <a href=\"%2\">KDE System Settings</a>.</html>", source(), QStringLiteral("exec:/kcmshell5 useragent")),
-#: src/fetch/fetcher.cpp:96
+#: src/fetch/fetcher.cpp:97
 #, kde-format
 msgid ""
 "%1 requires the network request to include identification.\n"
 "Check the network configuration in KDE System Settings."
 msgstr ""
 
-#: src/fetch/fetchmanager.cpp:69
+#: src/fetch/fetchmanager.cpp:68
 #, kde-format
 msgid "Person"
 msgstr "Тұлға"
 
-#: src/fetch/fetchmanager.cpp:70
+#: src/fetch/fetchmanager.cpp:69
 #, kde-format
 msgid "ISBN"
 msgstr "ISBN"
 
-#: src/fetch/fetchmanager.cpp:71
+#: src/fetch/fetchmanager.cpp:70
 #, kde-format
 msgid "UPC/EAN"
 msgstr "UPC/EAN"
 
-#: src/fetch/fetchmanager.cpp:72
+#: src/fetch/fetchmanager.cpp:71
 #, kde-format
 msgid "Keyword"
 msgstr "Түйінді сөз"
 
-#: src/fetch/fetchmanager.cpp:74 src/translators/pdfimporter.cpp:213
+#: src/fetch/fetchmanager.cpp:73 src/translators/pdfimporter.cpp:213
 #, kde-format
 msgid "arXiv ID"
 msgstr "arXiv ID"
 
-#: src/fetch/fetchmanager.cpp:75
+#: src/fetch/fetchmanager.cpp:74
 #, kde-format
 msgid "PubMed ID"
 msgstr "PubMed ID"
 
-#: src/fetch/fetchmanager.cpp:76
+#: src/fetch/fetchmanager.cpp:75
 #, kde-format
 msgid "LCCN"
 msgstr "LCCN"
 
-#: src/fetch/fetchmanager.cpp:77
+#: src/fetch/fetchmanager.cpp:76
 #, kde-format
 msgid "Raw Query"
 msgstr "Өңделмеген"
 
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/filmasterfetcher.cpp:310
+#: src/fetch/filmasterfetcher.cpp:239 src/fetch/filmasterfetcher.cpp:316
 #, kde-format
 msgid "Filmaster Link"
 msgstr "Filmaster сілтемесі"
@@ -3929,13 +3936,13 @@ msgstr "Дерек көзі ретінде GCstar плагинін таңдау.
 msgid "Author: "
 msgstr "Авторы: "
 
-#: src/fetch/giantbombfetcher.cpp:207
+#: src/fetch/giantbombfetcher.cpp:206
 #, kde-format
 msgid "GiantBomb Link"
 msgstr ""
 
-#: src/fetch/giantbombfetcher.cpp:208 src/fetch/igdbfetcher.cpp:549
-#: src/fetch/mobygamesfetcher.cpp:595 src/field.cpp:325
+#: src/fetch/giantbombfetcher.cpp:207 src/fetch/igdbfetcher.cpp:551
+#: src/fetch/mobygamesfetcher.cpp:596 src/field.cpp:325
 #, fuzzy, kde-format
 #| msgid "ESRB Rating"
 msgid "PEGI Rating"
@@ -3951,20 +3958,20 @@ msgstr "Google Book сілтемесі"
 msgid "Google Book Search"
 msgstr "Google Book іздеуі"
 
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:574
+#: src/fetch/hathitrustfetcher.cpp:309 src/fetch/z3950fetcher.cpp:579
 #, kde-format
 msgid "Illustrator"
 msgstr "Иллюстраторы"
 
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/isbndbfetcher.cpp:383
-#: src/fetch/srufetcher.cpp:504 src/fetch/z3950fetcher.cpp:575
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:383
+#: src/fetch/srufetcher.cpp:508 src/fetch/z3950fetcher.cpp:580
 #, kde-format
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Ондық Dewey жіктеуі"
 
-#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/srufetcher.cpp:505
-#: src/fetch/z3950fetcher.cpp:576
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/srufetcher.cpp:509
+#: src/fetch/z3950fetcher.cpp:581
 #, kde-format
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3975,20 +3982,13 @@ msgstr "Конгрес кітапханасының жіктеуі"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Интернет кітап дүкені (ibs.it)"
 
-#: src/fetch/igdbfetcher.cpp:80
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://igdb.com\">IGDB."
-"com</a>."
-msgstr ""
-
-#: src/fetch/igdbfetcher.cpp:224 src/fetch/igdbfetcher.cpp:550
+#: src/fetch/igdbfetcher.cpp:225 src/fetch/igdbfetcher.cpp:552
 #, fuzzy, kde-format
 #| msgid "IMDb Link"
 msgid "IGDB Link"
 msgstr "IMDb сілтемесі"
 
-#: src/fetch/igdbfetcher.cpp:540
+#: src/fetch/igdbfetcher.cpp:542
 #, fuzzy, kde-format
 #| msgid "Internet Movie Database (German)"
 msgid "Internet Game Database (IGDB.com)"
@@ -4036,8 +4036,8 @@ msgid "Certifications"
 msgstr "Куәландырулары"
 
 #: src/fetch/imdbfetcher.cpp:1486 src/fetch/omdbfetcher.cpp:397
-#: src/fetch/themoviedbfetcher.cpp:481 src/fetch/tvmazefetcher.cpp:387
-#: src/field.cpp:331
+#: src/fetch/themoviedbfetcher.cpp:574 src/fetch/thetvdbfetcher.cpp:563
+#: src/fetch/tvmazefetcher.cpp:382 src/field.cpp:331
 #, kde-format
 msgid "IMDb Link"
 msgstr "IMDb сілтемесі"
@@ -4059,19 +4059,19 @@ msgstr "Ондық Dewey жіктеуі"
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/isbndbfetcher.cpp:415
+#: src/fetch/isbndbfetcher.cpp:414
 #, kde-format
 msgid "Enable batch ISBN searching (requires Premium or Pro plan)"
 msgstr ""
 
-#: src/fetch/isbndbfetcher.cpp:419
+#: src/fetch/isbndbfetcher.cpp:418
 #, kde-format
 msgid ""
 "Batch searching for ISBN values is faster but only available for Premium or "
 "Pro plans."
 msgstr ""
 
-#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:507
+#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:511
 #, fuzzy, kde-format
 #| msgid "Discogs Link"
 msgid "KinoPoisk Link"
@@ -4083,14 +4083,7 @@ msgstr "Discogs сілтемесі"
 msgid "Kino-Teatr Link"
 msgstr "Filmaster сілтемесі"
 
-#: src/fetch/mobygamesfetcher.cpp:81
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://mobygames.com"
-"\">MobyGames</a>."
-msgstr ""
-
-#: src/fetch/mobygamesfetcher.cpp:416 src/fetch/mobygamesfetcher.cpp:596
+#: src/fetch/mobygamesfetcher.cpp:417 src/fetch/mobygamesfetcher.cpp:597
 #, fuzzy, kde-format
 #| msgid "Douban Link"
 msgid "MobyGames Link"
@@ -4124,13 +4117,13 @@ msgctxt "Standard catalog of world coins number"
 msgid "Krause-Mishler"
 msgstr ""
 
-#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:542
+#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:636
 #, kde-format
 msgctxt "Language"
 msgid "English"
 msgstr "Ағылшын"
 
-#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:545
+#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:639
 #, kde-format
 msgctxt "Language"
 msgid "French"
@@ -4146,121 +4139,109 @@ msgstr ""
 msgid "OpenLibrary Link"
 msgstr "OpenLibrary сілтемесі"
 
-#: src/fetch/srufetcher.cpp:486
+#: src/fetch/srufetcher.cpp:490
 #, kde-format
 msgid "Library of Congress (US)"
 msgstr "Конгрес кітапханасы (АҚШ)"
 
-#: src/fetch/srufetcher.cpp:491
+#: src/fetch/srufetcher.cpp:495
 #, kde-format
 msgid "SRU Server"
 msgstr "SRU сервері"
 
-#: src/fetch/srufetcher.cpp:520 src/fetch/z3950fetcher.cpp:599
+#: src/fetch/srufetcher.cpp:524 src/fetch/z3950fetcher.cpp:604
 #, kde-format
 msgid "Hos&t: "
 msgstr "Хос&ты: "
 
-#: src/fetch/srufetcher.cpp:527 src/fetch/z3950fetcher.cpp:605
+#: src/fetch/srufetcher.cpp:531 src/fetch/z3950fetcher.cpp:610
 #, kde-format
 msgid "Enter the host name of the server."
 msgstr "Сервер хостының атауын кетіру."
 
-#: src/fetch/srufetcher.cpp:532 src/fetch/z3950fetcher.cpp:610
+#: src/fetch/srufetcher.cpp:536 src/fetch/z3950fetcher.cpp:615
 #, kde-format
 msgid "&Port: "
 msgstr "&Порты: "
 
-#: src/fetch/srufetcher.cpp:541 src/fetch/z3950fetcher.cpp:619
+#: src/fetch/srufetcher.cpp:545 src/fetch/z3950fetcher.cpp:624
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Сервердің порттың нөмірін келтіріңіз. Әдетте бұл %1"
 
-#: src/fetch/srufetcher.cpp:546
+#: src/fetch/srufetcher.cpp:550
 #, kde-format
 msgid "Path: "
 msgstr "Жолы: "
 
-#: src/fetch/srufetcher.cpp:551
+#: src/fetch/srufetcher.cpp:555
 #, kde-format
 msgid "Enter the path to the database used by the server."
 msgstr "Сервер пайдаланатын деректер қорының жолын келтіру."
 
-#: src/fetch/srufetcher.cpp:556
+#: src/fetch/srufetcher.cpp:560
 #, kde-format
 msgid "Format: "
 msgstr "Пішімі: "
 
-#: src/fetch/srufetcher.cpp:568
+#: src/fetch/srufetcher.cpp:572
 #, kde-format
 msgid "Enter the result format used by the server."
 msgstr "Сервер пайдаланатын нәтиже пішімін келтіру."
 
-#: src/fetch/srufetcher.cpp:577
+#: src/fetch/srufetcher.cpp:581
 #, fuzzy, kde-format
 #| msgid "Fields"
 msgid "Field"
 msgstr "Өрістер"
 
-#: src/fetch/themoviedbfetcher.cpp:298 src/fetch/themoviedbfetcher.cpp:480
+#: src/fetch/themoviedbfetcher.cpp:319 src/fetch/themoviedbfetcher.cpp:573
 #, kde-format
 msgid "TMDb Link"
 msgstr "TMDb сілтемесі"
 
-#: src/fetch/themoviedbfetcher.cpp:548
+#: src/fetch/themoviedbfetcher.cpp:337 src/fetch/themoviedbfetcher.cpp:577
+#: src/fetch/thetvdbfetcher.cpp:244 src/fetch/thetvdbfetcher.cpp:565
+#: src/fetch/tvmazefetcher.cpp:182 src/fetch/tvmazefetcher.cpp:384
+#, kde-format
+msgid "Network"
+msgstr ""
+
+#: src/fetch/themoviedbfetcher.cpp:642
 #, kde-format
 msgctxt "Language"
 msgid "German"
 msgstr "Неміс"
 
-#: src/fetch/themoviedbfetcher.cpp:551
+#: src/fetch/themoviedbfetcher.cpp:645
 #, kde-format
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Испан"
 
-#: src/fetch/themoviedbfetcher.cpp:585
+#: src/fetch/themoviedbfetcher.cpp:679
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/tvmazefetcher.cpp:73
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://tvmaze.com"
-"\">TVmaze</a>."
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:181 src/fetch/tvmazefetcher.cpp:389
-#, kde-format
-msgid "Network"
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:193
-#, kde-format
-msgctxt "TV Season"
-msgid "Season"
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:194
+#: src/fetch/thetvdbfetcher.cpp:249 src/fetch/thetvdbfetcher.cpp:562
 #, fuzzy, kde-format
-#| msgid "Episodes"
-msgctxt "TV Episode"
-msgid "Episode"
-msgstr "Үзінділер"
+#| msgid "IMDb Link"
+msgid "TheTVDB Link"
+msgstr "IMDb сілтемесі"
 
-#: src/fetch/videogamegeekfetcher.cpp:190
+#: src/fetch/videogamegeekfetcher.cpp:191
 #, fuzzy, kde-format
 #| msgid "BoardGameGeek"
 msgid "VideoGameGeek Link"
 msgstr "BoardGameGeek"
 
-#: src/fetch/vndbfetcher.cpp:288 src/fetch/vndbfetcher.cpp:432
+#: src/fetch/vndbfetcher.cpp:289 src/fetch/vndbfetcher.cpp:433
 #, kde-format
 msgid "Alias"
 msgstr "Бүркеншік атауы"
 
-#: src/fetch/vndbfetcher.cpp:307
+#: src/fetch/vndbfetcher.cpp:308
 #, kde-format
 msgid "Visual Novel"
 msgstr "Көрінетін новелла"
@@ -4285,33 +4266,33 @@ msgstr "Синтаксис қатесі"
 msgid "Connection error %1: %2"
 msgstr "Қосылым қатесі %1: %2"
 
-#: src/fetch/z3950fetcher.cpp:561 src/fetch/z3950fetcher.cpp:877
+#: src/fetch/z3950fetcher.cpp:566 src/fetch/z3950fetcher.cpp:882
 #, kde-format
 msgid "z39.50 Server"
 msgstr "z39.50 сервері"
 
-#: src/fetch/z3950fetcher.cpp:588
+#: src/fetch/z3950fetcher.cpp:593
 #, kde-format
 msgid "Use preset &server:"
 msgstr "Алдын-ала орнатылған сервер қ&олданылсын:"
 
-#: src/fetch/z3950fetcher.cpp:624
+#: src/fetch/z3950fetcher.cpp:629
 #, kde-format
 msgid "&Database: "
 msgstr "Деректер қоры: "
 
-#: src/fetch/z3950fetcher.cpp:629
+#: src/fetch/z3950fetcher.cpp:634
 #, kde-format
 msgid "Enter the database name used by the server."
 msgstr "Сервер пайдаланатын деректер қорын келтіру."
 
-#: src/fetch/z3950fetcher.cpp:634
+#: src/fetch/z3950fetcher.cpp:639
 #, fuzzy, kde-format
 #| msgid "Ch&aracter set: "
 msgid "Query character set: "
 msgstr "Ко&дтамасы: "
 
-#: src/fetch/z3950fetcher.cpp:643
+#: src/fetch/z3950fetcher.cpp:648
 #, fuzzy, kde-format
 #| msgid ""
 #| "Enter the character set encoding used by the z39.50 server. The most "
@@ -4322,13 +4303,13 @@ msgid ""
 msgstr ""
 "z39.50 сервері қолданатын кодтамасын келтіріңіз. MARC-8 деген әбден мүмкін."
 
-#: src/fetch/z3950fetcher.cpp:649
+#: src/fetch/z3950fetcher.cpp:654
 #, fuzzy, kde-format
 #| msgid "Ch&aracter set: "
 msgid "Results character set: "
 msgstr "Ко&дтамасы: "
 
-#: src/fetch/z3950fetcher.cpp:658
+#: src/fetch/z3950fetcher.cpp:663
 #, fuzzy, kde-format
 #| msgid ""
 #| "Enter the character set encoding used by the z39.50 server. The most "
@@ -4339,17 +4320,17 @@ msgid ""
 msgstr ""
 "z39.50 сервері қолданатын кодтамасын келтіріңіз. MARC-8 деген әбден мүмкін."
 
-#: src/fetch/z3950fetcher.cpp:664
+#: src/fetch/z3950fetcher.cpp:669
 #, kde-format
 msgid "&Format: "
 msgstr "&Пішімі: "
 
-#: src/fetch/z3950fetcher.cpp:667
+#: src/fetch/z3950fetcher.cpp:672
 #, kde-format
 msgid "Auto-detect"
 msgstr "Автобайқау"
 
-#: src/fetch/z3950fetcher.cpp:676
+#: src/fetch/z3950fetcher.cpp:681
 #, kde-format
 msgid ""
 "Enter the data format used by the z39.50 server. Tellico will attempt to "
@@ -4358,17 +4339,17 @@ msgstr ""
 "z39.50 сервері қолданатын дерек пішімін келтіріңіз. <i>Автобайқау</i> "
 "десеңіз Tellico өзі керегін тауып бермек."
 
-#: src/fetch/z3950fetcher.cpp:682
+#: src/fetch/z3950fetcher.cpp:687
 #, kde-format
 msgid "&User: "
 msgstr "&Пайдаланушы: "
 
-#: src/fetch/z3950fetcher.cpp:685 src/fetch/z3950fetcher.cpp:697
+#: src/fetch/z3950fetcher.cpp:690 src/fetch/z3950fetcher.cpp:702
 #, kde-format
 msgid "Optional"
 msgstr "Қажетсізі мүмкін"
 
-#: src/fetch/z3950fetcher.cpp:688
+#: src/fetch/z3950fetcher.cpp:693
 #, kde-format
 msgid ""
 "Enter the authentication user name used by the z39.50 database. Most servers "
@@ -4377,12 +4358,12 @@ msgstr ""
 "z39.50 деректер қоры үшін пайдаланушының атауын келтіріңіз. Серверлердің "
 "көбі бұны керек қылмайды."
 
-#: src/fetch/z3950fetcher.cpp:694
+#: src/fetch/z3950fetcher.cpp:699
 #, kde-format
 msgid "Pass&word: "
 msgstr "&Паролі: "
 
-#: src/fetch/z3950fetcher.cpp:701
+#: src/fetch/z3950fetcher.cpp:706
 #, kde-format
 msgid ""
 "Enter the authentication password used by the z39.50 database. Most servers "
@@ -4520,68 +4501,68 @@ msgstr "Бүкіл іздеу өрісімен нәтижелерін тазал
 msgid "Cancelling the search..."
 msgstr "Іздеуден айну..."
 
-#: src/fetchdialog.cpp:408 src/fetchdialog.cpp:587
+#: src/fetchdialog.cpp:408 src/fetchdialog.cpp:588
 #, kde-format
 msgid "Searching..."
 msgstr "Іздеу..."
 
-#: src/fetchdialog.cpp:467
+#: src/fetchdialog.cpp:468
 #, kde-format
 msgid "The search returned no items."
 msgstr "Ештеңе табылмады."
 
-#: src/fetchdialog.cpp:470
+#: src/fetchdialog.cpp:471
 #, kde-format
 msgid "The search returned 1 item."
 msgid_plural "The search returned %1 items."
 msgstr[0] "Табылғаны: %1"
 
-#: src/fetchdialog.cpp:499
+#: src/fetchdialog.cpp:500
 #, kde-format
 msgid "No results were found for the following ISBN values:"
 msgstr "Келесі ISBN бойынша ештеңе табылмады:"
 
-#: src/fetchdialog.cpp:501
+#: src/fetchdialog.cpp:502
 #, kde-format
 msgid "No Results"
 msgstr "Нәтиже жоқ"
 
-#: src/fetchdialog.cpp:554 src/fetchdialog.cpp:610
+#: src/fetchdialog.cpp:555 src/fetchdialog.cpp:611
 #, kde-format
 msgid "Fetching %1..."
 msgstr "%1 дегенді қабылдау..."
 
-#: src/fetchdialog.cpp:627
+#: src/fetchdialog.cpp:628
 #, kde-format
 msgid "Attribution"
 msgstr "Анықтау"
 
-#: src/fetchdialog.cpp:664 src/fetchdialog.cpp:888
+#: src/fetchdialog.cpp:665 src/fetchdialog.cpp:889
 #, kde-format
 msgid "No Internet sources are available for your current collection type."
 msgstr "Назардағы жинақ түріне сәйкесті Интернете ештеңе табылмады."
 
-#: src/fetchdialog.cpp:745
+#: src/fetchdialog.cpp:746
 #, kde-format
 msgid "Edit ISBN/UPC Values"
 msgstr "ISBN/UPC мәндерін өзгерту"
 
-#: src/fetchdialog.cpp:756
+#: src/fetchdialog.cpp:757
 #, kde-format
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>ISBN не UPC нөмірлерін келтіріңіз, бір жолға біреуін.</qt>"
 
-#: src/fetchdialog.cpp:772
+#: src/fetchdialog.cpp:773
 #, kde-format
 msgid "&Load From File..."
 msgstr "&Файлдан алу..."
 
-#: src/fetchdialog.cpp:773
+#: src/fetchdialog.cpp:774
 #, kde-format
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>Тізімін мәтін файлдан алу.</qt>"
 
-#: src/fetchdialog.cpp:797
+#: src/fetchdialog.cpp:798
 #, kde-format
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
@@ -4677,6 +4658,19 @@ msgstr "Өзгертілген күні"
 msgid "International Standard Book Number"
 msgstr "Халықаралық стандарты кітап нөмірі"
 
+#: src/field.cpp:339
+#, kde-format
+msgctxt "TV Season"
+msgid "Season"
+msgstr ""
+
+#: src/field.cpp:340
+#, fuzzy, kde-format
+#| msgid "Episodes"
+msgctxt "TV Episode"
+msgid "Episode"
+msgstr "Үзінділер"
+
 #: src/filterdialog.cpp:62
 #, kde-format
 msgid "Advanced Filter"
@@ -4750,149 +4744,149 @@ msgstr "Топ"
 msgid "People"
 msgstr "Адамдар"
 
-#: src/gui/fieldwidget.cpp:107 src/gui/fieldwidget.cpp:217
+#: src/gui/fieldwidget.cpp:54 src/gui/fieldwidget.cpp:169
 #, kde-format
 msgctxt "Edit Label"
 msgid "%1:"
 msgstr "%1:"
 
-#: src/gui/filterrulewidget.cpp:69
+#: src/gui/filterrulewidget.cpp:68
 #, kde-format
 msgid "Any Field"
 msgstr "Кез келген өрісі"
 
-#: src/gui/filterrulewidget.cpp:101
+#: src/gui/filterrulewidget.cpp:100
 #, kde-format
 msgid "Edit..."
 msgstr "Өзгерту..."
 
-#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
-#: src/gui/filterrulewidget.cpp:285
+#: src/gui/filterrulewidget.cpp:260 src/gui/filterrulewidget.cpp:268
+#: src/gui/filterrulewidget.cpp:284
 #, kde-format
 msgid "equals"
 msgstr "келесіге тең:"
 
-#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
-#: src/gui/filterrulewidget.cpp:286
+#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
+#: src/gui/filterrulewidget.cpp:285
 #, kde-format
 msgid "does not equal"
 msgstr "дәл келесі емес:"
 
-#: src/gui/filterrulewidget.cpp:263 src/gui/filterrulewidget.cpp:271
-#: src/gui/filterrulewidget.cpp:287
+#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
+#: src/gui/filterrulewidget.cpp:286
 #, fuzzy, kde-format
 #| msgid "matches regexp"
 msgid "matches regular expression"
 msgstr "мына үлгі өрнекке сәйкесті:"
 
-#: src/gui/filterrulewidget.cpp:264 src/gui/filterrulewidget.cpp:272
-#: src/gui/filterrulewidget.cpp:288
+#: src/gui/filterrulewidget.cpp:263 src/gui/filterrulewidget.cpp:271
+#: src/gui/filterrulewidget.cpp:287
 #, fuzzy, kde-format
 #| msgid "does not match regexp"
 msgid "does not match regular expression"
 msgstr "мына үлгі өрнекке сәйкестісі емес:"
 
-#: src/gui/filterrulewidget.cpp:265
+#: src/gui/filterrulewidget.cpp:264
 #, kde-format
 msgctxt "is before a date"
 msgid "is before"
 msgstr "мынаның алдында:"
 
-#: src/gui/filterrulewidget.cpp:266
+#: src/gui/filterrulewidget.cpp:265
 #, kde-format
 msgctxt "is after a date"
 msgid "is after"
 msgstr "мынадан кейін:"
 
-#: src/gui/filterrulewidget.cpp:273
+#: src/gui/filterrulewidget.cpp:272
 #, kde-format
 msgctxt "is less than a number"
 msgid "is less than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:274
+#: src/gui/filterrulewidget.cpp:273
 #, kde-format
 msgctxt "is greater than a number"
 msgid "is greater than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:277
+#: src/gui/filterrulewidget.cpp:276
 #, fuzzy, kde-format
 #| msgid "&Image size: "
 msgid "image size equals"
 msgstr "&Кескіннің өлшемі: "
 
-#: src/gui/filterrulewidget.cpp:278
+#: src/gui/filterrulewidget.cpp:277
 #, fuzzy, kde-format
 #| msgid "does not equal"
 msgid "image size does not equal"
 msgstr "дәл келесі емес:"
 
-#: src/gui/filterrulewidget.cpp:279
+#: src/gui/filterrulewidget.cpp:278
 #, kde-format
 msgctxt "image size is less than a number"
 msgid "image size is less than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:280
+#: src/gui/filterrulewidget.cpp:279
 #, kde-format
 msgctxt "image size is greater than a number"
 msgid "image size is greater than"
 msgstr ""
 
-#: src/gui/filterrulewidget.cpp:283
+#: src/gui/filterrulewidget.cpp:282
 #, kde-format
 msgid "contains"
 msgstr "мынадан тұрады:"
 
-#: src/gui/filterrulewidget.cpp:284
+#: src/gui/filterrulewidget.cpp:283
 #, kde-format
 msgid "does not contain"
 msgstr "мынандайы жоғы:"
 
-#: src/gui/imagewidget.cpp:101
+#: src/gui/imagewidget.cpp:106
 #, kde-format
 msgid "Select Image..."
 msgstr "Кескінін таңдау..."
 
-#: src/gui/imagewidget.cpp:106
+#: src/gui/imagewidget.cpp:111
 #, kde-format
 msgid "Scan Image..."
 msgstr "Кескінді сканерлеу..."
 
-#: src/gui/imagewidget.cpp:115
+#: src/gui/imagewidget.cpp:120
 #, kde-format
 msgid "Open With..."
 msgstr "Мынамен ашу..."
 
-#: src/gui/imagewidget.cpp:149
+#: src/gui/imagewidget.cpp:158
 #, kde-format
 msgctxt "Clear image"
 msgid "Clear"
 msgstr "Тазалау"
 
-#: src/gui/imagewidget.cpp:156
+#: src/gui/imagewidget.cpp:165
 #, kde-format
 msgid "Save link only"
 msgstr "Сілтемені ғана сақтау..."
 
-#: src/gui/imagewidget.cpp:261
+#: src/gui/imagewidget.cpp:270
 #, fuzzy, kde-format
 #| msgid "Small Image"
 msgid "All Images (%1)"
 msgstr "Шағын кескін"
 
-#: src/gui/imagewidget.cpp:288
+#: src/gui/imagewidget.cpp:297
 #, kde-format
 msgid "Opening the selected scanner failed."
 msgstr "Таңдалған сканерді ашу жаңылысы."
 
-#: src/gui/imagewidget.cpp:347
+#: src/gui/imagewidget.cpp:356
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "Кескінді %1 дегенде ашу..."
 
-#: src/gui/imagewidget.cpp:379
+#: src/gui/imagewidget.cpp:388
 #, kde-format
 msgid "Saving a link is only possible for newly added images."
 msgstr "Сілтемені сақтау тек қана жаңа қосылған кескіндер үшін мүмкін."
@@ -4931,47 +4925,47 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "&Өшіру"
 
-#: src/gui/tablefieldwidget.cpp:168
+#: src/gui/tablefieldwidget.cpp:167
 #, kde-format
 msgid "Rename Column"
 msgstr "Баған атын өзгерту"
 
-#: src/gui/tablefieldwidget.cpp:168
+#: src/gui/tablefieldwidget.cpp:167
 #, kde-format
 msgid "New column name:"
 msgstr "Бағанның жаңа атауы:"
 
-#: src/gui/tablefieldwidget.cpp:195
+#: src/gui/tablefieldwidget.cpp:189
 #, kde-format
 msgid "Column %1"
 msgstr "%1 бағаны"
 
-#: src/gui/tablefieldwidget.cpp:234 src/gui/tablefieldwidget.cpp:268
+#: src/gui/tablefieldwidget.cpp:240 src/gui/tablefieldwidget.cpp:274
 #, kde-format
 msgid "Rename Column..."
 msgstr "Баған атын өзгерту..."
 
-#: src/gui/tablefieldwidget.cpp:236 src/gui/tablefieldwidget.cpp:274
+#: src/gui/tablefieldwidget.cpp:242 src/gui/tablefieldwidget.cpp:280
 #, kde-format
 msgid "Clear Table"
 msgstr "Кестені тазалау"
 
-#: src/gui/tablefieldwidget.cpp:253
+#: src/gui/tablefieldwidget.cpp:259
 #, kde-format
 msgid "Insert Row"
 msgstr "Жолды ендіру"
 
-#: src/gui/tablefieldwidget.cpp:255
+#: src/gui/tablefieldwidget.cpp:261
 #, kde-format
 msgid "Remove Row"
 msgstr "Жолды өшіру"
 
-#: src/gui/tablefieldwidget.cpp:257
+#: src/gui/tablefieldwidget.cpp:263
 #, kde-format
 msgid "Move Row Up"
 msgstr "Жолды жоғарлату"
 
-#: src/gui/tablefieldwidget.cpp:262
+#: src/gui/tablefieldwidget.cpp:268
 #, kde-format
 msgid "Move Row Down"
 msgstr "Жолды төмендету"
@@ -6349,48 +6343,54 @@ msgid ""
 "Some reports may take several seconds to generate for large collections."
 msgstr "Жинақтар үлкен болса есебін жасап шығу біраз уақыт алады."
 
-#: src/reportdialog.cpp:339 src/translators/htmlexporter.cpp:100
+#: src/reportdialog.cpp:340
+#, fuzzy, kde-format
+#| msgid "Files"
+msgid "PNG Files"
+msgstr "Файлдар"
+
+#: src/reportdialog.cpp:355 src/translators/htmlexporter.cpp:100
 #, fuzzy, kde-format
 #| msgid "My Files"
 msgid "HTML Files"
 msgstr "Файлдарым"
 
-#: src/tellico_kernel.cpp:283
+#: src/tellico_kernel.cpp:267
 #, kde-format
 msgid "Do you really want to delete this filter?"
 msgstr "Бұл сүзгіні шынымен өшіргіңіз келеді ме?"
 
-#: src/tellico_kernel.cpp:285
+#: src/tellico_kernel.cpp:269
 #, kde-format
 msgid "Delete Filter?"
 msgstr "Сүзгі өшірілсін бе?"
 
-#: src/tellico_kernel.cpp:321
+#: src/tellico_kernel.cpp:305
 #, kde-format
 msgid "New collection name:"
 msgstr "Жаңа жинақтың атауы:"
 
-#: src/tellico_kernel.cpp:337
+#: src/tellico_kernel.cpp:321
 #, kde-format
 msgid "Entry 1"
 msgstr "1-жазуы"
 
-#: src/tellico_kernel.cpp:338
+#: src/tellico_kernel.cpp:322
 #, kde-format
 msgid "Entry 2"
 msgstr "2-жазуы"
 
-#: src/tellico_kernel.cpp:347
+#: src/tellico_kernel.cpp:331
 #, kde-format
 msgid "Conflicting values for %1 were found while merging entries."
 msgstr "Жазуларды біріктірген кезінде %1 мәндерінің қайшылығы табылды."
 
-#: src/tellico_kernel.cpp:353
+#: src/tellico_kernel.cpp:337
 #, kde-format
 msgid "Please choose which value to keep."
 msgstr "Қайсын қалдыру керегін таңдаңыз."
 
-#: src/tellico_kernel.cpp:359 src/tellico_kernel.cpp:360
+#: src/tellico_kernel.cpp:343 src/tellico_kernel.cpp:344
 #, kde-format
 msgid "Select value from %1"
 msgstr "%1 дегеннен мәнін таңдау"
@@ -6492,65 +6492,65 @@ msgstr "Alexandria параметрлері"
 msgid "&Library:"
 msgstr "Кітапханасы:"
 
-#: src/translators/audiofileimporter.cpp:113
+#: src/translators/audiofileimporter.cpp:112
 #, kde-format
 msgid "Scanning audio files..."
 msgstr "Дыбыс файлдарды зерттеу..."
 
-#: src/translators/audiofileimporter.cpp:171
-#: src/translators/audiofileimporter.cpp:174
+#: src/translators/audiofileimporter.cpp:170
+#: src/translators/audiofileimporter.cpp:173
 #, kde-format
 msgid "Files"
 msgstr "Файлдар"
 
-#: src/translators/audiofileimporter.cpp:177
+#: src/translators/audiofileimporter.cpp:176
 #, kde-format
 msgid "Bitrate"
 msgstr "Бит легі"
 
-#: src/translators/audiofileimporter.cpp:210
-#: src/translators/audiofileimporter.cpp:220
+#: src/translators/audiofileimporter.cpp:209
+#: src/translators/audiofileimporter.cpp:219
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "Жолсызықтар (%1 дискі)"
 
-#: src/translators/audiofileimporter.cpp:284 xslt/entry-templates/Album.xsl:243
+#: src/translators/audiofileimporter.cpp:283 xslt/entry-templates/Album.xsl:243
 #, kde-format
 msgid "(Various)"
 msgstr "(Түрлі)"
 
-#: src/translators/audiofileimporter.cpp:445
+#: src/translators/audiofileimporter.cpp:444
 #, kde-format
 msgid "Audio File Options"
 msgstr "Аудио файл параметрлері"
 
-#: src/translators/audiofileimporter.cpp:448
+#: src/translators/audiofileimporter.cpp:447
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "Қ&апшықтарда рекурсивті іздеу"
 
-#: src/translators/audiofileimporter.cpp:449
+#: src/translators/audiofileimporter.cpp:448
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr ""
 "Белгісі қойылса, ішкі қапшықтарда аудио файлдарды рекурсивті іздеу жасалады."
 
-#: src/translators/audiofileimporter.cpp:453
+#: src/translators/audiofileimporter.cpp:452
 #, kde-format
 msgid "Include file &location"
 msgstr "Файлдың қайда &жатқанын қоса"
 
-#: src/translators/audiofileimporter.cpp:454
+#: src/translators/audiofileimporter.cpp:453
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "Белгісі қойылса, әр жолсызықтың толық файл атауы жазуға енеді."
 
-#: src/translators/audiofileimporter.cpp:458
+#: src/translators/audiofileimporter.cpp:457
 #, kde-format
 msgid "Include &bitrate"
 msgstr "&Бит легін қоса"
 
-#: src/translators/audiofileimporter.cpp:459
+#: src/translators/audiofileimporter.cpp:458
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "Белгісі қойылса, әр жолсызықтың бит легі мәні жазуға енеді."
@@ -7132,17 +7132,17 @@ msgstr "Жинақ дерегі файлда жоқ."
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:522
+#: src/translators/tellicoxmlexporter.cpp:535
 #, kde-format
 msgid "Tellico XML Options"
 msgstr "Tellico XML параметрлері"
 
-#: src/translators/tellicoxmlexporter.cpp:525
+#: src/translators/tellicoxmlexporter.cpp:538
 #, kde-format
 msgid "Include images in XML document"
 msgstr "Кескіндер XML құжатына қосылсын"
 
-#: src/translators/tellicoxmlexporter.cpp:527
+#: src/translators/tellicoxmlexporter.cpp:540
 #, kde-format
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "

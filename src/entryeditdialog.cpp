@@ -23,6 +23,7 @@
  ***************************************************************************/
 
 #include "entryeditdialog.h"
+#include "gui/fieldwidgetfactory.h"
 #include "gui/tabwidget.h"
 #include "collection.h"
 #include "controller.h"
@@ -207,12 +208,13 @@ void EntryEditDialog::resetLayout(Tellico::Data::CollPtr coll_) {
         noChoices = false;
       }
 
-      GUI::FieldWidget* widget = GUI::FieldWidget::create(field, grid);
+      GUI::FieldWidget* widget = GUI::FieldWidgetFactory::create(field, grid);
       if(!widget) {
         continue;
       }
       widget->insertDefault();
       connect(widget, &GUI::FieldWidget::valueChanged, this, &EntryEditDialog::fieldValueChanged);
+      connect(widget, &GUI::FieldWidget::fieldChanged, this, &EntryEditDialog::fieldChanged);
       if(!focusedFirst && widget->focusPolicy() != Qt::NoFocus) {
         widget->setFocus();
         focusedFirst = true;
@@ -754,6 +756,10 @@ void EntryEditDialog::fieldValueChanged(Tellico::Data::FieldPtr field_) {
     m_modifiedFields.append(field_);
   }
   slotSetModified(true);
+}
+
+void EntryEditDialog::fieldChanged(Tellico::Data::FieldPtr field_) {
+  Kernel::self()->modifyField(field_);
 }
 
 void EntryEditDialog::showEvent(QShowEvent* event_) {

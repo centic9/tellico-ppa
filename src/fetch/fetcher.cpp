@@ -49,6 +49,7 @@ Fetcher::Fetcher(QObject* parent) : QObject(parent)
     , m_updateOverwrite(false)
     , m_hasMoreResults(false)
     , m_messager(nullptr) {
+  Q_ASSERT(parent);
 }
 
 Fetcher::~Fetcher() {
@@ -75,7 +76,7 @@ const Tellico::Fetch::FetchRequest& Fetcher::request() const {
 void Fetcher::startSearch(const FetchRequest& request_) {
   m_request = request_;
   if(!canFetch(m_request.collectionType())) {
-    myDebug() << "Bad collection type:" << source() << m_request.collectionType();
+    myDebug() << "Bad collection type for search:" << source() << m_request.collectionType();
     message(i18n("%1 does not allow searching for this collection type.", source()),
             MessageHandler::Warning);
     emit signalDone(this);

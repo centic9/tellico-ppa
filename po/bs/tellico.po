@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-03-15 03:12+0100\n"
+"POT-Creation-Date: 2021-05-09 01:45+0000\n"
 "PO-Revision-Date: 2015-02-24 22:20+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bs <bs@kde.org>\n"
@@ -32,29 +32,17 @@ msgstr ""
 "As15355@etf.unsa.ba,dbrackovic2@etf.unsa.ba,omehinagic1@etf.unsa.ba,samir."
 "ribic@etf.unsa.ba,vljubovic@smartnet.ba"
 
-#. i18n: file: xslt/entry-templates/Default.xsl
-#, kde-format
-msgctxt "Default XSL Template"
-msgid "Default"
-msgstr "Podrazumijevani"
-
 #. i18n: file: xslt/entry-templates/Album.xsl
 #, kde-format
 msgctxt "Album XSL Template"
 msgid "Album"
 msgstr "Album"
 
-#. i18n: file: xslt/entry-templates/Compact.xsl
+#. i18n: file: xslt/entry-templates/Default.xsl
 #, kde-format
-msgctxt "Compact XSL Template"
-msgid "Compact"
-msgstr "Kompaktan"
-
-#. i18n: file: xslt/entry-templates/Video.xsl
-#, kde-format
-msgctxt "Video XSL Template"
-msgid "Video"
-msgstr "Video"
+msgctxt "Default XSL Template"
+msgid "Default"
+msgstr "Podrazumijevani"
 
 #. i18n: file: xslt/entry-templates/Fancy.xsl
 #, kde-format
@@ -62,35 +50,17 @@ msgctxt "Fancy XSL Template"
 msgid "Fancy"
 msgstr "Kičast"
 
-#. i18n: file: xslt/report-templates/Column_View.xsl
+#. i18n: file: xslt/entry-templates/Video.xsl
 #, kde-format
-msgctxt "Column View XSL Template"
-msgid "Column View"
-msgstr "Pregled Kolona"
+msgctxt "Video XSL Template"
+msgid "Video"
+msgstr "Video"
 
-#. i18n: file: xslt/report-templates/Tri-Column.xsl
+#. i18n: file: xslt/entry-templates/Compact.xsl
 #, kde-format
-msgctxt "Tri-Column XSL Template"
-msgid "Tri-Column"
-msgstr "Tri-Kolona"
-
-#. i18n: file: xslt/report-templates/Group_Statistics.xsl
-#, kde-format
-msgctxt "Group Statistics XSL Template"
-msgid "Group Statistics"
-msgstr "Statistike Grupe"
-
-#. i18n: file: xslt/report-templates/Loan_View.xsl
-#, kde-format
-msgctxt "Loan View XSL Template"
-msgid "Loan View"
-msgstr "Pregled Zajma"
-
-#. i18n: file: xslt/report-templates/Image_List.xsl
-#, kde-format
-msgctxt "Image List XSL Template"
-msgid "Image List"
-msgstr "Lista Slika"
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "Kompaktan"
 
 #. i18n: file: xslt/report-templates/Title_Listing_(Vertical).xsl
 #, kde-format
@@ -104,17 +74,47 @@ msgctxt "Group View XSL Template"
 msgid "Group View"
 msgstr "Grupni Pogled"
 
-#. i18n: file: xslt/report-templates/Group_Summary.xsl
+#. i18n: file: xslt/report-templates/Loan_View.xsl
 #, kde-format
-msgctxt "Group Summary XSL Template"
-msgid "Group Summary"
-msgstr "Rezime Grupe"
+msgctxt "Loan View XSL Template"
+msgid "Loan View"
+msgstr "Pregled Zajma"
 
 #. i18n: file: xslt/report-templates/Title_Listing_(Horizontal).xsl
 #, kde-format
 msgctxt "Title Listing (Horizontal) XSL Template"
 msgid "Title Listing (Horizontal)"
 msgstr "Lista Naslova (Vodoravno)"
+
+#. i18n: file: xslt/report-templates/Group_Summary.xsl
+#, kde-format
+msgctxt "Group Summary XSL Template"
+msgid "Group Summary"
+msgstr "Rezime Grupe"
+
+#. i18n: file: xslt/report-templates/Image_List.xsl
+#, kde-format
+msgctxt "Image List XSL Template"
+msgid "Image List"
+msgstr "Lista Slika"
+
+#. i18n: file: xslt/report-templates/Tri-Column.xsl
+#, kde-format
+msgctxt "Tri-Column XSL Template"
+msgid "Tri-Column"
+msgstr "Tri-Kolona"
+
+#. i18n: file: xslt/report-templates/Group_Statistics.xsl
+#, kde-format
+msgctxt "Group Statistics XSL Template"
+msgid "Group Statistics"
+msgstr "Statistike Grupe"
+
+#. i18n: file: xslt/report-templates/Column_View.xsl
+#, kde-format
+msgctxt "Column View XSL Template"
+msgid "Column View"
+msgstr "Pregled Kolona"
 
 #: src/bibtexkeydialog.cpp:49
 #, kde-format
@@ -202,6 +202,20 @@ msgstr "Ukupno unosa: %1"
 #| msgid "Group Summary"
 msgid "Group Summary Report"
 msgstr "Rezime Grupe"
+
+#: src/charts/yeardistributionreport.cpp:69
+#: src/charts/yeardistributionreport.cpp:133
+#, fuzzy, kde-format
+#| msgid "Distributor"
+msgid "Year Distribution"
+msgstr "Dobavljač"
+
+#: src/charts/yeardistributionreport.cpp:158
+#, fuzzy, kde-format
+#| msgid "Country"
+msgctxt "Distinct number of items"
+msgid "Count"
+msgstr "Država"
 
 #: src/cite/lyxpipe.cpp:57
 #, kde-format
@@ -625,16 +639,16 @@ msgstr "Vrati"
 msgid "Extended Field Properties"
 msgstr "Svojstva proširenih polja."
 
-#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:108
-#: src/fetch/srufetcher.cpp:577
-#, kde-format
-msgid "Value"
-msgstr "Vrijednost"
-
 #: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:107
 #, kde-format
 msgid "Property"
 msgstr "Svojstvo"
+
+#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:108
+#: src/fetch/srufetcher.cpp:581
+#, kde-format
+msgid "Value"
+msgstr "Vrijednost"
 
 #: src/collectionfieldsdialog.cpp:922
 #, kde-format
@@ -698,29 +712,31 @@ msgstr "Polje sa izvedenom vrijednosti mora imati predložak za vrijednost."
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31 src/collections/winecollection.cpp:30
 #: src/configdialog.cpp:142 src/configdialog.cpp:169 src/configdialog.cpp:183
-#: src/configdialog.cpp:200 src/fetch/allocinefetcher.cpp:318
-#: src/fetch/allocinefetcher.cpp:324 src/fetch/amazonfetcher.cpp:863
+#: src/configdialog.cpp:200 src/fetch/allocinefetcher.cpp:319
+#: src/fetch/allocinefetcher.cpp:325 src/fetch/amazonfetcher.cpp:863
 #: src/fetch/animenfofetcher.cpp:310 src/fetch/animenfofetcher.cpp:314
 #: src/fetch/bedethequefetcher.cpp:331 src/fetch/bedethequefetcher.cpp:339
 #: src/fetch/colnectfetcher.cpp:317 src/fetch/colnectfetcher.cpp:330
 #: src/fetch/colnectfetcher.cpp:337 src/fetch/colnectfetcher.cpp:344
 #: src/fetch/discogsfetcher.cpp:280 src/fetch/discogsfetcher.cpp:285
 #: src/fetch/discogsfetcher.cpp:290 src/fetch/discogsfetcher.cpp:297
-#: src/fetch/discogsfetcher.cpp:304 src/fetch/doubanfetcher.cpp:294
-#: src/fetch/doubanfetcher.cpp:312 src/fetch/doubanfetcher.cpp:330
-#: src/fetch/filmasterfetcher.cpp:234 src/fetch/googlebookfetcher.cpp:252
-#: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:225
+#: src/fetch/discogsfetcher.cpp:304 src/fetch/doubanfetcher.cpp:310
+#: src/fetch/doubanfetcher.cpp:328 src/fetch/doubanfetcher.cpp:346
+#: src/fetch/filmasterfetcher.cpp:240 src/fetch/googlebookfetcher.cpp:252
+#: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:226
 #: src/fetch/imdbfetcher.cpp:1176 src/fetch/kinopoiskfetcher.cpp:243
-#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:417
+#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:418
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
 #: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:248
 #: src/fetch/thegamesdbfetcher.cpp:241 src/fetch/thegamesdbfetcher.cpp:246
-#: src/fetch/themoviedbfetcher.cpp:294 src/fetch/themoviedbfetcher.cpp:299
-#: src/fetch/tvmazefetcher.cpp:177 src/fetch/tvmazefetcher.cpp:182
-#: src/fetch/upcitemdbfetcher.cpp:209 src/field.cpp:38 src/field.cpp:79
-#: src/field.cpp:298 src/field.cpp:327 src/field.cpp:332
-#: src/translators/gcstarimporter.cpp:89
+#: src/fetch/themoviedbfetcher.cpp:312 src/fetch/themoviedbfetcher.cpp:315
+#: src/fetch/themoviedbfetcher.cpp:320 src/fetch/themoviedbfetcher.cpp:338
+#: src/fetch/thetvdbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:245
+#: src/fetch/thetvdbfetcher.cpp:250 src/fetch/tvmazefetcher.cpp:178
+#: src/fetch/tvmazefetcher.cpp:183 src/fetch/upcitemdbfetcher.cpp:209
+#: src/field.cpp:38 src/field.cpp:79 src/field.cpp:298 src/field.cpp:327
+#: src/field.cpp:332 src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "General"
 msgstr "Glavno"
@@ -793,8 +809,8 @@ msgstr "Organizacija"
 msgid "Publisher"
 msgstr "Izdavač"
 
-#: src/collections/bibtexcollection.cpp:141 src/fetch/hathitrustfetcher.cpp:302
-#: src/fetch/srufetcher.cpp:502 src/fetch/z3950fetcher.cpp:572
+#: src/collections/bibtexcollection.cpp:141 src/fetch/hathitrustfetcher.cpp:307
+#: src/fetch/srufetcher.cpp:506 src/fetch/z3950fetcher.cpp:577
 #, kde-format
 msgid "Address"
 msgstr "Adresa"
@@ -826,7 +842,7 @@ msgstr "Godina"
 msgid "Journal"
 msgstr "Dnevnik"
 
-#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:73
+#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:72
 #, kde-format
 msgid "DOI"
 msgstr "DOI"
@@ -903,8 +919,8 @@ msgid "URL"
 msgstr "URL"
 
 #: src/collections/bibtexcollection.cpp:246 src/fetch/entrezfetcher.cpp:514
-#: src/fetch/hathitrustfetcher.cpp:303 src/fetch/srufetcher.cpp:503
-#: src/fetch/z3950fetcher.cpp:573
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:507
+#: src/fetch/z3950fetcher.cpp:578
 #, kde-format
 msgid "Abstract"
 msgstr "Sažetak"
@@ -927,7 +943,7 @@ msgstr "Nepoznat"
 #: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:500 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
+#: src/document.cpp:501 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
 #, kde-format
 msgid "Personal"
 msgstr "Lično"
@@ -1044,7 +1060,7 @@ msgstr "Cijena kupovine"
 #: src/collections/comicbookcollection.cpp:154
 #: src/collections/gamecollection.cpp:127
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:215 src/document.cpp:498
+#: src/collections/videocollection.cpp:215 src/document.cpp:499
 #, kde-format
 msgid "Loaned"
 msgstr "Posuđena"
@@ -1088,20 +1104,20 @@ msgstr "Moje knjige"
 msgid "Subtitle"
 msgstr "Podnaslov"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
-#: src/fetch/doubanfetcher.cpp:363 src/fetch/doubanfetcher.cpp:415
-#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
-#, kde-format
-msgid "Paperback"
-msgstr "Mehki povez"
-
 #: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:967
-#: src/fetch/doubanfetcher.cpp:361 src/fetch/doubanfetcher.cpp:413
+#: src/fetch/doubanfetcher.cpp:377 src/fetch/doubanfetcher.cpp:429
 #: src/fetch/ibsfetcher.cpp:287 src/translators/alexandriaimporter.cpp:158
 #: src/translators/librarythingimporter.cpp:148
 #, kde-format
 msgid "Hardback"
 msgstr "Tvrdi povez"
+
+#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
+#: src/fetch/doubanfetcher.cpp:379 src/fetch/doubanfetcher.cpp:431
+#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
+#, kde-format
+msgid "Paperback"
+msgstr "Mehki povez"
 
 #: src/collections/bookcollection.cpp:71
 #, kde-format
@@ -1190,7 +1206,7 @@ msgid "Read"
 msgstr "Pročitana"
 
 #: src/collections/bookcollection.cpp:179
-#: src/collections/comicbookcollection.cpp:163 src/fetch/arxivfetcher.cpp:205
+#: src/collections/comicbookcollection.cpp:163 src/fetch/arxivfetcher.cpp:209
 #: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:244
 #: src/translators/referencerimporter.cpp:62
 #, kde-format
@@ -1351,7 +1367,7 @@ msgid "Writer"
 msgstr "Pisac"
 
 #: src/collections/comicbookcollection.cpp:64
-#: src/fetch/boardgamegeekfetcher.cpp:185
+#: src/fetch/boardgamegeekfetcher.cpp:190
 #: src/translators/boardgamegeekimporter.cpp:217
 #, kde-format
 msgctxt "Comic Book Illustrator"
@@ -1663,7 +1679,7 @@ msgid "Album"
 msgstr "Album"
 
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:378
-#: src/fetch/doubanfetcher.cpp:369 src/fetch/doubanfetcher.cpp:502
+#: src/fetch/doubanfetcher.cpp:385 src/fetch/doubanfetcher.cpp:518
 #: src/fetch/upcitemdbfetcher.cpp:291 src/fetch/upcitemdbfetcher.cpp:411
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:392
@@ -1680,15 +1696,15 @@ msgstr "CD"
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:381
-#, kde-format
-msgid "Vinyl"
-msgstr "Vinil"
-
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:383
 #, kde-format
 msgid "Cassette"
 msgstr "Kaseta"
+
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:381
+#, kde-format
+msgid "Vinyl"
+msgstr "Vinil"
 
 #: src/collections/musiccollection.cpp:55
 #: src/collections/videocollection.cpp:55
@@ -1698,7 +1714,7 @@ msgstr "Disk"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:215
+#: src/translators/audiofileimporter.cpp:214
 #: src/translators/xmlstatehandler.cpp:396
 #, kde-format
 msgid "Artist"
@@ -1715,16 +1731,15 @@ msgid "Tracks"
 msgstr "Numere"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
-#: src/fetch/fetchmanager.cpp:68 src/fetch/tvmazefetcher.cpp:192
-#: src/fetchdialog.cpp:252 src/field.cpp:297
-#: src/translators/audiofileimporter.cpp:214
+#: src/fetch/fetchmanager.cpp:67 src/fetchdialog.cpp:252 src/field.cpp:297
+#: src/field.cpp:338 src/translators/audiofileimporter.cpp:213
 #: src/translators/xmlstatehandler.cpp:395
 #, kde-format
 msgid "Title"
 msgstr "Naslov"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:216
+#: src/translators/audiofileimporter.cpp:215
 #: src/translators/xmlstatehandler.cpp:397
 #, kde-format
 msgid "Length"
@@ -1741,7 +1756,7 @@ msgid "Issue Year"
 msgstr "Godina izdanja"
 
 #: src/collections/stampcollection.cpp:83
-#: src/collections/videocollection.cpp:184 src/fetch/allocinefetcher.cpp:402
+#: src/collections/videocollection.cpp:184 src/fetch/allocinefetcher.cpp:403
 #: src/fetch/imdbfetcher.cpp:1318
 #, kde-format
 msgid "Color"
@@ -1799,18 +1814,6 @@ msgstr "Mogućnosti"
 msgid "My Videos"
 msgstr "Moj video"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1025
-#: src/fetch/upcitemdbfetcher.cpp:387
-#, kde-format
-msgid "Blu-ray"
-msgstr "Blu-Ray"
-
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1028
-#: src/fetch/upcitemdbfetcher.cpp:390
-#, kde-format
-msgid "HD DVD"
-msgstr "HD DVD"
-
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1031
 #: src/fetch/upcitemdbfetcher.cpp:393
 #, kde-format
@@ -1826,6 +1829,18 @@ msgstr "VCD"
 #, kde-format
 msgid "DivX"
 msgstr "DivX"
+
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1025
+#: src/fetch/upcitemdbfetcher.cpp:387
+#, kde-format
+msgid "Blu-ray"
+msgstr "Blu-Ray"
+
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1028
+#: src/fetch/upcitemdbfetcher.cpp:390
+#, kde-format
+msgid "HD DVD"
+msgstr "HD DVD"
 
 #: src/collections/videocollection.cpp:60
 #, kde-format
@@ -2135,13 +2150,13 @@ msgid "Delete Filter"
 msgstr "Obriši filter"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:379
+#: src/entryeditdialog.cpp:381
 #, kde-format
 msgid "Modify Entries"
 msgstr "Promjeni ulaze"
 
 #: src/commands/modifyentries.cpp:51 src/commands/modifyentries.cpp:71
-#: src/commands/updateentries.cpp:92
+#: src/commands/updateentries.cpp:91
 #, kde-format
 msgctxt "Modify (Entry Title)"
 msgid "Modify %1"
@@ -2174,7 +2189,7 @@ msgctxt "Check-in (Entry Title)"
 msgid "Check-in %1"
 msgstr "Provjeri %1"
 
-#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:321
+#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:305
 #, kde-format
 msgid "Rename Collection"
 msgstr "Preimenuj kolekciju"
@@ -2646,7 +2661,7 @@ msgid "Template Options"
 msgstr "Opcija predložaka"
 
 #. i18n string, a plain label can't have an '&'
-#: src/configdialog.cpp:423 src/fetch/execexternalfetcher.cpp:350
+#: src/configdialog.cpp:423 src/fetch/execexternalfetcher.cpp:354
 #: src/fetch/gcstarpluginfetcher.cpp:401 src/fetch/multifetcher.cpp:227
 #: src/translators/csvimporter.cpp:215
 #, kde-format
@@ -2845,7 +2860,7 @@ msgid "Template Packages"
 msgstr "Predlošci"
 
 #: src/configdialog.cpp:1123 src/importdialog.cpp:415 src/mainwindow.cpp:1207
-#: src/mainwindow.cpp:1377 src/reportdialog.cpp:341
+#: src/mainwindow.cpp:1377 src/reportdialog.cpp:342 src/reportdialog.cpp:357
 #: src/translators/bibtexexporter.cpp:65
 #: src/translators/bibtexmlexporter.cpp:51 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:61 src/translators/htmlexporter.cpp:100
@@ -2870,8 +2885,8 @@ msgstr "Obriši predložak"
 msgid "Select template to delete:"
 msgstr "Selektujte predložak za izbrisati:"
 
-#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:428
-#: src/fetchdialog.cpp:562 src/fetchdialog.cpp:623 src/fetchdialog.cpp:637
+#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:429
+#: src/fetchdialog.cpp:563 src/fetchdialog.cpp:624 src/fetchdialog.cpp:638
 #: src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
@@ -3024,6 +3039,11 @@ msgstr "Tellico ne može učitati sliku iz datoteke - %1."
 msgid "Untitled"
 msgstr "Neimenovano"
 
+#: src/core/tellico_strings.cpp:42
+#, kde-format
+msgid "This information was freely provided by <a href=\"%1\">%2</a>."
+msgstr ""
+
 #: src/detailedlistview.cpp:523
 #, kde-format
 msgid "View Columns"
@@ -3056,54 +3076,54 @@ msgstr "Prikaži sve Kolone"
 msgid "Hide All Columns"
 msgstr "Sakrij  sve Kolone"
 
-#: src/document.cpp:206 src/mainwindow.cpp:1321
+#: src/document.cpp:207 src/mainwindow.cpp:1321
 #, kde-format
 msgid "Saving file..."
 msgstr "Snimam datoteku..."
 
-#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:400
-#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:518
+#: src/entryeditdialog.cpp:70 src/entryeditdialog.cpp:402
+#: src/entryeditdialog.cpp:425 src/entryeditdialog.cpp:520
 #, kde-format
 msgid "Edit Entry"
 msgstr "Izmijeni unos"
 
-#: src/entryeditdialog.cpp:84
+#: src/entryeditdialog.cpp:85
 #, kde-format
 msgid "&New Entry"
 msgstr "&Novi unos"
 
-#: src/entryeditdialog.cpp:89 src/entryeditdialog.cpp:129
-#: src/entryeditdialog.cpp:433 src/entryeditdialog.cpp:539
+#: src/entryeditdialog.cpp:90 src/entryeditdialog.cpp:130
+#: src/entryeditdialog.cpp:435 src/entryeditdialog.cpp:541
 #, kde-format
 msgid "Sa&ve Entry"
 msgstr "Snimi &unos"
 
-#: src/entryeditdialog.cpp:330
+#: src/entryeditdialog.cpp:332
 #, kde-format
 msgid "Do you really want to modify these entries?"
 msgstr "Da li stvarno želite mijenjati ove unose?"
 
-#: src/entryeditdialog.cpp:332
+#: src/entryeditdialog.cpp:334
 #, kde-format
 msgid "Modify Multiple Entries"
 msgstr "Izmjena više unose"
 
-#: src/entryeditdialog.cpp:373
+#: src/entryeditdialog.cpp:375
 #, kde-format
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Vrijednost je potrebna za sljedeća polja. Želite li nastaviti?"
 
-#: src/entryeditdialog.cpp:469
+#: src/entryeditdialog.cpp:471
 #, kde-format
 msgid "Edit Entries"
 msgstr "Uredi unose"
 
-#: src/entryeditdialog.cpp:495
+#: src/entryeditdialog.cpp:497
 #, kde-format
 msgid "Sa&ve Entries"
 msgstr "Snimi unose"
 
-#: src/entryeditdialog.cpp:654
+#: src/entryeditdialog.cpp:656
 #, kde-format
 msgid ""
 "The current entry has been modified.\n"
@@ -3112,12 +3132,12 @@ msgstr ""
 "Tekući unos je promijenjen.\n"
 "Želite li unijeti promjene?"
 
-#: src/entryeditdialog.cpp:657
+#: src/entryeditdialog.cpp:659
 #, kde-format
 msgid "Save Entry"
 msgstr "Snimi unos"
 
-#: src/entryeditdialog.cpp:658 src/mainwindow.cpp:1133
+#: src/entryeditdialog.cpp:660 src/mainwindow.cpp:1133
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "Promjene nisu snimljene"
@@ -3157,7 +3177,7 @@ msgstr ""
 "<qt><b>%1</b> vratio više rezultata koji bi mogli odgovarati  <b>%2</b>, "
 "ulazu trenutno u zbirci. Molimo odaberite ispravna podudaranja.</qt>"
 
-#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:358
+#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:342
 #, kde-format
 msgid "Merge Entries"
 msgstr "Spoji unose"
@@ -3192,12 +3212,12 @@ msgstr "Ažiriraj unose"
 msgid "Updating <b>%1</b>..."
 msgstr "Ažuriram <b>%1</b>..."
 
-#: src/entryview.cpp:309
+#: src/entryview.cpp:311
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico ne može naći podrazumjevani stil stranice."
 
-#: src/entryview.cpp:311 src/mainwindow.cpp:1703
+#: src/entryview.cpp:313 src/mainwindow.cpp:1703
 #, kde-format
 msgid "Please check your installation."
 msgstr "Molim provjerite vašu instalaciju."
@@ -3272,49 +3292,49 @@ msgstr "Kodiraj u korisničkom regionalnu shemu (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "KOdiranje izvezene datoteke u regionalnu shemu."
 
-#: src/fetch/allocinefetcher.cpp:241 src/fetch/amazonfetcher.cpp:633
+#: src/fetch/allocinefetcher.cpp:242 src/fetch/amazonfetcher.cpp:633
 #: src/fetch/colnectfetcher.cpp:527 src/fetch/discogsfetcher.cpp:202
-#: src/fetch/doubanfetcher.cpp:391 src/fetch/filmasterfetcher.cpp:142
+#: src/fetch/doubanfetcher.cpp:407 src/fetch/filmasterfetcher.cpp:148
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:298
-#: src/fetch/igdbfetcher.cpp:161 src/fetch/isbndbfetcher.cpp:295
+#: src/fetch/igdbfetcher.cpp:162 src/fetch/isbndbfetcher.cpp:295
 #: src/fetch/kinofetcher.cpp:335 src/fetch/kinopoiskfetcher.cpp:235
-#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:344
+#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:345
 #: src/fetch/moviemeterfetcher.cpp:162 src/fetch/numistafetcher.cpp:285
 #: src/fetch/numistafetcher.cpp:293 src/fetch/omdbfetcher.cpp:182
-#: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:222
-#: src/fetch/tvmazefetcher.cpp:274 src/fetch/upcitemdbfetcher.cpp:251
-#: src/fetch/vndbfetcher.cpp:181
+#: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:239
+#: src/fetch/thetvdbfetcher.cpp:373 src/fetch/tvmazefetcher.cpp:269
+#: src/fetch/upcitemdbfetcher.cpp:251 src/fetch/vndbfetcher.cpp:182
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "Pozadine ne može biti učitana."
 
-#: src/fetch/allocinefetcher.cpp:323 src/fetch/allocinefetcher.cpp:500
+#: src/fetch/allocinefetcher.cpp:324 src/fetch/allocinefetcher.cpp:501
 #, kde-format
 msgid "Allocine Link"
 msgstr "Allocine Link"
 
-#: src/fetch/allocinefetcher.cpp:328 src/fetch/allocinefetcher.cpp:499
+#: src/fetch/allocinefetcher.cpp:329 src/fetch/allocinefetcher.cpp:500
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
-#: src/fetch/doubanfetcher.cpp:287 src/fetch/doubanfetcher.cpp:305
-#: src/fetch/doubanfetcher.cpp:323 src/fetch/doubanfetcher.cpp:554
-#: src/fetch/dvdfrfetcher.cpp:176 src/fetch/imdbfetcher.cpp:771
+#: src/fetch/doubanfetcher.cpp:303 src/fetch/doubanfetcher.cpp:321
+#: src/fetch/doubanfetcher.cpp:339 src/fetch/doubanfetcher.cpp:570
+#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/imdbfetcher.cpp:771
 #: src/fetch/imdbfetcher.cpp:1490 src/fetch/kinopoiskfetcher.cpp:310
-#: src/fetch/kinopoiskfetcher.cpp:506 src/fetch/kinoteatrfetcher.cpp:263
+#: src/fetch/kinopoiskfetcher.cpp:510 src/fetch/kinoteatrfetcher.cpp:263
 #: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/omdbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:311 src/fetch/themoviedbfetcher.cpp:483
-#: src/fetch/vndbfetcher.cpp:283 src/fetch/vndbfetcher.cpp:431
+#: src/fetch/themoviedbfetcher.cpp:332 src/fetch/themoviedbfetcher.cpp:576
+#: src/fetch/vndbfetcher.cpp:284 src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Original Title"
 msgstr "Orginalni Naslov"
 
-#: src/fetch/allocinefetcher.cpp:428 src/fetch/imdbfetcher.cpp:1506
-#: src/fetch/themoviedbfetcher.cpp:519
+#: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1506
+#: src/fetch/themoviedbfetcher.cpp:613
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "&Maksimalno članova ekipe "
 
-#: src/fetch/allocinefetcher.cpp:441 src/fetch/imdbfetcher.cpp:1519
-#: src/fetch/themoviedbfetcher.cpp:532
+#: src/fetch/allocinefetcher.cpp:442 src/fetch/imdbfetcher.cpp:1519
+#: src/fetch/themoviedbfetcher.cpp:626
 #, kde-format
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
@@ -3497,7 +3517,7 @@ msgstr "Sjedinjene Američke Države"
 msgid "This data is licensed under <a href=%1>specific terms</a>."
 msgstr "Ovaj podatak je licencirani pod  <a href=%1>specifičnim uvjetima</a>."
 
-#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1113
+#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1112
 #, kde-format
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
@@ -3506,9 +3526,9 @@ msgstr ""
 "Pristup podacima iz Amazon.com zahtijeva Key AWS Access ID i tajni ključ."
 
 #: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:97
-#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:115
+#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:116
 #: src/fetch/omdbfetcher.cpp:101 src/fetch/thegamesdbfetcher.cpp:106
-#: src/fetch/themoviedbfetcher.cpp:131
+#: src/fetch/themoviedbfetcher.cpp:136
 #, kde-format
 msgid "Those values must be entered in the data source settings."
 msgstr "Te vrijednosti moraju biti upisane u postavkama izvoru podataka ."
@@ -3528,43 +3548,49 @@ msgstr "Amazon Link"
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com Web Services"
 
-#: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:171
-#: src/fetch/comicvinefetcher.cpp:231 src/fetch/crossreffetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:479 src/fetch/giantbombfetcher.cpp:220
+#: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:172
+#: src/fetch/comicvinefetcher.cpp:232 src/fetch/crossreffetcher.cpp:313
+#: src/fetch/discogsfetcher.cpp:479 src/fetch/giantbombfetcher.cpp:219
 #: src/fetch/googlebookfetcher.cpp:380 src/fetch/isbndbfetcher.cpp:394
-#: src/fetch/mobygamesfetcher.cpp:608 src/fetch/omdbfetcher.cpp:408
-#: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:495
-#, kde-format
+#: src/fetch/mobygamesfetcher.cpp:609 src/fetch/omdbfetcher.cpp:408
+#: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:590
+#: src/fetch/thetvdbfetcher.cpp:577
+#, fuzzy, kde-format
+#| msgid ""
+#| "Registration is required for accessing the %1 data source. If you agree "
+#| "to the terms and conditions, <a href='%2'>sign up for an account</a>, and "
+#| "enter your information below."
 msgid ""
-"Registration is required for accessing the %1 data source. If you agree to "
-"the terms and conditions, <a href='%2'>sign up for an account</a>, and enter "
+"Registration is required for accessing this data source. If you agree to the "
+"terms and conditions, <a href='%1'>sign up for an account</a>, and enter "
 "your information below."
 msgstr ""
 "Registracija je potrebna za pristup %1 izvor podataka. Ako se slažete s "
 "uslovima, <a href='%2'> prijavite se za račun </a>, i unesite svoje podatke "
 "ispod."
 
-#: src/fetch/amazonfetcher.cpp:1108 src/fetch/bibliosharefetcher.cpp:184
+#: src/fetch/amazonfetcher.cpp:1107 src/fetch/bibliosharefetcher.cpp:184
 #: src/fetch/comicvinefetcher.cpp:244 src/fetch/entrezfetcher.cpp:531
-#: src/fetch/giantbombfetcher.cpp:233 src/fetch/googlebookfetcher.cpp:393
-#: src/fetch/isbndbfetcher.cpp:407 src/fetch/mobygamesfetcher.cpp:621
-#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:421
-#: src/fetch/thegamesdbfetcher.cpp:597 src/fetch/themoviedbfetcher.cpp:508
+#: src/fetch/giantbombfetcher.cpp:231 src/fetch/googlebookfetcher.cpp:392
+#: src/fetch/isbndbfetcher.cpp:406 src/fetch/mobygamesfetcher.cpp:621
+#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:420
+#: src/fetch/thegamesdbfetcher.cpp:596 src/fetch/themoviedbfetcher.cpp:602
+#: src/fetch/thetvdbfetcher.cpp:589
 #, kde-format
 msgid "Access key: "
 msgstr "Pristupni ključ: "
 
-#: src/fetch/amazonfetcher.cpp:1118
+#: src/fetch/amazonfetcher.cpp:1117
 #, kde-format
 msgid "Secret key: "
 msgstr "Tajni ključ: "
 
-#: src/fetch/amazonfetcher.cpp:1128
+#: src/fetch/amazonfetcher.cpp:1127
 #, kde-format
 msgid "Country: "
 msgstr "Država "
 
-#: src/fetch/amazonfetcher.cpp:1143
+#: src/fetch/amazonfetcher.cpp:1142
 #, kde-format
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
@@ -3573,38 +3599,38 @@ msgstr ""
 "Amazon.com omogućuje podatke iz nekoliko različitih lokaliziranih mjesta. "
 "Odaberite onu koju želite koristiti za ovaj izvor podataka."
 
-#: src/fetch/amazonfetcher.cpp:1149 src/fetch/mobygamesfetcher.cpp:629
-#: src/fetch/thegamesdbfetcher.cpp:605
+#: src/fetch/amazonfetcher.cpp:1148 src/fetch/mobygamesfetcher.cpp:629
+#: src/fetch/thegamesdbfetcher.cpp:604
 #, kde-format
 msgid "&Image size: "
 msgstr "&Veličina slike "
 
-#: src/fetch/amazonfetcher.cpp:1152 src/fetch/mobygamesfetcher.cpp:632
-#: src/fetch/thegamesdbfetcher.cpp:608
+#: src/fetch/amazonfetcher.cpp:1151 src/fetch/mobygamesfetcher.cpp:632
+#: src/fetch/thegamesdbfetcher.cpp:607
 #, kde-format
 msgid "Small Image"
 msgstr "Mala slika"
 
-#: src/fetch/amazonfetcher.cpp:1153 src/fetch/thegamesdbfetcher.cpp:609
+#: src/fetch/amazonfetcher.cpp:1152 src/fetch/thegamesdbfetcher.cpp:608
 #, kde-format
 msgid "Medium Image"
 msgstr "Srednja slika"
 
 #. i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
-#: src/fetch/amazonfetcher.cpp:1154 src/fetch/mobygamesfetcher.cpp:634
-#: src/fetch/thegamesdbfetcher.cpp:610
+#: src/fetch/amazonfetcher.cpp:1153 src/fetch/mobygamesfetcher.cpp:634
+#: src/fetch/thegamesdbfetcher.cpp:609
 #, kde-format
 msgid "Large Image"
 msgstr "Velika slika"
 
-#: src/fetch/amazonfetcher.cpp:1155 src/fetch/mobygamesfetcher.cpp:635
-#: src/fetch/thegamesdbfetcher.cpp:611
+#: src/fetch/amazonfetcher.cpp:1154 src/fetch/mobygamesfetcher.cpp:635
+#: src/fetch/thegamesdbfetcher.cpp:610
 #, kde-format
 msgid "No Image"
 msgstr "Bez slike"
 
-#: src/fetch/amazonfetcher.cpp:1158 src/fetch/imdbfetcher.cpp:1528
-#: src/fetch/mobygamesfetcher.cpp:639 src/fetch/thegamesdbfetcher.cpp:615
+#: src/fetch/amazonfetcher.cpp:1157 src/fetch/imdbfetcher.cpp:1528
+#: src/fetch/mobygamesfetcher.cpp:639 src/fetch/thegamesdbfetcher.cpp:614
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3613,12 +3639,12 @@ msgstr ""
 "Podloga može se preuzeti takođe. Međutim, previše velike slika u zbirci mogu "
 "degradirati performanse."
 
-#: src/fetch/amazonfetcher.cpp:1164
+#: src/fetch/amazonfetcher.cpp:1163
 #, kde-format
 msgid "&Associate's ID: "
 msgstr "Pomoćnikov identifikacioni dokument "
 
-#: src/fetch/amazonfetcher.cpp:1170
+#: src/fetch/amazonfetcher.cpp:1169
 #, kde-format
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
@@ -3628,11 +3654,11 @@ msgstr ""
 "usluge, te je uključen u bilo linkove na Amazon.com stranici."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/dvdfrfetcher.cpp:178 src/fetch/imdbfetcher.cpp:825
+#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:825
 #: src/fetch/imdbfetcher.cpp:1488 src/fetch/moviemeterfetcher.cpp:225
 #: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:257
-#: src/fetch/themoviedbfetcher.cpp:306 src/fetch/themoviedbfetcher.cpp:482
-#: src/fetch/tvmazefetcher.cpp:198 src/fetch/tvmazefetcher.cpp:390
+#: src/fetch/themoviedbfetcher.cpp:327 src/fetch/themoviedbfetcher.cpp:575
+#: src/fetch/tvmazefetcher.cpp:193 src/fetch/tvmazefetcher.cpp:385
 #, kde-format
 msgid "Alternative Titles"
 msgstr "Alternativni Naslovi"
@@ -3643,7 +3669,8 @@ msgid "Distributor"
 msgstr "Dobavljač"
 
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
-#: src/fetch/tvmazefetcher.cpp:189 src/fetch/tvmazefetcher.cpp:388
+#: src/fetch/themoviedbfetcher.cpp:578 src/fetch/thetvdbfetcher.cpp:564
+#: src/fetch/tvmazefetcher.cpp:383 src/field.cpp:335
 #, kde-format
 msgid "Episodes"
 msgstr "Epizode"
@@ -3658,19 +3685,19 @@ msgstr "AnimeNfo Link"
 msgid "AnimeNfo Rating"
 msgstr "AnimeNfo Rejting"
 
-#: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:328
-#: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:186
-#: src/fetch/boardgamegeekfetcher.cpp:193 src/fetch/dbcfetcher.cpp:156
-#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:562
-#: src/fetch/dvdfrfetcher.cpp:186 src/fetch/filmasterfetcher.cpp:317
-#: src/fetch/googlescholarfetcher.cpp:280 src/fetch/hathitrustfetcher.cpp:313
-#: src/fetch/ibsfetcher.cpp:393 src/fetch/igdbfetcher.cpp:586
-#: src/fetch/kinofetcher.cpp:373 src/fetch/kinopoiskfetcher.cpp:514
+#: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:332
+#: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:190
+#: src/fetch/boardgamegeekfetcher.cpp:198 src/fetch/dbcfetcher.cpp:161
+#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:578
+#: src/fetch/dvdfrfetcher.cpp:190 src/fetch/filmasterfetcher.cpp:323
+#: src/fetch/googlescholarfetcher.cpp:284 src/fetch/hathitrustfetcher.cpp:318
+#: src/fetch/ibsfetcher.cpp:393 src/fetch/igdbfetcher.cpp:588
+#: src/fetch/kinofetcher.cpp:373 src/fetch/kinopoiskfetcher.cpp:518
 #: src/fetch/kinoteatrfetcher.cpp:514 src/fetch/moviemeterfetcher.cpp:301
 #: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:376
 #: src/fetch/openlibraryfetcher.cpp:400 src/fetch/springerfetcher.cpp:183
-#: src/fetch/tvmazefetcher.cpp:398 src/fetch/upcitemdbfetcher.cpp:466
-#: src/fetch/videogamegeekfetcher.cpp:197 src/fetch/vndbfetcher.cpp:439
+#: src/fetch/tvmazefetcher.cpp:393 src/fetch/upcitemdbfetcher.cpp:466
+#: src/fetch/videogamegeekfetcher.cpp:198 src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "Ovaj izvor nema opcije."
@@ -3692,16 +3719,10 @@ msgstr "Bedetheque.com"
 msgid "ISBN#"
 msgstr "ISBN#"
 
-#: src/fetch/bibliosharefetcher.cpp:64
-#, kde-format
-msgid ""
-"Data provided by <a href=\"https://www.booknetcanada.ca/biblioshare\">BNC "
-"BiblioShare</a>."
-msgstr ""
-
 #: src/fetch/bibliosharefetcher.cpp:190 src/fetch/comicvinefetcher.cpp:250
-#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:239
-#: src/fetch/googlebookfetcher.cpp:399 src/fetch/themoviedbfetcher.cpp:514
+#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:237
+#: src/fetch/googlebookfetcher.cpp:398 src/fetch/themoviedbfetcher.cpp:608
+#: src/fetch/thetvdbfetcher.cpp:595
 #, kde-format
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
@@ -3710,14 +3731,7 @@ msgstr ""
 "Podrazumijevani Tellico ključ može biti korišten, ali pretraga može "
 "podbaciti zbog prekoračenja pristupnih granica."
 
-#: src/fetch/boardgamegeekfetcher.cpp:66 src/fetch/videogamegeekfetcher.cpp:67
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://boardgamegeek.com"
-"\">BoardGameGeek</a>."
-msgstr ""
-
-#: src/fetch/boardgamegeekfetcher.cpp:186
+#: src/fetch/boardgamegeekfetcher.cpp:191
 #, kde-format
 msgid "BoardGameGeek Link"
 msgstr "BoardGameGeek"
@@ -3741,20 +3755,13 @@ msgid "Michel"
 msgstr ""
 
 #: src/fetch/colnectfetcher.cpp:658 src/fetch/numistafetcher.cpp:422
-#: src/fetch/themoviedbfetcher.cpp:537
+#: src/fetch/themoviedbfetcher.cpp:631
 #, kde-format
 msgid "Language: "
 msgstr "Jezik: "
 
-#: src/fetch/comicvinefetcher.cpp:70
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://comicvine.gamespot."
-"com/\">Comic Vine</a>."
-msgstr ""
-
 #. i18n("Colorist");
-#: src/fetch/comicvinefetcher.cpp:219
+#: src/fetch/comicvinefetcher.cpp:220
 #, fuzzy, kde-format
 #| msgid "Allocine Link"
 msgid "Comic Vine Link"
@@ -3775,39 +3782,39 @@ msgstr "Dostupna polja"
 msgid "%1 requires a username and password."
 msgstr "%1 zahtijeva korisničko ime i šifru."
 
-#: src/fetch/crossreffetcher.cpp:325
+#: src/fetch/crossreffetcher.cpp:324
 #, kde-format
 msgid "&Username: "
 msgstr "&korisničko ime "
 
-#: src/fetch/crossreffetcher.cpp:330
+#: src/fetch/crossreffetcher.cpp:329
 #, kde-format
 msgid "A username and password is required to access the CrossRef service."
 msgstr "Korisničko ime i šifra je potrebna za pristup CrossRef uslugu."
 
-#: src/fetch/crossreffetcher.cpp:335
+#: src/fetch/crossreffetcher.cpp:334
 #, kde-format
 msgid "&Password: "
 msgstr "&Šifra "
 
-#: src/fetch/crossreffetcher.cpp:345
+#: src/fetch/crossreffetcher.cpp:344
 #, kde-format
 msgid "For some accounts, only an email address is required."
 msgstr "Za neke korisnike, samo se traži e-mail."
 
-#: src/fetch/crossreffetcher.cpp:348
+#: src/fetch/crossreffetcher.cpp:347
 #, kde-format
 msgid "Email: "
 msgstr "Email: "
 
-#: src/fetch/dbcfetcher.cpp:141
+#: src/fetch/dbcfetcher.cpp:146
 #, kde-format
 msgid "Danish Bibliographic Center (DBC.dk)"
 msgstr ""
 
 #: src/fetch/discogsfetcher.cpp:95 src/fetch/isbndbfetcher.cpp:112
-#: src/fetch/mobygamesfetcher.cpp:113 src/fetch/omdbfetcher.cpp:99
-#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:129
+#: src/fetch/mobygamesfetcher.cpp:114 src/fetch/omdbfetcher.cpp:99
+#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:134
 #, kde-format
 msgid "An access key is required to use this data source."
 msgstr ""
@@ -3819,7 +3826,7 @@ msgstr "Discogs Link"
 
 #. i18n("Nationality");
 #: src/fetch/discogsfetcher.cpp:303 src/fetch/discogsfetcher.cpp:468
-#: src/fetch/dvdfrfetcher.cpp:179 src/fetch/musicbrainzfetcher.cpp:369
+#: src/fetch/dvdfrfetcher.cpp:183 src/fetch/musicbrainzfetcher.cpp:369
 #: src/fetch/upcitemdbfetcher.cpp:208 src/fetch/upcitemdbfetcher.cpp:459
 #, kde-format
 msgid "Barcode"
@@ -3835,18 +3842,18 @@ msgstr "Discogs.com server javlja grešku tokena."
 msgid "Discogs Audio Search"
 msgstr "Discogs Audio pretraga"
 
-#: src/fetch/discogsfetcher.cpp:492
+#: src/fetch/discogsfetcher.cpp:491
 #, kde-format
 msgid "User token: "
 msgstr "Korisnički token"
 
-#: src/fetch/doubanfetcher.cpp:293 src/fetch/doubanfetcher.cpp:311
-#: src/fetch/doubanfetcher.cpp:329 src/fetch/doubanfetcher.cpp:555
+#: src/fetch/doubanfetcher.cpp:309 src/fetch/doubanfetcher.cpp:327
+#: src/fetch/doubanfetcher.cpp:345 src/fetch/doubanfetcher.cpp:571
 #, kde-format
 msgid "Douban Link"
 msgstr "Douban Link"
 
-#: src/fetch/dvdfrfetcher.cpp:177
+#: src/fetch/dvdfrfetcher.cpp:181
 #, kde-format
 msgid "DVDFr Link"
 msgstr "DVDFr Link"
@@ -3861,33 +3868,33 @@ msgstr "Entrez Baza podataka"
 msgid "Institution"
 msgstr "Institucija"
 
-#: src/fetch/execexternalfetcher.cpp:335
+#: src/fetch/execexternalfetcher.cpp:339
 #, kde-format
 msgid "External Application"
 msgstr "Eksterni program"
 
-#: src/fetch/execexternalfetcher.cpp:356
+#: src/fetch/execexternalfetcher.cpp:360
 #, kde-format
 msgid ""
 "Set the collection type of the data returned from the external application."
 msgstr "Postavite zbirke vrstu podataka dobio iz vanjskog aplikacije."
 
-#: src/fetch/execexternalfetcher.cpp:361
+#: src/fetch/execexternalfetcher.cpp:365
 #, kde-format
 msgid "&Result type: "
 msgstr "&Povratni tip: "
 
-#: src/fetch/execexternalfetcher.cpp:370
+#: src/fetch/execexternalfetcher.cpp:374
 #, kde-format
 msgid "Set the result type of the data returned from the external application."
 msgstr "Postavite povratni tip izvora koji je vračen iz vanjske aplikacije."
 
-#: src/fetch/execexternalfetcher.cpp:384
+#: src/fetch/execexternalfetcher.cpp:388
 #, kde-format
 msgid "Application &path: "
 msgstr "Staza aplikacije: "
 
-#: src/fetch/execexternalfetcher.cpp:389
+#: src/fetch/execexternalfetcher.cpp:393
 #, kde-format
 msgid ""
 "Set the path of the application to run that should output a valid Tellico "
@@ -3896,12 +3903,12 @@ msgstr ""
 "Postavite stazu od aplikacije da pokrenete šta bi trebao biti  validni izlaz "
 "(po Tellico podatkovnih datoteka)."
 
-#: src/fetch/execexternalfetcher.cpp:394
+#: src/fetch/execexternalfetcher.cpp:398
 #, kde-format
 msgid "Select the search keys supported by the data source."
 msgstr "Odaberite kriterije pretraživanja podržane od izvora podataka."
 
-#: src/fetch/execexternalfetcher.cpp:396
+#: src/fetch/execexternalfetcher.cpp:400
 #, kde-format
 msgid ""
 "Add any arguments that may be needed. <b>%1</b> will be replaced by the "
@@ -3910,17 +3917,17 @@ msgstr ""
 "Dodaj potrebne argumente <b>%1</b> bit će zamijenjeni od traženog pojma."
 
 #. i18ncheckarg
-#: src/fetch/execexternalfetcher.cpp:397
+#: src/fetch/execexternalfetcher.cpp:401
 #, kde-format
 msgid "Arguments"
 msgstr "Argumenti"
 
-#: src/fetch/execexternalfetcher.cpp:429
+#: src/fetch/execexternalfetcher.cpp:433
 #, kde-format
 msgid "Update"
 msgstr "Ažuriraj"
 
-#: src/fetch/execexternalfetcher.cpp:437
+#: src/fetch/execexternalfetcher.cpp:441
 #, kde-format
 msgid ""
 "<p>Enter the arguments which should be used to search for available updates "
@@ -3933,61 +3940,61 @@ msgstr ""
 "vrijednostima, gdje nazivi polja se nalaze u zagradama, kao što je <i>"
 "%{author}</i> Pogledajte dokumentaciju za detalje.</p>"
 
-#: src/fetch/fetcher.cpp:79
+#: src/fetch/fetcher.cpp:80
 #, kde-format
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1 ne dozvoljava traženje za ovaj tip kolekcije."
 
 #. i18n("<html>%1 requires the network request to include identification.\n"
 #. "Check the network configuration in <a href=\"%2\">KDE System Settings</a>.</html>", source(), QStringLiteral("exec:/kcmshell5 useragent")),
-#: src/fetch/fetcher.cpp:96
+#: src/fetch/fetcher.cpp:97
 #, kde-format
 msgid ""
 "%1 requires the network request to include identification.\n"
 "Check the network configuration in KDE System Settings."
 msgstr ""
 
-#: src/fetch/fetchmanager.cpp:69
+#: src/fetch/fetchmanager.cpp:68
 #, kde-format
 msgid "Person"
 msgstr "Osoba"
 
-#: src/fetch/fetchmanager.cpp:70
+#: src/fetch/fetchmanager.cpp:69
 #, kde-format
 msgid "ISBN"
 msgstr "ISBN"
 
-#: src/fetch/fetchmanager.cpp:71
+#: src/fetch/fetchmanager.cpp:70
 #, kde-format
 msgid "UPC/EAN"
 msgstr "UPC/EAN"
 
-#: src/fetch/fetchmanager.cpp:72
+#: src/fetch/fetchmanager.cpp:71
 #, kde-format
 msgid "Keyword"
 msgstr "Ključna riječ"
 
-#: src/fetch/fetchmanager.cpp:74 src/translators/pdfimporter.cpp:213
+#: src/fetch/fetchmanager.cpp:73 src/translators/pdfimporter.cpp:213
 #, kde-format
 msgid "arXiv ID"
 msgstr "arXiv ID"
 
-#: src/fetch/fetchmanager.cpp:75
+#: src/fetch/fetchmanager.cpp:74
 #, kde-format
 msgid "PubMed ID"
 msgstr "PubMed ID"
 
-#: src/fetch/fetchmanager.cpp:76
+#: src/fetch/fetchmanager.cpp:75
 #, kde-format
 msgid "LCCN"
 msgstr "LCCN"
 
-#: src/fetch/fetchmanager.cpp:77
+#: src/fetch/fetchmanager.cpp:76
 #, kde-format
 msgid "Raw Query"
 msgstr "Neobrađeni upit"
 
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/filmasterfetcher.cpp:310
+#: src/fetch/filmasterfetcher.cpp:239 src/fetch/filmasterfetcher.cpp:316
 #, kde-format
 msgid "Filmaster Link"
 msgstr "Filmaster Link"
@@ -4017,13 +4024,13 @@ msgstr "Izaberite GCstar plugin koji se koristi za izvor podataka."
 msgid "Author: "
 msgstr "Autor: "
 
-#: src/fetch/giantbombfetcher.cpp:207
+#: src/fetch/giantbombfetcher.cpp:206
 #, kde-format
 msgid "GiantBomb Link"
 msgstr ""
 
-#: src/fetch/giantbombfetcher.cpp:208 src/fetch/igdbfetcher.cpp:549
-#: src/fetch/mobygamesfetcher.cpp:595 src/field.cpp:325
+#: src/fetch/giantbombfetcher.cpp:207 src/fetch/igdbfetcher.cpp:551
+#: src/fetch/mobygamesfetcher.cpp:596 src/field.cpp:325
 #, fuzzy, kde-format
 #| msgid "ESRB Rating"
 msgid "PEGI Rating"
@@ -4039,20 +4046,20 @@ msgstr "Google Book Link"
 msgid "Google Book Search"
 msgstr "Google Book Pretraga"
 
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:574
+#: src/fetch/hathitrustfetcher.cpp:309 src/fetch/z3950fetcher.cpp:579
 #, kde-format
 msgid "Illustrator"
 msgstr "Illustrator"
 
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/isbndbfetcher.cpp:383
-#: src/fetch/srufetcher.cpp:504 src/fetch/z3950fetcher.cpp:575
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:383
+#: src/fetch/srufetcher.cpp:508 src/fetch/z3950fetcher.cpp:580
 #, kde-format
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey Decimalni"
 
-#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/srufetcher.cpp:505
-#: src/fetch/z3950fetcher.cpp:576
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/srufetcher.cpp:509
+#: src/fetch/z3950fetcher.cpp:581
 #, kde-format
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -4063,20 +4070,13 @@ msgstr "LoC Klasifikacija"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Internet Knjižara(ibs.it)"
 
-#: src/fetch/igdbfetcher.cpp:80
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://igdb.com\">IGDB."
-"com</a>."
-msgstr ""
-
-#: src/fetch/igdbfetcher.cpp:224 src/fetch/igdbfetcher.cpp:550
+#: src/fetch/igdbfetcher.cpp:225 src/fetch/igdbfetcher.cpp:552
 #, fuzzy, kde-format
 #| msgid "IMDb Link"
 msgid "IGDB Link"
 msgstr "IMDb Link"
 
-#: src/fetch/igdbfetcher.cpp:540
+#: src/fetch/igdbfetcher.cpp:542
 #, fuzzy, kde-format
 #| msgid "Internet Movie Database (German)"
 msgid "Internet Game Database (IGDB.com)"
@@ -4124,8 +4124,8 @@ msgid "Certifications"
 msgstr "Certifikati"
 
 #: src/fetch/imdbfetcher.cpp:1486 src/fetch/omdbfetcher.cpp:397
-#: src/fetch/themoviedbfetcher.cpp:481 src/fetch/tvmazefetcher.cpp:387
-#: src/field.cpp:331
+#: src/fetch/themoviedbfetcher.cpp:574 src/fetch/thetvdbfetcher.cpp:563
+#: src/fetch/tvmazefetcher.cpp:382 src/field.cpp:331
 #, kde-format
 msgid "IMDb Link"
 msgstr "IMDb Link"
@@ -4147,19 +4147,19 @@ msgstr "Dewey Decimalni"
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/isbndbfetcher.cpp:415
+#: src/fetch/isbndbfetcher.cpp:414
 #, kde-format
 msgid "Enable batch ISBN searching (requires Premium or Pro plan)"
 msgstr ""
 
-#: src/fetch/isbndbfetcher.cpp:419
+#: src/fetch/isbndbfetcher.cpp:418
 #, kde-format
 msgid ""
 "Batch searching for ISBN values is faster but only available for Premium or "
 "Pro plans."
 msgstr ""
 
-#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:507
+#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:511
 #, fuzzy, kde-format
 #| msgid "Discogs Link"
 msgid "KinoPoisk Link"
@@ -4171,14 +4171,7 @@ msgstr "Discogs Link"
 msgid "Kino-Teatr Link"
 msgstr "Filmaster Link"
 
-#: src/fetch/mobygamesfetcher.cpp:81
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://mobygames.com"
-"\">MobyGames</a>."
-msgstr ""
-
-#: src/fetch/mobygamesfetcher.cpp:416 src/fetch/mobygamesfetcher.cpp:596
+#: src/fetch/mobygamesfetcher.cpp:417 src/fetch/mobygamesfetcher.cpp:597
 #, fuzzy, kde-format
 #| msgid "Douban Link"
 msgid "MobyGames Link"
@@ -4212,13 +4205,13 @@ msgctxt "Standard catalog of world coins number"
 msgid "Krause-Mishler"
 msgstr ""
 
-#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:542
+#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:636
 #, kde-format
 msgctxt "Language"
 msgid "English"
 msgstr "Engleski"
 
-#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:545
+#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:639
 #, kde-format
 msgctxt "Language"
 msgid "French"
@@ -4234,121 +4227,109 @@ msgstr ""
 msgid "OpenLibrary Link"
 msgstr "OtvorenaBiblioteka link"
 
-#: src/fetch/srufetcher.cpp:486
+#: src/fetch/srufetcher.cpp:490
 #, kde-format
 msgid "Library of Congress (US)"
 msgstr "Kongresna Biblioteka (US)"
 
-#: src/fetch/srufetcher.cpp:491
+#: src/fetch/srufetcher.cpp:495
 #, kde-format
 msgid "SRU Server"
 msgstr "SRU Server"
 
-#: src/fetch/srufetcher.cpp:520 src/fetch/z3950fetcher.cpp:599
+#: src/fetch/srufetcher.cpp:524 src/fetch/z3950fetcher.cpp:604
 #, kde-format
 msgid "Hos&t: "
 msgstr "Krisnik: "
 
-#: src/fetch/srufetcher.cpp:527 src/fetch/z3950fetcher.cpp:605
+#: src/fetch/srufetcher.cpp:531 src/fetch/z3950fetcher.cpp:610
 #, kde-format
 msgid "Enter the host name of the server."
 msgstr "Unesite ime korisnika servera."
 
-#: src/fetch/srufetcher.cpp:532 src/fetch/z3950fetcher.cpp:610
+#: src/fetch/srufetcher.cpp:536 src/fetch/z3950fetcher.cpp:615
 #, kde-format
 msgid "&Port: "
 msgstr "&Port "
 
-#: src/fetch/srufetcher.cpp:541 src/fetch/z3950fetcher.cpp:619
+#: src/fetch/srufetcher.cpp:545 src/fetch/z3950fetcher.cpp:624
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "Unesite broj porta servera. Podrazumjevani je %1."
 
-#: src/fetch/srufetcher.cpp:546
+#: src/fetch/srufetcher.cpp:550
 #, kde-format
 msgid "Path: "
 msgstr "Putanja: "
 
-#: src/fetch/srufetcher.cpp:551
+#: src/fetch/srufetcher.cpp:555
 #, kde-format
 msgid "Enter the path to the database used by the server."
 msgstr "Unesite putanju do baze podataka za server."
 
-#: src/fetch/srufetcher.cpp:556
+#: src/fetch/srufetcher.cpp:560
 #, kde-format
 msgid "Format: "
 msgstr "Format: "
 
-#: src/fetch/srufetcher.cpp:568
+#: src/fetch/srufetcher.cpp:572
 #, kde-format
 msgid "Enter the result format used by the server."
 msgstr "Unesite rezultate formatiranja za server."
 
-#: src/fetch/srufetcher.cpp:577
+#: src/fetch/srufetcher.cpp:581
 #, fuzzy, kde-format
 #| msgid "Fields"
 msgid "Field"
 msgstr "Polja"
 
-#: src/fetch/themoviedbfetcher.cpp:298 src/fetch/themoviedbfetcher.cpp:480
+#: src/fetch/themoviedbfetcher.cpp:319 src/fetch/themoviedbfetcher.cpp:573
 #, kde-format
 msgid "TMDb Link"
 msgstr "TMDb Link"
 
-#: src/fetch/themoviedbfetcher.cpp:548
+#: src/fetch/themoviedbfetcher.cpp:337 src/fetch/themoviedbfetcher.cpp:577
+#: src/fetch/thetvdbfetcher.cpp:244 src/fetch/thetvdbfetcher.cpp:565
+#: src/fetch/tvmazefetcher.cpp:182 src/fetch/tvmazefetcher.cpp:384
+#, kde-format
+msgid "Network"
+msgstr ""
+
+#: src/fetch/themoviedbfetcher.cpp:642
 #, kde-format
 msgctxt "Language"
 msgid "German"
 msgstr "Njemački"
 
-#: src/fetch/themoviedbfetcher.cpp:551
+#: src/fetch/themoviedbfetcher.cpp:645
 #, kde-format
 msgctxt "Language"
 msgid "Spanish"
 msgstr "Španski"
 
-#: src/fetch/themoviedbfetcher.cpp:585
+#: src/fetch/themoviedbfetcher.cpp:679
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/tvmazefetcher.cpp:73
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://tvmaze.com"
-"\">TVmaze</a>."
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:181 src/fetch/tvmazefetcher.cpp:389
-#, kde-format
-msgid "Network"
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:193
-#, kde-format
-msgctxt "TV Season"
-msgid "Season"
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:194
+#: src/fetch/thetvdbfetcher.cpp:249 src/fetch/thetvdbfetcher.cpp:562
 #, fuzzy, kde-format
-#| msgid "Episodes"
-msgctxt "TV Episode"
-msgid "Episode"
-msgstr "Epizode"
+#| msgid "IMDb Link"
+msgid "TheTVDB Link"
+msgstr "IMDb Link"
 
-#: src/fetch/videogamegeekfetcher.cpp:190
+#: src/fetch/videogamegeekfetcher.cpp:191
 #, fuzzy, kde-format
 #| msgid "BoardGameGeek Link"
 msgid "VideoGameGeek Link"
 msgstr "BoardGameGeek"
 
-#: src/fetch/vndbfetcher.cpp:288 src/fetch/vndbfetcher.cpp:432
+#: src/fetch/vndbfetcher.cpp:289 src/fetch/vndbfetcher.cpp:433
 #, kde-format
 msgid "Alias"
 msgstr "Nadimak"
 
-#: src/fetch/vndbfetcher.cpp:307
+#: src/fetch/vndbfetcher.cpp:308
 #, kde-format
 msgid "Visual Novel"
 msgstr "Vizualna novost"
@@ -4373,33 +4354,33 @@ msgstr "Bilješka o sintaksičkoj greški."
 msgid "Connection error %1: %2"
 msgstr "Konekciona greška %1: %2"
 
-#: src/fetch/z3950fetcher.cpp:561 src/fetch/z3950fetcher.cpp:877
+#: src/fetch/z3950fetcher.cpp:566 src/fetch/z3950fetcher.cpp:882
 #, kde-format
 msgid "z39.50 Server"
 msgstr "z39.50 Server"
 
-#: src/fetch/z3950fetcher.cpp:588
+#: src/fetch/z3950fetcher.cpp:593
 #, kde-format
 msgid "Use preset &server:"
 msgstr "Use sadašnji &server:"
 
-#: src/fetch/z3950fetcher.cpp:624
+#: src/fetch/z3950fetcher.cpp:629
 #, kde-format
 msgid "&Database: "
 msgstr "&Baza podataka: "
 
-#: src/fetch/z3950fetcher.cpp:629
+#: src/fetch/z3950fetcher.cpp:634
 #, kde-format
 msgid "Enter the database name used by the server."
 msgstr "Unesite ime baze podataka koja se koristi za server."
 
-#: src/fetch/z3950fetcher.cpp:634
+#: src/fetch/z3950fetcher.cpp:639
 #, fuzzy, kde-format
 #| msgid "Ch&aracter set: "
 msgid "Query character set: "
 msgstr "Skup znakova "
 
-#: src/fetch/z3950fetcher.cpp:643
+#: src/fetch/z3950fetcher.cpp:648
 #, fuzzy, kde-format
 #| msgid ""
 #| "Enter the character set encoding used by the z39.50 server. The most "
@@ -4411,13 +4392,13 @@ msgstr ""
 "Unesite znakove za kodiranje za z39.50 servera. Najvjerovatniji odabir je  "
 "MARC-8, kao i ISO-8859-1."
 
-#: src/fetch/z3950fetcher.cpp:649
+#: src/fetch/z3950fetcher.cpp:654
 #, fuzzy, kde-format
 #| msgid "Ch&aracter set: "
 msgid "Results character set: "
 msgstr "Skup znakova "
 
-#: src/fetch/z3950fetcher.cpp:658
+#: src/fetch/z3950fetcher.cpp:663
 #, fuzzy, kde-format
 #| msgid ""
 #| "Enter the character set encoding used by the z39.50 server. The most "
@@ -4429,17 +4410,17 @@ msgstr ""
 "Unesite znakove za kodiranje za z39.50 servera. Najvjerovatniji odabir je  "
 "MARC-8, kao i ISO-8859-1."
 
-#: src/fetch/z3950fetcher.cpp:664
+#: src/fetch/z3950fetcher.cpp:669
 #, kde-format
 msgid "&Format: "
 msgstr "&Format: "
 
-#: src/fetch/z3950fetcher.cpp:667
+#: src/fetch/z3950fetcher.cpp:672
 #, kde-format
 msgid "Auto-detect"
 msgstr "Automatsko detektiranje"
 
-#: src/fetch/z3950fetcher.cpp:676
+#: src/fetch/z3950fetcher.cpp:681
 #, kde-format
 msgid ""
 "Enter the data format used by the z39.50 server. Tellico will attempt to "
@@ -4449,29 +4430,29 @@ msgstr ""
 "pokušati da detektuje najbolje postavke ako je  <i> Automatsko detektiranje</"
 "i> uključeno."
 
-#: src/fetch/z3950fetcher.cpp:682
+#: src/fetch/z3950fetcher.cpp:687
 #, kde-format
 msgid "&User: "
 msgstr "&Korisnik "
 
-#: src/fetch/z3950fetcher.cpp:685 src/fetch/z3950fetcher.cpp:697
+#: src/fetch/z3950fetcher.cpp:690 src/fetch/z3950fetcher.cpp:702
 #, kde-format
 msgid "Optional"
 msgstr "Opciono"
 
-#: src/fetch/z3950fetcher.cpp:688
+#: src/fetch/z3950fetcher.cpp:693
 #, kde-format
 msgid ""
 "Enter the authentication user name used by the z39.50 database. Most servers "
 "do not need one."
 msgstr "Unesite korisničko ime za  z39.50 bazu. Većna servera ne traži."
 
-#: src/fetch/z3950fetcher.cpp:694
+#: src/fetch/z3950fetcher.cpp:699
 #, kde-format
 msgid "Pass&word: "
 msgstr "Šifra: "
 
-#: src/fetch/z3950fetcher.cpp:701
+#: src/fetch/z3950fetcher.cpp:706
 #, kde-format
 msgid ""
 "Enter the authentication password used by the z39.50 database. Most servers "
@@ -4609,18 +4590,18 @@ msgstr "Počisti sva polja pretraga i rezultate."
 msgid "Cancelling the search..."
 msgstr "Otkazivanje svih pretraga."
 
-#: src/fetchdialog.cpp:408 src/fetchdialog.cpp:587
+#: src/fetchdialog.cpp:408 src/fetchdialog.cpp:588
 #, kde-format
 msgid "Searching..."
 msgstr "Tražim..."
 
-#: src/fetchdialog.cpp:467
+#: src/fetchdialog.cpp:468
 #, kde-format
 msgid "The search returned no items."
 msgstr "Pretraga nije ništa našla."
 
 #         translations.
-#: src/fetchdialog.cpp:470
+#: src/fetchdialog.cpp:471
 #, kde-format
 msgid "The search returned 1 item."
 msgid_plural "The search returned %1 items."
@@ -4628,52 +4609,52 @@ msgstr[0] "Pretraga je vratila %1 stavku."
 msgstr[1] "Pretraga je vratila %1 stavke."
 msgstr[2] "Pretraga je vratila %1 stavki."
 
-#: src/fetchdialog.cpp:499
+#: src/fetchdialog.cpp:500
 #, kde-format
 msgid "No results were found for the following ISBN values:"
 msgstr "Nema ništa nađeno pod traženim ISBN:"
 
-#: src/fetchdialog.cpp:501
+#: src/fetchdialog.cpp:502
 #, kde-format
 msgid "No Results"
 msgstr "Nema rezultata"
 
-#: src/fetchdialog.cpp:554 src/fetchdialog.cpp:610
+#: src/fetchdialog.cpp:555 src/fetchdialog.cpp:611
 #, kde-format
 msgid "Fetching %1..."
 msgstr "Vračam  %1..."
 
-#: src/fetchdialog.cpp:627
+#: src/fetchdialog.cpp:628
 #, kde-format
 msgid "Attribution"
 msgstr "Atribucija"
 
-#: src/fetchdialog.cpp:664 src/fetchdialog.cpp:888
+#: src/fetchdialog.cpp:665 src/fetchdialog.cpp:889
 #, kde-format
 msgid "No Internet sources are available for your current collection type."
 msgstr "Nema Internet izvora dostupnih za trenutni tip kolekcije."
 
-#: src/fetchdialog.cpp:745
+#: src/fetchdialog.cpp:746
 #, kde-format
 msgid "Edit ISBN/UPC Values"
 msgstr "Uredite ISBN/UPC vrijednosti"
 
-#: src/fetchdialog.cpp:756
+#: src/fetchdialog.cpp:757
 #, kde-format
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>Unesite ISBN ili UPS vrijednosti, jednu po liniji.</qt>"
 
-#: src/fetchdialog.cpp:772
+#: src/fetchdialog.cpp:773
 #, kde-format
 msgid "&Load From File..."
 msgstr "&Učitavanje iz datoteke..."
 
-#: src/fetchdialog.cpp:773
+#: src/fetchdialog.cpp:774
 #, kde-format
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>Učitavanje liste iz tekstovne datoteke.</qt>"
 
-#: src/fetchdialog.cpp:797
+#: src/fetchdialog.cpp:798
 #, kde-format
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
@@ -4769,6 +4750,19 @@ msgstr "Datum izmjene"
 msgid "International Standard Book Number"
 msgstr "Internacionalni Standardni Broj Knjige (ISBN)"
 
+#: src/field.cpp:339
+#, kde-format
+msgctxt "TV Season"
+msgid "Season"
+msgstr ""
+
+#: src/field.cpp:340
+#, fuzzy, kde-format
+#| msgid "Episodes"
+msgctxt "TV Episode"
+msgid "Episode"
+msgstr "Epizode"
+
 #: src/filterdialog.cpp:62
 #, kde-format
 msgid "Advanced Filter"
@@ -4842,85 +4836,85 @@ msgstr "Grupa"
 msgid "People"
 msgstr "Ljudi"
 
-#: src/gui/fieldwidget.cpp:107 src/gui/fieldwidget.cpp:217
+#: src/gui/fieldwidget.cpp:54 src/gui/fieldwidget.cpp:169
 #, kde-format
 msgctxt "Edit Label"
 msgid "%1:"
 msgstr "%1:"
 
-#: src/gui/filterrulewidget.cpp:69
+#: src/gui/filterrulewidget.cpp:68
 #, kde-format
 msgid "Any Field"
 msgstr "Bilo koje polje"
 
-#: src/gui/filterrulewidget.cpp:101
+#: src/gui/filterrulewidget.cpp:100
 #, kde-format
 msgid "Edit..."
 msgstr "Uredi..."
 
-#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
-#: src/gui/filterrulewidget.cpp:285
+#: src/gui/filterrulewidget.cpp:260 src/gui/filterrulewidget.cpp:268
+#: src/gui/filterrulewidget.cpp:284
 #, kde-format
 msgid "equals"
 msgstr "jednako"
 
-#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
-#: src/gui/filterrulewidget.cpp:286
+#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
+#: src/gui/filterrulewidget.cpp:285
 #, kde-format
 msgid "does not equal"
 msgstr "nije jednako"
 
-#: src/gui/filterrulewidget.cpp:263 src/gui/filterrulewidget.cpp:271
-#: src/gui/filterrulewidget.cpp:287
+#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
+#: src/gui/filterrulewidget.cpp:286
 #, fuzzy, kde-format
 #| msgid "matches regexp"
 msgid "matches regular expression"
 msgstr "slaže se sa regularnim izrazom"
 
-#: src/gui/filterrulewidget.cpp:264 src/gui/filterrulewidget.cpp:272
-#: src/gui/filterrulewidget.cpp:288
+#: src/gui/filterrulewidget.cpp:263 src/gui/filterrulewidget.cpp:271
+#: src/gui/filterrulewidget.cpp:287
 #, fuzzy, kde-format
 #| msgid "does not match regexp"
 msgid "does not match regular expression"
 msgstr "ne slaže se sa regularnim izrazom"
 
-#: src/gui/filterrulewidget.cpp:265
+#: src/gui/filterrulewidget.cpp:264
 #, kde-format
 msgctxt "is before a date"
 msgid "is before"
 msgstr "je prije"
 
-#: src/gui/filterrulewidget.cpp:266
+#: src/gui/filterrulewidget.cpp:265
 #, kde-format
 msgctxt "is after a date"
 msgid "is after"
 msgstr "je poslije"
 
-#: src/gui/filterrulewidget.cpp:273
+#: src/gui/filterrulewidget.cpp:272
 #, kde-format
 msgctxt "is less than a number"
 msgid "is less than"
 msgstr "je manje od"
 
-#: src/gui/filterrulewidget.cpp:274
+#: src/gui/filterrulewidget.cpp:273
 #, kde-format
 msgctxt "is greater than a number"
 msgid "is greater than"
 msgstr "je veće od"
 
-#: src/gui/filterrulewidget.cpp:277
+#: src/gui/filterrulewidget.cpp:276
 #, fuzzy, kde-format
 #| msgid "&Image size: "
 msgid "image size equals"
 msgstr "&Veličina slike "
 
-#: src/gui/filterrulewidget.cpp:278
+#: src/gui/filterrulewidget.cpp:277
 #, fuzzy, kde-format
 #| msgid "does not equal"
 msgid "image size does not equal"
 msgstr "nije jednako"
 
-#: src/gui/filterrulewidget.cpp:279
+#: src/gui/filterrulewidget.cpp:278
 #, fuzzy, kde-format
 #| msgctxt "is less than a number"
 #| msgid "is less than"
@@ -4928,7 +4922,7 @@ msgctxt "image size is less than a number"
 msgid "image size is less than"
 msgstr "je manje od"
 
-#: src/gui/filterrulewidget.cpp:280
+#: src/gui/filterrulewidget.cpp:279
 #, fuzzy, kde-format
 #| msgctxt "is greater than a number"
 #| msgid "is greater than"
@@ -4936,59 +4930,59 @@ msgctxt "image size is greater than a number"
 msgid "image size is greater than"
 msgstr "je veće od"
 
-#: src/gui/filterrulewidget.cpp:283
+#: src/gui/filterrulewidget.cpp:282
 #, kde-format
 msgid "contains"
 msgstr "sadrži"
 
-#: src/gui/filterrulewidget.cpp:284
+#: src/gui/filterrulewidget.cpp:283
 #, kde-format
 msgid "does not contain"
 msgstr "ne sadrži"
 
-#: src/gui/imagewidget.cpp:101
+#: src/gui/imagewidget.cpp:106
 #, kde-format
 msgid "Select Image..."
 msgstr "Izaberi sliku..."
 
-#: src/gui/imagewidget.cpp:106
+#: src/gui/imagewidget.cpp:111
 #, kde-format
 msgid "Scan Image..."
 msgstr "Skeniraj sliku..."
 
-#: src/gui/imagewidget.cpp:115
+#: src/gui/imagewidget.cpp:120
 #, kde-format
 msgid "Open With..."
 msgstr "Otvori sa..."
 
-#: src/gui/imagewidget.cpp:149
+#: src/gui/imagewidget.cpp:158
 #, kde-format
 msgctxt "Clear image"
 msgid "Clear"
 msgstr "Očisti"
 
-#: src/gui/imagewidget.cpp:156
+#: src/gui/imagewidget.cpp:165
 #, kde-format
 msgid "Save link only"
 msgstr "Snimi samo link"
 
-#: src/gui/imagewidget.cpp:261
+#: src/gui/imagewidget.cpp:270
 #, fuzzy, kde-format
 #| msgid "Small Image"
 msgid "All Images (%1)"
 msgstr "Mala slika"
 
-#: src/gui/imagewidget.cpp:288
+#: src/gui/imagewidget.cpp:297
 #, kde-format
 msgid "Opening the selected scanner failed."
 msgstr "Otvaranje odabranog skenera nije uspjelo."
 
-#: src/gui/imagewidget.cpp:347
+#: src/gui/imagewidget.cpp:356
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "Otvranja slike za %1..."
 
-#: src/gui/imagewidget.cpp:379
+#: src/gui/imagewidget.cpp:388
 #, kde-format
 msgid "Saving a link is only possible for newly added images."
 msgstr "Snimanje linka je moguće samo za skoro dodane slike."
@@ -5027,47 +5021,47 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "&Obriši"
 
-#: src/gui/tablefieldwidget.cpp:168
+#: src/gui/tablefieldwidget.cpp:167
 #, kde-format
 msgid "Rename Column"
 msgstr "Preimenuj Kolonu"
 
-#: src/gui/tablefieldwidget.cpp:168
+#: src/gui/tablefieldwidget.cpp:167
 #, kde-format
 msgid "New column name:"
 msgstr "Ime nove kolone:"
 
-#: src/gui/tablefieldwidget.cpp:195
+#: src/gui/tablefieldwidget.cpp:189
 #, kde-format
 msgid "Column %1"
 msgstr "Kolona %1"
 
-#: src/gui/tablefieldwidget.cpp:234 src/gui/tablefieldwidget.cpp:268
+#: src/gui/tablefieldwidget.cpp:240 src/gui/tablefieldwidget.cpp:274
 #, kde-format
 msgid "Rename Column..."
 msgstr "Preimenuj Kolonu..."
 
-#: src/gui/tablefieldwidget.cpp:236 src/gui/tablefieldwidget.cpp:274
+#: src/gui/tablefieldwidget.cpp:242 src/gui/tablefieldwidget.cpp:280
 #, kde-format
 msgid "Clear Table"
 msgstr "Čistim tabelu."
 
-#: src/gui/tablefieldwidget.cpp:253
+#: src/gui/tablefieldwidget.cpp:259
 #, kde-format
 msgid "Insert Row"
 msgstr "Ubaci red"
 
-#: src/gui/tablefieldwidget.cpp:255
+#: src/gui/tablefieldwidget.cpp:261
 #, kde-format
 msgid "Remove Row"
 msgstr "Ukloni red"
 
-#: src/gui/tablefieldwidget.cpp:257
+#: src/gui/tablefieldwidget.cpp:263
 #, kde-format
 msgid "Move Row Up"
 msgstr "Pomakni red gore."
 
-#: src/gui/tablefieldwidget.cpp:262
+#: src/gui/tablefieldwidget.cpp:268
 #, kde-format
 msgid "Move Row Down"
 msgstr "Pomakni red dolje."
@@ -6443,48 +6437,54 @@ msgstr ""
 "Za neke izvještaje velikih kolekcija generiranje može potrajati nekoliko "
 "sekundi."
 
-#: src/reportdialog.cpp:339 src/translators/htmlexporter.cpp:100
+#: src/reportdialog.cpp:340
+#, fuzzy, kde-format
+#| msgid "Files"
+msgid "PNG Files"
+msgstr "Datoteke"
+
+#: src/reportdialog.cpp:355 src/translators/htmlexporter.cpp:100
 #, fuzzy, kde-format
 #| msgid "My Files"
 msgid "HTML Files"
 msgstr "Moje datoteke"
 
-#: src/tellico_kernel.cpp:283
+#: src/tellico_kernel.cpp:267
 #, kde-format
 msgid "Do you really want to delete this filter?"
 msgstr "Želite li zaista izbrisati ovaj filter?"
 
-#: src/tellico_kernel.cpp:285
+#: src/tellico_kernel.cpp:269
 #, kde-format
 msgid "Delete Filter?"
 msgstr "Obrisati filter?"
 
-#: src/tellico_kernel.cpp:321
+#: src/tellico_kernel.cpp:305
 #, kde-format
 msgid "New collection name:"
 msgstr "Novi naziv kolekcije:"
 
-#: src/tellico_kernel.cpp:337
+#: src/tellico_kernel.cpp:321
 #, kde-format
 msgid "Entry 1"
 msgstr "Stavka 1"
 
-#: src/tellico_kernel.cpp:338
+#: src/tellico_kernel.cpp:322
 #, kde-format
 msgid "Entry 2"
 msgstr "Stavka 2"
 
-#: src/tellico_kernel.cpp:347
+#: src/tellico_kernel.cpp:331
 #, kde-format
 msgid "Conflicting values for %1 were found while merging entries."
 msgstr "Sukobljene vrijednosti za %1 su nađene pri stapanju unosa."
 
-#: src/tellico_kernel.cpp:353
+#: src/tellico_kernel.cpp:337
 #, kde-format
 msgid "Please choose which value to keep."
 msgstr "Izaberite koji vrijednost da sačuvate."
 
-#: src/tellico_kernel.cpp:359 src/tellico_kernel.cpp:360
+#: src/tellico_kernel.cpp:343 src/tellico_kernel.cpp:344
 #, kde-format
 msgid "Select value from %1"
 msgstr "Izaberite vrijednost iz %1"
@@ -6586,64 +6586,64 @@ msgstr "Opcije Aleksandrije"
 msgid "&Library:"
 msgstr "&Biblioteka:"
 
-#: src/translators/audiofileimporter.cpp:113
+#: src/translators/audiofileimporter.cpp:112
 #, kde-format
 msgid "Scanning audio files..."
 msgstr "Skeniranje audio datoteka..."
 
-#: src/translators/audiofileimporter.cpp:171
-#: src/translators/audiofileimporter.cpp:174
+#: src/translators/audiofileimporter.cpp:170
+#: src/translators/audiofileimporter.cpp:173
 #, kde-format
 msgid "Files"
 msgstr "Datoteke"
 
-#: src/translators/audiofileimporter.cpp:177
+#: src/translators/audiofileimporter.cpp:176
 #, kde-format
 msgid "Bitrate"
 msgstr "Učestanost bita:"
 
-#: src/translators/audiofileimporter.cpp:210
-#: src/translators/audiofileimporter.cpp:220
+#: src/translators/audiofileimporter.cpp:209
+#: src/translators/audiofileimporter.cpp:219
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "Pjesme (Disk %1)"
 
-#: src/translators/audiofileimporter.cpp:284 xslt/entry-templates/Album.xsl:243
+#: src/translators/audiofileimporter.cpp:283 xslt/entry-templates/Album.xsl:243
 #, kde-format
 msgid "(Various)"
 msgstr "(Različit)"
 
-#: src/translators/audiofileimporter.cpp:445
+#: src/translators/audiofileimporter.cpp:444
 #, kde-format
 msgid "Audio File Options"
 msgstr "Opcije Audio Datoteke"
 
-#: src/translators/audiofileimporter.cpp:448
+#: src/translators/audiofileimporter.cpp:447
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "Rekurzivna pretraga foldera"
 
-#: src/translators/audiofileimporter.cpp:449
+#: src/translators/audiofileimporter.cpp:448
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr "Ako je obilježeno, folderi rekurzivno traže audio fajlove."
 
-#: src/translators/audiofileimporter.cpp:453
+#: src/translators/audiofileimporter.cpp:452
 #, kde-format
 msgid "Include file &location"
 msgstr "Uključi lokaciju datoteke"
 
-#: src/translators/audiofileimporter.cpp:454
+#: src/translators/audiofileimporter.cpp:453
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "Ako je obilježeno, ime za svaku pjesmu se dodaje na unose."
 
-#: src/translators/audiofileimporter.cpp:458
+#: src/translators/audiofileimporter.cpp:457
 #, kde-format
 msgid "Include &bitrate"
 msgstr "Uključi &učestanost bita"
 
-#: src/translators/audiofileimporter.cpp:459
+#: src/translators/audiofileimporter.cpp:458
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "Ako je označeno, učestanost bita za svaku pjesmu se dodaje na stavke."
@@ -7222,17 +7222,17 @@ msgstr "Datoteka ne sadrži podatke o kolekciji."
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:522
+#: src/translators/tellicoxmlexporter.cpp:535
 #, kde-format
 msgid "Tellico XML Options"
 msgstr "Tellico XML Opcije"
 
-#: src/translators/tellicoxmlexporter.cpp:525
+#: src/translators/tellicoxmlexporter.cpp:538
 #, kde-format
 msgid "Include images in XML document"
 msgstr "Uključi slike u XML dokument"
 
-#: src/translators/tellicoxmlexporter.cpp:527
+#: src/translators/tellicoxmlexporter.cpp:540
 #, kde-format
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "

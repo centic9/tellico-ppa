@@ -34,7 +34,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include <QSharedPointer>
+#include <QPointer>
 #include <QUrl>
 
 #include <KConfigGroup>
@@ -53,7 +53,7 @@ class Fetcher : public QObject {
 Q_OBJECT
 
 public:
-  typedef QSharedPointer<Fetcher> Ptr;
+  typedef QPointer<Fetcher> Ptr;
 
   /**
    */
@@ -142,15 +142,14 @@ public:
   static QString favIcon(const QUrl& url);
 
 Q_SIGNALS:
-//  void signalStatus(const QString& status);
   void signalResultFound(Tellico::Fetch::FetchResult* result);
   void signalDone(Tellico::Fetch::Fetcher* fetcher);
 
 protected:
   QString m_name;
   FetchRequest m_request;
-  bool m_updateOverwrite : 1;
-  bool m_hasMoreResults : 1;
+  bool m_updateOverwrite;
+  bool m_hasMoreResults;
 
 private:
   /**

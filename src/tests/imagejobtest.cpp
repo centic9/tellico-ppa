@@ -22,6 +22,7 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h>
 #include "imagejobtest.h"
 
 #include "../images/imagejob.h"
@@ -33,19 +34,23 @@
 #include <QTemporaryFile>
 #include <QNetworkInterface>
 #include <QSignalSpy>
+#include <QStandardPaths>
 
 QTEST_GUILESS_MAIN( ImageJobTest )
 
 static bool hasNetwork() {
+#ifdef ENABLE_NETWORK_TESTS
   foreach(const QNetworkInterface& net, QNetworkInterface::allInterfaces()) {
     if(net.flags().testFlag(QNetworkInterface::IsUp) && !net.flags().testFlag(QNetworkInterface::IsLoopBack)) {
       return true;
     }
   }
+#endif
   return false;
 }
 
 void ImageJobTest::initTestCase() {
+  QStandardPaths::setTestModeEnabled(true);
   Tellico::ImageFactory::init();
 }
 

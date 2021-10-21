@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-03-15 03:12+0100\n"
-"PO-Revision-Date: 2020-10-04 19:26+0200\n"
+"POT-Creation-Date: 2021-05-09 01:45+0000\n"
+"PO-Revision-Date: 2020-09-05 23:20+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -28,29 +28,17 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "daemul72@gmail.com"
 
-#. i18n: file: xslt/entry-templates/Default.xsl
-#, kde-format
-msgctxt "Default XSL Template"
-msgid "Default"
-msgstr "기본"
-
 #. i18n: file: xslt/entry-templates/Album.xsl
 #, kde-format
 msgctxt "Album XSL Template"
 msgid "Album"
 msgstr "앨범"
 
-#. i18n: file: xslt/entry-templates/Compact.xsl
+#. i18n: file: xslt/entry-templates/Default.xsl
 #, kde-format
-msgctxt "Compact XSL Template"
-msgid "Compact"
-msgstr "압축"
-
-#. i18n: file: xslt/entry-templates/Video.xsl
-#, kde-format
-msgctxt "Video XSL Template"
-msgid "Video"
-msgstr "동영상"
+msgctxt "Default XSL Template"
+msgid "Default"
+msgstr "기본"
 
 #. i18n: file: xslt/entry-templates/Fancy.xsl
 #, kde-format
@@ -58,35 +46,17 @@ msgctxt "Fancy XSL Template"
 msgid "Fancy"
 msgstr "보기 좋음"
 
-#. i18n: file: xslt/report-templates/Column_View.xsl
+#. i18n: file: xslt/entry-templates/Video.xsl
 #, kde-format
-msgctxt "Column View XSL Template"
-msgid "Column View"
-msgstr "열 보기"
+msgctxt "Video XSL Template"
+msgid "Video"
+msgstr "동영상"
 
-#. i18n: file: xslt/report-templates/Tri-Column.xsl
+#. i18n: file: xslt/entry-templates/Compact.xsl
 #, kde-format
-msgctxt "Tri-Column XSL Template"
-msgid "Tri-Column"
-msgstr "열 세 개"
-
-#. i18n: file: xslt/report-templates/Group_Statistics.xsl
-#, kde-format
-msgctxt "Group Statistics XSL Template"
-msgid "Group Statistics"
-msgstr "그룹 통계"
-
-#. i18n: file: xslt/report-templates/Loan_View.xsl
-#, kde-format
-msgctxt "Loan View XSL Template"
-msgid "Loan View"
-msgstr "대여 보기"
-
-#. i18n: file: xslt/report-templates/Image_List.xsl
-#, kde-format
-msgctxt "Image List XSL Template"
-msgid "Image List"
-msgstr "이미지 목록"
+msgctxt "Compact XSL Template"
+msgid "Compact"
+msgstr "압축"
 
 #. i18n: file: xslt/report-templates/Title_Listing_(Vertical).xsl
 #, kde-format
@@ -100,17 +70,47 @@ msgctxt "Group View XSL Template"
 msgid "Group View"
 msgstr "그룹 보기"
 
-#. i18n: file: xslt/report-templates/Group_Summary.xsl
+#. i18n: file: xslt/report-templates/Loan_View.xsl
 #, kde-format
-msgctxt "Group Summary XSL Template"
-msgid "Group Summary"
-msgstr "그룹 요약"
+msgctxt "Loan View XSL Template"
+msgid "Loan View"
+msgstr "대여 보기"
 
 #. i18n: file: xslt/report-templates/Title_Listing_(Horizontal).xsl
 #, kde-format
 msgctxt "Title Listing (Horizontal) XSL Template"
 msgid "Title Listing (Horizontal)"
 msgstr "제목 목록(가로)"
+
+#. i18n: file: xslt/report-templates/Group_Summary.xsl
+#, kde-format
+msgctxt "Group Summary XSL Template"
+msgid "Group Summary"
+msgstr "그룹 요약"
+
+#. i18n: file: xslt/report-templates/Image_List.xsl
+#, kde-format
+msgctxt "Image List XSL Template"
+msgid "Image List"
+msgstr "이미지 목록"
+
+#. i18n: file: xslt/report-templates/Tri-Column.xsl
+#, kde-format
+msgctxt "Tri-Column XSL Template"
+msgid "Tri-Column"
+msgstr "열 세 개"
+
+#. i18n: file: xslt/report-templates/Group_Statistics.xsl
+#, kde-format
+msgctxt "Group Statistics XSL Template"
+msgid "Group Statistics"
+msgstr "그룹 통계"
+
+#. i18n: file: xslt/report-templates/Column_View.xsl
+#, kde-format
+msgctxt "Column View XSL Template"
+msgid "Column View"
+msgstr "열 보기"
 
 #: src/bibtexkeydialog.cpp:49
 #, kde-format
@@ -196,6 +196,20 @@ msgstr "전체 항목: %1"
 #| msgid "Group Summary"
 msgid "Group Summary Report"
 msgstr "그룹 요약"
+
+#: src/charts/yeardistributionreport.cpp:69
+#: src/charts/yeardistributionreport.cpp:133
+#, fuzzy, kde-format
+#| msgid "Distributor"
+msgid "Year Distribution"
+msgstr "배급사"
+
+#: src/charts/yeardistributionreport.cpp:158
+#, fuzzy, kde-format
+#| msgid "Country"
+msgctxt "Distinct number of items"
+msgid "Count"
+msgstr "국가"
 
 #: src/cite/lyxpipe.cpp:57
 #, kde-format
@@ -609,16 +623,16 @@ msgstr "되돌리기"
 msgid "Extended Field Properties"
 msgstr "확장된 필드 속성"
 
-#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:108
-#: src/fetch/srufetcher.cpp:577
-#, kde-format
-msgid "Value"
-msgstr "값"
-
 #: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:107
 #, kde-format
 msgid "Property"
 msgstr "속성"
+
+#: src/collectionfieldsdialog.cpp:886 src/collections/filecatalog.cpp:108
+#: src/fetch/srufetcher.cpp:581
+#, kde-format
+msgid "Value"
+msgstr "값"
 
 #: src/collectionfieldsdialog.cpp:922
 #, kde-format
@@ -678,29 +692,31 @@ msgstr "값이 파생된 필드는 값 템플릿이 있어야 합니다."
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31 src/collections/winecollection.cpp:30
 #: src/configdialog.cpp:142 src/configdialog.cpp:169 src/configdialog.cpp:183
-#: src/configdialog.cpp:200 src/fetch/allocinefetcher.cpp:318
-#: src/fetch/allocinefetcher.cpp:324 src/fetch/amazonfetcher.cpp:863
+#: src/configdialog.cpp:200 src/fetch/allocinefetcher.cpp:319
+#: src/fetch/allocinefetcher.cpp:325 src/fetch/amazonfetcher.cpp:863
 #: src/fetch/animenfofetcher.cpp:310 src/fetch/animenfofetcher.cpp:314
 #: src/fetch/bedethequefetcher.cpp:331 src/fetch/bedethequefetcher.cpp:339
 #: src/fetch/colnectfetcher.cpp:317 src/fetch/colnectfetcher.cpp:330
 #: src/fetch/colnectfetcher.cpp:337 src/fetch/colnectfetcher.cpp:344
 #: src/fetch/discogsfetcher.cpp:280 src/fetch/discogsfetcher.cpp:285
 #: src/fetch/discogsfetcher.cpp:290 src/fetch/discogsfetcher.cpp:297
-#: src/fetch/discogsfetcher.cpp:304 src/fetch/doubanfetcher.cpp:294
-#: src/fetch/doubanfetcher.cpp:312 src/fetch/doubanfetcher.cpp:330
-#: src/fetch/filmasterfetcher.cpp:234 src/fetch/googlebookfetcher.cpp:252
-#: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:225
+#: src/fetch/discogsfetcher.cpp:304 src/fetch/doubanfetcher.cpp:310
+#: src/fetch/doubanfetcher.cpp:328 src/fetch/doubanfetcher.cpp:346
+#: src/fetch/filmasterfetcher.cpp:240 src/fetch/googlebookfetcher.cpp:252
+#: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:226
 #: src/fetch/imdbfetcher.cpp:1176 src/fetch/kinopoiskfetcher.cpp:243
-#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:417
+#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:418
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
 #: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:248
 #: src/fetch/thegamesdbfetcher.cpp:241 src/fetch/thegamesdbfetcher.cpp:246
-#: src/fetch/themoviedbfetcher.cpp:294 src/fetch/themoviedbfetcher.cpp:299
-#: src/fetch/tvmazefetcher.cpp:177 src/fetch/tvmazefetcher.cpp:182
-#: src/fetch/upcitemdbfetcher.cpp:209 src/field.cpp:38 src/field.cpp:79
-#: src/field.cpp:298 src/field.cpp:327 src/field.cpp:332
-#: src/translators/gcstarimporter.cpp:89
+#: src/fetch/themoviedbfetcher.cpp:312 src/fetch/themoviedbfetcher.cpp:315
+#: src/fetch/themoviedbfetcher.cpp:320 src/fetch/themoviedbfetcher.cpp:338
+#: src/fetch/thetvdbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:245
+#: src/fetch/thetvdbfetcher.cpp:250 src/fetch/tvmazefetcher.cpp:178
+#: src/fetch/tvmazefetcher.cpp:183 src/fetch/upcitemdbfetcher.cpp:209
+#: src/field.cpp:38 src/field.cpp:79 src/field.cpp:298 src/field.cpp:327
+#: src/field.cpp:332 src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "General"
 msgstr "일반"
@@ -772,8 +788,8 @@ msgstr "기관"
 msgid "Publisher"
 msgstr "출판사"
 
-#: src/collections/bibtexcollection.cpp:141 src/fetch/hathitrustfetcher.cpp:302
-#: src/fetch/srufetcher.cpp:502 src/fetch/z3950fetcher.cpp:572
+#: src/collections/bibtexcollection.cpp:141 src/fetch/hathitrustfetcher.cpp:307
+#: src/fetch/srufetcher.cpp:506 src/fetch/z3950fetcher.cpp:577
 #, kde-format
 msgid "Address"
 msgstr "주소"
@@ -805,7 +821,7 @@ msgstr "연도"
 msgid "Journal"
 msgstr "저널"
 
-#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:73
+#: src/collections/bibtexcollection.cpp:177 src/fetch/fetchmanager.cpp:72
 #, kde-format
 msgid "DOI"
 msgstr "DOI"
@@ -882,8 +898,8 @@ msgid "URL"
 msgstr "URL"
 
 #: src/collections/bibtexcollection.cpp:246 src/fetch/entrezfetcher.cpp:514
-#: src/fetch/hathitrustfetcher.cpp:303 src/fetch/srufetcher.cpp:503
-#: src/fetch/z3950fetcher.cpp:573
+#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:507
+#: src/fetch/z3950fetcher.cpp:578
 #, kde-format
 msgid "Abstract"
 msgstr "초록"
@@ -906,7 +922,7 @@ msgstr "알 수 없음"
 #: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:500 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
+#: src/document.cpp:501 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
 #, kde-format
 msgid "Personal"
 msgstr "개인"
@@ -1022,7 +1038,7 @@ msgstr "구매 가격"
 #: src/collections/comicbookcollection.cpp:154
 #: src/collections/gamecollection.cpp:127
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:215 src/document.cpp:498
+#: src/collections/videocollection.cpp:215 src/document.cpp:499
 #, kde-format
 msgid "Loaned"
 msgstr "대여됨"
@@ -1066,20 +1082,20 @@ msgstr "내 책"
 msgid "Subtitle"
 msgstr "부제"
 
-#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
-#: src/fetch/doubanfetcher.cpp:363 src/fetch/doubanfetcher.cpp:415
-#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
-#, kde-format
-msgid "Paperback"
-msgstr "페이퍼백(종이표지 책)"
-
 #: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:967
-#: src/fetch/doubanfetcher.cpp:361 src/fetch/doubanfetcher.cpp:413
+#: src/fetch/doubanfetcher.cpp:377 src/fetch/doubanfetcher.cpp:429
 #: src/fetch/ibsfetcher.cpp:287 src/translators/alexandriaimporter.cpp:158
 #: src/translators/librarythingimporter.cpp:148
 #, kde-format
 msgid "Hardback"
 msgstr "하드백(두꺼운 표지 책)"
+
+#: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
+#: src/fetch/doubanfetcher.cpp:379 src/fetch/doubanfetcher.cpp:431
+#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
+#, kde-format
+msgid "Paperback"
+msgstr "페이퍼백(종이표지 책)"
 
 #: src/collections/bookcollection.cpp:71
 #, kde-format
@@ -1168,7 +1184,7 @@ msgid "Read"
 msgstr "읽음"
 
 #: src/collections/bookcollection.cpp:179
-#: src/collections/comicbookcollection.cpp:163 src/fetch/arxivfetcher.cpp:205
+#: src/collections/comicbookcollection.cpp:163 src/fetch/arxivfetcher.cpp:209
 #: src/fetch/crossreffetcher.cpp:196 src/translators/pdfimporter.cpp:244
 #: src/translators/referencerimporter.cpp:62
 #, kde-format
@@ -1327,7 +1343,7 @@ msgid "Writer"
 msgstr "글 작가"
 
 #: src/collections/comicbookcollection.cpp:64
-#: src/fetch/boardgamegeekfetcher.cpp:185
+#: src/fetch/boardgamegeekfetcher.cpp:190
 #: src/translators/boardgamegeekimporter.cpp:217
 #, kde-format
 msgctxt "Comic Book Illustrator"
@@ -1621,7 +1637,7 @@ msgid "Album"
 msgstr "앨범"
 
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:378
-#: src/fetch/doubanfetcher.cpp:369 src/fetch/doubanfetcher.cpp:502
+#: src/fetch/doubanfetcher.cpp:385 src/fetch/doubanfetcher.cpp:518
 #: src/fetch/upcitemdbfetcher.cpp:291 src/fetch/upcitemdbfetcher.cpp:411
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:392
@@ -1638,15 +1654,15 @@ msgstr "CD"
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:381
-#, kde-format
-msgid "Vinyl"
-msgstr "레코드판"
-
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:383
 #, kde-format
 msgid "Cassette"
 msgstr "카세트 테이프"
+
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:381
+#, kde-format
+msgid "Vinyl"
+msgstr "레코드판"
 
 #: src/collections/musiccollection.cpp:55
 #: src/collections/videocollection.cpp:55
@@ -1656,7 +1672,7 @@ msgstr "매체"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:215
+#: src/translators/audiofileimporter.cpp:214
 #: src/translators/xmlstatehandler.cpp:396
 #, kde-format
 msgid "Artist"
@@ -1673,16 +1689,15 @@ msgid "Tracks"
 msgstr "트랙"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
-#: src/fetch/fetchmanager.cpp:68 src/fetch/tvmazefetcher.cpp:192
-#: src/fetchdialog.cpp:252 src/field.cpp:297
-#: src/translators/audiofileimporter.cpp:214
+#: src/fetch/fetchmanager.cpp:67 src/fetchdialog.cpp:252 src/field.cpp:297
+#: src/field.cpp:338 src/translators/audiofileimporter.cpp:213
 #: src/translators/xmlstatehandler.cpp:395
 #, kde-format
 msgid "Title"
 msgstr "제목"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:216
+#: src/translators/audiofileimporter.cpp:215
 #: src/translators/xmlstatehandler.cpp:397
 #, kde-format
 msgid "Length"
@@ -1699,7 +1714,7 @@ msgid "Issue Year"
 msgstr "발행 연도"
 
 #: src/collections/stampcollection.cpp:83
-#: src/collections/videocollection.cpp:184 src/fetch/allocinefetcher.cpp:402
+#: src/collections/videocollection.cpp:184 src/fetch/allocinefetcher.cpp:403
 #: src/fetch/imdbfetcher.cpp:1318
 #, kde-format
 msgid "Color"
@@ -1757,18 +1772,6 @@ msgstr "기능"
 msgid "My Videos"
 msgstr "내 동영상"
 
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1025
-#: src/fetch/upcitemdbfetcher.cpp:387
-#, kde-format
-msgid "Blu-ray"
-msgstr "블루레이"
-
-#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1028
-#: src/fetch/upcitemdbfetcher.cpp:390
-#, kde-format
-msgid "HD DVD"
-msgstr "HD DVD"
-
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1031
 #: src/fetch/upcitemdbfetcher.cpp:393
 #, kde-format
@@ -1784,6 +1787,18 @@ msgstr "VCD"
 #, kde-format
 msgid "DivX"
 msgstr "DivX"
+
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1025
+#: src/fetch/upcitemdbfetcher.cpp:387
+#, kde-format
+msgid "Blu-ray"
+msgstr "블루레이"
+
+#: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1028
+#: src/fetch/upcitemdbfetcher.cpp:390
+#, kde-format
+msgid "HD DVD"
+msgstr "HD DVD"
 
 #: src/collections/videocollection.cpp:60
 #, kde-format
@@ -2093,13 +2108,13 @@ msgid "Delete Filter"
 msgstr "필터 삭제"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:379
+#: src/entryeditdialog.cpp:381
 #, kde-format
 msgid "Modify Entries"
 msgstr "항목 수정"
 
 #: src/commands/modifyentries.cpp:51 src/commands/modifyentries.cpp:71
-#: src/commands/updateentries.cpp:92
+#: src/commands/updateentries.cpp:91
 #, kde-format
 msgctxt "Modify (Entry Title)"
 msgid "Modify %1"
@@ -2132,7 +2147,7 @@ msgctxt "Check-in (Entry Title)"
 msgid "Check-in %1"
 msgstr "%1 체크인"
 
-#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:321
+#: src/commands/renamecollection.cpp:34 src/tellico_kernel.cpp:305
 #, kde-format
 msgid "Rename Collection"
 msgstr "소장품 이름 바꾸기"
@@ -2535,7 +2550,7 @@ msgid "Template Options"
 msgstr "템플릿 옵션"
 
 #. i18n string, a plain label can't have an '&'
-#: src/configdialog.cpp:423 src/fetch/execexternalfetcher.cpp:350
+#: src/configdialog.cpp:423 src/fetch/execexternalfetcher.cpp:354
 #: src/fetch/gcstarpluginfetcher.cpp:401 src/fetch/multifetcher.cpp:227
 #: src/translators/csvimporter.cpp:215
 #, kde-format
@@ -2732,7 +2747,7 @@ msgid "Template Packages"
 msgstr "템플릿 패키지"
 
 #: src/configdialog.cpp:1123 src/importdialog.cpp:415 src/mainwindow.cpp:1207
-#: src/mainwindow.cpp:1377 src/reportdialog.cpp:341
+#: src/mainwindow.cpp:1377 src/reportdialog.cpp:342 src/reportdialog.cpp:357
 #: src/translators/bibtexexporter.cpp:65
 #: src/translators/bibtexmlexporter.cpp:51 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:61 src/translators/htmlexporter.cpp:100
@@ -2756,8 +2771,8 @@ msgstr "템플릿 삭제"
 msgid "Select template to delete:"
 msgstr "삭제할 템플릿 선택:"
 
-#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:428
-#: src/fetchdialog.cpp:562 src/fetchdialog.cpp:623 src/fetchdialog.cpp:637
+#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:429
+#: src/fetchdialog.cpp:563 src/fetchdialog.cpp:624 src/fetchdialog.cpp:638
 #: src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
@@ -2907,6 +2922,16 @@ msgstr "Tellico에서 파일에서 이미지를 불러올 수 없음 - %1."
 msgid "Untitled"
 msgstr "제목 없음"
 
+#: src/core/tellico_strings.cpp:42
+#, fuzzy, kde-format
+#| msgid ""
+#| "This information was freely provided by <a href=\"https://igdb.com\">IGDB."
+#| "com</a>."
+msgid "This information was freely provided by <a href=\"%1\">%2</a>."
+msgstr ""
+"이 정보는 <a href=\"https://igdb.com\">IGDB.com</a>에서 자유롭게 제공했습니"
+"다."
+
 #: src/detailedlistview.cpp:523
 #, kde-format
 msgid "View Columns"
@@ -2938,54 +2963,54 @@ msgstr "모든 열 표시"
 msgid "Hide All Columns"
 msgstr "모든 열 숨기기"
 
-#: src/document.cpp:206 src/mainwindow.cpp:1321
+#: src/document.cpp:207 src/mainwindow.cpp:1321
 #, kde-format
 msgid "Saving file..."
 msgstr "파일 저장 중..."
 
-#: src/entryeditdialog.cpp:69 src/entryeditdialog.cpp:400
-#: src/entryeditdialog.cpp:423 src/entryeditdialog.cpp:518
+#: src/entryeditdialog.cpp:70 src/entryeditdialog.cpp:402
+#: src/entryeditdialog.cpp:425 src/entryeditdialog.cpp:520
 #, kde-format
 msgid "Edit Entry"
 msgstr "항목 편집"
 
-#: src/entryeditdialog.cpp:84
+#: src/entryeditdialog.cpp:85
 #, kde-format
 msgid "&New Entry"
 msgstr "새 항목(&N)"
 
-#: src/entryeditdialog.cpp:89 src/entryeditdialog.cpp:129
-#: src/entryeditdialog.cpp:433 src/entryeditdialog.cpp:539
+#: src/entryeditdialog.cpp:90 src/entryeditdialog.cpp:130
+#: src/entryeditdialog.cpp:435 src/entryeditdialog.cpp:541
 #, kde-format
 msgid "Sa&ve Entry"
 msgstr "항목 저장(&V)"
 
-#: src/entryeditdialog.cpp:330
+#: src/entryeditdialog.cpp:332
 #, kde-format
 msgid "Do you really want to modify these entries?"
 msgstr "이 항목을 수정하시겠습니까?"
 
-#: src/entryeditdialog.cpp:332
+#: src/entryeditdialog.cpp:334
 #, kde-format
 msgid "Modify Multiple Entries"
 msgstr "여러 항목 수정"
 
-#: src/entryeditdialog.cpp:373
+#: src/entryeditdialog.cpp:375
 #, kde-format
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "다음 필드에 값이 필요합니다. 계속하시겠습니까?"
 
-#: src/entryeditdialog.cpp:469
+#: src/entryeditdialog.cpp:471
 #, kde-format
 msgid "Edit Entries"
 msgstr "항목 편집"
 
-#: src/entryeditdialog.cpp:495
+#: src/entryeditdialog.cpp:497
 #, kde-format
 msgid "Sa&ve Entries"
 msgstr "항목 저장(&V)"
 
-#: src/entryeditdialog.cpp:654
+#: src/entryeditdialog.cpp:656
 #, kde-format
 msgid ""
 "The current entry has been modified.\n"
@@ -2994,12 +3019,12 @@ msgstr ""
 "현재 항목이 수정되었습니다.\n"
 "변경 사항을 입력하시겠습니까?"
 
-#: src/entryeditdialog.cpp:657
+#: src/entryeditdialog.cpp:659
 #, kde-format
 msgid "Save Entry"
 msgstr "항목 저장"
 
-#: src/entryeditdialog.cpp:658 src/mainwindow.cpp:1133
+#: src/entryeditdialog.cpp:660 src/mainwindow.cpp:1133
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "저장되지 않은 변경 사항"
@@ -3038,7 +3063,7 @@ msgstr ""
 "<qt><b>%1</b>이(가) 현재 소장품에 있는 항목인 <b>%2</b>와(과) 일치하는 여러 "
 "결과를 반환했습니다. 올바른 일치를 선택하십시오.</qt>"
 
-#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:358
+#: src/entrymerger.cpp:53 src/tellico_kernel.cpp:342
 #, kde-format
 msgid "Merge Entries"
 msgstr "항목 병합"
@@ -3073,12 +3098,12 @@ msgstr "항목 업데이트"
 msgid "Updating <b>%1</b>..."
 msgstr "<b>%1</b> 업데이트 중..."
 
-#: src/entryview.cpp:309
+#: src/entryview.cpp:311
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico가 기본 항목 스타일시트를 찾을 수 없습니다."
 
-#: src/entryview.cpp:311 src/mainwindow.cpp:1703
+#: src/entryview.cpp:313 src/mainwindow.cpp:1703
 #, kde-format
 msgid "Please check your installation."
 msgstr "설치 상태를 확인하십시오."
@@ -3152,49 +3177,49 @@ msgstr "사용자 로캘의 인코딩(%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "내보낸 파일을 사용자 로캘의 인코딩으로 인코딩합니다."
 
-#: src/fetch/allocinefetcher.cpp:241 src/fetch/amazonfetcher.cpp:633
+#: src/fetch/allocinefetcher.cpp:242 src/fetch/amazonfetcher.cpp:633
 #: src/fetch/colnectfetcher.cpp:527 src/fetch/discogsfetcher.cpp:202
-#: src/fetch/doubanfetcher.cpp:391 src/fetch/filmasterfetcher.cpp:142
+#: src/fetch/doubanfetcher.cpp:407 src/fetch/filmasterfetcher.cpp:148
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:298
-#: src/fetch/igdbfetcher.cpp:161 src/fetch/isbndbfetcher.cpp:295
+#: src/fetch/igdbfetcher.cpp:162 src/fetch/isbndbfetcher.cpp:295
 #: src/fetch/kinofetcher.cpp:335 src/fetch/kinopoiskfetcher.cpp:235
-#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:344
+#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:345
 #: src/fetch/moviemeterfetcher.cpp:162 src/fetch/numistafetcher.cpp:285
 #: src/fetch/numistafetcher.cpp:293 src/fetch/omdbfetcher.cpp:182
-#: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:222
-#: src/fetch/tvmazefetcher.cpp:274 src/fetch/upcitemdbfetcher.cpp:251
-#: src/fetch/vndbfetcher.cpp:181
+#: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:239
+#: src/fetch/thetvdbfetcher.cpp:373 src/fetch/tvmazefetcher.cpp:269
+#: src/fetch/upcitemdbfetcher.cpp:251 src/fetch/vndbfetcher.cpp:182
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "표지 이미지를 불러올 수 없습니다."
 
-#: src/fetch/allocinefetcher.cpp:323 src/fetch/allocinefetcher.cpp:500
+#: src/fetch/allocinefetcher.cpp:324 src/fetch/allocinefetcher.cpp:501
 #, kde-format
 msgid "Allocine Link"
 msgstr "알로시네 링크"
 
-#: src/fetch/allocinefetcher.cpp:328 src/fetch/allocinefetcher.cpp:499
+#: src/fetch/allocinefetcher.cpp:329 src/fetch/allocinefetcher.cpp:500
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
-#: src/fetch/doubanfetcher.cpp:287 src/fetch/doubanfetcher.cpp:305
-#: src/fetch/doubanfetcher.cpp:323 src/fetch/doubanfetcher.cpp:554
-#: src/fetch/dvdfrfetcher.cpp:176 src/fetch/imdbfetcher.cpp:771
+#: src/fetch/doubanfetcher.cpp:303 src/fetch/doubanfetcher.cpp:321
+#: src/fetch/doubanfetcher.cpp:339 src/fetch/doubanfetcher.cpp:570
+#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/imdbfetcher.cpp:771
 #: src/fetch/imdbfetcher.cpp:1490 src/fetch/kinopoiskfetcher.cpp:310
-#: src/fetch/kinopoiskfetcher.cpp:506 src/fetch/kinoteatrfetcher.cpp:263
+#: src/fetch/kinopoiskfetcher.cpp:510 src/fetch/kinoteatrfetcher.cpp:263
 #: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/omdbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:311 src/fetch/themoviedbfetcher.cpp:483
-#: src/fetch/vndbfetcher.cpp:283 src/fetch/vndbfetcher.cpp:431
+#: src/fetch/themoviedbfetcher.cpp:332 src/fetch/themoviedbfetcher.cpp:576
+#: src/fetch/vndbfetcher.cpp:284 src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Original Title"
 msgstr "원래 제목"
 
-#: src/fetch/allocinefetcher.cpp:428 src/fetch/imdbfetcher.cpp:1506
-#: src/fetch/themoviedbfetcher.cpp:519
+#: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1506
+#: src/fetch/themoviedbfetcher.cpp:613
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "최대 캐스트(&M): "
 
-#: src/fetch/allocinefetcher.cpp:441 src/fetch/imdbfetcher.cpp:1519
-#: src/fetch/themoviedbfetcher.cpp:532
+#: src/fetch/allocinefetcher.cpp:442 src/fetch/imdbfetcher.cpp:1519
+#: src/fetch/themoviedbfetcher.cpp:626
 #, kde-format
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
@@ -3370,7 +3395,7 @@ msgid "This data is licensed under <a href=%1>specific terms</a>."
 msgstr ""
 "이 데이터는 <a href=%1>라이선스 조항</a>의 조건에 따라서 사용할 수 있습니다."
 
-#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1113
+#: src/fetch/amazonfetcher.cpp:270 src/fetch/amazonfetcher.cpp:1112
 #, kde-format
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
@@ -3379,9 +3404,9 @@ msgstr ""
 "Amazon.com에서 데이터에 접근하려면 AWS 액세스 키 ID와 비밀 키가 필요합니다."
 
 #: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:97
-#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:115
+#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:116
 #: src/fetch/omdbfetcher.cpp:101 src/fetch/thegamesdbfetcher.cpp:106
-#: src/fetch/themoviedbfetcher.cpp:131
+#: src/fetch/themoviedbfetcher.cpp:136
 #, kde-format
 msgid "Those values must be entered in the data source settings."
 msgstr "이 값은 데이터 원본 설정에 입력해야 합니다."
@@ -3401,42 +3426,48 @@ msgstr "Amazon 링크"
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com 웹 서비스"
 
-#: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:171
-#: src/fetch/comicvinefetcher.cpp:231 src/fetch/crossreffetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:479 src/fetch/giantbombfetcher.cpp:220
+#: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:172
+#: src/fetch/comicvinefetcher.cpp:232 src/fetch/crossreffetcher.cpp:313
+#: src/fetch/discogsfetcher.cpp:479 src/fetch/giantbombfetcher.cpp:219
 #: src/fetch/googlebookfetcher.cpp:380 src/fetch/isbndbfetcher.cpp:394
-#: src/fetch/mobygamesfetcher.cpp:608 src/fetch/omdbfetcher.cpp:408
-#: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:495
-#, kde-format
+#: src/fetch/mobygamesfetcher.cpp:609 src/fetch/omdbfetcher.cpp:408
+#: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:590
+#: src/fetch/thetvdbfetcher.cpp:577
+#, fuzzy, kde-format
+#| msgid ""
+#| "Registration is required for accessing the %1 data source. If you agree "
+#| "to the terms and conditions, <a href='%2'>sign up for an account</a>, and "
+#| "enter your information below."
 msgid ""
-"Registration is required for accessing the %1 data source. If you agree to "
-"the terms and conditions, <a href='%2'>sign up for an account</a>, and enter "
+"Registration is required for accessing this data source. If you agree to the "
+"terms and conditions, <a href='%1'>sign up for an account</a>, and enter "
 "your information below."
 msgstr ""
 "%1 데이터 원본에 접근하려면 등록해야 합니다. 이용 약관에 동의하는 경우 <a "
 "href='%2'>회원으로 가입</a>하고 아래에 정보를 입력하십시오."
 
-#: src/fetch/amazonfetcher.cpp:1108 src/fetch/bibliosharefetcher.cpp:184
+#: src/fetch/amazonfetcher.cpp:1107 src/fetch/bibliosharefetcher.cpp:184
 #: src/fetch/comicvinefetcher.cpp:244 src/fetch/entrezfetcher.cpp:531
-#: src/fetch/giantbombfetcher.cpp:233 src/fetch/googlebookfetcher.cpp:393
-#: src/fetch/isbndbfetcher.cpp:407 src/fetch/mobygamesfetcher.cpp:621
-#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:421
-#: src/fetch/thegamesdbfetcher.cpp:597 src/fetch/themoviedbfetcher.cpp:508
+#: src/fetch/giantbombfetcher.cpp:231 src/fetch/googlebookfetcher.cpp:392
+#: src/fetch/isbndbfetcher.cpp:406 src/fetch/mobygamesfetcher.cpp:621
+#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:420
+#: src/fetch/thegamesdbfetcher.cpp:596 src/fetch/themoviedbfetcher.cpp:602
+#: src/fetch/thetvdbfetcher.cpp:589
 #, kde-format
 msgid "Access key: "
 msgstr "액세스 키: "
 
-#: src/fetch/amazonfetcher.cpp:1118
+#: src/fetch/amazonfetcher.cpp:1117
 #, kde-format
 msgid "Secret key: "
 msgstr "암호 키: "
 
-#: src/fetch/amazonfetcher.cpp:1128
+#: src/fetch/amazonfetcher.cpp:1127
 #, kde-format
 msgid "Country: "
 msgstr "국가: "
 
-#: src/fetch/amazonfetcher.cpp:1143
+#: src/fetch/amazonfetcher.cpp:1142
 #, kde-format
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
@@ -3445,38 +3476,38 @@ msgstr ""
 "Amazon.com은 여러 다른 지역화된 사이트의 데이터를 제공합니다. 이 데이터 원본"
 "에 사용할 데이터를 선택합니다."
 
-#: src/fetch/amazonfetcher.cpp:1149 src/fetch/mobygamesfetcher.cpp:629
-#: src/fetch/thegamesdbfetcher.cpp:605
+#: src/fetch/amazonfetcher.cpp:1148 src/fetch/mobygamesfetcher.cpp:629
+#: src/fetch/thegamesdbfetcher.cpp:604
 #, kde-format
 msgid "&Image size: "
 msgstr "이미지 크기(&I): "
 
-#: src/fetch/amazonfetcher.cpp:1152 src/fetch/mobygamesfetcher.cpp:632
-#: src/fetch/thegamesdbfetcher.cpp:608
+#: src/fetch/amazonfetcher.cpp:1151 src/fetch/mobygamesfetcher.cpp:632
+#: src/fetch/thegamesdbfetcher.cpp:607
 #, kde-format
 msgid "Small Image"
 msgstr "작은 이미지"
 
-#: src/fetch/amazonfetcher.cpp:1153 src/fetch/thegamesdbfetcher.cpp:609
+#: src/fetch/amazonfetcher.cpp:1152 src/fetch/thegamesdbfetcher.cpp:608
 #, kde-format
 msgid "Medium Image"
 msgstr "중간 이미지"
 
 #. i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
-#: src/fetch/amazonfetcher.cpp:1154 src/fetch/mobygamesfetcher.cpp:634
-#: src/fetch/thegamesdbfetcher.cpp:610
+#: src/fetch/amazonfetcher.cpp:1153 src/fetch/mobygamesfetcher.cpp:634
+#: src/fetch/thegamesdbfetcher.cpp:609
 #, kde-format
 msgid "Large Image"
 msgstr "큰 이미지"
 
-#: src/fetch/amazonfetcher.cpp:1155 src/fetch/mobygamesfetcher.cpp:635
-#: src/fetch/thegamesdbfetcher.cpp:611
+#: src/fetch/amazonfetcher.cpp:1154 src/fetch/mobygamesfetcher.cpp:635
+#: src/fetch/thegamesdbfetcher.cpp:610
 #, kde-format
 msgid "No Image"
 msgstr "이미지 없음"
 
-#: src/fetch/amazonfetcher.cpp:1158 src/fetch/imdbfetcher.cpp:1528
-#: src/fetch/mobygamesfetcher.cpp:639 src/fetch/thegamesdbfetcher.cpp:615
+#: src/fetch/amazonfetcher.cpp:1157 src/fetch/imdbfetcher.cpp:1528
+#: src/fetch/mobygamesfetcher.cpp:639 src/fetch/thegamesdbfetcher.cpp:614
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3485,12 +3516,12 @@ msgstr ""
 "표지 이미지도 다운로드할 수 있습니다. 그러나 소장품의 이미지가 너무 많으면 성"
 "능이 저하될 수 있습니다."
 
-#: src/fetch/amazonfetcher.cpp:1164
+#: src/fetch/amazonfetcher.cpp:1163
 #, kde-format
 msgid "&Associate's ID: "
 msgstr "제휴사 ID(&A): "
 
-#: src/fetch/amazonfetcher.cpp:1170
+#: src/fetch/amazonfetcher.cpp:1169
 #, kde-format
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
@@ -3500,11 +3531,11 @@ msgstr ""
 "이트에 대한 모든 링크에 포함됩니다."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/dvdfrfetcher.cpp:178 src/fetch/imdbfetcher.cpp:825
+#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:825
 #: src/fetch/imdbfetcher.cpp:1488 src/fetch/moviemeterfetcher.cpp:225
 #: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:257
-#: src/fetch/themoviedbfetcher.cpp:306 src/fetch/themoviedbfetcher.cpp:482
-#: src/fetch/tvmazefetcher.cpp:198 src/fetch/tvmazefetcher.cpp:390
+#: src/fetch/themoviedbfetcher.cpp:327 src/fetch/themoviedbfetcher.cpp:575
+#: src/fetch/tvmazefetcher.cpp:193 src/fetch/tvmazefetcher.cpp:385
 #, kde-format
 msgid "Alternative Titles"
 msgstr "대체 제목"
@@ -3515,7 +3546,8 @@ msgid "Distributor"
 msgstr "배급사"
 
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
-#: src/fetch/tvmazefetcher.cpp:189 src/fetch/tvmazefetcher.cpp:388
+#: src/fetch/themoviedbfetcher.cpp:578 src/fetch/thetvdbfetcher.cpp:564
+#: src/fetch/tvmazefetcher.cpp:383 src/field.cpp:335
 #, kde-format
 msgid "Episodes"
 msgstr "에피소드"
@@ -3530,19 +3562,19 @@ msgstr "AnimeNfo 링크"
 msgid "AnimeNfo Rating"
 msgstr "AnimeNfo 등급"
 
-#: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:328
-#: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:186
-#: src/fetch/boardgamegeekfetcher.cpp:193 src/fetch/dbcfetcher.cpp:156
-#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:562
-#: src/fetch/dvdfrfetcher.cpp:186 src/fetch/filmasterfetcher.cpp:317
-#: src/fetch/googlescholarfetcher.cpp:280 src/fetch/hathitrustfetcher.cpp:313
-#: src/fetch/ibsfetcher.cpp:393 src/fetch/igdbfetcher.cpp:586
-#: src/fetch/kinofetcher.cpp:373 src/fetch/kinopoiskfetcher.cpp:514
+#: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:332
+#: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:190
+#: src/fetch/boardgamegeekfetcher.cpp:198 src/fetch/dbcfetcher.cpp:161
+#: src/fetch/dblpfetcher.cpp:129 src/fetch/doubanfetcher.cpp:578
+#: src/fetch/dvdfrfetcher.cpp:190 src/fetch/filmasterfetcher.cpp:323
+#: src/fetch/googlescholarfetcher.cpp:284 src/fetch/hathitrustfetcher.cpp:318
+#: src/fetch/ibsfetcher.cpp:393 src/fetch/igdbfetcher.cpp:588
+#: src/fetch/kinofetcher.cpp:373 src/fetch/kinopoiskfetcher.cpp:518
 #: src/fetch/kinoteatrfetcher.cpp:514 src/fetch/moviemeterfetcher.cpp:301
 #: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:376
 #: src/fetch/openlibraryfetcher.cpp:400 src/fetch/springerfetcher.cpp:183
-#: src/fetch/tvmazefetcher.cpp:398 src/fetch/upcitemdbfetcher.cpp:466
-#: src/fetch/videogamegeekfetcher.cpp:197 src/fetch/vndbfetcher.cpp:439
+#: src/fetch/tvmazefetcher.cpp:393 src/fetch/upcitemdbfetcher.cpp:466
+#: src/fetch/videogamegeekfetcher.cpp:198 src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "이 소스에 옵션이 없습니다."
@@ -3562,18 +3594,10 @@ msgstr "Bedetheque 링크"
 msgid "ISBN#"
 msgstr "ISBN#"
 
-#: src/fetch/bibliosharefetcher.cpp:64
-#, kde-format
-msgid ""
-"Data provided by <a href=\"https://www.booknetcanada.ca/biblioshare\">BNC "
-"BiblioShare</a>."
-msgstr ""
-"<a href=\"https://www.booknetcanada.ca/biblioshare\">BNC BiblioShare</a>에서 "
-"제공한 데이터입니다."
-
 #: src/fetch/bibliosharefetcher.cpp:190 src/fetch/comicvinefetcher.cpp:250
-#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:239
-#: src/fetch/googlebookfetcher.cpp:399 src/fetch/themoviedbfetcher.cpp:514
+#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:237
+#: src/fetch/googlebookfetcher.cpp:398 src/fetch/themoviedbfetcher.cpp:608
+#: src/fetch/thetvdbfetcher.cpp:595
 #, kde-format
 msgid ""
 "The default Tellico key may be used, but searching may fail due to reaching "
@@ -3582,16 +3606,7 @@ msgstr ""
 "기본 Tellico 키를 사용할 수 있지만 접근 제한에 도달하여 검색이 실패할 수 있습"
 "니다."
 
-#: src/fetch/boardgamegeekfetcher.cpp:66 src/fetch/videogamegeekfetcher.cpp:67
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://boardgamegeek.com"
-"\">BoardGameGeek</a>."
-msgstr ""
-"이 정보는 <a href=\"https://boardgamegeek.com\">BoardGameGeek</a>에서 자유롭"
-"게 제공했습니다."
-
-#: src/fetch/boardgamegeekfetcher.cpp:186
+#: src/fetch/boardgamegeekfetcher.cpp:191
 #, kde-format
 msgid "BoardGameGeek Link"
 msgstr "BoardGameGeek 링크"
@@ -3605,31 +3620,22 @@ msgstr "주조"
 #, kde-format
 msgctxt "Stanley Gibbons stamp catalog code"
 msgid "Stanley Gibbons"
-msgstr "Stanley Gibbons"
+msgstr ""
 
 #: src/fetch/colnectfetcher.cpp:343 src/fetch/colnectfetcher.cpp:556
 #, kde-format
 msgctxt "Michel stamp catalog code"
 msgid "Michel"
-msgstr "Michel"
+msgstr ""
 
 #: src/fetch/colnectfetcher.cpp:658 src/fetch/numistafetcher.cpp:422
-#: src/fetch/themoviedbfetcher.cpp:537
+#: src/fetch/themoviedbfetcher.cpp:631
 #, kde-format
 msgid "Language: "
 msgstr "언어: "
 
-#: src/fetch/comicvinefetcher.cpp:70
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://comicvine.gamespot."
-"com/\">Comic Vine</a>."
-msgstr ""
-"이 정보는 <a href=\"https://comicvine.gamespot.com/\">Comic Vine</a>에서 자유"
-"롭게 제공했습니다."
-
 #. i18n("Colorist");
-#: src/fetch/comicvinefetcher.cpp:219
+#: src/fetch/comicvinefetcher.cpp:220
 #, kde-format
 msgid "Comic Vine Link"
 msgstr "Comic Vine 링크"
@@ -3649,39 +3655,39 @@ msgstr "사용 가능한 필드"
 msgid "%1 requires a username and password."
 msgstr "%1에는 사용자 이름과 암호가 필요합니다."
 
-#: src/fetch/crossreffetcher.cpp:325
+#: src/fetch/crossreffetcher.cpp:324
 #, kde-format
 msgid "&Username: "
 msgstr "사용자 이름(&U): "
 
-#: src/fetch/crossreffetcher.cpp:330
+#: src/fetch/crossreffetcher.cpp:329
 #, kde-format
 msgid "A username and password is required to access the CrossRef service."
 msgstr "CrossRef 서비스에 접속하려면 사용자 이름과 암호가 필요합니다."
 
-#: src/fetch/crossreffetcher.cpp:335
+#: src/fetch/crossreffetcher.cpp:334
 #, kde-format
 msgid "&Password: "
 msgstr "암호(&P): "
 
-#: src/fetch/crossreffetcher.cpp:345
+#: src/fetch/crossreffetcher.cpp:344
 #, kde-format
 msgid "For some accounts, only an email address is required."
 msgstr "일부 계정에는 이메일 주소만 필요합니다."
 
-#: src/fetch/crossreffetcher.cpp:348
+#: src/fetch/crossreffetcher.cpp:347
 #, kde-format
 msgid "Email: "
 msgstr "이메일: "
 
-#: src/fetch/dbcfetcher.cpp:141
+#: src/fetch/dbcfetcher.cpp:146
 #, kde-format
 msgid "Danish Bibliographic Center (DBC.dk)"
 msgstr "덴마크 서지 정보 센터(DBC.dk)"
 
 #: src/fetch/discogsfetcher.cpp:95 src/fetch/isbndbfetcher.cpp:112
-#: src/fetch/mobygamesfetcher.cpp:113 src/fetch/omdbfetcher.cpp:99
-#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:129
+#: src/fetch/mobygamesfetcher.cpp:114 src/fetch/omdbfetcher.cpp:99
+#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:134
 #, kde-format
 msgid "An access key is required to use this data source."
 msgstr "이 데이터 소스를 사용하려면 액세스 키가 필요합니다."
@@ -3693,7 +3699,7 @@ msgstr "Discogs 링크"
 
 #. i18n("Nationality");
 #: src/fetch/discogsfetcher.cpp:303 src/fetch/discogsfetcher.cpp:468
-#: src/fetch/dvdfrfetcher.cpp:179 src/fetch/musicbrainzfetcher.cpp:369
+#: src/fetch/dvdfrfetcher.cpp:183 src/fetch/musicbrainzfetcher.cpp:369
 #: src/fetch/upcitemdbfetcher.cpp:208 src/fetch/upcitemdbfetcher.cpp:459
 #, kde-format
 msgid "Barcode"
@@ -3709,18 +3715,18 @@ msgstr "Discogs.com 서버에서 토큰 오류를 반환했습니다."
 msgid "Discogs Audio Search"
 msgstr "Discogs 오디오 검색"
 
-#: src/fetch/discogsfetcher.cpp:492
+#: src/fetch/discogsfetcher.cpp:491
 #, kde-format
 msgid "User token: "
 msgstr "사용자 토큰: "
 
-#: src/fetch/doubanfetcher.cpp:293 src/fetch/doubanfetcher.cpp:311
-#: src/fetch/doubanfetcher.cpp:329 src/fetch/doubanfetcher.cpp:555
+#: src/fetch/doubanfetcher.cpp:309 src/fetch/doubanfetcher.cpp:327
+#: src/fetch/doubanfetcher.cpp:345 src/fetch/doubanfetcher.cpp:571
 #, kde-format
 msgid "Douban Link"
 msgstr "Douban 링크"
 
-#: src/fetch/dvdfrfetcher.cpp:177
+#: src/fetch/dvdfrfetcher.cpp:181
 #, kde-format
 msgid "DVDFr Link"
 msgstr "DVDFr 링크"
@@ -3735,45 +3741,45 @@ msgstr "Entrez 데이터베이스"
 msgid "Institution"
 msgstr "기관"
 
-#: src/fetch/execexternalfetcher.cpp:335
+#: src/fetch/execexternalfetcher.cpp:339
 #, kde-format
 msgid "External Application"
 msgstr "외부 프로그램"
 
-#: src/fetch/execexternalfetcher.cpp:356
+#: src/fetch/execexternalfetcher.cpp:360
 #, kde-format
 msgid ""
 "Set the collection type of the data returned from the external application."
 msgstr "외부 프로그램에서 반환되는 데이터의 수집 형식을 설정합니다."
 
-#: src/fetch/execexternalfetcher.cpp:361
+#: src/fetch/execexternalfetcher.cpp:365
 #, kde-format
 msgid "&Result type: "
 msgstr "결과 형식(&R): "
 
-#: src/fetch/execexternalfetcher.cpp:370
+#: src/fetch/execexternalfetcher.cpp:374
 #, kde-format
 msgid "Set the result type of the data returned from the external application."
 msgstr "외부 프로그램에서 반환된 데이터의 결과 형식을 설정합니다."
 
-#: src/fetch/execexternalfetcher.cpp:384
+#: src/fetch/execexternalfetcher.cpp:388
 #, kde-format
 msgid "Application &path: "
 msgstr "프로그램 경로(&P): "
 
-#: src/fetch/execexternalfetcher.cpp:389
+#: src/fetch/execexternalfetcher.cpp:393
 #, kde-format
 msgid ""
 "Set the path of the application to run that should output a valid Tellico "
 "data file."
 msgstr "올바른 Tellico 데이터 파일을 출력할 프로그램의 경로를 설정합니다."
 
-#: src/fetch/execexternalfetcher.cpp:394
+#: src/fetch/execexternalfetcher.cpp:398
 #, kde-format
 msgid "Select the search keys supported by the data source."
 msgstr "데이터 원본에서 지원하는 검색 키를 선택합니다."
 
-#: src/fetch/execexternalfetcher.cpp:396
+#: src/fetch/execexternalfetcher.cpp:400
 #, kde-format
 msgid ""
 "Add any arguments that may be needed. <b>%1</b> will be replaced by the "
@@ -3781,17 +3787,17 @@ msgid ""
 msgstr "필요한 인수를 추가하십시오. <b>%1</b>은(는) 검색어로 대체됩니다."
 
 #. i18ncheckarg
-#: src/fetch/execexternalfetcher.cpp:397
+#: src/fetch/execexternalfetcher.cpp:401
 #, kde-format
 msgid "Arguments"
 msgstr "인수"
 
-#: src/fetch/execexternalfetcher.cpp:429
+#: src/fetch/execexternalfetcher.cpp:433
 #, kde-format
 msgid "Update"
 msgstr "업데이트"
 
-#: src/fetch/execexternalfetcher.cpp:437
+#: src/fetch/execexternalfetcher.cpp:441
 #, kde-format
 msgid ""
 "<p>Enter the arguments which should be used to search for available updates "
@@ -3804,14 +3810,14 @@ msgstr ""
 "%{author}</i>와 같은 중괄호 안에 포함됩니다. 자세한 내용은 도움말을 참조하십"
 "시오.</p>"
 
-#: src/fetch/fetcher.cpp:79
+#: src/fetch/fetcher.cpp:80
 #, kde-format
 msgid "%1 does not allow searching for this collection type."
 msgstr "%1에서는 이 소장품 형식을 검색할 수 없습니다."
 
 #. i18n("<html>%1 requires the network request to include identification.\n"
 #. "Check the network configuration in <a href=\"%2\">KDE System Settings</a>.</html>", source(), QStringLiteral("exec:/kcmshell5 useragent")),
-#: src/fetch/fetcher.cpp:96
+#: src/fetch/fetcher.cpp:97
 #, kde-format
 msgid ""
 "%1 requires the network request to include identification.\n"
@@ -3820,47 +3826,47 @@ msgstr ""
 "%1에 식별자 정보를 포함하려면 네트워크 요청이 필요합니다.\n"
 "KDE 시스템 설정의 네트워크 설정을 확인하십시오."
 
-#: src/fetch/fetchmanager.cpp:69
+#: src/fetch/fetchmanager.cpp:68
 #, kde-format
 msgid "Person"
 msgstr "인물"
 
-#: src/fetch/fetchmanager.cpp:70
+#: src/fetch/fetchmanager.cpp:69
 #, kde-format
 msgid "ISBN"
 msgstr "ISBN"
 
-#: src/fetch/fetchmanager.cpp:71
+#: src/fetch/fetchmanager.cpp:70
 #, kde-format
 msgid "UPC/EAN"
 msgstr "UPC/EAN"
 
-#: src/fetch/fetchmanager.cpp:72
+#: src/fetch/fetchmanager.cpp:71
 #, kde-format
 msgid "Keyword"
 msgstr "키워드"
 
-#: src/fetch/fetchmanager.cpp:74 src/translators/pdfimporter.cpp:213
+#: src/fetch/fetchmanager.cpp:73 src/translators/pdfimporter.cpp:213
 #, kde-format
 msgid "arXiv ID"
 msgstr "arXiv ID"
 
-#: src/fetch/fetchmanager.cpp:75
+#: src/fetch/fetchmanager.cpp:74
 #, kde-format
 msgid "PubMed ID"
 msgstr "PubMed ID"
 
-#: src/fetch/fetchmanager.cpp:76
+#: src/fetch/fetchmanager.cpp:75
 #, kde-format
 msgid "LCCN"
 msgstr "LCCN"
 
-#: src/fetch/fetchmanager.cpp:77
+#: src/fetch/fetchmanager.cpp:76
 #, kde-format
 msgid "Raw Query"
 msgstr "Raw 쿼리"
 
-#: src/fetch/filmasterfetcher.cpp:233 src/fetch/filmasterfetcher.cpp:310
+#: src/fetch/filmasterfetcher.cpp:239 src/fetch/filmasterfetcher.cpp:316
 #, kde-format
 msgid "Filmaster Link"
 msgstr "Filmaster 링크"
@@ -3890,13 +3896,13 @@ msgstr "데이터 원본에 사용되는 GCstar 플러그인을 선택합니다.
 msgid "Author: "
 msgstr "저자: "
 
-#: src/fetch/giantbombfetcher.cpp:207
+#: src/fetch/giantbombfetcher.cpp:206
 #, kde-format
 msgid "GiantBomb Link"
 msgstr "GiantBomb 링크"
 
-#: src/fetch/giantbombfetcher.cpp:208 src/fetch/igdbfetcher.cpp:549
-#: src/fetch/mobygamesfetcher.cpp:595 src/field.cpp:325
+#: src/fetch/giantbombfetcher.cpp:207 src/fetch/igdbfetcher.cpp:551
+#: src/fetch/mobygamesfetcher.cpp:596 src/field.cpp:325
 #, kde-format
 msgid "PEGI Rating"
 msgstr "PEGI 등급"
@@ -3911,20 +3917,20 @@ msgstr "Google 도서 링크"
 msgid "Google Book Search"
 msgstr "Google 도서 검색"
 
-#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/z3950fetcher.cpp:574
+#: src/fetch/hathitrustfetcher.cpp:309 src/fetch/z3950fetcher.cpp:579
 #, kde-format
 msgid "Illustrator"
 msgstr "삽화가"
 
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/isbndbfetcher.cpp:383
-#: src/fetch/srufetcher.cpp:504 src/fetch/z3950fetcher.cpp:575
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:383
+#: src/fetch/srufetcher.cpp:508 src/fetch/z3950fetcher.cpp:580
 #, kde-format
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "듀이 십진분류"
 
-#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/srufetcher.cpp:505
-#: src/fetch/z3950fetcher.cpp:576
+#: src/fetch/hathitrustfetcher.cpp:311 src/fetch/srufetcher.cpp:509
+#: src/fetch/z3950fetcher.cpp:581
 #, kde-format
 msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
@@ -3935,21 +3941,12 @@ msgstr "LoC 분류"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "인터넷 서점(ibs.it)"
 
-#: src/fetch/igdbfetcher.cpp:80
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://igdb.com\">IGDB."
-"com</a>."
-msgstr ""
-"이 정보는 <a href=\"https://igdb.com\">IGDB.com</a>에서 자유롭게 제공했습니"
-"다."
-
-#: src/fetch/igdbfetcher.cpp:224 src/fetch/igdbfetcher.cpp:550
+#: src/fetch/igdbfetcher.cpp:225 src/fetch/igdbfetcher.cpp:552
 #, kde-format
 msgid "IGDB Link"
 msgstr "IGDB 링크"
 
-#: src/fetch/igdbfetcher.cpp:540
+#: src/fetch/igdbfetcher.cpp:542
 #, kde-format
 msgid "Internet Game Database (IGDB.com)"
 msgstr "인터넷 게임 데이터베이스(IGDB.com)"
@@ -3996,8 +3993,8 @@ msgid "Certifications"
 msgstr "인증"
 
 #: src/fetch/imdbfetcher.cpp:1486 src/fetch/omdbfetcher.cpp:397
-#: src/fetch/themoviedbfetcher.cpp:481 src/fetch/tvmazefetcher.cpp:387
-#: src/field.cpp:331
+#: src/fetch/themoviedbfetcher.cpp:574 src/fetch/thetvdbfetcher.cpp:563
+#: src/fetch/tvmazefetcher.cpp:382 src/field.cpp:331
 #, kde-format
 msgid "IMDb Link"
 msgstr "IMDb 링크"
@@ -4017,20 +4014,19 @@ msgstr "듀이 십진분류"
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/isbndbfetcher.cpp:415
+#: src/fetch/isbndbfetcher.cpp:414
 #, kde-format
 msgid "Enable batch ISBN searching (requires Premium or Pro plan)"
-msgstr "일괄 ISBN 검색 활성화(Premium 또는 Pro 구독 필요함)"
+msgstr ""
 
-#: src/fetch/isbndbfetcher.cpp:419
+#: src/fetch/isbndbfetcher.cpp:418
 #, kde-format
 msgid ""
 "Batch searching for ISBN values is faster but only available for Premium or "
 "Pro plans."
 msgstr ""
-"ISBN 일괄 검색은 더 빠르지만 Premium 또는 Pro 구독 중에만 사용할 수 있습니다."
 
-#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:507
+#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:511
 #, kde-format
 msgid "KinoPoisk Link"
 msgstr "KinoPoisk 링크"
@@ -4040,16 +4036,7 @@ msgstr "KinoPoisk 링크"
 msgid "Kino-Teatr Link"
 msgstr "Kino-Teatr 링크"
 
-#: src/fetch/mobygamesfetcher.cpp:81
-#, kde-format
-msgid ""
-"This information was freely provided by <a href=\"https://mobygames.com"
-"\">MobyGames</a>."
-msgstr ""
-"이 정보는 <a href=\"https://mobygames.com\">MobyGames</a>에서 자유롭게 제공했"
-"습니다."
-
-#: src/fetch/mobygamesfetcher.cpp:416 src/fetch/mobygamesfetcher.cpp:596
+#: src/fetch/mobygamesfetcher.cpp:417 src/fetch/mobygamesfetcher.cpp:597
 #, kde-format
 msgid "MobyGames Link"
 msgstr "MobyGames 링크"
@@ -4070,23 +4057,24 @@ msgid "Data source:"
 msgstr "데이터 원본:"
 
 #: src/fetch/numistafetcher.cpp:342 src/fetch/numistafetcher.cpp:397
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Filmaster Link"
 msgid "Numista Link"
-msgstr "Numista 링크"
+msgstr "Filmaster 링크"
 
 #: src/fetch/numistafetcher.cpp:402
 #, kde-format
 msgctxt "Standard catalog of world coins number"
 msgid "Krause-Mishler"
-msgstr "Krause-Mishler"
+msgstr ""
 
-#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:542
+#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:636
 #, kde-format
 msgctxt "Language"
 msgid "English"
 msgstr "영어"
 
-#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:545
+#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:639
 #, kde-format
 msgctxt "Language"
 msgid "French"
@@ -4095,131 +4083,114 @@ msgstr "프랑스어"
 #: src/fetch/numistafetcher.cpp:461
 #, kde-format
 msgid "Numista (%1)"
-msgstr "Numista(%1)"
+msgstr ""
 
 #: src/fetch/openlibraryfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:393
 #, kde-format
 msgid "OpenLibrary Link"
 msgstr "OpenLibrary 링크"
 
-#: src/fetch/srufetcher.cpp:486
+#: src/fetch/srufetcher.cpp:490
 #, kde-format
 msgid "Library of Congress (US)"
 msgstr "의회 도서관(미국)"
 
-#: src/fetch/srufetcher.cpp:491
+#: src/fetch/srufetcher.cpp:495
 #, kde-format
 msgid "SRU Server"
 msgstr "SRU 서버"
 
-#: src/fetch/srufetcher.cpp:520 src/fetch/z3950fetcher.cpp:599
+#: src/fetch/srufetcher.cpp:524 src/fetch/z3950fetcher.cpp:604
 #, kde-format
 msgid "Hos&t: "
 msgstr "호스트(&T): "
 
-#: src/fetch/srufetcher.cpp:527 src/fetch/z3950fetcher.cpp:605
+#: src/fetch/srufetcher.cpp:531 src/fetch/z3950fetcher.cpp:610
 #, kde-format
 msgid "Enter the host name of the server."
 msgstr "서버의 호스트 이름을 입력하십시오."
 
-#: src/fetch/srufetcher.cpp:532 src/fetch/z3950fetcher.cpp:610
+#: src/fetch/srufetcher.cpp:536 src/fetch/z3950fetcher.cpp:615
 #, kde-format
 msgid "&Port: "
 msgstr "포트(&P): "
 
-#: src/fetch/srufetcher.cpp:541 src/fetch/z3950fetcher.cpp:619
+#: src/fetch/srufetcher.cpp:545 src/fetch/z3950fetcher.cpp:624
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "서버의 포트 번호를 입력하십시오. 기본값은 %1입니다."
 
-#: src/fetch/srufetcher.cpp:546
+#: src/fetch/srufetcher.cpp:550
 #, kde-format
 msgid "Path: "
 msgstr "경로: "
 
-#: src/fetch/srufetcher.cpp:551
+#: src/fetch/srufetcher.cpp:555
 #, kde-format
 msgid "Enter the path to the database used by the server."
 msgstr "서버에서 사용하는 데이터베이스의 경로를 입력하십시오."
 
-#: src/fetch/srufetcher.cpp:556
+#: src/fetch/srufetcher.cpp:560
 #, kde-format
 msgid "Format: "
 msgstr "형식: "
 
-#: src/fetch/srufetcher.cpp:568
+#: src/fetch/srufetcher.cpp:572
 #, kde-format
 msgid "Enter the result format used by the server."
 msgstr "서버에서 사용하는 결과 형식을 입력하십시오."
 
-#: src/fetch/srufetcher.cpp:577
+#: src/fetch/srufetcher.cpp:581
 #, kde-format
 msgid "Field"
 msgstr "필드"
 
-#: src/fetch/themoviedbfetcher.cpp:298 src/fetch/themoviedbfetcher.cpp:480
+#: src/fetch/themoviedbfetcher.cpp:319 src/fetch/themoviedbfetcher.cpp:573
 #, kde-format
 msgid "TMDb Link"
 msgstr "TMDb 링크"
 
-#: src/fetch/themoviedbfetcher.cpp:548
+#: src/fetch/themoviedbfetcher.cpp:337 src/fetch/themoviedbfetcher.cpp:577
+#: src/fetch/thetvdbfetcher.cpp:244 src/fetch/thetvdbfetcher.cpp:565
+#: src/fetch/tvmazefetcher.cpp:182 src/fetch/tvmazefetcher.cpp:384
+#, kde-format
+msgid "Network"
+msgstr ""
+
+#: src/fetch/themoviedbfetcher.cpp:642
 #, kde-format
 msgctxt "Language"
 msgid "German"
 msgstr "독일어"
 
-#: src/fetch/themoviedbfetcher.cpp:551
+#: src/fetch/themoviedbfetcher.cpp:645
 #, kde-format
 msgctxt "Language"
 msgid "Spanish"
 msgstr "스페인어"
 
-#: src/fetch/themoviedbfetcher.cpp:585
+#: src/fetch/themoviedbfetcher.cpp:679
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB(%1)"
 
-#: src/fetch/tvmazefetcher.cpp:73
+#: src/fetch/thetvdbfetcher.cpp:249 src/fetch/thetvdbfetcher.cpp:562
 #, fuzzy, kde-format
-#| msgid ""
-#| "This information was freely provided by <a href=\"https://mobygames.com"
-#| "\">MobyGames</a>."
-msgid ""
-"This information was freely provided by <a href=\"https://tvmaze.com"
-"\">TVmaze</a>."
-msgstr ""
-"이 정보는 <a href=\"https://mobygames.com\">MobyGames</a>에서 자유롭게 제공했"
-"습니다."
+#| msgid "IGDB Link"
+msgid "TheTVDB Link"
+msgstr "IGDB 링크"
 
-#: src/fetch/tvmazefetcher.cpp:181 src/fetch/tvmazefetcher.cpp:389
-#, kde-format
-msgid "Network"
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:193
-#, kde-format
-msgctxt "TV Season"
-msgid "Season"
-msgstr ""
-
-#: src/fetch/tvmazefetcher.cpp:194
-#, fuzzy, kde-format
-#| msgid "Episodes"
-msgctxt "TV Episode"
-msgid "Episode"
-msgstr "에피소드"
-
-#: src/fetch/videogamegeekfetcher.cpp:190
+#: src/fetch/videogamegeekfetcher.cpp:191
 #, kde-format
 msgid "VideoGameGeek Link"
 msgstr "VideoGameGeek 링크"
 
-#: src/fetch/vndbfetcher.cpp:288 src/fetch/vndbfetcher.cpp:432
+#: src/fetch/vndbfetcher.cpp:289 src/fetch/vndbfetcher.cpp:433
 #, kde-format
 msgid "Alias"
 msgstr "별칭"
 
-#: src/fetch/vndbfetcher.cpp:307
+#: src/fetch/vndbfetcher.cpp:308
 #, kde-format
 msgid "Visual Novel"
 msgstr "비주얼 노벨"
@@ -4244,32 +4215,32 @@ msgstr "레코드 구문 오류"
 msgid "Connection error %1: %2"
 msgstr "연결 오류 %1: %2"
 
-#: src/fetch/z3950fetcher.cpp:561 src/fetch/z3950fetcher.cpp:877
+#: src/fetch/z3950fetcher.cpp:566 src/fetch/z3950fetcher.cpp:882
 #, kde-format
 msgid "z39.50 Server"
 msgstr "z39.50 서버"
 
-#: src/fetch/z3950fetcher.cpp:588
+#: src/fetch/z3950fetcher.cpp:593
 #, kde-format
 msgid "Use preset &server:"
 msgstr "사전 설정 서버 사용(&S):"
 
-#: src/fetch/z3950fetcher.cpp:624
+#: src/fetch/z3950fetcher.cpp:629
 #, kde-format
 msgid "&Database: "
 msgstr "데이터베이스(&D): "
 
-#: src/fetch/z3950fetcher.cpp:629
+#: src/fetch/z3950fetcher.cpp:634
 #, kde-format
 msgid "Enter the database name used by the server."
 msgstr "서버에서 사용하는 데이터베이스 이름을 입력하십시오."
 
-#: src/fetch/z3950fetcher.cpp:634
+#: src/fetch/z3950fetcher.cpp:639
 #, kde-format
 msgid "Query character set: "
 msgstr "질의 문자 인코딩:"
 
-#: src/fetch/z3950fetcher.cpp:643
+#: src/fetch/z3950fetcher.cpp:648
 #, kde-format
 msgid ""
 "Enter the character set encoding used for queries by the z39.50 server. The "
@@ -4278,12 +4249,12 @@ msgstr ""
 "z39.50 서버 질의에서 사용하는 문자 집합 인코딩을 입력하십시오. 자주 사용하는 "
 "설정은 MARC-8이지만, ISO-8859-1을 사용할 수도 있습니다."
 
-#: src/fetch/z3950fetcher.cpp:649
+#: src/fetch/z3950fetcher.cpp:654
 #, kde-format
 msgid "Results character set: "
 msgstr "결과 문자 인코딩:"
 
-#: src/fetch/z3950fetcher.cpp:658
+#: src/fetch/z3950fetcher.cpp:663
 #, kde-format
 msgid ""
 "Enter the character set encoding used for responses by the z39.50 server. "
@@ -4292,17 +4263,17 @@ msgstr ""
 "z39.50 서버 응답에서 사용하는 문자 집합 인코딩을 입력하십시오. 자주 사용하는 "
 "설정은 MARC-8이지만, ISO-8859-1을 사용할 수도 있습니다."
 
-#: src/fetch/z3950fetcher.cpp:664
+#: src/fetch/z3950fetcher.cpp:669
 #, kde-format
 msgid "&Format: "
 msgstr "형식(&F): "
 
-#: src/fetch/z3950fetcher.cpp:667
+#: src/fetch/z3950fetcher.cpp:672
 #, kde-format
 msgid "Auto-detect"
 msgstr "자동 감지"
 
-#: src/fetch/z3950fetcher.cpp:676
+#: src/fetch/z3950fetcher.cpp:681
 #, kde-format
 msgid ""
 "Enter the data format used by the z39.50 server. Tellico will attempt to "
@@ -4311,17 +4282,17 @@ msgstr ""
 "z39.50 서버에서 사용하는 데이터 형식을 입력하십시오. <i>자동 감지</i>가 선택"
 "된 경우 Tellico가 자동으로 최상의 설정을 감지하려고 시도합니다."
 
-#: src/fetch/z3950fetcher.cpp:682
+#: src/fetch/z3950fetcher.cpp:687
 #, kde-format
 msgid "&User: "
 msgstr "사용자(&U): "
 
-#: src/fetch/z3950fetcher.cpp:685 src/fetch/z3950fetcher.cpp:697
+#: src/fetch/z3950fetcher.cpp:690 src/fetch/z3950fetcher.cpp:702
 #, kde-format
 msgid "Optional"
 msgstr "선택 사항"
 
-#: src/fetch/z3950fetcher.cpp:688
+#: src/fetch/z3950fetcher.cpp:693
 #, kde-format
 msgid ""
 "Enter the authentication user name used by the z39.50 database. Most servers "
@@ -4330,12 +4301,12 @@ msgstr ""
 "z39.50 데이터베이스에서 사용하는 인증 사용자 이름을 입력하십시오. 대부분의 서"
 "버에는 필요하지 않습니다."
 
-#: src/fetch/z3950fetcher.cpp:694
+#: src/fetch/z3950fetcher.cpp:699
 #, kde-format
 msgid "Pass&word: "
 msgstr "암호(&W): "
 
-#: src/fetch/z3950fetcher.cpp:701
+#: src/fetch/z3950fetcher.cpp:706
 #, kde-format
 msgid ""
 "Enter the authentication password used by the z39.50 database. Most servers "
@@ -4473,68 +4444,68 @@ msgstr "모든 검색 필드 및 결과 지우기"
 msgid "Cancelling the search..."
 msgstr "검색 취소 중..."
 
-#: src/fetchdialog.cpp:408 src/fetchdialog.cpp:587
+#: src/fetchdialog.cpp:408 src/fetchdialog.cpp:588
 #, kde-format
 msgid "Searching..."
 msgstr "검색 중..."
 
-#: src/fetchdialog.cpp:467
+#: src/fetchdialog.cpp:468
 #, kde-format
 msgid "The search returned no items."
 msgstr "검색 결과가 없습니다."
 
-#: src/fetchdialog.cpp:470
+#: src/fetchdialog.cpp:471
 #, kde-format
 msgid "The search returned 1 item."
 msgid_plural "The search returned %1 items."
 msgstr[0] "검색 결과가 %1개 있습니다."
 
-#: src/fetchdialog.cpp:499
+#: src/fetchdialog.cpp:500
 #, kde-format
 msgid "No results were found for the following ISBN values:"
 msgstr "다음 ISBN 값에 대한 결과를 찾을 수 없음:"
 
-#: src/fetchdialog.cpp:501
+#: src/fetchdialog.cpp:502
 #, kde-format
 msgid "No Results"
 msgstr "결과 없음"
 
-#: src/fetchdialog.cpp:554 src/fetchdialog.cpp:610
+#: src/fetchdialog.cpp:555 src/fetchdialog.cpp:611
 #, kde-format
 msgid "Fetching %1..."
 msgstr "%1 가져오는 중..."
 
-#: src/fetchdialog.cpp:627
+#: src/fetchdialog.cpp:628
 #, kde-format
 msgid "Attribution"
 msgstr "저작자 표시"
 
-#: src/fetchdialog.cpp:664 src/fetchdialog.cpp:888
+#: src/fetchdialog.cpp:665 src/fetchdialog.cpp:889
 #, kde-format
 msgid "No Internet sources are available for your current collection type."
 msgstr "현재 수집 형식에 사용할 수 있는 인터넷 원본이 없습니다."
 
-#: src/fetchdialog.cpp:745
+#: src/fetchdialog.cpp:746
 #, kde-format
 msgid "Edit ISBN/UPC Values"
 msgstr "ISBN/UPC 값 편집"
 
-#: src/fetchdialog.cpp:756
+#: src/fetchdialog.cpp:757
 #, kde-format
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>ISBN 또는 UPC 값을 한 줄에 하나씩 입력하십시오.</qt>"
 
-#: src/fetchdialog.cpp:772
+#: src/fetchdialog.cpp:773
 #, kde-format
 msgid "&Load From File..."
 msgstr "파일에서 불러오기(&L)..."
 
-#: src/fetchdialog.cpp:773
+#: src/fetchdialog.cpp:774
 #, kde-format
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt> 텍스트 파일에서 목록을 불러옵니다.</qt>"
 
-#: src/fetchdialog.cpp:797
+#: src/fetchdialog.cpp:798
 #, kde-format
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
@@ -4630,6 +4601,19 @@ msgstr "수정일"
 msgid "International Standard Book Number"
 msgstr "국제 표준 도서 번호"
 
+#: src/field.cpp:339
+#, kde-format
+msgctxt "TV Season"
+msgid "Season"
+msgstr ""
+
+#: src/field.cpp:340
+#, fuzzy, kde-format
+#| msgid "Episodes"
+msgctxt "TV Episode"
+msgid "Episode"
+msgstr "에피소드"
+
 #: src/filterdialog.cpp:62
 #, kde-format
 msgid "Advanced Filter"
@@ -4703,146 +4687,152 @@ msgstr "그룹"
 msgid "People"
 msgstr "사람"
 
-#: src/gui/fieldwidget.cpp:107 src/gui/fieldwidget.cpp:217
+#: src/gui/fieldwidget.cpp:54 src/gui/fieldwidget.cpp:169
 #, kde-format
 msgctxt "Edit Label"
 msgid "%1:"
 msgstr "%1:"
 
-#: src/gui/filterrulewidget.cpp:69
+#: src/gui/filterrulewidget.cpp:68
 #, kde-format
 msgid "Any Field"
 msgstr "임의 필드"
 
-#: src/gui/filterrulewidget.cpp:101
+#: src/gui/filterrulewidget.cpp:100
 #, kde-format
 msgid "Edit..."
 msgstr "편집..."
 
-#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
-#: src/gui/filterrulewidget.cpp:285
+#: src/gui/filterrulewidget.cpp:260 src/gui/filterrulewidget.cpp:268
+#: src/gui/filterrulewidget.cpp:284
 #, kde-format
 msgid "equals"
 msgstr "같음"
 
-#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
-#: src/gui/filterrulewidget.cpp:286
+#: src/gui/filterrulewidget.cpp:261 src/gui/filterrulewidget.cpp:269
+#: src/gui/filterrulewidget.cpp:285
 #, kde-format
 msgid "does not equal"
 msgstr "같지 않음"
 
-#: src/gui/filterrulewidget.cpp:263 src/gui/filterrulewidget.cpp:271
-#: src/gui/filterrulewidget.cpp:287
+#: src/gui/filterrulewidget.cpp:262 src/gui/filterrulewidget.cpp:270
+#: src/gui/filterrulewidget.cpp:286
 #, fuzzy, kde-format
 #| msgid "matches regexp"
 msgid "matches regular expression"
 msgstr "정규식과 일치"
 
-#: src/gui/filterrulewidget.cpp:264 src/gui/filterrulewidget.cpp:272
-#: src/gui/filterrulewidget.cpp:288
+#: src/gui/filterrulewidget.cpp:263 src/gui/filterrulewidget.cpp:271
+#: src/gui/filterrulewidget.cpp:287
 #, fuzzy, kde-format
 #| msgid "does not match regexp"
 msgid "does not match regular expression"
 msgstr "정규식과 일치하지 않음"
 
-#: src/gui/filterrulewidget.cpp:265
+#: src/gui/filterrulewidget.cpp:264
 #, kde-format
 msgctxt "is before a date"
 msgid "is before"
 msgstr "이전"
 
-#: src/gui/filterrulewidget.cpp:266
+#: src/gui/filterrulewidget.cpp:265
 #, kde-format
 msgctxt "is after a date"
 msgid "is after"
 msgstr "이후"
 
-#: src/gui/filterrulewidget.cpp:273
+#: src/gui/filterrulewidget.cpp:272
 #, kde-format
 msgctxt "is less than a number"
 msgid "is less than"
 msgstr "보다 작음"
 
-#: src/gui/filterrulewidget.cpp:274
+#: src/gui/filterrulewidget.cpp:273
 #, kde-format
 msgctxt "is greater than a number"
 msgid "is greater than"
 msgstr "보다 큼"
 
-#: src/gui/filterrulewidget.cpp:277
-#, kde-format
+#: src/gui/filterrulewidget.cpp:276
+#, fuzzy, kde-format
+#| msgid "&Image size: "
 msgid "image size equals"
-msgstr "이미지 크기가 일치함"
+msgstr "이미지 크기(&I): "
+
+#: src/gui/filterrulewidget.cpp:277
+#, fuzzy, kde-format
+#| msgid "does not equal"
+msgid "image size does not equal"
+msgstr "같지 않음"
 
 #: src/gui/filterrulewidget.cpp:278
-#, kde-format
-msgid "image size does not equal"
-msgstr "이미지 크기가 일치하지 않음"
-
-#: src/gui/filterrulewidget.cpp:279
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "is less than a number"
+#| msgid "is less than"
 msgctxt "image size is less than a number"
 msgid "image size is less than"
-msgstr "이미지 크기가 다음보다 작음"
+msgstr "보다 작음"
 
-#: src/gui/filterrulewidget.cpp:280
-#, kde-format
+#: src/gui/filterrulewidget.cpp:279
+#, fuzzy, kde-format
+#| msgctxt "is greater than a number"
+#| msgid "is greater than"
 msgctxt "image size is greater than a number"
 msgid "image size is greater than"
-msgstr "이미지 크기가 다음보다 큼"
+msgstr "보다 큼"
 
-#: src/gui/filterrulewidget.cpp:283
+#: src/gui/filterrulewidget.cpp:282
 #, kde-format
 msgid "contains"
 msgstr "포함"
 
-#: src/gui/filterrulewidget.cpp:284
+#: src/gui/filterrulewidget.cpp:283
 #, kde-format
 msgid "does not contain"
 msgstr "포함되지 않음"
 
-#: src/gui/imagewidget.cpp:101
+#: src/gui/imagewidget.cpp:106
 #, kde-format
 msgid "Select Image..."
 msgstr "이미지 선택..."
 
-#: src/gui/imagewidget.cpp:106
+#: src/gui/imagewidget.cpp:111
 #, kde-format
 msgid "Scan Image..."
 msgstr "이미지 스캔..."
 
-#: src/gui/imagewidget.cpp:115
+#: src/gui/imagewidget.cpp:120
 #, kde-format
 msgid "Open With..."
 msgstr "다음으로 열기..."
 
-#: src/gui/imagewidget.cpp:149
+#: src/gui/imagewidget.cpp:158
 #, kde-format
 msgctxt "Clear image"
 msgid "Clear"
 msgstr "지우기"
 
-#: src/gui/imagewidget.cpp:156
+#: src/gui/imagewidget.cpp:165
 #, kde-format
 msgid "Save link only"
 msgstr "링크만 저장"
 
-#: src/gui/imagewidget.cpp:261
+#: src/gui/imagewidget.cpp:270
 #, kde-format
 msgid "All Images (%1)"
 msgstr "모든 이미지(%1)"
 
-#: src/gui/imagewidget.cpp:288
+#: src/gui/imagewidget.cpp:297
 #, kde-format
 msgid "Opening the selected scanner failed."
 msgstr "선택한 스캐너를 열지 못했습니다."
 
-#: src/gui/imagewidget.cpp:347
+#: src/gui/imagewidget.cpp:356
 #, kde-format
 msgid "Opening image in %1..."
 msgstr "%1에서 이미지를 여는 중..."
 
-#: src/gui/imagewidget.cpp:379
+#: src/gui/imagewidget.cpp:388
 #, kde-format
 msgid "Saving a link is only possible for newly added images."
 msgstr "새로 추가된 이미지에 대해서만 링크를 저장할 수 있습니다."
@@ -4881,47 +4871,47 @@ msgctxt "delete a value"
 msgid "&Delete"
 msgstr "삭제(&D)"
 
-#: src/gui/tablefieldwidget.cpp:168
+#: src/gui/tablefieldwidget.cpp:167
 #, kde-format
 msgid "Rename Column"
 msgstr "열 이름 바꾸기"
 
-#: src/gui/tablefieldwidget.cpp:168
+#: src/gui/tablefieldwidget.cpp:167
 #, kde-format
 msgid "New column name:"
 msgstr "새로운 열 이름:"
 
-#: src/gui/tablefieldwidget.cpp:195
+#: src/gui/tablefieldwidget.cpp:189
 #, kde-format
 msgid "Column %1"
 msgstr "열 %1"
 
-#: src/gui/tablefieldwidget.cpp:234 src/gui/tablefieldwidget.cpp:268
+#: src/gui/tablefieldwidget.cpp:240 src/gui/tablefieldwidget.cpp:274
 #, kde-format
 msgid "Rename Column..."
 msgstr "열 이름 바꾸기..."
 
-#: src/gui/tablefieldwidget.cpp:236 src/gui/tablefieldwidget.cpp:274
+#: src/gui/tablefieldwidget.cpp:242 src/gui/tablefieldwidget.cpp:280
 #, kde-format
 msgid "Clear Table"
 msgstr "테이블 지우기"
 
-#: src/gui/tablefieldwidget.cpp:253
+#: src/gui/tablefieldwidget.cpp:259
 #, kde-format
 msgid "Insert Row"
 msgstr "행 삽입"
 
-#: src/gui/tablefieldwidget.cpp:255
+#: src/gui/tablefieldwidget.cpp:261
 #, kde-format
 msgid "Remove Row"
 msgstr "행 삭제"
 
-#: src/gui/tablefieldwidget.cpp:257
+#: src/gui/tablefieldwidget.cpp:263
 #, kde-format
 msgid "Move Row Up"
 msgstr "행 위로 이동"
 
-#: src/gui/tablefieldwidget.cpp:262
+#: src/gui/tablefieldwidget.cpp:268
 #, kde-format
 msgid "Move Row Down"
 msgstr "행 아래로 이동"
@@ -5139,9 +5129,10 @@ msgid "Borrower (Sort by Count)"
 msgstr "대여자(개수별로 정렬)"
 
 #: src/main.cpp:121
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Tellico - a KDE collection manager"
 msgid "Tellico - collection management software, free and simple"
-msgstr "Tellico - 간단한 자유 소프트웨어 소장품 관리 도구"
+msgstr "Tellico - KDE 소장품 관리 도구"
 
 #: src/main.cpp:123
 #, fuzzy, kde-format
@@ -5205,9 +5196,10 @@ msgid "File to open"
 msgstr "열려는 파일"
 
 #: src/mainwindow.cpp:253
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Wine Collection"
 msgid "New Collection"
-msgstr "새 소장품"
+msgstr "와인 소장품"
 
 #: src/mainwindow.cpp:255
 #, kde-format
@@ -5436,14 +5428,16 @@ msgid "Import data from Delicious Library"
 msgstr "Delicious 라이브러리에서 데이터 가져오기"
 
 #: src/mainwindow.cpp:398
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import Tellico Data..."
 msgid "Import Collectorz Data..."
-msgstr "Collectorz 데이터 가져오기..."
+msgstr "Tellico 데이터 가져오기..."
 
 #: src/mainwindow.cpp:399
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import data from Referencer"
 msgid "Import data from Collectorz"
-msgstr "Collectorz에서 데이터 가져오기"
+msgstr "Referencer에서 데이터 가져오기"
 
 #: src/mainwindow.cpp:402
 #, kde-format
@@ -5756,9 +5750,10 @@ msgid "&New Entry..."
 msgstr "새 항목(&N)..."
 
 #: src/mainwindow.cpp:559
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&New Entry"
 msgid "New Entry"
-msgstr "새 항목"
+msgstr "새 항목(&N)"
 
 #: src/mainwindow.cpp:561
 #, kde-format
@@ -5766,9 +5761,10 @@ msgid "Create a new entry"
 msgstr "새 항목 만들기"
 
 #: src/mainwindow.cpp:563
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Add Entry"
 msgid "Add Entry"
-msgstr "항목 추가"
+msgstr "항목 추가(&A)"
 
 #: src/mainwindow.cpp:573
 #, kde-format
@@ -6267,47 +6263,53 @@ msgid ""
 "Some reports may take several seconds to generate for large collections."
 msgstr "일부 보고서는 대규모 소장품을 생성하는데 몇 초 정도 걸릴 수 있습니다."
 
-#: src/reportdialog.cpp:339 src/translators/htmlexporter.cpp:100
+#: src/reportdialog.cpp:340
+#, fuzzy, kde-format
+#| msgid "PDF Files"
+msgid "PNG Files"
+msgstr "PDF 파일"
+
+#: src/reportdialog.cpp:355 src/translators/htmlexporter.cpp:100
 #, kde-format
 msgid "HTML Files"
 msgstr "HTML 파일"
 
-#: src/tellico_kernel.cpp:283
+#: src/tellico_kernel.cpp:267
 #, kde-format
 msgid "Do you really want to delete this filter?"
 msgstr "이 필터를 삭제하시겠습니까?"
 
-#: src/tellico_kernel.cpp:285
+#: src/tellico_kernel.cpp:269
 #, kde-format
 msgid "Delete Filter?"
 msgstr "필터를 삭제하시겠습니까?"
 
-#: src/tellico_kernel.cpp:321
+#: src/tellico_kernel.cpp:305
 #, kde-format
 msgid "New collection name:"
 msgstr "새로운 소장품 이름:"
 
-#: src/tellico_kernel.cpp:337
+#: src/tellico_kernel.cpp:321
 #, kde-format
 msgid "Entry 1"
 msgstr "항목 1"
 
-#: src/tellico_kernel.cpp:338
+#: src/tellico_kernel.cpp:322
 #, kde-format
 msgid "Entry 2"
 msgstr "항목 2"
 
-#: src/tellico_kernel.cpp:347
+#: src/tellico_kernel.cpp:331
 #, kde-format
 msgid "Conflicting values for %1 were found while merging entries."
 msgstr "항목을 병합하는 동안 %1의 값이 충돌했습니다."
 
-#: src/tellico_kernel.cpp:353
+#: src/tellico_kernel.cpp:337
 #, kde-format
 msgid "Please choose which value to keep."
 msgstr "사용할 값을 선택하십시오."
 
-#: src/tellico_kernel.cpp:359 src/tellico_kernel.cpp:360
+#: src/tellico_kernel.cpp:343 src/tellico_kernel.cpp:344
 #, kde-format
 msgid "Select value from %1"
 msgstr "%1의 값 선택"
@@ -6320,9 +6322,11 @@ msgstr "파일(&F)"
 
 #. i18n: ectx: Menu (file_new_collection)
 #: src/tellicoui.rc:8
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:menu"
+#| msgid "&Collection"
 msgid "&New Collection"
-msgstr "새 소장품(&C)"
+msgstr "소장품(&C)"
 
 #. i18n: ectx: Menu (file_import)
 #: src/tellicoui.rc:24
@@ -6402,64 +6406,64 @@ msgstr "Alexandria 옵션"
 msgid "&Library:"
 msgstr "라이브러리(&L):"
 
-#: src/translators/audiofileimporter.cpp:113
+#: src/translators/audiofileimporter.cpp:112
 #, kde-format
 msgid "Scanning audio files..."
 msgstr "오디오 파일 검색 중..."
 
-#: src/translators/audiofileimporter.cpp:171
-#: src/translators/audiofileimporter.cpp:174
+#: src/translators/audiofileimporter.cpp:170
+#: src/translators/audiofileimporter.cpp:173
 #, kde-format
 msgid "Files"
 msgstr "파일"
 
-#: src/translators/audiofileimporter.cpp:177
+#: src/translators/audiofileimporter.cpp:176
 #, kde-format
 msgid "Bitrate"
 msgstr "비트 전송률"
 
-#: src/translators/audiofileimporter.cpp:210
-#: src/translators/audiofileimporter.cpp:220
+#: src/translators/audiofileimporter.cpp:209
+#: src/translators/audiofileimporter.cpp:219
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "트랙(디스크 %1)"
 
-#: src/translators/audiofileimporter.cpp:284 xslt/entry-templates/Album.xsl:243
+#: src/translators/audiofileimporter.cpp:283 xslt/entry-templates/Album.xsl:243
 #, kde-format
 msgid "(Various)"
 msgstr "(다양함)"
 
-#: src/translators/audiofileimporter.cpp:445
+#: src/translators/audiofileimporter.cpp:444
 #, kde-format
 msgid "Audio File Options"
 msgstr "오디오 파일 옵션"
 
-#: src/translators/audiofileimporter.cpp:448
+#: src/translators/audiofileimporter.cpp:447
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "재귀적 폴더 검색(&F)"
 
-#: src/translators/audiofileimporter.cpp:449
+#: src/translators/audiofileimporter.cpp:448
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr "이 옵션을 선택하면 폴더에서 재귀적으로 오디오 파일을 검색합니다."
 
-#: src/translators/audiofileimporter.cpp:453
+#: src/translators/audiofileimporter.cpp:452
 #, kde-format
 msgid "Include file &location"
 msgstr "파일 위치 포함(&L)"
 
-#: src/translators/audiofileimporter.cpp:454
+#: src/translators/audiofileimporter.cpp:453
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "이 옵션을 선택하면 각 트랙의 파일 이름이 항목에 추가됩니다."
 
-#: src/translators/audiofileimporter.cpp:458
+#: src/translators/audiofileimporter.cpp:457
 #, kde-format
 msgid "Include &bitrate"
 msgstr "비트 전송률 포함(&B)"
 
-#: src/translators/audiofileimporter.cpp:459
+#: src/translators/audiofileimporter.cpp:458
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "이 옵션을 선택하면 각 트랙의 비트 전송률이 항목에 추가됩니다."
@@ -7028,17 +7032,17 @@ msgstr "파일에 수집 데이터가 없습니다."
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:522
+#: src/translators/tellicoxmlexporter.cpp:535
 #, kde-format
 msgid "Tellico XML Options"
 msgstr "Tellico XML 옵션"
 
-#: src/translators/tellicoxmlexporter.cpp:525
+#: src/translators/tellicoxmlexporter.cpp:538
 #, kde-format
 msgid "Include images in XML document"
 msgstr "XML 문서에 이미지 포함"
 
-#: src/translators/tellicoxmlexporter.cpp:527
+#: src/translators/tellicoxmlexporter.cpp:540
 #, kde-format
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "

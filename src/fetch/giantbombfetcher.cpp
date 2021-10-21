@@ -27,6 +27,7 @@
 #include "../translators/tellicoimporter.h"
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
+#include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -65,9 +66,7 @@ QString GiantBombFetcher::source() const {
 }
 
 QString GiantBombFetcher::attribution() const {
-  // TODO: i18n after string freeze
-  return QStringLiteral("This information was freely provided by <a href=\"%1\">%2</a>.")
-                   .arg(QLatin1String("https://giantbomb.com"), QLatin1String("Giant Bomb"));
+  return i18n(providedBy).arg(QLatin1String("https://giantbomb.com"), QLatin1String("Giant Bomb"));
 }
 
 bool GiantBombFetcher::canFetch(int type) const {
@@ -217,10 +216,9 @@ GiantBombFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const GiantBombFe
 
   int row = -1;
 
-  QLabel* al = new QLabel(i18n("Registration is required for accessing the %1 data source. "
-                               "If you agree to the terms and conditions, <a href='%2'>sign "
+  QLabel* al = new QLabel(i18n("Registration is required for accessing this data source. "
+                               "If you agree to the terms and conditions, <a href='%1'>sign "
                                "up for an account</a>, and enter your information below.",
-                                preferredName(),
                                 QLatin1String("http://api.giantbomb.com")),
                           optionsWidget());
   al->setOpenExternalLinks(true);

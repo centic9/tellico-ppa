@@ -31,9 +31,8 @@ using Tellico::GUI::BoolFieldWidget;
 
 BoolFieldWidget::BoolFieldWidget(Tellico::Data::FieldPtr field_, QWidget* parent_)
     : FieldWidget(field_, parent_) {
-
   m_checkBox = new QCheckBox(this);
-  connect(m_checkBox, &QCheckBox::clicked, this, &BoolFieldWidget::checkModified);
+  connect(m_checkBox, &QCheckBox::stateChanged, this, &BoolFieldWidget::checkModified);
   registerWidget();
 }
 

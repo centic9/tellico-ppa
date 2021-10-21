@@ -29,6 +29,7 @@
 #include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
+#include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -70,7 +71,7 @@ QString TVmazeFetcher::source() const {
 
 // https://www.tvmaze.com/api#licensing
 QString TVmazeFetcher::attribution() const {
-  return i18n("This information was freely provided by <a href=\"https://tvmaze.com\">TVmaze</a>.");
+  return i18n(providedBy).arg(QLatin1String("https://tvmaze.com"), QLatin1String("TVmaze"));
 }
 
 bool TVmazeFetcher::canSearch(Fetch::FetchKey k) const {
@@ -186,13 +187,7 @@ void TVmazeFetcher::slotComplete(KJob* job_) {
     coll->addField(Data::Field::createDefaultField(Data::Field::ImdbField));
   }
   if(optionalFields().contains(QStringLiteral("episode"))) {
-    Data::FieldPtr field(new Data::Field(QStringLiteral("episode"), i18n("Episodes"), Data::Field::Table));
-    field->setFormatType(FieldFormat::FormatTitle);
-    field->setProperty(QStringLiteral("columns"), QStringLiteral("3"));
-    field->setProperty(QStringLiteral("column1"), i18n("Title"));
-    field->setProperty(QStringLiteral("column2"), i18nc("TV Season", "Season"));
-    field->setProperty(QStringLiteral("column3"), i18nc("TV Episode", "Episode"));
-    coll->addField(field);
+    coll->addField(Data::Field::createDefaultField(Data::Field::EpisodeField));
   }
   if(optionalFields().contains(QStringLiteral("alttitle"))) {
     Data::FieldPtr field(new Data::Field(QStringLiteral("alttitle"), i18n("Alternative Titles"), Data::Field::Table));

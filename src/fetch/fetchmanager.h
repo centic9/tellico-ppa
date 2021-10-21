@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2003-2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2003-2021 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -36,6 +36,7 @@
 #include <QPixmap>
 
 class QUrl;
+class FetcherTest;
 class MultiFetcherTest;
 
 namespace Tellico {
@@ -81,9 +82,9 @@ public:
   ~Manager();
 
   KeyMap keyMap(const QString& source = QString());
-  void startSearch(const QString& source, FetchKey key, const QString& value);
+  void startSearch(const QString& source, FetchKey key, const QString& value, Data::Collection::Type collType);
   void continueSearch();
-  bool canFetch() const;
+  bool canFetch(Data::Collection::Type collType) const;
   bool hasMoreResults() const;
   void loadFetchers();
   const FetcherVec& fetchers();
@@ -122,6 +123,7 @@ private Q_SLOTS:
 private:
   friend class ManagerMessage;
   friend class FetcherInitializer;
+  friend class ::FetcherTest;
   friend class ::MultiFetcherTest;
 
   Manager();
@@ -143,7 +145,7 @@ private:
   StringMap m_scriptMap;
   ManagerMessage* m_messager;
   uint m_count;
-  bool m_loadDefaults : 1;
+  bool m_loadDefaults;
 };
 
   } // end namespace

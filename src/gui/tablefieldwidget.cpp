@@ -26,7 +26,6 @@
 #include "../field.h"
 #include "../fieldformat.h"
 #include "../utils/string_utils.h"
-#include "../tellico_kernel.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -47,7 +46,7 @@ namespace {
 using Tellico::GUI::TableFieldWidget;
 
 TableFieldWidget::TableFieldWidget(Tellico::Data::FieldPtr field_, QWidget* parent_)
-    : FieldWidget(field_, parent_), m_field(field_), m_row(-1), m_col(-1) {
+    : FieldWidget(field_, parent_), m_row(-1), m_col(-1) {
 
   bool ok;
   m_columns = Tellico::toUInt(field_->property(QStringLiteral("columns")), &ok);
@@ -58,7 +57,7 @@ TableFieldWidget::TableFieldWidget(Tellico::Data::FieldPtr field_, QWidget* pare
   }
 
   m_table = new QTableWidget(MIN_TABLE_ROWS, m_columns, this);
-  labelColumns(m_field);
+  labelColumns(field());
 
   m_table->setDragEnabled(false);
 
@@ -140,7 +139,7 @@ void TableFieldWidget::setTextImpl(const QString& text_) {
 void TableFieldWidget::clearImpl() {
   m_table->clear();
   m_table->setRowCount(MIN_TABLE_ROWS);
-  labelColumns(m_field);
+  labelColumns(field());
   editMultiple(false);
   checkModified();
 }
@@ -167,13 +166,8 @@ void TableFieldWidget::slotRenameColumn() {
   bool ok;
   QString newName = QInputDialog::getText(this, i18n("Rename Column"), i18n("New column name:"),
                                           QLineEdit::Normal, name, &ok);
-  if(ok && !newName.isEmpty()) {
-    Data::FieldPtr newField(new Data::Field(*m_field));
-    newField->setProperty(QStringLiteral("column%1").arg(m_col+1), newName);
-    if(Kernel::self()->modifyField(newField)) {
-      m_field = newField;
-      labelColumns(m_field);
-    }
+  if(ok) {
+    renameColumn(newName);
   }
 }
 
@@ -197,6 +191,18 @@ void TableFieldWidget::labelColumns(Tellico::Data::FieldPtr field_) {
     labels += s;
   }
   m_table->setHorizontalHeaderLabels(labels);
+}
+
+void TableFieldWidget::renameColumn(const QString& newName_) {
+  Q_ASSERT(m_col >= 0);
+  Q_ASSERT(m_col < m_columns);
+  Q_ASSERT(!newName_.isEmpty());
+
+  Data::FieldPtr newField(new Data::Field(*field()));
+  newField->setProperty(QStringLiteral("column%1").arg(m_col+1), newName_);
+  emit fieldChanged(newField);
+  setField(newField);
+  labelColumns(newField);
 }
 
 void TableFieldWidget::updateFieldHook(Tellico::Data::FieldPtr, Tellico::Data::FieldPtr newField_) {
@@ -295,6 +301,7 @@ void TableFieldWidget::slotMoveRowUp() {
   if(m_row < 1 || m_row > m_table->rowCount()-1) {
     return;
   }
+  m_table->blockSignals(true);
   for(int col = 0; col < m_table->columnCount(); ++col) {
     QTableWidgetItem* item1 = m_table->takeItem(m_row-1, col);
     QTableWidgetItem* item2 = m_table->takeItem(m_row  , col);
@@ -305,6 +312,7 @@ void TableFieldWidget::slotMoveRowUp() {
       m_table->setItem(m_row-1, col, item2);
     }
   }
+  m_table->blockSignals(false);
   checkModified();
 }
 
@@ -312,14 +320,18 @@ void TableFieldWidget::slotMoveRowDown() {
   if(m_row < 0 || m_row > m_table->rowCount()-2) {
     return;
   }
+  m_table->blockSignals(true);
   for(int col = 0; col < m_table->columnCount(); ++col) {
     QTableWidgetItem* item1 = m_table->takeItem(m_row  , col);
     QTableWidgetItem* item2 = m_table->takeItem(m_row+1, col);
-    if(item1 && item2) {
+    if(item1) {
       m_table->setItem(m_row+1, col, item1);
+    }
+    if(item2) {
       m_table->setItem(m_row  , col, item2);
     }
   }
+  m_table->blockSignals(false);
   checkModified();
 }
 

@@ -58,6 +58,7 @@ SET(fetch_STAT_SRCS
    srufetcher.cpp
    thegamesdbfetcher.cpp
    themoviedbfetcher.cpp
+   thetvdbfetcher.cpp
    tvmazefetcher.cpp
    upcitemdbfetcher.cpp
    videogamegeekfetcher.cpp
@@ -78,6 +79,7 @@ TARGET_LINK_LIBRARIES(fetch
     KF5::IconThemes
     KF5::JobWidgets
     KF5::KIOWidgets
+    KF5::ConfigWidgets
     )
 
 IF(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")

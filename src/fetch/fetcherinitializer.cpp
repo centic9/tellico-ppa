@@ -33,7 +33,6 @@
 #include "srufetcher.h"
 #include "entrezfetcher.h"
 #include "execexternalfetcher.h"
-#include "animenfofetcher.h"
 #include "ibsfetcher.h"
 #include "isbndbfetcher.h"
 #include "gcstarpluginfetcher.h"
@@ -75,6 +74,7 @@
 #include "numistafetcher.h"
 #include "tvmazefetcher.h"
 #include "upcitemdbfetcher.h"
+#include "thetvdbfetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -89,7 +89,6 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::SRUFetcher> registerSRU(SRU);
   RegisterFetcher<Fetch::EntrezFetcher> registerEntrez(Entrez);
   RegisterFetcher<Fetch::ExecExternalFetcher> registerExternal(ExecExternal);
-  RegisterFetcher<Fetch::AnimeNfoFetcher> registerAnimeNfo(AnimeNfo);
   RegisterFetcher<Fetch::IBSFetcher> registerIBS(IBS);
   RegisterFetcher<Fetch::ISBNdbFetcher> registerISBNdb(ISBNdb);
   RegisterFetcher<Fetch::GCstarPluginFetcher> registerGCstar(GCstarPlugin);
@@ -128,6 +127,7 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::NumistaFetcher> registerNumista(Numista);
   RegisterFetcher<Fetch::TVmazeFetcher> registerTVmaze(TVmaze);
   RegisterFetcher<Fetch::UPCItemDbFetcher> registerUPCItemDb(UPCItemDb);
+  RegisterFetcher<Fetch::TheTVDBFetcher> registerTheTVDB(TheTVDB);
 
 // these data sources depend on being able to import bibtex
 #ifdef ENABLE_BTPARSE

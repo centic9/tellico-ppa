@@ -58,7 +58,7 @@ enum Type {
   Entrez,
   ExecExternal,
   Yahoo, // Removed
-  AnimeNfo,
+  AnimeNfo, // Removed
   IBS,
   ISBNdb,
   GCstarPlugin,
@@ -107,7 +107,8 @@ enum Type {
   Colnect,
   Numista,
   TVmaze,
-  UPCItemDb
+  UPCItemDb,
+  TheTVDB
 };
 
   }

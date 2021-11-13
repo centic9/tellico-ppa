@@ -40,6 +40,8 @@ Build-Depends: debhelper-compat (= 13),
  , xvfb, xauth, kio
  , python3:any, dh-python
  , dbus
+# missing in libtag1-dev
+ , zlib1g-dev
 Build-Conflicts: libqimageblitz-dev
 Standards-Version: 4.6.0
 Rules-Requires-Root: no
@@ -48,8 +50,6 @@ Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/tellico
 Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/tellico.git
 
 Package: tellico
-Breaks: tellico-data (<< 3.1-0.1~)
-Replaces: tellico-data (<< 3.1-0.1~)
 Architecture: any
 Depends: tellico-data (= ${source:Version})
  , tellico-scripts (>= ${source:Version})

@@ -1,3 +1,12 @@
+tellico (3.4.2-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Add the zlib1g-dev build dependency to work around the lack of it in
+    libtag1-dev. (Closes: #997291)
+  * Drop the breaks/replaces for versions older than Debian Buster.
+
+ -- Pino Toscano <pino@debian.org>  Sat, 13 Nov 2021 18:35:57 +0100
+
 tellico (3.4.1-2) unstable; urgency=medium
 
   * Disable fetchertest for now, as it is seems it tries to do network

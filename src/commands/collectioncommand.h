@@ -52,6 +52,8 @@ public:
 
 private:
   void copyFields();
+  void copyMacros();
+  void unCopyMacros();
 
   Mode m_mode;
   Data::CollPtr m_origColl;
@@ -60,6 +62,10 @@ private:
   QUrl m_origURL;
   Data::FieldList m_origFields;
   Data::MergePair m_mergePair;
+  QList<int> m_addedEntries;
+  // BibtexCollection has string macros which might get added
+  QMap<QString, QString> m_addedMacros;
+  QString m_origPreamble; // for bibtex collections
   // for the Replace case, the collection that got replaced needs to be cleared
   enum CleanupMode {
     DoNothing, ClearOriginal, ClearNew

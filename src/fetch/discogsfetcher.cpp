@@ -58,7 +58,8 @@ using Tellico::Fetch::DiscogsFetcher;
 DiscogsFetcher::DiscogsFetcher(QObject* parent_)
     : Fetcher(parent_)
     , m_limit(DISCOGS_MAX_RETURNS_TOTAL)
-    , m_started(false) {
+    , m_started(false)
+    , m_page(1) {
 }
 
 DiscogsFetcher::~DiscogsFetcher() {
@@ -88,6 +89,11 @@ void DiscogsFetcher::setLimit(int limit_) {
 }
 
 void DiscogsFetcher::search() {
+  m_page = 1;
+  continueSearch();
+}
+
+void DiscogsFetcher::continueSearch() {
   m_started = true;
 
   if(m_apiKey.isEmpty()) {
@@ -131,6 +137,8 @@ void DiscogsFetcher::search() {
       stop();
       return;
   }
+  q.addQueryItem(QStringLiteral("page"), QString::number(m_page));
+  q.addQueryItem(QStringLiteral("per_page"), QString::number(m_limit));
   q.addQueryItem(QStringLiteral("token"), m_apiKey);
   u.setQuery(q);
 
@@ -170,7 +178,7 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHook(uint uid_) {
     QByteArray data = FileHandler::readDataFile(u, true);
 
 #if 0
-    myWarning() << "Remove debug from discogsfetcher.cpp";
+    myWarning() << "Remove data debug from discogsfetcher.cpp";
     QFile f(QString::fromLatin1("/tmp/test-discogs-data.json"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
@@ -259,6 +267,19 @@ void DiscogsFetcher::slotComplete(KJob*) {
     stop();
     return;
   }
+
+#if 0 // checking remaining discogs rate limit allocation
+  const QStringList allHeaders = m_job->queryMetaData(QStringLiteral("HTTP-Headers")).split(QLatin1Char('\n'));
+  foreach(const QString& header, allHeaders) {
+    if(header.startsWith(QStringLiteral("x-discogs-ratelimit-remaining"))) {
+      const int index = header.indexOf(QLatin1Char(':'));
+      if(index > 0) {
+        myDebug() << "DiscogsFetcher: rate limit remaining:" << header.mid(index + 1);
+      }
+      break;
+    }
+  }
+#endif
   // see bug 319662. If fetcher is cancelled, job is killed
   // if the pointer is retained, it gets double-deleted
   m_job = nullptr;
@@ -316,6 +337,10 @@ void DiscogsFetcher::slotComplete(KJob*) {
     return;
   }
 
+  const int totalPages = mapValue(resultMap, "pagination", "pages").toInt();
+  m_hasMoreResults = m_page < totalPages;
+  ++m_page;
+
   int count = 0;
   foreach(const QVariant& result, resultMap.value(QLatin1String("results")).toList()) {
     if(count >= m_limit) {
@@ -339,7 +364,10 @@ void DiscogsFetcher::slotComplete(KJob*) {
 void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& resultMap_, bool fullData_) {
   entry_->setField(QStringLiteral("discogs-id"), mapValue(resultMap_, "id"));
   entry_->setField(QStringLiteral("title"), mapValue(resultMap_, "title"));
-  entry_->setField(QStringLiteral("year"),  mapValue(resultMap_, "year"));
+  const QString year = mapValue(resultMap_, "year");
+  if(year != QLatin1String("0")) {
+    entry_->setField(QStringLiteral("year"), year);
+  }
   entry_->setField(QStringLiteral("genre"),  mapValue(resultMap_, "genres"));
 
   QStringList artists;

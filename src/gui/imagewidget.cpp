@@ -45,6 +45,7 @@
 #include <KConfigGroup>
 #include <KFileWidget>
 #include <KRecentDirs>
+#include <KStandardAction>
 
 #include <QPushButton>
 #include <QMenu>
@@ -67,6 +68,7 @@
 #include <QProgressDialog>
 #include <QFileDialog>
 #include <QImageReader>
+#include <QClipboard>
 
 #ifdef HAVE_KSANE
 #include <KSaneWidget>
@@ -221,6 +223,24 @@ void ImageWidget::slotClear() {
   }
 }
 
+void ImageWidget::contextMenuEvent(QContextMenuEvent* event_) {
+  if(m_imageID.isEmpty() || m_pixmap.isNull()) {
+    return;
+  }
+
+  QMenu menu(this);
+
+  auto standardCopy = KStandardAction::copy(this, &ImageWidget::copyImage, &menu);
+  standardCopy->setToolTip(QString()); // standard tool tip is
+  menu.addAction(standardCopy);
+
+  auto saveAs = KStandardAction::saveAs(this, &ImageWidget::saveImageAs, &menu);
+  saveAs->setToolTip(QString());
+  menu.addAction(saveAs);
+
+  menu.exec(event_->globalPos());
+}
+
 void ImageWidget::scale() {
   int ww = m_label->width() - 2*IMAGE_WIDGET_IMAGE_MARGIN;
   int wh = m_label->height() - 2*IMAGE_WIDGET_IMAGE_MARGIN;
@@ -283,7 +303,11 @@ void ImageWidget::slotScanImage() {
     m_saneDlg->addPage(m_saneWidget, QString());
     m_saneDlg->setStandardButtons(QDialogButtonBox::Cancel);
     m_saneDlg->setAttribute(Qt::WA_DeleteOnClose, false);
+#if KSANE_VERSION < QT_VERSION_CHECK(21,8,0)
     connect(m_saneWidget.data(), &KSaneIface::KSaneWidget::imageReady,
+#else
+    connect(m_saneWidget.data(), &KSaneIface::KSaneWidget::scannedImageReady,
+#endif
             this, &ImageWidget::imageReady);
     connect(m_saneDlg.data(), &QDialog::rejected,
             this, &ImageWidget::cancelScan);
@@ -305,13 +329,19 @@ void ImageWidget::slotScanImage() {
 #endif
 }
 
-void ImageWidget::imageReady(QByteArray& data, int w, int h, int bpl, int f) {
 #ifdef HAVE_KSANE
-  if(!m_saneWidget) {
-    return;
-  }
-  QImage scannedImage = m_saneWidget->toQImage(data, w, h, bpl,
-                                               static_cast<KSaneIface::KSaneWidget::ImageFormat>(f));
+#if KSANE_VERSION < QT_VERSION_CHECK(21,8,0)
+void ImageWidget::imageReady(QByteArray& data, int w, int h, int bpl, int f) {
+#else
+void ImageWidget::imageReady(const QImage& scannedImage) {
+#endif
+   if(!m_saneWidget) {
+     return;
+   }
+#if KSANE_VERSION < QT_VERSION_CHECK(21,8,0)
+   QImage scannedImage = m_saneWidget->toQImage(data, w, h, bpl, static_cast<KSaneIface::KSaneWidget::ImageFormat>(f));
+#endif
+
   QTemporaryFile temp(QDir::tempPath() + QLatin1String("/tellico_XXXXXX") + QLatin1String(".png"));
   if(temp.open()) {
     scannedImage.save(temp.fileName(), "PNG");
@@ -320,14 +350,8 @@ void ImageWidget::imageReady(QByteArray& data, int w, int h, int bpl, int f) {
     myWarning() << "Failed to open temp image file";
   }
   QTimer::singleShot(100, m_saneDlg.data(), &QDialog::accept);
-#else
-  Q_UNUSED(data);
-  Q_UNUSED(w);
-  Q_UNUSED(h);
-  Q_UNUSED(bpl);
-  Q_UNUSED(f);
-#endif
 }
+#endif
 
 void ImageWidget::slotEditImage() {
   if(m_imageID.isEmpty()) {
@@ -480,4 +504,36 @@ void ImageWidget::cancelScan() {
     m_saneWidget->scanCancel();
   }
 #endif
+}
+
+void ImageWidget::copyImage() {
+  const Data::Image& img = ImageFactory::imageById(m_imageID);
+  if(img.isNull()) {
+    return;
+  }
+
+  QApplication::clipboard()->setImage(img, QClipboard::Clipboard);
+  QApplication::clipboard()->setImage(img, QClipboard::Selection);
+}
+
+void ImageWidget::saveImageAs() {
+  const Data::Image& img = ImageFactory::imageById(m_imageID);
+  if(img.isNull()) {
+    return;
+  }
+
+  QByteArray outputFormat = Data::Image::outputFormat(img.format());
+  const QString filter = i18n("All Images (%1)", QLatin1String("*.") + QString::fromLatin1(outputFormat));
+  const QUrl target = QFileDialog::getSaveFileUrl(this, QString(), QUrl(), filter);
+  if(!target.isEmpty() && target.isValid()) {
+    QString suffix = QFileInfo(target.fileName()).suffix();
+    if(suffix.toLower().toUtf8() != outputFormat.toLower()) {
+      outputFormat = Data::Image::outputFormat(suffix.toUtf8());
+      myDebug() << "Writing image data as" << outputFormat;
+    }
+    const bool success = FileHandler::writeDataURL(target, Data::Image::byteArray(img, outputFormat));
+    if(!success) {
+      myDebug() << "Failed to write image to" << target.toDisplayString();
+    }
+  }
 }

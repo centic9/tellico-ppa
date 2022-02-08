@@ -78,7 +78,7 @@
 <para
 >Podeu utilitzar el <interface
 >Filtre ràpid</interface
-> a la barra d'eines per a limitar ràpidament les entrades visibles a les que contenen la paraula escrita. El filtre també és útil quan voleu trobar ràpidament una entrada. Podeu escriure el títol o alguna altra paraula única que identifiqui l'entrada i la <link linkend="detailed-view"
+> a la barra d'eines per a limitar ràpidament les entrades visibles a aquelles que contenen la paraula escrita. El filtre també és útil quan voleu trobar ràpidament una entrada. Podeu escriure el títol o alguna altra paraula única que identifiqui l'entrada i la <link linkend="detailed-view"
 ><interface
 >Vista de columna</interface
 ></link
@@ -227,7 +227,7 @@
 <para
 >Quan les entrades s'han donat en préstec, la <interface
 >Vista de préstec</interface
-> serà afegida a la finestra, de manera que es puguin seguir les entrades corresponents a préstecs. Els préstecs se segueixen en funció de cada entrada, de manera que si feu clic sobre un element d'entrada tindreu una opció per a modificar el préstec utilitzant el <interface
+> serà afegida a la finestra, de manera que es puguin seguir les entrades corresponents a préstecs. Els préstecs se segueixen en funció de cada entrada, de manera que si feu clic sobre un element d'entrada, tindreu una opció per a modificar el préstec utilitzant el <interface
 >Diàleg de préstec</interface
 >. </para>
 
@@ -304,7 +304,7 @@
 <para
 >Tancar l'<interface
 >Editor d'entrades</interface
-> quan s'han realitzat canvis però no s'han desat farà que aparegui un missatge d'avís. Els camps s'agrupen per categories i apareixen en l'ordre en què apareixen en el <link linkend="fields-dialog"
+> quan s'han realitzat canvis, però no s'han desat farà que aparegui un missatge d'avís. Els camps s'agrupen per categories i apareixen en l'ordre en què apareixen en el <link linkend="fields-dialog"
 ><interface
 >diàleg Camps de la col·lecció</interface
 ></link
@@ -371,15 +371,15 @@
 </screenshot>
 
 <para
->El giny d'edició també implementa arrossega i deixa anar. En arrossegar un fitxer d'imatge des d'una finestra de gestor de fitxers o navegador es farà el mateix que en seleccionar la imatge al selector de fitxers. En arrossegar una imatge des del giny d'edició cap a una finestra del gestor de fitxers &konqueror; es desarà la imatge en aquesta carpeta. </para>
+>El giny d'edició també implementa arrossegar i deixar anar. En arrossegar un fitxer d'imatge des d'una finestra de gestor de fitxers o navegador es farà el mateix que en seleccionar la imatge al selector de fitxers. En arrossegar una imatge des del giny d'edició cap a una finestra del gestor de fitxers &konqueror; es desarà la imatge en aquesta carpeta. </para>
 
 <warning>
 <para
->De manera predeterminada, les imatges es desen al fitxer de dades de la col·lecció, mantenint tot el contingut en una sola ubicació. No obstant això, massa imatges faran que el &appname; s'alenteixi de manera significativa i que creï un fitxer de dades molt gran. Alternativament, el &appname; pot desar les imatges per separat, ja sigui a la carpeta <filename class="directory"
+>De manera predeterminada, les imatges es desen al fitxer de dades de la col·lecció, mantenint tot el contingut en una sola ubicació. No obstant això, massa imatges faran que el &appname; s'alenteixi de manera significativa i que creï un fitxer de dades molt gran. Alternativament, el &appname; pot desar les imatges per separat, sigui a la carpeta <filename class="directory"
 >$<envar
 >KDEHOME</envar
 >/share/apps/tellico/data/</filename
-> o en una carpeta a la mateixa ubicació que el fitxer de dades. Carregar i desar fitxers de dades és molt més ràpid si les imatges s'emmagatzemen per separat, però els fitxers de dades ja no seran portables o arxivables. Els fitxers de dades que ho contenen tot sempre es poden crear utilitzant l'element de menú <menuchoice
+> o en una carpeta a la mateixa ubicació que el fitxer de dades. Carregar i desar fitxers de dades és molt més ràpid si les imatges s'emmagatzemen per separat, però els fitxers de dades ja no seran portables o es podran arxivar. Els fitxers de dades que ho contenen tot sempre es poden crear utilitzant l'element de menú <menuchoice
 ><guimenu
 >Fitxer</guimenu
 ><guimenu
@@ -458,7 +458,7 @@
 
 <para
 >Les entrades es poden ser actualitzar automàticament consultant les fonts de dades disponibles per al tipus de col·lecció actual, el qual és molt útil per a combinar informació des de múltiples fonts. Per exemple, podeu afegir una pel·lícula a la vostra col·lecció utilitzant els <link linkend="amazon-web-services"
->Serveis web de Amazon.com</link
+>Serveis web d'Amazon.com</link
 >, i després actualitzar l'entrada amb informació addicional des de la <link linkend="imdb"
 >Base de dades de pel·lícules d'Internet</link
 >. </para>
@@ -732,7 +732,7 @@
 ><interface
 >diàleg de configuració</interface
 ></link
->. Globalment, posar en majúscula la primera lletra és una opció diferent de donar format, de manera que un títol es pot formatar automàticament sense posar en majúscula. No tots els tipus de camp permeten el format automàtic. </para>
+>. Globalment, posar en majúscula la primera lletra és una opció diferent de donar format, de manera que un títol es pot donar format automàticament sense posar en majúscula. No tots els tipus de camp permeten el format automàtic. </para>
 
 <table>
 <title
@@ -834,7 +834,7 @@
 <para
 >Cada fila conté una regla de filtre única. Seleccioneu el camp a coincidir al primer quadre de la fila, i seleccioneu una regla de coincidència en el centre. Les regles poden fer coincidir valors que continguin una paraula determinada, o que siguin exactament iguals. També es pot utilitzar una expressió regular per a fer coincidir les entrades, en aquest cas el botó <guibutton
 >Edita...</guibutton
-> s'activarà per a editar l'expressió, si &kregexpeditor; està en el vostre ordinador. Finalment, la paraula o cadena a coincidir s'haurà d'introduir al quadre de text. Per als camps d'imatge, la mida de la imatge es pot utilitzar per a filtrar on el valor del filtre es compara amb la mida de la imatge més gran, ja sigui amplada o alçada. </para>
+> s'activarà per a editar l'expressió, si &kregexpeditor; està en el vostre ordinador. Finalment, la paraula o cadena a coincidir s'haurà d'introduir al quadre de text. Per als camps d'imatge, la mida de la imatge es pot utilitzar per a filtrar on el valor del filtre es compara amb la mida de la imatge més gran, sigui amplada o alçada. </para>
 
 <para
 >Es poden utilitzar fins a vuit (8) regles en el filtre. Els botons <guibutton
@@ -1025,7 +1025,7 @@
 
 <tip>
 <para
->Si hi ha més d'un camp formatat com el nom, després s'afegirà a la col·lecció un grup addicional anomenat «Persones», permetent que els autors i editors s'ordenin o imprimeixin junts, per exemple. </para>
+>Si hi ha més d'un camp amb format com un nom, després s'afegirà a la col·lecció un grup addicional anomenat «Persones», permetent que els autors i editors s'ordenin o imprimeixin junts, per exemple. </para>
 </tip>
 
 <tip>

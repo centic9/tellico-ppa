@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-11-07 01:38+0000\n"
+"POT-Creation-Date: 2022-01-01 02:09+0000\n"
 "PO-Revision-Date: 2021-06-18 12:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -704,7 +704,7 @@ msgstr "Для поля з похідним значенням слід вказ
 #: src/fetch/doubanfetcher.cpp:328 src/fetch/doubanfetcher.cpp:346
 #: src/fetch/filmasterfetcher.cpp:240 src/fetch/googlebookfetcher.cpp:252
 #: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:226
-#: src/fetch/imdbfetcher.cpp:1193 src/fetch/kinopoiskfetcher.cpp:243
+#: src/fetch/imdbfetcher.cpp:1193 src/fetch/kinopoiskfetcher.cpp:277
 #: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:418
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
@@ -1084,7 +1084,7 @@ msgstr "Підзаголовок"
 
 #: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:967
 #: src/fetch/doubanfetcher.cpp:377 src/fetch/doubanfetcher.cpp:429
-#: src/fetch/ibsfetcher.cpp:287 src/translators/alexandriaimporter.cpp:158
+#: src/fetch/ibsfetcher.cpp:290 src/translators/alexandriaimporter.cpp:158
 #: src/translators/librarythingimporter.cpp:148
 #, kde-format
 msgid "Hardback"
@@ -1092,7 +1092,7 @@ msgstr "Тверда палітурка"
 
 #: src/collections/bookcollection.cpp:71 src/fetch/amazonfetcher.cpp:965
 #: src/fetch/doubanfetcher.cpp:379 src/fetch/doubanfetcher.cpp:431
-#: src/fetch/ibsfetcher.cpp:285 src/translators/librarythingimporter.cpp:146
+#: src/fetch/ibsfetcher.cpp:288 src/translators/librarythingimporter.cpp:146
 #, kde-format
 msgid "Paperback"
 msgstr "М'яка палітурка"
@@ -1102,7 +1102,7 @@ msgstr "М'яка палітурка"
 msgid "Trade Paperback"
 msgstr "Газета"
 
-#: src/collections/bookcollection.cpp:72 src/fetch/ibsfetcher.cpp:289
+#: src/collections/bookcollection.cpp:72 src/fetch/ibsfetcher.cpp:292
 #, kde-format
 msgid "E-Book"
 msgstr "Електронна книга"
@@ -1646,7 +1646,7 @@ msgstr "Альбом"
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:406
 #: src/fetch/doubanfetcher.cpp:385 src/fetch/doubanfetcher.cpp:518
 #: src/fetch/upcitemdbfetcher.cpp:291 src/fetch/upcitemdbfetcher.cpp:411
-#: src/translators/audiofileimporter.cpp:318
+#: src/translators/audiofileimporter.cpp:333
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:392
 #: src/translators/freedbimporter.cpp:459
@@ -1680,7 +1680,7 @@ msgstr "Носій"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:219
+#: src/translators/audiofileimporter.cpp:234
 #: src/translators/xmlstatehandler.cpp:396
 #, kde-format
 msgid "Artist"
@@ -1698,14 +1698,14 @@ msgstr "Композиції"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
 #: src/fetch/fetchmanager.cpp:67 src/fetchdialog.cpp:252 src/field.cpp:297
-#: src/field.cpp:338 src/translators/audiofileimporter.cpp:218
+#: src/field.cpp:338 src/translators/audiofileimporter.cpp:233
 #: src/translators/xmlstatehandler.cpp:395
 #, kde-format
 msgid "Title"
 msgstr "Назва"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:220
+#: src/translators/audiofileimporter.cpp:235
 #: src/translators/xmlstatehandler.cpp:397
 #, kde-format
 msgid "Length"
@@ -3114,13 +3114,13 @@ msgstr "Оновити записи"
 msgid "Updating <b>%1</b>..."
 msgstr "Оновлення <b>%1</b>…"
 
-#: src/entryview.cpp:311
+#: src/entryview.cpp:330
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr ""
 "Tellico не вдається встановити розташування типової таблиці стилів записів."
 
-#: src/entryview.cpp:313 src/mainwindow.cpp:1703
+#: src/entryview.cpp:332 src/mainwindow.cpp:1703
 #, kde-format
 msgid "Please check your installation."
 msgstr "Будь ласка, перевірте, чи належним чином встановлено програму."
@@ -3200,10 +3200,10 @@ msgstr "Змінити кодування експортованого файл�
 #: src/fetch/allocinefetcher.cpp:242 src/fetch/amazonfetcher.cpp:633
 #: src/fetch/colnectfetcher.cpp:527 src/fetch/discogsfetcher.cpp:210
 #: src/fetch/doubanfetcher.cpp:407 src/fetch/filmasterfetcher.cpp:148
-#: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:298
+#: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:301
 #: src/fetch/igdbfetcher.cpp:162 src/fetch/isbndbfetcher.cpp:295
-#: src/fetch/kinofetcher.cpp:341 src/fetch/kinopoiskfetcher.cpp:235
-#: src/fetch/kinoteatrfetcher.cpp:375 src/fetch/mobygamesfetcher.cpp:345
+#: src/fetch/kinofetcher.cpp:341 src/fetch/kinopoiskfetcher.cpp:269
+#: src/fetch/kinoteatrfetcher.cpp:376 src/fetch/mobygamesfetcher.cpp:345
 #: src/fetch/moviemeterfetcher.cpp:162 src/fetch/numistafetcher.cpp:285
 #: src/fetch/numistafetcher.cpp:293 src/fetch/omdbfetcher.cpp:182
 #: src/fetch/thegamesdbfetcher.cpp:172 src/fetch/themoviedbfetcher.cpp:239
@@ -3223,23 +3223,24 @@ msgstr "Посилання Allocine"
 #: src/fetch/doubanfetcher.cpp:303 src/fetch/doubanfetcher.cpp:321
 #: src/fetch/doubanfetcher.cpp:339 src/fetch/doubanfetcher.cpp:570
 #: src/fetch/dvdfrfetcher.cpp:180 src/fetch/imdbfetcher.cpp:786
-#: src/fetch/imdbfetcher.cpp:1507 src/fetch/kinopoiskfetcher.cpp:310
-#: src/fetch/kinopoiskfetcher.cpp:510 src/fetch/kinoteatrfetcher.cpp:263
-#: src/fetch/kinoteatrfetcher.cpp:506 src/fetch/omdbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:332 src/fetch/themoviedbfetcher.cpp:576
-#: src/fetch/vndbfetcher.cpp:284 src/fetch/vndbfetcher.cpp:432
+#: src/fetch/imdbfetcher.cpp:1507 src/fetch/kinopoiskfetcher.cpp:341
+#: src/fetch/kinopoiskfetcher.cpp:469 src/fetch/kinopoiskfetcher.cpp:673
+#: src/fetch/kinoteatrfetcher.cpp:263 src/fetch/kinoteatrfetcher.cpp:507
+#: src/fetch/omdbfetcher.cpp:262 src/fetch/themoviedbfetcher.cpp:332
+#: src/fetch/themoviedbfetcher.cpp:576 src/fetch/vndbfetcher.cpp:284
+#: src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Original Title"
 msgstr "Початкова назва"
 
 #: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1523
-#: src/fetch/themoviedbfetcher.cpp:613
+#: src/fetch/kinopoiskfetcher.cpp:685 src/fetch/themoviedbfetcher.cpp:613
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "&Максимальна к-ть акторів: "
 
 #: src/fetch/allocinefetcher.cpp:442 src/fetch/imdbfetcher.cpp:1536
-#: src/fetch/themoviedbfetcher.cpp:626
+#: src/fetch/kinopoiskfetcher.cpp:698 src/fetch/themoviedbfetcher.cpp:626
 #, kde-format
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
@@ -3588,13 +3589,13 @@ msgstr "Оцінка AnimeNfo"
 #: src/fetch/dbcfetcher.cpp:161 src/fetch/dblpfetcher.cpp:129
 #: src/fetch/doubanfetcher.cpp:578 src/fetch/dvdfrfetcher.cpp:190
 #: src/fetch/filmasterfetcher.cpp:323 src/fetch/googlescholarfetcher.cpp:284
-#: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:393
+#: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:396
 #: src/fetch/igdbfetcher.cpp:588 src/fetch/kinofetcher.cpp:379
-#: src/fetch/kinopoiskfetcher.cpp:518 src/fetch/kinoteatrfetcher.cpp:514
-#: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
-#: src/fetch/musicbrainzfetcher.cpp:376 src/fetch/openlibraryfetcher.cpp:400
-#: src/fetch/springerfetcher.cpp:183 src/fetch/tvmazefetcher.cpp:393
-#: src/fetch/upcitemdbfetcher.cpp:466 src/fetch/vndbfetcher.cpp:440
+#: src/fetch/kinoteatrfetcher.cpp:515 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:376
+#: src/fetch/openlibraryfetcher.cpp:400 src/fetch/springerfetcher.cpp:183
+#: src/fetch/tvmazefetcher.cpp:393 src/fetch/upcitemdbfetcher.cpp:466
+#: src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "Це джерело немає параметрів."
@@ -3959,7 +3960,7 @@ msgctxt "Library of Congress classification system"
 msgid "LoC Classification"
 msgstr "Класифікація Бібліотеки Конгресу"
 
-#: src/fetch/ibsfetcher.cpp:383
+#: src/fetch/ibsfetcher.cpp:386
 #, kde-format
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Інтернет-магазин книг (ibs.it)"
@@ -4015,9 +4016,10 @@ msgstr "Рейтинг IMDb"
 msgid "Certifications"
 msgstr "Сертифікації"
 
-#: src/fetch/imdbfetcher.cpp:1503 src/fetch/omdbfetcher.cpp:397
-#: src/fetch/themoviedbfetcher.cpp:574 src/fetch/thetvdbfetcher.cpp:575
-#: src/fetch/tvmazefetcher.cpp:382 src/field.cpp:331
+#: src/fetch/imdbfetcher.cpp:1503 src/fetch/kinopoiskfetcher.cpp:672
+#: src/fetch/omdbfetcher.cpp:397 src/fetch/themoviedbfetcher.cpp:574
+#: src/fetch/thetvdbfetcher.cpp:575 src/fetch/tvmazefetcher.cpp:382
+#: src/field.cpp:331
 #, kde-format
 msgid "IMDb Link"
 msgstr "Посилання IMDb"
@@ -4051,12 +4053,12 @@ msgstr ""
 "Пакетний пошук значень ISBN є швидшим, але він доступний лише користувачам "
 "тарифних планів Premium та Pro."
 
-#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:511
+#: src/fetch/kinopoiskfetcher.cpp:276 src/fetch/kinopoiskfetcher.cpp:671
 #, kde-format
 msgid "KinoPoisk Link"
 msgstr "Посилання KinoPoisk"
 
-#: src/fetch/kinoteatrfetcher.cpp:239 src/fetch/kinoteatrfetcher.cpp:507
+#: src/fetch/kinoteatrfetcher.cpp:239 src/fetch/kinoteatrfetcher.cpp:508
 #, kde-format
 msgid "Kino-Teatr Link"
 msgstr "Посилання Kino-Teatr"
@@ -6441,66 +6443,66 @@ msgstr "Параметри Alexandria"
 msgid "&Library:"
 msgstr "&Бібліотека:"
 
-#: src/translators/audiofileimporter.cpp:112
+#: src/translators/audiofileimporter.cpp:126
 #, kde-format
 msgid "Scanning audio files..."
 msgstr "Сканування аудіофайлів…"
 
-#: src/translators/audiofileimporter.cpp:172
-#: src/translators/audiofileimporter.cpp:175
+#: src/translators/audiofileimporter.cpp:186
+#: src/translators/audiofileimporter.cpp:189
 #, kde-format
 msgid "Files"
 msgstr "Файли"
 
-#: src/translators/audiofileimporter.cpp:178
+#: src/translators/audiofileimporter.cpp:192
 #, kde-format
 msgid "Bitrate"
 msgstr "Бітова швидкість"
 
-#: src/translators/audiofileimporter.cpp:214
-#: src/translators/audiofileimporter.cpp:224
+#: src/translators/audiofileimporter.cpp:229
+#: src/translators/audiofileimporter.cpp:239
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "Композиції (Диск %1)"
 
-#: src/translators/audiofileimporter.cpp:298 xslt/entry-templates/Album.xsl:243
+#: src/translators/audiofileimporter.cpp:313 xslt/entry-templates/Album.xsl:243
 #, kde-format
 msgid "(Various)"
 msgstr "(змінний)"
 
-#: src/translators/audiofileimporter.cpp:475
+#: src/translators/audiofileimporter.cpp:490
 #, kde-format
 msgid "Audio File Options"
 msgstr "Параметри аудіофайлів"
 
-#: src/translators/audiofileimporter.cpp:478
+#: src/translators/audiofileimporter.cpp:493
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "Рекурсивний пошук у &теках"
 
-#: src/translators/audiofileimporter.cpp:479
+#: src/translators/audiofileimporter.cpp:494
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr ""
 "Якщо буде позначено цей пункт, пошук аудіофайлів проводитиметься по усіх "
 "теках."
 
-#: src/translators/audiofileimporter.cpp:483
+#: src/translators/audiofileimporter.cpp:498
 #, kde-format
 msgid "Include file &location"
 msgstr "&Включати адресу файла"
 
-#: src/translators/audiofileimporter.cpp:484
+#: src/translators/audiofileimporter.cpp:499
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "Якщо буде позначено цей пункт, в записі буде додані назви файлів."
 
-#: src/translators/audiofileimporter.cpp:488
+#: src/translators/audiofileimporter.cpp:503
 #, kde-format
 msgid "Include &bitrate"
 msgstr "Разом з &бітовою швидкістю"
 
-#: src/translators/audiofileimporter.cpp:489
+#: src/translators/audiofileimporter.cpp:504
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr ""
@@ -7353,7 +7355,7 @@ msgstr ""
 msgid "This template is meant for music collections only."
 msgstr "Цей шаблон призначений лише за музичних збірок."
 
-#: xslt/entry-templates/Album.xsl:487
+#: xslt/entry-templates/Album.xsl:491
 #, kde-format
 msgid "Total:"
 msgstr "Разом:"

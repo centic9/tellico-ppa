@@ -27,13 +27,13 @@ ecm_add_test(cuecattest.cpp
     LINK_LIBRARIES Qt5::Test utils
 )
 
-ecm_add_test(isbntest
+ecm_add_test(isbntest.cpp
     TEST_NAME isbntest
     LINK_LIBRARIES Qt5::Test utils
 )
 
 ecm_add_test(lccntest.cpp
-    TEST_NAME lccntest.cpp
+    TEST_NAME lccntest
     LINK_LIBRARIES Qt5::Test utils
 )
 
@@ -729,6 +729,12 @@ ecm_add_test(openlibraryfetchertest.cpp
 ecm_add_test(omdbfetchertest.cpp
              ../fetch/omdbfetcher.cpp
     TEST_NAME omdbfetchertest
+    LINK_LIBRARIES fetcherstest translatorstest ${TELLICO_TEST_LIBS}
+)
+
+ecm_add_test(rpggeekfetchertest.cpp
+             ../fetch/rpggeekfetcher.cpp
+    TEST_NAME rpggeekfetchertest
     LINK_LIBRARIES fetcherstest translatorstest ${TELLICO_TEST_LIBS}
 )
 

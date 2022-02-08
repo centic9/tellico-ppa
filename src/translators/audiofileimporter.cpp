@@ -65,7 +65,7 @@ AudioFileImporter::AudioFileImporter(const QUrl& url_) : Tellico::Import::Import
     , m_addFilePath(nullptr)
     , m_addBitrate(nullptr)
     , m_cancelled(false)
-    , m_options(0){
+    , m_audioOptions(0) {
 }
 
 bool AudioFileImporter::canImport(int type) const {
@@ -74,25 +74,25 @@ bool AudioFileImporter::canImport(int type) const {
 
 void AudioFileImporter::setRecursive(bool recursive_) {
   if(recursive_) {
-    m_options |= Recursive;
+    m_audioOptions |= Recursive;
   } else {
-    m_options ^= Recursive;
+    m_audioOptions &= ~Recursive;
   }
 }
 
 void AudioFileImporter::setAddFilePath(bool addFilePath_) {
   if(addFilePath_) {
-    m_options |= AddFilePath;
+    m_audioOptions |= AddFilePath;
   } else {
-    m_options ^= AddFilePath;
+    m_audioOptions &= ~AddFilePath;
   }
 }
 
 void AudioFileImporter::setAddBitrate(bool addBitrate_) {
   if(addBitrate_) {
-    m_options |= AddBitrate;
+    m_audioOptions |= AddBitrate;
   } else {
-    m_options ^= AddBitrate;
+    m_audioOptions &= ~AddBitrate;
   }
 }
 
@@ -121,7 +121,7 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
   if(urlInfo.isDir()) {
     // url is a directory
     QStringList dirs = QStringList() << url().toLocalFile();
-    if(m_options & Recursive) {
+    if(m_audioOptions & Recursive) {
       dirs += Tellico::findAllSubDirs(dirs[0]);
     }
 
@@ -148,11 +148,13 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     return Data::CollPtr();
   }
 
+//  myLog() << "audiofileimporter: total number of files:" << files.count();
   item.setTotalSteps(files.count());
 
   const QString title    = QStringLiteral("title");
   const QString artist   = QStringLiteral("artist");
   const QString year     = QStringLiteral("year");
+  const QString label    = QStringLiteral("label");
   const QString genre    = QStringLiteral("genre");
   const QString track    = QStringLiteral("track");
   const QString comments = QStringLiteral("comments");
@@ -160,8 +162,8 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
 
   m_coll = new Data::MusicCollection(true);
 
-  const bool addFile = m_options & AddFilePath;
-  const bool addBitrate = m_options & AddBitrate;
+  const bool addFile = m_audioOptions & AddFilePath;
+  const bool addBitrate = m_audioOptions & AddBitrate;
 
   Data::FieldPtr f;
   if(addFile) {
@@ -181,6 +183,7 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
 
   QHash<QString, Data::EntryPtr> albumMap;
   QHash<QString, QString> directoryAlbumHash;
+  Data::EntryList entriesToAdd;
 
   QStringList directoryFiles;
   const uint stepSize = qMax(1, files.count() / 100);
@@ -192,10 +195,12 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     if(f.isNull() || !f.tag()) {
       if((*it).endsWith(QLatin1String("/.directory"))) {
         directoryFiles += *it;
+        if(showProgress) ProgressManager::self()->setTotalSteps(this, files.count() + directoryFiles.count());
       }
       continue;
     }
 
+    const TagLib::PropertyMap pmap = f.file()->properties();
     TagLib::Tag* tag = f.tag();
     QString album = TStringToQString(tag->album()).trimmed();
     if(album.isEmpty()) {
@@ -259,8 +264,11 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     if(mpegFile && mpegFile->ID3v2Tag() && !mpegFile->ID3v2Tag()->frameListMap()["TPE2"].isEmpty()) {
       albumArtist = TStringToQString(mpegFile->ID3v2Tag()->frameListMap()["TPE2"].front()->toString()).trimmed();
     }
-    if(albumArtist.isEmpty() && !f.file()->properties()["ALBUMARTIST"].isEmpty()) {
-      albumArtist = TStringToQString(f.file()->properties()["ALBUMARTIST"].front()).trimmed();
+    if(albumArtist.isEmpty() && pmap.contains("ALBUMARTIST")) {
+      albumArtist = TStringToQString(pmap["ALBUMARTIST"].front()).trimmed();
+    }
+    if(albumArtist.isEmpty() && pmap.contains("ALBUMARTISTSORT")) {
+      albumArtist = TStringToQString(pmap["ALBUMARTISTSORT"].front()).trimmed();
     }
     if(!albumArtist.isEmpty()) {
       albumKey += FieldFormat::columnDelimiterString() + albumArtist.toLower();
@@ -275,11 +283,18 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     // album entries use the album name as the title
     entry->setField(title, album);
     QString a = TStringToQString(tag->artist()).trimmed();
+    if(a.isEmpty() && pmap.contains("ArtistSort")) {
+      a = TStringToQString(pmap["ArtistSort"].front()).trimmed();
+    }
+    if(a.isEmpty() && pmap.contains("Artists")) {
+      a = TStringToQString(pmap["Artists"].front()).trimmed();
+    }
     // If no album artist identified, we use track artist as album artist, or "(Various)" if tracks have various artists.
     if(!albumArtist.isEmpty()) {
       entry->setField(artist, albumArtist);
     } else if(!a.isEmpty()) {
-      if(exists && entry->field(artist).toLower() != a.toLower()) {
+      if(exists && entry->field(artist).compare(a, Qt::CaseInsensitive) != 0) {
+        // track artist is different than the album artist
         entry->setField(artist, i18n("(Various)"));
       } else {
         entry->setField(artist, a);
@@ -287,9 +302,23 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     }
     if(tag->year() > 0) {
       entry->setField(year, QString::number(tag->year()));
+    } else if(pmap.contains("OriginalYear")) {
+      entry->setField(year, TStringToQString(pmap["OriginalYear"].front()));
     }
+
     if(!tag->genre().isEmpty()) {
       entry->setField(genre, TStringToQString(tag->genre()).trimmed());
+    }
+    if(pmap.contains("Label")) {
+      entry->setField(label, TStringToQString(pmap["Label"].front()));
+    }
+    if(pmap.contains("Media")) {
+      const QString media = TStringToQString(pmap["Media"].front());
+      if(media == QLatin1String("CD")) {
+        entry->setField(QLatin1String("medium"), i18n("Compact Disc"));
+      } else {
+        entry->setField(QLatin1String("medium"), media);
+      }
     }
 
     QFileInfo fi(*it);
@@ -368,28 +397,29 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
     }
 
     if(!exists) {
-      m_coll->addEntries(entry);
+      entriesToAdd << entry;
     }
     if(showProgress && j%stepSize == 0) {
-      ProgressManager::self()->setTotalSteps(this, files.count() + directoryFiles.count());
       ProgressManager::self()->setProgress(this, j);
       qApp->processEvents();
     }
 
 /*    myDebug() << "-- TAG --";
-    myDebug() << "title   - \"" << tag->title().to8Bit()   << "\"";
-    myDebug() << "artist  - \"" << tag->artist().to8Bit()  << "\"";
-    myDebug() << "album   - \"" << tag->album().to8Bit()   << "\"";
-    myDebug() << "year    - \"" << tag->year()             << "\"";
-    myDebug() << "comment - \"" << tag->comment().to8Bit() << "\"";
-    myDebug() << "track   - \"" << tag->track()            << "\"";
-    myDebug() << "genre   - \"" << tag->genre().to8Bit()   << "\"";*/
+    myDebug() << "title   - \"" << TStringToQString(tag->title())   << "\"";
+    myDebug() << "artist  - \"" << TStringToQString(tag->artist())  << "\"";
+    myDebug() << "album   - \"" << TStringToQString(tag->album())   << "\"";
+    myDebug() << "year    - \"" << tag->year()                      << "\"";
+    myDebug() << "comment - \"" << TStringToQString(tag->comment()) << "\"";
+    myDebug() << "track   - \"" << tag->track()                     << "\"";
+    myDebug() << "genre   - \"" << TStringToQString(tag->genre())   << "\"";*/
   }
 
   if(m_cancelled) {
     m_coll = Data::CollPtr();
     return m_coll;
   }
+//  myLog() << "++ Adding" << entriesToAdd.count() << "entries";
+  m_coll->addEntries(entriesToAdd);
 
   QTextStream ts;
   QRegularExpression iconRx(QLatin1String("^Icon\\s*=\\s*(.*?)\\s*$"));
@@ -409,6 +439,7 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
       QFileInfo fi(thisDir, m.captured(1));
       Data::EntryPtr entry = albumMap.value(directoryAlbumHash.value(thisDir.canonicalPath()));
       if(!entry) {
+        myDebug() << "AudioFileImporter: No entry found for" << thisDir.canonicalPath();
         continue;
       }
       const QUrl u = QUrl::fromLocalFile(fi.absoluteFilePath());

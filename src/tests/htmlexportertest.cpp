@@ -27,7 +27,10 @@
 #include "htmlexportertest.h"
 
 #include "../translators/htmlexporter.h"
+#include "../translators/tellicoimporter.h"
 #include "../collections/bookcollection.h"
+#include "../collections/videocollection.h"
+#include "../collections/musiccollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
 #include "../document.h"
@@ -40,6 +43,7 @@
 #include <QTemporaryDir>
 #include <QFile>
 #include <QStandardPaths>
+#include <QProcess>
 
 QTEST_GUILESS_MAIN( HtmlExporterTest )
 
@@ -47,6 +51,8 @@ void HtmlExporterTest::initTestCase() {
   QStandardPaths::setTestModeEnabled(true);
   Tellico::ImageFactory::init();
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+  Tellico::RegisterCollection<Tellico::Data::VideoCollection> registerVideo(Tellico::Data::Collection::Video, "video");
+  Tellico::RegisterCollection<Tellico::Data::VideoCollection> registerMusic(Tellico::Data::Collection::Album, "album");
   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/tellico2html.xsl"));
   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/entry-templates/Fancy.xsl"));
   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/report-templates/Column_View.xsl"));
@@ -207,4 +213,82 @@ void HtmlExporterTest::testDirectoryNames() {
   // setCollectionUrl used when exporting entry files only
   exp.setCollectionURL(QUrl::fromLocalFile(QDir::homePath()));
   QCOMPARE(exp.fileDirName(), QStringLiteral("/"));
+}
+
+void HtmlExporterTest::testTemplates() {
+  const QString tidy = QStandardPaths::findExecutable(QStringLiteral("tidy"));
+  if(tidy.isEmpty()) {
+    QSKIP("This test requires tidy", SkipAll);
+  }
+
+  QFETCH(QString, xsltFile);
+  QFETCH(QString, tellicoFile);
+  Tellico::ImageFactory::clean(true);
+
+  QStringList tidyArgs = { QStringLiteral("-errors"),
+                           QStringLiteral("-quiet"),
+                           QStringLiteral("--show-warnings"),
+                           QStringLiteral("no"),
+                           QStringLiteral("--strict-tags-attributes"),
+                           QStringLiteral("yes") };
+  QProcessEnvironment tidyEnv;
+  // suppress warning about no tidyrc file
+  tidyEnv.insert("HTML_TIDY", "/dev/null");
+
+  QUrl url = QUrl::fromLocalFile(tellicoFile);
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  Tellico::Export::HTMLExporter exporter(coll);
+  exporter.setParseDOM(false); // shows error for <wbr> tags and is not necessary for check
+  exporter.setEntries(coll->entries());
+  exporter.setXSLTFile(xsltFile);
+  exporter.setPrintGrouped(true);
+
+  const QString output = exporter.text();
+  QVERIFY(!output.contains(QStringLiteral("<p><p>")));
+  QProcess tidyProc;
+  tidyProc.setProcessEnvironment(tidyEnv);
+  tidyProc.setProcessChannelMode(QProcess::SeparateChannels);
+  tidyProc.setReadChannel(QProcess::StandardError);
+  tidyProc.start(tidy, tidyArgs);
+  QVERIFY(tidyProc.waitForStarted());
+
+  tidyProc.write(output.toUtf8() + '\n');
+  QVERIFY(tidyProc.waitForBytesWritten());
+  tidyProc.closeWriteChannel();
+  QVERIFY(tidyProc.waitForFinished());
+
+  QTextStream ts(&tidyProc);
+  QString errorOutput = ts.readLine();
+  while(!errorOutput.isEmpty()) {
+    qDebug() << errorOutput;
+    errorOutput = ts.readLine();
+  }
+
+  tidyProc.close();
+  QCOMPARE(tidyProc.exitStatus(), QProcess::NormalExit);
+  // tidy exit codes are 0 for none, 1 for warnings only, 2 for errors
+  QVERIFY(tidyProc.exitCode() < 2);
+}
+
+void HtmlExporterTest::testTemplates_data() {
+  QTest::addColumn<QString>("xsltFile");
+  QTest::addColumn<QString>("tellicoFile");
+
+  QString ted = QFINDTESTDATA(QStringLiteral("data/ted_lasso.xml"));
+  QString moody = QFINDTESTDATA(QStringLiteral("data/moody_blue.xml"));
+
+  QDir entryDir(QFINDTESTDATA(QStringLiteral("../../xslt/entry-templates/Default.xsl")));
+  entryDir.cdUp();
+  foreach(const QString& file, entryDir.entryList({"*.xsl"}, QDir::Files)) {
+    QTest::newRow(file.toUtf8().constData()) << file << ted;
+    QTest::newRow(file.toUtf8().constData()) << file << moody;
+  }
+  QDir reportDir(QFINDTESTDATA(QStringLiteral("../../xslt/report-templates/Column_View.xsl")));
+  reportDir.cdUp();
+  foreach(const QString& file, reportDir.entryList({"*.xsl"}, QDir::Files)) {
+    QTest::newRow(file.toUtf8().constData()) << file << ted;
+    QTest::newRow(file.toUtf8().constData()) << file << moody;
+  }
 }

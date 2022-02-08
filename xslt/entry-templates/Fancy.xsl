@@ -24,8 +24,7 @@
 
 <xsl:output method="html"
             indent="yes"
-            doctype-public="-//W3C//DTD HTML 4.01//EN"
-            doctype-system="http://www.w3.org/TR/html4/strict.dtd"
+            doctype-system="about:legacy-compat"
             encoding="utf-8"/>
 
 <xsl:param name="datadir"/> <!-- dir where Tellico data are located -->
@@ -71,7 +70,7 @@
  <html>
   <head>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <style type="text/css">
+  <style>
   body {
     margin: 0px;
     padding: 0px;
@@ -150,7 +149,7 @@
     font-size: 1.0em;
     top: -1px;
     font-style: normal;
-    text-align: right;
+    text-align: center;
   }
   table {
     border-collapse: collapse;
@@ -165,6 +164,7 @@
     text-align: left;
     padding: 0px 4px 0px 2px;
     white-space: nowrap;
+    vertical-align: top;
   }
   td.fieldValue {
     text-align: left;
@@ -182,7 +182,6 @@
     font-style: italic;
     text-align: left;
     padding: 0px 10px 0px 10px;
-/*    width: 90%;  nowrap is set on the fieldName column, so just want enough width to take the rest */
   }
   p {
     margin: 2px 10px 2px 0;
@@ -374,15 +373,17 @@
      <!-- look at number of columns -->
      <xsl:choose>
       <xsl:when test="$fields[1]/tc:prop[@name = 'columns'] &gt; 1">
-       <table width="100%">
+       <table>
         <xsl:if test="$fields[1]/tc:prop[@name = 'column1']">
          <thead>
           <tr class="table-columns">
-           <th width="50%">
+           <th>
             <xsl:value-of select="$fields[1]/tc:prop[@name = 'column1']"/>
+            <xsl:text>&#160;</xsl:text>
            </th>
-           <th width="50%">
+           <th>
             <xsl:value-of select="$fields[1]/tc:prop[@name = 'column2']"/>
+            <xsl:text>&#160;</xsl:text>
            </th>
            <xsl:call-template name="columnTitle">
             <xsl:with-param name="index" select="3"/>
@@ -406,6 +407,10 @@
              </xsl:when>
              <xsl:otherwise>
               <td class="column2">
+               <!-- special-case the tv episode table -->
+               <xsl:if test="$fields[1]/@name = 'episode'">
+                <xsl:attribute name="style">text-align:center</xsl:attribute>
+               </xsl:if>
                <xsl:value-of select="."/>
                <xsl:text>&#160;</xsl:text>
               </td>
@@ -436,7 +441,7 @@
        <!-- don't show id or internal dates either -->
        <xsl:for-each select="$fields[@name != 'title' and @name != 'id' and @name != 'cdate' and @name != 'mdate']">
         <tr>
-         <th class="fieldName" valign="top">
+         <th class="fieldName">
           <xsl:value-of select="@title"/>
           <xsl:text>:</xsl:text>
          </th>

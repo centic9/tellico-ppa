@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.4.1")
+set(TELLICO_VERSION "3.4.2")
 
 set(QT_MIN_VERSION "5.4.0")
 
@@ -22,17 +22,15 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
                       ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules
                       ${ECM_MODULE_PATH})
 
-#include(ECMAddTests)
-#include(ECMMarkNonGuiExecutable)
-#include(ECMInstallIcons)
 include(ECMAddAppIcon)
 include(ECMUninstallTarget)
 include(FeatureSummary)
 
 include(KDEInstallDirs)
-#include(KDECompilerSettings)
-include(KDEFrameworkCompilerSettings)
 include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
+set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 ############# Options #################
 

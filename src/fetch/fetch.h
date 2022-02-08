@@ -108,7 +108,8 @@ enum Type {
   Numista,
   TVmaze,
   UPCItemDb,
-  TheTVDB
+  TheTVDB,
+  RPGGeek
 };
 
   }

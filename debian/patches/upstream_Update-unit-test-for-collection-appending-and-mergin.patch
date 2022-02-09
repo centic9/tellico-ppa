@@ -7,11 +7,11 @@ Subject: [PATCH] Update unit test for collection appending and merging
  src/tests/collectiontest.cpp | 11 ++++++++---
  1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/src/tests/collectiontest.cpp b/src/tests/collectiontest.cpp
-index ae58ee53..5362b19a 100644
---- a/src/tests/collectiontest.cpp
-+++ b/src/tests/collectiontest.cpp
-@@ -594,7 +594,9 @@ void CollectionTest::testAppendCollection() {
+Index: git/src/tests/collectiontest.cpp
+===================================================================
+--- git.orig/src/tests/collectiontest.cpp	2022-02-09 07:41:08.423695033 +0100
++++ git/src/tests/collectiontest.cpp	2022-02-09 07:53:58.469594029 +0100
+@@ -594,7 +594,9 @@
    coll2->addEntries(entry2);
  
    // append coll1 into coll2
@@ -22,7 +22,19 @@ index ae58ee53..5362b19a 100644
    // verify that the test field was added
    QVERIFY(coll2->hasField(QStringLiteral("test")));
    // verified that the modified field was merged
-@@ -635,7 +637,9 @@ void CollectionTest::testMergeCollection() {
+@@ -630,12 +632,21 @@
+ 
+   QCOMPARE(coll1->entryCount()+1, coll2->entryCount());
+ 
++  // try to reproduce a build-failure on some Ubuntu versions
++  Tellico::Data::FieldList fields = coll2->fields();
++  foreach(Tellico::Data::FieldPtr field, fields) {
++    bool collChange = coll1->mergeField(field);
++    QVERIFY2(!collChange, (std::string("Failed to compare field: ") + field->name().toStdString()).c_str());
++  }
++
+   // merge coll2 into coll1
+   // first item is a vector of all entries that got added in the merge process
    // second item is a pair of entries that had their table field modified
    // typedef QVector< QPair<EntryPtr, QString> > PairVector;
    // typedef QPair<Data::EntryList, PairVector> MergePair;
@@ -33,7 +45,7 @@ index ae58ee53..5362b19a 100644
  
    // one new entry was added
    QCOMPARE(mergePair.first.count(), 1);
-@@ -681,6 +685,7 @@ void CollectionTest::testBookMatch() {
+@@ -681,6 +692,7 @@
  void CollectionTest::testMergeBenchmark() {
    QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/movies-many.tc"));
  
@@ -41,7 +53,7 @@ index ae58ee53..5362b19a 100644
    Tellico::Data::EntryList entriesToAdd;
    QBENCHMARK {
      Tellico::Import::TellicoImporter importer1(url, false /* load all images */);
-@@ -700,7 +705,7 @@ void CollectionTest::testMergeBenchmark() {
+@@ -700,7 +712,7 @@
      }
      coll2->addEntries(entriesToAdd);
  
@@ -50,6 +62,3 @@ index ae58ee53..5362b19a 100644
    }
  }
  
--- 
-2.34.1
-

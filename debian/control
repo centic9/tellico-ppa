@@ -37,9 +37,10 @@ Build-Depends: debhelper-compat (= 13),
  , libexempi-dev, libcsv-dev, libbtparse-dev
  , libcdio-dev
  , gettext
- , xvfb, xauth, kio
+ , xvfb <!nocheck>, xauth <!nocheck>, kio <!nocheck>
  , python3:any, dh-python
- , dbus
+ , dbus <!nocheck>
+ , tidy <!nocheck>
 # missing in libtag1-dev
  , zlib1g-dev
 Build-Conflicts: libqimageblitz-dev

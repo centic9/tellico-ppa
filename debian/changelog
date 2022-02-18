@@ -1,3 +1,15 @@
+tellico (3.4.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update the patches:
+    - upstream_Update-unit-test-for-collection-appending-and-mergin.patch:
+      drop, backported from upstream
+  * Mark the xvfb, xauth, kio, and dbus build dependencies as !nocheck, as they
+    are needed only when running the test suite by dh_auto_test.
+  * Add the tidy build dependency, as it is used in a test.
+
+ -- Pino Toscano <pino@debian.org>  Fri, 18 Feb 2022 08:59:37 +0100
+
 tellico (3.4.3-1) unstable; urgency=medium
 
   * New upstream release.

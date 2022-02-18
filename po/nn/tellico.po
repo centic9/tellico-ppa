@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nn\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-12-19 02:06+0000\n"
+"POT-Creation-Date: 2022-01-10 02:06+0000\n"
 "PO-Revision-Date: 2021-04-09 23:48+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -706,11 +706,11 @@ msgstr "Eit felt for ein avleidd verdi må ha ein tilhøyrande mal."
 #: src/fetch/doubanfetcher.cpp:328 src/fetch/doubanfetcher.cpp:346
 #: src/fetch/filmasterfetcher.cpp:240 src/fetch/googlebookfetcher.cpp:252
 #: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:226
-#: src/fetch/imdbfetcher.cpp:1193 src/fetch/kinopoiskfetcher.cpp:243
+#: src/fetch/imdbfetcher.cpp:1193 src/fetch/kinopoiskfetcher.cpp:277
 #: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:418
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
-#: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:248
+#: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:272
 #: src/fetch/thegamesdbfetcher.cpp:241 src/fetch/thegamesdbfetcher.cpp:246
 #: src/fetch/themoviedbfetcher.cpp:312 src/fetch/themoviedbfetcher.cpp:315
 #: src/fetch/themoviedbfetcher.cpp:320 src/fetch/themoviedbfetcher.cpp:338
@@ -925,7 +925,7 @@ msgstr "Ukjend"
 #: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:493 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
+#: src/document.cpp:497 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
 #, kde-format
 msgid "Personal"
 msgstr "Personleg"
@@ -1041,7 +1041,7 @@ msgstr "Kjøpspris"
 #: src/collections/comicbookcollection.cpp:154
 #: src/collections/gamecollection.cpp:127
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:215 src/document.cpp:491
+#: src/collections/videocollection.cpp:215 src/document.cpp:495
 #, kde-format
 msgid "Loaned"
 msgstr "Lånt ut"
@@ -1649,7 +1649,7 @@ msgstr "Album"
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:406
 #: src/fetch/doubanfetcher.cpp:385 src/fetch/doubanfetcher.cpp:518
 #: src/fetch/upcitemdbfetcher.cpp:291 src/fetch/upcitemdbfetcher.cpp:411
-#: src/translators/audiofileimporter.cpp:333
+#: src/translators/audiofileimporter.cpp:335
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:392
 #: src/translators/freedbimporter.cpp:459
@@ -1683,7 +1683,7 @@ msgstr "Medium"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:234
+#: src/translators/audiofileimporter.cpp:236
 #: src/translators/xmlstatehandler.cpp:396
 #, kde-format
 msgid "Artist"
@@ -1701,14 +1701,14 @@ msgstr "Spor"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
 #: src/fetch/fetchmanager.cpp:67 src/fetchdialog.cpp:252 src/field.cpp:297
-#: src/field.cpp:338 src/translators/audiofileimporter.cpp:233
+#: src/field.cpp:338 src/translators/audiofileimporter.cpp:235
 #: src/translators/xmlstatehandler.cpp:395
 #, kde-format
 msgid "Title"
 msgstr "Tittel"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:235
+#: src/translators/audiofileimporter.cpp:237
 #: src/translators/xmlstatehandler.cpp:397
 #, kde-format
 msgid "Length"
@@ -2125,7 +2125,7 @@ msgid "Delete Filter"
 msgstr "Slett filter"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:381
+#: src/entryeditdialog.cpp:383
 #, kde-format
 msgid "Modify Entries"
 msgstr "Rediger oppføringar"
@@ -2801,79 +2801,79 @@ msgstr "Slett mal"
 msgid "Select template to delete:"
 msgstr "Vel malen du vil sletta:"
 
-#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:429
-#: src/fetchdialog.cpp:563 src/fetchdialog.cpp:624 src/fetchdialog.cpp:638
-#: src/gui/statusbar.cpp:94
+#: src/controller.cpp:140 src/controller.cpp:194 src/fetchdialog.cpp:330
+#: src/fetchdialog.cpp:429 src/fetchdialog.cpp:563 src/fetchdialog.cpp:624
+#: src/fetchdialog.cpp:638 src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
 msgstr "Klar."
 
-#: src/controller.cpp:330
+#: src/controller.cpp:360
 #, kde-format
 msgid "Do you really want to delete this entry?"
 msgstr "Er du sikker på at du vil sletta denne oppføringa?"
 
-#: src/controller.cpp:332
+#: src/controller.cpp:362
 #, kde-format
 msgid "Delete Entry"
 msgstr "Slett oppføring"
 
-#: src/controller.cpp:344
+#: src/controller.cpp:374
 #, kde-format
 msgid "Do you really want to delete these entries?"
 msgstr "Er du sikker på at du vil sletta desse oppføringane?"
 
-#: src/controller.cpp:348
+#: src/controller.cpp:378
 #, kde-format
 msgid "Delete Multiple Entries"
 msgstr "Slett fleire oppføringar"
 
-#: src/controller.cpp:497
+#: src/controller.cpp:527
 #, kde-format
 msgid "&Sort By"
 msgstr "&Sorter etter"
 
-#: src/controller.cpp:559 src/mainwindow.cpp:584
+#: src/controller.cpp:589 src/mainwindow.cpp:584
 #, kde-format
 msgid "&Edit Entry..."
 msgstr "&Rediger oppføring …"
 
-#: src/controller.cpp:560 src/mainwindow.cpp:591
+#: src/controller.cpp:590 src/mainwindow.cpp:591
 #, kde-format
 msgid "D&uplicate Entry"
 msgstr "L&ag kopi av oppføring"
 
-#: src/controller.cpp:561 src/mainwindow.cpp:685
+#: src/controller.cpp:591 src/mainwindow.cpp:685
 #, kde-format
 msgid "&Update Entry"
 msgstr "&Oppdater oppføring"
 
-#: src/controller.cpp:562 src/mainwindow.cpp:598
+#: src/controller.cpp:592 src/mainwindow.cpp:598
 #, kde-format
 msgid "&Delete Entry"
 msgstr "&Slett oppføring"
 
-#: src/controller.cpp:565
+#: src/controller.cpp:595
 #, kde-format
 msgid "&Edit Entries..."
 msgstr "&Rediger oppføringar …"
 
-#: src/controller.cpp:566
+#: src/controller.cpp:596
 #, kde-format
 msgid "D&uplicate Entries"
 msgstr "L&ag kopi av oppføringar"
 
-#: src/controller.cpp:567
+#: src/controller.cpp:597
 #, kde-format
 msgid "&Update Entries"
 msgstr "&Oppdater oppføringar"
 
-#: src/controller.cpp:568
+#: src/controller.cpp:598
 #, kde-format
 msgid "&Delete Entries"
 msgstr "&Slett oppføringar"
 
-#: src/controller.cpp:625
+#: src/controller.cpp:655
 #, kde-format
 msgid ""
 "The following items are already loaned, but Tellico does not currently "
@@ -2995,8 +2995,8 @@ msgstr "Gøym alle kolonnane"
 msgid "Saving file..."
 msgstr "Lagrar fil …"
 
-#: src/entryeditdialog.cpp:70 src/entryeditdialog.cpp:402
-#: src/entryeditdialog.cpp:425 src/entryeditdialog.cpp:520
+#: src/entryeditdialog.cpp:70 src/entryeditdialog.cpp:404
+#: src/entryeditdialog.cpp:426 src/entryeditdialog.cpp:521
 #, kde-format
 msgid "Edit Entry"
 msgstr "Rediger oppføring"
@@ -3006,38 +3006,38 @@ msgstr "Rediger oppføring"
 msgid "&New Entry"
 msgstr "&Ny oppføring"
 
-#: src/entryeditdialog.cpp:90 src/entryeditdialog.cpp:130
-#: src/entryeditdialog.cpp:435 src/entryeditdialog.cpp:541
+#: src/entryeditdialog.cpp:90 src/entryeditdialog.cpp:131
+#: src/entryeditdialog.cpp:436 src/entryeditdialog.cpp:542
 #, kde-format
 msgid "Sa&ve Entry"
 msgstr "&Lagra oppføring"
 
-#: src/entryeditdialog.cpp:332
+#: src/entryeditdialog.cpp:334
 #, kde-format
 msgid "Do you really want to modify these entries?"
 msgstr "Er du sikker på at du vil endra desse oppføringane?"
 
-#: src/entryeditdialog.cpp:334
+#: src/entryeditdialog.cpp:336
 #, kde-format
 msgid "Modify Multiple Entries"
 msgstr "Endra fleire oppføringar"
 
-#: src/entryeditdialog.cpp:375
+#: src/entryeditdialog.cpp:377
 #, kde-format
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Desse felta må ha verdiar. Vil du halda fram?"
 
-#: src/entryeditdialog.cpp:471
+#: src/entryeditdialog.cpp:472
 #, kde-format
 msgid "Edit Entries"
 msgstr "Rediger oppføringar"
 
-#: src/entryeditdialog.cpp:497
+#: src/entryeditdialog.cpp:498
 #, kde-format
 msgid "Sa&ve Entries"
 msgstr "La&gra oppføringar"
 
-#: src/entryeditdialog.cpp:656
+#: src/entryeditdialog.cpp:657
 #, kde-format
 msgid ""
 "The current entry has been modified.\n"
@@ -3046,12 +3046,12 @@ msgstr ""
 "Oppføringa er endra.\n"
 "Vil du lagra endringane?"
 
-#: src/entryeditdialog.cpp:659
+#: src/entryeditdialog.cpp:660
 #, kde-format
 msgid "Save Entry"
 msgstr "Lagra oppføring"
 
-#: src/entryeditdialog.cpp:660 src/mainwindow.cpp:1133
+#: src/entryeditdialog.cpp:661 src/mainwindow.cpp:1133
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "Ulagra endringar"
@@ -3208,7 +3208,7 @@ msgstr "Bruk standardteiknkodinga frå lokalet i den eksporterte fila."
 #: src/fetch/doubanfetcher.cpp:407 src/fetch/filmasterfetcher.cpp:148
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:301
 #: src/fetch/igdbfetcher.cpp:162 src/fetch/isbndbfetcher.cpp:295
-#: src/fetch/kinofetcher.cpp:341 src/fetch/kinopoiskfetcher.cpp:235
+#: src/fetch/kinofetcher.cpp:341 src/fetch/kinopoiskfetcher.cpp:269
 #: src/fetch/kinoteatrfetcher.cpp:376 src/fetch/mobygamesfetcher.cpp:345
 #: src/fetch/moviemeterfetcher.cpp:162 src/fetch/numistafetcher.cpp:285
 #: src/fetch/numistafetcher.cpp:293 src/fetch/omdbfetcher.cpp:182
@@ -3229,23 +3229,24 @@ msgstr "Allocine-lenkje"
 #: src/fetch/doubanfetcher.cpp:303 src/fetch/doubanfetcher.cpp:321
 #: src/fetch/doubanfetcher.cpp:339 src/fetch/doubanfetcher.cpp:570
 #: src/fetch/dvdfrfetcher.cpp:180 src/fetch/imdbfetcher.cpp:786
-#: src/fetch/imdbfetcher.cpp:1507 src/fetch/kinopoiskfetcher.cpp:310
-#: src/fetch/kinopoiskfetcher.cpp:510 src/fetch/kinoteatrfetcher.cpp:263
-#: src/fetch/kinoteatrfetcher.cpp:507 src/fetch/omdbfetcher.cpp:262
-#: src/fetch/themoviedbfetcher.cpp:332 src/fetch/themoviedbfetcher.cpp:576
-#: src/fetch/vndbfetcher.cpp:284 src/fetch/vndbfetcher.cpp:432
+#: src/fetch/imdbfetcher.cpp:1507 src/fetch/kinopoiskfetcher.cpp:341
+#: src/fetch/kinopoiskfetcher.cpp:469 src/fetch/kinopoiskfetcher.cpp:673
+#: src/fetch/kinoteatrfetcher.cpp:263 src/fetch/kinoteatrfetcher.cpp:507
+#: src/fetch/omdbfetcher.cpp:262 src/fetch/themoviedbfetcher.cpp:332
+#: src/fetch/themoviedbfetcher.cpp:576 src/fetch/vndbfetcher.cpp:284
+#: src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Original Title"
 msgstr "Opphavleg tittel"
 
 #: src/fetch/allocinefetcher.cpp:429 src/fetch/imdbfetcher.cpp:1523
-#: src/fetch/themoviedbfetcher.cpp:613
+#: src/fetch/kinopoiskfetcher.cpp:685 src/fetch/themoviedbfetcher.cpp:613
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "&Ikkje fleire enn: "
 
 #: src/fetch/allocinefetcher.cpp:442 src/fetch/imdbfetcher.cpp:1536
-#: src/fetch/themoviedbfetcher.cpp:626
+#: src/fetch/kinopoiskfetcher.cpp:698 src/fetch/themoviedbfetcher.cpp:626
 #, kde-format
 msgid ""
 "The list of cast members may include many people. Set the maximum number "
@@ -3596,11 +3597,11 @@ msgstr "AnimeNfo-karakter"
 #: src/fetch/filmasterfetcher.cpp:323 src/fetch/googlescholarfetcher.cpp:284
 #: src/fetch/hathitrustfetcher.cpp:318 src/fetch/ibsfetcher.cpp:396
 #: src/fetch/igdbfetcher.cpp:588 src/fetch/kinofetcher.cpp:379
-#: src/fetch/kinopoiskfetcher.cpp:518 src/fetch/kinoteatrfetcher.cpp:515
-#: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:223
-#: src/fetch/musicbrainzfetcher.cpp:376 src/fetch/openlibraryfetcher.cpp:400
-#: src/fetch/springerfetcher.cpp:183 src/fetch/tvmazefetcher.cpp:393
-#: src/fetch/upcitemdbfetcher.cpp:466 src/fetch/vndbfetcher.cpp:440
+#: src/fetch/kinoteatrfetcher.cpp:515 src/fetch/moviemeterfetcher.cpp:301
+#: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:376
+#: src/fetch/openlibraryfetcher.cpp:424 src/fetch/springerfetcher.cpp:183
+#: src/fetch/tvmazefetcher.cpp:393 src/fetch/upcitemdbfetcher.cpp:466
+#: src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "Kjelda inneheld ingen val."
@@ -4020,9 +4021,10 @@ msgstr "IMDb-karakter"
 msgid "Certifications"
 msgstr "Aldersgrenser"
 
-#: src/fetch/imdbfetcher.cpp:1503 src/fetch/omdbfetcher.cpp:397
-#: src/fetch/themoviedbfetcher.cpp:574 src/fetch/thetvdbfetcher.cpp:575
-#: src/fetch/tvmazefetcher.cpp:382 src/field.cpp:331
+#: src/fetch/imdbfetcher.cpp:1503 src/fetch/kinopoiskfetcher.cpp:672
+#: src/fetch/omdbfetcher.cpp:397 src/fetch/themoviedbfetcher.cpp:574
+#: src/fetch/thetvdbfetcher.cpp:575 src/fetch/tvmazefetcher.cpp:382
+#: src/field.cpp:331
 #, kde-format
 msgid "IMDb Link"
 msgstr "IMDb-lenkje"
@@ -4057,7 +4059,7 @@ msgstr ""
 "Søk etter fleire ISBN-kodar samtidig går raskare, men er berre tilgjengeleg "
 "for Premium- og Pro-kundar."
 
-#: src/fetch/kinopoiskfetcher.cpp:242 src/fetch/kinopoiskfetcher.cpp:511
+#: src/fetch/kinopoiskfetcher.cpp:276 src/fetch/kinopoiskfetcher.cpp:671
 #, kde-format
 msgid "KinoPoisk Link"
 msgstr "KinoPoisk-lenkje"
@@ -4115,7 +4117,7 @@ msgstr "Fransk"
 msgid "Numista (%1)"
 msgstr "Numista (%1)"
 
-#: src/fetch/openlibraryfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:393
+#: src/fetch/openlibraryfetcher.cpp:271 src/fetch/openlibraryfetcher.cpp:417
 #, kde-format
 msgid "OpenLibrary Link"
 msgstr "OpenLibrary-lenkje"
@@ -5181,8 +5183,8 @@ msgstr "Tellico – ein enkel og gratis samlingsdatabase"
 
 #: src/main.cpp:123
 #, kde-format
-msgid "(c) 2001-2021, Robby Stephenson"
-msgstr "© 2001–2021 Robby Stephenson"
+msgid "(c) 2001-2022, Robby Stephenson"
+msgstr ""
 
 #: src/main.cpp:127
 #, kde-format
@@ -6450,66 +6452,66 @@ msgstr "Alexandria-val"
 msgid "&Library:"
 msgstr "&Bibliotek:"
 
-#: src/translators/audiofileimporter.cpp:126
+#: src/translators/audiofileimporter.cpp:128
 #, kde-format
 msgid "Scanning audio files..."
 msgstr "Søkjer gjennom lydfiler …"
 
-#: src/translators/audiofileimporter.cpp:186
-#: src/translators/audiofileimporter.cpp:189
+#: src/translators/audiofileimporter.cpp:188
+#: src/translators/audiofileimporter.cpp:191
 #, kde-format
 msgid "Files"
 msgstr "Filer"
 
-#: src/translators/audiofileimporter.cpp:192
+#: src/translators/audiofileimporter.cpp:194
 #, kde-format
 msgid "Bitrate"
 msgstr "Bitrate"
 
-#: src/translators/audiofileimporter.cpp:229
-#: src/translators/audiofileimporter.cpp:239
+#: src/translators/audiofileimporter.cpp:231
+#: src/translators/audiofileimporter.cpp:241
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "Spor (disk %1)"
 
-#: src/translators/audiofileimporter.cpp:313 xslt/entry-templates/Album.xsl:243
+#: src/translators/audiofileimporter.cpp:315 xslt/entry-templates/Album.xsl:243
 #, kde-format
 msgid "(Various)"
 msgstr "(Ymse artistar)"
 
-#: src/translators/audiofileimporter.cpp:490
+#: src/translators/audiofileimporter.cpp:492
 #, kde-format
 msgid "Audio File Options"
 msgstr "Lydfilval"
 
-#: src/translators/audiofileimporter.cpp:493
+#: src/translators/audiofileimporter.cpp:495
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "Søk òg i &undermapper"
 
-#: src/translators/audiofileimporter.cpp:494
+#: src/translators/audiofileimporter.cpp:496
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr "Viss det er kryssa av her, vert det søkt i undermapper etter lydfiler."
 
-#: src/translators/audiofileimporter.cpp:498
+#: src/translators/audiofileimporter.cpp:500
 #, kde-format
 msgid "Include file &location"
 msgstr "&Ta med filplassering"
 
-#: src/translators/audiofileimporter.cpp:499
+#: src/translators/audiofileimporter.cpp:501
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr ""
 "Viss det er kryssa av her, vert det lagt til informasjon om adressa til "
 "lydspora i oppføringane."
 
-#: src/translators/audiofileimporter.cpp:503
+#: src/translators/audiofileimporter.cpp:505
 #, kde-format
 msgid "Include &bitrate"
 msgstr "Ta med &bitrate"
 
-#: src/translators/audiofileimporter.cpp:504
+#: src/translators/audiofileimporter.cpp:506
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr ""
@@ -7359,7 +7361,7 @@ msgstr ""
 msgid "This template is meant for music collections only."
 msgstr "Denne malen er berre meint for musikksamlingar."
 
-#: xslt/entry-templates/Album.xsl:487
+#: xslt/entry-templates/Album.xsl:491
 #, kde-format
 msgid "Total:"
 msgstr "Totalt:"

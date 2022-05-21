@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico.po\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-01-01 02:09+0000\n"
+"POT-Creation-Date: 2022-02-16 02:16+0000\n"
 "PO-Revision-Date: 2015-02-24 22:20+0100\n"
 "Last-Translator: Samir Ribić <megaribi@epn.ba>\n"
 "Language-Team: bs <bs@kde.org>\n"
@@ -718,9 +718,9 @@ msgstr "Polje sa izvedenom vrijednosti mora imati predložak za vrijednost."
 #: src/fetch/bedethequefetcher.cpp:331 src/fetch/bedethequefetcher.cpp:339
 #: src/fetch/colnectfetcher.cpp:317 src/fetch/colnectfetcher.cpp:330
 #: src/fetch/colnectfetcher.cpp:337 src/fetch/colnectfetcher.cpp:344
-#: src/fetch/discogsfetcher.cpp:301 src/fetch/discogsfetcher.cpp:306
-#: src/fetch/discogsfetcher.cpp:311 src/fetch/discogsfetcher.cpp:318
-#: src/fetch/discogsfetcher.cpp:325 src/fetch/doubanfetcher.cpp:310
+#: src/fetch/discogsfetcher.cpp:302 src/fetch/discogsfetcher.cpp:307
+#: src/fetch/discogsfetcher.cpp:312 src/fetch/discogsfetcher.cpp:319
+#: src/fetch/discogsfetcher.cpp:326 src/fetch/doubanfetcher.cpp:310
 #: src/fetch/doubanfetcher.cpp:328 src/fetch/doubanfetcher.cpp:346
 #: src/fetch/filmasterfetcher.cpp:240 src/fetch/googlebookfetcher.cpp:252
 #: src/fetch/googlebookfetcher.cpp:257 src/fetch/igdbfetcher.cpp:226
@@ -728,7 +728,7 @@ msgstr "Polje sa izvedenom vrijednosti mora imati predložak za vrijednost."
 #: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:418
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
-#: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:248
+#: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:272
 #: src/fetch/thegamesdbfetcher.cpp:241 src/fetch/thegamesdbfetcher.cpp:246
 #: src/fetch/themoviedbfetcher.cpp:312 src/fetch/themoviedbfetcher.cpp:315
 #: src/fetch/themoviedbfetcher.cpp:320 src/fetch/themoviedbfetcher.cpp:338
@@ -943,7 +943,7 @@ msgstr "Nepoznat"
 #: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
 #: src/collections/stampcollection.cpp:32
 #: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:493 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
+#: src/document.cpp:497 src/field.cpp:291 src/field.cpp:304 src/field.cpp:309
 #, kde-format
 msgid "Personal"
 msgstr "Lično"
@@ -1060,7 +1060,7 @@ msgstr "Cijena kupovine"
 #: src/collections/comicbookcollection.cpp:154
 #: src/collections/gamecollection.cpp:127
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:215 src/document.cpp:491
+#: src/collections/videocollection.cpp:215 src/document.cpp:495
 #, kde-format
 msgid "Loaned"
 msgstr "Posuđena"
@@ -1678,10 +1678,10 @@ msgstr "Moja muzika"
 msgid "Album"
 msgstr "Album"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:406
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:407
 #: src/fetch/doubanfetcher.cpp:385 src/fetch/doubanfetcher.cpp:518
 #: src/fetch/upcitemdbfetcher.cpp:291 src/fetch/upcitemdbfetcher.cpp:411
-#: src/translators/audiofileimporter.cpp:333
+#: src/translators/audiofileimporter.cpp:335
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:392
 #: src/translators/freedbimporter.cpp:459
@@ -1691,18 +1691,18 @@ msgstr "CD"
 
 #: src/collections/musiccollection.cpp:54
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1045
-#: src/fetch/discogsfetcher.cpp:414 src/fetch/upcitemdbfetcher.cpp:407
+#: src/fetch/discogsfetcher.cpp:415 src/fetch/upcitemdbfetcher.cpp:407
 #: src/fetch/upcitemdbfetcher.cpp:415
 #, kde-format
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:411
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:412
 #, kde-format
 msgid "Cassette"
 msgstr "Kaseta"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:409
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:410
 #, kde-format
 msgid "Vinyl"
 msgstr "Vinil"
@@ -1715,7 +1715,7 @@ msgstr "Disk"
 
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
-#: src/translators/audiofileimporter.cpp:234
+#: src/translators/audiofileimporter.cpp:236
 #: src/translators/xmlstatehandler.cpp:396
 #, kde-format
 msgid "Artist"
@@ -1733,14 +1733,14 @@ msgstr "Numere"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
 #: src/fetch/fetchmanager.cpp:67 src/fetchdialog.cpp:252 src/field.cpp:297
-#: src/field.cpp:338 src/translators/audiofileimporter.cpp:233
+#: src/field.cpp:338 src/translators/audiofileimporter.cpp:235
 #: src/translators/xmlstatehandler.cpp:395
 #, kde-format
 msgid "Title"
 msgstr "Naslov"
 
 #: src/collections/musiccollection.cpp:88
-#: src/translators/audiofileimporter.cpp:235
+#: src/translators/audiofileimporter.cpp:237
 #: src/translators/xmlstatehandler.cpp:397
 #, kde-format
 msgid "Length"
@@ -1909,8 +1909,8 @@ msgstr "Regija 8"
 msgid "Region"
 msgstr "Region"
 
-#: src/collections/videocollection.cpp:99 src/fetch/discogsfetcher.cpp:310
-#: src/fetch/discogsfetcher.cpp:494
+#: src/collections/videocollection.cpp:99 src/fetch/discogsfetcher.cpp:311
+#: src/fetch/discogsfetcher.cpp:495
 #, kde-format
 msgid "Nationality"
 msgstr "Nacionalnost"
@@ -1963,8 +1963,8 @@ msgstr "Tabela sa glumcima sa ulogama koje ugraju"
 msgid "Director"
 msgstr "Režiser"
 
-#: src/collections/videocollection.cpp:127 src/fetch/discogsfetcher.cpp:317
-#: src/fetch/discogsfetcher.cpp:493 src/fetch/rpggeekfetcher.cpp:207
+#: src/collections/videocollection.cpp:127 src/fetch/discogsfetcher.cpp:318
+#: src/fetch/discogsfetcher.cpp:494 src/fetch/rpggeekfetcher.cpp:207
 #, kde-format
 msgid "Producer"
 msgstr "Producent"
@@ -2151,7 +2151,7 @@ msgid "Delete Filter"
 msgstr "Obriši filter"
 
 #: src/commands/modifyentries.cpp:50 src/commands/modifyentries.cpp:70
-#: src/entryeditdialog.cpp:381
+#: src/entryeditdialog.cpp:383
 #, kde-format
 msgid "Modify Entries"
 msgstr "Promjeni ulaze"
@@ -2886,79 +2886,79 @@ msgstr "Obriši predložak"
 msgid "Select template to delete:"
 msgstr "Selektujte predložak za izbrisati:"
 
-#: src/controller.cpp:142 src/fetchdialog.cpp:330 src/fetchdialog.cpp:429
-#: src/fetchdialog.cpp:563 src/fetchdialog.cpp:624 src/fetchdialog.cpp:638
-#: src/gui/statusbar.cpp:94
+#: src/controller.cpp:140 src/controller.cpp:194 src/fetchdialog.cpp:330
+#: src/fetchdialog.cpp:429 src/fetchdialog.cpp:563 src/fetchdialog.cpp:624
+#: src/fetchdialog.cpp:638 src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
 msgstr "Spreman."
 
-#: src/controller.cpp:330
+#: src/controller.cpp:360
 #, kde-format
 msgid "Do you really want to delete this entry?"
 msgstr "Da li ste sigurni da želite obrisati ovaj ulaz?"
 
-#: src/controller.cpp:332
+#: src/controller.cpp:362
 #, kde-format
 msgid "Delete Entry"
 msgstr "Ukloni unos"
 
-#: src/controller.cpp:344
+#: src/controller.cpp:374
 #, kde-format
 msgid "Do you really want to delete these entries?"
 msgstr "Da li ste sigurni da želite izbrisati ove ulaze?"
 
-#: src/controller.cpp:348
+#: src/controller.cpp:378
 #, kde-format
 msgid "Delete Multiple Entries"
 msgstr "Obriši višestruke ulaze"
 
-#: src/controller.cpp:497
+#: src/controller.cpp:527
 #, kde-format
 msgid "&Sort By"
 msgstr "&Sortiraj po"
 
-#: src/controller.cpp:559 src/mainwindow.cpp:584
+#: src/controller.cpp:589 src/mainwindow.cpp:584
 #, kde-format
 msgid "&Edit Entry..."
 msgstr "&Izmijeni Unos..."
 
-#: src/controller.cpp:560 src/mainwindow.cpp:591
+#: src/controller.cpp:590 src/mainwindow.cpp:591
 #, kde-format
 msgid "D&uplicate Entry"
 msgstr "&Dupliciraj ulaz"
 
-#: src/controller.cpp:561 src/mainwindow.cpp:685
+#: src/controller.cpp:591 src/mainwindow.cpp:685
 #, kde-format
 msgid "&Update Entry"
 msgstr "&Osvježi ulaz"
 
-#: src/controller.cpp:562 src/mainwindow.cpp:598
+#: src/controller.cpp:592 src/mainwindow.cpp:598
 #, kde-format
 msgid "&Delete Entry"
 msgstr "&Izbriši unos"
 
-#: src/controller.cpp:565
+#: src/controller.cpp:595
 #, kde-format
 msgid "&Edit Entries..."
 msgstr "&Uredi ulaze..."
 
-#: src/controller.cpp:566
+#: src/controller.cpp:596
 #, kde-format
 msgid "D&uplicate Entries"
 msgstr "D&upliciraj ulaze"
 
-#: src/controller.cpp:567
+#: src/controller.cpp:597
 #, kde-format
 msgid "&Update Entries"
 msgstr "&Ažuriraj ulaze"
 
-#: src/controller.cpp:568
+#: src/controller.cpp:598
 #, kde-format
 msgid "&Delete Entries"
 msgstr "&Obriši ulaze"
 
-#: src/controller.cpp:625
+#: src/controller.cpp:655
 #, kde-format
 msgid ""
 "The following items are already loaned, but Tellico does not currently "
@@ -3082,8 +3082,8 @@ msgstr "Sakrij  sve Kolone"
 msgid "Saving file..."
 msgstr "Snimam datoteku..."
 
-#: src/entryeditdialog.cpp:70 src/entryeditdialog.cpp:402
-#: src/entryeditdialog.cpp:425 src/entryeditdialog.cpp:520
+#: src/entryeditdialog.cpp:70 src/entryeditdialog.cpp:404
+#: src/entryeditdialog.cpp:426 src/entryeditdialog.cpp:521
 #, kde-format
 msgid "Edit Entry"
 msgstr "Izmijeni unos"
@@ -3093,38 +3093,38 @@ msgstr "Izmijeni unos"
 msgid "&New Entry"
 msgstr "&Novi unos"
 
-#: src/entryeditdialog.cpp:90 src/entryeditdialog.cpp:130
-#: src/entryeditdialog.cpp:435 src/entryeditdialog.cpp:541
+#: src/entryeditdialog.cpp:90 src/entryeditdialog.cpp:131
+#: src/entryeditdialog.cpp:436 src/entryeditdialog.cpp:542
 #, kde-format
 msgid "Sa&ve Entry"
 msgstr "Snimi &unos"
 
-#: src/entryeditdialog.cpp:332
+#: src/entryeditdialog.cpp:334
 #, kde-format
 msgid "Do you really want to modify these entries?"
 msgstr "Da li stvarno želite mijenjati ove unose?"
 
-#: src/entryeditdialog.cpp:334
+#: src/entryeditdialog.cpp:336
 #, kde-format
 msgid "Modify Multiple Entries"
 msgstr "Izmjena više unose"
 
-#: src/entryeditdialog.cpp:375
+#: src/entryeditdialog.cpp:377
 #, kde-format
 msgid "A value is required for the following fields. Do you want to continue?"
 msgstr "Vrijednost je potrebna za sljedeća polja. Želite li nastaviti?"
 
-#: src/entryeditdialog.cpp:471
+#: src/entryeditdialog.cpp:472
 #, kde-format
 msgid "Edit Entries"
 msgstr "Uredi unose"
 
-#: src/entryeditdialog.cpp:497
+#: src/entryeditdialog.cpp:498
 #, kde-format
 msgid "Sa&ve Entries"
 msgstr "Snimi unose"
 
-#: src/entryeditdialog.cpp:656
+#: src/entryeditdialog.cpp:657
 #, kde-format
 msgid ""
 "The current entry has been modified.\n"
@@ -3133,12 +3133,12 @@ msgstr ""
 "Tekući unos je promijenjen.\n"
 "Želite li unijeti promjene?"
 
-#: src/entryeditdialog.cpp:659
+#: src/entryeditdialog.cpp:660
 #, kde-format
 msgid "Save Entry"
 msgstr "Snimi unos"
 
-#: src/entryeditdialog.cpp:660 src/mainwindow.cpp:1133
+#: src/entryeditdialog.cpp:661 src/mainwindow.cpp:1133
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "Promjene nisu snimljene"
@@ -3294,7 +3294,7 @@ msgid "Encode the exported file in the local encoding."
 msgstr "KOdiranje izvezene datoteke u regionalnu shemu."
 
 #: src/fetch/allocinefetcher.cpp:242 src/fetch/amazonfetcher.cpp:633
-#: src/fetch/colnectfetcher.cpp:527 src/fetch/discogsfetcher.cpp:210
+#: src/fetch/colnectfetcher.cpp:527 src/fetch/discogsfetcher.cpp:211
 #: src/fetch/doubanfetcher.cpp:407 src/fetch/filmasterfetcher.cpp:148
 #: src/fetch/googlebookfetcher.cpp:196 src/fetch/ibsfetcher.cpp:301
 #: src/fetch/igdbfetcher.cpp:162 src/fetch/isbndbfetcher.cpp:295
@@ -3552,7 +3552,7 @@ msgstr "Amazon.com Web Services"
 
 #: src/fetch/amazonfetcher.cpp:1095 src/fetch/bibliosharefetcher.cpp:172
 #: src/fetch/comicvinefetcher.cpp:232 src/fetch/crossreffetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:507 src/fetch/giantbombfetcher.cpp:219
+#: src/fetch/discogsfetcher.cpp:508 src/fetch/giantbombfetcher.cpp:219
 #: src/fetch/googlebookfetcher.cpp:380 src/fetch/isbndbfetcher.cpp:394
 #: src/fetch/mobygamesfetcher.cpp:609 src/fetch/omdbfetcher.cpp:408
 #: src/fetch/thegamesdbfetcher.cpp:584 src/fetch/themoviedbfetcher.cpp:590
@@ -3700,7 +3700,7 @@ msgstr "AnimeNfo Rejting"
 #: src/fetch/igdbfetcher.cpp:588 src/fetch/kinofetcher.cpp:379
 #: src/fetch/kinoteatrfetcher.cpp:515 src/fetch/moviemeterfetcher.cpp:301
 #: src/fetch/mrlookupfetcher.cpp:223 src/fetch/musicbrainzfetcher.cpp:376
-#: src/fetch/openlibraryfetcher.cpp:400 src/fetch/springerfetcher.cpp:183
+#: src/fetch/openlibraryfetcher.cpp:424 src/fetch/springerfetcher.cpp:183
 #: src/fetch/tvmazefetcher.cpp:393 src/fetch/upcitemdbfetcher.cpp:466
 #: src/fetch/vndbfetcher.cpp:440
 #, kde-format
@@ -3825,30 +3825,30 @@ msgstr ""
 msgid "An access key is required to use this data source."
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:305 src/fetch/discogsfetcher.cpp:495
+#: src/fetch/discogsfetcher.cpp:306 src/fetch/discogsfetcher.cpp:496
 #, kde-format
 msgid "Discogs Link"
 msgstr "Discogs Link"
 
 #. i18n("Nationality");
-#: src/fetch/discogsfetcher.cpp:324 src/fetch/discogsfetcher.cpp:496
+#: src/fetch/discogsfetcher.cpp:325 src/fetch/discogsfetcher.cpp:497
 #: src/fetch/dvdfrfetcher.cpp:183 src/fetch/musicbrainzfetcher.cpp:369
 #: src/fetch/upcitemdbfetcher.cpp:208 src/fetch/upcitemdbfetcher.cpp:459
 #, kde-format
 msgid "Barcode"
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:334
+#: src/fetch/discogsfetcher.cpp:335
 #, kde-format
 msgid "The Discogs.com server reports a token error."
 msgstr "Discogs.com server javlja grešku tokena."
 
-#: src/fetch/discogsfetcher.cpp:484
+#: src/fetch/discogsfetcher.cpp:485
 #, kde-format
 msgid "Discogs Audio Search"
 msgstr "Discogs Audio pretraga"
 
-#: src/fetch/discogsfetcher.cpp:519
+#: src/fetch/discogsfetcher.cpp:520
 #, kde-format
 msgid "User token: "
 msgstr "Korisnički token"
@@ -4229,7 +4229,7 @@ msgstr "Francuski"
 msgid "Numista (%1)"
 msgstr ""
 
-#: src/fetch/openlibraryfetcher.cpp:247 src/fetch/openlibraryfetcher.cpp:393
+#: src/fetch/openlibraryfetcher.cpp:271 src/fetch/openlibraryfetcher.cpp:417
 #, kde-format
 msgid "OpenLibrary Link"
 msgstr "OtvorenaBiblioteka link"
@@ -5324,7 +5324,7 @@ msgstr "Tellico - menadžer kolekcija za KDE"
 #: src/main.cpp:123
 #, fuzzy, kde-format
 #| msgid "(c) 2001-2015, Robby Stephenson"
-msgid "(c) 2001-2021, Robby Stephenson"
+msgid "(c) 2001-2022, Robby Stephenson"
 msgstr "(c) 2001-2015, Robby Stephenson"
 
 #: src/main.cpp:127
@@ -5357,27 +5357,27 @@ msgstr "Autor libcsv biblioteke"
 msgid "Author of rtf2html library"
 msgstr "Autor rtf2html  biblioteke"
 
-#: src/main.cpp:142
+#: src/main.cpp:144
 #, kde-format
 msgid "Do not reopen the last open file"
 msgstr "Ne otvarajte ponovo zadnje otvorenu datoteku"
 
-#: src/main.cpp:143
+#: src/main.cpp:145
 #, kde-format
 msgid "Import <filename> as a bibtex file"
 msgstr "Uvezi <filename> kao bibtex datoteku."
 
-#: src/main.cpp:144
+#: src/main.cpp:146
 #, kde-format
 msgid "Import <filename> as a MODS file"
 msgstr "Uvezi <filename> kao MODS datoteku."
 
-#: src/main.cpp:145
+#: src/main.cpp:147
 #, kde-format
 msgid "Import <filename> as a RIS file"
 msgstr "Uvezi <filename> kao RIS datoteku."
 
-#: src/main.cpp:146
+#: src/main.cpp:148
 #, kde-format
 msgid "File to open"
 msgstr "Datoteka koju želite otvoriti"
@@ -6612,64 +6612,64 @@ msgstr "Opcije Aleksandrije"
 msgid "&Library:"
 msgstr "&Biblioteka:"
 
-#: src/translators/audiofileimporter.cpp:126
+#: src/translators/audiofileimporter.cpp:128
 #, kde-format
 msgid "Scanning audio files..."
 msgstr "Skeniranje audio datoteka..."
 
-#: src/translators/audiofileimporter.cpp:186
-#: src/translators/audiofileimporter.cpp:189
+#: src/translators/audiofileimporter.cpp:188
+#: src/translators/audiofileimporter.cpp:191
 #, kde-format
 msgid "Files"
 msgstr "Datoteke"
 
-#: src/translators/audiofileimporter.cpp:192
+#: src/translators/audiofileimporter.cpp:194
 #, kde-format
 msgid "Bitrate"
 msgstr "Učestanost bita:"
 
-#: src/translators/audiofileimporter.cpp:229
-#: src/translators/audiofileimporter.cpp:239
+#: src/translators/audiofileimporter.cpp:231
+#: src/translators/audiofileimporter.cpp:241
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "Pjesme (Disk %1)"
 
-#: src/translators/audiofileimporter.cpp:313 xslt/entry-templates/Album.xsl:243
+#: src/translators/audiofileimporter.cpp:315 xslt/entry-templates/Album.xsl:243
 #, kde-format
 msgid "(Various)"
 msgstr "(Različit)"
 
-#: src/translators/audiofileimporter.cpp:490
+#: src/translators/audiofileimporter.cpp:492
 #, kde-format
 msgid "Audio File Options"
 msgstr "Opcije Audio Datoteke"
 
-#: src/translators/audiofileimporter.cpp:493
+#: src/translators/audiofileimporter.cpp:495
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "Rekurzivna pretraga foldera"
 
-#: src/translators/audiofileimporter.cpp:494
+#: src/translators/audiofileimporter.cpp:496
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr "Ako je obilježeno, folderi rekurzivno traže audio fajlove."
 
-#: src/translators/audiofileimporter.cpp:498
+#: src/translators/audiofileimporter.cpp:500
 #, kde-format
 msgid "Include file &location"
 msgstr "Uključi lokaciju datoteke"
 
-#: src/translators/audiofileimporter.cpp:499
+#: src/translators/audiofileimporter.cpp:501
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "Ako je obilježeno, ime za svaku pjesmu se dodaje na unose."
 
-#: src/translators/audiofileimporter.cpp:503
+#: src/translators/audiofileimporter.cpp:505
 #, kde-format
 msgid "Include &bitrate"
 msgstr "Uključi &učestanost bita"
 
-#: src/translators/audiofileimporter.cpp:504
+#: src/translators/audiofileimporter.cpp:506
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "Ako je označeno, učestanost bita za svaku pjesmu se dodaje na stavke."

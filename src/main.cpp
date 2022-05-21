@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   KAboutData aboutData(QStringLiteral("tellico"), QStringLiteral("Tellico"),
                        QStringLiteral(TELLICO_VERSION), i18n("Tellico - collection management software, free and simple"),
                        KAboutLicense::GPL_V2,
-                       i18n("(c) 2001-2021, Robby Stephenson"),
+                       i18n("(c) 2001-2022, Robby Stephenson"),
                        QString(),
                        QStringLiteral("https://tellico-project.org"));
   aboutData.addAuthor(QStringLiteral("Robby Stephenson"), QString(), QStringLiteral("robby@periapsis.org"));
@@ -137,6 +137,8 @@ int main(int argc, char* argv[]) {
   aboutData.addCredit(QStringLiteral("Valentin Lavrinenko"), i18n("Author of rtf2html library"));
 
   aboutData.addLicense(KAboutLicense::GPL_V3);
+  aboutData.setOrganizationDomain("kde.org");
+  aboutData.setDesktopFileName(QStringLiteral("org.kde.tellico.desktop"));
 
   QCommandLineParser parser;
   parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("nofile"), i18n("Do not reopen the last open file")));

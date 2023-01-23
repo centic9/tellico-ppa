@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.4.4")
+set(TELLICO_VERSION "3.4.6")
 
 set(QT_MIN_VERSION "5.4.0")
 
@@ -296,13 +296,7 @@ install(PROGRAMS org.kde.tellico.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES tellico.dtd tellico.tips DESTINATION ${TELLICO_DATA_INSTALL_DIR})
 install(FILES tellico.xml DESTINATION  ${KDE_INSTALL_MIMEDIR})
 install(FILES org.kde.tellico.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )
+ki18n_install(po)
+kdoctools_install(po)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
-
-find_package(KF5I18n CONFIG REQUIRED)
-ki18n_install(po)
-
-  find_package(KF5DocTools CONFIG)
-  if(KF5DocTools_FOUND)
-    kdoctools_install(po)
-  endif()

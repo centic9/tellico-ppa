@@ -12,18 +12,19 @@
 >. </para>
 
 <programlisting
->Формат: tellico [параметры] [filename]
+>Usage: tellico [options] [filename]
 
-Tellico — диспетчер коллекций, разработанный KDE
+Tellico - collection management software, free and simple
 
-Параметры:
-  --nofile                  Не открывать автоматически последний файл
-  --bibtex                  Импортировать &lt;filename&gt; как файл BibTeX
-  --mods                    Импортировать &lt;filename&gt; как файл MODS
-  --ris                     Импортировать &lt;filename&gt; как файл RIS
+Options:
+  --nofile                  Do not reopen the last open file
+  --bibtex                  Import &lt;filename&gt; as a bibtex file
+  --mods                    Import &lt;filename&gt; as a MODS file
+  --ris                     Import &lt;filename&gt; as a RIS file
+  --pdf                     Import &lt;filename&gt; as a PDF file
 
-Аргументы:
-  filename                  Открыть заданный файл
+Arguments:
+  [filename]                File to open
 </programlisting>
 
 </sect1>
@@ -63,6 +64,7 @@ Tellico — диспетчер коллекций, разработанный KD
 >bool importTellico(QString file, QString action)
 bool importBibtex(QString file, QString action)
 bool importMODS(QString file, QString action)
+bool importPDF(QString file, QString action)
 bool importRIS(QString file, QString action)
 bool exportXML(QString file, bool filtered)
 bool exportZip(QString file, bool filtered)

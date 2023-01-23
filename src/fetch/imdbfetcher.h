@@ -41,6 +41,7 @@ namespace KIO {
 
 class QCheckBox;
 class QRegExpr;
+class QRegularExpression;
 
 namespace Tellico {
   namespace GUI {
@@ -81,7 +82,6 @@ public:
 
   struct LangData {
     QString siteTitle;
-    QString siteHost;
     QString title_popular;
     QString match_exact;
     QString match_partial;
@@ -107,6 +107,7 @@ public:
     QString certification;
     QString country;
     QString plot;
+    QString composer;
   };
   static const LangData& langData(int lang);
 
@@ -133,8 +134,10 @@ private:
   static QRegExp* s_anchorTitleRx;
   static QRegExp* s_anchorNameRx;
   static QRegExp* s_titleRx;
+  static const QRegularExpression* s_titleIdRx;
   static int s_instanceCount;
 
+  void doJson(const QString& s, Data::EntryPtr e);
   void doTitle(const QString& s, Data::EntryPtr e);
   void doRunningTime(const QString& s, Data::EntryPtr e);
   void doAspectRatio(const QString& s, Data::EntryPtr e);
@@ -148,11 +151,13 @@ private:
   void doLists2(const QString& s, Data::EntryPtr e);
   void doRating(const QString& s, Data::EntryPtr e);
   void doCover(const QString& s, Data::EntryPtr e, const QUrl& baseURL);
+  void doEpisodes(const QString& s, Data::EntryPtr e, const QUrl& baseURL);
 
   void parseSingleTitleResult();
   void parseMultipleTitleResults();
   void parseTitleBlock(const QString& str);
   Data::EntryPtr parseEntry(const QString& str);
+  void configureJob(QPointer<KIO::StoredTransferJob> job);
 
   QString m_text;
   QHash<uint, Data::EntryPtr> m_entries;

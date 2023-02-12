@@ -54,11 +54,13 @@
 </screenshot>
 
 <para
->С помощью страницы <guilabel
->Общие параметры</guilabel
-> возможно управлять общим поведением программы. Изображения могут быть включены в файлы данных или же сохранены отдельно в папке приложения &appname;. Кроме того, при запуске &appname; возможно автоматически открывать последний файл данных. Диалоговое окно <guilabel
->Совет дня</guilabel
->, которое появляется при запуске программы, содержит полезные советы по использованию &appname;. Возможно ознакомиться с советами, а затем отключить показ этого окна. </para>
+>The <guilabel
+>General Options</guilabel
+> control the general behavior. Images may be included in the data files, or saved separately in the &appname; application folder. Also, when &appname; is started, it can automatically reopen the last data file that was open. The <guilabel
+>Tip of the Day</guilabel
+> dialog contains helpful hints on using &appname; and appears at program startup. You may want to read through some of the hints and then disable the dialog. The <interface
+>Quick Filter</interface
+> in the toolbar is useful for easily filtering through your collection and can utilize regular expressions. </para>
 
 <para
 >Группа параметров <guilabel
@@ -264,12 +266,6 @@
 >Открытый каталог фильмов OMDb</link
 >,</simpara
 ></listitem>
-<listitem
-><simpara
-><link linkend="animenfo"
->AnimeNfo.com</link
->,</simpara
-></listitem>
 <!-- comics -->
 <listitem
 ><simpara
@@ -364,6 +360,12 @@
 ><simpara
 ><link linkend="colnect"
 >Colnect</link
+>,</simpara
+></listitem>
+<listitem
+><simpara
+><link linkend="numista"
+>Numista</link
 >,</simpara
 ></listitem>
 <!-- others -->
@@ -605,14 +607,6 @@
 > — французский сетевой сервис, который позволяет получать информацию о фильмах. В разделе параметров системы KDE необходимо включить идентификацию браузера. </para>
 </sect3>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> — популярный сайт с информацией об аниме (японской анимации). </para>
-</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -719,7 +713,7 @@
 <!-- start of coin sources -->
 <sect2 id="coin-sources">
 <title
->Источники данных о монетах</title>
+>Источники данных о монетах и марках</title>
 
 <sect3 id="colnect">
 <title
@@ -727,7 +721,16 @@
 <para
 ><ulink url="https://colnect.com"
 >Colnect</ulink
-> — сетевое сообщество для коллекционеров, которое позволяет управлять личной коллекцией. &tellico; поддерживает поиск информации о монетах на этом сайте. </para>
+> — сетевое сообщество для коллекционеров, которое позволяет управлять личной коллекцией. &tellico; поддерживает поиск информации о монетах и марках на этом сайте. </para>
+</sect3>
+
+<sect3 id="numista">
+<title
+>Numista</title>
+<para
+><ulink url="https://numista.com"
+>Numista</ulink
+> — мировой каталог монет, пополняемый участниками сообщества. Он позволяет управлять коллекцией по сети, выполнять обмен с другими коллекционерами, а также общаться на форуме. </para>
 </sect3>
 
 </sect2>
@@ -806,7 +809,7 @@
 <title
 >Сочетание нескольких источников данных</title>
 <para
->Возможно скомбинировать несколько (до восьми) существующих источников данных, чтобы использовать их как единый источник, в котором будут объединены результаты поиска по всем источникам. Перед добавлением источников необходимо указать тип коллекции. </para>
+>Возможно скомбинировать несколько (до восьми) существующих источников данных, чтобы использовать их как единый источник, в котором каждый результат поиска из первого источника обновляется данными из последующих источников. Перед добавлением источников необходимо указать тип коллекции. </para>
 
 <screenshot>
 <mediaobject>
@@ -816,7 +819,7 @@
 </screenshot>
 
 <para
->Сочетать возможно только существующие источники данных. Поисковый запрос направляется каждому из источников, а затем выполняется объединение результатов. Так как объединённые результаты зависят от порядка получения результатов поиска, итоговый набор может варьироваться в зависимости от скорости сети и источников. </para>
+>Сочетать возможно только существующие источники данных. В этом источнике можно использовать только тип поиска для первого источника, так как результаты поступают из первого источника данных. Например, сначала выполняется поиск в UPCitemDb, и каждый результат затем обновляется из TheMovieDB. </para>
 </sect2>
 
 </sect1>

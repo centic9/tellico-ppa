@@ -12,18 +12,19 @@
 >. </para>
 
 <programlisting
->Användning: tellico [väljare] [filnamn]
+>Usage: tellico [options] [filename]
 
-Tellico - programvara för samlingshantering, fri och enkel
+Tellico - collection management software, free and simple
 
-Väljare:
-  --nofile                  Öppna inte den senast öppnade filen igen
-  --bibtex                  Importera &lt;filnamn&gt; som en bibtex-fil
-  --mods                    Importera &lt;filnamn&gt; som en MODS-fil
-  --ris                     Importera &lt;filnamn&gt; som en RIS-fil
+Options:
+  --nofile                  Do not reopen the last open file
+  --bibtex                  Import &lt;filename&gt; as a bibtex file
+  --mods                    Import &lt;filename&gt; as a MODS file
+  --ris                     Import &lt;filename&gt; as a RIS file
+  --pdf                     Import &lt;filename&gt; as a PDF file
 
-Argument:
-  filnamn                   Fil att öppna
+Arguments:
+  [filename]                File to open
 </programlisting>
 
 </sect1>
@@ -63,6 +64,7 @@ Argument:
 >bool importTellico(QString file, QString action)
 bool importBibtex(QString file, QString action)
 bool importMODS(QString file, QString action)
+bool importPDF(QString file, QString action)
 bool importRIS(QString file, QString action)
 bool exportXML(QString file, bool filtered)
 bool exportZip(QString file, bool filtered)

@@ -3,7 +3,7 @@ Section: kde
 Priority: optional
 Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Pino Toscano <pino@debian.org>,
-Build-Depends: debhelper-compat (= 13),
+Build-Depends: debhelper (>= 12),
  , cmake, extra-cmake-modules (>= 5.19.0~)
  , pkg-config, pkg-kde-tools, qtbase5-dev (>= 5.4.0~),
  , libqt5charts5-dev (>= 5.4.0~),
@@ -43,7 +43,11 @@ Build-Depends: debhelper-compat (= 13),
  , tidy <!nocheck>
 # missing in libtag1-dev
  , zlib1g-dev
+ , libv4l-dev
 Standards-Version: 4.6.2
+Build-Conflicts: libqimageblitz-dev
+Standards-Version: 4.6.0
+>>>>>>> ppa/3.4.4-1
 Rules-Requires-Root: no
 Homepage: https://tellico-project.org/
 Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/tellico

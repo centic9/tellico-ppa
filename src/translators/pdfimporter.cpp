@@ -24,8 +24,10 @@
 
 #include "pdfimporter.h"
 #include "tellicoimporter.h"
+#include "ebookimporter.h"
 #include "xslthandler.h"
 #include "xmphandler.h"
+#include "../collections/bookcollection.h"
 #include "../collections/bibtexcollection.h"
 #include "../fieldformat.h"
 #include "../core/filehandler.h"
@@ -66,7 +68,7 @@ PDFImporter::PDFImporter(const QList<QUrl>& urls_) : Importer(urls_), m_cancelle
 }
 
 bool PDFImporter::canImport(int type_) const {
-  return type_ == Data::Collection::Bibtex;
+  return type_ == Data::Collection::Book || type_ == Data::Collection::Bibtex;
 }
 
 Tellico::Data::CollPtr PDFImporter::collection() {
@@ -88,6 +90,13 @@ Tellico::Data::CollPtr PDFImporter::collection() {
   if(!xsltHandler.isValid()) {
     myWarning() << "invalid xslt in xmp2tellico.xsl";
     return Data::CollPtr();
+  }
+  bool isBook = false;
+  if(currentCollection() && currentCollection()->type() == Data::Collection::Book) {
+    xsltHandler.addStringParam("ctype", "2"); // book if already existing
+    isBook = true;
+  } else {
+    xsltHandler.addStringParam("ctype", "5"); // bibtex by default
   }
 
   bool hasDOI = false;
@@ -132,7 +141,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
         entry = newColl->entries().front();
         hasDOI |= !entry->field(QStringLiteral("doi")).isEmpty();
         // the XMP handler has a habit of inserting empty values surrounded by parentheses
-        QRegularExpression rx(QLatin1String("^\\(\\s*\\)$"));
+        static const QRegularExpression rx(QLatin1String("^\\(\\s*\\)$"));
         foreach(Data::FieldPtr field, newColl->fields()) {
           QString value = entry->field(field);
           if(value.contains(rx)) {
@@ -142,15 +151,18 @@ Tellico::Data::CollPtr PDFImporter::collection() {
       }
     }
 
+#ifdef HAVE_POPPLER
     if(!newColl) {
-      newColl = new Data::BibtexCollection(true);
+      if(isBook) {
+        newColl = new Data::BookCollection(true);
+      } else {
+        newColl = new Data::BibtexCollection(true);
+      }
     }
     if(!entry) {
       entry = new Data::Entry(newColl);
       newColl->addEntries(entry);
     }
-
-#ifdef HAVE_POPPLER
 
     // now load from poppler
     Poppler::Document* doc = Poppler::Document::load(ref->fileName());
@@ -164,11 +176,14 @@ Tellico::Data::CollPtr PDFImporter::collection() {
       // author could be separated by commas, "and" or whatever
       // we're not going to overwrite it
       if(entry->field(QStringLiteral("author")).isEmpty()) {
-        QRegularExpression rx(QLatin1String("\\s*(\\s+and\\s+|,|;)\\s*"));
+        static const QRegularExpression rx(QLatin1String("\\s*(\\s+and\\s+|,|;)\\s*"));
         QStringList authors = doc->info(QStringLiteral("Author")).simplified().split(rx);
         entry->setField(QStringLiteral("author"), authors.join(FieldFormat::delimiterString()));
       }
       s = doc->info(QStringLiteral("Keywords")).simplified();
+      if(s.isEmpty()) {
+        s = doc->info(QStringLiteral("Subject")).simplified();
+      }
       if(!s.isEmpty()) {
         // keywords are also separated by semi-colons in poppler
         entry->setField(QStringLiteral("keyword"), s);
@@ -180,34 +195,34 @@ Tellico::Data::CollPtr PDFImporter::collection() {
         // a null rectangle means get all text on page
         QString text = page->text(QRectF());
         // borrowed from Referencer
-        QRegularExpression rx(QLatin1String("(?:"
-                                            "(?:[Dd][Oo][Ii]:? *)"
-                                            "|"
-                                            "(?:[Dd]igital *[Oo]bject *[Ii]dentifier:? *)"
-                                            ")"
-                                            "("
-                                            "[^\\.\\s]+"
-                                            "\\."
-                                            "[^\\/\\s]+"
-                                            "\\/"
-                                            "[^\\s]+"
-                                            ")"));
-        QRegularExpressionMatch m = rx.match(text);
+        static const QRegularExpression doiRx(QLatin1String("(?:"
+                                                            "(?:[Dd][Oo][Ii]:? *)"
+                                                            "|"
+                                                            "(?:[Dd]igital *[Oo]bject *[Ii]dentifier:? *)"
+                                                            ")"
+                                                            "("
+                                                            "[^\\.\\s]+"
+                                                            "\\."
+                                                            "[^\\/\\s]+"
+                                                            "\\/"
+                                                            "[^\\s]+"
+                                                            ")"));
+        QRegularExpressionMatch m = doiRx.match(text);
         if(m.hasMatch()) {
-          QString doi = m.captured(1);
+          const QString doi = m.captured(1);
           myLog() << "in PDF file, found DOI:" << doi;
           entry->setField(QStringLiteral("doi"), doi);
           hasDOI = true;
         }
-        rx = QRegularExpression(QLatin1String("arXiv:"
-                                              "("
-                                              "[^\\/\\s]+"
-                                              "[\\/\\.]"
-                                              "[^\\s]+"
-                                              ")"));
-        m = rx.match(text);
+        static const QRegularExpression arxivRx(QLatin1String("arXiv:"
+                                                              "("
+                                                              "[^\\/\\s]+"
+                                                              "[\\/\\.]"
+                                                              "[^\\s]+"
+                                                              ")"));
+        m = arxivRx.match(text);
         if(m.hasMatch()) {
-          QString arxiv = m.captured(1);
+          const QString arxiv = m.captured(1);
           myLog() << "in PDF file, found arxiv:" << arxiv;
           if(!entry->collection()->hasField(QStringLiteral("arxiv"))) {
             Data::FieldPtr field(new Data::Field(QStringLiteral("arxiv"), i18n("arXiv ID")));
@@ -224,12 +239,43 @@ Tellico::Data::CollPtr PDFImporter::collection() {
       myDebug() << "unable to read PDF info (poppler)";
     }
     delete doc;
+#elif defined HAVE_KFILEMETADATA
+    if(!newColl || newColl->entryCount() == 0) {
+      myDebug() << "Reading with metadata";
+      EBookImporter imp(urls());
+      auto ebookColl = imp.collection();
+      if(ebookColl && ebookColl->type() == Data::Collection::Book && !isBook) {
+        newColl = Data::BibtexCollection::convertBookCollection(ebookColl);
+      } else {
+        newColl = ebookColl;
+      }
+      if(newColl->entryCount() > 0) {
+        entry = new Data::Entry(newColl);
+        newColl->addEntries(entry);
+      } else {
+        entry = newColl->entries().front();
+      }
+    }
+#else
+    // only recourse is to create an empty collection
+    if(!newColl) {
+      if(isBook) {
+        newColl = new Data::BookCollection(true);
+      } else {
+        newColl = new Data::BibtexCollection(true);
+      }
+    }
+    if(!entry) {
+      entry = new Data::Entry(newColl);
+      newColl->addEntries(entry);
+    }
 #endif
 
-    entry->setField(QStringLiteral("url"), (*it).url());
-    // always an article?
-    entry->setField(QStringLiteral("entry-type"), QStringLiteral("article"));
-
+    if(!isBook) {
+      entry->setField(QStringLiteral("url"), (*it).url());
+      // always an article?
+      entry->setField(QStringLiteral("entry-type"), QStringLiteral("article"));
+    }
     QPixmap pix = NetAccess::filePreview(QUrl::fromLocalFile(ref->fileName()), PDF_FILE_PREVIEW_SIZE);
     if(pix.isNull()) {
       myDebug() << "No file preview from pdf";
@@ -259,7 +305,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
     }
   }
 
-  if(m_cancelled) {
+  if(m_cancelled || !coll) {
     return Data::CollPtr();
   }
 

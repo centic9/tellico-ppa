@@ -96,7 +96,6 @@ void UPCItemDbFetcher::search() {
 void UPCItemDbFetcher::continueSearch() {
   m_started = true;
 
-
   QUrl u(QString::fromLatin1(UPCITEMDB_API_URL));
   u = u.adjusted(QUrl::StripTrailingSlash);
   u.setPath(u.path() + QLatin1String("/lookup"));
@@ -118,7 +117,7 @@ void UPCItemDbFetcher::continueSearch() {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       stop();
       return;
   }
@@ -329,7 +328,7 @@ void UPCItemDbFetcher::parseTitle(Tellico::Data::EntryPtr entry_) {
       case Data::Collection::Book:
         title = dashMatch.captured(1);
         {
-          QRegularExpression byAuthor(QLatin1String("by (.+)"));
+          static const QRegularExpression byAuthor(QLatin1String("by (.+)"));
           QRegularExpressionMatch authorMatch = byAuthor.match(dashMatch.captured(2));
           if(authorMatch.hasMatch()) {
             entry_->setField(QStringLiteral("author"), authorMatch.captured(1).simplified());

@@ -120,9 +120,6 @@ void TheMovieDBFetcher::saveConfigHook(KConfigGroup& config_) {
 }
 
 void TheMovieDBFetcher::search() {
-  if(m_imageBase.isEmpty() || m_serverConfigDate.daysTo(QDate::currentDate()) > 7) {
-    readConfiguration();
-  }
   continueSearch();
 }
 
@@ -159,7 +156,7 @@ void TheMovieDBFetcher::continueSearch() {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       stop();
       return;
   }
@@ -190,6 +187,10 @@ Tellico::Data::EntryPtr TheMovieDBFetcher::fetchEntryHook(uint uid_) {
   if(!entry) {
     myWarning() << "no entry in dict";
     return Data::EntryPtr();
+  }
+
+  if(m_imageBase.isEmpty() || m_serverConfigDate.daysTo(QDate::currentDate()) > 7) {
+    readConfiguration();
   }
 
   QString id = entry->field(QStringLiteral("tmdb-id"));

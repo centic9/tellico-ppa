@@ -61,9 +61,7 @@ Image& Image::operator=(const Image& other) {
 // simply by comparing their ids.
 Image::Image(const QString& filename_, const QString& id_) : QImage(), m_id(idClean(id_)), m_linkOnly(false) {
   QImageReader reader;
-#if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
   reader.setAutoTransform(true);
-#endif
   reader.setFileName(filename_);
   m_format = reader.format();
   if(!reader.read(this)) {
@@ -88,6 +86,8 @@ Image::Image(const QByteArray& data_, const QString& format_, const QString& id_
     : QImage(QImage::fromData(data_)), m_id(idClean(id_)), m_format(format_.toLatin1()), m_linkOnly(false) {
   if(isNull()) {
     m_id.clear();
+  } else if(m_id.isEmpty()) {
+    calculateID();
   }
 }
 
@@ -96,15 +96,6 @@ Image::~Image() {
 
 QByteArray Image::byteArray() const {
   return byteArray(*this, outputFormat(m_format));
-}
-
-// TODO: once the min qt version is raised to 5.10, this can be removed
-qsizetype Image::byteSize() const {
-#if (QT_VERSION < QT_VERSION_CHECK(5, 10, 0))
-  return byteCount();
-#else
-  return sizeInBytes();
-#endif
 }
 
 bool Image::isNull() const {

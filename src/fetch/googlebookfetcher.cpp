@@ -142,7 +142,7 @@ void GoogleBookFetcher::doSearch(const QString& term_) {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       return;
   }
   u.setQuery(q);
@@ -311,7 +311,7 @@ void GoogleBookFetcher::populateEntry(Data::EntryPtr entry, const QVariantMap& r
 
   const QStringList catList = volumeMap.value(QStringLiteral("categories")).toStringList();
   // google is going to give us a lot of categories
-  const QRegularExpression slash(QLatin1String("\\s*/\\s*"));
+  static const QRegularExpression slash(QLatin1String("\\s*/\\s*"));
   QStringList cleanCategories;
   foreach(const QString& cat, catList) {
     // split them by the '/' character, too

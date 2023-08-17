@@ -183,7 +183,7 @@ bool HTMLExporter::loadXSLTFile() {
   m_handler->addStringParam("date", QDate::currentDate().toString(Qt::ISODate).toLatin1());
   m_handler->addStringParam("time", QTime::currentTime().toString(Qt::ISODate).toLatin1());
   m_handler->addStringParam("user", KUser(KUser::UseRealUserID).loginName().toLatin1());
-  m_handler->addStringParam("basedir", u.adjusted(QUrl::RemoveFilename).path().toLocal8Bit());
+  m_handler->addStringParam("basedir", u.url(QUrl::RemoveFilename).toLocal8Bit());
 
   if(m_exportEntryFiles) {
     // export entries to same place as all the other date files
@@ -215,6 +215,8 @@ bool HTMLExporter::loadXSLTFile() {
 }
 
 QString HTMLExporter::text() {
+  // allow caching or overriding the main html text
+  if(!m_customHtml.isEmpty()) return m_customHtml;
   if((!m_handler || !m_handler->isValid()) && !loadXSLTFile()) {
     myWarning() << "error loading xslt file:" << m_xsltFile;
     return QString();
@@ -251,7 +253,13 @@ QString HTMLExporter::text() {
   f.close();
 #endif
 
+  // need to adjust the basedir if we're exporting to a url()
+  const auto oldBasedir = m_handler->param("basedir");
+  if(!url().isEmpty()) {
+    m_handler->addStringParam("basedir", url().url(QUrl::RemoveFilename).toLocal8Bit());
+  }
   const QString outputText = m_handler->applyStylesheet(output.toString());
+  m_handler->addParam("basedir", oldBasedir); // not ::addStringParam since it has quotes now
 #if 0
   myDebug() << "Remove debug2 from htmlexporter.cpp";
   QFile f2(QLatin1String("/tmp/test.html"));
@@ -392,6 +400,7 @@ void HTMLExporter::setFormattingOptions(Tellico::Data::CollPtr coll) {
   m_handler->addStringParam("fgcolor",  Config::templateTextColor(type).name().toLatin1());
   m_handler->addStringParam("color1",   Config::templateHighlightedTextColor(type).name().toLatin1());
   m_handler->addStringParam("color2",   Config::templateHighlightedBaseColor(type).name().toLatin1());
+  m_handler->addStringParam("linkcolor",Config::templateLinkColor(type).name().toLatin1());
 
   // add locale code to stylesheet (for sorting)
   m_handler->addStringParam("lang", QLocale().name().toLatin1());
@@ -542,6 +551,7 @@ void HTMLExporter::saveOptions(KSharedConfigPtr config_) {
 }
 
 void HTMLExporter::setXSLTFile(const QString& filename_) {
+  m_customHtml.clear();
   if(m_xsltFile == filename_) {
     return;
   }
@@ -741,7 +751,7 @@ bool HTMLExporter::writeEntryFiles() {
   // I can't reliable encode a string as a URI, so I'm punting, and I'll just replace everything but
   // a-zA-Z0-9 with an underscore. This MUST match the filename template in tellico2html.xsl
   // the id is used so uniqueness is guaranteed
-  const QRegularExpression badChars(QLatin1String("[^-a-zA-Z0-9]"));
+  static const QRegularExpression badChars(QLatin1String("[^-a-zA-Z0-9]"));
   FieldFormat::Request formatted = (options() & Export::ExportFormatted ?
                                                    FieldFormat::ForceFormat :
                                                    FieldFormat::AsIsFormat);

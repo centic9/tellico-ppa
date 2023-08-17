@@ -145,6 +145,17 @@ ecm_add_test(collectiontest.cpp
     LINK_LIBRARIES ${TELLICO_TEST_LIBS} translatorstest
 )
 
+ecm_add_test(commandtest.cpp
+             ../commands/collectioncommand.cpp
+             ../document.cpp
+             ../translators/tellicoxmlexporter.cpp
+             ../translators/tellicozipexporter.cpp
+             ../translators/exporter.cpp
+    TEST_NAME commandtest
+    LINK_LIBRARIES translatorstest ${TELLICO_TEST_LIBS}
+    # order of library linking here apparently matters
+)
+
 ecm_add_test(documenttest.cpp
              ../document.cpp
              ../translators/tellicoxmlexporter.cpp
@@ -172,7 +183,7 @@ ecm_add_test(tellicomodeltest.cpp
              ../translators/tellico_xml.cpp
              ../translators/xmlstatehandler.cpp
     TEST_NAME tellicomodeltest
-    LINK_LIBRARIES ${TELLICO_TEST_LIBS}  ${LIBXML2_LIBRARIES}
+    LINK_LIBRARIES ${TELLICO_TEST_LIBS} ${LIBXML2_LIBRARIES}
 )
 
 ######################################################
@@ -250,11 +261,25 @@ ecm_add_test(collectorztest.cpp
 
 ecm_add_test(csvtest.cpp
              ../translators/csvparser.cpp
+             ../translators/csvimporter.cpp
              ../translators/csvexporter.cpp
              ../translators/exporter.cpp
+             ../gui/collectiontypecombo.cpp
+             ../gui/combobox.cpp
+             ../gui/listwidgetitem.cpp
+             ../gui/stringmapwidget.cpp
+             ../gui/stringmapdialog.cpp
+             ../collectionfieldsdialog.cpp
     TEST_NAME csvtest
     LINK_LIBRARIES ${TELLICO_CSV_LIBS} ${TELLICO_TEST_LIBS} translatorstest
 )
+
+ecm_add_test(datacrowtest.cpp
+             ../translators/datacrowimporter.cpp
+    TEST_NAME datacrowtest
+    LINK_LIBRARIES ${TELLICO_TEST_LIBS} translatorstest
+)
+
 
 ecm_add_test(delicioustest.cpp
              ../translators/deliciousimporter.cpp
@@ -338,6 +363,12 @@ ecm_add_test(librarythingtest.cpp
              ../translators/importer.cpp
     TEST_NAME librarythingtest
     LINK_LIBRARIES ${TELLICO_TEST_LIBS}
+)
+
+ecm_add_test(marctest.cpp
+             ../translators/marcimporter.cpp
+    TEST_NAME marctest
+    LINK_LIBRARIES ${TELLICO_TEST_LIBS} translatorstest
 )
 
 ecm_add_test(modstest.cpp
@@ -446,6 +477,7 @@ ecm_add_test(fetchertest.cpp
 # the PDF importer uses CrossRefFetcher, so include the test near the fetchers section
 ecm_add_test(pdftest.cpp
              ../translators/pdfimporter.cpp
+             ../translators/ebookimporter.cpp
              ../translators/xmphandler.cpp
              ../entryupdatejob.cpp
     TEST_NAME pdftest
@@ -457,6 +489,9 @@ endif(Exempi_FOUND)
 if(Poppler_Qt5_FOUND)
   target_link_libraries(pdftest Poppler::Qt5)
 endif(Poppler_Qt5_FOUND)
+if(KF5FileMetaData_FOUND)
+  target_link_libraries(pdftest KF5::FileMetaData)
+endif(KF5FileMetaData_FOUND)
 
 # fetcher tests from here down
 IF(BUILD_FETCHER_TESTS)
@@ -592,10 +627,22 @@ ecm_add_test(externalfetchertest.cpp
                    KF5::XmlGui
 )
 
+ecm_add_test(filmaffinityfetchertest.cpp
+             ../fetch/filmaffinityfetcher.cpp
+    TEST_NAME filmaffinityfetchertest
+    LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
+)
+
 ecm_add_test(filmasterfetchertest.cpp
              ../fetch/filmasterfetcher.cpp
     TEST_NAME filmasterfetchertest
     LINK_LIBRARIES fetcherstest translatorstest ${TELLICO_TEST_LIBS}
+)
+
+ecm_add_test(gaminghistoryfetchertest.cpp
+             ../fetch/gaminghistoryfetcher.cpp
+    TEST_NAME gaminghistoryfetchertest
+    LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
 )
 
 # running gcstar in the fetcher is really unreliable
@@ -659,6 +706,12 @@ ecm_add_test(isbndbfetchertest.cpp
     LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
 )
 
+ecm_add_test(itunesfetchertest.cpp
+             ../fetch/itunesfetcher.cpp
+    TEST_NAME itunesfetchertest
+    LINK_LIBRARIES fetcherstest translatorstest ${TELLICO_TEST_LIBS}
+)
+
 ecm_add_test(kinofetchertest.cpp
              ../fetch/kinofetcher.cpp
     TEST_NAME kinofetchertest
@@ -717,6 +770,12 @@ ecm_add_test(musicbrainzfetchertest.cpp
 ecm_add_test(numistafetchertest.cpp
              ../fetch/numistafetcher.cpp
     TEST_NAME numistafetchertest
+    LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
+)
+
+ecm_add_test(opdsfetchertest.cpp
+             ../fetch/opdsfetcher.cpp
+    TEST_NAME opdsfetchertest
     LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
 )
 

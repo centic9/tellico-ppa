@@ -109,7 +109,11 @@ enum Type {
   TVmaze,
   UPCItemDb,
   TheTVDB,
-  RPGGeek
+  RPGGeek,
+  GamingHistory,
+  FilmAffinity,
+  Itunes,
+  OPDS
 };
 
   }

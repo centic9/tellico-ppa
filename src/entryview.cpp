@@ -43,6 +43,7 @@
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <KStandardAction>
+#include <KColorScheme>
 
 #include <QFile>
 #include <QTextStream>
@@ -108,6 +109,7 @@ using Tellico::EntryViewPage;
 
 EntryViewPage::EntryViewPage(QWidget* parent)
     : QWebEnginePage(parent) {
+  setBackgroundColor(KColorScheme().background().color());
   settings()->setAttribute(QWebEngineSettings::JavascriptEnabled, false);
   settings()->setAttribute(QWebEngineSettings::PluginsEnabled, false);
   settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
@@ -384,6 +386,7 @@ void EntryView::setXSLTFile(const QString& file_) {
   m_handler->addStringParam("fgcolor",  Config::templateTextColor(type).name().toLatin1());
   m_handler->addStringParam("color1",   Config::templateHighlightedTextColor(type).name().toLatin1());
   m_handler->addStringParam("color2",   Config::templateHighlightedBaseColor(type).name().toLatin1());
+  m_handler->addStringParam("linkcolor",Config::templateLinkColor(type).name().toLatin1());
 
   if(Data::Document::self()->allImagesOnDisk()) {
     m_handler->addStringParam("imgdir", QUrl::fromLocalFile(ImageFactory::imageDir()).toEncoded());
@@ -500,6 +503,7 @@ void EntryView::setXSLTOptions(const Tellico::StyleOptions& opt_) {
   m_handler->addStringParam("fgcolor",  opt_.textColor.name().toLatin1());
   m_handler->addStringParam("color1",   opt_.highlightedTextColor.name().toLatin1());
   m_handler->addStringParam("color2",   opt_.highlightedBaseColor.name().toLatin1());
+  m_handler->addStringParam("linkcolor",opt_.linkColor.name().toLatin1());
   m_handler->addStringParam("imgdir",   QFile::encodeName(opt_.imgDir));
 }
 

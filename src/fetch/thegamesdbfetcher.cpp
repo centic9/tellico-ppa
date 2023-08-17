@@ -133,7 +133,7 @@ void TheGamesDBFetcher::search() {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       stop();
       return;
   }
@@ -175,8 +175,34 @@ Tellico::Data::EntryPtr TheGamesDBFetcher::fetchEntryHook(uint uid_) {
     entry->setField(QStringLiteral("cover"), id);
   }
 
+  const QString tgdb = QStringLiteral("tgdb-id");
+  const QString screenshot = QStringLiteral("screenshot");
+  if(optionalFields().contains(screenshot)) {
+    if(!entry->collection()->hasField(screenshot)) {
+      entry->collection()->addField(Data::Field::createDefaultField(Data::Field::ScreenshotField));
+    }
+    QUrl u(QString::fromLatin1(THEGAMESDB_API_URL));
+    u.setPath(QLatin1String("/v") + QLatin1String(THEGAMESDB_API_VERSION) + QLatin1String("/Games/Images"));
+    QUrlQuery q;
+    q.addQueryItem(QStringLiteral("apikey"), m_apiKey);
+    q.addQueryItem(QStringLiteral("games_id"), entry->field(tgdb));
+    q.addQueryItem(QStringLiteral("filter[type]"), screenshot);
+    u.setQuery(q);
+
+    QByteArray data = FileHandler::readDataFile(u, true);
+    QVariantMap topLevelMap = QJsonDocument::fromJson(data).object().toVariantMap();
+    readCoverList(topLevelMap.value(QStringLiteral("data")).toMap());
+
+    const QString screenshot_key = QLatin1Char('s') + entry->field(tgdb);
+    if(m_covers.contains(screenshot_key)) {
+      const QString screenshot_url = m_covers.value(screenshot_key);
+      const QString id = ImageFactory::addImage(QUrl::fromUserInput(screenshot_url), true /* quiet */);
+      entry->setField(screenshot, id);
+    }
+  }
+
   // don't want to include TGDb ID field
-  entry->setField(QStringLiteral("tgdb-id"), QString());
+  entry->setField(tgdb, QString());
 
   return entry;
 }
@@ -365,7 +391,7 @@ void TheGamesDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& 
   entry_->setField(QStringLiteral("publisher"), pubs.join(FieldFormat::delimiterString()));
   entry_->setField(QStringLiteral("developer"), devs.join(FieldFormat::delimiterString()));
 
-if(entry_->collection()->hasField(QStringLiteral("num-player"))) {
+  if(entry_->collection()->hasField(QStringLiteral("num-player"))) {
     entry_->setField(QStringLiteral("num-player"), mapValue(resultMap_, "players"));
   }
 }
@@ -430,6 +456,20 @@ void TheGamesDBFetcher::readCoverList(const QVariantMap& coverDataMap_) {
       if(map.value(QStringLiteral("type")) == QLatin1String("boxart") &&
          map.value(QStringLiteral("side")) == QLatin1String("front")) {
         m_covers.insert(i.key(), baseUrl + mapValue(map, "filename"));
+        break;
+      }
+    }
+  }
+
+  // these are probably screenshots
+  QVariantMap imagesMap = coverDataMap_.value(QStringLiteral("images")).toMap();
+  QMapIterator<QString, QVariant> i2(imagesMap);
+  while(i2.hasNext()) {
+    i2.next();
+    foreach(QVariant v, i2.value().toList()) {
+      QVariantMap map = v.toMap();
+      if(map.value(QStringLiteral("type")) == QLatin1String("screenshot")) {
+        m_covers.insert(QLatin1Char('s') + i2.key(), baseUrl + mapValue(map, "filename"));
         break;
       }
     }
@@ -561,6 +601,7 @@ QString TheGamesDBFetcher::defaultIcon() {
 Tellico::StringHash TheGamesDBFetcher::allOptionalFields() {
   StringHash hash;
   hash[QStringLiteral("num-player")] = i18n("Number of Players");
+  hash[QStringLiteral("screenshot")] = i18n("Screenshot");
   return hash;
 }
 

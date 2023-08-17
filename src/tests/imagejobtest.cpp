@@ -70,6 +70,7 @@ void ImageJobTest::enterLoop() {
 
 void ImageJobTest::slotGetResult(KJob* job) {
   m_result = job->error();
+  if(m_result > 1 && !job->errorString().isEmpty()) qDebug() << job->errorString();
   emit exitLoop();
 }
 
@@ -104,7 +105,10 @@ void ImageJobTest::testNonexistant() {
 void ImageJobTest::testUnreadable() {
   QTemporaryFile tmpFile;
   QVERIFY(tmpFile.open());
+  QVERIFY(!tmpFile.fileName().isEmpty());
   QVERIFY(tmpFile.setPermissions(QFileDevice::Permissions()));
+  tmpFile.close();
+  QVERIFY(!tmpFile.isReadable());
   QUrl u = QUrl::fromLocalFile(tmpFile.fileName());
 
   Tellico::ImageJob* job = new Tellico::ImageJob(u);
@@ -112,7 +116,10 @@ void ImageJobTest::testUnreadable() {
           this, &ImageJobTest::slotGetResult);
 
   enterLoop();
-  QCOMPARE(m_result, int(KIO::ERR_CANNOT_OPEN_FOR_READING));
+  // on the gitlab CI, QFileInfo(tmpFile).isReadable can still return true
+  // so check for either result code
+  QVERIFY(m_result == KIO::ERR_CANNOT_OPEN_FOR_READING ||
+          m_result == KIO::ERR_UNKNOWN);
 
   const Tellico::Data::Image& img = job->image();
   QVERIFY(img.isNull());

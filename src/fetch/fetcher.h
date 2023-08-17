@@ -71,10 +71,6 @@ public:
    */
   virtual bool canSearch(FetchKey key) const = 0;
   virtual bool canUpdate() const;
-  /**
-   * Returns true if the fetcher requires a user agent to be sent
-   */
-  virtual bool needsUserAgent() const { return false; }
 
   /**
    * Returns the type of the data source.
@@ -85,6 +81,7 @@ public:
    */
   virtual QString source() const = 0;
   virtual QString attribution() const { return QString(); }
+  virtual QString icon() const { return QString(); }
   /**
    * Returns the collection type of the most recent search
    */
@@ -125,7 +122,6 @@ public:
   /**
    */
   void message(const QString& message, int type) const;
-  void infoList(const QString& message, const QStringList& list) const;
 
   /**
    * Reads the config for the widget, given a config group.

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2008-2020 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2008-2022 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -46,6 +46,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
+#include <QThread>
 
 namespace {
   static const int DISCOGS_MAX_RETURNS_TOTAL = 20;
@@ -134,7 +135,7 @@ void DiscogsFetcher::continueSearch() {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       stop();
       return;
   }
@@ -146,6 +147,7 @@ void DiscogsFetcher::continueSearch() {
 //  myDebug() << "url: " << u.url();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  m_job->addMetaData(QLatin1String("SendUserAgent"), QLatin1String("true"));
   m_job->addMetaData(QStringLiteral("UserAgent"), QStringLiteral("Tellico/%1")
                                                                 .arg(QStringLiteral(TELLICO_VERSION)));
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
@@ -193,8 +195,12 @@ Tellico::Data::EntryPtr DiscogsFetcher::fetchEntryHook(uint uid_) {
     QJsonDocument doc = QJsonDocument::fromJson(data, &error);
     const QVariantMap resultMap = doc.object().toVariantMap();
     if(resultMap.contains(QStringLiteral("message")) && mapValue(resultMap, "id").isEmpty()) {
-      message(mapValue(resultMap, "message"), MessageHandler::Error);
-      myLog() << "DiscogsFetcher -" << mapValue(resultMap, "message");
+      const auto& msg = mapValue(resultMap, "message");
+      message(msg, MessageHandler::Error);
+      myLog() << "DiscogsFetcher -" << msg;
+      if(msg.startsWith(QLatin1String("You are making requests too quickly"))) {
+        QThread::msleep(2000);
+      }
     } else if(error.error == QJsonParseError::NoError) {
       populateEntry(entry, resultMap, true);
     } else {
@@ -326,6 +332,11 @@ void DiscogsFetcher::slotComplete(KJob*) {
     field->setCategory(i18n("General"));
     coll->addField(field);
   }
+  if(optionalFields().contains(QStringLiteral("catno"))) {
+    Data::FieldPtr field(new Data::Field(QStringLiteral("catno"), i18n("Catalog Number")));
+    field->setCategory(i18n("General"));
+    coll->addField(field);
+  }
 
   QJsonDocument doc = QJsonDocument::fromJson(data);
 //  const QVariantMap resultMap = doc.object().toVariantMap().value(QStringLiteral("feed")).toMap();
@@ -378,11 +389,15 @@ void DiscogsFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& res
   artists.removeDuplicates(); // sometimes the same value is repeated
   entry_->setField(QStringLiteral("artist"), artists.join(FieldFormat::delimiterString()));
 
-  QStringList labels;
+  QStringList labels, catnos;
   foreach(const QVariant& label, resultMap_.value(QLatin1String("labels")).toList()) {
     labels << mapValue(label.toMap(), "name");
+    catnos << mapValue(label.toMap(), "catno");
   }
   entry_->setField(QStringLiteral("label"), labels.join(FieldFormat::delimiterString()));
+  if(entry_->collection()->hasField(QStringLiteral("catno"))) {
+    entry_->setField(QStringLiteral("catno"), catnos.join(FieldFormat::delimiterString()));
+  }
 
   /* cover value is not always in the full data, so go ahead and set it now */
   QString coverUrl = mapValue(resultMap_, "cover_image");
@@ -495,6 +510,7 @@ Tellico::StringHash DiscogsFetcher::allOptionalFields() {
   hash[QStringLiteral("nationality")] = i18n("Nationality");
   hash[QStringLiteral("discogs")] = i18n("Discogs Link");
   hash[QStringLiteral("barcode")] = i18n("Barcode");
+  hash[QStringLiteral("catno")] = i18n("Catalog Number");
   return hash;
 }
 

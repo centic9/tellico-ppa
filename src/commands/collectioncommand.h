@@ -71,7 +71,6 @@ private:
     DoNothing, ClearOriginal, ClearNew
   };
   CleanupMode m_cleanup;
-  bool m_structuralChange;
 };
 
   } // end namespace

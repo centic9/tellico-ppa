@@ -89,11 +89,11 @@ public Q_SLOTS:
   void setFocus();
 
 protected Q_SLOTS:
-  void slotEditRegExp();
   void slotRuleFieldChanged(int which);
   void slotRuleFunctionChanged(int which);
 
 private:
+  static QString anyFieldString();
   void initLists();
   void initWidget();
   void updateFunctionList();
@@ -103,14 +103,13 @@ private:
   QStackedWidget* m_valueStack;
   KLineEdit* m_ruleValue;
   KDateComboBox* m_ruleDate;
-  QPushButton* m_editRegExp;
-  QDialog* m_editRegExpDialog;
   QStringList m_ruleFieldList;
   enum RuleType {
     General,
     Date,
     Number,
-    Image
+    Image,
+    Bool
   };
   RuleType m_ruleType;
 };

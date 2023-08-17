@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: None
+# SPDX-License-Identifier: CC0-1.0
+
+Dependencies:
+- 'on': ['@all']
+  'require':
+    'frameworks/ki18n': '@stable'
+    'frameworks/kxmlgui': '@stable'
+    'frameworks/kio': '@stable'
+    'frameworks/kfilemetadata': '@stable'
+    'frameworks/kiconthemes': '@stable'
+    'frameworks/kitemmodels': '@stable'
+    'frameworks/kparts': '@stable'
+    'frameworks/kcoreaddons': '@stable'
+    'frameworks/ktexteditor': '@stable'
+    'frameworks/kdoctools': '@stable'
+    'frameworks/kwallet': '@stable'
+    'frameworks/knewstuff': '@stable'
+    'frameworks/kcrash': '@stable'
+    'frameworks/extra-cmake-modules': '@stable'
+    'multimedia/libkcddb': 'master'
+
+Options:
+  run-tests: True
+  require-passing-tests-on: [ 'Linux' ]
+  run-cppcheck: True
+  cppcheck-arguments: '--enable=warning,style,performance'
+  cppcheck-ignore-files:
+    - src/3rdparty/

@@ -193,7 +193,7 @@ Tellico::Data::GameCollection::GamePlatform GameCollection::guessPlatform(const 
   } else if(name_.contains(QStringLiteral("PC")) ||
             name_.contains(QStringLiteral("Windows"))) {
     return Windows;
-  } else if(name_.contains(QStringLiteral("Mac"))) {
+  } else if(name_.contains(QStringLiteral("Mac"), Qt::CaseInsensitive)) {
     return MacOS;
   } else if(name_.contains(QStringLiteral("3DS"))) {
     return Nintendo3DS;
@@ -277,7 +277,7 @@ QStringList GameCollection::esrbRatings() {
                            "Unrated, Adults Only, Mature, Teen, Everyone 10+, Everyone, Early Childhood, Pending",
                            "Unrated, Adults Only, Mature, Teen, Everyone 10+, Everyone, Early Childhood, Pending")
 #if (QT_VERSION < QT_VERSION_CHECK(5, 14, 0))
-                     .split(rx), QString::SkipEmptyParts);
+                     .split(rx, QString::SkipEmptyParts);
 #else
                      .split(rx, Qt::SkipEmptyParts);
 #endif

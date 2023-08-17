@@ -37,21 +37,12 @@ void ManagerMessage::send(const QString& message_, Type type_) {
   GUI::CursorSaver cs(Qt::ArrowCursor);
   // errors and warnings get a message box
   if(type_ == Error && GUI::Proxy::widget()) {
-    KMessageBox::sorry(GUI::Proxy::widget(), message_);
+    KMessageBox::error(GUI::Proxy::widget(), message_);
 //                       QString(), // caption
 //                       KMessageBox::Options(KMessageBox::Notify | KMessageBox::AllowLink));
   } else if(type_ == Warning && GUI::Proxy::widget()) {
     KMessageBox::information(GUI::Proxy::widget(), message_);
   } else {
     Fetch::Manager::self()->updateStatus(message_);
-  }
-}
-
-void ManagerMessage::infoList(const QString& message_, const QStringList& list_) {
-  if(GUI::Proxy::widget()) {
-    GUI::CursorSaver cs(Qt::ArrowCursor);
-    KMessageBox::informationList(GUI::Proxy::widget(), message_, list_);
-  } else {
-    myDebug() << "ManagerMessage::infoList() - no widget";
   }
 }

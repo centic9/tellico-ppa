@@ -199,16 +199,47 @@ bool CollectionHandler::end(const QStringRef&, const QStringRef&) {
       // if not, then there was no <image> in the XML
       // so it's a url, but maybe link only
       if(!ImageFactory::hasImageInfo(value)) {
-        const QUrl u = QUrl::fromUserInput(value);
-        // the image file name is a valid URL, but I want it to be a local URL or non empty remote one
-        if(u.isValid() && (u.isLocalFile() || !u.host().isEmpty())) {
-          const QString result = ImageFactory::addImage(u, !d->showImageLoadErrors || imageWarnings >= maxImageWarnings /* quiet */);
-          if(result.isEmpty()) {
-            // clear value for the field in this case
-            value.clear();
-            ++imageWarnings;
+        QUrl u(value); // previously used QUrl::fromUserInput but now expect proper url
+        // also allow relative image urls
+        if(u.isRelative()) {
+          if(d->baseUrl.isEmpty()) {
+            // assume a local file, as fromUserInput() would do
+            u = QUrl::fromLocalFile(value);
           } else {
-            value = result;
+            u = d->baseUrl.resolved(u);
+          }
+        }
+        // the image file name is a valid URL, but I want it to be a local URL or non empty remote one
+        if(u.isValid()) {
+          if(u.scheme() == QLatin1String("data")) {
+            const QByteArray ba = QByteArray::fromPercentEncoding(u.path(QUrl::FullyEncoded).toLatin1());
+            const int pos = ba.indexOf(',');
+            if(ba.startsWith("image/") && pos > -1) {
+              const QByteArray header = ba.left(pos);
+              const int pos2 = header.indexOf(';');
+              // we can only read images in base64
+              if(header.contains("base64") && pos2 > -1) {
+                const QByteArray format = header.left(pos2).mid(6); // remove "image/";
+                const QString result = ImageFactory::addImage(QByteArray::fromBase64(ba.mid(pos+1)),
+                                                              QString::fromLatin1(format));
+                if(result.isEmpty()) {
+                  // clear value for the field in this case
+                  value.clear();
+                  ++imageWarnings;
+                } else {
+                  value = result;
+                }
+              }
+            }
+          } else if(u.isLocalFile() || !u.host().isEmpty()) {
+            const QString result = ImageFactory::addImage(u, !d->showImageLoadErrors || imageWarnings >= maxImageWarnings /* quiet */);
+            if(result.isEmpty()) {
+              // clear value for the field in this case
+              value.clear();
+              ++imageWarnings;
+            } else {
+              value = result;
+            }
           }
         } else {
           value = Data::Image::idClean(value);
@@ -678,7 +709,7 @@ bool TableColumnHandler::end(const QStringRef&, const QStringRef&) {
      d->currentField->name() == QLatin1String("track") &&
      !d->textBuffer.isEmpty() &&
      d->textBuffer.contains(FieldFormat::columnDelimiterString()) == 0) {
-    const QRegularExpression rx(QLatin1String("^\\d+:\\d\\d$"));
+    static const QRegularExpression rx(QLatin1String("^\\d+:\\d\\d$"));
     if(rx.match(d->text).hasMatch()) {
       d->text += FieldFormat::columnDelimiterString();
       d->text += d->entries.back()->field(QStringLiteral("artist"));

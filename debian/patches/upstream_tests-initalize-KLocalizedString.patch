@@ -1,0 +1,889 @@
+From 98027e0d1bc8f737f2371461217eeb3afafd85e0 Mon Sep 17 00:00:00 2001
+From: Pino Toscano <pino@kde.org>
+Date: Tue, 4 Jul 2023 11:45:06 +0200
+Subject: [PATCH] tests: initalize KLocalizedString
+
+Initialize the KLocalizedString domain in tests that directly or
+indirectly use KLocalizedString (e.g. by i18n() or other variants);
+this avoids the many debug messages in tests such as:
+  kf.i18n: KLocalizedString: Using an empty domain, fix the code.
+
+There should be no behaviour change to these tests.
+---
+ src/tests/adstest.cpp          | 6 ++++++
+ src/tests/adstest.h            | 1 +
+ src/tests/alexandriatest.cpp   | 3 +++
+ src/tests/amctest.cpp          | 6 ++++++
+ src/tests/amctest.h            | 1 +
+ src/tests/audiofiletest.cpp    | 3 +++
+ src/tests/bibtexmltest.cpp     | 3 +++
+ src/tests/bibtextest.cpp       | 2 ++
+ src/tests/citetest.cpp         | 6 ++++++
+ src/tests/citetest.h           | 1 +
+ src/tests/ciwtest.cpp          | 6 ++++++
+ src/tests/ciwtest.h            | 1 +
+ src/tests/collectiontest.cpp   | 2 ++
+ src/tests/collectorztest.cpp   | 3 +++
+ src/tests/commandtest.cpp      | 3 +++
+ src/tests/comparisontest.cpp   | 3 +++
+ src/tests/csvtest.cpp          | 3 +++
+ src/tests/datacrowtest.cpp     | 3 +++
+ src/tests/delicioustest.cpp    | 3 +++
+ src/tests/documenttest.cpp     | 3 +++
+ src/tests/entitytest.cpp       | 6 ++++++
+ src/tests/entitytest.h         | 1 +
+ src/tests/fieldtest.cpp        | 6 ++++++
+ src/tests/fieldtest.h          | 1 +
+ src/tests/fieldwidgettest.cpp  | 2 ++
+ src/tests/filelistingtest.cpp  | 3 +++
+ src/tests/filtertest.cpp       | 3 +++
+ src/tests/formattest.cpp       | 3 +++
+ src/tests/goodreadstest.cpp    | 2 ++
+ src/tests/griffithtest.cpp     | 3 +++
+ src/tests/htmlexportertest.cpp | 3 +++
+ src/tests/imagejobtest.cpp     | 3 +++
+ src/tests/imagetest.cpp        | 3 +++
+ src/tests/librarythingtest.cpp | 6 ++++++
+ src/tests/librarythingtest.h   | 1 +
+ src/tests/marctest.cpp         | 3 +++
+ src/tests/modstest.cpp         | 3 +++
+ src/tests/pdftest.cpp          | 3 +++
+ src/tests/referencertest.cpp   | 3 +++
+ src/tests/ristest.cpp          | 6 ++++++
+ src/tests/ristest.h            | 1 +
+ src/tests/tellicomodeltest.cpp | 3 +++
+ src/tests/vinoxmltest.cpp      | 3 +++
+ 43 files changed, 133 insertions(+)
+
+diff --git a/src/tests/adstest.cpp b/src/tests/adstest.cpp
+index 2215edf2..97ff8caf 100644
+--- a/src/tests/adstest.cpp
++++ b/src/tests/adstest.cpp
+@@ -30,10 +30,16 @@
+ #include "../collections/bibtexcollection.h"
+ #include "../fieldformat.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_APPLESS_MAIN( AdsTest )
+ 
++void AdsTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ void AdsTest::testImport() {
+   QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test.ads"));
+   QList<QUrl> urls;
+diff --git a/src/tests/adstest.h b/src/tests/adstest.h
+index 5ff77ac8..f8ee77f2 100644
+--- a/src/tests/adstest.h
++++ b/src/tests/adstest.h
+@@ -31,6 +31,7 @@ class AdsTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testImport();
+ };
+ 
+diff --git a/src/tests/alexandriatest.cpp b/src/tests/alexandriatest.cpp
+index 02269495..5a8b2531 100644
+--- a/src/tests/alexandriatest.cpp
++++ b/src/tests/alexandriatest.cpp
+@@ -29,6 +29,8 @@
+ #include "../collections/bookcollection.h"
+ #include "../images/imagefactory.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QTemporaryDir>
+ #include <QStandardPaths>
+@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( AlexandriaTest )
+ 
+ void AlexandriaTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+ }
+ 
+diff --git a/src/tests/amctest.cpp b/src/tests/amctest.cpp
+index 39060392..0334209e 100644
+--- a/src/tests/amctest.cpp
++++ b/src/tests/amctest.cpp
+@@ -29,10 +29,16 @@
+ #include "../translators/amcimporter.h"
+ #include "../collection.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_GUILESS_MAIN( AmcTest )
+ 
++void AmcTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ // this is a real basic test right now, AMC doesn't run real well under wine
+ void AmcTest::testImport() {
+   QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test.amc"));
+diff --git a/src/tests/amctest.h b/src/tests/amctest.h
+index 73988ee6..2c595bdf 100644
+--- a/src/tests/amctest.h
++++ b/src/tests/amctest.h
+@@ -31,6 +31,7 @@ class AmcTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testImport();
+ };
+ 
+diff --git a/src/tests/audiofiletest.cpp b/src/tests/audiofiletest.cpp
+index 3e6fddb2..cf3bb772 100644
+--- a/src/tests/audiofiletest.cpp
++++ b/src/tests/audiofiletest.cpp
+@@ -32,6 +32,8 @@
+ #include "../images/imagefactory.h"
+ #include "../images/image.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( AudioFileTest )
+ 
+ void AudioFileTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+ }
+ 
+diff --git a/src/tests/bibtexmltest.cpp b/src/tests/bibtexmltest.cpp
+index 5d25e5b9..e5132b3d 100644
+--- a/src/tests/bibtexmltest.cpp
++++ b/src/tests/bibtexmltest.cpp
+@@ -32,6 +32,8 @@
+ #include "../collectionfactory.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_GUILESS_MAIN( BibtexmlTest )
+@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( BibtexmlTest )
+ #define QL1(x) QStringLiteral(x)
+ 
+ void BibtexmlTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/bibtexml2tellico.xsl"));
+   // need to register the collection type
+   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtexml(Tellico::Data::Collection::Bibtex, "bibtex");
+diff --git a/src/tests/bibtextest.cpp b/src/tests/bibtextest.cpp
+index 713198a4..b5b6298c 100644
+--- a/src/tests/bibtextest.cpp
++++ b/src/tests/bibtextest.cpp
+@@ -35,6 +35,7 @@
+ 
+ #include <KSharedConfig>
+ #include <KConfigGroup>
++#include <KLocalizedString>
+ 
+ #include <QTest>
+ 
+@@ -43,6 +44,7 @@ QTEST_GUILESS_MAIN( BibtexTest )
+ #define QL1(x) QStringLiteral(x)
+ 
+ void BibtexTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   // since we use the bibtex mapping file
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../translators/bibtex-translation.xml"));
+ }
+diff --git a/src/tests/citetest.cpp b/src/tests/citetest.cpp
+index 368188eb..f4c5c88d 100644
+--- a/src/tests/citetest.cpp
++++ b/src/tests/citetest.cpp
+@@ -30,6 +30,8 @@
+ #include "../config/tellico_config.h"
+ #include "../collections/bibtexcollection.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QTemporaryFile>
+ #include <QApplication>
+@@ -37,6 +39,10 @@
+ 
+ QTEST_MAIN( CiteTest )
+ 
++void CiteTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ void CiteTest::testLyxpipe() {
+   QTemporaryFile tempFile(QStringLiteral("citetest.XXXXXX.in"));
+   QVERIFY(tempFile.open());
+diff --git a/src/tests/citetest.h b/src/tests/citetest.h
+index 05bdb882..199eaa71 100644
+--- a/src/tests/citetest.h
++++ b/src/tests/citetest.h
+@@ -31,6 +31,7 @@ class CiteTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testLyxpipe();
+   void testLyxpipeNotExists();
+   void testClipboard();
+diff --git a/src/tests/ciwtest.cpp b/src/tests/ciwtest.cpp
+index f876ab19..cb09006f 100644
+--- a/src/tests/ciwtest.cpp
++++ b/src/tests/ciwtest.cpp
+@@ -28,12 +28,18 @@
+ #include "../collections/bibtexcollection.h"
+ #include "../fieldformat.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_APPLESS_MAIN( CiwTest )
+ 
+ #define QSL(x) QStringLiteral(x)
+ 
++void CiwTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ void CiwTest::testImport() {
+   QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("/data/test.ciw"));
+   QList<QUrl> urls;
+diff --git a/src/tests/ciwtest.h b/src/tests/ciwtest.h
+index 984a45f4..e89bc02a 100644
+--- a/src/tests/ciwtest.h
++++ b/src/tests/ciwtest.h
+@@ -31,6 +31,7 @@ class CiwTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testImport();
+ };
+ 
+diff --git a/src/tests/collectiontest.cpp b/src/tests/collectiontest.cpp
+index 5362b19a..197ee330 100644
+--- a/src/tests/collectiontest.cpp
++++ b/src/tests/collectiontest.cpp
+@@ -38,6 +38,7 @@
+ #include "../utils/mergeconflictresolver.h"
+ #include "../entrycomparison.h"
+ 
++#include <KLocalizedString>
+ #include <KProcess>
+ 
+ #include <QTest>
+@@ -68,6 +69,7 @@ private:
+ void CollectionTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
+   qRegisterMetaType<Tellico::EntryComparison::MatchValue>();
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+   // need to register the collection types
+   Tellico::CollectionInitializer ci;
+diff --git a/src/tests/collectorztest.cpp b/src/tests/collectorztest.cpp
+index d064f9d4..5410d716 100644
+--- a/src/tests/collectorztest.cpp
++++ b/src/tests/collectorztest.cpp
+@@ -35,6 +35,8 @@
+ #include "../fieldformat.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -42,6 +44,7 @@ QTEST_GUILESS_MAIN( CollectorzTest )
+ 
+ void CollectorzTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/collectorz2tellico.xsl"));
+   // need to register the collection type
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+diff --git a/src/tests/commandtest.cpp b/src/tests/commandtest.cpp
+index 61405103..eceb3c02 100644
+--- a/src/tests/commandtest.cpp
++++ b/src/tests/commandtest.cpp
+@@ -31,6 +31,8 @@
+ #include "../collectionfactory.h"
+ #include "../images/imagefactory.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ #include <QFile>
+@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( CommandTest )
+ 
+ void CommandTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+ 
+diff --git a/src/tests/comparisontest.cpp b/src/tests/comparisontest.cpp
+index 653c2d9f..dc8abf65 100644
+--- a/src/tests/comparisontest.cpp
++++ b/src/tests/comparisontest.cpp
+@@ -29,11 +29,14 @@
+ #include "../models/fieldcomparison.h"
+ #include "../config/tellico_config.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_GUILESS_MAIN( ComparisonTest )
+ 
+ void ComparisonTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::Config::setArticlesString(QStringLiteral("the,l'"));
+ }
+ 
+diff --git a/src/tests/csvtest.cpp b/src/tests/csvtest.cpp
+index 44dd5250..699519f6 100644
+--- a/src/tests/csvtest.cpp
++++ b/src/tests/csvtest.cpp
+@@ -31,6 +31,8 @@
+ #include "../collections/bookcollection.h"
+ #include "../collections/musiccollection.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -40,6 +42,7 @@ QTEST_MAIN( CsvTest )
+ 
+ void CsvTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+   Tellico::RegisterCollection<Tellico::Data::MusicCollection> registerAlbum(Tellico::Data::Collection::Album, "album");
+ }
+diff --git a/src/tests/datacrowtest.cpp b/src/tests/datacrowtest.cpp
+index 13db3263..8e96fd1d 100644
+--- a/src/tests/datacrowtest.cpp
++++ b/src/tests/datacrowtest.cpp
+@@ -35,6 +35,8 @@
+ #include "../fieldformat.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -42,6 +44,7 @@ QTEST_GUILESS_MAIN( DataCrowTest )
+ 
+ void DataCrowTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/datacrow2tellico.xsl"));
+   // need to register the collection type
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+diff --git a/src/tests/delicioustest.cpp b/src/tests/delicioustest.cpp
+index 77fbee63..231f270c 100644
+--- a/src/tests/delicioustest.cpp
++++ b/src/tests/delicioustest.cpp
+@@ -36,6 +36,8 @@
+ #include "../fieldformat.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ #define FIELDS(entry, fieldName) Tellico::FieldFormat::splitValue(entry->field(fieldName))
+@@ -44,6 +46,7 @@
+ QTEST_GUILESS_MAIN( DeliciousTest )
+ 
+ void DeliciousTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/delicious2tellico.xsl"));
+   // need to register the collection type
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+diff --git a/src/tests/documenttest.cpp b/src/tests/documenttest.cpp
+index 9b37dbd4..769061d6 100644
+--- a/src/tests/documenttest.cpp
++++ b/src/tests/documenttest.cpp
+@@ -32,6 +32,8 @@
+ #include "../collections/bookcollection.h"
+ #include "../collectionfactory.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QTemporaryDir>
+ #include <QTemporaryFile>
+@@ -42,6 +44,7 @@ QTEST_GUILESS_MAIN( DocumentTest )
+ 
+ void DocumentTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+   // test case is a book file
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+diff --git a/src/tests/entitytest.cpp b/src/tests/entitytest.cpp
+index 8492ae2c..d3a72f51 100644
+--- a/src/tests/entitytest.cpp
++++ b/src/tests/entitytest.cpp
+@@ -28,12 +28,18 @@
+ 
+ #include "../utils/string_utils.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_APPLESS_MAIN( EntityTest )
+ 
+ #define QSL(x) QStringLiteral(x)
+ 
++void EntityTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ void EntityTest::testEntities() {
+   QFETCH(QByteArray, data);
+   QFETCH(QString, expectedString);
+diff --git a/src/tests/entitytest.h b/src/tests/entitytest.h
+index 6dae4acf..8e6d7527 100644
+--- a/src/tests/entitytest.h
++++ b/src/tests/entitytest.h
+@@ -31,6 +31,7 @@ class EntityTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testEntities();
+   void testEntities_data();
+   void testAccents();
+diff --git a/src/tests/fieldtest.cpp b/src/tests/fieldtest.cpp
+index a8b98929..84766efa 100644
+--- a/src/tests/fieldtest.cpp
++++ b/src/tests/fieldtest.cpp
+@@ -29,10 +29,16 @@
+ #include "../field.h"
+ #include "../gui/urlfieldlogic.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_APPLESS_MAIN( FieldTest )
+ 
++void FieldTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ void FieldTest::testAll() {
+   Tellico::Data::Field field1(QStringLiteral("name"), QStringLiteral("title"));
+ 
+diff --git a/src/tests/fieldtest.h b/src/tests/fieldtest.h
+index 8735c748..c5ada74a 100644
+--- a/src/tests/fieldtest.h
++++ b/src/tests/fieldtest.h
+@@ -31,6 +31,7 @@ class FieldTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testAll();
+   void testUrlFieldLogic();
+ };
+diff --git a/src/tests/fieldwidgettest.cpp b/src/tests/fieldwidgettest.cpp
+index d4c4d74a..b489e812 100644
+--- a/src/tests/fieldwidgettest.cpp
++++ b/src/tests/fieldwidgettest.cpp
+@@ -42,6 +42,7 @@
+ #include "../collections/bookcollection.h"
+ #include "../collectionfactory.h"
+ 
++#include <KLocalizedString>
+ #include <KTextEdit>
+ #include <KUrlRequester>
+ 
+@@ -57,6 +58,7 @@ QTEST_MAIN( FieldWidgetTest )
+ 
+ void FieldWidgetTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+   Tellico::ImageFactory::init();
+ }
+diff --git a/src/tests/filelistingtest.cpp b/src/tests/filelistingtest.cpp
+index 09dd21e0..063b6043 100644
+--- a/src/tests/filelistingtest.cpp
++++ b/src/tests/filelistingtest.cpp
+@@ -31,6 +31,8 @@
+ #include "../translators/xmphandler.h"
+ #include "../images/imagefactory.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -39,6 +41,7 @@ QTEST_MAIN( FileListingTest )
+ 
+ void FileListingTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+ }
+ 
+diff --git a/src/tests/filtertest.cpp b/src/tests/filtertest.cpp
+index 8d3a1e8d..fa29b593 100644
+--- a/src/tests/filtertest.cpp
++++ b/src/tests/filtertest.cpp
+@@ -33,6 +33,8 @@
+ #include "../images/imageinfo.h"
+ #include "../images/imagefactory.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -40,6 +42,7 @@ QTEST_GUILESS_MAIN( FilterTest )
+ 
+ void FilterTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+ }
+ 
+diff --git a/src/tests/formattest.cpp b/src/tests/formattest.cpp
+index 1e8fb40b..15e37f89 100644
+--- a/src/tests/formattest.cpp
++++ b/src/tests/formattest.cpp
+@@ -29,11 +29,14 @@
+ #include "../fieldformat.h"
+ #include "../config/tellico_config.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_GUILESS_MAIN( FormatTest )
+ 
+ void FormatTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::Config::setArticlesString(QStringLiteral("the,l'"));
+   Tellico::Config::setNoCapitalizationString(QStringLiteral("the,of,et,de"));
+ }
+diff --git a/src/tests/goodreadstest.cpp b/src/tests/goodreadstest.cpp
+index 209b5d95..2cb054f0 100644
+--- a/src/tests/goodreadstest.cpp
++++ b/src/tests/goodreadstest.cpp
+@@ -34,6 +34,7 @@
+ #include <KConfig>
+ #include <KSharedConfig>
+ #include <KConfigGroup>
++#include <KLocalizedString>
+ 
+ #include <QTest>
+ #include <QNetworkInterface>
+@@ -54,6 +55,7 @@ static bool hasNetwork() {
+ 
+ void GoodreadsTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/goodreads2tellico.xsl"));
+   Tellico::ImageFactory::init();
+diff --git a/src/tests/griffithtest.cpp b/src/tests/griffithtest.cpp
+index b60a02c7..58020914 100644
+--- a/src/tests/griffithtest.cpp
++++ b/src/tests/griffithtest.cpp
+@@ -31,6 +31,8 @@
+ #include "../images/imagefactory.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -41,6 +43,7 @@ QTEST_GUILESS_MAIN( GriffithTest )
+ 
+ void GriffithTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/griffith2tellico.xsl"));
+   Tellico::ImageFactory::init();
+   // need to register the collection type
+diff --git a/src/tests/htmlexportertest.cpp b/src/tests/htmlexportertest.cpp
+index 004c7766..0c905d9e 100644
+--- a/src/tests/htmlexportertest.cpp
++++ b/src/tests/htmlexportertest.cpp
+@@ -38,6 +38,8 @@
+ #include "../utils/datafileregistry.h"
+ #include "../config/tellico_config.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QRegularExpression>
+ #include <QTemporaryDir>
+@@ -49,6 +51,7 @@ QTEST_GUILESS_MAIN( HtmlExporterTest )
+ 
+ void HtmlExporterTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+   Tellico::RegisterCollection<Tellico::Data::VideoCollection> registerVideo(Tellico::Data::Collection::Video, "video");
+diff --git a/src/tests/imagejobtest.cpp b/src/tests/imagejobtest.cpp
+index 3b45bb2e..b9e212b0 100644
+--- a/src/tests/imagejobtest.cpp
++++ b/src/tests/imagejobtest.cpp
+@@ -29,6 +29,8 @@
+ #include "../images/imagefactory.h"
+ #include "../images/imageinfo.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QEventLoop>
+ #include <QTemporaryFile>
+@@ -51,6 +53,7 @@ static bool hasNetwork() {
+ 
+ void ImageJobTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+ }
+ 
+diff --git a/src/tests/imagetest.cpp b/src/tests/imagetest.cpp
+index fae28593..77aaed52 100644
+--- a/src/tests/imagetest.cpp
++++ b/src/tests/imagetest.cpp
+@@ -27,6 +27,8 @@
+ #include "../images/imagefactory.h"
+ #include "../images/image.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -34,6 +36,7 @@ QTEST_GUILESS_MAIN( ImageTest )
+ 
+ void ImageTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+ }
+ 
+diff --git a/src/tests/librarythingtest.cpp b/src/tests/librarythingtest.cpp
+index 7a390f68..0cc39ebb 100644
+--- a/src/tests/librarythingtest.cpp
++++ b/src/tests/librarythingtest.cpp
+@@ -29,10 +29,16 @@
+ #include "../translators/librarythingimporter.h"
+ #include "../fieldformat.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_APPLESS_MAIN( LibraryThingTest )
+ 
++void LibraryThingTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ void LibraryThingTest::testImport() {
+   QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/librarything.json"));
+    Tellico::Import::LibraryThingImporter importer(url);
+diff --git a/src/tests/librarythingtest.h b/src/tests/librarythingtest.h
+index 6abe44a1..ec294c9a 100644
+--- a/src/tests/librarythingtest.h
++++ b/src/tests/librarythingtest.h
+@@ -31,6 +31,7 @@ class LibraryThingTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testImport();
+ };
+ 
+diff --git a/src/tests/marctest.cpp b/src/tests/marctest.cpp
+index 6d5b8369..ddcad07f 100644
+--- a/src/tests/marctest.cpp
++++ b/src/tests/marctest.cpp
+@@ -32,12 +32,15 @@
+ #include "../collectionfactory.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+ QTEST_APPLESS_MAIN( MarcTest )
+ 
+ void MarcTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/mods2tellico.xsl"));
+diff --git a/src/tests/modstest.cpp b/src/tests/modstest.cpp
+index e3c5cc2c..0780ffe6 100644
+--- a/src/tests/modstest.cpp
++++ b/src/tests/modstest.cpp
+@@ -33,6 +33,8 @@
+ #include "../fieldformat.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QDomDocument>
+ #include <QTextCodec>
+@@ -40,6 +42,7 @@
+ QTEST_APPLESS_MAIN( ModsTest )
+ 
+ void ModsTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/mods2tellico.xsl"));
+ }
+diff --git a/src/tests/pdftest.cpp b/src/tests/pdftest.cpp
+index 885941ff..bd7ade16 100644
+--- a/src/tests/pdftest.cpp
++++ b/src/tests/pdftest.cpp
+@@ -35,6 +35,8 @@
+ #include "../fieldformat.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -43,6 +45,7 @@ QTEST_MAIN( PdfTest )
+ 
+ void PdfTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibliography");
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+   // since we use the XMP importer
+diff --git a/src/tests/referencertest.cpp b/src/tests/referencertest.cpp
+index 15930dd3..b352b7bd 100644
+--- a/src/tests/referencertest.cpp
++++ b/src/tests/referencertest.cpp
+@@ -32,6 +32,8 @@
+ #include "../fieldformat.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ #define FIELDS(entry, fieldName) Tellico::FieldFormat::splitValue(entry->field(fieldName))
+@@ -39,6 +41,7 @@
+ QTEST_GUILESS_MAIN( ReferencerTest )
+ 
+ void ReferencerTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/referencer2tellico.xsl"));
+   // need to register the collection type
+   Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
+diff --git a/src/tests/ristest.cpp b/src/tests/ristest.cpp
+index 8c1179a4..7b37567c 100644
+--- a/src/tests/ristest.cpp
++++ b/src/tests/ristest.cpp
+@@ -30,10 +30,16 @@
+ #include "../collections/bibtexcollection.h"
+ #include "../fieldformat.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ 
+ QTEST_APPLESS_MAIN( RisTest )
+ 
++void RisTest::initTestCase() {
++  KLocalizedString::setApplicationDomain("tellico");
++}
++
+ void RisTest::testImport() {
+   QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test.ris"));
+   QList<QUrl> urls;
+diff --git a/src/tests/ristest.h b/src/tests/ristest.h
+index e165041e..e37a473f 100644
+--- a/src/tests/ristest.h
++++ b/src/tests/ristest.h
+@@ -31,6 +31,7 @@ class RisTest : public QObject {
+ Q_OBJECT
+ 
+ private Q_SLOTS:
++  void initTestCase();
+   void testImport();
+ };
+ 
+diff --git a/src/tests/tellicomodeltest.cpp b/src/tests/tellicomodeltest.cpp
+index cf1dfd7a..64391015 100644
+--- a/src/tests/tellicomodeltest.cpp
++++ b/src/tests/tellicomodeltest.cpp
+@@ -40,6 +40,8 @@
+ #include "../entrygroup.h"
+ #include "../images/imagefactory.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QSignalSpy>
+ #include <QStandardPaths>
+@@ -48,6 +50,7 @@ QTEST_GUILESS_MAIN( TellicoModelTest )
+ 
+ void TellicoModelTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::ImageFactory::init();
+   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+ }
+diff --git a/src/tests/vinoxmltest.cpp b/src/tests/vinoxmltest.cpp
+index 3b3cf5b5..bb78298a 100644
+--- a/src/tests/vinoxmltest.cpp
++++ b/src/tests/vinoxmltest.cpp
+@@ -34,6 +34,8 @@
+ #include "../images/imageinfo.h"
+ #include "../utils/datafileregistry.h"
+ 
++#include <KLocalizedString>
++
+ #include <QTest>
+ #include <QStandardPaths>
+ 
+@@ -41,6 +43,7 @@ QTEST_GUILESS_MAIN( VinoXMLTest )
+ 
+ void VinoXMLTest::initTestCase() {
+   QStandardPaths::setTestModeEnabled(true);
++  KLocalizedString::setApplicationDomain("tellico");
+   Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/vinoxml2tellico.xsl"));
+   // need to register the collection type
+   Tellico::RegisterCollection<Tellico::Data::WineCollection> registerWine(Tellico::Data::Collection::Wine, "wine");
+-- 
+2.40.1
+

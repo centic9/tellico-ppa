@@ -51,7 +51,10 @@ namespace Tellico {
       VinoXML,
       BoardGameGeek,
       LibraryThing,
-      Collectorz
+      Collectorz,
+      DataCrow,
+      MARC,
+      EBook
     };
 
     enum Action {

@@ -42,7 +42,7 @@
 #include <QUrlQuery>
 
 namespace {
-  static const char* MRLOOKUP_URL = "http://www.ams.org/mrlookup";
+  static const char* MRLOOKUP_URL = "https://mathscinet.ams.org/mrlookup";
 }
 
 using namespace Tellico;
@@ -87,7 +87,7 @@ void MRLookupFetcher::search() {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       stop();
       return;
   }
@@ -143,11 +143,21 @@ void MRLookupFetcher::slotComplete(KJob* job_) {
   // if the pointer is retained, it gets double-deleted
   m_job = nullptr;
 
+#if 0
+  myWarning() << "Remove debug from mrlookup.cpp";
+  QFile f(QString::fromLatin1("/tmp/test-mrlookup.html"));
+  if(f.open(QIODevice::WriteOnly)) {
+    QTextStream t(&f);
+    t.setCodec("UTF-8");
+    t << data;
+  }
+  f.close();
+#endif
   const QString text = QString::fromUtf8(data.constData(), data.size());
   QString bibtexString;
 
   // grab everything within the <pre></pre> block
-  QRegularExpression preRx(QLatin1String("<pre>(.+?)</pre>"), QRegularExpression::DotMatchesEverythingOption);
+  static const QRegularExpression preRx(QLatin1String("<pre>(.+?)</pre>"), QRegularExpression::DotMatchesEverythingOption);
   QRegularExpressionMatchIterator i = preRx.globalMatch(text);
   while(i.hasNext()) {
     QRegularExpressionMatch match = i.next();

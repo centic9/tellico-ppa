@@ -406,9 +406,7 @@ void AmazonFetcher::slotComplete(KJob*) {
     return;
   }
 
-  int count = -1;
   foreach(const QJsonValue& item, resultObject.value(QLatin1String("Items")).toArray()) {
-    ++count;
     if(m_numResults >= m_limit) {
       break;
     }
@@ -824,7 +822,7 @@ QByteArray AmazonFetcher::requestPayload(Fetch::FetchRequest request_) {
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       return QByteArray();
   }
 

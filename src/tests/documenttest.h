@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2015 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2015-2022 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -35,6 +35,7 @@ private Q_SLOTS:
   void cleanupTestCase();
 
   void testImageLocalDirectory();
+  void testSaveTemplate();
 };
 
 #endif

@@ -26,8 +26,6 @@
 #include "tellicoxmlreader.h"
 #include "tellico_xml.h"
 #include "../collectionfactory.h"
-#include "../entry.h"
-#include "../field.h"
 #include "../images/imagefactory.h"
 #include "../images/image.h"
 #include "../utils/isbnvalidator.h"
@@ -108,7 +106,7 @@ Tellico::Data::CollPtr TellicoImporter::collection() {
 void TellicoImporter::loadXMLData(const QByteArray& data_, bool loadImages_) {
   const bool showProgress = options() & ImportProgress;
 
-  TellicoXmlReader reader;
+  TellicoXmlReader reader(m_baseUrl);
   reader.setLoadImages(loadImages_);
   reader.setShowImageLoadErrors(options() & ImportShowImageErrors);
   bool success = true;
@@ -176,9 +174,8 @@ void TellicoImporter::loadZipData() {
     buffer.reset();
     zip.reset(new KZip(fileRef().fileName()));
   } else {
-    QByteArray allData = data();
-    buffer.reset(new QBuffer(&allData));
-    zip.reset(new KZip(buffer.get()));
+    myDebug() << "Attempting to read text as a zip file";
+    return;
   }
   if(!zip->open(QIODevice::ReadOnly)) {
     setStatusMessage(i18n(errorLoad, url().fileName()));

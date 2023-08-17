@@ -1,15 +1,99 @@
+2023-07-03  Robby Stephenson  <robby@periapsis.org>
+
+	* Released Tellico 3.5.1.
+
+2023-06-14  Robby Stephenson  <robby@periapsis.org>
+
+	* Added capability to remember entry template for custom collections based on file name.
+
+2023-06-13  Robby Stephenson  <robby@periapsis.org>
+
+	* Added OPDS catalogs as a data source.
+
+2023-05-29  Robby Stephenson  <robby@periapsis.org>
+
+	* Added support for reading images from data URLs.
+
+2023-05-12  Robby Stephenson  <robby@periapsis.org>
+
+	* Released Tellico 3.5.
+
+2023-05-07  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated KinoPoisk data source (Bug 469441).
+
+2023-04-29  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated Colnect data source to include video game collections.
+
+2023-04-26  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated Colnect data source to include sports card collections.
+
+2023-04-20  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated Colnect data source to include comic book collections.
+
+2023-04-19  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated SRU and z39.50 server info for Library of Congress.
+
+2023-03-11  Robby Stephenson  <robby@periapsis.org>
+
+	* Added config option for link color (Bug 467150).
+
+2023-03-09  Robby Stephenson  <robby@periapsis.org>
+
+	* Added support for importing EPub data on drag/drop (Bug 450192).
+
+2023-02-20  Robby Stephenson  <robby@periapsis.org>
+
+	* Updated AMS MR Lookup data source.
+	* Updated Dark Horse data source.
+	* Updated KinoPoisk data source.
+	* Updated IBS data source.
+
+2023-02-18  Robby Stephenson  <robby@periapsis.org>
+
+	* Added new report with Image Grid.
+	* Added report with one entry per page (Bug 452552).
+
+2023-02-05  Robby Stephenson  <robby@periapsis.org>
+
+	* Added data source for iTunes music.
+
+2023-02-03  Robby Stephenson  <robby@periapsis.org>
+
+	* Fixed crashing bug when UI languages are empty (Bug 464102).
+
 2023-01-21  Robby Stephenson  <robby@periapsis.org>
 
 	* Released Tellico 3.4.6.
 	* Fixed edit dialog resizing (Bug 462237).
 
+2023-01-16  Robby Stephenson  <robby@periapsis.org>
+
+	* Added data source for FilmAffinity.
+
 2023-01-12  Robby Stephenson  <robby@periapsis.org>
 
 	* Fixed bug with timing of multisource config read (Bug 461861).
 
+2023-01-10  Robby Stephenson  <robby@periapsis.org>
+
+	* Added label catalog number to Discogs result options (Bug 452548).
+
+2023-01-05  Robby Stephenson  <robby@periapsis.org>
+
+	* Fixed active filter when entry is selected (Bug 462337).
+
 2023-01-02  Robby Stephenson  <robby@periapsis.org>
 
-	* Fixed fallback to https scheme in SRU data source (Bug 463438).
+	* Added user option for https scheme in SRU data source (Bug 463438).
+
+2022-11-21  Robby Stephenson  <robby@periapsis.org>
+
+	* Use transparent background in initial entry view (Bug 461777).
 
 2022-11-17  Robby Stephenson  <robby@periapsis.org>
 
@@ -23,6 +107,10 @@
 
 	* Fixed loading for large reports (Bug 461391).
 
+2022-05-09  Robby Stephenson  <robby@periapsis.org>
+
+	* Added capability to save empty collection as new template (Bug 450043).
+
 2022-04-27  Robby Stephenson  <robby@periapsis.org>
 
 	* Updated ESRB rating for TheGamesDB data source.
@@ -31,6 +119,30 @@
 2022-04-08  Robby Stephenson  <robby@periapsis.org>
 
 	* Updated CSV importer to remember column and row delimiter.
+
+2022-03-26  Robby Stephenson  <robby@periapsis.org>
+
+	* Added screenshot field for IGDB source.
+
+2022-03-23  Robby Stephenson  <robby@periapsis.org>
+
+	* Added screenshot field for MobyGames source.
+
+2022-03-22  Robby Stephenson  <robby@periapsis.org>
+
+	* Added screenshot field for TheGamesDB source.
+
+2022-03-15  Robby Stephenson  <robby@periapsis.org>
+
+	* Added option for using regular expressions in quick filter (Bug 450517).
+
+2022-03-13  Robby Stephenson  <robby@periapsis.org>
+
+	* Added data source for arcade-history.com (Bug 450058).
+
+2022-03-10  Robby Stephenson  <robby@periapsis.org>
+
+	* Added Data Crow importer (Bug 451138).
 
 2022-02-21  Robby Stephenson  <robby@periapsis.org>
 
@@ -69,6 +181,10 @@
 
 	* Fixed crashing bug in audio file importer (Bug 446551).
 
+2021-12-06  Robby Stephenson  <robby@periapsis.org>
+
+	* Added explicit filter rule for Bool fields.
+
 2021-11-08  Robby Stephenson  <robby@periapsis.org>
 
 	* Released Tellico 3.4.2.
@@ -100,6 +216,7 @@
 2021-09-24  Robby Stephenson  <robby@periapsis.org>
 
 	* Fixed bug that caused crashes when importing PDF files.
+	* Added command-line option to import PDF file.
 
 2021-08-22  Robby Stephenson  <robby@periapsis.org>
 

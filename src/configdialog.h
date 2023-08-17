@@ -25,9 +25,19 @@
 #ifndef TELLICO_CONFIGDIALOG_H
 #define TELLICO_CONFIGDIALOG_H
 
+#include <config.h>
+
 #include "fetch/fetcherinfolistitem.h"
 
 #include <KPageDialog>
+#ifdef ENABLE_KNEWSTUFF3
+#include <knewstuff_version.h>
+#if KNEWSTUFF_VERSION < QT_VERSION_CHECK(5, 91, 0)
+#include <KNS3/Button>
+#else
+#include <KNSWidgets/Button>
+#endif
+#endif
 
 #include <QListWidget>
 
@@ -116,10 +126,15 @@ private Q_SLOTS:
   void slotMoveUpSourceClicked();
   void slotMoveDownSourceClicked();
   void slotSourceFilterChanged();
-  void slotNewStuffClicked();
   void slotShowTemplatePreview();
   void slotInstallTemplate();
-  void slotDownloadTemplate();
+#ifdef ENABLE_KNEWSTUFF3
+#if KNEWSTUFF_VERSION < QT_VERSION_CHECK(5, 91, 0)
+  void slotUpdateTemplates(const QList<KNS3::Entry>& list);
+#else
+  void slotUpdateTemplates(const QList<KNSCore::Entry>& list);
+#endif
+#endif
   void slotDeleteTemplate();
   void slotCreateConfigWidgets();
 
@@ -171,6 +186,7 @@ private:
   QRadioButton* m_rbImageInAppDir;
   QRadioButton* m_rbImageInLocalDir;
   QCheckBox* m_cbOpenLastFile;
+  QCheckBox* m_cbQuickFilterRegExp;
   QCheckBox* m_cbShowTipDay;
   QCheckBox* m_cbEnableWebcam;
   QCheckBox* m_cbCapitalize;
@@ -194,6 +210,7 @@ private:
   KColorCombo* m_textColorCombo;
   KColorCombo* m_highBaseColorCombo;
   KColorCombo* m_highTextColorCombo;
+  KColorCombo* m_linkColorCombo;
 
   QListWidget* m_sourceListWidget;
   QMap<FetcherInfoListItem*, Fetch::ConfigWidget*> m_configWidgets;
@@ -203,7 +220,6 @@ private:
   QPushButton* m_moveUpSourceBtn;
   QPushButton* m_moveDownSourceBtn;
   QPushButton* m_removeSourceBtn;
-  QPushButton* m_newStuffBtn;
   QCheckBox* m_cbFilterSource;
   GUI::CollectionTypeCombo* m_sourceTypeCombo;
 };

@@ -22,8 +22,6 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <config.h>
-
 #include "configdialog.h"
 #include "field.h"
 #include "collection.h"
@@ -37,6 +35,7 @@
 #include "utils/tellico_utils.h"
 #include "utils/string_utils.h"
 #include "config/tellico_config.h"
+#include "core/tellico_strings.h"
 #include "images/imagefactory.h"
 #include "gui/combobox.h"
 #include "gui/collectiontypecombo.h"
@@ -53,7 +52,11 @@
 #include <KRecentDirs>
 
 #ifdef ENABLE_KNEWSTUFF3
-#include <KNS3/DownloadDialog>
+#if KNEWSTUFF_VERSION < QT_VERSION_CHECK(5, 91, 0)
+#include <KNS3/Button>
+#else
+#include <KNSWidgets/Button>
+#endif
 #endif
 
 #include <QSpinBox>
@@ -214,6 +217,12 @@ void ConfigDialog::initGeneralPage(QFrame* frame) {
                                       "will be re-opened at program start-up."));
   l->addWidget(m_cbOpenLastFile);
   connect(m_cbOpenLastFile, &QAbstractButton::clicked, this, &ConfigDialog::slotModified);
+
+  m_cbQuickFilterRegExp = new QCheckBox(i18n("&Enable regular expressions in quick filter"), frame);
+  m_cbQuickFilterRegExp->setWhatsThis(i18n("If checked, the quick filter will "
+                                           "interpret text as a regular expression."));
+  l->addWidget(m_cbQuickFilterRegExp);
+  connect(m_cbQuickFilterRegExp, &QAbstractButton::clicked, this, &ConfigDialog::slotModified);
 
   m_cbShowTipDay = new QCheckBox(i18n("&Show \"Tip of the Day\" at startup"), frame);
   m_cbShowTipDay->setWhatsThis(i18n("If checked, the \"Tip of the Day\" will be "
@@ -530,6 +539,15 @@ void ConfigDialog::initTemplatePage(QFrame* frame) {
   lab->setWhatsThis(whats);
   m_highTextColorCombo->setWhatsThis(whats);
 
+  lab = new QLabel(i18n("Link color:"), colGroup);
+  colLayout->addWidget(lab, ++row, 0);
+  m_linkColorCombo = new KColorCombo(colGroup);
+  colLayout->addWidget(m_linkColorCombo, row, 1);
+  connect(m_linkColorCombo, activatedInt, this, &ConfigDialog::slotModified);
+  lab->setBuddy(m_linkColorCombo);
+  lab->setWhatsThis(whats);
+  m_linkColorCombo->setWhatsThis(whats);
+
   QGroupBox* groupBox = new QGroupBox(i18n("Manage Templates"), frame);
   l->addWidget(groupBox);
   QVBoxLayout* vlay = new QVBoxLayout(groupBox);
@@ -548,10 +566,20 @@ void ConfigDialog::initTemplatePage(QFrame* frame) {
   whats = i18n("Click to install a new template directly.");
   b1->setWhatsThis(whats);
 
+#ifdef ENABLE_KNEWSTUFF3
+#if KNEWSTUFF_VERSION < QT_VERSION_CHECK(5, 91, 0)
+  auto b2 = new KNS3::Button(i18n("Download..."), QStringLiteral("tellico-template.knsrc"), box1);
+  connect(b2, &KNS3::Button::dialogFinished, this, &ConfigDialog::slotUpdateTemplates);
+#else
+  auto b2 = new KNSWidgets::Button(i18n("Download..."), QStringLiteral("tellico-template.knsrc"), box1);
+  connect(b2, &KNSWidgets::Button::dialogFinished, this, &ConfigDialog::slotUpdateTemplates);
+#endif
+#else
   QPushButton* b2 = new QPushButton(i18n("Download..."), box1);
-  box1HBoxLayout->addWidget(b2);
   b2->setIcon(QIcon::fromTheme(QStringLiteral("get-hot-new-stuff")));
-  connect(b2, &QAbstractButton::clicked, this, &ConfigDialog::slotDownloadTemplate);
+  b2->setEnabled(false);
+#endif
+  box1HBoxLayout->addWidget(b2);
   whats = i18n("Click to download additional templates.");
   b2->setWhatsThis(whats);
 
@@ -573,6 +601,7 @@ void ConfigDialog::initTemplatePage(QFrame* frame) {
   widgets.append(m_textColorCombo);
   widgets.append(m_highBaseColorCombo);
   widgets.append(m_highTextColorCombo);
+  widgets.append(m_linkColorCombo);
   int w = 0;
   foreach(QWidget* widget, widgets) {
     widget->ensurePolished();
@@ -614,13 +643,13 @@ void ConfigDialog::initFetchPage(QFrame* frame) {
   m_moveUpSourceBtn = new QPushButton(i18n("Move &Up"), hb);
   hbHBoxLayout->addWidget(m_moveUpSourceBtn);
   m_moveUpSourceBtn->setIcon(QIcon::fromTheme(QStringLiteral("go-up")));
-  m_moveUpSourceBtn->setWhatsThis(i18n("The order of the data sources sets the order "
-                                       "that Tellico uses when entries are automatically updated."));
+  const QString moveTip(i18n("The order of the data sources sets the order "
+                             "that Tellico uses when entries are automatically updated."));
+  m_moveUpSourceBtn->setWhatsThis(moveTip);
   m_moveDownSourceBtn = new QPushButton(i18n("Move &Down"), hb);
   hbHBoxLayout->addWidget(m_moveDownSourceBtn);
   m_moveDownSourceBtn->setIcon(QIcon::fromTheme(QStringLiteral("go-down")));
-  m_moveDownSourceBtn->setWhatsThis(i18n("The order of the data sources sets the order "
-                                         "that Tellico uses when entries are automatically updated."));
+  m_moveDownSourceBtn->setWhatsThis(moveTip);
 
   QWidget* hb2 = new QWidget(frame);
   QHBoxLayout* hb2HBoxLayout = new QHBoxLayout(hb2);
@@ -653,18 +682,10 @@ void ConfigDialog::initFetchPage(QFrame* frame) {
   m_removeSourceBtn = new QPushButton(i18n("&Delete"), frame);
   m_removeSourceBtn->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
   m_removeSourceBtn->setWhatsThis(i18n("Click to delete the selected data source."));
-  m_newStuffBtn = new QPushButton(i18n("Download..."), frame);
-  m_newStuffBtn->setIcon(QIcon::fromTheme(QStringLiteral("get-hot-new-stuff")));
-  m_newStuffBtn->setWhatsThis(i18n("Click to download additional data sources."));
-  // TODO: disable button for now since checksum and signature checking are no longer possible with khotnewstuff
-  m_newStuffBtn->setEnabled(false);
 
   vlay->addWidget(newSourceBtn);
   vlay->addWidget(m_modifySourceBtn);
   vlay->addWidget(m_removeSourceBtn);
-  // separate newstuff button from the rest
-  vlay->addSpacing(16);
-  vlay->addWidget(m_newStuffBtn);
   vlay->addStretch(1);
 
   connect(newSourceBtn, &QAbstractButton::clicked, this, &ConfigDialog::slotNewSourceClicked);
@@ -672,7 +693,6 @@ void ConfigDialog::initFetchPage(QFrame* frame) {
   connect(m_moveUpSourceBtn, &QAbstractButton::clicked, this, &ConfigDialog::slotMoveUpSourceClicked);
   connect(m_moveDownSourceBtn, &QAbstractButton::clicked, this, &ConfigDialog::slotMoveDownSourceClicked);
   connect(m_removeSourceBtn, &QAbstractButton::clicked, this, &ConfigDialog::slotRemoveSourceClicked);
-  connect(m_newStuffBtn, &QAbstractButton::clicked, this, &ConfigDialog::slotNewStuffClicked);
 
   KAcceleratorManager::manage(frame);
   m_initializedPages |= Fetch;
@@ -683,6 +703,7 @@ void ConfigDialog::readGeneralConfig() {
   m_modifying = true;
 
   m_cbShowTipDay->setChecked(Config::showTipOfDay());
+  m_cbQuickFilterRegExp->setChecked(Config::quickFilterRegExp());
   m_cbOpenLastFile->setChecked(Config::reopenLastFile());
 #ifdef ENABLE_WEBCAM
   m_cbEnableWebcam->setChecked(Config::enableWebcam());
@@ -703,7 +724,7 @@ void ConfigDialog::readGeneralConfig() {
   bool autoFormat = Config::autoFormat();
   m_cbFormat->setChecked(autoFormat);
 
-  const QRegularExpression comma(QLatin1String("\\s*,\\s*"));
+  static const QRegularExpression comma(QLatin1String("\\s*,\\s*"));
 
   m_leCapitals->setText(Config::noCapitalizationString().replace(comma, FieldFormat::delimiterString()));
   m_leArticles->setText(Config::articlesString().replace(comma, FieldFormat::delimiterString()));
@@ -741,6 +762,7 @@ void ConfigDialog::readTemplateConfig() {
   m_textColorCombo->setColor(Config::templateTextColor(collType));
   m_highBaseColorCombo->setColor(Config::templateHighlightedBaseColor(collType));
   m_highTextColorCombo->setColor(Config::templateHighlightedTextColor(collType));
+  m_linkColorCombo->setColor(Config::templateLinkColor(collType));
 
   m_modifying = false;
 }
@@ -781,6 +803,7 @@ void ConfigDialog::saveConfiguration() {
 
 void ConfigDialog::saveGeneralConfig() {
   Config::setShowTipOfDay(m_cbShowTipDay->isChecked());
+  Config::setQuickFilterRegExp(m_cbQuickFilterRegExp->isChecked());
   Config::setEnableWebcam(m_cbEnableWebcam->isChecked());
 
   int imageLocation;
@@ -797,7 +820,7 @@ void ConfigDialog::saveGeneralConfig() {
   Config::setAutoCapitalization(m_cbCapitalize->isChecked());
   Config::setAutoFormat(m_cbFormat->isChecked());
 
-  const QRegularExpression semicolon(QLatin1String("\\s*;\\s*"));
+  static const QRegularExpression semicolon(QLatin1String("\\s*;\\s*"));
   const QChar comma = QLatin1Char(',');
 
   Config::setNoCapitalizationString(m_leCapitals->text().replace(semicolon, comma));
@@ -816,13 +839,24 @@ void ConfigDialog::savePrintingConfig() {
 
 void ConfigDialog::saveTemplateConfig() {
   const int collType = Kernel::self()->collectionType();
-  Config::setTemplateName(collType, m_templateCombo->currentData().toString());
+  if(collType == Data::Collection::Base &&
+     Kernel::self()->URL().fileName() != i18n(Tellico::untitledFilename)) {
+    // use a nested config group for template specific to custom collections
+    // using the filename alone as a keyEvents
+    const QString configGroup = QStringLiteral("Options - %1").arg(CollectionFactory::typeName(collType));
+    KConfigGroup group(KSharedConfig::openConfig(), configGroup);
+    KConfigGroup subGroup(&group, Kernel::self()->URL().fileName());
+    subGroup.writeEntry(QStringLiteral("Template Name"), m_templateCombo->currentData().toString());
+  } else {
+    Config::setTemplateName(collType, m_templateCombo->currentData().toString());
+  }
   QFont font(m_fontCombo->currentFont().family(), m_fontSizeInput->value());
   Config::setTemplateFont(collType, font);
   Config::setTemplateBaseColor(collType, m_baseColorCombo->color());
   Config::setTemplateTextColor(collType, m_textColorCombo->color());
   Config::setTemplateHighlightedBaseColor(collType, m_highBaseColorCombo->color());
   Config::setTemplateHighlightedTextColor(collType, m_highTextColorCombo->color());
+  Config::setTemplateLinkColor(collType, m_linkColorCombo->color());
 }
 
 void ConfigDialog::saveFetchConfig() {
@@ -927,21 +961,23 @@ void ConfigDialog::slotNewSourceClicked() {
 
 void ConfigDialog::slotModifySourceClicked() {
   FetcherInfoListItem* item = static_cast<FetcherInfoListItem*>(m_sourceListWidget->currentItem());
-  if(!item || !item->fetcher()) {
+  if(!item) {
     return;
   }
 
   Fetch::ConfigWidget* cw = nullptr;
   if(m_configWidgets.contains(item)) {
     cw = m_configWidgets[item];
-  } else {
+  } else if(item->fetcher()) {
     // grab the config widget, taking ownership
     cw = item->fetcher()->configWidget(this);
-    if(cw) { // might return 0 when no widget available for fetcher type
+    if(cw) { // might return null when no widget available for fetcher type
       m_configWidgets.insert(item, cw);
       // there's weird layout bug if it's not hidden
       cw->hide();
     }
+  } else {
+    myDebug() << "no config item fetcher!";
   }
   if(!cw) {
     // no config widget for this one
@@ -1021,19 +1057,6 @@ void ConfigDialog::slotSelectedSourceChanged(QListWidgetItem* item_) {
   m_moveDownSourceBtn->setEnabled(row < m_sourceListWidget->count()-1);
 }
 
-void ConfigDialog::slotNewStuffClicked() {
-#ifdef ENABLE_KNEWSTUFF3
-  KNS3::DownloadDialog dialog(QStringLiteral("tellico-script.knsrc"), this);
-  dialog.exec();
-
-  KNS3::Entry::List entries = dialog.installedEntries();
-  if(!entries.isEmpty()) {
-    Fetch::Manager::self()->loadFetchers();
-    readFetchConfig();
-  }
-#endif
-}
-
 Tellico::FetcherInfoListItem* ConfigDialog::findItem(const QString& path_) const {
   if(path_.isEmpty()) {
     myDebug() << "empty path";
@@ -1069,8 +1092,11 @@ void ConfigDialog::slotShowTemplatePreview() {
   options.textColor  = m_textColorCombo->color();
   options.highlightedTextColor = m_highTextColorCombo->color();
   options.highlightedBaseColor = m_highBaseColorCombo->color();
+  options.linkColor  = m_linkColorCombo->color();
   dlg->setXSLTOptions(Kernel::self()->collectionType(), options);
 
+  // always want to include a url to show link color too
+  bool hasLink = false;
   Data::CollPtr c = CollectionFactory::collection(Kernel::self()->collectionType(), true);
   Data::EntryPtr e(new Data::Entry(c));
   foreach(Data::FieldPtr f, c->fields()) {
@@ -1086,9 +1112,20 @@ void ConfigDialog::slotShowTemplatePreview() {
       e->setField(f->name(), QStringLiteral("true"));
     } else if(f->type() == Data::Field::Rating) {
       e->setField(f->name(), QStringLiteral("5"));
+    } else if(f->type() == Data::Field::URL) {
+      e->setField(f->name(), QStringLiteral("https://tellico-project.org"));
+      hasLink = true;
     } else {
       e->setField(f->name(), f->title());
     }
+  }
+  if(!hasLink) {
+    Data::FieldPtr f(new Data::Field(QStringLiteral("url"),
+                                     QLatin1String("URL"),
+                                     Data::Field::URL));
+    f->setCategory(i18n("General"));
+    c->addField(f);
+    e->setField(f->name(), QStringLiteral("https://tellico-project.org"));
   }
 
   dlg->showEntry(e);
@@ -1134,17 +1171,17 @@ void ConfigDialog::slotInstallTemplate() {
   }
 }
 
-void ConfigDialog::slotDownloadTemplate() {
 #ifdef ENABLE_KNEWSTUFF3
-  KNS3::DownloadDialog dialog(QStringLiteral("tellico-template.knsrc"), this);
-  dialog.exec();
-
-  KNS3::Entry::List entries = dialog.installedEntries();
-  if(!entries.isEmpty()) {
+#if KNEWSTUFF_VERSION < QT_VERSION_CHECK(5, 91, 0)
+void ConfigDialog::slotUpdateTemplates(const QList<KNS3::Entry>& list_) {
+#else
+void ConfigDialog::slotUpdateTemplates(const QList<KNSCore::Entry>& list_) {
+#endif
+  if(!list_.isEmpty()) {
     loadTemplateList();
   }
-#endif
 }
+#endif
 
 void ConfigDialog::slotDeleteTemplate() {
   bool ok;

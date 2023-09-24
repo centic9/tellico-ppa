@@ -55,10 +55,10 @@ There should be no behaviour change to these tests.
  src/tests/vinoxmltest.cpp      | 3 +++
  43 files changed, 133 insertions(+)
 
-diff --git a/src/tests/adstest.cpp b/src/tests/adstest.cpp
-index 2215edf2..97ff8caf 100644
---- a/src/tests/adstest.cpp
-+++ b/src/tests/adstest.cpp
+Index: git/src/tests/adstest.cpp
+===================================================================
+--- git.orig/src/tests/adstest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/adstest.cpp	2023-09-24 09:18:22.341650135 +0200
 @@ -30,10 +30,16 @@
  #include "../collections/bibtexcollection.h"
  #include "../fieldformat.h"
@@ -76,11 +76,11 @@ index 2215edf2..97ff8caf 100644
  void AdsTest::testImport() {
    QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test.ads"));
    QList<QUrl> urls;
-diff --git a/src/tests/adstest.h b/src/tests/adstest.h
-index 5ff77ac8..f8ee77f2 100644
---- a/src/tests/adstest.h
-+++ b/src/tests/adstest.h
-@@ -31,6 +31,7 @@ class AdsTest : public QObject {
+Index: git/src/tests/adstest.h
+===================================================================
+--- git.orig/src/tests/adstest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/adstest.h	2023-09-24 09:18:22.341650135 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -88,10 +88,10 @@ index 5ff77ac8..f8ee77f2 100644
    void testImport();
  };
  
-diff --git a/src/tests/alexandriatest.cpp b/src/tests/alexandriatest.cpp
-index 02269495..5a8b2531 100644
---- a/src/tests/alexandriatest.cpp
-+++ b/src/tests/alexandriatest.cpp
+Index: git/src/tests/alexandriatest.cpp
+===================================================================
+--- git.orig/src/tests/alexandriatest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/alexandriatest.cpp	2023-09-24 09:18:22.341650135 +0200
 @@ -29,6 +29,8 @@
  #include "../collections/bookcollection.h"
  #include "../images/imagefactory.h"
@@ -101,7 +101,7 @@ index 02269495..5a8b2531 100644
  #include <QTest>
  #include <QTemporaryDir>
  #include <QStandardPaths>
-@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( AlexandriaTest )
+@@ -39,6 +41,7 @@
  
  void AlexandriaTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -109,10 +109,10 @@ index 02269495..5a8b2531 100644
    Tellico::ImageFactory::init();
  }
  
-diff --git a/src/tests/amctest.cpp b/src/tests/amctest.cpp
-index 39060392..0334209e 100644
---- a/src/tests/amctest.cpp
-+++ b/src/tests/amctest.cpp
+Index: git/src/tests/amctest.cpp
+===================================================================
+--- git.orig/src/tests/amctest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/amctest.cpp	2023-09-24 09:18:22.341650135 +0200
 @@ -29,10 +29,16 @@
  #include "../translators/amcimporter.h"
  #include "../collection.h"
@@ -130,11 +130,11 @@ index 39060392..0334209e 100644
  // this is a real basic test right now, AMC doesn't run real well under wine
  void AmcTest::testImport() {
    QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test.amc"));
-diff --git a/src/tests/amctest.h b/src/tests/amctest.h
-index 73988ee6..2c595bdf 100644
---- a/src/tests/amctest.h
-+++ b/src/tests/amctest.h
-@@ -31,6 +31,7 @@ class AmcTest : public QObject {
+Index: git/src/tests/amctest.h
+===================================================================
+--- git.orig/src/tests/amctest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/amctest.h	2023-09-24 09:18:22.345650323 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -142,10 +142,10 @@ index 73988ee6..2c595bdf 100644
    void testImport();
  };
  
-diff --git a/src/tests/audiofiletest.cpp b/src/tests/audiofiletest.cpp
-index 3e6fddb2..cf3bb772 100644
---- a/src/tests/audiofiletest.cpp
-+++ b/src/tests/audiofiletest.cpp
+Index: git/src/tests/audiofiletest.cpp
+===================================================================
+--- git.orig/src/tests/audiofiletest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/audiofiletest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -32,6 +32,8 @@
  #include "../images/imagefactory.h"
  #include "../images/image.h"
@@ -155,7 +155,7 @@ index 3e6fddb2..cf3bb772 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( AudioFileTest )
+@@ -39,6 +41,7 @@
  
  void AudioFileTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -163,10 +163,10 @@ index 3e6fddb2..cf3bb772 100644
    Tellico::ImageFactory::init();
  }
  
-diff --git a/src/tests/bibtexmltest.cpp b/src/tests/bibtexmltest.cpp
-index 5d25e5b9..e5132b3d 100644
---- a/src/tests/bibtexmltest.cpp
-+++ b/src/tests/bibtexmltest.cpp
+Index: git/src/tests/bibtexmltest.cpp
+===================================================================
+--- git.orig/src/tests/bibtexmltest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/bibtexmltest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -32,6 +32,8 @@
  #include "../collectionfactory.h"
  #include "../utils/datafileregistry.h"
@@ -176,7 +176,7 @@ index 5d25e5b9..e5132b3d 100644
  #include <QTest>
  
  QTEST_GUILESS_MAIN( BibtexmlTest )
-@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( BibtexmlTest )
+@@ -39,6 +41,7 @@
  #define QL1(x) QStringLiteral(x)
  
  void BibtexmlTest::initTestCase() {
@@ -184,10 +184,10 @@ index 5d25e5b9..e5132b3d 100644
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/bibtexml2tellico.xsl"));
    // need to register the collection type
    Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtexml(Tellico::Data::Collection::Bibtex, "bibtex");
-diff --git a/src/tests/bibtextest.cpp b/src/tests/bibtextest.cpp
-index 713198a4..b5b6298c 100644
---- a/src/tests/bibtextest.cpp
-+++ b/src/tests/bibtextest.cpp
+Index: git/src/tests/bibtextest.cpp
+===================================================================
+--- git.orig/src/tests/bibtextest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/bibtextest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -35,6 +35,7 @@
  
  #include <KSharedConfig>
@@ -196,7 +196,7 @@ index 713198a4..b5b6298c 100644
  
  #include <QTest>
  
-@@ -43,6 +44,7 @@ QTEST_GUILESS_MAIN( BibtexTest )
+@@ -43,6 +44,7 @@
  #define QL1(x) QStringLiteral(x)
  
  void BibtexTest::initTestCase() {
@@ -204,10 +204,10 @@ index 713198a4..b5b6298c 100644
    // since we use the bibtex mapping file
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../translators/bibtex-translation.xml"));
  }
-diff --git a/src/tests/citetest.cpp b/src/tests/citetest.cpp
-index 368188eb..f4c5c88d 100644
---- a/src/tests/citetest.cpp
-+++ b/src/tests/citetest.cpp
+Index: git/src/tests/citetest.cpp
+===================================================================
+--- git.orig/src/tests/citetest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/citetest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -30,6 +30,8 @@
  #include "../config/tellico_config.h"
  #include "../collections/bibtexcollection.h"
@@ -228,11 +228,11 @@ index 368188eb..f4c5c88d 100644
  void CiteTest::testLyxpipe() {
    QTemporaryFile tempFile(QStringLiteral("citetest.XXXXXX.in"));
    QVERIFY(tempFile.open());
-diff --git a/src/tests/citetest.h b/src/tests/citetest.h
-index 05bdb882..199eaa71 100644
---- a/src/tests/citetest.h
-+++ b/src/tests/citetest.h
-@@ -31,6 +31,7 @@ class CiteTest : public QObject {
+Index: git/src/tests/citetest.h
+===================================================================
+--- git.orig/src/tests/citetest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/citetest.h	2023-09-24 09:18:22.345650323 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -240,10 +240,10 @@ index 05bdb882..199eaa71 100644
    void testLyxpipe();
    void testLyxpipeNotExists();
    void testClipboard();
-diff --git a/src/tests/ciwtest.cpp b/src/tests/ciwtest.cpp
-index f876ab19..cb09006f 100644
---- a/src/tests/ciwtest.cpp
-+++ b/src/tests/ciwtest.cpp
+Index: git/src/tests/ciwtest.cpp
+===================================================================
+--- git.orig/src/tests/ciwtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/ciwtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -28,12 +28,18 @@
  #include "../collections/bibtexcollection.h"
  #include "../fieldformat.h"
@@ -263,11 +263,11 @@ index f876ab19..cb09006f 100644
  void CiwTest::testImport() {
    QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("/data/test.ciw"));
    QList<QUrl> urls;
-diff --git a/src/tests/ciwtest.h b/src/tests/ciwtest.h
-index 984a45f4..e89bc02a 100644
---- a/src/tests/ciwtest.h
-+++ b/src/tests/ciwtest.h
-@@ -31,6 +31,7 @@ class CiwTest : public QObject {
+Index: git/src/tests/ciwtest.h
+===================================================================
+--- git.orig/src/tests/ciwtest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/ciwtest.h	2023-09-24 09:18:22.345650323 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -275,10 +275,10 @@ index 984a45f4..e89bc02a 100644
    void testImport();
  };
  
-diff --git a/src/tests/collectiontest.cpp b/src/tests/collectiontest.cpp
-index 5362b19a..197ee330 100644
---- a/src/tests/collectiontest.cpp
-+++ b/src/tests/collectiontest.cpp
+Index: git/src/tests/collectiontest.cpp
+===================================================================
+--- git.orig/src/tests/collectiontest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/collectiontest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -38,6 +38,7 @@
  #include "../utils/mergeconflictresolver.h"
  #include "../entrycomparison.h"
@@ -287,7 +287,7 @@ index 5362b19a..197ee330 100644
  #include <KProcess>
  
  #include <QTest>
-@@ -68,6 +69,7 @@ private:
+@@ -68,6 +69,7 @@
  void CollectionTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
    qRegisterMetaType<Tellico::EntryComparison::MatchValue>();
@@ -295,10 +295,10 @@ index 5362b19a..197ee330 100644
    Tellico::ImageFactory::init();
    // need to register the collection types
    Tellico::CollectionInitializer ci;
-diff --git a/src/tests/collectorztest.cpp b/src/tests/collectorztest.cpp
-index d064f9d4..5410d716 100644
---- a/src/tests/collectorztest.cpp
-+++ b/src/tests/collectorztest.cpp
+Index: git/src/tests/collectorztest.cpp
+===================================================================
+--- git.orig/src/tests/collectorztest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/collectorztest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -35,6 +35,8 @@
  #include "../fieldformat.h"
  #include "../utils/datafileregistry.h"
@@ -308,7 +308,7 @@ index d064f9d4..5410d716 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -42,6 +44,7 @@ QTEST_GUILESS_MAIN( CollectorzTest )
+@@ -42,6 +44,7 @@
  
  void CollectorzTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -316,10 +316,10 @@ index d064f9d4..5410d716 100644
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/collectorz2tellico.xsl"));
    // need to register the collection type
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
-diff --git a/src/tests/commandtest.cpp b/src/tests/commandtest.cpp
-index 61405103..eceb3c02 100644
---- a/src/tests/commandtest.cpp
-+++ b/src/tests/commandtest.cpp
+Index: git/src/tests/commandtest.cpp
+===================================================================
+--- git.orig/src/tests/commandtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/commandtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -31,6 +31,8 @@
  #include "../collectionfactory.h"
  #include "../images/imagefactory.h"
@@ -329,7 +329,7 @@ index 61405103..eceb3c02 100644
  #include <QTest>
  #include <QStandardPaths>
  #include <QFile>
-@@ -39,6 +41,7 @@ QTEST_GUILESS_MAIN( CommandTest )
+@@ -39,6 +41,7 @@
  
  void CommandTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -337,10 +337,10 @@ index 61405103..eceb3c02 100644
    Tellico::ImageFactory::init();
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
  
-diff --git a/src/tests/comparisontest.cpp b/src/tests/comparisontest.cpp
-index 653c2d9f..dc8abf65 100644
---- a/src/tests/comparisontest.cpp
-+++ b/src/tests/comparisontest.cpp
+Index: git/src/tests/comparisontest.cpp
+===================================================================
+--- git.orig/src/tests/comparisontest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/comparisontest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -29,11 +29,14 @@
  #include "../models/fieldcomparison.h"
  #include "../config/tellico_config.h"
@@ -356,10 +356,10 @@ index 653c2d9f..dc8abf65 100644
    Tellico::Config::setArticlesString(QStringLiteral("the,l'"));
  }
  
-diff --git a/src/tests/csvtest.cpp b/src/tests/csvtest.cpp
-index 44dd5250..699519f6 100644
---- a/src/tests/csvtest.cpp
-+++ b/src/tests/csvtest.cpp
+Index: git/src/tests/csvtest.cpp
+===================================================================
+--- git.orig/src/tests/csvtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/csvtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -31,6 +31,8 @@
  #include "../collections/bookcollection.h"
  #include "../collections/musiccollection.h"
@@ -369,7 +369,7 @@ index 44dd5250..699519f6 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -40,6 +42,7 @@ QTEST_MAIN( CsvTest )
+@@ -40,6 +42,7 @@
  
  void CsvTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -377,10 +377,10 @@ index 44dd5250..699519f6 100644
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
    Tellico::RegisterCollection<Tellico::Data::MusicCollection> registerAlbum(Tellico::Data::Collection::Album, "album");
  }
-diff --git a/src/tests/datacrowtest.cpp b/src/tests/datacrowtest.cpp
-index 13db3263..8e96fd1d 100644
---- a/src/tests/datacrowtest.cpp
-+++ b/src/tests/datacrowtest.cpp
+Index: git/src/tests/datacrowtest.cpp
+===================================================================
+--- git.orig/src/tests/datacrowtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/datacrowtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -35,6 +35,8 @@
  #include "../fieldformat.h"
  #include "../utils/datafileregistry.h"
@@ -390,7 +390,7 @@ index 13db3263..8e96fd1d 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -42,6 +44,7 @@ QTEST_GUILESS_MAIN( DataCrowTest )
+@@ -42,6 +44,7 @@
  
  void DataCrowTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -398,10 +398,10 @@ index 13db3263..8e96fd1d 100644
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/datacrow2tellico.xsl"));
    // need to register the collection type
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
-diff --git a/src/tests/delicioustest.cpp b/src/tests/delicioustest.cpp
-index 77fbee63..231f270c 100644
---- a/src/tests/delicioustest.cpp
-+++ b/src/tests/delicioustest.cpp
+Index: git/src/tests/delicioustest.cpp
+===================================================================
+--- git.orig/src/tests/delicioustest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/delicioustest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -36,6 +36,8 @@
  #include "../fieldformat.h"
  #include "../utils/datafileregistry.h"
@@ -419,10 +419,10 @@ index 77fbee63..231f270c 100644
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/delicious2tellico.xsl"));
    // need to register the collection type
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
-diff --git a/src/tests/documenttest.cpp b/src/tests/documenttest.cpp
-index 9b37dbd4..769061d6 100644
---- a/src/tests/documenttest.cpp
-+++ b/src/tests/documenttest.cpp
+Index: git/src/tests/documenttest.cpp
+===================================================================
+--- git.orig/src/tests/documenttest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/documenttest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -32,6 +32,8 @@
  #include "../collections/bookcollection.h"
  #include "../collectionfactory.h"
@@ -432,7 +432,7 @@ index 9b37dbd4..769061d6 100644
  #include <QTest>
  #include <QTemporaryDir>
  #include <QTemporaryFile>
-@@ -42,6 +44,7 @@ QTEST_GUILESS_MAIN( DocumentTest )
+@@ -42,6 +44,7 @@
  
  void DocumentTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -440,10 +440,10 @@ index 9b37dbd4..769061d6 100644
    Tellico::ImageFactory::init();
    // test case is a book file
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
-diff --git a/src/tests/entitytest.cpp b/src/tests/entitytest.cpp
-index 8492ae2c..d3a72f51 100644
---- a/src/tests/entitytest.cpp
-+++ b/src/tests/entitytest.cpp
+Index: git/src/tests/entitytest.cpp
+===================================================================
+--- git.orig/src/tests/entitytest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/entitytest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -28,12 +28,18 @@
  
  #include "../utils/string_utils.h"
@@ -463,11 +463,11 @@ index 8492ae2c..d3a72f51 100644
  void EntityTest::testEntities() {
    QFETCH(QByteArray, data);
    QFETCH(QString, expectedString);
-diff --git a/src/tests/entitytest.h b/src/tests/entitytest.h
-index 6dae4acf..8e6d7527 100644
---- a/src/tests/entitytest.h
-+++ b/src/tests/entitytest.h
-@@ -31,6 +31,7 @@ class EntityTest : public QObject {
+Index: git/src/tests/entitytest.h
+===================================================================
+--- git.orig/src/tests/entitytest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/entitytest.h	2023-09-24 09:18:22.345650323 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -475,10 +475,10 @@ index 6dae4acf..8e6d7527 100644
    void testEntities();
    void testEntities_data();
    void testAccents();
-diff --git a/src/tests/fieldtest.cpp b/src/tests/fieldtest.cpp
-index a8b98929..84766efa 100644
---- a/src/tests/fieldtest.cpp
-+++ b/src/tests/fieldtest.cpp
+Index: git/src/tests/fieldtest.cpp
+===================================================================
+--- git.orig/src/tests/fieldtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/fieldtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -29,10 +29,16 @@
  #include "../field.h"
  #include "../gui/urlfieldlogic.h"
@@ -496,11 +496,11 @@ index a8b98929..84766efa 100644
  void FieldTest::testAll() {
    Tellico::Data::Field field1(QStringLiteral("name"), QStringLiteral("title"));
  
-diff --git a/src/tests/fieldtest.h b/src/tests/fieldtest.h
-index 8735c748..c5ada74a 100644
---- a/src/tests/fieldtest.h
-+++ b/src/tests/fieldtest.h
-@@ -31,6 +31,7 @@ class FieldTest : public QObject {
+Index: git/src/tests/fieldtest.h
+===================================================================
+--- git.orig/src/tests/fieldtest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/fieldtest.h	2023-09-24 09:18:22.345650323 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -508,10 +508,10 @@ index 8735c748..c5ada74a 100644
    void testAll();
    void testUrlFieldLogic();
  };
-diff --git a/src/tests/fieldwidgettest.cpp b/src/tests/fieldwidgettest.cpp
-index d4c4d74a..b489e812 100644
---- a/src/tests/fieldwidgettest.cpp
-+++ b/src/tests/fieldwidgettest.cpp
+Index: git/src/tests/fieldwidgettest.cpp
+===================================================================
+--- git.orig/src/tests/fieldwidgettest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/fieldwidgettest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -42,6 +42,7 @@
  #include "../collections/bookcollection.h"
  #include "../collectionfactory.h"
@@ -520,7 +520,7 @@ index d4c4d74a..b489e812 100644
  #include <KTextEdit>
  #include <KUrlRequester>
  
-@@ -57,6 +58,7 @@ QTEST_MAIN( FieldWidgetTest )
+@@ -57,6 +58,7 @@
  
  void FieldWidgetTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -528,10 +528,10 @@ index d4c4d74a..b489e812 100644
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
    Tellico::ImageFactory::init();
  }
-diff --git a/src/tests/filelistingtest.cpp b/src/tests/filelistingtest.cpp
-index 09dd21e0..063b6043 100644
---- a/src/tests/filelistingtest.cpp
-+++ b/src/tests/filelistingtest.cpp
+Index: git/src/tests/filelistingtest.cpp
+===================================================================
+--- git.orig/src/tests/filelistingtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/filelistingtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -31,6 +31,8 @@
  #include "../translators/xmphandler.h"
  #include "../images/imagefactory.h"
@@ -541,7 +541,7 @@ index 09dd21e0..063b6043 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -39,6 +41,7 @@ QTEST_MAIN( FileListingTest )
+@@ -39,6 +41,7 @@
  
  void FileListingTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -549,10 +549,10 @@ index 09dd21e0..063b6043 100644
    Tellico::ImageFactory::init();
  }
  
-diff --git a/src/tests/filtertest.cpp b/src/tests/filtertest.cpp
-index 8d3a1e8d..fa29b593 100644
---- a/src/tests/filtertest.cpp
-+++ b/src/tests/filtertest.cpp
+Index: git/src/tests/filtertest.cpp
+===================================================================
+--- git.orig/src/tests/filtertest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/filtertest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -33,6 +33,8 @@
  #include "../images/imageinfo.h"
  #include "../images/imagefactory.h"
@@ -562,7 +562,7 @@ index 8d3a1e8d..fa29b593 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -40,6 +42,7 @@ QTEST_GUILESS_MAIN( FilterTest )
+@@ -40,6 +42,7 @@
  
  void FilterTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -570,10 +570,10 @@ index 8d3a1e8d..fa29b593 100644
    Tellico::ImageFactory::init();
  }
  
-diff --git a/src/tests/formattest.cpp b/src/tests/formattest.cpp
-index 1e8fb40b..15e37f89 100644
---- a/src/tests/formattest.cpp
-+++ b/src/tests/formattest.cpp
+Index: git/src/tests/formattest.cpp
+===================================================================
+--- git.orig/src/tests/formattest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/formattest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -29,11 +29,14 @@
  #include "../fieldformat.h"
  #include "../config/tellico_config.h"
@@ -589,10 +589,10 @@ index 1e8fb40b..15e37f89 100644
    Tellico::Config::setArticlesString(QStringLiteral("the,l'"));
    Tellico::Config::setNoCapitalizationString(QStringLiteral("the,of,et,de"));
  }
-diff --git a/src/tests/goodreadstest.cpp b/src/tests/goodreadstest.cpp
-index 209b5d95..2cb054f0 100644
---- a/src/tests/goodreadstest.cpp
-+++ b/src/tests/goodreadstest.cpp
+Index: git/src/tests/goodreadstest.cpp
+===================================================================
+--- git.orig/src/tests/goodreadstest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/goodreadstest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -34,6 +34,7 @@
  #include <KConfig>
  #include <KSharedConfig>
@@ -601,7 +601,7 @@ index 209b5d95..2cb054f0 100644
  
  #include <QTest>
  #include <QNetworkInterface>
-@@ -54,6 +55,7 @@ static bool hasNetwork() {
+@@ -54,6 +55,7 @@
  
  void GoodreadsTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -609,10 +609,10 @@ index 209b5d95..2cb054f0 100644
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/goodreads2tellico.xsl"));
    Tellico::ImageFactory::init();
-diff --git a/src/tests/griffithtest.cpp b/src/tests/griffithtest.cpp
-index b60a02c7..58020914 100644
---- a/src/tests/griffithtest.cpp
-+++ b/src/tests/griffithtest.cpp
+Index: git/src/tests/griffithtest.cpp
+===================================================================
+--- git.orig/src/tests/griffithtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/griffithtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -31,6 +31,8 @@
  #include "../images/imagefactory.h"
  #include "../utils/datafileregistry.h"
@@ -622,7 +622,7 @@ index b60a02c7..58020914 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -41,6 +43,7 @@ QTEST_GUILESS_MAIN( GriffithTest )
+@@ -41,6 +43,7 @@
  
  void GriffithTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -630,10 +630,10 @@ index b60a02c7..58020914 100644
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/griffith2tellico.xsl"));
    Tellico::ImageFactory::init();
    // need to register the collection type
-diff --git a/src/tests/htmlexportertest.cpp b/src/tests/htmlexportertest.cpp
-index 004c7766..0c905d9e 100644
---- a/src/tests/htmlexportertest.cpp
-+++ b/src/tests/htmlexportertest.cpp
+Index: git/src/tests/htmlexportertest.cpp
+===================================================================
+--- git.orig/src/tests/htmlexportertest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/htmlexportertest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -38,6 +38,8 @@
  #include "../utils/datafileregistry.h"
  #include "../config/tellico_config.h"
@@ -643,7 +643,7 @@ index 004c7766..0c905d9e 100644
  #include <QTest>
  #include <QRegularExpression>
  #include <QTemporaryDir>
-@@ -49,6 +51,7 @@ QTEST_GUILESS_MAIN( HtmlExporterTest )
+@@ -49,6 +51,7 @@
  
  void HtmlExporterTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -651,10 +651,10 @@ index 004c7766..0c905d9e 100644
    Tellico::ImageFactory::init();
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
    Tellico::RegisterCollection<Tellico::Data::VideoCollection> registerVideo(Tellico::Data::Collection::Video, "video");
-diff --git a/src/tests/imagejobtest.cpp b/src/tests/imagejobtest.cpp
-index 3b45bb2e..b9e212b0 100644
---- a/src/tests/imagejobtest.cpp
-+++ b/src/tests/imagejobtest.cpp
+Index: git/src/tests/imagejobtest.cpp
+===================================================================
+--- git.orig/src/tests/imagejobtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/imagejobtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -29,6 +29,8 @@
  #include "../images/imagefactory.h"
  #include "../images/imageinfo.h"
@@ -664,7 +664,7 @@ index 3b45bb2e..b9e212b0 100644
  #include <QTest>
  #include <QEventLoop>
  #include <QTemporaryFile>
-@@ -51,6 +53,7 @@ static bool hasNetwork() {
+@@ -51,6 +53,7 @@
  
  void ImageJobTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -672,10 +672,10 @@ index 3b45bb2e..b9e212b0 100644
    Tellico::ImageFactory::init();
  }
  
-diff --git a/src/tests/imagetest.cpp b/src/tests/imagetest.cpp
-index fae28593..77aaed52 100644
---- a/src/tests/imagetest.cpp
-+++ b/src/tests/imagetest.cpp
+Index: git/src/tests/imagetest.cpp
+===================================================================
+--- git.orig/src/tests/imagetest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/imagetest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -27,6 +27,8 @@
  #include "../images/imagefactory.h"
  #include "../images/image.h"
@@ -685,7 +685,7 @@ index fae28593..77aaed52 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -34,6 +36,7 @@ QTEST_GUILESS_MAIN( ImageTest )
+@@ -34,6 +36,7 @@
  
  void ImageTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -693,10 +693,10 @@ index fae28593..77aaed52 100644
    Tellico::ImageFactory::init();
  }
  
-diff --git a/src/tests/librarythingtest.cpp b/src/tests/librarythingtest.cpp
-index 7a390f68..0cc39ebb 100644
---- a/src/tests/librarythingtest.cpp
-+++ b/src/tests/librarythingtest.cpp
+Index: git/src/tests/librarythingtest.cpp
+===================================================================
+--- git.orig/src/tests/librarythingtest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/librarythingtest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -29,10 +29,16 @@
  #include "../translators/librarythingimporter.h"
  #include "../fieldformat.h"
@@ -714,11 +714,11 @@ index 7a390f68..0cc39ebb 100644
  void LibraryThingTest::testImport() {
    QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/librarything.json"));
     Tellico::Import::LibraryThingImporter importer(url);
-diff --git a/src/tests/librarythingtest.h b/src/tests/librarythingtest.h
-index 6abe44a1..ec294c9a 100644
---- a/src/tests/librarythingtest.h
-+++ b/src/tests/librarythingtest.h
-@@ -31,6 +31,7 @@ class LibraryThingTest : public QObject {
+Index: git/src/tests/librarythingtest.h
+===================================================================
+--- git.orig/src/tests/librarythingtest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/librarythingtest.h	2023-09-24 09:18:22.345650323 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -726,10 +726,10 @@ index 6abe44a1..ec294c9a 100644
    void testImport();
  };
  
-diff --git a/src/tests/marctest.cpp b/src/tests/marctest.cpp
-index 6d5b8369..ddcad07f 100644
---- a/src/tests/marctest.cpp
-+++ b/src/tests/marctest.cpp
+Index: git/src/tests/marctest.cpp
+===================================================================
+--- git.orig/src/tests/marctest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/marctest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -32,12 +32,15 @@
  #include "../collectionfactory.h"
  #include "../utils/datafileregistry.h"
@@ -746,10 +746,10 @@ index 6d5b8369..ddcad07f 100644
    Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/mods2tellico.xsl"));
-diff --git a/src/tests/modstest.cpp b/src/tests/modstest.cpp
-index e3c5cc2c..0780ffe6 100644
---- a/src/tests/modstest.cpp
-+++ b/src/tests/modstest.cpp
+Index: git/src/tests/modstest.cpp
+===================================================================
+--- git.orig/src/tests/modstest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/modstest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -33,6 +33,8 @@
  #include "../fieldformat.h"
  #include "../utils/datafileregistry.h"
@@ -767,10 +767,10 @@ index e3c5cc2c..0780ffe6 100644
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/mods2tellico.xsl"));
  }
-diff --git a/src/tests/pdftest.cpp b/src/tests/pdftest.cpp
-index 885941ff..bd7ade16 100644
---- a/src/tests/pdftest.cpp
-+++ b/src/tests/pdftest.cpp
+Index: git/src/tests/pdftest.cpp
+===================================================================
+--- git.orig/src/tests/pdftest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/pdftest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -35,6 +35,8 @@
  #include "../fieldformat.h"
  #include "../utils/datafileregistry.h"
@@ -780,7 +780,7 @@ index 885941ff..bd7ade16 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -43,6 +45,7 @@ QTEST_MAIN( PdfTest )
+@@ -43,6 +45,7 @@
  
  void PdfTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -788,10 +788,10 @@ index 885941ff..bd7ade16 100644
    Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibliography");
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
    // since we use the XMP importer
-diff --git a/src/tests/referencertest.cpp b/src/tests/referencertest.cpp
-index 15930dd3..b352b7bd 100644
---- a/src/tests/referencertest.cpp
-+++ b/src/tests/referencertest.cpp
+Index: git/src/tests/referencertest.cpp
+===================================================================
+--- git.orig/src/tests/referencertest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/referencertest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -32,6 +32,8 @@
  #include "../fieldformat.h"
  #include "../utils/datafileregistry.h"
@@ -809,10 +809,10 @@ index 15930dd3..b352b7bd 100644
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/referencer2tellico.xsl"));
    // need to register the collection type
    Tellico::RegisterCollection<Tellico::Data::BibtexCollection> registerBibtex(Tellico::Data::Collection::Bibtex, "bibtex");
-diff --git a/src/tests/ristest.cpp b/src/tests/ristest.cpp
-index 8c1179a4..7b37567c 100644
---- a/src/tests/ristest.cpp
-+++ b/src/tests/ristest.cpp
+Index: git/src/tests/ristest.cpp
+===================================================================
+--- git.orig/src/tests/ristest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/ristest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -30,10 +30,16 @@
  #include "../collections/bibtexcollection.h"
  #include "../fieldformat.h"
@@ -830,11 +830,11 @@ index 8c1179a4..7b37567c 100644
  void RisTest::testImport() {
    QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test.ris"));
    QList<QUrl> urls;
-diff --git a/src/tests/ristest.h b/src/tests/ristest.h
-index e165041e..e37a473f 100644
---- a/src/tests/ristest.h
-+++ b/src/tests/ristest.h
-@@ -31,6 +31,7 @@ class RisTest : public QObject {
+Index: git/src/tests/ristest.h
+===================================================================
+--- git.orig/src/tests/ristest.h	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/ristest.h	2023-09-24 09:18:22.345650323 +0200
+@@ -31,6 +31,7 @@
  Q_OBJECT
  
  private Q_SLOTS:
@@ -842,10 +842,10 @@ index e165041e..e37a473f 100644
    void testImport();
  };
  
-diff --git a/src/tests/tellicomodeltest.cpp b/src/tests/tellicomodeltest.cpp
-index cf1dfd7a..64391015 100644
---- a/src/tests/tellicomodeltest.cpp
-+++ b/src/tests/tellicomodeltest.cpp
+Index: git/src/tests/tellicomodeltest.cpp
+===================================================================
+--- git.orig/src/tests/tellicomodeltest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/tellicomodeltest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -40,6 +40,8 @@
  #include "../entrygroup.h"
  #include "../images/imagefactory.h"
@@ -855,7 +855,7 @@ index cf1dfd7a..64391015 100644
  #include <QTest>
  #include <QSignalSpy>
  #include <QStandardPaths>
-@@ -48,6 +50,7 @@ QTEST_GUILESS_MAIN( TellicoModelTest )
+@@ -48,6 +50,7 @@
  
  void TellicoModelTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -863,10 +863,10 @@ index cf1dfd7a..64391015 100644
    Tellico::ImageFactory::init();
    Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
  }
-diff --git a/src/tests/vinoxmltest.cpp b/src/tests/vinoxmltest.cpp
-index 3b3cf5b5..bb78298a 100644
---- a/src/tests/vinoxmltest.cpp
-+++ b/src/tests/vinoxmltest.cpp
+Index: git/src/tests/vinoxmltest.cpp
+===================================================================
+--- git.orig/src/tests/vinoxmltest.cpp	2023-09-24 09:18:22.353650699 +0200
++++ git/src/tests/vinoxmltest.cpp	2023-09-24 09:18:22.345650323 +0200
 @@ -34,6 +34,8 @@
  #include "../images/imageinfo.h"
  #include "../utils/datafileregistry.h"
@@ -876,7 +876,7 @@ index 3b3cf5b5..bb78298a 100644
  #include <QTest>
  #include <QStandardPaths>
  
-@@ -41,6 +43,7 @@ QTEST_GUILESS_MAIN( VinoXMLTest )
+@@ -41,6 +43,7 @@
  
  void VinoXMLTest::initTestCase() {
    QStandardPaths::setTestModeEnabled(true);
@@ -884,6 +884,3 @@ index 3b3cf5b5..bb78298a 100644
    Tellico::DataFileRegistry::self()->addDataLocation(QFINDTESTDATA("../../xslt/vinoxml2tellico.xsl"));
    // need to register the collection type
    Tellico::RegisterCollection<Tellico::Data::WineCollection> registerWine(Tellico::Data::Collection::Wine, "wine");
--- 
-2.40.1
-

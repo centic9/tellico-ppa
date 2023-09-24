@@ -27,7 +27,6 @@
 #include "../collection.h"
 #include "../collections/bibtexcollection.h"
 #include "../document.h"
-#include "../controller.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -43,7 +42,6 @@ CollectionCommand::CollectionCommand(Mode mode_, Tellico::Data::CollPtr origColl
     , m_newColl(newColl_)
     , m_cleanup(DoNothing)
 {
-#ifndef NDEBUG
 // just some sanity checking
   if(!m_origColl || !m_newColl) {
     myDebug() << "CommandTest: null collection pointer";
@@ -51,7 +49,6 @@ CollectionCommand::CollectionCommand(Mode mode_, Tellico::Data::CollPtr origColl
   if(m_origColl != Data::Document::self()->collection()) {
     myWarning() << "CollectionCommand: original collection is different than the current document";
   }
-#endif
   switch(m_mode) {
     case Append:
       setText(i18n("Append Collection"));
@@ -83,14 +80,13 @@ void CollectionCommand::redo() {
     return;
   }
 
-  m_structuralChange = false;
   switch(m_mode) {
     case Append:
       copyFields();
       copyMacros();
       {
         auto existingEntries = m_origColl->entryIdList();
-        Data::Document::self()->appendCollection(m_newColl, &m_structuralChange);
+        Data::Document::self()->appendCollection(m_newColl);
         auto allEntries = m_origColl->entryIdList();
 
         // keep track of which entries were added by the append operation
@@ -102,22 +98,18 @@ void CollectionCommand::redo() {
                             existingEntries.begin(), existingEntries.end(),
                             std::back_inserter(m_addedEntries));
       }
-      Controller::self()->slotCollectionModified(m_origColl, m_structuralChange);
       break;
 
     case Merge:
       copyFields();
       copyMacros();
-      m_mergePair = Data::Document::self()->mergeCollection(m_newColl, &m_structuralChange);
-      Controller::self()->slotCollectionModified(m_origColl, m_structuralChange);
+      m_mergePair = Data::Document::self()->mergeCollection(m_newColl);
       break;
 
     case Replace:
       // replaceCollection() makes the URL = "Unknown"
       m_origURL = Data::Document::self()->URL();
       Data::Document::self()->replaceCollection(m_newColl);
-      Controller::self()->slotCollectionDeleted(m_origColl);
-      Controller::self()->slotCollectionAdded(m_newColl);
       m_cleanup = ClearOriginal;
       break;
   }
@@ -132,20 +124,16 @@ void CollectionCommand::undo() {
     case Append:
       unCopyMacros();
       Data::Document::self()->unAppendCollection(m_origFields, m_addedEntries);
-      Controller::self()->slotCollectionModified(m_origColl, m_structuralChange);
       break;
 
     case Merge:
       unCopyMacros();
       Data::Document::self()->unMergeCollection(m_origFields, m_mergePair);
-      Controller::self()->slotCollectionModified(m_origColl, m_structuralChange);
       break;
 
     case Replace:
       Data::Document::self()->replaceCollection(m_origColl);
       Data::Document::self()->setURL(m_origURL);
-      Controller::self()->slotCollectionDeleted(m_newColl);
-      Controller::self()->slotCollectionAdded(m_origColl);
       m_cleanup = ClearNew;
       break;
   }

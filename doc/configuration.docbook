@@ -37,7 +37,8 @@ in the data files, or saved separately in the &appname; application folder. Also
 is started, it can automatically reopen the last data file that was open. The
 <guilabel>Tip of the Day</guilabel> dialog contains helpful hints on using &appname;
 and appears at program startup. You may want to read through some of the hints and
-then disable the dialog.
+then disable the dialog. The <interface>Quick Filter</interface> in the toolbar is useful
+for easily filtering through your collection and can utilize regular expressions.
 </para>
 
 <para>
@@ -162,11 +163,13 @@ while the full list is <ulink url="https://tellico-project.org/data-sources">ava
 <listitem><simpara><link linkend="amazon-web-services">Amazon.com Web Services</link>,</simpara></listitem>
 <listitem><simpara><link linkend="isbndb">ISBNdb.com</link>,</simpara></listitem>
 <listitem><simpara><link linkend="openlibrary">OpenLibrary.org</link>,</simpara></listitem>
+<listitem><simpara><link linkend="opds">OPDS catalogs</link>,</simpara></listitem>
 <!-- movies -->
 <listitem><simpara>the <link linkend="imdb">Internet Movie Database</link>,</simpara></listitem>
 <listitem><simpara><link linkend="allocine">AlloCiné</link>,</simpara></listitem>
 <listitem><simpara><link linkend="tmdb">TheMovieDB.org</link>,</simpara></listitem>
 <listitem><simpara>the <link linkend="omdb">Open Movie Database</link>,</simpara></listitem>
+<listitem><simpara><link linkend="filmaffinity">FilmAffinity</link>,</simpara></listitem>
 <!-- comics -->
 <listitem><simpara><link linkend="bedetheque">BDGest</link>,</simpara></listitem>
 <listitem><simpara><link linkend="comicvine">Comic Vine</link>,</simpara></listitem>
@@ -208,13 +211,6 @@ existing ones may be modified or deleted, using the <guibutton>Modify...</guibut
 <guibutton>Delete</guibutton> buttons. The order of the sources, which shows up in the
 entry updating menus, can also be changed.
 </para>
-
-<warning>
-<para>
-Never install and run a script from an untrusted source. They are executed with the same permissions as the user,
-and as a result, could modify or delete files or otherwise mess up your system.
-</para>
-</warning>
 
 <para>
 Many of the data sources offer more information than the default fields in &appname;. Those other fields are
@@ -302,6 +298,15 @@ the best known.
 </para>
 </sect3>
 
+<sect3 id="opds">
+<title>OPDS Catalogs</title>
+<para>
+<ulink url="https://en.wikipedia.org/wiki/Open_Publication_Distribution_System">OPDS catalogs</ulink> provide a means for searching (and distributing) digital books.
+&tellico; can use many OPDS catalogs as a data source, such as <ulink url="https://wiki.mobileread.com/wiki/OPDS">Project Gutenberg</ulink>. Enter the link to the catalog
+and verify the access and format to confirm &tellico; can read the link.
+</para>
+</sect3>
+
 </sect2>
 <!-- end of books -->
 
@@ -361,7 +366,14 @@ The <ulink url="http://www.imdb.com">Internet Movie Database</ulink> provides in
 <sect3 id="allocine">
 <title>AlloCiné</title>
 <para>
-<ulink url="http://allocine.fr">AlloCiné</ulink> is an online movie information service, based in France. Browser Identification must be enabled in &systemsettings;
+<ulink url="http://allocine.fr">AlloCiné</ulink> is an online movie information service, based in France.
+</para>
+</sect3>
+
+<sect3 id="filmaffinity">
+<title>FilmAffinity</title>
+<para>
+<ulink url="https://filmaffinity.com">FilmAffinity</ulink> is an independent film site.
 </para>
 </sect3>
 
@@ -374,14 +386,14 @@ The <ulink url="http://www.imdb.com">Internet Movie Database</ulink> provides in
 <sect3 id="discogs">
 <title>Discogs.com</title>
 <para>
-<ulink url="http://discogs.com">Discogs.com</ulink> is a user-built music database containing information on artists, labels, and their recordings. Registration for a free account is required. Browser Identification must be enabled in &systemsettings;
+<ulink url="http://discogs.com">Discogs.com</ulink> is a user-built music database containing information on artists, labels, and their recordings. Registration for a free account is required.
 </para>
 </sect3>
 
 <sect3 id="musicbrainz">
 <title>MusicBrainz.org</title>
 <para>
-<ulink url="http://musicbrainz.org">MusicBrainz.org</ulink> is a community music metadatabase that attempts to create a comprehensive music information site. Browser Identification must be enabled in &systemsettings;
+<ulink url="http://musicbrainz.org">MusicBrainz.org</ulink> is a community music metadatabase that attempts to create a comprehensive music information site.
 </para>
 </sect3>
 
@@ -455,7 +467,7 @@ The <ulink url="http://www.imdb.com">Internet Movie Database</ulink> provides in
 <title>Colnect</title>
 <para>
 <ulink url="https://colnect.com">Colnect</ulink> is an online community for collectibles providing personal collection management.
-&tellico; can search Colnect for coin and stamp information.
+&tellico; can search Colnect for coin and stamp information, as well as comic books, sports card, and video games.
 </para>
 </sect3>
 
@@ -516,8 +528,15 @@ The collection type returned by the script must be set, along with the data form
 use the <link linkend="file-format">default &appname; &XML; format</link>, but it can also import other formats as well, such as bibtex.
 </para>
 
-<para>The full path to the application should be entered in the source options. Be aware that the application is executed on the system with the same permissions as the current user, so do not use scripts from untrusted sources. Check the boxes next to the search keys supported by the application, and enter the required command line options in the edit box. The search value will be inserted where <userinput>%1</userinput> appears.
+<para>The full path to the application should be entered in the source options. Check the boxes next to the search keys supported by the application, and enter the required command line options in the edit box. The search value will be inserted where <userinput>%1</userinput> appears.
 </para>
+
+<warning>
+<para>
+Never install and run a script from an untrusted source. They are executed with the same permissions as the user,
+and as a result, could modify or delete files or otherwise mess up your system.
+</para>
+</warning>
 
 <para>
 For updating entries already in the collection, the final check box and edit box are used to determine the command-line options. The entry fields used to find an update must be entered, in the same format as used for <link linkend="derived">derived value</link> fields.

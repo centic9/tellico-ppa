@@ -3,6 +3,7 @@
 SET(gui_STAT_SRCS
    boolfieldwidget.cpp
    choicefieldwidget.cpp
+   collectiontemplatedialog.cpp
    collectiontypecombo.cpp
    combobox.cpp
    countdelegate.cpp
@@ -38,7 +39,12 @@ SET(gui_STAT_SRCS
    treeview.cpp
    urlfieldlogic.cpp
    urlfieldwidget.cpp
-   )
+)
+
+SET(gui_UI
+  collectiontemplatedialog.ui
+)
+qt_wrap_ui(gui_STAT_SRCS ${gui_UI})
 
 add_library(gui STATIC ${gui_STAT_SRCS})
 
@@ -53,6 +59,7 @@ TARGET_LINK_LIBRARIES(gui
     KF5::XmlGui
     KF5::I18n
     KF5::TextWidgets
+    KF5::IconThemes
 )
 
 IF(USE_KHTML)

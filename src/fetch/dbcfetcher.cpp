@@ -92,7 +92,7 @@ QUrl DBCFetcher::searchUrl() {
       break;
 
     default:
-      myWarning() << "key not recognized:" << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       return QUrl();
   }
   query.addQueryItem(QStringLiteral("action"), QStringLiteral("search"));
@@ -142,7 +142,6 @@ Tellico::Fetch::ConfigWidget* DBCFetcher::configWidget(QWidget* parent_) const {
 }
 
 QString DBCFetcher::defaultName() {
-//  return QLatin1String("Dansk BiblioteksCenter (DBC)");
   return i18n("Danish Bibliographic Center (DBC.dk)");
 }
 

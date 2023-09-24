@@ -93,15 +93,20 @@ private Q_SLOTS:
 
 private:
   static QString URLize(const QString& name);
-  static QString imageUrl(const QString& name, const QString& id);
 
   virtual void search() Q_DECL_OVERRIDE;
   virtual FetchRequest updateRequest(Data::EntryPtr entry) Q_DECL_OVERRIDE;
   void populateEntry(Data::EntryPtr entry, const QVariantList& resultList);
+  void populateCoinEntry(Data::EntryPtr entry, const QVariantList& resultList);
+  void populateStampEntry(Data::EntryPtr entry, const QVariantList& resultList);
+  void populateComicEntry(Data::EntryPtr entry, const QVariantList& resultList);
+  void populateCardEntry(Data::EntryPtr entry, const QVariantList& resultList);
+  void populateGameEntry(Data::EntryPtr entry, const QVariantList& resultList);
   void loadImage(Data::EntryPtr entry, const QString& fieldName);
 
+  QString imageUrl(const QString& name, const QString& id);
   void readDataList();
-  void readStampColors();
+  void readItemNames(const QByteArray& item);
 
   QHash<uint, Data::EntryPtr> m_entries;
 
@@ -114,7 +119,16 @@ private:
   // map from field name to position in result list
   QHash<QString, int> m_colnectFields;
   // color names, for stamp collections
-  QHash<int, QString> m_stampColors;
+  // players and teams for sports cards
+  QHash<QByteArray, QHash<int, QString> > m_itemNames;
+
+  enum ImageSize {
+    NoImage=0,
+    SmallImage=1, // small is really the thumb size
+    LargeImage=2
+  };
+  ImageSize m_imageSize;
+  int m_lastCollType;
 };
 
 class ColnectFetcher::ConfigWidget : public Fetch::ConfigWidget {
@@ -130,6 +144,7 @@ private Q_SLOTS:
 
 private:
   GUI::ComboBox* m_langCombo;
+  GUI::ComboBox* m_imageCombo;
 };
 
   } // end namespace

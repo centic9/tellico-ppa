@@ -113,12 +113,13 @@ void FetcherConfigDialog::init(Tellico::Fetch::Type type_) {
   label->setBuddy(m_nameEdit);
   connect(m_nameEdit, &QLineEdit::textChanged, this, &FetcherConfigDialog::slotNameChanged);
 
+  const QString labelText(i18n("Source &type: "));
   if(m_newSource) {
-    label = new QLabel(i18n("Source &type: "), widget);
+    label = new QLabel(labelText, widget);
   } else {
     // since the label doesn't have a buddy, we don't want an accel,
     // but also want to reuse string we already have
-    label = new QLabel(KLocalizedString::removeAcceleratorMarker(i18n("Source &type: ")), widget);
+    label = new QLabel(KLocalizedString::removeAcceleratorMarker(labelText), widget);
   }
   gl->addWidget(label, ++row, 0);
   w = i18n("Tellico supports several different data sources.");
@@ -148,11 +149,14 @@ void FetcherConfigDialog::init(Tellico::Fetch::Type type_) {
     connect(m_typeCombo, activatedInt, this, &FetcherConfigDialog::slotNewSourceSelected);
 
     int z3950_idx = 0;
-    Fetch::NameTypeMap typeMap = Fetch::Manager::self()->nameTypeMap();
-    // key is the fetcher name, value is the type
-    for(Fetch::NameTypeMap::ConstIterator it = typeMap.constBegin(); it != typeMap.constEnd(); ++it) {
-      m_typeCombo->addItem(Fetch::Manager::self()->fetcherIcon(it.value()), it.key(), it.value());
-      if(it.value() == Fetch::Z3950) {
+    const auto typeByName = Fetch::Manager::self()->nameTypeHash();
+    auto typeKeys = typeByName.keys();
+    typeKeys.sort(Qt::CaseInsensitive);
+    // key is the fetcher name, value is the fetcher type
+    for(auto it = typeKeys.constBegin(); it != typeKeys.constEnd(); ++it) {
+      const auto typeValue = typeByName.value(*it);
+      m_typeCombo->addItem(Fetch::Manager::self()->fetcherIcon(typeValue), *it, typeValue);
+      if(typeValue == Fetch::Z3950) {
         z3950_idx = m_typeCombo->count()-1;
       }
     }

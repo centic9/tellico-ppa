@@ -69,7 +69,7 @@ SRUFetcher::SRUFetcher(QObject* parent_)
 
 SRUFetcher::SRUFetcher(const QString& name_, const QString& host_, uint port_, const QString& path_,
                        const QString& format_, QObject* parent_) : Fetcher(parent_),
-      m_host(host_), m_port(port_), m_path(path_), m_format(format_),
+      m_scheme(QStringLiteral("http")), m_host(host_), m_port(port_), m_path(path_), m_format(format_),
       m_job(nullptr), m_MARCXMLHandler(nullptr), m_MODSHandler(nullptr), m_SRWHandler(nullptr), m_started(false) {
   m_name = name_; // m_name is protected in super class
   if(!m_path.startsWith(QLatin1Char('/'))) {
@@ -100,6 +100,7 @@ bool SRUFetcher::canFetch(int type) const {
 }
 
 void SRUFetcher::readConfigHook(const KConfigGroup& config_) {
+  m_scheme = config_.readEntry("Scheme", "http");
   m_host = config_.readEntry("Host");
   int p = config_.readEntry("Port", SRU_DEFAULT_PORT);
   if(p > 0) {
@@ -125,13 +126,13 @@ void SRUFetcher::readConfigHook(const KConfigGroup& config_) {
 void SRUFetcher::search() {
   m_started = true;
   if(m_host.isEmpty() || m_path.isEmpty() || m_format.isEmpty()) {
-    myDebug() << "settings are not set!";
+    myDebug() << source() << "- host and path are not set!";
     stop();
     return;
   }
 
   QUrl u;
-  u.setScheme(QStringLiteral("http"));
+  u.setScheme(m_scheme);
   u.setHost(m_host);
   u.setPort(m_port);
   u = QUrl::fromUserInput(u.url() + m_path);
@@ -234,19 +235,14 @@ void SRUFetcher::search() {
       break;
 
     default:
-      myWarning() << "key not recognized: " << request().key();
+      myWarning() << source() << "- key not recognized:" << request().key();
       stop();
       break;
   }
   u.setQuery(query);
-  runJob(u);
-}
+//  myDebug() << u.url();
 
-void SRUFetcher::runJob(const QUrl& url_) {
-//  myDebug() << url_.url();
-  m_lastUrl = url_;
-
-  m_job = KIO::storedGet(url_, KIO::NoReload, KIO::HideProgressInfo);
+  m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job.data(), &KJob::result,
           this, &SRUFetcher::slotComplete);
@@ -301,15 +297,7 @@ void SRUFetcher::slotComplete(KJob*) {
   QDomDocument dom;
   if(!dom.setContent(result, true /*namespace*/)) {
     myWarning() << "server did not return valid XML.";
-    // possible that server wants https protocol
-    if(m_lastUrl.scheme() == QLatin1String("http") &&
-       result.contains(QLatin1String("https"), Qt::CaseInsensitive)) {
-      QUrl newUrl = m_lastUrl;
-      newUrl.setScheme(QLatin1String("https"));
-      runJob(newUrl);
-    } else {
-      stop();
-    }
+    stop();
     return;
   }
 
@@ -344,7 +332,8 @@ void SRUFetcher::slotComplete(KJob*) {
     // brute force marcxchange conversion. This is probably wrong at some level
     QString newResult = result;
     if(m_format.startsWith(QLatin1String("marcxchange"), Qt::CaseInsensitive)) {
-      newResult.replace(QRegularExpression(QLatin1String("xmlns:marc=\"info:lc/xmlns/marcxchange-v[12]\"")),
+      static const QRegularExpression marcRx(QLatin1String("xmlns:marc=\"info:lc/xmlns/marcxchange-v[12]\""));
+      newResult.replace(marcRx,
                         QStringLiteral("xmlns:marc=\"http://www.loc.gov/MARC21/slim\""));
     }
     modsResult = m_MARCXMLHandler->applyStylesheet(newResult);
@@ -500,8 +489,8 @@ bool SRUFetcher::initSRWHandler() {
 }
 
 Tellico::Fetch::Fetcher::Ptr SRUFetcher::libraryOfCongress(QObject* parent_) {
-  return Fetcher::Ptr(new SRUFetcher(i18n("Library of Congress (US)"), QStringLiteral("z3950.loc.gov"), 7090,
-                                     QStringLiteral("voyager"), QStringLiteral("mods"), parent_));
+  return Fetcher::Ptr(new SRUFetcher(i18n("Library of Congress (US)"), QStringLiteral("lx2.loc.gov"), 210,
+                                     QStringLiteral("LCDB"), QStringLiteral("mods"), parent_));
 }
 
 QString SRUFetcher::defaultName() {
@@ -509,7 +498,6 @@ QString SRUFetcher::defaultName() {
 }
 
 QString SRUFetcher::defaultIcon() {
-//  return QLatin1String("network-workgroup"); // just to be different than z3950
   return QStringLiteral(":/icons/sru");
 }
 
@@ -534,14 +522,28 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
   l->setColumnStretch(1, 10);
 
   int row = -1;
-  QLabel* label = new QLabel(i18n("Hos&t: "), optionsWidget());
+  QLabel* label = new QLabel(i18n("Scheme: "), optionsWidget());
+  l->addWidget(label, ++row, 0);
+  m_schemeCombo = new GUI::ComboBox(optionsWidget());
+  m_schemeCombo->addItem(QStringLiteral("http"));
+  m_schemeCombo->addItem(QStringLiteral("https"));
+  void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
+  connect(m_schemeCombo, activatedInt, this, &ConfigWidget::slotSetModified);
+  connect(m_schemeCombo, &QComboBox::editTextChanged, this, &ConfigWidget::slotSetModified);
+  l->addWidget(m_schemeCombo, row, 1);
+  QString w = i18n("Enter the path to the database used by the server.");
+  label->setWhatsThis(w);
+  m_schemeCombo->setWhatsThis(w);
+  label->setBuddy(m_schemeCombo);
+
+  label = new QLabel(i18n("Hos&t: "), optionsWidget());
   l->addWidget(label, ++row, 0);
   m_hostEdit = new GUI::LineEdit(optionsWidget());
   connect(m_hostEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
   connect(m_hostEdit, &QLineEdit::textChanged, this, &ConfigWidget::signalName);
   connect(m_hostEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotCheckHost);
   l->addWidget(m_hostEdit, row, 1);
-  QString w = i18n("Enter the host name of the server.");
+  w = i18n("Enter the host name of the server.");
   label->setWhatsThis(w);
   m_hostEdit->setWhatsThis(w);
   label->setBuddy(m_hostEdit);
@@ -578,7 +580,6 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
   m_formatCombo->addItem(QStringLiteral("PAM"), QLatin1String("pam"));
   m_formatCombo->addItem(QStringLiteral("Dublin Core"), QLatin1String("dc"));
   m_formatCombo->setEditable(true);
-  void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
   connect(m_formatCombo, activatedInt, this, &ConfigWidget::slotSetModified);
   connect(m_formatCombo, &QComboBox::editTextChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_formatCombo, row, 1);
@@ -597,6 +598,7 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
   addFieldsWidget(SRUFetcher::allOptionalFields(), fetcher_ ? fetcher_->optionalFields() : QStringList());
 
   if(fetcher_) {
+    m_schemeCombo->setCurrentText(fetcher_->m_scheme);
     m_hostEdit->setText(fetcher_->m_host);
     m_portSpinBox->setValue(fetcher_->m_port);
     m_pathEdit->setText(fetcher_->m_path);
@@ -629,6 +631,10 @@ void SRUFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   }
   if(!s.isEmpty()) {
     config_.writeEntry("Format", s);
+  }
+  s = m_schemeCombo->currentText();
+  if(!s.isEmpty()) {
+    config_.writeEntry("Scheme", s);
   }
   StringMap queryMap = m_queryTree->stringMap();
   if(!queryMap.isEmpty()) {

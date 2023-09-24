@@ -49,6 +49,10 @@ void DiscogsFetcherTest::initTestCase() {
   }
 }
 
+void DiscogsFetcherTest::cleanup() {
+  m_needToWait = true;
+}
+
 void DiscogsFetcherTest::testTitle() {
   QString groupName = QStringLiteral("Discogs");
   if(!m_hasConfigFile || !m_config->hasGroup(groupName)) {
@@ -60,12 +64,11 @@ void DiscogsFetcherTest::testTitle() {
                                        QStringLiteral("Anywhere But Home"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::DiscogsFetcher(this));
   fetcher->readConfig(cg);
-  QVERIFY(fetcher->needsUserAgent());
 
   Tellico::Data::EntryList results = DO_FETCH(fetcher, request);
 
   QVERIFY(results.size() > 0);
-  Tellico::Data::EntryPtr entry;  //  results can be randomly ordered, loop until wee find the one we want
+  Tellico::Data::EntryPtr entry;  //  results can be randomly ordered, loop until we find the one we want
   for(int i = 0; i < results.size(); ++i) {
     Tellico::Data::EntryPtr test = results.at(i);
     if(test->field(QStringLiteral("artist")).toLower() == QStringLiteral("evanescence")) {
@@ -87,7 +90,6 @@ void DiscogsFetcherTest::testTitle() {
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(entry->field(QStringLiteral("cover")));
   QVERIFY(!img.isNull());
-  m_needToWait = true;
 }
 
 void DiscogsFetcherTest::testPerson() {
@@ -118,7 +120,6 @@ void DiscogsFetcherTest::testPerson() {
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(entry->field(QStringLiteral("cover")));
   QVERIFY(!img.isNull());
-  m_needToWait = true;
 }
 
 void DiscogsFetcherTest::testKeyword() {
@@ -150,7 +151,6 @@ void DiscogsFetcherTest::testKeyword() {
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(entry->field(QStringLiteral("cover")));
   QVERIFY(!img.isNull());
-  m_needToWait = true;
 }
 
 void DiscogsFetcherTest::testBarcode() {
@@ -183,7 +183,6 @@ void DiscogsFetcherTest::testBarcode() {
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(entry->field(QStringLiteral("cover")));
   QVERIFY(!img.isNull());
-  m_needToWait = true;
 }
 
 // use the Raw query type to fully test the data for a Discogs release
@@ -212,16 +211,16 @@ void DiscogsFetcherTest::testRawData() {
   QCOMPARE(entry->field(QStringLiteral("label")), QStringLiteral("Wind-Up"));
   QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("2004"));
   QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Rock"));
-  QCOMPARE(entry->field(QStringLiteral("discogs")), QStringLiteral("https://www.discogs.com/Evanescence-Anywhere-But-Home/release/1588789"));
+  QCOMPARE(entry->field(QStringLiteral("discogs")), QStringLiteral("https://www.discogs.com/release/1588789-Evanescence-Anywhere-But-Home"));
   QCOMPARE(entry->field(QStringLiteral("nationality")), QStringLiteral("Australia & New Zealand"));
   QCOMPARE(entry->field(QStringLiteral("medium")), QStringLiteral("Compact Disc"));
+  QCOMPARE(entry->field(QStringLiteral("catno")), QStringLiteral("5192073000"));
 
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("track")));
   QCOMPARE(trackList.count(), 14);
   QCOMPARE(trackList.at(0), QStringLiteral("Haunted::Evanescence::4:04"));
 
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
-  m_needToWait = true;
 }
 
 // do another check to make sure the Vinyl format is captured
@@ -250,14 +249,13 @@ void DiscogsFetcherTest::testRawDataVinyl() {
   QCOMPARE(entry->field(QStringLiteral("label")), QStringLiteral("CBS; CBS"));
 //  QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("1977"));
   QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Rock"));
-  QCOMPARE(entry->field(QStringLiteral("discogs")), QStringLiteral("https://www.discogs.com/The-Clash-The-Clash/release/456552"));
+  QCOMPARE(entry->field(QStringLiteral("discogs")), QStringLiteral("https://www.discogs.com/release/456552-The-Clash-The-Clash"));
   QCOMPARE(entry->field(QStringLiteral("nationality")), QStringLiteral("UK"));
   QCOMPARE(entry->field(QStringLiteral("medium")), QStringLiteral("Vinyl"));
 
   QStringList trackList = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("track")));
   QCOMPARE(trackList.count(), 14);
   QCOMPARE(trackList.at(0), QStringLiteral("Janie Jones::The Clash::2:05"));
-  m_needToWait = true;
 }
 
 void DiscogsFetcherTest::testUpdate() {

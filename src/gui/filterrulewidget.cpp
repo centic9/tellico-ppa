@@ -34,8 +34,6 @@
 #include <KLocalizedString>
 #include <KComboBox>
 #include <KLineEdit>
-#include <KServiceTypeTrader>
-#include <KRegExpEditorInterface>
 #include <KDateComboBox>
 
 #include <QDialog>
@@ -46,7 +44,7 @@
 using Tellico::FilterRuleWidget;
 
 FilterRuleWidget::FilterRuleWidget(Tellico::FilterRule* rule_, QWidget* parent_)
-    : QWidget(parent_), m_ruleDate(nullptr), m_editRegExp(nullptr), m_editRegExpDialog(nullptr), m_ruleType(General) {
+    : QWidget(parent_), m_ruleDate(nullptr), m_ruleType(General) {
   QHBoxLayout* l = new QHBoxLayout(this);
   l->setMargin(0);
 //  l->setSizeConstraint(QLayout::SetFixedSize);
@@ -62,10 +60,15 @@ FilterRuleWidget::FilterRuleWidget(Tellico::FilterRule* rule_, QWidget* parent_)
   }
 }
 
+QString FilterRuleWidget::anyFieldString() {
+  static const QString anyField = QLatin1Char('<') + i18n("Any Field") + QLatin1Char('>');
+  return anyField;
+}
+
 void FilterRuleWidget::initLists() {
   //---------- initialize list of filter fields
   if(m_ruleFieldList.isEmpty()) {
-    m_ruleFieldList.append(QLatin1Char('<') + i18n("Any Field") + QLatin1Char('>'));
+    m_ruleFieldList.append(anyFieldString());
     QStringList titles = Data::Document::self()->collection()->fieldTitles();
     titles.sort();
     m_ruleFieldList += titles;
@@ -96,41 +99,16 @@ void FilterRuleWidget::initWidget() {
   connect(m_ruleDate, &KDateComboBox::dateChanged, this, &FilterRuleWidget::signalModified);
   m_valueStack->addWidget(m_ruleDate);
 
-  if(!KServiceTypeTrader::self()->query(QStringLiteral("KRegExpEditor/KRegExpEditor")).isEmpty()) {
-    m_editRegExp = new QPushButton(i18n("Edit..."), this);
-    connect(m_editRegExp, &QAbstractButton::clicked, this, &FilterRuleWidget::slotEditRegExp);
-  }
-
   m_ruleField->addItems(m_ruleFieldList);
   updateFunctionList();
   slotRuleFunctionChanged(m_ruleFunc->currentIndex());
 }
 
-void FilterRuleWidget::slotEditRegExp() {
-  if(!m_editRegExpDialog) {
-    m_editRegExpDialog = KServiceTypeTrader::createInstanceFromQuery<QDialog>(QStringLiteral("KRegExpEditor/KRegExpEditor"),
-                                                                              QString(), this);  //krazy:exclude=qclasses
-  }
-
-  if(!m_editRegExpDialog) {
-    myWarning() << "no dialog";
-    return;
-  }
-
-  KRegExpEditorInterface* iface = ::qobject_cast<KRegExpEditorInterface*>(m_editRegExpDialog);
-  if(iface) {
-    iface->setRegExp(m_ruleValue->text());
-    if(m_editRegExpDialog->exec() == QDialog::Accepted) {
-      m_ruleValue->setText(iface->regExp());
-    }
-  }
-}
-
 void FilterRuleWidget::slotRuleFieldChanged(int which_) {
   Q_UNUSED(which_);
   m_ruleType = General;
-  QString fieldTitle = m_ruleField->currentText();
-  if(fieldTitle.isEmpty() || fieldTitle[0] == QLatin1Char('<')) {
+  const QString fieldTitle = m_ruleField->currentText();
+  if(fieldTitle.isEmpty() || fieldTitle == anyFieldString()) {
     m_ruleValue->setCompletionObject(nullptr);
     updateFunctionList();
     return;
@@ -153,6 +131,8 @@ void FilterRuleWidget::slotRuleFieldChanged(int which_) {
       m_ruleType = Number;
     } else if(field->type() == Data::Field::Image) {
       m_ruleType = Image;
+    } else if(field->type() == Data::Field::Bool) {
+      m_ruleType = Bool;
     }
   }
   updateFunctionList();
@@ -160,23 +140,21 @@ void FilterRuleWidget::slotRuleFieldChanged(int which_) {
 
 void FilterRuleWidget::slotRuleFunctionChanged(int which_) {
   const QVariant data = m_ruleFunc->itemData(which_);
-  if(m_editRegExp) {
-    m_editRegExp->setEnabled(data == FilterRule::FuncRegExp ||
-                             data == FilterRule::FuncNotRegExp);
-  }
 
   // don't show the date picker if we're using regular expressions
   if(m_ruleType == Date && data != FilterRule::FuncRegExp && data != FilterRule::FuncNotRegExp) {
     m_valueStack->setCurrentWidget(m_ruleDate);
   } else {
     m_valueStack->setCurrentWidget(m_ruleValue);
-    m_ruleValue->setPlaceholderText(QString());
+    m_ruleValue->setPlaceholderText(m_ruleType == Bool ? QChar(0x2611): QString());
     if(m_ruleType == Number &&
       (data != FilterRule::FuncRegExp && data != FilterRule::FuncNotRegExp)) {
       m_ruleValue->setValidator(new QIntValidator(this));
     } else {
       m_ruleValue->setValidator(nullptr);
     }
+    // Bool rules don't use a value
+    m_ruleValue->setEnabled(m_ruleType != Bool);
   }
 }
 
@@ -204,12 +182,12 @@ void FilterRuleWidget::setRule(const Tellico::FilterRule* rule_) {
     m_ruleField->setCurrentIndex(idx);
   }
 
-  // update the rulle fields first, before possible values
+  // update the rule fields first, before possible values
   slotRuleFieldChanged(m_ruleField->currentIndex());
 
   //--------------set function and contents
   m_ruleFunc->setCurrentData(rule_->function());
-  m_ruleValue->setText(rule_->pattern());
+  m_ruleValue->setText(m_ruleType == Bool ? QString() : rule_->pattern());
 
   slotRuleFunctionChanged(m_ruleFunc->currentIndex());
   blockSignals(false);
@@ -225,7 +203,8 @@ Tellico::FilterRule* FilterRuleWidget::rule() const {
   if(m_valueStack->currentWidget() == m_ruleDate) {
     ruleValue = m_ruleDate->date().toString(Qt::ISODate);
   } else {
-    ruleValue = m_ruleValue->text().trimmed();
+    // bool values only get checked against true
+    ruleValue = m_ruleType == Bool ? QStringLiteral("true") : m_ruleValue->text().trimmed();
   }
 
   return new FilterRule(fieldName, ruleValue,
@@ -233,16 +212,11 @@ Tellico::FilterRule* FilterRuleWidget::rule() const {
 }
 
 void FilterRuleWidget::reset() {
-//  myDebug();
   blockSignals(true);
 
   m_ruleField->setCurrentIndex(0);
   m_ruleFunc->setCurrentIndex(0);
   m_ruleValue->clear();
-
-  if(m_editRegExp) {
-    m_editRegExp->setEnabled(false);
-  }
 
   blockSignals(false);
 }
@@ -277,6 +251,10 @@ void FilterRuleWidget::updateFunctionList() {
       m_ruleFunc->addItem(i18n("image size does not equal"), FilterRule::FuncNotEquals);
       m_ruleFunc->addItem(i18nc("image size is less than a number", "image size is less than"), FilterRule::FuncLess);
       m_ruleFunc->addItem(i18nc("image size is greater than a number", "image size is greater than"), FilterRule::FuncGreater);
+      break;
+    case Bool:
+      m_ruleFunc->addItem(i18n("equals"), FilterRule::FuncEquals);
+      m_ruleFunc->addItem(i18n("does not equal"), FilterRule::FuncNotEquals);
       break;
     case General:
       m_ruleFunc->addItem(i18n("contains"), FilterRule::FuncContains);

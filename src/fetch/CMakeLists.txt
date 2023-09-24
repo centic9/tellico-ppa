@@ -30,7 +30,9 @@ SET(fetch_STAT_SRCS
    fetchmanager.cpp
    fetchrequest.cpp
    fetchresult.cpp
+   filmaffinityfetcher.cpp
    filmasterfetcher.cpp
+   gaminghistoryfetcher.cpp
    gcstarpluginfetcher.cpp
    gcstarthread.cpp
    giantbombfetcher.cpp
@@ -41,6 +43,7 @@ SET(fetch_STAT_SRCS
    igdbfetcher.cpp
    imdbfetcher.cpp
    isbndbfetcher.cpp
+   itunesfetcher.cpp
    kinofetcher.cpp
    kinopoiskfetcher.cpp
    kinoteatrfetcher.cpp
@@ -53,6 +56,7 @@ SET(fetch_STAT_SRCS
    musicbrainzfetcher.cpp
    numistafetcher.cpp
    omdbfetcher.cpp
+   opdsfetcher.cpp
    openlibraryfetcher.cpp
    rpggeekfetcher.cpp
    springerfetcher.cpp

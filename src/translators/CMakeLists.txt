@@ -16,8 +16,10 @@ SET(translators_STAT_SRCS
    csvexporter.cpp
    csvimporter.cpp
    csvparser.cpp
+   datacrowimporter.cpp
    dataimporter.cpp
    deliciousimporter.cpp
+   ebookimporter.cpp
    exporter.cpp
    filelistingimporter.cpp
    freedb_util.cpp
@@ -30,6 +32,7 @@ SET(translators_STAT_SRCS
    htmlexporter.cpp
    importer.cpp
    librarythingimporter.cpp
+   marcimporter.cpp
    onixexporter.cpp
    pdfimporter.cpp
    referencerimporter.cpp

@@ -1,10 +1,11 @@
 # FindKF5 requires CMake >= 2.8.12
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+# FindPoppler requires CMake >= 3.16
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.4.6")
+set(TELLICO_VERSION "3.5.1")
 
-set(QT_MIN_VERSION "5.4.0")
+set(QT_MIN_VERSION "5.10.0")
 
 # FindPoppler was added to ECM in 5.19
 find_package(ECM 5.19 REQUIRED NO_MODULE)
@@ -27,8 +28,8 @@ include(ECMUninstallTarget)
 include(FeatureSummary)
 
 include(KDEInstallDirs)
+include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
-include(KDEFrameworkCompilerSettings NO_POLICY_SCOPE)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
 

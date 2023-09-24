@@ -40,6 +40,7 @@
 #include <KSharedConfig>
 #include <KWindowConfig>
 #include <KHelpClient>
+#include <kwidgetsaddons_version.h>
 
 #include <QStringList>
 #include <QObject>
@@ -50,7 +51,7 @@
 #include <QVBoxLayout>
 #include <QPushButton>
 #include <QDialogButtonBox>
-#include <QTimer>
+#include <QWindow>
 
 namespace {
   // must be an even number
@@ -333,9 +334,15 @@ void EntryEditDialog::slotHandleSave() {
     }
     QString str(i18n("Do you really want to modify these entries?"));
     QString dontAsk = QStringLiteral("SaveMultipleBooks"); // don't change 'books', invisible anyway
-    int ret = KMessageBox::questionYesNoList(this, str, names, i18n("Modify Multiple Entries"),
-                                             KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAsk);
+#if KWIDGETSADDONS_VERSION < QT_VERSION_CHECK(5, 100, 0)
+    auto ret = KMessageBox::questionYesNoList(this, str, names, i18n("Modify Multiple Entries"),
+                                              KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dontAsk);
     if(ret != KMessageBox::Yes) {
+#else
+    auto ret = KMessageBox::questionTwoActionsList(this, str, names, i18n("Modify Multiple Entries"),
+                                                   KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dontAsk);
+    if(ret != KMessageBox::ButtonCode::PrimaryAction) {
+#endif
       m_isWorking = false;
       return;
     }
@@ -380,9 +387,15 @@ void EntryEditDialog::slotHandleSave() {
       titles << it->title();
     }
     QString dontAsk = QStringLiteral("SaveWithoutRequired");
-    int ret = KMessageBox::questionYesNoList(this, str, titles, i18n("Modify Entries"),
-                                             KStandardGuiItem::yes(), KStandardGuiItem::no(), dontAsk);
+#if KWIDGETSADDONS_VERSION < QT_VERSION_CHECK(5, 100, 0)
+    auto ret = KMessageBox::questionYesNoList(this, str, titles, i18n("Modify Entries"),
+                                              KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dontAsk);
     if(ret != KMessageBox::Yes) {
+#else
+    auto ret = KMessageBox::questionTwoActionsList(this, str, titles, i18n("Modify Entries"),
+                                                   KStandardGuiItem::cont(), KStandardGuiItem::cancel(), dontAsk);
+    if(ret != KMessageBox::ButtonCode::PrimaryAction) {
+#endif
       m_isWorking = false;
       return;
     }
@@ -658,8 +671,9 @@ bool EntryEditDialog::queryModified() {
                       "Do you want to enter the changes?"));
     KGuiItem item = KStandardGuiItem::save();
     item.setText(i18n("Save Entry"));
-    int want_save = KMessageBox::warningYesNoCancel(this, str, i18n("Unsaved Changes"),
-                                                    item, KStandardGuiItem::discard());
+#if KWIDGETSADDONS_VERSION < QT_VERSION_CHECK(5, 100, 0)
+    auto want_save = KMessageBox::warningYesNoCancel(this, str, i18n("Unsaved Changes"),
+                                                     item, KStandardGuiItem::discard());
     switch(want_save) {
       case KMessageBox::Yes:
         slotHandleSave();
@@ -675,6 +689,26 @@ bool EntryEditDialog::queryModified() {
         ok = false;
         break;
     }
+#else
+    auto want_save = KMessageBox::warningTwoActionsCancel(this, str, i18n("Unsaved Changes"),
+                                                          item, KStandardGuiItem::discard());
+    switch(want_save) {
+      case KMessageBox::ButtonCode::PrimaryAction:
+        slotHandleSave();
+        ok = true;
+        break;
+
+      case KMessageBox::ButtonCode::SecondaryAction:
+        m_modified = false;
+        ok = true;
+        break;
+
+      case KMessageBox::ButtonCode::Cancel:
+      default:
+        ok = false;
+        break;
+    }
+#endif
   }
   return ok;
 }
@@ -765,19 +799,9 @@ void EntryEditDialog::fieldChanged(Tellico::Data::FieldPtr field_) {
 
 void EntryEditDialog::showEvent(QShowEvent* event_) {
   QDialog::showEvent(event_);
-/*
-  I attempted to read and restore window size here, but it didn't work (July 2016)
-  I discovered that I had to put it in a timer. Somewhere, the resize event or something
-  was overriding any size changes I did here. Calling this->resize() would work but
-  windowHandle()->resize() would not (as KWindowConfig::restoreWindowSize uses)
-  Bug 462237 - timer can not be 0
-*/
-  QTimer::singleShot(1, this, &EntryEditDialog::slotUpdateSize);
-}
-
-void EntryEditDialog::slotUpdateSize() {
   KConfigGroup config(KSharedConfig::openConfig(), QLatin1String(dialogOptionsString));
   KWindowConfig::restoreWindowSize(windowHandle(), config);
+  resize(windowHandle()->size()); // workaround for QTBUG-40584
 }
 
 void EntryEditDialog::hideEvent(QHideEvent* event_) {

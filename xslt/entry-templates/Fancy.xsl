@@ -35,6 +35,7 @@
 <xsl:param name="bgcolor"/> <!-- background color -->
 <xsl:param name="color1"/> <!-- highlighted text color -->
 <xsl:param name="color2"/> <!-- highlighted background color -->
+<xsl:param name="linkcolor"/> <!-- link color -->
 
 <xsl:param name="collection-file"/> <!-- might have a link to parent collection -->
 
@@ -121,6 +122,7 @@
     top: 2px;
     text-align: right;
     color: <xsl:value-of select="$color1"/>;
+    background-color: <xsl:value-of select="$color2"/>;
   }
   div#content {
     padding-left: 1%;
@@ -201,6 +203,9 @@
     font-weight: bold;
     text-align: center;
     clear: both;
+  }
+  a {
+    color: <xsl:value-of select="$linkcolor"/>;
   }
   </style>
   <title>

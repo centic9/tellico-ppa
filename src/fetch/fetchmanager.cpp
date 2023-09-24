@@ -325,6 +325,7 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FETCHER_ADD(HathiTrust);
 // music
   FETCHER_ADD(MusicBrainz);
+  FETCHER_ADD(Itunes);
 // video games
   FETCHER_ADD(TheGamesDB);
   FETCHER_ADD(IGDB);
@@ -340,13 +341,16 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   FETCHER_ADD(Colnect);
   FETCHER_ADD(Numista);
   QStringList langs = QLocale().uiLanguages();
-  if(langs.first().contains(QLatin1Char('-'))) {
+  if(!langs.isEmpty() && langs.first().contains(QLatin1Char('-'))) {
     // I'm not sure QT always include two-letter locale codes
     langs << langs.first().section(QLatin1Char('-'), 0, 0);
   }
 // only add IBS if user includes italian
   if(langs.contains(QStringLiteral("it"))) {
     FETCHER_ADD(IBS);
+  }
+  if(langs.contains(QStringLiteral("es"))) {
+    FETCHER_ADD(FilmAffinity);
   }
   if(langs.contains(QStringLiteral("fr"))) {
     FETCHER_ADD(DVDFr);
@@ -420,11 +424,11 @@ void Manager::updateStatus(const QString& message_) {
   emit signalStatus(message_);
 }
 
-Tellico::Fetch::NameTypeMap Manager::nameTypeMap() {
-  Fetch::NameTypeMap map;
+Tellico::Fetch::NameTypeHash Manager::nameTypeHash() {
+  Fetch::NameTypeHash hash;
   FunctionRegistry::const_iterator it = functionRegistry.constBegin();
   while(it != functionRegistry.constEnd()) {
-    map.insert(functionRegistry.value(it.key()).name(), static_cast<Type>(it.key()));
+    hash.insert(functionRegistry.value(it.key()).name(), static_cast<Type>(it.key()));
     ++it;
   }
 
@@ -444,10 +448,10 @@ Tellico::Fetch::NameTypeMap Manager::nameTypeMap() {
       continue;
     }
 
-    map.insert(name, ExecExternal);
+    hash.insert(name, ExecExternal);
     m_scriptMap.insert(name, file);
   }
-  return map;
+  return hash;
 }
 
 // called when creating a new fetcher
@@ -499,6 +503,9 @@ QPixmap Manager::fetcherIcon(Tellico::Fetch::Fetcher* fetcher_, int group_, int 
   Q_ASSERT(fetcher_);
   if(!fetcher_) {
     return QPixmap();
+  }
+  if(!fetcher_->icon().isEmpty()) {
+    return LOAD_ICON(fetcher_->icon(), group_, size_);
   }
   if(fetcher_->type() == Fetch::Z3950) {
 #ifdef HAVE_YAZ

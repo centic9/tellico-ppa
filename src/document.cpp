@@ -109,12 +109,15 @@ bool Document::newDocument(int type_) {
   m_coll = CollectionFactory::collection(type_, true);
   m_coll->setTrackGroups(true);
 
+  // be sure to set the new Url before signalling a new collection
+  // since reading options for custom collections depend on the file name
+  const QUrl url = QUrl::fromLocalFile(i18n(Tellico::untitledFilename));
+  setURL(url);
+
   emit signalCollectionAdded(m_coll);
   emit signalCollectionImagesLoaded(m_coll);
 
   setModified(false);
-  QUrl url = QUrl::fromLocalFile(i18n(Tellico::untitledFilename));
-  setURL(url);
   m_validFile = false;
   m_fileFormat = Import::TellicoImporter::Unknown;
 
@@ -254,6 +257,23 @@ bool Document::saveDocument(const QUrl& url_, bool force_) {
   return success;
 }
 
+bool Document::saveDocumentTemplate(const QUrl& url_, const QString& title_) {
+  Data::CollPtr collTemplate = CollectionFactory::collection(m_coll->type(), false /* no default fields */);
+  collTemplate->setTitle(title_);
+  // add the fields from the current collection
+  foreach(auto field, m_coll->fields()) {
+    collTemplate->addField(field);
+  }
+  foreach(auto filter, m_coll->filters()) {
+    collTemplate->addFilter(filter);
+  }
+  QScopedPointer<Export::Exporter> exporter(new Export::TellicoXMLExporter(collTemplate));
+  exporter->setURL(url_);
+  // since we already asked about overwriting the file, force the save
+  exporter->setOptions(exporter->options() | Export::ExportForce | Export::ExportComplete);
+  return exporter->exec();
+}
+
 bool Document::closeDocument() {
   if(m_importer) {
     m_importer->deleteLater();
@@ -279,8 +299,10 @@ void Document::deleteContents() {
   m_cancelImageWriting = true;
 }
 
-void Document::appendCollection(Tellico::Data::CollPtr coll_, bool* structuralChange_) {
-  appendCollection(m_coll, coll_, structuralChange_);
+void Document::appendCollection(Tellico::Data::CollPtr coll_) {
+  bool structuralChange = false;
+  appendCollection(m_coll, coll_, &structuralChange);
+  emit signalCollectionModified(m_coll, structuralChange);
 }
 
 void Document::appendCollection(Tellico::Data::CollPtr coll1_, Tellico::Data::CollPtr coll2_, bool* structuralChange_) {
@@ -307,8 +329,11 @@ void Document::appendCollection(Tellico::Data::CollPtr coll1_, Tellico::Data::Co
   coll1_->blockSignals(false);
 }
 
-Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll_, bool* structuralChange_) {
-  return mergeCollection(m_coll, coll_, structuralChange_);
+Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll_) {
+  bool structuralChange = false;
+  const auto mergeResult = mergeCollection(m_coll, coll_, &structuralChange);
+  emit signalCollectionModified(m_coll, structuralChange);
+  return mergeResult;
 }
 
 Tellico::Data::MergePair Document::mergeCollection(Tellico::Data::CollPtr coll1_, Tellico::Data::CollPtr coll2_, bool* structuralChange_) {
@@ -387,22 +412,22 @@ void Document::replaceCollection(Tellico::Data::CollPtr coll_) {
   setURL(url);
   m_validFile = false;
 
-  // the collection gets cleared by the CollectionCommand that called this function
-  // no need to do it here
-
+  emit signalCollectionDeleted(m_coll);
   m_coll = coll_;
   m_coll->setTrackGroups(true);
   m_cancelImageWriting = true;
-  // CollectionCommand takes care of calling Controller signals
+  emit signalCollectionAdded(m_coll);
 }
 
 void Document::unAppendCollection(Tellico::Data::FieldList origFields_, QList<int> addedEntries_) {
   m_coll->blockSignals(true);
+  bool structuralChange = false;
 
   StringSet origFieldNames;
   foreach(FieldPtr field, origFields_) {
     m_coll->modifyField(field);
     origFieldNames.add(field->name());
+    structuralChange = true;
   }
 
   EntryList entriesToRemove;
@@ -418,18 +443,22 @@ void Document::unAppendCollection(Tellico::Data::FieldList origFields_, QList<in
   foreach(FieldPtr field, currFields) {
     if(!origFieldNames.has(field->name())) {
       m_coll->removeField(field);
+      structuralChange = true;
     }
   }
   m_coll->blockSignals(false);
+  emit signalCollectionModified(m_coll, structuralChange);
 }
 
 void Document::unMergeCollection(Tellico::Data::FieldList origFields_, Tellico::Data::MergePair entryPair_) {
   m_coll->blockSignals(true);
+  bool structuralChange = false;
 
   QStringList origFieldNames;
   foreach(FieldPtr field, origFields_) {
     m_coll->modifyField(field);
     origFieldNames << field->name();
+    structuralChange = true;
   }
 
   // first item in pair are the entries added by the operation, remove them
@@ -452,9 +481,11 @@ void Document::unMergeCollection(Tellico::Data::FieldList origFields_, Tellico::
   foreach(FieldPtr field, currFields) {
     if(origFieldNames.indexOf(field->name()) == -1) {
       m_coll->removeField(field);
+      structuralChange = true;
     }
   }
   m_coll->blockSignals(false);
+  emit signalCollectionModified(m_coll, structuralChange);
 }
 
 bool Document::isEmpty() const {

@@ -71,8 +71,10 @@
 #include "gui/statusbar.h"
 #include "gui/tabwidget.h"
 #include "gui/dockwidget.h"
+#include "gui/collectiontemplatedialog.h"
 #include "utils/cursorsaver.h"
 #include "utils/guiproxy.h"
+#include "utils/tellico_utils.h"
 #include "tellico_debug.h"
 
 #include <KComboBox>
@@ -80,7 +82,6 @@
 #include <KLocalizedString>
 #include <KConfig>
 #include <KStandardAction>
-#include <KWindowSystem>
 #include <KWindowConfig>
 #include <KMessageBox>
 #include <KTipDialog>
@@ -250,15 +251,15 @@ void MainWindow::initActions() {
   connect(collectionMapper, &QSignalMapper::mappedInt, this, &MainWindow::slotFileNew);
 #endif
 
-  KActionMenu* fileNewMenu = new KActionMenu(i18n("New Collection"), this);
-  fileNewMenu->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
-  fileNewMenu->setToolTip(i18n("Create a new collection"));
+  m_newCollectionMenu = new KActionMenu(i18n("New Collection"), this);
+  m_newCollectionMenu->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
+  m_newCollectionMenu->setToolTip(i18n("Create a new collection"));
 #if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,77,0)
-  fileNewMenu->setPopupMode(QToolButton::InstantPopup);
+  m_newCollectionMenu->setPopupMode(QToolButton::InstantPopup);
 #else
-  fileNewMenu->setDelayed(false);
+  m_newCollectionMenu->setDelayed(false);
 #endif
-  actionCollection()->addAction(QStringLiteral("file_new_collection"), fileNewMenu);
+  actionCollection()->addAction(QStringLiteral("file_new_collection"), m_newCollectionMenu);
 
   QAction* action;
 
@@ -268,7 +269,7 @@ void MainWindow::initActions() {
   action->setText(TEXT); \
   action->setToolTip(TIP); \
   action->setIcon(QIcon(QStringLiteral(":/icons/" ICON))); \
-  fileNewMenu->addAction(action); \
+  m_newCollectionMenu->addAction(action); \
   collectionMapper->setMapping(action, Data::Collection::TYPE);
 
   COLL_ACTION(Book, "new_book_collection", i18n("New &Book Collection"),
@@ -311,7 +312,7 @@ void MainWindow::initActions() {
   action->setText(i18n("New C&ustom Collection"));
   action->setToolTip(i18n("Create a new custom collection"));
   action->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
-  fileNewMenu->addAction(action);
+  m_newCollectionMenu->addAction(action);
   collectionMapper->setMapping(action, Data::Collection::Base);
 
 #undef COLL_ACTION
@@ -327,8 +328,15 @@ void MainWindow::initActions() {
   m_fileSave->setToolTip(i18n("Save the document"));
   action = KStandardAction::saveAs(this, SLOT(slotFileSaveAs()), actionCollection());
   action->setToolTip(i18n("Save the document as a different file..."));
+
+  action = actionCollection()->addAction(QStringLiteral("file_save_template"),
+                                         this, SLOT(slotFileSaveAsTemplate()));
+  action->setText(i18n("Save As Template..."));
+  action->setIcon(QIcon::fromTheme(QStringLiteral("document-save-as-template")));
+  action->setToolTip(i18n("Save as a collection template"));
+
   action = KStandardAction::print(this, SLOT(slotFilePrint()), actionCollection());
-  action->setToolTip(i18n("Print the contents of the document..."));
+  action->setToolTip(i18n("Print the contents of the collection..."));
 #ifdef USE_KHTML
   {
     KHTMLPart w;
@@ -344,7 +352,7 @@ void MainWindow::initActions() {
 #else
   // print preview is only available with QWebEngine
   action = KStandardAction::printPreview(this, SLOT(slotFilePrintPreview()), actionCollection());
-  action->setToolTip(i18n("Preview the contents of the document..."));
+  action->setToolTip(i18n("Preview the contents of the collection..."));
 #endif
 
   action = KStandardAction::quit(this, SLOT(slotFileQuit()), actionCollection());
@@ -399,6 +407,10 @@ void MainWindow::initActions() {
                 i18n("Import data from Collectorz"),
                 QIcon::fromTheme(QStringLiteral("collectorz"), QIcon(QLatin1String(":/icons/collectorz"))));
 
+  IMPORT_ACTION(Import::DataCrow, "file_import_datacrow", i18n("Import Data Crow Data..."),
+                i18n("Import data from Data Crow"),
+                QIcon::fromTheme(QStringLiteral("datacrow"), QIcon(QLatin1String(":/icons/datacrow"))));
+
   IMPORT_ACTION(Import::Referencer, "file_import_referencer", i18n("Import Referencer Data..."),
                 i18n("Import data from Referencer"),
                 QIcon::fromTheme(QStringLiteral("referencer"), QIcon(QLatin1String(":/icons/referencer"))));
@@ -414,6 +426,14 @@ void MainWindow::initActions() {
 
   IMPORT_ACTION(Import::RIS, "file_import_ris", i18n("Import RIS Data..."),
                 i18n("Import an RIS reference file"), QIcon::fromTheme(QStringLiteral(":/icons/cite")));
+
+  IMPORT_ACTION(Import::MARC, "file_import_marc", i18n("Import MARC Data..."),
+                i18n("Import MARC data"), QIcon::fromTheme(QStringLiteral(":/icons/cite")));
+  // disable this import action if the necessary executable is not available
+  QTimer::singleShot(1000, this, [action]() {
+    const QString ymd = QStandardPaths::findExecutable(QStringLiteral("yaz-marcdump"));
+    action->setEnabled(!ymd.isEmpty());
+  });
 
   IMPORT_ACTION(Import::Goodreads, "file_import_goodreads", i18n("Import Goodreads Collection..."),
                 i18n("Import a collection from Goodreads.com"), QIcon::fromTheme(QStringLiteral(":/icons/goodreads")));
@@ -802,6 +822,8 @@ void MainWindow::initDocument() {
           Controller::self(), &Controller::slotCollectionAdded);
   connect(doc, &Data::Document::signalCollectionDeleted,
           Controller::self(), &Controller::slotCollectionDeleted);
+  connect(doc, &Data::Document::signalCollectionModified,
+          Controller::self(), &Controller::slotCollectionModified);
 
   connect(Kernel::self()->commandHistory(), &QUndoStack::cleanChanged,
           doc, &Data::Document::slotSetClean);
@@ -936,6 +958,7 @@ void MainWindow::initFileOpen(bool nofile_) {
   text.replace(QLatin1String("$BGCOLOR$"), Config::templateBaseColor(type).name());
   text.replace(QLatin1String("$COLOR1$"),  Config::templateHighlightedTextColor(type).name());
   text.replace(QLatin1String("$COLOR2$"),  Config::templateHighlightedBaseColor(type).name());
+  text.replace(QLatin1String("$LINKCOLOR$"), Config::templateLinkColor(type).name());
   text.replace(QLatin1String("$IMGDIR$"),  QUrl::fromLocalFile(ImageFactory::imageDir()).url());
   text.replace(QLatin1String("$BANNER$"),
                 i18n("Welcome to the Tellico Collection Manager"));
@@ -1035,7 +1058,18 @@ void MainWindow::readCollectionOptions(Tellico::Data::CollPtr coll_) {
     m_groupView->setEntrySortField(groupSortField);
   }
 
-  QString entryXSLTFile = Config::templateName(coll_->type());
+  QString entryXSLTFile;
+  if(coll_->type() == Data::Collection::Base &&
+     Data::Document::self()->URL().fileName() != i18n(Tellico::untitledFilename)) {
+    // use a nested config group for template specific to custom collections
+    // using the filename alone as a keyEvents
+    KConfigGroup subGroup(&group, Data::Document::self()->URL().fileName());
+    entryXSLTFile = subGroup.readEntry(QStringLiteral("Template Name"));
+  }
+  if(entryXSLTFile.isEmpty()) {
+    // lookup by collection type
+    entryXSLTFile = Config::templateName(coll_->type());
+  }
   if(entryXSLTFile.isEmpty()) {
     entryXSLTFile = QStringLiteral("Fancy"); // should never happen, but just in case
   }
@@ -1130,8 +1164,9 @@ bool MainWindow::querySaveModified() {
   if(Data::Document::self()->isModified()) {
     QString str = i18n("The current file has been modified.\n"
                        "Do you want to save it?");
-    int want_save = KMessageBox::warningYesNoCancel(this, str, i18n("Unsaved Changes"),
-                                                    KStandardGuiItem::save(), KStandardGuiItem::discard());
+#if KWIDGETSADDONS_VERSION < QT_VERSION_CHECK(5, 100, 0)
+    auto want_save = KMessageBox::warningYesNoCancel(this, str, i18n("Unsaved Changes"),
+                                                     KStandardGuiItem::save(), KStandardGuiItem::discard());
     switch(want_save) {
       case KMessageBox::Yes:
         completed = fileSave();
@@ -1147,6 +1182,25 @@ bool MainWindow::querySaveModified() {
         completed = false;
         break;
     }
+#else
+    auto want_save = KMessageBox::warningTwoActionsCancel(this, str, i18n("Unsaved Changes"),
+                                                          KStandardGuiItem::save(), KStandardGuiItem::discard());
+    switch(want_save) {
+      case KMessageBox::ButtonCode::PrimaryAction:
+        completed = fileSave();
+        break;
+
+      case KMessageBox::ButtonCode::SecondaryAction:
+        Data::Document::self()->setModified(false);
+        completed = true;
+        break;
+
+      case KMessageBox::ButtonCode::Cancel:
+      default:
+        completed = false;
+        break;
+    }
+#endif
   }
 
   return completed;
@@ -1164,7 +1218,7 @@ bool MainWindow::queryClose() {
 }
 
 void MainWindow::slotFileNew(int type_) {
-  slotStatusMsg(i18n("Creating new document..."));
+  slotStatusMsg(i18n("Creating new collection..."));
 
   // close the fields dialog
   slotHideCollectionFieldsDialog();
@@ -1185,6 +1239,26 @@ void MainWindow::slotFileNew(int type_) {
     }
     m_viewTabs->setTabBarHidden(true);
     Data::Document::self()->newDocument(type_);
+    Kernel::self()->resetHistory();
+    m_fileOpenRecent->setCurrentItem(-1);
+    slotEnableOpenedActions();
+    slotEnableModifiedActions(false);
+    m_newDocument = true;
+    ImageFactory::clean(false);
+  }
+
+  StatusBar::self()->clearStatus();
+}
+
+void MainWindow::slotFileNewByTemplate(const QString& collectionTemplate_) {
+  slotStatusMsg(i18n("Creating new collection..."));
+
+  // close the fields dialog
+  slotHideCollectionFieldsDialog();
+
+  if(m_editDialog->queryModified() && querySaveModified()) {
+    openURL(QUrl::fromLocalFile(collectionTemplate_));
+    Data::Document::self()->setURL(QUrl::fromLocalFile(i18n(Tellico::untitledFilename)));
     Kernel::self()->resetHistory();
     m_fileOpenRecent->setCurrentItem(-1);
     slotEnableOpenedActions();
@@ -1337,8 +1411,13 @@ bool MainWindow::fileSave() {
       KGuiItem yes(i18n("Save Images Separately"));
       KGuiItem no(i18n("Save Images in File"));
 
-      int res = KMessageBox::warningYesNo(this, msg, QString() /* caption */, yes, no);
+#if KWIDGETSADDONS_VERSION < QT_VERSION_CHECK(5, 100, 0)
+      auto res = KMessageBox::warningYesNo(this, msg, QString() /* caption */, yes, no);
       if(res == KMessageBox::No) {
+#else
+      auto res = KMessageBox::warningTwoActions(this, msg, QString() /* caption */, yes, no);
+      if(res == KMessageBox::ButtonCode::SecondaryAction) {
+#endif
         Config::setImageLocation(Config::ImagesInAppDir);
       }
       Config::setAskWriteImagesInFile(false);
@@ -1410,6 +1489,30 @@ bool MainWindow::fileSaveAs() {
 
   StatusBar::self()->clearStatus();
   return ret;
+}
+
+void MainWindow::slotFileSaveAsTemplate() {
+  QScopedPointer<CollectionTemplateDialog> dlg(new CollectionTemplateDialog(this));
+  if(dlg->exec() != QDialog::Accepted) {
+    return;
+  }
+
+  const QString templateName = dlg->templateName();
+  if(templateName.isEmpty()) {
+    return;
+  }
+  const QString baseName = Tellico::saveLocation(QStringLiteral("collection-templates/")) + templateName;
+
+  // first, save the collection template, which copies the collection fields and filters, but nothing else
+  const QString collFile = baseName + QLatin1String(".tc");
+  Data::Document::self()->saveDocumentTemplate(QUrl::fromLocalFile(collFile), templateName);
+
+  // next, save the template descriptions in a config file
+  const QString specFile = baseName + QLatin1String(".spec");
+  auto spec = KSharedConfig::openConfig(specFile, KConfig::SimpleConfig)->group(QString());
+  spec.writeEntry("Name", templateName);
+  spec.writeEntry("Comment", dlg->templateComment());
+  spec.writeEntry("Icon", dlg->templateIcon());
 }
 
 void MainWindow::slotFilePrint() {
@@ -1515,7 +1618,7 @@ void MainWindow::slotShowConfigDialog() {
     connect(m_configDlg, &QDialog::finished,
             this, &MainWindow::slotHideConfigDialog);
   } else {
-    KWindowSystem::activateWindow(m_configDlg->winId());
+    activateDialog(m_configDlg);
   }
   m_configDlg->show();
 }
@@ -1685,7 +1788,7 @@ void MainWindow::slotShowReportDialog() {
     connect(m_reportDlg, &QDialog::finished,
             this, &MainWindow::slotHideReportDialog);
   } else {
-    KWindowSystem::activateWindow(m_reportDlg->winId());
+    activateDialog(m_reportDlg);
   }
   m_reportDlg->show();
 }
@@ -1715,7 +1818,7 @@ void MainWindow::slotShowFilterDialog() {
     connect(m_filterDlg, &QDialog::finished,
             this, &MainWindow::slotHideFilterDialog);
   } else {
-    KWindowSystem::activateWindow(m_filterDlg->winId());
+    activateDialog(m_filterDlg);
   }
   m_filterDlg->setFilter(m_detailedView->filter());
   m_filterDlg->show();
@@ -1751,12 +1854,27 @@ void MainWindow::slotCheckFilterQueue() {
 void MainWindow::slotUpdateFilter(FilterPtr filter_) {
   // Can't just block signals because clear button won't show then
   m_dontQueueFilter = true;
-  m_quickFilter->setText(QStringLiteral(" ")); // To be able to clear custom filter
+  if(filter_) {
+    // for a saved filter, show the filter name and a leading icon
+    if(m_quickFilter->actions().isEmpty()) {
+      m_quickFilter->addAction(QIcon::fromTheme(QStringLiteral("view-filter")), QLineEdit::LeadingPosition);
+    }
+    m_quickFilter->setText(QLatin1Char('<') + filter_->name() + QLatin1Char('>'));
+  } else {
+    m_quickFilter->setText(QStringLiteral(" ")); // To be able to clear custom filter
+  }
   Controller::self()->slotUpdateFilter(filter_);
   m_dontQueueFilter = false;
 }
 
 void MainWindow::setFilter(const QString& text_) {
+  // might have an "action" associated if a saved filter was displayed
+  auto actions = m_quickFilter->actions();
+  if(!actions.isEmpty()) {
+    // clear all of the saved filter name
+    slotClearFilter();
+    return;
+  }
   QString text = text_.trimmed();
   FilterPtr filter;
   if(!text.isEmpty()) {
@@ -1771,7 +1889,7 @@ void MainWindow::setFilter(const QString& text_) {
         fieldName = Data::Document::self()->collection()->fieldNameByTitle(fieldName);
       }
     }
-    Filter::populateQuickFilter(filter, fieldName, text);
+    Filter::populateQuickFilter(filter, fieldName, text, Config::quickFilterRegExp());
     // also want to update the line edit in case the filter was set by DBUS
     if(m_quickFilter->text() != text_) {
       m_quickFilter->setText(text_);
@@ -1786,10 +1904,23 @@ void MainWindow::setFilter(const QString& text_) {
 void MainWindow::slotShowCollectionFieldsDialog() {
   if(!m_collFieldsDlg) {
     m_collFieldsDlg = new CollectionFieldsDialog(Data::Document::self()->collection(), this);
+    m_collFieldsDlg->setNotifyKernel(true);
+    connect(m_collFieldsDlg, &CollectionFieldsDialog::beginCommandGroup,
+            Kernel::self(), &Kernel::beginCommandGroup);
+    connect(m_collFieldsDlg, &CollectionFieldsDialog::endCommandGroup,
+            Kernel::self(), &Kernel::endCommandGroup);
+    connect(m_collFieldsDlg, &CollectionFieldsDialog::addField,
+            Kernel::self(), &Kernel::addField);
+    connect(m_collFieldsDlg, &CollectionFieldsDialog::modifyField,
+            Kernel::self(), &Kernel::modifyField);
+    connect(m_collFieldsDlg, &CollectionFieldsDialog::removeField,
+            Kernel::self(), &Kernel::removeField);
+    connect(m_collFieldsDlg, &CollectionFieldsDialog::reorderFields,
+            Kernel::self(), &Kernel::reorderFields);
     connect(m_collFieldsDlg, &QDialog::finished,
             this, &MainWindow::slotHideCollectionFieldsDialog);
   } else {
-    KWindowSystem::activateWindow(m_collFieldsDlg->winId());
+    activateDialog(m_collFieldsDlg);
   }
   m_collFieldsDlg->show();
 }
@@ -1906,7 +2037,7 @@ void MainWindow::slotShowStringMacroDialog() {
     m_stringMacroDlg->setLabels(i18n("Macro"), i18n("String"));
     connect(m_stringMacroDlg, &QDialog::finished, this, &MainWindow::slotStringMacroDialogFinished);
   } else {
-    KWindowSystem::activateWindow(m_stringMacroDlg->winId());
+    activateDialog(m_stringMacroDlg);
   }
   m_stringMacroDlg->show();
 }
@@ -1936,7 +2067,7 @@ void MainWindow::slotShowBibtexKeyDialog() {
     connect(m_bibtexKeyDlg, &BibtexKeyDialog::signalUpdateFilter,
             this, &MainWindow::slotUpdateFilter);
   } else {
-    KWindowSystem::activateWindow(m_bibtexKeyDlg->winId());
+    activateDialog(m_bibtexKeyDlg);
   }
   m_bibtexKeyDlg->show();
 }
@@ -1961,8 +2092,7 @@ void MainWindow::slotEditDialogFinished() {
 void MainWindow::slotShowEntryEditor() {
   m_toggleEntryEditor->setChecked(true);
   m_editDialog->show();
-
-  KWindowSystem::activateWindow(m_editDialog->winId());
+  activateDialog(m_editDialog);
 }
 
 void MainWindow::slotConvertToBibliography() {
@@ -2005,7 +2135,7 @@ void MainWindow::slotShowFetchDialog() {
     connect(m_fetchDlg, &QDialog::finished, this, &MainWindow::slotHideFetchDialog);
     connect(Controller::self(), &Controller::collectionAdded, m_fetchDlg, &FetchDialog::slotResetCollection);
   } else {
-    KWindowSystem::activateWindow(m_fetchDlg->winId());
+    activateDialog(m_fetchDlg);
   }
   m_fetchDlg->show();
 }
@@ -2188,6 +2318,10 @@ void MainWindow::slotFilterLabelActivated() {
 }
 
 void MainWindow::slotClearFilter() {
+  auto actions = m_quickFilter->actions();
+  if(!actions.isEmpty()) {
+    m_quickFilter->removeAction(actions.first());
+  }
   m_quickFilter->clear();
   slotQueueFilter();
 }
@@ -2233,7 +2367,8 @@ void MainWindow::updateCollectionActions() {
 }
 
 void MainWindow::updateEntrySources() {
-  unplugActionList(QStringLiteral("update_entry_actions"));
+  const QString actionListName = QStringLiteral("update_entry_actions");
+  unplugActionList(actionListName);
   foreach(QAction* action, m_fetchActions) {
     foreach(QWidget* widget, action->associatedWidgets()) {
       widget->removeAction(action);
@@ -2243,18 +2378,18 @@ void MainWindow::updateEntrySources() {
   qDeleteAll(m_fetchActions);
   m_fetchActions.clear();
 
+  void (QAction::* triggeredBool)(bool) = &QAction::triggered;
+  void (QSignalMapper::* mapVoid)() = &QSignalMapper::map;
   Fetch::FetcherVec vec = Fetch::Manager::self()->fetchers(Kernel::self()->collectionType());
   foreach(Fetch::Fetcher::Ptr fetcher, vec) {
     QAction* action = new QAction(Fetch::Manager::fetcherIcon(fetcher.data()), fetcher->source(), actionCollection());
     action->setToolTip(i18n("Update entry data from %1", fetcher->source()));
-    void (QAction::* triggeredBool)(bool) = &QAction::triggered;
-    void (QSignalMapper::* mapVoid)() = &QSignalMapper::map;
     connect(action, triggeredBool, m_updateMapper, mapVoid);
     m_updateMapper->setMapping(action, fetcher->source());
     m_fetchActions.append(action);
   }
 
-  plugActionList(QStringLiteral("update_entry_actions"), m_fetchActions);
+  plugActionList(actionListName, m_fetchActions);
 }
 
 void MainWindow::importFile(Tellico::Import::Format format_, const QList<QUrl>& urls_) {
@@ -2400,4 +2535,44 @@ void MainWindow::guiFactoryReset() {
   guiFactory()->removeClient(this);
   guiFactory()->reset();
   guiFactory()->addClient(this);
+
+  // set up custom actions for collection templates, have to do this AFTER createGUI() or factory() reset
+  const QString actionListName = QStringLiteral("collection_template_list");
+  unplugActionList(actionListName);
+  QSignalMapper* collectionTemplateMapper = new QSignalMapper(this);
+#if (QT_VERSION < QT_VERSION_CHECK(5, 15, 0))
+  void (QSignalMapper::* mappedString)(QString) = &QSignalMapper::mapped;
+  connect(collectionTemplateMapper, mappedString, this, &MainWindow::slotFileNewByTemplate);
+#else
+  connect(collectionTemplateMapper, &QSignalMapper::mappedString, this, &MainWindow::slotFileNewByTemplate);
+#endif
+
+  void (QAction::* triggeredBool)(bool) = &QAction::triggered;
+  void (QSignalMapper::* mapVoid)() = &QSignalMapper::map;
+  QList<QAction*> coll_actions;
+  const QStringList customCollections = Tellico::locateAllFiles(QStringLiteral("tellico/collection-templates/*.tc"));
+  if(!customCollections.isEmpty()) {
+    m_newCollectionMenu->addSeparator();
+  }
+  foreach(const QString& collectionFile, customCollections) {
+    QFileInfo info(collectionFile);
+    auto action = new QAction(info.completeBaseName(), actionCollection());
+    connect(action, triggeredBool, collectionTemplateMapper, mapVoid);
+    const QString specFile = info.canonicalPath() + QDir::separator() + info.completeBaseName() + QLatin1String(".spec");
+    if(QFileInfo::exists(specFile)) {
+      KConfig config(specFile, KConfig::SimpleConfig);
+      const KConfigGroup cg = config.group(QString());
+      action->setText(cg.readEntry("Name", info.completeBaseName()));
+      action->setToolTip(cg.readEntry("Comment"));
+      action->setIcon(QIcon::fromTheme(cg.readEntry("Icon"), QIcon::fromTheme(QStringLiteral("document-new"))));
+    } else {
+      myDebug() << "No spec file for" << info.completeBaseName();
+      action->setText(info.completeBaseName());
+      action->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
+    }
+    collectionTemplateMapper->setMapping(action, collectionFile);
+    coll_actions.append(action);
+    m_newCollectionMenu->addAction(action);
+  }
+  plugActionList(actionListName, coll_actions);
 }

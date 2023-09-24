@@ -29,6 +29,7 @@
 #include "../fetch/colnectfetcher.h"
 #include "../entry.h"
 #include "../collections/coincollection.h"
+#include "../collections/comicbookcollection.h"
 #include "../collectionfactory.h"
 #include "../images/imagefactory.h"
 #include "../fieldformat.h"
@@ -46,6 +47,7 @@ ColnectFetcherTest::ColnectFetcherTest() : AbstractFetcherTest() {
 void ColnectFetcherTest::initTestCase() {
   Tellico::ImageFactory::init();
   Tellico::RegisterCollection<Tellico::Data::CoinCollection> registerMe(Tellico::Data::Collection::Coin, "coin");
+  Tellico::RegisterCollection<Tellico::Data::ComicBookCollection> registerComic(Tellico::Data::Collection::ComicBook, "comic");
 
   m_config = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect"));
   m_config.writeEntry("Custom Fields", QStringLiteral("obverse,reverse,series,mintage,description"));
@@ -119,7 +121,7 @@ void ColnectFetcherTest::testSacagawea() {
 
 void ColnectFetcherTest::testSkylab() {
   KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect stamps"));
-  cg.writeEntry("Custom Fields", QStringLiteral("image,series,description,stanley-gibbons,michel"));
+  cg.writeEntry("Custom Fields", QStringLiteral("series,description,stanley-gibbons,michel,colnect"));
 
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Stamp,
                                        Tellico::Fetch::Title,
@@ -142,6 +144,101 @@ void ColnectFetcherTest::testSkylab() {
   QCOMPARE(entry->field(QStringLiteral("currency")), QStringLiteral("K - Papua New Guinean kina"));
   QCOMPARE(entry->field(QStringLiteral("color")), QStringLiteral("Multicolor"));
   QVERIFY(!entry->field(QStringLiteral("description")).isEmpty());
+  QCOMPARE(entry->field(QStringLiteral("colnect")), QStringLiteral("https://colnect.com/en/stamps/stamp/717470-Skylab_space_station_1"));
   QVERIFY(!entry->field(QStringLiteral("image")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("image")).contains(QLatin1Char('/')));
+}
+
+void ColnectFetcherTest::testComic() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect comics"));
+  cg.writeEntry("Custom Fields", QStringLiteral("series,colnect"));
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::ComicBook,
+                                       Tellico::Fetch::Title,
+                                       QStringLiteral("Destiny's Hand: Finale"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
+  fetcher->readConfig(cg);
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QCOMPARE(results.size(), 1);
+  Tellico::Data::EntryPtr entry = results.at(0);
+
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Destiny's Hand: Finale"));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("1993"));
+  QCOMPARE(entry->field(QStringLiteral("series")), QStringLiteral("Justice League America (JLA)"));
+  QCOMPARE(entry->field(QStringLiteral("writer")), QStringLiteral("Jurgens Dan"));
+  QCOMPARE(entry->field(QStringLiteral("artist")), QStringLiteral("Jurgens Dan; Giordano Dick"));
+  QCOMPARE(entry->field(QStringLiteral("issue")), QStringLiteral("75"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("DC Comics"));
+  QCOMPARE(entry->field(QStringLiteral("edition")), QStringLiteral("First edition"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Superhero"));
+  QCOMPARE(entry->field(QStringLiteral("colnect")), QStringLiteral("https://colnect.com/en/comics/comic/16515-Destinys_Hand_Finale"));
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+}
+
+void ColnectFetcherTest::testBaseballCard() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect cards"));
+  cg.writeEntry("Custom Fields", QStringLiteral("series,colnect"));
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Card,
+                                       Tellico::Fetch::Title,
+                                       QStringLiteral("1991 Chipper Jones"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
+  fetcher->readConfig(cg);
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QCOMPARE(results.size(), 1);
+  Tellico::Data::EntryPtr entry = results.at(0);
+
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("1991 Upper Deck Chipper Jones"));
+  QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("1991"));
+  QCOMPARE(entry->field(QStringLiteral("brand")), QStringLiteral("Upper Deck"));
+  QCOMPARE(entry->field(QStringLiteral("team")), QStringLiteral("Atlanta Braves"));
+  QCOMPARE(entry->field(QStringLiteral("number")), QStringLiteral("55"));
+  QCOMPARE(entry->field(QStringLiteral("series")), QStringLiteral("Base Set"));
+  QCOMPARE(entry->field(QStringLiteral("type")), QStringLiteral("Major League Baseball"));
+  QCOMPARE(entry->field(QStringLiteral("colnect")), QStringLiteral("https://colnect.com/en/sports_cards/sports_card/67064-55_Chipper_Jones_1991"));
+  QVERIFY(!entry->field(QStringLiteral("front")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("front")).contains(QLatin1Char('/')));
+}
+
+void ColnectFetcherTest::testGoldeneye() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect games"));
+  cg.writeEntry("Custom Fields", QStringLiteral("pegi"));
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Game,
+                                       Tellico::Fetch::Title,
+                                       QStringLiteral("Goldeneye 007"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
+  fetcher->readConfig(cg);
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 2);
+
+  QVERIFY(results.size() > 1);
+  Tellico::Data::EntryPtr entry = results.at(0);
+
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("GoldenEye 007"));
+  QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("1997"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Nintendo"));
+  QCOMPARE(entry->field(QStringLiteral("platform")), QStringLiteral("Nintendo 64"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("FPS"));
+  QCOMPARE(entry->field(QStringLiteral("pegi")), QStringLiteral("PEGI 16"));
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+
+  // test against the Japanese version, which is result #2
+  entry = results.at(1);
+
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("GoldenEye 007"));
+  QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("1997"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Nintendo"));
+  QCOMPARE(entry->field(QStringLiteral("platform")), QStringLiteral("Nintendo 64"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Shooter"));
+  QCOMPARE(entry->field(QStringLiteral("certification")), QStringLiteral("Teen"));
+  QVERIFY(!entry->field(QStringLiteral("description")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }

@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.5.1")
+set(TELLICO_VERSION "3.5.2")
 
 set(QT_MIN_VERSION "5.10.0")
 
@@ -79,7 +79,6 @@ find_package(KF5 REQUIRED COMPONENTS
     TextWidgets
     Wallet
     WidgetsAddons
-    WindowSystem
     XmlGui
 )
 if(NOT USE_KHTML)

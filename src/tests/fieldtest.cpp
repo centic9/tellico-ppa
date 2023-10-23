@@ -27,11 +27,17 @@
 #include "fieldtest.h"
 
 #include "../field.h"
-#include "../gui/urlfieldlogic.h"
+#include "../utils/urlfieldlogic.h"
+
+#include <KLocalizedString>
 
 #include <QTest>
 
 QTEST_APPLESS_MAIN( FieldTest )
+
+void FieldTest::initTestCase() {
+  KLocalizedString::setApplicationDomain("tellico");
+}
 
 void FieldTest::testAll() {
   Tellico::Data::Field field1(QStringLiteral("name"), QStringLiteral("title"));
@@ -126,5 +132,11 @@ void FieldTest::testUrlFieldLogic() {
   QCOMPARE(logic.urlText(u), QStringLiteral("alexandria/0060574623.yaml"));
 
   logic.setRelative(false);
+  QCOMPARE(logic.urlText(u), u.url());
+
+  // test relative to url for unknown document
+  logic.setBaseUrl(QUrl(QStringLiteral("file:Unknown")));
+  logic.setRelative(true);
+  // logic result should not be a relative path, but full path
   QCOMPARE(logic.urlText(u), u.url());
 }

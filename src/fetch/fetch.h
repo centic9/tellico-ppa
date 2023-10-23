@@ -113,7 +113,9 @@ enum Type {
   GamingHistory,
   FilmAffinity,
   Itunes,
-  OPDS
+  OPDS,
+  ADS,
+  VGCollect
 };
 
   }

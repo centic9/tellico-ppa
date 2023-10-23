@@ -66,7 +66,7 @@ QString GoogleScholarFetcher::source() const {
 }
 
 bool GoogleScholarFetcher::canSearch(Fetch::FetchKey k) const {
-  return k == Title || k == Person || k == Keyword;
+  return k == Title || k == Keyword;
 }
 
 bool GoogleScholarFetcher::canFetch(int type) const {
@@ -78,9 +78,6 @@ void GoogleScholarFetcher::readConfigHook(const KConfigGroup& config_) {
 }
 
 void GoogleScholarFetcher::search() {
-  if(!m_cookieIsSet) {
-    setBibtexCookie();
-  }
   m_started = true;
   m_start = 0;
   m_total = -1;
@@ -93,8 +90,6 @@ void GoogleScholarFetcher::continueSearch() {
 }
 
 void GoogleScholarFetcher::doSearch() {
-//  myDebug() << "value = " << value_;
-
   QUrl u(QString::fromLatin1(SCHOLAR_BASE_URL));
   QUrlQuery q;
   q.addQueryItem(QStringLiteral("start"), QString::number(m_start));
@@ -115,10 +110,6 @@ void GoogleScholarFetcher::doSearch() {
       q.addQueryItem(QStringLiteral("q"), request().value());
       break;
 
-    case Person:
-      q.addQueryItem(QStringLiteral("q"), QStringLiteral("author:%1").arg(request().value()));
-      break;
-
     default:
       myWarning() << source() << "- key not recognized:" << request().key();
       stop();
@@ -126,6 +117,10 @@ void GoogleScholarFetcher::doSearch() {
   }
   u.setQuery(q);
 //  myDebug() << "url: " << u.url();
+
+  if(!m_cookieIsSet) {
+    setBibtexCookie();
+  }
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());

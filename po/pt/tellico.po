@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-03 00:55+0000\n"
-"PO-Revision-Date: 2023-06-18 00:02+0100\n"
+"POT-Creation-Date: 2023-10-22 03:10+0000\n"
+"PO-Revision-Date: 2020-03-14 11:14+0000\n"
 "Last-Translator: Ligia Moreira <ligia.moreira@netvisao.pt>\n"
 "Language-Team: portuguese <pt@li.org>\n"
 "Language: pt\n"
@@ -60,11 +60,8 @@ msgstr ""
 "X-POFile-IgnoreConsistency: Type\n"
 "X-POFile-IgnoreConsistency: Name\n"
 "X-POFile-IgnoreConsistency: Table\n"
-"X-POFile-SpellExtra: BNC BiblioShare Kino Android iOS WiiU Teatr JSON\n"
-"X-POFile-SpellExtra: LibraryThing Mintage EAU Gibbons Michel Collectorz\n"
-"X-POFile-SpellExtra: Premium Numista Mishler Krause TVmaze TheTVDB RPGGeek\n"
-"X-POFile-SpellExtra: PIN Gaming History Crow FilmAffinity iTunes eBook\n"
-"X-POFile-SpellExtra: Colnect OPDS\n"
+"X-POFile-SpellExtra: BNC BiblioShare Android iOS WiiU Kino Teatr JSON\n"
+"X-POFile-SpellExtra: LibraryThing EAU Mintage\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -143,10 +140,12 @@ msgid "Image List"
 msgstr "Lista de Imagens"
 
 #. i18n: file: xslt/report-templates/Image_Grid.xsl
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Image List XSL Template"
+#| msgid "Image List"
 msgctxt "Image Grid XSL Template"
 msgid "Image Grid"
-msgstr "Grelha de Imagens"
+msgstr "Lista de Imagens"
 
 #. i18n: file: xslt/report-templates/Tri-Column.xsl
 #, kde-format
@@ -210,51 +209,61 @@ msgstr "Nome"
 
 #: src/charts/collectionsizereport.cpp:45
 #: src/charts/collectionsizereport.cpp:116
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Collection View"
 msgid "Collection Size"
-msgstr "Tamanho da Colecção"
+msgstr "Área da Colecção"
 
-#: src/charts/collectionsizereport.cpp:87 src/mainwindow.cpp:1653
+#: src/charts/collectionsizereport.cpp:87 src/mainwindow.cpp:1656
 #, kde-format
 msgid "Total entries: %1"
 msgstr "Total de itens: %1"
 
 #: src/charts/collectionsizereport.cpp:91
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Collection View"
 msgid "Collection Size Over Time"
-msgstr "Tamanho da Colecção ao Longo do Tempo"
+msgstr "Área da Colecção"
 
 #: src/charts/groupsummaryreport.cpp:60
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Group Summary XSL Template"
+#| msgid "Group Summary"
 msgid "Group Summary: %1"
-msgstr "Resumo do Grupo: %1"
+msgstr "Resumo dos Grupos"
 
 #: src/charts/groupsummaryreport.cpp:66
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Total number of entries:"
 msgid "Total number of entries: %1"
-msgstr "Número total de itens: %1"
+msgstr "Número total de itens:"
 
 #: src/charts/groupsummaryreport.cpp:120
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Total entries: %1"
 msgid "Top Values: %1"
-msgstr "Valores de Topo: %1"
+msgstr "Total de itens: %1"
 
 #: src/charts/groupsummaryreport.cpp:192
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "Group Summary XSL Template"
+#| msgid "Group Summary"
 msgid "Group Summary Report"
-msgstr "Relatório de Resumo do Grupo"
+msgstr "Resumo dos Grupos"
 
 #: src/charts/yeardistributionreport.cpp:69
 #: src/charts/yeardistributionreport.cpp:133
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Distributor"
 msgid "Year Distribution"
-msgstr "Distribuição no Ano"
+msgstr "Distribuidor"
 
 #: src/charts/yeardistributionreport.cpp:158
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Country"
 msgctxt "Distinct number of items"
 msgid "Count"
-msgstr "Quantidade"
+msgstr "País"
 
 #: src/cite/lyxpipe.cpp:57
 #, kde-format
@@ -760,33 +769,34 @@ msgstr "Um campo com um valor derivado deverá ter um modelo de valores."
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31 src/collections/winecollection.cpp:30
 #: src/configdialog.cpp:145 src/configdialog.cpp:172 src/configdialog.cpp:186
-#: src/configdialog.cpp:203 src/configdialog.cpp:1126
+#: src/configdialog.cpp:203 src/configdialog.cpp:1137
 #: src/fetch/allocinefetcher.cpp:314 src/fetch/allocinefetcher.cpp:320
 #: src/fetch/amazonfetcher.cpp:861 src/fetch/animenfofetcher.cpp:310
 #: src/fetch/animenfofetcher.cpp:314 src/fetch/bedethequefetcher.cpp:331
 #: src/fetch/bedethequefetcher.cpp:339 src/fetch/colnectfetcher.cpp:363
 #: src/fetch/colnectfetcher.cpp:527 src/fetch/colnectfetcher.cpp:547
 #: src/fetch/colnectfetcher.cpp:583 src/fetch/colnectfetcher.cpp:590
-#: src/fetch/discogsfetcher.cpp:308 src/fetch/discogsfetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:318 src/fetch/discogsfetcher.cpp:325
-#: src/fetch/discogsfetcher.cpp:332 src/fetch/discogsfetcher.cpp:337
+#: src/fetch/discogsfetcher.cpp:309 src/fetch/discogsfetcher.cpp:314
+#: src/fetch/discogsfetcher.cpp:319 src/fetch/discogsfetcher.cpp:326
+#: src/fetch/discogsfetcher.cpp:333 src/fetch/discogsfetcher.cpp:338
 #: src/fetch/doubanfetcher.cpp:351 src/fetch/doubanfetcher.cpp:369
 #: src/fetch/doubanfetcher.cpp:387 src/fetch/filmaffinityfetcher.cpp:282
 #: src/fetch/filmasterfetcher.cpp:240 src/fetch/gaminghistoryfetcher.cpp:197
 #: src/fetch/gaminghistoryfetcher.cpp:320 src/fetch/googlebookfetcher.cpp:254
 #: src/fetch/googlebookfetcher.cpp:259 src/fetch/igdbfetcher.cpp:369
-#: src/fetch/imdbfetcher.cpp:831 src/fetch/imdbfetcher.cpp:1386
+#: src/fetch/imdbfetcher.cpp:846 src/fetch/imdbfetcher.cpp:1401
 #: src/fetch/itunesfetcher.cpp:241 src/fetch/kinopoiskfetcher.cpp:277
-#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:459
+#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:460
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
-#: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
-#: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:272
+#: src/fetch/numistafetcher.cpp:345 src/fetch/numistafetcher.cpp:361
+#: src/fetch/omdbfetcher.cpp:253 src/fetch/openlibraryfetcher.cpp:272
 #: src/fetch/thegamesdbfetcher.cpp:267 src/fetch/thegamesdbfetcher.cpp:272
 #: src/fetch/themoviedbfetcher.cpp:313 src/fetch/themoviedbfetcher.cpp:316
 #: src/fetch/themoviedbfetcher.cpp:321 src/fetch/themoviedbfetcher.cpp:339
-#: src/fetch/thetvdbfetcher.cpp:256 src/fetch/thetvdbfetcher.cpp:261
-#: src/fetch/thetvdbfetcher.cpp:266 src/fetch/tvmazefetcher.cpp:178
+#: src/fetch/thetvdbfetcher.cpp:255 src/fetch/thetvdbfetcher.cpp:260
+#: src/fetch/thetvdbfetcher.cpp:265 src/fetch/tvmazefetcher.cpp:178
 #: src/fetch/tvmazefetcher.cpp:183 src/fetch/upcitemdbfetcher.cpp:208
+#: src/fetch/vgcollectfetcher.cpp:238 src/fetch/vgcollectfetcher.cpp:341
 #: src/field.cpp:39 src/field.cpp:80 src/field.cpp:299 src/field.cpp:328
 #: src/field.cpp:333 src/translators/gcstarimporter.cpp:89
 #, kde-format
@@ -795,7 +805,7 @@ msgstr "Geral"
 
 #: src/collections/bibtexcollection.cpp:39
 #: src/collections/bookcollection.cpp:32
-#: src/collections/comicbookcollection.cpp:32 src/fetch/isbndbfetcher.cpp:361
+#: src/collections/comicbookcollection.cpp:32 src/fetch/isbndbfetcher.cpp:362
 #: src/field.cpp:315 src/translators/grs1importer.cpp:75
 #: src/translators/pdfimporter.cpp:229
 #, kde-format
@@ -803,7 +813,7 @@ msgid "Publishing"
 msgstr "Publicação"
 
 #: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:440
-#: src/translators/risimporter.cpp:337
+#: src/translators/risimporter.cpp:339
 #, kde-format
 msgid "Miscellaneous"
 msgstr "Diversos"
@@ -1032,7 +1042,7 @@ msgid "Designer"
 msgstr "Desenhador"
 
 #: src/collections/boardgamecollection.cpp:80
-#: src/fetch/thegamesdbfetcher.cpp:271 src/fetch/thegamesdbfetcher.cpp:603
+#: src/fetch/thegamesdbfetcher.cpp:271 src/fetch/thegamesdbfetcher.cpp:605
 #, kde-format
 msgid "Number of Players"
 msgstr "Número de Jogadores"
@@ -1052,7 +1062,7 @@ msgstr "Idade Mínima"
 #: src/collections/stampcollection.cpp:54
 #: src/collections/winecollection.cpp:125 src/entrymatchdialog.cpp:94
 #: src/fetch/colnectfetcher.cpp:369 src/fetch/colnectfetcher.cpp:815
-#: src/fetch/numistafetcher.cpp:350 src/fetch/numistafetcher.cpp:398
+#: src/fetch/numistafetcher.cpp:352 src/fetch/numistafetcher.cpp:400
 #: src/fetch/rpggeekfetcher.cpp:209 src/fetchdialog.cpp:253
 #, kde-format
 msgid "Description"
@@ -1260,7 +1270,7 @@ msgstr "Lido"
 
 #: src/collections/bookcollection.cpp:179
 #: src/collections/comicbookcollection.cpp:160 src/fetch/arxivfetcher.cpp:210
-#: src/fetch/crossreffetcher.cpp:196 src/translators/ebookimporter.cpp:153
+#: src/fetch/crossreffetcher.cpp:197 src/translators/ebookimporter.cpp:153
 #: src/translators/pdfimporter.cpp:290
 #: src/translators/referencerimporter.cpp:62
 #, kde-format
@@ -1399,13 +1409,13 @@ msgid "Grading Service"
 msgstr "Tipo de Classificação"
 
 #: src/collections/coincollection.cpp:136 src/fetch/colnectfetcher.cpp:810
-#: src/fetch/numistafetcher.cpp:400
+#: src/fetch/numistafetcher.cpp:402
 #, kde-format
 msgid "Obverse"
 msgstr "Face"
 
 #: src/collections/coincollection.cpp:139 src/fetch/colnectfetcher.cpp:811
-#: src/fetch/numistafetcher.cpp:401
+#: src/fetch/numistafetcher.cpp:403
 #, kde-format
 msgid "Reverse"
 msgstr "Reverso"
@@ -1717,10 +1727,11 @@ msgstr "A Minha Música"
 msgid "Album"
 msgstr "Álbum"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:422
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:424
 #: src/fetch/doubanfetcher.cpp:431 src/fetch/doubanfetcher.cpp:565
 #: src/fetch/upcitemdbfetcher.cpp:290 src/fetch/upcitemdbfetcher.cpp:410
 #: src/translators/audiofileimporter.cpp:335
+#: src/translators/discogsimporter.cpp:162
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:393
 #: src/translators/freedbimporter.cpp:460
@@ -1730,18 +1741,20 @@ msgstr "CD"
 
 #: src/collections/musiccollection.cpp:54
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1043
-#: src/fetch/discogsfetcher.cpp:430 src/fetch/upcitemdbfetcher.cpp:406
-#: src/fetch/upcitemdbfetcher.cpp:414
+#: src/fetch/discogsfetcher.cpp:432 src/fetch/upcitemdbfetcher.cpp:406
+#: src/fetch/upcitemdbfetcher.cpp:414 src/translators/discogsimporter.cpp:169
 #, kde-format
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:427
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:429
+#: src/translators/discogsimporter.cpp:166
 #, kde-format
 msgid "Cassette"
 msgstr "Cassete"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:425
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:427
+#: src/translators/discogsimporter.cpp:164
 #, kde-format
 msgid "Vinyl"
 msgstr "Vinil"
@@ -1797,7 +1810,7 @@ msgstr "Ano de Edição"
 
 #: src/collections/stampcollection.cpp:83
 #: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:398
-#: src/fetch/imdbfetcher.cpp:1530
+#: src/fetch/imdbfetcher.cpp:1545
 #, kde-format
 msgid "Color"
 msgstr "Cor"
@@ -1948,8 +1961,8 @@ msgstr "Região 8"
 msgid "Region"
 msgstr "Região"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:317
-#: src/fetch/discogsfetcher.cpp:510
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:318
+#: src/fetch/discogsfetcher.cpp:513
 #, kde-format
 msgid "Nationality"
 msgstr "Nacionalidade"
@@ -2003,8 +2016,8 @@ msgstr ""
 msgid "Director"
 msgstr "Realizador"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:324
-#: src/fetch/discogsfetcher.cpp:509 src/fetch/rpggeekfetcher.cpp:207
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:325
+#: src/fetch/discogsfetcher.cpp:512 src/fetch/rpggeekfetcher.cpp:207
 #, kde-format
 msgid "Producer"
 msgstr "Produtor"
@@ -2408,9 +2421,10 @@ msgstr "Cor do texto realçado do modelo"
 #: src/config/tellico_config.kcfg:403 src/config/tellico_config.kcfg:433
 #: src/config/tellico_config.kcfg:463 src/config/tellico_config.kcfg:493
 #: src/config/tellico_config.kcfg:523
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Template highlight color"
 msgid "Template link color"
-msgstr "Cor da ligação do modelo"
+msgstr "Cor de realce do modelo"
 
 #: src/configdialog.cpp:98
 #, kde-format
@@ -2454,17 +2468,18 @@ msgstr ""
 "o programa."
 
 #: src/configdialog.cpp:221
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "matches regexp"
 msgid "&Enable regular expressions in quick filter"
-msgstr "Activar as &expressões regulares no filtro rápido"
+msgstr "corresponde à expressão regular"
 
 #: src/configdialog.cpp:222
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "If checked, the field names will be printed as table headers."
 msgid ""
 "If checked, the quick filter will interpret text as a regular expression."
 msgstr ""
-"Se seleccionado, o filtro rápido irá interpretar o texto como uma expressão "
-"regular."
+"Se seleccionado, o nome dos campos será impresso como títulos de tabela."
 
 #: src/configdialog.cpp:227
 #, kde-format
@@ -2772,9 +2787,10 @@ msgid "Highlighted text color:"
 msgstr "Cor do texto realçado:"
 
 #: src/configdialog.cpp:542
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Text color:"
 msgid "Link color:"
-msgstr "Cor da ligação:"
+msgstr "Cor do texto:"
 
 #: src/configdialog.cpp:551
 #, kde-format
@@ -2870,25 +2886,25 @@ msgstr "&Apagar"
 msgid "Click to delete the selected data source."
 msgstr "Carregue para apagar a fonte de dados seleccionada."
 
-#: src/configdialog.cpp:1158 src/translators/xsltexporter.cpp:99
+#: src/configdialog.cpp:1169 src/translators/xsltexporter.cpp:99
 #: src/translators/xsltimporter.cpp:126
 #, kde-format
 msgid "XSL Files"
 msgstr "Ficheiros XSL"
 
-#: src/configdialog.cpp:1159
+#: src/configdialog.cpp:1170
 #, kde-format
 msgid "Template Packages"
 msgstr "Pacotes de Modelos"
 
-#: src/configdialog.cpp:1160 src/importdialog.cpp:439 src/mainwindow.cpp:1281
-#: src/mainwindow.cpp:1456 src/reportdialog.cpp:428 src/reportdialog.cpp:443
+#: src/configdialog.cpp:1171 src/importdialog.cpp:446 src/mainwindow.cpp:1284
+#: src/mainwindow.cpp:1459 src/reportdialog.cpp:428 src/reportdialog.cpp:443
 #: src/translators/bibtexexporter.cpp:65
 #: src/translators/bibtexmlexporter.cpp:51 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:62 src/translators/htmlexporter.cpp:100
-#: src/translators/librarythingimporter.cpp:187
+#: src/translators/librarythingimporter.cpp:189
 #: src/translators/onixexporter.cpp:71
-#: src/translators/tellicoxmlexporter.cpp:71
+#: src/translators/tellicoxmlexporter.cpp:72
 #: src/translators/tellicozipexporter.cpp:54
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:101
 #: src/translators/xsltimporter.cpp:128
@@ -2896,12 +2912,12 @@ msgstr "Pacotes de Modelos"
 msgid "All Files"
 msgstr "Todos os Ficheiros"
 
-#: src/configdialog.cpp:1189
+#: src/configdialog.cpp:1200
 #, kde-format
 msgid "Delete Template"
 msgstr "Apagar o Modelo"
 
-#: src/configdialog.cpp:1190
+#: src/configdialog.cpp:1201
 #, kde-format
 msgid "Select template to delete:"
 msgstr "Seleccione o modelo a apagar:"
@@ -2938,22 +2954,22 @@ msgstr "Remover Vários Itens"
 msgid "&Sort By"
 msgstr "&Ordenar Por"
 
-#: src/controller.cpp:589 src/mainwindow.cpp:604
+#: src/controller.cpp:589 src/mainwindow.cpp:607
 #, kde-format
 msgid "&Edit Entry..."
 msgstr "&Editar o Item..."
 
-#: src/controller.cpp:590 src/mainwindow.cpp:611
+#: src/controller.cpp:590 src/mainwindow.cpp:614
 #, kde-format
 msgid "D&uplicate Entry"
 msgstr "D&uplicar o Item"
 
-#: src/controller.cpp:591 src/mainwindow.cpp:705
+#: src/controller.cpp:591 src/mainwindow.cpp:708
 #, kde-format
 msgid "&Update Entry"
 msgstr "&Actualizar o Item"
 
-#: src/controller.cpp:592 src/mainwindow.cpp:618
+#: src/controller.cpp:592 src/mainwindow.cpp:621
 #, kde-format
 msgid "&Delete Entry"
 msgstr "&Remover o Item"
@@ -3061,10 +3077,14 @@ msgid "Untitled"
 msgstr "Sem Título"
 
 #: src/core/tellico_strings.cpp:42
-#, kde-format
+#, fuzzy, kde-format
+#| msgid ""
+#| "This information was freely provided by <a href=\"https://igdb.com\">IGDB."
+#| "com</a>."
 msgid "This information was freely provided by <a href=\"%1\">%2</a>."
 msgstr ""
-"Esta informação foi oferecida de forma livre pelo <a href=\"%1\">%2</a>."
+"Esta informação foi oferecida de forma livre pelo <a href=\"https://igdb.com"
+"\">IGDB.com</a>."
 
 #: src/detailedlistview.cpp:523
 #, kde-format
@@ -3097,7 +3117,7 @@ msgstr "Mostrar Todas as Colunas"
 msgid "Hide All Columns"
 msgstr "Esconder Todas as Colunas"
 
-#: src/document.cpp:210 src/mainwindow.cpp:1395
+#: src/document.cpp:210 src/mainwindow.cpp:1398
 #, kde-format
 msgid "Saving file..."
 msgstr "A gravar o ficheiro..."
@@ -3159,7 +3179,7 @@ msgid "Save Entry"
 msgstr "Gravar o Item"
 
 #: src/entryeditdialog.cpp:675 src/entryeditdialog.cpp:693
-#: src/mainwindow.cpp:1168 src/mainwindow.cpp:1186
+#: src/mainwindow.cpp:1171 src/mainwindow.cpp:1189
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "Alterações Não Gravadas"
@@ -3169,7 +3189,7 @@ msgstr "Alterações Não Gravadas"
 msgid "(Empty)"
 msgstr "(Vazio)"
 
-#: src/entryiconview.cpp:65 src/mainwindow.cpp:872
+#: src/entryiconview.cpp:65 src/mainwindow.cpp:875
 #, kde-format
 msgid ""
 "<qt>The <i>Icon View</i> shows each entry in the collection or group using "
@@ -3234,13 +3254,13 @@ msgstr "Actualizar os Elementos"
 msgid "Updating <b>%1</b>..."
 msgstr "A actualizar o <b>%1</b>..."
 
-#: src/entryview.cpp:332
+#: src/entryview.cpp:333
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr ""
 "O Tellico não consegue encontrar a folha de estilo predefinida para os itens."
 
-#: src/entryview.cpp:334 src/mainwindow.cpp:1806
+#: src/entryview.cpp:335 src/mainwindow.cpp:1809
 #, kde-format
 msgid "Please check your installation."
 msgstr "Queira verificar a sua instalação."
@@ -3316,20 +3336,69 @@ msgstr "Codificar com o formato regional do utilizador (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Codificar o ficheiro exportado no formato local."
 
+#: src/fetch/adsfetcher.cpp:316
+#, kde-format
+msgid "SAO/NASA Astrophysics Data System"
+msgstr ""
+
+#: src/fetch/adsfetcher.cpp:331 src/fetch/amazonfetcher.cpp:1093
+#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/comicvinefetcher.cpp:232
+#: src/fetch/crossreffetcher.cpp:314 src/fetch/discogsfetcher.cpp:527
+#: src/fetch/giantbombfetcher.cpp:219 src/fetch/googlebookfetcher.cpp:382
+#: src/fetch/isbndbfetcher.cpp:395 src/fetch/mobygamesfetcher.cpp:652
+#: src/fetch/omdbfetcher.cpp:411 src/fetch/thegamesdbfetcher.cpp:637
+#: src/fetch/themoviedbfetcher.cpp:591 src/fetch/thetvdbfetcher.cpp:589
+#, fuzzy, kde-format
+#| msgid ""
+#| "Registration is required for accessing the %1 data source. If you agree "
+#| "to the terms and conditions, <a href='%2'>sign up for an account</a>, and "
+#| "enter your information below."
+msgid ""
+"Registration is required for accessing this data source. If you agree to the "
+"terms and conditions, <a href='%1'>sign up for an account</a>, and enter "
+"your information below."
+msgstr ""
+"É necessário o registo para aceder à fonte de dados %1. Se concordar com os "
+"termos e condições, <a href='%2'>registe uma conta nova</a> e indique a sua "
+"informação em baixo."
+
+#: src/fetch/adsfetcher.cpp:343 src/fetch/amazonfetcher.cpp:1105
+#: src/fetch/bibliosharefetcher.cpp:185 src/fetch/comicvinefetcher.cpp:244
+#: src/fetch/entrezfetcher.cpp:531 src/fetch/giantbombfetcher.cpp:231
+#: src/fetch/googlebookfetcher.cpp:394 src/fetch/isbndbfetcher.cpp:407
+#: src/fetch/mobygamesfetcher.cpp:664 src/fetch/numistafetcher.cpp:416
+#: src/fetch/omdbfetcher.cpp:423 src/fetch/thegamesdbfetcher.cpp:649
+#: src/fetch/themoviedbfetcher.cpp:603
+#, kde-format
+msgid "Access key: "
+msgstr "Chave de acesso: "
+
+#: src/fetch/adsfetcher.cpp:349 src/fetch/bibliosharefetcher.cpp:191
+#: src/fetch/comicvinefetcher.cpp:250 src/fetch/entrezfetcher.cpp:537
+#: src/fetch/giantbombfetcher.cpp:237 src/fetch/googlebookfetcher.cpp:400
+#: src/fetch/themoviedbfetcher.cpp:609 src/fetch/thetvdbfetcher.cpp:607
+#, kde-format
+msgid ""
+"The default Tellico key may be used, but searching may fail due to reaching "
+"access limits."
+msgstr ""
+"A chave predefinida do Tellico pode ser usada, mas a pesquisa não irá "
+"funcionar, por problemas de limites de acesso."
+
 #: src/fetch/allocinefetcher.cpp:237 src/fetch/amazonfetcher.cpp:631
-#: src/fetch/colnectfetcher.cpp:787 src/fetch/discogsfetcher.cpp:217
-#: src/fetch/doubanfetcher.cpp:454 src/fetch/filmaffinityfetcher.cpp:425
+#: src/fetch/colnectfetcher.cpp:787 src/fetch/discogsfetcher.cpp:218
+#: src/fetch/doubanfetcher.cpp:454 src/fetch/filmaffinityfetcher.cpp:428
 #: src/fetch/filmasterfetcher.cpp:148 src/fetch/gaminghistoryfetcher.cpp:308
 #: src/fetch/googlebookfetcher.cpp:198 src/fetch/ibsfetcher.cpp:301
-#: src/fetch/igdbfetcher.cpp:163 src/fetch/isbndbfetcher.cpp:295
+#: src/fetch/igdbfetcher.cpp:163 src/fetch/isbndbfetcher.cpp:296
 #: src/fetch/itunesfetcher.cpp:331 src/fetch/kinofetcher.cpp:350
 #: src/fetch/kinopoiskfetcher.cpp:269 src/fetch/kinoteatrfetcher.cpp:376
-#: src/fetch/mobygamesfetcher.cpp:345 src/fetch/moviemeterfetcher.cpp:162
-#: src/fetch/numistafetcher.cpp:285 src/fetch/numistafetcher.cpp:293
-#: src/fetch/omdbfetcher.cpp:182 src/fetch/thegamesdbfetcher.cpp:172
-#: src/fetch/themoviedbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:352
+#: src/fetch/mobygamesfetcher.cpp:346 src/fetch/moviemeterfetcher.cpp:162
+#: src/fetch/numistafetcher.cpp:287 src/fetch/numistafetcher.cpp:295
+#: src/fetch/omdbfetcher.cpp:183 src/fetch/thegamesdbfetcher.cpp:172
+#: src/fetch/themoviedbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:351
 #: src/fetch/tvmazefetcher.cpp:269 src/fetch/upcitemdbfetcher.cpp:250
-#: src/fetch/vndbfetcher.cpp:182
+#: src/fetch/vgcollectfetcher.cpp:286 src/fetch/vndbfetcher.cpp:182
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "A capa não pôde ser carregada."
@@ -3343,27 +3412,27 @@ msgstr "Endereço do Allocine"
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
 #: src/fetch/doubanfetcher.cpp:344 src/fetch/doubanfetcher.cpp:362
 #: src/fetch/doubanfetcher.cpp:380 src/fetch/doubanfetcher.cpp:617
-#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/filmaffinityfetcher.cpp:321
-#: src/fetch/filmaffinityfetcher.cpp:456 src/fetch/imdbfetcher.cpp:887
-#: src/fetch/imdbfetcher.cpp:1806 src/fetch/kinopoiskfetcher.cpp:341
+#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/filmaffinityfetcher.cpp:322
+#: src/fetch/filmaffinityfetcher.cpp:459 src/fetch/imdbfetcher.cpp:902
+#: src/fetch/imdbfetcher.cpp:1822 src/fetch/kinopoiskfetcher.cpp:341
 #: src/fetch/kinopoiskfetcher.cpp:469 src/fetch/kinopoiskfetcher.cpp:673
 #: src/fetch/kinoteatrfetcher.cpp:263 src/fetch/kinoteatrfetcher.cpp:507
-#: src/fetch/omdbfetcher.cpp:262 src/fetch/themoviedbfetcher.cpp:333
+#: src/fetch/omdbfetcher.cpp:263 src/fetch/themoviedbfetcher.cpp:333
 #: src/fetch/themoviedbfetcher.cpp:577 src/fetch/vndbfetcher.cpp:284
 #: src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Original Title"
 msgstr "Título Original"
 
-#: src/fetch/allocinefetcher.cpp:432 src/fetch/filmaffinityfetcher.cpp:469
-#: src/fetch/imdbfetcher.cpp:1823 src/fetch/kinopoiskfetcher.cpp:685
+#: src/fetch/allocinefetcher.cpp:432 src/fetch/filmaffinityfetcher.cpp:472
+#: src/fetch/imdbfetcher.cpp:1839 src/fetch/kinopoiskfetcher.cpp:685
 #: src/fetch/themoviedbfetcher.cpp:614
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "Número &máximo de actores: "
 
-#: src/fetch/allocinefetcher.cpp:445 src/fetch/filmaffinityfetcher.cpp:482
-#: src/fetch/imdbfetcher.cpp:1836 src/fetch/kinopoiskfetcher.cpp:698
+#: src/fetch/allocinefetcher.cpp:445 src/fetch/filmaffinityfetcher.cpp:485
+#: src/fetch/imdbfetcher.cpp:1852 src/fetch/kinopoiskfetcher.cpp:698
 #: src/fetch/themoviedbfetcher.cpp:627
 #, kde-format
 msgid ""
@@ -3549,10 +3618,10 @@ msgstr ""
 "O acesso aos dados da Amazon.com necessita de um ID de Chave de Acesso ao "
 "AWS e uma chave privada."
 
-#: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:104
-#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:116
-#: src/fetch/omdbfetcher.cpp:101 src/fetch/thegamesdbfetcher.cpp:106
-#: src/fetch/themoviedbfetcher.cpp:133 src/fetch/thetvdbfetcher.cpp:128
+#: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:138
+#: src/fetch/isbndbfetcher.cpp:164 src/fetch/mobygamesfetcher.cpp:163
+#: src/fetch/omdbfetcher.cpp:120 src/fetch/thegamesdbfetcher.cpp:136
+#: src/fetch/themoviedbfetcher.cpp:163 src/fetch/thetvdbfetcher.cpp:168
 #, kde-format
 msgid "Those values must be entered in the data source settings."
 msgstr ""
@@ -3572,33 +3641,6 @@ msgstr "Ligação Amazon"
 #, kde-format
 msgid "Amazon.com Web Services"
 msgstr "Serviços Web da Amazon.com"
-
-#: src/fetch/amazonfetcher.cpp:1093 src/fetch/bibliosharefetcher.cpp:172
-#: src/fetch/comicvinefetcher.cpp:232 src/fetch/crossreffetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:524 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/googlebookfetcher.cpp:382 src/fetch/isbndbfetcher.cpp:394
-#: src/fetch/mobygamesfetcher.cpp:651 src/fetch/omdbfetcher.cpp:410
-#: src/fetch/thegamesdbfetcher.cpp:635 src/fetch/themoviedbfetcher.cpp:591
-#: src/fetch/thetvdbfetcher.cpp:590
-#, kde-format
-msgid ""
-"Registration is required for accessing this data source. If you agree to the "
-"terms and conditions, <a href='%1'>sign up for an account</a>, and enter "
-"your information below."
-msgstr ""
-"É necessário o registo para aceder a esta fonte de dados. Se concordar com "
-"os termos e condições, <a href='%1'>registe uma conta nova</a> e indique a "
-"sua informação em baixo."
-
-#: src/fetch/amazonfetcher.cpp:1105 src/fetch/bibliosharefetcher.cpp:184
-#: src/fetch/comicvinefetcher.cpp:244 src/fetch/entrezfetcher.cpp:531
-#: src/fetch/giantbombfetcher.cpp:231 src/fetch/googlebookfetcher.cpp:394
-#: src/fetch/isbndbfetcher.cpp:406 src/fetch/mobygamesfetcher.cpp:663
-#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:422
-#: src/fetch/thegamesdbfetcher.cpp:647 src/fetch/themoviedbfetcher.cpp:603
-#, kde-format
-msgid "Access key: "
-msgstr "Chave de acesso: "
 
 #: src/fetch/amazonfetcher.cpp:1115
 #, kde-format
@@ -3621,21 +3663,21 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:1146 src/fetch/boardgamegeekfetcher.cpp:213
 #: src/fetch/colnectfetcher.cpp:947 src/fetch/itunesfetcher.cpp:517
-#: src/fetch/mobygamesfetcher.cpp:671 src/fetch/rpggeekfetcher.cpp:222
-#: src/fetch/thegamesdbfetcher.cpp:655 src/fetch/videogamegeekfetcher.cpp:213
+#: src/fetch/mobygamesfetcher.cpp:672 src/fetch/rpggeekfetcher.cpp:222
+#: src/fetch/thegamesdbfetcher.cpp:657 src/fetch/videogamegeekfetcher.cpp:213
 #, kde-format
 msgid "&Image size: "
 msgstr "&Tamanho da imagem: "
 
 #: src/fetch/amazonfetcher.cpp:1149 src/fetch/boardgamegeekfetcher.cpp:217
 #: src/fetch/colnectfetcher.cpp:951 src/fetch/itunesfetcher.cpp:521
-#: src/fetch/mobygamesfetcher.cpp:674 src/fetch/rpggeekfetcher.cpp:226
-#: src/fetch/thegamesdbfetcher.cpp:658 src/fetch/videogamegeekfetcher.cpp:217
+#: src/fetch/mobygamesfetcher.cpp:675 src/fetch/rpggeekfetcher.cpp:226
+#: src/fetch/thegamesdbfetcher.cpp:660 src/fetch/videogamegeekfetcher.cpp:217
 #, kde-format
 msgid "Small Image"
 msgstr "Imagem Pequena"
 
-#: src/fetch/amazonfetcher.cpp:1150 src/fetch/thegamesdbfetcher.cpp:659
+#: src/fetch/amazonfetcher.cpp:1150 src/fetch/thegamesdbfetcher.cpp:661
 #, kde-format
 msgid "Medium Image"
 msgstr "Imagem de Disco"
@@ -3643,22 +3685,22 @@ msgstr "Imagem de Disco"
 #. i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
 #: src/fetch/amazonfetcher.cpp:1151 src/fetch/boardgamegeekfetcher.cpp:218
 #: src/fetch/colnectfetcher.cpp:952 src/fetch/itunesfetcher.cpp:522
-#: src/fetch/mobygamesfetcher.cpp:676 src/fetch/rpggeekfetcher.cpp:227
-#: src/fetch/thegamesdbfetcher.cpp:660 src/fetch/videogamegeekfetcher.cpp:218
+#: src/fetch/mobygamesfetcher.cpp:677 src/fetch/rpggeekfetcher.cpp:227
+#: src/fetch/thegamesdbfetcher.cpp:662 src/fetch/videogamegeekfetcher.cpp:218
 #, kde-format
 msgid "Large Image"
 msgstr "Imagem Grande"
 
 #: src/fetch/amazonfetcher.cpp:1152 src/fetch/boardgamegeekfetcher.cpp:216
 #: src/fetch/colnectfetcher.cpp:950 src/fetch/itunesfetcher.cpp:520
-#: src/fetch/mobygamesfetcher.cpp:677 src/fetch/rpggeekfetcher.cpp:225
-#: src/fetch/thegamesdbfetcher.cpp:661 src/fetch/videogamegeekfetcher.cpp:216
+#: src/fetch/mobygamesfetcher.cpp:678 src/fetch/rpggeekfetcher.cpp:225
+#: src/fetch/thegamesdbfetcher.cpp:663 src/fetch/videogamegeekfetcher.cpp:216
 #, kde-format
 msgid "No Image"
 msgstr "Sem Imagem"
 
-#: src/fetch/amazonfetcher.cpp:1155 src/fetch/imdbfetcher.cpp:1845
-#: src/fetch/mobygamesfetcher.cpp:681 src/fetch/thegamesdbfetcher.cpp:665
+#: src/fetch/amazonfetcher.cpp:1155 src/fetch/imdbfetcher.cpp:1861
+#: src/fetch/mobygamesfetcher.cpp:682 src/fetch/thegamesdbfetcher.cpp:667
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3682,9 +3724,9 @@ msgstr ""
 "com, e está incluída em todas as referências à página da Amazon.com."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:952
-#: src/fetch/imdbfetcher.cpp:1804 src/fetch/moviemeterfetcher.cpp:225
-#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:257
+#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:967
+#: src/fetch/imdbfetcher.cpp:1820 src/fetch/moviemeterfetcher.cpp:225
+#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:258
 #: src/fetch/themoviedbfetcher.cpp:328 src/fetch/themoviedbfetcher.cpp:576
 #: src/fetch/tvmazefetcher.cpp:193 src/fetch/tvmazefetcher.cpp:385
 #, kde-format
@@ -3697,8 +3739,8 @@ msgid "Distributor"
 msgstr "Distribuidor"
 
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
-#: src/fetch/imdbfetcher.cpp:1807 src/fetch/itunesfetcher.cpp:506
-#: src/fetch/themoviedbfetcher.cpp:579 src/fetch/thetvdbfetcher.cpp:577
+#: src/fetch/imdbfetcher.cpp:1823 src/fetch/itunesfetcher.cpp:506
+#: src/fetch/themoviedbfetcher.cpp:579 src/fetch/thetvdbfetcher.cpp:576
 #: src/fetch/tvmazefetcher.cpp:383 src/field.cpp:336
 #, kde-format
 msgid "Episodes"
@@ -3716,16 +3758,17 @@ msgstr "Classificação do AnimeNfo"
 
 #: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:337
 #: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:190
-#: src/fetch/dbcfetcher.cpp:160 src/fetch/dblpfetcher.cpp:129
+#: src/fetch/dbcfetcher.cpp:160 src/fetch/dblpfetcher.cpp:132
 #: src/fetch/doubanfetcher.cpp:625 src/fetch/dvdfrfetcher.cpp:190
 #: src/fetch/filmasterfetcher.cpp:323 src/fetch/gaminghistoryfetcher.cpp:438
-#: src/fetch/googlescholarfetcher.cpp:282 src/fetch/hathitrustfetcher.cpp:318
-#: src/fetch/ibsfetcher.cpp:396 src/fetch/igdbfetcher.cpp:614
+#: src/fetch/googlescholarfetcher.cpp:277 src/fetch/hathitrustfetcher.cpp:318
+#: src/fetch/ibsfetcher.cpp:396 src/fetch/igdbfetcher.cpp:616
 #: src/fetch/kinofetcher.cpp:388 src/fetch/kinoteatrfetcher.cpp:515
 #: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:233
 #: src/fetch/musicbrainzfetcher.cpp:378 src/fetch/openlibraryfetcher.cpp:424
 #: src/fetch/springerfetcher.cpp:183 src/fetch/tvmazefetcher.cpp:393
-#: src/fetch/upcitemdbfetcher.cpp:465 src/fetch/vndbfetcher.cpp:440
+#: src/fetch/upcitemdbfetcher.cpp:465 src/fetch/vgcollectfetcher.cpp:382
+#: src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "Esta fonte não tem opções."
@@ -3745,27 +3788,16 @@ msgstr "Ligação à Bedetheque"
 msgid "ISBN#"
 msgstr "ISBN#"
 
-#: src/fetch/bibliosharefetcher.cpp:190 src/fetch/comicvinefetcher.cpp:250
-#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:237
-#: src/fetch/googlebookfetcher.cpp:400 src/fetch/themoviedbfetcher.cpp:609
-#: src/fetch/thetvdbfetcher.cpp:608
-#, kde-format
-msgid ""
-"The default Tellico key may be used, but searching may fail due to reaching "
-"access limits."
-msgstr ""
-"A chave predefinida do Tellico pode ser usada, mas a pesquisa não irá "
-"funcionar, por problemas de limites de acesso."
-
 #: src/fetch/boardgamegeekfetcher.cpp:201
 #, kde-format
 msgid "BoardGameGeek Link"
 msgstr "Ligação ao BoardGameGeek"
 
 #: src/fetch/colnectfetcher.cpp:526 src/fetch/colnectfetcher.cpp:808
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Comic Vine Link"
 msgid "Colnect Link"
-msgstr "Endereço da Colnect"
+msgstr "Endereço do Comic Vine"
 
 #: src/fetch/colnectfetcher.cpp:546 src/fetch/colnectfetcher.cpp:814
 #, kde-format
@@ -3776,23 +3808,23 @@ msgstr "Mintage"
 #, kde-format
 msgctxt "Stanley Gibbons stamp catalog code"
 msgid "Stanley Gibbons"
-msgstr "Stanley Gibbons"
+msgstr ""
 
 #: src/fetch/colnectfetcher.cpp:589 src/fetch/colnectfetcher.cpp:817
 #, kde-format
 msgctxt "Michel stamp catalog code"
 msgid "Michel"
-msgstr "Michel"
+msgstr ""
 
 #: src/fetch/colnectfetcher.cpp:818 src/fetch/giantbombfetcher.cpp:207
-#: src/fetch/igdbfetcher.cpp:576 src/fetch/mobygamesfetcher.cpp:637
-#: src/field.cpp:326
+#: src/fetch/igdbfetcher.cpp:578 src/fetch/mobygamesfetcher.cpp:638
+#: src/fetch/vgcollectfetcher.cpp:374 src/field.cpp:326
 #, kde-format
 msgid "PEGI Rating"
 msgstr "Classificação PEGI"
 
-#: src/fetch/colnectfetcher.cpp:919 src/fetch/filmaffinityfetcher.cpp:487
-#: src/fetch/numistafetcher.cpp:422 src/fetch/themoviedbfetcher.cpp:632
+#: src/fetch/colnectfetcher.cpp:919 src/fetch/filmaffinityfetcher.cpp:490
+#: src/fetch/numistafetcher.cpp:424 src/fetch/themoviedbfetcher.cpp:632
 #, kde-format
 msgid "Language: "
 msgstr "Língua: "
@@ -3813,33 +3845,33 @@ msgstr "Opções da Fonte"
 msgid "Available Fields"
 msgstr "Campos Disponíveis"
 
-#: src/fetch/crossreffetcher.cpp:91 src/fetch/crossreffetcher.cpp:92
+#: src/fetch/crossreffetcher.cpp:100 src/fetch/crossreffetcher.cpp:101
 #, kde-format
 msgid "%1 requires a username and password."
 msgstr "O %1 necessita de um utilizador e senha."
 
-#: src/fetch/crossreffetcher.cpp:324
+#: src/fetch/crossreffetcher.cpp:325
 #, kde-format
 msgid "&Username: "
 msgstr "&Utilizador: "
 
-#: src/fetch/crossreffetcher.cpp:329
+#: src/fetch/crossreffetcher.cpp:330
 #, kde-format
 msgid "A username and password is required to access the CrossRef service."
 msgstr ""
 "É necessário um utilizador e uma senha para aceder ao serviço CrossRef."
 
-#: src/fetch/crossreffetcher.cpp:334
+#: src/fetch/crossreffetcher.cpp:335
 #, kde-format
 msgid "&Password: "
 msgstr "&Senha: "
 
-#: src/fetch/crossreffetcher.cpp:344
+#: src/fetch/crossreffetcher.cpp:345
 #, kde-format
 msgid "For some accounts, only an email address is required."
 msgstr "Para algumas contas, só é necessário um endereço de e-mail."
 
-#: src/fetch/crossreffetcher.cpp:347
+#: src/fetch/crossreffetcher.cpp:348
 #, kde-format
 msgid "Email: "
 msgstr "E-mail: "
@@ -3849,45 +3881,48 @@ msgstr "E-mail: "
 msgid "Danish Bibliographic Center (DBC.dk)"
 msgstr "Centro Bibliográfico Dinamarquês (DBC.dk)"
 
-#: src/fetch/discogsfetcher.cpp:102 src/fetch/isbndbfetcher.cpp:112
-#: src/fetch/mobygamesfetcher.cpp:114 src/fetch/omdbfetcher.cpp:99
-#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:131
-#: src/fetch/thetvdbfetcher.cpp:126
+#: src/fetch/discogsfetcher.cpp:136 src/fetch/isbndbfetcher.cpp:162
+#: src/fetch/mobygamesfetcher.cpp:161 src/fetch/omdbfetcher.cpp:118
+#: src/fetch/thegamesdbfetcher.cpp:134 src/fetch/themoviedbfetcher.cpp:161
+#: src/fetch/thetvdbfetcher.cpp:166
 #, kde-format
 msgid "An access key is required to use this data source."
 msgstr "É necessária uma chave de acesso para usar esta fonte de dados."
 
-#: src/fetch/discogsfetcher.cpp:312 src/fetch/discogsfetcher.cpp:511
+#: src/fetch/discogsfetcher.cpp:313 src/fetch/discogsfetcher.cpp:514
 #, kde-format
 msgid "Discogs Link"
 msgstr "Ligação Discogs"
 
 #. i18n("Nationality");
-#: src/fetch/discogsfetcher.cpp:331 src/fetch/discogsfetcher.cpp:512
+#: src/fetch/discogsfetcher.cpp:332 src/fetch/discogsfetcher.cpp:515
 #: src/fetch/dvdfrfetcher.cpp:183 src/fetch/musicbrainzfetcher.cpp:371
 #: src/fetch/upcitemdbfetcher.cpp:207 src/fetch/upcitemdbfetcher.cpp:458
+#: src/fetch/vgcollectfetcher.cpp:340 src/fetch/vgcollectfetcher.cpp:375
 #, kde-format
 msgid "Barcode"
-msgstr "Código de Barras"
+msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:336 src/fetch/discogsfetcher.cpp:513
-#, kde-format
+#: src/fetch/discogsfetcher.cpp:337 src/fetch/discogsfetcher.cpp:516
+#, fuzzy, kde-format
+#| msgid "Card Number"
 msgid "Catalog Number"
-msgstr "Número do Catálogo"
+msgstr "Número da Carta"
 
-#: src/fetch/discogsfetcher.cpp:346
+#: src/fetch/discogsfetcher.cpp:347
 #, kde-format
 msgid "The Discogs.com server reports a token error."
 msgstr "o servidor do Discogs.com devolveu um erro de credenciais."
 
-#: src/fetch/discogsfetcher.cpp:500
+#: src/fetch/discogsfetcher.cpp:503
 #, kde-format
 msgid "Discogs Audio Search"
 msgstr "Motor de busca áudio Discogs"
 
-#: src/fetch/discogsfetcher.cpp:536
-#, kde-format
-msgid "User token: "
+#: src/fetch/discogsfetcher.cpp:539 src/translators/discogsimporter.cpp:200
+#, fuzzy, kde-format
+#| msgid "User token: "
+msgid "User token:"
 msgstr "Credencial do utilizador: "
 
 #: src/fetch/doubanfetcher.cpp:350 src/fetch/doubanfetcher.cpp:368
@@ -4031,22 +4066,24 @@ msgstr "LCCN"
 msgid "Raw Query"
 msgstr "Pesquisa não Refinada"
 
-#: src/fetch/filmaffinityfetcher.cpp:281 src/fetch/filmaffinityfetcher.cpp:457
-#, kde-format
+#: src/fetch/filmaffinityfetcher.cpp:281 src/fetch/filmaffinityfetcher.cpp:460
+#, fuzzy, kde-format
+#| msgid "Filmaster Link"
 msgid "FilmAffinity Link"
-msgstr "Ligação da FilmAffinity"
+msgstr "Referência à Filmaster"
 
-#: src/fetch/filmaffinityfetcher.cpp:492
-#, kde-format
+#: src/fetch/filmaffinityfetcher.cpp:495
+#, fuzzy, kde-format
+#| msgid "Spain"
 msgctxt "Country"
 msgid "Spain"
 msgstr "Espanha"
 
-#: src/fetch/filmaffinityfetcher.cpp:495
+#: src/fetch/filmaffinityfetcher.cpp:498
 #, kde-format
 msgctxt "Country"
 msgid "USA"
-msgstr "EUA"
+msgstr ""
 
 #: src/fetch/filmasterfetcher.cpp:239 src/fetch/filmasterfetcher.cpp:316
 #, kde-format
@@ -4056,9 +4093,10 @@ msgstr "Referência à Filmaster"
 #: src/fetch/gaminghistoryfetcher.cpp:196
 #: src/fetch/gaminghistoryfetcher.cpp:319
 #: src/fetch/gaminghistoryfetcher.cpp:374
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "GiantBomb Link"
 msgid "Gaming History Link"
-msgstr "Ligação do Gaming History"
+msgstr "Ligação do GiantBomb"
 
 #: src/fetch/gcstarpluginfetcher.cpp:391
 #, kde-format
@@ -4106,7 +4144,7 @@ msgstr "Pesquisa de Livros da Google"
 msgid "Illustrator"
 msgstr "Ilustrador"
 
-#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:383
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:384
 #: src/fetch/srufetcher.cpp:509 src/fetch/z3950fetcher.cpp:579
 #, kde-format
 msgctxt "Dewey Decimal classification system"
@@ -4125,7 +4163,7 @@ msgstr "Classificação da BdC"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Livraria Internet (ibs.it)"
 
-#: src/fetch/igdbfetcher.cpp:368 src/fetch/igdbfetcher.cpp:577
+#: src/fetch/igdbfetcher.cpp:368 src/fetch/igdbfetcher.cpp:579
 #, kde-format
 msgid "IGDB Link"
 msgstr "Ligação do IGDb"
@@ -4135,13 +4173,13 @@ msgstr "Ligação do IGDb"
 msgid "Internet Game Database (IGDB.com)"
 msgstr "Base de Dados de Jogos na Internet (IGDB.com)"
 
-#: src/fetch/igdbfetcher.cpp:578 src/fetch/mobygamesfetcher.cpp:639
-#: src/fetch/thegamesdbfetcher.cpp:604 src/field.cpp:344
+#: src/fetch/igdbfetcher.cpp:580 src/fetch/mobygamesfetcher.cpp:640
+#: src/fetch/thegamesdbfetcher.cpp:606 src/field.cpp:344
 #, kde-format
 msgid "Screenshot"
-msgstr "Imagem"
+msgstr ""
 
-#: src/fetch/imdbfetcher.cpp:120 src/fetch/imdbfetcher.cpp:1792
+#: src/fetch/imdbfetcher.cpp:120 src/fetch/imdbfetcher.cpp:1807
 #, kde-format
 msgid "Internet Movie Database"
 msgstr "Base de Dados de Filmes Internet"
@@ -4171,60 +4209,58 @@ msgstr "Base de Dados de Filmes na Internet (Italiano)"
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Base de Dados de Filmes na Internet (Português)"
 
-#: src/fetch/imdbfetcher.cpp:830 src/fetch/imdbfetcher.cpp:1385
-#: src/fetch/imdbfetcher.cpp:1803
+#: src/fetch/imdbfetcher.cpp:845 src/fetch/imdbfetcher.cpp:1400
+#: src/fetch/imdbfetcher.cpp:1819
 #, kde-format
 msgid "IMDb Rating"
 msgstr "Classificação da IMDb"
 
-#: src/fetch/imdbfetcher.cpp:1570 src/fetch/imdbfetcher.cpp:1667
-#: src/fetch/imdbfetcher.cpp:1805
+#: src/fetch/imdbfetcher.cpp:1585 src/fetch/imdbfetcher.cpp:1682
+#: src/fetch/imdbfetcher.cpp:1821
 #, kde-format
 msgid "Certifications"
 msgstr "Certificações"
 
-#: src/fetch/imdbfetcher.cpp:1802 src/fetch/kinopoiskfetcher.cpp:672
-#: src/fetch/omdbfetcher.cpp:399 src/fetch/themoviedbfetcher.cpp:575
-#: src/fetch/thetvdbfetcher.cpp:576 src/fetch/tvmazefetcher.cpp:382
+#: src/fetch/imdbfetcher.cpp:1818 src/fetch/kinopoiskfetcher.cpp:672
+#: src/fetch/omdbfetcher.cpp:400 src/fetch/themoviedbfetcher.cpp:575
+#: src/fetch/thetvdbfetcher.cpp:575 src/fetch/tvmazefetcher.cpp:382
 #: src/field.cpp:332
 #, kde-format
 msgid "IMDb Link"
 msgstr "Ligação do IMDb"
 
-#: src/fetch/imdbfetcher.cpp:1841
+#: src/fetch/imdbfetcher.cpp:1857
 #, kde-format
 msgid "Download cover &image"
 msgstr "Obter a &imagem da capa"
 
-#: src/fetch/isbndbfetcher.cpp:360
+#: src/fetch/isbndbfetcher.cpp:361
 #, kde-format
 msgid "Dewey Decimal"
 msgstr "Decimal Dewey"
 
-#: src/fetch/isbndbfetcher.cpp:373
+#: src/fetch/isbndbfetcher.cpp:374
 #, kde-format
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/isbndbfetcher.cpp:414
+#: src/fetch/isbndbfetcher.cpp:415
 #, kde-format
 msgid "Enable batch ISBN searching (requires Premium or Pro plan)"
 msgstr ""
-"Activar a pesquisa de ISBN's em lote (necessita do plano Premium ou Pro)"
 
-#: src/fetch/isbndbfetcher.cpp:418
+#: src/fetch/isbndbfetcher.cpp:419
 #, kde-format
 msgid ""
 "Batch searching for ISBN values is faster but only available for Premium or "
 "Pro plans."
 msgstr ""
-"A pesquisa em lote pelos valores de ISBN é mais rápida mas só está "
-"disponível nos planos Premium e Pro."
 
 #: src/fetch/itunesfetcher.cpp:240 src/fetch/itunesfetcher.cpp:505
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Allocine Link"
 msgid "iTunes Link"
-msgstr "Endereço do iTunes"
+msgstr "Endereço do Allocine"
 
 #: src/fetch/kinopoiskfetcher.cpp:276 src/fetch/kinopoiskfetcher.cpp:671
 #, kde-format
@@ -4236,7 +4272,7 @@ msgstr "Ligação do KinoPoisk"
 msgid "Kino-Teatr Link"
 msgstr "Ligação do Kino-Teatr"
 
-#: src/fetch/mobygamesfetcher.cpp:458 src/fetch/mobygamesfetcher.cpp:638
+#: src/fetch/mobygamesfetcher.cpp:459 src/fetch/mobygamesfetcher.cpp:639
 #, kde-format
 msgid "MobyGames Link"
 msgstr "Ligação do MobyGames"
@@ -4256,58 +4292,64 @@ msgstr "Várias Fontes"
 msgid "Data source:"
 msgstr "Fonte de dados:"
 
-#: src/fetch/numistafetcher.cpp:342 src/fetch/numistafetcher.cpp:397
-#, kde-format
+#: src/fetch/numistafetcher.cpp:344 src/fetch/numistafetcher.cpp:399
+#, fuzzy, kde-format
+#| msgid "Filmaster Link"
 msgid "Numista Link"
-msgstr "Referência ao Numista"
+msgstr "Referência à Filmaster"
 
-#: src/fetch/numistafetcher.cpp:402
+#: src/fetch/numistafetcher.cpp:404
 #, kde-format
 msgctxt "Standard catalog of world coins number"
 msgid "Krause-Mishler"
-msgstr "Krause-Mishler"
+msgstr ""
 
-#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:641
+#: src/fetch/numistafetcher.cpp:429 src/fetch/themoviedbfetcher.cpp:641
 #, kde-format
 msgctxt "Language"
 msgid "English"
 msgstr "Inglês"
 
-#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:644
+#: src/fetch/numistafetcher.cpp:432 src/fetch/themoviedbfetcher.cpp:644
 #, kde-format
 msgctxt "Language"
 msgid "French"
 msgstr "Francês"
 
-#: src/fetch/numistafetcher.cpp:461
+#: src/fetch/numistafetcher.cpp:463
 #, kde-format
 msgid "Numista (%1)"
-msgstr "Numista (%1)"
+msgstr ""
 
 #: src/fetch/opdsfetcher.cpp:199 src/fetch/opdsfetcher.cpp:209
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Tellico was unable to read any metadata from the PDF file."
 msgid "Tellico is unable to read the search description in the OPDS catalog."
-msgstr "O Tellico não consegue ler a descrição da pesquisa no catálogo OPDS."
+msgstr "O Tellico não conseguiu ler nenhum meta-dado do ficheiro PDF."
 
 #: src/fetch/opdsfetcher.cpp:421
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "File Catalog"
 msgid "OPDS Catalog"
-msgstr "Catálogo OPDS"
+msgstr "Catálogo de Ficheiros"
 
 #: src/fetch/opdsfetcher.cpp:446
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "File Catalog"
 msgid "Catalog: "
-msgstr "Catálogo: "
+msgstr "Catálogo de Ficheiros"
 
 #: src/fetch/opdsfetcher.cpp:451
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Enter the host name of the server."
 msgid "Enter the link to the OPDS server."
-msgstr "Introduza o endereço do servidor OPDS."
+msgstr "Insira o nome do servidor."
 
 #: src/fetch/opdsfetcher.cpp:456
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "File Catalog"
 msgid "&Verify Catalog"
-msgstr "&Verificar o Catálogo"
+msgstr "Catálogo de Ficheiros"
 
 #: src/fetch/openlibraryfetcher.cpp:271 src/fetch/openlibraryfetcher.cpp:417
 #, kde-format
@@ -4315,9 +4357,10 @@ msgid "OpenLibrary Link"
 msgstr "Referência à OpenLibrary"
 
 #: src/fetch/rpggeekfetcher.cpp:210
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "BoardGameGeek Link"
 msgid "RPGGeek Link"
-msgstr "Ligação ao RPGGeek"
+msgstr "Ligação ao BoardGameGeek"
 
 #: src/fetch/srufetcher.cpp:492
 #, kde-format
@@ -4330,9 +4373,10 @@ msgid "SRU Server"
 msgstr "Servidor SRU"
 
 #: src/fetch/srufetcher.cpp:525
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Source name: "
 msgid "Scheme: "
-msgstr "Esquema: "
+msgstr "Nome da &fonte: "
 
 #: src/fetch/srufetcher.cpp:534 src/fetch/srufetcher.cpp:570
 #, kde-format
@@ -4385,17 +4429,18 @@ msgid "TMDb Link"
 msgstr "Ligação do TMDb"
 
 #: src/fetch/themoviedbfetcher.cpp:338 src/fetch/themoviedbfetcher.cpp:578
-#: src/fetch/thetvdbfetcher.cpp:260 src/fetch/thetvdbfetcher.cpp:578
+#: src/fetch/thetvdbfetcher.cpp:259 src/fetch/thetvdbfetcher.cpp:577
 #: src/fetch/tvmazefetcher.cpp:182 src/fetch/tvmazefetcher.cpp:384
 #, kde-format
 msgid "Network"
-msgstr "Rede"
+msgstr ""
 
 #: src/fetch/themoviedbfetcher.cpp:638
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "China"
 msgctxt "Language"
 msgid "Chinese"
-msgstr "Chinês"
+msgstr "China"
 
 #: src/fetch/themoviedbfetcher.cpp:647
 #, kde-format
@@ -4413,22 +4458,29 @@ msgstr "Espanhol"
 #, kde-format
 msgctxt "Language"
 msgid "Russian"
-msgstr "Russo"
+msgstr ""
 
 #: src/fetch/themoviedbfetcher.cpp:696
 #, kde-format
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/thetvdbfetcher.cpp:265 src/fetch/thetvdbfetcher.cpp:575
-#, kde-format
+#: src/fetch/thetvdbfetcher.cpp:264 src/fetch/thetvdbfetcher.cpp:574
+#, fuzzy, kde-format
+#| msgid "IGDB Link"
 msgid "TheTVDB Link"
-msgstr "Ligação do TheTVDB"
+msgstr "Ligação do IGDb"
 
-#: src/fetch/thetvdbfetcher.cpp:602
+#: src/fetch/thetvdbfetcher.cpp:601
 #, kde-format
 msgid "Subscriber PIN: "
-msgstr "PIN do subscritor: "
+msgstr ""
+
+#: src/fetch/vgcollectfetcher.cpp:237 src/fetch/vgcollectfetcher.cpp:373
+#, fuzzy, kde-format
+#| msgid "Comic Vine Link"
+msgid "VGCollect Link"
+msgstr "Endereço do Comic Vine"
 
 #: src/fetch/videogamegeekfetcher.cpp:201
 #, kde-format
@@ -4579,7 +4631,7 @@ msgstr "&Procurar"
 msgid "&Stop"
 msgstr "&Parar"
 
-#: src/fetchdialog.cpp:142 src/mainwindow.cpp:594
+#: src/fetchdialog.cpp:142 src/mainwindow.cpp:597
 #, kde-format
 msgid "Internet Search"
 msgstr "Pesquisa na Internet"
@@ -4864,13 +4916,14 @@ msgstr "Número Internacional Normalizado do Livro"
 #, kde-format
 msgctxt "TV Season"
 msgid "Season"
-msgstr "Temporada"
+msgstr ""
 
 #: src/field.cpp:341
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Episodes"
 msgctxt "TV Episode"
 msgid "Episode"
-msgstr "Episódio"
+msgstr "Episódios"
 
 #: src/filterdialog.cpp:62
 #, kde-format
@@ -4902,8 +4955,8 @@ msgstr "Nome do filtro:"
 msgid "&Save Filter"
 msgstr "&Gravar o Filtro"
 
-#: src/filterview.cpp:191 src/mainwindow.cpp:567 src/mainwindow.cpp:777
-#: src/mainwindow.cpp:795
+#: src/filterview.cpp:191 src/mainwindow.cpp:570 src/mainwindow.cpp:780
+#: src/mainwindow.cpp:798
 #, kde-format
 msgid "Filter"
 msgstr "Filtro"
@@ -4939,8 +4992,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Grupo"
 
-#: src/groupview.cpp:425 src/mainwindow.cpp:1095 src/mainwindow.cpp:1741
-#: src/mainwindow.cpp:1775 src/translators/htmlexporter.cpp:338
+#: src/groupview.cpp:425 src/mainwindow.cpp:1098 src/mainwindow.cpp:1744
+#: src/mainwindow.cpp:1778 src/translators/htmlexporter.cpp:338
 #, kde-format
 msgid "People"
 msgstr "Pessoas"
@@ -4948,28 +5001,32 @@ msgstr "Pessoas"
 #. i18n: ectx: property (text), widget (QLabel, labelName)
 #: src/gui/collectiontemplatedialog.cpp:51
 #: src/gui/collectiontemplatedialog.ui:43
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Template:"
 msgid "Template Name:"
-msgstr "Nome do Modelo:"
+msgstr "Modelo:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelComment)
 #: src/gui/collectiontemplatedialog.cpp:52
 #: src/gui/collectiontemplatedialog.ui:53
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Comments"
 msgid "Comment:"
-msgstr "Comentário:"
+msgstr "Comentários"
 
 #. i18n: ectx: property (text), widget (QLabel, labelIcon)
 #: src/gui/collectiontemplatedialog.cpp:53
 #: src/gui/collectiontemplatedialog.ui:70
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Icon"
 msgid "Icon:"
-msgstr "Ícone:"
+msgstr "Ícone"
 
 #: src/gui/collectiontemplatedialog.cpp:56
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Collection Report"
 msgid "Save As Collection Template"
-msgstr "Gravar como Modelo de Colecções"
+msgstr "Relatório da Colecção"
 
 #: src/gui/fieldwidget.cpp:54 src/gui/fieldwidget.cpp:169
 #, kde-format
@@ -4996,13 +5053,15 @@ msgstr "é diferente de"
 
 #: src/gui/filterrulewidget.cpp:236 src/gui/filterrulewidget.cpp:244
 #: src/gui/filterrulewidget.cpp:264
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "matches regexp"
 msgid "matches regular expression"
 msgstr "corresponde à expressão regular"
 
 #: src/gui/filterrulewidget.cpp:237 src/gui/filterrulewidget.cpp:245
 #: src/gui/filterrulewidget.cpp:265
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "does not match regexp"
 msgid "does not match regular expression"
 msgstr "não corresponde à expressão regular"
 
@@ -5031,26 +5090,32 @@ msgid "is greater than"
 msgstr "é maior que"
 
 #: src/gui/filterrulewidget.cpp:250
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "&Image size: "
 msgid "image size equals"
-msgstr "o tamanho da imagem é igual a"
+msgstr "&Tamanho da imagem: "
 
 #: src/gui/filterrulewidget.cpp:251
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "does not equal"
 msgid "image size does not equal"
-msgstr "o tamanho da imagem é diferente de"
+msgstr "é diferente de"
 
 #: src/gui/filterrulewidget.cpp:252
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "is less than a number"
+#| msgid "is less than"
 msgctxt "image size is less than a number"
 msgid "image size is less than"
-msgstr "o tamanho da imagem é inferior a"
+msgstr "é menor que"
 
 #: src/gui/filterrulewidget.cpp:253
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "is greater than a number"
+#| msgid "is greater than"
 msgctxt "image size is greater than a number"
 msgid "image size is greater than"
-msgstr "o tamanho da imagem é superior a"
+msgstr "é maior que"
 
 #: src/gui/filterrulewidget.cpp:260
 #, kde-format
@@ -5193,27 +5258,27 @@ msgstr "Descer a Linha"
 msgid "Tellico is unable to load the image - %1."
 msgstr "O Tellico não consegue carregar a imagem - %1."
 
-#: src/importdialog.cpp:79 src/importdialog.cpp:88
+#: src/importdialog.cpp:80 src/importdialog.cpp:89
 #, kde-format
 msgid "Import Options"
 msgstr "Opções de Importação"
 
-#: src/importdialog.cpp:92
+#: src/importdialog.cpp:93
 #, kde-format
 msgid "&Replace current collection"
 msgstr "&Substituir a colecção actual"
 
-#: src/importdialog.cpp:93
+#: src/importdialog.cpp:94
 #, kde-format
 msgid "Replace the current collection with the contents of the imported file."
 msgstr "Substitui a colecção aberta pelo conteúdo do ficheiro importado."
 
-#: src/importdialog.cpp:95
+#: src/importdialog.cpp:96
 #, kde-format
 msgid "A&ppend to current collection"
 msgstr "A&dicionar à colecção actual"
 
-#: src/importdialog.cpp:96
+#: src/importdialog.cpp:97
 #, kde-format
 msgid ""
 "Append the contents of the imported file to the current collection. This is "
@@ -5222,12 +5287,12 @@ msgstr ""
 "Adiciona os dados do ficheiro importado à colecção aberta. Isso só é "
 "possível se as colecções forem do mesmo tipo."
 
-#: src/importdialog.cpp:99
+#: src/importdialog.cpp:100
 #, kde-format
 msgid "&Merge with current collection"
 msgstr "&Combinar com a colecção actual"
 
-#: src/importdialog.cpp:100
+#: src/importdialog.cpp:101
 #, kde-format
 msgid ""
 "Merge the contents of the imported file to the current collection. This is "
@@ -5238,72 +5303,73 @@ msgstr ""
 "possível se as colecções forem do mesmo tipo. Os itens devem ser exactamente "
 "do mesmo tipo para poderem ser combinados."
 
-#: src/importdialog.cpp:149 src/mainwindow.cpp:370
+#: src/importdialog.cpp:150 src/mainwindow.cpp:370
 #, kde-format
 msgid "&Import"
 msgstr "&Importar"
 
-#: src/importdialog.cpp:371 src/mainwindow.cpp:1277 src/mainwindow.cpp:1454
+#: src/importdialog.cpp:377 src/mainwindow.cpp:1280 src/mainwindow.cpp:1457
 #: src/translators/tellicozipexporter.cpp:54
 #, kde-format
 msgid "Tellico Files"
 msgstr "Ficheiros do Tellico"
 
-#: src/importdialog.cpp:372 src/importdialog.cpp:390 src/importdialog.cpp:419
-#: src/mainwindow.cpp:1279 src/translators/tellicoxmlexporter.cpp:71
+#: src/importdialog.cpp:378 src/importdialog.cpp:396 src/importdialog.cpp:425
+#: src/mainwindow.cpp:1282 src/translators/tellicoxmlexporter.cpp:72
 #, kde-format
 msgid "XML Files"
 msgstr "Ficheiros XML"
 
-#: src/importdialog.cpp:376 src/translators/bibtexexporter.cpp:65
+#: src/importdialog.cpp:382 src/translators/bibtexexporter.cpp:65
 #, kde-format
 msgid "Bibtex Files"
 msgstr "Ficheiros do Bibtex"
 
-#: src/importdialog.cpp:380 src/translators/csvexporter.cpp:64
+#: src/importdialog.cpp:386 src/translators/csvexporter.cpp:64
 #, kde-format
 msgid "CSV Files"
 msgstr "Ficheiros CSV"
 
-#: src/importdialog.cpp:394
+#: src/importdialog.cpp:400
 #, kde-format
 msgid "RIS Files"
 msgstr "Ficheiros RIS"
 
-#: src/importdialog.cpp:398 src/translators/gcstarexporter.cpp:62
+#: src/importdialog.cpp:404 src/translators/gcstarexporter.cpp:62
 #, kde-format
 msgid "GCstar Data Files"
 msgstr "Ficheiros de Dados do GCstar"
 
-#: src/importdialog.cpp:402
+#: src/importdialog.cpp:408
 #, kde-format
 msgid "AMC Data Files"
 msgstr "Ficheiros de dados AMC"
 
-#: src/importdialog.cpp:406
+#: src/importdialog.cpp:412
 #, kde-format
 msgid "PDF Files"
 msgstr "Ficheiros PDF"
 
-#: src/importdialog.cpp:410
+#: src/importdialog.cpp:416
 #, kde-format
 msgid "Referencer Files"
 msgstr "Ficheiros do Referencer"
 
-#: src/importdialog.cpp:414
+#: src/importdialog.cpp:420
 #, kde-format
 msgid "CIW Files"
 msgstr "Ficheiros CIW"
 
-#: src/importdialog.cpp:418
+#: src/importdialog.cpp:424
 #, kde-format
 msgid "VinoXML Data Files"
 msgstr "Ficheiros de Dados do VinoXML"
 
-#: src/importdialog.cpp:424
-#, kde-format
+#: src/importdialog.cpp:430
+#, fuzzy, kde-format
+#| msgid "Book Title"
 msgid "eBook Files"
-msgstr "Ficheiros eBook"
+msgstr "Título do Livro"
 
 #: src/loandialog.cpp:67
 #, kde-format
@@ -5410,14 +5476,16 @@ msgid "Borrower (Sort by Count)"
 msgstr "Requisitante (Classificar por número de ocorrências)"
 
 #: src/main.cpp:121
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Tellico - a KDE collection manager"
 msgid "Tellico - collection management software, free and simple"
-msgstr "Tellico - aplicação de gestão de colecções, gratuita e simples"
+msgstr "Tellico - um gestor de colecções do KDE"
 
 #: src/main.cpp:123
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "(c) 2001-2020, Robby Stephenson"
 msgid "(c) 2001-2023, Robby Stephenson"
-msgstr "(c) 2001-2023 de Robby Stephenson"
+msgstr "(c) 2001-2020, Robby Stephenson"
 
 #: src/main.cpp:127
 #, kde-format
@@ -5470,9 +5538,10 @@ msgid "Import <filename> as a RIS file"
 msgstr "Importar o <ficheiro> como ficheiro do RIS"
 
 #: src/main.cpp:148
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import <filename> as a MODS file"
 msgid "Import <filename> as a PDF file"
-msgstr "Importar o <ficheiro> como ficheiro PDF"
+msgstr "Importar o <ficheiro> como ficheiro do MODS"
 
 #: src/main.cpp:149
 #, kde-format
@@ -5480,9 +5549,10 @@ msgid "File to open"
 msgstr "O ficheiro a abrir"
 
 #: src/mainwindow.cpp:254
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Wine Collection"
 msgid "New Collection"
-msgstr "Nova Colecção"
+msgstr "Colecção de Vinhos"
 
 #: src/mainwindow.cpp:256
 #, kde-format
@@ -5640,24 +5710,28 @@ msgid "Save the document as a different file..."
 msgstr "Gravar o documento com um novo nome..."
 
 #: src/mainwindow.cpp:334
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Manage Templates"
 msgid "Save As Template..."
-msgstr "Gravar como Modelo..."
+msgstr "Gerir os Modelos"
 
 #: src/mainwindow.cpp:336
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Create a new collection"
 msgid "Save as a collection template"
-msgstr "Gravar como um modelo de colecção"
+msgstr "Criar uma nova colecção"
 
 #: src/mainwindow.cpp:339
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Print the contents of the document..."
 msgid "Print the contents of the collection..."
-msgstr "Imprimir o conteúdo da colecção..."
+msgstr "Imprimir os dados do documento..."
 
 #: src/mainwindow.cpp:355
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Print the contents of the document..."
 msgid "Preview the contents of the collection..."
-msgstr "Antever o conteúdo da colecção..."
+msgstr "Imprimir os dados do documento..."
 
 #: src/mainwindow.cpp:359
 #, kde-format
@@ -5720,24 +5794,28 @@ msgid "Import data from Delicious Library"
 msgstr "Importar dados da Biblioteca Delicious"
 
 #: src/mainwindow.cpp:406
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import Tellico Data..."
 msgid "Import Collectorz Data..."
-msgstr "Importar Dados do Collectorz..."
+msgstr "Importar Dados do Tellico..."
 
 #: src/mainwindow.cpp:407
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import data from Referencer"
 msgid "Import data from Collectorz"
-msgstr "Importar dados do Collectorz"
+msgstr "Importar dados do Referencer"
 
 #: src/mainwindow.cpp:410
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import GCstar Data..."
 msgid "Import Data Crow Data..."
-msgstr "Importar Dados do Data Crow..."
+msgstr "Importar Dados do GCstar..."
 
 #: src/mainwindow.cpp:411
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import data from Referencer"
 msgid "Import data from Data Crow"
-msgstr "Importar dados do Data Crow"
+msgstr "Importar dados do Referencer"
 
 #: src/mainwindow.cpp:414
 #, kde-format
@@ -5780,14 +5858,16 @@ msgid "Import an RIS reference file"
 msgstr "Importar um ficheiro de referência RIS"
 
 #: src/mainwindow.cpp:430
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import CSV Data..."
 msgid "Import MARC Data..."
-msgstr "Importar Dados do MARC..."
+msgstr "Importar Dados em CSV..."
 
 #: src/mainwindow.cpp:431
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Import VinoXML data"
 msgid "Import MARC data"
-msgstr "Importar dados do MARC"
+msgstr "Importar os dados do VinoXML"
 
 #: src/mainwindow.cpp:438
 #, kde-format
@@ -5840,462 +5920,476 @@ msgid "Import audio CD information"
 msgstr "Importar informações de um CD áudio"
 
 #: src/mainwindow.cpp:459
+#, fuzzy, kde-format
+#| msgid "Import Goodreads Collection..."
+msgid "Import Discogs Collection..."
+msgstr "Importar uma Colecção do Goodreads..."
+
+#: src/mainwindow.cpp:460
+#, fuzzy, kde-format
+#| msgid "Import a collection from Goodreads.com"
+msgid "Import a collection from Discogs.com"
+msgstr "Importar uma colecção do Goodreads.com"
+
+#: src/mainwindow.cpp:462
 #, kde-format
 msgid "Import GCstar Data..."
 msgstr "Importar Dados do GCstar..."
 
-#: src/mainwindow.cpp:460
+#: src/mainwindow.cpp:463
 #, kde-format
 msgid "Import a GCstar data file"
 msgstr "Importar um ficheiro de dados GCstar"
 
-#: src/mainwindow.cpp:463
+#: src/mainwindow.cpp:466
 #, kde-format
 msgid "Import Griffith Data..."
 msgstr "Importar Dados do Griffith..."
 
-#: src/mainwindow.cpp:464
+#: src/mainwindow.cpp:467
 #, kde-format
 msgid "Import a Griffith database"
 msgstr "Importar uma base de dados Griffith"
 
-#: src/mainwindow.cpp:467
+#: src/mainwindow.cpp:470
 #, kde-format
 msgid "Import Ant Movie Catalog Data..."
 msgstr "Importar Dados do Catálogo Ant Movie..."
 
-#: src/mainwindow.cpp:468
+#: src/mainwindow.cpp:471
 #, kde-format
 msgid "Import an Ant Movie Catalog data file"
 msgstr "Importar um ficheiro de dados do Catálogo Ant Movie"
 
-#: src/mainwindow.cpp:471
+#: src/mainwindow.cpp:474
 #, kde-format
 msgid "Import BoardGameGeek Collection..."
 msgstr "Importar uma Colecção do BoardGameGeek..."
 
-#: src/mainwindow.cpp:472
+#: src/mainwindow.cpp:475
 #, kde-format
 msgid "Import a collection from BoardGameGeek.com"
 msgstr "Importar uma colecção do BoardGameGeek.com"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:477
 #, kde-format
 msgid "Import VinoXML..."
 msgstr "Importar o VinoXML..."
 
-#: src/mainwindow.cpp:475
+#: src/mainwindow.cpp:478
 #, kde-format
 msgid "Import VinoXML data"
 msgstr "Importar os dados do VinoXML"
 
-#: src/mainwindow.cpp:477
+#: src/mainwindow.cpp:480
 #, kde-format
 msgid "Import File Listing..."
 msgstr "Importar uma Listagem de Ficheiros..."
 
-#: src/mainwindow.cpp:478
+#: src/mainwindow.cpp:481
 #, kde-format
 msgid "Import information about files in a folder"
 msgstr "Importar informações sobre os ficheiros de uma pasta "
 
-#: src/mainwindow.cpp:480
+#: src/mainwindow.cpp:483
 #, kde-format
 msgid "Import XSL Transform..."
 msgstr "Importar uma Transformação XSL..."
 
-#: src/mainwindow.cpp:481
+#: src/mainwindow.cpp:484
 #, kde-format
 msgid "Import using an XSL Transform"
 msgstr "Importar um ficheiro utilizando uma transformação XSL"
 
-#: src/mainwindow.cpp:494
+#: src/mainwindow.cpp:497
 #, kde-format
 msgid "&Export"
 msgstr "&Exportar"
 
-#: src/mainwindow.cpp:496
+#: src/mainwindow.cpp:499
 #, kde-format
 msgid "Export the collection data to other formats"
 msgstr "Exportar os dados da colecção para outros formatos"
 
-#: src/mainwindow.cpp:512
+#: src/mainwindow.cpp:515
 #, kde-format
 msgid "Export to XML..."
 msgstr "Exportar para XML..."
 
-#: src/mainwindow.cpp:513
+#: src/mainwindow.cpp:516
 #, kde-format
 msgid "Export to a Tellico XML file"
 msgstr "Exportar para um ficheiro Tellico XML "
 
-#: src/mainwindow.cpp:516
+#: src/mainwindow.cpp:519
 #, kde-format
 msgid "Export to Zip..."
 msgstr "Exportar para ZIP..."
 
-#: src/mainwindow.cpp:517
+#: src/mainwindow.cpp:520
 #, kde-format
 msgid "Export to a Tellico Zip file"
 msgstr "Exportar para um ficheiro Zip Tellico"
 
-#: src/mainwindow.cpp:520
+#: src/mainwindow.cpp:523
 #, kde-format
 msgid "Export to HTML..."
 msgstr "Exportar para HTML..."
 
-#: src/mainwindow.cpp:521
+#: src/mainwindow.cpp:524
 #, kde-format
 msgid "Export to an HTML file"
 msgstr "Exportar para um ficheiro HTML"
 
-#: src/mainwindow.cpp:523
+#: src/mainwindow.cpp:526
 #, kde-format
 msgid "Export to CSV..."
 msgstr "Exportar para CSV..."
 
-#: src/mainwindow.cpp:524
+#: src/mainwindow.cpp:527
 #, kde-format
 msgid "Export to a comma-separated values file"
 msgstr "Exportar para um ficheiro CSV"
 
-#: src/mainwindow.cpp:526
+#: src/mainwindow.cpp:529
 #, kde-format
 msgid "Export to Alexandria..."
 msgstr "Exportar para o Alexandria..."
 
-#: src/mainwindow.cpp:527
+#: src/mainwindow.cpp:530
 #, kde-format
 msgid "Export to an Alexandria library"
 msgstr "Exportar para uma biblioteca Alexandria"
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:533
 #, kde-format
 msgid "Export to Bibtex..."
 msgstr "Exportar para o BibTeX..."
 
-#: src/mainwindow.cpp:531
+#: src/mainwindow.cpp:534
 #, kde-format
 msgid "Export to a bibtex file"
 msgstr "Exportar para um ficheiro BibTeX"
 
-#: src/mainwindow.cpp:533
+#: src/mainwindow.cpp:536
 #, kde-format
 msgid "Export to Bibtexml..."
 msgstr "Exportar para o BibTeXML..."
 
-#: src/mainwindow.cpp:534
+#: src/mainwindow.cpp:537
 #, kde-format
 msgid "Export to a Bibtexml file"
 msgstr "Exportar para um ficheiro BibTeXML"
 
-#: src/mainwindow.cpp:536
+#: src/mainwindow.cpp:539
 #, kde-format
 msgid "Export to ONIX..."
 msgstr "Exportar para o ONIX..."
 
-#: src/mainwindow.cpp:537
+#: src/mainwindow.cpp:540
 #, kde-format
 msgid "Export to an ONIX file"
 msgstr "Exportar para um ficheiro ONIX"
 
-#: src/mainwindow.cpp:539
+#: src/mainwindow.cpp:542
 #, kde-format
 msgid "Export to GCstar..."
 msgstr "Exportar para o GCstar..."
 
-#: src/mainwindow.cpp:540
+#: src/mainwindow.cpp:543
 #, kde-format
 msgid "Export to a GCstar data file"
 msgstr "Exportar para um ficheiro de dados GCstar"
 
-#: src/mainwindow.cpp:543
+#: src/mainwindow.cpp:546
 #, kde-format
 msgid "Export XSL Transform..."
 msgstr "Exportar uma Transformação XSL..."
 
-#: src/mainwindow.cpp:544
+#: src/mainwindow.cpp:547
 #, kde-format
 msgid "Export using an XSL Transform"
 msgstr "Exportar utilizando uma transformação XSL"
 
-#: src/mainwindow.cpp:555
+#: src/mainwindow.cpp:558
 #, kde-format
 msgid "Cut the selected text and puts it in the clipboard"
 msgstr "Cortar o texto seleccionado e colocá-lo na área de transferência"
 
-#: src/mainwindow.cpp:557
+#: src/mainwindow.cpp:560
 #, kde-format
 msgid "Copy the selected text to the clipboard"
 msgstr "Copiar o texto seleccionado para a área de transferência"
 
-#: src/mainwindow.cpp:559
+#: src/mainwindow.cpp:562
 #, kde-format
 msgid "Paste the clipboard contents"
 msgstr "Colar o conteúdo da área de transferência"
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:564
 #, kde-format
 msgid "Select all the entries in the collection"
 msgstr "Seleccionar todos os itens desta colecção"
 
-#: src/mainwindow.cpp:563
+#: src/mainwindow.cpp:566
 #, kde-format
 msgid "Deselect all the entries in the collection"
 msgstr "Desfazer a selecção de todos os itens desta colecção"
 
-#: src/mainwindow.cpp:566
+#: src/mainwindow.cpp:569
 #, kde-format
 msgid "Advanced &Filter..."
 msgstr "Filtro &Avançado..."
 
-#: src/mainwindow.cpp:570 src/mainwindow.cpp:796
+#: src/mainwindow.cpp:573 src/mainwindow.cpp:799
 #, kde-format
 msgid "Filter the collection"
 msgstr "Filtrar a colecção"
 
-#: src/mainwindow.cpp:577
+#: src/mainwindow.cpp:580
 #, kde-format
 msgid "&New Entry..."
 msgstr "&Novo Item..."
 
-#: src/mainwindow.cpp:579
-#, kde-format
+#: src/mainwindow.cpp:582
+#, fuzzy, kde-format
+#| msgid "&New Entry"
 msgid "New Entry"
-msgstr "Novo Item"
+msgstr "&Novo Item"
 
-#: src/mainwindow.cpp:581
+#: src/mainwindow.cpp:584
 #, kde-format
 msgid "Create a new entry"
 msgstr "Criar um novo elemento"
 
-#: src/mainwindow.cpp:583
-#, kde-format
+#: src/mainwindow.cpp:586
+#, fuzzy, kde-format
+#| msgid "&Add Entry"
 msgid "Add Entry"
-msgstr "Adicionar um Item"
+msgstr "&Adicionar o Item"
 
-#: src/mainwindow.cpp:593
+#: src/mainwindow.cpp:596
 #, kde-format
 msgid "Internet Search..."
 msgstr "Pesquisa na Internet..."
 
-#: src/mainwindow.cpp:597
+#: src/mainwindow.cpp:600
 #, kde-format
 msgid "Search the internet..."
 msgstr "Pesquisar na internet..."
 
-#: src/mainwindow.cpp:607
+#: src/mainwindow.cpp:610
 #, kde-format
 msgid "Edit the selected entries"
 msgstr "Editar os elementos seleccionados"
 
-#: src/mainwindow.cpp:614
+#: src/mainwindow.cpp:617
 #, kde-format
 msgid "Copy the selected entries"
 msgstr "Copiar os elementos seleccionados"
 
-#: src/mainwindow.cpp:621
+#: src/mainwindow.cpp:624
 #, kde-format
 msgid "Delete the selected entries"
 msgstr "Apagar os elementos seleccionados"
 
-#: src/mainwindow.cpp:625
+#: src/mainwindow.cpp:628
 #, kde-format
 msgid "&Merge Entries"
 msgstr "Co&mbinar os Itens"
 
-#: src/mainwindow.cpp:629
+#: src/mainwindow.cpp:632
 #, kde-format
 msgid "Merge the selected entries"
 msgstr "Combinar os elementos seleccionados"
 
-#: src/mainwindow.cpp:633
+#: src/mainwindow.cpp:636
 #, kde-format
 msgid "Check-&out..."
 msgstr "&Registar um empréstimo..."
 
-#: src/mainwindow.cpp:635
+#: src/mainwindow.cpp:638
 #, kde-format
 msgid "Check-out the selected items"
 msgstr "Regista a saída dos elementos seleccionados"
 
-#: src/mainwindow.cpp:638
+#: src/mainwindow.cpp:641
 #, kde-format
 msgid "Check-&in"
 msgstr "Reg&istar uma devolução"
 
-#: src/mainwindow.cpp:640
+#: src/mainwindow.cpp:643
 #, kde-format
 msgid "Check-in the selected items"
 msgstr "Regista a entrada dos empréstimos devolvidos seleccionados"
 
-#: src/mainwindow.cpp:643
+#: src/mainwindow.cpp:646
 #, kde-format
 msgid "&Rename Collection..."
 msgstr "Muda&r o Nome da Colecção..."
 
-#: src/mainwindow.cpp:646
+#: src/mainwindow.cpp:649
 #, kde-format
 msgid "Rename the collection"
 msgstr "Mudar o nome da colecção"
 
-#: src/mainwindow.cpp:649
+#: src/mainwindow.cpp:652
 #, kde-format
 msgid "Collection &Fields..."
 msgstr "&Campos da Colecção..."
 
-#: src/mainwindow.cpp:650
+#: src/mainwindow.cpp:653
 #, kde-format
 msgid "Fields"
 msgstr "Campos"
 
-#: src/mainwindow.cpp:653
+#: src/mainwindow.cpp:656
 #, kde-format
 msgid "Modify the collection fields"
 msgstr "Modificar os campos da colecção"
 
-#: src/mainwindow.cpp:656
+#: src/mainwindow.cpp:659
 #, kde-format
 msgid "&Generate Reports..."
 msgstr "&Gerar Relatórios..."
 
-#: src/mainwindow.cpp:657
+#: src/mainwindow.cpp:660
 #, kde-format
 msgid "Reports"
 msgstr "Relatórios"
 
-#: src/mainwindow.cpp:659
+#: src/mainwindow.cpp:662
 #, kde-format
 msgid "Generate collection reports"
 msgstr "Gerar relatórios da colecção"
 
-#: src/mainwindow.cpp:662
+#: src/mainwindow.cpp:665
 #, kde-format
 msgid "Convert to &Bibliography"
 msgstr "Converter para uma &Bibliografia"
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:667
 #, kde-format
 msgid "Convert a book collection to a bibliography"
 msgstr "Converter uma colecção de livros para uma bibliografia"
 
-#: src/mainwindow.cpp:667
+#: src/mainwindow.cpp:670
 #, kde-format
 msgid "String &Macros..."
 msgstr "Linha &Macros..."
 
-#: src/mainwindow.cpp:669
+#: src/mainwindow.cpp:672
 #, kde-format
 msgid "Edit the bibtex string macros"
 msgstr "Editar as linhas de macros BibTeX"
 
-#: src/mainwindow.cpp:672
+#: src/mainwindow.cpp:675
 #, kde-format
 msgid "Check for Duplicate Keys..."
 msgstr "Procurar por Chaves Duplicadas..."
 
-#: src/mainwindow.cpp:674
+#: src/mainwindow.cpp:677
 #, kde-format
 msgid "Check for duplicate citation keys"
 msgstr "Procurar por chaves de citação duplicadas"
 
-#: src/mainwindow.cpp:684
+#: src/mainwindow.cpp:687
 #, kde-format
 msgid "Copy Bibtex to Cli&pboard"
 msgstr "Copiar como BibTeX para a &Área de Transferência"
 
-#: src/mainwindow.cpp:685
+#: src/mainwindow.cpp:688
 #, kde-format
 msgid "Copy bibtex citations to the clipboard"
 msgstr "Copiar as citações BibTeX para a área de transferência"
 
-#: src/mainwindow.cpp:690
+#: src/mainwindow.cpp:693
 #, kde-format
 msgid "Cite Entry in &LyX"
 msgstr "Citar o Item no &LyX"
 
-#: src/mainwindow.cpp:691
+#: src/mainwindow.cpp:694
 #, kde-format
 msgid "Cite the selected entries in LyX"
 msgstr "Citar os itens seleccionados no LyX"
 
-#: src/mainwindow.cpp:707
+#: src/mainwindow.cpp:710
 #, kde-format
 msgctxt "Update Entry"
 msgid "Update"
 msgstr "Actualizar"
 
-#: src/mainwindow.cpp:716
+#: src/mainwindow.cpp:719
 #, kde-format
 msgid "All Sources"
 msgstr "Todas as Fontes"
 
-#: src/mainwindow.cpp:717
+#: src/mainwindow.cpp:720
 #, kde-format
 msgid "Update entry data from all available sources"
 msgstr "Actualizar os itens a partir de todas as fontes disponíveis"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:731
 #, kde-format
 msgid "Unlock Layout"
 msgstr "Desbloquear a Disposição"
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:732
 #, kde-format
 msgid "Unlock the window's layout"
 msgstr "Desbloquear a disposição da janela"
 
-#: src/mainwindow.cpp:731
+#: src/mainwindow.cpp:734
 #, kde-format
 msgid "Lock Layout"
 msgstr "Bloquear a Disposição"
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:735
 #, kde-format
 msgid "Lock the window's layout"
 msgstr "Bloquear a disposição da janela"
 
-#: src/mainwindow.cpp:737
+#: src/mainwindow.cpp:740
 #, kde-format
 msgid "Reset Layout"
 msgstr "Repor a Disposição"
 
-#: src/mainwindow.cpp:738
+#: src/mainwindow.cpp:741
 #, kde-format
 msgid "Reset the window's layout"
 msgstr "Repor a disposição das janelas"
 
-#: src/mainwindow.cpp:741
+#: src/mainwindow.cpp:744
 #, kde-format
 msgid "Entry &Editor"
 msgstr "&Editor do Item"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:746
 #, kde-format
 msgid "Enable/disable the editor"
 msgstr "Activar/desactivar o editor"
 
-#: src/mainwindow.cpp:763
+#: src/mainwindow.cpp:766
 #, kde-format
 msgid "Change Grouping"
 msgstr "Modificar o Agrupamento"
 
-#: src/mainwindow.cpp:766
+#: src/mainwindow.cpp:769
 #, kde-format
 msgid "&Group Selection"
 msgstr "Selecção dos &Grupos"
 
-#: src/mainwindow.cpp:767
+#: src/mainwindow.cpp:770
 #, kde-format
 msgid "Change the grouping of the collection"
 msgstr "Modificar o agrupamento da colecção"
 
-#: src/mainwindow.cpp:781
+#: src/mainwindow.cpp:784
 #, kde-format
 msgid "Filter here..."
 msgstr "Filtre aqui..."
 
-#: src/mainwindow.cpp:846 src/mainwindow.cpp:849
+#: src/mainwindow.cpp:849 src/mainwindow.cpp:852
 #, kde-format
 msgid ""
 "<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</"
@@ -6304,12 +6398,12 @@ msgstr ""
 "<qt>A <i>Área de Itens</i> mostra uma visão formatada do conteúdo do item.</"
 "qt>"
 
-#: src/mainwindow.cpp:855
+#: src/mainwindow.cpp:858
 #, kde-format
 msgid "Collection View"
 msgstr "Área da Colecção"
 
-#: src/mainwindow.cpp:862
+#: src/mainwindow.cpp:865
 #, kde-format
 msgid ""
 "<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
@@ -6318,17 +6412,17 @@ msgstr ""
 "<qt>A <i>Área de Colunas</i> mostra os valores de vários campos para cada "
 "item</qt>"
 
-#: src/mainwindow.cpp:879
+#: src/mainwindow.cpp:882
 #, kde-format
 msgid "Group View"
 msgstr "Área de Grupos"
 
-#: src/mainwindow.cpp:888
+#: src/mainwindow.cpp:891
 #, kde-format
 msgid "Groups"
 msgstr "Grupos"
 
-#: src/mainwindow.cpp:889
+#: src/mainwindow.cpp:892
 #, kde-format
 msgid ""
 "<qt>The <i>Group View</i> sorts the entries into groupings based on a "
@@ -6337,12 +6431,12 @@ msgstr ""
 "<qt>A <i>Área de Grupos</i> faz a triagem dos elementos por grupos baseados "
 "num campo seleccionado</qt>"
 
-#: src/mainwindow.cpp:964
+#: src/mainwindow.cpp:967
 #, kde-format
 msgid "Welcome to the Tellico Collection Manager"
 msgstr "Bem-vindo ao gestor de colecções Tellico"
 
-#: src/mainwindow.cpp:966
+#: src/mainwindow.cpp:969
 #, kde-format
 msgid ""
 "<h3>Tellico is a tool for managing collections of books, videos, music, and "
@@ -6357,7 +6451,7 @@ msgstr ""
 "ou ao <a href=\"tc:///edit_search_internet\">obter dados </a> de várias "
 "fontes da Internet.</h3>"
 
-#: src/mainwindow.cpp:1165
+#: src/mainwindow.cpp:1168
 #, kde-format
 msgid ""
 "The current file has been modified.\n"
@@ -6366,22 +6460,23 @@ msgstr ""
 "O ficheiro actual foi modificado.\n"
 "Deseja gravá-lo?"
 
-#: src/mainwindow.cpp:1221 src/mainwindow.cpp:1254
-#, kde-format
+#: src/mainwindow.cpp:1224 src/mainwindow.cpp:1257
+#, fuzzy, kde-format
+#| msgid "Create a new collection"
 msgid "Creating new collection..."
-msgstr "A criar uma nova colecção..."
+msgstr "Criar uma nova colecção"
 
-#: src/mainwindow.cpp:1274 src/mainwindow.cpp:1297 src/mainwindow.cpp:1315
+#: src/mainwindow.cpp:1277 src/mainwindow.cpp:1300 src/mainwindow.cpp:1318
 #, kde-format
 msgid "Opening file..."
 msgstr "A abrir o ficheiro..."
 
-#: src/mainwindow.cpp:1285
+#: src/mainwindow.cpp:1288
 #, kde-format
 msgid "Open File"
 msgstr "Abrir um Ficheiro"
 
-#: src/mainwindow.cpp:1406
+#: src/mainwindow.cpp:1409
 #, kde-format
 msgid ""
 "<qt><p>You are saving a file with many images, which causes Tellico to slow "
@@ -6394,32 +6489,32 @@ msgstr ""
 "na pasta de dados do Tellico para melhorar o seu desempenho?</p><p>A sua "
 "escolha pode sempre ser alterada na janela de configuração.</p></qt>"
 
-#: src/mainwindow.cpp:1411
+#: src/mainwindow.cpp:1414
 #, kde-format
 msgid "Save Images Separately"
 msgstr "Guardar as Imagens em Separado"
 
-#: src/mainwindow.cpp:1412
+#: src/mainwindow.cpp:1415
 #, kde-format
 msgid "Save Images in File"
 msgstr "Guardar as Imagens no Ficheiro"
 
-#: src/mainwindow.cpp:1452
+#: src/mainwindow.cpp:1455
 #, kde-format
 msgid "Saving file with a new filename..."
 msgstr "A gravar o ficheiro com um novo nome..."
 
-#: src/mainwindow.cpp:1461
+#: src/mainwindow.cpp:1464
 #, kde-format
 msgid "Save As"
 msgstr "Gravar Como"
 
-#: src/mainwindow.cpp:1527
+#: src/mainwindow.cpp:1530
 #, kde-format
 msgid "Printing..."
 msgstr "A imprimir..."
 
-#: src/mainwindow.cpp:1531
+#: src/mainwindow.cpp:1534
 #, kde-format
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
@@ -6428,27 +6523,27 @@ msgstr ""
 "A colecção está actualmente a ser filtrada para mostrar só uma parte dos "
 "elementos. Só os elementos visíveis serão impressos. Deseja continuar?"
 
-#: src/mainwindow.cpp:1554
+#: src/mainwindow.cpp:1557
 #, kde-format
 msgid "Exiting..."
 msgstr "A sair..."
 
-#: src/mainwindow.cpp:1660
+#: src/mainwindow.cpp:1663
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 filtrados, %2 seleccionados)"
 
-#: src/mainwindow.cpp:1663
+#: src/mainwindow.cpp:1666
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 filtrados)"
 
-#: src/mainwindow.cpp:1666
+#: src/mainwindow.cpp:1669
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 seleccionados)"
 
-#: src/mainwindow.cpp:1805 src/translators/boardgamegeekimporter.cpp:98
+#: src/mainwindow.cpp:1808 src/translators/boardgamegeekimporter.cpp:98
 #: src/translators/gcstarimporter.cpp:264
 #: src/translators/goodreadsimporter.cpp:111
 #: src/translators/xsltimporter.cpp:92
@@ -6456,57 +6551,57 @@ msgstr "(%1 seleccionados)"
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "O Tellico encontrou um erro no processamento da XSLT."
 
-#: src/mainwindow.cpp:1937
+#: src/mainwindow.cpp:1940
 #, kde-format
 msgid "Importing data..."
 msgstr "A importar os dados..."
 
-#: src/mainwindow.cpp:1948
+#: src/mainwindow.cpp:1951
 #, kde-format
 msgid "Import File"
 msgstr "Importar um Ficheiro"
 
-#: src/mainwindow.cpp:1961
+#: src/mainwindow.cpp:1964
 #, kde-format
 msgid "Import Directory"
 msgstr "Importar uma Pasta"
 
-#: src/mainwindow.cpp:1985
+#: src/mainwindow.cpp:1988
 #, kde-format
 msgid "Exporting data..."
 msgstr "A exportar os dados..."
 
-#: src/mainwindow.cpp:2008
+#: src/mainwindow.cpp:2011
 #, kde-format
 msgid "Export As"
 msgstr "Exportar Como"
 
-#: src/mainwindow.cpp:2036
+#: src/mainwindow.cpp:2039
 #, kde-format
 msgid "String Macros"
 msgstr "Linha de Macros"
 
-#: src/mainwindow.cpp:2037
+#: src/mainwindow.cpp:2040
 #, kde-format
 msgid "Macro"
 msgstr "Macro"
 
-#: src/mainwindow.cpp:2037
+#: src/mainwindow.cpp:2040
 #, kde-format
 msgid "String"
 msgstr "Cadeia de Caracteres"
 
-#: src/mainwindow.cpp:2123
+#: src/mainwindow.cpp:2126
 #, kde-format
 msgid "Creating citations..."
 msgstr "A criar citações..."
 
-#: src/mainwindow.cpp:2233
+#: src/mainwindow.cpp:2236
 #, kde-format
 msgid "Filters"
 msgstr "Filtros"
 
-#: src/mainwindow.cpp:2234
+#: src/mainwindow.cpp:2237
 #, kde-format
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
@@ -6515,12 +6610,12 @@ msgstr ""
 "<qt>A <i>Área de Filtros</i> mostra os elementos que correspondem a "
 "determinadas regras de filtragem.</qt>"
 
-#: src/mainwindow.cpp:2257
+#: src/mainwindow.cpp:2260
 #, kde-format
 msgid "Loans"
 msgstr "Financiamentos"
 
-#: src/mainwindow.cpp:2258
+#: src/mainwindow.cpp:2261
 #, kde-format
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
@@ -6529,7 +6624,7 @@ msgstr ""
 "<qt>A <i>área de Empréstimos</i> mostra uma lista com todas as pessoas que "
 "requisitaram artigos da sua sua colecção.</qt>"
 
-#: src/mainwindow.cpp:2345
+#: src/mainwindow.cpp:2348
 #, kde-format
 msgid ""
 "Some images are not saved in the configured location. The current file must "
@@ -6538,12 +6633,12 @@ msgstr ""
 "Algumas imagens não estão gravadas na localização configurada. O ficheiro "
 "actual deverá ser gravado e as imagens serão transferidas para o novo local."
 
-#: src/mainwindow.cpp:2386
+#: src/mainwindow.cpp:2389
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Actualizar os dados do registo %1"
 
-#: src/mainwindow.cpp:2405
+#: src/mainwindow.cpp:2408
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -6565,7 +6660,7 @@ msgstr "Modelo de &relatório:"
 #: src/reportdialog.cpp:128
 #, kde-format
 msgid "One Entry Per Page"
-msgstr "Um Elemento por Página"
+msgstr ""
 
 #: src/reportdialog.cpp:140
 #, kde-format
@@ -6586,9 +6681,10 @@ msgstr ""
 "criados."
 
 #: src/reportdialog.cpp:426
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "PDF Files"
 msgid "PNG Files"
-msgstr "Ficheiros PNG"
+msgstr "Ficheiros PDF"
 
 #: src/reportdialog.cpp:441 src/translators/htmlexporter.cpp:100
 #, kde-format
@@ -6646,9 +6742,11 @@ msgstr "&Ficheiro"
 
 #. i18n: ectx: Menu (file_new_collection)
 #: src/tellicoui.rc:8
-#, kde-format
+#, fuzzy, kde-format
+#| msgctxt "@title:menu"
+#| msgid "&Collection"
 msgid "&New Collection"
-msgstr "&Nova Colecção"
+msgstr "&Colecção"
 
 #. i18n: ectx: Menu (file_import)
 #: src/tellicoui.rc:27
@@ -6658,48 +6756,48 @@ msgid "&Import"
 msgstr "&Importar"
 
 #. i18n: ectx: Menu (file_export)
-#: src/tellicoui.rc:61
+#: src/tellicoui.rc:62
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Export"
 msgstr "&Exportar"
 
 #. i18n: ectx: Menu (collection)
-#: src/tellicoui.rc:81
+#: src/tellicoui.rc:82
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Collection"
 msgstr "&Colecção"
 
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/tellicoui.rc:88
+#: src/tellicoui.rc:89
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Update Entry"
 msgstr "Act&ualizar o Item"
 
 #. i18n: ectx: Menu (coll_bibliography)
-#: src/tellicoui.rc:102
+#: src/tellicoui.rc:103
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Bibliography"
 msgstr "&Bibliografia"
 
 #. i18n: ectx: Menu (dockers)
-#: src/tellicoui.rc:112
+#: src/tellicoui.rc:113
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Show Views"
 msgstr "Mo&strar as Áreas"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/tellicoui.rc:128
+#: src/tellicoui.rc:129
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Barra Principal"
 
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: src/tellicoui.rc:135
+#: src/tellicoui.rc:136
 #, kde-format
 msgid "Collection Toolbar"
 msgstr "Barra de ferramentas de Colecção"
@@ -6918,6 +7016,7 @@ msgid "A valid XSLT file is needed to import the file."
 msgstr "É necessário um ficheiro XSLT válido para importar o ficheiro."
 
 #: src/translators/boardgamegeekimporter.cpp:92
+#: src/translators/discogsimporter.cpp:80
 #: src/translators/goodreadsimporter.cpp:105
 #, kde-format
 msgid "A valid user ID must be entered."
@@ -6934,6 +7033,7 @@ msgid "Import owned items only"
 msgstr "Importar só os itens com dono"
 
 #: src/translators/boardgamegeekimporter.cpp:255
+#: src/translators/discogsimporter.cpp:199
 #: src/translators/goodreadsimporter.cpp:154
 #, kde-format
 msgid "User ID:"
@@ -7137,6 +7237,12 @@ msgstr "Revisão"
 msgid "<New Field>"
 msgstr "<Novo Campo>"
 
+#: src/translators/discogsimporter.cpp:191
+#, fuzzy, kde-format
+#| msgid "Discogs Link"
+msgid "Discogs Options"
+msgstr "Ligação Discogs"
+
 #: src/translators/filelistingimporter.cpp:82
 #, kde-format
 msgid "Scanning files..."
@@ -7301,38 +7407,42 @@ msgid ""
 "Export your LibraryThing collection in <a href=\"https://www.librarything."
 "com/export.php?export_type=json\">JSON format</a>."
 msgstr ""
-"Exporte a sua colecção do LibraryThing para o <a href=\"https://www."
+"Exportar a sua colecção do LibraryThing no <a href=\"https://www."
 "librarything.com/export.php?export_type=json\">formato JSON</a>."
 
-#: src/translators/librarythingimporter.cpp:185
+#: src/translators/librarythingimporter.cpp:187
 #, kde-format
 msgid "JSON Files"
 msgstr "Ficheiros JSON"
 
-#: src/translators/librarythingimporter.cpp:190
+#: src/translators/librarythingimporter.cpp:192
 #, kde-format
 msgid "LibraryThing file:"
 msgstr "Ficheiro do LibraryThing:"
 
 #: src/translators/marcimporter.cpp:132
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Tellico was unable to read any metadata from the PDF file."
 msgid "Tellico was unable to read any data."
-msgstr "O Tellico não conseguiu ler nenhuns dados."
+msgstr "O Tellico não conseguiu ler nenhum meta-dado do ficheiro PDF."
 
 #: src/translators/marcimporter.cpp:151
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "CSV Options"
 msgid "MARC Options"
-msgstr "Opções do MARC"
+msgstr "Opções do CSV"
 
 #: src/translators/marcimporter.cpp:156
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Query character set: "
 msgid "Character set:"
-msgstr "Codificação:"
+msgstr "Codificação de caracteres da pesquisa: "
 
 #: src/translators/marcimporter.cpp:161
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Format: "
 msgid "MARC Format:"
-msgstr "Formato do MARC:"
+msgstr "Formato: "
 
 #: src/translators/onixexporter.cpp:67
 #, kde-format
@@ -7379,7 +7489,7 @@ msgstr ""
 "IOD. Contudo, tem que criar uma conta no CrossRef e adicionar uma nova fonte "
 "de dados, juntamente com a informação da sua conta."
 
-#: src/translators/risimporter.cpp:335
+#: src/translators/risimporter.cpp:337
 #, kde-format
 msgid "PDF"
 msgstr "PDF"
@@ -7394,22 +7504,22 @@ msgstr "O ficheiro está vazio."
 msgid "The file contains no collection data."
 msgstr "O ficheiro não contém dados da colecção."
 
-#: src/translators/tellicoxmlexporter.cpp:67
+#: src/translators/tellicoxmlexporter.cpp:68
 #, kde-format
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:540
+#: src/translators/tellicoxmlexporter.cpp:543
 #, kde-format
 msgid "Tellico XML Options"
 msgstr "Opções de XML do Tellico"
 
-#: src/translators/tellicoxmlexporter.cpp:543
+#: src/translators/tellicoxmlexporter.cpp:546
 #, kde-format
 msgid "Include images in XML document"
 msgstr "Incluir as imagens no documento XML"
 
-#: src/translators/tellicoxmlexporter.cpp:545
+#: src/translators/tellicoxmlexporter.cpp:548
 #, kde-format
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "
@@ -7738,3 +7848,53 @@ msgstr "Limpar"
 
 #~ msgid "Click to download additional data sources."
 #~ msgstr "Carregue para transferir fontes de dados adicionais."
+
+#~ msgid ""
+#~ "%1 requires the network request to include identification.\n"
+#~ "Check the network configuration in KDE System Settings."
+#~ msgstr ""
+#~ "O %1 precisa que o pedido da rede incluam a identificação.\n"
+#~ "Verifique a configuração da rede na Configuração do Sistema do KDE."
+
+#~ msgid "Edit..."
+#~ msgstr "Editar..."
+
+#~ msgid "Creating new document..."
+#~ msgstr "A criar um novo documento..."
+
+#~ msgid "Denomination"
+#~ msgstr "Denominação"
+
+#~ msgid ""
+#~ "Data provided by <a href=\"https://www.booknetcanada.ca/biblioshare\">BNC "
+#~ "BiblioShare</a>."
+#~ msgstr ""
+#~ "Dados fornecidos pela <a href=\"https://www.booknetcanada.ca/biblioshare"
+#~ "\">BNC BiblioShare</a>."
+
+#~ msgid ""
+#~ "This information was freely provided by <a href=\"https://boardgamegeek."
+#~ "com\">BoardGameGeek</a>."
+#~ msgstr ""
+#~ "Esta informação foi oferecida de forma livre pelo <a href=\"https://"
+#~ "boardgamegeek.com\">BoardGameGeek</a>."
+
+#~ msgid ""
+#~ "This information was freely provided by <a href=\"https://comicvine."
+#~ "gamespot.com/\">Comic Vine</a>."
+#~ msgstr ""
+#~ "Esta informação foi oferecida de forma livre pelo <a href=\"https://"
+#~ "comicvine.gamespot.com\">Comic Vine</a>."
+
+#~ msgid ""
+#~ "This information was freely provided by <a href=\"https://mobygames.com"
+#~ "\">MobyGames</a>."
+#~ msgstr ""
+#~ "Esta informação foi oferecida de forma livre pelo <a href=\"https://"
+#~ "mobygames.com\">MobyGames</a>."
+
+#~ msgid "Processing document..."
+#~ msgstr "A processar o documento..."
+
+#~ msgid "&New"
+#~ msgstr "&Novo"

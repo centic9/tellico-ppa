@@ -3,6 +3,7 @@ ADD_SUBDIRECTORY( scripts )
 ########### next target ###############
 
 SET(fetch_STAT_SRCS
+   adsfetcher.cpp
    allocinefetcher.cpp
    amazonfetcher.cpp
    amazonrequest.cpp
@@ -66,6 +67,7 @@ SET(fetch_STAT_SRCS
    thetvdbfetcher.cpp
    tvmazefetcher.cpp
    upcitemdbfetcher.cpp
+   vgcollectfetcher.cpp
    videogamegeekfetcher.cpp
    vndbfetcher.cpp
    xmlfetcher.cpp

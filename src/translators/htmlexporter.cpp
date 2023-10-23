@@ -719,7 +719,9 @@ bool HTMLExporter::copyFiles() {
     }
     target = target.adjusted(QUrl::RemoveFilename);
     target.setPath(target.path() + (*it).fileName());
-    KIO::FileCopyJob* job = KIO::file_copy(*it, target, -1, KIO::Overwrite);
+    KIO::JobFlags flags = KIO::Overwrite;
+    if(!m_widget) flags |= KIO::HideProgressInfo;
+    KIO::FileCopyJob* job = KIO::file_copy(*it, target, -1, flags);
     KJobWidgets::setWindow(job, m_widget);
     if(job->exec()) {
       m_copiedFiles.add((*it).url());
@@ -774,7 +776,7 @@ bool HTMLExporter::writeEntryFiles() {
   bool multipleTitles = collection()->fieldByName(title)->hasFlag(Data::Field::AllowMultiple);
   Data::EntryList entries = this->entries(); // not const since the pointer has to be copied
   foreach(Data::EntryPtr entryIt, entries) {
-    QString file = entryIt->formattedField(title, formatted);
+    QString file = entryIt->title(formatted);
 
     // but only use the first title if it has multiple
     if(multipleTitles) {
@@ -823,12 +825,14 @@ bool HTMLExporter::writeEntryFiles() {
   KIO::Job* job = KIO::mkdir(target);
   KJobWidgets::setWindow(job, m_widget);
   job->exec();
+  KIO::JobFlags flags = KIO::DefaultFlags;
+  if(!m_widget) flags |= KIO::HideProgressInfo;
   foreach(const QString& dataImage, dataImages) {
     dataDir = dataDir.adjusted(QUrl::RemoveFilename);
     dataDir.setPath(dataDir.path() + dataImage);
     target = target.adjusted(QUrl::RemoveFilename);
     target.setPath(target.path() + dataImage);
-    KIO::Job* job = KIO::file_copy(dataDir, target);
+    KIO::Job* job = KIO::file_copy(dataDir, target, -1, flags);
     KJobWidgets::setWindow(job, m_widget);
     job->exec();
   }

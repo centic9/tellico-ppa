@@ -6,7 +6,7 @@ Forwarded: no
 
 --- a/src/tests/CMakeLists.txt
 +++ b/src/tests/CMakeLists.txt
-@@ -455,6 +455,8 @@ if(${KF5KIO_VERSION} VERSION_GREATER "5.
+@@ -459,6 +459,8 @@ if(${KF5KIO_VERSION} VERSION_GREATER "5.
    target_link_libraries(fetcherstest KF5::KIOGui)
  endif(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
  
@@ -15,7 +15,7 @@ Forwarded: no
  # the fetch library really depends on the GUI static library
  # but rather than linking all of that in, selectively choose the
  # specific classes used
-@@ -474,6 +476,8 @@ ecm_add_test(fetchertest.cpp
+@@ -478,6 +480,8 @@ ecm_add_test(fetchertest.cpp
      LINK_LIBRARIES fetch translatorstest ${TELLICO_TEST_LIBS} KF5::XmlGui KF5::SonnetCore KF5::SonnetUi
  )
  

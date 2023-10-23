@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2019 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2023 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,33 +22,53 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "urlfieldlogic.h"
+#ifndef TELLICO_IMPORT_DISCOGSIMPORTER_H
+#define TELLICO_IMPORT_DISCOGSIMPORTER_H
 
-#include <QDir>
+#include "importer.h"
 
-using Tellico::UrlFieldLogic;
+#include <KSharedConfig>
 
-UrlFieldLogic::UrlFieldLogic()
-  : m_isRelative(false) {
-}
+class QLineEdit;
 
-void UrlFieldLogic::setRelative(bool relative_) {
-  m_isRelative = relative_;
-}
+namespace Tellico {
+  namespace Import {
 
-void UrlFieldLogic::setBaseUrl(const QUrl& baseUrl_) {
-  m_baseUrl = baseUrl_;
-}
+/**
+ * @author Robby Stephenson
+*/
+class DiscogsImporter : public Importer {
+Q_OBJECT
 
-QString UrlFieldLogic::urlText(const QUrl& url_) const {
-  // if it's not relative or if the base URL is not set,
-  // then there's nothing to do. Return the URL as-is.
-  // Also, if the base URL is not a local file, then ignore it
-  if(url_.isEmpty() || !m_isRelative || m_baseUrl.isEmpty() || !m_baseUrl.isLocalFile()) {
-    // normalize the url
-    return url_.url(QUrl::PrettyDecoded | QUrl::NormalizePathSegments);
-  }
-  // BUG 410551: use the directory of the base url, not the file itself, in the QDir c'tor
-  return QDir(m_baseUrl.adjusted(QUrl::RemoveFilename).path())
-             .relativeFilePath(url_.path());
-}
+public:
+  /**
+   */
+  DiscogsImporter();
+
+  virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
+  virtual bool canImport(int type) const Q_DECL_OVERRIDE;
+
+  virtual QWidget* widget(QWidget* parent) Q_DECL_OVERRIDE;
+
+  void setConfig(KSharedConfig::Ptr config);
+
+public Q_SLOTS:
+  void slotCancel() Q_DECL_OVERRIDE {}
+
+private:
+  void loadPage(int page);
+  void populateEntry(Data::EntryPtr entry, const QVariantMap& releaseMap);
+
+  Data::CollPtr m_coll;
+  QWidget* m_widget;
+  QLineEdit* m_userEdit;
+  QLineEdit* m_tokenEdit;
+  KSharedConfig::Ptr m_config;
+
+  QString m_user;
+  QString m_token;
+};
+
+  } // end namespace
+} // end namespace
+#endif

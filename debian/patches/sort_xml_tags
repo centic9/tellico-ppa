@@ -1,0 +1,14 @@
+Index: git/src/main.cpp
+===================================================================
+--- git.orig/src/main.cpp	2023-09-24 09:18:32.646069260 +0200
++++ git/src/main.cpp	2023-09-24 09:18:32.642069120 +0200
+@@ -42,6 +42,9 @@
+ #include <QStack>
+ 
+ int main(int argc, char* argv[]) {
++  // ensure a fixed order of attributes in the exported XML
++  qSetGlobalQHashSeed(42);
++
+   QApplication app(argc, argv);
+   QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+   KLocalizedString::setApplicationDomain("tellico");

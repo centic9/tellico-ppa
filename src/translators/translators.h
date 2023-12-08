@@ -54,7 +54,8 @@ namespace Tellico {
       Collectorz,
       DataCrow,
       MARC,
-      EBook
+      EBook,
+      Discogs
     };
 
     enum Action {

@@ -38,6 +38,7 @@
 #include "../utils/mergeconflictresolver.h"
 #include "../entrycomparison.h"
 
+#include <KLocalizedString>
 #include <KProcess>
 
 #include <QTest>
@@ -68,6 +69,7 @@ private:
 void CollectionTest::initTestCase() {
   QStandardPaths::setTestModeEnabled(true);
   qRegisterMetaType<Tellico::EntryComparison::MatchValue>();
+  KLocalizedString::setApplicationDomain("tellico");
   Tellico::ImageFactory::init();
   // need to register the collection types
   Tellico::CollectionInitializer ci;
@@ -492,31 +494,31 @@ void CollectionTest::testDuplicate() {
 
   ret = Tellico::Merge::mergeEntry(entry1, entry2, &cancelMerge);
   QCOMPARE(ret, false);
-  QCOMPARE(entry1->title(), QStringLiteral("title1"));
-  QCOMPARE(entry2->title(), QStringLiteral("title2"));
+  QCOMPARE(entry1->title(), QStringLiteral("Title1"));
+  QCOMPARE(entry2->title(), QStringLiteral("Title2"));
 
   TestResolver keepFirst(Tellico::Merge::ConflictResolver::KeepFirst);
   ret = Tellico::Merge::mergeEntry(entry1, entry2, &keepFirst);
   QCOMPARE(ret, true);
-  QCOMPARE(entry1->title(), QStringLiteral("title1"));
+  QCOMPARE(entry1->title(), QStringLiteral("Title1"));
   // the second entry never gets changed
-  QCOMPARE(entry2->title(), QStringLiteral("title2"));
+  QCOMPARE(entry2->title(), QStringLiteral("Title2"));
 
   entry2->setField(QStringLiteral("title"), QStringLiteral("title2"));
 
   TestResolver keepSecond(Tellico::Merge::ConflictResolver::KeepSecond);
   ret = Tellico::Merge::mergeEntry(entry1, entry2, &keepSecond);
   QCOMPARE(ret, true);
-  QCOMPARE(entry1->title(), QStringLiteral("title2"));
-  QCOMPARE(entry2->title(), QStringLiteral("title2"));
+  QCOMPARE(entry1->title(), QStringLiteral("Title2"));
+  QCOMPARE(entry2->title(), QStringLiteral("Title2"));
 
   entry1->setField(QStringLiteral("title"), QStringLiteral("title1"));
 
   // returns true, ("merge successful") even if values were not merged
   ret = Tellico::Merge::mergeEntry(entry1, entry2);
   QCOMPARE(ret, true);
-  QCOMPARE(entry1->title(), QStringLiteral("title1"));
-  QCOMPARE(entry2->title(), QStringLiteral("title2"));
+  QCOMPARE(entry1->title(), QStringLiteral("Title1"));
+  QCOMPARE(entry2->title(), QStringLiteral("Title2"));
 }
 
 void CollectionTest::testMergeFields() {
@@ -768,4 +770,27 @@ void CollectionTest::testGamePlatform() {
   QCOMPARE(guess, int(Tellico::Data::GameCollection::UnknownPlatform));
   guess = Tellico::Data::GameCollection::guessPlatform(QStringLiteral("Nintendo Entertainment System"));
   QCOMPARE(guess, int(Tellico::Data::GameCollection::Nintendo));
+}
+
+void CollectionTest::testNonTitle() {
+  Tellico::Data::CollPtr coll(new Tellico::Data::Collection(false));
+  QVERIFY(coll);
+  QVERIFY(coll->fields().isEmpty());
+
+  Tellico::Data::FieldPtr field1(new Tellico::Data::Field(QStringLiteral("test1"), QStringLiteral("Test1")));
+  coll->addField(field1);
+
+  Tellico::Data::EntryPtr entry(new Tellico::Data::Entry(coll));
+  entry->setField(QStringLiteral("test1"), QStringLiteral("non-title title"));
+  coll->addEntries(entry);
+
+  QCOMPARE(entry->title(), QStringLiteral("non-title title"));
+
+  Tellico::Data::FieldPtr field2(new Tellico::Data::Field(QStringLiteral("test2"), QStringLiteral("Test")));
+  field2->setFormatType(Tellico::FieldFormat::FormatTitle);
+  coll->addField(field2);
+
+  entry->setField(QStringLiteral("test2"), QStringLiteral("proxy title"));
+  // since there's a new field formatted as a title, the entry title changes
+  QCOMPARE(entry->title(), QStringLiteral("Proxy Title"));
 }

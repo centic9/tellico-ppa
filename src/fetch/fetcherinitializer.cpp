@@ -80,6 +80,8 @@
 #include "filmaffinityfetcher.h"
 #include "itunesfetcher.h"
 #include "opdsfetcher.h"
+#include "adsfetcher.h"
+#include "vgcollectfetcher.h"
 
 /**
  * Ideally, I'd like these initializations to be in each cpp file for each collection type
@@ -138,6 +140,8 @@ Tellico::Fetch::FetcherInitializer::FetcherInitializer() {
   RegisterFetcher<Fetch::FilmAffinityFetcher> registerFilmAffinity(FilmAffinity);
   RegisterFetcher<Fetch::ItunesFetcher> registerItunes(Itunes);
   RegisterFetcher<Fetch::OPDSFetcher> registerOPDS(OPDS);
+  RegisterFetcher<Fetch::ADSFetcher> registerADS(ADS);
+  RegisterFetcher<Fetch::VGCollectFetcher> registerVGCollect(VGCollect);
 
 // these data sources depend on being able to import bibtex
 #ifdef ENABLE_BTPARSE

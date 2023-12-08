@@ -87,17 +87,18 @@ void CrossRefFetcher::search() {
   m_started = true;
 
   readWallet();
-  if(m_email.isEmpty() && (m_user.isEmpty() || m_password.isEmpty())) {
-    myDebug() << i18n("%1 requires a username and password.", source());
-    message(i18n("%1 requires a username and password.", source()), MessageHandler::Error);
-    stop();
-    return;
-  }
 
 //  myDebug() << "value = " << value_;
 
   QUrl u = searchURL(request().key(), request().value());
   if(u.isEmpty()) {
+    stop();
+    return;
+  }
+
+  if(m_email.isEmpty() && (m_user.isEmpty() || m_password.isEmpty())) {
+    myDebug() << i18n("%1 requires a username and password.", source());
+    message(i18n("%1 requires a username and password.", source()), MessageHandler::Error);
     stop();
     return;
   }
@@ -299,7 +300,7 @@ QString CrossRefFetcher::defaultName() {
 }
 
 QString CrossRefFetcher::defaultIcon() {
-  return favIcon("http://crossref.org");
+  return favIcon("https://www.crossref.org");
 }
 
 CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetcher* fetcher_)

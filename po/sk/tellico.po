@@ -1,14 +1,14 @@
 # translation of tellico.po to Slovak
 # Richard Fric <Richard.Fric@kdemail.net>, 2009.
-# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2022.
+# Roman Paholík <wizzardsk@gmail.com>, 2012, 2013, 2014, 2015, 2016, 2019, 2021, 2022.
 # Ferdinand Galko <galko.ferdinand@gmail.com>, 2014.
-# Matej Mrenica <matejm98mthw@gmail.com>, 2020, 2022.
+# Matej Mrenica <matejm98mthw@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-07-03 00:55+0000\n"
-"PO-Revision-Date: 2022-04-07 18:20+0200\n"
+"POT-Creation-Date: 2023-10-22 03:10+0000\n"
+"PO-Revision-Date: 2022-04-09 18:57+0200\n"
 "Last-Translator: Roman Paholik <wizzardsk@gmail.com>\n"
 "Language-Team: Slovak <kde-sk@linux.sk>\n"
 "Language: sk\n"
@@ -21,12 +21,12 @@ msgstr ""
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Roman Paholík,Ferdinand Galko,Matej Mrenica"
+msgstr "Roman Paholík,Ferdinand Galko"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "wizzardsk@gmail.com,galko.ferdinand@gmail.com,matejm98mthw@gmail.com"
+msgstr "wizzardsk@gmail.com,galko.ferdinand@gmail.com"
 
 #. i18n: file: xslt/entry-templates/Album.xsl
 #, kde-format
@@ -165,54 +165,45 @@ msgstr "Meno"
 
 #: src/charts/collectionsizereport.cpp:45
 #: src/charts/collectionsizereport.cpp:116
-#, fuzzy, kde-format
-#| msgid "Collection View"
+#, kde-format
 msgid "Collection Size"
-msgstr "Pohľad zbierky"
+msgstr "Veľkosť zbierky"
 
-#: src/charts/collectionsizereport.cpp:87 src/mainwindow.cpp:1653
+#: src/charts/collectionsizereport.cpp:87 src/mainwindow.cpp:1656
 #, kde-format
 msgid "Total entries: %1"
 msgstr "Celkom položiek: %1"
 
 #: src/charts/collectionsizereport.cpp:91
-#, fuzzy, kde-format
-#| msgid "Collection View"
+#, kde-format
 msgid "Collection Size Over Time"
-msgstr "Pohľad zbierky"
+msgstr "Veľkosť zbierky v čase"
 
 #: src/charts/groupsummaryreport.cpp:60
-#, fuzzy, kde-format
-#| msgctxt "Group Summary XSL Template"
-#| msgid "Group Summary"
+#, kde-format
 msgid "Group Summary: %1"
-msgstr ": Súhrn skupiny"
+msgstr "Súhrn skupiny: %1"
 
 #: src/charts/groupsummaryreport.cpp:66
-#, fuzzy, kde-format
-#| msgid "Total number of entries:"
+#, kde-format
 msgid "Total number of entries: %1"
-msgstr "Celkový počet položiek:"
+msgstr "Celkový počet položiek: %1"
 
 #: src/charts/groupsummaryreport.cpp:120
-#, fuzzy, kde-format
-#| msgid "Total entries: %1"
+#, kde-format
 msgid "Top Values: %1"
-msgstr "Celkom položiek: %1"
+msgstr "Horné hodnoty: %1"
 
 #: src/charts/groupsummaryreport.cpp:192
-#, fuzzy, kde-format
-#| msgctxt "Group Summary XSL Template"
-#| msgid "Group Summary"
+#, kde-format
 msgid "Group Summary Report"
-msgstr "Súhrn skupiny"
+msgstr "Správa Súhrn skupiny"
 
 #: src/charts/yeardistributionreport.cpp:69
 #: src/charts/yeardistributionreport.cpp:133
-#, fuzzy, kde-format
-#| msgid "Distributor"
+#, kde-format
 msgid "Year Distribution"
-msgstr "Distribútor"
+msgstr "Rok distribúcie"
 
 #: src/charts/yeardistributionreport.cpp:158
 #, kde-format
@@ -712,33 +703,34 @@ msgstr "Pole s odvodenou hodnotou musí mať šablónu hodnoty."
 #: src/collections/stampcollection.cpp:30
 #: src/collections/videocollection.cpp:31 src/collections/winecollection.cpp:30
 #: src/configdialog.cpp:145 src/configdialog.cpp:172 src/configdialog.cpp:186
-#: src/configdialog.cpp:203 src/configdialog.cpp:1126
+#: src/configdialog.cpp:203 src/configdialog.cpp:1137
 #: src/fetch/allocinefetcher.cpp:314 src/fetch/allocinefetcher.cpp:320
 #: src/fetch/amazonfetcher.cpp:861 src/fetch/animenfofetcher.cpp:310
 #: src/fetch/animenfofetcher.cpp:314 src/fetch/bedethequefetcher.cpp:331
 #: src/fetch/bedethequefetcher.cpp:339 src/fetch/colnectfetcher.cpp:363
 #: src/fetch/colnectfetcher.cpp:527 src/fetch/colnectfetcher.cpp:547
 #: src/fetch/colnectfetcher.cpp:583 src/fetch/colnectfetcher.cpp:590
-#: src/fetch/discogsfetcher.cpp:308 src/fetch/discogsfetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:318 src/fetch/discogsfetcher.cpp:325
-#: src/fetch/discogsfetcher.cpp:332 src/fetch/discogsfetcher.cpp:337
+#: src/fetch/discogsfetcher.cpp:309 src/fetch/discogsfetcher.cpp:314
+#: src/fetch/discogsfetcher.cpp:319 src/fetch/discogsfetcher.cpp:326
+#: src/fetch/discogsfetcher.cpp:333 src/fetch/discogsfetcher.cpp:338
 #: src/fetch/doubanfetcher.cpp:351 src/fetch/doubanfetcher.cpp:369
 #: src/fetch/doubanfetcher.cpp:387 src/fetch/filmaffinityfetcher.cpp:282
 #: src/fetch/filmasterfetcher.cpp:240 src/fetch/gaminghistoryfetcher.cpp:197
 #: src/fetch/gaminghistoryfetcher.cpp:320 src/fetch/googlebookfetcher.cpp:254
 #: src/fetch/googlebookfetcher.cpp:259 src/fetch/igdbfetcher.cpp:369
-#: src/fetch/imdbfetcher.cpp:831 src/fetch/imdbfetcher.cpp:1386
+#: src/fetch/imdbfetcher.cpp:846 src/fetch/imdbfetcher.cpp:1401
 #: src/fetch/itunesfetcher.cpp:241 src/fetch/kinopoiskfetcher.cpp:277
-#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:459
+#: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:460
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
-#: src/fetch/numistafetcher.cpp:343 src/fetch/numistafetcher.cpp:359
-#: src/fetch/omdbfetcher.cpp:252 src/fetch/openlibraryfetcher.cpp:272
+#: src/fetch/numistafetcher.cpp:345 src/fetch/numistafetcher.cpp:361
+#: src/fetch/omdbfetcher.cpp:253 src/fetch/openlibraryfetcher.cpp:272
 #: src/fetch/thegamesdbfetcher.cpp:267 src/fetch/thegamesdbfetcher.cpp:272
 #: src/fetch/themoviedbfetcher.cpp:313 src/fetch/themoviedbfetcher.cpp:316
 #: src/fetch/themoviedbfetcher.cpp:321 src/fetch/themoviedbfetcher.cpp:339
-#: src/fetch/thetvdbfetcher.cpp:256 src/fetch/thetvdbfetcher.cpp:261
-#: src/fetch/thetvdbfetcher.cpp:266 src/fetch/tvmazefetcher.cpp:178
+#: src/fetch/thetvdbfetcher.cpp:255 src/fetch/thetvdbfetcher.cpp:260
+#: src/fetch/thetvdbfetcher.cpp:265 src/fetch/tvmazefetcher.cpp:178
 #: src/fetch/tvmazefetcher.cpp:183 src/fetch/upcitemdbfetcher.cpp:208
+#: src/fetch/vgcollectfetcher.cpp:238 src/fetch/vgcollectfetcher.cpp:341
 #: src/field.cpp:39 src/field.cpp:80 src/field.cpp:299 src/field.cpp:328
 #: src/field.cpp:333 src/translators/gcstarimporter.cpp:89
 #, kde-format
@@ -747,7 +739,7 @@ msgstr "Všeobecné"
 
 #: src/collections/bibtexcollection.cpp:39
 #: src/collections/bookcollection.cpp:32
-#: src/collections/comicbookcollection.cpp:32 src/fetch/isbndbfetcher.cpp:361
+#: src/collections/comicbookcollection.cpp:32 src/fetch/isbndbfetcher.cpp:362
 #: src/field.cpp:315 src/translators/grs1importer.cpp:75
 #: src/translators/pdfimporter.cpp:229
 #, kde-format
@@ -755,7 +747,7 @@ msgid "Publishing"
 msgstr "Publikovanie"
 
 #: src/collections/bibtexcollection.cpp:40 src/fetch/entrezfetcher.cpp:440
-#: src/translators/risimporter.cpp:337
+#: src/translators/risimporter.cpp:339
 #, kde-format
 msgid "Miscellaneous"
 msgstr "Rôzne"
@@ -985,7 +977,7 @@ msgid "Designer"
 msgstr "Designer"
 
 #: src/collections/boardgamecollection.cpp:80
-#: src/fetch/thegamesdbfetcher.cpp:271 src/fetch/thegamesdbfetcher.cpp:603
+#: src/fetch/thegamesdbfetcher.cpp:271 src/fetch/thegamesdbfetcher.cpp:605
 #, kde-format
 msgid "Number of Players"
 msgstr "Počet hráčov"
@@ -1005,7 +997,7 @@ msgstr "Minimálny vek"
 #: src/collections/stampcollection.cpp:54
 #: src/collections/winecollection.cpp:125 src/entrymatchdialog.cpp:94
 #: src/fetch/colnectfetcher.cpp:369 src/fetch/colnectfetcher.cpp:815
-#: src/fetch/numistafetcher.cpp:350 src/fetch/numistafetcher.cpp:398
+#: src/fetch/numistafetcher.cpp:352 src/fetch/numistafetcher.cpp:400
 #: src/fetch/rpggeekfetcher.cpp:209 src/fetchdialog.cpp:253
 #, kde-format
 msgid "Description"
@@ -1213,7 +1205,7 @@ msgstr "Čítať"
 
 #: src/collections/bookcollection.cpp:179
 #: src/collections/comicbookcollection.cpp:160 src/fetch/arxivfetcher.cpp:210
-#: src/fetch/crossreffetcher.cpp:196 src/translators/ebookimporter.cpp:153
+#: src/fetch/crossreffetcher.cpp:197 src/translators/ebookimporter.cpp:153
 #: src/translators/pdfimporter.cpp:290
 #: src/translators/referencerimporter.cpp:62
 #, kde-format
@@ -1352,13 +1344,13 @@ msgid "Grading Service"
 msgstr "Služba odstupňovania\t"
 
 #: src/collections/coincollection.cpp:136 src/fetch/colnectfetcher.cpp:810
-#: src/fetch/numistafetcher.cpp:400
+#: src/fetch/numistafetcher.cpp:402
 #, kde-format
 msgid "Obverse"
 msgstr "Lícna strana"
 
 #: src/collections/coincollection.cpp:139 src/fetch/colnectfetcher.cpp:811
-#: src/fetch/numistafetcher.cpp:401
+#: src/fetch/numistafetcher.cpp:403
 #, kde-format
 msgid "Reverse"
 msgstr "Otočiť"
@@ -1672,10 +1664,11 @@ msgstr "Moja hudba"
 msgid "Album"
 msgstr "Album"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:422
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:424
 #: src/fetch/doubanfetcher.cpp:431 src/fetch/doubanfetcher.cpp:565
 #: src/fetch/upcitemdbfetcher.cpp:290 src/fetch/upcitemdbfetcher.cpp:410
 #: src/translators/audiofileimporter.cpp:335
+#: src/translators/discogsimporter.cpp:162
 #: src/translators/freedbimporter.cpp:275
 #: src/translators/freedbimporter.cpp:393
 #: src/translators/freedbimporter.cpp:460
@@ -1685,18 +1678,20 @@ msgstr "Kompaktný disk"
 
 #: src/collections/musiccollection.cpp:54
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1043
-#: src/fetch/discogsfetcher.cpp:430 src/fetch/upcitemdbfetcher.cpp:406
-#: src/fetch/upcitemdbfetcher.cpp:414
+#: src/fetch/discogsfetcher.cpp:432 src/fetch/upcitemdbfetcher.cpp:406
+#: src/fetch/upcitemdbfetcher.cpp:414 src/translators/discogsimporter.cpp:169
 #, kde-format
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:427
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:429
+#: src/translators/discogsimporter.cpp:166
 #, kde-format
 msgid "Cassette"
 msgstr "Kazeta"
 
-#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:425
+#: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:427
+#: src/translators/discogsimporter.cpp:164
 #, kde-format
 msgid "Vinyl"
 msgstr "Vinyl"
@@ -1752,7 +1747,7 @@ msgstr "Rok vydania"
 
 #: src/collections/stampcollection.cpp:83
 #: src/collections/videocollection.cpp:180 src/fetch/allocinefetcher.cpp:398
-#: src/fetch/imdbfetcher.cpp:1530
+#: src/fetch/imdbfetcher.cpp:1545
 #, kde-format
 msgid "Color"
 msgstr "Farba"
@@ -1903,8 +1898,8 @@ msgstr "Región 8"
 msgid "Region"
 msgstr "Región"
 
-#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:317
-#: src/fetch/discogsfetcher.cpp:510
+#: src/collections/videocollection.cpp:95 src/fetch/discogsfetcher.cpp:318
+#: src/fetch/discogsfetcher.cpp:513
 #, kde-format
 msgid "Nationality"
 msgstr "Národnosť"
@@ -1957,8 +1952,8 @@ msgstr "Tabuľka pre členov obsadenia, spolu s rolou, ktorú hrajú"
 msgid "Director"
 msgstr "Režisér"
 
-#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:324
-#: src/fetch/discogsfetcher.cpp:509 src/fetch/rpggeekfetcher.cpp:207
+#: src/collections/videocollection.cpp:123 src/fetch/discogsfetcher.cpp:325
+#: src/fetch/discogsfetcher.cpp:512 src/fetch/rpggeekfetcher.cpp:207
 #, kde-format
 msgid "Producer"
 msgstr "Producent"
@@ -2410,9 +2405,9 @@ msgstr ""
 
 #: src/configdialog.cpp:221
 #, fuzzy, kde-format
-#| msgid "matches regexp"
+#| msgid "matches regular expression"
 msgid "&Enable regular expressions in quick filter"
-msgstr "vyhovuje regexp"
+msgstr "zodpovedá regulárnemu výrazu"
 
 #: src/configdialog.cpp:222
 #, fuzzy, kde-format
@@ -2814,25 +2809,25 @@ msgstr "O&dstrániť"
 msgid "Click to delete the selected data source."
 msgstr "Kliknúť na vymazanie vybraného dátového zdroja."
 
-#: src/configdialog.cpp:1158 src/translators/xsltexporter.cpp:99
+#: src/configdialog.cpp:1169 src/translators/xsltexporter.cpp:99
 #: src/translators/xsltimporter.cpp:126
 #, kde-format
 msgid "XSL Files"
 msgstr "XSL súbory"
 
-#: src/configdialog.cpp:1159
+#: src/configdialog.cpp:1170
 #, kde-format
 msgid "Template Packages"
 msgstr "Balíky šablón"
 
-#: src/configdialog.cpp:1160 src/importdialog.cpp:439 src/mainwindow.cpp:1281
-#: src/mainwindow.cpp:1456 src/reportdialog.cpp:428 src/reportdialog.cpp:443
+#: src/configdialog.cpp:1171 src/importdialog.cpp:446 src/mainwindow.cpp:1284
+#: src/mainwindow.cpp:1459 src/reportdialog.cpp:428 src/reportdialog.cpp:443
 #: src/translators/bibtexexporter.cpp:65
 #: src/translators/bibtexmlexporter.cpp:51 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:62 src/translators/htmlexporter.cpp:100
-#: src/translators/librarythingimporter.cpp:187
+#: src/translators/librarythingimporter.cpp:189
 #: src/translators/onixexporter.cpp:71
-#: src/translators/tellicoxmlexporter.cpp:71
+#: src/translators/tellicoxmlexporter.cpp:72
 #: src/translators/tellicozipexporter.cpp:54
 #: src/translators/xsltexporter.cpp:54 src/translators/xsltexporter.cpp:101
 #: src/translators/xsltimporter.cpp:128
@@ -2840,12 +2835,12 @@ msgstr "Balíky šablón"
 msgid "All Files"
 msgstr "Všetky súbory"
 
-#: src/configdialog.cpp:1189
+#: src/configdialog.cpp:1200
 #, kde-format
 msgid "Delete Template"
 msgstr "Vymazať šablónu"
 
-#: src/configdialog.cpp:1190
+#: src/configdialog.cpp:1201
 #, kde-format
 msgid "Select template to delete:"
 msgstr "Vybrať šablónu na zmazanie:"
@@ -2882,22 +2877,22 @@ msgstr "Vymazať viacnásobné položky"
 msgid "&Sort By"
 msgstr "Triediť podľa"
 
-#: src/controller.cpp:589 src/mainwindow.cpp:604
+#: src/controller.cpp:589 src/mainwindow.cpp:607
 #, kde-format
 msgid "&Edit Entry..."
 msgstr "Upraviť položku..."
 
-#: src/controller.cpp:590 src/mainwindow.cpp:611
+#: src/controller.cpp:590 src/mainwindow.cpp:614
 #, kde-format
 msgid "D&uplicate Entry"
 msgstr "Duplikovať položku"
 
-#: src/controller.cpp:591 src/mainwindow.cpp:705
+#: src/controller.cpp:591 src/mainwindow.cpp:708
 #, kde-format
 msgid "&Update Entry"
 msgstr "Aktualizovať položku"
 
-#: src/controller.cpp:592 src/mainwindow.cpp:618
+#: src/controller.cpp:592 src/mainwindow.cpp:621
 #, kde-format
 msgid "&Delete Entry"
 msgstr "Odstrániť položku"
@@ -3004,13 +2999,9 @@ msgid "Untitled"
 msgstr "Bez názvu"
 
 #: src/core/tellico_strings.cpp:42
-#, fuzzy, kde-format
-#| msgid ""
-#| "This information was freely provided by <a href=\"https://igdb.com\">IGDB."
-#| "com</a>."
+#, kde-format
 msgid "This information was freely provided by <a href=\"%1\">%2</a>."
-msgstr ""
-"Táto informácia bola poskytnutá od <a href=\"https://igdb.com\">IGDB.com</a>."
+msgstr "Táto informácia bola poskytnutá od <a href=\"%1\">%2</a>."
 
 #: src/detailedlistview.cpp:523
 #, kde-format
@@ -3043,7 +3034,7 @@ msgstr "Ukázať všetky stĺpce"
 msgid "Hide All Columns"
 msgstr "Skryť všetky stĺpce"
 
-#: src/document.cpp:210 src/mainwindow.cpp:1395
+#: src/document.cpp:210 src/mainwindow.cpp:1398
 #, kde-format
 msgid "Saving file..."
 msgstr "Ukladá sa súbor..."
@@ -3105,7 +3096,7 @@ msgid "Save Entry"
 msgstr "Uložiť položku"
 
 #: src/entryeditdialog.cpp:675 src/entryeditdialog.cpp:693
-#: src/mainwindow.cpp:1168 src/mainwindow.cpp:1186
+#: src/mainwindow.cpp:1171 src/mainwindow.cpp:1189
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "Neuložené zmeny"
@@ -3115,7 +3106,7 @@ msgstr "Neuložené zmeny"
 msgid "(Empty)"
 msgstr "(Prázdne)"
 
-#: src/entryiconview.cpp:65 src/mainwindow.cpp:872
+#: src/entryiconview.cpp:65 src/mainwindow.cpp:875
 #, kde-format
 msgid ""
 "<qt>The <i>Icon View</i> shows each entry in the collection or group using "
@@ -3179,12 +3170,12 @@ msgstr "Akt&ualizovať položky"
 msgid "Updating <b>%1</b>..."
 msgstr "Aktualizujem <b>%1</b>..."
 
-#: src/entryview.cpp:332
+#: src/entryview.cpp:333
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico nemôže nájsť predvolený štýl položky."
 
-#: src/entryview.cpp:334 src/mainwindow.cpp:1806
+#: src/entryview.cpp:335 src/mainwindow.cpp:1809
 #, kde-format
 msgid "Please check your installation."
 msgstr "Prosím, skontrolujte svoju inštaláciu."
@@ -3260,20 +3251,65 @@ msgstr "Kódovať v používateľskom národnom kódovaní (%1)"
 msgid "Encode the exported file in the local encoding."
 msgstr "Kódovať exportovaný súbor v národnom kódovaní."
 
+#: src/fetch/adsfetcher.cpp:316
+#, kde-format
+msgid "SAO/NASA Astrophysics Data System"
+msgstr ""
+
+#: src/fetch/adsfetcher.cpp:331 src/fetch/amazonfetcher.cpp:1093
+#: src/fetch/bibliosharefetcher.cpp:173 src/fetch/comicvinefetcher.cpp:232
+#: src/fetch/crossreffetcher.cpp:314 src/fetch/discogsfetcher.cpp:527
+#: src/fetch/giantbombfetcher.cpp:219 src/fetch/googlebookfetcher.cpp:382
+#: src/fetch/isbndbfetcher.cpp:395 src/fetch/mobygamesfetcher.cpp:652
+#: src/fetch/omdbfetcher.cpp:411 src/fetch/thegamesdbfetcher.cpp:637
+#: src/fetch/themoviedbfetcher.cpp:591 src/fetch/thetvdbfetcher.cpp:589
+#, kde-format
+msgid ""
+"Registration is required for accessing this data source. If you agree to the "
+"terms and conditions, <a href='%1'>sign up for an account</a>, and enter "
+"your information below."
+msgstr ""
+"Je potrebná registrácia pre prístup k dátovému zdroju %1. Ak súhlasíte s "
+"pravidlami a podmienkami, <a href='%1'> zaregistrujte si účet</a> a nižšie "
+"zadajte svoje údaje."
+
+#: src/fetch/adsfetcher.cpp:343 src/fetch/amazonfetcher.cpp:1105
+#: src/fetch/bibliosharefetcher.cpp:185 src/fetch/comicvinefetcher.cpp:244
+#: src/fetch/entrezfetcher.cpp:531 src/fetch/giantbombfetcher.cpp:231
+#: src/fetch/googlebookfetcher.cpp:394 src/fetch/isbndbfetcher.cpp:407
+#: src/fetch/mobygamesfetcher.cpp:664 src/fetch/numistafetcher.cpp:416
+#: src/fetch/omdbfetcher.cpp:423 src/fetch/thegamesdbfetcher.cpp:649
+#: src/fetch/themoviedbfetcher.cpp:603
+#, kde-format
+msgid "Access key: "
+msgstr "Prístupový kľúč: "
+
+#: src/fetch/adsfetcher.cpp:349 src/fetch/bibliosharefetcher.cpp:191
+#: src/fetch/comicvinefetcher.cpp:250 src/fetch/entrezfetcher.cpp:537
+#: src/fetch/giantbombfetcher.cpp:237 src/fetch/googlebookfetcher.cpp:400
+#: src/fetch/themoviedbfetcher.cpp:609 src/fetch/thetvdbfetcher.cpp:607
+#, kde-format
+msgid ""
+"The default Tellico key may be used, but searching may fail due to reaching "
+"access limits."
+msgstr ""
+"Možno použiť predvolený kľúč Tellico, ale vyhľadávanie môže zlyhať v "
+"dôsledku dosiahnutia prístupových obmedzení."
+
 #: src/fetch/allocinefetcher.cpp:237 src/fetch/amazonfetcher.cpp:631
-#: src/fetch/colnectfetcher.cpp:787 src/fetch/discogsfetcher.cpp:217
-#: src/fetch/doubanfetcher.cpp:454 src/fetch/filmaffinityfetcher.cpp:425
+#: src/fetch/colnectfetcher.cpp:787 src/fetch/discogsfetcher.cpp:218
+#: src/fetch/doubanfetcher.cpp:454 src/fetch/filmaffinityfetcher.cpp:428
 #: src/fetch/filmasterfetcher.cpp:148 src/fetch/gaminghistoryfetcher.cpp:308
 #: src/fetch/googlebookfetcher.cpp:198 src/fetch/ibsfetcher.cpp:301
-#: src/fetch/igdbfetcher.cpp:163 src/fetch/isbndbfetcher.cpp:295
+#: src/fetch/igdbfetcher.cpp:163 src/fetch/isbndbfetcher.cpp:296
 #: src/fetch/itunesfetcher.cpp:331 src/fetch/kinofetcher.cpp:350
 #: src/fetch/kinopoiskfetcher.cpp:269 src/fetch/kinoteatrfetcher.cpp:376
-#: src/fetch/mobygamesfetcher.cpp:345 src/fetch/moviemeterfetcher.cpp:162
-#: src/fetch/numistafetcher.cpp:285 src/fetch/numistafetcher.cpp:293
-#: src/fetch/omdbfetcher.cpp:182 src/fetch/thegamesdbfetcher.cpp:172
-#: src/fetch/themoviedbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:352
+#: src/fetch/mobygamesfetcher.cpp:346 src/fetch/moviemeterfetcher.cpp:162
+#: src/fetch/numistafetcher.cpp:287 src/fetch/numistafetcher.cpp:295
+#: src/fetch/omdbfetcher.cpp:183 src/fetch/thegamesdbfetcher.cpp:172
+#: src/fetch/themoviedbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:351
 #: src/fetch/tvmazefetcher.cpp:269 src/fetch/upcitemdbfetcher.cpp:250
-#: src/fetch/vndbfetcher.cpp:182
+#: src/fetch/vgcollectfetcher.cpp:286 src/fetch/vndbfetcher.cpp:182
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "Obrázok obálky sa nepodarilo načítať."
@@ -3287,27 +3323,27 @@ msgstr "Odkaz  Allocine"
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
 #: src/fetch/doubanfetcher.cpp:344 src/fetch/doubanfetcher.cpp:362
 #: src/fetch/doubanfetcher.cpp:380 src/fetch/doubanfetcher.cpp:617
-#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/filmaffinityfetcher.cpp:321
-#: src/fetch/filmaffinityfetcher.cpp:456 src/fetch/imdbfetcher.cpp:887
-#: src/fetch/imdbfetcher.cpp:1806 src/fetch/kinopoiskfetcher.cpp:341
+#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/filmaffinityfetcher.cpp:322
+#: src/fetch/filmaffinityfetcher.cpp:459 src/fetch/imdbfetcher.cpp:902
+#: src/fetch/imdbfetcher.cpp:1822 src/fetch/kinopoiskfetcher.cpp:341
 #: src/fetch/kinopoiskfetcher.cpp:469 src/fetch/kinopoiskfetcher.cpp:673
 #: src/fetch/kinoteatrfetcher.cpp:263 src/fetch/kinoteatrfetcher.cpp:507
-#: src/fetch/omdbfetcher.cpp:262 src/fetch/themoviedbfetcher.cpp:333
+#: src/fetch/omdbfetcher.cpp:263 src/fetch/themoviedbfetcher.cpp:333
 #: src/fetch/themoviedbfetcher.cpp:577 src/fetch/vndbfetcher.cpp:284
 #: src/fetch/vndbfetcher.cpp:432
 #, kde-format
 msgid "Original Title"
 msgstr "Pôvodný názov"
 
-#: src/fetch/allocinefetcher.cpp:432 src/fetch/filmaffinityfetcher.cpp:469
-#: src/fetch/imdbfetcher.cpp:1823 src/fetch/kinopoiskfetcher.cpp:685
+#: src/fetch/allocinefetcher.cpp:432 src/fetch/filmaffinityfetcher.cpp:472
+#: src/fetch/imdbfetcher.cpp:1839 src/fetch/kinopoiskfetcher.cpp:685
 #: src/fetch/themoviedbfetcher.cpp:614
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "&Maximálne obsadenie: "
 
-#: src/fetch/allocinefetcher.cpp:445 src/fetch/filmaffinityfetcher.cpp:482
-#: src/fetch/imdbfetcher.cpp:1836 src/fetch/kinopoiskfetcher.cpp:698
+#: src/fetch/allocinefetcher.cpp:445 src/fetch/filmaffinityfetcher.cpp:485
+#: src/fetch/imdbfetcher.cpp:1852 src/fetch/kinopoiskfetcher.cpp:698
 #: src/fetch/themoviedbfetcher.cpp:627
 #, kde-format
 msgid ""
@@ -3425,7 +3461,7 @@ msgstr "Amazon (Austrália)"
 #: src/fetch/amazonfetcher.cpp:145
 #, kde-format
 msgid "Australia"
-msgstr "Autstrália"
+msgstr "Austrália"
 
 #: src/fetch/amazonfetcher.cpp:147
 #, kde-format
@@ -3445,7 +3481,7 @@ msgstr "Amazon (Mexiko)"
 #: src/fetch/amazonfetcher.cpp:157
 #, kde-format
 msgid "Mexico"
-msgstr "Mexico"
+msgstr "Mexiko"
 
 #: src/fetch/amazonfetcher.cpp:159
 #, kde-format
@@ -3473,8 +3509,7 @@ msgid "Amazon (UAE)"
 msgstr "Amazon (US)"
 
 #: src/fetch/amazonfetcher.cpp:175
-#, fuzzy, kde-format
-#| msgid "United States"
+#, kde-format
 msgid "United Arab Emirates"
 msgstr "Spojené arabské emiráty"
 
@@ -3493,10 +3528,10 @@ msgstr ""
 "Prístup k údajom z Amazon.com vyžaduje AWS ID prístupového kľúča a tajný "
 "kľúč."
 
-#: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:104
-#: src/fetch/isbndbfetcher.cpp:114 src/fetch/mobygamesfetcher.cpp:116
-#: src/fetch/omdbfetcher.cpp:101 src/fetch/thegamesdbfetcher.cpp:106
-#: src/fetch/themoviedbfetcher.cpp:133 src/fetch/thetvdbfetcher.cpp:128
+#: src/fetch/amazonfetcher.cpp:272 src/fetch/discogsfetcher.cpp:138
+#: src/fetch/isbndbfetcher.cpp:164 src/fetch/mobygamesfetcher.cpp:163
+#: src/fetch/omdbfetcher.cpp:120 src/fetch/thegamesdbfetcher.cpp:136
+#: src/fetch/themoviedbfetcher.cpp:163 src/fetch/thetvdbfetcher.cpp:168
 #, kde-format
 msgid "Those values must be entered in the data source settings."
 msgstr "Tieto hodnoty musia byť zadané v nastavení údajového zdroja."
@@ -3515,37 +3550,6 @@ msgstr "Odkaz  Amazon"
 #, kde-format
 msgid "Amazon.com Web Services"
 msgstr "Webové služby Amazon.com"
-
-#: src/fetch/amazonfetcher.cpp:1093 src/fetch/bibliosharefetcher.cpp:172
-#: src/fetch/comicvinefetcher.cpp:232 src/fetch/crossreffetcher.cpp:313
-#: src/fetch/discogsfetcher.cpp:524 src/fetch/giantbombfetcher.cpp:219
-#: src/fetch/googlebookfetcher.cpp:382 src/fetch/isbndbfetcher.cpp:394
-#: src/fetch/mobygamesfetcher.cpp:651 src/fetch/omdbfetcher.cpp:410
-#: src/fetch/thegamesdbfetcher.cpp:635 src/fetch/themoviedbfetcher.cpp:591
-#: src/fetch/thetvdbfetcher.cpp:590
-#, fuzzy, kde-format
-#| msgid ""
-#| "Registration is required for accessing the %1 data source. If you agree "
-#| "to the terms and conditions, <a href='%2'>sign up for an account</a>, and "
-#| "enter your information below."
-msgid ""
-"Registration is required for accessing this data source. If you agree to the "
-"terms and conditions, <a href='%1'>sign up for an account</a>, and enter "
-"your information below."
-msgstr ""
-"Je potrebná registrácia pre prístup k dátovému zdroju %1. Ak súhlasíte s "
-"pravidlami a podmienkami, <a href='%2'> zaregistrujte si účet</a> a nižšie "
-"zadajte svoje údaje."
-
-#: src/fetch/amazonfetcher.cpp:1105 src/fetch/bibliosharefetcher.cpp:184
-#: src/fetch/comicvinefetcher.cpp:244 src/fetch/entrezfetcher.cpp:531
-#: src/fetch/giantbombfetcher.cpp:231 src/fetch/googlebookfetcher.cpp:394
-#: src/fetch/isbndbfetcher.cpp:406 src/fetch/mobygamesfetcher.cpp:663
-#: src/fetch/numistafetcher.cpp:414 src/fetch/omdbfetcher.cpp:422
-#: src/fetch/thegamesdbfetcher.cpp:647 src/fetch/themoviedbfetcher.cpp:603
-#, kde-format
-msgid "Access key: "
-msgstr "Prístupový kľúč: "
 
 #: src/fetch/amazonfetcher.cpp:1115
 #, kde-format
@@ -3568,21 +3572,21 @@ msgstr ""
 
 #: src/fetch/amazonfetcher.cpp:1146 src/fetch/boardgamegeekfetcher.cpp:213
 #: src/fetch/colnectfetcher.cpp:947 src/fetch/itunesfetcher.cpp:517
-#: src/fetch/mobygamesfetcher.cpp:671 src/fetch/rpggeekfetcher.cpp:222
-#: src/fetch/thegamesdbfetcher.cpp:655 src/fetch/videogamegeekfetcher.cpp:213
+#: src/fetch/mobygamesfetcher.cpp:672 src/fetch/rpggeekfetcher.cpp:222
+#: src/fetch/thegamesdbfetcher.cpp:657 src/fetch/videogamegeekfetcher.cpp:213
 #, kde-format
 msgid "&Image size: "
 msgstr "Veľkosť obrázka:"
 
 #: src/fetch/amazonfetcher.cpp:1149 src/fetch/boardgamegeekfetcher.cpp:217
 #: src/fetch/colnectfetcher.cpp:951 src/fetch/itunesfetcher.cpp:521
-#: src/fetch/mobygamesfetcher.cpp:674 src/fetch/rpggeekfetcher.cpp:226
-#: src/fetch/thegamesdbfetcher.cpp:658 src/fetch/videogamegeekfetcher.cpp:217
+#: src/fetch/mobygamesfetcher.cpp:675 src/fetch/rpggeekfetcher.cpp:226
+#: src/fetch/thegamesdbfetcher.cpp:660 src/fetch/videogamegeekfetcher.cpp:217
 #, kde-format
 msgid "Small Image"
 msgstr "Malý obrázok"
 
-#: src/fetch/amazonfetcher.cpp:1150 src/fetch/thegamesdbfetcher.cpp:659
+#: src/fetch/amazonfetcher.cpp:1150 src/fetch/thegamesdbfetcher.cpp:661
 #, kde-format
 msgid "Medium Image"
 msgstr "Stredne veľký obrázok"
@@ -3590,22 +3594,22 @@ msgstr "Stredne veľký obrázok"
 #. i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
 #: src/fetch/amazonfetcher.cpp:1151 src/fetch/boardgamegeekfetcher.cpp:218
 #: src/fetch/colnectfetcher.cpp:952 src/fetch/itunesfetcher.cpp:522
-#: src/fetch/mobygamesfetcher.cpp:676 src/fetch/rpggeekfetcher.cpp:227
-#: src/fetch/thegamesdbfetcher.cpp:660 src/fetch/videogamegeekfetcher.cpp:218
+#: src/fetch/mobygamesfetcher.cpp:677 src/fetch/rpggeekfetcher.cpp:227
+#: src/fetch/thegamesdbfetcher.cpp:662 src/fetch/videogamegeekfetcher.cpp:218
 #, kde-format
 msgid "Large Image"
 msgstr "Veľký obrázok"
 
 #: src/fetch/amazonfetcher.cpp:1152 src/fetch/boardgamegeekfetcher.cpp:216
 #: src/fetch/colnectfetcher.cpp:950 src/fetch/itunesfetcher.cpp:520
-#: src/fetch/mobygamesfetcher.cpp:677 src/fetch/rpggeekfetcher.cpp:225
-#: src/fetch/thegamesdbfetcher.cpp:661 src/fetch/videogamegeekfetcher.cpp:216
+#: src/fetch/mobygamesfetcher.cpp:678 src/fetch/rpggeekfetcher.cpp:225
+#: src/fetch/thegamesdbfetcher.cpp:663 src/fetch/videogamegeekfetcher.cpp:216
 #, kde-format
 msgid "No Image"
 msgstr "Bez obrázku"
 
-#: src/fetch/amazonfetcher.cpp:1155 src/fetch/imdbfetcher.cpp:1845
-#: src/fetch/mobygamesfetcher.cpp:681 src/fetch/thegamesdbfetcher.cpp:665
+#: src/fetch/amazonfetcher.cpp:1155 src/fetch/imdbfetcher.cpp:1861
+#: src/fetch/mobygamesfetcher.cpp:682 src/fetch/thegamesdbfetcher.cpp:667
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3629,9 +3633,9 @@ msgstr ""
 "zahrnutá v akomkoľvek odkaze na stránky Amazon.com."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:952
-#: src/fetch/imdbfetcher.cpp:1804 src/fetch/moviemeterfetcher.cpp:225
-#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:257
+#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:967
+#: src/fetch/imdbfetcher.cpp:1820 src/fetch/moviemeterfetcher.cpp:225
+#: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:258
 #: src/fetch/themoviedbfetcher.cpp:328 src/fetch/themoviedbfetcher.cpp:576
 #: src/fetch/tvmazefetcher.cpp:193 src/fetch/tvmazefetcher.cpp:385
 #, kde-format
@@ -3644,8 +3648,8 @@ msgid "Distributor"
 msgstr "Distribútor"
 
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
-#: src/fetch/imdbfetcher.cpp:1807 src/fetch/itunesfetcher.cpp:506
-#: src/fetch/themoviedbfetcher.cpp:579 src/fetch/thetvdbfetcher.cpp:577
+#: src/fetch/imdbfetcher.cpp:1823 src/fetch/itunesfetcher.cpp:506
+#: src/fetch/themoviedbfetcher.cpp:579 src/fetch/thetvdbfetcher.cpp:576
 #: src/fetch/tvmazefetcher.cpp:383 src/field.cpp:336
 #, kde-format
 msgid "Episodes"
@@ -3663,16 +3667,17 @@ msgstr "AnimeNfo hodnotenie"
 
 #: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:337
 #: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:190
-#: src/fetch/dbcfetcher.cpp:160 src/fetch/dblpfetcher.cpp:129
+#: src/fetch/dbcfetcher.cpp:160 src/fetch/dblpfetcher.cpp:132
 #: src/fetch/doubanfetcher.cpp:625 src/fetch/dvdfrfetcher.cpp:190
 #: src/fetch/filmasterfetcher.cpp:323 src/fetch/gaminghistoryfetcher.cpp:438
-#: src/fetch/googlescholarfetcher.cpp:282 src/fetch/hathitrustfetcher.cpp:318
-#: src/fetch/ibsfetcher.cpp:396 src/fetch/igdbfetcher.cpp:614
+#: src/fetch/googlescholarfetcher.cpp:277 src/fetch/hathitrustfetcher.cpp:318
+#: src/fetch/ibsfetcher.cpp:396 src/fetch/igdbfetcher.cpp:616
 #: src/fetch/kinofetcher.cpp:388 src/fetch/kinoteatrfetcher.cpp:515
 #: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:233
 #: src/fetch/musicbrainzfetcher.cpp:378 src/fetch/openlibraryfetcher.cpp:424
 #: src/fetch/springerfetcher.cpp:183 src/fetch/tvmazefetcher.cpp:393
-#: src/fetch/upcitemdbfetcher.cpp:465 src/fetch/vndbfetcher.cpp:440
+#: src/fetch/upcitemdbfetcher.cpp:465 src/fetch/vgcollectfetcher.cpp:382
+#: src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "Tento zdroj nemá voľby."
@@ -3691,18 +3696,6 @@ msgstr "Odkaz Bedetheque"
 #, kde-format
 msgid "ISBN#"
 msgstr "ISBN#"
-
-#: src/fetch/bibliosharefetcher.cpp:190 src/fetch/comicvinefetcher.cpp:250
-#: src/fetch/entrezfetcher.cpp:537 src/fetch/giantbombfetcher.cpp:237
-#: src/fetch/googlebookfetcher.cpp:400 src/fetch/themoviedbfetcher.cpp:609
-#: src/fetch/thetvdbfetcher.cpp:608
-#, kde-format
-msgid ""
-"The default Tellico key may be used, but searching may fail due to reaching "
-"access limits."
-msgstr ""
-"Možno použiť predvolený kľúč Tellico, ale vyhľadávanie môže zlyhať v "
-"dôsledku dosiahnutia prístupových obmedzení."
 
 #: src/fetch/boardgamegeekfetcher.cpp:201
 #, kde-format
@@ -3724,23 +3717,23 @@ msgstr "Razba"
 #, kde-format
 msgctxt "Stanley Gibbons stamp catalog code"
 msgid "Stanley Gibbons"
-msgstr ""
+msgstr "Stanley Gibbons"
 
 #: src/fetch/colnectfetcher.cpp:589 src/fetch/colnectfetcher.cpp:817
 #, kde-format
 msgctxt "Michel stamp catalog code"
 msgid "Michel"
-msgstr ""
+msgstr "Michel"
 
 #: src/fetch/colnectfetcher.cpp:818 src/fetch/giantbombfetcher.cpp:207
-#: src/fetch/igdbfetcher.cpp:576 src/fetch/mobygamesfetcher.cpp:637
-#: src/field.cpp:326
+#: src/fetch/igdbfetcher.cpp:578 src/fetch/mobygamesfetcher.cpp:638
+#: src/fetch/vgcollectfetcher.cpp:374 src/field.cpp:326
 #, kde-format
 msgid "PEGI Rating"
 msgstr "PEGI Hodnotenie"
 
-#: src/fetch/colnectfetcher.cpp:919 src/fetch/filmaffinityfetcher.cpp:487
-#: src/fetch/numistafetcher.cpp:422 src/fetch/themoviedbfetcher.cpp:632
+#: src/fetch/colnectfetcher.cpp:919 src/fetch/filmaffinityfetcher.cpp:490
+#: src/fetch/numistafetcher.cpp:424 src/fetch/themoviedbfetcher.cpp:632
 #, kde-format
 msgid "Language: "
 msgstr "Jazyk:"
@@ -3761,33 +3754,33 @@ msgstr "Možnosti zdroja"
 msgid "Available Fields"
 msgstr "Dostupné polia"
 
-#: src/fetch/crossreffetcher.cpp:91 src/fetch/crossreffetcher.cpp:92
+#: src/fetch/crossreffetcher.cpp:100 src/fetch/crossreffetcher.cpp:101
 #, kde-format
 msgid "%1 requires a username and password."
 msgstr "%1 požaduje používateľské meno a heslo"
 
-#: src/fetch/crossreffetcher.cpp:324
+#: src/fetch/crossreffetcher.cpp:325
 #, kde-format
 msgid "&Username: "
 msgstr "Používateľské meno:"
 
-#: src/fetch/crossreffetcher.cpp:329
+#: src/fetch/crossreffetcher.cpp:330
 #, kde-format
 msgid "A username and password is required to access the CrossRef service."
 msgstr ""
 "Je vyžadované používateľské meno a heslo pre prístup k službe CrossRef."
 
-#: src/fetch/crossreffetcher.cpp:334
+#: src/fetch/crossreffetcher.cpp:335
 #, kde-format
 msgid "&Password: "
 msgstr "Heslo:"
 
-#: src/fetch/crossreffetcher.cpp:344
+#: src/fetch/crossreffetcher.cpp:345
 #, kde-format
 msgid "For some accounts, only an email address is required."
 msgstr "Pre niektoré účty je potrebná iba e-mailová adresa."
 
-#: src/fetch/crossreffetcher.cpp:347
+#: src/fetch/crossreffetcher.cpp:348
 #, kde-format
 msgid "Email: "
 msgstr "E-mail:"
@@ -3797,46 +3790,48 @@ msgstr "E-mail:"
 msgid "Danish Bibliographic Center (DBC.dk)"
 msgstr "Danish Bibliographic Center (DBC.dk)"
 
-#: src/fetch/discogsfetcher.cpp:102 src/fetch/isbndbfetcher.cpp:112
-#: src/fetch/mobygamesfetcher.cpp:114 src/fetch/omdbfetcher.cpp:99
-#: src/fetch/thegamesdbfetcher.cpp:104 src/fetch/themoviedbfetcher.cpp:131
-#: src/fetch/thetvdbfetcher.cpp:126
+#: src/fetch/discogsfetcher.cpp:136 src/fetch/isbndbfetcher.cpp:162
+#: src/fetch/mobygamesfetcher.cpp:161 src/fetch/omdbfetcher.cpp:118
+#: src/fetch/thegamesdbfetcher.cpp:134 src/fetch/themoviedbfetcher.cpp:161
+#: src/fetch/thetvdbfetcher.cpp:166
 #, kde-format
 msgid "An access key is required to use this data source."
 msgstr "Na použitie tohto zdroja údajov je potrebný prístupový kľúč."
 
-#: src/fetch/discogsfetcher.cpp:312 src/fetch/discogsfetcher.cpp:511
+#: src/fetch/discogsfetcher.cpp:313 src/fetch/discogsfetcher.cpp:514
 #, kde-format
 msgid "Discogs Link"
 msgstr "Odkaz Discogs"
 
 #. i18n("Nationality");
-#: src/fetch/discogsfetcher.cpp:331 src/fetch/discogsfetcher.cpp:512
+#: src/fetch/discogsfetcher.cpp:332 src/fetch/discogsfetcher.cpp:515
 #: src/fetch/dvdfrfetcher.cpp:183 src/fetch/musicbrainzfetcher.cpp:371
 #: src/fetch/upcitemdbfetcher.cpp:207 src/fetch/upcitemdbfetcher.cpp:458
+#: src/fetch/vgcollectfetcher.cpp:340 src/fetch/vgcollectfetcher.cpp:375
 #, kde-format
 msgid "Barcode"
 msgstr "Čiarový kód"
 
-#: src/fetch/discogsfetcher.cpp:336 src/fetch/discogsfetcher.cpp:513
+#: src/fetch/discogsfetcher.cpp:337 src/fetch/discogsfetcher.cpp:516
 #, fuzzy, kde-format
 #| msgid "Card Number"
 msgid "Catalog Number"
 msgstr "Číslo karty"
 
-#: src/fetch/discogsfetcher.cpp:346
+#: src/fetch/discogsfetcher.cpp:347
 #, kde-format
 msgid "The Discogs.com server reports a token error."
 msgstr "Server Discogs.com ohlásil chybu tokenu."
 
-#: src/fetch/discogsfetcher.cpp:500
+#: src/fetch/discogsfetcher.cpp:503
 #, kde-format
 msgid "Discogs Audio Search"
 msgstr "Discogs audio hľadanie"
 
-#: src/fetch/discogsfetcher.cpp:536
-#, kde-format
-msgid "User token: "
+#: src/fetch/discogsfetcher.cpp:539 src/translators/discogsimporter.cpp:200
+#, fuzzy, kde-format
+#| msgid "User token: "
+msgid "User token:"
 msgstr "Používateľský token: "
 
 #: src/fetch/doubanfetcher.cpp:350 src/fetch/doubanfetcher.cpp:368
@@ -3978,20 +3973,20 @@ msgstr "LCCN"
 msgid "Raw Query"
 msgstr "Nespracovaný dopyt"
 
-#: src/fetch/filmaffinityfetcher.cpp:281 src/fetch/filmaffinityfetcher.cpp:457
+#: src/fetch/filmaffinityfetcher.cpp:281 src/fetch/filmaffinityfetcher.cpp:460
 #, fuzzy, kde-format
 #| msgid "Filmaster Link"
 msgid "FilmAffinity Link"
 msgstr "Odkaz Filmaster"
 
-#: src/fetch/filmaffinityfetcher.cpp:492
+#: src/fetch/filmaffinityfetcher.cpp:495
 #, fuzzy, kde-format
 #| msgid "Spain"
 msgctxt "Country"
 msgid "Spain"
 msgstr "Španielsko"
 
-#: src/fetch/filmaffinityfetcher.cpp:495
+#: src/fetch/filmaffinityfetcher.cpp:498
 #, kde-format
 msgctxt "Country"
 msgid "USA"
@@ -4055,7 +4050,7 @@ msgstr "Google Book Search"
 msgid "Illustrator"
 msgstr "Ilustrátor"
 
-#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:383
+#: src/fetch/hathitrustfetcher.cpp:310 src/fetch/isbndbfetcher.cpp:384
 #: src/fetch/srufetcher.cpp:509 src/fetch/z3950fetcher.cpp:579
 #, kde-format
 msgctxt "Dewey Decimal classification system"
@@ -4074,23 +4069,23 @@ msgstr "LoC triedenie"
 msgid "Internet Bookshop (ibs.it)"
 msgstr "Internet Bookshop (ibs.it)"
 
-#: src/fetch/igdbfetcher.cpp:368 src/fetch/igdbfetcher.cpp:577
+#: src/fetch/igdbfetcher.cpp:368 src/fetch/igdbfetcher.cpp:579
 #, kde-format
 msgid "IGDB Link"
-msgstr "IGDB odkaz"
+msgstr "Odkaz IGDB"
 
 #: src/fetch/igdbfetcher.cpp:567
 #, kde-format
 msgid "Internet Game Database (IGDB.com)"
 msgstr "Internet Game Database (IGDB.com)"
 
-#: src/fetch/igdbfetcher.cpp:578 src/fetch/mobygamesfetcher.cpp:639
-#: src/fetch/thegamesdbfetcher.cpp:604 src/field.cpp:344
+#: src/fetch/igdbfetcher.cpp:580 src/fetch/mobygamesfetcher.cpp:640
+#: src/fetch/thegamesdbfetcher.cpp:606 src/field.cpp:344
 #, kde-format
 msgid "Screenshot"
-msgstr "Snímka obrazovky"
+msgstr ""
 
-#: src/fetch/imdbfetcher.cpp:120 src/fetch/imdbfetcher.cpp:1792
+#: src/fetch/imdbfetcher.cpp:120 src/fetch/imdbfetcher.cpp:1807
 #, kde-format
 msgid "Internet Movie Database"
 msgstr "Internet Movie Database"
@@ -4120,52 +4115,54 @@ msgstr "Internet Movie Database (taliansky)"
 msgid "Internet Movie Database (Portuguese)"
 msgstr "Internet Movie Database (portugalsky)"
 
-#: src/fetch/imdbfetcher.cpp:830 src/fetch/imdbfetcher.cpp:1385
-#: src/fetch/imdbfetcher.cpp:1803
+#: src/fetch/imdbfetcher.cpp:845 src/fetch/imdbfetcher.cpp:1400
+#: src/fetch/imdbfetcher.cpp:1819
 #, kde-format
 msgid "IMDb Rating"
 msgstr "IMDb hodnotenie"
 
-#: src/fetch/imdbfetcher.cpp:1570 src/fetch/imdbfetcher.cpp:1667
-#: src/fetch/imdbfetcher.cpp:1805
+#: src/fetch/imdbfetcher.cpp:1585 src/fetch/imdbfetcher.cpp:1682
+#: src/fetch/imdbfetcher.cpp:1821
 #, kde-format
 msgid "Certifications"
 msgstr "Certifikácie"
 
-#: src/fetch/imdbfetcher.cpp:1802 src/fetch/kinopoiskfetcher.cpp:672
-#: src/fetch/omdbfetcher.cpp:399 src/fetch/themoviedbfetcher.cpp:575
-#: src/fetch/thetvdbfetcher.cpp:576 src/fetch/tvmazefetcher.cpp:382
+#: src/fetch/imdbfetcher.cpp:1818 src/fetch/kinopoiskfetcher.cpp:672
+#: src/fetch/omdbfetcher.cpp:400 src/fetch/themoviedbfetcher.cpp:575
+#: src/fetch/thetvdbfetcher.cpp:575 src/fetch/tvmazefetcher.cpp:382
 #: src/field.cpp:332
 #, kde-format
 msgid "IMDb Link"
 msgstr "Odkaz IMDb"
 
-#: src/fetch/imdbfetcher.cpp:1841
+#: src/fetch/imdbfetcher.cpp:1857
 #, kde-format
 msgid "Download cover &image"
 msgstr "St&iahnuť obrázok obálky"
 
-#: src/fetch/isbndbfetcher.cpp:360
+#: src/fetch/isbndbfetcher.cpp:361
 #, kde-format
 msgid "Dewey Decimal"
 msgstr "Deweyho desatinné triedenie"
 
-#: src/fetch/isbndbfetcher.cpp:373
+#: src/fetch/isbndbfetcher.cpp:374
 #, kde-format
 msgid "ISBNdb.com"
 msgstr "ISBNdb.com"
 
-#: src/fetch/isbndbfetcher.cpp:414
+#: src/fetch/isbndbfetcher.cpp:415
 #, kde-format
 msgid "Enable batch ISBN searching (requires Premium or Pro plan)"
-msgstr ""
+msgstr "Povoliť dávkové hľadanie ISBN (vyžaduje plán Prémium alebo Pro)"
 
-#: src/fetch/isbndbfetcher.cpp:418
+#: src/fetch/isbndbfetcher.cpp:419
 #, kde-format
 msgid ""
 "Batch searching for ISBN values is faster but only available for Premium or "
 "Pro plans."
 msgstr ""
+"Dávkové hľadanie ISBN hodnôt je rýchlejšie ale dostupné iba v plánoch "
+"Premium alebo Pro."
 
 #: src/fetch/itunesfetcher.cpp:240 src/fetch/itunesfetcher.cpp:505
 #, fuzzy, kde-format
@@ -4183,7 +4180,7 @@ msgstr "Odkaz KinoPoisk"
 msgid "Kino-Teatr Link"
 msgstr "Odkaz Kino-Teatr"
 
-#: src/fetch/mobygamesfetcher.cpp:458 src/fetch/mobygamesfetcher.cpp:638
+#: src/fetch/mobygamesfetcher.cpp:459 src/fetch/mobygamesfetcher.cpp:639
 #, kde-format
 msgid "MobyGames Link"
 msgstr "Odkaz MobyGames"
@@ -4201,36 +4198,35 @@ msgstr "Viacnásobné zdroje"
 #: src/fetch/multifetcher.cpp:280
 #, kde-format
 msgid "Data source:"
-msgstr "Dátový zdroj:"
+msgstr "Zdroj dát:"
 
-#: src/fetch/numistafetcher.cpp:342 src/fetch/numistafetcher.cpp:397
-#, fuzzy, kde-format
-#| msgid "Filmaster Link"
+#: src/fetch/numistafetcher.cpp:344 src/fetch/numistafetcher.cpp:399
+#, kde-format
 msgid "Numista Link"
-msgstr "Odkaz Filmaster"
+msgstr "Odkaz Numista"
 
-#: src/fetch/numistafetcher.cpp:402
+#: src/fetch/numistafetcher.cpp:404
 #, kde-format
 msgctxt "Standard catalog of world coins number"
 msgid "Krause-Mishler"
-msgstr ""
+msgstr "Krause-Mishler"
 
-#: src/fetch/numistafetcher.cpp:427 src/fetch/themoviedbfetcher.cpp:641
+#: src/fetch/numistafetcher.cpp:429 src/fetch/themoviedbfetcher.cpp:641
 #, kde-format
 msgctxt "Language"
 msgid "English"
 msgstr "Angličtina"
 
-#: src/fetch/numistafetcher.cpp:430 src/fetch/themoviedbfetcher.cpp:644
+#: src/fetch/numistafetcher.cpp:432 src/fetch/themoviedbfetcher.cpp:644
 #, kde-format
 msgctxt "Language"
 msgid "French"
 msgstr "Francúzština"
 
-#: src/fetch/numistafetcher.cpp:461
+#: src/fetch/numistafetcher.cpp:463
 #, kde-format
 msgid "Numista (%1)"
-msgstr ""
+msgstr "Numista (%1)"
 
 #: src/fetch/opdsfetcher.cpp:199 src/fetch/opdsfetcher.cpp:209
 #, fuzzy, kde-format
@@ -4247,9 +4243,9 @@ msgstr "Katalóg súborov"
 
 #: src/fetch/opdsfetcher.cpp:446
 #, fuzzy, kde-format
-#| msgid "Card Number"
+#| msgid "File Catalog"
 msgid "Catalog: "
-msgstr "Číslo karty"
+msgstr "Katalóg súborov"
 
 #: src/fetch/opdsfetcher.cpp:451
 #, fuzzy, kde-format
@@ -4269,10 +4265,9 @@ msgid "OpenLibrary Link"
 msgstr "Odkaz OpenLibrary"
 
 #: src/fetch/rpggeekfetcher.cpp:210
-#, fuzzy, kde-format
-#| msgid "BoardGameGeek Link"
+#, kde-format
 msgid "RPGGeek Link"
-msgstr "Odkaz BoardGameGeek"
+msgstr "Odkaz RPGGeek"
 
 #: src/fetch/srufetcher.cpp:492
 #, kde-format
@@ -4341,15 +4336,14 @@ msgid "TMDb Link"
 msgstr "Odkaz TMDb"
 
 #: src/fetch/themoviedbfetcher.cpp:338 src/fetch/themoviedbfetcher.cpp:578
-#: src/fetch/thetvdbfetcher.cpp:260 src/fetch/thetvdbfetcher.cpp:578
+#: src/fetch/thetvdbfetcher.cpp:259 src/fetch/thetvdbfetcher.cpp:577
 #: src/fetch/tvmazefetcher.cpp:182 src/fetch/tvmazefetcher.cpp:384
 #, kde-format
 msgid "Network"
 msgstr "Sieť"
 
 #: src/fetch/themoviedbfetcher.cpp:638
-#, fuzzy, kde-format
-#| msgid "China"
+#, kde-format
 msgctxt "Language"
 msgid "Chinese"
 msgstr "Čínština"
@@ -4377,16 +4371,21 @@ msgstr "Ruština"
 msgid "TheMovieDB (%1)"
 msgstr "TheMovieDB (%1)"
 
-#: src/fetch/thetvdbfetcher.cpp:265 src/fetch/thetvdbfetcher.cpp:575
-#, fuzzy, kde-format
-#| msgid "IGDB Link"
+#: src/fetch/thetvdbfetcher.cpp:264 src/fetch/thetvdbfetcher.cpp:574
+#, kde-format
 msgid "TheTVDB Link"
-msgstr "IGDB odkaz"
+msgstr "Odkaz TheTVDB"
 
-#: src/fetch/thetvdbfetcher.cpp:602
+#: src/fetch/thetvdbfetcher.cpp:601
 #, kde-format
 msgid "Subscriber PIN: "
 msgstr ""
+
+#: src/fetch/vgcollectfetcher.cpp:237 src/fetch/vgcollectfetcher.cpp:373
+#, fuzzy, kde-format
+#| msgid "Comic Vine Link"
+msgid "VGCollect Link"
+msgstr "Odkaz Comic Vine"
 
 #: src/fetch/videogamegeekfetcher.cpp:201
 #, kde-format
@@ -4535,7 +4534,7 @@ msgstr "&Hľadať"
 msgid "&Stop"
 msgstr "Za&staviť"
 
-#: src/fetchdialog.cpp:142 src/mainwindow.cpp:594
+#: src/fetchdialog.cpp:142 src/mainwindow.cpp:597
 #, kde-format
 msgid "Internet Search"
 msgstr "Hľadanie na internete"
@@ -4821,11 +4820,10 @@ msgid "Season"
 msgstr "Obdobie"
 
 #: src/field.cpp:341
-#, fuzzy, kde-format
-#| msgid "Episodes"
+#, kde-format
 msgctxt "TV Episode"
 msgid "Episode"
-msgstr "Epizóda č. %1"
+msgstr "Epizóda"
 
 #: src/filterdialog.cpp:62
 #, kde-format
@@ -4857,8 +4855,8 @@ msgstr "Názov filtra:"
 msgid "&Save Filter"
 msgstr "Uložiť filter"
 
-#: src/filterview.cpp:191 src/mainwindow.cpp:567 src/mainwindow.cpp:777
-#: src/mainwindow.cpp:795
+#: src/filterview.cpp:191 src/mainwindow.cpp:570 src/mainwindow.cpp:780
+#: src/mainwindow.cpp:798
 #, kde-format
 msgid "Filter"
 msgstr "Filter"
@@ -4894,8 +4892,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "Skupina"
 
-#: src/groupview.cpp:425 src/mainwindow.cpp:1095 src/mainwindow.cpp:1741
-#: src/mainwindow.cpp:1775 src/translators/htmlexporter.cpp:338
+#: src/groupview.cpp:425 src/mainwindow.cpp:1098 src/mainwindow.cpp:1744
+#: src/mainwindow.cpp:1778 src/translators/htmlexporter.cpp:338
 #, kde-format
 msgid "People"
 msgstr "Ľudia"
@@ -4955,17 +4953,15 @@ msgstr "nie je rovné"
 
 #: src/gui/filterrulewidget.cpp:236 src/gui/filterrulewidget.cpp:244
 #: src/gui/filterrulewidget.cpp:264
-#, fuzzy, kde-format
-#| msgid "matches regexp"
+#, kde-format
 msgid "matches regular expression"
-msgstr "Odpovedá regulárnemu výrazu"
+msgstr "zodpovedá regulárnemu výrazu"
 
 #: src/gui/filterrulewidget.cpp:237 src/gui/filterrulewidget.cpp:245
 #: src/gui/filterrulewidget.cpp:265
-#, fuzzy, kde-format
-#| msgid "does not match regexp"
+#, kde-format
 msgid "does not match regular expression"
-msgstr "Neodpovedá regulárnemu výrazu"
+msgstr "nezodpovedá regulárnemu výrazu"
 
 #: src/gui/filterrulewidget.cpp:238
 #, kde-format
@@ -4992,32 +4988,26 @@ msgid "is greater than"
 msgstr "je väčší ako"
 
 #: src/gui/filterrulewidget.cpp:250
-#, fuzzy, kde-format
-#| msgid "&Image size: "
+#, kde-format
 msgid "image size equals"
-msgstr "Veľkosť obrázka:"
+msgstr "veľkosť obrázka sa rovná"
 
 #: src/gui/filterrulewidget.cpp:251
-#, fuzzy, kde-format
-#| msgid "does not equal"
+#, kde-format
 msgid "image size does not equal"
-msgstr "nie je rovné"
+msgstr "veľkosť obrázka nie je rovná"
 
 #: src/gui/filterrulewidget.cpp:252
-#, fuzzy, kde-format
-#| msgctxt "is less than a number"
-#| msgid "is less than"
+#, kde-format
 msgctxt "image size is less than a number"
 msgid "image size is less than"
-msgstr "je menej než"
+msgstr "veľkosť obrázka je menej než"
 
 #: src/gui/filterrulewidget.cpp:253
-#, fuzzy, kde-format
-#| msgctxt "is greater than a number"
-#| msgid "is greater than"
+#, kde-format
 msgctxt "image size is greater than a number"
 msgid "image size is greater than"
-msgstr "je väčší ako"
+msgstr "veľkosť obrázka je väčšia ako"
 
 #: src/gui/filterrulewidget.cpp:260
 #, kde-format
@@ -5159,27 +5149,27 @@ msgstr "Presunúť rad nadol"
 msgid "Tellico is unable to load the image - %1."
 msgstr "Tellico nedokáže načítať obrázok - %1."
 
-#: src/importdialog.cpp:79 src/importdialog.cpp:88
+#: src/importdialog.cpp:80 src/importdialog.cpp:89
 #, kde-format
 msgid "Import Options"
 msgstr "Možnosti importu"
 
-#: src/importdialog.cpp:92
+#: src/importdialog.cpp:93
 #, kde-format
 msgid "&Replace current collection"
 msgstr "Nah&radiť aktuálnu zbierku"
 
-#: src/importdialog.cpp:93
+#: src/importdialog.cpp:94
 #, kde-format
 msgid "Replace the current collection with the contents of the imported file."
 msgstr "Nahradiť aktuálnu zbierku s obsahom importovaného súboru."
 
-#: src/importdialog.cpp:95
+#: src/importdialog.cpp:96
 #, kde-format
 msgid "A&ppend to current collection"
 msgstr "&Pripojiť k aktuálnej zbierke"
 
-#: src/importdialog.cpp:96
+#: src/importdialog.cpp:97
 #, kde-format
 msgid ""
 "Append the contents of the imported file to the current collection. This is "
@@ -5188,12 +5178,12 @@ msgstr ""
 "Pripojiť obsah importovaného súboru do aktuálnej zbierky. To je možné iba "
 "vtedy, ak sa zhodujú typy zbierok."
 
-#: src/importdialog.cpp:99
+#: src/importdialog.cpp:100
 #, kde-format
 msgid "&Merge with current collection"
 msgstr "&Zlúčiť s aktuálnou zbierkou"
 
-#: src/importdialog.cpp:100
+#: src/importdialog.cpp:101
 #, kde-format
 msgid ""
 "Merge the contents of the imported file to the current collection. This is "
@@ -5204,69 +5194,69 @@ msgstr ""
 "vtedy, ak sa zhodujú typy zbierok. Aby mohli byť položky zlúčené, musia sa "
 "presne zhodovať."
 
-#: src/importdialog.cpp:149 src/mainwindow.cpp:370
+#: src/importdialog.cpp:150 src/mainwindow.cpp:370
 #, kde-format
 msgid "&Import"
 msgstr "&Importovať"
 
-#: src/importdialog.cpp:371 src/mainwindow.cpp:1277 src/mainwindow.cpp:1454
+#: src/importdialog.cpp:377 src/mainwindow.cpp:1280 src/mainwindow.cpp:1457
 #: src/translators/tellicozipexporter.cpp:54
 #, kde-format
 msgid "Tellico Files"
 msgstr "Súbory Tellico"
 
-#: src/importdialog.cpp:372 src/importdialog.cpp:390 src/importdialog.cpp:419
-#: src/mainwindow.cpp:1279 src/translators/tellicoxmlexporter.cpp:71
+#: src/importdialog.cpp:378 src/importdialog.cpp:396 src/importdialog.cpp:425
+#: src/mainwindow.cpp:1282 src/translators/tellicoxmlexporter.cpp:72
 #, kde-format
 msgid "XML Files"
 msgstr "XML súbory"
 
-#: src/importdialog.cpp:376 src/translators/bibtexexporter.cpp:65
+#: src/importdialog.cpp:382 src/translators/bibtexexporter.cpp:65
 #, kde-format
 msgid "Bibtex Files"
 msgstr "Súbory BibTeX"
 
-#: src/importdialog.cpp:380 src/translators/csvexporter.cpp:64
+#: src/importdialog.cpp:386 src/translators/csvexporter.cpp:64
 #, kde-format
 msgid "CSV Files"
 msgstr "CSV súbory"
 
-#: src/importdialog.cpp:394
+#: src/importdialog.cpp:400
 #, kde-format
 msgid "RIS Files"
 msgstr "RIS súbory"
 
-#: src/importdialog.cpp:398 src/translators/gcstarexporter.cpp:62
+#: src/importdialog.cpp:404 src/translators/gcstarexporter.cpp:62
 #, kde-format
 msgid "GCstar Data Files"
 msgstr "Dátové súbory GCstar"
 
-#: src/importdialog.cpp:402
+#: src/importdialog.cpp:408
 #, kde-format
 msgid "AMC Data Files"
 msgstr "Dátové súbory AMC"
 
-#: src/importdialog.cpp:406
+#: src/importdialog.cpp:412
 #, kde-format
 msgid "PDF Files"
 msgstr "PDF súbory"
 
-#: src/importdialog.cpp:410
+#: src/importdialog.cpp:416
 #, kde-format
 msgid "Referencer Files"
 msgstr "Súbory referencera"
 
-#: src/importdialog.cpp:414
+#: src/importdialog.cpp:420
 #, kde-format
 msgid "CIW Files"
 msgstr "CIW súbory"
 
-#: src/importdialog.cpp:418
+#: src/importdialog.cpp:424
 #, kde-format
 msgid "VinoXML Data Files"
 msgstr "Dátové súbory VinoXML"
 
-#: src/importdialog.cpp:424
+#: src/importdialog.cpp:430
 #, fuzzy, kde-format
 #| msgid "Book Title"
 msgid "eBook Files"
@@ -5376,16 +5366,15 @@ msgid "Borrower (Sort by Count)"
 msgstr "Požičiavateľ (Zoradiť podľa počtu)"
 
 #: src/main.cpp:121
-#, fuzzy, kde-format
-#| msgid "Tellico - a KDE collection manager"
+#, kde-format
 msgid "Tellico - collection management software, free and simple"
 msgstr "Tellico - správca zbierok pre KDE"
 
 #: src/main.cpp:123
 #, fuzzy, kde-format
-#| msgid "(c) 2001-2019, Robby Stephenson"
+#| msgid "(c) 2001-2022, Robby Stephenson"
 msgid "(c) 2001-2023, Robby Stephenson"
-msgstr "(c) 2001-2019, Robby Stephenson"
+msgstr "(c) 2001-2022, Robby Stephenson"
 
 #: src/main.cpp:127
 #, kde-format
@@ -5449,10 +5438,9 @@ msgid "File to open"
 msgstr "Súbor na otvorenie"
 
 #: src/mainwindow.cpp:254
-#, fuzzy, kde-format
-#| msgid "Wine Collection"
+#, kde-format
 msgid "New Collection"
-msgstr "Zbierka vín"
+msgstr "Nová kolekcia"
 
 #: src/mainwindow.cpp:256
 #, kde-format
@@ -5629,9 +5617,9 @@ msgstr "Vytlačiť obsah dokumentu..."
 
 #: src/mainwindow.cpp:355
 #, fuzzy, kde-format
-#| msgid "Print the contents of the document..."
+#| msgid "Preview the contents of the document..."
 msgid "Preview the contents of the collection..."
-msgstr "Vytlačiť obsah dokumentu..."
+msgstr "Náhľad obsahu dokumentu..."
 
 #: src/mainwindow.cpp:359
 #, kde-format
@@ -5694,16 +5682,14 @@ msgid "Import data from Delicious Library"
 msgstr "Importovať dáta z Delicious Library"
 
 #: src/mainwindow.cpp:406
-#, fuzzy, kde-format
-#| msgid "Import Tellico Data..."
+#, kde-format
 msgid "Import Collectorz Data..."
-msgstr "Importovať dáta Tellico..."
+msgstr "Importovať dáta Collectorz..."
 
 #: src/mainwindow.cpp:407
-#, fuzzy, kde-format
-#| msgid "Import data from Referencer"
+#, kde-format
 msgid "Import data from Collectorz"
-msgstr "Importovať dáta z aplikácie Referencer"
+msgstr "Importovať dáta z aplikácie Collectorz"
 
 #: src/mainwindow.cpp:410
 #, fuzzy, kde-format
@@ -5713,9 +5699,9 @@ msgstr "Importovať dáta GCstar..."
 
 #: src/mainwindow.cpp:411
 #, fuzzy, kde-format
-#| msgid "Import data from Referencer"
+#| msgid "Import data from Collectorz"
 msgid "Import data from Data Crow"
-msgstr "Importovať dáta z aplikácie Referencer"
+msgstr "Importovať dáta z aplikácie Collectorz"
 
 #: src/mainwindow.cpp:414
 #, kde-format
@@ -5820,462 +5806,474 @@ msgid "Import audio CD information"
 msgstr "Importovať informácie zvukového CD"
 
 #: src/mainwindow.cpp:459
+#, fuzzy, kde-format
+#| msgid "Import Goodreads Collection..."
+msgid "Import Discogs Collection..."
+msgstr "Importovať zbierku Goodreads..."
+
+#: src/mainwindow.cpp:460
+#, fuzzy, kde-format
+#| msgid "Import a collection from Goodreads.com"
+msgid "Import a collection from Discogs.com"
+msgstr "Importovať zbierku z Goodreads.com"
+
+#: src/mainwindow.cpp:462
 #, kde-format
 msgid "Import GCstar Data..."
 msgstr "Importovať dáta GCstar..."
 
-#: src/mainwindow.cpp:460
+#: src/mainwindow.cpp:463
 #, kde-format
 msgid "Import a GCstar data file"
 msgstr "Importovať dátový súbor GCstar"
 
-#: src/mainwindow.cpp:463
+#: src/mainwindow.cpp:466
 #, kde-format
 msgid "Import Griffith Data..."
 msgstr "Importovať dáta Griffith..."
 
-#: src/mainwindow.cpp:464
+#: src/mainwindow.cpp:467
 #, kde-format
 msgid "Import a Griffith database"
 msgstr "Importovať databázu Griffith"
 
-#: src/mainwindow.cpp:467
+#: src/mainwindow.cpp:470
 #, kde-format
 msgid "Import Ant Movie Catalog Data..."
 msgstr "Importovať dáta Ant Movie Catalog..."
 
-#: src/mainwindow.cpp:468
+#: src/mainwindow.cpp:471
 #, kde-format
 msgid "Import an Ant Movie Catalog data file"
 msgstr "Importovať dátový súbor Ant Movie Catalog"
 
-#: src/mainwindow.cpp:471
+#: src/mainwindow.cpp:474
 #, kde-format
 msgid "Import BoardGameGeek Collection..."
 msgstr "Importovať zbierku BoardGameGeek..."
 
-#: src/mainwindow.cpp:472
+#: src/mainwindow.cpp:475
 #, kde-format
 msgid "Import a collection from BoardGameGeek.com"
 msgstr "Importovať zbierku z BoardGameGeek.com"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:477
 #, kde-format
 msgid "Import VinoXML..."
 msgstr "Importovať VinoXML..."
 
-#: src/mainwindow.cpp:475
+#: src/mainwindow.cpp:478
 #, kde-format
 msgid "Import VinoXML data"
 msgstr "Importovať dáta VinoXML"
 
-#: src/mainwindow.cpp:477
+#: src/mainwindow.cpp:480
 #, kde-format
 msgid "Import File Listing..."
 msgstr "Importovať výpisu súboru..."
 
-#: src/mainwindow.cpp:478
+#: src/mainwindow.cpp:481
 #, kde-format
 msgid "Import information about files in a folder"
 msgstr "Importovať informácie o súboroch v priečinku"
 
-#: src/mainwindow.cpp:480
+#: src/mainwindow.cpp:483
 #, kde-format
 msgid "Import XSL Transform..."
 msgstr "Importovať XSL transformáciu..."
 
-#: src/mainwindow.cpp:481
+#: src/mainwindow.cpp:484
 #, kde-format
 msgid "Import using an XSL Transform"
 msgstr "Importovať pomocou XSL transformácie"
 
-#: src/mainwindow.cpp:494
+#: src/mainwindow.cpp:497
 #, kde-format
 msgid "&Export"
 msgstr "&Exportovať"
 
-#: src/mainwindow.cpp:496
+#: src/mainwindow.cpp:499
 #, kde-format
 msgid "Export the collection data to other formats"
 msgstr "Exportovať dáta zbierky do iných formátov"
 
-#: src/mainwindow.cpp:512
+#: src/mainwindow.cpp:515
 #, kde-format
 msgid "Export to XML..."
 msgstr "Exportovať do XML..."
 
-#: src/mainwindow.cpp:513
+#: src/mainwindow.cpp:516
 #, kde-format
 msgid "Export to a Tellico XML file"
 msgstr "Exportovať do XML súboru Tellico"
 
-#: src/mainwindow.cpp:516
+#: src/mainwindow.cpp:519
 #, kde-format
 msgid "Export to Zip..."
 msgstr "Exportovať do Zip..."
 
-#: src/mainwindow.cpp:517
+#: src/mainwindow.cpp:520
 #, kde-format
 msgid "Export to a Tellico Zip file"
 msgstr "Exportovať do Zip súboru Tellico"
 
-#: src/mainwindow.cpp:520
+#: src/mainwindow.cpp:523
 #, kde-format
 msgid "Export to HTML..."
 msgstr "Exportovať do HTML..."
 
-#: src/mainwindow.cpp:521
+#: src/mainwindow.cpp:524
 #, kde-format
 msgid "Export to an HTML file"
 msgstr "Exportovať do HTML súboru"
 
-#: src/mainwindow.cpp:523
+#: src/mainwindow.cpp:526
 #, kde-format
 msgid "Export to CSV..."
 msgstr "Exportovať do CSV..."
 
-#: src/mainwindow.cpp:524
+#: src/mainwindow.cpp:527
 #, kde-format
 msgid "Export to a comma-separated values file"
 msgstr "Exportovať do súboru hodnôt oddelených čiarkami"
 
-#: src/mainwindow.cpp:526
+#: src/mainwindow.cpp:529
 #, kde-format
 msgid "Export to Alexandria..."
 msgstr "Exportovať do Alexandria..."
 
-#: src/mainwindow.cpp:527
+#: src/mainwindow.cpp:530
 #, kde-format
 msgid "Export to an Alexandria library"
 msgstr "Exportovať do knižnice Alexandria"
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:533
 #, kde-format
 msgid "Export to Bibtex..."
 msgstr "Exportovať do Bibtex..."
 
-#: src/mainwindow.cpp:531
+#: src/mainwindow.cpp:534
 #, kde-format
 msgid "Export to a bibtex file"
 msgstr "Exportovať do súboru bibtex"
 
-#: src/mainwindow.cpp:533
+#: src/mainwindow.cpp:536
 #, kde-format
 msgid "Export to Bibtexml..."
 msgstr "Exportovať do Bibtexml..."
 
-#: src/mainwindow.cpp:534
+#: src/mainwindow.cpp:537
 #, kde-format
 msgid "Export to a Bibtexml file"
 msgstr "Exportovať do súboru Bibtexml"
 
-#: src/mainwindow.cpp:536
+#: src/mainwindow.cpp:539
 #, kde-format
 msgid "Export to ONIX..."
 msgstr "Exportovať do ONIX..."
 
-#: src/mainwindow.cpp:537
+#: src/mainwindow.cpp:540
 #, kde-format
 msgid "Export to an ONIX file"
 msgstr "Exportovať do súboru ONIX"
 
-#: src/mainwindow.cpp:539
+#: src/mainwindow.cpp:542
 #, kde-format
 msgid "Export to GCstar..."
 msgstr "Exportovať do GCstar..."
 
-#: src/mainwindow.cpp:540
+#: src/mainwindow.cpp:543
 #, kde-format
 msgid "Export to a GCstar data file"
 msgstr "Exportovať do dátového súboru GCstar"
 
-#: src/mainwindow.cpp:543
+#: src/mainwindow.cpp:546
 #, kde-format
 msgid "Export XSL Transform..."
 msgstr "Exportovať XSL transformáciu..."
 
-#: src/mainwindow.cpp:544
+#: src/mainwindow.cpp:547
 #, kde-format
 msgid "Export using an XSL Transform"
 msgstr "Exportovať pomocou XSL transformácie"
 
-#: src/mainwindow.cpp:555
+#: src/mainwindow.cpp:558
 #, kde-format
 msgid "Cut the selected text and puts it in the clipboard"
 msgstr "Vystrihnúť vybraný text a vložiť ho do schránky"
 
-#: src/mainwindow.cpp:557
+#: src/mainwindow.cpp:560
 #, kde-format
 msgid "Copy the selected text to the clipboard"
 msgstr "Skopírovať vybraný text do schránky"
 
-#: src/mainwindow.cpp:559
+#: src/mainwindow.cpp:562
 #, kde-format
 msgid "Paste the clipboard contents"
 msgstr "Vloží obsah schránky"
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:564
 #, kde-format
 msgid "Select all the entries in the collection"
 msgstr "Vybrať všetky položky v zbierke"
 
-#: src/mainwindow.cpp:563
+#: src/mainwindow.cpp:566
 #, kde-format
 msgid "Deselect all the entries in the collection"
 msgstr "Zrušiť výber všetkých položiek v zbierke"
 
-#: src/mainwindow.cpp:566
+#: src/mainwindow.cpp:569
 #, kde-format
 msgid "Advanced &Filter..."
 msgstr "Pokročilý filter..."
 
-#: src/mainwindow.cpp:570 src/mainwindow.cpp:796
+#: src/mainwindow.cpp:573 src/mainwindow.cpp:799
 #, kde-format
 msgid "Filter the collection"
 msgstr "Filtrovať kolekciu"
 
-#: src/mainwindow.cpp:577
+#: src/mainwindow.cpp:580
 #, kde-format
 msgid "&New Entry..."
 msgstr "Nová položka..."
 
-#: src/mainwindow.cpp:579
+#: src/mainwindow.cpp:582
 #, kde-format
 msgid "New Entry"
 msgstr "Nová položka"
 
-#: src/mainwindow.cpp:581
+#: src/mainwindow.cpp:584
 #, kde-format
 msgid "Create a new entry"
 msgstr "Vytvoriť novú položku"
 
-#: src/mainwindow.cpp:583
+#: src/mainwindow.cpp:586
 #, kde-format
 msgid "Add Entry"
 msgstr "Pridať záznam"
 
-#: src/mainwindow.cpp:593
+#: src/mainwindow.cpp:596
 #, kde-format
 msgid "Internet Search..."
 msgstr "Hľadanie na internete..."
 
-#: src/mainwindow.cpp:597
+#: src/mainwindow.cpp:600
 #, kde-format
 msgid "Search the internet..."
 msgstr "Hľadať na internete..."
 
-#: src/mainwindow.cpp:607
+#: src/mainwindow.cpp:610
 #, kde-format
 msgid "Edit the selected entries"
 msgstr "Upraviť vybrané položky"
 
-#: src/mainwindow.cpp:614
+#: src/mainwindow.cpp:617
 #, kde-format
 msgid "Copy the selected entries"
 msgstr "Kopírovať vybrané položky"
 
-#: src/mainwindow.cpp:621
+#: src/mainwindow.cpp:624
 #, kde-format
 msgid "Delete the selected entries"
 msgstr "Vymazať vybrané položky"
 
-#: src/mainwindow.cpp:625
+#: src/mainwindow.cpp:628
 #, kde-format
 msgid "&Merge Entries"
 msgstr "&Zlúčiť položky"
 
-#: src/mainwindow.cpp:629
+#: src/mainwindow.cpp:632
 #, kde-format
 msgid "Merge the selected entries"
 msgstr "Zlúčiť vybrané položky"
 
-#: src/mainwindow.cpp:633
+#: src/mainwindow.cpp:636
 #, kde-format
 msgid "Check-&out..."
 msgstr "Výstupná k&ontrola..."
 
-#: src/mainwindow.cpp:635
+#: src/mainwindow.cpp:638
 #, kde-format
 msgid "Check-out the selected items"
 msgstr "Výstupná kontrola vybraných položiek"
 
-#: src/mainwindow.cpp:638
+#: src/mainwindow.cpp:641
 #, kde-format
 msgid "Check-&in"
 msgstr "&Vstupná kontrola"
 
-#: src/mainwindow.cpp:640
+#: src/mainwindow.cpp:643
 #, kde-format
 msgid "Check-in the selected items"
 msgstr "Vstupná kontrola vybraných položiek"
 
-#: src/mainwindow.cpp:643
+#: src/mainwindow.cpp:646
 #, kde-format
 msgid "&Rename Collection..."
 msgstr "Premenovať zbierku..."
 
-#: src/mainwindow.cpp:646
+#: src/mainwindow.cpp:649
 #, kde-format
 msgid "Rename the collection"
 msgstr "Premenovať zbierku"
 
-#: src/mainwindow.cpp:649
+#: src/mainwindow.cpp:652
 #, kde-format
 msgid "Collection &Fields..."
 msgstr "&Polia zbierky..."
 
-#: src/mainwindow.cpp:650
+#: src/mainwindow.cpp:653
 #, kde-format
 msgid "Fields"
 msgstr "Polia"
 
-#: src/mainwindow.cpp:653
+#: src/mainwindow.cpp:656
 #, kde-format
 msgid "Modify the collection fields"
 msgstr "Zmeniť polia zbierky"
 
-#: src/mainwindow.cpp:656
+#: src/mainwindow.cpp:659
 #, kde-format
 msgid "&Generate Reports..."
 msgstr "&Vytvoriť správy..."
 
-#: src/mainwindow.cpp:657
+#: src/mainwindow.cpp:660
 #, kde-format
 msgid "Reports"
 msgstr "Správy"
 
-#: src/mainwindow.cpp:659
+#: src/mainwindow.cpp:662
 #, kde-format
 msgid "Generate collection reports"
 msgstr "Vytvoriť správy o zbierkach"
 
-#: src/mainwindow.cpp:662
+#: src/mainwindow.cpp:665
 #, kde-format
 msgid "Convert to &Bibliography"
 msgstr "Previesť na &Bibliografiu"
 
-#: src/mainwindow.cpp:664
+#: src/mainwindow.cpp:667
 #, kde-format
 msgid "Convert a book collection to a bibliography"
 msgstr "Previesť zbierku kníh na bibliografiu"
 
-#: src/mainwindow.cpp:667
+#: src/mainwindow.cpp:670
 #, kde-format
 msgid "String &Macros..."
 msgstr "&Makrá reťazcov..."
 
-#: src/mainwindow.cpp:669
+#: src/mainwindow.cpp:672
 #, kde-format
 msgid "Edit the bibtex string macros"
 msgstr "Upraviť makrá reťazcov bibtex."
 
-#: src/mainwindow.cpp:672
+#: src/mainwindow.cpp:675
 #, kde-format
 msgid "Check for Duplicate Keys..."
 msgstr "Skontrolovať duplicitné kľúče..."
 
-#: src/mainwindow.cpp:674
+#: src/mainwindow.cpp:677
 #, kde-format
 msgid "Check for duplicate citation keys"
 msgstr "Skontrolovať duplicitné kľúče"
 
-#: src/mainwindow.cpp:684
+#: src/mainwindow.cpp:687
 #, kde-format
 msgid "Copy Bibtex to Cli&pboard"
 msgstr "Ko&pírovať Bibtex do schránky"
 
-#: src/mainwindow.cpp:685
+#: src/mainwindow.cpp:688
 #, kde-format
 msgid "Copy bibtex citations to the clipboard"
 msgstr "Kopírovať citácie bibtex do schránky"
 
-#: src/mainwindow.cpp:690
+#: src/mainwindow.cpp:693
 #, kde-format
 msgid "Cite Entry in &LyX"
 msgstr "Citovať položku v &LyX"
 
-#: src/mainwindow.cpp:691
+#: src/mainwindow.cpp:694
 #, kde-format
 msgid "Cite the selected entries in LyX"
 msgstr "Citovať vybrané položky v LyX"
 
-#: src/mainwindow.cpp:707
+#: src/mainwindow.cpp:710
 #, kde-format
 msgctxt "Update Entry"
 msgid "Update"
 msgstr "Aktualizovať"
 
-#: src/mainwindow.cpp:716
+#: src/mainwindow.cpp:719
 #, kde-format
 msgid "All Sources"
 msgstr "Všetky zdroje"
 
-#: src/mainwindow.cpp:717
+#: src/mainwindow.cpp:720
 #, kde-format
 msgid "Update entry data from all available sources"
 msgstr "Aktualizovať dáta položiek zo všetkých dostupných zdrojov"
 
-#: src/mainwindow.cpp:728
+#: src/mainwindow.cpp:731
 #, kde-format
 msgid "Unlock Layout"
 msgstr "Odomknúť rozloženie"
 
-#: src/mainwindow.cpp:729
+#: src/mainwindow.cpp:732
 #, kde-format
 msgid "Unlock the window's layout"
 msgstr "Odomknúť rozloženie okien"
 
-#: src/mainwindow.cpp:731
+#: src/mainwindow.cpp:734
 #, kde-format
 msgid "Lock Layout"
 msgstr "Zamknúť rozloženie"
 
-#: src/mainwindow.cpp:732
+#: src/mainwindow.cpp:735
 #, kde-format
 msgid "Lock the window's layout"
 msgstr "Zamknúť rozloženie okien"
 
-#: src/mainwindow.cpp:737
+#: src/mainwindow.cpp:740
 #, kde-format
 msgid "Reset Layout"
-msgstr "Obnoviť rozloženie"
+msgstr "Vynulovať rozloženie"
 
-#: src/mainwindow.cpp:738
+#: src/mainwindow.cpp:741
 #, kde-format
 msgid "Reset the window's layout"
 msgstr "Obnoviť rozloženie okien"
 
-#: src/mainwindow.cpp:741
+#: src/mainwindow.cpp:744
 #, kde-format
 msgid "Entry &Editor"
 msgstr "Editor položiek"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:746
 #, kde-format
 msgid "Enable/disable the editor"
 msgstr "Povoliť/zakázať editor"
 
-#: src/mainwindow.cpp:763
+#: src/mainwindow.cpp:766
 #, kde-format
 msgid "Change Grouping"
 msgstr "Zmeniť zoskupenie"
 
-#: src/mainwindow.cpp:766
+#: src/mainwindow.cpp:769
 #, kde-format
 msgid "&Group Selection"
 msgstr "&Výber skupiny"
 
-#: src/mainwindow.cpp:767
+#: src/mainwindow.cpp:770
 #, kde-format
 msgid "Change the grouping of the collection"
 msgstr "Zmeniť zoskupenie zbierky"
 
-#: src/mainwindow.cpp:781
+#: src/mainwindow.cpp:784
 #, kde-format
 msgid "Filter here..."
 msgstr "Filtrovať tu..."
 
-#: src/mainwindow.cpp:846 src/mainwindow.cpp:849
+#: src/mainwindow.cpp:849 src/mainwindow.cpp:852
 #, kde-format
 msgid ""
 "<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</"
@@ -6283,12 +6281,12 @@ msgid ""
 msgstr ""
 "<qt><i>Pohľad položky</i> ukazuje formátované zobrazenie obsahu položky.</qt>"
 
-#: src/mainwindow.cpp:855
+#: src/mainwindow.cpp:858
 #, kde-format
 msgid "Collection View"
 msgstr "Pohľad zbierky"
 
-#: src/mainwindow.cpp:862
+#: src/mainwindow.cpp:865
 #, kde-format
 msgid ""
 "<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
@@ -6297,17 +6295,17 @@ msgstr ""
 "<qt><i>Stĺpcový pohľad</i>ukazuje hodnotu viacnásobných polí pre každú "
 "položku.</qt>"
 
-#: src/mainwindow.cpp:879
+#: src/mainwindow.cpp:882
 #, kde-format
 msgid "Group View"
 msgstr "Skupinový pohľad"
 
-#: src/mainwindow.cpp:888
+#: src/mainwindow.cpp:891
 #, kde-format
 msgid "Groups"
 msgstr "Skupiny"
 
-#: src/mainwindow.cpp:889
+#: src/mainwindow.cpp:892
 #, kde-format
 msgid ""
 "<qt>The <i>Group View</i> sorts the entries into groupings based on a "
@@ -6316,12 +6314,12 @@ msgstr ""
 "<qt><i>Skupinový pohľad</i> triedi položky do zoskupení na základe vybraného "
 "poľa.</qt>"
 
-#: src/mainwindow.cpp:964
+#: src/mainwindow.cpp:967
 #, kde-format
 msgid "Welcome to the Tellico Collection Manager"
 msgstr "Vitajte v správcovi zbierok Tellico"
 
-#: src/mainwindow.cpp:966
+#: src/mainwindow.cpp:969
 #, kde-format
 msgid ""
 "<h3>Tellico is a tool for managing collections of books, videos, music, and "
@@ -6336,7 +6334,7 @@ msgstr ""
 "alebo <a href=\"tc:///edit_search_internet\">sťiahnutím údajov</a> z rôznych "
 "internetových zdrojov.</h3>"
 
-#: src/mainwindow.cpp:1165
+#: src/mainwindow.cpp:1168
 #, kde-format
 msgid ""
 "The current file has been modified.\n"
@@ -6345,23 +6343,23 @@ msgstr ""
 "Aktuálny súbor bol zmenený.\n"
 "Chcete ho uložiť?"
 
-#: src/mainwindow.cpp:1221 src/mainwindow.cpp:1254
+#: src/mainwindow.cpp:1224 src/mainwindow.cpp:1257
 #, fuzzy, kde-format
 #| msgid "Create a new collection"
 msgid "Creating new collection..."
 msgstr "Vytvoriť novú kolekciu"
 
-#: src/mainwindow.cpp:1274 src/mainwindow.cpp:1297 src/mainwindow.cpp:1315
+#: src/mainwindow.cpp:1277 src/mainwindow.cpp:1300 src/mainwindow.cpp:1318
 #, kde-format
 msgid "Opening file..."
 msgstr "Otvára sa súbor..."
 
-#: src/mainwindow.cpp:1285
+#: src/mainwindow.cpp:1288
 #, kde-format
 msgid "Open File"
 msgstr "Otvoriť súbor"
 
-#: src/mainwindow.cpp:1406
+#: src/mainwindow.cpp:1409
 #, kde-format
 msgid ""
 "<qt><p>You are saving a file with many images, which causes Tellico to slow "
@@ -6374,32 +6372,32 @@ msgstr ""
 "zlepšenie výkonu?</p><p>Vaša voľba môže byť vždy zmenená v konfiguračnom "
 "dialógu.</p></qt>"
 
-#: src/mainwindow.cpp:1411
+#: src/mainwindow.cpp:1414
 #, kde-format
 msgid "Save Images Separately"
 msgstr "Uložiť obrázky oddelene"
 
-#: src/mainwindow.cpp:1412
+#: src/mainwindow.cpp:1415
 #, kde-format
 msgid "Save Images in File"
 msgstr "Uložiť obrázky v súbore"
 
-#: src/mainwindow.cpp:1452
+#: src/mainwindow.cpp:1455
 #, kde-format
 msgid "Saving file with a new filename..."
 msgstr "Ukladá sa súbor pod novým menom..."
 
-#: src/mainwindow.cpp:1461
+#: src/mainwindow.cpp:1464
 #, kde-format
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: src/mainwindow.cpp:1527
+#: src/mainwindow.cpp:1530
 #, kde-format
 msgid "Printing..."
 msgstr "Tlač..."
 
-#: src/mainwindow.cpp:1531
+#: src/mainwindow.cpp:1534
 #, kde-format
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
@@ -6408,27 +6406,27 @@ msgstr ""
 "Zbierka je v momentálne odfiltrovaná a ukazuje obmedzenú podmnožinu "
 "položiek. Vytlačené budú iba viditeľné položky. Pokračovať?"
 
-#: src/mainwindow.cpp:1554
+#: src/mainwindow.cpp:1557
 #, kde-format
 msgid "Exiting..."
 msgstr "Ukončujem..."
 
-#: src/mainwindow.cpp:1660
+#: src/mainwindow.cpp:1663
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "(%1 filtrovaných; %2 vybraných)"
 
-#: src/mainwindow.cpp:1663
+#: src/mainwindow.cpp:1666
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "(%1 filtrované)"
 
-#: src/mainwindow.cpp:1666
+#: src/mainwindow.cpp:1669
 #, kde-format
 msgid "(%1 selected)"
 msgstr "(%1 vybrané)"
 
-#: src/mainwindow.cpp:1805 src/translators/boardgamegeekimporter.cpp:98
+#: src/mainwindow.cpp:1808 src/translators/boardgamegeekimporter.cpp:98
 #: src/translators/gcstarimporter.cpp:264
 #: src/translators/goodreadsimporter.cpp:111
 #: src/translators/xsltimporter.cpp:92
@@ -6436,57 +6434,57 @@ msgstr "(%1 vybrané)"
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Nastala chyba v spracovaní XSLT v Tellico."
 
-#: src/mainwindow.cpp:1937
+#: src/mainwindow.cpp:1940
 #, kde-format
 msgid "Importing data..."
 msgstr "Importujem dáta..."
 
-#: src/mainwindow.cpp:1948
+#: src/mainwindow.cpp:1951
 #, kde-format
 msgid "Import File"
 msgstr "Importovať súbor"
 
-#: src/mainwindow.cpp:1961
+#: src/mainwindow.cpp:1964
 #, kde-format
 msgid "Import Directory"
 msgstr "Adresár importu"
 
-#: src/mainwindow.cpp:1985
+#: src/mainwindow.cpp:1988
 #, kde-format
 msgid "Exporting data..."
 msgstr "Exportovanie údajov..."
 
-#: src/mainwindow.cpp:2008
+#: src/mainwindow.cpp:2011
 #, kde-format
 msgid "Export As"
 msgstr "Exportovať ako"
 
-#: src/mainwindow.cpp:2036
+#: src/mainwindow.cpp:2039
 #, kde-format
 msgid "String Macros"
 msgstr "Makrá reťazcov"
 
-#: src/mainwindow.cpp:2037
+#: src/mainwindow.cpp:2040
 #, kde-format
 msgid "Macro"
 msgstr "Makro"
 
-#: src/mainwindow.cpp:2037
+#: src/mainwindow.cpp:2040
 #, kde-format
 msgid "String"
 msgstr "Reťazec"
 
-#: src/mainwindow.cpp:2123
+#: src/mainwindow.cpp:2126
 #, kde-format
 msgid "Creating citations..."
 msgstr "Vytváram citácie..."
 
-#: src/mainwindow.cpp:2233
+#: src/mainwindow.cpp:2236
 #, kde-format
 msgid "Filters"
 msgstr "Filtre"
 
-#: src/mainwindow.cpp:2234
+#: src/mainwindow.cpp:2237
 #, kde-format
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
@@ -6495,12 +6493,12 @@ msgstr ""
 "<qt>The <i>Pohľad filtra</i> ukazuje položky, ktoré spĺňajú určité pravidlá "
 "filtra.</qt>"
 
-#: src/mainwindow.cpp:2257
+#: src/mainwindow.cpp:2260
 #, kde-format
 msgid "Loans"
 msgstr "Pôžičky"
 
-#: src/mainwindow.cpp:2258
+#: src/mainwindow.cpp:2261
 #, kde-format
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
@@ -6509,7 +6507,7 @@ msgstr ""
 "<qt><i>Pohľad pôžičky</i> ukazuje zoznam všetkých ľudí, ktorí si požičali "
 "položky z vašej zbierky.</qt>"
 
-#: src/mainwindow.cpp:2345
+#: src/mainwindow.cpp:2348
 #, kde-format
 msgid ""
 "Some images are not saved in the configured location. The current file must "
@@ -6518,12 +6516,12 @@ msgstr ""
 "Niektoré obrázky nie sú uložené do nastaveného miesta. Aktuálny súbor musí "
 "byť uložený a obrázky budú premiestnené do nového umiestnenia."
 
-#: src/mainwindow.cpp:2386
+#: src/mainwindow.cpp:2389
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "Aktualizovať dáta položky z %1"
 
-#: src/mainwindow.cpp:2405
+#: src/mainwindow.cpp:2408
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
@@ -6624,11 +6622,9 @@ msgstr "&Súbor"
 
 #. i18n: ectx: Menu (file_new_collection)
 #: src/tellicoui.rc:8
-#, fuzzy, kde-format
-#| msgctxt "@title:menu"
-#| msgid "&Collection"
+#, kde-format
 msgid "&New Collection"
-msgstr "Zbierka"
+msgstr "Nová kolekcia"
 
 #. i18n: ectx: Menu (file_import)
 #: src/tellicoui.rc:27
@@ -6638,48 +6634,48 @@ msgid "&Import"
 msgstr "&Importovať"
 
 #. i18n: ectx: Menu (file_export)
-#: src/tellicoui.rc:61
+#: src/tellicoui.rc:62
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Export"
 msgstr "&Exportovať"
 
 #. i18n: ectx: Menu (collection)
-#: src/tellicoui.rc:81
+#: src/tellicoui.rc:82
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Collection"
-msgstr "Zbierka"
+msgstr "Kolekcia"
 
 #. i18n: ectx: Menu (coll_update_entry)
-#: src/tellicoui.rc:88
+#: src/tellicoui.rc:89
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Update Entry"
 msgstr "Aktualizovať položku"
 
 #. i18n: ectx: Menu (coll_bibliography)
-#: src/tellicoui.rc:102
+#: src/tellicoui.rc:103
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Bibliography"
 msgstr "&Bibliografia"
 
 #. i18n: ectx: Menu (dockers)
-#: src/tellicoui.rc:112
+#: src/tellicoui.rc:113
 #, kde-format
 msgctxt "@title:menu"
 msgid "&Show Views"
 msgstr "Zobraziť pohľady"
 
 #. i18n: ectx: ToolBar (mainToolBar)
-#: src/tellicoui.rc:128
+#: src/tellicoui.rc:129
 #, kde-format
 msgid "Main Toolbar"
 msgstr "Hlavný panel nástrojov"
 
 #. i18n: ectx: ToolBar (collectionToolBar)
-#: src/tellicoui.rc:135
+#: src/tellicoui.rc:136
 #, kde-format
 msgid "Collection Toolbar"
 msgstr "Panel nástrojov zbierky"
@@ -6893,6 +6889,7 @@ msgid "A valid XSLT file is needed to import the file."
 msgstr "Je potrebný platný XSLT súbor na import súboru."
 
 #: src/translators/boardgamegeekimporter.cpp:92
+#: src/translators/discogsimporter.cpp:80
 #: src/translators/goodreadsimporter.cpp:105
 #, kde-format
 msgid "A valid user ID must be entered."
@@ -6909,10 +6906,11 @@ msgid "Import owned items only"
 msgstr "Exportovať iba vlastné položky"
 
 #: src/translators/boardgamegeekimporter.cpp:255
+#: src/translators/discogsimporter.cpp:199
 #: src/translators/goodreadsimporter.cpp:154
 #, kde-format
 msgid "User ID:"
-msgstr "ID používateľa:"
+msgstr "ID užívateľa:"
 
 #: src/translators/csvexporter.cpp:60
 #, kde-format
@@ -7107,6 +7105,12 @@ msgstr "Revízia"
 msgid "<New Field>"
 msgstr "<Nové pole>"
 
+#: src/translators/discogsimporter.cpp:191
+#, fuzzy, kde-format
+#| msgid "Discogs Link"
+msgid "Discogs Options"
+msgstr "Odkaz Discogs"
+
 #: src/translators/filelistingimporter.cpp:82
 #, kde-format
 msgid "Scanning files..."
@@ -7273,12 +7277,12 @@ msgstr ""
 "Exportujte is svoju LibraryThing kolekciu vo <a href=\"https://www."
 "librarything.com/export.php?export_type=json\">formáte JSON</a>."
 
-#: src/translators/librarythingimporter.cpp:185
+#: src/translators/librarythingimporter.cpp:187
 #, kde-format
 msgid "JSON Files"
 msgstr "JSON súbory"
 
-#: src/translators/librarythingimporter.cpp:190
+#: src/translators/librarythingimporter.cpp:192
 #, kde-format
 msgid "LibraryThing file:"
 msgstr "LibraryThing súbor:"
@@ -7297,9 +7301,10 @@ msgid "MARC Options"
 msgstr "Voľby pre CSV"
 
 #: src/translators/marcimporter.cpp:156
-#, kde-format
+#, fuzzy, kde-format
+#| msgid "Query character set: "
 msgid "Character set:"
-msgstr "Znaková sada:"
+msgstr "Znaková sada dopytov:"
 
 #: src/translators/marcimporter.cpp:161
 #, fuzzy, kde-format
@@ -7352,7 +7357,7 @@ msgstr ""
 "CrossRef.org. Avšak, musíte vytvoriť účet CrossRef a pridať nový zdroj dát s "
 "informáciami o vašom účte."
 
-#: src/translators/risimporter.cpp:335
+#: src/translators/risimporter.cpp:337
 #, kde-format
 msgid "PDF"
 msgstr "PDF"
@@ -7367,22 +7372,22 @@ msgstr "Súbor je prázdny."
 msgid "The file contains no collection data."
 msgstr "Súbor neobsahuje žiadne dáta zbierky."
 
-#: src/translators/tellicoxmlexporter.cpp:67
+#: src/translators/tellicoxmlexporter.cpp:68
 #, kde-format
 msgid "XML"
 msgstr "XML"
 
-#: src/translators/tellicoxmlexporter.cpp:540
+#: src/translators/tellicoxmlexporter.cpp:543
 #, kde-format
 msgid "Tellico XML Options"
 msgstr "XML možnosti Tellico"
 
-#: src/translators/tellicoxmlexporter.cpp:543
+#: src/translators/tellicoxmlexporter.cpp:546
 #, kde-format
 msgid "Include images in XML document"
 msgstr "Zahrnúť obrázky v dokumente XML"
 
-#: src/translators/tellicoxmlexporter.cpp:545
+#: src/translators/tellicoxmlexporter.cpp:548
 #, kde-format
 msgid ""
 "If checked, the images in the document will be included in the XML stream as "
@@ -7706,9 +7711,6 @@ msgstr "Vyčistiť"
 #~ msgid "Click to download additional data sources."
 #~ msgstr "Kliknúť pre stiahnutie dodatočných dátových zdrojov."
 
-#~ msgid "Edit..."
-#~ msgstr "Upraviť..."
-
 #~ msgid ""
 #~ "%1 requires the network request to include identification.\n"
 #~ "Check the network configuration in KDE System Settings."
@@ -7716,8 +7718,14 @@ msgstr "Vyčistiť"
 #~ "%1 vyžaduje, aby sieťová požiadavka obsahovala identifikáciu.\n"
 #~ "Skontrolujte konfiguráciu siete v systémových nastaveniach KDE."
 
+#~ msgid "Edit..."
+#~ msgstr "Upraviť..."
+
 #~ msgid "Creating new document..."
 #~ msgstr "Vytváram nový dokument..."
+
+#~ msgid "Denomination"
+#~ msgstr "Označenie"
 
 #~ msgid ""
 #~ "Data provided by <a href=\"https://www.booknetcanada.ca/biblioshare\">BNC "
@@ -7747,25 +7755,11 @@ msgstr "Vyčistiť"
 #~ "Táto informácia bola poskytnutá od <a href=\"https://mobygames.com"
 #~ "\">MobyGames</a>."
 
-#, fuzzy
-#~| msgid ""
-#~| "This information was freely provided by <a href=\"https://mobygames.com"
-#~| "\">MobyGames</a>."
-#~ msgid ""
-#~ "This information was freely provided by <a href=\"https://tvmaze.com"
-#~ "\">TVmaze</a>."
-#~ msgstr ""
-#~ "Táto informácia bola poskytnutá od <a href=\"https://mobygames.com"
-#~ "\">MobyGames</a>."
-
 #~ msgid "Processing document..."
 #~ msgstr "Spracúvam dokument..."
 
 #~ msgid "&New"
 #~ msgstr "&Nové"
-
-#~ msgid "Denomination"
-#~ msgstr "Označenie"
 
 #, fuzzy
 #~| msgid "Groups"

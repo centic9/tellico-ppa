@@ -47,7 +47,7 @@ ecm_add_test(formattest.cpp ../fieldformat.cpp
     LINK_LIBRARIES Qt5::Test config
 )
 
-ecm_add_test(fieldtest.cpp ../field.cpp ../fieldformat.cpp ../gui/urlfieldlogic.cpp
+ecm_add_test(fieldtest.cpp ../field.cpp ../fieldformat.cpp
     TEST_NAME fieldtest
     LINK_LIBRARIES Qt5::Test config utils
 )
@@ -280,11 +280,16 @@ ecm_add_test(datacrowtest.cpp
     LINK_LIBRARIES ${TELLICO_TEST_LIBS} translatorstest
 )
 
-
 ecm_add_test(delicioustest.cpp
              ../translators/deliciousimporter.cpp
     TEST_NAME delicioustest
     LINK_LIBRARIES ${TELLICO_TEST_LIBS} translatorstest rtf2html-tellico
+)
+
+ecm_add_test(discogstest.cpp
+             ../translators/discogsimporter.cpp
+    TEST_NAME discogstest
+    LINK_LIBRARIES ${TELLICO_TEST_LIBS} translatorstest
 )
 
 ecm_add_test(fieldwidgettest.cpp
@@ -301,7 +306,6 @@ ecm_add_test(fieldwidgettest.cpp
              ../gui/ratingfieldwidget.cpp
              ../gui/tablefieldwidget.cpp
              ../gui/urlfieldwidget.cpp
-             ../gui/urlfieldlogic.cpp
              ../gui/fieldwidget.cpp
              ../document.cpp
              ../fieldcompletion.cpp
@@ -500,6 +504,13 @@ ecm_add_test(entryupdatejobtest.cpp
              ../entryupdatejob.cpp
              ../fetch/arxivfetcher.cpp
     TEST_NAME entryupdatejobtest
+    LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
+)
+
+ecm_add_test(adsfetchertest.cpp
+             ../fetch/adsfetcher.cpp
+             ../translators/risimporter.cpp
+    TEST_NAME adsfetchertest
     LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
 )
 
@@ -838,6 +849,12 @@ ecm_add_test(upcitemdbfetchertest.cpp
              ../translators/bibteximporter.cpp
     TEST_NAME upcitemdbfetchertest
     LINK_LIBRARIES fetcherstest translatorstest ${TELLICO_BTPARSE_LIBS} ${TELLICO_TEST_LIBS}
+)
+
+ecm_add_test(vgcollectfetchertest.cpp
+             ../fetch/vgcollectfetcher.cpp
+    TEST_NAME vgcollectfetchertest
+    LINK_LIBRARIES fetcherstest ${TELLICO_TEST_LIBS}
 )
 
 ecm_add_test(videogamegeekfetchertest.cpp

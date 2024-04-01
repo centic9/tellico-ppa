@@ -1,0 +1,55 @@
+# Copyright (C) 2024 Scarlett Moore
+# SPDX-License-Identifier: GPL-2.0-only
+# vim:syntax=apparmor
+# AppArmor policy for tellico
+abi <abi/4.0>,
+
+include <tunables/global>
+
+profile tellico /usr/bin/tellico {
+#  include <abstractions/kde>
+  include <abstractions/kde-globals-write>
+  include <abstractions/kde-icon-cache-write>
+  include <abstractions/kde-language-write>
+#  include <abstractions/kde-open5>
+  include <abstractions/qt5>
+  include <abstractions/qt5-compose-cache-write>
+  include <abstractions/qt5-settings-write>
+  include <abstractions/dbus-session>
+
+  capability,
+  userns,
+  network,
+  dbus,
+  mount,
+  umount,
+  remount,
+  signal,
+  mqueue,
+  unix,
+  ptrace,
+
+  /usr/lib/x86_64-linux-gnu/qt5/libexec/QtWebEngineProcess cx -> &tellico//QtWebEngineProcess,
+  /** pux,
+  /{,**} mrwlk,
+
+  profile QtWebEngineProcess {
+    capability,
+    userns,
+    network,
+    dbus,
+    mount,
+    umount,
+    remount,
+    signal,
+    mqueue,
+    unix,
+    ptrace,
+    /** pux,
+    /{,**} mrwlk,
+  }
+
+  # Site-specific additions and overrides.  See local/README for details.
+  include if exists <local/tellico>
+
+}

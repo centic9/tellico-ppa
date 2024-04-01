@@ -82,7 +82,7 @@ int EntryComparison::score(const Tellico::Data::EntryPtr& e1, const Tellico::Dat
     QUrl us2 = QUrl::fromUserInput(s2);
     us1.setHost(QString());
     us2.setHost(QString());
-    return (us1 == us2) ? MATCH_VALUE_STRONG : MATCH_VALUE_NONE;
+    return (us1 == us2) ? MATCH_VALUE_STRONG : MATCH_VALUE_BAD;
   }
   if(f->formatType() == FieldFormat::FormatName) {
     const QString s1n = e1->formattedField(f, FieldFormat::ForceFormat);
@@ -111,8 +111,7 @@ int EntryComparison::score(const Tellico::Data::EntryPtr& e1, const Tellico::Dat
 //    FieldFormat::stripArticles(s2);
     const QString s1t = e1->formattedField(f, FieldFormat::ForceFormat);
     const QString s2t = e2->formattedField(f, FieldFormat::ForceFormat);
-    if(s1t == s2t) {
-//    if(!s1.isEmpty() && s1 == s2) {
+    if(s1t.compare(s2t, Qt::CaseInsensitive) == 0) {
       // let this one fall through if no match, without returning 0
       return MATCH_VALUE_WEAK;
     }
@@ -143,5 +142,5 @@ int EntryComparison::score(const Tellico::Data::EntryPtr& e1, const Tellico::Dat
 //    myDebug() << "match without punctuation";
     return MATCH_VALUE_STRONG;
   }
-  return MATCH_VALUE_NONE;
+  return MATCH_VALUE_BAD;
 }

@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: GPL-2.0-only
 # vim:syntax=apparmor
 # AppArmor policy for tellico
-abi <abi/4.0>,
 
+abi <abi/4.0>,
 include <tunables/global>
 
 profile tellico /usr/bin/tellico {
@@ -30,6 +30,8 @@ profile tellico /usr/bin/tellico {
   ptrace,
 
   /usr/lib/x86_64-linux-gnu/qt5/libexec/QtWebEngineProcess cx -> &tellico//QtWebEngineProcess,
+  /usr/lib/aarch64-linux-gnu/qt5/libexec/QtWebEngineProcess cx -> &tellico//QtWebEngineProcess,
+  /usr/lib/arm-linux-gnueabihf/qt5/libexec/QtWebEngineProcess cx -> &tellico//QtWebEngineProcess,
   /** pux,
   /{,**} mrwlk,
 
@@ -51,5 +53,4 @@ profile tellico /usr/bin/tellico {
 
   # Site-specific additions and overrides.  See local/README for details.
   include if exists <local/tellico>
-
 }

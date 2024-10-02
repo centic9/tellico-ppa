@@ -30,7 +30,11 @@
 #include <KRandom>
 
 #include <QRegularExpression>
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <QTextCodec>
+#else
+#include <QStringConverter>
+#endif
 #include <QVariant>
 #include <QCache>
 #include <QRandomGenerator>
@@ -43,7 +47,7 @@ namespace {
   public:
     explicit StringIterator(QStringView string) : pos(string.begin()), e(string.end()) {}
     inline bool hasNext() const { return pos < e; }
-    inline uint next() {
+    inline char32_t next() {
       Q_ASSERT(hasNext());
       const QChar uc = *pos++;
       if(uc.isSurrogate()) {
@@ -73,6 +77,27 @@ QString Tellico::uid(int l, bool prefix) {
   return uid;
 }
 
+int Tellico::toInt(const QString& s, bool* ok) {
+  if(s.isEmpty()) {
+    if(ok) {
+      *ok = false;
+    }
+    return 0;
+  }
+
+  int idx = 0;
+  while(idx < s.length() && s[idx].isDigit()) {
+    ++idx;
+  }
+  if(idx == 0) {
+    if(ok) {
+      *ok = false;
+    }
+    return 0;
+  }
+  return s.left(idx).toInt(ok);
+}
+
 uint Tellico::toUInt(const QString& s, bool* ok) {
   if(s.isEmpty()) {
     if(ok) {
@@ -91,13 +116,12 @@ uint Tellico::toUInt(const QString& s, bool* ok) {
     }
     return 0;
   }
-  return s.leftRef(idx).toUInt(ok);
+  return s.left(idx).toUInt(ok);
 }
 
 QString Tellico::i18nReplace(QString text) {
   // Because QDomDocument sticks in random newlines, go ahead and grab them too
-  static QRegularExpression rx(QStringLiteral("(?:\\n+ *)*<i18n>(.*?)</i18n>(?: *\\n+)*"),
-                               QRegularExpression::OptimizeOnFirstUsageOption);
+  static QRegularExpression rx(QStringLiteral("(?:\\n+ *)*<i18n>(.*?)</i18n>(?: *\\n+)*"));
   QRegularExpressionMatch match = rx.match(text);
   while(match.hasMatch()) {
     // KDE bug 254863, be sure to escape just in case of spurious & entities
@@ -141,9 +165,15 @@ QString Tellico::minutes(int seconds) {
 }
 
 QString Tellico::fromHtmlData(const QByteArray& data_, const char* codecName) {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QTextCodec* codec = codecName ? QTextCodec::codecForHtml(data_, QTextCodec::codecForName(codecName))
                                 : QTextCodec::codecForHtml(data_);
   return codec->toUnicode(data_);
+#else
+  QStringDecoder decoder = QStringDecoder::decoderForHtml(data_);
+  if(!decoder.isValid()) decoder = QStringDecoder(codecName);
+  return decoder.decode(data_);
+#endif
 }
 
 QString Tellico::removeAccents(const QString& value_) {
@@ -166,51 +196,6 @@ QString Tellico::removeAccents(const QString& value_) {
   const QString value2 = value_.normalized(QString::NormalizationForm_D).remove(rx);
   stringCache.insert(value_, new QString(value2));
   return value2;
-}
-
-QString Tellico::mapValue(const QVariantMap& map, const char* name) {
-  const QVariant v = map.value(QLatin1String(name));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::String)) {
-    return v.toString();
-  } else if(v.canConvert(QVariant::StringList)) {
-    return v.toStringList().join(FieldFormat::delimiterString());
-  } else if(v.canConvert(QVariant::Map)) {
-    // FilmasterFetcher, OpenLibraryFetcher and VNDBFetcher depend on the default "value" field
-    return v.toMap().value(QStringLiteral("value")).toString();
-  } else {
-    return QString();
-  }
-}
-
-QString Tellico::mapValue(const QVariantMap& map, const char* name1, const char* name2) {
-  const QVariant v = map.value(QLatin1String(name1));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::Map)) {
-    return mapValue(v.toMap(), name2);
-  } else if(v.canConvert(QVariant::List)) {
-    QStringList values;
-    foreach(QVariant v, v.toList()) {
-      const QString s = mapValue(v.toMap(), name2);
-      if(!s.isEmpty()) values += s;
-    }
-    return values.join(FieldFormat::delimiterString());
-  } else {
-    return QString();
-  }
-}
-
-QString Tellico::mapValue(const QVariantMap& map, const char* name1, const char* name2, const char* name3) {
-  const QVariant v = map.value(QLatin1String(name1));
-  if(v.isNull())  {
-    return QString();
-  } else if(v.canConvert(QVariant::Map)) {
-    return mapValue(v.toMap(), name2, name3);
-  } else {
-    return QString();
-  }
 }
 
 QByteArray Tellico::obfuscate(const QString& string) {
@@ -251,4 +236,15 @@ QString Tellico::removeControlCodes(const QString& string) {
     }
   }
   return result;
+}
+
+QByteArray Tellico::localeEncodingName() {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+  return QTextCodec::codecForLocale()->name();
+#else
+// Bug 493180: QStringConverter::nameForEncoding(QStringConverter::System) returns "Locale" which is not what we want
+// return UTF-8 instead
+  const auto encName = QStringConverter::nameForEncoding(QStringConverter::System);
+  return (qstrcmp(encName, "Locale") == 0) ? "UTF-8" : encName;
+#endif
 }

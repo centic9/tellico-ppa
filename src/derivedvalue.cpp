@@ -35,11 +35,10 @@ using Tellico::Data::DerivedValue;
 
 const QRegularExpression DerivedValue::s_templateFieldsRx(QLatin1String("%\\{([^:]+):?.*?\\}"));
 
-DerivedValue::DerivedValue(const QString& valueTemplate_) : m_valueTemplate(valueTemplate_)
-    , m_keyRx(QLatin1String("^([^:]+):?(-?\\d*)/?(.*)$")) {
+DerivedValue::DerivedValue(const QString& valueTemplate_) : m_valueTemplate(valueTemplate_) {
 }
 
-DerivedValue::DerivedValue(FieldPtr field_) : m_keyRx(QLatin1String("^([^:]+):?(-?\\d*)/?(.*)$")) {
+DerivedValue::DerivedValue(FieldPtr field_) {
   Q_ASSERT(field_);
   if(!field_->hasFlag(Field::Derived)) {
     myWarning() << "using DerivedValue for non-derived field";
@@ -102,23 +101,27 @@ QString DerivedValue::value(EntryPtr entry_, bool formatted_) const {
     if(m_valueTemplate.at(pctPos+1) == QLatin1Char('{')) {
       endPos = m_valueTemplate.indexOf(QLatin1Char('}'), pctPos+2);
       if(endPos > -1) {
-        result += m_valueTemplate.midRef(curPos, pctPos-curPos)
+        result += m_valueTemplate.mid(curPos, pctPos-curPos)
                 + templateKeyValue(entry_, m_valueTemplate.mid(pctPos+2, endPos-pctPos-2), formatted_);
         curPos = endPos+1;
       } else {
         break;
       }
     } else {
-      result += m_valueTemplate.midRef(curPos, pctPos-curPos+1);
+      result += m_valueTemplate.mid(curPos, pctPos-curPos+1);
       curPos = pctPos+1;
     }
     pctPos = m_valueTemplate.indexOf(QLatin1Char('%'), curPos);
   }
-  result += m_valueTemplate.midRef(curPos, m_valueTemplate.length()-curPos);
+  result += m_valueTemplate.mid(curPos, m_valueTemplate.length()-curPos);
 //  myDebug() << "format_ << " = " << result;
   // sometimes field value might empty, resulting in multiple consecutive white spaces
   // so let's simplify that...
   return result.simplified();
+}
+
+void DerivedValue::initRegularExpression() const {
+  m_keyRx.setPattern(QLatin1String("^([^:]+):?(-?\\d*)/?(.*)$"));
 }
 
 // format is something like "%{year} %{author}"
@@ -138,6 +141,9 @@ QString DerivedValue::templateKeyValue(EntryPtr entry_, const QString& key_, boo
     return QString::number(entry_->id());
   }
 
+  if(m_keyRx.pattern().isEmpty()) {
+    initRegularExpression();
+  }
   auto match = m_keyRx.match(key_);
   if(!match.hasMatch()) {
     myDebug() << "unmatched regexp for" << key_;

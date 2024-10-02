@@ -25,10 +25,8 @@
 #include "entrymodel.h"
 #include "models.h"
 #include "../collection.h"
-#include "../collectionfactory.h"
 #include "../entry.h"
 #include "../field.h"
-#include "../document.h"
 #include "../images/image.h"
 #include "../images/imagefactory.h"
 #include "../tellico_debug.h"
@@ -44,7 +42,7 @@ using namespace Tellico;
 using Tellico::EntryModel;
 
 EntryModel::EntryModel(QObject* parent) : QAbstractItemModel(parent),
-    m_imagesAreAvailable(false) {
+    m_imagesAreAvailable(true) {
   m_checkPix = QIcon::fromTheme(QStringLiteral("checkmark"), QIcon(QLatin1String(":/icons/checkmark")));
   connect(ImageFactory::self(), &ImageFactory::imageAvailable, this, &EntryModel::refreshImage);
 }

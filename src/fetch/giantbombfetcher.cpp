@@ -25,8 +25,6 @@
 #include "giantbombfetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
 #include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
@@ -38,7 +36,6 @@
 #include <QTextStream>
 #include <QGridLayout>
 #include <QDomDocument>
-#include <QTextCodec>
 #include <QUrlQuery>
 
 namespace {
@@ -66,7 +63,7 @@ QString GiantBombFetcher::source() const {
 }
 
 QString GiantBombFetcher::attribution() const {
-  return i18n(providedBy, QLatin1String("https://giantbomb.com"), QLatin1String("Giant Bomb"));
+  return TC_I18N3(providedBy, QLatin1String("https://giantbomb.com"), QLatin1String("Giant Bomb"));
 }
 
 bool GiantBombFetcher::canFetch(int type) const {
@@ -156,7 +153,6 @@ Tellico::Data::EntryPtr GiantBombFetcher::fetchEntryHookData(Data::EntryPtr entr
   QFile f(QStringLiteral("/tmp/test2.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();

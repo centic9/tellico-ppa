@@ -32,9 +32,6 @@
 #include <QVariant>
 
 namespace Tellico {
-  namespace Data {
-    class Entry;
-  }
 
 /**
  * @author Robby Stephenson
@@ -67,7 +64,7 @@ public:
    *
    * @return Returns true if the entry is matched by the rule.
    */
-  bool matches(Data::EntryPtr entry) const;
+  bool matches(Tellico::Data::EntryPtr entry) const;
 
   /**
    * Return filter function. This can be any of the operators
@@ -133,7 +130,7 @@ public:
 
   void setMatch(FilterOp op) { m_op = op; }
   FilterOp op() const { return m_op; }
-  bool matches(Data::EntryPtr entry) const;
+  bool matches(Tellico::Data::EntryPtr entry) const;
 
   void setName(const QString& name) { m_name = name; }
   const QString& name() const { return m_name; }
@@ -141,8 +138,6 @@ public:
   int count() const { return QList<FilterRule*>::count(); } // disambiguate
 
   bool operator==(const Filter& other) const;
-
-  static void populateQuickFilter(FilterPtr filter, const QString& fieldName, const QString& text, bool allowRegExp);
 
 private:
   Filter& operator=(const Filter& other);

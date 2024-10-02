@@ -28,12 +28,11 @@
 #include "../utils/isbnvalidator.h"
 #include "../utils/lccnvalidator.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
 #include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
 #include <KJobWidgets>
 
@@ -41,7 +40,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDomDocument>
@@ -217,7 +215,6 @@ void HathiTrustFetcher::slotComplete(KJob* job_) {
   QFile f(QString::fromLatin1("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -268,12 +265,12 @@ void HathiTrustFetcher::slotComplete(KJob* job_) {
     // since the Dewey and LoC field titles have a context in their i18n call here
     // but not in the mods2tellico.xsl stylesheet where the field is actually created
     // update the field titles here
-    QHashIterator<QString, QString> i(allOptionalFields());
-    while(i.hasNext()) {
-      i.next();
-      Data::FieldPtr field = coll->fieldByName(i.key());
+    QHashIterator<QString, QString> i2(allOptionalFields());
+    while(i2.hasNext()) {
+      i2.next();
+      Data::FieldPtr field = coll->fieldByName(i2.key());
       if(field) {
-        field->setTitle(i.value());
+        field->setTitle(i2.value());
         coll->modifyField(field);
       }
     }

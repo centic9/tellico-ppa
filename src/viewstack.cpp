@@ -37,18 +37,25 @@
 #include <QSlider>
 #include <QButtonGroup>
 
+namespace {
+  static const int MIN_ENTRY_ICON_SIZE = 64;
+  static const int MAX_ENTRY_ICON_SIZE = 512;
+  static const int SMALL_INCREMENT_ICON_SIZE = 1;
+  static const int LARGE_INCREMENT_ICON_SIZE = 8;
+}
+
 using Tellico::ViewStack;
 
 ViewStack::ViewStack(QWidget* parent_) : QWidget(parent_)
     , m_listView(new DetailedListView(this))
     , m_iconView(new EntryIconView(this)) {
   QBoxLayout* lay = new QVBoxLayout();
-  lay->setMargin(0);
+  lay->setContentsMargins(0, 0, 0, 0);
   lay->setSpacing(0);
 
   QBoxLayout* hlay = new QHBoxLayout();
   lay->addLayout(hlay);
-  hlay->setMargin(0);
+  hlay->setContentsMargins(0, 0, 0, 0);
   hlay->setSpacing(0);
 
   m_listButton = new QToolButton(this);

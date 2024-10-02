@@ -30,26 +30,31 @@
 #include "../translators/filelistingimporter.h"
 #include "../translators/xmphandler.h"
 #include "../images/imagefactory.h"
+#include "../core/netaccess.h"
 
 #include <KLocalizedString>
 
 #include <QTest>
+#include <QLoggingCategory>
 #include <QStandardPaths>
 
-// KIO::listDir in FileListingImporter seems to require a GUI Application
+// can't be GUILESS to get the icon preview
 QTEST_MAIN( FileListingTest )
 
 void FileListingTest::initTestCase() {
   QStandardPaths::setTestModeEnabled(true);
   KLocalizedString::setApplicationDomain("tellico");
   Tellico::ImageFactory::init();
+  QLoggingCategory::setFilterRules(QStringLiteral("tellico.debug = true\ntellico.info = false"));
 }
 
 void FileListingTest::testCpp() {
   QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("filelistingtest.cpp"));
   Tellico::Import::FileListingImporter importer(url.adjusted(QUrl::RemoveFilename));
+  QVERIFY(importer.canImport(Tellico::Data::Collection::File));
   // can't import images for local test
 //  importer.setOptions(importer.options() & ~Tellico::Import::ImportShowImageErrors);
+  importer.setUseFilePreview(true);
   Tellico::Data::CollPtr coll = importer.collection();
 
   QVERIFY(coll);
@@ -75,11 +80,8 @@ void FileListingTest::testCpp() {
   // for some reason, the Creation time isn't populated for this test
 //  QVERIFY(!entry->field("created").isEmpty());
   QVERIFY(!entry->field("modified").isEmpty());
-#ifdef HAVE_KFILEMETADATA
   QCOMPARE(entry->field("metainfo"), QString());
-#endif
-  // icon name does not get set for the jenkins build service
-//  QVERIFY(!entry->field("icon").isEmpty());
+  QVERIFY(!entry->field("icon").isEmpty());
 }
 
 void FileListingTest::testXMPData() {
@@ -100,10 +102,12 @@ void FileListingTest::testXMPData() {
   QCOMPARE(coll->type(), Tellico::Data::Collection::File);
   QVERIFY(coll->entryCount() > 0);
 
-  Tellico::Data::EntryPtr entry;
+  Tellico::Data::EntryPtr entry, oggEntry;
   foreach(Tellico::Data::EntryPtr tmpEntry, coll->entries()) {
     if(tmpEntry->field(QStringLiteral("title")) == QStringLiteral("BlueSquare.jpg")) {
       entry = tmpEntry;
+    } else if(tmpEntry->field(QStringLiteral("title")) == QStringLiteral("test.ogg")) {
+      oggEntry = tmpEntry;
     }
   }
   QVERIFY(entry);
@@ -116,4 +120,107 @@ void FileListingTest::testXMPData() {
 #endif
   QVERIFY(!entry->field("metainfo").isEmpty());
 #endif
+
+  QVERIFY(oggEntry);
+  QCOMPARE(oggEntry->field("title"), QStringLiteral("test.ogg"));
+  QCOMPARE(oggEntry->field("mimetype"), QStringLiteral("audio/x-vorbis+ogg"));
+#ifdef HAVE_KFILEMETADATA
+#ifndef HAVE_EXEMPI
+  QStringList meta = Tellico::FieldFormat::splitTable(oggEntry->field(QStringLiteral("metainfo")));
+  QVERIFY(!meta.isEmpty());
+  QVERIFY(meta.contains(QStringLiteral("Bitrate::159000")));
+#endif
+#endif
+}
+
+void FileListingTest::testStat() {
+  QUrl local = QUrl::fromLocalFile(QFINDTESTDATA("filelistingtest.cpp"));
+  QVERIFY(Tellico::NetAccess::exists(local, false, nullptr));
+  QUrl remote(QStringLiteral("https://tellico-project.org"));
+  // http doesn't support existence without downloading
+  QVERIFY(!Tellico::NetAccess::exists(remote, false, nullptr));
+}
+
+void FileListingTest::testBook() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test.epub"));
+  Tellico::Import::FileListingImporter importer(url.adjusted(QUrl::RemoveFilename));
+  importer.setCollectionType(Tellico::Data::Collection::Book);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  QVERIFY(coll);
+  QCOMPARE(coll->type(), Tellico::Data::Collection::Book);
+
+  // find the entry that matches the test url
+  Tellico::Data::EntryPtr e0;
+  foreach(auto testEntry, coll->entries()) {
+    if(testEntry->field("url") == url.url()) {
+      e0 = testEntry;
+      break;
+    }
+  }
+  QVERIFY(e0);
+
+  QCOMPARE(e0->field("url"), url.url());
+  QCOMPARE(e0->field("title"), QStringLiteral("Blank Book"));
+  QCOMPARE(e0->field("author"), QStringLiteral("Jason Hibbs; Robby Stephenson"));
+  QCOMPARE(e0->field("publisher"), QStringLiteral("Jason Hibbs"));
+  QCOMPARE(e0->field("pub_year"), QStringLiteral("2012"));
+  QCOMPARE(e0->field("genre"), QStringLiteral("Science Fiction"));
+  QCOMPARE(e0->field("isbn"), QStringLiteral("0136091814"));
+  QVERIFY(!e0->field("plot").isEmpty());
+  QCOMPARE(e0->field("cover"), QLatin1String("20e52204b48e0f0651290866d9e75a91.jpg"));
+}
+
+void FileListingTest::testVideo() {
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("data/test_movie.mpg"));
+  Tellico::Import::FileListingImporter importer(url.adjusted(QUrl::RemoveFilename));
+  importer.setCollectionType(Tellico::Data::Collection::Video);
+  Tellico::Data::CollPtr coll = importer.collection();
+
+  QVERIFY(coll);
+  QCOMPARE(coll->type(), Tellico::Data::Collection::Video);
+  QCOMPARE(coll->entryCount(), 2);
+
+  auto e0 = coll->entries().at(0);
+  auto e1 = e0;
+  QVERIFY(e0);
+  if(e0->title() != QLatin1String("Test Movie")) {
+    // the entries can be imported out of order from the file system
+    e0 = coll->entries().at(1);
+  } else {
+    e1 = coll->entries().at(1);
+  }
+  QCOMPARE(e0->field("title"), QStringLiteral("Test Movie"));
+  QCOMPARE(e0->field("origtitle"), QStringLiteral("The original title"));
+  QCOMPARE(e0->field("imdb"), QStringLiteral("https://www.imdb.com/title/tt0012345"));
+  QCOMPARE(e0->field("tmdb"), QStringLiteral("https://www.themoviedb.org/movie/345"));
+  QCOMPARE(e0->field("year"), QStringLiteral("2004"));
+  QCOMPARE(e0->field("running-time"), QStringLiteral("113"));
+  QCOMPARE(e0->field("certification"), QStringLiteral("PG (USA)"));
+  QCOMPARE(e0->field("genre"), QStringLiteral("Science Fiction; Romance"));
+  QCOMPARE(e0->field("keyword"), QStringLiteral("Favorite"));
+  QCOMPARE(e0->field("nationality"), QStringLiteral("USA"));
+  QCOMPARE(e0->field("studio"), QStringLiteral("Paramount"));
+  QCOMPARE(e0->field("writer"), QStringLiteral("Jill W. Writer"));
+  QCOMPARE(e0->field("director"), QStringLiteral("John B. Director; Famous Director"));
+  QStringList castList = Tellico::FieldFormat::splitTable(e0->field(QStringLiteral("cast")));
+  QVERIFY(!castList.isEmpty());
+  QCOMPARE(castList.at(0), QStringLiteral("Jill Actress::Heroine"));
+  QVERIFY(!e0->field("plot").isEmpty());
+  QCOMPARE(e0->field("url"), url.url());
+
+  QVERIFY(e1);
+  QCOMPARE(e1->field("title"), QStringLiteral("Alien"));
+  QCOMPARE(e1->field("imdb"), QStringLiteral("https://www.imdb.com/title/tt0078748"));
+  QCOMPARE(e1->field("tmdb"), QStringLiteral("https://www.themoviedb.org/movie/348"));
+  QCOMPARE(e1->field("year"), QStringLiteral("1979"));
+  QCOMPARE(e1->field("running-time"), QStringLiteral("117"));
+  QCOMPARE(e1->field("certification"), QStringLiteral("R (USA)"));
+  QCOMPARE(e1->field("nationality"), QStringLiteral("USA"));
+  QCOMPARE(e1->field("genre"), QStringLiteral("Horror; Science Fiction"));
+  QCOMPARE(e1->field("keyword"), QStringLiteral("Alien Collection"));
+  castList = Tellico::FieldFormat::splitTable(e1->field(QStringLiteral("cast")));
+  QVERIFY(castList.count() > 2);
+  QCOMPARE(castList.at(1), QStringLiteral("Sigourney Weaver::Lt. Ellen Louise Ripley"));
+  QVERIFY(!e1->field("plot").isEmpty());
 }

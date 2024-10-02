@@ -48,7 +48,6 @@
 #include <QGroupBox>
 #include <QCheckBox>
 #include <QDomDocument>
-#include <QTextCodec>
 #include <QVBoxLayout>
 
 #include <algorithm>
@@ -65,7 +64,7 @@ TellicoXMLExporter::~TellicoXMLExporter() {
 }
 
 QString TellicoXMLExporter::formatString() const {
-  return i18n("XML");
+  return QStringLiteral("XML");
 }
 
 QString TellicoXMLExporter::fileFilter() const {
@@ -114,7 +113,7 @@ QDomDocument TellicoXMLExporter::exportXML() const {
   if(options() & Export::ExportUTF8) {
     encodeStr += QLatin1String("UTF-8");
   } else {
-    encodeStr += QLatin1String(QTextCodec::codecForLocale()->name());
+    encodeStr = QLatin1String(Tellico::localeEncodingName());
   }
   encodeStr += QLatin1Char('"');
 
@@ -181,7 +180,6 @@ void TellicoXMLExporter::exportCollectionXML(QDomDocument& dom_, QDomElement& pa
 
   if(!m_images.isEmpty() && (options() & Export::ExportImages)) {
     QDomElement imgsElem = dom_.createElement(QStringLiteral("images"));
-    const QStringList imageIds = m_images.values();
     foreach(const QString& id, m_images) {
       exportImageXML(dom_, imgsElem, id);
     }

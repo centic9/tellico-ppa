@@ -59,6 +59,7 @@ void OMDBFetcherTest::testTitle() {
                                        QStringLiteral("superman returns"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::OMDBFetcher(this));
   fetcher->readConfig(m_config);
+  QVERIFY(fetcher->canSearch(request.key()));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -81,7 +82,7 @@ void OMDBFetcherTest::testTitle() {
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
   QVERIFY(!entry->field(QStringLiteral("plot")).isEmpty());
-  QCOMPARE(entry->field(QStringLiteral("imdb")), QStringLiteral("http://www.imdb.com/title/tt0348150/"));
+  QCOMPARE(entry->field(QStringLiteral("imdb")), QStringLiteral("https://www.imdb.com/title/tt0348150/"));
 }
 
 // see https://bugs.kde.org/show_bug.cgi?id=336765
@@ -94,6 +95,7 @@ void OMDBFetcherTest::testBabel() {
                                        QStringLiteral("babel"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::OMDBFetcher(this));
   fetcher->readConfig(m_config);
+  QVERIFY(fetcher->canSearch(request.key()));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 

@@ -54,8 +54,10 @@ void FetcherTest::testType() {
              qPrintable(QString::fromLatin1("%1 has mismatched type: %2 != %3").arg(f->source(),
                                                                                     QString::number(i.key()),
                                                                                     QString::number(f->type()))));
+    QVERIFY(!i.value().name().isEmpty());
     QVERIFY(f->uuid().isEmpty());
     QVERIFY(!f->isSearching());
+    QVERIFY(!f->hasMoreResults());
 
     Tellico::Data::Collection::Type cType = Tellico::Data::Collection::Base;
     // BoardGame is the last collection type (currently)

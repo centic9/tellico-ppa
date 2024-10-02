@@ -27,19 +27,18 @@
 #include "../images/imagefactory.h"
 #include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -144,7 +143,6 @@ Tellico::Data::EntryPtr MovieMeterFetcher::fetchEntryHook(uint uid_) {
     QFile f(QString::fromLatin1("/tmp/test2.json"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
-      t.setCodec("UTF-8");
       t << data;
     }
     f.close();
@@ -204,7 +202,6 @@ void MovieMeterFetcher::slotComplete(KJob* job_) {
   QFile f(QString::fromLatin1("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();

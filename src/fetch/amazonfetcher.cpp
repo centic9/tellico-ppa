@@ -34,18 +34,18 @@
 #include "../field.h"
 #include "../fieldformat.h"
 #include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../utils/isbnvalidator.h"
 #include "../gui/combobox.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
 #include <KSeparator>
-#include <KComboBox>
 #include <KAcceleratorManager>
 #include <KConfigGroup>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QLineEdit>
 #include <QLabel>
@@ -53,7 +53,6 @@
 #include <QFile>
 #include <QDir>
 #include <QTextStream>
-#include <QTextCodec>
 #include <QGridLayout>
 #include <QStandardPaths>
 #include <QJsonDocument>
@@ -346,7 +345,6 @@ void AmazonFetcher::slotComplete(KJob*) {
     logFile.setAutoRemove(false);
     if(logFile.open()) {
       QTextStream t(&logFile);
-      t.setCodec("UTF-8");
       t << data;
       myLog() << "Writing Amazon data output to" << logFile.fileName();
     }
@@ -356,7 +354,6 @@ void AmazonFetcher::slotComplete(KJob*) {
   QFile f(QString::fromLatin1("/tmp/test%1.json").arg(m_page));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -420,7 +417,7 @@ void AmazonFetcher::slotComplete(KJob*) {
     // special case book author
     // amazon is really bad about not putting spaces after periods
     if(coll->type() == Data::Collection::Book) {
-      QRegExp rx(QLatin1String("\\.([^\\s])"));
+      static const QRegularExpression rx(QLatin1String("\\.([^\\s])"));
       QStringList values = FieldFormat::splitValue(entry->field(QStringLiteral("author")));
       for(QStringList::Iterator it = values.begin(); it != values.end(); ++it) {
         (*it).replace(rx, QStringLiteral(". \\1"));
@@ -430,14 +427,16 @@ void AmazonFetcher::slotComplete(KJob*) {
 
     // UK puts the year in the title for some reason
     if(m_site == UK && coll->type() == Data::Collection::Video) {
-      QRegExp rx(QLatin1String("\\[(\\d{4})\\]"));
-      QString t = entry->field(QStringLiteral("title"));
-      if(rx.indexIn(t) > -1) {
-        QString y = rx.cap(1);
+      static const QRegularExpression rx(QLatin1String("\\[(\\d{4})\\]"));
+      const QString titleString(QStringLiteral("title"));
+      QString t = entry->field(titleString);
+      auto match = rx.match(t);
+      if(match.hasMatch()) {
         t = t.remove(rx).simplified();
-        entry->setField(QStringLiteral("title"), t);
-        if(entry->field(QStringLiteral("year")).isEmpty()) {
-          entry->setField(QStringLiteral("year"), y);
+        entry->setField(titleString, t);
+        const QString yearString(QStringLiteral("year"));
+        if(entry->field(yearString).isEmpty()) {
+          entry->setField(yearString, match.captured(1));
         }
       }
     }
@@ -590,15 +589,16 @@ Tellico::Data::EntryPtr AmazonFetcher::fetchEntryHook(uint uid_) {
 
   // also sometimes table fields have rows but no values
   Data::FieldList fields = entry->collection()->fields();
-  QRegExp blank(QLatin1String("[\\s") +
-                FieldFormat::columnDelimiterString() +
-                FieldFormat::delimiterString() +
-                QLatin1String("]+")); // only white space, column separators and value separators
+  static const QRegularExpression blank(QLatin1String("^[\\s") +
+                                        FieldFormat::columnDelimiterString() +
+                                        FieldFormat::delimiterString() +
+                                        QLatin1String("]+$")); // only white space, column separators and value separators
   foreach(Data::FieldPtr fIt, fields) {
     if(fIt->type() != Data::Field::Table) {
       continue;
     }
-    if(blank.exactMatch(entry->field(fIt))) {
+    auto blankMatch = blank.match(entry->field(fIt));
+    if(blankMatch.hasMatch()) {
       entry->setField(fIt, QString());
     }
   }
@@ -667,7 +667,7 @@ Tellico::Fetch::FetchRequest AmazonFetcher::updateRequest(Data::EntryPtr entry_)
   return FetchRequest();
 }
 
-QByteArray AmazonFetcher::requestPayload(Fetch::FetchRequest request_) {
+QByteArray AmazonFetcher::requestPayload(const Fetch::FetchRequest& request_) {
   QJsonObject payload;
   payload.insert(QLatin1String("PartnerTag"), m_assoc);
   payload.insert(QLatin1String("PartnerType"), QLatin1String("Associates"));
@@ -954,9 +954,9 @@ void AmazonFetcher::populateEntry(Data::EntryPtr entry_, const QJsonObject& info
      collectionType() == Data::Collection::Bibtex ||
      collectionType() == Data::Collection::ComicBook) {
     QVariantMap classificationsMap = itemMap.value(QLatin1String("Classifications")).toMap();
-    QVariantMap technicalMap = itemMap.value(QLatin1String("TechnicalInfo")).toMap();
     QString binding = mapValue(classificationsMap, "Binding", "DisplayValue");
     if(binding.isEmpty()) {
+      QVariantMap technicalMap = itemMap.value(QLatin1String("TechnicalInfo")).toMap();
       binding = mapValue(technicalMap, "Formats", "DisplayValues");
     }
     if(binding.contains(QStringLiteral("Paperback")) && binding != QStringLiteral("Trade Paperback")) {

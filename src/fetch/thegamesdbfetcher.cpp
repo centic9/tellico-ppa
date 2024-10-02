@@ -29,6 +29,7 @@
 #include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../utils/tellico_utils.h"
 #include "../tellico_debug.h"
 
@@ -36,7 +37,7 @@
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
 
 #include <QLabel>
@@ -44,7 +45,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
@@ -137,7 +137,6 @@ void TheGamesDBFetcher::search() {
     stop();
     return;
   }
-//  u = QUrl::fromLocalFile(QStringLiteral("/tmp/test-tgdb.json"));
 //  myDebug() << u;
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
@@ -255,7 +254,6 @@ void TheGamesDBFetcher::slotComplete(KJob* job_) {
   QFile f(QStringLiteral("/tmp/test-tgdb.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -341,8 +339,8 @@ void TheGamesDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& 
     entry_->setField(QStringLiteral("certification"), Data::GameCollection::esrbRating(rating));
   }
 
-  const QString coverUrl = m_covers.value(mapValue(resultMap_, "id"));
   if(m_imageSize != NoImage) {
+    const QString coverUrl = m_covers.value(mapValue(resultMap_, "id"));
     entry_->setField(QStringLiteral("cover"), coverUrl);
   }
 

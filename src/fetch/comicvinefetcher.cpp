@@ -25,8 +25,7 @@
 #include "comicvinefetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
@@ -38,7 +37,6 @@
 #include <QTextStream>
 #include <QGridLayout>
 #include <QDomDocument>
-#include <QTextCodec>
 #include <QUrlQuery>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -68,7 +66,7 @@ QString ComicVineFetcher::source() const {
 }
 
 QString ComicVineFetcher::attribution() const {
-  return i18n(providedBy, QLatin1String("https://comicvine.gamespot.com"), QLatin1String("Comic Vine"));
+  return TC_I18N3(providedBy, QLatin1String("https://comicvine.gamespot.com"), QLatin1String("Comic Vine"));
 }
 
 bool ComicVineFetcher::canFetch(int type) const {
@@ -137,7 +135,6 @@ Tellico::Data::EntryPtr ComicVineFetcher::fetchEntryHookData(Data::EntryPtr entr
   QFile f(QStringLiteral("/tmp/test2.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();

@@ -119,7 +119,7 @@ ConfigDialog::ConfigDialog(QWidget* parent_)
   button(QDialogButtonBox::Ok)->setEnabled(false);
   button(QDialogButtonBox::Apply)->setEnabled(false);
   button(QDialogButtonBox::Ok)->setDefault(true);
-  button(QDialogButtonBox::Ok)->setShortcut(Qt::CTRL | Qt::Key_Return);
+  button(QDialogButtonBox::Ok)->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Return));
 
   connect(this, &KPageDialog::currentPageChanged, this, &ConfigDialog::slotInitPage);
 }
@@ -223,12 +223,6 @@ void ConfigDialog::initGeneralPage(QFrame* frame) {
                                            "interpret text as a regular expression."));
   l->addWidget(m_cbQuickFilterRegExp);
   connect(m_cbQuickFilterRegExp, &QAbstractButton::clicked, this, &ConfigDialog::slotModified);
-
-  m_cbShowTipDay = new QCheckBox(i18n("&Show \"Tip of the Day\" at startup"), frame);
-  m_cbShowTipDay->setWhatsThis(i18n("If checked, the \"Tip of the Day\" will be "
-                                    "shown at program start-up."));
-  l->addWidget(m_cbShowTipDay);
-  connect(m_cbShowTipDay, &QAbstractButton::clicked, this, &ConfigDialog::slotModified);
 
   m_cbEnableWebcam = new QCheckBox(i18n("&Enable webcam for barcode scanning"), frame);
   m_cbEnableWebcam->setWhatsThis(i18n("If checked, the input from a webcam will be used "
@@ -555,9 +549,8 @@ void ConfigDialog::initTemplatePage(QFrame* frame) {
 
   QWidget* box1 = new QWidget(groupBox);
   QHBoxLayout* box1HBoxLayout = new QHBoxLayout(box1);
-  box1HBoxLayout->setMargin(0);
+  box1HBoxLayout->setContentsMargins(0, 0, 0, 0);
   vlay->addWidget(box1);
-  box1HBoxLayout->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
 
   QPushButton* b1 = new QPushButton(i18n("Install..."), box1);
   box1HBoxLayout->addWidget(b1);
@@ -638,7 +631,7 @@ void ConfigDialog::initFetchPage(QFrame* frame) {
 
   QWidget* hb = new QWidget(frame);
   QHBoxLayout* hbHBoxLayout = new QHBoxLayout(hb);
-  hbHBoxLayout->setMargin(0);
+  hbHBoxLayout->setContentsMargins(0, 0, 0, 0);
   leftLayout->addWidget(hb);
   m_moveUpSourceBtn = new QPushButton(i18n("Move &Up"), hb);
   hbHBoxLayout->addWidget(m_moveUpSourceBtn);
@@ -653,7 +646,7 @@ void ConfigDialog::initFetchPage(QFrame* frame) {
 
   QWidget* hb2 = new QWidget(frame);
   QHBoxLayout* hb2HBoxLayout = new QHBoxLayout(hb2);
-  hb2HBoxLayout->setMargin(0);
+  hb2HBoxLayout->setContentsMargins(0, 0, 0, 0);
   leftLayout->addWidget(hb2);
   m_cbFilterSource = new QCheckBox(i18n("Filter by type:"), hb2);
   hb2HBoxLayout->addWidget(m_cbFilterSource);
@@ -702,7 +695,6 @@ void ConfigDialog::initFetchPage(QFrame* frame) {
 void ConfigDialog::readGeneralConfig() {
   m_modifying = true;
 
-  m_cbShowTipDay->setChecked(Config::showTipOfDay());
   m_cbQuickFilterRegExp->setChecked(Config::quickFilterRegExp());
   m_cbOpenLastFile->setChecked(Config::reopenLastFile());
 #ifdef ENABLE_WEBCAM
@@ -802,7 +794,6 @@ void ConfigDialog::saveConfiguration() {
 }
 
 void ConfigDialog::saveGeneralConfig() {
-  Config::setShowTipOfDay(m_cbShowTipDay->isChecked());
   Config::setQuickFilterRegExp(m_cbQuickFilterRegExp->isChecked());
   Config::setEnableWebcam(m_cbEnableWebcam->isChecked());
 
@@ -840,7 +831,7 @@ void ConfigDialog::savePrintingConfig() {
 void ConfigDialog::saveTemplateConfig() {
   const int collType = Kernel::self()->collectionType();
   if(collType == Data::Collection::Base &&
-     Kernel::self()->URL().fileName() != i18n(Tellico::untitledFilename)) {
+     Kernel::self()->URL().fileName() != TC_I18N1(Tellico::untitledFilename)) {
     // use a nested config group for template specific to custom collections
     // using the filename alone as a keyEvents
     const QString configGroup = QStringLiteral("Options - %1").arg(CollectionFactory::typeName(collType));
@@ -890,14 +881,15 @@ void ConfigDialog::saveFetchConfig() {
     reloadFetchers = true;
   }
   // now update total number of sources
-  KConfigGroup sourceGroup(KSharedConfig::openConfig(), "Data Sources");
+  KConfigGroup sourceGroup(KSharedConfig::openConfig(), QLatin1String("Data Sources"));
   sourceGroup.writeEntry("Sources Count", count);
   // and purge old config groups
-  QString group = QStringLiteral("Data Source %1").arg(count);
+  const QString dataSource1(QStringLiteral("Data Source %1"));
+  QString group = dataSource1.arg(count);
   while(KSharedConfig::openConfig()->hasGroup(group)) {
     KSharedConfig::openConfig()->deleteGroup(group);
     ++count;
-    group = QStringLiteral("Data Source %1").arg(count);
+    group = dataSource1.arg(count);
   }
 
   Config::self()->save();

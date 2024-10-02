@@ -27,8 +27,6 @@
 
 #include <QObject>
 
-#include "../datavectors.h"
-
 class CollectionTest : public QObject {
 Q_OBJECT
 
@@ -49,16 +47,10 @@ private Q_SLOTS:
   void testFieldsIntersection();
   void testAppendCollection();
   void testMergeCollection();
-  void testBookMatch();
   void testMergeBenchmark();
-  void testMatchScore();
-  void testMatchScore_data();
   void testGamePlatform();
+  void testEsrb();
   void testNonTitle();
-
-private:
-  Tellico::Data::CollPtr m_coll;
-  Tellico::Data::EntryPtr m_entry;
 };
 
 #endif

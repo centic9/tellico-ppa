@@ -36,10 +36,10 @@
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
 #include <KConfigGroup>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QDomDocument>
 #include <QLabel>
@@ -69,6 +69,12 @@ ArxivFetcher::~ArxivFetcher() {
 
 QString ArxivFetcher::source() const {
   return m_name.isEmpty() ? defaultName() : m_name;
+}
+
+QString ArxivFetcher::attribution() const {
+  // https://info.arxiv.org/help/api/index.html
+  return i18nc("Acknowledgment from https://info.arxiv.org/help/api/index.html",
+               "Thank you to arXiv for use of its open access interoperability.");
 }
 
 bool ArxivFetcher::canSearch(Fetch::FetchKey k) const {
@@ -111,7 +117,6 @@ void ArxivFetcher::stop() {
   if(!m_started) {
     return;
   }
-//  myDebug();
   if(m_job) {
     m_job->kill();
     m_job = nullptr;
@@ -143,7 +148,6 @@ void ArxivFetcher::slotComplete(KJob*) {
   QFile f(QLatin1String("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -207,7 +211,7 @@ Tellico::Data::EntryPtr ArxivFetcher::fetchEntryHook(uint uid_) {
     if(!field && !coll->imageFields().isEmpty()) {
       field = coll->imageFields().front();
     } else if(!field) {
-      field = new Data::Field(QStringLiteral("cover"), i18n("Front Cover"), Data::Field::Image);
+      field = Data::Field::createDefaultField(Data::Field::FrontCoverField);
       coll->addField(field);
     }
     if(entry->field(field).isEmpty()) {

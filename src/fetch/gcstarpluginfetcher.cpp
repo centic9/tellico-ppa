@@ -39,11 +39,14 @@
 #include <KProcess>
 #include <KAcceleratorManager>
 #include <KShell>
-#include <KFilterDev>
-#include <KCompressionDevice>
 #include <KTar>
 #include <KLocalizedString>
 #include <karchive_version.h>
+#if KARCHIVE_VERSION >= QT_VERSION_CHECK(5,85,0)
+#include <KCompressionDevice>
+#else
+#include <KFilterDev>
+#endif
 
 #include <QTemporaryDir>
 #include <QDir>
@@ -204,7 +207,13 @@ GCstarPluginFetcher::GCstarPluginFetcher(QObject* parent_) : Fetcher(parent_),
 }
 
 GCstarPluginFetcher::~GCstarPluginFetcher() {
-  stop();
+  if(m_thread) {
+    if(m_thread->isRunning()) {
+      m_thread->terminate();
+      m_thread->wait();
+    }
+    delete m_thread;
+  }
 }
 
 QString GCstarPluginFetcher::source() const {

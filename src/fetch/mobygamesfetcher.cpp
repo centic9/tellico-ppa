@@ -28,7 +28,7 @@
 #include "../gui/combobox.h"
 #include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../utils/tellico_utils.h"
 #include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
@@ -37,7 +37,7 @@
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
 
 #include <QUrl>
@@ -45,7 +45,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
@@ -79,7 +78,7 @@ QString MobyGamesFetcher::source() const {
 }
 
 QString MobyGamesFetcher::attribution() const {
-  return i18n(providedBy, QLatin1String("https://mobygames.com"), QLatin1String("MobyGames"));
+  return TC_I18N3(providedBy, QLatin1String("https://mobygames.com"), QLatin1String("MobyGames"));
 }
 
 bool MobyGamesFetcher::canSearch(Fetch::FetchKey k) const {
@@ -224,7 +223,6 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
   QFile file(QStringLiteral("/tmp/moby-game-info.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
-    t.setCodec("UTF-8");
     t << data;
   }
   file.close();
@@ -302,7 +300,6 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
   QFile file2(QStringLiteral("/tmp/moby-covers.json"));
   if(file2.open(QIODevice::WriteOnly)) {
     QTextStream t(&file2);
-    t.setCodec("UTF-8");
     t << data;
   }
   file2.close();
@@ -371,7 +368,6 @@ Tellico::Data::EntryPtr MobyGamesFetcher::fetchEntryHook(uint uid_) {
     QFile file3(QStringLiteral("/tmp/moby-screenshots.json"));
     if(file3.open(QIODevice::WriteOnly)) {
       QTextStream t(&file3);
-      t.setCodec("UTF-8");
       t << job->data();
     }
     file3.close();
@@ -445,7 +441,6 @@ void MobyGamesFetcher::slotComplete(KJob* job_) {
   QFile file(QStringLiteral("/tmp/moby-results.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
-    t.setCodec("UTF-8");
     t << data;
   }
   file.close();
@@ -562,7 +557,9 @@ void MobyGamesFetcher::populateHashes() {
   // cheat by grabbing i18n values from default collection
   Data::CollPtr c(new Data::GameCollection(true));
   QStringList esrb = c->fieldByName(QStringLiteral("certification"))->allowed();
-  Q_ASSERT(esrb.size() == 8);
+  if(esrb.size() < 8) {
+    myWarning() << "ESRB rating list is badly translated";
+  }
   while(esrb.size() < 8) {
     esrb << QString();
   }

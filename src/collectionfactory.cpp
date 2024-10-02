@@ -31,8 +31,7 @@
 using namespace Tellico;
 using Tellico::CollectionFactory;
 
-CollectionFactory::CollectionFactory() {
-}
+CollectionFactory::CollectionFactory() = default;
 
 void CollectionFactory::registerFunction(int type_, const QString& typeName_, CREATE_COLL_FN func_) {
   functionRegistry.insert(type_, func_);
@@ -91,7 +90,7 @@ Tellico::CollectionNameHash CollectionFactory::nameHash() {
   hash[Data::Collection::Stamp]       = i18n("Stamp Collection");
   hash[Data::Collection::Wine]        = i18n("Wine Collection");
   hash[Data::Collection::Card]        = i18n("Card Collection");
-  hash[Data::Collection::Game]        = i18n("Game Collection");
+  hash[Data::Collection::Game]        = i18n("Video Game Collection");
   hash[Data::Collection::File]        = i18n("File Catalog");
   hash[Data::Collection::BoardGame]   = i18n("Board Game Collection");
   hash[Data::Collection::Base]        = i18n("Custom Collection");

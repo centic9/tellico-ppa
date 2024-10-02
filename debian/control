@@ -1,39 +1,36 @@
 Source: tellico
 Section: kde
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
-XSBC-Original-Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
+Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
 Uploaders: Pino Toscano <pino@debian.org>,
-Build-Depends: debhelper-compat (= 13),
- , dh-apparmor
+Build-Depends: debhelper-compat (= 13)
  , cmake (>= 3.16~), extra-cmake-modules (>= 5.19.0~)
- , pkg-config, pkg-kde-tools, qtbase5-dev (>= 5.10.0~),
- , libqt5charts5-dev (>= 5.10.0~),
- , qtwebengine5-dev (>= 5.10.0~) [amd64 arm64 armhf i386],
- , libkf5archive-dev
+ , pkgconf, pkg-kde-tools, qtbase5-dev (>= 5.12.0~)
+ , libqt5charts5-dev (>= 5.12.0~)
+ , qtwebengine5-dev (>= 5.12.0~)
+ , libkf5archive-dev (>= 5.72.0~)
  , libkf5cddb-dev
- , libkf5codecs-dev
- , libkf5config-dev
- , libkf5configwidgets-dev
- , libkf5coreaddons-dev
- , libkf5crash-dev
- , libkf5doctools-dev
- , libkf5filemetadata-dev
- , libkf5guiaddons-dev
- , libkf5khtml-dev
- , libkf5i18n-dev
- , libkf5iconthemes-dev
- , libkf5itemmodels-dev
- , libkf5jobwidgets-dev
- , libkf5kio-dev
- , libkf5newstuff-dev
+ , libkf5codecs-dev (>= 5.72.0~)
+ , libkf5completion-dev (>= 5.72.0~)
+ , libkf5config-dev (>= 5.72.0~)
+ , libkf5configwidgets-dev (>= 5.72.0~)
+ , libkf5coreaddons-dev (>= 5.72.0~)
+ , libkf5crash-dev (>= 5.72.0~)
+ , libkf5doctools-dev (>= 5.72.0~)
+ , libkf5filemetadata-dev (>= 5.72.0~)
+ , libkf5guiaddons-dev (>= 5.72.0~)
+ , libkf5i18n-dev (>= 5.72.0~)
+ , libkf5iconthemes-dev (>= 5.72.0~)
+ , libkf5itemmodels-dev (>= 5.72.0~)
+ , libkf5jobwidgets-dev (>= 5.72.0~)
+ , libkf5kio-dev (>= 5.72.0~)
+ , libkf5newstuff-dev (>= 5.72.0~)
  , libkf5sane-dev
- , libkf5solid-dev
- , libkf5sonnet-dev
- , libkf5textwidgets-dev
- , libkf5wallet-dev
- , libkf5widgetsaddons-dev
- , libkf5xmlgui-dev
+ , libkf5solid-dev (>= 5.72.0~)
+ , libkf5sonnet-dev (>= 5.72.0~)
+ , libkf5textwidgets-dev (>= 5.72.0~)
+ , libkf5widgetsaddons-dev (>= 5.72.0~)
+ , libkf5xmlgui-dev (>= 5.72.0~)
  , libtag1-dev, libyaz-dev, libpoppler-qt5-dev
  , libexempi-dev, libcsv-dev, libbtparse-dev
  , libcdio-dev
@@ -42,23 +39,22 @@ Build-Depends: debhelper-compat (= 13),
  , python3:any, dh-python
  , dbus <!nocheck>
  , tidy <!nocheck>
+ , breeze-icon-theme <!nocheck>
 # missing in libtag1-dev
  , zlib1g-dev
 # missing in libkf5sane-dev
  , libksanecore-dev
-Standards-Version: 4.6.2
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Homepage: https://tellico-project.org/
-Vcs-Browser: https://git.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/tellico
-Vcs-Git: https://git.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/tellico.git
+Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/tellico
+Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/tellico.git
 
 Package: tellico
-Architecture: any
+Architecture: amd64 arm64 armhf i386
 Depends: tellico-data (= ${source:Version})
- , tellico-scripts (>= ${source:Version})
  , ${shlibs:Depends}, ${misc:Depends}
 Recommends: tellico-doc, kio-extras
-Suggests: apparmor
 Description: Collection manager for books, videos, music, etc
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading
@@ -104,8 +100,10 @@ Description: Collection manager for books, videos, music, etc [doc]
 
 Package: tellico-data
 Architecture: all
-Depends: ${misc:Depends}, ${perl:Depends}
+Depends: ${misc:Depends}, ${perl:Depends}, ${python3:Depends}
 Recommends: tellico
+Breaks: tellico-scripts (<< 4.0-2~),
+Replaces: tellico-scripts (<< 4.0-2~),
 Description: Collection manager for books, videos, music, etc [data]
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading
@@ -128,27 +126,13 @@ Description: Collection manager for books, videos, music, etc [data]
  documentation.
 
 Package: tellico-scripts
+Section: oldlibs
 Architecture: all
-Depends: ${misc:Depends}, ${python3:Depends}
-Recommends: tellico
-Description: Collection manager for books, videos, music, etc [scripts]
+Depends: ${misc:Depends},
+Description: transitional package for tellico-data
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading
  cards, and wines.
  .
- Tellico capabilities include:
- .
-   * creation of user-defined custom collections with unlimited fields,
-   * automatically formatted names,
-   * sorting and filtering by any field or property,
-   * ISBN validation,
-   * full customization for printing or display through XSLT files,
-   * import and export of CSV, RIS, BibTeX and BibTeXML files,
-   * import data from Amazon, IMDb, CDDB or any US-MARC compliant z39.50 server.
- .
- Tellico files are stored in XML format, avoiding the need for a database
- server, and allowing other software applications to use the data.
- .
- This package contains the scripts to import data from external sources, such
- as websites. As the format of the data may change, these scripts are provided
- as a separate package which can be updated through debian-volatile.
+ This is a transitional package for the move of the scripts to tellico-data,
+ so it can be safely uninstalled.

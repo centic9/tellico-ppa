@@ -33,9 +33,9 @@
 
 #include <KLocalizedString>
 #include <KConfig>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QRegularExpression>
 #include <QLabel>
@@ -76,14 +76,14 @@ void VGCollectFetcher::search() {
   QUrl u(QString::fromLatin1(VGCOLLECT_BASE_URL));
   QString urlPath(QStringLiteral("/no-filter/%1/no-filter/0/ALL/ALL/ALL/ALL/no-filter/%2/%3"));
 
+  static const QRegularExpression yearRX(QStringLiteral("\\s*[12][0-9]{3}\\s*"));
   switch(request().key()) {
     case Keyword:
       {
         QString value = request().value();
         QString yearStart, yearEnd;
         // pull out year, keep the regexp a little loose
-        QRegularExpression yearRX(QStringLiteral("\\s*[12][0-9]{3}\\s*"));
-        QRegularExpressionMatch match = yearRX.match(value);
+        auto match = yearRX.match(value);
         if(match.hasMatch()) {
           // fragile, but the form uses a year index
           yearStart = match.captured(0).trimmed() + QLatin1String("-01-01");
@@ -148,7 +148,6 @@ void VGCollectFetcher::slotComplete(KJob*) {
   QFile f(QStringLiteral("/tmp/test.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << s;
   }
   f.close();
@@ -193,11 +192,9 @@ void VGCollectFetcher::slotComplete(KJob*) {
 //    myDebug() << title << platform << u;
     FetchResult* r = new FetchResult(this, title, platform);
     QUrl url = QUrl(QString::fromLatin1(VGCOLLECT_BASE_URL)).resolved(QUrl(u));
-    if(!url.isEmpty()) {
-      m_matches.insert(r->uid, url);
-      // don't emit signal until after putting url in matches hash
-      emit signalResultFound(r);
-    }
+    m_matches.insert(r->uid, url);
+    // don't emit signal until after putting url in matches hash
+    emit signalResultFound(r);
   }
 
   stop();
@@ -221,7 +218,6 @@ Tellico::Data::EntryPtr VGCollectFetcher::fetchEntryHook(uint uid_) {
   QFile f(QStringLiteral("/tmp/test2.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << results;
   }
   f.close();

@@ -25,13 +25,9 @@
 #include "tellicoimporter.h"
 #include "tellicoxmlreader.h"
 #include "tellico_xml.h"
-#include "../collectionfactory.h"
 #include "../images/imagefactory.h"
-#include "../images/image.h"
-#include "../utils/isbnvalidator.h"
 #include "../core/tellico_strings.h"
 #include "../utils/guiproxy.h"
-#include "../utils/tellico_utils.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -73,13 +69,7 @@ Tellico::Data::CollPtr TellicoImporter::collection() {
       return Data::CollPtr();
     }
     QIODevice* f = fileRef().file();
-    char c;
-    for(int i = 0; i < 5; ++i) {
-      if(f->getChar(&c)) {
-        s += c;
-      }
-    }
-    f->reset();
+    s = f->peek(5);
   } else {
     if(data().size() < 5) {
       m_format = Error;
@@ -150,7 +140,7 @@ void TellicoImporter::loadXMLData(const QByteArray& data_, bool loadImages_) {
     m_format = Error;
     QString error;
     if(!url().isEmpty()) {
-      error = i18n(errorLoad, url().fileName());
+      error = TC_I18N2(errorLoad, url().fileName());
     }
     const QString errorString = reader.errorString();
     if(!errorString.isEmpty()) {
@@ -178,14 +168,14 @@ void TellicoImporter::loadZipData() {
     return;
   }
   if(!zip->open(QIODevice::ReadOnly)) {
-    setStatusMessage(i18n(errorLoad, url().fileName()));
+    setStatusMessage(TC_I18N2(errorLoad, url().fileName()));
     m_format = Error;
     return;
   }
 
   const KArchiveDirectory* dir = zip->directory();
   if(!dir) {
-    QString str = i18n(errorLoad, url().fileName()) + QLatin1Char('\n');
+    QString str = TC_I18N2(errorLoad, url().fileName()) + QLatin1Char('\n');
     str += i18n("The file is empty.");
     setStatusMessage(str);
     m_format = Error;
@@ -198,7 +188,7 @@ void TellicoImporter::loadZipData() {
     entry = dir->entry(QStringLiteral("bookcase.xml"));
   }
   if(!entry || !entry->isFile()) {
-    QString str = i18n(errorLoad, url().fileName()) + QLatin1Char('\n');
+    QString str = TC_I18N2(errorLoad, url().fileName()) + QLatin1Char('\n');
     str += i18n("The file contains no collection data.");
     setStatusMessage(str);
     m_format = Error;
@@ -309,7 +299,7 @@ bool TellicoImporter::loadAllImages(const QUrl& url_) {
   KZip zip(url_.path());
   if(!zip.open(QIODevice::ReadOnly)) {
     if(u != url_) {
-      GUI::Proxy::sorry(i18n(errorImageLoad, url_.fileName()));
+      GUI::Proxy::sorry(TC_I18N2(errorImageLoad, url_.fileName()));
     }
     u = url_;
     return false;
@@ -318,7 +308,7 @@ bool TellicoImporter::loadAllImages(const QUrl& url_) {
   const KArchiveDirectory* dir = zip.directory();
   if(!dir) {
     if(u != url_) {
-      GUI::Proxy::sorry(i18n(errorImageLoad, url_.fileName()));
+      GUI::Proxy::sorry(TC_I18N2(errorImageLoad, url_.fileName()));
     }
     u = url_;
     return false;

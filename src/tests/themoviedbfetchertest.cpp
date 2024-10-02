@@ -51,7 +51,7 @@ void TheMovieDBFetcherTest::initTestCase() {
   m_fieldValues.insert(QStringLiteral("genre"), QStringLiteral("action; adventure; science fiction"));
   m_fieldValues.insert(QStringLiteral("director"), QStringLiteral("Bryan Singer"));
   m_fieldValues.insert(QStringLiteral("producer"), QStringLiteral("Bryan Singer; Jon Peters; Gilbert Adler"));
-  m_fieldValues.insert(QStringLiteral("running-time"), QStringLiteral("154"));
+//  m_fieldValues.insert(QStringLiteral("running-time"), QStringLiteral("154"));
   m_fieldValues.insert(QStringLiteral("nationality"), QStringLiteral("USA"));
 }
 
@@ -60,11 +60,17 @@ void TheMovieDBFetcherTest::testTitle() {
                                        QStringLiteral("superman returns"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::TheMovieDBFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  // want the 2006 movie
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 2);
+  Tellico::Data::EntryPtr entry;
+  for(const auto& testEntry : qAsConst(results)) {
+    if(testEntry->field("year") == QLatin1String("2006")) {
+      entry = testEntry;
+      break;
+    }
+  }
+  QVERIFY(entry);
 
-  QCOMPARE(results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = results.at(0);
   QHashIterator<QString, QString> i(m_fieldValues);
   while(i.hasNext()) {
     i.next();
@@ -115,11 +121,17 @@ void TheMovieDBFetcherTest::testBabel() {
                                        QStringLiteral("babel"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::TheMovieDBFetcher(this));
 
-  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+  // want the 2006 movie
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 2);
+  Tellico::Data::EntryPtr entry;
+  for(const auto& testEntry : qAsConst(results)) {
+    if(testEntry->field("year") == QLatin1String("2006")) {
+      entry = testEntry;
+      break;
+    }
+  }
+  QVERIFY(entry);
 
-  QCOMPARE(results.size(), 1);
-
-  Tellico::Data::EntryPtr entry = results.at(0);
   QCOMPARE(entry->field("title"), QStringLiteral("Babel"));
   QCOMPARE(entry->field("year"), QStringLiteral("2006"));
   QCOMPARE(set(entry, "director"), set(QString::fromUtf8("Alejandro González Iñárritu")));
@@ -149,7 +161,6 @@ void TheMovieDBFetcherTest::testAllMankind() {
   QCOMPARE(entry->field("network"), QStringLiteral("Apple TV+"));
   QCOMPARE(entry->field("language"), QStringLiteral("English"));
   QCOMPARE(entry->field("nationality"), QStringLiteral("USA"));
-  QEXPECT_FAIL("", "Producer info has been removed", Continue);
   QCOMPARE(set(entry, "producer"), set(QStringLiteral("Huey M. Park")));
   QVERIFY(entry->field("cast").startsWith(QStringLiteral("Joel Kinnaman::Ed Baldwin")));
   QStringList episodeList = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("episode")));

@@ -97,8 +97,6 @@ Tellico::Data::CollPtr CSVImporter::collection() {
     createCollection();
   }
 
-  const QStringList existingNames = m_coll->fieldNames();
-
   if(m_fieldsToImport.isEmpty() && m_table) {
     for(int col = 0; col < m_table->columnCount(); ++col) {
       QString t = m_table->horizontalHeaderItem(col)->text();
@@ -144,12 +142,13 @@ Tellico::Data::CollPtr CSVImporter::collection() {
         continue;
       }
       QString value = values[m_columnsToImport.at(i)].trimmed();
+      const auto fieldType = m_coll->fieldByName(currentFieldName)->type();
       // only replace delimiters for tables
       // see https://forum.kde.org/viewtopic.php?f=200&t=142712
-      if(replaceColDelimiter && m_coll->fieldByName(currentFieldName)->type() == Data::Field::Table) {
+      if(replaceColDelimiter && fieldType == Data::Field::Table) {
         value.replace(m_colDelimiter, FieldFormat::columnDelimiterString());
       }
-      if(replaceRowDelimiter && m_coll->fieldByName(currentFieldName)->type() == Data::Field::Table) {
+      if(replaceRowDelimiter && fieldType == Data::Field::Table) {
         value.replace(m_rowDelimiter, FieldFormat::rowDelimiterString());
       }
       if(m_isLibraryThing) {
@@ -168,7 +167,7 @@ Tellico::Data::CollPtr CSVImporter::collection() {
       bool success = entry->setField(currentFieldName, value);
       // we might need to add a new allowed value
       // assume that if the user is importing the value, it should be allowed
-      if(!success && m_coll->fieldByName(currentFieldName)->type() == Data::Field::Choice) {
+      if(!success && fieldType == Data::Field::Choice) {
         Data::FieldPtr f = m_coll->fieldByName(currentFieldName);
         StringSet allow;
         allow.add(f->allowed());
@@ -233,11 +232,7 @@ QWidget* CSVImporter::widget(QWidget* parent_) {
   hlay->addStretch(10);
 
   // use a constant width for the edit boxes. They're 1 or 2 characters long.
-#if (QT_VERSION < QT_VERSION_CHECK(5, 11, 0))
-  const int editWidth = 4 * m_widget->fontMetrics().width(QLatin1Char('X'));
-#else
   const int editWidth = 4 * m_widget->fontMetrics().horizontalAdvance(QLatin1Char('X'));
-#endif
 
   QHBoxLayout* delimiterLayout = new QHBoxLayout();
   vlay->addLayout(delimiterLayout);

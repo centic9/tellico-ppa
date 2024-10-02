@@ -64,7 +64,7 @@ ONIXExporter::~ONIXExporter() {
 }
 
 QString ONIXExporter::formatString() const {
-  return i18n("ONIX Archive");
+  return QStringLiteral("ONIX");
 }
 
 QString ONIXExporter::fileFilter() const {
@@ -91,7 +91,7 @@ bool ONIXExporter::exec() {
     const QString cover = QStringLiteral("cover");
     StringSet imageSet;
     foreach(Data::EntryPtr entry, entries()) {
-      const Data::Image& img = ImageFactory::imageById(entry->field(cover));
+      const auto& img = ImageFactory::imageById(entry->field(cover));
       if(!img.isNull() && !imageSet.has(img.id())
          && (img.format() == "JPEG" || img.format() == "JPG" || img.format() == "GIF")) { /// onix only understands jpeg and gif
         QByteArray ba = img.byteArray();
@@ -103,7 +103,6 @@ bool ONIXExporter::exec() {
 
   zip.close();
   return FileHandler::writeDataURL(url(), data, options() & Export::ExportForce);
-//  return FileHandler::writeTextURL(url(), text(),  options() & Export::ExportUTF8, options() & Export::ExportForce);
 }
 
 QString ONIXExporter::text() {

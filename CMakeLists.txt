@@ -1,18 +1,35 @@
-# FindKF5 requires CMake >= 2.8.12
 # FindPoppler requires CMake >= 3.16
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "3.5.4")
+set(TELLICO_VERSION "4.0.1")
 
-set(QT_MIN_VERSION "5.10.0")
+if(DEFINED BUILD_WITH_QT6)
+  set(GLOBAL_BUILD_WITH_QT6 ${BUILD_WITH_QT6})
+endif()
 
-# FindPoppler was added to ECM in 5.19
-find_package(ECM 5.19 REQUIRED NO_MODULE)
+find_package(ECM REQUIRED NO_MODULE)
+# ECM uses the required version to determine whether to build with Qt6
+# Instead, use the installed version and assume building with Qt6 unless
+# BUILD_WITH_QT6=OFF was passed to cmake
+if(NOT DEFINED GLOBAL_BUILD_WITH_QT6 AND
+   ECM_VERSION VERSION_GREATER_EQUAL 5.240)
+  option(BUILD_WITH_QT6 "Build against Qt 6" ON)
+endif()
 
 if(POLICY CMP0063)
   cmake_policy(SET CMP0063 NEW)
 endif(POLICY CMP0063)
+
+if(QT_MAJOR_VERSION STREQUAL "6")
+  set(QT_MIN_VERSION "6.4.0")
+  set(KF_MIN_VERSION "5.240.0")
+  set(CMAKE_CXX_STANDARD 20)
+else()
+  set(QT_MIN_VERSION "5.12.0")
+  set(KF_MIN_VERSION "5.72.0")
+  set(CMAKE_CXX_STANDARD 17)
+endif()
 
 # https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/Useful-Variables
 # automatically add CMAKE_CURRENT_SOURCE_DIR and CMAKE_CURRENT_BINARY_DIR
@@ -32,6 +49,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 ############# Options #################
 
@@ -50,8 +68,7 @@ include(CheckSymbolExists)
 check_symbol_exists(strlwr "string.h" HAVE_STRLWR)
 check_symbol_exists(strupr "string.h" HAVE_STRUPR)
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
-    Core
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     Widgets
     Xml
     DBus
@@ -60,9 +77,11 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS
     PrintSupport
 )
 
-find_package(KF5 REQUIRED COMPONENTS
+set(KF_MAJOR_VERSION ${QT_MAJOR_VERSION})
+find_package(KF${KF_MAJOR_VERSION} REQUIRED COMPONENTS
     Archive
     Codecs
+    Completion
     Config
     ConfigWidgets
     CoreAddons
@@ -77,26 +96,26 @@ find_package(KF5 REQUIRED COMPONENTS
     Solid
     Sonnet
     TextWidgets
-    Wallet
     WidgetsAddons
     XmlGui
 )
+
 if(NOT USE_KHTML)
-  find_package(Qt5 ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
+  find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
     WebEngineWidgets
   )
-  set_package_properties(Qt5WebEngineWidgets PROPERTIES
+  set_package_properties(Qt${QT_MAJOR_VERSION}WebEngineWidgets PROPERTIES
     DESCRIPTION "Building with QWebEngine is preferrable to KHTML"
     TYPE OPTIONAL)
 endif()
-if(USE_KHTML OR NOT Qt5WebEngineWidgets_FOUND)
+if(USE_KHTML OR NOT Qt${QT_MAJOR_VERSION}WebEngineWidgets_FOUND)
   set(USE_KHTML ON)
-  find_package(KF5KHtml REQUIRED NO_MODULE)
-  set_package_properties(KF5Html PROPERTIES
+  find_package(KF${KF_MAJOR_VERSION}KHtml REQUIRED NO_MODULE)
+  set_package_properties(KF${KF_MAJOR_VERSION}Html PROPERTIES
     DESCRIPTION "Building with QWebEngine is preferrable to KHTML")
 endif()
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
   Charts
 )
 
@@ -106,49 +125,43 @@ find_package(Gettext REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_package(LibXslt REQUIRED)
 
-find_package(KF5FileMetaData)
-set_package_properties(KF5FileMetaData PROPERTIES
+find_package(KF${KF_MAJOR_VERSION}FileMetaData)
+set_package_properties(KF${KF_MAJOR_VERSION}FileMetaData PROPERTIES
     DESCRIPTION "Support for reading file metadata"
     URL "https://www.kde.org"
     TYPE OPTIONAL)
 
-find_package(KF5NewStuff)
-set_package_properties(KF5NewStuff PROPERTIES
+find_package(KF${KF_MAJOR_VERSION}NewStuff)
+set_package_properties(KF${KF_MAJOR_VERSION}NewStuff PROPERTIES
     DESCRIPTION "Support for fetching new templates and scripts"
     URL "https://www.kde.org"
     TYPE OPTIONAL)
 
-find_package(KF5Sane)
-set_package_properties(KF5Sane PROPERTIES
+if (KF_MAJOR_VERSION STREQUAL "5")
+    set(KSANE_TARGET_NAME KF5::Sane)
+    find_package(KF5Sane)
+else()
+    set(KSANE_TARGET_NAME KSaneWidgets6)
+    find_package(KSaneWidgets6)
+endif()
+set_package_properties(KSANE_TARGET_NAME PROPERTIES
     DESCRIPTION "Support for adding scanned images to a collection"
     URL "https://www.kde.org"
     TYPE OPTIONAL)
-if(KF5Sane_FOUND)
-    include_directories(${KF5Sane_INCLUDE_DIR})
-endif(KF5Sane_FOUND)
 
-#macro_optional_find_package(KdepimLibs 4.5)
-#macro_log_feature(KDEPIMLIBS_FOUND "kdepimlibs" "Support for using the address book and calendar for loans" "https://community.kde.org/PIM" FALSE "4.5.0" "")
-#find_package(KdepimLibs 4.5)
-#set_package_properties(KdepimLibs PROPERTIES
-#    DESCRIPTION "Support for using the address book and calendar for loans"
-#    URL "https://community.kde.org/PIM"
-#    TYPE OPTIONAL)
-if(KDEPIMLIBS_FOUND)
-    include_directories(${KDEPIMLIBS_INCLUDE_DIRS})
-endif(KDEPIMLIBS_FOUND)
-
-find_package(KF5Cddb)
-set_package_properties(KF5Cddb PROPERTIES
+if (KF_MAJOR_VERSION STREQUAL "5")
+    set(KCDDB_TARGET_NAME KF5::Cddb)
+    find_package(KF5Cddb 5.1)
+else()
+    set(KCDDB_TARGET_NAME KCddb6)
+    find_package(KCddb6 5.1)
+endif()
+set_package_properties(${KCDDB_TARGET_NAME} PROPERTIES
     DESCRIPTION "Support for CDDB searches"
     URL "https://invent.kde.org/multimedia/libkcddb"
     TYPE OPTIONAL)
 
 find_package(Taglib)
-set_package_properties(Taglib PROPERTIES
-    DESCRIPTION "Support for reading multimedia files"
-    URL "https://taglib.org"
-    TYPE OPTIONAL)
 if(TAGLIB_FOUND)
     if(TAGLIB_LIBRARIES)
         # Older taglib
@@ -169,7 +182,7 @@ if(Yaz_FOUND)
 endif(Yaz_FOUND)
 
 # FindPoppler is part of ECM >= 5.19
-find_package(Poppler COMPONENTS Qt5)
+find_package(Poppler COMPONENTS Qt${QT_MAJOR_VERSION})
 
 find_package(Exempi 2.0)
 set_package_properties(Exempi PROPERTIES
@@ -244,13 +257,9 @@ endif(ENABLE_WEBCAM)
 
 if(CMAKE_COMPILER_IS_GNUCXX)
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnon-virtual-dtor -Wno-long-long -Wextra -fno-check-new -Woverloaded-virtual")
-    # remove -Wno-deprecated when porting to KF5 is more advanced
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnon-virtual-dtor -Wno-long-long -fno-check-new -Woverloaded-virtual -Wno-deprecated -Wno-deprecated-declarations")
 endif(CMAKE_COMPILER_IS_GNUCXX)
 
-#add_definitions(${QT_DEFINITIONS}
-#                ${KDE4_DEFINITIONS}
-#                ${YAZ_CFLAGS})
 add_definitions(-DQT_STL -DQT_NO_CAST_FROM_ASCII -DQT_NO_URL_CAST_FROM_STRING -DQT_USE_QSTRINGBUILDER)
 remove_definitions(-DQT_NO_STL)
 
@@ -270,21 +279,21 @@ add_subdirectory(doc)
 ########## Wrap tests results around the tests done within the source
 
 macro_bool_to_01(TAGLIB_FOUND HAVE_TAGLIB)
-macro_bool_to_01(Poppler_Qt5_FOUND HAVE_POPPLER)
+macro_bool_to_01(Poppler_Qt${QT_MAJOR_VERSION}_FOUND HAVE_POPPLER)
 macro_bool_to_01(Exempi_FOUND HAVE_EXEMPI)
 macro_bool_to_01(Yaz_FOUND HAVE_YAZ)
-macro_bool_to_01(KF5Sane_FOUND HAVE_KSANE)
-macro_bool_to_01(Libkcddb_FOUND HAVE_KCDDB)
-macro_bool_to_01(KF5Cddb_FOUND HAVE_KF5KCDDB)
+macro_bool_to_01(${KSANE_TARGET_NAME}_FOUND HAVE_KSANE)
+macro_bool_to_01(Libkcddb_FOUND HAVE_OLD_KCDDB)
+macro_bool_to_01(${KCDDB_TARGET_NAME}_FOUND HAVE_KCDDB)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KABC)
 macro_bool_to_01(KDEPIMLIBS_FOUND HAVE_KCAL)
 macro_bool_to_01(LIBV4L_FOUND HAVE_V4L)
-macro_bool_to_01(KF5NewStuff_FOUND ENABLE_KNEWSTUFF3)
+macro_bool_to_01(KF${KF_MAJOR_VERSION}NewStuff_FOUND ENABLE_KNEWSTUFF3)
 macro_bool_to_01(Btparse_FOUND HAVE_LIBBTPARSE)
 macro_bool_to_01(CDIO_FOUND HAVE_CDIO)
 macro_bool_to_01(Csv_FOUND HAVE_LIBCSV)
-macro_bool_to_01(KF5FileMetaData_FOUND HAVE_KFILEMETADATA)
-macro_bool_to_01(Qt5Charts_FOUND HAVE_QCHARTS)
+macro_bool_to_01(KF${KF_MAJOR_VERSION}FileMetaData_FOUND HAVE_KFILEMETADATA)
+macro_bool_to_01(Qt${QT_MAJOR_VERSION}Charts_FOUND HAVE_QCHARTS)
 macro_bool_to_01(ENABLE_BTPARSE ENABLE_BTPARSE)
 macro_bool_to_01(BUILD_FETCHER_TESTS ENABLE_NETWORK_TESTS)
 
@@ -293,7 +302,6 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY
 ########### install files ###############
 
 install(PROGRAMS org.kde.tellico.desktop DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES tellico.dtd tellico.tips DESTINATION ${TELLICO_DATA_INSTALL_DIR})
 install(FILES tellico.xml DESTINATION  ${KDE_INSTALL_MIMEDIR})
 install(FILES org.kde.tellico.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )
 ki18n_install(po)

@@ -43,6 +43,8 @@ private Q_SLOTS:
   void testObfuscate();
   void testControlCodes();
   void testControlCodes_data();
+  void testBug254863();
+  void testMapValue();
 };
 
 #endif

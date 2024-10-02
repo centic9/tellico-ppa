@@ -78,11 +78,13 @@
 <para
 >Puede usar el  <interface
 >Filtro rápido</interface
-> de la barra de herramientas para limitar rápidamente las entradas visibles a solo las que contengan la palabra que escriba. El filtro también es útil cuando quiere encontrar rápidamente una entrada. Puede teclear el título o cualquier otra palabra única que identifique la entrada y la <link linkend="detailed-view"
+> de la barra de herramientas para limitar las entradas visibles. El filtro también es útil cuando quiera encontrar rápidamente una entrada. Puede teclear el título o cualquier otra palabra única que identifique la entrada y la <link linkend="detailed-view"
 ><interface
 >Vista de columnas</interface
-> </link
-> mostrará solo las entradas que coincidan con el filtro. La barra de estado muestra cuántas entradas hay en la colección, y cuántas están siendo filtradas actualmente. </para>
+></link
+> mostrará solo las entradas que coincidan con el filtro. Un filtrado más complejo puede usar nombres de campos directamente, como <emphasis
+>autor=stephenson</emphasis
+>. La barra de estado muestra el número de entradas que hay en la colección y cuántas están siendo filtradas actualmente. </para>
 
 </sect1>
 
@@ -191,11 +193,13 @@
 ></title>
 
 <para
->If any filters are saved for the collection, the <interface
->Filter View</interface
-> becomes active. As you add or modify entries, they will automatically be checked against the filters and add or removed as appropriate. The filter may be modified by double-clicking on the item to open the <interface
->Advanced Filter Dialog</interface
->. Right-clicking gives you the option to delete it altogether. </para>
+>Si hay filtros guardados para la colección, la <interface
+>Vista de filtro</interface
+> estará activa. A medida que añada y modifique entradas, estas se compararán con los filtros y se añadirán o eliminarán, según sea el caso. Puede modificar el filtro haciendo doble clic en el elemento para abrir el <link linkend="filter-dialog"
+><interface
+>Diálogo de filtro avanzado</interface
+></link
+>. Haga clic con el botón derecho para poder eliminarlo de todas formas. </para>
 
 <screenshot>
 <screeninfo
@@ -830,9 +834,9 @@
 </screenshot>
 
 <para
->Each row contains a single filter rule. Select the field to match in the first box in the row, then select a matching rule in the center. Rules may match values that contain a certain word, or are exactly equal. A regular expression may also be used to match entries, in which case the <guibutton
->Edit...</guibutton
-> button becomes active for editing the expression, if &kregexpeditor; is installed on your computer. Finally, the word or string to match should be entered in the text box. </para>
+>Cada fila contiene una sola regla de filtrado. Seleccione el campo que quiera hacer coincidir con la primera casilla de la fila, y seleccione la regla de coincidencia en el centro. Las reglas pueden hacer coincidir valores que contengan una determinada palabra, o que sean exactamente iguales. También se puede usar una expresión regular para emparejar entradas, en cuyo caso el botón <guibutton
+>Editar...</guibutton
+> se vuelve activo para editar la expresión, si &kregexpeditor; está instalado en su equipo. Finalmente, la palabra o cadena que emparejar se debe introducir en el cuadro de texto. Para los campos de imagen, puede usar el tamaño de la imagen para filtrar donde el valor del filtro se compara con la dimensión más grande de la imagen, ya sea su anchura o su altura. </para>
 
 <para
 >Se pueden usar hasta ocho (8) reglas en el filtrado. Los botones <guibutton
@@ -975,9 +979,6 @@
 <title
 >Consejos generales</title>
 
-<para
->Esta es la lista de consejos contenidos en la lista «Consejo del día» para &appname;. </para>
-
 <tip>
 <para
 >Si un libro tiene más de un autor, debería separar los nombres por un punto y coma, de forma que Tellico sepa cómo dividirlos y usarlos separadamente. Se debe hacer lo mismo con cualquier otro campo que permita múltiples valores, con un punto y coma (;) separando cada valor. </para>
@@ -993,22 +994,6 @@
 >Puede añadir, editar o modificar los campos de la colección usando el <interface
 >Diálogo de campos de la colección</interface
 >. Los botones de flecha debajo de la lista de campos se pueden usar para cambiar la posición del campo en la lista, lo que afecta a la ubicación en el editor de entradas. </para>
-</tip>
-
-<tip>
-<para
->Si desea filtrar según un campo de <link linkend="bool"
-><emphasis
->Casilla de verificación</emphasis
-></link
->, se debería usar un valor «verdadero». Si desea filtrar para que solo se muestren los libros de ciencia-ficción que no ha leído, por ejemplo, marque el botón <guilabel
->Hacer coincidir todos los siguientes</guilabel
->, establezca la primera regla para que «Género» contenga «Ciencia-ficción» (sin comillas) y la segunda para que «Leído» no contenga «verdadero» (sin comillas). </para>
-</tip>
-
-<tip>
-<para
->Si un carácter que no sea una palabra se usa en el filtro rápido, el texto se interpreta como una expresión regular. para mostrar solo los libros que son de Weber o de Bujold, por ejemplo, teclee «weber|bujold» (sin las comillas) en el cuadro de filtro. </para>
 </tip>
 
 <tip>

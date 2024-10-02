@@ -30,8 +30,8 @@
 #include "../collections/gamecollection.h"
 #include "../images/imagefactory.h"
 #include "../gui/combobox.h"
+#include "../gui/lineedit.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
 #include "../entry.h"
 #include "../fieldformat.h"
 #include "../core/filehandler.h"
@@ -41,14 +41,13 @@
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
 
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonValue>
@@ -106,6 +105,7 @@ void ColnectFetcher::readConfigHook(const KConfigGroup& config_) {
   if(imageSize > -1) {
     m_imageSize = static_cast<ImageSize>(imageSize);
   }
+  m_countryCode = config_.readEntry("Country"); // ok to be empty
 }
 
 void ColnectFetcher::search() {
@@ -157,6 +157,9 @@ void ColnectFetcher::search() {
           value = value.remove(yearRX);
         }
       }
+      if(!m_countryCode.isEmpty()) {
+        query += QStringLiteral("/country/") + m_countryCode;
+      }
       // everything left is for the item description
       query += QStringLiteral("/item_name/") + value.simplified();
       break;
@@ -178,6 +181,9 @@ void ColnectFetcher::search() {
           value = value.remove(yearRX);
         }
       }
+      if(!m_countryCode.isEmpty()) {
+        query += QStringLiteral("/country/") + m_countryCode;
+      }
       // everything left is for the item description
       query += QStringLiteral("/description/") + value.simplified();
       break;
@@ -193,7 +199,7 @@ void ColnectFetcher::search() {
   }
 
   u.setPath(u.path() + query);
-//  myDebug() << "url:" << u;
+  myLog() << "Reading" << u.toDisplayString();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
@@ -226,7 +232,7 @@ Tellico::Data::EntryPtr ColnectFetcher::fetchEntryHook(uint uid_) {
     QString query(QLatin1Char('/') + m_locale + QStringLiteral("/item/cat/")
                   + m_category + QStringLiteral("/id/") + id);
     u.setPath(u.path() + query);
-//    myDebug() << "Reading item data from url:" << u;
+//    myLog() << "Reading" << u.toDisplayString();
 
     QPointer<KIO::StoredTransferJob> job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
     KJobWidgets::setWindow(job, GUI::Proxy::widget());
@@ -244,7 +250,6 @@ Tellico::Data::EntryPtr ColnectFetcher::fetchEntryHook(uint uid_) {
     QFile file(QStringLiteral("/tmp/colnectitemtest.json"));
     if(file.open(QIODevice::WriteOnly)) {
       QTextStream t(&file);
-      t.setCodec("UTF-8");
       t << data;
     }
     file.close();
@@ -254,7 +259,7 @@ Tellico::Data::EntryPtr ColnectFetcher::fetchEntryHook(uint uid_) {
     Q_ASSERT_X(!doc.isNull(), "colnect", jsonError.errorString().toUtf8().constData());
     const QVariantList resultList = doc.array().toVariantList();
     Q_ASSERT_X(!resultList.isEmpty(), "colnect", "no item results");
-    Q_ASSERT_X(static_cast<QMetaType::Type>(resultList.at(0).type()) == QMetaType::QString, "colnect",
+    Q_ASSERT_X(resultList.at(0).canConvert<QString>(), "colnect",
                "Weird single item result, first value is not a string");
     populateEntry(entry, resultList);
   }
@@ -304,7 +309,6 @@ void ColnectFetcher::slotComplete(KJob* job_) {
   QFile f(QStringLiteral("/tmp/colnecttest.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -320,7 +324,7 @@ void ColnectFetcher::slotComplete(KJob* job_) {
   }
   QVariantList resultList = doc.array().toVariantList();
   if(resultList.isEmpty()) {
-//    myDebug() << "no results";
+    myLog() << "No results";
     stop();
     return;
   }
@@ -361,6 +365,7 @@ void ColnectFetcher::slotComplete(KJob* job_) {
   if(!coll->hasField(series) && optionalFields().contains(series)) {
     Data::FieldPtr field(new Data::Field(series, i18n("Series")));
     field->setCategory(i18n("General"));
+    field->setFlags(Data::Field::AllowCompletion | Data::Field::AllowGrouped);
     coll->addField(field);
   }
 
@@ -371,8 +376,7 @@ void ColnectFetcher::slotComplete(KJob* job_) {
   }
 
   // if the first item in the array is a string, probably a single item result, possibly from a Raw query
-  if(!resultList.isEmpty() &&
-     static_cast<QMetaType::Type>(resultList.at(0).type()) == QMetaType::QString) {
+  if(!resultList.isEmpty() && resultList.at(0).canConvert<QString>()) {
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, resultList);
 
@@ -385,7 +389,7 @@ void ColnectFetcher::slotComplete(KJob* job_) {
   }
 
   // here, we have multiple results to loop through
-//  myDebug() << "Reading" << resultList.size() << "results";
+  myLog() << "Reading" << resultList.size() << "results";
   foreach(const QVariant& result, resultList) {
     // be sure to check that the fetcher has not been stopped
     // crashes can occur if not
@@ -401,8 +405,9 @@ void ColnectFetcher::slotComplete(KJob* job_) {
     if(optionalFields().contains(desc)) {
       entry->setField(desc, values.last().toString());
     }
-    // since card collection use a dependent field for title, fake a description with the series field
-    if(collectionType() == Data::Collection::Card) {
+    // fake a description with the series field for derived titles
+    auto titleField = coll->fieldByName(coll->titleField());
+    if(titleField && titleField->hasFlag(Data::Field::Derived)) {
       entry->setField(QStringLiteral("series"), values.at(7).toString());
     } else {
       entry->setField(QStringLiteral("title"), values.at(7).toString());
@@ -486,6 +491,8 @@ void ColnectFetcher::populateEntry(Data::EntryPtr entry_, const QVariantList& re
     static const QString name(QStringLiteral("Name"));
     auto idxName = m_colnectFields.value(name, -1);
     QString s = resultList_.at(idx).toString().trimmed();
+    s.replace(QLatin1String("[b]"), QLatin1String("<b>"));
+    s.replace(QLatin1String("[/b]"), QLatin1String("</b>"));
     // use the name as the description for stamps since the title includes it
     // put the description text into the comments
     if(collectionType() == Data::Collection::Stamp) {
@@ -534,7 +541,6 @@ void ColnectFetcher::populateEntry(Data::EntryPtr entry_, const QVariantList& re
                        QLatin1Char('/') + entry_->field(QStringLiteral("colnect-id")) +
                        QLatin1Char('-') + URLize(resultList_.at(0).toString()));
     link.setPath(link.path() + path);
-//    myDebug() << "colnect link is" << link;
     entry_->setField(colnect, link.url());
   }
 }
@@ -563,9 +569,11 @@ void ColnectFetcher::populateCoinEntry(Data::EntryPtr entry_, const QVariantList
       QString currency = entry_->field(QStringLiteral("currency"));
       if(!currency.isEmpty()) currency.truncate(1);
       const double value = resultList_.at(idx).toDouble();
-      // don't assume the value is in system currency
-      entry_->setField(QStringLiteral("denomination"),
-                       QLocale::system().toCurrencyString(value, currency));
+      if(value > 0) {
+        // don't assume the value is in system currency
+        entry_->setField(QStringLiteral("denomination"),
+                         QLocale::system().toCurrencyString(value, currency));
+      }
     }
   }
 
@@ -759,7 +767,7 @@ void ColnectFetcher::populateGameEntry(Data::EntryPtr entry_, const QVariantList
         else if(rating == QLatin1String("A"))    esrb = Data::GameCollection::Adults;
         else if(rating == QLatin1String("M"))    esrb = Data::GameCollection::Mature;
         else if(rating == QLatin1String("RP"))   esrb = Data::GameCollection::Pending;
-        if(rating != Data::GameCollection::UnknownEsrb) {
+        if(esrb != Data::GameCollection::UnknownEsrb) {
           entry_->setField(QStringLiteral("certification"), Data::GameCollection::esrbRating(esrb));
         }
       } else if(rating.startsWith(QLatin1String("PEGI")) && optionalFields().contains(QStringLiteral("pegi"))) {
@@ -783,7 +791,7 @@ void ColnectFetcher::loadImage(Data::EntryPtr entry_, const QString& fieldName_)
   if(image.contains(QLatin1Char('/'))) {
     const QString id = ImageFactory::addImage(QUrl::fromUserInput(image), true /* quiet */);
     if(id.isEmpty()) {
-      myDebug() << "Failed to load" << image;
+      myLog() << "Failed to load" << image;
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
     // empty image ID is ok
@@ -843,6 +851,7 @@ QString ColnectFetcher::imageUrl(const QString& name_, const QString& id_) {
   if(m_imageSize == NoImage) return QString();
   const QString nameSlug = URLize(name_);
   const int id = id_.toInt();
+  if(id == 0) return QString();
   QUrl u(QString::fromLatin1(COLNECT_IMAGE_URL));
   // uses 't' for thumbnail, use 'f' for full-size
   u.setPath(QString::fromLatin1("/%1/%2/%3/%4.jpg")
@@ -855,11 +864,11 @@ QString ColnectFetcher::imageUrl(const QString& name_, const QString& id_) {
 }
 
 void ColnectFetcher::readDataList() {
-//  myDebug() << "Reading Colnect fields";
   QUrl u(QString::fromLatin1(COLNECT_API_URL));
   // Colnect API calls are encoded as a path
   QString query(QLatin1Char('/') + m_locale + QStringLiteral("/fields/cat/") + m_category + QLatin1Char('/'));
   u.setPath(u.path() + query);
+//  myLog() << "Reading Colnect fields from" << u.toDisplayString();
 
   const QByteArray data = FileHandler::readDataFile(u, true);
   QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -875,7 +884,6 @@ void ColnectFetcher::readDataList() {
   m_colnectFields.clear();
   for(int i = 0; i < resultList.size(); ++i) {
     m_colnectFields.insert(resultList.at(i).toString(), i);
-//    if(i == 5) myDebug() << m_colnectFields;
   }
 //  myDebug() << "Colnect fields:" << m_colnectFields;
 }
@@ -885,6 +893,7 @@ void ColnectFetcher::readItemNames(const QByteArray& item_) {
   // Colnect API calls are encoded as a path
   QString query(QLatin1Char('/') + m_locale + QLatin1Char('/') + QLatin1String(item_) + QStringLiteral("/cat/") + m_category + QLatin1Char('/'));
   u.setPath(u.path() + query);
+//  myLog() << "Reading item names from" << u.toDisplayString();
 
   const QByteArray data = FileHandler::readDataFile(u, true);
   QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -954,6 +963,13 @@ ColnectFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ColnectFetche
   l->addWidget(m_imageCombo, row, 1);
   label->setBuddy(m_imageCombo);
 
+  label = new QLabel(i18n("Country code: "), optionsWidget());
+  l->addWidget(label, ++row, 0);
+  m_countryEdit = new GUI::LineEdit(optionsWidget());
+  connect(m_countryEdit, &QLineEdit::textChanged, this, &ConfigWidget::slotSetModified);
+  l->addWidget(m_countryEdit, row, 1);
+  label->setBuddy(m_countryEdit);
+
   l->setRowStretch(++row, 10);
 
   // now add additional fields widget
@@ -967,6 +983,7 @@ ColnectFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ColnectFetche
       m_langCombo->setCurrentIndex(m_langCombo->count()-1);
     }
     m_imageCombo->setCurrentData(fetcher_->m_imageSize);
+    m_countryEdit->setText(fetcher_->m_countryCode);
   }
 }
 
@@ -980,6 +997,7 @@ void ColnectFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
 
   const int n = m_imageCombo->currentData().toInt();
   config_.writeEntry("Image Size", n);
+  config_.writeEntry("Country", m_countryEdit->text().trimmed());
 }
 
 QString ColnectFetcher::ConfigWidget::preferredName() const {

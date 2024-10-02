@@ -38,6 +38,9 @@ namespace KIO {
 }
 
 namespace Tellico {
+  namespace GUI {
+    class CollectionTypeCombo;
+  }
   namespace Import {
 
 /**
@@ -55,8 +58,11 @@ public:
   virtual Data::CollPtr collection() Q_DECL_OVERRIDE;
   /**
    */
-  virtual QWidget* widget(QWidget*) Q_DECL_OVERRIDE;
+  virtual QWidget* widget(QWidget* parent) Q_DECL_OVERRIDE;
   virtual bool canImport(int type) const Q_DECL_OVERRIDE;
+
+  void setUseFilePreview(bool b) { m_useFilePreview = b; }
+  void setCollectionType(int type_) { m_collType = type_; }
 
 public Q_SLOTS:
   void slotCancel() Q_DECL_OVERRIDE;
@@ -67,12 +73,16 @@ private Q_SLOTS:
 private:
   QString volumeName() const;
 
+  int m_collType;
   Data::CollPtr m_coll;
   QWidget* m_widget;
+  GUI::CollectionTypeCombo* m_collCombo;
   QCheckBox* m_recursive;
   QCheckBox* m_filePreview;
+
   QPointer<KIO::Job> m_job;
   KFileItemList m_files;
+  bool m_useFilePreview;
   bool m_cancelled;
 };
 

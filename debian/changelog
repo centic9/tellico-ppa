@@ -1,51 +1,71 @@
-tellico (3.5.4-1ubuntu4) oracular; urgency=medium
+tellico (4.0.1-1) unstable; urgency=medium
 
-  * Properly address the apparmor profile issue by adding multiple
-    lines for the different architectures we want to support until 
-    @multiarch is supported. This closes (LP: #2064492)
+  * New upstream release.
 
- -- Scarlett Moore <sgmoore@debian.org>  Mon, 02 Sep 2024 07:04:20 -0700
+ -- Pino Toscano <pino@debian.org>  Wed, 02 Oct 2024 19:22:11 +0200
 
-tellico (3.5.4-1ubuntu3) oracular; urgency=medium
+tellico (4.0-2) unstable; urgency=medium
 
-  * Properly address the apparmor profile issue by adding multiple
-    lines for the different architectures we want to support until 
-    @multiarch is supported. This closes (LP: #2065915)
+  * Fold tellico-scripts into tellico-data: the idea for the split was to add
+    the possibility to update the scripts separately using the old
+    debian-volatile concept (see 1.3.1-2); since there are less and less scripts
+    and configuration files (resp. 1 and 1), and the vast majority of the
+    collectors are implemented in native code, then the separate update of
+    tellico-scripts is of practically no use anymore
+    - install all the data files in tellico-data, simplifying its install file
+    - add the breaks/replaces in tellico-data for the file move
+    - turn tellico-scripts into an empty package; it does not need to depend on
+      tellico-data, as the latter is already a dependency of tellico
+    - drop the tellico-scripts dependency in tellico
+  * Simplify the handling of the temporary directories when invoking
+    dh_auto_test:
+    - stop manually creating/passing $HOME and $XDG_RUNTIME_DIR, as debhelper
+      handles them already in compat 13
+    - use a static "tmp" subdirectory of the local "test_root" as $TMPDIR,
+      so it is already cleaned, and it does not pollute the system $TMPDIR
+  * Prepare tellico for the future switch to Qt 6, which means also WebEngine
+    as mandatory (since KHTML is dead, and no more available in KF6):
+    - restrict the architecture to amd64 arm64 armhf i386, i.e. the
+      architectures on which Qt6 WebEngine is available
+    - remove the architecture restriction from the qtwebengine5-dev build
+      dependency
+    - drop the libkf5khtml-dev build dependency, no more needed now
 
- -- Scarlett Moore <sgmoore@debian.org>  Thu, 08 Aug 2024 00:44:06 -0700
+ -- Pino Toscano <pino@debian.org>  Wed, 25 Sep 2024 20:18:17 +0200
 
-tellico (3.5.3-1ubuntu5) noble; urgency=medium
+tellico (4.0-1) unstable; urgency=medium
 
-  * No-change rebuild for CVE-2024-3094
+  * New upstream release.
+  * Update the build dependencies according to the upstream build system:
+    - bump Qt packages to 5.12.0
+    - bump KF packages to 5.72.0
+    - add libkf5completion-dev, explicitly searched
+    - add breeze-icon-theme for FileListingTest, which tries to load a MIME icon
+    - drop libkf5wallet-dev, no more used
+  * Pass -DBUILD_WITH_QT6=OFF to cmake to keep building with Qt5/KF5 for now.
+  * Update the patches:
+    - tests-disable-fetchertest.diff: refresh
+  * Drop duplicate commas in the Build-Depends control field: it looks like
+    newer versions of apt fail to parse them.
+  * CI: make the build non-verbose, so the build log fits within the salsa
+    limits.
+  * Update install files.
 
- -- William Grant <wgrant@ubuntu.com>  Mon, 01 Apr 2024 19:24:19 +1100
+ -- Pino Toscano <pino@debian.org>  Sun, 08 Sep 2024 08:25:49 +0200
 
-tellico (3.5.3-1ubuntu4) noble; urgency=medium
+tellico (3.5.5-1) unstable; urgency=medium
 
-  * No-change rebuild against libqt5core5t64
+  * New upstream release.
 
- -- Steve Langasek <steve.langasek@ubuntu.com>  Fri, 15 Mar 2024 07:16:38 +0000
+ -- Pino Toscano <pino@debian.org>  Tue, 25 Jun 2024 06:01:51 +0200
 
-tellico (3.5.3-1ubuntu3) noble; urgency=medium
+tellico (3.5.4-1) unstable; urgency=medium
 
-  * No-change rebuild against libcdio19t64
+  * New upstream release.
+  * Switch the transitional pkg-config build dependency to pkgconf.
+  * Bump Standards-Version to 4.7.0, no changes required.
 
- -- Steve Langasek <steve.langasek@ubuntu.com>  Thu, 14 Mar 2024 05:36:08 +0000
-
-tellico (3.5.3-1ubuntu2) noble; urgency=medium
-
-  * Release to archive. 
-
- -- Scarlett Moore <sgmoore@debian.org>  Thu, 08 Feb 2024 03:20:10 -0700
-
-tellico (3.5.3-1ubuntu1) noble; urgency=medium
-
-  * New upstream release (3.5.3) 
-  * Debian merge: No changes needed.
-  * Update VCS. 
-  * Add apparmor profile to fix userns. Ref: LP:2046844
-
- -- Scarlett Moore <sgmoore@debian.org>  Thu, 08 Feb 2024 01:05:17 -0700
+ -- Pino Toscano <pino@debian.org>  Wed, 01 May 2024 07:58:11 +0200
 
 tellico (3.5.3-1) unstable; urgency=medium
 
@@ -181,15 +201,6 @@ tellico (3.4.1-1) unstable; urgency=medium
   * Update install files.
 
  -- Pino Toscano <pino@debian.org>  Sat, 21 Aug 2021 10:17:16 +0200
-
-tellico (3.4-0ubuntu1) impish; urgency=medium
-
-  * New upstream release (3.4)
-  * Update tests-no-network.diff
-  * Temporarily make build time tests non fatal.
-  * Update install files.
-
- -- Rik Mills <rikmills@kde.org>  Sat, 01 May 2021 12:56:20 +0100
 
 tellico (3.3.5-1) unstable; urgency=medium
 

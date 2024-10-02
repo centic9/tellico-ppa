@@ -25,9 +25,8 @@
 #include "igdbfetcher.h"
 #include "../collections/gamecollection.h"
 #include "../images/imagefactory.h"
-#include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../utils/tellico_utils.h"
 #include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
@@ -36,7 +35,7 @@
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
 
 #include <QUrl>
@@ -45,7 +44,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
@@ -78,7 +76,7 @@ QString IGDBFetcher::source() const {
 }
 
 QString IGDBFetcher::attribution() const {
-  return i18n(providedBy, QLatin1String("https://igdb.com"), QLatin1String("IGDB.com"));
+  return TC_I18N3(providedBy, QLatin1String("https://igdb.com"), QLatin1String("IGDB.com"));
 }
 
 bool IGDBFetcher::canSearch(Fetch::FetchKey k) const {
@@ -208,7 +206,6 @@ void IGDBFetcher::slotComplete(KJob* job_) {
   QFile file(QStringLiteral("/tmp/test.json"));
   if(file.open(QIODevice::WriteOnly)) {
     QTextStream t(&file);
-    t.setCodec("UTF-8");
     t << data;
   }
   file.close();
@@ -404,7 +401,9 @@ void IGDBFetcher::populateHashes() {
   // grab i18n values for ESRB from default collection
   Data::CollPtr c(new Data::GameCollection(true));
   QStringList esrb = c->fieldByName(QStringLiteral("certification"))->allowed();
-  Q_ASSERT(esrb.size() == 8);
+  if(esrb.size() < 8) {
+    myWarning() << "ESRB rating list is badly translated";
+  }
   while(esrb.size() < 8) {
     esrb << QString();
   }

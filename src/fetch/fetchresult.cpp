@@ -24,7 +24,6 @@
 
 #include "fetchresult.h"
 #include "fetcher.h"
-#include "fetchmanager.h"
 #include "../entry.h"
 #include "../collection.h"
 #include "../tellico_debug.h"
@@ -74,7 +73,7 @@ Tellico::Data::EntryPtr FetchResult::fetchEntry() {
 
 Tellico::Fetch::Fetcher* FetchResult::fetcher() {
   Q_ASSERT(m_fetcher);
-  if(!m_fetcher) myLog() << "FetchResult::fetcher() - null pointer";
+  if(!m_fetcher) myDebug() << "FetchResult::fetcher() - null pointer";
   return m_fetcher;
 }
 

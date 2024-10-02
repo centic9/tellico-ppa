@@ -29,12 +29,13 @@
 #include "../gui/combobox.h"
 #include "../utils/guiproxy.h"
 #include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KConfigGroup>
 
 #include <QLabel>
@@ -183,7 +184,6 @@ void NumistaFetcher::slotComplete(KJob* ) {
   QFile f(QStringLiteral("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -268,7 +268,6 @@ Tellico::Data::EntryPtr NumistaFetcher::fetchEntryHook(uint uid_) {
   QFile f(QStringLiteral("/tmp/test2-numista.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -373,9 +372,9 @@ Tellico::Data::EntryPtr NumistaFetcher::parseEntry(const QByteArray& data_) {
 }
 
 Tellico::Fetch::FetchRequest NumistaFetcher::updateRequest(Data::EntryPtr entry_) {
-  QString t = entry_->field(QStringLiteral("type"));
-  QString c = entry_->field(QStringLiteral("country"));
+  const QString t = entry_->field(QStringLiteral("type"));
   if(!t.isEmpty()) {
+    const QString c = entry_->field(QStringLiteral("country"));
     return FetchRequest(Fetch::Keyword, t + QLatin1Char(' ') + c);
   }
 

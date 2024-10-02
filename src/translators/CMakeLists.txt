@@ -23,6 +23,9 @@ SET(translators_STAT_SRCS
    ebookimporter.cpp
    exporter.cpp
    filelistingimporter.cpp
+   filereader.cpp
+   filereaderbook.cpp
+   filereadervideo.cpp
    freedb_util.cpp
    freedbimporter.cpp
    gcstarexporter.cpp
@@ -66,27 +69,27 @@ TARGET_LINK_LIBRARIES(translators
     )
 
 TARGET_LINK_LIBRARIES(translators
-    KF5::Archive
-    KF5::JobWidgets
-    KF5::Solid
+    KF${KF_MAJOR_VERSION}::Archive
+    KF${KF_MAJOR_VERSION}::JobWidgets
+    KF${KF_MAJOR_VERSION}::Solid
     ${LIBXML2_LIBRARIES}
     ${LIBXSLT_LIBRARIES}
     ${LIBXSLT_EXSLT_LIBRARIES}
     )
 
-IF( KF5Cddb_FOUND )
-  TARGET_LINK_LIBRARIES(translators KF5::Cddb)
+IF( ${KCDDB_TARGET_NAME}_FOUND )
+  TARGET_LINK_LIBRARIES(translators ${KCDDB_TARGET_NAME})
 ELSEIF( Libkcddb_FOUND )
   TARGET_LINK_LIBRARIES(translators KDE::Libkcddb::kcddb)
-ENDIF( KF5Cddb_FOUND)
+ENDIF( ${KCDDB_TARGET_NAME}_FOUND)
 
-IF( Poppler_Qt5_FOUND )
-  TARGET_LINK_LIBRARIES(translators Poppler::Qt5)
-ENDIF( Poppler_Qt5_FOUND )
+IF( Poppler_Qt${QT_MAJOR_VERSION}_FOUND )
+  TARGET_LINK_LIBRARIES(translators Poppler::Qt${QT_MAJOR_VERSION})
+ENDIF( Poppler_Qt${QT_MAJOR_VERSION}_FOUND )
 
-IF( KF5FileMetaData_FOUND )
-  TARGET_LINK_LIBRARIES(translators KF5::FileMetaData)
-ENDIF( KF5FileMetaData_FOUND )
+IF( KF${KF_MAJOR_VERSION}FileMetaData_FOUND )
+  TARGET_LINK_LIBRARIES(translators KF${KF_MAJOR_VERSION}::FileMetaData)
+ENDIF( KF${KF_MAJOR_VERSION}FileMetaData_FOUND )
 
 IF( Exempi_FOUND )
   TARGET_LINK_LIBRARIES(translators ${Exempi_LIBRARIES})

@@ -2,7 +2,24 @@
 # SPDX-License-Identifier: CC0-1.0
 
 Dependencies:
-- 'on': ['@all']
+- 'on': ['Linux/Qt6', 'FreeBSD/Qt6']
+  'require':
+    'frameworks/extra-cmake-modules': '@latest-kf6'
+    'frameworks/kconfig': '@latest-kf6'
+    'frameworks/kconfigwidgets': '@latest-kf6'
+    'frameworks/kdoctools': '@latest-kf6'
+    'frameworks/ki18n': '@latest-kf6'
+    'frameworks/kio': '@latest-kf6'
+    'frameworks/kwidgetsaddons': '@latest-kf6'
+    'frameworks/kfilemetadata': '@latest-kf6'
+    'frameworks/kiconthemes': '@latest-kf6'
+    'frameworks/kitemmodels': '@latest-kf6'
+    'frameworks/knewstuff': '@latest-kf6'
+    'frameworks/kcrash': '@latest-kf6'
+    'multimedia/libkcddb': '@latest-kf6'
+    'graphics/libksane': '@latest-kf6'
+
+- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
   'require':
     'frameworks/ki18n': '@stable'
     'frameworks/kxmlgui': '@stable'
@@ -14,15 +31,15 @@ Dependencies:
     'frameworks/kcoreaddons': '@stable'
     'frameworks/ktexteditor': '@stable'
     'frameworks/kdoctools': '@stable'
-    'frameworks/kwallet': '@stable'
     'frameworks/knewstuff': '@stable'
     'frameworks/kcrash': '@stable'
     'frameworks/extra-cmake-modules': '@stable'
-    'multimedia/libkcddb': 'master'
+    'multimedia/libkcddb': '@stable'
+    'graphics/libksane': '@stable'
 
 Options:
   run-tests: True
-  require-passing-tests-on: [ 'Linux' ]
+  require-passing-tests-on: [ 'Linux', 'FreeBSD' ]
   run-cppcheck: True
   cppcheck-arguments: '--enable=warning,style,performance'
   cppcheck-ignore-files:

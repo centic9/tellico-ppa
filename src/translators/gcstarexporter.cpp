@@ -109,7 +109,7 @@ QString GCstarExporter::text() {
 
   delete m_handler;
   m_handler = new XSLTHandler(dom, QFile::encodeName(xsltFile));
-  if(!m_handler || !m_handler->isValid()) {
+  if(!m_handler->isValid()) {
     return QString();
   }
 
@@ -152,7 +152,7 @@ bool GCstarExporter::writeImages() {
         break;
       }
 
-      const Data::Image& img = ImageFactory::imageById(entry->field(field));
+      const auto& img = ImageFactory::imageById(entry->field(field));
       if(img.isNull()) {
         break;
       }

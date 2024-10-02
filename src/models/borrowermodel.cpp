@@ -24,8 +24,6 @@
 
 #include "borrowermodel.h"
 #include "models.h"
-#include "../document.h"
-#include "../collection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
 #include "../tellico_debug.h"

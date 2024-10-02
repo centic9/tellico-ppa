@@ -35,7 +35,7 @@
 #include <QTemporaryDir>
 #include <QStandardPaths>
 
-QTEST_GUILESS_MAIN( AlexandriaTest )
+QTEST_MAIN( AlexandriaTest )
 
 #define QSL(x) QStringLiteral(x)
 
@@ -47,6 +47,8 @@ void AlexandriaTest::initTestCase() {
 
 void AlexandriaTest::testImport() {
   Tellico::Import::AlexandriaImporter importer;
+  QVERIFY(importer.canImport(Tellico::Data::Collection::Book));
+  QVERIFY(!importer.canImport(Tellico::Data::Collection::Album));
   importer.setLibraryPath(QFINDTESTDATA("/data/alexandria/"));
 
   // shut the importer up about current collection
@@ -60,6 +62,7 @@ void AlexandriaTest::testImport() {
   QCOMPARE(coll->entryCount(), 2);
   // should be translated somehow
   QCOMPARE(coll->title(), QSL("My Books"));
+  QVERIFY(importer.canImport(coll->type()));
 
   Tellico::Data::EntryPtr entry = coll->entryById(1);
   QCOMPARE(entry->field(QSL("title")), QSL("The Hallowed Hunt"));
@@ -108,6 +111,20 @@ void AlexandriaTest::testImport() {
 
 void AlexandriaTest::testEscapeText() {
   // text escaping puts slashes in for quotes and remove control characters
-  QString input(QStringLiteral("\"test \uFD3F") + QString(0x90));
+  QString input(QStringLiteral("\"test \uFD3F") + QChar(0x90));
   QCOMPARE(Tellico::Export::AlexandriaExporter::escapeText(input), QStringLiteral("\\\"test \uFD3F"));
+}
+
+void AlexandriaTest::testWidget() {
+  Tellico::Import::AlexandriaImporter importer;
+  importer.setLibraryPath(QFINDTESTDATA("/data/alexandria/"));
+  QVERIFY(!importer.libraryPath().isEmpty());
+  QScopedPointer<QWidget> widget(importer.widget(nullptr));
+  QVERIFY(widget);
+  QVERIFY(importer.libraryPath().isEmpty()); // cleared when the widget is created
+  auto coll = importer.collection();
+  QVERIFY(!coll); // no collection with an empty library path
+  importer.setLibraryPath(QFINDTESTDATA("/data/alexandria/"));
+  coll = importer.collection();
+  QVERIFY(coll);
 }

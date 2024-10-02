@@ -37,9 +37,9 @@
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KConfigGroup>
 
 #include <QLabel>
@@ -47,7 +47,6 @@
 #include <QTextStream>
 #include <QGridLayout>
 #include <QDomDocument>
-#include <QTextCodec>
 #include <QUrlQuery>
 #include <QThread>
 
@@ -142,7 +141,7 @@ void MusicBrainzFetcher::doSearch() {
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   // see https://musicbrainz.org/doc/XML_Web_Service/Rate_Limiting#Provide_meaningful_User-Agent_strings
   m_job->addMetaData(QLatin1String("SendUserAgent"), QLatin1String("true"));
-  m_job->addMetaData(QStringLiteral("UserAgent"), QStringLiteral("Tellico/%1 ( http://tellico-project.org )")
+  m_job->addMetaData(QStringLiteral("UserAgent"), QStringLiteral("Tellico/%1 ( https://tellico-project.org )")
                                                                 .arg(QStringLiteral(TELLICO_VERSION)));
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job.data(), &KJob::result,
@@ -183,7 +182,6 @@ void MusicBrainzFetcher::slotComplete(KJob* ) {
   QFile f(QStringLiteral("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -288,7 +286,6 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
   QFile f(QStringLiteral("/tmp/test2.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();
@@ -298,7 +295,6 @@ Tellico::Data::EntryPtr MusicBrainzFetcher::fetchEntryHook(uint uid_) {
   // be quiet when loading images
   imp.setOptions(imp.options() ^ Import::ImportShowImageErrors);
   Data::CollPtr coll = imp.collection();
-//  getTracks(entry);
   if(!coll || coll->entries().isEmpty()) {
     myWarning() << "no collection pointer or no entries";
     return entry;

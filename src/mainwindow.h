@@ -277,12 +277,6 @@ public Q_SLOTS:
    */
   void slotHideCollectionFieldsDialog();
   /**
-   * Shows the "Tip of the Day" dialog.
-   *
-   * @param force Whether the configuration setting should be ignored
-   */
-  void slotShowTipOfDay(bool force=true);
-  /**
    * Shows the string macro editor dialog for the application.
    */
   void slotShowStringMacroDialog();
@@ -295,7 +289,7 @@ public Q_SLOTS:
    */
   void slotHideBibtexKeyDialog();
   /**
-   * Handle a url that indicates some actino should be taken
+   * Handle a url that indicates some action should be taken
    */
   void slotURLAction(const QUrl& url);
 
@@ -465,6 +459,7 @@ private Q_SLOTS:
   void slotToggleLayoutLock(bool lock);
   void slotResetLayout();
   void guiFactoryReset();
+  void showLog();
 
 private:
   void importFile(Import::Format format, const QList<QUrl>& kurls);

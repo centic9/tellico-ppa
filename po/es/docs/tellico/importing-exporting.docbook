@@ -107,9 +107,13 @@
 >Importar datos de otro software</title>
 
 <para
->&appname; can import data directly from a variety of other collection management programs, including <application
-><ulink url="http://www.gcstar.org"
+>&appname; puede importar datos directamente de otros programas de gestión de colecciones, como <application
+><ulink url="https://gitlab.com/GCstar/GCstar"
 >GCstar</ulink
+></application
+>, <application
+><ulink url="https://www.datacrow.net/"
+>Data Crow</ulink
 ></application
 >, <application
 ><ulink url="https://github.com/mvz/alexandria-book-collection-manager"
@@ -120,6 +124,10 @@
 >Delicious Library</ulink
 ></application
 >, <application
+><ulink url="https://www.collectorz.com"
+>Collectorz</ulink
+></application
+>, <application
 ><ulink url="http://www.antp.be/software/moviecatalog/"
 >Ant Movie Catalog</ulink
 ></application
@@ -127,7 +135,7 @@
 ><ulink url="https://en.wikipedia.org/wiki/Referencer"
 >Referencer</ulink
 ></application
->, and <application
+> y <application
 ><ulink url="https://launchpad.net/griffith"
 >Griffith</ulink
 ></application
@@ -201,9 +209,9 @@
 >Importar datos de un &CD; de audio</title>
 
 <para
->&appname; is able to use the <ulink url="http://freedb.org"
+>&appname; puede usar el servicio <ulink url="http://gnudb.org"
 >freedb.org</ulink
-> service to lookup information about a &CD;, including the track list. Depending on your distribution, settings for access to the service may be set in the &kde; &systemsettings;. The &CD; artist, title, genre, year, and track listing are all added. </para>
+> para buscar información sobre un &CD;, incluyendo la lista de pistas. Dependiendo de su distribución, los ajustes para acceder al servicio se podrán configurar en las &systemsettings; de &kde;. Se añadirán el &CD;, artista, título, género, año y lista de pistas. </para>
 
 <para
 >Además, si el disco contiene texto de &CD;, se leerá esa información y se añadirá a la entrada importada. </para>
@@ -342,6 +350,15 @@
 >. </para>
 </sect3>
 
+<sect3 id="importing-discogs">
+<title
+>Importar colección de Discogs</title>
+<para
+><ulink url="https://www.discogs.com"
+>Discogs</ulink
+> es una base de datos en línea y un mercado de lanzamientos musicales. &appname; puede importar la lista de lanzamientos musicales en una colección de un usuario, dado el nombre de usuario, siempre que la colección esté configurada para que se pueda acceder a ella públicamente. </para>
+</sect3>
+
 </sect2>
 
 <sect2 id="importing-file-listing">
@@ -349,11 +366,17 @@
 >Importar listados de archivos</title>
 
 <para
->La mejor manera de crear un <link linkend="file-catalog"
+>&tellico; puede explorar carpetas para importar información de archivos, principalmente para crear una colección de <link linkend="file-catalog"
 >Catálogo de archivos</link
-> es importar los contenidos de una carpeta. La carpeta puede examinarse recursivamente para añadir todos los archivos encontrados dentro. El importador es más útil para listados de copias de respaldo y para catalogar archivos de medios, como listados de &CD; o <acronym
+>. La carpeta se puede examinar recursivamente para añadir todos los archivos que se encuentren en su interior. El importador es más útil para listados de copias de seguridad y para catalogar archivos multimedia, como listados de &CD; o <acronym
 >DVD</acronym
->. Además, se puede generar las vistas previas de los contenidos del archivo, aunque puede llevar algún tiempo leer un gran número de archivos. Las vistas previas son las mismas que las que se muestran en el gestor de archivos de &kde;. </para>
+>. Además, puede generar las vistas previas del contenido de los archivos. Las vistas previas de los archivos son las mismas que se muestran en el gestor de archivos de &kde;. </para>
+
+<para
+>Las carpetas con archivos de libros electrónicos y de vídeo también se pueden importar como colecciones de libros y de vídeos. Los metadatos de los archivos se pueden leer y, para los archivos de vídeo, cualquier archivo <literal role="extension"
+>nfo</literal
+> que exista se usa para completar la información de las entradas de vídeo. </para>
+
 </sect2>
 
 <sect2 id="importing-xslt">
@@ -371,9 +394,9 @@
 >Arrastrar y soltar</title>
 
 <para
->Dragging data files to the main &appname; window and dropping them will import the files, just as if the <link linkend="importing"
->import command</link
-> was made from the menus. Drag and drop works for the following file formats: Tellico, Bibtex, RIS, and &PDF;. Importing multiple files at once is also supported.</para>
+>Arrastrar archivos de datos a la ventana principal de &appname; y soltarlos importará los archivos, de la misma forma que si se hubiera seleccionado la <link linkend="importing"
+>orden de importar</link
+> desde un menú. Arrastrar y soltar funciona para los siguientes tipos de archivos: Tellico, Bibtex, RIS y &PDF; y EPub. También se admite la importación de múltiples archivos a la vez.</para>
 
 <para
 >Así que, por ejemplo, si desea catalogar varios <link linkend="importing-pdf"
@@ -489,12 +512,12 @@
 
 <para
 ><application
-><ulink url="http://alexandria.rubyforge.net"
+><ulink url="https://github.com/mvz/alexandria-book-collection-manager"
 >Alexandria</ulink
 ></application
-> is a book collection manager for the <ulink url="http://www.gnome.org"
+> es un gestor de colecciones de libros para el entorno de escritorio <ulink url="http://www.gnome.org"
 >GNOME</ulink
-> desktop environment. &appname; is able to export a limited subset of book collection fields to the default Alexandria data location. </para>
+>. &appname; puede exportar un subconjunto limitado de campos de las colecciones de libros a la localización por defecto de los datos de Alexandria. </para>
 
 </sect2>
 

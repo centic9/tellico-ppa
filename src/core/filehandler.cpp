@@ -41,6 +41,7 @@
 #include <QUrl>
 #include <QDomDocument>
 #include <QFile>
+#include <QDir>
 #include <QTextStream>
 #include <QTemporaryFile>
 #include <QSaveFile>
@@ -57,13 +58,14 @@ FileHandler::FileRef::FileRef(const QUrl& url_, bool quiet_) : m_device(nullptr)
   }
 
   if(!Tellico::NetAccess::download(url_, m_filename, GUI::Proxy::widget(), quiet_)) {
-    myDebug() << "can't download" << url_.toDisplayString(QUrl::RemoveQuery);
     QString s = Tellico::NetAccess::lastErrorString();
-    if(!s.isEmpty()) {
-      myDebug() << s;
+    if(s.isEmpty()) {
+      myLog() << "Can't download" << url_.toDisplayString(QUrl::PreferLocalFile);
+    } else {
+      myLog() << s;
     }
     if(!quiet_) {
-      GUI::Proxy::sorry(s.isEmpty() ? i18n(errorLoad, url_.fileName()) : s);
+      GUI::Proxy::sorry(s.isEmpty() ? TC_I18N2(errorLoad, url_.fileName()) : s);
     }
     return;
   }
@@ -91,7 +93,7 @@ bool FileHandler::FileRef::open(bool quiet_) {
   if(!m_device || !m_device->open(QIODevice::ReadOnly)) {
     if(!quiet_) {
       QUrl u = QUrl::fromLocalFile(fileName());
-      GUI::Proxy::sorry(i18n(errorLoad, u.fileName()));
+      GUI::Proxy::sorry(TC_I18N2(errorLoad, u.fileName()));
     }
     delete m_device;
     m_device = nullptr;
@@ -114,7 +116,11 @@ QString FileHandler::readTextFile(const QUrl& url_, bool quiet_/*=false*/, bool 
   if(f.open(quiet_)) {
     QTextStream stream(f.file());
     if(useUTF8_) {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
       stream.setCodec("UTF-8");
+#else
+      stream.setEncoding(QStringConverter::Utf8);
+#endif
     }
     return stream.readAll();
   }
@@ -153,7 +159,7 @@ QDomDocument FileHandler::readXMLDocument(const QUrl& url_, bool processNamespac
       details += QLatin1String("\n\t") + errorMsg;
       GUI::CursorSaver cs(Qt::ArrowCursor);
       if(GUI::Proxy::widget()) {
-        KMessageBox::detailedError(GUI::Proxy::widget(), i18n(errorLoad, url_.fileName()), details);
+        KMessageBox::detailedError(GUI::Proxy::widget(), TC_I18N2(errorLoad, url_.fileName()), details);
       }
     }
     return QDomDocument();
@@ -208,25 +214,30 @@ bool FileHandler::writeBackupFile(const QUrl& url_) {
     success = job->exec();
   }
   if(!success) {
-    GUI::Proxy::sorry(i18n(errorWrite, url_.fileName() + QLatin1Char('~')));
+    GUI::Proxy::sorry(TC_I18N2(errorWrite, url_.fileName() + QLatin1Char('~')));
   }
   return success;
 }
 
 bool FileHandler::writeTextURL(const QUrl& url_, const QString& text_, bool encodeUTF8_, bool force_, bool quiet_) {
   if((!force_ && !queryExists(url_)) || text_.isNull()) {
-    if(text_.isNull()) {
-      myDebug() << "null string for" << url_;
-    }
     return false;
   }
 
   if(url_.isLocalFile()) {
+    // push to stdout _if_ file name is '--' AND is same as current path
+    // as is used in dbusinterface
+    if(url_.fileName() == QLatin1String("--") &&
+       url_.adjusted(QUrl::RemoveFilename | QUrl::StripTrailingSlash).path() == QDir::currentPath()) {
+      QTextStream ts(stdout);
+      writeTextStream(ts, text_, encodeUTF8_);
+      return true;
+    }
     QSaveFile f(url_.toLocalFile());
     f.open(QIODevice::WriteOnly);
     if(f.error() != QFile::NoError) {
       if(!quiet_) {
-        GUI::Proxy::sorry(i18n(errorWrite, url_.fileName()));
+        GUI::Proxy::sorry(TC_I18N2(errorWrite, url_.fileName()));
       }
       return false;
     }
@@ -241,7 +252,7 @@ bool FileHandler::writeTextURL(const QUrl& url_, const QString& text_, bool enco
   if(f.error() != QFile::NoError) {
     tempfile.remove();
     if(!quiet_) {
-      GUI::Proxy::sorry(i18n(errorWrite, url_.fileName()));
+      GUI::Proxy::sorry(TC_I18N2(errorWrite, url_.fileName()));
     }
     return false;
   }
@@ -252,7 +263,7 @@ bool FileHandler::writeTextURL(const QUrl& url_, const QString& text_, bool enco
     KJobWidgets::setWindow(job, GUI::Proxy::widget());
     success = job->exec();
     if(!success && !quiet_) {
-      GUI::Proxy::sorry(i18n(errorUpload, url_.fileName()));
+      GUI::Proxy::sorry(TC_I18N2(errorUpload, url_.fileName()));
     }
   }
   tempfile.remove();
@@ -262,21 +273,27 @@ bool FileHandler::writeTextURL(const QUrl& url_, const QString& text_, bool enco
 
 bool FileHandler::writeTextFile(QSaveFile& file_, const QString& text_, bool encodeUTF8_) {
   QTextStream ts(&file_);
+  writeTextStream(ts, text_, encodeUTF8_);
+  file_.flush();
+  const bool success = file_.commit();
+  if(!success) {
+    myLog() << "Failed to write text file:" << file_.error();
+  }
+  return success;
+}
+
+void FileHandler::writeTextStream(QTextStream& ts_, const QString& text_, bool encodeUTF8_) {
   if(encodeUTF8_) {
-    ts.setCodec("UTF-8");
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    ts_.setCodec("UTF-8");
+#else
+    ts_.setEncoding(QStringConverter::Utf8);
+#endif
   }
   // KDE Bug 380832. If string is longer than MAX_TEXT_CHUNK_WRITE_SIZE characters, split into chunks.
   for(int i = 0; i < text_.length(); i += MAX_TEXT_CHUNK_WRITE_SIZE) {
-    ts << text_.midRef(i, MAX_TEXT_CHUNK_WRITE_SIZE);
+    ts_ << text_.mid(i, MAX_TEXT_CHUNK_WRITE_SIZE);
   }
-  file_.flush();
-  bool success = file_.commit();
-#ifndef NDEBUG
-  if(!success) {
-    myDebug() << "error = " << file_.error();
-  }
-#endif
-  return success;
 }
 
 bool FileHandler::writeDataURL(const QUrl& url_, const QByteArray& data_, bool force_, bool quiet_) {
@@ -289,7 +306,7 @@ bool FileHandler::writeDataURL(const QUrl& url_, const QByteArray& data_, bool f
     f.open(QIODevice::WriteOnly);
     if(f.error() != QFile::NoError) {
       if(!quiet_) {
-        GUI::Proxy::sorry(i18n(errorWrite, url_.fileName()));
+        GUI::Proxy::sorry(TC_I18N2(errorWrite, url_.fileName()));
       }
       return false;
     }
@@ -303,7 +320,7 @@ bool FileHandler::writeDataURL(const QUrl& url_, const QByteArray& data_, bool f
   f.open(QIODevice::WriteOnly);
   if(f.error() != QFile::NoError) {
     if(!quiet_) {
-      GUI::Proxy::sorry(i18n(errorWrite, url_.fileName()));
+      GUI::Proxy::sorry(TC_I18N2(errorWrite, url_.fileName()));
     }
     return false;
   }
@@ -314,7 +331,7 @@ bool FileHandler::writeDataURL(const QUrl& url_, const QByteArray& data_, bool f
     KJobWidgets::setWindow(job, GUI::Proxy::widget());
     success = job->exec();
     if(!success && !quiet_) {
-      GUI::Proxy::sorry(i18n(errorUpload, url_.fileName()));
+      GUI::Proxy::sorry(TC_I18N2(errorUpload, url_.fileName()));
     }
   }
   tempfile.remove();
@@ -323,15 +340,12 @@ bool FileHandler::writeDataURL(const QUrl& url_, const QByteArray& data_, bool f
 }
 
 bool FileHandler::writeDataFile(QSaveFile& file_, const QByteArray& data_) {
-//  myDebug() << "Writing to" << file_.fileName();
   QDataStream s(&file_);
   s.writeRawData(data_.data(), data_.size());
   file_.flush();
   const bool success = file_.commit();
-#ifndef NDEBUG
   if(!success) {
-    myDebug() << "error = " << file_.error();
+    myDebug() << "Failed to write data file:" << file_.error();
   }
-#endif
   return success;
 }

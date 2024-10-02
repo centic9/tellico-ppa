@@ -5,3 +5,7 @@ variables:
   SALSA_CI_DISABLE_MISSING_BREAKS: 'no'
   SALSA_CI_DISABLE_RC_BUGS: 'no'
   SALSA_CI_REPROTEST_ARGS: '--variations=-build-path'
+  # not working with terse output
+  SALSA_CI_DISABLE_BLHC: 1
+  # disable the verbose output so that the whole build log is available
+  DEB_BUILD_OPTIONS: 'terse'

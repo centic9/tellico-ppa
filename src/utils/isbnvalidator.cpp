@@ -124,9 +124,10 @@ void ISBNValidator::fixup(QString& input_) const {
 }
 
 void ISBNValidator::staticFixup(QString& input_) {
+  static const QRegularExpression digits(QStringLiteral("\\d"));
   if((input_.startsWith(QStringLiteral("978"))
        || input_.startsWith(QStringLiteral("979")))
-     && input_.count(QRegularExpression(QStringLiteral("\\d"))) > 10) {
+     && input_.count(digits) > 10) {
     fixup13(input_);
   } else {
     fixup10(input_);
@@ -198,7 +199,7 @@ QValidator::State ISBNValidator::validate13(QString& input_, int& pos_) const {
 
   // now, it's not certain that we're getting a EAN-13,
   // it could be a ISBN-10 from Nigeria or Indonesia
-  if(countX > 0 && (input_[len-1].toUpper() != QLatin1Char('X') || len > 13)) {
+  if(countX > 0 && (len > 13 || input_[len-1].toUpper() != QLatin1Char('X'))) {
     return QValidator::Invalid;
   }
 

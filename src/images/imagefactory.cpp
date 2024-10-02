@@ -34,12 +34,12 @@
 
 #include <KColorUtils>
 #include <KZip>
+#include <KIO/Global>
+#include <KProtocolManager>
 
 #include <QCache>
 #include <QFileInfo>
 #include <QDir>
-
-#define RELEASE_IMAGES
 
 using namespace Tellico;
 using Tellico::ImageFactory;
@@ -53,7 +53,7 @@ Tellico::ImageFactory* ImageFactory::factory = nullptr;
 
 class ImageFactory::Private {
 public:
-  Private() {}
+  Private() = default;
 
   QHash<QString, Data::Image*> imageDict;
   QCache<QString, Data::Image> imageCache;
@@ -77,9 +77,12 @@ void ImageFactory::init() {
     return;
   }
   factory = new ImageFactory();
+  myLog() << "Setting max image cache cost:" << Config::imageCacheSize();
   factory->d->imageCache.setMaxCost(Config::imageCacheSize());
+  myLog() << "Setting max pixmap cache cost:" << Config::imageCacheSize();
   factory->d->pixmapCache.setMaxCost(Config::imageCacheSize());
-  factory->d->dataImageDir.setPath(Tellico::saveLocation(QStringLiteral("data/")));
+  const QUrl dataDir = QUrl::fromLocalFile(Tellico::saveLocation(QStringLiteral("data/")));
+  factory->d->dataImageDir.setDirectory(dataDir);
 }
 
 Tellico::ImageFactory* ImageFactory::self() {
@@ -87,20 +90,20 @@ Tellico::ImageFactory* ImageFactory::self() {
   return factory;
 }
 
-QString ImageFactory::tempDir() {
-  return factory->d->tempImageDir.path();
+QUrl ImageFactory::tempDir() {
+  return factory->d->tempImageDir.dir();
 }
 
-QString ImageFactory::dataDir() {
-  return factory->d->dataImageDir.path();
+QUrl ImageFactory::dataDir() {
+  return factory->d->dataImageDir.dir();
 }
 
-QString ImageFactory::localDir() {
-  const QString dir = factory->d->localImageDir.path();
+QUrl ImageFactory::localDir() {
+  const auto dir = factory->d->localImageDir.dir();
   return dir.isEmpty() ? dataDir() : dir;
 }
 
-QString ImageFactory::imageDir() {
+QUrl ImageFactory::imageDir() {
   Q_ASSERT(factory);
   switch(cacheDir()) {
     case LocalDir: return localDir();
@@ -119,7 +122,7 @@ Tellico::ImageFactory::CacheDir ImageFactory::cacheDir() {
     case Config::ImagesInFile:     dir = TempDir;  break;
   }
   // special case when configured to use local dir but for a new collection when no local dir exists
-  if(dir == LocalDir && factory->d->localImageDir.path().isEmpty()) {
+  if(dir == LocalDir && factory->d->localImageDir.dir().isEmpty()) {
     dir = TempDir;
   }
   return dir;
@@ -132,6 +135,7 @@ QString ImageFactory::addImage(const QUrl& url_, bool quiet_, const QUrl& refer_
 
 const Tellico::Data::Image& ImageFactory::addImageImpl(const QUrl& url_, bool quiet_, const QUrl& refer_, bool link_) {
   if(url_.isEmpty() || !url_.isValid() || d->nullImages.contains(url_.url())) {
+    myDebug() << "Returning null image";
     return Data::Image::null;
   }
   ImageJob* job = new ImageJob(url_, QString(), quiet_);
@@ -139,7 +143,7 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const QUrl& url_, bool qu
   job->setReferrer(refer_);
 
   if(!job->exec()) {
-//    myDebug() << "ImageJob failed to exec:" << job->errorString();
+    myDebug() << "ImageJob failed to exec:" << job->errorString();
     // ERR_UNKNOWN is used when the returned image is truly null
     // rather than network error or some such
     if(job->error() == KIO::ERR_UNKNOWN) {
@@ -154,6 +158,7 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const QUrl& url_, bool qu
     return Data::Image::null;
   }
 
+  myLog() << "Loading image from url:" << img.id() << url_.toDisplayString(QUrl::PreferLocalFile);
   // hold the image in memory since it probably isn't written locally to disk yet
   if(!d->imageDict.contains(img.id())) {
     d->imageDict.insert(img.id(), new Data::Image(img));
@@ -185,6 +190,7 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const QImage& image_, con
     delete img;
     return Data::Image::null;
   }
+  myLog() << "Loading image from pixmap:" << img->id();
   d->imageDict.insert(img->id(), img);
   s_imageInfoMap.insert(img->id(), Data::ImageInfo(*img));
   return *img;
@@ -219,7 +225,7 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const QByteArray& data_, 
   }
 
 //  myLog() << "format = " << format_ << ", id = "<< img->id();
-
+  myLog() << "Loading image from data:" << img->id();
   d->imageDict.insert(img->id(), img);
   s_imageInfoMap.insert(img->id(), Data::ImageInfo(*img));
   return *img;
@@ -249,7 +255,7 @@ const Tellico::Data::Image& ImageFactory::addCachedImageImpl(const QString& id_,
 
   s_imageInfoMap.insert(img->id(), Data::ImageInfo(*img));
 
-  // if byteCount() is greater than maxCost, then trying and failing to insert it would
+  // if sizeInBytes() is greater than maxCost, then trying and failing to insert it would
   // mean the image gets deleted
   if(img->sizeInBytes() > d->imageCache.maxCost()) {
     // can't hold it in the cache
@@ -286,7 +292,7 @@ bool ImageFactory::writeCachedImage(const QString& id_, CacheDir dir_, bool forc
       break;
     case LocalDir:
       // special case when configured to use local dir but for a new collection when no local dir exists
-      imgDir = factory->d->localImageDir.path().isEmpty() ?
+      imgDir = factory->d->localImageDir.dir().isEmpty() ?
                  &factory->d->tempImageDir :
                  &factory->d->localImageDir;
       break;
@@ -415,20 +421,20 @@ const Tellico::Data::Image& ImageFactory::imageById(const QString& id_) {
   if(configImgDir && configImgDir->hasImage(id_)) {
     const Data::Image& img2 = factory->addCachedImageImpl(id_, configLoc);
     if(!img2.isNull()) {
-//      myLog() << "found image in configured location" << configImgDir->path();
+      myLog() << "Found image in configured location" << configImgDir->dir().toDisplayString(QUrl::PreferLocalFile) << id_;
       return img2;
     } else {
-      myDebug() << "tried to add" << id_ << "from" << configImgDir->path() << "but failed";
+      myDebug() << "Failed to load" << id_ << "from configured" << configImgDir->dir().toDisplayString(QUrl::PreferLocalFile);
     }
   } else if(fallbackImgDir && fallbackImgDir->hasImage(id_)) {
     const Data::Image& img2 = factory->addCachedImageImpl(id_, fallbackLoc);
     if(!img2.isNull()) {
-//      myLog() << "found image in fallback location" << fallbackImgDir->path() << id_;
+      myLog() << "Found image in fallback location" << fallbackImgDir->dir().toDisplayString(QUrl::PreferLocalFile) << id_;
       // the img is in the other location
       factory->emitImageMismatch();
       return img2;
     } else {
-      myDebug() << "tried to add" << id_ << "from" << fallbackImgDir->path() << "but failed";
+      myDebug() << "Failed to add" << id_ << "from fallback" << fallbackImgDir->dir().toDisplayString(QUrl::PreferLocalFile);
     }
   }
   // at this point, there's a possibility that the user has changed settings so that the images
@@ -436,40 +442,42 @@ const Tellico::Data::Image& ImageFactory::imageById(const QString& id_) {
   if(factory->d->dataImageDir.hasImage(id_)) {
     const Data::Image& img2 = factory->addCachedImageImpl(id_, DataDir);
     if(!img2.isNull()) {
-//      myLog() << "found image in data dir location";
+      myLog() << "Unexpectedly found image in data dir location";
       return img2;
     }
   }
   if(factory->d->localImageDir.hasImage(id_)) {
     const Data::Image& img2 = factory->addCachedImageImpl(id_, LocalDir);
     if(!img2.isNull()) {
-//      myLog() << "found image in local dir location";
+      myLog() << "Unexpectedly found image in local dir location";
       return img2;
     }
   }
   // now, it appears the image doesn't exist. The only remaining possibility
   // is that the file name has multiple periods and as a result of the fix for bug 348088,
   // the image is lurking in a local image directory without the multiple periods
-  if(Config::imageLocation() == Config::ImagesInLocalDir && QDir(localDir()).dirName().contains(QLatin1Char('.'))) {
-    QString realImageDir = localDir();
+  if(Config::imageLocation() == Config::ImagesInLocalDir &&
+     localDir().isLocalFile() &&
+     QDir(localDir().path()).dirName().contains(QLatin1Char('.'))) {
+    QString realImageDir = localDir().toLocalFile();
     QDir d(realImageDir);
     // try to cd up and into the other old directory
     QString cdString = QLatin1String("../") + d.dirName().section(QLatin1Char('.'), 0, 0) + QLatin1String("_files/");
     if(d.cd(cdString)) {
-      factory->d->localImageDir.setPath(d.path() + QDir::separator());
+      factory->d->localImageDir.setDirectory(QUrl::fromLocalFile(d.path() + QDir::separator()));
       if(factory->d->localImageDir.hasImage(id_)) {
 //        myDebug() << "Reading image from old local directory" << (cdString+id_);
         const Data::Image& img2 = factory->addCachedImageImpl(id_, LocalDir);
         // Be sure to reset the image directory location!!
-        factory->d->localImageDir.setPath(realImageDir);
+        factory->d->localImageDir.setDirectory(QUrl::fromLocalFile(realImageDir));
         factory->d->localImageDir.writeImage(img2);
         return img2;
       }
-      factory->d->localImageDir.setPath(realImageDir);
+      factory->d->localImageDir.setDirectory(QUrl::fromLocalFile(realImageDir));
     }
   }
 
-  myDebug() << "***ImageFactory::imageById() - not found:" << id_;
+  myLog() << "***ImageFactory::imageById() - not found:" << id_;
   return Data::Image::null;
 }
 
@@ -478,16 +486,18 @@ bool ImageFactory::hasLocalImage(const QString& id_) {
   if(id_.isEmpty() || !factory) {
     return false;
   }
+  bool ret = (Config::imageLocation() == Config::ImagesInLocalDir &&
+                           factory->d->localImageDir.hasImage(id_)) ||
+             (Config::imageLocation() == Config::ImagesInAppDir &&
+                           factory->d->dataImageDir.hasImage(id_)) ||
+             factory->d->imageCache.contains(id_) ||
+             factory->d->imageDict.contains(id_) ||
+             factory->d->tempImageDir.hasImage(id_) ||
+             factory->d->imageZipArchive.hasImage(id_);
+  if(ret) return true;
+
   const QUrl u(id_);
-  return factory->d->imageCache.contains(id_) ||
-         factory->d->imageDict.contains(id_) ||
-         factory->d->tempImageDir.hasImage(id_) ||
-         factory->d->imageZipArchive.hasImage(id_) ||
-         (u.isValid() && !u.isRelative() && u.isLocalFile()) ||
-         (Config::imageLocation() == Config::ImagesInLocalDir &&
-                                     factory->d->localImageDir.hasImage(id_)) ||
-         (Config::imageLocation() == Config::ImagesInAppDir &&
-                                     factory->d->dataImageDir.hasImage(id_));
+  return u.isValid() && !u.isRelative() && u.isLocalFile();
 }
 
 void ImageFactory::requestImageById(const QString& id_) {
@@ -591,17 +601,20 @@ void ImageFactory::clean(bool purgeTempDirectory_) {
   factory->d->imageCache.clear();
   factory->d->pixmapCache.clear();
   if(purgeTempDirectory_) {
+    myLog() << "Purging images from the temporary directory";
     factory->d->tempImageDir.purge();
     // just to make sure all the image locations clean themselves up
     // delete the factory (which deletes the storage objects) and
     // then recreate the factory, in case anything else needs it
-    // be sure to save local image directory if it's not a temp dir!
-    const QString localDirName = localDir();
+    // be sure to save local image directory if it's not a temp dir
+    // or the data dir, avoid setLocalDirectory
+    const auto localDirName = factory->d->localImageDir.dir();
     delete factory;
     factory = nullptr;
     ImageFactory::init();
-    if(QDir(localDirName).exists()) {
-      setLocalDirectory(QUrl::fromLocalFile(localDirName));
+    const bool remoteOrLocalExists = !localDirName.isLocalFile() || QDir(localDirName.toLocalFile()).exists();
+    if(!localDirName.isEmpty() && remoteOrLocalExists) {
+      factory->d->localImageDir.setDirectory(localDirName);
     }
   }
 }
@@ -640,11 +653,13 @@ void ImageFactory::createStyleImages(int collectionType_, const Tellico::StyleOp
 }
 
 void ImageFactory::removeImage(const QString& id_, bool deleteImage_) {
+  myLog() << "Removing image from cache:" << id_;
   // be careful using this
   delete factory->d->imageDict.take(id_);
   factory->d->imageCache.remove(id_);
 
   if(deleteImage_) {
+    myLog() << "Deleting image:" << id_;
     // remove from everywhere
     factory->d->dataImageDir.removeImage(id_);
     factory->d->localImageDir.removeImage(id_);
@@ -675,11 +690,11 @@ bool ImageFactory::hasNullImage(const QString& id_) const {
 // either in tempDir() or in dataDir(). The use for this is for calling pixmap() on an
 // image too big to stay in the cache. Then it stays in the dict forever.
 void ImageFactory::releaseImages() {
-#ifdef RELEASE_IMAGES
   if(s_imagesToRelease.isEmpty()) {
     return;
   }
 
+  myLog() << "Releasing" << s_imagesToRelease.count() << "images from internal memory";
   foreach(const QString& id, s_imagesToRelease) {
     if(!d->imageDict.contains(id)) {
       continue;
@@ -691,36 +706,37 @@ void ImageFactory::releaseImages() {
     }
   }
   s_imagesToRelease.clear();
-#endif
 }
 
 void ImageFactory::emitImageMismatch() {
   emit imageLocationMismatch();
 }
 
-QString ImageFactory::localDirectory(const QUrl& url_) {
+QUrl ImageFactory::localDirectory(const QUrl& url_) {
   if(url_.isEmpty()) {
-    return QString();
+    return QUrl();
   }
-  if(!url_.isLocalFile()) {
-    myWarning() << "Tellico can only save images to local disk";
-    myWarning() << "unable to save to " << url_;
-    return QString();
+  if(!url_.isLocalFile() && !KProtocolManager::supportsWriting(url_)) {
+    myWarning() << "Unable to save images local to" << url_.toDisplayString();
+    return QUrl();
   }
-  QString dir = url_.adjusted(QUrl::RemoveFilename).toLocalFile();
+  QUrl dirUrl = url_.adjusted(QUrl::RemoveFilename);
   // could have already been set once
-  if(!dir.contains(QLatin1String("_files"))) {
+  if(!dirUrl.path().endsWith(QLatin1String("_files/"))) {
     QFileInfo fi(url_.fileName());
-    dir += fi.completeBaseName() + QLatin1String("_files/");
+    dirUrl.setPath(dirUrl.path() + fi.completeBaseName() + QLatin1String("_files/"));
   }
-  return dir;
+  return dirUrl;
 }
 
 void ImageFactory::setLocalDirectory(const QUrl& url_) {
   Q_ASSERT(factory && "ImageFactory is not initialized!");
-  const QString localDirName = localDirectory(url_);
-  if(!localDirName.isEmpty()) {
-    factory->d->localImageDir.setPath(localDirName);
+  const auto localDirName = localDirectory(url_);
+  if(localDirName.isEmpty()) {
+    myDebug() << "Trying to set an empty local directory";
+  } else {
+    myLog() << "Setting local directory to" << localDirName.toDisplayString(QUrl::PreferLocalFile);
+    factory->d->localImageDir.setDirectory(localDirName);
   }
 }
 
@@ -754,5 +770,3 @@ void ImageFactory::slotImageJobResult(KJob* job_) {
   }
   emit factory->imageAvailable(img.id());
 }
-
-#undef RELEASE_IMAGES

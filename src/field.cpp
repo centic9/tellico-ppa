@@ -25,7 +25,6 @@
 #include "field.h"
 #include "fieldformat.h"
 #include "utils/string_utils.h"
-#include "tellico_debug.h"
 
 #include <KLocalizedString>
 
@@ -104,8 +103,7 @@ Field& Field::operator=(const Field& field_) {
   return *this;
 }
 
-Field::~Field() {
-}
+Field::~Field() = default;
 
 void Field::setTitle(const QString& title_) {
   m_title = title_;
@@ -246,7 +244,7 @@ void Field::setPropertyList(const Tellico::StringMap& props_) {
 }
 
 QString Field::property(const QString& key_) const {
-  return m_properties.contains(key_) ? m_properties.value(key_) : QString();
+  return m_properties.value(key_);
 }
 
 void Field::convertOldRating(Tellico::Data::FieldPtr field_) {
@@ -347,6 +345,9 @@ Tellico::Data::FieldPtr Field::createDefaultField(DefaultField fieldEnum) {
       break;
     case ScreenshotField:
       field = new Field(QStringLiteral("screenshot"), i18n("Screenshot"), Field::Image);
+      break;
+    case FrontCoverField:
+      field = new Field(QStringLiteral("cover"), i18n("Front Cover"), Field::Image);
       break;
   }
   Q_ASSERT(field);

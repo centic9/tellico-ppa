@@ -9,7 +9,11 @@
 <para
 >Quan s'executa el &appname; des de la línia d'ordres, hi ha diverses opcions per a obrir els fitxers de dades. Es poden veure executant <userinput
 >tellico --help</userinput
->. </para>
+>. També es pot habilitar el registre de diagnòstic, el qual crearà un <link linkend="settings-help-menu"
+>element de menú</link
+> per a mostrar el registre de diagnòstic. L'opció <userinput
+>--logfile</userinput
+> redirigeix el registre a un fitxer. </para>
 
 <programlisting
 >Ús: tellico [opcions] [nom_fitxer]
@@ -22,6 +26,8 @@ Opcions:
   --mods           Importa &lt;nom_fitxer&gt; com un fitxer MODS
   --ris            Importa &lt;nom_fitxer&gt; com un fitxer RIS
   --pdf            Importa &lt;nom_fitxer&gt; com un fitxer PDF
+  --log                     Enregistra la sortida de diagnòstic
+  --logfile &lt;logfile&gt;       Escriu la sortida del registre a &lt;nomfitxer&gt;
 
 Arguments:
   [nom_fitxer]         Fitxer a obrir
@@ -61,19 +67,19 @@ Arguments:
 >:</para>
 
 <programlisting
->bool importTellico(QString file, QString action)
-bool importBibtex(QString file, QString action)
-bool importMODS(QString file, QString action)
-bool importPDF(QString file, QString action)
-bool importRIS(QString file, QString action)
-bool exportXML(QString file, bool filtered)
-bool exportZip(QString file, bool filtered)
-bool exportBibtex(QString file, bool filtered)
-bool exportHTML(QString file, bool filtered)
-bool exportCSV(QString file, bool filtered)
+>bool importTellico(QString fitxer, QString acció)
+bool importBibtex(QString fitxer, QString acció)
+bool importMODS(QString fitxer, QString acció)
+bool importPDF(QString fitxer, QString acció)
+bool importRIS(QString fitxer, QString acció)
+bool exportXML(QString fitxer, booleà filtrat)
+bool exportZip(QString fitxer, booleà filtrat)
+bool exportBibtex(QString fitxer, booleà filtrat)
+bool exportHTML(QString fitxer, booleà filtrat)
+bool exportCSV(QString fitxer, booleà filtrat)
 QList&lt;int&gt; selectedEntries()
 QList&lt;int&gt; filteredEntries()
-void openFile(QString file)
+void openFile(QString fitxer)
 void setFilter(QString text)
 bool showEntry(int id)
 </programlisting>
@@ -85,7 +91,14 @@ bool showEntry(int id)
 >append</emphasis
 > i <emphasis
 >merge</emphasis
->. Hi ha implementats quatre formats de fitxer per a importar: Fitxers &XML; de Tellico, Fitxers de Bibtex, Fitxers de MODS i Fitxers de RIS. </para>
+>. Hi ha implementats quatre formats de fitxer per a importar: fitxers &XML; del Tellico, fitxers del Bibtex, fitxers del MODS i fitxers del RIS. També es poden importar les metadades de fitxers <link linkend="importing-pdf"
+>&PDF;</link
+>. </para>
+
+<para
+>Per a qualsevol de les ordres d'exportació de text, un nom de fitxer de <filename
+>--</filename
+> el canalitzarà a la sortida estàndard. </para>
 
 <para
 >La col·lecció oberta al &appname; es pot exportar a un fitxer, ja sigui en el format &XML; del Tellico, format ZIP del Tellico, Bibtex, &HTML;, o a valors separats per comes (CSV). Les ordres d'exportació prenen un argument opcional per a especificar si la col·lecció s'ha de limitar o no al filtre actual. </para>

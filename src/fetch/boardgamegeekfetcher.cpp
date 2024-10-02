@@ -37,7 +37,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QUrlQuery>
 
 namespace {
@@ -69,7 +68,7 @@ bool BoardGameGeekFetcher::canSearch(Fetch::FetchKey k) const {
 
 // https://boardgamegeek.com/wiki/page/XML_API_Terms_of_Use
 QString BoardGameGeekFetcher::attribution() const {
-  return i18n(providedBy, QLatin1String("https://boardgamegeek.com"), QLatin1String("BoardGameGeek"));
+  return TC_I18N3(providedBy, QLatin1String("https://boardgamegeek.com"), QLatin1String("BoardGameGeek"));
 }
 
 bool BoardGameGeekFetcher::canFetch(int type) const {
@@ -139,7 +138,6 @@ Tellico::Data::EntryPtr BoardGameGeekFetcher::fetchEntryHookData(Data::EntryPtr 
   QFile f(QLatin1String("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();
@@ -164,10 +162,14 @@ Tellico::Data::EntryPtr BoardGameGeekFetcher::fetchEntryHookData(Data::EntryPtr 
   if(coll->entryCount() > 1) {
     myDebug() << "weird, more than one entry found";
   }
+  // replace HTML entities
+  static const QString desc(QStringLiteral("description"));
+  auto entry = coll->entries().front();
+  entry->setField(desc, Tellico::decodeHTML(entry->field(desc)));
 
   // don't want to include id
   coll->removeField(QStringLiteral("bggid"));
-  return coll->entries().front();
+  return entry;
 }
 
 Tellico::Fetch::FetchRequest BoardGameGeekFetcher::updateRequest(Data::EntryPtr entry_) {

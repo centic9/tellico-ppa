@@ -25,10 +25,9 @@
 #include "tvmazefetcher.h"
 #include "../collections/videocollection.h"
 #include "../images/imagefactory.h"
-#include "../gui/combobox.h"
 #include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
@@ -36,14 +35,13 @@
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
 
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -71,7 +69,7 @@ QString TVmazeFetcher::source() const {
 
 // https://www.tvmaze.com/api#licensing
 QString TVmazeFetcher::attribution() const {
-  return i18n(providedBy, QLatin1String("https://tvmaze.com"), QLatin1String("TVmaze"));
+  return TC_I18N3(providedBy, QLatin1String("https://tvmaze.com"), QLatin1String("TVmaze"));
 }
 
 bool TVmazeFetcher::canSearch(Fetch::FetchKey k) const {
@@ -166,7 +164,6 @@ void TVmazeFetcher::slotComplete(KJob* job_) {
   QFile f(QStringLiteral("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -199,15 +196,12 @@ void TVmazeFetcher::slotComplete(KJob* job_) {
   const QJsonArray results = doc.array();
 
   if(results.isEmpty()) {
-    myDebug() << "no results";
     stop();
     return;
   }
 
   int count = 0;
   foreach(const QJsonValue& result, results) {
-//    myDebug() << "found result:" << result;
-
     Data::EntryPtr entry(new Data::Entry(coll));
     populateEntry(entry, result.toObject().value(QLatin1String("show"))
                                .toObject().toVariantMap(), false);
@@ -252,7 +246,6 @@ Tellico::Data::EntryPtr TVmazeFetcher::fetchEntryHook(uint uid_) {
     QFile f(QStringLiteral("/tmp/test2.json"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
-      t.setCodec("UTF-8");
       t << data;
     }
     f.close();

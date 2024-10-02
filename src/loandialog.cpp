@@ -111,7 +111,7 @@ void LoanDialog::init() {
   pixLabel->setPixmap(QIcon::fromTheme(QStringLiteral("tellico"),
                                        QIcon(QLatin1String(":/icons/tellico")))
                                       .pixmap(QSize(64, 64)));
-  pixLabel->setAlignment(Qt::Alignment(Qt::AlignLeft) | Qt::AlignTop);
+  pixLabel->setAlignment(Qt::Alignment(Qt::AlignLeft) | Qt::Alignment(Qt::AlignTop));
   topLayout->addWidget(pixLabel, ++row, 0);
 
   QString entryString = QStringLiteral("<qt><p>");
@@ -215,7 +215,7 @@ void LoanDialog::init() {
   m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
   QPushButton* okButton = m_buttonBox->button(QDialogButtonBox::Ok);
   okButton->setDefault(true);
-  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  okButton->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Return));
   okButton->setEnabled(false); // disable until a name is entered
   connect(m_buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);

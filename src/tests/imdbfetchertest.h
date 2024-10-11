@@ -39,6 +39,7 @@ private Q_SLOTS:
   void init();
   void testSnowyRiver();
   void testSnowyRiverFr();
+  void testPacteDesLoupsEn();
   void testAsterix();
   void testBodyDouble();
   void testMary();
@@ -46,6 +47,7 @@ private Q_SLOTS:
   void testFetchResultEncoding();
   void testBabel();
   void testFirefly();
+  void testUpdate();
 
 private:
   KConfigGroup m_config;

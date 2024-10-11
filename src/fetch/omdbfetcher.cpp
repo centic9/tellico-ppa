@@ -27,14 +27,14 @@
 #include "../images/imagefactory.h"
 #include "../utils/guiproxy.h"
 #include "../core/filehandler.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
 
 #include <QUrl>
@@ -43,7 +43,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
@@ -166,7 +165,6 @@ Tellico::Data::EntryPtr OMDBFetcher::fetchEntryHook(uint uid_) {
     QFile f(QString::fromLatin1("/tmp/test2.json"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
-      t.setCodec("UTF-8");
       t << data;
     }
     f.close();
@@ -241,7 +239,6 @@ void OMDBFetcher::slotComplete(KJob* job_) {
   QFile f(QString::fromLatin1("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -376,7 +373,7 @@ void OMDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& result
     if(!entry_->collection()->hasField(imdb)) {
       entry_->collection()->addField(Data::Field::createDefaultField(Data::Field::ImdbField));
     }
-    entry_->setField(imdb, QLatin1String("http://www.imdb.com/title/")
+    entry_->setField(imdb, QLatin1String("https://www.imdb.com/title/")
                                           + entry_->field(QStringLiteral("imdb-id"))
                                           + QLatin1Char('/'));
   }

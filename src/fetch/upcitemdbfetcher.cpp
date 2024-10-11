@@ -25,10 +25,8 @@
 #include "upcitemdbfetcher.h"
 #include "../collectionfactory.h"
 #include "../images/imagefactory.h"
-#include "../gui/combobox.h"
-#include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../utils/isbnvalidator.h"
 #include "../tellico_debug.h"
 
@@ -36,14 +34,13 @@
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
 
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -123,7 +120,7 @@ void UPCItemDbFetcher::continueSearch() {
   }
   u.setQuery(q);
 
-//  myDebug() << u;
+  myLog() << "Reading" << u.toDisplayString();
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job.data(), &KJob::result, this, &UPCItemDbFetcher::slotComplete);
@@ -171,7 +168,7 @@ void UPCItemDbFetcher::slotComplete(KJob* job_) {
 
   const QByteArray data = job->data();
   if(data.isEmpty()) {
-    myDebug() << "UPCItemDb: no data";
+    myDebug() << "No data";
     stop();
     return;
   }
@@ -184,7 +181,6 @@ void UPCItemDbFetcher::slotComplete(KJob* job_) {
   QFile f(QStringLiteral("/tmp/test-upcitemdb.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -220,7 +216,7 @@ void UPCItemDbFetcher::slotComplete(KJob* job_) {
 
   QJsonArray results = obj.value(QLatin1String("items")).toArray();
   if(results.isEmpty()) {
-    myDebug() << "UPCItemdb: no results";
+    myLog() << "No results";
     stop();
     return;
   }
@@ -252,14 +248,17 @@ Tellico::Data::EntryPtr UPCItemDbFetcher::fetchEntryHook(uint uid_) {
   }
 
   // image might still be a URL
-  const QString image_id = entry->field(QStringLiteral("cover"));
+  const QString cover(QStringLiteral("cover"));
+  const QString image_id = entry->field(cover);
   if(image_id.contains(QLatin1Char('/'))) {
-    const QString id = ImageFactory::addImage(QUrl::fromUserInput(image_id), true /* quiet */);
+    const QUrl imageUrl = QUrl::fromUserInput(image_id);
+    const QString id = ImageFactory::addImage(imageUrl, false /* quiet */, imageUrl.adjusted(QUrl::RemovePath));
     if(id.isEmpty()) {
+      myDebug() << "image id is empty";
       message(i18n("The cover image could not be loaded."), MessageHandler::Warning);
     }
     // empty image ID is ok
-    entry->setField(QStringLiteral("cover"), id);
+    entry->setField(cover, id);
   }
 
   return entry;

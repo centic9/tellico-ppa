@@ -28,9 +28,6 @@
 class QByteArray;
 class QString;
 
-#include <Qt>
-#include <QMetaType>
-
 /**
  * This file contains utility functions for manipulating strings.
  *
@@ -49,7 +46,8 @@ namespace Tellico {
    * @param length The UID starts with "Tellico" and adds enough letters to be @p length long.
    */
   QString uid(int length=20, bool prefix=true);
-  uint toUInt(const QString& string, bool* ok);
+  int toInt(const QString& string, bool* ok);
+  unsigned int toUInt(const QString& string, bool* ok);
   /**
    * Replace all occurrences  of <i18n>text</i18n> with i18n("text")
    */
@@ -64,15 +62,12 @@ namespace Tellico {
   QString minutes(int seconds);
   QString fromHtmlData(const QByteArray& data, const char* codecName = nullptr);
 
-  // helper methods for the QVariantMaps used by the JSON importers
-  QString mapValue(const QVariantMap& map, const char* name1);
-  QString mapValue(const QVariantMap& map, const char* name1, const char* name2);
-  QString mapValue(const QVariantMap& map, const char* name1, const char* name2, const char* name3);
-
   QByteArray obfuscate(const QString& string);
   QString reverseObfuscate(const QByteArray& bytes);
 
   QString removeControlCodes(const QString& string);
+
+  QByteArray localeEncodingName();
 }
 
 #endif

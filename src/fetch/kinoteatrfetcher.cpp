@@ -33,9 +33,9 @@
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QRegularExpression>
 #include <QLabel>
@@ -134,7 +134,6 @@ void KinoTeatrFetcher::slotComplete(KJob*) {
   QFile f(QStringLiteral("/tmp/test1.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();
@@ -202,7 +201,6 @@ Tellico::Data::EntryPtr KinoTeatrFetcher::fetchEntryHook(uint uid_) {
   QFile f(QStringLiteral("/tmp/test-kinoteatr.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << results;
   }
   f.close();
@@ -228,7 +226,6 @@ Tellico::Data::EntryPtr KinoTeatrFetcher::fetchEntryHook(uint uid_) {
     QFile f2(QStringLiteral("/tmp/test-kinoteatr-persons.html"));
     if(f2.open(QIODevice::WriteOnly)) {
       QTextStream t(&f2);
-      t.setCodec("UTF-8");
       t << personsText;
     }
     f2.close();
@@ -251,7 +248,7 @@ Tellico::Data::EntryPtr KinoTeatrFetcher::parseEntry(const QString& str_) {
   Data::EntryPtr entry(new Data::Entry(coll));
   coll->addEntries(entry);
 
-  const QRegularExpression tagRx(QLatin1String("<.*?>"));
+  static const QRegularExpression tagRx(QLatin1String("<.*?>"));
   const QRegularExpression anchorRx(QStringLiteral("<a.+?href=[\"'].+?[\"'].*?>(.*?)</"));
 
   QRegularExpression titleRx(QStringLiteral("<span itemprop=[\"']name[\"']>(.+?)</span"));

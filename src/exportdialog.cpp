@@ -24,7 +24,6 @@
 
 #include "exportdialog.h"
 #include "collection.h"
-#include "core/filehandler.h"
 #include "controller.h"
 #include "tellico_debug.h"
 
@@ -39,6 +38,7 @@
 #include "translators/alexandriaexporter.h"
 #include "translators/onixexporter.h"
 #include "translators/gcstarexporter.h"
+#include "utils/string_utils.h"
 
 #include <KLocalizedString>
 #include <KSharedConfig>
@@ -49,7 +49,6 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 #include <QRadioButton>
-#include <QTextCodec>
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -101,13 +100,14 @@ ExportDialog::ExportDialog(Tellico::Export::Format format_, Tellico::Data::CollP
   m_encodeUTF8->setWhatsThis(i18n("Encode the exported file in Unicode (UTF-8)."));
   vlay2->addWidget(m_encodeUTF8);
 
-  QString localStr = i18n("Encode in user locale (%1)",
-                          QLatin1String(QTextCodec::codecForLocale()->name()));
+  const auto localeName = Tellico::localeEncodingName();
+  const QString localStr = i18n("Encode in user locale (%1)",
+                                QLatin1String(localeName));
   m_encodeLocale = new QRadioButton(localStr, group2);
   m_encodeLocale->setWhatsThis(i18n("Encode the exported file in the local encoding."));
   vlay2->addWidget(m_encodeLocale);
 
-  if(QTextCodec::codecForLocale()->name() == "UTF-8") {
+  if(localeName == QByteArray("UTF-8")) {
     m_encodeUTF8->setEnabled(false);
     m_encodeLocale->setChecked(true);
   }
@@ -118,7 +118,7 @@ ExportDialog::ExportDialog(Tellico::Export::Format format_, Tellico::Data::CollP
 
   QWidget* w = m_exporter->widget(widget);
   if(w) {
-    w->layout()->setMargin(0);
+    w->layout()->setContentsMargins(0, 0, 0, 0);
     topLayout->addWidget(w, 0);
   }
 
@@ -127,7 +127,7 @@ ExportDialog::ExportDialog(Tellico::Export::Format format_, Tellico::Data::CollP
   QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
   QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
   okButton->setDefault(true);
-  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  okButton->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Return));
   connect(okButton, &QAbstractButton::clicked, this, &ExportDialog::slotSaveOptions);
   connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
@@ -150,7 +150,7 @@ QString ExportDialog::fileFilter() {
 }
 
 void ExportDialog::readOptions() {
-  KConfigGroup config(KSharedConfig::openConfig(), "ExportOptions");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ExportOptions"));
   bool format = config.readEntry("FormatFields", false);
   m_formatFields->setChecked(format);
   bool selected = config.readEntry("ExportSelectedOnly", false);
@@ -168,7 +168,7 @@ void ExportDialog::slotSaveOptions() {
   // each exporter sets its own group
   m_exporter->saveOptions(config);
 
-  KConfigGroup configGroup(config, "ExportOptions");
+  KConfigGroup configGroup(config, QLatin1String("ExportOptions"));
   configGroup.writeEntry("FormatFields", m_formatFields->isChecked());
   configGroup.writeEntry("ExportSelectedOnly", m_exportSelected->isChecked());
   configGroup.writeEntry("EncodeUTF8", m_encodeUTF8->isChecked());
@@ -292,7 +292,7 @@ bool ExportDialog::exportCollection(Data::CollPtr coll_, Data::EntryList entries
   exp->setURL(url_);
   exp->setEntries(entries_);
 
-  KConfigGroup config(KSharedConfig::openConfig(), "ExportOptions");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("ExportOptions"));
   long options = 0;
   if(config.readEntry("FormatFields", false)) {
     options |= Export::ExportFormatted;

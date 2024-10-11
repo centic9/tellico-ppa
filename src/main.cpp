@@ -25,14 +25,24 @@
 #include <config.h>
 
 #include "mainwindow.h"
+#include "core/logger.h"
 #include "translators/translators.h" // needed for file type enum
+#include "tellico_debug.h"
 
 #include <KAboutData>
 #include <KLocalizedString>
 #include <KCrash>
 #include <KSharedConfig>
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <Kdelibs4ConfigMigrator>
 #include <Kdelibs4Migration>
+#endif
+#include <kiconthemes_version.h>
+#include <KIconTheme>
+#define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
+#if HAVE_STYLE_MANAGER
+#include <KStyleManager>
+#endif
 
 #include <QApplication>
 #include <QCommandLineParser>
@@ -40,15 +50,52 @@
 #include <QDir>
 #include <QFile>
 #include <QStack>
+#include <QDebug>
 
 int main(int argc, char* argv[]) {
-  QApplication app(argc, argv);
+  /**
+   * trigger initialisation of proper icon theme
+   * see https://invent.kde.org/frameworks/kiconthemes/-/merge_requests/136
+   */
+#if KICONTHEMES_VERSION >= QT_VERSION_CHECK(6, 3, 0)
+  KIconTheme::initTheme();
+#endif
+
+#ifndef USE_KHTML
+  QGuiApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+#endif
+
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 14, 0))
+  if(!qEnvironmentVariableIsSet("QT_SCALE_FACTOR_ROUNDING_POLICY")) {
+    QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::RoundPreferFloor);
+  }
+#endif
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
+
+  QApplication app(argc, argv);
+#if HAVE_STYLE_MANAGER
+    /**
+     * trigger initialisation of proper application style
+     * see https://invent.kde.org/frameworks/kconfigwidgets/-/merge_requests/239
+     */
+    KStyleManager::initStyle();
+#else
+    /**
+     * For Windows and macOS: use Breeze if available
+     * Of all tested styles that works the best for us
+     */
+#if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
+    QApplication::setStyle(QStringLiteral("breeze"));
+#endif
+#endif
   KLocalizedString::setApplicationDomain("tellico");
   app.setApplicationVersion(QStringLiteral(TELLICO_VERSION));
 
   Q_INIT_RESOURCE(icons);
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   // Migrate KDE4 configuration and data files
   Kdelibs4ConfigMigrator migrator(QStringLiteral("tellico"));
   migrator.setConfigFiles(QStringList() << QStringLiteral("tellicorc"));
@@ -113,6 +160,7 @@ int main(int argc, char* argv[]) {
     // update the configuration cache
     KSharedConfig::openConfig()->reparseConfiguration();
   }
+#endif
 
   KCrash::initialize();
 
@@ -138,7 +186,7 @@ int main(int argc, char* argv[]) {
 
   aboutData.addLicense(KAboutLicense::GPL_V3);
   aboutData.setOrganizationDomain("kde.org");
-  aboutData.setDesktopFileName(QStringLiteral("org.kde.tellico.desktop"));
+  aboutData.setDesktopFileName(QStringLiteral("org.kde.tellico"));
 
   QCommandLineParser parser;
   parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("nofile"), i18n("Do not reopen the last open file")));
@@ -146,6 +194,8 @@ int main(int argc, char* argv[]) {
   parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("mods"), i18n("Import <filename> as a MODS file")));
   parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("ris"), i18n("Import <filename> as a RIS file")));
   parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("pdf"), i18n("Import <filename> as a PDF file")));
+  parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("log"), i18n("Log diagnostic output")));
+  parser.addOption(QCommandLineOption(QStringList() << QStringLiteral("logfile"), i18n("Write log output to <filename>"), QStringLiteral("logfile")));
   parser.addPositionalArgument(QStringLiteral("[filename]"), i18n("File to open"));
 
   aboutData.setupCommandLine(&parser);
@@ -154,12 +204,31 @@ int main(int argc, char* argv[]) {
   aboutData.processCommandLine(&parser);
   KAboutData::setApplicationData(aboutData);
 
+#ifndef NDEBUG
+  QLoggingCategory::setFilterRules(QStringLiteral("tellico.debug = true"));
+#endif
+  // initialize logger
+  Tellico::Logger::self();
+  QString logFile = qEnvironmentVariable("TELLICO_LOGFILE");
+  if(parser.isSet(QStringLiteral("logfile"))) {
+    logFile = parser.value(QStringLiteral("logfile"));
+  }
+  if(logFile.isEmpty() && parser.isSet(QStringLiteral("log"))) {
+    // use default log file location
+    logFile = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/tellico_log.txt");
+  }
+  if(!logFile.isEmpty()) {
+    Tellico::Logger::self()->setLogFile(logFile);
+    myLog() << "Starting Tellico" << QStringLiteral(TELLICO_VERSION) << "at" << QDateTime::currentDateTime().toString(Qt::ISODate);
+    myLog() << "Opening log file" << logFile;
+  }
+
   if(app.isSessionRestored()) {
-    RESTORE(Tellico::MainWindow);
+    myLog() << "Restoring previous session";
+    kRestoreMainWindows<Tellico::MainWindow>();
   } else {
     Tellico::MainWindow* tellico = new Tellico::MainWindow();
     tellico->show();
-    tellico->slotShowTipOfDay(false);
     // slotInit gets called out of a QTimer signal
     // but it wasn't always completing in-time
     // so call it manually to ensure it has finished
@@ -167,22 +236,31 @@ int main(int argc, char* argv[]) {
 
     QStringList args = parser.positionalArguments();
     if(args.count() > 0) {
+      QLatin1String formatStr;
       Tellico::Import::Format format = Tellico::Import::TellicoXML;
       if(parser.isSet(QStringLiteral("bibtex"))) {
         format = Tellico::Import::Bibtex;
+        formatStr = QLatin1String("bibtex");
       } else if(parser.isSet(QStringLiteral("mods"))) {
         format = Tellico::Import::MODS;
+        formatStr = QLatin1String("mods");
       } else if(parser.isSet(QStringLiteral("ris"))) {
         format = Tellico::Import::RIS;
+        formatStr = QLatin1String("ris");
       } else if(parser.isSet(QStringLiteral("pdf"))) {
         format = Tellico::Import::PDF;
+        formatStr = QLatin1String("pdf");
       };
+      const QUrl fileToLoad = QUrl::fromUserInput(args.at(0), QDir::currentPath());
       if(format == Tellico::Import::TellicoXML) {
-        tellico->slotFileOpen(QUrl::fromUserInput(args.at(0), QDir::currentPath()));
+        myLog() << "Opening" << fileToLoad.toDisplayString(QUrl::PreferLocalFile);
+        tellico->slotFileOpen(fileToLoad);
       } else {
-        tellico->importFile(format, QUrl::fromUserInput(args.at(0)), Tellico::Import::Replace);
+        myLog() << "Importing" << formatStr << "-" << fileToLoad.toDisplayString(QUrl::PreferLocalFile);
+        tellico->importFile(format, fileToLoad, Tellico::Import::Replace);
         for(int i = 1; i < args.count(); ++i) {
-          tellico->importFile(format, QUrl::fromUserInput(args.at(i)), Tellico::Import::Append);
+          myLog() << "Appending" << fileToLoad.toDisplayString(QUrl::PreferLocalFile);
+          tellico->importFile(format, fileToLoad, Tellico::Import::Append);
         }
       }
     } else {

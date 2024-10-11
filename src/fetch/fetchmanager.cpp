@@ -27,9 +27,7 @@
 #include "fetchmanager.h"
 #include "configwidget.h"
 #include "messagehandler.h"
-#include "../entry.h"
 #include "../collection.h"
-#include "../utils/string_utils.h"
 #include "../utils/tellico_utils.h"
 #include "../tellico_debug.h"
 
@@ -41,15 +39,12 @@
 
 #include <KLocalizedString>
 #include <KIconLoader>
-#include <KIO/Job>
+#include <KIO/FileCopyJob>
 #include <KSharedConfig>
 
 #include <QFileInfo>
 #include <QDir>
 #include <QTemporaryFile>
-
-#define LOAD_ICON(name, group, size) \
-  KIconLoader::global()->loadIcon(name, static_cast<KIconLoader::Group>(group), size_)
 
 using namespace Tellico;
 using Tellico::Fetch::Manager;
@@ -89,9 +84,10 @@ void Manager::loadFetchers() {
   m_fetchers.clear();
   m_uuidHash.clear();
 
+  const QString dataSources(QStringLiteral("Data Sources"));
   KSharedConfigPtr config = KSharedConfig::openConfig();
-  if(config->hasGroup(QStringLiteral("Data Sources"))) {
-    KConfigGroup configGroup(config, QStringLiteral("Data Sources"));
+  if(config->hasGroup(dataSources)) {
+    KConfigGroup configGroup(config, dataSources);
     int nSources = configGroup.readEntry("Sources Count", 0);
     for(int i = 0; i < nSources; ++i) {
       QString group = QStringLiteral("Data Source %1").arg(i);
@@ -182,9 +178,10 @@ void Manager::startSearch(const QString& source_, Tellico::Fetch::FetchKey key_,
     if(source_ == fetcher->source()) {
       ++m_count; // Fetcher::search() might emit done(), so increment before calling search()
       connect(fetcher.data(), &Fetcher::signalResultFound,
-              this, &Manager::signalResultFound);
+              this, &Manager::slotResultFound);
       connect(fetcher.data(), &Fetcher::signalDone,
               this, &Manager::slotFetcherDone);
+      myLog() << "Starting search - source:" << source_ << "value:" << value_ << "key:" << key_;
       fetcher->startSearch(request);
       m_currentFetcherIndex = i;
       break;
@@ -203,9 +200,10 @@ void Manager::continueSearch() {
   if(fetcher && fetcher->hasMoreResults()) {
     ++m_count;
     connect(fetcher.data(), &Fetcher::signalResultFound,
-            this, &Manager::signalResultFound);
+            this, &Manager::slotResultFound);
     connect(fetcher.data(), &Fetcher::signalDone,
             this, &Manager::slotFetcherDone);
+    myLog() << "Continuing search - source:" << fetcher->source();
     fetcher->continueSearch();
   } else {
     emit signalDone();
@@ -233,8 +231,15 @@ void Manager::stop() {
   m_count = 0;
 }
 
+void Manager::slotResultFound(Tellico::Fetch::FetchResult* result_) {
+  Q_ASSERT(result_);
+  myLog() << "Search result - source:" << result_->fetcher()->source() << "result:" << result_->title;
+  Q_EMIT signalResultFound(result_);
+}
+
 void Manager::slotFetcherDone(Tellico::Fetch::Fetcher* fetcher_) {
-//  myDebug() << (fetcher_ ? fetcher_->source() : QString()) << ":" << m_count;
+  Q_ASSERT(fetcher_);
+  myLog() << "Search done - source:" << fetcher_->source();
   fetcher_->disconnect(); // disconnect all signals
   fetcher_->saveConfig();
   --m_count;
@@ -355,7 +360,6 @@ Tellico::Fetch::FetcherVec Manager::defaultFetchers() {
   }
   if(langs.contains(QStringLiteral("fr"))) {
     FETCHER_ADD(DVDFr);
-    FETCHER_ADD(Allocine);
   }
   if(langs.contains(QStringLiteral("ru"))) {
     FETCHER_ADD(KinoPoisk);
@@ -383,7 +387,7 @@ Tellico::Fetch::FetcherVec Manager::createUpdateFetchers(int collType_) {
   }
 
   FetcherVec vec;
-  KConfigGroup config(KSharedConfig::openConfig(), "Data Sources");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("Data Sources"));
   int nSources = config.readEntry("Sources Count", 0);
   for(int i = 0; i < nSources; ++i) {
     QString group = QStringLiteral("Data Source %1").arg(i);
@@ -500,6 +504,9 @@ QString Manager::typeName(Tellico::Fetch::Type type_) {
   return QString();
 }
 
+#define LOAD_ICON(name, group, size) \
+  KIconLoader::global()->loadIcon(name, static_cast<KIconLoader::Group>(group), size_)
+
 QPixmap Manager::fetcherIcon(Tellico::Fetch::Fetcher* fetcher_, int group_, int size_) {
   Q_ASSERT(fetcher_);
   if(!fetcher_) {
@@ -547,6 +554,8 @@ QPixmap Manager::fetcherIcon(Tellico::Fetch::Fetcher* fetcher_, int group_, int 
   return fetcherIcon(fetcher_->type(), group_, size_);
 }
 
+#undef LOAD_ICON
+
 QPixmap Manager::fetcherIcon(Tellico::Fetch::Type type_, int group_, int size_) {
   QString name;
   if(self()->functionRegistry.contains(type_)) {
@@ -555,14 +564,16 @@ QPixmap Manager::fetcherIcon(Tellico::Fetch::Type type_, int group_, int size_) 
     myWarning() << "no pixmap defined for type =" << type_;
   }
 
+  QStringList overlays;
   if(name.isEmpty()) {
     // use default tellico application icon
     name = QStringLiteral("tellico");
+    overlays += QStringLiteral("information");
   }
 
   QPixmap pix = KIconLoader::global()->loadIcon(name, static_cast<KIconLoader::Group>(group_),
                                                 size_, KIconLoader::DefaultState,
-                                                QStringList(), nullptr, true);
+                                                overlays, nullptr, true);
   if(pix.isNull()) {
     QIcon icon = QIcon::fromTheme(name);
     const int groupSize = KIconLoader::global()->currentSize(static_cast<KIconLoader::Group>(group_));

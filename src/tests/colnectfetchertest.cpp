@@ -32,8 +32,6 @@
 #include "../collections/comicbookcollection.h"
 #include "../collectionfactory.h"
 #include "../images/imagefactory.h"
-#include "../fieldformat.h"
-#include "../fetch/fetcherjob.h"
 
 #include <KSharedConfig>
 
@@ -100,6 +98,7 @@ void ColnectFetcherTest::testSacagawea() {
                                        QStringLiteral("2007 Sacagawea"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
   fetcher->readConfig(m_config);
+  QVERIFY(fetcher->canSearch(request.key()));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -128,6 +127,7 @@ void ColnectFetcherTest::testSkylab() {
                                        QStringLiteral("2013 Skylab"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
   fetcher->readConfig(cg);
+  QVERIFY(fetcher->canSearch(request.key()));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -158,6 +158,7 @@ void ColnectFetcherTest::testComic() {
                                        QStringLiteral("Destiny's Hand: Finale"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
   fetcher->readConfig(cg);
+  QVERIFY(fetcher->canSearch(request.key()));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -187,6 +188,7 @@ void ColnectFetcherTest::testBaseballCard() {
                                        QStringLiteral("1991 Chipper Jones"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
   fetcher->readConfig(cg);
+  QVERIFY(fetcher->canSearch(request.key()));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
 
@@ -214,6 +216,7 @@ void ColnectFetcherTest::testGoldeneye() {
                                        QStringLiteral("Goldeneye 007"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
   fetcher->readConfig(cg);
+  QVERIFY(fetcher->canSearch(request.key()));
 
   Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 2);
 

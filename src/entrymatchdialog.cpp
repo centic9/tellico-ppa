@@ -64,13 +64,13 @@ EntryMatchDialog::EntryMatchDialog(QWidget* parent_, Data::EntryPtr entryToUpdat
   QWidget* hbox = new QWidget(mainWidget);
   mainLayout->addWidget(hbox);
   QHBoxLayout* hboxHBoxLayout = new QHBoxLayout(hbox);
-  hboxHBoxLayout->setMargin(0);
+  hboxHBoxLayout->setContentsMargins(0, 0, 0, 0);
   hboxHBoxLayout->setSpacing(10);
 
   QLabel* icon = new QLabel(hbox);
   hboxHBoxLayout->addWidget(icon);
-  icon->setPixmap(Fetch::Manager::fetcherIcon(fetcher_, KIconLoader::Panel, 48));
-  icon->setAlignment(Qt::Alignment(Qt::AlignLeft) | Qt::AlignTop);
+  icon->setPixmap(Fetch::Manager::fetcherIcon(fetcher_, KIconLoader::Dialog, 48));
+  icon->setAlignment(Qt::Alignment(Qt::AlignLeft) | Qt::Alignment(Qt::AlignTop));
 
   QString s = i18n("<qt><b>%1</b> returned multiple results which could match <b>%2</b>, "
                    "the entry currently in the collection. Please select the correct match.</qt>",
@@ -95,10 +95,9 @@ EntryMatchDialog::EntryMatchDialog(QWidget* parent_, Data::EntryPtr entryToUpdat
   connect(m_treeWidget, &QTreeWidget::itemSelectionChanged, this, &EntryMatchDialog::slotShowEntry);
 
   foreach(const EntryUpdater::UpdateResult& res, matchResults_) {
-    Data::EntryPtr matchingEntry = res.first->fetchEntry();
-    QTreeWidgetItem* item = new QTreeWidgetItem(m_treeWidget, QStringList() << matchingEntry->title() << res.first->desc);
+    Data::EntryPtr matchingEntry = res.result->fetchEntry();
+    QTreeWidgetItem* item = new QTreeWidgetItem(m_treeWidget, QStringList() << matchingEntry->title() << res.result->desc);
     m_itemResults.insert(item, res);
-    m_itemEntries.insert(item, matchingEntry);
   }
 
   m_entryView = new EntryView(split);
@@ -111,7 +110,7 @@ EntryMatchDialog::EntryMatchDialog(QWidget* parent_, Data::EntryPtr entryToUpdat
   QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
   QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
   okButton->setDefault(true);
-  okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+  okButton->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Return));
   connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   mainLayout->addWidget(buttonBox);
@@ -127,13 +126,13 @@ void EntryMatchDialog::slotShowEntry() {
     return;
   }
 
-  m_entryView->showEntry(m_itemEntries[item]);
+  m_entryView->showEntry(m_itemResults[item].result->fetchEntry());
 }
 
 Tellico::EntryUpdater::UpdateResult EntryMatchDialog::updateResult() const {
   QTreeWidgetItem* item = m_treeWidget->currentItem();
   if(!item) {
-    return EntryUpdater::UpdateResult(nullptr, false);
+    return EntryUpdater::UpdateResult();
   }
   return m_itemResults[item];
 }

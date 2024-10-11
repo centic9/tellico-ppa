@@ -25,39 +25,25 @@
 #include <config.h>
 
 #include "filelistingimporter.h"
+#include "filereader.h"
+#include "filereaderbook.h"
+#include "filereadervideo.h"
+#include "../collections/bookcollection.h"
+#include "../collections/videocollection.h"
 #include "../collections/filecatalog.h"
 #include "../entry.h"
-#include "../field.h"
-#include "../fieldformat.h"
-#include "../images/imagefactory.h"
-#include "../utils/tellico_utils.h"
+#include "../gui/collectiontypecombo.h"
 #include "../utils/guiproxy.h"
 #include "../progressmanager.h"
-#include "../core/netaccess.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KJobWidgets/KJobWidgets>
-#include <KIO/Job>
-#include <Solid/Device>
-#include <Solid/StorageVolume>
-#include <Solid/StorageAccess>
-
-#ifdef HAVE_KFILEMETADATA
-#include <KFileMetaData/Extractor>
-#include <KFileMetaData/ExtractorCollection>
-#include <KFileMetaData/SimpleExtractionResult>
-#include <KFileMetaData/PropertyInfo>
-// kfilemetadata_version.h was added in 5.94, so first use kcoreaddons_version to check
-// with the expectation that the two versions should match or be no less than
-#include <kcoreaddons_version.h>
-#if KCOREADDONS_VERSION >= QT_VERSION_CHECK(5,94,0)
-#include <kfilemetadata_version.h>
-#endif
-#endif
+#include <KJobWidgets>
+#include <KIO/ListJob>
 
 #include <QDate>
 #include <QDir>
+#include <QLabel>
 #include <QCheckBox>
 #include <QGroupBox>
 #include <QFile>
@@ -65,18 +51,16 @@
 #include <QVBoxLayout>
 #include <QApplication>
 
-namespace {
-  static const int FILE_PREVIEW_SIZE = 128;
-}
-
 using Tellico::Import::FileListingImporter;
 
-FileListingImporter::FileListingImporter(const QUrl& url_) : Importer(url_), m_coll(nullptr), m_widget(nullptr),
-    m_recursive(nullptr), m_filePreview(nullptr), m_job(nullptr), m_cancelled(false) {
+FileListingImporter::FileListingImporter(const QUrl& url_) : Importer(url_), m_collType(Data::Collection::File), m_coll(nullptr)
+    , m_widget(nullptr), m_collCombo(nullptr), m_recursive(nullptr), m_filePreview(nullptr), m_job(nullptr), m_useFilePreview(false), m_cancelled(false) {
 }
 
 bool FileListingImporter::canImport(int type) const {
-  return type == Data::Collection::File;
+  return type == Data::Collection::Book ||
+      type == Data::Collection::Video ||
+      type == Data::Collection::File;
 }
 
 Tellico::Data::CollPtr FileListingImporter::collection() {
@@ -89,13 +73,17 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
   connect(&item, &Tellico::ProgressItem::signalCancelled, this, &FileListingImporter::slotCancel);
   ProgressItem::Done done(this);
 
-  // going to assume only one volume will ever be imported
-  const QString volume = volumeName();
-
   // the importer might be running without a gui/widget
+  KIO::JobFlags flags = KIO::DefaultFlags;
+  if(!m_widget) flags |= KIO::HideProgressInfo;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+  const bool includeHidden = false;
+#else
+  const auto includeHidden = KIO::ListJob::ListFlags{};
+#endif
   m_job = (m_widget && m_recursive->isChecked())
-          ? KIO::listRecursive(url(), KIO::DefaultFlags, false /* include hidden */)
-          : KIO::listDir(url(), KIO::DefaultFlags, false /* include hidden */);
+          ? KIO::listRecursive(url(), flags, includeHidden)
+          : KIO::listDir(url(), flags, includeHidden);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   void (KIO::ListJob::* jobEntries)(KIO::Job*, const KIO::UDSEntryList&) = &KIO::ListJob::entries;
   connect(static_cast<KIO::ListJob*>(m_job.data()), jobEntries, this, &FileListingImporter::slotEntries);
@@ -105,45 +93,36 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
     return Data::CollPtr();
   }
 
-#ifdef HAVE_KFILEMETADATA
-  KFileMetaData::ExtractorCollection extractors;
-  QHash<KFileMetaData::Property::Property, QString> propertyNameHash;
-#endif
+  if(m_widget) {
+    m_useFilePreview = m_filePreview->isChecked();
+    m_collType = m_collCombo->currentType();
+  }
 
-  QStringList metaIgnore = QStringList()
-                         << QStringLiteral("mimeType")
-                         << QStringLiteral("url")
-                         << QStringLiteral("fileName")
-                         << QStringLiteral("lastModified")
-                         << QStringLiteral("contentSize")
-                         << QStringLiteral("type");
-
-  const bool usePreview = m_widget && m_filePreview->isChecked();
-
-  const QString title    = QStringLiteral("title");
-  const QString url      = QStringLiteral("url");
-  const QString desc     = QStringLiteral("description");
-  const QString vol      = QStringLiteral("volume");
-  const QString folder   = QStringLiteral("folder");
-  const QString type     = QStringLiteral("mimetype");
-  const QString size     = QStringLiteral("size");
-  const QString perm     = QStringLiteral("permissions");
-  const QString owner    = QStringLiteral("owner");
-  const QString group    = QStringLiteral("group");
-  const QString created  = QStringLiteral("created");
-  const QString modified = QStringLiteral("modified");
-  const QString metainfo = QStringLiteral("metainfo");
-  const QString icon     = QStringLiteral("icon");
-
-  // cache the icon image ids to avoid repeated creation of Data::Image objects
-  QHash<QString, QString> iconImageId;
-
-  m_coll = new Data::FileCatalog(true);
-  QString tmp;
   const uint stepSize = qMax(1, m_files.count()/100);
   const bool showProgress = options() & ImportProgress;
-
   item.setTotalSteps(m_files.count());
+
+  std::unique_ptr<AbstractFileReader> reader;
+  switch(m_collType) {
+    case(Data::Collection::Book):
+      m_coll = new Data::BookCollection(true);
+      reader.reset(new FileReaderBook(url()));
+      break;
+
+    case(Data::Collection::Video):
+      m_coll = new Data::VideoCollection(true);
+      reader.reset(new FileReaderVideo(url()));
+      break;
+
+    case(Data::Collection::File):
+      m_coll = new Data::FileCatalog(true);
+      reader.reset(new FileReaderFile(url()));
+      break;
+  }
+  if(!reader) return Data::CollPtr();
+  reader->setUseFilePreview(m_useFilePreview);
+
+  Data::EntryList entries;
   uint j = 0;
   foreach(const KFileItem& item, m_files) {
     if(m_cancelled) {
@@ -151,97 +130,9 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
     }
 
     Data::EntryPtr entry(new Data::Entry(m_coll));
-
-    const QUrl u = item.url();
-    entry->setField(title,  u.fileName());
-    entry->setField(url,    u.url());
-    entry->setField(desc,   item.mimeComment());
-    entry->setField(vol,    volume);
-    tmp = QDir(this->url().toLocalFile()).relativeFilePath(u.adjusted(QUrl::RemoveFilename|QUrl::StripTrailingSlash).path());
-    // use empty string for root folder instead of "."
-    entry->setField(folder, tmp == QLatin1String(".") ? QString() : tmp);
-    entry->setField(type,   item.mimetype());
-    entry->setField(size,   KIO::convertSize(item.size()));
-    entry->setField(perm,   item.permissionsString());
-    entry->setField(owner,  item.user());
-    entry->setField(group,  item.group());
-
-    QDateTime dt(item.time(KFileItem::CreationTime));
-    if(!dt.isNull()) {
-      entry->setField(created, dt.date().toString(Qt::ISODate));
+    if(reader->populate(entry, item)) {
+      entries += entry;
     }
-    dt = QDateTime(item.time(KFileItem::ModificationTime));
-    if(!dt.isNull()) {
-      entry->setField(modified, dt.date().toString(Qt::ISODate));
-    }
-
-#ifdef HAVE_KFILEMETADATA
-    KFileMetaData::SimpleExtractionResult result(u.toLocalFile(),
-                                                 item.mimetype(),
-                                                 KFileMetaData::ExtractionResult::ExtractMetaData);
-    QList<KFileMetaData::Extractor*> exList = extractors.fetchExtractors(item.mimetype());
-    foreach(KFileMetaData::Extractor* ex, exList) {
-// initializing exempi can cause a crash in Exiv for files with XMP data
-// crude workaround is to avoid using the exivextractor and the only apparent way is to
-// match against the mimetypes. Here, we use image/x-exv as the canary in the coal mine
-// see https://bugs.kde.org/show_bug.cgi?id=390744
-#ifdef HAVE_EXEMPI
-      if(!ex->mimetypes().contains(QStringLiteral("image/x-exv"))) {
-#else
-      if(true) {
-#endif
-        ex->extract(&result);
-      }
-    }
-    QStringList strings;
-#if KFILEMETADATA_VERSION >= QT_VERSION_CHECK(5,89,0)
-    auto properties = result.properties(KFileMetaData::PropertiesMapType::MultiMap);
-#else
-    auto properties = result.properties();
-#endif
-    auto it = properties.constBegin();
-    for( ; it != properties.constEnd(); ++it) {
-      const QString value = it.value().toString();
-      if(!value.isEmpty()) {
-        QString label;
-        if(propertyNameHash.contains(it.key())) {
-          label = propertyNameHash.value(it.key());
-        } else {
-          label = KFileMetaData::PropertyInfo(it.key()).displayName();
-          propertyNameHash.insert(it.key(), label);
-        }
-//        myDebug() << label << value;
-        if(!metaIgnore.contains(label)) {
-          strings << label + FieldFormat::columnDelimiterString() + value;
-        }
-      }
-    }
-    entry->setField(metainfo, strings.join(FieldFormat::rowDelimiterString()));
-#endif
-
-    QPixmap pixmap;
-    if(!m_cancelled && usePreview) {
-      pixmap = Tellico::NetAccess::filePreview(item, FILE_PREVIEW_SIZE);
-    }
-    if(pixmap.isNull()) {
-      if(iconImageId.contains(item.iconName())) {
-        entry->setField(icon, iconImageId.value(item.iconName()));
-      } else {
-        pixmap = QIcon::fromTheme(item.iconName()).pixmap(QSize(FILE_PREVIEW_SIZE, FILE_PREVIEW_SIZE));
-        const QString id = ImageFactory::addImage(pixmap, QStringLiteral("PNG"));
-        if(!id.isEmpty()) {
-          entry->setField(icon, id);
-          iconImageId.insert(item.iconName(), id);
-        }
-      }
-    } else {
-      const QString id = ImageFactory::addImage(pixmap, QStringLiteral("PNG"));
-      if(!id.isEmpty()) {
-        entry->setField(icon, id);
-      }
-    }
-
-    m_coll->addEntries(entry);
 
     if(showProgress && j%stepSize == 0) {
       ProgressManager::self()->setProgress(this, j);
@@ -249,6 +140,7 @@ Tellico::Data::CollPtr FileListingImporter::collection() {
     }
     ++j;
   }
+  m_coll->addEntries(entries);
 
   if(m_cancelled) {
     m_coll = Data::CollPtr();
@@ -267,7 +159,7 @@ QWidget* FileListingImporter::widget(QWidget* parent_) {
   QVBoxLayout* l = new QVBoxLayout(m_widget);
 
   QGroupBox* gbox = new QGroupBox(i18n("File Listing Options"), m_widget);
-  QVBoxLayout* vlay = new QVBoxLayout(gbox);
+  auto lay = new QGridLayout(gbox);
 
   m_recursive = new QCheckBox(i18n("Recursive folder search"), gbox);
   m_recursive->setWhatsThis(i18n("If checked, folders are recursively searched for all files."));
@@ -276,12 +168,24 @@ QWidget* FileListingImporter::widget(QWidget* parent_) {
 
   m_filePreview = new QCheckBox(i18n("Generate file previews"), gbox);
   m_filePreview->setWhatsThis(i18n("If checked, previews of the file contents are generated, which can slow down "
-                                      "the folder listing."));
+                                   "the folder listing."));
   // by default, make it no previews
   m_filePreview->setChecked(false);
 
-  vlay->addWidget(m_recursive);
-  vlay->addWidget(m_filePreview);
+  QList<int> collTypes;
+  collTypes << Data::Collection::Book << Data::Collection::Video << Data::Collection::File;
+  m_collCombo = new GUI::CollectionTypeCombo(gbox);
+  m_collCombo->setIncludedTypes(collTypes);
+  m_collCombo->setCurrentData(m_collType);
+  m_collCombo->setWhatsThis(i18n("Select the type of collection being imported."));
+  auto lab = new QLabel(i18n("Collection &type:"), gbox);
+  lab->setBuddy(m_collCombo);
+
+  int row = 0;
+  lay->addWidget(m_recursive, row++, 0, 1, -1);
+  lay->addWidget(m_filePreview, row++, 0, 1, -1);
+  lay->addWidget(lab, row, 0);
+  lay->addWidget(m_collCombo, row++, 1);
 
   l->addWidget(gbox);
   l->addStretch(1);
@@ -301,27 +205,6 @@ void FileListingImporter::slotEntries(KIO::Job* job_, const KIO::UDSEntryList& l
       m_files.append(item);
     }
   }
-}
-
-QString FileListingImporter::volumeName() const {
-  const QString filePath = url().toLocalFile();
-  QString matchingPath, volume;
-  QList<Solid::Device> devices = Solid::Device::listFromType(Solid::DeviceInterface::StorageVolume, QString());
-  foreach(const Solid::Device& device, devices) {
-    const Solid::StorageAccess* acc = device.as<const Solid::StorageAccess>();
-    if(acc && !acc->filePath().isEmpty() && filePath.startsWith(acc->filePath())) {
-      // it might be possible for one volume to be mounted at /dir1 and another to be mounted at /dir1/dir2
-      // so we need to find the longest natching filePath
-      if(acc->filePath().length() > matchingPath.length()) {
-        matchingPath = acc->filePath();
-        const Solid::StorageVolume* vol = device.as<const Solid::StorageVolume>();
-        if(vol) {
-          volume = vol->label();
-        }
-      }
-    }
-  }
-  return volume;
 }
 
 void FileListingImporter::slotCancel() {

@@ -74,7 +74,7 @@ Tellico::Data::CollPtr Document::collection() const {
 
 void Document::setURL(const QUrl& url_) {
   m_url = url_;
-  if(m_url.fileName() != i18n(Tellico::untitledFilename)) {
+  if(m_url.fileName() != TC_I18N1(Tellico::untitledFilename)) {
     ImageFactory::setLocalDirectory(m_url);
     EntryComparison::setDocumentUrl(m_url);
   }
@@ -111,7 +111,7 @@ bool Document::newDocument(int type_) {
 
   // be sure to set the new Url before signalling a new collection
   // since reading options for custom collections depend on the file name
-  const QUrl url = QUrl::fromLocalFile(i18n(Tellico::untitledFilename));
+  const QUrl url = QUrl::fromLocalFile(TC_I18N1(Tellico::untitledFilename));
   setURL(url);
 
   emit signalCollectionAdded(m_coll);
@@ -126,6 +126,9 @@ bool Document::newDocument(int type_) {
 
 bool Document::openDocument(const QUrl& url_) {
   MARK;
+  if(url_.isEmpty()) {
+    return false;
+  }
   // delayed image loading only works for local files
   m_loadAllImages = !url_.isLocalFile();
   m_loadImagesTimer.stop(); // avoid potential race condition
@@ -159,7 +162,6 @@ bool Document::openDocument(const QUrl& url_) {
   ImageFactory::setZipArchive(m_importer->takeImages());
 
   if(!coll) {
-//    myDebug() << "returning false";
     GUI::Proxy::sorry(m_importer->statusMessage());
     m_validFile = false;
     return false;
@@ -252,7 +254,7 @@ bool Document::saveDocument(const QUrl& url_, bool force_) {
     // if successful, doc is no longer modified
     setModified(false);
   } else {
-    myDebug() << "Document::saveDocument() - not successful saving to" << url_.url();
+    myLog() << "Document::saveDocument() - not successful saving to" << url_.toDisplayString(QUrl::PreferLocalFile);
   }
   return success;
 }
@@ -408,7 +410,7 @@ void Document::replaceCollection(Tellico::Data::CollPtr coll_) {
     return;
   }
 
-  QUrl url = QUrl::fromLocalFile(i18n(Tellico::untitledFilename));
+  QUrl url = QUrl::fromLocalFile(TC_I18N1(Tellico::untitledFilename));
   setURL(url);
   m_validFile = false;
 
@@ -555,6 +557,7 @@ void Document::renameCollection(const QString& newTitle_) {
 // by loading every image, it gets pulled out of the zip file and
 // copied to disk. Then the zip file can be closed and not retained in memory
 void Document::slotLoadAllImages() {
+  myLog() << "Loading all images into cache...";
   QString id;
   StringSet images;
   foreach(EntryPtr entry, m_coll->entries()) {
@@ -568,7 +571,7 @@ void Document::slotLoadAllImages() {
       // by ImageFactory::imageById()
       // TODO:: does this need to check against images with link only?
       if(ImageFactory::imageById(id).isNull()) {
-        myDebug() << "Null image for entry:" << entry->title() << id;
+        myLog() << "Null image for entry:" << entry->title() << id;
       }
       images.add(id);
       if(m_cancelImageWriting) {
@@ -630,7 +633,7 @@ void Document::writeAllImages(int cacheDir_, const QUrl& localDir_) {
         success = ImageFactory::writeCachedImage(id, cacheDir);
       }
       if(!success) {
-        myDebug() << "did not write image for entry title:" << entry->title();
+        myLog() << "Failed to write image for entry title:" << entry->title();
       }
       if(m_cancelImageWriting) {
         break;
@@ -646,7 +649,7 @@ void Document::writeAllImages(int cacheDir_, const QUrl& localDir_) {
   }
 
   if(m_cancelImageWriting) {
-    myDebug() << "Document::writeAllImages() - cancel image writing";
+    myLog() << "Document::writeAllImages() - image writing was cancelled";
   }
 
   m_cancelImageWriting = false;

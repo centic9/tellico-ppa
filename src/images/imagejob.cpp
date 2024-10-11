@@ -23,9 +23,11 @@
  ***************************************************************************/
 
 #include "imagejob.h"
+#include "../utils/guiproxy.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
+#include <KIO/StoredTransferJob>
 
 #include <QTimer>
 #include <QFileInfo>
@@ -87,7 +89,7 @@ void ImageJob::slotStart() {
     emitResult();
   } else {
     KIO::JobFlags flags = KIO::DefaultFlags;
-    if(m_quiet) {
+    if(m_quiet || !GUI::Proxy::widget()) {
       flags |= KIO::HideProgressInfo;
     }
     // non-local valid url
@@ -106,10 +108,11 @@ void ImageJob::slotStart() {
 }
 
 void ImageJob::getJobResult(KJob* job_) {
+  const auto errorText = i18n("Tellico is unable to load the image - %1.", m_url.toDisplayString());
   KIO::StoredTransferJob* getJob = qobject_cast<KIO::StoredTransferJob*>(job_);
   if(!getJob || getJob->error()) {
     // error handling for subjob is handled by KCompositeJob
-    setErrorText(i18n("Tellico is unable to load the image - %1.", m_url.toDisplayString()));
+    setErrorText(errorText);
     emitResult();
     return;
   }
@@ -119,15 +122,21 @@ void ImageJob::getJobResult(KJob* job_) {
   QByteArray data = getJob->data();
   QBuffer buffer(&data);
   buffer.open(QIODevice::ReadOnly);
-  m_image = Data::Image(data, QString::fromLatin1(QImageReader::imageFormat(&buffer)), m_id);
+  const auto format = QString::fromLatin1(QImageReader::imageFormat(&buffer));
+  m_image = Data::Image(data, format, m_id);
   if(m_image.isNull()) {
+    setErrorText(errorText);
     setError(KIO::ERR_UNKNOWN);
     m_image = Data::Image::null;
   } else {
     // if we can't write the input format, then change to one we can
-    m_image.setFormat(Data::Image::outputFormat(m_image.format()));
-    if(m_id.isEmpty()) {
-      m_image.calculateID();
+    const auto outputFormat = Data::Image::outputFormat(m_image.format());
+    if(m_image.format() != outputFormat) {
+      m_image.setFormat(outputFormat);
+      // recalculate m_id if necessary, since the format is included in the id
+      if(m_id.isEmpty()) {
+        m_image.calculateID();
+      }
     }
     if(m_linkOnly) {
       m_image.setLinkOnly(true);

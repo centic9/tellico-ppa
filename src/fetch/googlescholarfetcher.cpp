@@ -32,14 +32,13 @@
 
 #include <KLocalizedString>
 #include <KConfigGroup>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QFile>
-#include <QTextCodec>
 #include <QUrlQuery>
 
 namespace {
@@ -164,7 +163,6 @@ void GoogleScholarFetcher::slotComplete(KJob*) {
   QFile f(QString::fromLatin1("/tmp/test.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << text;
   }
   f.close();
@@ -245,18 +243,21 @@ void GoogleScholarFetcher::setBibtexCookie() {
   // have to set preferences to have bibtex output
   const QString text = FileHandler::readTextFile(QUrl(QString::fromLatin1(SCHOLAR_SET_CONFIG_URL)), true);
   // find hidden input variables
-  QRegExp inputRx(QLatin1String("<input\\s+[^>]*\\s*type\\s*=\\s*\"?hidden\"?\\s+[^>]+>"));
-  inputRx.setMinimal(true);
-  QRegExp pairRx(QLatin1String("([^=\\s<]+)\\s*=\\s*\"?([^=\\s\">]+)\"?"));
+  static const QRegularExpression inputRx(QLatin1String("<input\\s+[^>]*?\\s*?type\\s*?=\\s*?\"?hidden\"?\\s+?[^>]+?>"));
+  static const QRegularExpression pairRx(QLatin1String("([^=\\s<]+?)\\s*=\\s*\"?([^=\\s\">]+?)\"?"));
   QHash<QString, QString> nameValues;
-  for(int pos = inputRx.indexIn(text); pos > -1; pos = inputRx.indexIn(text, pos+inputRx.matchedLength())) {
-    const QString input = inputRx.cap(0);
+  auto i = inputRx.globalMatch(text);
+  while(i.hasNext()) {
+    auto match = i.next();
+    const auto input = match.captured(0);
     QString name, value;
-    for(int pos2 = pairRx.indexIn(input); pos2 > -1; pos2 = pairRx.indexIn(input, pos2+pairRx.matchedLength())) {
-      if(pairRx.cap(1).toLower() == QLatin1String("name")) {
-        name = pairRx.cap(2);
-      } else if(pairRx.cap(1).toLower() == QLatin1String("value")) {
-        value = pairRx.cap(2);
+    auto i2 = pairRx.globalMatch(input);
+    while(i2.hasNext()) {
+      const auto match2 = i2.next();
+      if(match2.captured(1).toLower() == QLatin1String("name")) {
+        name = match2.captured(2);
+      } else if(match2.captured(1).toLower() == QLatin1String("value")) {
+        value = match2.captured(2);
       }
     }
     if(!name.isEmpty() && !value.isEmpty()) {

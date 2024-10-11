@@ -38,8 +38,10 @@ private Q_SLOTS:
   void testIsbn();
   void testKBTitle();
   void testKBIsbn();
-  void testCopacIsbn();
+  void testJiscIsbn();
   void testHttpFallback();
+  void testBnFTitle();
+  void testBnFIsbn();
 };
 
 #endif

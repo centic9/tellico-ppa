@@ -33,9 +33,9 @@
 
 #include <KLocalizedString>
 #include <KConfig>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QRegularExpression>
 #include <QLabel>
@@ -148,7 +148,6 @@ void GamingHistoryFetcher::slotComplete(KJob*) {
   QFile f(QStringLiteral("/tmp/test.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << s;
   }
   f.close();
@@ -170,7 +169,7 @@ void GamingHistoryFetcher::slotComplete(KJob*) {
     QRegularExpressionMatchIterator i2 = dataRx.globalMatch(rowMatch.captured(1));
     while(i2.hasNext()) {
       QRegularExpressionMatch dataMatch = i2.next();
-      const QStringRef dataType = dataMatch.capturedRef(1);
+      const auto dataType = dataMatch.captured(1);
       QString dataValue = dataMatch.captured(2);
       if(dataType == QLatin1String("Name")) {
         auto anchorMatch = anchorRx.match(dataValue);
@@ -251,7 +250,6 @@ Tellico::Data::EntryPtr GamingHistoryFetcher::fetchEntryHook(uint uid_) {
   QFile f(QStringLiteral("/tmp/test2.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << results;
   }
   f.close();

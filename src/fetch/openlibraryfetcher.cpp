@@ -28,21 +28,20 @@
 #include "../images/imagefactory.h"
 #include "../utils/isbnvalidator.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../entry.h"
 #include "../core/filehandler.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -112,7 +111,7 @@ void OpenLibraryFetcher::doSearch(const QString& term_) {
       {
         QString author = getAuthorKeys(term_);
         if(author.isEmpty()) {
-          myDebug() << "No matching authors found";
+          myLog() << "No matching authors found";
           return;
         }
         author.prepend(QLatin1String("/authors/"));
@@ -144,10 +143,6 @@ void OpenLibraryFetcher::doSearch(const QString& term_) {
         }
       }
       break;
-
-    case Keyword:
-      myWarning() << source() << "- key not recognized:" << request().key();
-      return;
 
     default:
       myWarning() << source() << "- key not recognized:" << request().key();
@@ -257,7 +252,6 @@ void OpenLibraryFetcher::slotComplete(KJob* job_) {
   QFile f(QString::fromLatin1("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -342,7 +336,7 @@ void OpenLibraryFetcher::slotComplete(KJob* job_) {
     entry->setField(QStringLiteral("publisher"), mapValue(resultMap, "publishers"));
     entry->setField(QStringLiteral("series"), mapValue(resultMap, "series"));
     entry->setField(QStringLiteral("pages"), mapValue(resultMap, "number_of_pages"));
-    entry->setField(QStringLiteral("comments"), mapValue(resultMap, "notes"));
+    entry->setField(QStringLiteral("comments"), mapValue(resultMap, "notes", "value"));
 
     if(optionalFields().contains(QStringLiteral("openlibrary"))) {
       entry->setField(QStringLiteral("openlibrary"), QLatin1String("https://openlibrary.org") + mapValue(resultMap, "key"));
@@ -415,25 +409,27 @@ QString OpenLibraryFetcher::getAuthorKeys(const QString& term_) {
   q.addQueryItem(QStringLiteral("q"), term_);
   u.setQuery(q);
 
+//  myLog() << "Searching for authors:" << u.toDisplayString();
   QString output = FileHandler::readTextFile(u, true /*quiet*/, true /*utf8*/);
 #if 0
   myWarning() << "Remove author debug from openlibraryfetcher.cpp";
   QFile f(QString::fromLatin1("/tmp/test-openlibraryauthor.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();
 #endif
   const QJsonDocument doc = QJsonDocument::fromJson(output.toUtf8());
   const auto obj = doc.object();
+  myLog() << "Found" << obj.value(QLatin1String("numFound")).toInt() << "authors";
   // right now, only use the first
   const auto array = obj.value(QLatin1String("docs")).toArray();
   if(array.isEmpty()) {
     return QString();
   }
   const auto obj1 = array.at(0).toObject();
+  myLog() << "Using" << obj1.value(QLatin1String("name")).toString();
   return obj1.value(QLatin1String("key")).toString();
 }
 

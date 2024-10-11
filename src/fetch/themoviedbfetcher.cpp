@@ -28,26 +28,22 @@
 #include "../gui/combobox.h"
 #include "../core/filehandler.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KIO/StoredTransferJob>
-#include <kwidgetsaddons_version.h>
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,55,0)
 #include <KLanguageName>
-#endif
 
 #include <QLabel>
 #include <QLineEdit>
 #include <QFile>
 #include <QTextStream>
 #include <QGridLayout>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QUrlQuery>
@@ -223,7 +219,6 @@ Tellico::Data::EntryPtr TheMovieDBFetcher::fetchEntryHook(uint uid_) {
     QFile f(QStringLiteral("/tmp/test2.json"));
     if(f.open(QIODevice::WriteOnly)) {
       QTextStream t(&f);
-      t.setCodec("UTF-8");
       t << data;
     }
     f.close();
@@ -301,7 +296,6 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
   QFile f(QStringLiteral("/tmp/test.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -362,10 +356,15 @@ void TheMovieDBFetcher::slotComplete(KJob* job_) {
 
   int count = 0;
   foreach(const QVariant& result, resultList) {
+    // skip people results
+    const auto map = result.toMap();
+    if(mapValue(map, "media_type") == QLatin1String("person")) {
+      continue;
+    }
 //    myDebug() << "found result:" << result;
 
     Data::EntryPtr entry(new Data::Entry(coll));
-    populateEntry(entry, result.toMap(), false);
+    populateEntry(entry, map, false);
 
     FetchResult* r = new FetchResult(this, entry);
     m_entries.insert(r->uid, entry);
@@ -520,13 +519,9 @@ void TheMovieDBFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& 
 
   entry_->setField(QStringLiteral("running-time"), mapValue(resultMap_, "runtime"));
   QString lang = mapValue(resultMap_, "original_language");
-#if KWIDGETSADDONS_VERSION >= QT_VERSION_CHECK(5,55,0)
   const QString langName = KLanguageName::nameForCode(lang);
   if(!langName.isEmpty()) lang = langName;
   if(lang == QLatin1String("US English")) lang = QLatin1String("English");
-#else
-  if(lang == QLatin1String("en")) lang = QStringLiteral("English");
-#endif
   entry_->setField(QStringLiteral("language"), lang);
   entry_->setField(QStringLiteral("plot"), mapValue(resultMap_, "overview"));
 }
@@ -544,7 +539,6 @@ void TheMovieDBFetcher::readConfiguration() {
   QFile f(QString::fromLatin1("/tmp/test3.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();

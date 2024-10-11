@@ -34,7 +34,6 @@
 #include "freedbimporter.h"
 #include "../collections/musiccollection.h"
 #include "../entry.h"
-#include "../field.h"
 #include "../fieldformat.h"
 #include "../utils/tellico_utils.h"
 #include "../utils/string_utils.h"
@@ -43,9 +42,9 @@
 #include "../utils/cursorsaver.h"
 #include "../tellico_debug.h"
 
-#if defined HAVE_KF5KCDDB
-#include <KCddb/Client>
-#elif defined HAVE_KCDDB
+#if defined HAVE_KCDDB
+#include <KCDDB/Client>
+#elif defined HAVE_OLD_KCDDB
 #include <libkcddb/client.h>
 #endif
 
@@ -64,7 +63,11 @@
 #include <QCheckBox>
 #include <QTextStream>
 #include <QVBoxLayout>
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <QTextCodec>
+#else
+#include <QStringConverter>
+#endif
 #include <QApplication>
 
 using Tellico::Import::FreeDBImporter;
@@ -100,7 +103,7 @@ Tellico::Data::CollPtr FreeDBImporter::collection() {
 }
 
 void FreeDBImporter::readCDROM() {
-#if defined (HAVE_KCDDB) || defined (HAVE_KF5KCDDB)
+#if defined (HAVE_OLD_KCDDB) || defined (HAVE_KCDDB)
   QString drivePath = m_driveCombo->currentText();
   if(drivePath.isEmpty()) {
     setStatusMessage(i18n("<qt>Tellico was unable to access the CD-ROM device - <i>%1</i>.</qt>", drivePath));
@@ -303,7 +306,7 @@ void FreeDBImporter::readCDROM() {
 }
 
 void FreeDBImporter::readCache() {
-#if defined (HAVE_KCDDB) || defined (HAVE_KF5KCDDB)
+#if defined (HAVE_OLD_KCDDB) || defined (HAVE_KCDDB)
   {
     // remember the import options
     KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("ImportOptions - FreeDB"));
@@ -377,7 +380,11 @@ void FreeDBImporter::readCache() {
     }
     QTextStream ts(&file);
     // libkcddb always writes the cache files in utf-8
-    ts.setCodec(QTextCodec::codecForName("UTF-8"));
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    ts.setCodec("UTF-8");
+#else
+    ts.setEncoding(QStringConverter::Utf8);
+#endif
     QString cddbData = ts.readAll();
     file.close();
 

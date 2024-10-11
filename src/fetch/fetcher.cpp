@@ -32,10 +32,7 @@
 #include <KSharedConfig>
 #include <KConfigGroup>
 #include <KIO/Global>
-#include <kio_version.h>
-#if KIO_VERSION >= QT_VERSION_CHECK(5,19,0)
 #include <KIO/FavIconRequestJob>
-#endif
 
 #include <QUrl>
 #include <QUuid>
@@ -92,9 +89,11 @@ void Fetcher::startUpdate(Tellico::Data::EntryPtr entry_) {
   m_request = updateRequest(entry_);
   m_request.setCollectionType(entry_->collection()->type());
   if(m_request.isNull()) {
-    myLog() << "insufficient info to update" << entry_->title();
+    myLog() << "Insufficient info from" << source() << "to update" << entry_->title();
     emit signalDone(this); // always need to emit this if not continuing with the search
     return;
+  } else {
+    myLog() << "Starting update from" << source() << "for" << entry_->title();
   }
   search();
 }
@@ -175,7 +174,6 @@ QString Fetcher::favIcon(const QUrl& url_, const QUrl& iconUrl_) {
     return QString();
   }
 
-#if KIO_VERSION >= QT_VERSION_CHECK(5,19,0)
   KIO::FavIconRequestJob* job = new KIO::FavIconRequestJob(url_);
   // if the url has a meaningful path, then use it as the icon url
   if(!iconUrl_.isEmpty()) {
@@ -191,7 +189,6 @@ QString Fetcher::favIcon(const QUrl& url_, const QUrl& iconUrl_) {
 //           myDebug() << "no favIcon found for" << job->hostUrl();
          }
      });
-#endif
 
   QString name = KIO::favIconForUrl(url_);
   // favIcons start with "/". being an absolute file path from FavIconFetchJob

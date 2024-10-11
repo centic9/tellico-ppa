@@ -25,11 +25,8 @@
 #include <config.h>
 #include "reportdialog.h"
 #include "translators/htmlexporter.h"
-#include "images/imagefactory.h"
-#include "tellico_kernel.h"
 #include "collection.h"
 #include "document.h"
-#include "entry.h"
 #include "controller.h"
 #include "tellico_debug.h"
 #include "gui/combobox.h"
@@ -129,8 +126,13 @@ ReportDialog::ReportDialog(QWidget* parent_)
 
   m_templateCombo = new GUI::ComboBox(mainWidget);
   for(auto it = templates.constBegin(); it != templates.constEnd(); ++it) {
-    const bool isChart = static_cast<QMetaType::Type>(it.value().type()) == QMetaType::QUuid;
-    m_templateCombo->addItem(QIcon::fromTheme(isChart ? QStringLiteral("kchart") : QStringLiteral("text-rdf")),
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    const auto metaType = static_cast<QMetaType::Type>(it.value().type());
+#else
+    const auto metaType = static_cast<QMetaType::Type>(it.value().typeId());
+#endif
+    m_templateCombo->addItem(QIcon::fromTheme(metaType == QMetaType::QUuid ? QStringLiteral("kchart")
+                                                                           : QStringLiteral("text-rdf")),
                              it.key(), it.value());
   }
   hlay->addWidget(m_templateCombo);
@@ -216,7 +218,12 @@ void ReportDialog::slotGenerate() {
   GUI::CursorSaver cs(Qt::WaitCursor);
 
   QVariant curData = m_templateCombo->currentData();
-  if(static_cast<QMetaType::Type>(curData.type()) == QMetaType::QUuid) {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+  const auto metaType = static_cast<QMetaType::Type>(curData.type());
+#else
+  const auto metaType = static_cast<QMetaType::Type>(curData.typeId());
+#endif
+  if(metaType == QMetaType::QUuid) {
     generateChart();
     m_reportView->setCurrentIndex(INDEX_CHART);
   } else if(curData == ALL_ENTRIES) {
@@ -320,7 +327,7 @@ void ReportDialog::generateAllEntries() {
     if(bodyMatch.hasMatch()) {
       const auto bodyEnd = fullText.lastIndexOf(QLatin1String("</body"));
       const auto bodyLength = bodyEnd - bodyMatch.capturedEnd();
-      html += fullText.midRef(bodyMatch.capturedEnd(), bodyLength) + htmlBetween;
+      html += fullText.mid(bodyMatch.capturedEnd(), bodyLength) + htmlBetween;
     }
   }
   html += htmlEnd;
@@ -361,9 +368,13 @@ void ReportDialog::showText(const QString& text_, const QUrl& url_) {
     delete m_tempFile;
     m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/tellicoreport_XXXXXX") + QLatin1String(".html"));
     m_tempFile->open();
-    QTextStream stream(m_tempFile);
-    stream.setCodec("UTF-8");
-    stream << text_;
+    QTextStream ts(m_tempFile);
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    ts.setCodec("UTF-8");
+#else
+    ts.setEncoding(QStringConverter::Utf8);
+#endif
+    ts << text_;
     m_webView->load(QUrl::fromLocalFile(m_tempFile->fileName()));
   } else {
     m_webView->setHtml(text_, url_);
@@ -412,10 +423,14 @@ void ReportDialog::slotPrint() {
     printer.setResolution(300);
     QPointer<QPrintDialog> dialog = new QPrintDialog(&printer, this);
     if(dialog->exec() == QDialog::Accepted) {
-      QEventLoop loop;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
       GUI::CursorSaver cs(Qt::WaitCursor);
+      QEventLoop loop;
       m_webView->page()->print(&printer, [&](bool) { loop.quit(); });
       loop.exec();
+#else
+      m_webView->print(&printer);
+#endif
     }
 #endif
   }
@@ -439,29 +454,16 @@ void ReportDialog::slotSaveAs() {
     }
   } else if(m_exporter) {
     QString filter = i18n("HTML Files") + QLatin1String(" (*.html)")
-                  + QLatin1String(";;")
-                  + i18n("All Files") + QLatin1String(" (*)");
+                   + QLatin1String(";;")
+                   + i18n("All Files") + QLatin1String(" (*)");
     QUrl u = QFileDialog::getSaveFileUrl(this, QString(), QUrl(), filter);
     if(!u.isEmpty() && u.isValid()) {
-      KConfigGroup config(KSharedConfig::openConfig(), "ExportOptions");
-      bool encode = config.readEntry("EncodeUTF8", true);
-      long oldOpt = m_exporter->options();
-
-      // turn utf8 off
-      long options = oldOpt & ~Export::ExportUTF8;
-      // now turn it on if true
-      if(encode) {
-        options |= Export::ExportUTF8;
-      }
-
       QUrl oldURL = m_exporter->url();
-      m_exporter->setOptions(options);
       m_exporter->setURL(u);
 
       m_exporter->exec();
 
       m_exporter->setURL(oldURL);
-      m_exporter->setOptions(oldOpt);
     }
   }
 }

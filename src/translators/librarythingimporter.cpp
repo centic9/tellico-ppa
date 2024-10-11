@@ -25,12 +25,13 @@
 #include "librarythingimporter.h"
 #include "../collections/bookcollection.h"
 #include "../core/filehandler.h"
-#include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 #include "../utils/isbnvalidator.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
 #include <KUrlRequester>
+#include <kio_version.h>
 
 #include <QVBoxLayout>
 #include <QFormLayout>
@@ -85,8 +86,8 @@ Tellico::Data::CollPtr LibraryThingImporter::collection() {
     return Data::CollPtr();
   }
 
-  QRegularExpression digits(QStringLiteral("\\d+"));
-  QRegularExpression pubRx(QStringLiteral("^(.+?)[\\(,]"));
+  static const QRegularExpression digits(QStringLiteral("\\d+"));
+  static const QRegularExpression pubRx(QStringLiteral("^(.+?)[\\(,]"));
 
   m_coll = new Data::BookCollection(true);
   bool defaultTitle = true;
@@ -183,11 +184,17 @@ QWidget* LibraryThingImporter::widget(QWidget* parent_) {
   lay->addRow(label);
 
   m_URLRequester = new KUrlRequester(gbox);
+#if KIO_VERSION < QT_VERSION_CHECK(5, 108, 0)
   // these are in the old KDE4 filter format, not the Qt5 format
   QString filter = QLatin1String("*.json|") + i18n("JSON Files")
                  + QLatin1Char('\n')
                  + QLatin1String("*|") + i18n("All Files");
   m_URLRequester->setFilter(filter);
+#else
+  const QStringList filters = {i18n("JSON Files") + QLatin1String(" (*.json)"),
+                               i18n("All Files") + QLatin1String(" (*)")};
+  m_URLRequester->setNameFilters(filters);
+#endif
 
   lay->addRow(i18n("LibraryThing file:"), m_URLRequester);
 

@@ -4,10 +4,8 @@ ADD_SUBDIRECTORY( scripts )
 
 SET(fetch_STAT_SRCS
    adsfetcher.cpp
-   allocinefetcher.cpp
    amazonfetcher.cpp
    amazonrequest.cpp
-   animenfofetcher.cpp
    arxivfetcher.cpp
    bedethequefetcher.cpp
    bibliosharefetcher.cpp
@@ -43,6 +41,7 @@ SET(fetch_STAT_SRCS
    ibsfetcher.cpp
    igdbfetcher.cpp
    imdbfetcher.cpp
+   imdbfetcher_query.cpp
    isbndbfetcher.cpp
    itunesfetcher.cpp
    kinofetcher.cpp
@@ -81,19 +80,14 @@ TARGET_LINK_LIBRARIES(fetch
     newstuff
     utils
     ${TELLICO_BTPARSE_LIBS}
-    Qt5::Network
-    KF5::Archive
-    KF5::IconThemes
-    KF5::JobWidgets
-    KF5::KIOWidgets
-    KF5::ConfigWidgets
+    Qt${QT_MAJOR_VERSION}::Network
+    KF${KF_MAJOR_VERSION}::Archive
+    KF${KF_MAJOR_VERSION}::IconThemes
+    KF${KF_MAJOR_VERSION}::JobWidgets
+    KF${KF_MAJOR_VERSION}::KIOWidgets
+    KF${KF_MAJOR_VERSION}::ConfigWidgets
+    KF${KF_MAJOR_VERSION}::KIOGui
     )
-
-IF(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
-  TARGET_LINK_LIBRARIES(fetch
-      KF5::KIOGui
-      )
-ENDIF(${KF5KIO_VERSION} VERSION_GREATER "5.18.0")
 
 IF( Yaz_FOUND )
   TARGET_LINK_LIBRARIES(fetch ${Yaz_LIBRARIES})

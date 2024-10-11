@@ -60,6 +60,7 @@
 #include <QFileInfo>
 #include <QApplication>
 #include <QLocale>
+#include <QTemporaryDir>
 
 extern "C" {
 #include <libxml/HTMLparser.h>
@@ -93,7 +94,7 @@ HTMLExporter::~HTMLExporter() {
 }
 
 QString HTMLExporter::formatString() const {
-  return i18n("HTML");
+  return QStringLiteral("HTML");
 }
 
 QString HTMLExporter::fileFilter() const {
@@ -205,9 +206,8 @@ bool HTMLExporter::loadXSLTFile() {
   } else if(!m_parseDOM) {
     m_dataDir.clear();
   }
-  if(!m_dataDir.isEmpty()) {
-    m_handler->addStringParam("datadir", QFile::encodeName(m_dataDir));
-  }
+  // empty string is fine
+  m_handler->addStringParam("datadir", QFile::encodeName(m_dataDir));
 
   setFormattingOptions(collection());
 
@@ -297,7 +297,7 @@ QString HTMLExporter::text() {
 
 void HTMLExporter::setFormattingOptions(Tellico::Data::CollPtr coll) {
   QString file = Data::Document::self()->URL().fileName();
-  if(file != i18n(Tellico::untitledFilename)) {
+  if(file != TC_I18N1(Tellico::untitledFilename)) {
     m_handler->addStringParam("filename", QFile::encodeName(file));
   }
   m_handler->addStringParam("cdate", QLocale().toString(QDate::currentDate()).toUtf8());
@@ -441,11 +441,11 @@ void HTMLExporter::writeImages(Tellico::Data::CollPtr coll_) {
   // probably an image in the entry template. 4) we're exporting HTML, and this is not the
   // first entry file, in which case, we want to refer directly to the target dir
   if(useTemp) { // everything goes in the tmp dir
-    imgDir = QUrl::fromLocalFile(ImageFactory::tempDir());
+    imgDir = ImageFactory::tempDir();
     imgDirRelative = imgDir.path();
   } else if(m_parseDOM) {
     imgDir = fileDir(); // copy to fileDir
-    imgDirRelative = ImageFactory::imageDir();
+    imgDirRelative = ImageFactory::imageDir().path();
     createDir();
   } else {
     imgDir = fileDir();
@@ -818,7 +818,8 @@ bool HTMLExporter::writeEntryFiles() {
   for(uint i = 1; i <= 10; ++i) {
     dataImages << QStringLiteral("stars%1.png").arg(i);
   }
-  QUrl dataDir = QUrl::fromLocalFile(Tellico::installationDir() + QLatin1String("pics/"));
+  QTemporaryDir tempDir;
+  tempDir.setAutoRemove(true);
   QUrl target = fileDir();
   target = target.adjusted(QUrl::StripTrailingSlash);
   target.setPath(target.path() + QLatin1Char('/') + (QLatin1String("pics/")));
@@ -827,14 +828,28 @@ bool HTMLExporter::writeEntryFiles() {
   job->exec();
   KIO::JobFlags flags = KIO::DefaultFlags;
   if(!m_widget) flags |= KIO::HideProgressInfo;
-  foreach(const QString& dataImage, dataImages) {
-    dataDir = dataDir.adjusted(QUrl::RemoveFilename);
-    dataDir.setPath(dataDir.path() + dataImage);
-    target = target.adjusted(QUrl::RemoveFilename);
-    target.setPath(target.path() + dataImage);
-    KIO::Job* job = KIO::file_copy(dataDir, target, -1, flags);
+  myDebug() << "Test";
+  foreach(const QString& dataImageName, dataImages) {
+    // copy the image out of the resources
+    QImage dataImage(QStringLiteral(":/icons/") + dataImageName);
+    if(dataImage.isNull()) {
+      myDebug() << "Null image resource:" << dataImageName;
+      continue;
+    }
+    const QString dataImageFullName = tempDir.path() + dataImageName;
+    if(!dataImage.save(dataImageFullName)) {
+      myDebug() << "Failed to save" << dataImageFullName;
+      continue;
+    }
+    const QUrl dataImageUrl = QUrl::fromLocalFile(dataImageFullName);
+    QUrl targetUrl = target;
+    targetUrl.setPath(target.path() + dataImageName);
+    KIO::Job* job = KIO::file_copy(dataImageUrl, targetUrl, -1, flags);
     KJobWidgets::setWindow(job, m_widget);
-    job->exec();
+    if(!job->exec()) {
+      myWarning() << "Can't copy " << dataImage;
+      myWarning() << job->errorString();
+    }
   }
 
   return true;

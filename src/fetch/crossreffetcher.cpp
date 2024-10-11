@@ -26,20 +26,18 @@
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
 #include "../utils/guiproxy.h"
-#include "../utils/string_utils.h"
 #include "../collection.h"
 #include "../entry.h"
 #include "../core/netaccess.h"
 #include "../images/imagefactory.h"
-#include "../utils/wallet.h"
 #include "../utils/datafileregistry.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
 #include <KConfigGroup>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QLineEdit>
 #include <QLabel>
@@ -47,7 +45,6 @@
 #include <QTextStream>
 #include <QGridLayout>
 #include <QPixmap>
-#include <QTextCodec>
 #include <QUrlQuery>
 
 #define CROSSREF_USE_UNIXREF
@@ -85,8 +82,6 @@ void CrossRefFetcher::readConfigHook(const KConfigGroup& config_) {
 
 void CrossRefFetcher::search() {
   m_started = true;
-
-  readWallet();
 
 //  myDebug() << "value = " << value_;
 
@@ -145,7 +140,6 @@ void CrossRefFetcher::slotComplete(KJob*) {
   QFile f(QLatin1String("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -194,7 +188,7 @@ Tellico::Data::EntryPtr CrossRefFetcher::fetchEntryHook(uint uid_) {
     if(!field && !coll->imageFields().isEmpty()) {
       field = coll->imageFields().front();
     } else if(!field) {
-      field = new Data::Field(QStringLiteral("cover"), i18n("Front Cover"), Data::Field::Image);
+      field = Data::Field::createDefaultField(Data::Field::FrontCoverField);
       coll->addField(field);
     }
     if(entry->field(field).isEmpty()) {
@@ -281,16 +275,6 @@ Tellico::Fetch::FetchRequest CrossRefFetcher::updateRequest(Data::EntryPtr entry
   return FetchRequest();
 }
 
-void CrossRefFetcher::readWallet() const {
-  if(m_user.isEmpty() || m_password.isEmpty()) {
-    QMap<QString, QString> map = Wallet::self()->readWalletMap(QStringLiteral("crossref.org"));
-    if(!map.isEmpty()) {
-      m_user = map.value(QStringLiteral("username"));
-      m_password = map.value(QStringLiteral("password"));
-    }
-  }
-}
-
 Tellico::Fetch::ConfigWidget* CrossRefFetcher::configWidget(QWidget* parent_) const {
   return new CrossRefFetcher::ConfigWidget(parent_, this);
 }
@@ -353,7 +337,6 @@ CrossRefFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const CrossRefFetc
   label->setBuddy(m_emailEdit);
 
   if(fetcher_) {
-    fetcher_->readWallet(); // make sure that the wallet values are read
     m_userEdit->setText(fetcher_->m_user);
     m_passEdit->setText(fetcher_->m_password);
     m_emailEdit->setText(fetcher_->m_email);

@@ -34,7 +34,6 @@
 
 #include <KLocalizedString>
 
-#include <QTextCodec>
 #include <QTextStream>
 
 #define CHECKLIMITS(n) if(values.count() <= n) continue
@@ -92,7 +91,6 @@ void GCstarImporter::readGCfilms(const QString& text_) {
     hasURL = true;
   }
 
-  bool convertUTF8 = false;
   QHash<QString, Data::BorrowerPtr> borrowers;
   static const QRegularExpression rx(QLatin1String("\\s*,\\s*"));
   static const QRegularExpression year(QLatin1String("\\d{4}"));
@@ -112,10 +110,6 @@ void GCstarImporter::readGCfilms(const QString& text_) {
 
   uint j = 0;
   for(QString line = t.readLine(); !m_cancelled && !line.isNull(); line = t.readLine(), j += line.length()) {
-    // string was wrongly converted
-    if(convertUTF8) {
-      line = QString::fromUtf8(line.toLocal8Bit());
-    }
     QStringList values = line.split(QLatin1Char('|'));
     if(values.empty()) {
       continue;
@@ -126,13 +120,6 @@ void GCstarImporter::readGCfilms(const QString& text_) {
         setStatusMessage(i18n("<qt>The file is not a valid GCstar data file.</qt>"));
         m_coll = nullptr;
         return;
-      }
-      if(values.size() > 2 && values[2] == QLatin1String("UTF8")) {
-        // if locale encoding isn't utf8, need to do a reconversion
-        QTextCodec* codec = QTextCodec::codecForLocale();
-        if(codec->name().toLower().indexOf("utf-8") == -1) {
-          convertUTF8 = true;
-        }
       }
       gotFirstLine = true;
       continue;

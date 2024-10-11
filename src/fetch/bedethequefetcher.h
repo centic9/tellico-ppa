@@ -36,6 +36,7 @@ namespace KIO {
   class StoredTransferJob;
 }
 
+class BedethequeFetcherTest;
 namespace Tellico {
   namespace Fetch {
 
@@ -79,10 +80,10 @@ private Q_SLOTS:
   void slotLinkComplete(KJob* job);
 
 private:
+  friend class ::BedethequeFetcherTest;
   virtual void search() Q_DECL_OVERRIDE;
   virtual FetchRequest updateRequest(Data::EntryPtr entry) Q_DECL_OVERRIDE;
   Data::EntryPtr parseEntry(const QString& str);
-  void fetchToken();
 
   QString m_token;
   int m_total;

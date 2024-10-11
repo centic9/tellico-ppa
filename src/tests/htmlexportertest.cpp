@@ -30,7 +30,6 @@
 #include "../translators/tellicoimporter.h"
 #include "../collections/bookcollection.h"
 #include "../collections/videocollection.h"
-#include "../collections/musiccollection.h"
 #include "../collectionfactory.h"
 #include "../entry.h"
 #include "../document.h"
@@ -46,12 +45,14 @@
 #include <QFile>
 #include <QStandardPaths>
 #include <QProcess>
+#include <QLoggingCategory>
 
 QTEST_GUILESS_MAIN( HtmlExporterTest )
 
 void HtmlExporterTest::initTestCase() {
   QStandardPaths::setTestModeEnabled(true);
   KLocalizedString::setApplicationDomain("tellico");
+  QLoggingCategory::setFilterRules(QStringLiteral("tellico.debug = true\ntellico.info = false"));
   Tellico::ImageFactory::init();
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
   Tellico::RegisterCollection<Tellico::Data::VideoCollection> registerVideo(Tellico::Data::Collection::Video, "video");
@@ -83,7 +84,7 @@ void HtmlExporterTest::testHtml() {
 
   Tellico::Data::Document* doc = Tellico::Data::Document::self();
   QVERIFY(doc->openDocument(QUrl::fromLocalFile(fileName)));
-  QCOMPARE(Tellico::ImageFactory::localDir(), imageDirName);
+  QCOMPARE(Tellico::ImageFactory::localDir(), QUrl::fromLocalFile(imageDirName));
   // save the document, so the images get copied out of the .tc file into the local image directory
   QVERIFY(doc->saveDocument(QUrl::fromLocalFile(fileName)));
 
@@ -196,13 +197,16 @@ void HtmlExporterTest::testReportHtml() {
 
   QString output2 = exporter2.text();
   QVERIFY(!output2.isEmpty());
-  // the rating pic image needs to be an absolute local path
   QRegularExpression starsPathRx(QStringLiteral("src=\"(.+stars3.png)\""));
   auto starsMatch = starsPathRx.match(output2);
   QVERIFY(starsMatch.hasMatch());
-  QFileInfo starsInfo(starsMatch.captured(1));
-  qDebug() << "Looking for absolute path:" << starsInfo.filePath();
-  QVERIFY(starsInfo.isAbsolute());
+  // the rating pic image should be an absolute local path
+  // but that's only when Tellico is fully installed
+  QString installPath = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QStringLiteral("tellico/pics/stars3.png"));
+  if(!installPath.isEmpty()) {
+    QFileInfo starsInfo(starsMatch.captured(1));
+    QVERIFY(starsInfo.isAbsolute());
+  }
 }
 
 void HtmlExporterTest::testDirectoryNames() {
@@ -218,7 +222,7 @@ void HtmlExporterTest::testDirectoryNames() {
   QCOMPARE(exp.fileDirName(), QStringLiteral("/"));
 }
 
-void HtmlExporterTest::testTemplates() {
+void HtmlExporterTest::testTemplatesTidy() {
   const QString tidy = QStandardPaths::findExecutable(QStringLiteral("tidy"));
   if(tidy.isEmpty()) {
     QSKIP("This test requires tidy", SkipAll);
@@ -248,6 +252,9 @@ void HtmlExporterTest::testTemplates() {
   exporter.setEntries(coll->entries());
   exporter.setXSLTFile(xsltFile);
   exporter.setPrintGrouped(true);
+  long opt = exporter.options();
+  opt |= Tellico::Export::ExportComplete; // include loan info
+  exporter.setOptions(opt);
 
   const QString output = exporter.text();
   QVERIFY(!output.contains(QStringLiteral("<p><p>")));
@@ -276,7 +283,7 @@ void HtmlExporterTest::testTemplates() {
   QVERIFY(tidyProc.exitCode() < 2);
 }
 
-void HtmlExporterTest::testTemplates_data() {
+void HtmlExporterTest::testTemplatesTidy_data() {
   QTest::addColumn<QString>("xsltFile");
   QTest::addColumn<QString>("tellicoFile");
 
@@ -286,13 +293,54 @@ void HtmlExporterTest::testTemplates_data() {
   QDir entryDir(QFINDTESTDATA(QStringLiteral("../../xslt/entry-templates/Default.xsl")));
   entryDir.cdUp();
   foreach(const QString& file, entryDir.entryList({"*.xsl"}, QDir::Files)) {
-    QTest::newRow(file.toUtf8().constData()) << file << ted;
-    QTest::newRow(file.toUtf8().constData()) << file << moody;
+    const QString test1 = file + QLatin1String(":ted");
+    const QString test2 = file + QLatin1String(":moody");
+    QTest::newRow(test1.toUtf8().constData()) << file << ted;
+    QTest::newRow(test2.toUtf8().constData()) << file << moody;
   }
   QDir reportDir(QFINDTESTDATA(QStringLiteral("../../xslt/report-templates/Column_View.xsl")));
   reportDir.cdUp();
   foreach(const QString& file, reportDir.entryList({"*.xsl"}, QDir::Files)) {
-    QTest::newRow(file.toUtf8().constData()) << file << ted;
-    QTest::newRow(file.toUtf8().constData()) << file << moody;
+    const QString test1 = file + QLatin1String(":ted");
+    const QString test2 = file + QLatin1String(":moody");
+    QTest::newRow(test1.toUtf8().constData()) << file << ted;
+    QTest::newRow(test2.toUtf8().constData()) << file << moody;
+  }
+}
+
+void HtmlExporterTest::testEntryTemplates() {
+  QFETCH(QString, xsltFile);
+  Tellico::ImageFactory::clean(true);
+
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA(QStringLiteral("data/books-format11.bc")));
+  Tellico::Import::TellicoImporter importer(url);
+  Tellico::Data::CollPtr coll = importer.collection();
+  QVERIFY(coll);
+
+  Tellico::Export::HTMLExporter exporter(coll);
+  exporter.setParseDOM(false); // shows error for <wbr> tags and is not necessary for check
+  exporter.setEntries(coll->entries());
+  exporter.setXSLTFile(xsltFile);
+  exporter.setPrintGrouped(true);
+  long opt = exporter.options();
+  opt |= Tellico::Export::ExportComplete; // include loan info
+  exporter.setOptions(opt);
+
+  // check that the loan info appears in all generated HTML
+  const QString output = exporter.text();
+  // expect failure for the non-book templates since the file is a book collection
+  if(xsltFile.contains(QStringLiteral("Album")) || xsltFile.contains(QStringLiteral("Video"))) {
+    QEXPECT_FAIL("", "The test data is valid for a book collection only", Continue);
+  }
+  QVERIFY(output.contains(QStringLiteral("Robby")));
+}
+
+void HtmlExporterTest::testEntryTemplates_data() {
+  QTest::addColumn<QString>("xsltFile");
+
+  QDir entryDir(QFINDTESTDATA(QStringLiteral("../../xslt/entry-templates/Default.xsl")));
+  entryDir.cdUp();
+  foreach(const QString& file, entryDir.entryList({"*.xsl"}, QDir::Files)) {
+    QTest::newRow(file.toUtf8().constData()) << file;
   }
 }

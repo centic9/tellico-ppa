@@ -54,11 +54,11 @@
 </screenshot>
 
 <para
->The <guilabel
->General Options</guilabel
-> control the general behavior. Images may be included in the data files, or saved separately in the &appname; application folder. Also, when &appname; is started, it can automatically reopen the last data file that was open. The <guilabel
->Tip of the Day</guilabel
-> dialog contains helpful hints on using &appname; and appears at program startup. You may want to read through some of the hints and then disable the dialog. </para>
+>Las <guilabel
+>Opciones generales</guilabel
+> controlan el comportamiento general. Las imágenes pueden estar incluidas en los archivos de datos, o guardadas por separado en la carpeta de la aplicación &appname;. Además, cuando se inicia &appname;, puede abrir automáticamente el último archivo de datos que ha sido abierto. El <interface
+>Filtrado rápido</interface
+> de la barra de herramientas resulta de utilidad para filtrar rápidamente la colección y permite el uso de expresiones regulares. </para>
 
 <para
 >Las <guilabel
@@ -239,17 +239,17 @@
 >OpenLibrary.org</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="opds"
+>Catálogos OPDS</link
+>,</simpara
+></listitem>
 <!-- movies -->
 <listitem
 ><simpara
 >la <link linkend="imdb"
 >Internet Movie Database</link
->,</simpara
-></listitem>
-<listitem
-><simpara
-><link linkend="allocine"
->AlloCiné</link
 >,</simpara
 ></listitem>
 <listitem
@@ -266,8 +266,8 @@
 ></listitem>
 <listitem
 ><simpara
-><link linkend="animenfo"
->AnimeNfo.com</link
+><link linkend="filmaffinity"
+>FilmAffinity</link
 >,</simpara
 ></listitem>
 <!-- comics -->
@@ -366,6 +366,12 @@
 >Colnect</link
 >,</simpara
 ></listitem>
+<listitem
+><simpara
+><link linkend="numista"
+>Numista</link
+>,</simpara
+></listitem>
 <!-- others -->
 <listitem
 ><simpara
@@ -402,11 +408,6 @@
 > o <guibutton
 >Eliminar</guibutton
 >. El orden de las fuentes, que se muestra en los menús de actualización de entradas, también se puede cambiar. </para>
-
-<warning>
-<para
->Nunca instale o ejecute un script de una fuente que no sea de confianza. Se ejecutan con los mismos permisos del usuario, y como resultado podrían modificar o eliminar archivos, o perjudicar su sistema de cualquier otra forma. </para>
-</warning>
 
 <para
 >Muchas de las fuentes de datos ofrecen más información que los campos predeterminados de &appname;. Esos campos se muestran a la derecha del cuadro de configuración. Si alguno de esos campos está marcado, se añadirá a la colección cuando se añada una entrada desde esa fuente. </para>
@@ -525,6 +526,17 @@
 > es una base de datos de libros que espera tener una página para cada libro. </para>
 </sect3>
 
+<sect3 id="opds">
+<title
+>Catálogos OPDS</title>
+<para
+>Los <ulink url="https://es.wikipedia.org/wiki/OPDS"
+>catálogos OPDS </ulink
+> proporcionan un medio para buscar (y distribuir) libros digitales. &tellico; puede usar diversos catálogos OPDS como fuente de datos, como el <ulink url="https://wiki.mobileread.com/wiki/OPDS"
+>Proyecto Gutenberg</ulink
+>. Introduzca el enlace del catálogo y compruebe el acceso y el formato para confirmar que &tellico; puede leer el enlace. </para>
+</sect3>
+
 </sect2>
 <!-- end of books -->
 
@@ -596,23 +608,15 @@
 > es un servicio web gratuito para obtener información sobre películas. </para>
 </sect3>
 
-<sect3 id="allocine">
+<sect3 id="filmaffinity">
 <title
->AlloCiné</title>
+>FilmAffinity</title>
 <para
-><ulink url="http://allocine.fr"
->AlloCiné</ulink
-> is an online movie information service, based in France. Browser Identification must be enabled in &systemsettings; </para>
+><ulink url="https://filmaffinity.com"
+>FilmAffinity</ulink
+> es un sitio de películas independiente. </para>
 </sect3>
 
-<sect3 id="animenfo">
-<title
->AnimeNfo.com</title>
-<para
-><ulink url="http://www.animenfo.com"
->AnimeNfo</ulink
-> is a popular site for information on anime, or Japanese animation. </para>
-</sect3>
 </sect2>
 
 <!-- start of music sources -->
@@ -626,7 +630,7 @@
 <para
 ><ulink url="http://discogs.com"
 >Discogs.com</ulink
-> is a user-built music database containing information on artists, labels, and their recordings. Registration for a free account is required. Browser Identification must be enabled in &systemsettings; </para>
+> es una base de datos de música construida por los usuarios que contiene información sobre artistas, sellos y sus grabaciones. Se requiere registrarse para obtener una cuenta gratuita. </para>
 </sect3>
 
 <sect3 id="musicbrainz">
@@ -635,7 +639,7 @@
 <para
 ><ulink url="http://musicbrainz.org"
 >MusicBrainz.org</ulink
-> is a community music metadatabase that attempts to create a comprehensive music information site. Browser Identification must be enabled in &systemsettings; </para>
+> es una base de metadatos que intenta crear un sitio de información exhaustiva sobre música. </para>
 </sect3>
 
 </sect2>
@@ -719,7 +723,7 @@
 <!-- start of coin sources -->
 <sect2 id="coin-sources">
 <title
->Coin Data Sources</title>
+>Fuentes de datos de monedas y sellos</title>
 
 <sect3 id="colnect">
 <title
@@ -727,7 +731,16 @@
 <para
 ><ulink url="https://colnect.com"
 >Colnect</ulink
-> is an online community for collectibles providing personal collection management. &tellico; can search Colnect for coin information. </para>
+> es una comunidad en línea para artículos coleccionables que proporciona gestión de colecciones personales. &tellico; puede buscar información de monedas y sellos en Colnect, así como libros de cómics, tarjetas deportivas y videojuegos. </para>
+</sect3>
+
+<sect3 id="numista">
+<title
+>Numista</title>
+<para
+><ulink url="https://numista.com"
+>Numista</ulink
+> es un catálogo de monedas del mundo que crece gracias a la contribución de sus miembros y que ofrece gestión de colecciones en línea, herramientas para realizar intercambios de forma fácil con otros coleccionistas y un foro. </para>
 </sect3>
 
 </sect2>
@@ -790,9 +803,14 @@
 >, sino que también puede importar otros formatos, como bibtex. </para>
 
 <para
->The full path to the application should be entered in the source options. Be aware that the application is executed on the system with the same permissions as the current user, so do not use scripts from untrusted sources. Check the boxes next to the search keys supported by the application, and enter the required command line options in the edit box. The search value will be inserted where <userinput
+>La ruta completa a la aplicación debería introducirse en las opciones de la fuente. Marque las casillas junto a las claves de búsqueda admitidas por la aplicación, e introduzca las opciones de línea de órdenes requeridas en la caja de edición. El valor de búsqueda será insertado donde aparezca <userinput
 >%1</userinput
-> appears. </para>
+>. </para>
+
+<warning>
+<para
+>Nunca instale o ejecute un script de una fuente que no sea de confianza. Se ejecutan con los mismos permisos del usuario, y como resultado podrían modificar o eliminar archivos, o perjudicar su sistema de cualquier otra forma. </para>
+</warning>
 
 <para
 >Para actualizar entradas que ya estén en la colección, las casillas de comprobación final y de edición se utilizan para determinar las opciones de la línea de órdenes. Deben introducirse los campos de entrada usados para encontrar una actualización, en el mismo formato que se utilizó para los campos de <link linkend="derived"
@@ -806,7 +824,7 @@
 <title
 >Múltiples fuentes de datos combinadas</title>
 <para
->Combinations of up to eight existing data sources can be used as a single source, where the search results from all the sources are merged. The collection type to be used must be set before adding sources. </para>
+>Se pueden usar combinaciones de hasta ocho fuentes de datos existentes como una fuente única, donde cada resultado de la búsqueda de la primera fuente se actualiza desde las siguientes fuentes. Debe establecerse el tipo de colección que se utilizará antes de añadir fuentes. </para>
 
 <screenshot>
 <mediaobject>
@@ -816,7 +834,7 @@
 </screenshot>
 
 <para
->Only existing data sources can be used in combination. The search request is sent to each source, and the results are combined. Since the merged results depend on the order of the search results, the combined set may be different depending on network and source speed. </para>
+>Solo se pueden usar en combinación las fuentes de datos existentes. Solo el tipo de búsqueda de la primera fuente se puede usar en esta fuente, ya que el resultado procede de la primera fuente de datos. Por ejemplo, se puede hacer primero una búsqueda en UPCitemDb, con la que cada resultado se actualiza después desde TheMovieDB. </para>
 </sect2>
 
 </sect1>

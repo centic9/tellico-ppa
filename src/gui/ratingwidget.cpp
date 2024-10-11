@@ -43,7 +43,7 @@ using Tellico::GUI::RatingWidget;
 RatingWidget::RatingWidget(Tellico::Data::FieldPtr field_, QWidget* parent_)
     : QWidget(parent_), m_field(field_), m_currIndex(-1) {
   QHBoxLayout* layout = new QHBoxLayout(this);
-  layout->setMargin(0);
+  layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
 
   m_pixOn = QIcon(QLatin1String(":/icons/star_on")).pixmap(QSize(18, 18));
@@ -105,8 +105,8 @@ void RatingWidget::init() {
 
 void RatingWidget::updateBounds() {
   bool ok; // not used;
-  m_min = Tellico::toUInt(m_field->property(QStringLiteral("minimum")), &ok);
-  m_max = Tellico::toUInt(m_field->property(QStringLiteral("maximum")), &ok);
+  m_min = Tellico::toInt(m_field->property(QStringLiteral("minimum")), &ok);
+  m_max = Tellico::toInt(m_field->property(QStringLiteral("maximum")), &ok);
   if(m_max > RATING_WIDGET_MAX_ICONS) {
     myDebug() << "max is too high: " << m_max;
     m_max = RATING_WIDGET_MAX_ICONS;
@@ -155,7 +155,11 @@ void RatingWidget::mousePressEvent(QMouseEvent* event_) {
   }
 }
 
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 void RatingWidget::enterEvent(QEvent* event_) {
+#else
+void RatingWidget::enterEvent(QEnterEvent* event_) {
+#endif
   Q_UNUSED(event_);
   setUpdatesEnabled(false);
   m_clearButton->show();
@@ -186,7 +190,7 @@ QString RatingWidget::text() const {
 void RatingWidget::setText(const QString& text_) {
   bool ok;
   // text is value, subtract one to get index
-  m_currIndex = Tellico::toUInt(text_, &ok)-1;
+  m_currIndex = Tellico::toInt(text_, &ok)-1;
   if(ok) {
     if(m_currIndex > m_total-1) {
       m_currIndex = -1;

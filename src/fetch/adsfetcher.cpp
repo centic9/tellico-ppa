@@ -23,8 +23,6 @@
  ***************************************************************************/
 
 #include "adsfetcher.h"
-#include "../core/filehandler.h"
-#include "../collections/bibtexcollection.h"
 #include "../translators/risimporter.h"
 #include "../entry.h"
 #include "../utils/string_utils.h"
@@ -33,15 +31,14 @@
 
 #include <KLocalizedString>
 #include <KConfigGroup>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KIO/JobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QLabel>
 #include <QGridLayout>
 #include <QLineEdit>
 #include <QFile>
-#include <QTextCodec>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -179,7 +176,6 @@ void ADSFetcher::slotComplete(KJob*) {
   QFile f(QString::fromLatin1("/tmp/test-ads.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << QString::fromUtf8(data.constData(), data.size());
   }
   f.close();
@@ -265,7 +261,6 @@ Tellico::Data::EntryPtr ADSFetcher::fetchEntryHook(uint uid_) {
   QFile f(QString::fromLatin1("/tmp/test-ads-export.json"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << QString::fromUtf8(data.constData(), data.size());
   }
   f.close();

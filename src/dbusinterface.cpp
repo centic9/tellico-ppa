@@ -30,6 +30,7 @@
 #include "fieldformat.h"
 #include "utils/bibtexhandler.h"
 #include "mainwindow.h"
+#include "tellico_debug.h"
 
 #include <QDBusConnection>
 #include <QDir>
@@ -81,11 +82,17 @@ bool ApplicationInterface::showEntry(int id)  {
 
 bool ApplicationInterface::importFile(Tellico::Import::Format format, const QString& file, Tellico::Import::Action action) {
   const QUrl url = QUrl::fromUserInput(file, QDir::currentPath(), QUrl::AssumeLocalFile);
+  myLog() << "Importing" << format << "-" << url.toDisplayString(QUrl::PreferLocalFile);
   return m_mainWindow->importFile(format, url, action);
 }
 
 bool ApplicationInterface::exportCollection(Tellico::Export::Format format, const QString& file, bool filtered) {
   const QUrl url = QUrl::fromUserInput(file, QDir::currentPath(), QUrl::AssumeLocalFile);
+  if(file == QLatin1String("--")) {
+    myLog() << "Exporting collection to stdout";
+  } else {
+    myLog() << "Exporting collection to" << url.toDisplayString(QUrl::PreferLocalFile);
+  }
   return m_mainWindow->exportCollection(format, url, filtered);
 }
 

@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2009 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2024 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,32 +22,27 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_WALLET_H
-#define TELLICO_WALLET_H
+#ifndef TELLICO_FILEREADERVIDEO_H
+#define TELLICO_FILEREADERVIDEO_H
 
-#include <QMap>
-
-class QByteArray;
-
-namespace KWallet {
-  class Wallet;
-}
+#include "filereader.h"
 
 namespace Tellico {
 
-class Wallet {
-
+class FileReaderVideoPrivate;
+class FileReaderVideo : public FileReaderMetaData {
 public:
-  static Wallet* self();
+  FileReaderVideo(const QUrl& u);
+  virtual ~FileReaderVideo();
 
-  QByteArray readWalletEntry(const QString& key);
-  QMap<QString, QString> readWalletMap(const QString& key);
+  virtual bool populate(Data::EntryPtr entry, const KFileItem& fileItem) Q_DECL_OVERRIDE;
 
 private:
-  Wallet();
-  bool prepareWallet();
+  bool populateNfo(Data::EntryPtr entry, const QString& nfoFile);
 
-  KWallet::Wallet* m_wallet;
+  class Private;
+  friend class Private;
+  std::unique_ptr<Private> d;
 };
 
 }

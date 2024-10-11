@@ -36,7 +36,9 @@
 #include <QValueAxis>
 #include <QGraphicsSimpleTextItem>
 
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 using namespace QtCharts;
+#endif
 using Tellico::YearDistributionReport;
 
 class YearDistributionReport::View : public QChartView {
@@ -160,12 +162,14 @@ QWidget* YearDistributionReport::createWidget() {
   series->attachAxis(axisY);
   if(axisY->max() < 5) axisY->setMax(5);
   axisY->applyNiceNumbers();
-  axisY->setMinorTickCount(4);
+  if(axisY->max() >= 20) {
+    axisY->setMinorTickCount(4);
+  }
   axisY->setMinorGridLineVisible(true);
 
   auto widget = new QWidget;
   auto layout = new QVBoxLayout(widget);
-  layout->setMargin(0);
+  layout->setContentsMargins(0, 0, 0, 0);
   layout->setSpacing(0);
   auto chartView = new View(chart, widget);
   chartView->setRenderHint(QPainter::Antialiasing);

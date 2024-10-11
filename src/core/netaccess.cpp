@@ -27,6 +27,7 @@
 #include "../utils/guiproxy.h"
 #include "../tellico_debug.h"
 
+#include <KIO/StoredTransferJob>
 #include <KIO/PreviewJob>
 #include <KIO/StatJob>
 #include <KIO/JobUiDelegate>
@@ -49,7 +50,7 @@ bool NetAccess::download(const QUrl& url_, QString& target_, QWidget* window_, b
     target_ = url_.toLocalFile();
     const bool readable = QFileInfo(target_).isReadable();
     if(!readable) {
-      s_lastErrorMessage = i18n(errorOpen, target_);
+      s_lastErrorMessage = TC_I18N2(errorOpen, target_);
     }
     return readable;
   }
@@ -80,11 +81,11 @@ bool NetAccess::download(const QUrl& url_, QString& target_, QWidget* window_, b
       if(f.write(getJob->data()) > -1) {
         return true;
       } else {
-        s_lastErrorMessage = i18n(errorWrite, target_);
+        s_lastErrorMessage = TC_I18N2(errorWrite, target_);
         myWarning() << "failed to write to" << target_;
       }
     } else {
-      s_lastErrorMessage = i18n(errorOpen, target_);
+      s_lastErrorMessage = TC_I18N2(errorOpen, target_);
     }
   } else {
     s_lastErrorMessage = QStringLiteral("Tellico was unable to download %1").arg(url_.url());
@@ -143,7 +144,9 @@ bool NetAccess::exists(const QUrl& url_, bool sourceSide_, QWidget* window_) {
     return QFile::exists(url_.toLocalFile());
   }
 
-  KIO::StatJob* job = KIO::stat(url_);
+  KIO::JobFlags flags = KIO::DefaultFlags;
+  if(!window_) flags |= KIO::HideProgressInfo;
+  KIO::StatJob* job = KIO::stat(url_, flags);
   KJobWidgets::setWindow(job, window_);
   job->setSide(sourceSide_ ? KIO::StatJob::SourceSide : KIO::StatJob::DestinationSide);
   return job->exec();

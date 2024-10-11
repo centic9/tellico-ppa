@@ -27,10 +27,14 @@
 #include "entitytest.h"
 
 #include "../utils/string_utils.h"
+#include "../utils/mapvalue.h"
 
 #include <KLocalizedString>
 
 #include <QTest>
+#include <QRegularExpression>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 QTEST_APPLESS_MAIN( EntityTest )
 
@@ -141,4 +145,44 @@ void EntityTest::testControlCodes_data() {
   QTest::newRow("tab") << QSL("new\ttab") << QSL("new\ttab");
   QTest::newRow("hex5") << QSL("hex5\x5") << QSL("hex5");
   QTest::newRow("hexD") << QSL("hexD\xD") << QSL("hexD\xD");
+}
+
+void EntityTest::testBug254863() {
+  QString input(QLatin1String("\\n<div>\\n\\n<i18n>check&replace</i18n></div>\\n"));
+  auto output = Tellico::i18nReplace(input);
+  QVERIFY(!output.contains(QLatin1String("i18n>")));
+  QVERIFY(!output.contains(QLatin1String("&replace")));
+  static const QRegularExpression whiteSpaceRx(QLatin1String("\\s$"));
+  QVERIFY(!output.contains(whiteSpaceRx));
+}
+
+void EntityTest::testMapValue() {
+  auto data(QByteArrayLiteral(R"(
+{
+ "num": 10,
+ "item":"value",
+ "items": [
+    {"title":"title"},
+    {"title":"title2"}
+ ],
+ "chain": {
+   "chain2": {
+     "chain3": {
+       "chain4":"value"
+     }
+   }
+ },
+ "list":["value1", "value2", "value3"],
+ "list2":{"list":["value1", "value2", "value3"]}
+}
+)"));
+  QJsonDocument doc = QJsonDocument::fromJson(data);
+  QVERIFY(!doc.isNull());
+  auto map = doc.object().toVariantMap();
+  QCOMPARE(Tellico::mapValue(map, "num"), QStringLiteral("10"));
+  QCOMPARE(Tellico::mapValue(map, "item"), QStringLiteral("value"));
+  QCOMPARE(Tellico::mapValue(map, "items", "title"), QStringLiteral("title; title2"));
+  QCOMPARE(Tellico::mapValue(map, "chain", "chain2", "chain3", "chain4"), QStringLiteral("value"));
+  QCOMPARE(Tellico::mapValue(map, "list"), QStringLiteral("value1; value2; value3"));
+  QCOMPARE(Tellico::mapValue(map, "list2", "list"), QStringLiteral("value1; value2; value3"));
 }

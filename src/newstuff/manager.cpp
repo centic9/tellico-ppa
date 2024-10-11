@@ -24,9 +24,9 @@
 
 #include "manager.h"
 #include "newstuffadaptor.h"
-#include "../core/filehandler.h"
 #include "../utils/cursorsaver.h"
 #include "../utils/tellico_utils.h"
+#include "../utils/guiproxy.h"
 #include "../tellico_debug.h"
 
 #include <KTar>
@@ -35,7 +35,7 @@
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <KDesktopFile>
-#include <KIO/Job>
+#include <KIO/FileCopyJob>
 #include <KIO/DeleteJob>
 
 #include <QFileInfo>
@@ -119,7 +119,11 @@ bool Manager::installTemplate(const QString& file_) {
     if(QFile::exists(name)) {
       QFile::remove(name);
     }
-    auto job = KIO::file_copy(QUrl::fromLocalFile(file_), QUrl::fromLocalFile(name));
+    KIO::JobFlags flags = KIO::DefaultFlags;
+    if(!GUI::Proxy::widget()) {
+      flags |= KIO::HideProgressInfo;
+    }
+    auto job = KIO::file_copy(QUrl::fromLocalFile(file_), QUrl::fromLocalFile(name), -1, flags);
     if(job->exec()) {
       xslFile = QFileInfo(name).fileName();
       allFiles << xslFile;
@@ -129,7 +133,7 @@ bool Manager::installTemplate(const QString& file_) {
   if(xslFile.isEmpty()) {
     success = false;
   } else {
-    KConfigGroup config(KSharedConfig::openConfig(), "KNewStuffFiles");
+    KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("KNewStuffFiles"));
     config.writeEntry(file_, allFiles);
     config.writeEntry(xslFile, file_);
   }
@@ -159,7 +163,7 @@ bool Manager::removeTemplateByName(const QString& name_) {
 
   QString xslFile = userTemplates().value(name_);
   if(!xslFile.isEmpty()) {
-    KConfigGroup config(KSharedConfig::openConfig(), "KNewStuffFiles");
+    KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("KNewStuffFiles"));
     QString file = config.readEntry(xslFile, QString());
     if(!file.isEmpty()) {
       return removeTemplate(file);
@@ -177,7 +181,7 @@ bool Manager::removeTemplate(const QString& file_) {
   }
   GUI::CursorSaver cs;
 
-  KConfigGroup fileGroup(KSharedConfig::openConfig(), "KNewStuffFiles");
+  KConfigGroup fileGroup(KSharedConfig::openConfig(), QLatin1String("KNewStuffFiles"));
   QStringList files = fileGroup.readEntry(file_, QStringList());
 
   if(files.isEmpty()) {
@@ -261,7 +265,11 @@ bool Manager::installScript(const QString& file_) {
     copyTarget += sourceName;
     scriptFolder = copyTarget + QDir::separator();
     QDir().mkpath(scriptFolder);
-    auto job = KIO::file_copy(QUrl::fromLocalFile(file_), QUrl::fromLocalFile(scriptFolder + exeFile));
+    KIO::JobFlags flags = KIO::DefaultFlags;
+    if(!GUI::Proxy::widget()) {
+      flags |= KIO::HideProgressInfo;
+    }
+    auto job = KIO::file_copy(QUrl::fromLocalFile(file_), QUrl::fromLocalFile(scriptFolder + exeFile), -1, flags);
     if(!job->exec()) {
       myDebug() << "Copy failed";
       return false;
@@ -287,7 +295,7 @@ bool Manager::installScript(const QString& file_) {
   cg.writeEntry("NewStuffName", sourceName);
   cg.writeEntry("DeleteOnRemove", true);
 
-  KConfigGroup config(KSharedConfig::openConfig(), "KNewStuffFiles");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("KNewStuffFiles"));
   config.writeEntry(sourceName, realFile);
   config.writeEntry(realFile, scriptFolder);
   //  myDebug() << "exeFile = " << exeFile;
@@ -312,7 +320,7 @@ bool Manager::removeScriptByName(const QString& name_) {
     return false;
   }
 
-  KConfigGroup config(KSharedConfig::openConfig(), "KNewStuffFiles");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("KNewStuffFiles"));
   QString file = config.readEntry(name_, QString());
   if(!file.isEmpty()) {
     return removeScript(file);
@@ -331,7 +339,7 @@ bool Manager::removeScript(const QString& file_) {
   const QString sourceName = fi.completeBaseName();
 
   bool success = true;
-  KConfigGroup fileGroup(KSharedConfig::openConfig(), "KNewStuffFiles");
+  KConfigGroup fileGroup(KSharedConfig::openConfig(), QLatin1String("KNewStuffFiles"));
   QString scriptFolder = fileGroup.readEntry(file_, QString());
   if(scriptFolder.isEmpty()) {
     scriptFolder = fileGroup.readEntry(realFile, QString());
@@ -342,7 +350,11 @@ bool Manager::removeScript(const QString& file_) {
   }
 
   if(!scriptFolder.isEmpty()) {
-    KIO::del(QUrl::fromLocalFile(scriptFolder))->exec();
+    KIO::JobFlags flags = KIO::DefaultFlags;
+    if(!GUI::Proxy::widget()) {
+      flags |= KIO::HideProgressInfo;
+    }
+    KIO::del(QUrl::fromLocalFile(scriptFolder), flags)->exec();
   }
   if(source != -1) {
     KConfigGroup configGroup(KSharedConfig::openConfig(), QStringLiteral("Data Sources"));

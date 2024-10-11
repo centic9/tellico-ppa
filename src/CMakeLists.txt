@@ -12,9 +12,9 @@ ADD_SUBDIRECTORY( models )
 ADD_SUBDIRECTORY( utils )
 ADD_SUBDIRECTORY( 3rdparty )
 
-IF( Qt5Charts_FOUND )
+IF( Qt${QT_MAJOR_VERSION}Charts_FOUND )
   ADD_SUBDIRECTORY( charts )
-ENDIF( Qt5Charts_FOUND )
+ENDIF( Qt${QT_MAJOR_VERSION}Charts_FOUND )
 
 IF( BUILD_TESTING )
   ADD_SUBDIRECTORY( tests )
@@ -69,6 +69,7 @@ SET(tellico_SRCS
    fieldformat.cpp
    filter.cpp
    filterdialog.cpp
+   filterparser.cpp
    filterview.cpp
    groupview.cpp
    importdialog.cpp
@@ -79,8 +80,11 @@ SET(tellico_SRCS
    printhandler.cpp
    progressmanager.cpp
    reportdialog.cpp
+   tellico_debug.cpp
    tellico_kernel.cpp
    viewstack.cpp
+
+   tellico.qrc
    )
 
 add_executable(tellico ${tellico_SRCS} ../icons/icons.qrc)
@@ -103,46 +107,46 @@ TARGET_LINK_LIBRARIES(tellico
     )
 
 TARGET_LINK_LIBRARIES(tellico
-    Qt5::Core
-    Qt5::Widgets
-    Qt5::DBus
-    Qt5::PrintSupport
-    KF5::Crash
-    KF5::KIOCore
-    KF5::KIOFileWidgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Widgets
+    Qt${QT_MAJOR_VERSION}::DBus
+    Qt${QT_MAJOR_VERSION}::PrintSupport
+    KF${KF_MAJOR_VERSION}::Crash
+    KF${KF_MAJOR_VERSION}::KIOCore
+    KF${KF_MAJOR_VERSION}::KIOFileWidgets
     ${LIBXML2_LIBRARIES}
     ${LIBXSLT_LIBRARIES}
     ${LIBXSLT_EXSLT_LIBRARIES}
     )
 
-IF( Qt5Charts_FOUND )
+IF( Qt${QT_MAJOR_VERSION}Charts_FOUND )
   TARGET_LINK_LIBRARIES(tellico charts)
-ENDIF( Qt5Charts_FOUND )
+ENDIF( Qt${QT_MAJOR_VERSION}Charts_FOUND )
 
 IF(USE_KHTML)
-  TARGET_LINK_LIBRARIES(tellico KF5::KHtml)
+  TARGET_LINK_LIBRARIES(tellico KF${KF_MAJOR_VERSION}::KHtml)
   ADD_DEFINITIONS(-DUSE_KHTML=${USE_KHTML})
 ELSE()
-  TARGET_LINK_LIBRARIES(tellico Qt5::WebEngineWidgets)
+  TARGET_LINK_LIBRARIES(tellico Qt${QT_MAJOR_VERSION}::WebEngineWidgets)
 ENDIF()
 
-IF( KF5NewStuff_FOUND )
-  IF(KF5_VERSION VERSION_GREATER_EQUAL "5.91.0")
-    TARGET_LINK_LIBRARIES(tellico KF5::NewStuffWidgets)
+IF( KF${KF_MAJOR_VERSION}NewStuff_FOUND )
+  IF(KF${KF_MAJOR_VERSION}_VERSION VERSION_GREATER_EQUAL "5.91.0")
+    TARGET_LINK_LIBRARIES(tellico KF${KF_MAJOR_VERSION}::NewStuffWidgets)
   ELSE()
-    TARGET_LINK_LIBRARIES(tellico KF5::NewStuff)
+    TARGET_LINK_LIBRARIES(tellico KF${KF_MAJOR_VERSION}::NewStuff)
   ENDIF()
-ENDIF( KF5NewStuff_FOUND )
+ENDIF( KF${KF_MAJOR_VERSION}NewStuff_FOUND )
 
 IF( KDEPIMLIBS_FOUND )
-  TARGET_LINK_LIBRARIES(tellico KF5::Contacts ${KDEPIMLIBS_KCAL_LIBS} KF5::AkonadiContact)
+  TARGET_LINK_LIBRARIES(tellico KF${KF_MAJOR_VERSION}::Contacts ${KDEPIMLIBS_KCAL_LIBS} KF${KF_MAJOR_VERSION}::AkonadiContact)
 ENDIF( KDEPIMLIBS_FOUND )
 
-IF( KF5Cddb_FOUND )
-  TARGET_LINK_LIBRARIES(tellico KF5::Cddb)
+IF( ${KCDDB_TARGET_NAME}_FOUND )
+  TARGET_LINK_LIBRARIES(tellico ${KCDDB_TARGET_NAME})
 ELSEIF( Libkcddb_FOUND )
   TARGET_LINK_LIBRARIES(tellico KDE::Libkcddb::kcddb)
-ENDIF( KF5Cddb_FOUND)
+ENDIF( ${KCDDB_TARGET_NAME}_FOUND)
 
 IF( Exempi_FOUND )
   TARGET_LINK_LIBRARIES(tellico ${Exempi_LIBRARIES})
@@ -160,12 +164,11 @@ IF( ENABLE_WEBCAM )
   TARGET_LINK_LIBRARIES(tellico barcode ${LIBV4L_LIBRARIES})
 ENDIF( ENABLE_WEBCAM )
 
-IF( KF5Sane_FOUND )
-  TARGET_LINK_LIBRARIES(tellico KF5::Sane)
-ENDIF( KF5Sane_FOUND )
+IF( ${KSANE_TARGET_NAME}_FOUND )
+  TARGET_LINK_LIBRARIES(tellico ${KSANE_TARGET_NAME})
+ENDIF( ${KSANE_TARGET_NAME}_FOUND )
 
 ########### install files ###############
 
 INSTALL(TARGETS tellico ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 INSTALL(FILES tellicorc DESTINATION ${KDE_INSTALL_CONFDIR} )
-INSTALL(FILES tellicoui.rc DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/tellico )

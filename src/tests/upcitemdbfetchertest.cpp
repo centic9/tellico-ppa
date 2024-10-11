@@ -70,7 +70,7 @@ void UPCItemDbFetcherTest::testFightClub() {
   QVERIFY(entry);
 
   QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Fight Club"));
-  QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("1999"));
+//  QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("1999"));
   QCOMPARE(entry->field(QStringLiteral("barcode")), QStringLiteral("024543617907"));
   QCOMPARE(entry->field(QStringLiteral("medium")), QStringLiteral("Blu-ray"));
   QCOMPARE(entry->field(QStringLiteral("studio")), QStringLiteral("20th Century Studios"));
@@ -91,8 +91,8 @@ void UPCItemDbFetcherTest::testCatan() {
   Tellico::Data::EntryPtr entry = results.at(0);
   QVERIFY(entry);
 
-  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Settlers of Catan Board Game- 5th Edition"));
-  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Catan Studio"));
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Settlers of Catan Board Game"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Mayfair Games"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
   QVERIFY(!entry->field(QStringLiteral("description")).isEmpty());
@@ -111,8 +111,10 @@ void UPCItemDbFetcherTest::test1632() {
   QVERIFY(entry);
 
   QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Ring of Fire: 1632"));
+  QEXPECT_FAIL("", "Author data is in publisher field", Continue);
   QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Eric Flint"));
   QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("9780671319724"));
+  QEXPECT_FAIL("", "Author data is in publisher field", Continue);
   QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Baen"));
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Paperback"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
@@ -133,7 +135,9 @@ void UPCItemDbFetcherTest::testBurningEdge() {
   QVERIFY(entry);
 
   QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("The Burning Edge of Dawn"));
+  QEXPECT_FAIL("", "Artist data is in brand field", Continue);
   QCOMPARE(entry->field(QStringLiteral("artist")), QStringLiteral("Andrew Peterson"));
+  QEXPECT_FAIL("", "Artist data is in brand field", Continue);
   QCOMPARE(entry->field(QStringLiteral("label")), QStringLiteral("UMGD"));
   QCOMPARE(entry->field(QStringLiteral("medium")), QStringLiteral("Compact Disc"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());

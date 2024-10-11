@@ -41,7 +41,6 @@
 #include "fieldformat.h"
 #include "gui/combobox.h"
 #include "utils/cursorsaver.h"
-#include "utils/stringset.h"
 #include "images/image.h"
 #include "tellico_debug.h"
 
@@ -72,15 +71,12 @@
 #include <QTreeWidget>
 #include <QHeaderView>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QFileDialog>
 #include <QStatusBar>
+#include <QScreen>
 
 namespace {
   static const int FETCH_MIN_WIDTH = 600;
-
-  static const char* FETCH_STRING_SEARCH = I18N_NOOP("&Search");
-  static const char* FETCH_STRING_STOP   = I18N_NOOP("&Stop");
 
   static const int StringDataType = QEvent::User;
   static const int ImageDataType = QEvent::User+1;
@@ -156,7 +152,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
 
   QWidget* box1 = new QWidget(queryBox);
   QHBoxLayout* box1HBoxLayout = new QHBoxLayout(box1);
-  box1HBoxLayout->setMargin(0);
+  box1HBoxLayout->setContentsMargins(0, 0, 0, 0);
   queryLayout->addWidget(box1);
 
   QLabel* label = new QLabel(i18nc("Start the search", "S&earch:"), box1);
@@ -179,7 +175,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
 
   m_searchButton = new QPushButton(box1);
   box1HBoxLayout->addWidget(m_searchButton);
-  KGuiItem::assign(m_searchButton, KGuiItem(i18n(FETCH_STRING_STOP),
+  KGuiItem::assign(m_searchButton, KGuiItem(i18n("&Stop"),
                                             QIcon::fromTheme(QStringLiteral("dialog-cancel"))));
   connect(m_searchButton, &QAbstractButton::clicked, this, &FetchDialog::slotSearchClicked);
   m_searchButton->setWhatsThis(i18n("Click to start or stop the search"));
@@ -189,7 +185,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
   m_searchButton->ensurePolished();
   int maxWidth = m_searchButton->sizeHint().width();
   int maxHeight = m_searchButton->sizeHint().height();
-  KGuiItem::assign(m_searchButton, KGuiItem(i18n(FETCH_STRING_SEARCH),
+  KGuiItem::assign(m_searchButton, KGuiItem(i18n("&Search"),
                                             QIcon::fromTheme(QStringLiteral("edit-find"))));
   maxWidth = qMax(maxWidth, m_searchButton->sizeHint().width());
   maxHeight = qMax(maxHeight, m_searchButton->sizeHint().height());
@@ -198,7 +194,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
 
   QWidget* box2 = new QWidget(queryBox);
   QHBoxLayout* box2HBoxLayout = new QHBoxLayout(box2);
-  box2HBoxLayout->setMargin(0);
+  box2HBoxLayout->setContentsMargins(0, 0, 0, 0);
   queryLayout->addWidget(box2);
 
   m_multipleISBN = new QCheckBox(i18n("&Multiple ISBN/UPC search"), box2);
@@ -280,7 +276,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
 
   QWidget* box3 = new QWidget(mainWidget);
   QHBoxLayout* box3HBoxLayout = new QHBoxLayout(box3);
-  box3HBoxLayout->setMargin(0);
+  box3HBoxLayout->setContentsMargins(0, 0, 0, 0);
   topLayout->addWidget(box3);
 
   m_addButton = new QPushButton(i18n("&Add Entry"), box3);
@@ -305,7 +301,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
 
   QWidget* bottombox = new QWidget(mainWidget);
   QHBoxLayout* bottomboxHBoxLayout = new QHBoxLayout(bottombox);
-  bottomboxHBoxLayout->setMargin(0);
+  bottomboxHBoxLayout->setContentsMargins(0, 0, 0, 0);
   topLayout->addWidget(bottombox);
 
   m_statusBar = new QStatusBar(bottombox);
@@ -313,6 +309,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
   m_statusLabel = new QLabel(m_statusBar);
   m_statusBar->addPermanentWidget(m_statusLabel, 1);
   m_progress = new QProgressBar(m_statusBar);
+  m_progress->setFormat(i18nc("%p is the percent value, % is the percent sign", "%p%"));
   m_progress->setMaximum(0);
   m_progress->setFixedHeight(fontMetrics().height()+2);
   m_progress->hide();
@@ -329,7 +326,7 @@ FetchDialog::FetchDialog(QWidget* parent_)
   setMinimumWidth(qMax(minimumWidth(), qMax(FETCH_MIN_WIDTH, minimumSizeHint().width())));
   setStatus(i18n("Ready."));
 
-  KConfigGroup config(KSharedConfig::openConfig(), "Fetch Dialog Options");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("Fetch Dialog Options"));
   QList<int> splitList = config.readEntry("Splitter Sizes", QList<int>());
   if(!splitList.empty()) {
     split->setSizes(splitList);
@@ -374,7 +371,7 @@ FetchDialog::~FetchDialog() {
   // no additional entries to check images to keep though
   Data::Document::self()->removeImagesNotInCollection(entriesToCheck, Data::EntryList());
 
-  KConfigGroup config(KSharedConfig::openConfig(), QStringLiteral("Fetch Dialog Options"));
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("Fetch Dialog Options"));
   KWindowConfig::saveWindowSize(windowHandle(), config);
 
   config.writeEntry("Splitter Sizes", static_cast<QSplitter*>(m_treeWidget->parentWidget())->sizes());
@@ -402,7 +399,7 @@ void FetchDialog::slotSearchClicked() {
     m_resultCount = 0;
     m_oldSearch = value;
     m_started = true;
-    KGuiItem::assign(m_searchButton, KGuiItem(i18n(FETCH_STRING_STOP),
+    KGuiItem::assign(m_searchButton, KGuiItem(i18n("&Stop"),
                                               QIcon::fromTheme(QStringLiteral("dialog-cancel"))));
     startProgress();
     setStatus(i18n("Searching..."));
@@ -461,7 +458,7 @@ void FetchDialog::slotFetchDone() {
 void FetchDialog::fetchDone(bool checkISBN_) {
 //  myDebug() << "fetchDone";
   m_started = false;
-  KGuiItem::assign(m_searchButton, KGuiItem(i18n(FETCH_STRING_SEARCH),
+  KGuiItem::assign(m_searchButton, KGuiItem(i18n("&Search"),
                                             QIcon::fromTheme(QStringLiteral("edit-find"))));
   stopProgress();
   if(m_resultCount == 0) {
@@ -582,7 +579,7 @@ void FetchDialog::slotMoreClicked() {
   }
 
   m_started = true;
-  KGuiItem::assign(m_searchButton, KGuiItem(i18n(FETCH_STRING_STOP),
+  KGuiItem::assign(m_searchButton, KGuiItem(i18n("&Stop"),
                                             QIcon::fromTheme(QStringLiteral("dialog-cancel"))));
   startProgress();
   setStatus(i18n("Searching..."));
@@ -657,7 +654,7 @@ void FetchDialog::stopProgress() {
 void FetchDialog::slotInit() {
   // do this in the singleShot slot so it works
   // see note in entryeditdialog.cpp (Feb 2017)
-  KConfigGroup config(KSharedConfig::openConfig(), "Fetch Dialog Options");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("Fetch Dialog Options"));
   KWindowConfig::restoreWindowSize(windowHandle(), config);
 
   if(!Fetch::Manager::self()->canFetch(Data::Document::self()->collection()->type())) {
@@ -750,7 +747,7 @@ void FetchDialog::slotEditMultipleISBN() {
 
   QWidget* box = new QWidget(&dlg);
   QVBoxLayout* boxVBoxLayout = new QVBoxLayout(box);
-  boxVBoxLayout->setMargin(0);
+  boxVBoxLayout->setContentsMargins(0, 0, 0, 0);
   boxVBoxLayout->setSpacing(10);
   mainLayout->addWidget(box);
 
@@ -918,8 +915,8 @@ void FetchDialog::openBarcodePreview() {
   if(m_barcodeRecognitionThread->isWebcamAvailable()) {
     m_barcodePreview = new QLabel(nullptr);
     m_barcodePreview->resize(m_barcodeRecognitionThread->getPreviewSize());
-    m_barcodePreview->move(QApplication::desktop()->screenGeometry(m_barcodePreview).width()
-                           - m_barcodePreview->frameGeometry().width(), 30);
+    const QRect desk = QApplication::primaryScreen()->geometry();
+    m_barcodePreview->move(desk.width() - m_barcodePreview->frameGeometry().width(), 30);
     m_barcodePreview->show();
 
     connect(m_barcodeRecognitionThread, &barcodeRecognition::barcodeRecognitionThread::recognized,

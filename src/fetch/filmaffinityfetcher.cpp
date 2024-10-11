@@ -34,9 +34,9 @@
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 
 #include <QRegularExpression>
 #include <QLabel>
@@ -158,7 +158,7 @@ void FilmAffinityFetcher::search() {
       return;
   }
   u.setQuery(q);
-//  myDebug() << "url: " << u.url();
+  myLog() << "Reading" << u.toDisplayString();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
@@ -198,7 +198,6 @@ void FilmAffinityFetcher::slotComplete(KJob*) {
   QFile f(QStringLiteral("/tmp/test1.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();
@@ -268,7 +267,6 @@ Tellico::Data::EntryPtr FilmAffinityFetcher::fetchEntryHook(uint uid_) {
   QFile f(QStringLiteral("/tmp/test-filmaffinity.html"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << results;
   }
   f.close();

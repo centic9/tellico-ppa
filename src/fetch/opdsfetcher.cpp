@@ -25,10 +25,8 @@
 #include "opdsfetcher.h"
 #include "../fieldformat.h"
 #include "../collection.h"
-#include "../collections/bookcollection.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../gui/lineedit.h"
 #include "../core/filehandler.h"
 #include "../utils/datafileregistry.h"
 #include "../utils/guiproxy.h"
@@ -37,9 +35,9 @@
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KAcceleratorManager>
 #include <KUrlRequester>
 
@@ -51,7 +49,7 @@
 using namespace Tellico;
 using Tellico::Fetch::OPDSFetcher;
 
-OPDSFetcher::Reader::Reader(const QUrl& catalog_) : catalog(catalog_) {
+OPDSFetcher::Reader::Reader(const QUrl& catalog_) : catalog(catalog_), isAcquisition(false) {
 }
 
 // read the catalog file and return the search description url
@@ -70,9 +68,11 @@ bool OPDSFetcher::Reader::parse() {
               // found the search url
               const auto href = QUrl(attributes.value(QStringLiteral("href")).toString());
               searchUrl = catalog.resolved(href);
+              myLog() << "Search url is" << searchUrl.toDisplayString();
             } else if(attributes.value(QStringLiteral("rel")) == QLatin1String("self")) {
               // for now, consider the feed an acquisition feed if the self link is labeled as an acquisition feed
               isAcquisition = attributes.value(QStringLiteral("type")).contains(QLatin1String("kind=acquisition"));
+              myLog() << "Catalog kind is 'acquisition'";
             }
           }
         }
@@ -89,7 +89,7 @@ bool OPDSFetcher::Reader::parse() {
 }
 
 bool OPDSFetcher::Reader::readSearchTemplate() {
-  //    myDebug() << "Reading catalog:" << catalog;
+  myLog() << "Reading catalog:" << catalog.toDisplayString();
   if(searchUrl.isEmpty() && !isAcquisition && !parse()) return false;
   if(searchUrl.isEmpty()) return false;
   //    myDebug() << "Reading search description:" << searchDescriptionUrl;
@@ -133,6 +133,7 @@ bool OPDSFetcher::Reader::readSearchTemplate() {
     }
   }
   name = longName.isEmpty() ? shortName : longName;
+  myLog() << "Search template is" << searchTemplate;
   return !searchTemplate.isEmpty();
 }
 
@@ -242,7 +243,7 @@ void OPDSFetcher::search() {
   QString searchUrl = m_searchTemplate;
   searchUrl.replace(QStringLiteral("{searchTerms}"), searchTerm);
   QUrl u(searchUrl);
-//  myDebug() << u.url();
+  myLog() << "Searching" << u.toDisplayString();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
@@ -287,7 +288,6 @@ void OPDSFetcher::parseData(const QByteArray& data_, bool manualSearch_) {
   QFile f(QString::fromLatin1("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data_;
   }
   f.close();
@@ -351,10 +351,14 @@ Tellico::Data::EntryPtr OPDSFetcher::fetchEntryHook(uint uid_) {
   if(!entry) return entry;
   // check whether the summary shows content from Calibre server and try to compensate
   QString plot = entry->field(QStringLiteral("plot"));
-  if(plot.startsWith(QLatin1String("<div xmlns=\"http://www.w3.org/1999/xhtml\">"))) {
-    plot = plot.mid(42);
-    if(plot.endsWith(QLatin1String("</div>"))) {
-      plot.chop(6);
+  static const QByteArray xhtml("<div xmlns=\"http://www.w3.org/1999/xhtml\">");
+  if(plot.startsWith(QLatin1String(xhtml))) {
+    plot = plot.mid(xhtml.length());
+    myLog() << "Detected Calibre-style plot format";
+    myLog() << "Removing XHTML div";
+    static const QByteArray divEnd("</div>");
+    if(plot.endsWith(QLatin1String(divEnd))) {
+      plot.chop(divEnd.length());
     }
     static const QRegularExpression ratingRx(QStringLiteral("RATING: (★+)<br/>"));
     auto ratingMatch = ratingRx.match(plot);

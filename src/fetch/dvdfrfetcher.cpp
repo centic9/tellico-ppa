@@ -111,7 +111,6 @@ Tellico::Data::EntryPtr DVDFrFetcher::fetchEntryHookData(Data::EntryPtr entry_) 
   QFile f(QLatin1String("/tmp/test-dvdfr-details.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << output;
   }
   f.close();

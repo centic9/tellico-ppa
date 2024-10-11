@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2010-2012 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2024 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,33 +22,31 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef ALLOCINEFETCHERTEST_H
-#define ALLOCINEFETCHERTEST_H
+#ifndef TELLICO_FILTERPARSER_H
+#define TELLICO_FILTERPARSER_H
 
-#include "abstractfetchertest.h"
+#include "datavectors.h"
 
-#include <KConfigGroup>
+namespace Tellico {
 
-class AllocineFetcherTest : public AbstractFetcherTest {
-Q_OBJECT
+/**
+ * @author Robby Stephenson
+ */
+class FilterParser {
+
 public:
-  AllocineFetcherTest();
+  FilterParser(const QString& text, bool allowRegExp=false);
 
-private Q_SLOTS:
-  void initTestCase();
-  void cleanupTestCase();
-
-  void testTitle();
-  void testTitleAccented();
-  void testTitleAccentRemoved();
-  void testPlotQuote();
-
-  void testTitleAPI();
-  void testTitleAPIAccented();
-  void testGhostDog();
+  void setCollection(Tellico::Data::CollPtr coll_) { m_coll = coll_; }
+  FilterPtr filter();
 
 private:
-  KConfigGroup m_config;
+  void parseToken(FilterPtr filter, const QString& fieldName, const QString& text);
+
+  QString m_text;
+  Data::CollPtr m_coll;
+  bool m_allowRegExp;
 };
 
+} // end namespace
 #endif

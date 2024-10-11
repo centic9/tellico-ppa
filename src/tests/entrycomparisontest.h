@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2011 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2009-2023 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,26 +22,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef ANIMENFOFETCHERTEST_H
-#define ANIMENFOFETCHERTEST_H
+#ifndef ENTRYCOMPARISONTEST_H
+#define ENTRYCOMPARISONTEST_H
 
-#include "abstractfetchertest.h"
+#include <QObject>
 
-#include <KConfigGroup>
+#include "../datavectors.h"
 
-class AnimenfoFetcherTest : public AbstractFetcherTest {
+class EntryComparisonTest : public QObject {
 Q_OBJECT
-public:
-  AnimenfoFetcherTest();
 
 private Q_SLOTS:
   void initTestCase();
-  void testMegami();
-  void testHachimitsu();
-  void testGhost();
+  void cleanupTestCase();
+
+  void testMatchScore();
+  void testMatchScore_data();
+  void testBookMatch();
+  void testBibtexMatch();
+  void testComicMatch();
+  void testVideoMatch();
+  void testMusicMatch();
+  void testGameMatch();
+  void testFileMatch();
 
 private:
-  KConfigGroup m_config;
+  Tellico::Data::CollPtr m_coll;
+  Tellico::Data::EntryPtr m_entry;
 };
 
 #endif

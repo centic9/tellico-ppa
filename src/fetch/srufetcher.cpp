@@ -39,9 +39,9 @@
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
-#include <KIO/Job>
+#include <KIO/StoredTransferJob>
 #include <KJobUiDelegate>
-#include <KJobWidgets/KJobWidgets>
+#include <KJobWidgets>
 #include <KConfigGroup>
 #include <KComboBox>
 #include <KAcceleratorManager>
@@ -56,7 +56,8 @@
 namespace {
   // 7090 was the old default port, but that was just because LoC used it
   // let's use default HTTP port of 80 now
-  static const int SRU_DEFAULT_PORT = 80;
+  static const int HTTP_DEFAULT_PORT = 80;
+  static const int HTTPS_DEFAULT_PORT = 443;
   static const int SRU_MAX_RECORDS = 25;
 }
 
@@ -64,13 +65,13 @@ using namespace Tellico;
 using Tellico::Fetch::SRUFetcher;
 
 SRUFetcher::SRUFetcher(QObject* parent_)
-    : Fetcher(parent_), m_port(SRU_DEFAULT_PORT), m_job(nullptr), m_MARCXMLHandler(nullptr), m_MODSHandler(nullptr), m_SRWHandler(nullptr), m_started(false) {
+    : Fetcher(parent_), m_port(HTTP_DEFAULT_PORT), m_job(nullptr), m_started(false) {
 }
 
 SRUFetcher::SRUFetcher(const QString& name_, const QString& host_, uint port_, const QString& path_,
                        const QString& format_, QObject* parent_) : Fetcher(parent_),
       m_scheme(QStringLiteral("http")), m_host(host_), m_port(port_), m_path(path_), m_format(format_),
-      m_job(nullptr), m_MARCXMLHandler(nullptr), m_MODSHandler(nullptr), m_SRWHandler(nullptr), m_started(false) {
+      m_job(nullptr), m_started(false) {
   m_name = name_; // m_name is protected in super class
   if(!m_path.startsWith(QLatin1Char('/'))) {
     m_path.prepend(QLatin1Char('/'));
@@ -78,12 +79,8 @@ SRUFetcher::SRUFetcher(const QString& name_, const QString& host_, uint port_, c
 }
 
 SRUFetcher::~SRUFetcher() {
-  delete m_MARCXMLHandler;
-  m_MARCXMLHandler = nullptr;
-  delete m_MODSHandler;
-  m_MODSHandler = nullptr;
-  delete m_SRWHandler;
-  m_SRWHandler = nullptr;
+  qDeleteAll(m_handlers);
+  m_handlers.clear();
 }
 
 QString SRUFetcher::source() const {
@@ -102,10 +99,11 @@ bool SRUFetcher::canFetch(int type) const {
 void SRUFetcher::readConfigHook(const KConfigGroup& config_) {
   m_scheme = config_.readEntry("Scheme", "http");
   m_host = config_.readEntry("Host");
-  int p = config_.readEntry("Port", SRU_DEFAULT_PORT);
-  if(p > 0) {
-    m_port = p;
+  int p = config_.readEntry("Port", 0);
+  if(p == 0) {
+    p = (m_scheme == QLatin1String("https")) ? HTTPS_DEFAULT_PORT : HTTP_DEFAULT_PORT;
   }
+  m_port = p;
   m_path = config_.readEntry("Path");
   // used to be called Database
   if(m_path.isEmpty()) {
@@ -137,16 +135,26 @@ void SRUFetcher::search() {
   u.setPort(m_port);
   u = QUrl::fromUserInput(u.url() + m_path);
 
+  QString cqlVersion;
   QUrlQuery query;
   for(StringMap::ConstIterator it = m_queryMap.constBegin(); it != m_queryMap.constEnd(); ++it) {
+    // query values starting with x-tellico signify query context set replacements
+    // and not query values themselves
+    if(it.key().startsWith(QLatin1String("x-tellico"))) {
+      continue;
+    }
     query.addQueryItem(it.key(), it.value());
+    if(it.key() == QLatin1String("version")) {
+      cqlVersion = it.value();
+    }
   }
   // allow user to override these so check for existing item first
   if(!query.hasQueryItem(QStringLiteral("operation"))) {
     query.addQueryItem(QStringLiteral("operation"), QStringLiteral("searchRetrieve"));
   }
   if(!query.hasQueryItem(QStringLiteral("version"))) {
-    query.addQueryItem(QStringLiteral("version"), QStringLiteral("1.1"));
+    cqlVersion = QStringLiteral("1.1");
+    query.addQueryItem(QStringLiteral("version"), cqlVersion);
   }
   if(!query.hasQueryItem(QStringLiteral("maximumRecords"))) {
     query.addQueryItem(QStringLiteral("maximumRecords"), QString::number(SRU_MAX_RECORDS));
@@ -157,19 +165,32 @@ void SRUFetcher::search() {
   }
 
   const int type = collectionType();
-  QString str = QLatin1Char('"') + request().value() + QLatin1Char('"');
   switch(request().key()) {
     case Title:
-      query.addQueryItem(QStringLiteral("query"), QLatin1String("dc.title=") + str);
+      {
+        QString context(QLatin1String("dc.title"));
+        if(m_queryMap.contains(QLatin1String("x-tellico-title"))) {
+          context = m_queryMap[QLatin1String("x-tellico-title")];
+        }
+        query.addQueryItem(QStringLiteral("query"), queryTerm(context,
+                                                              request().value(),
+                                                              cqlVersion));
+      }
       break;
 
     case Person:
       {
         QString s;
         if(type == Data::Collection::Book || type == Data::Collection::Bibtex) {
-          s = QLatin1String("author=") + str + QLatin1String(" or dc.author=") + str;
+          QString context(QLatin1String("author"));
+          if(m_queryMap.contains(QLatin1String("x-tellico-author"))) {
+            context = m_queryMap[QLatin1String("x-tellico-author")];
+          }
+          s = queryTerm(QLatin1String("author"), request().value(), cqlVersion);
         } else {
-          s = QLatin1String("dc.creator=") + str + QLatin1String(" or dc.editor=") + str;
+          s = queryTerm(QLatin1String("dc.creator"), request().value(), cqlVersion) +
+              QLatin1String(" or ") +
+              queryTerm(QLatin1String("dc.editor="), request().value(), cqlVersion);
         }
         query.addQueryItem(QStringLiteral("query"), s);
       }
@@ -193,10 +214,14 @@ void SRUFetcher::search() {
         for(int i = 0; i < isbnList.count(); ++i) {
           // make an assumption that DC output uses the dc profile and everything else uses Bath for ISBN
           // no idea if this holds true universally, but matches LOC, COPAC, and KB
-          if(m_format == QLatin1String("dc")) {
-            q += QLatin1String("dc.identifier=") + isbnList.at(i);
+          if(m_format == QLatin1String("dc") || m_format == QLatin1String("dublincore")) {
+            q += queryTerm(QLatin1String("dc.identifier"), isbnList.at(i), cqlVersion);
           } else {
-            q += QLatin1String("bath.isbn=") + isbnList.at(i);
+            QString isbnContext(QLatin1String("bath.isbn"));
+            if(m_queryMap.contains(QLatin1String("x-tellico-isbn"))) {
+              isbnContext = m_queryMap[QLatin1String("x-tellico-isbn")];
+            }
+            q += queryTerm(isbnContext, isbnList.at(i), cqlVersion);
           }
           if(i < isbnList.count()-1) {
             q += QLatin1String(" or ");
@@ -208,12 +233,11 @@ void SRUFetcher::search() {
 
     case LCCN:
       {
-        QString s = request().value();
-        QStringList lccnList = FieldFormat::splitValue(s);
+        QStringList lccnList = FieldFormat::splitValue(request().value());
         QString q;
         for(int i = 0; i < lccnList.count(); ++i) {
-          q += QLatin1String("bath.lccn=") + lccnList.at(i);
-          q += QLatin1String(" or bath.lccn=") + LCCNValidator::formalize(lccnList.at(i));
+          q += queryTerm(QLatin1String("bath.lccn"), lccnList.at(i), cqlVersion) + QLatin1String(" or ") +
+               queryTerm(QLatin1String("bath.lccn"), LCCNValidator::formalize(lccnList.at(i)), cqlVersion);
           if(i < lccnList.count()-1) {
             q += QLatin1String(" or ");
           }
@@ -223,7 +247,7 @@ void SRUFetcher::search() {
       break;
 
     case Keyword:
-      query.addQueryItem(QStringLiteral("query"), str);
+      query.addQueryItem(QStringLiteral("query"), request().value());
       break;
 
     case Raw:
@@ -239,6 +263,7 @@ void SRUFetcher::search() {
       stop();
       break;
   }
+  myLog() << "SRU query is" << query.toString();
   u.setQuery(query);
 //  myDebug() << u.url();
 
@@ -282,7 +307,6 @@ void SRUFetcher::slotComplete(KJob*) {
   QFile f(QString::fromLatin1("/tmp/test.xml"));
   if(f.open(QIODevice::WriteOnly)) {
     QTextStream t(&f);
-    t.setCodec("UTF-8");
     t << data;
   }
   f.close();
@@ -296,7 +320,7 @@ void SRUFetcher::slotComplete(KJob*) {
   // first check for SRU errors
   QDomDocument dom;
   if(!dom.setContent(result, true /*namespace*/)) {
-    myWarning() << "server did not return valid XML.";
+    myWarning() << "The server did not return valid XML.";
     stop();
     return;
   }
@@ -326,20 +350,29 @@ void SRUFetcher::slotComplete(KJob*) {
   QString modsResult;
   if(m_format == QLatin1String("mods")) {
     modsResult = result;
-//  } else if(m_format == QLatin1String("marcxml") && initMARCXMLHandler()) {
-// some SRU data sources call it MARC21-xml or something other than marcxml
-  } else if(m_format.startsWith(QLatin1String("marc"), Qt::CaseInsensitive) && initMARCXMLHandler()) {
+  // some SRU data sources call their MARC format MARC21-xml or something other than marcxml
+  } else if(m_format.startsWith(QLatin1String("marc"), Qt::CaseInsensitive)) {
+    // default to MARC21 unless format="UNIMARC"
+    HandlerType handlerType = MARC21;
     // brute force marcxchange conversion. This is probably wrong at some level
     QString newResult = result;
     if(m_format.startsWith(QLatin1String("marcxchange"), Qt::CaseInsensitive)) {
-      static const QRegularExpression marcRx(QLatin1String("xmlns:marc=\"info:lc/xmlns/marcxchange-v[12]\""));
-      newResult.replace(marcRx,
-                        QStringLiteral("xmlns:marc=\"http://www.loc.gov/MARC21/slim\""));
+      myLog() << "Replacing marcXchange namespace with MARC21";
+      if(newResult.contains(QLatin1String("format=\"UNIMARC\""))) {
+        myLog() << "Reading marcXchange data as UNIMARC";
+        handlerType = UNIMARC;
+      } else {
+        myLog() << "Reading marcXchange data as MARC21";
+      }
+      static const QRegularExpression marcRx(QLatin1String("xmlns:(marc|mxc)=\"info:lc/xmlns/marcxchange-v[12]\""));
+      newResult.replace(marcRx, QStringLiteral("xmlns:\\1=\"http://www.loc.gov/MARC21/slim\""));
     }
-    modsResult = m_MARCXMLHandler->applyStylesheet(newResult);
+    if(initHandler(handlerType)) {
+      modsResult = m_handlers[handlerType]->applyStylesheet(newResult);
+    }
   }
-  if(!modsResult.isEmpty() && initMODSHandler()) {
-    Import::TellicoImporter imp(m_MODSHandler->applyStylesheet(modsResult));
+  if(!modsResult.isEmpty() && initHandler(MODS)) {
+    Import::TellicoImporter imp(m_handlers[MODS]->applyStylesheet(modsResult));
     coll = imp.collection();
     if(!msg.isEmpty()) {
       msg += QLatin1Char('\n');
@@ -347,16 +380,17 @@ void SRUFetcher::slotComplete(KJob*) {
     msg += imp.statusMessage();
   } else if((m_format == QLatin1String("pam") ||
              m_format == QLatin1String("dc") ||
+             m_format == QLatin1String("dublincore") ||
              m_format == QLatin1String("none")) &&
-            initSRWHandler()) {
-    Import::TellicoImporter imp(m_SRWHandler->applyStylesheet(result));
+            initHandler(SRW)) {
+    Import::TellicoImporter imp(m_handlers[SRW]->applyStylesheet(result));
     coll = imp.collection();
     if(!msg.isEmpty()) {
       msg += QLatin1Char('\n');
     }
     msg += imp.statusMessage();
   } else {
-    myDebug() << "unrecognized format:" << m_format;
+    myDebug() << "Unrecognized format:" << m_format;
     stop();
     return;
   }
@@ -419,73 +453,53 @@ Tellico::Fetch::FetchRequest SRUFetcher::updateRequest(Data::EntryPtr entry_) {
   return FetchRequest();
 }
 
-bool SRUFetcher::initMARCXMLHandler() {
-  if(m_MARCXMLHandler) {
+bool SRUFetcher::initHandler(HandlerType type_) {
+  if(m_handlers[type_]) {
     return true;
   }
 
-  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("MARC21slim2MODS3.xsl"));
+  QString fileName;
+  switch(type_) {
+    case MARC21:
+      fileName = QStringLiteral("MARC21slim2MODS3.xsl");
+      break;
+    case UNIMARC:
+      fileName = QStringLiteral("UNIMARC2MODS3.xsl");
+      break;
+    case MODS:
+      fileName = QStringLiteral("mods2tellico.xsl");
+      break;
+    case SRW:
+      fileName = QStringLiteral("srw2tellico.xsl");
+      break;
+  }
+
+  QString xsltfile = DataFileRegistry::self()->locate(fileName);
   if(xsltfile.isEmpty()) {
-    myWarning() << "can not locate MARC21slim2MODS3.xsl.";
+    myWarning() << "can not locate" << fileName;
     return false;
   }
 
   QUrl u = QUrl::fromLocalFile(xsltfile);
 
-  m_MARCXMLHandler = new XSLTHandler(u);
-  if(!m_MARCXMLHandler->isValid()) {
-    myWarning() << "error in MARC21slim2MODS3.xsl.";
-    delete m_MARCXMLHandler;
-    m_MARCXMLHandler = nullptr;
+  auto handler = new XSLTHandler(u);
+  if(!handler->isValid()) {
+    myWarning() << "error in" << fileName;
+    delete handler;
     return false;
   }
+  m_handlers.insert(type_, handler);
   return true;
 }
 
-bool SRUFetcher::initMODSHandler() {
-  if(m_MODSHandler) {
-    return true;
+QString SRUFetcher::queryTerm(const QString& index_, const QString& term_, const QString& ver_) const {
+  QString tmp;
+  if(ver_ == QLatin1String("1.1")) {
+    tmp = QLatin1String("%1=\"%2\"");
+  } else {
+    tmp = QLatin1String("%1 adj \"%2\"");
   }
-
-  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("mods2tellico.xsl"));
-  if(xsltfile.isEmpty()) {
-    myWarning() << "can not locate mods2tellico.xsl.";
-    return false;
-  }
-
-  QUrl u = QUrl::fromLocalFile(xsltfile);
-
-  m_MODSHandler = new XSLTHandler(u);
-  if(!m_MODSHandler->isValid()) {
-    myWarning() << "error in mods2tellico.xsl.";
-    delete m_MODSHandler;
-    m_MODSHandler = nullptr;
-    return false;
-  }
-  return true;
-}
-
-bool SRUFetcher::initSRWHandler() {
-  if(m_SRWHandler) {
-    return true;
-  }
-
-  QString xsltfile = DataFileRegistry::self()->locate(QStringLiteral("srw2tellico.xsl"));
-  if(xsltfile.isEmpty()) {
-    myWarning() << "can not locate srw2tellico.xsl.";
-    return false;
-  }
-
-  QUrl u = QUrl::fromLocalFile(xsltfile);
-
-  m_SRWHandler = new XSLTHandler(u);
-  if(!m_SRWHandler->isValid()) {
-    myWarning() << "error in srw2tellico.xsl.";
-    delete m_SRWHandler;
-    m_SRWHandler = nullptr;
-    return false;
-  }
-  return true;
+  return tmp.arg(index_, term_);
 }
 
 Tellico::Fetch::Fetcher::Ptr SRUFetcher::libraryOfCongress(QObject* parent_) {
@@ -529,6 +543,7 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
   m_schemeCombo->addItem(QStringLiteral("https"));
   void (GUI::ComboBox::* activatedInt)(int) = &GUI::ComboBox::activated;
   connect(m_schemeCombo, activatedInt, this, &ConfigWidget::slotSetModified);
+  connect(m_schemeCombo, activatedInt, this, &ConfigWidget::slotCheckPort);
   connect(m_schemeCombo, &QComboBox::editTextChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_schemeCombo, row, 1);
   QString w = i18n("Enter the path to the database used by the server.");
@@ -553,11 +568,11 @@ SRUFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const SRUFetcher* fetch
   m_portSpinBox = new QSpinBox(optionsWidget());
   m_portSpinBox->setMaximum(999999);
   m_portSpinBox->setMinimum(0);
-  m_portSpinBox->setValue(SRU_DEFAULT_PORT);
+  m_portSpinBox->setValue(HTTP_DEFAULT_PORT);
   void (QSpinBox::* valueChanged)(int) = &QSpinBox::valueChanged;
   connect(m_portSpinBox, valueChanged, this, &ConfigWidget::slotSetModified);
   l->addWidget(m_portSpinBox, row, 1);
-  w = i18n("Enter the port number of the server. The default is %1.", SRU_DEFAULT_PORT);
+  w = i18n("Enter the port number of the server. The default is %1.", HTTP_DEFAULT_PORT);
   label->setWhatsThis(w);
   m_portSpinBox->setWhatsThis(w);
   label->setBuddy(m_portSpinBox);
@@ -625,10 +640,6 @@ void SRUFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
     config_.writeEntry("Path", s);
   }
   s = m_formatCombo->currentData().toString().trimmed();
-  if(s.isEmpty()) {
-    // user-entered format will not have data set for the item. Just use the text itself
-    s = m_formatCombo->currentText().trimmed();
-  }
   if(!s.isEmpty()) {
     config_.writeEntry("Format", s);
   }
@@ -662,5 +673,16 @@ void SRUFetcher::ConfigWidget::slotCheckHost() {
         m_pathEdit->setText(u.path().trimmed());
       }
     }
+  }
+}
+
+// update the default port if the host scheme changes
+void SRUFetcher::ConfigWidget::slotCheckPort() {
+  QString scheme = m_schemeCombo->currentText();
+  const int port = m_portSpinBox->value();
+  if(port == HTTP_DEFAULT_PORT && scheme == QLatin1String("https")) {
+    m_portSpinBox->setValue(HTTPS_DEFAULT_PORT);
+  } else if(port == HTTPS_DEFAULT_PORT && scheme == QLatin1String("http")) {
+    m_portSpinBox->setValue(HTTP_DEFAULT_PORT);
   }
 }

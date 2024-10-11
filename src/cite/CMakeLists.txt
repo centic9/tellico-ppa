@@ -10,8 +10,8 @@ target_link_libraries(cite
     core
     utils
     config
-    Qt5::Core
-    Qt5::Widgets
+    Qt${QT_MAJOR_VERSION}::Core
+    Qt${QT_MAJOR_VERSION}::Widgets
 )
 
 ADD_DEPENDENCIES(cite tellico_config)

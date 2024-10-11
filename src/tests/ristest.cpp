@@ -55,6 +55,7 @@ void RisTest::testImport() {
   QCOMPARE(coll->type(), Tellico::Data::Collection::Bibtex);
   QCOMPARE(coll->entryCount(), 2);
   QCOMPARE(coll->title(), QStringLiteral("Bibliography"));
+  QVERIFY(importer.canImport(coll->type()));
 
   Tellico::Data::EntryPtr entry = coll->entryById(2);
   QVERIFY(entry);
@@ -67,4 +68,5 @@ void RisTest::testImport() {
   Tellico::Data::BibtexCollection* bColl = dynamic_cast<Tellico::Data::BibtexCollection*>(coll.data());
   QVERIFY(bColl);
   QCOMPARE(bColl->fieldByBibtexName("entry-type")->name(), QStringLiteral("entry-type"));
+  QVERIFY(Tellico::Import::RISImporter::maybeRIS(url));
 }

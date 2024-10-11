@@ -52,7 +52,11 @@
 
 #include <config.h>
 #ifdef HAVE_POPPLER
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 #include <poppler-qt5.h>
+#else
+#include <poppler-qt6.h>
+#endif
 #endif
 
 namespace {
@@ -127,7 +131,6 @@ Tellico::Data::CollPtr PDFImporter::collection() {
       QFile f(QString::fromLatin1("/tmp/test-xmp.xml"));
       if(f.open(QIODevice::WriteOnly)) {
         QTextStream t(&f);
-        t.setCodec("UTF-8");
         t << xmp;
       }
       f.close();
@@ -165,7 +168,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
     }
 
     // now load from poppler
-    Poppler::Document* doc = Poppler::Document::load(ref->fileName());
+    auto doc = Poppler::Document::load(ref->fileName());
     if(doc && !doc->isLocked()) {
       // now the question is, do we overwrite XMP data with Poppler data?
       // for now, let's say yes conditionally
@@ -190,7 +193,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
       }
 
       // now parse the first page text and try to guess
-      Poppler::Page* page = doc->page(0);
+      auto page = doc->page(0);
       if(page) {
         // a null rectangle means get all text on page
         QString text = page->text(QRectF());
@@ -208,9 +211,13 @@ Tellico::Data::CollPtr PDFImporter::collection() {
                                                             "[^\\s]+"
                                                             ")"));
         QRegularExpressionMatch m = doiRx.match(text);
+        if(!m.hasMatch()) {
+          static const QRegularExpression doiUrlRx(QLatin1String("https?://(?:dx\\.)?doi\\.org/(10.\\d{4,9}/[-._;()/:a-zA-Z0-9]+)"));
+          m = doiUrlRx.match(text);
+        }
         if(m.hasMatch()) {
           const QString doi = m.captured(1);
-          myLog() << "in PDF file, found DOI:" << doi;
+          myLog() << "In PDF file, found DOI:" << doi;
           entry->setField(QStringLiteral("doi"), doi);
           hasDOI = true;
         }
@@ -232,13 +239,16 @@ Tellico::Data::CollPtr PDFImporter::collection() {
           entry->setField(QStringLiteral("arxiv"), arxiv);
           hasArxiv = true;
         }
-
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
         delete page;
+#endif
       }
     } else {
       myDebug() << "unable to read PDF info (poppler)";
     }
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     delete doc;
+#endif
 #elif defined HAVE_KFILEMETADATA
     if(!newColl || newColl->entryCount() == 0) {
       myDebug() << "Reading with metadata";
@@ -249,7 +259,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
       } else {
         newColl = ebookColl;
       }
-      if(newColl->entryCount() > 0) {
+      if(newColl->entryCount() == 0) {
         entry = new Data::Entry(newColl);
         newColl->addEntries(entry);
       } else {
@@ -287,7 +297,7 @@ Tellico::Data::CollPtr PDFImporter::collection() {
         if(!field && !newColl->imageFields().isEmpty()) {
           field = newColl->imageFields().front();
         } else if(!field) {
-          field = new Data::Field(QStringLiteral("cover"), i18n("Front Cover"), Data::Field::Image);
+          field = Data::Field::createDefaultField(Data::Field::FrontCoverField);
           newColl->addField(field);
         }
         entry->setField(field, id);

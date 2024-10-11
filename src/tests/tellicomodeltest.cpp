@@ -30,6 +30,7 @@
 #include "../models/entryiconmodel.h"
 #include "../models/entrysortmodel.h"
 #include "../models/filtermodel.h"
+#include "../models/borrowermodel.h"
 #include "../models/entrygroupmodel.h"
 #include "../models/groupsortmodel.h"
 #include "../models/modeliterator.h"
@@ -39,26 +40,32 @@
 #include "../document.h"
 #include "../entrygroup.h"
 #include "../images/imagefactory.h"
+#include "../images/image.h"
 
 #include <KLocalizedString>
 
 #include <QTest>
 #include <QSignalSpy>
 #include <QStandardPaths>
+#include <QLoggingCategory>
 
-QTEST_GUILESS_MAIN( TellicoModelTest )
+QTEST_MAIN( TellicoModelTest )
 
 void TellicoModelTest::initTestCase() {
   QStandardPaths::setTestModeEnabled(true);
   KLocalizedString::setApplicationDomain("tellico");
   Tellico::ImageFactory::init();
   Tellico::RegisterCollection<Tellico::Data::BookCollection> registerBook(Tellico::Data::Collection::Book, "book");
+  QLoggingCategory::setFilterRules(QStringLiteral("tellico.debug = true\ntellico.info = false"));
 }
 
 void TellicoModelTest::testEntryModel() {
-  Tellico::Data::CollPtr coll(new Tellico::Data::Collection(true)); // add default fields
+  Tellico::Data::CollPtr coll(new Tellico::Data::BookCollection(true)); // add default fields
   Tellico::Data::EntryPtr entry1(new Tellico::Data::Entry(coll));
   entry1->setField(QStringLiteral("title"), QStringLiteral("Star Wars"));
+  const QUrl u = QUrl::fromLocalFile(QFINDTESTDATA("../../icons/128-apps-tellico.png"));
+  const QString imageId = Tellico::ImageFactory::addImage(u);
+  entry1->setField(QStringLiteral("cover"), imageId);
   coll->addEntries(entry1);
 
   Tellico::EntryModel entryModel(this);
@@ -97,6 +104,25 @@ void TellicoModelTest::testEntryModel() {
   //check FieldPtrRole in header model data
   QCOMPARE(entryModel.headerData(entryModel.columnCount()-1, Qt::Horizontal, Tellico::FieldPtrRole),
            QVariant::fromValue(field2));
+
+  sortModel.setSortColumn(0);
+  sortModel.setSecondarySortColumn(1);
+  sortModel.setTertiarySortColumn(2);
+  QCOMPARE(sortModel.sortColumn(), 0);
+  QCOMPARE(sortModel.secondarySortColumn(), 1);
+  QCOMPARE(sortModel.tertiarySortColumn(), 2);
+  sortModel.sort(0);
+  sortModel.setSortRole(Tellico::RowCountRole);
+  sortModel.sort(0);
+  sortModel.setSortRole(Tellico::EntryPtrRole);
+  sortModel.sort(0);
+
+  QVariant icon1 = iconModel.data(iconModel.index(0, 0), Qt::DecorationRole);
+  QVERIFY(icon1.isValid());
+  QVERIFY(!icon1.isNull());
+  QVERIFY(icon1.canConvert<QIcon>());
+  auto& img1 = Tellico::ImageFactory::imageById(imageId);
+  QVERIFY(!img1.isNull());
 
   Tellico::FilterRule* rule1 = new Tellico::FilterRule(QStringLiteral("title"),
                                                        QStringLiteral("Star Wars"),
@@ -163,6 +189,14 @@ void TellicoModelTest::testGroupModel() {
   entry1->setField(QStringLiteral("title"), QStringLiteral("Star Wars"));
   entry1->setField(QStringLiteral("author"), QStringLiteral("George Lucas"));
   coll->addEntries(entry1);
+  Tellico::Data::EntryPtr entry2(new Tellico::Data::Entry(coll));
+  entry2->setField(QStringLiteral("title"), QStringLiteral("Empire Strikes Back"));
+  entry2->setField(QStringLiteral("author"), QStringLiteral("George Lucas"));
+  coll->addEntries(entry2);
+  Tellico::Data::EntryPtr entry3(new Tellico::Data::Entry(coll));
+  entry3->setField(QStringLiteral("title"), QStringLiteral("1632"));
+  entry3->setField(QStringLiteral("author"), QStringLiteral("Eric Flint"));
+  coll->addEntries(entry3);
 
   Tellico::EntryGroupModel groupModel(this);
   ModelTest test1(&groupModel);
@@ -174,17 +208,33 @@ void TellicoModelTest::testGroupModel() {
 
   Tellico::Data::EntryGroupDict* dict = coll->entryGroupDictByName(QStringLiteral("author"));
   groupModel.addGroups(dict->values(), QString());
-  QCOMPARE(sortModel.rowCount(), 1);
+  QCOMPARE(sortModel.rowCount(), 2);
 
-  for(Tellico::ModelIterator gIt(&groupModel); gIt.group(); ++gIt) {
-    QVERIFY(gIt.isValid());
-    Tellico::Data::EntryGroup* group = gIt.group();
-    QVERIFY(group);
-    QCOMPARE(group->groupName(), QStringLiteral("Lucas, George"));
-    QCOMPARE(group->fieldName(), QStringLiteral("author"));
-    QCOMPARE(group->size(), 1);
-    QVERIFY(!group->hasEmptyGroupName());
-  }
+  sortModel.sort(0);
+  sortModel.setEntrySortField(QStringLiteral("author"));
+  QCOMPARE(sortModel.entrySortField(), QLatin1String("author"));
+  sortModel.sort(0, Qt::AscendingOrder);
+
+  Tellico::ModelIterator gIt(&sortModel);
+  QVERIFY(gIt.isValid());
+  auto group = gIt.group();
+  QVERIFY(group);
+  QCOMPARE(group->groupName(), QStringLiteral("Flint, Eric"));
+  QCOMPARE(group->fieldName(), QStringLiteral("author"));
+  QCOMPARE(group->size(), 1);
+  QVERIFY(!group->hasEmptyGroupName());
+
+  ++gIt;
+  QVERIFY(gIt.isValid());
+  group = gIt.group();
+  QVERIFY(group);
+  QCOMPARE(group->groupName(), QStringLiteral("Lucas, George"));
+  QCOMPARE(group->fieldName(), QStringLiteral("author"));
+  QCOMPARE(group->size(), 2);
+  QVERIFY(!group->hasEmptyGroupName());
+
+  ++gIt;
+  QVERIFY(!gIt.group());
 }
 
 void TellicoModelTest::testSelectionModel() {
@@ -199,7 +249,6 @@ void TellicoModelTest::testSelectionModel() {
   QItemSelectionModel selModel(&entryModel, this);
   Tellico::EntrySelectionModel proxySelect(&iconModel, &selModel, this);
 
-//  connect(proxySelect, SIGNAL(entriesSelected(Tellico::Data::EntryList)),
   Tellico::Data::CollPtr coll(new Tellico::Data::Collection(true)); // add default fields
   Tellico::Data::EntryPtr entry1(new Tellico::Data::Entry(coll));
   entry1->setField(QStringLiteral("title"), QStringLiteral("Test1"));
@@ -241,4 +290,34 @@ void TellicoModelTest::testSelectionModel() {
   // and the proxy selection is connected to that signal
   entries = proxySelect.selectedEntries();
   QCOMPARE(entries.count(), 0);
+}
+
+void TellicoModelTest::testBorrowerModel() {
+  Tellico::BorrowerModel borrowerModel(this);
+  ModelTest test1(&borrowerModel);
+
+  Tellico::Data::BorrowerPtr borr(new Tellico::Data::Borrower(QStringLiteral("name1"), QStringLiteral("uid1")));
+  borrowerModel.addBorrower(borr);
+
+  Tellico::Data::CollPtr c = Tellico::Data::Document::self()->collection();
+  Tellico::Data::EntryPtr entry(new Tellico::Data::Entry(c));
+  entry->setField(QStringLiteral("title"), QStringLiteral("Star Wars"));
+  c->addEntries(entry);
+  Tellico::Data::LoanPtr loan(new Tellico::Data::Loan(entry,
+                                                      QDate::currentDate(),
+                                                      QDate::currentDate(),
+                                                      QStringLiteral("note")));
+  borr->addLoan(loan);
+
+  borrowerModel.clear();
+  borrowerModel.addBorrower(borr);
+
+  QModelIndex borrIndex = borrowerModel.index(0, 0);
+  QVERIFY(borrIndex.isValid());
+  QModelIndex loanIndex = borrowerModel.index(0, 0, borrIndex);
+  QVERIFY(loanIndex.isValid());
+
+  QCOMPARE(borr, borrowerModel.borrower(borrIndex));
+  QCOMPARE(loan, borrowerModel.loan(loanIndex));
+  QCOMPARE(entry, borrowerModel.entry(loanIndex));
 }

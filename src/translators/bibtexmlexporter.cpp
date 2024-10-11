@@ -25,17 +25,17 @@
 #include <config.h>
 
 #include "bibtexmlexporter.h"
+#include "tellico_xml.h"
 #include "../utils/bibtexhandler.h"
+#include "../utils/string_utils.h"
 #include "../fieldformat.h"
 #include "../core/filehandler.h"
-#include "tellico_xml.h"
 #include "../utils/stringset.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
 
 #include <QDomDocument>
-#include <QTextCodec>
 
 using namespace Tellico;
 using Tellico::Export::BibtexmlExporter;
@@ -44,7 +44,7 @@ BibtexmlExporter::BibtexmlExporter(Data::CollPtr coll_) : Exporter(coll_) {
 }
 
 QString BibtexmlExporter::formatString() const {
-  return i18n("Bibtexml");
+  return QStringLiteral("Bibtexml");
 }
 
 QString BibtexmlExporter::fileFilter() const {
@@ -98,7 +98,7 @@ QString BibtexmlExporter::text() {
   if(options() & Export::ExportUTF8) {
     encodeStr += QLatin1String("UTF-8");
   } else {
-    encodeStr += QLatin1String(QTextCodec::codecForLocale()->name());
+    encodeStr = QLatin1String(Tellico::localeEncodingName());
   }
   encodeStr += QLatin1Char('"');
 

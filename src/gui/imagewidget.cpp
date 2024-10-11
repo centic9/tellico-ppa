@@ -34,12 +34,7 @@
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProcess>
-#include <kservice_version.h>
-#if KSERVICE_VERSION >= QT_VERSION_CHECK(5, 68, 0)
 #include <KApplicationTrader>
-#else
-#include <KMimeTypeTrader>
-#endif
 #include <KIO/DesktopExecParser>
 #include <KSharedConfig>
 #include <KConfigGroup>
@@ -92,7 +87,10 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(nullpt
 #endif
 {
   QHBoxLayout* l = new QHBoxLayout(this);
-  l->setMargin(IMAGE_WIDGET_BUTTON_MARGIN);
+  l->setContentsMargins(IMAGE_WIDGET_BUTTON_MARGIN,
+                        IMAGE_WIDGET_BUTTON_MARGIN,
+                        IMAGE_WIDGET_BUTTON_MARGIN,
+                        IMAGE_WIDGET_BUTTON_MARGIN);
   m_label = new QLabel(this);
   m_label->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
   m_label->setFrameStyle(QFrame::Panel | QFrame::Sunken);
@@ -125,18 +123,13 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(nullpt
   connect(m_edit, &QAbstractButton::clicked, this, &ImageWidget::slotEditImage);
   boxLayout->addWidget(m_edit);
 
-  KConfigGroup config(KSharedConfig::openConfig(), "EditImage");
+  KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("EditImage"));
   QString editor = config.readEntry("editor");
   m_editMenu = new QMenu(this);
   QActionGroup* grp = new QActionGroup(this);
   grp->setExclusive(true);
   QAction* selectedAction = nullptr;
-#if KSERVICE_VERSION >= QT_VERSION_CHECK(5, 68, 0)
   auto offers = KApplicationTrader::queryByMimeType(QStringLiteral("image/png"));
-#else
-  auto offers = KMimeTypeTrader::self()->query(QStringLiteral("image/png"),
-                                               QStringLiteral("Application"));
-#endif
   QSet<QString> offerNames;
   foreach(KService::Ptr service, offers) {
     if(offerNames.contains(service->name())) {
@@ -177,7 +170,7 @@ ImageWidget::ImageWidget(QWidget* parent_) : QWidget(parent_), m_editMenu(nullpt
 
 ImageWidget::~ImageWidget() {
   if(m_editor) {
-    KConfigGroup config(KSharedConfig::openConfig(), "EditImage");
+    KConfigGroup config(KSharedConfig::openConfig(), QLatin1String("EditImage"));
     config.writeEntry("editor", m_editor->name());
   }
 }

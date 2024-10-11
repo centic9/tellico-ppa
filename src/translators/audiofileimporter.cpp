@@ -351,7 +351,7 @@ Tellico::Data::CollPtr AudioFileImporter::collection() {
         QString numString;
         int i = 0;
         const int len = fileName.length();
-        while(fileName[i].isNumber() && i < len) {
+        while(i < len && fileName[i].isNumber()) {
           i++;
         }
         if(i == 0) { // does not start with a number
@@ -568,7 +568,7 @@ int AudioFileImporter::discNumber(const TagLib::FileRef& ref_) const {
     if(pos == -1) {
       n = disc.toInt(&ok);
     } else {
-      n = disc.leftRef(pos).toInt(&ok);
+      n = disc.left(pos).toInt(&ok);
     }
     if(ok && n > 0) {
       num = n;

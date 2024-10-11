@@ -288,11 +288,20 @@ bool BibtexCollection::modifyField(Tellico::Data::FieldPtr newField_) {
   const QString bibtex = QStringLiteral("bibtex");
   bool success = Collection::modifyField(newField_);
   FieldPtr oldField = fieldByName(newField_->name());
-  const QString oldBibtex = oldField->property(bibtex);
-  const QString newBibtex = newField_->property(bibtex);
-  if(!oldBibtex.isEmpty()) {
-    success &= (m_bibtexFieldDict.remove(oldBibtex) != 0);
+  QString oldBibtex = oldField->property(bibtex);
+  // if the field was edited in place, can't just look at the property value
+  if(oldField == newField_) {
+    // have to look at all fields in the hash to update the key
+    auto i = m_bibtexFieldDict.constBegin();
+    for( ; i != m_bibtexFieldDict.constEnd(); ++i) {
+      if(oldField == i.value()) {
+        oldBibtex = i.key();
+      }
+    }
   }
+  success &= (m_bibtexFieldDict.remove(oldBibtex) > 0);
+
+  const QString newBibtex = newField_->property(bibtex);
   if(!newBibtex.isEmpty()) {
     oldField->setProperty(bibtex, newBibtex);
     m_bibtexFieldDict.insert(newBibtex, oldField.data());
@@ -339,7 +348,6 @@ QString BibtexCollection::prepareText(const QString& text_) const {
   return text;
 }
 
-// same as BookCollection::sameEntry()
 int BibtexCollection::sameEntry(Tellico::Data::EntryPtr entry1_, Tellico::Data::EntryPtr entry2_) const {
   // equal identifiers are easy, give it a weight of 100
   if(EntryComparison::score(entry1_, entry2_, QStringLiteral("isbn"),  this) > 0 ||
@@ -347,17 +355,21 @@ int BibtexCollection::sameEntry(Tellico::Data::EntryPtr entry1_, Tellico::Data::
      EntryComparison::score(entry1_, entry2_, QStringLiteral("doi"),   this) > 0 ||
      EntryComparison::score(entry1_, entry2_, QStringLiteral("pmid"),  this) > 0 ||
      EntryComparison::score(entry1_, entry2_, QStringLiteral("arxiv"), this) > 0) {
-    return 100; // good match
+    return EntryComparison::ENTRY_PERFECT_MATCH;
   }
   int res = 3*EntryComparison::score(entry1_, entry2_, QStringLiteral("title"), this);
-//  if(res == 0) {
-//    myDebug() << "different titles for " << entry1_->title() << " vs. "
-//              << entry2_->title();
-//  }
   res += EntryComparison::score(entry1_, entry2_, QStringLiteral("author"),   this);
-  res += EntryComparison::score(entry1_, entry2_, QStringLiteral("cr_year"),  this);
-  res += EntryComparison::score(entry1_, entry2_, QStringLiteral("pub_year"), this);
+  res += EntryComparison::score(entry1_, entry2_, QStringLiteral("entry-type"),   this);
+  if(res >= EntryComparison::ENTRY_PERFECT_MATCH) return res;
+
+  res += EntryComparison::score(entry1_, entry2_, QStringLiteral("year"),  this);
+  if(res >= EntryComparison::ENTRY_PERFECT_MATCH) return res;
+
+  res += EntryComparison::score(entry1_, entry2_, QStringLiteral("publisher"), this);
+  if(res >= EntryComparison::ENTRY_PERFECT_MATCH) return res;
+
   res += EntryComparison::score(entry1_, entry2_, QStringLiteral("binding"),  this);
+  if(res >= EntryComparison::ENTRY_PERFECT_MATCH) return res;
   return res;
 }
 
@@ -519,9 +531,9 @@ Tellico::Data::EntryList BibtexCollection::duplicateBibtexKeys() const {
     keyValue = entry->field(keyField);
     if(keyHash.contains(keyValue)) {
       dupes << keyHash.value(keyValue) << entry;
-     } else {
-       keyHash.insert(keyValue, entry);
-     }
+    } else {
+      keyHash.insert(keyValue, entry);
+    }
   }
   return dupes.values();
 }

@@ -6,13 +6,13 @@
 # Kunter Kutlu <kunterkutlu@gmail.com>, 2007.
 # obsoleteman <tulliana@gmail.com>, 2009,2012.
 # Volkan Gezer <volkangezer@gmail.com>, 2013-2014, 2017.
-# SPDX-FileCopyrightText: 2022, 2023 Emir SARI <emir_sari@icloud.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: extragear-office-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-12-21 03:13+0000\n"
-"PO-Revision-Date: 2023-10-01 12:52+0300\n"
+"POT-Creation-Date: 2024-03-17 03:46+0000\n"
+"PO-Revision-Date: 2024-03-18 14:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.1\n"
+"X-Generator: Lokalize 24.02.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -221,6 +221,18 @@ msgstr "<qt>Tellico, <b>%1</b> konumundaki sunucu veriyoluna yazamıyor.</qt>"
 #, kde-format
 msgid "My Collection"
 msgstr "Koleksiyonum"
+
+#: src/collection.cpp:885 src/collections/boardgamecollection.cpp:32
+#: src/collections/bookcollection.cpp:34 src/collections/cardcollection.cpp:31
+#: src/collections/coincollection.cpp:31
+#: src/collections/comicbookcollection.cpp:34
+#: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
+#: src/collections/stampcollection.cpp:32
+#: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
+#: src/document.cpp:528 src/field.cpp:292 src/field.cpp:305 src/field.cpp:310
+#, kde-format
+msgid "Personal"
+msgstr "Kişisel"
 
 #: src/collectionfactory.cpp:85
 #, kde-format
@@ -434,7 +446,7 @@ msgstr ""
 #: src/collectionfieldsdialog.cpp:220
 #, kde-format
 msgid "Set &properties..."
-msgstr "Özellikleri &ayarla..."
+msgstr "Özellikleri &ayarla…"
 
 #: src/collectionfieldsdialog.cpp:224
 #, kde-format
@@ -485,7 +497,7 @@ msgid ""
 "in the value."
 msgstr ""
 "Türetilmiş değerler değer şablonuna göre diğer alanların değerlerinden "
-"oluşturulmaktadır. \"%{yıl} %{başlık}\" gibi adlandırılmış alanlar, yerine "
+"oluşturulmaktadır. “%{yıl} %{başlık}” gibi adlandırılmış alanlar, yerine "
 "konmuş değerleri alır."
 
 #: src/collectionfieldsdialog.cpp:270
@@ -505,9 +517,9 @@ msgid ""
 "are placed in a combo box. The possible values have to be separated by a "
 "semi-colon, for example: \"dog; cat; mouse\"</qt>"
 msgstr ""
-"<qt><i>Seçim</i>-türü alanları için, bunlar izin verilen yegane değerlerdir. "
+"<qt><i>Seçim</i> türü alanları için bunlar izin verilen yegane değerlerdir. "
 "Çoklu kutular içerisinde yer alırlar. Gelebilecek değerler, noktalı virgül "
-"ile ayrılmalıdır. Örneğin: \"köpek; kedi; fare\"</qt>"
+"ile ayrılmalıdır. Örneğin: “köpek; kedi; fare”</qt>"
 
 #: src/collectionfieldsdialog.cpp:288
 #, kde-format
@@ -717,7 +729,7 @@ msgstr "Türetilmiş değer içeren bir alanın bir değer şablonu olmalıdır.
 #: src/fetch/discogsfetcher.cpp:319 src/fetch/discogsfetcher.cpp:326
 #: src/fetch/discogsfetcher.cpp:333 src/fetch/discogsfetcher.cpp:338
 #: src/fetch/doubanfetcher.cpp:351 src/fetch/doubanfetcher.cpp:369
-#: src/fetch/doubanfetcher.cpp:387 src/fetch/filmaffinityfetcher.cpp:282
+#: src/fetch/doubanfetcher.cpp:387 src/fetch/filmaffinityfetcher.cpp:286
 #: src/fetch/filmasterfetcher.cpp:240 src/fetch/gaminghistoryfetcher.cpp:197
 #: src/fetch/gaminghistoryfetcher.cpp:320 src/fetch/googlebookfetcher.cpp:254
 #: src/fetch/googlebookfetcher.cpp:259 src/fetch/igdbfetcher.cpp:369
@@ -726,16 +738,16 @@ msgstr "Türetilmiş değer içeren bir alanın bir değer şablonu olmalıdır.
 #: src/fetch/kinoteatrfetcher.cpp:240 src/fetch/mobygamesfetcher.cpp:460
 #: src/fetch/moviemeterfetcher.cpp:216 src/fetch/moviemeterfetcher.cpp:221
 #: src/fetch/numistafetcher.cpp:345 src/fetch/numistafetcher.cpp:361
-#: src/fetch/omdbfetcher.cpp:253 src/fetch/openlibraryfetcher.cpp:272
+#: src/fetch/omdbfetcher.cpp:253 src/fetch/openlibraryfetcher.cpp:282
 #: src/fetch/thegamesdbfetcher.cpp:267 src/fetch/thegamesdbfetcher.cpp:272
 #: src/fetch/themoviedbfetcher.cpp:313 src/fetch/themoviedbfetcher.cpp:316
 #: src/fetch/themoviedbfetcher.cpp:321 src/fetch/themoviedbfetcher.cpp:339
 #: src/fetch/thetvdbfetcher.cpp:255 src/fetch/thetvdbfetcher.cpp:260
 #: src/fetch/thetvdbfetcher.cpp:265 src/fetch/tvmazefetcher.cpp:178
-#: src/fetch/tvmazefetcher.cpp:183 src/fetch/upcitemdbfetcher.cpp:208
+#: src/fetch/tvmazefetcher.cpp:183 src/fetch/upcitemdbfetcher.cpp:217
 #: src/fetch/vgcollectfetcher.cpp:238 src/fetch/vgcollectfetcher.cpp:341
-#: src/field.cpp:39 src/field.cpp:80 src/field.cpp:299 src/field.cpp:328
-#: src/field.cpp:333 src/translators/gcstarimporter.cpp:89
+#: src/field.cpp:39 src/field.cpp:80 src/field.cpp:299 src/field.cpp:333
+#: src/field.cpp:338 src/translators/gcstarimporter.cpp:90
 #, kde-format
 msgid "General"
 msgstr "Genel"
@@ -743,7 +755,7 @@ msgstr "Genel"
 #: src/collections/bibtexcollection.cpp:39
 #: src/collections/bookcollection.cpp:32
 #: src/collections/comicbookcollection.cpp:32 src/fetch/isbndbfetcher.cpp:362
-#: src/field.cpp:315 src/translators/grs1importer.cpp:75
+#: src/field.cpp:315 src/field.cpp:320 src/translators/grs1importer.cpp:75
 #: src/translators/pdfimporter.cpp:229
 #, kde-format
 msgid "Publishing"
@@ -764,7 +776,7 @@ msgstr "Girdi Türü"
 #, kde-format
 msgid "These entry types are specific to bibtex. See the bibtex documentation."
 msgstr ""
-"Bu girdi çeşitleri bibtex'e özgüdür. Bibtex belgelendirmesine bir göz atın."
+"Bu girdi çeşitleri bibtex’e özgüdür. Bibtex belgelendirmesine bir göz atın."
 
 #: src/collections/bibtexcollection.cpp:93
 #: src/collections/bookcollection.cpp:58
@@ -913,7 +925,7 @@ msgstr "Anahtar Sözcükler"
 #: src/collections/bibtexcollection.cpp:241 src/collections/filecatalog.cpp:53
 #: src/fetch/entrezfetcher.cpp:439 src/fetch/entrezfetcher.cpp:515
 #: src/fetch/opdsfetcher.cpp:431 src/field.cpp:202
-#: src/translators/gcstarimporter.cpp:88
+#: src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "URL"
 msgstr "URL"
@@ -930,23 +942,11 @@ msgstr "Özet"
 msgid "Notes"
 msgstr "Notlar"
 
-#: src/collections/bibtexcollection.cpp:480
+#: src/collections/bibtexcollection.cpp:492
 #: src/translators/xmlstatehandler.cpp:324
 #, kde-format
 msgid "Unknown"
 msgstr "Bilinmez"
-
-#: src/collections/boardgamecollection.cpp:32
-#: src/collections/bookcollection.cpp:34 src/collections/cardcollection.cpp:31
-#: src/collections/coincollection.cpp:31
-#: src/collections/comicbookcollection.cpp:34
-#: src/collections/gamecollection.cpp:33 src/collections/musiccollection.cpp:32
-#: src/collections/stampcollection.cpp:32
-#: src/collections/videocollection.cpp:34 src/collections/winecollection.cpp:31
-#: src/document.cpp:528 src/field.cpp:292 src/field.cpp:305 src/field.cpp:310
-#, kde-format
-msgid "Personal"
-msgstr "Kişisel"
 
 #: src/collections/boardgamecollection.cpp:38
 #, kde-format
@@ -1150,12 +1150,12 @@ msgstr "Kopyalama Hakkı Yılı"
 msgid "Publication Year"
 msgstr "Yayın Yılı"
 
-#: src/collections/bookcollection.cpp:111
+#: src/collections/bookcollection.cpp:111 src/field.cpp:319
 #, kde-format
 msgid "LCCN#"
 msgstr "LCCN#"
 
-#: src/collections/bookcollection.cpp:113
+#: src/collections/bookcollection.cpp:113 src/field.cpp:321
 #, kde-format
 msgid "Library of Congress Control Number"
 msgstr "Kongre Kütüphanesi Denetim Numarası"
@@ -1487,162 +1487,162 @@ msgstr "Kişisel Puan"
 msgid "Completed"
 msgstr "Tamamlanmış"
 
-#: src/collections/gamecollection.cpp:237
+#: src/collections/gamecollection.cpp:240
 #, kde-format
 msgid "Linux"
 msgstr "Linux"
 
-#: src/collections/gamecollection.cpp:238
+#: src/collections/gamecollection.cpp:241
 #, kde-format
 msgid "Mac OS"
 msgstr "Mac OS"
 
-#: src/collections/gamecollection.cpp:239
+#: src/collections/gamecollection.cpp:242
 #, kde-format
 msgctxt "Windows Platform"
 msgid "Windows"
 msgstr "Windows"
 
-#: src/collections/gamecollection.cpp:240
+#: src/collections/gamecollection.cpp:243
 #, kde-format
 msgctxt "iOS Platform"
 msgid "iOS"
 msgstr ""
 
-#: src/collections/gamecollection.cpp:241
+#: src/collections/gamecollection.cpp:244
 #, kde-format
 msgctxt "Android Platform"
 msgid "Android"
 msgstr ""
 
-#: src/collections/gamecollection.cpp:242
+#: src/collections/gamecollection.cpp:245
 #, kde-format
 msgid "Xbox"
 msgstr "Xbox"
 
-#: src/collections/gamecollection.cpp:243
+#: src/collections/gamecollection.cpp:246
 #, kde-format
 msgid "Xbox 360"
 msgstr "Xbox 360"
 
-#: src/collections/gamecollection.cpp:244
+#: src/collections/gamecollection.cpp:247
 #, kde-format
 msgid "Xbox One"
 msgstr "Xbox One"
 
-#: src/collections/gamecollection.cpp:245
+#: src/collections/gamecollection.cpp:248
 #, kde-format
 msgid "Xbox Series X"
 msgstr "Xbox Series X"
 
-#: src/collections/gamecollection.cpp:246
+#: src/collections/gamecollection.cpp:249
 #, kde-format
 msgid "PlayStation"
 msgstr "PlayStation"
 
-#: src/collections/gamecollection.cpp:247
+#: src/collections/gamecollection.cpp:250
 #, kde-format
 msgid "PlayStation2"
 msgstr "PlayStation2"
 
-#: src/collections/gamecollection.cpp:248
+#: src/collections/gamecollection.cpp:251
 #, kde-format
 msgid "PlayStation3"
 msgstr "PlayStation3"
 
-#: src/collections/gamecollection.cpp:249
+#: src/collections/gamecollection.cpp:252
 #, kde-format
 msgid "PlayStation4"
 msgstr "PlayStation4"
 
-#: src/collections/gamecollection.cpp:250
+#: src/collections/gamecollection.cpp:253
 #, kde-format
 msgid "PlayStation5"
 msgstr "PlayStation5"
 
-#: src/collections/gamecollection.cpp:251
+#: src/collections/gamecollection.cpp:254
 #, kde-format
 msgctxt "PlayStation Portable"
 msgid "PSP"
 msgstr "PSP"
 
-#: src/collections/gamecollection.cpp:252
+#: src/collections/gamecollection.cpp:255
 #, kde-format
 msgid "PlayStation Vita"
 msgstr "PlayStation Vita"
 
-#: src/collections/gamecollection.cpp:253
+#: src/collections/gamecollection.cpp:256
 #, kde-format
 msgid "Game Boy"
 msgstr "Game Boy"
 
-#: src/collections/gamecollection.cpp:254
+#: src/collections/gamecollection.cpp:257
 #, kde-format
 msgid "Game Boy Color"
 msgstr "Game Boy Color"
 
-#: src/collections/gamecollection.cpp:255
+#: src/collections/gamecollection.cpp:258
 #, kde-format
 msgid "Game Boy Advance"
 msgstr "Game Boy Advance"
 
-#: src/collections/gamecollection.cpp:256
+#: src/collections/gamecollection.cpp:259
 #, kde-format
 msgid "Nintendo"
 msgstr "Nintendo"
 
-#: src/collections/gamecollection.cpp:257
+#: src/collections/gamecollection.cpp:260
 #, kde-format
 msgid "Super Nintendo"
 msgstr "Süper Nintendo"
 
-#: src/collections/gamecollection.cpp:258
+#: src/collections/gamecollection.cpp:261
 #, kde-format
 msgid "Nintendo 64"
 msgstr "Nintendo 64"
 
-#: src/collections/gamecollection.cpp:259
+#: src/collections/gamecollection.cpp:262
 #, kde-format
 msgid "GameCube"
 msgstr "GameCube"
 
-#: src/collections/gamecollection.cpp:260
+#: src/collections/gamecollection.cpp:263
 #, kde-format
 msgid "Nintendo Wii"
 msgstr "Nintendo Wii"
 
-#: src/collections/gamecollection.cpp:261
+#: src/collections/gamecollection.cpp:264
 #, kde-format
 msgid "Nintendo WiiU"
 msgstr "Nintendo WiiU"
 
-#: src/collections/gamecollection.cpp:262
+#: src/collections/gamecollection.cpp:265
 #, kde-format
 msgid "Nintendo Switch"
 msgstr "Nintendo Switch"
 
-#: src/collections/gamecollection.cpp:263
+#: src/collections/gamecollection.cpp:266
 #, kde-format
 msgid "Nintendo DS"
 msgstr "Nintendo DS"
 
-#: src/collections/gamecollection.cpp:264
+#: src/collections/gamecollection.cpp:267
 #, kde-format
 msgid "Nintendo 3DS"
 msgstr "Nintendo 3DS"
 
-#: src/collections/gamecollection.cpp:265
+#: src/collections/gamecollection.cpp:268
 #, kde-format
 msgctxt "Sega Genesis"
 msgid "Genesis"
 msgstr "Genesis"
 
-#: src/collections/gamecollection.cpp:266
+#: src/collections/gamecollection.cpp:269
 #, kde-format
 msgid "Dreamcast"
 msgstr "Dreamcast"
 
-#: src/collections/gamecollection.cpp:278
+#: src/collections/gamecollection.cpp:281
 #, kde-format
 msgctxt ""
 "Video game ratings - Unrated, Adults Only, Mature, Teen, Everyone 10+, "
@@ -1666,7 +1666,7 @@ msgstr "Albüm"
 
 #: src/collections/musiccollection.cpp:54 src/fetch/discogsfetcher.cpp:424
 #: src/fetch/doubanfetcher.cpp:431 src/fetch/doubanfetcher.cpp:565
-#: src/fetch/upcitemdbfetcher.cpp:290 src/fetch/upcitemdbfetcher.cpp:410
+#: src/fetch/upcitemdbfetcher.cpp:304 src/fetch/upcitemdbfetcher.cpp:424
 #: src/translators/audiofileimporter.cpp:335
 #: src/translators/discogsimporter.cpp:162
 #: src/translators/freedbimporter.cpp:275
@@ -1678,8 +1678,8 @@ msgstr "Compact Disc"
 
 #: src/collections/musiccollection.cpp:54
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1043
-#: src/fetch/discogsfetcher.cpp:432 src/fetch/upcitemdbfetcher.cpp:406
-#: src/fetch/upcitemdbfetcher.cpp:414 src/translators/discogsimporter.cpp:169
+#: src/fetch/discogsfetcher.cpp:432 src/fetch/upcitemdbfetcher.cpp:420
+#: src/fetch/upcitemdbfetcher.cpp:428 src/translators/discogsimporter.cpp:169
 #, kde-format
 msgid "DVD"
 msgstr "DVD"
@@ -1705,7 +1705,7 @@ msgstr "Ortam"
 #: src/collections/musiccollection.cpp:60
 #: src/collections/musiccollection.cpp:87
 #: src/translators/audiofileimporter.cpp:236
-#: src/translators/xmlstatehandler.cpp:427
+#: src/translators/xmlstatehandler.cpp:435
 #, kde-format
 msgid "Artist"
 msgstr "Sanatçı"
@@ -1722,15 +1722,15 @@ msgstr "Parçalar"
 
 #: src/collections/musiccollection.cpp:86 src/entrymatchdialog.cpp:94
 #: src/fetch/fetchmanager.cpp:67 src/fetchdialog.cpp:252 src/field.cpp:298
-#: src/field.cpp:339 src/translators/audiofileimporter.cpp:235
-#: src/translators/xmlstatehandler.cpp:426
+#: src/field.cpp:344 src/translators/audiofileimporter.cpp:235
+#: src/translators/xmlstatehandler.cpp:434
 #, kde-format
 msgid "Title"
 msgstr "Başlık"
 
 #: src/collections/musiccollection.cpp:88
 #: src/translators/audiofileimporter.cpp:237
-#: src/translators/xmlstatehandler.cpp:428
+#: src/translators/xmlstatehandler.cpp:436
 #, kde-format
 msgid "Length"
 msgstr "Süre"
@@ -1805,7 +1805,7 @@ msgid "My Videos"
 msgstr "Videolarım"
 
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1029
-#: src/fetch/upcitemdbfetcher.cpp:392
+#: src/fetch/upcitemdbfetcher.cpp:406
 #, kde-format
 msgid "VHS"
 msgstr "VHS"
@@ -1821,13 +1821,13 @@ msgid "DivX"
 msgstr "DivX"
 
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1023
-#: src/fetch/upcitemdbfetcher.cpp:386
+#: src/fetch/upcitemdbfetcher.cpp:400
 #, kde-format
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
 #: src/collections/videocollection.cpp:54 src/fetch/amazonfetcher.cpp:1026
-#: src/fetch/upcitemdbfetcher.cpp:389
+#: src/fetch/upcitemdbfetcher.cpp:403
 #, kde-format
 msgid "HD DVD"
 msgstr "HD DVD"
@@ -1841,7 +1841,7 @@ msgstr "Yapım Yılı"
 #, kde-format
 msgctxt "Movie ratings - G (USA),PG (USA),PG-13 (USA),R (USA), U (USA)"
 msgid "G (USA),PG (USA),PG-13 (USA),R (USA), U (USA)"
-msgstr "G (ABD),PG (ABD),PG-13 (ABD),R (ABD), U (ABD)"
+msgstr "G (ABD),PG (ABD),PG–13 (ABD),R (ABD), U (ABD)"
 
 #: src/collections/videocollection.cpp:69
 #, kde-format
@@ -1905,7 +1905,7 @@ msgid "Nationality"
 msgstr "Ülke"
 
 #: src/collections/videocollection.cpp:102 src/fetch/amazonfetcher.cpp:1039
-#: src/fetch/upcitemdbfetcher.cpp:402
+#: src/fetch/upcitemdbfetcher.cpp:416
 #, kde-format
 msgid "NTSC"
 msgstr "NTSC"
@@ -1931,13 +1931,13 @@ msgid "Cast"
 msgstr "Senaryo"
 
 #: src/collections/videocollection.cpp:110
-#: src/translators/xmlstatehandler.cpp:430
+#: src/translators/xmlstatehandler.cpp:438
 #, kde-format
 msgid "Actor/Actress"
 msgstr "Aktör/Aktris"
 
 #: src/collections/videocollection.cpp:111
-#: src/translators/xmlstatehandler.cpp:431
+#: src/translators/xmlstatehandler.cpp:439
 #, kde-format
 msgid "Role"
 msgstr "Rol"
@@ -1999,7 +1999,7 @@ msgid "Aspect Ratio"
 msgstr "Görüntü Oranı"
 
 #: src/collections/videocollection.cpp:175 src/fetch/amazonfetcher.cpp:1012
-#: src/fetch/upcitemdbfetcher.cpp:372
+#: src/fetch/upcitemdbfetcher.cpp:386
 #, kde-format
 msgid "Widescreen"
 msgstr "Geniş Ekran"
@@ -2015,7 +2015,7 @@ msgid "Color Mode"
 msgstr "Renk Kipi"
 
 #: src/collections/videocollection.cpp:186 src/fetch/amazonfetcher.cpp:1033
-#: src/fetch/upcitemdbfetcher.cpp:396
+#: src/fetch/upcitemdbfetcher.cpp:410
 #, kde-format
 msgid "Director's Cut"
 msgstr "Yönetmenin Çıkardıkları"
@@ -2128,7 +2128,7 @@ msgstr "Silme %1 Alanı"
 msgid "Add Filter"
 msgstr "Filtre Ekle"
 
-#: src/commands/filtercommand.cpp:59 src/filterdialog.cpp:62
+#: src/commands/filtercommand.cpp:59 src/filterdialog.cpp:58
 #: src/filterview.cpp:133
 #, kde-format
 msgid "Modify Filter"
@@ -2644,7 +2644,7 @@ msgstr ""
 #: src/configdialog.cpp:451
 #, kde-format
 msgid "&Preview..."
-msgstr "&Önizleme..."
+msgstr "&Önizleme…"
 
 #: src/configdialog.cpp:452
 #, kde-format
@@ -2720,7 +2720,7 @@ msgstr "Şablonları Yönet"
 #: src/configdialog.cpp:562
 #, kde-format
 msgid "Install..."
-msgstr "Kur..."
+msgstr "Kur…"
 
 #: src/configdialog.cpp:566
 #, kde-format
@@ -2730,7 +2730,7 @@ msgstr "Doğruca yeni bir şablon kurmak için tıklayın."
 #: src/configdialog.cpp:571 src/configdialog.cpp:574 src/configdialog.cpp:578
 #, kde-format
 msgid "Download..."
-msgstr "İndir..."
+msgstr "İndir…"
 
 #: src/configdialog.cpp:583
 #, kde-format
@@ -2740,7 +2740,7 @@ msgstr "Ek şablonlar indirmek için tıklayın."
 #: src/configdialog.cpp:586
 #, kde-format
 msgid "Delete..."
-msgstr "Sil..."
+msgstr "Sil…"
 
 #: src/configdialog.cpp:590
 #, kde-format
@@ -2763,7 +2763,7 @@ msgid ""
 "The order of the data sources sets the order that Tellico uses when entries "
 "are automatically updated."
 msgstr ""
-"Veri kaynaklarının sıralması, Tellico'nun girdileri otomatik olarak "
+"Veri kaynaklarının sıralması, Tellico’nun girdileri kendiliğinden "
 "güncellediği zaman kullandığı sıralamayı belirler."
 
 #: src/configdialog.cpp:649
@@ -2877,7 +2877,7 @@ msgstr "&Sırala"
 #: src/controller.cpp:589 src/mainwindow.cpp:607
 #, kde-format
 msgid "&Edit Entry..."
-msgstr "Girdiyi Düz&enle..."
+msgstr "Girdiyi Düz&enle…"
 
 #: src/controller.cpp:590 src/mainwindow.cpp:614
 #, kde-format
@@ -2897,7 +2897,7 @@ msgstr "Gir&diyi Sil"
 #: src/controller.cpp:595
 #, kde-format
 msgid "&Edit Entries..."
-msgstr "Girdileri Dü&zenle..."
+msgstr "Girdileri Dü&zenle…"
 
 #: src/controller.cpp:596
 #, kde-format
@@ -3036,7 +3036,7 @@ msgstr "Tüm Sütunları Gizle"
 #: src/document.cpp:210 src/mainwindow.cpp:1398
 #, kde-format
 msgid "Saving file..."
-msgstr "Dosya kaydediliyor..."
+msgstr "Dosya kaydediliyor…"
 
 #: src/entryeditdialog.cpp:71 src/entryeditdialog.cpp:417
 #: src/entryeditdialog.cpp:439 src/entryeditdialog.cpp:534
@@ -3142,7 +3142,7 @@ msgstr "Girdileri Birleştir"
 #: src/entrymerger.cpp:55
 #, kde-format
 msgid "Merging entries..."
-msgstr "Girdiler birleştiriliyor..."
+msgstr "Girdiler birleştiriliyor…"
 
 #: src/entrymerger.cpp:74
 #, kde-format
@@ -3157,7 +3157,7 @@ msgstr "Güncelliyor %1..."
 #: src/entryupdater.cpp:97
 #, kde-format
 msgid "Updating entries..."
-msgstr "Girdiler güncelleniyor..."
+msgstr "Girdiler güncelleniyor…"
 
 #: src/entryupdater.cpp:99
 #, kde-format
@@ -3300,7 +3300,7 @@ msgstr ""
 
 #: src/fetch/allocinefetcher.cpp:237 src/fetch/amazonfetcher.cpp:631
 #: src/fetch/colnectfetcher.cpp:787 src/fetch/discogsfetcher.cpp:218
-#: src/fetch/doubanfetcher.cpp:454 src/fetch/filmaffinityfetcher.cpp:428
+#: src/fetch/doubanfetcher.cpp:454 src/fetch/filmaffinityfetcher.cpp:432
 #: src/fetch/filmasterfetcher.cpp:148 src/fetch/gaminghistoryfetcher.cpp:308
 #: src/fetch/googlebookfetcher.cpp:198 src/fetch/ibsfetcher.cpp:301
 #: src/fetch/igdbfetcher.cpp:163 src/fetch/isbndbfetcher.cpp:296
@@ -3310,7 +3310,7 @@ msgstr ""
 #: src/fetch/numistafetcher.cpp:287 src/fetch/numistafetcher.cpp:295
 #: src/fetch/omdbfetcher.cpp:183 src/fetch/thegamesdbfetcher.cpp:172
 #: src/fetch/themoviedbfetcher.cpp:240 src/fetch/thetvdbfetcher.cpp:351
-#: src/fetch/tvmazefetcher.cpp:269 src/fetch/upcitemdbfetcher.cpp:250
+#: src/fetch/tvmazefetcher.cpp:269 src/fetch/upcitemdbfetcher.cpp:259
 #: src/fetch/vgcollectfetcher.cpp:286 src/fetch/vndbfetcher.cpp:182
 #, kde-format
 msgid "The cover image could not be loaded."
@@ -3324,9 +3324,9 @@ msgstr "Allocine Bağlantısı"
 #: src/fetch/allocinefetcher.cpp:324 src/fetch/allocinefetcher.cpp:503
 #: src/fetch/animenfofetcher.cpp:292 src/fetch/animenfofetcher.cpp:495
 #: src/fetch/doubanfetcher.cpp:344 src/fetch/doubanfetcher.cpp:362
-#: src/fetch/doubanfetcher.cpp:380 src/fetch/doubanfetcher.cpp:617
-#: src/fetch/dvdfrfetcher.cpp:180 src/fetch/filmaffinityfetcher.cpp:322
-#: src/fetch/filmaffinityfetcher.cpp:459 src/fetch/imdbfetcher.cpp:902
+#: src/fetch/doubanfetcher.cpp:380 src/fetch/doubanfetcher.cpp:618
+#: src/fetch/dvdfrfetcher.cpp:173 src/fetch/filmaffinityfetcher.cpp:326
+#: src/fetch/filmaffinityfetcher.cpp:463 src/fetch/imdbfetcher.cpp:902
 #: src/fetch/imdbfetcher.cpp:1822 src/fetch/kinopoiskfetcher.cpp:341
 #: src/fetch/kinopoiskfetcher.cpp:469 src/fetch/kinopoiskfetcher.cpp:673
 #: src/fetch/kinoteatrfetcher.cpp:264 src/fetch/kinoteatrfetcher.cpp:508
@@ -3337,14 +3337,14 @@ msgstr "Allocine Bağlantısı"
 msgid "Original Title"
 msgstr "Özgün Başlık"
 
-#: src/fetch/allocinefetcher.cpp:432 src/fetch/filmaffinityfetcher.cpp:472
+#: src/fetch/allocinefetcher.cpp:432 src/fetch/filmaffinityfetcher.cpp:476
 #: src/fetch/imdbfetcher.cpp:1839 src/fetch/kinopoiskfetcher.cpp:685
 #: src/fetch/themoviedbfetcher.cpp:614
 #, kde-format
 msgid "&Maximum cast: "
 msgstr "&En fazla rol alanlar: "
 
-#: src/fetch/allocinefetcher.cpp:445 src/fetch/filmaffinityfetcher.cpp:485
+#: src/fetch/allocinefetcher.cpp:445 src/fetch/filmaffinityfetcher.cpp:489
 #: src/fetch/imdbfetcher.cpp:1852 src/fetch/kinopoiskfetcher.cpp:698
 #: src/fetch/themoviedbfetcher.cpp:627
 #, kde-format
@@ -3643,7 +3643,7 @@ msgstr ""
 "com sitesindeki herhangi bir bağ içerisine de eklenmiştir."
 
 #: src/fetch/animenfofetcher.cpp:295 src/fetch/animenfofetcher.cpp:496
-#: src/fetch/dvdfrfetcher.cpp:182 src/fetch/imdbfetcher.cpp:967
+#: src/fetch/dvdfrfetcher.cpp:175 src/fetch/imdbfetcher.cpp:967
 #: src/fetch/imdbfetcher.cpp:1820 src/fetch/moviemeterfetcher.cpp:225
 #: src/fetch/moviemeterfetcher.cpp:294 src/fetch/omdbfetcher.cpp:258
 #: src/fetch/themoviedbfetcher.cpp:328 src/fetch/themoviedbfetcher.cpp:576
@@ -3660,7 +3660,7 @@ msgstr "Dağıtıcı"
 #: src/fetch/animenfofetcher.cpp:305 src/fetch/animenfofetcher.cpp:494
 #: src/fetch/imdbfetcher.cpp:1823 src/fetch/itunesfetcher.cpp:506
 #: src/fetch/themoviedbfetcher.cpp:579 src/fetch/thetvdbfetcher.cpp:576
-#: src/fetch/tvmazefetcher.cpp:383 src/field.cpp:336
+#: src/fetch/tvmazefetcher.cpp:383 src/field.cpp:341
 #, kde-format
 msgid "Episodes"
 msgstr "Bölümler"
@@ -3678,15 +3678,15 @@ msgstr "AnimeNfo Derecelendirmesi"
 #: src/fetch/animenfofetcher.cpp:505 src/fetch/arxivfetcher.cpp:337
 #: src/fetch/bedethequefetcher.cpp:465 src/fetch/bibsonomyfetcher.cpp:190
 #: src/fetch/dbcfetcher.cpp:160 src/fetch/dblpfetcher.cpp:132
-#: src/fetch/doubanfetcher.cpp:625 src/fetch/dvdfrfetcher.cpp:190
+#: src/fetch/doubanfetcher.cpp:626 src/fetch/dvdfrfetcher.cpp:183
 #: src/fetch/filmasterfetcher.cpp:323 src/fetch/gaminghistoryfetcher.cpp:438
 #: src/fetch/googlescholarfetcher.cpp:277 src/fetch/hathitrustfetcher.cpp:318
 #: src/fetch/ibsfetcher.cpp:396 src/fetch/igdbfetcher.cpp:616
 #: src/fetch/kinofetcher.cpp:388 src/fetch/kinoteatrfetcher.cpp:516
 #: src/fetch/moviemeterfetcher.cpp:301 src/fetch/mrlookupfetcher.cpp:233
-#: src/fetch/musicbrainzfetcher.cpp:378 src/fetch/openlibraryfetcher.cpp:424
+#: src/fetch/musicbrainzfetcher.cpp:378 src/fetch/openlibraryfetcher.cpp:461
 #: src/fetch/springerfetcher.cpp:183 src/fetch/tvmazefetcher.cpp:393
-#: src/fetch/upcitemdbfetcher.cpp:465 src/fetch/vgcollectfetcher.cpp:382
+#: src/fetch/upcitemdbfetcher.cpp:479 src/fetch/vgcollectfetcher.cpp:382
 #: src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
@@ -3738,12 +3738,12 @@ msgstr ""
 
 #: src/fetch/colnectfetcher.cpp:818 src/fetch/giantbombfetcher.cpp:207
 #: src/fetch/igdbfetcher.cpp:578 src/fetch/mobygamesfetcher.cpp:638
-#: src/fetch/vgcollectfetcher.cpp:374 src/field.cpp:326
+#: src/fetch/vgcollectfetcher.cpp:374 src/field.cpp:331
 #, kde-format
 msgid "PEGI Rating"
 msgstr "PEGI Derecelendirmesi"
 
-#: src/fetch/colnectfetcher.cpp:919 src/fetch/filmaffinityfetcher.cpp:490
+#: src/fetch/colnectfetcher.cpp:919 src/fetch/filmaffinityfetcher.cpp:494
 #: src/fetch/numistafetcher.cpp:424 src/fetch/themoviedbfetcher.cpp:632
 #, kde-format
 msgid "Language: "
@@ -3816,8 +3816,8 @@ msgstr "Discogs Bağlantısı"
 
 #. i18n("Nationality");
 #: src/fetch/discogsfetcher.cpp:332 src/fetch/discogsfetcher.cpp:515
-#: src/fetch/dvdfrfetcher.cpp:183 src/fetch/musicbrainzfetcher.cpp:371
-#: src/fetch/upcitemdbfetcher.cpp:207 src/fetch/upcitemdbfetcher.cpp:458
+#: src/fetch/dvdfrfetcher.cpp:176 src/fetch/musicbrainzfetcher.cpp:371
+#: src/fetch/upcitemdbfetcher.cpp:216 src/fetch/upcitemdbfetcher.cpp:472
 #: src/fetch/vgcollectfetcher.cpp:340 src/fetch/vgcollectfetcher.cpp:375
 #, kde-format
 msgid "Barcode"
@@ -3845,12 +3845,12 @@ msgid "User token:"
 msgstr "Kullanıcı jetonu:"
 
 #: src/fetch/doubanfetcher.cpp:350 src/fetch/doubanfetcher.cpp:368
-#: src/fetch/doubanfetcher.cpp:386 src/fetch/doubanfetcher.cpp:618
+#: src/fetch/doubanfetcher.cpp:386 src/fetch/doubanfetcher.cpp:619
 #, kde-format
 msgid "Douban Link"
 msgstr "Douban Bağlantısı"
 
-#: src/fetch/dvdfrfetcher.cpp:181
+#: src/fetch/dvdfrfetcher.cpp:174
 #, kde-format
 msgid "DVDFr Link"
 msgstr "DVDFr Bağlantısı"
@@ -3984,20 +3984,20 @@ msgstr "LCCN"
 msgid "Raw Query"
 msgstr "İşlenmemiş Sorgu"
 
-#: src/fetch/filmaffinityfetcher.cpp:281 src/fetch/filmaffinityfetcher.cpp:460
+#: src/fetch/filmaffinityfetcher.cpp:285 src/fetch/filmaffinityfetcher.cpp:464
 #, fuzzy, kde-format
 #| msgid "Filmaster Link"
 msgid "FilmAffinity Link"
 msgstr "Filmaster Bağlantısı"
 
-#: src/fetch/filmaffinityfetcher.cpp:495
+#: src/fetch/filmaffinityfetcher.cpp:499
 #, fuzzy, kde-format
 #| msgid "Spain"
 msgctxt "Country"
 msgid "Spain"
 msgstr "İspanya"
 
-#: src/fetch/filmaffinityfetcher.cpp:498
+#: src/fetch/filmaffinityfetcher.cpp:502
 #, kde-format
 msgctxt "Country"
 msgid "USA"
@@ -4091,7 +4091,7 @@ msgid "Internet Game Database (IGDB.com)"
 msgstr "İnternet Oyun Veritabanı (IGDB.com)"
 
 #: src/fetch/igdbfetcher.cpp:580 src/fetch/mobygamesfetcher.cpp:640
-#: src/fetch/thegamesdbfetcher.cpp:606 src/field.cpp:344
+#: src/fetch/thegamesdbfetcher.cpp:606 src/field.cpp:349
 #, kde-format
 msgid "Screenshot"
 msgstr ""
@@ -4141,7 +4141,7 @@ msgstr "Onaylamalar"
 #: src/fetch/imdbfetcher.cpp:1818 src/fetch/kinopoiskfetcher.cpp:672
 #: src/fetch/omdbfetcher.cpp:400 src/fetch/themoviedbfetcher.cpp:575
 #: src/fetch/thetvdbfetcher.cpp:575 src/fetch/tvmazefetcher.cpp:382
-#: src/field.cpp:332
+#: src/field.cpp:337
 #, kde-format
 msgid "IMDb Link"
 msgstr "IMDb Bağlantısı"
@@ -4224,7 +4224,7 @@ msgstr "Filmaster Bağlantısı"
 #, kde-format
 msgctxt "Standard catalog of world coins number"
 msgid "Krause-Mishler"
-msgstr ""
+msgstr "Krause–Mishler"
 
 #: src/fetch/numistafetcher.cpp:429 src/fetch/themoviedbfetcher.cpp:641
 #, kde-format
@@ -4273,7 +4273,7 @@ msgstr "Sunucunun makine adını girin."
 msgid "&Verify Catalog"
 msgstr "Dosya Kataloğu"
 
-#: src/fetch/openlibraryfetcher.cpp:271 src/fetch/openlibraryfetcher.cpp:417
+#: src/fetch/openlibraryfetcher.cpp:281 src/fetch/openlibraryfetcher.cpp:454
 #, kde-format
 msgid "OpenLibrary Link"
 msgstr "OpenLibrary Bağlantısı"
@@ -4394,7 +4394,7 @@ msgstr "TheTVDB Bağlantısı"
 #: src/fetch/thetvdbfetcher.cpp:601
 #, kde-format
 msgid "Subscriber PIN: "
-msgstr ""
+msgstr "Abone PIN’i: "
 
 #: src/fetch/vgcollectfetcher.cpp:237 src/fetch/vgcollectfetcher.cpp:373
 #, fuzzy, kde-format
@@ -4469,7 +4469,7 @@ msgid ""
 "most likely choice is MARC-8, although ISO-8859-1 is common as well."
 msgstr ""
 "z39.50 sunucusu tarafından sorgular için kullanılan karakter kümesi "
-"kodlamasını girin. En olası seçim MARC-8'dir, ancak ISO-8859-1 de yaygındır."
+"kodlamasını girin. En olası seçim MARC-8’dir, ancak ISO-8859-1 de yaygındır."
 
 #: src/fetch/z3950fetcher.cpp:653
 #, kde-format
@@ -4483,7 +4483,7 @@ msgid ""
 "The most likely choice is MARC-8, although ISO-8859-1 is common as well."
 msgstr ""
 "z39.50 sunucusu tarafından yanıtlar için kullanılan karakter kümesi "
-"kodlamasını girin. En olası seçim MARC-8'dir, ancak ISO-8859-1 de yaygındır."
+"kodlamasını girin. En olası seçim MARC-8’dir, ancak ISO-8859-1 de yaygındır."
 
 #: src/fetch/z3950fetcher.cpp:668
 #, kde-format
@@ -4568,7 +4568,7 @@ msgstr "&Ara:"
 #: src/fetchdialog.cpp:168
 #, kde-format
 msgid "Enter a search value. An ISBN search must include the full ISBN."
-msgstr "Bir arama değeri girin. Bir ISBN araması, tüm ISBN'i içermelidir."
+msgstr "Bir arama değeri girin. Bir ISBN araması, tüm ISBN’i içermelidir."
 
 #: src/fetchdialog.cpp:178
 #, kde-format
@@ -4594,7 +4594,7 @@ msgstr ""
 #: src/fetchdialog.cpp:210
 #, kde-format
 msgid "Edit ISBN/UPC values..."
-msgstr "ISBN/UPC değerlerini düzenle..."
+msgstr "ISBN/UPC değerlerini düzenle…"
 
 #: src/fetchdialog.cpp:214
 #, kde-format
@@ -4666,12 +4666,12 @@ msgstr "Bütün arama alanlarını ve sonuçlarını temizle"
 #: src/fetchdialog.cpp:395
 #, kde-format
 msgid "Cancelling the search..."
-msgstr "Arama iptal ediliyor..."
+msgstr "Arama iptal ediliyor…"
 
 #: src/fetchdialog.cpp:408 src/fetchdialog.cpp:588
 #, kde-format
 msgid "Searching..."
-msgstr "Aranıyor..."
+msgstr "Aranıyor…"
 
 #: src/fetchdialog.cpp:468
 #, kde-format
@@ -4698,7 +4698,7 @@ msgstr "Sonuç Yok"
 #: src/fetchdialog.cpp:555 src/fetchdialog.cpp:611
 #, kde-format
 msgid "Fetching %1..."
-msgstr "Getiriliyor: %1..."
+msgstr "Getiriliyor: %1…"
 
 #: src/fetchdialog.cpp:628
 #, kde-format
@@ -4726,7 +4726,7 @@ msgstr ""
 #: src/fetchdialog.cpp:773
 #, kde-format
 msgid "&Load From File..."
-msgstr "Dosyadan Yük&le..."
+msgstr "Dosyadan Yük&le…"
 
 #: src/fetchdialog.cpp:774
 #, kde-format
@@ -4831,44 +4831,44 @@ msgstr "Değiştirilme Tarihi"
 msgid "International Standard Book Number"
 msgstr "Uluslararası Standart Kitap Numarası"
 
-#: src/field.cpp:340
+#: src/field.cpp:345
 #, kde-format
 msgctxt "TV Season"
 msgid "Season"
 msgstr "Sezon"
 
-#: src/field.cpp:341
+#: src/field.cpp:346
 #, kde-format
 msgctxt "TV Episode"
 msgid "Episode"
 msgstr "Bölüm"
 
-#: src/filterdialog.cpp:62
+#: src/filterdialog.cpp:58
 #, kde-format
 msgid "Advanced Filter"
 msgstr "Gelişmiş Süzgeç"
 
-#: src/filterdialog.cpp:83
+#: src/filterdialog.cpp:79
 #, kde-format
 msgid "Filter Criteria"
 msgstr "Süzgeç Kriteri"
 
-#: src/filterdialog.cpp:88
+#: src/filterdialog.cpp:84
 #, kde-format
 msgid "Match a&ll of the following"
 msgstr "Aşağıdakilerin &tümünü eşleştir"
 
-#: src/filterdialog.cpp:89
+#: src/filterdialog.cpp:85
 #, kde-format
 msgid "Match an&y of the following"
 msgstr "Aşağıdakilerin &herhangi birini eşleştir"
 
-#: src/filterdialog.cpp:113
+#: src/filterdialog.cpp:109
 #, kde-format
 msgid "Filter name:"
 msgstr "Süzgeç adı:"
 
-#: src/filterdialog.cpp:122
+#: src/filterdialog.cpp:118
 #, kde-format
 msgid "&Save Filter"
 msgstr "&Süzgeci Kaydet"
@@ -4904,7 +4904,7 @@ msgstr "Gruba göre Süz"
 msgid "%1 (Sort by Count)"
 msgstr "%1 (Sayıya Göre Sırala)"
 
-#: src/groupview.cpp:419 src/models/entrygroupmodel.cpp:68
+#: src/groupview.cpp:419 src/models/entrygroupmodel.cpp:67
 #, kde-format
 msgctxt "Group Name Header"
 msgid "Group"
@@ -4952,7 +4952,7 @@ msgctxt "Edit Label"
 msgid "%1:"
 msgstr "%1:"
 
-#: src/gui/filterrulewidget.cpp:64
+#: src/gui/filterrulewidget.cpp:63
 #, kde-format
 msgid "Any Field"
 msgstr "Herhangi Bir Alan"
@@ -5040,17 +5040,17 @@ msgstr "içermez"
 #: src/gui/imagewidget.cpp:108
 #, kde-format
 msgid "Select Image..."
-msgstr "Görsel Seç..."
+msgstr "Görsel Seç…"
 
 #: src/gui/imagewidget.cpp:113
 #, kde-format
 msgid "Scan Image..."
-msgstr "Görsel Tara..."
+msgstr "Görsel Tara…"
 
 #: src/gui/imagewidget.cpp:122
 #, kde-format
 msgid "Open With..."
-msgstr "Birlikte Aç..."
+msgstr "Birlikte Aç…"
 
 #: src/gui/imagewidget.cpp:160
 #, kde-format
@@ -5076,7 +5076,7 @@ msgstr "Seçilen tarayıcı açılamadı."
 #: src/gui/imagewidget.cpp:380
 #, kde-format
 msgid "Opening image in %1..."
-msgstr "Görsel, %1 içinde açılıyor..."
+msgstr "Görsel, %1 içinde açılıyor…"
 
 #: src/gui/imagewidget.cpp:412
 #, kde-format
@@ -5136,7 +5136,7 @@ msgstr "Sütun %1"
 #: src/gui/tablefieldwidget.cpp:240 src/gui/tablefieldwidget.cpp:274
 #, kde-format
 msgid "Rename Column..."
-msgstr "Sütunu Yeniden Adlandır..."
+msgstr "Sütunu Yeniden Adlandır…"
 
 #: src/gui/tablefieldwidget.cpp:242 src/gui/tablefieldwidget.cpp:280
 #, kde-format
@@ -5373,7 +5373,7 @@ msgstr "Giriş Yap"
 #: src/loanview.cpp:121
 #, kde-format
 msgid "Modify Loan..."
-msgstr "Ödünç Vermeyi Düzenle..."
+msgstr "Ödünç Vermeyi Düzenle…"
 
 #: src/loanview.cpp:200 xslt/report-templates/Loan_View.xsl:135
 #, kde-format
@@ -5388,12 +5388,12 @@ msgstr "Ödünç Veren (Sayıya Göre Sırala)"
 #: src/main.cpp:121
 #, kde-format
 msgid "Tellico - collection management software, free and simple"
-msgstr "Tellico - koleksiyon yönetimi yazılımı - temel ve yalın"
+msgstr "Tellico — koleksiyon yönetimi yazılımı — ücretsiz ve yalın"
 
 #: src/main.cpp:123
 #, kde-format
-msgid "(c) 2001-2023, Robby Stephenson"
-msgstr "(c) 2001-2023, Robby Stephenson"
+msgid "(c) 2001-2024, Robby Stephenson"
+msgstr "(c) 2001–2023, Robby Stephenson"
 
 #: src/main.cpp:127
 #, kde-format
@@ -5433,17 +5433,17 @@ msgstr "Son açılan dosyayı yeniden açma"
 #: src/main.cpp:145
 #, kde-format
 msgid "Import <filename> as a bibtex file"
-msgstr "<dosya>'yı bir bibtex dosyası olarak içe aktar"
+msgstr "<dosya>’yı bir bibtex dosyası olarak içe aktar"
 
 #: src/main.cpp:146
 #, kde-format
 msgid "Import <filename> as a MODS file"
-msgstr "<dosya>'yı bir MODS dosyası olarak içe aktar"
+msgstr "<dosya>’yı bir MODS dosyası olarak içe aktar"
 
 #: src/main.cpp:147
 #, kde-format
 msgid "Import <filename> as a RIS file"
-msgstr "<dosya>'yı bir RIS dosyası olarak içe aktar"
+msgstr "<dosya>’yı bir RIS dosyası olarak içe aktar"
 
 #: src/main.cpp:148
 #, fuzzy, kde-format
@@ -5544,7 +5544,7 @@ msgstr "Yeni K&art Koleksiyonu"
 #: src/mainwindow.cpp:297
 #, kde-format
 msgid "Create a new trading card collection"
-msgstr "Yeni bir değiş-tokuş kartı koleksiyonu oluştur"
+msgstr "Yeni bir değiş–tokuş kartı koleksiyonu oluştur"
 
 #: src/mainwindow.cpp:299
 #, kde-format
@@ -5614,7 +5614,7 @@ msgstr "Belgeyi kaydet"
 #: src/mainwindow.cpp:330
 #, kde-format
 msgid "Save the document as a different file..."
-msgstr "Belgeyi farklı bir dosya olarak kaydet..."
+msgstr "Belgeyi farklı bir dosya olarak kaydet…"
 
 #: src/mainwindow.cpp:334
 #, fuzzy, kde-format
@@ -5653,7 +5653,7 @@ msgstr "Başka biçimlerden koleksiyon verisi içe aktar"
 #: src/mainwindow.cpp:388
 #, kde-format
 msgid "Import Tellico Data..."
-msgstr "Tellico Verisi  İçe Aktar..."
+msgstr "Tellico Verisi  İçe Aktar…"
 
 #: src/mainwindow.cpp:389
 #, kde-format
@@ -5663,7 +5663,7 @@ msgstr "Başka bir Tellico veri dosyasını içe aktar"
 #: src/mainwindow.cpp:392
 #, kde-format
 msgid "Import CSV Data..."
-msgstr "CSV Verisi İçe Aktar..."
+msgstr "CSV Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:393
 #, kde-format
@@ -5673,7 +5673,7 @@ msgstr "Bir CSV dosyasını içe aktar"
 #: src/mainwindow.cpp:395
 #, kde-format
 msgid "Import MODS Data..."
-msgstr "MODS Verisi İçe Aktar..."
+msgstr "MODS Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:396
 #, kde-format
@@ -5683,7 +5683,7 @@ msgstr "Bir MODS veri dosyasını içe aktar"
 #: src/mainwindow.cpp:398
 #, kde-format
 msgid "Import Alexandria Data..."
-msgstr "Alexandria Verisi İçe Aktar..."
+msgstr "Alexandria Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:399
 #, kde-format
@@ -5693,7 +5693,7 @@ msgstr "Alexandria kitap koleksiyon yöneticisinden veri içe aktar"
 #: src/mainwindow.cpp:402
 #, kde-format
 msgid "Import Delicious Library Data..."
-msgstr "Delicious Kütüphane Verisi İçe Aktar..."
+msgstr "Delicious Kütüphane Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:403
 #, kde-format
@@ -5703,12 +5703,12 @@ msgstr "Delicious kütüphanesinden veri içe aktar"
 #: src/mainwindow.cpp:406
 #, kde-format
 msgid "Import Collectorz Data..."
-msgstr "Collectorz Verisi İçe Aktar..."
+msgstr "Collectorz Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:407
 #, kde-format
 msgid "Import data from Collectorz"
-msgstr "Collectorz'dan veri içe aktar"
+msgstr "Collectorz’dan veri içe aktar"
 
 #: src/mainwindow.cpp:410
 #, fuzzy, kde-format
@@ -5725,17 +5725,17 @@ msgstr "Collectorz'dan veri içe aktar"
 #: src/mainwindow.cpp:414
 #, kde-format
 msgid "Import Referencer Data..."
-msgstr "Referencer Verisi İçe Aktar..."
+msgstr "Referencer Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:415
 #, kde-format
 msgid "Import data from Referencer"
-msgstr "Referencer'dan veriyi içe aktar"
+msgstr "Referencer’dan veri içe aktar"
 
 #: src/mainwindow.cpp:418
 #, kde-format
 msgid "Import Bibtex Data..."
-msgstr "Bibtex Verisi İçe Aktar..."
+msgstr "Bibtex Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:419
 #, kde-format
@@ -5745,7 +5745,7 @@ msgstr "Bir bibtex bibliyografya dosyasını içe aktar"
 #: src/mainwindow.cpp:424
 #, kde-format
 msgid "Import Bibtexml Data..."
-msgstr "Bibtexml Verisi İçe Aktar..."
+msgstr "Bibtexml Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:425
 #, kde-format
@@ -5755,7 +5755,7 @@ msgstr "Bir Bibtexml bibliyografya dosyasını içe aktar"
 #: src/mainwindow.cpp:427
 #, kde-format
 msgid "Import RIS Data..."
-msgstr "RIS Verisi İçe Aktar..."
+msgstr "RIS Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:428
 #, kde-format
@@ -5777,7 +5777,7 @@ msgstr "VinoXML verisi içe aktar"
 #: src/mainwindow.cpp:438
 #, kde-format
 msgid "Import Goodreads Collection..."
-msgstr "Goodreads Koleksiyonu İçe Aktar..."
+msgstr "Goodreads Koleksiyonu İçe Aktar…"
 
 #: src/mainwindow.cpp:439
 #, kde-format
@@ -5787,7 +5787,7 @@ msgstr "Goodreads.com adresinden bir koleksiyonu içe aktar"
 #: src/mainwindow.cpp:441
 #, kde-format
 msgid "Import LibraryThing Collection..."
-msgstr "LibraryThing Koleksiyonu İçe Aktar..."
+msgstr "LibraryThing Koleksiyonu İçe Aktar…"
 
 #: src/mainwindow.cpp:442
 #, kde-format
@@ -5797,7 +5797,7 @@ msgstr "LibraryThing.com adresinden bir koleksiyon içe aktar"
 #: src/mainwindow.cpp:444
 #, kde-format
 msgid "Import PDF File..."
-msgstr "PDF Dosyası İçe Aktar..."
+msgstr "PDF Dosyası İçe Aktar…"
 
 #: src/mainwindow.cpp:445
 #, kde-format
@@ -5807,7 +5807,7 @@ msgstr "Bir PDF dosyasını içe aktar"
 #: src/mainwindow.cpp:447
 #, kde-format
 msgid "Import Audio File Metadata..."
-msgstr "Ses Dosyası Üst Verisi İçe Aktar..."
+msgstr "Ses Dosyası Üst Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:448
 #, kde-format
@@ -5827,7 +5827,7 @@ msgstr "Ses CD'si bilgisi içe aktar"
 #: src/mainwindow.cpp:459
 #, kde-format
 msgid "Import Discogs Collection..."
-msgstr "Discogs Koleksiyonu İçe Aktar..."
+msgstr "Discogs Koleksiyonu İçe Aktar…"
 
 #: src/mainwindow.cpp:460
 #, kde-format
@@ -5837,7 +5837,7 @@ msgstr "Discogs.com adresinden bir koleksiyonu içe aktar"
 #: src/mainwindow.cpp:462
 #, kde-format
 msgid "Import GCstar Data..."
-msgstr "GCstar Verisi İçe Aktar..."
+msgstr "GCstar Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:463
 #, kde-format
@@ -5847,7 +5847,7 @@ msgstr "Bir GCstar veri dosyası içe aktar"
 #: src/mainwindow.cpp:466
 #, kde-format
 msgid "Import Griffith Data..."
-msgstr "Griffith Verisi İçe Aktar..."
+msgstr "Griffith Verisi İçe Aktar…"
 
 #: src/mainwindow.cpp:467
 #, kde-format
@@ -5857,7 +5857,7 @@ msgstr "Bir Griffith veritabanını içe aktar"
 #: src/mainwindow.cpp:470
 #, kde-format
 msgid "Import Ant Movie Catalog Data..."
-msgstr "Ant Film Katalog Veri İçe Aktar..."
+msgstr "Ant Film Katalog Veri İçe Aktar…"
 
 #: src/mainwindow.cpp:471
 #, kde-format
@@ -5867,7 +5867,7 @@ msgstr "Bir Ant Film Katalog Veri Dosyasını İçe Aktar"
 #: src/mainwindow.cpp:474
 #, kde-format
 msgid "Import BoardGameGeek Collection..."
-msgstr "BoardGameGeek Koleksiyonunu İçe Aktar..."
+msgstr "BoardGameGeek Koleksiyonunu İçe Aktar…"
 
 #: src/mainwindow.cpp:475
 #, kde-format
@@ -5877,7 +5877,7 @@ msgstr "BoardGameGeek.com adresinden bir koleksiyonu içe aktar"
 #: src/mainwindow.cpp:477
 #, kde-format
 msgid "Import VinoXML..."
-msgstr "VinoXML İçe Aktar..."
+msgstr "VinoXML İçe Aktar…"
 
 #: src/mainwindow.cpp:478
 #, kde-format
@@ -5887,7 +5887,7 @@ msgstr "VinoXML verisi içe aktar"
 #: src/mainwindow.cpp:480
 #, kde-format
 msgid "Import File Listing..."
-msgstr "Dosya Listelemesi İçe Aktar..."
+msgstr "Dosya Listelemesi İçe Aktar…"
 
 #: src/mainwindow.cpp:481
 #, kde-format
@@ -5897,7 +5897,7 @@ msgstr "Bir dizin içindeki dosyalar hakkındaki içe aktarma bilgisi"
 #: src/mainwindow.cpp:483
 #, kde-format
 msgid "Import XSL Transform..."
-msgstr "XSL Dönüşümünü İçe Aktar..."
+msgstr "XSL Dönüşümünü İçe Aktar…"
 
 #: src/mainwindow.cpp:484
 #, kde-format
@@ -5917,7 +5917,7 @@ msgstr "Koleksiyon verisini başka biçimlere dışa aktar"
 #: src/mainwindow.cpp:515
 #, kde-format
 msgid "Export to XML..."
-msgstr "XML Olarak Dışa Aktar..."
+msgstr "XML Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:516
 #, kde-format
@@ -5927,7 +5927,7 @@ msgstr "Bir Tellico XML dosyasına dışa aktar"
 #: src/mainwindow.cpp:519
 #, kde-format
 msgid "Export to Zip..."
-msgstr "Zip Olarak Dışa Aktar..."
+msgstr "Zip Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:520
 #, kde-format
@@ -5937,7 +5937,7 @@ msgstr "Bir Tellico Zip dosyasına dışa aktar"
 #: src/mainwindow.cpp:523
 #, kde-format
 msgid "Export to HTML..."
-msgstr "HTML Olarak Dışa Aktar..."
+msgstr "HTML Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:524
 #, kde-format
@@ -5947,7 +5947,7 @@ msgstr "Bir HTML dosyasına dışa aktar"
 #: src/mainwindow.cpp:526
 #, kde-format
 msgid "Export to CSV..."
-msgstr "CSV Olarak Dışa Aktar..."
+msgstr "CSV Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:527
 #, kde-format
@@ -5957,7 +5957,7 @@ msgstr "Bir virgülle ayrılmış değerler dosyasına dışa aktar"
 #: src/mainwindow.cpp:529
 #, kde-format
 msgid "Export to Alexandria..."
-msgstr "Alexandria Olarak Dışa Aktar..."
+msgstr "Alexandria Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:530
 #, kde-format
@@ -5967,7 +5967,7 @@ msgstr "Bir Alexandria kütüphanesine dışa aktar"
 #: src/mainwindow.cpp:533
 #, kde-format
 msgid "Export to Bibtex..."
-msgstr "Bibtex Olarak Dışa Aktar..."
+msgstr "Bibtex Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:534
 #, kde-format
@@ -5977,7 +5977,7 @@ msgstr "Bir bibtex dosyasına dışa aktar"
 #: src/mainwindow.cpp:536
 #, kde-format
 msgid "Export to Bibtexml..."
-msgstr "Bibtexml Olarak Dışa Aktar..."
+msgstr "Bibtexml Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:537
 #, kde-format
@@ -5987,7 +5987,7 @@ msgstr "Bir Bibtexml dosyasına dışa aktar"
 #: src/mainwindow.cpp:539
 #, kde-format
 msgid "Export to ONIX..."
-msgstr "ONIX Olarak Dışa Aktar..."
+msgstr "ONIX Olarak Dışa Aktar…"
 
 #: src/mainwindow.cpp:540
 #, kde-format
@@ -5997,7 +5997,7 @@ msgstr "Bir ONIX dosyasına dışa aktar"
 #: src/mainwindow.cpp:542
 #, kde-format
 msgid "Export to GCstar..."
-msgstr "GCstar'a Dışa Aktar..."
+msgstr "GCstar’a Dışa Aktar…"
 
 #: src/mainwindow.cpp:543
 #, kde-format
@@ -6007,7 +6007,7 @@ msgstr "GCstar veri dosyasına dışa aktar"
 #: src/mainwindow.cpp:546
 #, kde-format
 msgid "Export XSL Transform..."
-msgstr "XSL Dönüşümünü Dışa Aktar..."
+msgstr "XSL Dönüşümünü Dışa Aktar…"
 
 #: src/mainwindow.cpp:547
 #, kde-format
@@ -6042,7 +6042,7 @@ msgstr "Koleksiyondaki bütün girdileri geri bırak"
 #: src/mainwindow.cpp:569
 #, kde-format
 msgid "Advanced &Filter..."
-msgstr "Gelişmiş &Süzgeç..."
+msgstr "Gelişmiş &Süzgeç…"
 
 #: src/mainwindow.cpp:573 src/mainwindow.cpp:799
 #, kde-format
@@ -6052,7 +6052,7 @@ msgstr "Koleksiyonu süz"
 #: src/mainwindow.cpp:580
 #, kde-format
 msgid "&New Entry..."
-msgstr "&Yeni Girdi..."
+msgstr "&Yeni Girdi…"
 
 #: src/mainwindow.cpp:582
 #, kde-format
@@ -6072,12 +6072,12 @@ msgstr "Girdi Ekle"
 #: src/mainwindow.cpp:596
 #, kde-format
 msgid "Internet Search..."
-msgstr "İnternet'te Ara..."
+msgstr "İnternet’te Ara…"
 
 #: src/mainwindow.cpp:600
 #, kde-format
 msgid "Search the internet..."
-msgstr "İnternet'i ara..."
+msgstr "İnternet’i ara…"
 
 #: src/mainwindow.cpp:610
 #, kde-format
@@ -6107,7 +6107,7 @@ msgstr "Seçili girdileri birleştir"
 #: src/mainwindow.cpp:636
 #, kde-format
 msgid "Check-&out..."
-msgstr "Çıkış &Yap..."
+msgstr "Çıkış &Yap…"
 
 #: src/mainwindow.cpp:638
 #, kde-format
@@ -6127,7 +6127,7 @@ msgstr "Seçili ögelerin kayıt girişini yap"
 #: src/mainwindow.cpp:646
 #, kde-format
 msgid "&Rename Collection..."
-msgstr "Koleksiyonu Yeniden Adlandı&r..."
+msgstr "Koleksiyonu Yeniden Adlandı&r…"
 
 #: src/mainwindow.cpp:649
 #, kde-format
@@ -6137,7 +6137,7 @@ msgstr "Koleksiyonu yeniden adlandır"
 #: src/mainwindow.cpp:652
 #, kde-format
 msgid "Collection &Fields..."
-msgstr "Koleksiyon &Alanları..."
+msgstr "Koleksiyon &Alanları…"
 
 #: src/mainwindow.cpp:653
 #, kde-format
@@ -6152,7 +6152,7 @@ msgstr "Koleksiyon alanlarını değiştir"
 #: src/mainwindow.cpp:659
 #, kde-format
 msgid "&Generate Reports..."
-msgstr "&Rapor Oluştur..."
+msgstr "&Rapor Oluştur…"
 
 #: src/mainwindow.cpp:660
 #, kde-format
@@ -6177,7 +6177,7 @@ msgstr "Bir kitap koleksiyonunu bibliyografyaya Dönüştür"
 #: src/mainwindow.cpp:670
 #, kde-format
 msgid "String &Macros..."
-msgstr "Dizi &Makroları..."
+msgstr "Dizi &Makroları…"
 
 #: src/mainwindow.cpp:672
 #, kde-format
@@ -6187,7 +6187,7 @@ msgstr "Bibtex dizisi makrolarını düzenle"
 #: src/mainwindow.cpp:675
 #, kde-format
 msgid "Check for Duplicate Keys..."
-msgstr "Yinelenmiş Anahtarları Denetle..."
+msgstr "Yinelenmiş Anahtarları Denetle…"
 
 #: src/mainwindow.cpp:677
 #, kde-format
@@ -6197,7 +6197,7 @@ msgstr "Yinelenmiş atıf anahtarlarını denetle"
 #: src/mainwindow.cpp:687
 #, kde-format
 msgid "Copy Bibtex to Cli&pboard"
-msgstr "Bibtex'i &Panoya Kopyala"
+msgstr "Bibtex’i &Panoya Kopyala"
 
 #: src/mainwindow.cpp:688
 #, kde-format
@@ -6207,12 +6207,12 @@ msgstr "Bibtex atıflarını panoya kopyala"
 #: src/mainwindow.cpp:693
 #, kde-format
 msgid "Cite Entry in &LyX"
-msgstr "&LyX'deki girdiye atıf yap"
+msgstr "&LyX’deki girdiye atıf yap"
 
 #: src/mainwindow.cpp:694
 #, kde-format
 msgid "Cite the selected entries in LyX"
-msgstr "LyX'deki seçili girdilere atıf yap"
+msgstr "LyX’deki seçili girdilere atıf yap"
 
 #: src/mainwindow.cpp:710
 #, kde-format
@@ -6288,7 +6288,7 @@ msgstr "Koleksiyon gruplandırmasını değiştir"
 #: src/mainwindow.cpp:784
 #, kde-format
 msgid "Filter here..."
-msgstr "Buradan süz..."
+msgstr "Buradan süz…"
 
 #: src/mainwindow.cpp:849 src/mainwindow.cpp:852
 #, kde-format
@@ -6403,7 +6403,7 @@ msgstr "Görselleri Dosyaya Kaydet"
 #: src/mainwindow.cpp:1455
 #, kde-format
 msgid "Saving file with a new filename..."
-msgstr "Dosya yeni bir adla kaydediliyor..."
+msgstr "Dosya yeni bir adla kaydediliyor…"
 
 #: src/mainwindow.cpp:1464
 #, kde-format
@@ -6413,7 +6413,7 @@ msgstr "Farklı Kaydet"
 #: src/mainwindow.cpp:1530
 #, kde-format
 msgid "Printing..."
-msgstr "Yazdırılıyor..."
+msgstr "Yazdırılıyor…"
 
 #: src/mainwindow.cpp:1534
 #, kde-format
@@ -6427,7 +6427,7 @@ msgstr ""
 #: src/mainwindow.cpp:1557
 #, kde-format
 msgid "Exiting..."
-msgstr "Çıkılıyor..."
+msgstr "Çıkılıyor…"
 
 #: src/mainwindow.cpp:1663
 #, kde-format
@@ -6445,7 +6445,7 @@ msgid "(%1 selected)"
 msgstr "(%1 seçili)"
 
 #: src/mainwindow.cpp:1808 src/translators/boardgamegeekimporter.cpp:98
-#: src/translators/gcstarimporter.cpp:264
+#: src/translators/gcstarimporter.cpp:265
 #: src/translators/goodreadsimporter.cpp:111
 #: src/translators/xsltimporter.cpp:92
 #, kde-format
@@ -6455,7 +6455,7 @@ msgstr "Tellico, XSLT işlemede bir hataya rastladı."
 #: src/mainwindow.cpp:1940
 #, kde-format
 msgid "Importing data..."
-msgstr "Veri içe aktarılıyor..."
+msgstr "Veri içe aktarılıyor…"
 
 #: src/mainwindow.cpp:1951
 #, kde-format
@@ -6470,7 +6470,7 @@ msgstr "Dizin İçe Aktar"
 #: src/mainwindow.cpp:1988
 #, kde-format
 msgid "Exporting data..."
-msgstr "Veri dışa aktarılıyor..."
+msgstr "Veri dışa aktarılıyor…"
 
 #: src/mainwindow.cpp:2011
 #, kde-format
@@ -6495,7 +6495,7 @@ msgstr "Dizi"
 #: src/mainwindow.cpp:2126
 #, kde-format
 msgid "Creating citations..."
-msgstr "Atıflar oluşturuluyor..."
+msgstr "Atıflar oluşturuluyor…"
 
 #: src/mainwindow.cpp:2236
 #, kde-format
@@ -6571,7 +6571,7 @@ msgstr "&Üret"
 #: src/reportdialog.cpp:160
 #, kde-format
 msgid "Select a report template and click <em>Generate</em>."
-msgstr "Bir rapor şablonu seçin ve <em>Üret</em>'e tıklayın."
+msgstr "Bir rapor şablonu seçin ve <em>Üret</em>’e tıklayın."
 
 #: src/reportdialog.cpp:161
 #, kde-format
@@ -6725,7 +6725,7 @@ msgstr "&Kütüphane:"
 #: src/translators/audiofileimporter.cpp:128
 #, kde-format
 msgid "Scanning audio files..."
-msgstr "Ses dosyaları taranıyor..."
+msgstr "Ses dosyaları taranıyor…"
 
 #: src/translators/audiofileimporter.cpp:188
 #: src/translators/audiofileimporter.cpp:191
@@ -6864,7 +6864,7 @@ msgstr "Geçerli bir bibtext girdisi bulunamadı"
 #: src/translators/bibteximporter.cpp:125
 #, kde-format
 msgid "No valid bibtex entries were found in file - %1"
-msgstr "Dosyada geçerli bibtex girişi bulunamadı - %1"
+msgstr "Dosyada geçerli bibtex girişi bulunamadı — %1"
 
 #: src/translators/bibteximporter.cpp:345
 #, kde-format
@@ -7130,7 +7130,7 @@ msgstr "Discogs Seçenekleri"
 #: src/translators/filelistingimporter.cpp:87
 #, kde-format
 msgid "Scanning files..."
-msgstr "Dosyalar taranıyor..."
+msgstr "Dosyalar taranıyor…"
 
 #: src/translators/filelistingimporter.cpp:269
 #, kde-format
@@ -7165,7 +7165,7 @@ msgstr ""
 #: src/translators/freedbimporter.cpp:189
 #, kde-format
 msgid "<qt>Tellico was unable to access the CD-ROM device - <i>%1</i>.</qt>"
-msgstr "<qt>Tellico CD-ROM aygıtına erişemiyor - <i>%1</i>.</qt>"
+msgstr "<qt>Tellico CD-ROM aygıtına erişemiyor — <i>%1</i>.</qt>"
 
 #: src/translators/freedbimporter.cpp:214
 #, kde-format
@@ -7221,8 +7221,8 @@ msgstr ""
 "Öntanımlı önbellek dizininde bulunan CDDB önbellek dosyalarındaki bütün "
 "verileri yinelemeli olarak oku."
 
-#: src/translators/gcstarimporter.cpp:125
-#: src/translators/gcstarimporter.cpp:271
+#: src/translators/gcstarimporter.cpp:126
+#: src/translators/gcstarimporter.cpp:272
 #, kde-format
 msgid "<qt>The file is not a valid GCstar data file.</qt>"
 msgstr "<qt>Dosya, geçerli bir GCstar veri dosyası değil.</qt>"
@@ -7270,12 +7270,12 @@ msgstr "İşaretliyse her bir girdi için bireysel dosyalar yaratılacaktır."
 #: src/translators/importer.cpp:54
 #, kde-format
 msgid "Loading data..."
-msgstr "Veri yükleniyor..."
+msgstr "Veri yükleniyor…"
 
 #: src/translators/importer.cpp:55
 #, kde-format
 msgid "Loading %1..."
-msgstr "%1 yükleniyor..."
+msgstr "%1 yükleniyor…"
 
 #: src/translators/librarythingimporter.cpp:177
 #, kde-format
@@ -7416,7 +7416,7 @@ msgstr "Tellico Zip Dosyası"
 #: src/translators/xmlstatehandler.cpp:127
 #, kde-format
 msgid "It is from a future version of Tellico."
-msgstr "Bu, Tellico'nun gelecek sürümündendir."
+msgstr "Bu, Tellico’nun gelecek sürümündendir."
 
 #: src/translators/xsltexporter.cpp:50
 #, kde-format
@@ -7690,7 +7690,7 @@ msgstr "Toplam girdi sayısı:"
 #: xslt/report-templates/Loan_View.xsl:197 xslt/tellico2html.xsl:413
 #, kde-format
 msgid "Generated by Tellico"
-msgstr "Üreten: Tellico"
+msgstr "Tellico tarafından üretildi"
 
 #: xslt/report-templates/Group_Summary.xsl:289
 #, kde-format

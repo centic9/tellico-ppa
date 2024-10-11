@@ -25,7 +25,6 @@
 #include "dvdfrfetcher.h"
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
-#include "../utils/string_utils.h"
 #include "../tellico_debug.h"
 
 #include <KLocalizedString>
@@ -35,8 +34,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QVBoxLayout>
-#include <QTextCodec>
-#include <QDomDocument>
 #include <QUrlQuery>
 
 namespace {
@@ -75,12 +72,7 @@ QUrl DVDFrFetcher::searchUrl() {
   QUrlQuery q;
   switch(request().key()) {
     case Title:
-      // DVDfr requires the title string to be in iso-8859-15
-      {
-        QTextCodec* codec = QTextCodec::codecForName("iso-8859-15");
-        Q_ASSERT(codec);
-        q.addQueryItem(QStringLiteral("title"), QString::fromUtf8(codec->fromUnicode(request().value())));
-      }
+      q.addQueryItem(QStringLiteral("title"), request().value());
       break;
 
     case UPC:

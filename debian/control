@@ -1,49 +1,58 @@
 Source: tellico
 Section: kde
 Priority: optional
-Maintainer: Debian KDE Extras Team <pkg-kde-extras@lists.alioth.debian.org>
+Maintainer: Debian KDE Extras Team <pkg-kde-extras@alioth-lists.debian.net>
 Uploaders: Pino Toscano <pino@debian.org>,
-Build-Depends: debhelper-compat (= 13)
- , cmake (>= 3.16~), extra-cmake-modules (>= 5.19.0~)
- , pkgconf, pkg-kde-tools, qtbase5-dev (>= 5.12.0~)
- , libqt5charts5-dev (>= 5.12.0~)
- , qtwebengine5-dev (>= 5.12.0~)
- , libkf5archive-dev (>= 5.72.0~)
- , libkf5cddb-dev
- , libkf5codecs-dev (>= 5.72.0~)
- , libkf5completion-dev (>= 5.72.0~)
- , libkf5config-dev (>= 5.72.0~)
- , libkf5configwidgets-dev (>= 5.72.0~)
- , libkf5coreaddons-dev (>= 5.72.0~)
- , libkf5crash-dev (>= 5.72.0~)
- , libkf5doctools-dev (>= 5.72.0~)
- , libkf5filemetadata-dev (>= 5.72.0~)
- , libkf5guiaddons-dev (>= 5.72.0~)
- , libkf5i18n-dev (>= 5.72.0~)
- , libkf5iconthemes-dev (>= 5.72.0~)
- , libkf5itemmodels-dev (>= 5.72.0~)
- , libkf5jobwidgets-dev (>= 5.72.0~)
- , libkf5kio-dev (>= 5.72.0~)
- , libkf5newstuff-dev (>= 5.72.0~)
- , libkf5sane-dev
- , libkf5solid-dev (>= 5.72.0~)
- , libkf5sonnet-dev (>= 5.72.0~)
- , libkf5textwidgets-dev (>= 5.72.0~)
- , libkf5widgetsaddons-dev (>= 5.72.0~)
- , libkf5xmlgui-dev (>= 5.72.0~)
- , libtag1-dev, libyaz-dev, libpoppler-qt5-dev
- , libexempi-dev, libcsv-dev, libbtparse-dev
- , libcdio-dev
- , gettext
- , xvfb <!nocheck>, xauth <!nocheck>, kio <!nocheck>, yaz <!nocheck>
- , python3:any, dh-python
- , dbus <!nocheck>
- , tidy <!nocheck>
- , breeze-icon-theme <!nocheck>
-# missing in libtag1-dev
- , zlib1g-dev
-# missing in libkf5sane-dev
- , libksanecore-dev
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-kf6,
+               dh-sequence-python3,
+               breeze-icon-theme <!nocheck>,
+               cmake (>= 3.16~),
+               dbus <!nocheck>,
+               extra-cmake-modules,
+               gettext,
+               kio6 <!nocheck>,
+               libbtparse-dev,
+               libcdio-dev,
+               libcsv-dev,
+               libexempi-dev,
+               libkf6archive-dev (>= 5.240.0~),
+               libkf6codecs-dev (>= 5.240.0~),
+               libkf6completion-dev (>= 5.240.0~),
+               libkf6config-dev (>= 5.240.0~),
+               libkf6configwidgets-dev (>= 5.240.0~),
+               libkf6coreaddons-dev (>= 5.240.0~),
+               libkf6crash-dev (>= 5.240.0~),
+               libkf6doctools-dev (>= 5.240.0~),
+               libkf6filemetadata-dev (>= 5.240.0~),
+               libkf6guiaddons-dev (>= 5.240.0~),
+               libkf6i18n-dev (>= 5.240.0~),
+               libkf6iconthemes-dev (>= 5.240.0~),
+               libkf6itemmodels-dev (>= 5.240.0~),
+               libkf6jobwidgets-dev (>= 5.240.0~),
+               libkf6kio-dev (>= 5.240.0~),
+               libkf6newstuff-dev (>= 5.240.0~),
+               libkf6solid-dev (>= 5.240.0~),
+               libkf6sonnet-dev (>= 5.240.0~),
+               libkf6textwidgets-dev (>= 5.240.0~),
+               libkf6widgetsaddons-dev (>= 5.240.0~),
+               libkf6xmlgui-dev (>= 5.240.0~),
+               libkcddb6-dev,
+               libksane-dev,
+               libpoppler-qt6-dev [!i386],
+               libtag-dev,
+               libxml2-dev,
+               libxslt1-dev,
+               libyaz-dev,
+               pkgconf,
+               python3:any,
+               qt6-base-dev (>= 6.4.0~),
+               qt6-charts-dev (>= 6.4.0~),
+               qt6-webengine-dev (>= 6.4.0~),
+               tidy <!nocheck>,
+               xauth <!nocheck>,
+               xvfb <!nocheck>,
+               yaz <!nocheck>,
 Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Homepage: https://tellico-project.org/
@@ -51,10 +60,9 @@ Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/tellico
 Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/tellico.git
 
 Package: tellico
-Architecture: amd64 arm64 armhf i386
-Depends: tellico-data (= ${source:Version})
- , ${shlibs:Depends}, ${misc:Depends}
-Recommends: tellico-doc, kio-extras
+Architecture: any
+Depends: tellico-data (= ${source:Version}), ${misc:Depends}, ${shlibs:Depends},
+Recommends: kio-extras, tellico-doc,
 Description: Collection manager for books, videos, music, etc
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading
@@ -76,8 +84,8 @@ Description: Collection manager for books, videos, music, etc
 Package: tellico-doc
 Section: doc
 Architecture: all
-Depends: ${misc:Depends}
-Recommends: tellico, khelpcenter
+Depends: ${misc:Depends},
+Recommends: khelpcenter, tellico,
 Description: Collection manager for books, videos, music, etc [doc]
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading
@@ -100,8 +108,8 @@ Description: Collection manager for books, videos, music, etc [doc]
 
 Package: tellico-data
 Architecture: all
-Depends: ${misc:Depends}, ${perl:Depends}, ${python3:Depends}
-Recommends: tellico
+Depends: ${misc:Depends}, ${perl:Depends}, ${python3:Depends},
+Recommends: tellico,
 Breaks: tellico-scripts (<< 4.0-2~),
 Replaces: tellico-scripts (<< 4.0-2~),
 Description: Collection manager for books, videos, music, etc [data]

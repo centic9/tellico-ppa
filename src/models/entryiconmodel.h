@@ -30,6 +30,7 @@
 #include <QIdentityProxyModel>
 #include <QHash>
 #include <QCache>
+#include <QSet>
 
 namespace Tellico {
 
@@ -46,8 +47,8 @@ public:
   EntryIconModel(QObject* parent);
   virtual ~EntryIconModel();
 
-  void setSourceModel(QAbstractItemModel* newSourceModel) Q_DECL_OVERRIDE;
-  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
+  void setSourceModel(QAbstractItemModel* newSourceModel) override;
+  QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
 public Q_SLOTS:
   void clearCache();
@@ -57,6 +58,7 @@ private:
 
   mutable QHash<int, QIcon*> m_defaultIcons;
   mutable QCache<QString, QIcon> m_iconCache;
+  mutable QSet<int> m_updatedRows;
 };
 
 } // end namespace

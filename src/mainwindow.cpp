@@ -41,22 +41,20 @@
 #include "controller.h"
 #include "importdialog.h"
 #include "exportdialog.h"
-#include "core/filehandler.h" // needed so static mainWindow variable can be set
-#include "core/logger.h"
 #include "printhandler.h"
 #include "entryview.h"
 #include "entryiconview.h"
-#include "images/imagefactory.h" // needed so tmp files can get cleaned
+#include "filterview.h"
+#include "loanview.h"
+#include "images/imagefactory.h"
 #include "collections/collectioninitializer.h"
 #include "collections/bibtexcollection.h" // needed for bibtex string macro dialog
-#include "utils/bibtexhandler.h" // needed for bibtex options
-#include "utils/datafileregistry.h"
 #include "fetchdialog.h"
 #include "reportdialog.h"
 #include "bibtexkeydialog.h"
+#include "core/filehandler.h"
+#include "core/logger.h"
 #include "core/tellico_strings.h"
-#include "filterview.h"
-#include "loanview.h"
 #include "fetch/fetchmanager.h"
 #include "fetch/fetcherinitializer.h"
 #include "cite/actionmanager.h"
@@ -64,6 +62,7 @@
 #include "core/netaccess.h"
 #include "dbusinterface.h"
 #include "models/models.h"
+#include "models/entrymodel.h"
 #include "models/entryiconmodel.h"
 #include "models/entryselectionmodel.h"
 #include "newstuff/manager.h"
@@ -77,6 +76,8 @@
 #include "utils/cursorsaver.h"
 #include "utils/guiproxy.h"
 #include "utils/tellico_utils.h"
+#include "utils/bibtexhandler.h" // needed for bibtex options
+#include "utils/datafileregistry.h"
 #include "tellico_debug.h"
 
 #include <KComboBox>
@@ -98,7 +99,13 @@
 #include <KDualAction>
 #include <KXMLGUIFactory>
 #include <KAboutData>
+#include <KIconLoader>
 #include <kwidgetsaddons_version.h>
+
+#define HAVE_STYLE_MANAGER __has_include(<KStyleManager>)
+#if HAVE_STYLE_MANAGER
+#include <KStyleManager>
+#endif
 
 #include <QApplication>
 #include <QUndoStack>
@@ -157,6 +164,7 @@ MainWindow::MainWindow(QWidget* parent_/*=0*/) : KXmlGuiWindow(parent_),
     m_bibtexKeyDlg(nullptr),
     m_fetchDlg(nullptr),
     m_reportDlg(nullptr),
+    m_printHandler(nullptr),
     m_queuedFilters(0),
     m_initialized(false),
     m_newDocument(true),
@@ -661,7 +669,7 @@ void MainWindow::initActions() {
   action = actionCollection()->addAction(QStringLiteral("coll_reports"), this, SLOT(slotShowReportDialog()));
   action->setText(i18n("&Generate Reports..."));
   action->setIconText(i18n("Reports"));
-  action->setIcon(QIcon::fromTheme(QStringLiteral("text-rdf")));
+  action->setIcon(QIcon::fromTheme(QStringLiteral("document-multiple")));
   action->setToolTip(i18n("Generate collection reports"));
 
   action = actionCollection()->addAction(QStringLiteral("coll_convert_bibliography"), this, SLOT(slotConvertToBibliography()));
@@ -728,6 +736,10 @@ void MainWindow::initActions() {
    *************************************************/
   setStandardToolBarMenuEnabled(true);
   createStandardStatusBarAction();
+  // style config
+#if HAVE_STYLE_MANAGER
+  actionCollection()->addAction(QStringLiteral("settings_style"), KStyleManager::createConfigureAction(this));
+#endif
 
   m_lockLayout = new KDualAction(this);
   connect(m_lockLayout, &KDualAction::activeChanged, this, &MainWindow::slotToggleLayoutLock);
@@ -760,7 +772,6 @@ void MainWindow::initActions() {
   if(Logger::self()->logFile().isEmpty()) {
     action->setEnabled(false);
   }
-
 
   /*************************************************
    * Short cuts
@@ -872,7 +883,7 @@ void MainWindow::initView() {
   m_detailedView = m_viewStack->listView();
   Controller::self()->addObserver(m_detailedView);
   m_detailedView->setWhatsThis(i18n("<qt>The <i>Column View</i> shows the value of multiple fields "
-                                       "for each entry.</qt>"));
+                                    "for each entry.</qt>"));
   connect(Data::Document::self(), &Data::Document::signalCollectionImagesLoaded,
           m_detailedView, &DetailedListView::slotRefreshImages);
 
@@ -899,7 +910,7 @@ void MainWindow::initView() {
   Controller::self()->addObserver(m_groupView);
   m_viewTabs->addTab(m_groupView, QIcon::fromTheme(QStringLiteral("folder")), i18n("Groups"));
   m_groupView->setWhatsThis(i18n("<qt>The <i>Group View</i> sorts the entries into groupings "
-                                    "based on a selected field.</qt>"));
+                                 "based on a selected field.</qt>"));
   m_groupViewDock->setWidget(m_viewTabs);
   addDockWidget(Qt::LeftDockWidgetArea, m_groupViewDock);
   actionCollection()->addAction(QStringLiteral("toggle_group_widget"), m_groupViewDock->toggleViewAction());
@@ -908,6 +919,9 @@ void MainWindow::initView() {
                                                              m_detailedView->selectionModel(),
                                                              this);
   m_iconView->setSelectionModel(proxySelect);
+
+  // Do custom themes override widget palettes? Ensure the EntryView remains consistent with the others
+  m_entryView->setPalette(m_iconView->palette());
 
   // setting up GUI now rather than in initActions
   // initial parameter is default window size
@@ -964,25 +978,49 @@ void MainWindow::initFileOpen(bool nofile_) {
     m_detailedView->slotRefreshImages();
   }
 
-  // show welcome text, even when opening an existing collection
-  const int type = Kernel::self()->collectionType();
-  QString welcomeFile = DataFileRegistry::self()->locate(QStringLiteral("welcome.html"));
-  QString text = FileHandler::readTextFile(QUrl::fromLocalFile(welcomeFile));
-  text.replace(QLatin1String("$FGCOLOR$"), Config::templateTextColor(type).name());
-  text.replace(QLatin1String("$BGCOLOR$"), Config::templateBaseColor(type).name());
-  text.replace(QLatin1String("$COLOR1$"),  Config::templateHighlightedTextColor(type).name());
-  text.replace(QLatin1String("$COLOR2$"),  Config::templateHighlightedBaseColor(type).name());
-  text.replace(QLatin1String("$LINKCOLOR$"), Config::templateLinkColor(type).name());
-  text.replace(QLatin1String("$IMGDIR$"),  ImageFactory::imageDir().url());
-  text.replace(QLatin1String("$BANNER$"),
-                i18n("Welcome to the Tellico Collection Manager"));
-  text.replace(QLatin1String("$WELCOMETEXT$"),
-                i18n("<h3>Tellico is a tool for managing collections of books, "
-                    "videos, music, and whatever else you want to catalog.</h3>"
-                    "<h3>New entries can be added to your collection by "
-                    "<a href=\"tc:///coll_new_entry\">entering data manually</a> or by "
-                    "<a href=\"tc:///edit_search_internet\">downloading data</a> from "
-                    "various Internet sources.</h3>"));
+  QString text;
+  if(Config::showWelcome()) {
+    // show welcome text, even when opening an existing collection
+    const auto welcomeFile = DataFileRegistry::self()->locate(QStringLiteral("welcome.html"));
+    text = FileHandler::readTextFile(QUrl::fromLocalFile(welcomeFile));
+    const int type = Kernel::self()->collectionType();
+    text.replace(QLatin1String("$FGCOLOR$"), Config::templateTextColor(type).name());
+    text.replace(QLatin1String("$BGCOLOR$"), Config::templateBaseColor(type).name());
+    text.replace(QLatin1String("$COLOR1$"),  Config::templateHighlightedTextColor(type).name());
+    text.replace(QLatin1String("$COLOR2$"),  Config::templateHighlightedBaseColor(type).name());
+    text.replace(QLatin1String("$LINKCOLOR$"), Config::templateLinkColor(type).name());
+    text.replace(QLatin1String("$IMGDIR$"),  ImageFactory::imageDir().url());
+    text.replace(QLatin1String("$SUBTITLE$"),  i18n("Collection management software, free and simple"));
+    text.replace(QLatin1String("$BANNER$"),
+                 i18n("Welcome to the Tellico Collection Manager"));
+    text.replace(QLatin1String("$WELCOMETEXT$"),
+                 i18n("<h3>Tellico is a tool for managing collections of books, "
+                      "videos, music, and whatever else you want to catalog.</h3>"
+                      "<h3>New entries can be added to your collection by "
+                      "<a href=\"tc:///coll_new_entry\">entering data manually</a> or by "
+                      "<a href=\"tc:///edit_search_internet\">downloading data</a> from "
+                      "various Internet sources.</h3>")
+                 .replace(QLatin1String("<h3>"),  QLatin1String("<p>"))
+                 .replace(QLatin1String("</h3>"), QLatin1String("</p>")));
+    text.replace(QLatin1String("$FOOTER$"),
+                 i18n("More information can be found in the <a href=\"help:/tellico\">documentation</a>. "
+                      "You may also <a href=\"tc:///disable_welcome\">disable this welcome screen</a>."));
+    QString iconPath = KIconLoader::global()->iconPath(QLatin1String("tellico"), -KIconLoader::SizeEnormous);
+    if(iconPath.startsWith(QLatin1String(":/"))) {
+      iconPath = QStringLiteral("qrc") + iconPath;
+    } else {
+      iconPath = QStringLiteral("file://") + iconPath;
+    }
+
+    text.replace(QLatin1String("$ICON$"),
+                 QStringLiteral("<img src=\"%1\" align=\"top\" height=\"%2\" width=\"%2\" title=\"tellico\" />")
+                 .arg(iconPath)
+                 .arg(KIconLoader::SizeEnormous));
+  } else {
+    const int type = Kernel::self()->collectionType();
+    text = QStringLiteral("<html><style>html { background-color:%1; }</style></html>")
+           .arg(Config::templateBaseColor(type).name());
+  }
   m_entryView->showText(text);
 
   m_initialized = true;
@@ -1441,13 +1479,13 @@ bool MainWindow::fileSave() {
     }
 
     GUI::CursorSaver cs(Qt::WaitCursor);
+    myLog() << "Saving collection file:" << Data::Document::self()->URL().toDisplayString(QUrl::PreferLocalFile);
     if(Data::Document::self()->saveDocument(Data::Document::self()->URL())) {
       Kernel::self()->resetHistory();
       m_newDocument = false;
       updateCaption(false);
       m_fileSave->setEnabled(false);
-      // TODO: call a method of the model instead of the view here
-      m_detailedView->resetEntryStatus();
+      m_detailedView->sourceModel()->clearSaveState();
     } else {
       ret = false;
     }
@@ -1497,7 +1535,7 @@ bool MainWindow::fileSaveAs() {
       updateCaption(false);
       m_newDocument = false;
       m_fileSave->setEnabled(false);
-      m_detailedView->resetEntryStatus();
+      m_detailedView->sourceModel()->clearSaveState();
     } else {
       ret = false;
     }
@@ -1555,13 +1593,15 @@ void MainWindow::doPrint(PrintAction action_) {
     }
   }
 
-  PrintHandler printHandler(this);
-  printHandler.setEntries(m_detailedView->visibleEntries());
-  printHandler.setColumns(m_detailedView->visibleColumns());
+  if(!m_printHandler) {
+    m_printHandler = new PrintHandler(this);
+  }
+  m_printHandler->setEntries(m_detailedView->visibleEntries());
+  m_printHandler->setColumns(m_detailedView->visibleColumns());
   if(action_ == Print) {
-    printHandler.print();
+    m_printHandler->print();
   } else {
-    printHandler.printPreview();
+    m_printHandler->printPreview();
   }
 
   StatusBar::self()->clearStatus();
@@ -2299,10 +2339,14 @@ void MainWindow::slotUpdateToolbarIcons() {
 
 void MainWindow::slotGroupLabelActivated() {
   // need entry grouping combo id
-  foreach(QWidget* widget, m_entryGrouping->associatedWidgets()) {
-    if(::qobject_cast<KToolBar*>(widget)) {
-      QWidget* container = m_entryGrouping->requestWidget(widget);
-      QComboBox* combo = ::qobject_cast<QComboBox*>(container); //krazy:exclude=qclasses
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+  for(auto obj : m_entryGrouping->associatedWidgets()) {
+#else
+  for(auto obj : m_entryGrouping->associatedObjects()) {
+#endif
+    if(auto widget = ::qobject_cast<KToolBar*>(obj)) {
+      auto container = m_entryGrouping->requestWidget(widget);
+      auto combo = ::qobject_cast<QComboBox*>(container); //krazy:exclude=qclasses
       if(combo) {
         combo->showPopup();
         break;
@@ -2368,9 +2412,15 @@ void MainWindow::updateCollectionActions() {
 void MainWindow::updateEntrySources() {
   const QString actionListName = QStringLiteral("update_entry_actions");
   unplugActionList(actionListName);
-  foreach(QAction* action, m_fetchActions) {
-    foreach(QWidget* widget, action->associatedWidgets()) {
-      widget->removeAction(action);
+  for(auto action : m_fetchActions) {
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
+    for(auto obj : action->associatedWidgets()) {
+#else
+    for(auto obj : action->associatedObjects()) {
+#endif
+      if(auto widget = ::qobject_cast<QWidget*>(obj)) {
+        widget->removeAction(action);
+      }
     }
     m_updateMapper->removeMappings(action);
   }
@@ -2485,7 +2535,12 @@ bool MainWindow::importCollection(Tellico::Data::CollPtr coll_, Tellico::Import:
 
 void MainWindow::slotURLAction(const QUrl& url_) {
   Q_ASSERT(url_.scheme() == QLatin1String("tc"));
-  QString actionName = url_.fileName();
+  const QString actionName = url_.fileName();
+  if(actionName == QLatin1String("disable_welcome")) {
+    Config::setShowWelcome(false);
+    m_entryView->showText(QString());
+    return; // done
+  }
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
   QAction* action = this->action(actionName.toLatin1().constData());
 #else
@@ -2608,6 +2663,10 @@ void MainWindow::showLog() {
       if(file.open(QFile::ReadOnly | QIODevice::Text)) {
         QTextStream in(&file);
         viewer->setPlainText(in.readAll());
+        auto cursor = viewer->textCursor();
+        cursor.movePosition(QTextCursor::End);
+        viewer->setTextCursor(cursor);
+        viewer->ensureCursorVisible(); // scroll to bottom
       }
     });
     connect(Logger::self(), &Logger::updated, timer, QOverload<>::of(&QTimer::start));

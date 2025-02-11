@@ -28,6 +28,10 @@
 #include "datavectors.h"
 
 #include <QObject>
+#include <QEventLoop>
+
+class QPrinter;
+class QWebEngineView;
 
 namespace Tellico {
 
@@ -35,7 +39,7 @@ class PrintHandler : public QObject {
 Q_OBJECT
 
 public:
-  PrintHandler(QObject* parent_);
+  PrintHandler(QObject* parent=nullptr);
   ~PrintHandler();
 
   void setEntries(const Data::EntryList& entries);
@@ -44,13 +48,23 @@ public:
   void print();
   void printPreview();
 
+private Q_SLOTS:
+  void printDocument(QPrinter* printer);
+  void printFinished(bool success);
+  void pdfPrintFinished(const QString& fileName, bool success);
+
 private:
   QString generateHtml() const;
+  bool printPrepare();
 
-  bool m_inPrintPreview;
   Data::EntryList m_entries;
   QStringList m_columns;
   QString m_html;
+
+  std::unique_ptr<QPrinter> m_printer;
+  std::unique_ptr<QWebEngineView> m_view;
+  QEventLoop m_waitForResult;
+  bool m_inPrintPreview;
 };
 
 }

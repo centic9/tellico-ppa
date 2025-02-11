@@ -223,7 +223,6 @@ void HathiTrustFetcher::slotComplete(KJob* job_) {
   QJsonDocument doc = QJsonDocument::fromJson(data);
   QVariantMap resultMap = doc.object().toVariantMap();
   if(resultMap.isEmpty()) {
-    myDebug() << "no results";
     stop();
     return;
   }
@@ -232,20 +231,20 @@ void HathiTrustFetcher::slotComplete(KJob* job_) {
   for( ; i != resultMap.constEnd(); ++i) {
     const QVariantMap recordMap = i.value().toMap().value(QStringLiteral("records")).toMap();
     if(recordMap.isEmpty()) {
-      myDebug() << "empty result map";
       continue;
     }
     // we know there's a record, so no need to check for existence of first iterator in map
     QVariantMap::const_iterator ri = recordMap.constBegin();
-    if(ri == recordMap.constEnd()) {
-      myWarning() << "no iterator in record";
-      continue;
-    }
     QString marcxml = ri.value().toMap().value(QStringLiteral("marc-xml")).toString();
     // HathiTrust doesn't always include the XML NS in the JSON results. Assume it's always
     // MARC XML and check that
     QDomDocument dom;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 5, 0))
     if(dom.setContent(marcxml, true /* namespace processing */) && dom.documentElement().namespaceURI().isEmpty()) {
+#else
+    if(dom.setContent(marcxml, QDomDocument::ParseOption::UseNamespaceProcessing) &&
+       dom.documentElement().namespaceURI().isEmpty()) {
+#endif
       const QString rootName = dom.documentElement().tagName();
       myDebug() << "no namespace, attempting to set on" << rootName << "element";
       QRegularExpression rootRx(QLatin1Char('<') + rootName + QLatin1Char('>'));

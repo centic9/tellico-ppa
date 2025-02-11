@@ -1,3 +1,59 @@
+tellico (4.1.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Tweak the salsa CI configuration:
+    - re-enable the i386 build, as QtWebEngine is actually present there (doh!)
+    - drop all the reprotest options, no more needed
+  * Modernize building:
+    - add the dh-sequence-kf6 build dependency to use the kf6 addon
+      automatically, removing pkg-kde-tools
+    - add the dh-sequence-python3 build dependency to use the python3 addon
+      automatically, removing dh-python
+    - drop all the manually specified addons and buildsystem for dh
+
+ -- Pino Toscano <pino@debian.org>  Tue, 11 Feb 2025 20:10:13 +0100
+
+tellico (4.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * CI: disable i386 build, not possible due to the QtWebEngine requirement.
+  * Switch the kio build dependency to kio6; missed in the Qt 6 switch.
+  * Switch the architecture back to any: the QtWebEngine requirement already
+    limits on which architectures tellico can be built.
+  * Stop exporting KDE_FORK_SLAVES in debian/rules, as that variable/mode is
+    long gone from kio.
+  * Update the patches:
+    - tests-disable-fetchertest.diff: drop, fixed upstream
+
+ -- Pino Toscano <pino@debian.org>  Tue, 04 Feb 2025 21:53:42 +0100
+
+tellico (4.0.1-4) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Aurélien COUDERC ]
+  * Update watch file.
+
+  [ Boyuan Yang ]
+  * debian/control: Use build-dependency package name from taglib 2.x.
+    (libtag1-dev => libtag-dev)
+  * Rebuild against taglib 2.0.2.
+
+ -- Boyuan Yang <byang@debian.org>  Sun, 12 Jan 2025 20:32:22 -0500
+
+tellico (4.0.1-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Aurélien COUDERC ]
+  * Use new mailing list email in Maintainers field.
+  * Build against Qt6, update build-deps and deps with the info from cmake.
+  * Add patch to skip failing filelisting test.
+  * Drop reproducible=-fixfilepath build option, builds are now made in
+    a fixed location.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Sun, 29 Dec 2024 13:24:34 +0100
+
 tellico (4.0.1-1) unstable; urgency=medium
 
   * New upstream release.

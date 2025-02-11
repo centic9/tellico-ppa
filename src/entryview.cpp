@@ -109,7 +109,12 @@ using Tellico::EntryViewPage;
 
 EntryViewPage::EntryViewPage(QWidget* parent)
     : QWebEnginePage(parent) {
+  // The right way to do this should be to use a transparent color
+  // but for non-KDE sessions, QPalette and KColorScheme are not necessarily in-sync
+  // In such cases, parent->palette().window().color() would be more appropriate but
+  // that breaks on a Plasma session. Using KCOlorScheme is best compromise for now
   setBackgroundColor(KColorScheme().background().color());
+//  setBackgroundColor(Qt::transparent);
   settings()->setAttribute(QWebEngineSettings::JavascriptEnabled, false);
   settings()->setAttribute(QWebEngineSettings::PluginsEnabled, false);
   settings()->setAttribute(QWebEngineSettings::LocalContentCanAccessRemoteUrls, true);
@@ -142,7 +147,7 @@ QWebEnginePage* EntryViewPage::createWindow(QWebEnginePage::WebWindowType type_)
   connect(page, &QWebEnginePage::urlChanged, this, [this](const QUrl& u) {
     openExternalLink(u);
     auto page = static_cast<QWebEnginePage*>(sender());
-    page->action(QWebEnginePage::Stop)->trigger(); // stop the loading, further is unneccesary
+    page->action(QWebEnginePage::Stop)->trigger(); // stop the loading, further is unnecessary
     page->deleteLater();
   });
   return page;
@@ -155,7 +160,7 @@ void EntryViewPage::openExternalLink(const QUrl& url_) {
 
 EntryView::EntryView(QWidget* parent_) : QWebEngineView(parent_),
     m_handler(nullptr), m_tempFile(nullptr), m_useGradientImages(true), m_checkCommonFile(true) {
-  EntryViewPage* page = new EntryViewPage(this);
+  auto page = new EntryViewPage(this);
   setPage(page);
   if(m_printer.resolution() < 300) {
     m_printer.setResolution(300);
@@ -168,7 +173,7 @@ EntryView::EntryView(QWidget* parent_) : QWebEngineView(parent_),
           this, &EntryView::signalTellicoAction);
 
   setAcceptDrops(true);
-  DropHandler* drophandler = new DropHandler(this);
+  auto drophandler = new DropHandler(this);
   installEventFilter(drophandler);
 
   clear(); // needed for initial layout

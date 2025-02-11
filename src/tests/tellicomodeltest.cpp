@@ -26,6 +26,7 @@
 
 #include "tellicomodeltest.h"
 #include "modeltest.h"
+#include "../models/models.h"
 #include "../models/entrymodel.h"
 #include "../models/entryiconmodel.h"
 #include "../models/entrysortmodel.h"
@@ -155,6 +156,11 @@ void TellicoModelTest::testEntryModel() {
   for(Tellico::ModelIterator eIt(&entryModel); eIt.entry(); ++eIt) {
     QVERIFY(eIt.isValid());
   }
+
+  // check valid SaveStateRole
+  index = entryModel.index(0, entryModel.columnCount()-1);
+  entryModel.setData(index, Tellico::ModifiedState, Tellico::SaveStateRole);
+  entryModel.clearSaveState();
 }
 
 void TellicoModelTest::testFilterModel() {

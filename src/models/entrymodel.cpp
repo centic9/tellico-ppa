@@ -24,6 +24,7 @@
 
 #include "entrymodel.h"
 #include "models.h"
+#include "../constants.h"
 #include "../collection.h"
 #include "../entry.h"
 #include "../field.h"
@@ -59,9 +60,9 @@ int EntryModel::rowCount(const QModelIndex& index_) const {
   return m_fields.isEmpty() ? 0 : m_entries.count();
 }
 
-int EntryModel::columnCount(const QModelIndex& index_) const {
-  // valid indexes have no columns
-  if(index_.isValid()) {
+int EntryModel::columnCount(const QModelIndex& parent_) const {
+  // valid parents have no children and thus no columns
+  if(parent_.isValid()) {
     return 0;
   }
   return m_fields.count();
@@ -145,7 +146,11 @@ QVariant EntryModel::data(const QModelIndex& index_, int role_) const {
         // convert pixmap to icon
         QVariant v = requestImage(entry, value);
         if(!v.isNull() && v.canConvert<QPixmap>()) {
-          return QIcon(v.value<QPixmap>());
+          QPixmap p = v.value<QPixmap>();
+          if(p.height() > MAX_ENTRY_ICON_SIZE || p.width() > MAX_ENTRY_ICON_SIZE) {
+            p = p.scaled(MAX_ENTRY_ICON_SIZE, MAX_ENTRY_ICON_SIZE, Qt::KeepAspectRatioByExpanding);
+          }
+          return QIcon(p);
         }
       }
       return QVariant();
@@ -247,9 +252,9 @@ bool EntryModel::setData(const QModelIndex& index_, const QVariant& value_, int 
     m_saveStates.remove(index_.row());
   } else {
     Q_ASSERT(state == NewState || state == ModifiedState);
-    m_saveStates.insert(index_.row(), value_.toInt());
+    m_saveStates.insert(index_.row(), state);
   }
-  emit dataChanged(index_, index_);
+  emit dataChanged(index_, index_, QVector<int>() << SaveStateRole);
   return true;
 }
 
@@ -275,7 +280,7 @@ void EntryModel::clearSaveState() {
       // will continue iterating over the original hash, ignoring the modified copy.
       m_saveStates.remove(i.key());
       QModelIndex idx1 = createIndex(i.key(), 0);
-      QModelIndex idx2 = createIndex(i.key(), m_fields.count());
+      QModelIndex idx2 = createIndex(i.key(), m_fields.count() - 1);
       emit dataChanged(idx1, idx2, QVector<int>() << SaveStateRole);
     }
   }
@@ -410,7 +415,7 @@ QVariant EntryModel::requestImage(Data::EntryPtr entry_, const QString& id_) con
     return QVariant();
   }
   // if it's not a local image, request that it be downloaded
-  if(ImageFactory::hasLocalImage(id_)) {
+  if(ImageFactory::self()->hasImageInMemory(id_)) {
     const Data::Image& img = ImageFactory::imageById(id_);
     if(!img.isNull()) {
       return img.convertToPixmap();
@@ -419,15 +424,19 @@ QVariant EntryModel::requestImage(Data::EntryPtr entry_, const QString& id_) con
     m_requestedImages.insert(id_, entry_);
     ImageFactory::requestImageById(id_);
   }
-  return QVariant();
+  // fallback to tellico icon
+  auto icon = QIcon::fromTheme(QStringLiteral("tellico"), QIcon(QLatin1String(":/icons/tellico")));
+  const auto sizes = icon.availableSizes();
+  Q_ASSERT(!sizes.isEmpty());
+  return icon.pixmap(sizes.last());
 }
 
 void EntryModel::refreshImage(const QString& id_) {
-  QMultiHash<QString, Data::EntryPtr>::iterator i = m_requestedImages.find(id_);
-  while(i != m_requestedImages.end() && i.key() == id_) {
+  for(auto i = m_requestedImages.find(id_); i != m_requestedImages.end() && i.key() == id_; ++i) {
     QModelIndex index = indexFromEntry(i.value());
-    emit dataChanged(index, index);
-    ++i;
+    if(index.isValid()) {
+      emit dataChanged(index, index);
+    }
   }
   m_requestedImages.remove(id_);
 }

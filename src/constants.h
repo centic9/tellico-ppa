@@ -1,5 +1,5 @@
 /***************************************************************************
-    Copyright (C) 2012 Robby Stephenson <robby@periapsis.org>
+    Copyright (C) 2024 Robby Stephenson <robby@periapsis.org>
  ***************************************************************************/
 
 /***************************************************************************
@@ -22,36 +22,15 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef TELLICO_VINOXMLIMPORTER_H
-#define TELLICO_VINOXMLIMPORTER_H
-
-#include "xsltimporter.h"
-#include "../datavectors.h"
+#ifndef TELLICO_CONSTANTS_H
+#define TELLICO_CONSTANTS_H
 
 namespace Tellico {
-  namespace Import {
+  static const int DEFAULT_ENTRY_ICON_SIZE = 96; // same as in tellico_config.kcfg
+  static const int MIN_ENTRY_ICON_SIZE = 64;
+  static const int MAX_ENTRY_ICON_SIZE = 512;
+  static const int SMALL_INCREMENT_ICON_SIZE = 1;
+  static const int LARGE_INCREMENT_ICON_SIZE = 8;
+}
 
-/**
- *@author Robby Stephenson
- */
-class VinoXMLImporter : public XSLTImporter {
-Q_OBJECT
-
-public:
-  /**
-   */
-  VinoXMLImporter(const QUrl& url);
-
-  /**
-   */
-  virtual QWidget* widget(QWidget*) override { return nullptr; }
-  virtual bool canImport(int type) const override;
-
-private:
-  // private so it can't be changed accidentally
-  void setXSLTURL(const QUrl& url);
-};
-
-  } // end namespace
-} // end namespace
 #endif

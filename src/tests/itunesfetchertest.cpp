@@ -159,11 +159,11 @@ void ItunesFetcherTest::testEscapingGravity() {
   Tellico::Data::EntryPtr entry = results.at(0);
   QVERIFY(entry);
 
-  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Escaping Gravity: My Quest to Transform NASA and Launch a New Space Age (Unabridged)"));
-  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Lori Garver"));
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Escaping Gravity: My Quest to Transform NASA and Launch a New Space Age"));
+  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Lori Garver; Walter Isaacson; Grover Gardner"));
   QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2022"));
   QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("E-Book"));
-  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Science & Nature"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Biographies & Memoirs"));
   QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Blackstone Publishing"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
@@ -213,4 +213,28 @@ void ItunesFetcherTest::testMultiDisc() {
   QStringList tracks2 = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("track2")));
   QCOMPARE(tracks2.count(), 23);
   QVERIFY(!tracks2.first().isEmpty());
+}
+
+// https://bugs.kde.org/show_bug.cgi?id=499401
+void ItunesFetcherTest::testMultiDiscOldWay() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("itunes"));
+  cg.writeEntry("Split Tracks By Disc", false);
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Album, Tellico::Fetch::Keyword,
+                                       QStringLiteral("Hamilton: An American Musical"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ItunesFetcher(this));
+  fetcher->readConfig(cg);
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QVERIFY(!results.isEmpty());
+
+  Tellico::Data::EntryPtr entry = results.at(0);
+  auto trackField = entry->collection()->fieldByName(QStringLiteral("track"));
+  QVERIFY(trackField);
+  QVERIFY(!entry->collection()->hasField(QStringLiteral("track2")));
+  // verify the title was not updated to include the disc number
+  QVERIFY(trackField->title() == i18n("Tracks"));
+  QStringList tracks = Tellico::FieldFormat::splitTable(entry->field(QStringLiteral("track")));
+  QCOMPARE(tracks.count(), 46);
 }

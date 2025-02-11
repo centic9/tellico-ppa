@@ -103,7 +103,7 @@ namespace {
   class TreeWidget : public QTreeWidget {
   public:
     TreeWidget(QWidget* p) : QTreeWidget(p) {}
-    virtual int sizeHintForColumn(int c) const Q_DECL_OVERRIDE { return QTreeWidget::sizeHintForColumn(c); }
+    virtual int sizeHintForColumn(int c) const override { return QTreeWidget::sizeHintForColumn(c); }
   };
 }
 
@@ -348,7 +348,7 @@ FetchDialog::~FetchDialog() {
 #ifdef ENABLE_WEBCAM
   if(m_barcodeRecognitionThread) {
     m_barcodeRecognitionThread->stop();
-    if(!m_barcodeRecognitionThread->wait( 1000 )) {
+    if(!m_barcodeRecognitionThread->wait(1000)) {
       m_barcodeRecognitionThread->terminate();
     }
     delete m_barcodeRecognitionThread;
@@ -515,7 +515,6 @@ void FetchDialog::slotResultFound(Tellico::Fetch::FetchResult* result_) {
     const int w2 = m_treeWidget->columnWidth(2);
     const int w3 = m_treeWidget->columnWidth(3);
     const int wt = m_treeWidget->width();
-//    myDebug() << "OLD:" << w0 << w1 << w2 << w3 << wt << (w0+w1+w2+w3);
 
     // whatever is leftover from resizing 3, split between 1 and 2
     if(wt > (w0 + w1 + w2 + w3)) {
@@ -526,11 +525,11 @@ void FetchDialog::slotResultFound(Tellico::Fetch::FetchResult* result_) {
         const int w3new = qMin(w3, w3rec);
         const int diff = wt - w0 - w1 - w2 - w3new;
         const int w1new = qBound(w1, w1rec, w1 + diff/2 - 4);
-        const int w2new = qBound(w2, wt - w0 - w1new - w3new, w2rec);
+        const int w2new = w2 < w2rec ? qBound(w2, wt - w0 - w1new - w3new, w2rec)
+                                     : qBound(w2rec, wt - w0 - w1new - w3new, w2);
         m_treeWidget->setColumnWidth(1, w1new);
         m_treeWidget->setColumnWidth(2, w2new);
         m_treeWidget->setColumnWidth(3, w3new);
-//        myDebug() << "New:" << w0 << w1new << w2new << w3new << wt << (w0+w1new+w2new+w3new);
       }
     }
     m_treeWidget->header()->setStretchLastSection(true);
@@ -923,7 +922,7 @@ void FetchDialog::openBarcodePreview() {
             this, &FetchDialog::slotBarcodeRecognized);
     connect(m_barcodeRecognitionThread, &barcodeRecognition::barcodeRecognitionThread::gotImage,
             this, &FetchDialog::slotBarcodeGotImage);
-//    connect( m_barcodePreview, SIGNAL(destroyed(QObject *)), this, SLOT(slotBarcodeStop()) );
+//    connect(m_barcodePreview, SIGNAL(destroyed(QObject *)), this, SLOT(slotBarcodeStop()));
     m_barcodeRecognitionThread->start();
   }
 #endif

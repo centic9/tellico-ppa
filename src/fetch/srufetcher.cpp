@@ -319,7 +319,11 @@ void SRUFetcher::slotComplete(KJob*) {
 
   // first check for SRU errors
   QDomDocument dom;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 5, 0))
   if(!dom.setContent(result, true /*namespace*/)) {
+#else
+  if(!dom.setContent(result, QDomDocument::ParseOption::UseNamespaceProcessing)) {
+#endif
     myWarning() << "The server did not return valid XML.";
     stop();
     return;
@@ -372,7 +376,17 @@ void SRUFetcher::slotComplete(KJob*) {
     }
   }
   if(!modsResult.isEmpty() && initHandler(MODS)) {
-    Import::TellicoImporter imp(m_handlers[MODS]->applyStylesheet(modsResult));
+    const auto tellicoXml = m_handlers[MODS]->applyStylesheet(modsResult);
+#if 0
+    myWarning() << "Remove debug from srufetcher.cpp";
+    QFile f(QString::fromLatin1("/tmp/test-mods2tellico.xml"));
+    if(f.open(QIODevice::WriteOnly)) {
+      QTextStream t(&f);
+      t << tellicoXml;
+    }
+    f.close();
+#endif
+    Import::TellicoImporter imp(tellicoXml);
     coll = imp.collection();
     if(!msg.isEmpty()) {
       msg += QLatin1Char('\n');

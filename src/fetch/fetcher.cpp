@@ -94,6 +94,8 @@ void Fetcher::startUpdate(Tellico::Data::EntryPtr entry_) {
     return;
   } else {
     myLog() << "Starting update from" << source() << "for" << entry_->title();
+    const auto keyMap = Fetch::Manager::self()->keyMap();
+    myLog() << "Request type is" << keyMap.value(m_request.key()) << "- value is" << m_request.value();
   }
   search();
 }
@@ -161,6 +163,7 @@ void Fetcher::setMessageHandler(MessageHandler* handler) {
 
 void Fetcher::message(const QString& message_, int type_) const {
   if(m_messager) {
+    myLog() << message_;
     m_messager->send(message_, static_cast<MessageHandler::Type>(type_));
   }
 }

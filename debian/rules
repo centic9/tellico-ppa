@@ -8,6 +8,12 @@
 %:
 	dh $@
 
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DBUILD_WITH_QT6=ON \
+		-DBUILD_TESTS=false \
+		-DENABLE_WEBCAM=true
+
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 	cd obj-* && $(MAKE) install DESTDIR=$(CURDIR)/test_root

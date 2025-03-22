@@ -53,6 +53,9 @@
 #include <QDebug>
 
 int main(int argc, char* argv[]) {
+  // ensure a fixed order of attributes in the exported XML
+  qSetGlobalQHashSeed(42);
+
   /**
    * Trigger initialisation of proper icon theme
    * see https://invent.kde.org/frameworks/kiconthemes/-/merge_requests/136

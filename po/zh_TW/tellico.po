@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tellico\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2024-09-21 02:33+0000\n"
+"POT-Creation-Date: 2025-02-10 02:29+0000\n"
 "PO-Revision-Date: 2024-07-27 13:49+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -167,7 +167,7 @@ msgstr "名稱"
 msgid "Collection Size"
 msgstr "收藏大小"
 
-#: src/charts/collectionsizereport.cpp:93 src/mainwindow.cpp:1666
+#: src/charts/collectionsizereport.cpp:93 src/mainwindow.cpp:1706
 #, kde-format
 msgid "Total entries: %1"
 msgstr "所有項目：%1"
@@ -295,186 +295,192 @@ msgstr "棋盤遊戲類收藏"
 msgid "Custom Collection"
 msgstr "自訂收藏"
 
-#: src/collectionfieldsdialog.cpp:82
+#: src/collectionfieldsdialog.cpp:69 src/collectionfieldsdialog.cpp:798
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "The internal field name is <em>%1</em>."
+msgstr ""
+
+#: src/collectionfieldsdialog.cpp:87
 #, kde-format
 msgid "Collection Fields"
 msgstr "收藏欄位"
 
-#: src/collectionfieldsdialog.cpp:92
+#: src/collectionfieldsdialog.cpp:97
 #, kde-format
 msgid "Current Fields"
 msgstr "目前欄位"
 
-#: src/collectionfieldsdialog.cpp:113
+#: src/collectionfieldsdialog.cpp:118
 #, kde-format
 msgctxt "New Field"
 msgid "&New"
 msgstr "新增(&N)"
 
-#: src/collectionfieldsdialog.cpp:116
+#: src/collectionfieldsdialog.cpp:121
 #, kde-format
 msgid "Add a new field to the collection"
 msgstr "新增欄位到收藏"
 
-#: src/collectionfieldsdialog.cpp:117
+#: src/collectionfieldsdialog.cpp:122
 #, kde-format
 msgctxt "Delete Field"
 msgid "Delete"
 msgstr "刪除"
 
-#: src/collectionfieldsdialog.cpp:120
+#: src/collectionfieldsdialog.cpp:125
 #, kde-format
 msgid "Remove a field from the collection"
 msgstr "從收藏中移除欄位"
 
-#: src/collectionfieldsdialog.cpp:132
+#: src/collectionfieldsdialog.cpp:137
 #, kde-format
 msgid ""
 "Move this field up in the list. The list order is important for the layout "
 "of the entry editor."
 msgstr "在清單中將此欄位上移。清單裡的順序會影響項目編輯器的佈局。"
 
-#: src/collectionfieldsdialog.cpp:137
+#: src/collectionfieldsdialog.cpp:142
 #, kde-format
 msgid ""
 "Move this field down in the list. The list order is important for the layout "
 "of the entry editor."
 msgstr "在清單中將此欄位下移。清單裡的順序會影響項目編輯器的佈局。"
 
-#: src/collectionfieldsdialog.cpp:148
+#: src/collectionfieldsdialog.cpp:153
 #, kde-format
 msgid "Field Properties"
 msgstr "欄位屬性"
 
-#: src/collectionfieldsdialog.cpp:157
+#: src/collectionfieldsdialog.cpp:162
 #, kde-format
 msgid "&Title:"
 msgstr "標題(&T)："
 
-#: src/collectionfieldsdialog.cpp:162
+#: src/collectionfieldsdialog.cpp:167
 #, kde-format
 msgid "The title of the field"
 msgstr "欄位的標題"
 
-#: src/collectionfieldsdialog.cpp:167
+#: src/collectionfieldsdialog.cpp:172
 #, kde-format
 msgid "T&ype:"
 msgstr "類型(&Y)："
 
-#: src/collectionfieldsdialog.cpp:173
+#: src/collectionfieldsdialog.cpp:178
 #, kde-format
 msgid "The type of the field determines what values may be used. "
 msgstr "欄位的型態決定了它能使用怎麼樣的值。"
 
-#: src/collectionfieldsdialog.cpp:174
+#: src/collectionfieldsdialog.cpp:179
 #, kde-format
 msgid "<i>Simple Text</i> is used for most fields. "
 msgstr "<i>簡單文字</i>可以用在大部份的欄位。"
 
-#: src/collectionfieldsdialog.cpp:175
+#: src/collectionfieldsdialog.cpp:180
 #, kde-format
 msgid "<i>Paragraph</i> is for large text blocks. "
 msgstr "<i>段落</i>用於大型的文字輸入區塊。"
 
-#: src/collectionfieldsdialog.cpp:176
+#: src/collectionfieldsdialog.cpp:181
 #, kde-format
 msgid "<i>Choice</i> limits the field to certain values. "
 msgstr "<i>選項</i>讓此欄位只有特定的值可以選擇。"
 
-#: src/collectionfieldsdialog.cpp:177
+#: src/collectionfieldsdialog.cpp:182
 #, kde-format
 msgid "<i>Checkbox</i> is for a simple yes/no value. "
 msgstr "<i>勾選盒</i>用於表達簡單的「是/否」。"
 
-#: src/collectionfieldsdialog.cpp:178
+#: src/collectionfieldsdialog.cpp:183
 #, kde-format
 msgid "<i>Number</i> indicates that the field contains a numerical value. "
 msgstr "<i>數值</i>表示此欄位裡是一個數值。"
 
-#: src/collectionfieldsdialog.cpp:179
+#: src/collectionfieldsdialog.cpp:184
 #, kde-format
 msgid ""
 "<i>URL</i> is for fields which refer to URLs, including references to other "
 "files. "
 msgstr "<i>網址</i>表示此欄位裡的是網址，包含檔案的參考。"
 
-#: src/collectionfieldsdialog.cpp:180
+#: src/collectionfieldsdialog.cpp:185
 #, kde-format
 msgid "A <i>Table</i> may hold one or more columns of values. "
 msgstr "<i>表格</i>可以用於儲存一個以上的值。"
 
-#: src/collectionfieldsdialog.cpp:181
+#: src/collectionfieldsdialog.cpp:186
 #, kde-format
 msgid "An <i>Image</i> field holds a picture. "
 msgstr "<i>影像</i>欄位用於存放影像。"
 
-#: src/collectionfieldsdialog.cpp:182
+#: src/collectionfieldsdialog.cpp:187
 #, kde-format
 msgid ""
 "A <i>Date</i> field can be used for values with a day, month, and year. "
 msgstr "<i>日期</i>欄位用於存放年月日。"
 
-#: src/collectionfieldsdialog.cpp:183
+#: src/collectionfieldsdialog.cpp:188
 #, kde-format
 msgid "A <i>Rating</i> field uses stars to show a rating number. "
 msgstr "<i>評比</i>欄位裡會有星星，表示評分。"
 
-#: src/collectionfieldsdialog.cpp:198
+#: src/collectionfieldsdialog.cpp:203
 #, kde-format
 msgid "Cate&gory:"
 msgstr "類別(&G)："
 
-#: src/collectionfieldsdialog.cpp:203
+#: src/collectionfieldsdialog.cpp:208
 #, kde-format
 msgid "The field category determines where the field is placed in the editor."
 msgstr "欄位類別決定此欄位在編輯器裡的位置。"
 
-#: src/collectionfieldsdialog.cpp:220
+#: src/collectionfieldsdialog.cpp:225
 #, kde-format
 msgid "Set &properties..."
 msgstr "設定屬性(&P)..."
 
-#: src/collectionfieldsdialog.cpp:224
+#: src/collectionfieldsdialog.cpp:229
 #, kde-format
 msgid ""
 "Extended field properties are used to specify things such as the "
 "corresponding bibtex field."
 msgstr "延伸欄位屬性用於指定一些東西，如相關的 bibtex 欄位。"
 
-#: src/collectionfieldsdialog.cpp:229
+#: src/collectionfieldsdialog.cpp:234
 #, kde-format
 msgid "Description:"
 msgstr "描述："
 
-#: src/collectionfieldsdialog.cpp:236
+#: src/collectionfieldsdialog.cpp:241
 #, kde-format
 msgid ""
 "The description is a useful reminder of what information is contained in the "
 "field."
 msgstr "描述是用於說明此欄位裡所儲存的資訊。"
 
-#: src/collectionfieldsdialog.cpp:241
+#: src/collectionfieldsdialog.cpp:246
 #, kde-format
 msgid "Value Options"
 msgstr "數值選項"
 
-#: src/collectionfieldsdialog.cpp:246
+#: src/collectionfieldsdialog.cpp:251
 #, fuzzy, kde-format
 #| msgid "&Default value:"
 msgid "Default value:"
 msgstr "預設值(&D)："
 
-#: src/collectionfieldsdialog.cpp:251
+#: src/collectionfieldsdialog.cpp:256
 #, kde-format
 msgid "<qt>A default value can be set for new entries.</qt>"
 msgstr "<qt>建立新項目時使用的預設值。</qt>"
 
-#: src/collectionfieldsdialog.cpp:256
+#: src/collectionfieldsdialog.cpp:261
 #, kde-format
 msgid "Value template:"
 msgstr "數值樣本："
 
-#: src/collectionfieldsdialog.cpp:264
+#: src/collectionfieldsdialog.cpp:269
 #, kde-format
 msgid ""
 "Derived values are formed from the values of other fields according to the "
@@ -484,17 +490,17 @@ msgstr ""
 "衍生數值是指根據數值樣本，從其他的欄位的值建立此欄位的值。例如 %{year} "
 "%{title} 會取代成名為 year 與 title 的欄位裡的值。"
 
-#: src/collectionfieldsdialog.cpp:270
+#: src/collectionfieldsdialog.cpp:275
 #, kde-format
 msgid "Use derived value"
 msgstr "使用衍生數值"
 
-#: src/collectionfieldsdialog.cpp:276
+#: src/collectionfieldsdialog.cpp:281
 #, kde-format
 msgid "A&llowed values:"
 msgstr "允許的數值(&L)："
 
-#: src/collectionfieldsdialog.cpp:281
+#: src/collectionfieldsdialog.cpp:286
 #, kde-format
 msgid ""
 "<qt>For <i>Choice</i>-type fields, these are the only values allowed. They "
@@ -504,82 +510,82 @@ msgstr ""
 "<qt>欄位型態為<i>選項</i>時，只能使用這些值。它們會被放在一個下拉式選單中。允"
 "許的數值以分號區隔，如：\"dog; cat; mouse\"</qt>"
 
-#: src/collectionfieldsdialog.cpp:288
+#: src/collectionfieldsdialog.cpp:293
 #, kde-format
 msgid "Format options:"
 msgstr "格式選項："
 
-#: src/collectionfieldsdialog.cpp:294
+#: src/collectionfieldsdialog.cpp:299
 #, kde-format
 msgid "No formatting"
 msgstr "沒有格式"
 
-#: src/collectionfieldsdialog.cpp:295
+#: src/collectionfieldsdialog.cpp:300
 #, kde-format
 msgid "Allow auto-capitalization only"
 msgstr "只允許自動大寫"
 
-#: src/collectionfieldsdialog.cpp:296
+#: src/collectionfieldsdialog.cpp:301
 #, kde-format
 msgid "Format as a title"
 msgstr "設為標題格式"
 
-#: src/collectionfieldsdialog.cpp:297
+#: src/collectionfieldsdialog.cpp:302
 #, kde-format
 msgid "Format as a name"
 msgstr "設為名稱格式"
 
-#: src/collectionfieldsdialog.cpp:301
+#: src/collectionfieldsdialog.cpp:306
 #, kde-format
 msgid "Field Options"
 msgstr "欄位選項"
 
-#: src/collectionfieldsdialog.cpp:304
+#: src/collectionfieldsdialog.cpp:309
 #, kde-format
 msgid "Enable auto-completion"
 msgstr "開啟自動補完"
 
-#: src/collectionfieldsdialog.cpp:305
+#: src/collectionfieldsdialog.cpp:310
 #, kde-format
 msgid ""
 "If checked, KDE auto-completion will be enabled in the text edit box for "
 "this field."
 msgstr "若勾選此選項，編輯此欄位的文字時會開啟 KDE 的自動文字補完功能。"
 
-#: src/collectionfieldsdialog.cpp:307
+#: src/collectionfieldsdialog.cpp:312
 #, kde-format
 msgid "Allow multiple values"
 msgstr "允許多個數值"
 
-#: src/collectionfieldsdialog.cpp:308
+#: src/collectionfieldsdialog.cpp:313
 #, kde-format
 msgid ""
 "If checked, Tellico will parse the values in the field for multiple values, "
 "separated by a semi-colon."
 msgstr "若勾選此選項，Tellico 會將此欄位的值剖析為多個數值，以分號區隔。"
 
-#: src/collectionfieldsdialog.cpp:310
+#: src/collectionfieldsdialog.cpp:315
 #, kde-format
 msgid "Allow grouping"
 msgstr "允許群組"
 
-#: src/collectionfieldsdialog.cpp:311
+#: src/collectionfieldsdialog.cpp:316
 #, kde-format
 msgid ""
 "If checked, this field may be used to group the entries in the group view."
 msgstr "若勾選此選項，此欄位可以用於在群組檢視中將項目群組在一起。"
 
-#: src/collectionfieldsdialog.cpp:341
+#: src/collectionfieldsdialog.cpp:346
 #, kde-format
 msgid "Revert the selected field's properties to the default values."
 msgstr "將選取的欄位屬性回復到預設值。"
 
-#: src/collectionfieldsdialog.cpp:398
+#: src/collectionfieldsdialog.cpp:403
 #, kde-format
 msgid "Modify Fields"
 msgstr "變更欄位"
 
-#: src/collectionfieldsdialog.cpp:411
+#: src/collectionfieldsdialog.cpp:416
 #, kde-format
 msgid ""
 "<qt>Removing allowed values from the <i>%1</i> field which currently exist "
@@ -589,60 +595,60 @@ msgstr ""
 "<qt>從 <i>%1</i> 欄位中將目前存在於此收藏的允許的數值移除可能會造成資料損毀。"
 "您要保持您的變更，還是要取消變更並回復到原來的值？</qt>"
 
-#: src/collectionfieldsdialog.cpp:416
+#: src/collectionfieldsdialog.cpp:421
 #, kde-format
 msgid "Keep modified values"
 msgstr "保持所做的變更"
 
-#: src/collectionfieldsdialog.cpp:515 src/collectionfieldsdialog.cpp:518
+#: src/collectionfieldsdialog.cpp:520 src/collectionfieldsdialog.cpp:524
 #, kde-format
 msgid "New Field %1"
 msgstr "新增欄位 %1"
 
-#: src/collectionfieldsdialog.cpp:808
+#: src/collectionfieldsdialog.cpp:815
 #, kde-format
 msgid "Revert Field Properties"
 msgstr "回復欄位屬性"
 
-#: src/collectionfieldsdialog.cpp:809
+#: src/collectionfieldsdialog.cpp:816
 #, kde-format
 msgid ""
 "<qt><p>Do you really want to revert the properties for the <em>%1</em> field "
 "back to their default values?</p></qt>"
 msgstr "<qt><p>您要將 <em>%1</em> 欄位的屬性回復為預設值嗎？</p></qt>"
 
-#: src/collectionfieldsdialog.cpp:812
+#: src/collectionfieldsdialog.cpp:819
 #, kde-format
 msgid "Revert"
 msgstr "回復"
 
-#: src/collectionfieldsdialog.cpp:886
+#: src/collectionfieldsdialog.cpp:893
 #, kde-format
 msgid "Extended Field Properties"
 msgstr "延伸欄位屬性"
 
-#: src/collectionfieldsdialog.cpp:887 src/collections/filecatalog.cpp:104
+#: src/collectionfieldsdialog.cpp:894 src/collections/filecatalog.cpp:104
 #, kde-format
 msgid "Property"
 msgstr "屬性"
 
-#: src/collectionfieldsdialog.cpp:887 src/collections/filecatalog.cpp:105
-#: src/fetch/srufetcher.cpp:610
+#: src/collectionfieldsdialog.cpp:894 src/collections/filecatalog.cpp:105
+#: src/fetch/srufetcher.cpp:624
 #, kde-format
 msgid "Value"
 msgstr "數值"
 
-#: src/collectionfieldsdialog.cpp:923
+#: src/collectionfieldsdialog.cpp:930
 #, kde-format
 msgid "A field with this title already exists. Please enter a different title."
 msgstr "已經有欄位使用此標題。請輸入不同的標題。"
 
-#: src/collectionfieldsdialog.cpp:930
+#: src/collectionfieldsdialog.cpp:937
 #, kde-format
 msgid "<qt>The category may not be empty. Please enter a category.</qt>"
 msgstr "<qt>類別不能為空。請輸入類別。</qt>"
 
-#: src/collectionfieldsdialog.cpp:938
+#: src/collectionfieldsdialog.cpp:945
 #, kde-format
 msgid ""
 "<qt>A field may not be in the same category as a <em>Paragraph</em>, "
@@ -652,14 +658,14 @@ msgstr ""
 "<qt>欄位不能與<em>段落</em>、<em>表格</em>或<em>影像</em>欄位在同一個類別中。"
 "請輸入不同的類別。</qt>"
 
-#: src/collectionfieldsdialog.cpp:946
+#: src/collectionfieldsdialog.cpp:953
 #, kde-format
 msgid ""
 "A field's title may not be the same as an existing category. Please enter a "
 "different title."
 msgstr "欄位的標題不能與現有的類別相同。請輸入不同的標題。"
 
-#: src/collectionfieldsdialog.cpp:958
+#: src/collectionfieldsdialog.cpp:965
 #, kde-format
 msgid ""
 "The range for a rating field must be between 1 and 10, and the lower bound "
@@ -667,12 +673,12 @@ msgid ""
 "properties."
 msgstr "評分欄位的範圍為 1 到 10。低限必須比高限低。請輸入不同的高低限屬性。"
 
-#: src/collectionfieldsdialog.cpp:973
+#: src/collectionfieldsdialog.cpp:980
 #, kde-format
 msgid "Tables are limited to a maximum of ten columns."
 msgstr "表格裡最多只能有十欄。"
 
-#: src/collectionfieldsdialog.cpp:979
+#: src/collectionfieldsdialog.cpp:986
 #, kde-format
 msgid "A field with a derived value must have a value template."
 msgstr "含有衍生數值的欄位必須定義數值樣本。"
@@ -698,25 +704,25 @@ msgstr "作者"
 msgid "Bibtex Key"
 msgstr "Bibtex 鍵值"
 
-#: src/collections/bibtexcollection.cpp:97 src/configdialog.cpp:145
-#: src/configdialog.cpp:172 src/configdialog.cpp:186 src/configdialog.cpp:203
-#: src/configdialog.cpp:1129 src/fetch/amazonfetcher.cpp:861
+#: src/collections/bibtexcollection.cpp:97 src/configdialog.cpp:147
+#: src/configdialog.cpp:174 src/configdialog.cpp:188 src/configdialog.cpp:205
+#: src/configdialog.cpp:1146 src/fetch/amazonfetcher.cpp:863
 #: src/fetch/bedethequefetcher.cpp:317 src/fetch/bedethequefetcher.cpp:325
-#: src/fetch/colnectfetcher.cpp:367 src/fetch/colnectfetcher.cpp:534
-#: src/fetch/colnectfetcher.cpp:553 src/fetch/colnectfetcher.cpp:591
-#: src/fetch/colnectfetcher.cpp:598 src/fetch/discogsfetcher.cpp:307
-#: src/fetch/discogsfetcher.cpp:312 src/fetch/discogsfetcher.cpp:317
-#: src/fetch/discogsfetcher.cpp:324 src/fetch/discogsfetcher.cpp:331
-#: src/fetch/discogsfetcher.cpp:336 src/fetch/doubanfetcher.cpp:373
+#: src/fetch/colnectfetcher.cpp:377 src/fetch/colnectfetcher.cpp:544
+#: src/fetch/colnectfetcher.cpp:563 src/fetch/colnectfetcher.cpp:601
+#: src/fetch/colnectfetcher.cpp:608 src/fetch/discogsfetcher.cpp:317
+#: src/fetch/discogsfetcher.cpp:322 src/fetch/discogsfetcher.cpp:327
+#: src/fetch/discogsfetcher.cpp:334 src/fetch/discogsfetcher.cpp:341
+#: src/fetch/discogsfetcher.cpp:346 src/fetch/doubanfetcher.cpp:373
 #: src/fetch/doubanfetcher.cpp:391 src/fetch/doubanfetcher.cpp:409
 #: src/fetch/filmaffinityfetcher.cpp:284 src/fetch/filmasterfetcher.cpp:238
 #: src/fetch/gaminghistoryfetcher.cpp:196
 #: src/fetch/gaminghistoryfetcher.cpp:318 src/fetch/googlebookfetcher.cpp:253
 #: src/fetch/googlebookfetcher.cpp:258 src/fetch/igdbfetcher.cpp:366
-#: src/fetch/imdbfetcher.cpp:459 src/fetch/itunesfetcher.cpp:239
+#: src/fetch/imdbfetcher.cpp:459 src/fetch/itunesfetcher.cpp:243
 #: src/fetch/kinopoiskfetcher.cpp:275 src/fetch/kinoteatrfetcher.cpp:237
-#: src/fetch/mobygamesfetcher.cpp:455 src/fetch/moviemeterfetcher.cpp:213
-#: src/fetch/moviemeterfetcher.cpp:218 src/fetch/numistafetcher.cpp:344
+#: src/fetch/mobygamesfetcher.cpp:455 src/fetch/moviemeterfetcher.cpp:219
+#: src/fetch/moviemeterfetcher.cpp:224 src/fetch/numistafetcher.cpp:344
 #: src/fetch/numistafetcher.cpp:360 src/fetch/omdbfetcher.cpp:250
 #: src/fetch/openlibraryfetcher.cpp:276 src/fetch/thegamesdbfetcher.cpp:265
 #: src/fetch/thegamesdbfetcher.cpp:270 src/fetch/themoviedbfetcher.cpp:307
@@ -727,7 +733,7 @@ msgstr "Bibtex 鍵值"
 #: src/fetch/upcitemdbfetcher.cpp:213 src/fetch/vgcollectfetcher.cpp:234
 #: src/fetch/vgcollectfetcher.cpp:337 src/field.cpp:38 src/field.cpp:79
 #: src/field.cpp:297 src/field.cpp:331 src/field.cpp:336
-#: src/translators/filereadervideo.cpp:276
+#: src/translators/filereadervideo.cpp:282
 #: src/translators/gcstarimporter.cpp:89
 #, kde-format
 msgid "General"
@@ -764,8 +770,8 @@ msgstr "組織"
 msgid "Publisher"
 msgstr "發行者"
 
-#: src/collections/bibtexcollection.cpp:136 src/fetch/hathitrustfetcher.cpp:304
-#: src/fetch/srufetcher.cpp:521 src/fetch/z3950fetcher.cpp:572
+#: src/collections/bibtexcollection.cpp:136 src/fetch/hathitrustfetcher.cpp:303
+#: src/fetch/srufetcher.cpp:535 src/fetch/z3950fetcher.cpp:572
 #, kde-format
 msgid "Address"
 msgstr "地址"
@@ -835,8 +841,8 @@ msgstr "章節"
 
 #: src/collections/bibtexcollection.cpp:208
 #: src/collections/bookcollection.cpp:137 src/collections/cardcollection.cpp:78
-#: src/collections/comicbookcollection.cpp:64 src/fetch/colnectfetcher.cpp:366
-#: src/fetch/colnectfetcher.cpp:820
+#: src/collections/comicbookcollection.cpp:64 src/fetch/colnectfetcher.cpp:376
+#: src/fetch/colnectfetcher.cpp:848
 #, kde-format
 msgid "Series"
 msgstr "級數"
@@ -861,14 +867,14 @@ msgstr "交叉參考"
 #: src/collections/cardcollection.cpp:107
 #: src/collections/comicbookcollection.cpp:114
 #: src/collections/musiccollection.cpp:109
-#: src/collections/videocollection.cpp:209 src/fetch/amazonfetcher.cpp:1076
+#: src/collections/videocollection.cpp:209 src/fetch/amazonfetcher.cpp:1078
 #, kde-format
 msgid "Keywords"
 msgstr "關鍵字"
 
 #: src/collections/bibtexcollection.cpp:236 src/collections/filecatalog.cpp:50
-#: src/fetch/entrezfetcher.cpp:438 src/fetch/entrezfetcher.cpp:514
-#: src/fetch/opdsfetcher.cpp:435 src/field.cpp:200
+#: src/fetch/entrezfetcher.cpp:446 src/fetch/entrezfetcher.cpp:522
+#: src/fetch/opdsfetcher.cpp:440 src/field.cpp:200
 #: src/translators/filereaderbook.cpp:81
 #: src/translators/filereadervideo.cpp:128
 #: src/translators/gcstarimporter.cpp:88
@@ -876,8 +882,8 @@ msgstr "關鍵字"
 msgid "URL"
 msgstr "網址"
 
-#: src/collections/bibtexcollection.cpp:241 src/fetch/entrezfetcher.cpp:513
-#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/srufetcher.cpp:522
+#: src/collections/bibtexcollection.cpp:241 src/fetch/entrezfetcher.cpp:521
+#: src/fetch/hathitrustfetcher.cpp:304 src/fetch/srufetcher.cpp:536
 #: src/fetch/z3950fetcher.cpp:573
 #, kde-format
 msgid "Abstract"
@@ -944,7 +950,7 @@ msgstr "最低年齡"
 #: src/collections/filecatalog.cpp:54 src/collections/gamecollection.cpp:90
 #: src/collections/stampcollection.cpp:49
 #: src/collections/winecollection.cpp:121 src/entrymatchdialog.cpp:94
-#: src/fetch/colnectfetcher.cpp:374 src/fetch/colnectfetcher.cpp:823
+#: src/fetch/colnectfetcher.cpp:384 src/fetch/colnectfetcher.cpp:851
 #: src/fetch/numistafetcher.cpp:351 src/fetch/numistafetcher.cpp:399
 #: src/fetch/rpggeekfetcher.cpp:211 src/fetchdialog.cpp:249
 #, kde-format
@@ -1043,7 +1049,7 @@ msgstr "我的書籍"
 msgid "Subtitle"
 msgstr "副標題"
 
-#: src/collections/bookcollection.cpp:65 src/fetch/amazonfetcher.cpp:965
+#: src/collections/bookcollection.cpp:65 src/fetch/amazonfetcher.cpp:967
 #: src/fetch/doubanfetcher.cpp:446 src/fetch/doubanfetcher.cpp:499
 #: src/fetch/ibsfetcher.cpp:289 src/translators/alexandriaimporter.cpp:163
 #: src/translators/librarythingimporter.cpp:149
@@ -1051,7 +1057,7 @@ msgstr "副標題"
 msgid "Hardback"
 msgstr "精裝本"
 
-#: src/collections/bookcollection.cpp:65 src/fetch/amazonfetcher.cpp:963
+#: src/collections/bookcollection.cpp:65 src/fetch/amazonfetcher.cpp:965
 #: src/fetch/doubanfetcher.cpp:448 src/fetch/doubanfetcher.cpp:501
 #: src/fetch/ibsfetcher.cpp:287 src/translators/librarythingimporter.cpp:147
 #, kde-format
@@ -1064,7 +1070,7 @@ msgid "Trade Paperback"
 msgstr "商業平裝本"
 
 #: src/collections/bookcollection.cpp:66 src/fetch/ibsfetcher.cpp:291
-#: src/fetch/itunesfetcher.cpp:418 src/translators/filereaderbook.cpp:86
+#: src/fetch/itunesfetcher.cpp:440 src/translators/filereaderbook.cpp:86
 #, kde-format
 msgid "E-Book"
 msgstr "電子書"
@@ -1273,13 +1279,13 @@ msgstr "PCGS,NGC,ANACS,ICG,ASA,PCI"
 msgid "Grading Service"
 msgstr "評比服務"
 
-#: src/collections/coincollection.cpp:132 src/fetch/colnectfetcher.cpp:818
+#: src/collections/coincollection.cpp:132 src/fetch/colnectfetcher.cpp:846
 #: src/fetch/numistafetcher.cpp:401
 #, kde-format
 msgid "Obverse"
 msgstr "正面"
 
-#: src/collections/coincollection.cpp:135 src/fetch/colnectfetcher.cpp:819
+#: src/collections/coincollection.cpp:135 src/fetch/colnectfetcher.cpp:847
 #: src/fetch/numistafetcher.cpp:402
 #, kde-format
 msgid "Reverse"
@@ -1576,11 +1582,17 @@ msgstr ""
 msgid "Dreamcast"
 msgstr "Dreamcast"
 
-#: src/collections/gamecollection.cpp:277
-#, kde-format
+#: src/collections/gamecollection.cpp:278
+#, fuzzy, kde-format
+#| msgctxt ""
+#| "Video game ratings - Unrated, Adults Only, Mature, Teen, Everyone 10+, "
+#| "Everyone, Early Childhood, Pending"
+#| msgid ""
+#| "Unrated, Adults Only, Mature, Teen, Everyone 10+, Everyone, Early "
+#| "Childhood, Pending"
 msgctxt ""
-"Video game ratings - Unrated, Adults Only, Mature, Teen, Everyone 10+, "
-"Everyone, Early Childhood, Pending"
+"Video game ratings - must be 8 phrases matching ESRB system - Unrated, "
+"Adults Only, Mature, Teen, Everyone 10+, Everyone, Early Childhood, Pending"
 msgid ""
 "Unrated, Adults Only, Mature, Teen, Everyone 10+, Everyone, Early Childhood, "
 "Pending"
@@ -1596,9 +1608,9 @@ msgstr "我的音樂"
 msgid "Album"
 msgstr "專輯"
 
-#: src/collections/musiccollection.cpp:50 src/fetch/discogsfetcher.cpp:422
+#: src/collections/musiccollection.cpp:50 src/fetch/discogsfetcher.cpp:451
 #: src/fetch/doubanfetcher.cpp:454 src/fetch/doubanfetcher.cpp:588
-#: src/fetch/upcitemdbfetcher.cpp:303 src/fetch/upcitemdbfetcher.cpp:423
+#: src/fetch/upcitemdbfetcher.cpp:304 src/fetch/upcitemdbfetcher.cpp:424
 #: src/translators/audiofileimporter.cpp:335
 #: src/translators/discogsimporter.cpp:162
 #: src/translators/freedbimporter.cpp:278
@@ -1609,20 +1621,20 @@ msgid "Compact Disc"
 msgstr "光碟"
 
 #: src/collections/musiccollection.cpp:50
-#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1043
-#: src/fetch/discogsfetcher.cpp:430 src/fetch/upcitemdbfetcher.cpp:419
-#: src/fetch/upcitemdbfetcher.cpp:427 src/translators/discogsimporter.cpp:169
+#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1045
+#: src/fetch/discogsfetcher.cpp:459 src/fetch/upcitemdbfetcher.cpp:420
+#: src/fetch/upcitemdbfetcher.cpp:428 src/translators/discogsimporter.cpp:169
 #, kde-format
 msgid "DVD"
 msgstr "DVD"
 
-#: src/collections/musiccollection.cpp:50 src/fetch/discogsfetcher.cpp:427
+#: src/collections/musiccollection.cpp:50 src/fetch/discogsfetcher.cpp:456
 #: src/translators/discogsimporter.cpp:166
 #, kde-format
 msgid "Cassette"
 msgstr "卡帶"
 
-#: src/collections/musiccollection.cpp:50 src/fetch/discogsfetcher.cpp:425
+#: src/collections/musiccollection.cpp:50 src/fetch/discogsfetcher.cpp:454
 #: src/translators/discogsimporter.cpp:164
 #, kde-format
 msgid "Vinyl"
@@ -1635,8 +1647,8 @@ msgid "Medium"
 msgstr "媒體"
 
 #: src/collections/musiccollection.cpp:56
-#: src/collections/musiccollection.cpp:83 src/fetch/discogsfetcher.cpp:484
-#: src/fetch/itunesfetcher.cpp:318 src/translators/audiofileimporter.cpp:236
+#: src/collections/musiccollection.cpp:83 src/fetch/discogsfetcher.cpp:513
+#: src/fetch/itunesfetcher.cpp:322 src/translators/audiofileimporter.cpp:236
 #: src/translators/xmlstatehandler.cpp:435
 #, kde-format
 msgid "Artist"
@@ -1647,23 +1659,26 @@ msgstr "演出者"
 msgid "Label"
 msgstr "標籤"
 
-#: src/collections/musiccollection.cpp:79 src/tests/discogsfetchertest.cpp:307
-#: src/tests/itunesfetchertest.cpp:209 src/tests/musicbrainzfetchertest.cpp:228
+#: src/collections/musiccollection.cpp:79 src/fetch/musicbrainzfetcher.cpp:322
+#: src/tests/discogsfetchertest.cpp:309 src/tests/discogsfetchertest.cpp:346
+#: src/tests/itunesfetchertest.cpp:209 src/tests/itunesfetchertest.cpp:237
+#: src/tests/musicbrainzfetchertest.cpp:228
+#: src/tests/musicbrainzfetchertest.cpp:257
 #, kde-format
 msgid "Tracks"
 msgstr "軌道"
 
 #: src/collections/musiccollection.cpp:82 src/entrymatchdialog.cpp:94
-#: src/fetch/discogsfetcher.cpp:483 src/fetch/fetchmanager.cpp:62
-#: src/fetch/itunesfetcher.cpp:317 src/fetchdialog.cpp:248 src/field.cpp:296
+#: src/fetch/discogsfetcher.cpp:512 src/fetch/fetchmanager.cpp:62
+#: src/fetch/itunesfetcher.cpp:321 src/fetchdialog.cpp:248 src/field.cpp:296
 #: src/field.cpp:342 src/translators/audiofileimporter.cpp:235
 #: src/translators/xmlstatehandler.cpp:434
 #, kde-format
 msgid "Title"
 msgstr "標題"
 
-#: src/collections/musiccollection.cpp:84 src/fetch/discogsfetcher.cpp:485
-#: src/fetch/itunesfetcher.cpp:319 src/translators/audiofileimporter.cpp:237
+#: src/collections/musiccollection.cpp:84 src/fetch/discogsfetcher.cpp:514
+#: src/fetch/itunesfetcher.cpp:323 src/translators/audiofileimporter.cpp:237
 #: src/translators/xmlstatehandler.cpp:436
 #, kde-format
 msgid "Length"
@@ -1727,8 +1742,8 @@ msgstr "影像"
 msgid "My Videos"
 msgstr "我的影片"
 
-#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1029
-#: src/fetch/upcitemdbfetcher.cpp:405
+#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1031
+#: src/fetch/upcitemdbfetcher.cpp:406
 #, kde-format
 msgid "VHS"
 msgstr "VHS 影帶"
@@ -1743,14 +1758,14 @@ msgstr "VCD"
 msgid "DivX"
 msgstr "DivX"
 
-#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1023
-#: src/fetch/upcitemdbfetcher.cpp:399
+#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1025
+#: src/fetch/upcitemdbfetcher.cpp:400
 #, kde-format
 msgid "Blu-ray"
 msgstr "藍光"
 
-#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1026
-#: src/fetch/upcitemdbfetcher.cpp:402
+#: src/collections/videocollection.cpp:48 src/fetch/amazonfetcher.cpp:1028
+#: src/fetch/upcitemdbfetcher.cpp:403
 #, kde-format
 msgid "HD DVD"
 msgstr "高畫質 DVD"
@@ -1821,14 +1836,14 @@ msgstr "區域 8"
 msgid "Region"
 msgstr "區域"
 
-#: src/collections/videocollection.cpp:89 src/fetch/discogsfetcher.cpp:316
-#: src/fetch/discogsfetcher.cpp:545
+#: src/collections/videocollection.cpp:89 src/fetch/discogsfetcher.cpp:326
+#: src/fetch/discogsfetcher.cpp:584
 #, kde-format
 msgid "Nationality"
 msgstr "國籍"
 
-#: src/collections/videocollection.cpp:96 src/fetch/amazonfetcher.cpp:1039
-#: src/fetch/upcitemdbfetcher.cpp:415
+#: src/collections/videocollection.cpp:96 src/fetch/amazonfetcher.cpp:1041
+#: src/fetch/upcitemdbfetcher.cpp:416
 #, kde-format
 msgid "NTSC"
 msgstr "NTSC"
@@ -1875,8 +1890,8 @@ msgstr "卡司表，包括他們所演出的角色"
 msgid "Director"
 msgstr "導演"
 
-#: src/collections/videocollection.cpp:117 src/fetch/discogsfetcher.cpp:323
-#: src/fetch/discogsfetcher.cpp:544 src/fetch/rpggeekfetcher.cpp:209
+#: src/collections/videocollection.cpp:117 src/fetch/discogsfetcher.cpp:333
+#: src/fetch/discogsfetcher.cpp:583 src/fetch/rpggeekfetcher.cpp:209
 #, kde-format
 msgid "Producer"
 msgstr "產生者"
@@ -1921,8 +1936,8 @@ msgstr "影片片長（分）"
 msgid "Aspect Ratio"
 msgstr "外觀比例"
 
-#: src/collections/videocollection.cpp:169 src/fetch/amazonfetcher.cpp:1012
-#: src/fetch/upcitemdbfetcher.cpp:385
+#: src/collections/videocollection.cpp:169 src/fetch/amazonfetcher.cpp:1014
+#: src/fetch/upcitemdbfetcher.cpp:386
 #, kde-format
 msgid "Widescreen"
 msgstr "寬螢幕"
@@ -1937,8 +1952,8 @@ msgstr "黑白"
 msgid "Color Mode"
 msgstr "色彩模式"
 
-#: src/collections/videocollection.cpp:180 src/fetch/amazonfetcher.cpp:1033
-#: src/fetch/upcitemdbfetcher.cpp:409
+#: src/collections/videocollection.cpp:180 src/fetch/amazonfetcher.cpp:1035
+#: src/fetch/upcitemdbfetcher.cpp:410
 #, kde-format
 msgid "Director's Cut"
 msgstr "導演剪輯版"
@@ -2153,13 +2168,13 @@ msgstr "de,van,der,van der,von"
 #. i18n: ectx: label, entry (fontFile), group (Options - file)
 #. i18n: ectx: label, entry (fontBoardGame), group (Options - boardgame)
 #. i18n: ectx: label, entry (fontBase), group (Options - entry)
-#: src/config/tellico_config.kcfg:134 src/config/tellico_config.kcfg:164
-#: src/config/tellico_config.kcfg:194 src/config/tellico_config.kcfg:227
-#: src/config/tellico_config.kcfg:257 src/config/tellico_config.kcfg:287
-#: src/config/tellico_config.kcfg:317 src/config/tellico_config.kcfg:347
-#: src/config/tellico_config.kcfg:377 src/config/tellico_config.kcfg:407
-#: src/config/tellico_config.kcfg:437 src/config/tellico_config.kcfg:467
-#: src/config/tellico_config.kcfg:497
+#: src/config/tellico_config.kcfg:137 src/config/tellico_config.kcfg:167
+#: src/config/tellico_config.kcfg:197 src/config/tellico_config.kcfg:230
+#: src/config/tellico_config.kcfg:260 src/config/tellico_config.kcfg:290
+#: src/config/tellico_config.kcfg:320 src/config/tellico_config.kcfg:350
+#: src/config/tellico_config.kcfg:380 src/config/tellico_config.kcfg:410
+#: src/config/tellico_config.kcfg:440 src/config/tellico_config.kcfg:470
+#: src/config/tellico_config.kcfg:500
 #, kde-format
 msgid "Template font"
 msgstr "樣本字型"
@@ -2177,13 +2192,13 @@ msgstr "樣本字型"
 #. i18n: ectx: label, entry (baseColorFile), group (Options - file)
 #. i18n: ectx: label, entry (baseColorBoardGame), group (Options - boardgame)
 #. i18n: ectx: label, entry (baseColorBase), group (Options - entry)
-#: src/config/tellico_config.kcfg:138 src/config/tellico_config.kcfg:168
-#: src/config/tellico_config.kcfg:198 src/config/tellico_config.kcfg:231
-#: src/config/tellico_config.kcfg:261 src/config/tellico_config.kcfg:291
-#: src/config/tellico_config.kcfg:321 src/config/tellico_config.kcfg:351
-#: src/config/tellico_config.kcfg:381 src/config/tellico_config.kcfg:411
-#: src/config/tellico_config.kcfg:441 src/config/tellico_config.kcfg:471
-#: src/config/tellico_config.kcfg:501
+#: src/config/tellico_config.kcfg:141 src/config/tellico_config.kcfg:171
+#: src/config/tellico_config.kcfg:201 src/config/tellico_config.kcfg:234
+#: src/config/tellico_config.kcfg:264 src/config/tellico_config.kcfg:294
+#: src/config/tellico_config.kcfg:324 src/config/tellico_config.kcfg:354
+#: src/config/tellico_config.kcfg:384 src/config/tellico_config.kcfg:414
+#: src/config/tellico_config.kcfg:444 src/config/tellico_config.kcfg:474
+#: src/config/tellico_config.kcfg:504
 #, kde-format
 msgid "Template background color"
 msgstr "樣本背景顏色"
@@ -2201,13 +2216,13 @@ msgstr "樣本背景顏色"
 #. i18n: ectx: label, entry (textColorFile), group (Options - file)
 #. i18n: ectx: label, entry (textColorBoardGame), group (Options - boardgame)
 #. i18n: ectx: label, entry (textColorBase), group (Options - entry)
-#: src/config/tellico_config.kcfg:142 src/config/tellico_config.kcfg:172
-#: src/config/tellico_config.kcfg:202 src/config/tellico_config.kcfg:235
-#: src/config/tellico_config.kcfg:265 src/config/tellico_config.kcfg:295
-#: src/config/tellico_config.kcfg:325 src/config/tellico_config.kcfg:355
-#: src/config/tellico_config.kcfg:385 src/config/tellico_config.kcfg:415
-#: src/config/tellico_config.kcfg:445 src/config/tellico_config.kcfg:475
-#: src/config/tellico_config.kcfg:505
+#: src/config/tellico_config.kcfg:145 src/config/tellico_config.kcfg:175
+#: src/config/tellico_config.kcfg:205 src/config/tellico_config.kcfg:238
+#: src/config/tellico_config.kcfg:268 src/config/tellico_config.kcfg:298
+#: src/config/tellico_config.kcfg:328 src/config/tellico_config.kcfg:358
+#: src/config/tellico_config.kcfg:388 src/config/tellico_config.kcfg:418
+#: src/config/tellico_config.kcfg:448 src/config/tellico_config.kcfg:478
+#: src/config/tellico_config.kcfg:508
 #, kde-format
 msgid "Template text color"
 msgstr "樣本文字顏色"
@@ -2225,13 +2240,13 @@ msgstr "樣本文字顏色"
 #. i18n: ectx: label, entry (highlightedBaseColorFile), group (Options - file)
 #. i18n: ectx: label, entry (highlightedBaseColorBoardGame), group (Options - boardgame)
 #. i18n: ectx: label, entry (highlightedBaseColorBase), group (Options - entry)
-#: src/config/tellico_config.kcfg:146 src/config/tellico_config.kcfg:176
-#: src/config/tellico_config.kcfg:206 src/config/tellico_config.kcfg:239
-#: src/config/tellico_config.kcfg:269 src/config/tellico_config.kcfg:299
-#: src/config/tellico_config.kcfg:329 src/config/tellico_config.kcfg:359
-#: src/config/tellico_config.kcfg:389 src/config/tellico_config.kcfg:419
-#: src/config/tellico_config.kcfg:449 src/config/tellico_config.kcfg:479
-#: src/config/tellico_config.kcfg:509
+#: src/config/tellico_config.kcfg:149 src/config/tellico_config.kcfg:179
+#: src/config/tellico_config.kcfg:209 src/config/tellico_config.kcfg:242
+#: src/config/tellico_config.kcfg:272 src/config/tellico_config.kcfg:302
+#: src/config/tellico_config.kcfg:332 src/config/tellico_config.kcfg:362
+#: src/config/tellico_config.kcfg:392 src/config/tellico_config.kcfg:422
+#: src/config/tellico_config.kcfg:452 src/config/tellico_config.kcfg:482
+#: src/config/tellico_config.kcfg:512
 #, kde-format
 msgid "Template highlight color"
 msgstr "樣本突顯顏色"
@@ -2249,13 +2264,13 @@ msgstr "樣本突顯顏色"
 #. i18n: ectx: label, entry (highlightedTextColorFile), group (Options - file)
 #. i18n: ectx: label, entry (highlightedTextColorBoardGame), group (Options - boardgame)
 #. i18n: ectx: label, entry (highlightedTextColorBase), group (Options - entry)
-#: src/config/tellico_config.kcfg:150 src/config/tellico_config.kcfg:180
-#: src/config/tellico_config.kcfg:210 src/config/tellico_config.kcfg:243
-#: src/config/tellico_config.kcfg:273 src/config/tellico_config.kcfg:303
-#: src/config/tellico_config.kcfg:333 src/config/tellico_config.kcfg:363
-#: src/config/tellico_config.kcfg:393 src/config/tellico_config.kcfg:423
-#: src/config/tellico_config.kcfg:453 src/config/tellico_config.kcfg:483
-#: src/config/tellico_config.kcfg:513
+#: src/config/tellico_config.kcfg:153 src/config/tellico_config.kcfg:183
+#: src/config/tellico_config.kcfg:213 src/config/tellico_config.kcfg:246
+#: src/config/tellico_config.kcfg:276 src/config/tellico_config.kcfg:306
+#: src/config/tellico_config.kcfg:336 src/config/tellico_config.kcfg:366
+#: src/config/tellico_config.kcfg:396 src/config/tellico_config.kcfg:426
+#: src/config/tellico_config.kcfg:456 src/config/tellico_config.kcfg:486
+#: src/config/tellico_config.kcfg:516
 #, kde-format
 msgid "Template highlighted text color"
 msgstr "樣本突顯文字顏色"
@@ -2273,103 +2288,103 @@ msgstr "樣本突顯文字顏色"
 #. i18n: ectx: label, entry (linkColorFile), group (Options - file)
 #. i18n: ectx: label, entry (linkColorBoardGame), group (Options - boardgame)
 #. i18n: ectx: label, entry (linkColorBase), group (Options - entry)
-#: src/config/tellico_config.kcfg:154 src/config/tellico_config.kcfg:184
-#: src/config/tellico_config.kcfg:214 src/config/tellico_config.kcfg:247
-#: src/config/tellico_config.kcfg:277 src/config/tellico_config.kcfg:307
-#: src/config/tellico_config.kcfg:337 src/config/tellico_config.kcfg:367
-#: src/config/tellico_config.kcfg:397 src/config/tellico_config.kcfg:427
-#: src/config/tellico_config.kcfg:457 src/config/tellico_config.kcfg:487
-#: src/config/tellico_config.kcfg:517
+#: src/config/tellico_config.kcfg:157 src/config/tellico_config.kcfg:187
+#: src/config/tellico_config.kcfg:217 src/config/tellico_config.kcfg:250
+#: src/config/tellico_config.kcfg:280 src/config/tellico_config.kcfg:310
+#: src/config/tellico_config.kcfg:340 src/config/tellico_config.kcfg:370
+#: src/config/tellico_config.kcfg:400 src/config/tellico_config.kcfg:430
+#: src/config/tellico_config.kcfg:460 src/config/tellico_config.kcfg:490
+#: src/config/tellico_config.kcfg:520
 #, fuzzy, kde-format
 #| msgid "Template highlight color"
 msgid "Template link color"
 msgstr "樣本突顯顏色"
 
-#: src/configdialog.cpp:98
+#: src/configdialog.cpp:100
 #, kde-format
 msgid "Configure Tellico"
 msgstr "設定 Tellico"
 
-#: src/configdialog.cpp:147 src/configdialog.cpp:174 src/configdialog.cpp:188
-#: src/configdialog.cpp:334
+#: src/configdialog.cpp:149 src/configdialog.cpp:176 src/configdialog.cpp:190
+#: src/configdialog.cpp:347
 #, kde-format
 msgid "Printing"
 msgstr "列印"
 
-#: src/configdialog.cpp:149 src/configdialog.cpp:176 src/configdialog.cpp:190
-#: src/configdialog.cpp:411
+#: src/configdialog.cpp:151 src/configdialog.cpp:178 src/configdialog.cpp:192
+#: src/configdialog.cpp:424
 #, kde-format
 msgid "Templates"
 msgstr "樣本"
 
-#: src/configdialog.cpp:151 src/configdialog.cpp:192 src/configdialog.cpp:614
+#: src/configdialog.cpp:153 src/configdialog.cpp:194 src/configdialog.cpp:627
 #, kde-format
 msgid "Data Sources"
 msgstr "資料來源"
 
-#: src/configdialog.cpp:204
+#: src/configdialog.cpp:206
 #, kde-format
 msgid "General Options"
 msgstr "一般選項"
 
-#: src/configdialog.cpp:215
+#: src/configdialog.cpp:217
 #, kde-format
 msgid "&Reopen file at startup"
 msgstr "啟動時重新開啟檔案(&R)"
 
-#: src/configdialog.cpp:216
+#: src/configdialog.cpp:218
 #, kde-format
 msgid ""
 "If checked, the file that was last open will be re-opened at program start-"
 "up."
 msgstr "若勾選此選項，在程式啟動時會開啟上次開啟的檔案。"
 
-#: src/configdialog.cpp:221
+#: src/configdialog.cpp:223
 #, fuzzy, kde-format
 #| msgid "matches regexp"
 msgid "&Enable regular expressions in quick filter"
 msgstr "符合正規表示式"
 
-#: src/configdialog.cpp:222
+#: src/configdialog.cpp:224
 #, fuzzy, kde-format
 #| msgid "If checked, the field names will be printed as table headers."
 msgid ""
 "If checked, the quick filter will interpret text as a regular expression."
 msgstr "若是勾選此選項，則會將欄位名稱印在表格標頭。"
 
-#: src/configdialog.cpp:227
+#: src/configdialog.cpp:229
 #, kde-format
 msgid "&Enable webcam for barcode scanning"
 msgstr "開啟攝影機來掃描條碼(&E)"
 
-#: src/configdialog.cpp:228
+#: src/configdialog.cpp:230
 #, kde-format
 msgid ""
 "If checked, the input from a webcam will be used to scan barcodes for "
 "searching."
 msgstr "若勾選此選項，則可以用攝影機來掃描條碼以便搜尋。"
 
-#: src/configdialog.cpp:233
+#: src/configdialog.cpp:235
 #, kde-format
 msgid "Image Storage Options"
 msgstr "影像儲存選項"
 
-#: src/configdialog.cpp:235
+#: src/configdialog.cpp:237
 #, kde-format
 msgid "Store images in data file"
 msgstr "將影像存在資料檔"
 
-#: src/configdialog.cpp:236
+#: src/configdialog.cpp:238
 #, kde-format
 msgid "Store images in common application directory"
 msgstr "將影像存在共用的應用程式目錄"
 
-#: src/configdialog.cpp:237
+#: src/configdialog.cpp:239
 #, kde-format
 msgid "Store images in directory relative to data file"
 msgstr "將影像存在資料檔所在目錄"
 
-#: src/configdialog.cpp:238
+#: src/configdialog.cpp:240
 #, kde-format
 msgid ""
 "Images may be saved in the data file itself, which can cause Tellico to run "
@@ -2379,49 +2394,49 @@ msgstr ""
 "影像可以存在資料檔中（不過會造成 Tellico 執行變慢），存在 Tellico 應用程式目"
 "錄中，或是存在跟資料檔相同的目錄中。"
 
-#: src/configdialog.cpp:259 src/configdialog.cpp:343
+#: src/configdialog.cpp:272 src/configdialog.cpp:356
 #, kde-format
 msgid "Formatting Options"
 msgstr "格式化選項"
 
-#: src/configdialog.cpp:264
+#: src/configdialog.cpp:277
 #, kde-format
 msgid "Auto capitalize &titles and names"
 msgstr "自動將標題與名稱改為大寫(&T)"
 
-#: src/configdialog.cpp:265
+#: src/configdialog.cpp:278
 #, kde-format
 msgid "If checked, titles and names will be automatically capitalized."
 msgstr "勾選此選項的話，標題與名稱會自動變為大寫。"
 
-#: src/configdialog.cpp:270
+#: src/configdialog.cpp:283
 #, kde-format
 msgid "Auto &format titles and names"
 msgstr "自動格式化標題與名稱(&F)"
 
-#: src/configdialog.cpp:271 src/configdialog.cpp:349
+#: src/configdialog.cpp:284 src/configdialog.cpp:362
 #, kde-format
 msgid "If checked, titles and names will be automatically formatted."
 msgstr "勾選此選項的話，標題與名稱會自動格式化。"
 
-#: src/configdialog.cpp:281
+#: src/configdialog.cpp:294
 #, kde-format
 msgid "No capitali&zation:"
 msgstr "不使用大寫(&Z)："
 
-#: src/configdialog.cpp:286
+#: src/configdialog.cpp:299
 #, kde-format
 msgid ""
 "<qt>A list of words which should not be capitalized. Multiple values should "
 "be separated by a semi-colon.</qt>"
 msgstr "<qt>不要使用大寫的單字清單。多個單字用分號區隔。</qt>"
 
-#: src/configdialog.cpp:292
+#: src/configdialog.cpp:305
 #, kde-format
 msgid "Artic&les:"
 msgstr "冠詞(&L)："
 
-#: src/configdialog.cpp:297
+#: src/configdialog.cpp:310
 #, kde-format
 msgid ""
 "<qt>A list of words which should be considered as articles if they are the "
@@ -2431,101 +2446,101 @@ msgstr ""
 "<qt>若是標題中的第一個字為清單中的任一單字，則會被視為冠詞。多個冠詞用分號區"
 "隔。</qt>"
 
-#: src/configdialog.cpp:304
+#: src/configdialog.cpp:317
 #, kde-format
 msgid "Personal suffi&xes:"
 msgstr "人名後置字串(&X)："
 
-#: src/configdialog.cpp:309
+#: src/configdialog.cpp:322
 #, kde-format
 msgid ""
 "<qt>A list of suffixes which might be used in personal names. Multiple "
 "values should be separated by a semi-colon.</qt>"
 msgstr "<qt>此清單中的單字會被用在人名後面。多個單字用分號區隔。</qt>"
 
-#: src/configdialog.cpp:315
+#: src/configdialog.cpp:328
 #, kde-format
 msgid "Surname &prefixes:"
 msgstr "姓氏前置字串(&P)："
 
-#: src/configdialog.cpp:320
+#: src/configdialog.cpp:333
 #, kde-format
 msgid ""
 "<qt>A list of prefixes which might be used in surnames. Multiple values "
 "should be separated by a semi-colon.</qt>"
 msgstr "<qt>此清單中的單字會被用於姓氏前面。多個單字用分號區隔。</qt>"
 
-#: src/configdialog.cpp:335
+#: src/configdialog.cpp:348
 #, kde-format
 msgid "Printing Options"
 msgstr "列印選項"
 
-#: src/configdialog.cpp:348
+#: src/configdialog.cpp:361
 #, kde-format
 msgid "&Format titles and names"
 msgstr "格式化標題與名稱(&F)"
 
-#: src/configdialog.cpp:353
+#: src/configdialog.cpp:366
 #, kde-format
 msgid "&Print field headers"
 msgstr "列印欄位標頭(&P)"
 
-#: src/configdialog.cpp:354 src/translators/htmlexporter.cpp:509
+#: src/configdialog.cpp:367 src/translators/htmlexporter.cpp:509
 #, kde-format
 msgid "If checked, the field names will be printed as table headers."
 msgstr "若是勾選此選項，則會將欄位名稱印在表格標頭。"
 
-#: src/configdialog.cpp:358
+#: src/configdialog.cpp:371
 #, kde-format
 msgid "Grouping Options"
 msgstr "群組選項"
 
-#: src/configdialog.cpp:363
+#: src/configdialog.cpp:376
 #, kde-format
 msgid "&Group the entries"
 msgstr "將項目群組起來(&G)"
 
-#: src/configdialog.cpp:364 src/translators/htmlexporter.cpp:514
+#: src/configdialog.cpp:377 src/translators/htmlexporter.cpp:514
 #, kde-format
 msgid "If checked, the entries will be grouped by the selected field."
 msgstr "若勾選此選項，則會將選取的欄位群組起來。"
 
-#: src/configdialog.cpp:368
+#: src/configdialog.cpp:381
 #, kde-format
 msgid "Image Options"
 msgstr "圖像選項"
 
-#: src/configdialog.cpp:374
+#: src/configdialog.cpp:387
 #, kde-format
 msgid "Maximum image &width:"
 msgstr "最大圖像寬度(&W)："
 
-#: src/configdialog.cpp:383
+#: src/configdialog.cpp:396
 #, kde-format
 msgid ""
 "The maximum width of the images in the printout. The aspect ratio is "
 "preserved."
 msgstr "在列印時的最大圖像寬度。外觀比例會保留。"
 
-#: src/configdialog.cpp:389
+#: src/configdialog.cpp:402
 #, kde-format
 msgid "&Maximum image height:"
 msgstr "最大圖像高度(&M)："
 
-#: src/configdialog.cpp:398
+#: src/configdialog.cpp:411
 #, kde-format
 msgid ""
 "The maximum height of the images in the printout. The aspect ratio is "
 "preserved."
 msgstr "在列印時的最大圖像高度。外觀比例會保留。"
 
-#: src/configdialog.cpp:412
+#: src/configdialog.cpp:425
 #, kde-format
 msgid "Template Options"
 msgstr "樣本選項"
 
 #. i18n string, a plain label can't have an '&'
-#: src/configdialog.cpp:426 src/fetch/execexternalfetcher.cpp:363
+#: src/configdialog.cpp:439 src/fetch/execexternalfetcher.cpp:363
 #: src/fetch/gcstarpluginfetcher.cpp:415 src/fetch/multifetcher.cpp:229
 #: src/translators/csvimporter.cpp:218
 #: src/translators/filelistingimporter.cpp:181
@@ -2533,12 +2548,12 @@ msgstr "樣本選項"
 msgid "Collection &type:"
 msgstr "收集型態(&T)："
 
-#: src/configdialog.cpp:433
+#: src/configdialog.cpp:446
 #, kde-format
 msgid "Template:"
 msgstr "樣本："
 
-#: src/configdialog.cpp:438
+#: src/configdialog.cpp:451
 #, kde-format
 msgid ""
 "Select the template to use for the current type of collections. Not all "
@@ -2546,12 +2561,12 @@ msgid ""
 msgstr ""
 "請選擇要用於目前收藏型態的樣本。並非所有的樣本都會使用此字型與顏色設定。"
 
-#: src/configdialog.cpp:445
+#: src/configdialog.cpp:458
 #, kde-format
 msgid "&Preview..."
 msgstr "預覽(&P)..."
 
-#: src/configdialog.cpp:446
+#: src/configdialog.cpp:459
 #, kde-format
 msgid "Show a preview of the template"
 msgstr "顯示樣本的預覽"
@@ -2561,168 +2576,168 @@ msgstr "顯示樣本的預覽"
 #. "specified directly in the template."), frame);
 #. l1->setTextFormat(Qt::RichText);
 #. l->addWidget(l1);
-#: src/configdialog.cpp:463
+#: src/configdialog.cpp:476
 #, kde-format
 msgid "Font Options"
 msgstr "字型選項"
 
-#: src/configdialog.cpp:470
+#: src/configdialog.cpp:483
 #, kde-format
 msgid "Font:"
 msgstr "字型："
 
-#: src/configdialog.cpp:476
+#: src/configdialog.cpp:489
 #, kde-format
 msgid "This font is passed to the template used in the Entry View."
 msgstr "此字型會在項目檢視中傳遞給樣本。"
 
-#: src/configdialog.cpp:480
+#: src/configdialog.cpp:493
 #, kde-format
 msgid "Size:"
 msgstr "大小："
 
-#: src/configdialog.cpp:492
+#: src/configdialog.cpp:505
 #, kde-format
 msgid "Color Options"
 msgstr "著色選項"
 
-#: src/configdialog.cpp:499
+#: src/configdialog.cpp:512
 #, kde-format
 msgid "Background color:"
 msgstr "背景顏色："
 
-#: src/configdialog.cpp:505
+#: src/configdialog.cpp:518
 #, kde-format
 msgid "This color is passed to the template used in the Entry View."
 msgstr "此顏色會在項目檢視中傳遞給樣本。"
 
-#: src/configdialog.cpp:509
+#: src/configdialog.cpp:522
 #, kde-format
 msgid "Text color:"
 msgstr "文字顏色："
 
-#: src/configdialog.cpp:518
+#: src/configdialog.cpp:531
 #, kde-format
 msgid "Highlight color:"
 msgstr "突顯顏色："
 
-#: src/configdialog.cpp:527
+#: src/configdialog.cpp:540
 #, kde-format
 msgid "Highlighted text color:"
 msgstr "突顯文字顏色："
 
-#: src/configdialog.cpp:536
+#: src/configdialog.cpp:549
 #, fuzzy, kde-format
 #| msgid "Text color:"
 msgid "Link color:"
 msgstr "文字顏色："
 
-#: src/configdialog.cpp:545
+#: src/configdialog.cpp:558
 #, kde-format
 msgid "Manage Templates"
 msgstr "管理樣本"
 
-#: src/configdialog.cpp:555
+#: src/configdialog.cpp:568
 #, kde-format
 msgid "Install..."
 msgstr "安裝..."
 
-#: src/configdialog.cpp:559
+#: src/configdialog.cpp:572
 #, kde-format
 msgid "Click to install a new template directly."
 msgstr "點擊以直接安裝新的樣本。"
 
-#: src/configdialog.cpp:564 src/configdialog.cpp:567 src/configdialog.cpp:571
+#: src/configdialog.cpp:577 src/configdialog.cpp:580 src/configdialog.cpp:584
 #, kde-format
 msgid "Download..."
 msgstr "下載..."
 
-#: src/configdialog.cpp:576
+#: src/configdialog.cpp:589
 #, kde-format
 msgid "Click to download additional templates."
 msgstr "點擊以下載額外的樣本。"
 
-#: src/configdialog.cpp:579
+#: src/configdialog.cpp:592
 #, kde-format
 msgid "Delete..."
 msgstr "刪除..."
 
-#: src/configdialog.cpp:583
+#: src/configdialog.cpp:596
 #, kde-format
 msgid "Click to select and remove installed templates."
 msgstr "點擊以選擇並移除安裝的樣本。"
 
-#: src/configdialog.cpp:615
+#: src/configdialog.cpp:628
 #, kde-format
 msgid "Data Sources Options"
 msgstr "資料來源選項"
 
-#: src/configdialog.cpp:636
+#: src/configdialog.cpp:649
 #, kde-format
 msgid "Move &Up"
 msgstr "上移(&U)"
 
-#: src/configdialog.cpp:639
+#: src/configdialog.cpp:652
 #, kde-format
 msgid ""
 "The order of the data sources sets the order that Tellico uses when entries "
 "are automatically updated."
 msgstr "資料來源的順序會決定 Tellico 在做自動更新項目時的順序。"
 
-#: src/configdialog.cpp:642
+#: src/configdialog.cpp:655
 #, kde-format
 msgid "Move &Down"
 msgstr "下移(&D)"
 
-#: src/configdialog.cpp:651
+#: src/configdialog.cpp:664
 #, kde-format
 msgid "Filter by type:"
 msgstr "以型態過濾："
 
-#: src/configdialog.cpp:669
+#: src/configdialog.cpp:682
 #, kde-format
 msgid "&New..."
 msgstr "新增(&N)..."
 
-#: src/configdialog.cpp:671
+#: src/configdialog.cpp:684
 #, kde-format
 msgid "Click to add a new data source."
 msgstr "點擊以新增資料來源。"
 
-#: src/configdialog.cpp:672
+#: src/configdialog.cpp:685
 #, kde-format
 msgid "&Modify..."
 msgstr "變更(&M)..."
 
-#: src/configdialog.cpp:674
+#: src/configdialog.cpp:687
 #, kde-format
 msgid "Click to modify the selected data source."
 msgstr "點擊以變更選取的資料來源。"
 
-#: src/configdialog.cpp:675
+#: src/configdialog.cpp:688
 #, kde-format
 msgid "&Delete"
 msgstr "刪除(&D)"
 
-#: src/configdialog.cpp:677
+#: src/configdialog.cpp:690
 #, kde-format
 msgid "Click to delete the selected data source."
 msgstr "點擊以刪除選取的資料來源。"
 
-#: src/configdialog.cpp:1161 src/translators/xsltexporter.cpp:101
+#: src/configdialog.cpp:1178 src/translators/xsltexporter.cpp:101
 #: src/translators/xsltexporter.cpp:106 src/translators/xsltimporter.cpp:128
 #: src/translators/xsltimporter.cpp:133
 #, kde-format
 msgid "XSL Files"
 msgstr "XSL 檔案"
 
-#: src/configdialog.cpp:1162
+#: src/configdialog.cpp:1179
 #, kde-format
 msgid "Template Packages"
 msgstr "樣本套件"
 
-#: src/configdialog.cpp:1163 src/importdialog.cpp:446 src/mainwindow.cpp:1297
-#: src/mainwindow.cpp:1473 src/reportdialog.cpp:443 src/reportdialog.cpp:458
+#: src/configdialog.cpp:1180 src/importdialog.cpp:446 src/mainwindow.cpp:1335
+#: src/mainwindow.cpp:1511 src/reportdialog.cpp:499 src/reportdialog.cpp:514
 #: src/translators/bibtexexporter.cpp:65
 #: src/translators/bibtexmlexporter.cpp:51 src/translators/csvexporter.cpp:64
 #: src/translators/gcstarexporter.cpp:62 src/translators/htmlexporter.cpp:101
@@ -2738,19 +2753,49 @@ msgstr "樣本套件"
 msgid "All Files"
 msgstr "所有檔案"
 
-#: src/configdialog.cpp:1192
+#: src/configdialog.cpp:1209
 #, kde-format
 msgid "Delete Template"
 msgstr "刪除樣本"
 
-#: src/configdialog.cpp:1193
+#: src/configdialog.cpp:1210
 #, kde-format
 msgid "Select template to delete:"
 msgstr "請選擇要刪除的樣本："
 
+#: src/configdialog.cpp:1250
+#, kde-format
+msgctxt "%1 refers to the file name"
+msgid "Images are currently saved within <em>%1</em>"
+msgstr ""
+
+#: src/configdialog.cpp:1254
+#, kde-format
+msgctxt "%1 refers to a directory"
+msgid "Images are currently saved to <em>%1</em>"
+msgstr ""
+
+#: src/configdialog.cpp:1260
+#, kde-format
+msgctxt "%1 refers to a directory, %2 to a file name"
+msgid "Images will be moved from <em>%1</em> to <em>%2</em>"
+msgstr ""
+
+#: src/configdialog.cpp:1264
+#, kde-format
+msgctxt "%1 refers to a file name, %2 to a directory"
+msgid "Images will be moved from <em>%1</em> to <em>%2</em>"
+msgstr ""
+
+#: src/configdialog.cpp:1274
+#, kde-format
+msgctxt "%1 and %2 are both directories"
+msgid "Images will be moved from <em>%1</em> to <em>%2</em>"
+msgstr ""
+
 #: src/controller.cpp:145 src/controller.cpp:199 src/fetchdialog.cpp:327
-#: src/fetchdialog.cpp:426 src/fetchdialog.cpp:560 src/fetchdialog.cpp:621
-#: src/fetchdialog.cpp:635 src/gui/statusbar.cpp:94
+#: src/fetchdialog.cpp:426 src/fetchdialog.cpp:559 src/fetchdialog.cpp:620
+#: src/fetchdialog.cpp:634 src/gui/statusbar.cpp:94
 #, kde-format
 msgid "Ready."
 msgstr "已就緒。"
@@ -2780,22 +2825,22 @@ msgstr "刪除多個項目"
 msgid "&Sort By"
 msgstr "排序依據(&S)"
 
-#: src/controller.cpp:594 src/mainwindow.cpp:610
+#: src/controller.cpp:594 src/mainwindow.cpp:618
 #, kde-format
 msgid "&Edit Entry..."
 msgstr "編輯項目(&E)..."
 
-#: src/controller.cpp:595 src/mainwindow.cpp:617
+#: src/controller.cpp:595 src/mainwindow.cpp:625
 #, kde-format
 msgid "D&uplicate Entry"
 msgstr "複製項目(&U)"
 
-#: src/controller.cpp:596 src/mainwindow.cpp:711
+#: src/controller.cpp:596 src/mainwindow.cpp:719
 #, kde-format
 msgid "&Update Entry"
 msgstr "更新項目(&U)"
 
-#: src/controller.cpp:597 src/mainwindow.cpp:624
+#: src/controller.cpp:597 src/mainwindow.cpp:632
 #, kde-format
 msgid "&Delete Entry"
 msgstr "刪除項目(&D)"
@@ -2830,59 +2875,59 @@ msgstr ""
 "以下的項目已被借出，但 Tellico 目前不支援同一項目被借出多次的功能。它們會在借"
 "出清單中被移除。"
 
-#: src/core/filehandler.cpp:156
+#: src/core/filehandler.cpp:167
 #, kde-format
 msgid "There is an XML parsing error in line %1, column %2."
 msgstr "XML 剖析時發生錯誤：第 %1 行，第 %2 欄"
 
-#: src/core/filehandler.cpp:158
+#: src/core/filehandler.cpp:169
 #, kde-format
 msgid "The error message from Qt is:"
 msgstr "Qt 傳來的錯誤訊息為："
 
-#: src/core/filehandler.cpp:190
+#: src/core/filehandler.cpp:201
 #, kde-format
 msgid ""
 "A file named \"%1\" already exists. Are you sure you want to overwrite it?"
 msgstr "名為「%1」的檔案已經存在。您確定要覆寫它嗎？"
 
-#: src/core/filehandler.cpp:193
+#: src/core/filehandler.cpp:204
 #, kde-format
 msgid "Overwrite File?"
 msgstr "要覆寫檔案嗎？"
 
-#: src/detailedlistview.cpp:523
+#: src/detailedlistview.cpp:520
 #, kde-format
 msgid "View Columns"
 msgstr "檢視欄位"
 
-#: src/detailedlistview.cpp:538
+#: src/detailedlistview.cpp:535
 #, kde-format
 msgctxt "Noun, Menu name"
 msgid "Columns"
 msgstr "欄位"
 
-#: src/detailedlistview.cpp:541
+#: src/detailedlistview.cpp:538
 #, kde-format
 msgid "Hide This Column"
 msgstr "隱藏這個欄位"
 
-#: src/detailedlistview.cpp:543
+#: src/detailedlistview.cpp:540
 #, kde-format
 msgid "Resize to Content"
 msgstr "將大小調整到符合內容"
 
-#: src/detailedlistview.cpp:548
+#: src/detailedlistview.cpp:545
 #, kde-format
 msgid "Show All Columns"
 msgstr "顯示所有欄位"
 
-#: src/detailedlistview.cpp:550
+#: src/detailedlistview.cpp:547
 #, kde-format
 msgid "Hide All Columns"
 msgstr "隱藏所有欄位"
 
-#: src/document.cpp:212 src/mainwindow.cpp:1412
+#: src/document.cpp:212 src/mainwindow.cpp:1450
 #, kde-format
 msgid "Saving file..."
 msgstr "正在儲存檔案..."
@@ -2944,12 +2989,12 @@ msgid "Save Entry"
 msgstr "儲存項目"
 
 #: src/entryeditdialog.cpp:675 src/entryeditdialog.cpp:693
-#: src/mainwindow.cpp:1182 src/mainwindow.cpp:1200
+#: src/mainwindow.cpp:1220 src/mainwindow.cpp:1238
 #, kde-format
 msgid "Unsaved Changes"
 msgstr "未儲存的改變"
 
-#: src/entryiconview.cpp:61 src/mainwindow.cpp:884
+#: src/entryiconview.cpp:61 src/mainwindow.cpp:895
 #, kde-format
 msgid ""
 "<qt>The <i>Icon View</i> shows each entry in the collection or group using "
@@ -2994,8 +3039,8 @@ msgstr "總計合併/掃描的項目：%1/%2"
 
 #: src/entryupdater.cpp:95
 #, kde-format
-msgid "Updating %1..."
-msgstr "更新 %1 中..."
+msgid "Updating <b>%1</b>..."
+msgstr "更新 <b>%1</b> 中..."
 
 #: src/entryupdater.cpp:97
 #, kde-format
@@ -3007,17 +3052,18 @@ msgstr "更新項目中"
 msgid "Update Entries"
 msgstr "更新項目"
 
-#: src/entryupdater.cpp:114
-#, kde-format
-msgid "Updating <b>%1</b>..."
+#: src/entryupdater.cpp:116
+#, fuzzy, kde-format
+#| msgid "Updating <b>%1</b>..."
+msgid "Updating <b>%1</b> from <i>%2</i>..."
 msgstr "更新 <b>%1</b> 中..."
 
-#: src/entryview.cpp:352
+#: src/entryview.cpp:357
 #, kde-format
 msgid "Tellico is unable to locate the default entry stylesheet."
 msgstr "Tellico 無法找到預設的項目樣式表。"
 
-#: src/entryview.cpp:354 src/mainwindow.cpp:1819
+#: src/entryview.cpp:359 src/mainwindow.cpp:1859
 #, kde-format
 msgid "Please check your installation."
 msgstr "請檢查您的安裝。"
@@ -3095,9 +3141,9 @@ msgstr "匯出的檔案以使用者的地域設定編碼。"
 msgid "SAO/NASA Astrophysics Data System"
 msgstr ""
 
-#: src/fetch/adsfetcher.cpp:326 src/fetch/amazonfetcher.cpp:1093
+#: src/fetch/adsfetcher.cpp:326 src/fetch/amazonfetcher.cpp:1095
 #: src/fetch/bibliosharefetcher.cpp:173 src/fetch/comicvinefetcher.cpp:229
-#: src/fetch/crossreffetcher.cpp:298 src/fetch/discogsfetcher.cpp:559
+#: src/fetch/crossreffetcher.cpp:298 src/fetch/discogsfetcher.cpp:598
 #: src/fetch/giantbombfetcher.cpp:215 src/fetch/googlebookfetcher.cpp:381
 #: src/fetch/isbndbfetcher.cpp:393 src/fetch/mobygamesfetcher.cpp:649
 #: src/fetch/omdbfetcher.cpp:408 src/fetch/thegamesdbfetcher.cpp:635
@@ -3115,9 +3161,9 @@ msgstr ""
 "要存取 %1 資料來源必須先註冊。若您同意這些條款與條件，<a href='%2'>請註冊一個"
 "帳號</a>並在底下輸入您的資訊。"
 
-#: src/fetch/adsfetcher.cpp:338 src/fetch/amazonfetcher.cpp:1105
+#: src/fetch/adsfetcher.cpp:338 src/fetch/amazonfetcher.cpp:1107
 #: src/fetch/bibliosharefetcher.cpp:185 src/fetch/comicvinefetcher.cpp:241
-#: src/fetch/entrezfetcher.cpp:530 src/fetch/giantbombfetcher.cpp:227
+#: src/fetch/entrezfetcher.cpp:538 src/fetch/giantbombfetcher.cpp:227
 #: src/fetch/googlebookfetcher.cpp:393 src/fetch/isbndbfetcher.cpp:405
 #: src/fetch/mobygamesfetcher.cpp:661 src/fetch/numistafetcher.cpp:415
 #: src/fetch/omdbfetcher.cpp:420 src/fetch/thegamesdbfetcher.cpp:647
@@ -3127,7 +3173,7 @@ msgid "Access key: "
 msgstr "存取金鑰："
 
 #: src/fetch/adsfetcher.cpp:344 src/fetch/bibliosharefetcher.cpp:191
-#: src/fetch/comicvinefetcher.cpp:247 src/fetch/entrezfetcher.cpp:536
+#: src/fetch/comicvinefetcher.cpp:247 src/fetch/entrezfetcher.cpp:544
 #: src/fetch/giantbombfetcher.cpp:233 src/fetch/googlebookfetcher.cpp:399
 #: src/fetch/themoviedbfetcher.cpp:603 src/fetch/thetvdbfetcher.cpp:596
 #, kde-format
@@ -3302,14 +3348,14 @@ msgstr "阿拉伯聯合大公國"
 msgid "This data is licensed under <a href=%1>specific terms</a>."
 msgstr "此資料以<a href=%1>指定條款</a>授權。"
 
-#: src/fetch/amazonfetcher.cpp:269 src/fetch/amazonfetcher.cpp:1110
+#: src/fetch/amazonfetcher.cpp:269 src/fetch/amazonfetcher.cpp:1112
 #, kde-format
 msgid ""
 "Access to data from Amazon.com requires an AWS Access Key ID and a Secret "
 "Key."
 msgstr "要從 Amazon.com 取得資料必須有 AWS 存取金鑰代碼以及私密金鑰。"
 
-#: src/fetch/amazonfetcher.cpp:271 src/fetch/discogsfetcher.cpp:138
+#: src/fetch/amazonfetcher.cpp:271 src/fetch/discogsfetcher.cpp:148
 #: src/fetch/isbndbfetcher.cpp:163 src/fetch/mobygamesfetcher.cpp:162
 #: src/fetch/omdbfetcher.cpp:119 src/fetch/thegamesdbfetcher.cpp:136
 #: src/fetch/themoviedbfetcher.cpp:159 src/fetch/thetvdbfetcher.cpp:159
@@ -3317,101 +3363,106 @@ msgstr "要從 Amazon.com 取得資料必須有 AWS 存取金鑰代碼以及私�
 msgid "Those values must be entered in the data source settings."
 msgstr "這些值必須在資料來源設定裡輸入。"
 
-#: src/fetch/amazonfetcher.cpp:462
+#: src/fetch/amazonfetcher.cpp:464
 #, kde-format
 msgid "Results from %1: %2/%3"
 msgstr "從 %1 傳回的結果：%2/%3"
 
-#: src/fetch/amazonfetcher.cpp:631 src/fetch/colnectfetcher.cpp:795
-#: src/fetch/discogsfetcher.cpp:217 src/fetch/doubanfetcher.cpp:477
+#: src/fetch/amazonfetcher.cpp:633 src/fetch/colnectfetcher.cpp:823
+#: src/fetch/discogsfetcher.cpp:227 src/fetch/doubanfetcher.cpp:477
 #: src/fetch/filmaffinityfetcher.cpp:430 src/fetch/filmasterfetcher.cpp:147
 #: src/fetch/gaminghistoryfetcher.cpp:306 src/fetch/googlebookfetcher.cpp:198
 #: src/fetch/ibsfetcher.cpp:300 src/fetch/igdbfetcher.cpp:161
-#: src/fetch/isbndbfetcher.cpp:294 src/fetch/itunesfetcher.cpp:352
-#: src/fetch/kinofetcher.cpp:347 src/fetch/kinopoiskfetcher.cpp:267
+#: src/fetch/isbndbfetcher.cpp:294 src/fetch/itunesfetcher.cpp:366
+#: src/fetch/kinofetcher.cpp:364 src/fetch/kinopoiskfetcher.cpp:267
 #: src/fetch/kinoteatrfetcher.cpp:374 src/fetch/mobygamesfetcher.cpp:343
-#: src/fetch/moviemeterfetcher.cpp:160 src/fetch/numistafetcher.cpp:286
+#: src/fetch/moviemeterfetcher.cpp:166 src/fetch/numistafetcher.cpp:286
 #: src/fetch/numistafetcher.cpp:294 src/fetch/omdbfetcher.cpp:181
 #: src/fetch/thegamesdbfetcher.cpp:171 src/fetch/themoviedbfetcher.cpp:235
 #: src/fetch/thetvdbfetcher.cpp:340 src/fetch/tvmazefetcher.cpp:262
-#: src/fetch/upcitemdbfetcher.cpp:258 src/fetch/vgcollectfetcher.cpp:282
+#: src/fetch/upcitemdbfetcher.cpp:259 src/fetch/vgcollectfetcher.cpp:282
 #: src/fetch/vndbfetcher.cpp:182
 #, kde-format
 msgid "The cover image could not be loaded."
 msgstr "無法載入封面影像。"
 
-#: src/fetch/amazonfetcher.cpp:860 src/fetch/amazonfetcher.cpp:1077
+#: src/fetch/amazonfetcher.cpp:862 src/fetch/amazonfetcher.cpp:1079
 #, kde-format
 msgid "Amazon Link"
 msgstr "Amazon 連結"
 
-#: src/fetch/amazonfetcher.cpp:1067
+#: src/fetch/amazonfetcher.cpp:1069
 #, kde-format
 msgid "Amazon.com Web Services"
 msgstr "Amazon.com 網頁服務（AWS）"
 
-#: src/fetch/amazonfetcher.cpp:1115
+#: src/fetch/amazonfetcher.cpp:1117
 #, kde-format
 msgid "Secret key: "
 msgstr "私密金鑰："
 
-#: src/fetch/amazonfetcher.cpp:1125
+#: src/fetch/amazonfetcher.cpp:1127
 #, kde-format
 msgid "Country: "
 msgstr "國家："
 
-#: src/fetch/amazonfetcher.cpp:1140
+#: src/fetch/amazonfetcher.cpp:1142
 #, kde-format
 msgid ""
 "Amazon.com provides data from several different localized sites. Choose the "
 "one you wish to use for this data source."
 msgstr "Amazon.com 提供數個不同的地域化站台。請選擇此資料來源要使用的站台。"
 
-#: src/fetch/amazonfetcher.cpp:1146 src/fetch/boardgamegeekfetcher.cpp:215
-#: src/fetch/colnectfetcher.cpp:956 src/fetch/imdbfetcher.cpp:567
-#: src/fetch/itunesfetcher.cpp:543 src/fetch/mobygamesfetcher.cpp:669
+#: src/fetch/amazonfetcher.cpp:1148 src/fetch/boardgamegeekfetcher.cpp:215
+#: src/fetch/colnectfetcher.cpp:986 src/fetch/discogsfetcher.cpp:618
+#: src/fetch/imdbfetcher.cpp:567 src/fetch/itunesfetcher.cpp:565
+#: src/fetch/mobygamesfetcher.cpp:669 src/fetch/moviemeterfetcher.cpp:319
 #: src/fetch/rpggeekfetcher.cpp:224 src/fetch/thegamesdbfetcher.cpp:655
 #: src/fetch/videogamegeekfetcher.cpp:215
 #, kde-format
 msgid "&Image size: "
 msgstr "影像大小(&I)："
 
-#: src/fetch/amazonfetcher.cpp:1149 src/fetch/boardgamegeekfetcher.cpp:219
-#: src/fetch/colnectfetcher.cpp:960 src/fetch/imdbfetcher.cpp:570
-#: src/fetch/itunesfetcher.cpp:547 src/fetch/mobygamesfetcher.cpp:672
+#: src/fetch/amazonfetcher.cpp:1151 src/fetch/boardgamegeekfetcher.cpp:219
+#: src/fetch/colnectfetcher.cpp:990 src/fetch/discogsfetcher.cpp:621
+#: src/fetch/imdbfetcher.cpp:570 src/fetch/itunesfetcher.cpp:569
+#: src/fetch/mobygamesfetcher.cpp:672 src/fetch/moviemeterfetcher.cpp:322
 #: src/fetch/rpggeekfetcher.cpp:228 src/fetch/thegamesdbfetcher.cpp:658
 #: src/fetch/videogamegeekfetcher.cpp:219
 #, kde-format
 msgid "Small Image"
 msgstr "小"
 
-#: src/fetch/amazonfetcher.cpp:1150 src/fetch/imdbfetcher.cpp:571
-#: src/fetch/thegamesdbfetcher.cpp:659
+#: src/fetch/amazonfetcher.cpp:1152 src/fetch/imdbfetcher.cpp:571
+#: src/fetch/moviemeterfetcher.cpp:323 src/fetch/thegamesdbfetcher.cpp:659
 #, kde-format
 msgid "Medium Image"
 msgstr "中"
 
 #. i18n("Medium Image"), MediumImage); // no medium right now, either thumbnail (small) or large
-#: src/fetch/amazonfetcher.cpp:1151 src/fetch/boardgamegeekfetcher.cpp:220
-#: src/fetch/colnectfetcher.cpp:961 src/fetch/imdbfetcher.cpp:572
-#: src/fetch/itunesfetcher.cpp:548 src/fetch/mobygamesfetcher.cpp:674
+#: src/fetch/amazonfetcher.cpp:1153 src/fetch/boardgamegeekfetcher.cpp:220
+#: src/fetch/colnectfetcher.cpp:991 src/fetch/discogsfetcher.cpp:623
+#: src/fetch/imdbfetcher.cpp:572 src/fetch/itunesfetcher.cpp:570
+#: src/fetch/mobygamesfetcher.cpp:674 src/fetch/moviemeterfetcher.cpp:324
 #: src/fetch/rpggeekfetcher.cpp:229 src/fetch/thegamesdbfetcher.cpp:660
 #: src/fetch/videogamegeekfetcher.cpp:220
 #, kde-format
 msgid "Large Image"
 msgstr "大"
 
-#: src/fetch/amazonfetcher.cpp:1152 src/fetch/boardgamegeekfetcher.cpp:218
-#: src/fetch/colnectfetcher.cpp:959 src/fetch/imdbfetcher.cpp:573
-#: src/fetch/itunesfetcher.cpp:546 src/fetch/mobygamesfetcher.cpp:675
+#: src/fetch/amazonfetcher.cpp:1154 src/fetch/boardgamegeekfetcher.cpp:218
+#: src/fetch/colnectfetcher.cpp:989 src/fetch/discogsfetcher.cpp:624
+#: src/fetch/imdbfetcher.cpp:573 src/fetch/itunesfetcher.cpp:568
+#: src/fetch/mobygamesfetcher.cpp:675 src/fetch/moviemeterfetcher.cpp:325
 #: src/fetch/rpggeekfetcher.cpp:227 src/fetch/thegamesdbfetcher.cpp:661
 #: src/fetch/videogamegeekfetcher.cpp:218
 #, kde-format
 msgid "No Image"
 msgstr "沒有影像"
 
-#: src/fetch/amazonfetcher.cpp:1155 src/fetch/imdbfetcher.cpp:577
-#: src/fetch/mobygamesfetcher.cpp:679 src/fetch/thegamesdbfetcher.cpp:665
+#: src/fetch/amazonfetcher.cpp:1157 src/fetch/discogsfetcher.cpp:628
+#: src/fetch/imdbfetcher.cpp:577 src/fetch/mobygamesfetcher.cpp:679
+#: src/fetch/moviemeterfetcher.cpp:329 src/fetch/thegamesdbfetcher.cpp:665
 #, kde-format
 msgid ""
 "The cover image may be downloaded as well. However, too many large images in "
@@ -3419,12 +3470,12 @@ msgid ""
 msgstr ""
 "封面影像也可以下載。不過，若是收藏裡放了太多大張的影像，可能會降低它的效率。"
 
-#: src/fetch/amazonfetcher.cpp:1161
+#: src/fetch/amazonfetcher.cpp:1163
 #, kde-format
 msgid "&Associate's ID: "
 msgstr "夥伴代碼(&A)："
 
-#: src/fetch/amazonfetcher.cpp:1167
+#: src/fetch/amazonfetcher.cpp:1169
 #, kde-format
 msgid ""
 "The associate's id identifies the person accessing the Amazon.com Web "
@@ -3439,19 +3490,18 @@ msgctxt "Acknowledgment from https://info.arxiv.org/help/api/index.html"
 msgid "Thank you to arXiv for use of its open access interoperability."
 msgstr ""
 
-#: src/fetch/arxivfetcher.cpp:341 src/fetch/bedethequefetcher.cpp:442
+#: src/fetch/arxivfetcher.cpp:345 src/fetch/bedethequefetcher.cpp:442
 #: src/fetch/bibsonomyfetcher.cpp:190 src/fetch/dbcfetcher.cpp:160
 #: src/fetch/dblpfetcher.cpp:132 src/fetch/doubanfetcher.cpp:649
 #: src/fetch/dvdfrfetcher.cpp:181 src/fetch/filmasterfetcher.cpp:321
 #: src/fetch/gaminghistoryfetcher.cpp:436
-#: src/fetch/googlescholarfetcher.cpp:278 src/fetch/hathitrustfetcher.cpp:315
+#: src/fetch/googlescholarfetcher.cpp:278 src/fetch/hathitrustfetcher.cpp:314
 #: src/fetch/ibsfetcher.cpp:403 src/fetch/igdbfetcher.cpp:615
-#: src/fetch/kinofetcher.cpp:385 src/fetch/kinoteatrfetcher.cpp:513
-#: src/fetch/moviemeterfetcher.cpp:298 src/fetch/mrlookupfetcher.cpp:230
-#: src/fetch/musicbrainzfetcher.cpp:374 src/fetch/openlibraryfetcher.cpp:457
-#: src/fetch/springerfetcher.cpp:183 src/fetch/tvmazefetcher.cpp:386
-#: src/fetch/upcitemdbfetcher.cpp:478 src/fetch/vgcollectfetcher.cpp:378
-#: src/fetch/vndbfetcher.cpp:440
+#: src/fetch/kinofetcher.cpp:402 src/fetch/kinoteatrfetcher.cpp:513
+#: src/fetch/mrlookupfetcher.cpp:230 src/fetch/musicbrainzfetcher.cpp:399
+#: src/fetch/openlibraryfetcher.cpp:457 src/fetch/springerfetcher.cpp:187
+#: src/fetch/tvmazefetcher.cpp:386 src/fetch/upcitemdbfetcher.cpp:479
+#: src/fetch/vgcollectfetcher.cpp:378 src/fetch/vndbfetcher.cpp:440
 #, kde-format
 msgid "This source has no options."
 msgstr "此來源沒有選項。"
@@ -3476,30 +3526,30 @@ msgstr "ISBN#"
 msgid "BoardGameGeek Link"
 msgstr "BoardGameGeek 連結"
 
-#: src/fetch/colnectfetcher.cpp:533 src/fetch/colnectfetcher.cpp:816
+#: src/fetch/colnectfetcher.cpp:543 src/fetch/colnectfetcher.cpp:844
 #, kde-format
 msgid "Colnect Link"
 msgstr "Colnect 連結"
 
-#: src/fetch/colnectfetcher.cpp:552 src/fetch/colnectfetcher.cpp:822
+#: src/fetch/colnectfetcher.cpp:562 src/fetch/colnectfetcher.cpp:850
 #, fuzzy, kde-format
 #| msgid "Vintage"
 msgid "Mintage"
 msgstr "釀造年份"
 
-#: src/fetch/colnectfetcher.cpp:590 src/fetch/colnectfetcher.cpp:824
+#: src/fetch/colnectfetcher.cpp:600 src/fetch/colnectfetcher.cpp:852
 #, kde-format
 msgctxt "Stanley Gibbons stamp catalog code"
 msgid "Stanley Gibbons"
 msgstr ""
 
-#: src/fetch/colnectfetcher.cpp:597 src/fetch/colnectfetcher.cpp:825
+#: src/fetch/colnectfetcher.cpp:607 src/fetch/colnectfetcher.cpp:853
 #, kde-format
 msgctxt "Michel stamp catalog code"
 msgid "Michel"
 msgstr ""
 
-#: src/fetch/colnectfetcher.cpp:826 src/fetch/giantbombfetcher.cpp:203
+#: src/fetch/colnectfetcher.cpp:854 src/fetch/giantbombfetcher.cpp:203
 #: src/fetch/igdbfetcher.cpp:577 src/fetch/mobygamesfetcher.cpp:635
 #: src/fetch/vgcollectfetcher.cpp:370 src/field.cpp:329
 #, fuzzy, kde-format
@@ -3507,13 +3557,13 @@ msgstr ""
 msgid "PEGI Rating"
 msgstr "ESRB 評比"
 
-#: src/fetch/colnectfetcher.cpp:928 src/fetch/filmaffinityfetcher.cpp:492
+#: src/fetch/colnectfetcher.cpp:958 src/fetch/filmaffinityfetcher.cpp:492
 #: src/fetch/numistafetcher.cpp:423 src/fetch/themoviedbfetcher.cpp:626
 #, kde-format
 msgid "Language: "
 msgstr "語言："
 
-#: src/fetch/colnectfetcher.cpp:966
+#: src/fetch/colnectfetcher.cpp:996
 #, kde-format
 msgid "Country code: "
 msgstr "國家代碼："
@@ -3569,7 +3619,7 @@ msgstr "電子郵件："
 msgid "Danish Bibliographic Center (DBC.dk)"
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:136 src/fetch/isbndbfetcher.cpp:161
+#: src/fetch/discogsfetcher.cpp:146 src/fetch/isbndbfetcher.cpp:161
 #: src/fetch/mobygamesfetcher.cpp:160 src/fetch/omdbfetcher.cpp:117
 #: src/fetch/thegamesdbfetcher.cpp:134 src/fetch/themoviedbfetcher.cpp:157
 #: src/fetch/thetvdbfetcher.cpp:157
@@ -3577,45 +3627,44 @@ msgstr ""
 msgid "An access key is required to use this data source."
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:311 src/fetch/discogsfetcher.cpp:546
+#: src/fetch/discogsfetcher.cpp:321 src/fetch/discogsfetcher.cpp:585
 #, kde-format
 msgid "Discogs Link"
 msgstr "Discogs 連結"
 
-#. i18n("Nationality");
-#: src/fetch/discogsfetcher.cpp:330 src/fetch/discogsfetcher.cpp:547
-#: src/fetch/dvdfrfetcher.cpp:174 src/fetch/musicbrainzfetcher.cpp:367
-#: src/fetch/upcitemdbfetcher.cpp:212 src/fetch/upcitemdbfetcher.cpp:471
+#: src/fetch/discogsfetcher.cpp:340 src/fetch/discogsfetcher.cpp:586
+#: src/fetch/dvdfrfetcher.cpp:174 src/fetch/musicbrainzfetcher.cpp:392
+#: src/fetch/upcitemdbfetcher.cpp:212 src/fetch/upcitemdbfetcher.cpp:472
 #: src/fetch/vgcollectfetcher.cpp:336 src/fetch/vgcollectfetcher.cpp:371
 #, kde-format
 msgid "Barcode"
 msgstr "條碼"
 
-#: src/fetch/discogsfetcher.cpp:335 src/fetch/discogsfetcher.cpp:548
+#: src/fetch/discogsfetcher.cpp:345 src/fetch/discogsfetcher.cpp:587
 #, fuzzy, kde-format
 #| msgid "Card Number"
 msgid "Catalog Number"
 msgstr "卡號"
 
-#: src/fetch/discogsfetcher.cpp:345
+#: src/fetch/discogsfetcher.cpp:355
 #, kde-format
 msgid "The Discogs.com server reports a token error."
 msgstr ""
 
-#: src/fetch/discogsfetcher.cpp:479 src/fetch/discogsfetcher.cpp:490
-#: src/fetch/itunesfetcher.cpp:313 src/fetch/itunesfetcher.cpp:324
+#: src/fetch/discogsfetcher.cpp:508 src/fetch/discogsfetcher.cpp:519
+#: src/fetch/itunesfetcher.cpp:317 src/fetch/itunesfetcher.cpp:328
 #: src/translators/audiofileimporter.cpp:231
 #: src/translators/audiofileimporter.cpp:241
 #, kde-format
 msgid "Tracks (Disc %1)"
 msgstr "音軌（碟片 %1）"
 
-#: src/fetch/discogsfetcher.cpp:535
+#: src/fetch/discogsfetcher.cpp:574
 #, kde-format
 msgid "Discogs Audio Search"
 msgstr "Discogs 音效搜尋"
 
-#: src/fetch/discogsfetcher.cpp:571 src/translators/discogsimporter.cpp:200
+#: src/fetch/discogsfetcher.cpp:610 src/translators/discogsimporter.cpp:200
 #, kde-format
 msgid "User token:"
 msgstr "使用者權杖："
@@ -3629,7 +3678,7 @@ msgstr "使用者權杖："
 #: src/fetch/kinoteatrfetcher.cpp:261 src/fetch/kinoteatrfetcher.cpp:505
 #: src/fetch/omdbfetcher.cpp:260 src/fetch/themoviedbfetcher.cpp:327
 #: src/fetch/themoviedbfetcher.cpp:571 src/fetch/vndbfetcher.cpp:285
-#: src/fetch/vndbfetcher.cpp:432 src/translators/filereadervideo.cpp:200
+#: src/fetch/vndbfetcher.cpp:432 src/translators/filereadervideo.cpp:206
 #, kde-format
 msgid "Original Title"
 msgstr "原始標題"
@@ -3646,25 +3695,25 @@ msgid "DVDFr Link"
 msgstr "DVDFr 連結"
 
 #: src/fetch/dvdfrfetcher.cpp:173 src/fetch/imdbfetcher.cpp:478
-#: src/fetch/imdbfetcher.cpp:530 src/fetch/moviemeterfetcher.cpp:222
-#: src/fetch/moviemeterfetcher.cpp:291 src/fetch/omdbfetcher.cpp:255
+#: src/fetch/imdbfetcher.cpp:530 src/fetch/moviemeterfetcher.cpp:228
+#: src/fetch/moviemeterfetcher.cpp:308 src/fetch/omdbfetcher.cpp:255
 #: src/fetch/themoviedbfetcher.cpp:322 src/fetch/themoviedbfetcher.cpp:570
 #: src/fetch/tvmazefetcher.cpp:190 src/fetch/tvmazefetcher.cpp:378
 #, kde-format
 msgid "Alternative Titles"
 msgstr "替代標題"
 
-#: src/fetch/entrezfetcher.cpp:439 src/translators/risimporter.cpp:339
+#: src/fetch/entrezfetcher.cpp:447 src/translators/risimporter.cpp:339
 #, kde-format
 msgid "Miscellaneous"
 msgstr "雜項"
 
-#: src/fetch/entrezfetcher.cpp:502
+#: src/fetch/entrezfetcher.cpp:510
 #, kde-format
 msgid "Entrez Database"
 msgstr "Entrez 資料庫"
 
-#: src/fetch/entrezfetcher.cpp:512
+#: src/fetch/entrezfetcher.cpp:520
 #, kde-format
 msgid "Institution"
 msgstr "機構"
@@ -3864,19 +3913,19 @@ msgstr "Google Book 連結"
 msgid "Google Book Search"
 msgstr "Google Book 搜尋"
 
-#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/z3950fetcher.cpp:574
+#: src/fetch/hathitrustfetcher.cpp:305 src/fetch/z3950fetcher.cpp:574
 #, kde-format
 msgid "Illustrator"
 msgstr "插畫家"
 
-#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/isbndbfetcher.cpp:382
-#: src/fetch/srufetcher.cpp:523 src/fetch/z3950fetcher.cpp:575
+#: src/fetch/hathitrustfetcher.cpp:306 src/fetch/isbndbfetcher.cpp:382
+#: src/fetch/srufetcher.cpp:537 src/fetch/z3950fetcher.cpp:575
 #, kde-format
 msgctxt "Dewey Decimal classification system"
 msgid "Dewey Decimal"
 msgstr "Dewey Decimal"
 
-#: src/fetch/hathitrustfetcher.cpp:308 src/fetch/srufetcher.cpp:524
+#: src/fetch/hathitrustfetcher.cpp:307 src/fetch/srufetcher.cpp:538
 #: src/fetch/z3950fetcher.cpp:576
 #, kde-format
 msgctxt "Library of Congress classification system"
@@ -3928,7 +3977,7 @@ msgstr "IMDb 連結"
 msgid "Certifications"
 msgstr "憑證"
 
-#: src/fetch/imdbfetcher.cpp:533 src/fetch/itunesfetcher.cpp:532
+#: src/fetch/imdbfetcher.cpp:533 src/fetch/itunesfetcher.cpp:554
 #: src/fetch/themoviedbfetcher.cpp:573 src/fetch/thetvdbfetcher.cpp:565
 #: src/fetch/tvmazefetcher.cpp:376 src/field.cpp:339
 #, kde-format
@@ -3978,7 +4027,7 @@ msgid ""
 "Pro plans."
 msgstr ""
 
-#: src/fetch/itunesfetcher.cpp:238 src/fetch/itunesfetcher.cpp:531
+#: src/fetch/itunesfetcher.cpp:242 src/fetch/itunesfetcher.cpp:553
 #, kde-format
 msgid "iTunes Link"
 msgstr "iTunes 連結"
@@ -3998,7 +4047,7 @@ msgstr "Kino-Teatr 連結"
 msgid "MobyGames Link"
 msgstr "MobyGames 連結"
 
-#: src/fetch/moviemeterfetcher.cpp:217 src/fetch/moviemeterfetcher.cpp:290
+#: src/fetch/moviemeterfetcher.cpp:223 src/fetch/moviemeterfetcher.cpp:307
 #, kde-format
 msgid "MovieMeter Link"
 msgstr "MovieMeter 連結"
@@ -4042,31 +4091,31 @@ msgstr "法文"
 msgid "Numista (%1)"
 msgstr ""
 
-#: src/fetch/opdsfetcher.cpp:200 src/fetch/opdsfetcher.cpp:210
+#: src/fetch/opdsfetcher.cpp:205 src/fetch/opdsfetcher.cpp:215
 #, fuzzy, kde-format
 #| msgid "Tellico was unable to read any metadata from the PDF file."
 msgid "Tellico is unable to read the search description in the OPDS catalog."
 msgstr "Tellico 無法讀取此 PDF 檔的任何中繼資料。"
 
-#: src/fetch/opdsfetcher.cpp:425
+#: src/fetch/opdsfetcher.cpp:430
 #, fuzzy, kde-format
 #| msgid "File Catalog"
 msgid "OPDS Catalog"
 msgstr "檔案類別"
 
-#: src/fetch/opdsfetcher.cpp:450
+#: src/fetch/opdsfetcher.cpp:455
 #, fuzzy, kde-format
 #| msgid "Card Number"
 msgid "Catalog: "
 msgstr "卡號"
 
-#: src/fetch/opdsfetcher.cpp:455
+#: src/fetch/opdsfetcher.cpp:460
 #, fuzzy, kde-format
 #| msgid "Enter the host name of the server."
 msgid "Enter the link to the OPDS server."
 msgstr "輸入此伺服器的主機名稱。"
 
-#: src/fetch/opdsfetcher.cpp:460
+#: src/fetch/opdsfetcher.cpp:465
 #, fuzzy, kde-format
 #| msgid "File Catalog"
 msgid "&Verify Catalog"
@@ -4082,69 +4131,69 @@ msgstr "OpenLibrary 連結"
 msgid "RPGGeek Link"
 msgstr "RPGGeek 連結"
 
-#: src/fetch/srufetcher.cpp:506
+#: src/fetch/srufetcher.cpp:520
 #, kde-format
 msgid "Library of Congress (US)"
 msgstr "國會圖書館（美國）"
 
-#: src/fetch/srufetcher.cpp:511
+#: src/fetch/srufetcher.cpp:525
 #, kde-format
 msgid "SRU Server"
 msgstr "SRU 伺服器"
 
-#: src/fetch/srufetcher.cpp:539
+#: src/fetch/srufetcher.cpp:553
 #, fuzzy, kde-format
 #| msgid "&Source name: "
 msgid "Scheme: "
 msgstr "來源名稱(&S)："
 
-#: src/fetch/srufetcher.cpp:549 src/fetch/srufetcher.cpp:585
+#: src/fetch/srufetcher.cpp:563 src/fetch/srufetcher.cpp:599
 #, kde-format
 msgid "Enter the path to the database used by the server."
 msgstr "輸入伺服器使用的資料庫路徑。"
 
-#: src/fetch/srufetcher.cpp:554 src/fetch/z3950fetcher.cpp:599
+#: src/fetch/srufetcher.cpp:568 src/fetch/z3950fetcher.cpp:599
 #, kde-format
 msgid "Hos&t: "
 msgstr "主機(&T)："
 
-#: src/fetch/srufetcher.cpp:561 src/fetch/z3950fetcher.cpp:605
+#: src/fetch/srufetcher.cpp:575 src/fetch/z3950fetcher.cpp:605
 #, kde-format
 msgid "Enter the host name of the server."
 msgstr "輸入此伺服器的主機名稱。"
 
-#: src/fetch/srufetcher.cpp:566 src/fetch/z3950fetcher.cpp:610
+#: src/fetch/srufetcher.cpp:580 src/fetch/z3950fetcher.cpp:610
 #, kde-format
 msgid "&Port: "
 msgstr "連接埠(&P)："
 
-#: src/fetch/srufetcher.cpp:575 src/fetch/z3950fetcher.cpp:619
+#: src/fetch/srufetcher.cpp:589 src/fetch/z3950fetcher.cpp:619
 #, kde-format
 msgid "Enter the port number of the server. The default is %1."
 msgstr "輸入伺服器的連接埠號。預設為 %1。"
 
-#: src/fetch/srufetcher.cpp:580
+#: src/fetch/srufetcher.cpp:594
 #, kde-format
 msgid "Path: "
 msgstr "路徑："
 
-#: src/fetch/srufetcher.cpp:590
+#: src/fetch/srufetcher.cpp:604
 #, kde-format
 msgid "Format: "
 msgstr "格式："
 
-#: src/fetch/srufetcher.cpp:601
+#: src/fetch/srufetcher.cpp:615
 #, kde-format
 msgid "Enter the result format used by the server."
 msgstr "輸入伺服器使用的結果格式。"
 
-#: src/fetch/srufetcher.cpp:610
+#: src/fetch/srufetcher.cpp:624
 #, kde-format
 msgid "Field"
 msgstr "欄位"
 
 #: src/fetch/themoviedbfetcher.cpp:314 src/fetch/themoviedbfetcher.cpp:568
-#: src/translators/filereadervideo.cpp:275
+#: src/translators/filereadervideo.cpp:281
 #, kde-format
 msgid "TMDb Link"
 msgstr "TMDb 連結"
@@ -4342,7 +4391,7 @@ msgstr ""
 "輸入 z39.50 資料庫認證用的密碼。大部份伺服器都不需要此選項。密碼將會以純文字"
 "形式存在 Tellico 的設定檔中。"
 
-#: src/fetchdialog.cpp:138 src/mainwindow.cpp:600
+#: src/fetchdialog.cpp:138 src/mainwindow.cpp:608
 #, kde-format
 msgid "Internet Search"
 msgstr "網路搜尋"
@@ -4368,7 +4417,7 @@ msgstr "請輸入搜尋字串。ISBN 搜尋字串中必須包含完整的 ISBN �
 msgid "Choose the type of search"
 msgstr "選擇搜尋型態"
 
-#: src/fetchdialog.cpp:178 src/fetchdialog.cpp:402 src/fetchdialog.cpp:582
+#: src/fetchdialog.cpp:178 src/fetchdialog.cpp:402 src/fetchdialog.cpp:581
 #, kde-format
 msgid "&Stop"
 msgstr "停止(&S)"
@@ -4472,7 +4521,7 @@ msgstr "%p%"
 msgid "Cancelling the search..."
 msgstr "取消搜尋中..."
 
-#: src/fetchdialog.cpp:405 src/fetchdialog.cpp:585
+#: src/fetchdialog.cpp:405 src/fetchdialog.cpp:584
 #, kde-format
 msgid "Searching..."
 msgstr "搜尋中..."
@@ -4498,42 +4547,42 @@ msgstr "以下的 ISBN 值找不到任何結果："
 msgid "No Results"
 msgstr "沒有結果"
 
-#: src/fetchdialog.cpp:552 src/fetchdialog.cpp:608
+#: src/fetchdialog.cpp:551 src/fetchdialog.cpp:607
 #, kde-format
 msgid "Fetching %1..."
 msgstr "擷取 %1 中..."
 
-#: src/fetchdialog.cpp:625
+#: src/fetchdialog.cpp:624
 #, kde-format
 msgid "Attribution"
 msgstr "屬性"
 
-#: src/fetchdialog.cpp:662 src/fetchdialog.cpp:886
+#: src/fetchdialog.cpp:661 src/fetchdialog.cpp:885
 #, kde-format
 msgid "No Internet sources are available for your current collection type."
 msgstr "您目前的收藏型態沒有網路來源可使用。"
 
-#: src/fetchdialog.cpp:743
+#: src/fetchdialog.cpp:742
 #, kde-format
 msgid "Edit ISBN/UPC Values"
 msgstr "編輯 ISBN/UPC 的值"
 
-#: src/fetchdialog.cpp:754
+#: src/fetchdialog.cpp:753
 #, kde-format
 msgid "<qt>Enter the ISBN or UPC values, one per line.</qt>"
 msgstr "<qt>輸入 ISBN 或 UPC 的值，一個一行。</qt>"
 
-#: src/fetchdialog.cpp:770
+#: src/fetchdialog.cpp:769
 #, kde-format
 msgid "&Load From File..."
 msgstr "從檔案載入(&L)..."
 
-#: src/fetchdialog.cpp:771
+#: src/fetchdialog.cpp:770
 #, kde-format
 msgid "<qt>Load the list from a text file.</qt>"
 msgstr "<qt>從文字檔中載入清單。</qt>"
 
-#: src/fetchdialog.cpp:795
+#: src/fetchdialog.cpp:794
 #, kde-format
 msgid ""
 "<qt>An ISBN search can contain a maximum of 100 ISBN values. Only the first "
@@ -4676,8 +4725,8 @@ msgstr "過濾器名稱："
 msgid "&Save Filter"
 msgstr "儲存過濾器(&S)"
 
-#: src/filterview.cpp:190 src/mainwindow.cpp:573 src/mainwindow.cpp:789
-#: src/mainwindow.cpp:807
+#: src/filterview.cpp:190 src/mainwindow.cpp:581 src/mainwindow.cpp:800
+#: src/mainwindow.cpp:818
 #, kde-format
 msgid "Filter"
 msgstr "過濾器"
@@ -4713,8 +4762,8 @@ msgctxt "Group Name Header"
 msgid "Group"
 msgstr "群組"
 
-#: src/groupview.cpp:425 src/mainwindow.cpp:1109 src/mainwindow.cpp:1754
-#: src/mainwindow.cpp:1788 src/translators/htmlexporter.cpp:338
+#: src/groupview.cpp:425 src/mainwindow.cpp:1147 src/mainwindow.cpp:1794
+#: src/mainwindow.cpp:1828 src/translators/htmlexporter.cpp:338
 #, kde-format
 msgid "People"
 msgstr "人物"
@@ -4961,7 +5010,7 @@ msgstr "將列上移"
 msgid "Move Row Down"
 msgstr "將列下移"
 
-#: src/images/imagejob.cpp:77 src/images/imagejob.cpp:111
+#: src/images/imagejob.cpp:78 src/images/imagejob.cpp:115
 #, kde-format
 msgid "Tellico is unable to load the image - %1."
 msgstr "Tellico 無法載入影像 - %1。"
@@ -5008,19 +5057,19 @@ msgstr ""
 "將匯入檔案的內容與目前的收藏合併。只有在收藏型態相符時才能進行。項目必須完全"
 "照順序符合才能合併。"
 
-#: src/importdialog.cpp:150 src/mainwindow.cpp:373
+#: src/importdialog.cpp:150 src/mainwindow.cpp:381
 #, kde-format
 msgid "&Import"
 msgstr "匯入(&I)"
 
-#: src/importdialog.cpp:377 src/mainwindow.cpp:1293 src/mainwindow.cpp:1471
+#: src/importdialog.cpp:377 src/mainwindow.cpp:1331 src/mainwindow.cpp:1509
 #: src/translators/tellicozipexporter.cpp:54
 #, kde-format
 msgid "Tellico Files"
 msgstr "Tellico 檔案"
 
 #: src/importdialog.cpp:378 src/importdialog.cpp:396 src/importdialog.cpp:425
-#: src/mainwindow.cpp:1295 src/translators/tellicoxmlexporter.cpp:71
+#: src/mainwindow.cpp:1333 src/translators/tellicoxmlexporter.cpp:71
 #, kde-format
 msgid "XML Files"
 msgstr "XML 檔案"
@@ -5166,7 +5215,7 @@ msgstr "變更借貸..."
 #: src/loanview.cpp:198 xslt/entry-templates/Album.xsl:511
 #: xslt/entry-templates/Compact.xsl:306 xslt/entry-templates/Default.xsl:362
 #: xslt/entry-templates/Fancy.xsl:329 xslt/entry-templates/Video.xsl:543
-#: xslt/report-templates/Loan_View.xsl:135
+#: xslt/report-templates/Loan_View.xsl:140
 #, kde-format
 msgid "Borrower"
 msgstr "借用者"
@@ -5176,979 +5225,986 @@ msgstr "借用者"
 msgid "Borrower (Sort by Count)"
 msgstr "借用者（依計數排序）"
 
-#: src/main.cpp:169
+#: src/main.cpp:174
 #, kde-format
 msgid "Tellico - collection management software, free and simple"
 msgstr "Tellico - 自由簡潔的收藏管理員"
 
-#: src/main.cpp:171
-#, kde-format
-msgid "(c) 2001-2024, Robby Stephenson"
+#: src/main.cpp:176
+#, fuzzy, kde-format
+#| msgid "(c) 2001-2024, Robby Stephenson"
+msgid "(c) 2001, Robby Stephenson"
 msgstr "(c) 2001-2024, Robby Stephenson"
 
-#: src/main.cpp:175
+#: src/main.cpp:180
 #, kde-format
 msgid "Data source scripts"
 msgstr "資料來源文稿"
 
-#: src/main.cpp:180
+#: src/main.cpp:185
 #, kde-format
 msgid "Icons"
 msgstr "圖示"
 
-#: src/main.cpp:181
+#: src/main.cpp:186
 #, kde-format
 msgid "Code examples and general inspiration"
 msgstr "程式碼範例與靈感"
 
-#: src/main.cpp:183
+#: src/main.cpp:188
 #, kde-format
 msgid "Author of btparse library"
 msgstr "btparse 函式庫作者"
 
-#: src/main.cpp:184
+#: src/main.cpp:189
 #, kde-format
 msgid "Author of libcsv library"
 msgstr "libcsv 函式庫作者"
 
-#: src/main.cpp:185
+#: src/main.cpp:190
 #, kde-format
 msgid "Author of rtf2html library"
 msgstr "rtf2html 函式庫作者"
 
-#: src/main.cpp:192
+#: src/main.cpp:197
 #, kde-format
 msgid "Do not reopen the last open file"
 msgstr "不要重新開啟上次開啟的檔案"
 
-#: src/main.cpp:193
+#: src/main.cpp:198
 #, kde-format
 msgid "Import <filename> as a bibtex file"
 msgstr "將 <filename> 匯入為 bibtex 檔"
 
-#: src/main.cpp:194
+#: src/main.cpp:199
 #, kde-format
 msgid "Import <filename> as a MODS file"
 msgstr "將 <filename> 匯入為 MODS 檔"
 
-#: src/main.cpp:195
+#: src/main.cpp:200
 #, kde-format
 msgid "Import <filename> as a RIS file"
 msgstr "將 <filename> 匯入為 RIS 檔"
 
-#: src/main.cpp:196
+#: src/main.cpp:201
 #, kde-format
 msgid "Import <filename> as a PDF file"
 msgstr "將 <filename> 匯入為 PDF 檔"
 
-#: src/main.cpp:197
+#: src/main.cpp:202
 #, kde-format
 msgid "Log diagnostic output"
 msgstr "記錄診斷輸出"
 
-#: src/main.cpp:198
+#: src/main.cpp:203
 #, kde-format
 msgid "Write log output to <filename>"
 msgstr "將紀錄輸出寫至 <filename>"
 
-#: src/main.cpp:199
+#: src/main.cpp:204
 #, kde-format
 msgid "File to open"
 msgstr "要開啟的檔案"
 
-#: src/mainwindow.cpp:257
+#: src/mainwindow.cpp:265
 #, kde-format
 msgid "New Collection"
 msgstr "新增收藏"
 
-#: src/mainwindow.cpp:259
+#: src/mainwindow.cpp:267
 #, kde-format
 msgid "Create a new collection"
 msgstr "建立新的收藏"
 
-#: src/mainwindow.cpp:278
+#: src/mainwindow.cpp:286
 #, kde-format
 msgid "New &Book Collection"
 msgstr "新增書籍收藏(&B)"
 
-#: src/mainwindow.cpp:279
+#: src/mainwindow.cpp:287
 #, kde-format
 msgid "Create a new book collection"
 msgstr "建立新的書籍收藏"
 
-#: src/mainwindow.cpp:281
+#: src/mainwindow.cpp:289
 #, kde-format
 msgid "New B&ibliography"
 msgstr "新增參考書目(&I)"
 
-#: src/mainwindow.cpp:282
+#: src/mainwindow.cpp:290
 #, kde-format
 msgid "Create a new bibtex bibliography"
 msgstr "新增 bibtex 上的參考書目"
 
-#: src/mainwindow.cpp:284
+#: src/mainwindow.cpp:292
 #, kde-format
 msgid "New &Comic Book Collection"
 msgstr "新增漫畫收藏(&C)"
 
-#: src/mainwindow.cpp:285
+#: src/mainwindow.cpp:293
 #, kde-format
 msgid "Create a new comic book collection"
 msgstr "建立新的漫畫收藏"
 
-#: src/mainwindow.cpp:287
+#: src/mainwindow.cpp:295
 #, kde-format
 msgid "New &Video Collection"
 msgstr "新增影片收藏(&V)"
 
-#: src/mainwindow.cpp:288
+#: src/mainwindow.cpp:296
 #, kde-format
 msgid "Create a new video collection"
 msgstr "建立新的影片收藏"
 
-#: src/mainwindow.cpp:290
+#: src/mainwindow.cpp:298
 #, kde-format
 msgid "New &Music Collection"
 msgstr "新增音樂收藏(&M)"
 
-#: src/mainwindow.cpp:291
+#: src/mainwindow.cpp:299
 #, kde-format
 msgid "Create a new music collection"
 msgstr "建立新的音樂收藏"
 
-#: src/mainwindow.cpp:293
+#: src/mainwindow.cpp:301
 #, kde-format
 msgid "New C&oin Collection"
 msgstr "新增硬幣收藏(&O)"
 
-#: src/mainwindow.cpp:294
+#: src/mainwindow.cpp:302
 #, kde-format
 msgid "Create a new coin collection"
 msgstr "建立新的硬幣收藏"
 
-#: src/mainwindow.cpp:296
+#: src/mainwindow.cpp:304
 #, kde-format
 msgid "New &Stamp Collection"
 msgstr "新增郵票收藏(&S)"
 
-#: src/mainwindow.cpp:297
+#: src/mainwindow.cpp:305
 #, kde-format
 msgid "Create a new stamp collection"
 msgstr "建立新的郵票收藏"
 
-#: src/mainwindow.cpp:299
+#: src/mainwindow.cpp:307
 #, kde-format
 msgid "New C&ard Collection"
 msgstr "新增卡片收藏(&A)"
 
-#: src/mainwindow.cpp:300
+#: src/mainwindow.cpp:308
 #, kde-format
 msgid "Create a new trading card collection"
 msgstr "建立新的卡片收藏"
 
-#: src/mainwindow.cpp:302
+#: src/mainwindow.cpp:310
 #, kde-format
 msgid "New &Wine Collection"
 msgstr "新增酒類收藏(&W)"
 
-#: src/mainwindow.cpp:303
+#: src/mainwindow.cpp:311
 #, kde-format
 msgid "Create a new wine collection"
 msgstr "建立新的酒類收藏"
 
-#: src/mainwindow.cpp:305
+#: src/mainwindow.cpp:313
 #, kde-format
 msgid "New Video &Game Collection"
 msgstr "新增遊戲收藏(&G)"
 
-#: src/mainwindow.cpp:306
+#: src/mainwindow.cpp:314
 #, kde-format
 msgid "Create a new video game collection"
 msgstr "建立新的遊戲收藏"
 
-#: src/mainwindow.cpp:308
+#: src/mainwindow.cpp:316
 #, kde-format
 msgid "New Boa&rd Game Collection"
 msgstr "新增棋盤遊戲類收藏(&R)"
 
-#: src/mainwindow.cpp:309
+#: src/mainwindow.cpp:317
 #, kde-format
 msgid "Create a new board game collection"
 msgstr "建立新的棋盤遊戲收藏"
 
-#: src/mainwindow.cpp:311
+#: src/mainwindow.cpp:319
 #, kde-format
 msgid "New &File Catalog"
 msgstr "新增檔案類別(&F)"
 
-#: src/mainwindow.cpp:312
+#: src/mainwindow.cpp:320
 #, kde-format
 msgid "Create a new file catalog"
 msgstr "建立新的檔案類別"
 
-#: src/mainwindow.cpp:315
+#: src/mainwindow.cpp:323
 #, kde-format
 msgid "New C&ustom Collection"
 msgstr "新增自訂收藏(&U)"
 
-#: src/mainwindow.cpp:316
+#: src/mainwindow.cpp:324
 #, kde-format
 msgid "Create a new custom collection"
 msgstr "建立新的自訂收藏"
 
-#: src/mainwindow.cpp:327
+#: src/mainwindow.cpp:335
 #, kde-format
 msgid "Open an existing document"
 msgstr "開啟現有的文件"
 
-#: src/mainwindow.cpp:329
+#: src/mainwindow.cpp:337
 #, kde-format
 msgid "Open a recently used file"
 msgstr "開啟最近使用的檔案"
 
-#: src/mainwindow.cpp:331
+#: src/mainwindow.cpp:339
 #, kde-format
 msgid "Save the document"
 msgstr "儲存文件"
 
-#: src/mainwindow.cpp:333
+#: src/mainwindow.cpp:341
 #, kde-format
 msgid "Save the document as a different file..."
 msgstr "將文件儲存為不同的檔案..."
 
-#: src/mainwindow.cpp:337
+#: src/mainwindow.cpp:345
 #, kde-format
 msgid "Save As Template..."
 msgstr "存為樣本..."
 
-#: src/mainwindow.cpp:339
+#: src/mainwindow.cpp:347
 #, kde-format
 msgid "Save as a collection template"
 msgstr "存為收藏樣本"
 
-#: src/mainwindow.cpp:342
+#: src/mainwindow.cpp:350
 #, fuzzy, kde-format
 #| msgid "Print the contents of the document..."
 msgid "Print the contents of the collection..."
 msgstr "列印文件內容..."
 
-#: src/mainwindow.cpp:358
+#: src/mainwindow.cpp:366
 #, fuzzy, kde-format
 #| msgid "Print the contents of the document..."
 msgid "Preview the contents of the collection..."
 msgstr "列印文件內容..."
 
-#: src/mainwindow.cpp:362
+#: src/mainwindow.cpp:370
 #, kde-format
 msgid "Quit the application"
 msgstr "離開應用程式"
 
-#: src/mainwindow.cpp:375
+#: src/mainwindow.cpp:383
 #, kde-format
 msgid "Import the collection data from other formats"
 msgstr "從其他格式匯入收藏資料"
 
-#: src/mainwindow.cpp:391
+#: src/mainwindow.cpp:399
 #, kde-format
 msgid "Import Tellico Data..."
 msgstr "匯入 Tellico 資料..."
 
-#: src/mainwindow.cpp:392
+#: src/mainwindow.cpp:400
 #, kde-format
 msgid "Import another Tellico data file"
 msgstr "匯入其他的 Tellico 資料檔"
 
-#: src/mainwindow.cpp:395
+#: src/mainwindow.cpp:403
 #, kde-format
 msgid "Import CSV Data..."
 msgstr "匯入 CSV 資料..."
 
-#: src/mainwindow.cpp:396
+#: src/mainwindow.cpp:404
 #, kde-format
 msgid "Import a CSV file"
 msgstr "匯入 CSV 檔"
 
-#: src/mainwindow.cpp:398
+#: src/mainwindow.cpp:406
 #, kde-format
 msgid "Import MODS Data..."
 msgstr "匯入 MODS 資料..."
 
-#: src/mainwindow.cpp:399
+#: src/mainwindow.cpp:407
 #, kde-format
 msgid "Import a MODS data file"
 msgstr "匯入 MODS 檔"
 
-#: src/mainwindow.cpp:401
+#: src/mainwindow.cpp:409
 #, kde-format
 msgid "Import Alexandria Data..."
 msgstr "匯入 Alexandria 資料..."
 
-#: src/mainwindow.cpp:402
+#: src/mainwindow.cpp:410
 #, kde-format
 msgid "Import data from the Alexandria book collection manager"
 msgstr "從 Alexandria 書籍收藏管理員中匯入資料"
 
-#: src/mainwindow.cpp:405
+#: src/mainwindow.cpp:413
 #, kde-format
 msgid "Import Delicious Library Data..."
 msgstr "匯入 Delicious Library 資料..."
 
-#: src/mainwindow.cpp:406
+#: src/mainwindow.cpp:414
 #, kde-format
 msgid "Import data from Delicious Library"
 msgstr "從 Delicious Library 匯入資料"
 
-#: src/mainwindow.cpp:409
+#: src/mainwindow.cpp:417
 #, fuzzy, kde-format
 #| msgid "Import Tellico Data..."
 msgid "Import Collectorz Data..."
 msgstr "匯入 Tellico 資料..."
 
-#: src/mainwindow.cpp:410
+#: src/mainwindow.cpp:418
 #, fuzzy, kde-format
 #| msgid "Import data from Referencer"
 msgid "Import data from Collectorz"
 msgstr "從 Referencer 匯入資料"
 
-#: src/mainwindow.cpp:413
+#: src/mainwindow.cpp:421
 #, fuzzy, kde-format
 #| msgid "Import GCstar Data..."
 msgid "Import Data Crow Data..."
 msgstr "匯入 GCstar 資料..."
 
-#: src/mainwindow.cpp:414
+#: src/mainwindow.cpp:422
 #, fuzzy, kde-format
 #| msgid "Import data from Referencer"
 msgid "Import data from Data Crow"
 msgstr "從 Referencer 匯入資料"
 
-#: src/mainwindow.cpp:417
+#: src/mainwindow.cpp:425
 #, kde-format
 msgid "Import Referencer Data..."
 msgstr "匯入 Referencer 資料..."
 
-#: src/mainwindow.cpp:418
+#: src/mainwindow.cpp:426
 #, kde-format
 msgid "Import data from Referencer"
 msgstr "從 Referencer 匯入資料"
 
-#: src/mainwindow.cpp:421
+#: src/mainwindow.cpp:429
 #, kde-format
 msgid "Import Bibtex Data..."
 msgstr "匯入 Bibtex 資料..."
 
-#: src/mainwindow.cpp:422
+#: src/mainwindow.cpp:430
 #, kde-format
 msgid "Import a bibtex bibliography file"
 msgstr "匯入 bibtex bibliography 檔"
 
-#: src/mainwindow.cpp:427
+#: src/mainwindow.cpp:435
 #, kde-format
 msgid "Import Bibtexml Data..."
 msgstr "匯入 Bibtexml 資料..."
 
-#: src/mainwindow.cpp:428
+#: src/mainwindow.cpp:436
 #, kde-format
 msgid "Import a Bibtexml bibliography file"
 msgstr "匯入 Bibtexml bibliography 檔"
 
-#: src/mainwindow.cpp:430
+#: src/mainwindow.cpp:438
 #, kde-format
 msgid "Import RIS Data..."
 msgstr "匯入 RIS 資料..."
 
-#: src/mainwindow.cpp:431
+#: src/mainwindow.cpp:439
 #, kde-format
 msgid "Import an RIS reference file"
 msgstr "匯入 RIS 參考檔"
 
-#: src/mainwindow.cpp:433
+#: src/mainwindow.cpp:441
 #, fuzzy, kde-format
 #| msgid "Import CSV Data..."
 msgid "Import MARC Data..."
 msgstr "匯入 CSV 資料..."
 
-#: src/mainwindow.cpp:434
+#: src/mainwindow.cpp:442
 #, fuzzy, kde-format
 #| msgid "Import VinoXML data"
 msgid "Import MARC data"
 msgstr "匯入 VinoXML 資料中..."
 
-#: src/mainwindow.cpp:441
+#: src/mainwindow.cpp:449
 #, kde-format
 msgid "Import Goodreads Collection..."
 msgstr "匯入 Goodreads 收藏..."
 
-#: src/mainwindow.cpp:442
+#: src/mainwindow.cpp:450
 #, kde-format
 msgid "Import a collection from Goodreads.com"
 msgstr "從 Goodreads.com 匯入收藏"
 
-#: src/mainwindow.cpp:444
+#: src/mainwindow.cpp:452
 #, fuzzy, kde-format
 #| msgid "Import Goodreads Collection..."
 msgid "Import LibraryThing Collection..."
 msgstr "匯入 Goodreads 收藏..."
 
-#: src/mainwindow.cpp:445
+#: src/mainwindow.cpp:453
 #, fuzzy, kde-format
 #| msgid "Import a collection from Goodreads.com"
 msgid "Import a collection from LibraryThing.com"
 msgstr "從 Goodreads.com 匯入收藏"
 
-#: src/mainwindow.cpp:447
+#: src/mainwindow.cpp:455
 #, kde-format
 msgid "Import PDF File..."
 msgstr "匯入 PDF 檔..."
 
-#: src/mainwindow.cpp:448
+#: src/mainwindow.cpp:456
 #, kde-format
 msgid "Import a PDF file"
 msgstr "匯入 PDF 檔"
 
-#: src/mainwindow.cpp:450
+#: src/mainwindow.cpp:458
 #, kde-format
 msgid "Import Audio File Metadata..."
 msgstr "匯入音效檔中繼資料..."
 
-#: src/mainwindow.cpp:451
+#: src/mainwindow.cpp:459
 #, kde-format
 msgid "Import meta-data from audio files"
 msgstr "從音效檔中匯入中繼資料"
 
-#: src/mainwindow.cpp:456
+#: src/mainwindow.cpp:464
 #, kde-format
 msgid "Import Audio CD Data..."
 msgstr "匯入音效光碟資料..."
 
-#: src/mainwindow.cpp:457
+#: src/mainwindow.cpp:465
 #, kde-format
 msgid "Import audio CD information"
 msgstr "匯入音效光碟資訊"
 
-#: src/mainwindow.cpp:462
+#: src/mainwindow.cpp:470
 #, fuzzy, kde-format
 #| msgid "Import Goodreads Collection..."
 msgid "Import Discogs Collection..."
 msgstr "匯入 Goodreads 收藏..."
 
-#: src/mainwindow.cpp:463
+#: src/mainwindow.cpp:471
 #, fuzzy, kde-format
 #| msgid "Import a collection from Goodreads.com"
 msgid "Import a collection from Discogs.com"
 msgstr "從 Goodreads.com 匯入收藏"
 
-#: src/mainwindow.cpp:465
+#: src/mainwindow.cpp:473
 #, kde-format
 msgid "Import GCstar Data..."
 msgstr "匯入 GCstar 資料..."
 
-#: src/mainwindow.cpp:466
+#: src/mainwindow.cpp:474
 #, kde-format
 msgid "Import a GCstar data file"
 msgstr "匯入 GCstar 資料檔"
 
-#: src/mainwindow.cpp:469
+#: src/mainwindow.cpp:477
 #, kde-format
 msgid "Import Griffith Data..."
 msgstr "匯入 Griffith 資料..."
 
-#: src/mainwindow.cpp:470
+#: src/mainwindow.cpp:478
 #, kde-format
 msgid "Import a Griffith database"
 msgstr "匯入 Griffith 資料庫"
 
-#: src/mainwindow.cpp:473
+#: src/mainwindow.cpp:481
 #, kde-format
 msgid "Import Ant Movie Catalog Data..."
 msgstr "匯入 Ant Movie Catalog 資料"
 
-#: src/mainwindow.cpp:474
+#: src/mainwindow.cpp:482
 #, kde-format
 msgid "Import an Ant Movie Catalog data file"
 msgstr "匯入 Ant Movie Catalog 資料檔"
 
-#: src/mainwindow.cpp:477
+#: src/mainwindow.cpp:485
 #, fuzzy, kde-format
 #| msgid "Import Goodreads Collection..."
 msgid "Import BoardGameGeek Collection..."
 msgstr "匯入 Goodreads 收藏..."
 
-#: src/mainwindow.cpp:478
+#: src/mainwindow.cpp:486
 #, fuzzy, kde-format
 #| msgid "Import a collection from Goodreads.com"
 msgid "Import a collection from BoardGameGeek.com"
 msgstr "從 Goodreads.com 匯入收藏"
 
-#: src/mainwindow.cpp:480
+#: src/mainwindow.cpp:488
 #, kde-format
 msgid "Import VinoXML..."
 msgstr "匯出為 VinoXML 檔..."
 
-#: src/mainwindow.cpp:481
+#: src/mainwindow.cpp:489
 #, kde-format
 msgid "Import VinoXML data"
 msgstr "匯入 VinoXML 資料中..."
 
-#: src/mainwindow.cpp:483
+#: src/mainwindow.cpp:491
 #, kde-format
 msgid "Import File Listing..."
 msgstr "匯入檔案列表..."
 
-#: src/mainwindow.cpp:484
+#: src/mainwindow.cpp:492
 #, kde-format
 msgid "Import information about files in a folder"
 msgstr "匯入某個資料夾內的檔案資訊"
 
-#: src/mainwindow.cpp:486
+#: src/mainwindow.cpp:494
 #, kde-format
 msgid "Import XSL Transform..."
 msgstr "匯入 XSL Transform..."
 
-#: src/mainwindow.cpp:487
+#: src/mainwindow.cpp:495
 #, kde-format
 msgid "Import using an XSL Transform"
 msgstr "用 XSL Transform 匯入資料"
 
-#: src/mainwindow.cpp:500
+#: src/mainwindow.cpp:508
 #, kde-format
 msgid "&Export"
 msgstr "匯出(&E)"
 
-#: src/mainwindow.cpp:502
+#: src/mainwindow.cpp:510
 #, kde-format
 msgid "Export the collection data to other formats"
 msgstr "將收藏資料匯出到其他格式"
 
-#: src/mainwindow.cpp:518
+#: src/mainwindow.cpp:526
 #, kde-format
 msgid "Export to XML..."
 msgstr "匯出為 XML 檔..."
 
-#: src/mainwindow.cpp:519
+#: src/mainwindow.cpp:527
 #, kde-format
 msgid "Export to a Tellico XML file"
 msgstr "匯出為 Tellico XML 檔"
 
-#: src/mainwindow.cpp:522
+#: src/mainwindow.cpp:530
 #, kde-format
 msgid "Export to Zip..."
 msgstr "匯出為 Zip 檔..."
 
-#: src/mainwindow.cpp:523
+#: src/mainwindow.cpp:531
 #, kde-format
 msgid "Export to a Tellico Zip file"
 msgstr "匯出為 Tellico Zip 檔"
 
-#: src/mainwindow.cpp:526
+#: src/mainwindow.cpp:534
 #, kde-format
 msgid "Export to HTML..."
 msgstr "匯出為 HTML 檔..."
 
-#: src/mainwindow.cpp:527
+#: src/mainwindow.cpp:535
 #, kde-format
 msgid "Export to an HTML file"
 msgstr "匯出為 HTML 檔"
 
-#: src/mainwindow.cpp:529
+#: src/mainwindow.cpp:537
 #, kde-format
 msgid "Export to CSV..."
 msgstr "匯出為 CSV 檔..."
 
-#: src/mainwindow.cpp:530
+#: src/mainwindow.cpp:538
 #, kde-format
 msgid "Export to a comma-separated values file"
 msgstr "匯出為 CSV 檔，以逗號分隔"
 
-#: src/mainwindow.cpp:532
+#: src/mainwindow.cpp:540
 #, kde-format
 msgid "Export to Alexandria..."
 msgstr "匯出到 Alexandria..."
 
-#: src/mainwindow.cpp:533
+#: src/mainwindow.cpp:541
 #, kde-format
 msgid "Export to an Alexandria library"
 msgstr "匯出到 Alexandria 圖書館"
 
-#: src/mainwindow.cpp:536
+#: src/mainwindow.cpp:544
 #, kde-format
 msgid "Export to Bibtex..."
 msgstr "匯出為 Bibtex 檔..."
 
-#: src/mainwindow.cpp:537
+#: src/mainwindow.cpp:545
 #, kde-format
 msgid "Export to a bibtex file"
 msgstr "匯出為 Bibtex 檔"
 
-#: src/mainwindow.cpp:539
+#: src/mainwindow.cpp:547
 #, kde-format
 msgid "Export to Bibtexml..."
 msgstr "匯出為 Bibtexml 檔..."
 
-#: src/mainwindow.cpp:540
+#: src/mainwindow.cpp:548
 #, kde-format
 msgid "Export to a Bibtexml file"
 msgstr "匯出為 Bibtexml 檔"
 
-#: src/mainwindow.cpp:542
+#: src/mainwindow.cpp:550
 #, kde-format
 msgid "Export to ONIX..."
 msgstr "匯出為 ONIX 檔..."
 
-#: src/mainwindow.cpp:543
+#: src/mainwindow.cpp:551
 #, kde-format
 msgid "Export to an ONIX file"
 msgstr "匯出為 ONIX 檔"
 
-#: src/mainwindow.cpp:545
+#: src/mainwindow.cpp:553
 #, kde-format
 msgid "Export to GCstar..."
 msgstr "匯出到 GCstar..."
 
-#: src/mainwindow.cpp:546
+#: src/mainwindow.cpp:554
 #, kde-format
 msgid "Export to a GCstar data file"
 msgstr "匯出為 GCstar 資料檔"
 
-#: src/mainwindow.cpp:549
+#: src/mainwindow.cpp:557
 #, kde-format
 msgid "Export XSL Transform..."
 msgstr "用 XSL Transform 匯出..."
 
-#: src/mainwindow.cpp:550
+#: src/mainwindow.cpp:558
 #, kde-format
 msgid "Export using an XSL Transform"
 msgstr "用 XSL Transform 匯出資料"
 
-#: src/mainwindow.cpp:561
+#: src/mainwindow.cpp:569
 #, kde-format
 msgid "Cut the selected text and puts it in the clipboard"
 msgstr "剪下選取的文字並放入剪貼簿"
 
-#: src/mainwindow.cpp:563
+#: src/mainwindow.cpp:571
 #, kde-format
 msgid "Copy the selected text to the clipboard"
 msgstr "將選取的文字複製到剪貼簿"
 
-#: src/mainwindow.cpp:565
+#: src/mainwindow.cpp:573
 #, kde-format
 msgid "Paste the clipboard contents"
 msgstr "貼上剪貼簿內容"
 
-#: src/mainwindow.cpp:567
+#: src/mainwindow.cpp:575
 #, kde-format
 msgid "Select all the entries in the collection"
 msgstr "選擇收藏中所有的項目"
 
-#: src/mainwindow.cpp:569
+#: src/mainwindow.cpp:577
 #, kde-format
 msgid "Deselect all the entries in the collection"
 msgstr "取消選擇收藏中所有的項目"
 
-#: src/mainwindow.cpp:572
+#: src/mainwindow.cpp:580
 #, kde-format
 msgid "Advanced &Filter..."
 msgstr "進階過濾(&F)..."
 
-#: src/mainwindow.cpp:576 src/mainwindow.cpp:808
+#: src/mainwindow.cpp:584 src/mainwindow.cpp:819
 #, kde-format
 msgid "Filter the collection"
 msgstr "過濾收藏"
 
-#: src/mainwindow.cpp:583
+#: src/mainwindow.cpp:591
 #, kde-format
 msgid "&New Entry..."
 msgstr "新增項目(&N)..."
 
-#: src/mainwindow.cpp:585
+#: src/mainwindow.cpp:593
 #, fuzzy, kde-format
 #| msgid "&New Entry"
 msgid "New Entry"
 msgstr "新的項目(&N)"
 
-#: src/mainwindow.cpp:587
+#: src/mainwindow.cpp:595
 #, kde-format
 msgid "Create a new entry"
 msgstr "建立新的項目"
 
-#: src/mainwindow.cpp:589
+#: src/mainwindow.cpp:597
 #, fuzzy, kde-format
 #| msgid "&Add Entry"
 msgid "Add Entry"
 msgstr "新增項目(&A)..."
 
-#: src/mainwindow.cpp:599
+#: src/mainwindow.cpp:607
 #, kde-format
 msgid "Internet Search..."
 msgstr "網際網路搜尋..."
 
-#: src/mainwindow.cpp:603
+#: src/mainwindow.cpp:611
 #, kde-format
 msgid "Search the internet..."
 msgstr "在網際網路上搜尋..."
 
-#: src/mainwindow.cpp:613
+#: src/mainwindow.cpp:621
 #, kde-format
 msgid "Edit the selected entries"
 msgstr "編輯選取的項目"
 
-#: src/mainwindow.cpp:620
+#: src/mainwindow.cpp:628
 #, kde-format
 msgid "Copy the selected entries"
 msgstr "複製選取的項目"
 
-#: src/mainwindow.cpp:627
+#: src/mainwindow.cpp:635
 #, kde-format
 msgid "Delete the selected entries"
 msgstr "刪除選取的項目"
 
-#: src/mainwindow.cpp:631
+#: src/mainwindow.cpp:639
 #, kde-format
 msgid "&Merge Entries"
 msgstr "合併項目(&M)"
 
-#: src/mainwindow.cpp:635
+#: src/mainwindow.cpp:643
 #, kde-format
 msgid "Merge the selected entries"
 msgstr "合併選取的項目"
 
-#: src/mainwindow.cpp:639
+#: src/mainwindow.cpp:647
 #, kde-format
 msgid "Check-&out..."
 msgstr "取出(&O)..."
 
-#: src/mainwindow.cpp:641
+#: src/mainwindow.cpp:649
 #, kde-format
 msgid "Check-out the selected items"
 msgstr "取出選取的項目"
 
-#: src/mainwindow.cpp:644
+#: src/mainwindow.cpp:652
 #, kde-format
 msgid "Check-&in"
 msgstr "歸還(&I)"
 
-#: src/mainwindow.cpp:646
+#: src/mainwindow.cpp:654
 #, kde-format
 msgid "Check-in the selected items"
 msgstr "歸還選取的項目"
 
-#: src/mainwindow.cpp:649
+#: src/mainwindow.cpp:657
 #, kde-format
 msgid "&Rename Collection..."
 msgstr "重新命名收藏(&R)..."
 
-#: src/mainwindow.cpp:652
+#: src/mainwindow.cpp:660
 #, kde-format
 msgid "Rename the collection"
 msgstr "重新命名收藏"
 
-#: src/mainwindow.cpp:655
+#: src/mainwindow.cpp:663
 #, kde-format
 msgid "Collection &Fields..."
 msgstr "收藏欄位(&F)..."
 
-#: src/mainwindow.cpp:656
+#: src/mainwindow.cpp:664
 #, kde-format
 msgid "Fields"
 msgstr "欄位"
 
-#: src/mainwindow.cpp:659
+#: src/mainwindow.cpp:667
 #, kde-format
 msgid "Modify the collection fields"
 msgstr "變更收藏的欄位"
 
-#: src/mainwindow.cpp:662
+#: src/mainwindow.cpp:670
 #, kde-format
 msgid "&Generate Reports..."
 msgstr "產生報告(&G)..."
 
-#: src/mainwindow.cpp:663
+#: src/mainwindow.cpp:671
 #, kde-format
 msgid "Reports"
 msgstr "報告"
 
-#: src/mainwindow.cpp:665
+#: src/mainwindow.cpp:673
 #, kde-format
 msgid "Generate collection reports"
 msgstr "產生收藏的報告"
 
-#: src/mainwindow.cpp:668
+#: src/mainwindow.cpp:676
 #, kde-format
 msgid "Convert to &Bibliography"
 msgstr "轉換到參考書目(&B)"
 
-#: src/mainwindow.cpp:670
+#: src/mainwindow.cpp:678
 #, kde-format
 msgid "Convert a book collection to a bibliography"
 msgstr "將書籍收藏轉換到參考書目"
 
-#: src/mainwindow.cpp:673
+#: src/mainwindow.cpp:681
 #, kde-format
 msgid "String &Macros..."
 msgstr "字串巨集(&M)..."
 
-#: src/mainwindow.cpp:675
+#: src/mainwindow.cpp:683
 #, kde-format
 msgid "Edit the bibtex string macros"
 msgstr "編輯 bibtex 字串巨集"
 
-#: src/mainwindow.cpp:678
+#: src/mainwindow.cpp:686
 #, kde-format
 msgid "Check for Duplicate Keys..."
 msgstr "檢查重複的關鍵字..."
 
-#: src/mainwindow.cpp:680
+#: src/mainwindow.cpp:688
 #, kde-format
 msgid "Check for duplicate citation keys"
 msgstr "檢查是否有重複的引文鍵值"
 
-#: src/mainwindow.cpp:690
+#: src/mainwindow.cpp:698
 #, kde-format
 msgid "Copy Bibtex to Cli&pboard"
 msgstr "將 Bibtex 複製到剪貼簿(&P)"
 
-#: src/mainwindow.cpp:691
+#: src/mainwindow.cpp:699
 #, kde-format
 msgid "Copy bibtex citations to the clipboard"
 msgstr "將 bibtex 的引用複製到剪貼簿"
 
-#: src/mainwindow.cpp:696
+#: src/mainwindow.cpp:704
 #, kde-format
 msgid "Cite Entry in &LyX"
 msgstr "於 LyX 引用項目(&L)"
 
-#: src/mainwindow.cpp:697
+#: src/mainwindow.cpp:705
 #, kde-format
 msgid "Cite the selected entries in LyX"
 msgstr "於 LyX 引用選取的項目"
 
-#: src/mainwindow.cpp:713
+#: src/mainwindow.cpp:721
 #, kde-format
 msgctxt "Update Entry"
 msgid "Update"
 msgstr "更新"
 
-#: src/mainwindow.cpp:722
+#: src/mainwindow.cpp:730
 #, kde-format
 msgid "All Sources"
 msgstr "所有來源"
 
-#: src/mainwindow.cpp:723
+#: src/mainwindow.cpp:731
 #, kde-format
 msgid "Update entry data from all available sources"
 msgstr "從所有可用來源更新項目資料"
 
-#: src/mainwindow.cpp:734
+#: src/mainwindow.cpp:746
 #, kde-format
 msgid "Unlock Layout"
 msgstr "解除鎖定佈局"
 
-#: src/mainwindow.cpp:735
+#: src/mainwindow.cpp:747
 #, kde-format
 msgid "Unlock the window's layout"
 msgstr "解除鎖定視窗的佈局"
 
-#: src/mainwindow.cpp:737
+#: src/mainwindow.cpp:749
 #, kde-format
 msgid "Lock Layout"
 msgstr "鎖定佈局"
 
-#: src/mainwindow.cpp:738
+#: src/mainwindow.cpp:750
 #, kde-format
 msgid "Lock the window's layout"
 msgstr "鎖定視窗的佈局"
 
-#: src/mainwindow.cpp:743
+#: src/mainwindow.cpp:755
 #, kde-format
 msgid "Reset Layout"
 msgstr "重設佈局"
 
-#: src/mainwindow.cpp:744
+#: src/mainwindow.cpp:756
 #, kde-format
 msgid "Reset the window's layout"
 msgstr "重設視窗的佈局"
 
-#: src/mainwindow.cpp:747
+#: src/mainwindow.cpp:759
 #, fuzzy, kde-format
 #| msgid "Show Entry &Editor"
 msgid "Entry &Editor"
 msgstr "顯示項目編輯器(&E)"
 
-#: src/mainwindow.cpp:749
+#: src/mainwindow.cpp:761
 #, kde-format
 msgid "Enable/disable the editor"
 msgstr "開啟/關閉編輯器"
 
-#: src/mainwindow.cpp:758
+#: src/mainwindow.cpp:770
 #, kde-format
 msgid "Show Log"
 msgstr "顯示紀錄"
 
-#: src/mainwindow.cpp:775
+#: src/mainwindow.cpp:786
 #, kde-format
 msgid "Change Grouping"
 msgstr "變更群組"
 
-#: src/mainwindow.cpp:778
+#: src/mainwindow.cpp:789
 #, kde-format
 msgid "&Group Selection"
 msgstr "群組選擇(&G)"
 
-#: src/mainwindow.cpp:779
+#: src/mainwindow.cpp:790
 #, kde-format
 msgid "Change the grouping of the collection"
 msgstr "變更收藏的群組"
 
-#: src/mainwindow.cpp:793
+#: src/mainwindow.cpp:804
 #, kde-format
 msgid "Filter here..."
 msgstr "在此過濾..."
 
-#: src/mainwindow.cpp:858 src/mainwindow.cpp:861
+#: src/mainwindow.cpp:869 src/mainwindow.cpp:872
 #, kde-format
 msgid ""
 "<qt>The <i>Entry View</i> shows a formatted view of the entry's contents.</"
 "qt>"
 msgstr "<qt><i>項目檢視</i>將項目的內容用格式化的方式呈現。</qt>"
 
-#: src/mainwindow.cpp:867
+#: src/mainwindow.cpp:878
 #, fuzzy, kde-format
 #| msgid "Collection Fields"
 msgid "Collection View"
 msgstr "收藏欄位"
 
-#: src/mainwindow.cpp:874
+#: src/mainwindow.cpp:885
 #, kde-format
 msgid ""
 "<qt>The <i>Column View</i> shows the value of multiple fields for each entry."
 "</qt>"
 msgstr "<qt>欄位檢視會顯示每個項目的許多欄位的值。</qt>"
 
-#: src/mainwindow.cpp:891
+#: src/mainwindow.cpp:902
 #, fuzzy, kde-format
 #| msgctxt "Group View XSL Template"
 #| msgid "Group View"
 msgid "Group View"
 msgstr "群組檢視"
 
-#: src/mainwindow.cpp:900
+#: src/mainwindow.cpp:911
 #, kde-format
 msgid "Groups"
 msgstr "群組"
 
-#: src/mainwindow.cpp:901
+#: src/mainwindow.cpp:912
 #, kde-format
 msgid ""
 "<qt>The <i>Group View</i> sorts the entries into groupings based on a "
 "selected field.</qt>"
 msgstr "<qt>群組檢視會將項目根據所選的欄位排序並歸類。</qt>"
 
-#: src/mainwindow.cpp:978
+#: src/mainwindow.cpp:993
+#, fuzzy, kde-format
+#| msgid "Tellico - collection management software, free and simple"
+msgid "Collection management software, free and simple"
+msgstr "Tellico - 自由簡潔的收藏管理員"
+
+#: src/mainwindow.cpp:995
 #, kde-format
 msgid "Welcome to the Tellico Collection Manager"
 msgstr "歡迎使用 Tellico 收藏管理員"
 
-#: src/mainwindow.cpp:980
+#: src/mainwindow.cpp:997
 #, kde-format
 msgid ""
 "<h3>Tellico is a tool for managing collections of books, videos, music, and "
@@ -6162,7 +6218,15 @@ msgstr ""
 "\"tc:///edit_search_internet\">從不同網路來源下載資料</a>的方式加入新的收藏項"
 "目。</h3>"
 
-#: src/mainwindow.cpp:1179
+#: src/mainwindow.cpp:1006
+#, kde-format
+msgid ""
+"More information can be found in the <a href=\"help:/tellico"
+"\">documentation</a>. You may also <a href=\"tc:///disable_welcome\">disable "
+"this welcome screen</a>."
+msgstr ""
+
+#: src/mainwindow.cpp:1217
 #, kde-format
 msgid ""
 "The current file has been modified.\n"
@@ -6171,23 +6235,23 @@ msgstr ""
 "目前的檔案已修改。\n"
 "要儲存嗎？"
 
-#: src/mainwindow.cpp:1235 src/mainwindow.cpp:1269
+#: src/mainwindow.cpp:1273 src/mainwindow.cpp:1307
 #, fuzzy, kde-format
 #| msgid "Create a new collection"
 msgid "Creating new collection..."
 msgstr "建立新的收藏"
 
-#: src/mainwindow.cpp:1290 src/mainwindow.cpp:1313 src/mainwindow.cpp:1331
+#: src/mainwindow.cpp:1328 src/mainwindow.cpp:1351 src/mainwindow.cpp:1369
 #, kde-format
 msgid "Opening file..."
 msgstr "正在開啟檔案..."
 
-#: src/mainwindow.cpp:1301
+#: src/mainwindow.cpp:1339
 #, kde-format
 msgid "Open File"
 msgstr "開啟檔案"
 
-#: src/mainwindow.cpp:1423
+#: src/mainwindow.cpp:1461
 #, kde-format
 msgid ""
 "<qt><p>You are saving a file with many images, which causes Tellico to slow "
@@ -6199,59 +6263,59 @@ msgstr ""
 "否要將影像存在另外一個 Tellico 的資料目錄裡以加快效率？</p> <p>您稍後還是可以"
 "在設定對話框裡變更您的選擇。</p></qt>"
 
-#: src/mainwindow.cpp:1428
+#: src/mainwindow.cpp:1466
 #, kde-format
 msgid "Save Images Separately"
 msgstr "分別儲存影像"
 
-#: src/mainwindow.cpp:1429
+#: src/mainwindow.cpp:1467
 #, kde-format
 msgid "Save Images in File"
 msgstr "將影像存在檔案內"
 
-#: src/mainwindow.cpp:1469
+#: src/mainwindow.cpp:1507
 #, kde-format
 msgid "Saving file with a new filename..."
 msgstr "正在用新檔名儲存檔案..."
 
-#: src/mainwindow.cpp:1478
+#: src/mainwindow.cpp:1516
 #, kde-format
 msgid "Save As"
 msgstr "另存新檔"
 
-#: src/mainwindow.cpp:1544
+#: src/mainwindow.cpp:1582
 #, kde-format
 msgid "Printing..."
 msgstr "正在列印..."
 
-#: src/mainwindow.cpp:1548
+#: src/mainwindow.cpp:1586
 #, kde-format
 msgid ""
 "The collection is currently being filtered to show a limited subset of the "
 "entries. Only the visible entries will be printed. Continue?"
 msgstr "正在過濾收藏，只有符合過濾條件的項目會被列印。要繼續嗎？"
 
-#: src/mainwindow.cpp:1571
+#: src/mainwindow.cpp:1611
 #, kde-format
 msgid "Exiting..."
 msgstr "正在離開..."
 
-#: src/mainwindow.cpp:1673
+#: src/mainwindow.cpp:1713
 #, kde-format
 msgid "(%1 filtered; %2 selected)"
 msgstr "（%1 個已過濾；%2 個已選擇）"
 
-#: src/mainwindow.cpp:1676
+#: src/mainwindow.cpp:1716
 #, kde-format
 msgid "(%1 filtered)"
 msgstr "（%1 個已過濾）"
 
-#: src/mainwindow.cpp:1679
+#: src/mainwindow.cpp:1719
 #, kde-format
 msgid "(%1 selected)"
 msgstr "（%1 個已選擇）"
 
-#: src/mainwindow.cpp:1818 src/translators/boardgamegeekimporter.cpp:98
+#: src/mainwindow.cpp:1858 src/translators/boardgamegeekimporter.cpp:98
 #: src/translators/gcstarimporter.cpp:252
 #: src/translators/goodreadsimporter.cpp:111
 #: src/translators/xsltimporter.cpp:93
@@ -6259,76 +6323,76 @@ msgstr "（%1 個已選擇）"
 msgid "Tellico encountered an error in XSLT processing."
 msgstr "Tellico 在處理 XSLT 時遇到錯誤。"
 
-#: src/mainwindow.cpp:1936
+#: src/mainwindow.cpp:1976
 #, kde-format
 msgid "Importing data..."
 msgstr "匯入資料中..."
 
-#: src/mainwindow.cpp:1947
+#: src/mainwindow.cpp:1987
 #, kde-format
 msgid "Import File"
 msgstr "匯入檔案"
 
-#: src/mainwindow.cpp:1960
+#: src/mainwindow.cpp:2000
 #, kde-format
 msgid "Import Directory"
 msgstr "匯入目錄"
 
-#: src/mainwindow.cpp:1984
+#: src/mainwindow.cpp:2024
 #, kde-format
 msgid "Exporting data..."
 msgstr "匯出資料中..."
 
-#: src/mainwindow.cpp:2007
+#: src/mainwindow.cpp:2047
 #, kde-format
 msgid "Export As"
 msgstr "匯出為"
 
-#: src/mainwindow.cpp:2035
+#: src/mainwindow.cpp:2075
 #, kde-format
 msgid "String Macros"
 msgstr "字串巨集"
 
-#: src/mainwindow.cpp:2036
+#: src/mainwindow.cpp:2076
 #, kde-format
 msgid "Macro"
 msgstr "巨集"
 
-#: src/mainwindow.cpp:2036
+#: src/mainwindow.cpp:2076
 #, kde-format
 msgid "String"
 msgstr "字串"
 
-#: src/mainwindow.cpp:2122
+#: src/mainwindow.cpp:2162
 #, kde-format
 msgid "Creating citations..."
 msgstr "建立引用中..."
 
-#: src/mainwindow.cpp:2232
+#: src/mainwindow.cpp:2272
 #, kde-format
 msgid "Filters"
 msgstr "過濾器"
 
-#: src/mainwindow.cpp:2233
+#: src/mainwindow.cpp:2273
 #, kde-format
 msgid ""
 "<qt>The <i>Filter View</i> shows the entries which meet certain filter rules."
 "</qt>"
 msgstr "<qt>過濾檢視會顯示符合特定過濾條件的項目。</qt>"
 
-#: src/mainwindow.cpp:2256
+#: src/mainwindow.cpp:2296
 #, kde-format
 msgid "Loans"
 msgstr "借貸"
 
-#: src/mainwindow.cpp:2257
+#: src/mainwindow.cpp:2297
 #, kde-format
 msgid ""
 "<qt>The <i>Loan View</i> shows a list of all the people who have borrowed "
 "items from your collection.</qt>"
 msgstr "<qt>借貸檢視會顯示所有您已借出的收藏項目。</qt>"
 
-#: src/mainwindow.cpp:2344
+#: src/mainwindow.cpp:2388
 #, kde-format
 msgid ""
 "Some images are not saved in the configured location. The current file must "
@@ -6337,63 +6401,63 @@ msgstr ""
 "有些影像並未儲存在設定的位置。目前的檔案必須先儲存，影像則會被轉換到新的位"
 "置。"
 
-#: src/mainwindow.cpp:2385
+#: src/mainwindow.cpp:2435
 #, kde-format
 msgid "Update entry data from %1"
 msgstr "從 %1 更新的項目資料"
 
-#: src/mainwindow.cpp:2404
+#: src/mainwindow.cpp:2454
 #, kde-format
 msgid ""
 "Tellico can only import one file of this type at a time. Only %1 will be "
 "imported."
 msgstr "Tellico 此種型態一次只能匯入一個檔案。將只有 %1 會被匯出。"
 
-#: src/mainwindow.cpp:2587
+#: src/mainwindow.cpp:2642
 #, fuzzy, kde-format
 #| msgid "Tellico Zip File"
 msgctxt "@title:window"
 msgid "Tellico Log"
 msgstr "Tellico Zip 檔"
 
-#: src/reportdialog.cpp:88
+#: src/reportdialog.cpp:89
 #, kde-format
 msgid "Collection Report"
 msgstr "收藏報告"
 
-#: src/reportdialog.cpp:99
+#: src/reportdialog.cpp:100
 #, kde-format
 msgid "&Report template:"
 msgstr "報告樣本(&R)："
 
-#: src/reportdialog.cpp:125
+#: src/reportdialog.cpp:126
 #, kde-format
 msgid "One Entry Per Page"
 msgstr ""
 
-#: src/reportdialog.cpp:142
+#: src/reportdialog.cpp:149
 #, kde-format
 msgid "&Generate"
 msgstr "產生(&G)"
 
-#: src/reportdialog.cpp:162
+#: src/reportdialog.cpp:169
 #, kde-format
 msgid "Select a report template and click <em>Generate</em>."
 msgstr "請選擇報告樣本並點擊「產生」。"
 
-#: src/reportdialog.cpp:163
+#: src/reportdialog.cpp:170
 #, kde-format
 msgid ""
 "Some reports may take several seconds to generate for large collections."
 msgstr "有些較大的收藏，產生報告可能會花上一些時間。"
 
-#: src/reportdialog.cpp:441
+#: src/reportdialog.cpp:497
 #, fuzzy, kde-format
 #| msgid "Files"
 msgid "PNG Files"
 msgstr "檔案"
 
-#: src/reportdialog.cpp:456 src/translators/htmlexporter.cpp:101
+#: src/reportdialog.cpp:512 src/translators/htmlexporter.cpp:101
 #, fuzzy, kde-format
 #| msgid "My Files"
 msgid "HTML Files"
@@ -6490,7 +6554,7 @@ msgid "&Bibliography"
 msgstr "參考書目(&B)"
 
 #. i18n: ectx: Menu (dockers)
-#: src/tellicoui.rc:113
+#: src/tellicoui.rc:114
 #, fuzzy, kde-format
 #| msgid "Show Grou&p View"
 msgctxt "@title:menu"
@@ -6549,37 +6613,37 @@ msgstr "位元速率"
 msgid "(Various)"
 msgstr "（各式各樣的）"
 
-#: src/translators/audiofileimporter.cpp:492
+#: src/translators/audiofileimporter.cpp:491
 #, kde-format
 msgid "Audio File Options"
 msgstr "音效檔選項"
 
-#: src/translators/audiofileimporter.cpp:495
+#: src/translators/audiofileimporter.cpp:494
 #, kde-format
 msgid "Recursive &folder search"
 msgstr "遞迴資料夾搜尋(&F)"
 
-#: src/translators/audiofileimporter.cpp:496
+#: src/translators/audiofileimporter.cpp:495
 #, kde-format
 msgid "If checked, folders are recursively searched for audio files."
 msgstr "若勾選此選項，則會遞迴式地搜尋資料夾內的音效檔。"
 
-#: src/translators/audiofileimporter.cpp:500
+#: src/translators/audiofileimporter.cpp:499
 #, kde-format
 msgid "Include file &location"
 msgstr "包括檔案位置(&L)"
 
-#: src/translators/audiofileimporter.cpp:501
+#: src/translators/audiofileimporter.cpp:500
 #, kde-format
 msgid "If checked, the file names for each track are added to the entries."
 msgstr "若勾選此選項，則每個音軌的檔名也會被加入項目中。"
 
-#: src/translators/audiofileimporter.cpp:505
+#: src/translators/audiofileimporter.cpp:504
 #, kde-format
 msgid "Include &bitrate"
 msgstr "包括位元速率(&B)"
 
-#: src/translators/audiofileimporter.cpp:506
+#: src/translators/audiofileimporter.cpp:505
 #, kde-format
 msgid "If checked, the bitrate for each track is added to the entries."
 msgstr "若勾選此選項，則每個音軌的位元速率也會被加入項目中。"
@@ -7178,12 +7242,12 @@ msgstr "XSLT 檔："
 msgid "Choose the XSLT file used to transform the data."
 msgstr "選擇用於轉換資料的 XSLT 檔。"
 
-#: src/viewstack.cpp:81
+#: src/viewstack.cpp:78
 #, kde-format
 msgid "Decrease the maximum icon size in the icon list view"
 msgstr "在圖示清單檢視中降低最大的圖示大小"
 
-#: src/viewstack.cpp:92 src/viewstack.cpp:154
+#: src/viewstack.cpp:89 src/viewstack.cpp:151
 #, kde-format
 msgid ""
 "The current maximum icon size is %1.\n"
@@ -7192,7 +7256,7 @@ msgstr ""
 "目前的最大圖示大小為 %1。\n"
 "移動滑動器可以改變大小。"
 
-#: src/viewstack.cpp:98
+#: src/viewstack.cpp:95
 #, kde-format
 msgid "Increase the maximum icon size in the icon list view"
 msgstr "在圖示清單檢視中增加最大的圖示大小"
@@ -7215,54 +7279,54 @@ msgstr "借貸"
 
 #: xslt/entry-templates/Album.xsl:517 xslt/entry-templates/Compact.xsl:312
 #: xslt/entry-templates/Default.xsl:368 xslt/entry-templates/Fancy.xsl:335
-#: xslt/entry-templates/Video.xsl:549 xslt/report-templates/Loan_View.xsl:136
-#: xslt/report-templates/Loan_View.xsl:170
+#: xslt/entry-templates/Video.xsl:549 xslt/report-templates/Loan_View.xsl:141
+#: xslt/report-templates/Loan_View.xsl:175
 #, kde-format
 msgid "Loan Date"
 msgstr "借出日期"
 
 #: xslt/entry-templates/Album.xsl:523 xslt/entry-templates/Compact.xsl:318
 #: xslt/entry-templates/Default.xsl:374 xslt/entry-templates/Fancy.xsl:341
-#: xslt/entry-templates/Video.xsl:555 xslt/report-templates/Loan_View.xsl:171
+#: xslt/entry-templates/Video.xsl:555 xslt/report-templates/Loan_View.xsl:176
 #, kde-format
 msgid "Due Date"
 msgstr "到期日"
 
 #: xslt/entry-templates/Album.xsl:529 xslt/entry-templates/Compact.xsl:324
 #: xslt/entry-templates/Default.xsl:380 xslt/entry-templates/Fancy.xsl:347
-#: xslt/entry-templates/Video.xsl:561 xslt/report-templates/Loan_View.xsl:137
-#: xslt/report-templates/Loan_View.xsl:172
+#: xslt/entry-templates/Video.xsl:561 xslt/report-templates/Loan_View.xsl:142
+#: xslt/report-templates/Loan_View.xsl:177
 #, kde-format
 msgid "Note"
 msgstr "備註"
 
-#: xslt/entry-templates/Video.xsl:205 xslt/report-templates/Tri-Column.xsl:124
+#: xslt/entry-templates/Video.xsl:205 xslt/report-templates/Tri-Column.xsl:129
 #, kde-format
 msgid "This template is meant for video collections only."
 msgstr "此樣本只用於影像收藏。"
 
-#: xslt/report-templates/Group_Summary.xsl:163
+#: xslt/report-templates/Group_Summary.xsl:168
 #, kde-format
 msgid ": Group Summary"
 msgstr "：群組摘要"
 
-#: xslt/report-templates/Group_Summary.xsl:171
+#: xslt/report-templates/Group_Summary.xsl:178
 #, kde-format
 msgid "Total number of fields:"
 msgstr "總欄位數："
 
-#: xslt/report-templates/Group_Summary.xsl:175
+#: xslt/report-templates/Group_Summary.xsl:182
 #, kde-format
 msgid "Total number of entries:"
 msgstr "總項目數："
 
-#: xslt/report-templates/Group_Summary.xsl:191
-#: xslt/report-templates/Loan_View.xsl:197 xslt/tellico2html.xsl:413
+#: xslt/report-templates/Group_Summary.xsl:198
+#: xslt/report-templates/Loan_View.xsl:202 xslt/tellico2html.xsl:413
 #, kde-format
 msgid "Generated by Tellico"
 msgstr "由 Tellico 產生"
 
-#: xslt/report-templates/Group_Summary.xsl:289
+#: xslt/report-templates/Group_Summary.xsl:296
 #, kde-format
 msgid "Distinct values: "
 msgstr "區別數值："
@@ -7276,6 +7340,9 @@ msgstr "搜尋"
 #, kde-format
 msgid "Clear"
 msgstr "清除"
+
+#~ msgid "Updating %1..."
+#~ msgstr "更新 %1 中..."
 
 #~ msgid "(Empty)"
 #~ msgstr "（空）"

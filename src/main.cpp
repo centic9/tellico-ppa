@@ -54,7 +54,7 @@
 
 int main(int argc, char* argv[]) {
   /**
-   * trigger initialisation of proper icon theme
+   * Trigger initialisation of proper icon theme
    * see https://invent.kde.org/frameworks/kiconthemes/-/merge_requests/136
    */
 #if KICONTHEMES_VERSION >= QT_VERSION_CHECK(6, 3, 0)
@@ -76,18 +76,23 @@ int main(int argc, char* argv[]) {
 
   QApplication app(argc, argv);
 #if HAVE_STYLE_MANAGER
-    /**
-     * trigger initialisation of proper application style
-     * see https://invent.kde.org/frameworks/kconfigwidgets/-/merge_requests/239
-     */
+  /**
+   * Trigger initialisation of proper application style
+   * see https://invent.kde.org/frameworks/kconfigwidgets/-/merge_requests/239
+   *
+   * But avoid hardcoding Breeze if qt6ct is set
+   * see https://bugs.kde.org/show_bug.cgi?id=496074
+   */
+  if(qEnvironmentVariable("QT_QPA_PLATFORMTHEME") != QLatin1String("qt6ct")) {
     KStyleManager::initStyle();
+  }
 #else
-    /**
-     * For Windows and macOS: use Breeze if available
-     * Of all tested styles that works the best for us
-     */
+  /**
+   * For Windows and macOS: use Breeze if available
+   * Of all tested styles that works the best for us
+  */
 #if defined(Q_OS_MACOS) || defined(Q_OS_WIN)
-    QApplication::setStyle(QStringLiteral("breeze"));
+  QApplication::setStyle(QStringLiteral("breeze"));
 #endif
 #endif
   KLocalizedString::setApplicationDomain("tellico");
@@ -168,7 +173,7 @@ int main(int argc, char* argv[]) {
   KAboutData aboutData(QStringLiteral("tellico"), QStringLiteral("Tellico"),
                        QStringLiteral(TELLICO_VERSION), i18n("Tellico - collection management software, free and simple"),
                        KAboutLicense::GPL_V2,
-                       i18n("(c) 2001-2024, Robby Stephenson"),
+                       i18n("(c) 2001, Robby Stephenson"),
                        QString(),
                        QStringLiteral("https://tellico-project.org"));
   aboutData.addAuthor(QStringLiteral("Robby Stephenson"), QString(), QStringLiteral("robby@periapsis.org"));

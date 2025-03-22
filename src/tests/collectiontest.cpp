@@ -43,7 +43,6 @@
 #include <QTest>
 #include <QStandardPaths>
 #include <QRandomGenerator>
-#include <QLoggingCategory>
 
 QTEST_GUILESS_MAIN( CollectionTest )
 
@@ -54,7 +53,7 @@ public:
                                                  Tellico::Data::EntryPtr,
                                                  Tellico::Data::FieldPtr,
                                                  const QString& value1 = QString(),
-                                                 const QString& value2 = QString()) Q_DECL_OVERRIDE {
+                                                 const QString& value2 = QString()) override {
     Q_UNUSED(value1);
     Q_UNUSED(value2);
     return m_ret;
@@ -67,7 +66,6 @@ private:
 void CollectionTest::initTestCase() {
   QStandardPaths::setTestModeEnabled(true);
   KLocalizedString::setApplicationDomain("tellico");
-  QLoggingCategory::setFilterRules(QStringLiteral("tellico.debug = true\ntellico.info = false"));
   Tellico::ImageFactory::init();
   // need to register the collection types
   Tellico::CollectionInitializer ci;

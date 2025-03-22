@@ -74,6 +74,7 @@ namespace Tellico {
   class ReportDialog;
   class StatusBar;
   class DropHandler;
+  class PrintHandler;
 
 /**
  * The base class for Tellico application windows. It sets up the main
@@ -137,7 +138,7 @@ public:
   virtual void setFilter(const QString& text);
   virtual bool showEntry(Data::ID id);
 
-  bool eventFilter(QObject* watched, QEvent* event) Q_DECL_OVERRIDE;
+  bool eventFilter(QObject* watched, QEvent* event) override;
 
 public Q_SLOTS:
   /**
@@ -335,7 +336,7 @@ private:
    * i.e. without the user losing some data.
    * @see KMainWindow::queryClose
    */
-  bool queryClose() Q_DECL_OVERRIDE;
+  bool queryClose() override;
   /**
    * Actual method used when opening a URL. Updating for the list views is turned off
    * as well as sorting, in order to more quickly load the document.
@@ -510,6 +511,7 @@ private:
   BibtexKeyDialog* m_bibtexKeyDlg;
   FetchDialog* m_fetchDlg;
   ReportDialog* m_reportDlg;
+  PrintHandler* m_printHandler;
 
   QList<QAction*> m_fetchActions;
 

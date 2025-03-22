@@ -214,7 +214,7 @@ void UPCItemDbFetcher::slotComplete(KJob* job_) {
     coll->addField(field);
   }
 
-  QJsonArray results = obj.value(QLatin1String("items")).toArray();
+  const auto results = obj.value(QLatin1String("items")).toArray();
   if(results.isEmpty()) {
     myLog() << "No results";
     stop();
@@ -222,7 +222,7 @@ void UPCItemDbFetcher::slotComplete(KJob* job_) {
   }
 
   int count = 0;
-  foreach(const QJsonValue& result, results) {
+  for(const QJsonValue& result : results) {
 //    myDebug() << "found result:" << result;
 
     Data::EntryPtr entry(new Data::Entry(coll));
@@ -252,6 +252,7 @@ Tellico::Data::EntryPtr UPCItemDbFetcher::fetchEntryHook(uint uid_) {
   const QString image_id = entry->field(cover);
   if(image_id.contains(QLatin1Char('/'))) {
     const QUrl imageUrl = QUrl::fromUserInput(image_id);
+    // use base url as referrer
     const QString id = ImageFactory::addImage(imageUrl, false /* quiet */, imageUrl.adjusted(QUrl::RemovePath));
     if(id.isEmpty()) {
       myDebug() << "image id is empty";

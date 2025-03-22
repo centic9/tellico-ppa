@@ -107,7 +107,8 @@ void ColnectFetcherTest::testSacagawea() {
 
   QCOMPARE(entry->field(QStringLiteral("year")), QStringLiteral("2007"));
   QCOMPARE(entry->field(QStringLiteral("country")), QStringLiteral("United States of America"));
-  QCOMPARE(entry->field(QStringLiteral("denomination")), QStringLiteral("$1.00"));
+  const auto oneDollar = QLocale::system().toCurrencyString(1.0, QLatin1String("$"));
+  QCOMPARE(entry->field(QStringLiteral("denomination")), oneDollar);
   QCOMPARE(entry->field(QStringLiteral("currency")), QStringLiteral("$ - United States dollar"));
   QCOMPARE(entry->field(QStringLiteral("series")), QStringLiteral("B06a - Eisenhower, Anthony & Sacagawea Dollar"));
   QCOMPARE(entry->field(QStringLiteral("mintage")), QStringLiteral("1497251077"));
@@ -140,7 +141,8 @@ void ColnectFetcherTest::testSkylab() {
   QCOMPARE(entry->field(QStringLiteral("michel")), QStringLiteral("PG 1902"));
   QCOMPARE(entry->field(QStringLiteral("series")), QStringLiteral("15th Anniversary of Launch of International Space Station"));
   QCOMPARE(entry->field(QStringLiteral("gummed")), QStringLiteral("PVA (Polyvinyl Alcohol)"));
-  QCOMPARE(entry->field(QStringLiteral("denomination")), QStringLiteral("K1.30"));
+  const auto oneKina = QLocale::system().toCurrencyString(1.30, QLatin1String("K"));
+  QCOMPARE(entry->field(QStringLiteral("denomination")), oneKina);
   QCOMPARE(entry->field(QStringLiteral("currency")), QStringLiteral("K - Papua New Guinean kina"));
   QCOMPARE(entry->field(QStringLiteral("color")), QStringLiteral("Multicolor"));
   QVERIFY(!entry->field(QStringLiteral("description")).isEmpty());
@@ -175,6 +177,36 @@ void ColnectFetcherTest::testComic() {
   QCOMPARE(entry->field(QStringLiteral("edition")), QStringLiteral("First edition"));
   QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Superhero"));
   QCOMPARE(entry->field(QStringLiteral("colnect")), QStringLiteral("https://colnect.com/en/comics/comic/16515-Destinys_Hand_Finale"));
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
+}
+
+void ColnectFetcherTest::testComicIsbn() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("colnect comics"));
+  cg.writeEntry("Custom Fields", QStringLiteral("series,colnect"));
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::ComicBook,
+                                       Tellico::Fetch::Keyword,
+                                       QStringLiteral("9032000926"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::ColnectFetcher(this));
+  fetcher->readConfig(cg);
+  QVERIFY(fetcher->canSearch(request.key()));
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QCOMPARE(results.size(), 1);
+  Tellico::Data::EntryPtr entry = results.at(0);
+
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Het meesterwerk"));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("1978"));
+  QCOMPARE(entry->field(QStringLiteral("series")), QStringLiteral("Franka (FRA)"));
+  QCOMPARE(entry->field(QStringLiteral("writer")), QStringLiteral("Kuijpers, Henk"));
+  QCOMPARE(entry->field(QStringLiteral("artist")), QStringLiteral("Kuijpers, Henk"));
+  QCOMPARE(entry->field(QStringLiteral("issue")), QStringLiteral("2"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Oberon"));
+  QCOMPARE(entry->field(QStringLiteral("edition")), QStringLiteral("First edition"));
+  QCOMPARE(entry->field(QStringLiteral("genre")), QStringLiteral("Adventure"));
+  QCOMPARE(entry->field(QStringLiteral("colnect")), QStringLiteral("https://colnect.com/en/comics/comic/2184-Het_meesterwerk"));
   QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
   QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }

@@ -62,6 +62,7 @@ ItunesFetcher::ItunesFetcher(QObject* parent_)
     : Fetcher(parent_)
     , m_started(false)
     , m_isTV(false)
+    , m_multiDiscTracks(true)
     , m_imageSize(LargeImage) {
 }
 
@@ -87,6 +88,9 @@ void ItunesFetcher::readConfigHook(const KConfigGroup& config_) {
   if(imageSize > -1) {
     m_imageSize = static_cast<ImageSize>(imageSize);
   }
+  // user requested option to maintain pre-4.0 behavior of inserting
+  // all tracks into a single track field, regardless of disc count
+  m_multiDiscTracks = config_.readEntry("Split Tracks By Disc", true);
 }
 
 void ItunesFetcher::saveConfigHook(KConfigGroup& config_) {
@@ -210,7 +214,7 @@ void ItunesFetcher::slotComplete(KJob* job_) {
     return;
   }
 
-  QJsonArray results = doc.object().value(QLatin1String("results")).toArray();
+  const auto results = doc.object().value(QLatin1String("results")).toArray();
   if(results.isEmpty()) {
     myDebug() << "iTunesFetcher: no results";
     stop();
@@ -245,7 +249,7 @@ void ItunesFetcher::slotComplete(KJob* job_) {
   }
 
   QList<FetchResult*> fetchResults;
-  foreach(const QJsonValue& result, results) {
+  for(const QJsonValue& result : results) {
     auto obj = result.toObject();
     if(obj.value(QLatin1String("kind")) == QLatin1String("song")) {
       readTrackInfo(obj.toVariantMap());
@@ -296,8 +300,8 @@ Tellico::Data::EntryPtr ItunesFetcher::fetchEntryHook(uint uid_) {
       f.close();
 #endif
       QJsonDocument doc = QJsonDocument::fromJson(job->data());
-      QJsonArray results = doc.object().value(QLatin1String("results")).toArray();
-      foreach(const QJsonValue& result, results) {
+      const auto results = doc.object().value(QLatin1String("results")).toArray();
+      for(const QJsonValue& result : results) {
         auto obj = result.toObject();
         if(obj.value(QLatin1String("wrapperType")) == QLatin1String("track")) {
           readTrackInfo(obj.toVariantMap());
@@ -326,7 +330,17 @@ Tellico::Data::EntryPtr ItunesFetcher::fetchEntryHook(uint uid_) {
             changeTrackTitle = false;
           }
         }
-        entry->setField(trackField, discsInColl.at(disc).join(FieldFormat::rowDelimiterString()));
+        if(m_multiDiscTracks) {
+          entry->setField(trackField, discsInColl.at(disc).join(FieldFormat::rowDelimiterString()));
+        } else {
+          // combine tracks from all discs into the single track field
+          QStringList allTracks;
+          for(const auto& discTracks : std::as_const(discsInColl)) {
+            allTracks += discTracks;
+          }
+          entry->setField(trackField, allTracks.join(FieldFormat::rowDelimiterString()));
+          break;
+        }
       }
     }
   }
@@ -367,12 +381,20 @@ void ItunesFetcher::populateEntry(Data::EntryPtr entry_, const QVariantMap& resu
     QString title = mapValue(resultMap_, "collectionName");
     if(title.isEmpty()) title = mapValue(resultMap_, "trackName");
     entry_->setField(QStringLiteral("title"), title);
-    entry_->setField(QStringLiteral("author"), mapValue(resultMap_, "artistName"));
+    // sometimes authors are separated by comma or ampersand
+    static const QRegularExpression authorSplitRx(QStringLiteral("\\s*[,&]\\s+"));
+    const auto authorString = mapValue(resultMap_, "artistName");
+    const auto authors = authorString.split(authorSplitRx);
+    entry_->setField(QStringLiteral("author"), authors.join(FieldFormat::delimiterString()));
     entry_->setField(QStringLiteral("plot"), mapValue(resultMap_, "description"));
     static const QRegularExpression publisherRx(QStringLiteral("^© \\d{4} (.+)$"));
     auto publisherMatch = publisherRx.match(mapValue(resultMap_, "copyright"));
     if(publisherMatch.hasMatch()) {
-      entry_->setField(QStringLiteral("publisher"), publisherMatch.captured(1));
+      QString pub = publisherMatch.captured(1);
+      if(pub.startsWith(QLatin1String("by "))) {
+        pub = pub.mid(3);
+      }
+      entry_->setField(QStringLiteral("publisher"), pub);
     }
   } else if(collectionType() == Data::Collection::Album) {
     entry_->setField(QStringLiteral("title"), mapValue(resultMap_, "collectionName"));
@@ -455,7 +477,7 @@ void ItunesFetcher::populateEpisodes(Data::EntryPtr entry_) {
 
   auto job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
   if(!job->exec()) {
-    myDebug() << "Failed downloa ditunes episodes";
+    myDebug() << "Failed download itunes episodes";
     return;
    }
 
@@ -472,8 +494,8 @@ void ItunesFetcher::populateEpisodes(Data::EntryPtr entry_) {
   static const QRegularExpression seasonRx(QStringLiteral("Season (\\d+)"));
   QMap<int, QString> episodeMap; // mapping episode number to episode string
   QJsonDocument doc = QJsonDocument::fromJson(job->data());
-  QJsonArray results = doc.object().value(QLatin1String("results")).toArray();
-  foreach(const QJsonValue& result, results) {
+  const auto results = doc.object().value(QLatin1String("results")).toArray();
+  for(const QJsonValue& result : results) {
     auto map = result.toObject().toVariantMap();
     if(mapValue(map, "kind") != QStringLiteral("tv-episode")) continue;
     int seasonNumber = 1;
@@ -558,14 +580,17 @@ ItunesFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ItunesFetcher*
 
   if(fetcher_) {
     m_imageCombo->setCurrentData(fetcher_->m_imageSize);
+    m_multiDiscTracks = fetcher_->m_multiDiscTracks;
   } else { // defaults
     m_imageCombo->setCurrentData(SmallImage);
+    m_multiDiscTracks = true;
   }
 }
 
 void ItunesFetcher::ConfigWidget::saveConfigHook(KConfigGroup& config_) {
   const int n = m_imageCombo->currentData().toInt();
   config_.writeEntry("Image Size", n);
+  config_.writeEntry("Split Tracks By Disc", m_multiDiscTracks);
 }
 
 QString ItunesFetcher::ConfigWidget::preferredName() const {

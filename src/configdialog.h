@@ -44,6 +44,7 @@
 class KConfig;
 class KIntNumInput;
 class KColorCombo;
+class KMessageWidget;
 
 class QSpinBox;
 class QPushButton;
@@ -99,7 +100,7 @@ private Q_SLOTS:
   /**
    * Called when the Ok button is clicked.
    */
-  virtual void accept() Q_DECL_OVERRIDE;
+  virtual void accept() override;
   /**
    * Called when the Apply button is clicked.
    */
@@ -137,6 +138,7 @@ private Q_SLOTS:
 #endif
   void slotDeleteTemplate();
   void slotCreateConfigWidgets();
+  void slotUpdateImageLocationLabel();
 
 private:
   enum Page {
@@ -185,6 +187,8 @@ private:
   QRadioButton* m_rbImageInFile;
   QRadioButton* m_rbImageInAppDir;
   QRadioButton* m_rbImageInLocalDir;
+  KMessageWidget* m_mwImageLocation;
+  QTimer* m_infoTimer;
   QCheckBox* m_cbOpenLastFile;
   QCheckBox* m_cbQuickFilterRegExp;
   QCheckBox* m_cbEnableWebcam;

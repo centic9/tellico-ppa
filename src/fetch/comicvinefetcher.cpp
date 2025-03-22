@@ -26,6 +26,7 @@
 #include "../translators/xslthandler.h"
 #include "../translators/tellicoimporter.h"
 #include "../utils/mapvalue.h"
+#include "../utils/string_utils.h"
 #include "../core/tellico_strings.h"
 #include "../tellico_debug.h"
 
@@ -43,8 +44,8 @@
 
 namespace {
   static const int COMICVINE_MAX_RETURNS_TOTAL = 20;
-  static const char* COMICVINE_API_URL = "https://www.comicvine.com/api";
-  static const char* COMICVINE_API_KEY = "6e4b19eeb8ccec8e2f026169d19adf57850d378e";
+  static const char* COMICVINE_API_URL = "https://comicvine.gamespot.com/api";
+  static const char* COMICVINE_API_KEY = "6a0fd2ea457262511a7e39092c19ccf4b0877e4b3e58593ded8c162f1021b7d3b68f0c3a4776fcca1d2f3000f690043690f5172fcaa95d38dab998fbcbf3d5b78fea583d1c25556453313602eb8e99af";
 }
 
 using namespace Tellico;
@@ -52,10 +53,10 @@ using Tellico::Fetch::ComicVineFetcher;
 
 ComicVineFetcher::ComicVineFetcher(QObject* parent_)
     : XMLFetcher(parent_)
-    , m_total(-1)
-    , m_apiKey(QLatin1String(COMICVINE_API_KEY)) {
+    , m_total(-1) {
   setLimit(COMICVINE_MAX_RETURNS_TOTAL);
   setXSLTFilename(QStringLiteral("comicvine2tellico.xsl"));
+  m_apiKey = Tellico::reverseObfuscate(COMICVINE_API_KEY);
 }
 
 ComicVineFetcher::~ComicVineFetcher() {
@@ -74,7 +75,7 @@ bool ComicVineFetcher::canFetch(int type) const {
 }
 
 void ComicVineFetcher::readConfigHook(const KConfigGroup& config_) {
-  QString k = config_.readEntry("API Key", COMICVINE_API_KEY);
+  QString k = config_.readEntry("API Key", Tellico::reverseObfuscate(COMICVINE_API_KEY));
   if(!k.isEmpty()) {
     m_apiKey = k;
   }
@@ -92,7 +93,7 @@ QUrl ComicVineFetcher::searchUrl() {
 
   switch(request().key()) {
     case Keyword:
-      u.setPath(u.path() + QStringLiteral("/search"));
+      u.setPath(u.path() + QStringLiteral("/search/"));
       q.addQueryItem(QStringLiteral("query"), request().value());
       q.addQueryItem(QStringLiteral("resources"), QStringLiteral("issue"));
       break;
@@ -229,7 +230,7 @@ ComicVineFetcher::ConfigWidget::ConfigWidget(QWidget* parent_, const ComicVineFe
   QLabel* al = new QLabel(i18n("Registration is required for accessing this data source. "
                                "If you agree to the terms and conditions, <a href='%1'>sign "
                                "up for an account</a>, and enter your information below.",
-                                QLatin1String("http://api.comicvine.com")),
+                                QLatin1String("https://comicvine.gamespot.com/api/")),
                           optionsWidget());
   al->setOpenExternalLinks(true);
   al->setWordWrap(true);

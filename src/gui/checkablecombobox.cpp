@@ -87,9 +87,22 @@ CheckableComboBox::CheckableComboBox(QWidget* parent_)
   lineEdit->installEventFilter(this);
   view()->viewport()->installEventFilter(this);
 
-  connect(model(), &QStandardItemModel::rowsInserted, this, [=](const QModelIndex&, int, int) { updateDisplayText(); });
-  connect(model(), &QStandardItemModel::rowsRemoved, this,  [=](const QModelIndex&, int, int) { updateDisplayText(); });
-  connect(model(), &QStandardItemModel::dataChanged, this,  [=](const QModelIndex&, const QModelIndex&, const QVector<int> &) { updateDisplayText(); });
+// c++20 deprecated the implicit capture
+#if __cplusplus > 201703L
+  connect(model(), &QStandardItemModel::rowsInserted,
+          this, [=, this](const QModelIndex&, int, int) { updateDisplayText(); });
+  connect(model(), &QStandardItemModel::rowsRemoved,
+          this, [=, this](const QModelIndex&, int, int) { updateDisplayText(); });
+  connect(model(), &QStandardItemModel::dataChanged,
+          this, [=, this](const QModelIndex&, const QModelIndex&, const QVector<int> &) { updateDisplayText(); });
+#else
+  connect(model(), &QStandardItemModel::rowsInserted,
+          this, [=](const QModelIndex&, int, int) { updateDisplayText(); });
+  connect(model(), &QStandardItemModel::rowsRemoved,
+          this, [=](const QModelIndex&, int, int) { updateDisplayText(); });
+  connect(model(), &QStandardItemModel::dataChanged,
+          this, [=](const QModelIndex&, const QModelIndex&, const QVector<int> &) { updateDisplayText(); });
+#endif
 
   connect(this, &QComboBox::editTextChanged,
           this, &CheckableComboBox::setCheckedDataText);
@@ -167,7 +180,7 @@ bool CheckableComboBox::eventFilter(QObject* obj_, QEvent* ev_) {
         auto item = static_cast<CheckableItemModel*>(model())->itemFromIndex(index);
         // uncheck the first item, if a different item was checked
         // uncheckk all other items if the first item was checked
-        // remember the chech state hasn't been changed yet. Do this check first so that the state changed signal
+        // remember the check state hasn't been changed yet. Do this check first so that the state changed signal
         // gets fired after all items are updated
         blockSignals(true);
         if(item->checkState() == Qt::Unchecked) {

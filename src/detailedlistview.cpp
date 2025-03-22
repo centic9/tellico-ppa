@@ -31,6 +31,7 @@
 #include "tellico_debug.h"
 #include "tellico_kernel.h"
 #include "config/tellico_config.h"
+#include "models/models.h"
 #include "models/entrymodel.h"
 #include "models/entrysortmodel.h"
 #include "models/modelmanager.h"
@@ -507,10 +508,6 @@ void DetailedListView::selectAllVisible() {
 
 int DetailedListView::visibleItems() const {
   return model()->rowCount();
-}
-
-void DetailedListView::resetEntryStatus() {
-  sourceModel()->clearSaveState();
 }
 
 void DetailedListView::updateHeaderMenu() {

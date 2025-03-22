@@ -22,6 +22,8 @@
  *                                                                         *
  ***************************************************************************/
 
+#include <config.h> // for TELLICO_VERSION
+
 #include "colnectfetcher.h"
 #include "../collections/coincollection.h"
 #include "../collections/stampcollection.h"
@@ -53,6 +55,8 @@
 #include <QJsonValue>
 #include <QRegularExpression>
 #include <QStandardPaths>
+
+#include <algorithm>
 
 namespace {
   static const char* COLNECT_API_URL = "https://api.tellico-project.org/colnect";
@@ -116,6 +120,19 @@ void ColnectFetcher::search() {
   // Colnect API calls are encoded as a path
   QString query(QLatin1Char('/') + m_locale);
 
+  QString value = request().value();
+  if(request().key() != Raw) {
+    // pull out year, keep the regexp a little loose, but make sure year is valid
+    // also avoid matching on isbn values by using word boundary
+    static const QRegularExpression yearRX(QStringLiteral("\\b[12][8901][0-9]{2}\\b"));
+    auto match = yearRX.match(value);
+    if(match.hasMatch()) {
+      m_year = match.captured(0);
+      value = value.remove(yearRX);
+      myLog() << "Capturing year value from search string:" << m_year;
+    }
+  }
+
   switch(collectionType()) {
     case Data::Collection::Coin:
       m_category = QStringLiteral("coins");
@@ -138,23 +155,17 @@ void ColnectFetcher::search() {
       return;
   }
 
-  QString value = request().value();
   switch(request().key()) {
     case Title:
       {
         query += QStringLiteral("/list/cat/") + m_category;
-        // pull out year, keep the regexp a little loose
-        QRegularExpression yearRX(QStringLiteral("[0-9]{4}"));
-        QRegularExpressionMatch match = yearRX.match(value);
-        if(match.hasMatch()) {
-          m_year = match.captured(0);
+        if(!m_year.isEmpty()) {
           if(collectionType() == Data::Collection::Coin) {
             query += QStringLiteral("/mint_year/");
           } else {
             query += QStringLiteral("/year/");
           }
           query += m_year;
-          value = value.remove(yearRX);
         }
       }
       if(!m_countryCode.isEmpty()) {
@@ -167,18 +178,13 @@ void ColnectFetcher::search() {
     case Keyword:
       {
         query += QStringLiteral("/list/cat/") + m_category;
-        // pull out year, keep the regexp a little loose
-        QRegularExpression yearRX(QStringLiteral("[0-9]{4}"));
-        QRegularExpressionMatch match = yearRX.match(value);
-        if(match.hasMatch()) {
-          m_year = match.captured(0);
+        if(!m_year.isEmpty()) {
           if(collectionType() == Data::Collection::Coin) {
             query += QStringLiteral("/mint_year/");
           } else {
             query += QStringLiteral("/year/");
           }
           query += m_year;
-          value = value.remove(yearRX);
         }
       }
       if(!m_countryCode.isEmpty()) {
@@ -202,6 +208,10 @@ void ColnectFetcher::search() {
   myLog() << "Reading" << u.toDisplayString();
 
   m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  m_job->addMetaData(QLatin1String("SendUserAgent"), QLatin1String("true"));
+  m_job->addMetaData(QStringLiteral("UserAgent"),
+                     QStringLiteral("Tellico/%1 ( https://tellico-project.org )").arg(QStringLiteral(TELLICO_VERSION)));
+
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job.data(), &KJob::result, this, &ColnectFetcher::slotComplete);
 }
@@ -666,17 +676,29 @@ void ColnectFetcher::populateComicEntry(Data::EntryPtr entry_, const QVariantLis
   }
 
   static const QRegularExpression spaceCommaRx(QLatin1String("\\s*,\\s*"));
+  auto hasSpace = [](const QString& s) {
+    return s.contains(QLatin1Char(' '));
+  };
+
   idx = m_colnectFields.value(QStringLiteral("Writer"), -1);
   if(idx > -1) {
     QString writer = resultList_.at(idx).toString();
-    writer.replace(spaceCommaRx, FieldFormat::delimiterString());
+    // colnect is inconsistent with comma separators. Sometimes it's between first and last name,
+    // sometimes between multiple people, so only split if there is also a white space in each value
+    const auto list = writer.split(spaceCommaRx);
+    if(list.count() > 1 && std::all_of(list.begin(), list.end(), hasSpace)) {
+      writer = list.join(Tellico::FieldFormat::delimiterString());
+    }
     entry_->setField(QStringLiteral("writer"), writer);
   }
 
   idx = m_colnectFields.value(QStringLiteral("CoverArtist"), -1);
   if(idx > -1) {
     QString artist = resultList_.at(idx).toString();
-    artist.replace(spaceCommaRx, FieldFormat::delimiterString());
+    const auto list = artist.split(spaceCommaRx);
+    if(list.count() > 1 && std::all_of(list.begin(), list.end(), hasSpace)) {
+      artist = list.join(Tellico::FieldFormat::delimiterString());
+    }
     entry_->setField(QStringLiteral("artist"), artist);
   }
 
@@ -695,8 +717,10 @@ void ColnectFetcher::populateCardEntry(Data::EntryPtr entry_, const QVariantList
 
   int idx = m_colnectFields.value(QStringLiteral("Issued on"), -1);
   // the year may have already been set in the query term
+  QString year = m_year;
   if(m_year.isEmpty() && idx > -1) {
-    entry_->setField(QStringLiteral("year"), resultList_.at(idx).toString().left(4));
+    year = resultList_.at(idx).toString().left(4);
+    entry_->setField(QStringLiteral("year"), year);
   }
 
   idx = m_colnectFields.value(QStringLiteral("ZscCardPlayer"), -1);
@@ -704,7 +728,11 @@ void ColnectFetcher::populateCardEntry(Data::EntryPtr entry_, const QVariantList
     const int playerId = resultList_.at(idx).toInt();
     if(playerId > 0) {
       if(!m_itemNames.contains("players")) {
-        readItemNames("players");
+        if(year.isEmpty()) {
+          readItemNames("players");
+        } else {
+          readItemNames("players", QStringLiteral("/season/") + year);
+        }
       }
       entry_->setField(QStringLiteral("player"), m_itemNames.value("players").value(playerId));
     }
@@ -870,10 +898,11 @@ void ColnectFetcher::readDataList() {
   u.setPath(u.path() + query);
 //  myLog() << "Reading Colnect fields from" << u.toDisplayString();
 
+  QJsonParseError jsonError;
   const QByteArray data = FileHandler::readDataFile(u, true);
-  QJsonDocument doc = QJsonDocument::fromJson(data);
+  QJsonDocument doc = QJsonDocument::fromJson(data, &jsonError);
   if(doc.isNull()) {
-    myDebug() << "null JSON document in colnect fields";
+    myDebug() << "null JSON document in colnect fields:" << jsonError.errorString();
     return;
   }
   QVariantList resultList = doc.array().toVariantList();
@@ -888,22 +917,23 @@ void ColnectFetcher::readDataList() {
 //  myDebug() << "Colnect fields:" << m_colnectFields;
 }
 
-void ColnectFetcher::readItemNames(const QByteArray& item_) {
+void ColnectFetcher::readItemNames(const QByteArray& item_, const QString& filter_) {
   QUrl u(QString::fromLatin1(COLNECT_API_URL));
   // Colnect API calls are encoded as a path
-  QString query(QLatin1Char('/') + m_locale + QLatin1Char('/') + QLatin1String(item_) + QStringLiteral("/cat/") + m_category + QLatin1Char('/'));
-  u.setPath(u.path() + query);
+  QString query(QLatin1Char('/') + m_locale + QLatin1Char('/') + QLatin1String(item_) + QStringLiteral("/cat/") + m_category);
+  u.setPath(u.path() + query + filter_);
 //  myLog() << "Reading item names from" << u.toDisplayString();
 
+  QJsonParseError jsonError;
   const QByteArray data = FileHandler::readDataFile(u, true);
-  QJsonDocument doc = QJsonDocument::fromJson(data);
+  QJsonDocument doc = QJsonDocument::fromJson(data, &jsonError);
   if(doc.isNull()) {
-    myDebug() << "null JSON document in colnect results";
+    myDebug() << "null JSON document in colnect results:" << jsonError.errorString();
     return;
   }
   QJsonArray resultList = doc.array();
   if(resultList.isEmpty()) {
-    myDebug() << "no item results";
+    myDebug() << "no item name results";
     return;
   }
   QHash<int, QString> itemNames;

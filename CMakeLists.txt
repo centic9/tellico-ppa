@@ -2,10 +2,10 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "4.0.1")
+set(TELLICO_VERSION "4.1.1")
 
 if(DEFINED BUILD_WITH_QT6)
-  set(GLOBAL_BUILD_WITH_QT6 ${BUILD_WITH_QT6})
+    set(GLOBAL_BUILD_WITH_QT6 ${BUILD_WITH_QT6})
 endif()
 
 find_package(ECM REQUIRED NO_MODULE)
@@ -13,22 +13,22 @@ find_package(ECM REQUIRED NO_MODULE)
 # Instead, use the installed version and assume building with Qt6 unless
 # BUILD_WITH_QT6=OFF was passed to cmake
 if(NOT DEFINED GLOBAL_BUILD_WITH_QT6 AND
-   ECM_VERSION VERSION_GREATER_EQUAL 5.240)
-  option(BUILD_WITH_QT6 "Build against Qt 6" ON)
+    ECM_VERSION VERSION_GREATER_EQUAL 5.240)
+    option(BUILD_WITH_QT6 "Build against Qt 6" ON)
 endif()
 
 if(POLICY CMP0063)
-  cmake_policy(SET CMP0063 NEW)
-endif(POLICY CMP0063)
+    cmake_policy(SET CMP0063 NEW)
+endif()
 
 if(QT_MAJOR_VERSION STREQUAL "6")
-  set(QT_MIN_VERSION "6.4.0")
-  set(KF_MIN_VERSION "5.240.0")
-  set(CMAKE_CXX_STANDARD 20)
+    set(QT_MIN_VERSION "6.4.0")
+    set(KF_MIN_VERSION "5.240.0")
+    set(CMAKE_CXX_STANDARD 20)
 else()
-  set(QT_MIN_VERSION "5.12.0")
-  set(KF_MIN_VERSION "5.72.0")
-  set(CMAKE_CXX_STANDARD 17)
+    set(QT_MIN_VERSION "5.12.0")
+    set(KF_MIN_VERSION "5.72.0")
+    set(CMAKE_CXX_STANDARD 17)
 endif()
 
 # https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/Useful-Variables
@@ -53,6 +53,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 ############# Options #################
 
+option(BUILD_DOC           "Whether to build the documentation" TRUE)
 option(ENABLE_CDTEXT       "Enable cdtext" TRUE)
 option(ENABLE_WEBCAM       "Enable support for webcams" FALSE)
 option(BUILD_FETCHER_TESTS "Build tests which verify data sources" FALSE)
@@ -61,7 +62,7 @@ option(ENABLE_BTPARSE      "Build with bibtex importing using btparse, whether i
 
 # btparse does not compile with msvc
 if(ENABLE_BTPARSE AND MSVC)
-  set(ENABLE_BTPARSE FALSE)
+    set(ENABLE_BTPARSE FALSE)
 endif()
 
 include(CheckSymbolExists)
@@ -86,7 +87,6 @@ find_package(KF${KF_MAJOR_VERSION} REQUIRED COMPONENTS
     ConfigWidgets
     CoreAddons
     Crash
-    DocTools
     GuiAddons
     IconThemes
     ItemModels
@@ -101,22 +101,22 @@ find_package(KF${KF_MAJOR_VERSION} REQUIRED COMPONENTS
 )
 
 if(NOT USE_KHTML)
-  find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
-    WebEngineWidgets
-  )
-  set_package_properties(Qt${QT_MAJOR_VERSION}WebEngineWidgets PROPERTIES
-    DESCRIPTION "Building with QWebEngine is preferrable to KHTML"
+    find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
+        WebEngineWidgets
+    )
+    set_package_properties(Qt${QT_MAJOR_VERSION}WebEngineWidgets PROPERTIES
+    DESCRIPTION "Building with QWebEngine is preferable to KHTML"
     TYPE OPTIONAL)
 endif()
 if(USE_KHTML OR NOT Qt${QT_MAJOR_VERSION}WebEngineWidgets_FOUND)
-  set(USE_KHTML ON)
-  find_package(KF${KF_MAJOR_VERSION}KHtml REQUIRED NO_MODULE)
-  set_package_properties(KF${KF_MAJOR_VERSION}Html PROPERTIES
-    DESCRIPTION "Building with QWebEngine is preferrable to KHTML")
+    set(USE_KHTML ON)
+    find_package(KF${KF_MAJOR_VERSION}KHtml REQUIRED NO_MODULE)
+    set_package_properties(KF${KF_MAJOR_VERSION}Html PROPERTIES
+    DESCRIPTION "Building with QWebEngine is preferable to KHTML")
 endif()
 
 find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS
-  Charts
+    Charts
 )
 
 include(MacroBoolTo01)
@@ -124,6 +124,13 @@ include(MacroBoolTo01)
 find_package(Gettext REQUIRED)
 find_package(LibXml2 REQUIRED)
 find_package(LibXslt REQUIRED)
+
+if(BUILD_DOC)
+    find_package(KF${KF_MAJOR_VERSION}DocTools REQUIRED)
+    set_package_properties(KF${KF_MAJOR_VERSION}DocTools PROPERTIES
+        DESCRIPTION "Tools to generate documentation"
+        TYPE REQUIRED)
+endif()
 
 find_package(KF${KF_MAJOR_VERSION}FileMetaData)
 set_package_properties(KF${KF_MAJOR_VERSION}FileMetaData PROPERTIES
@@ -137,7 +144,7 @@ set_package_properties(KF${KF_MAJOR_VERSION}NewStuff PROPERTIES
     URL "https://www.kde.org"
     TYPE OPTIONAL)
 
-if (KF_MAJOR_VERSION STREQUAL "5")
+if(KF_MAJOR_VERSION STREQUAL "5")
     set(KSANE_TARGET_NAME KF5::Sane)
     find_package(KF5Sane)
 else()
@@ -149,7 +156,7 @@ set_package_properties(KSANE_TARGET_NAME PROPERTIES
     URL "https://www.kde.org"
     TYPE OPTIONAL)
 
-if (KF_MAJOR_VERSION STREQUAL "5")
+if(KF_MAJOR_VERSION STREQUAL "5")
     set(KCDDB_TARGET_NAME KF5::Cddb)
     find_package(KF5Cddb 5.1)
 else()
@@ -170,7 +177,7 @@ if(TAGLIB_FOUND)
     else()
         set(TAGLIB_LIBRARIES Taglib::Taglib)
     endif()
-endif(TAGLIB_FOUND)
+endif()
 
 find_package(Yaz 2.0)
 set_package_properties(Yaz PROPERTIES
@@ -179,7 +186,7 @@ set_package_properties(Yaz PROPERTIES
     TYPE OPTIONAL)
 if(Yaz_FOUND)
     include_directories(${Yaz_INCLUDE_DIRS})
-endif(Yaz_FOUND)
+endif()
 
 # FindPoppler is part of ECM >= 5.19
 find_package(Poppler COMPONENTS Qt${QT_MAJOR_VERSION})
@@ -191,21 +198,21 @@ set_package_properties(Exempi PROPERTIES
     TYPE OPTIONAL)
 if(Exempi_FOUND)
     include_directories(${Exempi_INCLUDE_DIRS})
-endif(Exempi_FOUND)
+endif()
 
 if(ENABLE_BTPARSE)
-find_package(Btparse)
-set_package_properties(Btparse PROPERTIES
-    DESCRIPTION "External support for parsing and processing BibTeX data files"
-    URL "https://metacpan.org/release/Text-BibTeX"
-    TYPE OPTIONAL)
-if(Btparse_FOUND)
-    include_directories(${Btparse_INCLUDE_DIRS})
-    set(TELLICO_BTPARSE_LIBS ${Btparse_LIBRARIES})
-else(Btparse_FOUND)
-    set(TELLICO_BTPARSE_LIBS btparse-tellico)
-endif(Btparse_FOUND)
-endif(ENABLE_BTPARSE)
+    find_package(Btparse)
+    set_package_properties(Btparse PROPERTIES
+        DESCRIPTION "External support for parsing and processing BibTeX data files"
+        URL "https://metacpan.org/release/Text-BibTeX"
+        TYPE OPTIONAL)
+    if(Btparse_FOUND)
+        include_directories(${Btparse_INCLUDE_DIRS})
+        set(TELLICO_BTPARSE_LIBS ${Btparse_LIBRARIES})
+    else()
+        set(TELLICO_BTPARSE_LIBS btparse-tellico)
+    endif()
+endif()
 
 find_package(CDIO)
 set_package_properties(CDIO PROPERTIES
@@ -214,7 +221,7 @@ set_package_properties(CDIO PROPERTIES
     TYPE OPTIONAL)
 if(CDIO_FOUND)
     include_directories(${CDIO_INCLUDE_DIRS})
-endif(CDIO_FOUND)
+endif()
 
 find_package(Csv 3.0)
 set_package_properties(Csv PROPERTIES
@@ -224,9 +231,9 @@ set_package_properties(Csv PROPERTIES
 if(Csv_FOUND)
     include_directories(${Csv_INCLUDE_DIRS})
     set(TELLICO_CSV_LIBS ${Csv_LIBRARIES})
-else(Csv_FOUND)
+else()
     set(TELLICO_CSV_LIBS csv-tellico)
-endif(Csv_FOUND)
+endif()
 
 # webcam uses libv4l, which only works on Linux for now
 # Linux 2.6.38 removed the videodev.h header
@@ -234,10 +241,9 @@ endif(Csv_FOUND)
 if(ENABLE_WEBCAM)
     if(NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
         message("WARNING: Webcam support is not available on your platform")
-        set( ENABLE_WEBCAM FALSE )
-    else(NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
+        set(ENABLE_WEBCAM FALSE)
+    else()
         pkg_check_modules(LIBV4L libv4l1>=0.6)
-        #macro_log_feature(LIBV4L_FOUND "libv4l" "Support for barcode scanning with a webcam" "https://hansdegoede.livejournal.com/3636.html"  FALSE "" "")
         set_package_properties(LIBV4L PROPERTIES
             DESCRIPTION "Support for barcode scanning with a webcam"
             URL "https://hansdegoede.livejournal.com/3636.html"
@@ -245,20 +251,20 @@ if(ENABLE_WEBCAM)
         if(LIBV4L_FOUND)
             if(LIBV4L_VERSION VERSION_LESS "0.8.3" AND CMAKE_SYSTEM_VERSION VERSION_GREATER "2.6.37")
                 message("WARNING: libv4l 0.8.3 or later is required for Linux kernel 2.6.38 or later")
-                set( ENABLE_WEBCAM FALSE )
-            else(LIBV4L_VERSION VERSION_LESS "0.8.3" AND CMAKE_SYSTEM_VERSION VERSION_GREATER "2.6.37")
+                set(ENABLE_WEBCAM FALSE)
+            else()
                 include_directories(${LIBV4L_INCLUDE_DIR})
-            endif(LIBV4L_VERSION VERSION_LESS "0.8.3" AND CMAKE_SYSTEM_VERSION VERSION_GREATER "2.6.37")
-        else(LIBV4L_FOUND)
+            endif()
+        else()
             set(ENABLE_WEBCAM FALSE)
-        endif(LIBV4L_FOUND)
-    endif(NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
-endif(ENABLE_WEBCAM)
+        endif()
+    endif()
+endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnon-virtual-dtor -Wno-long-long -Wextra -fno-check-new -Woverloaded-virtual")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnon-virtual-dtor -Wno-long-long -fno-check-new -Woverloaded-virtual -Wno-deprecated -Wno-deprecated-declarations")
-endif(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wnon-virtual-dtor -Wno-long-long -fno-check-new -Woverloaded-virtual")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-deprecated-declarations")
+endif()
 
 add_definitions(-DQT_STL -DQT_NO_CAST_FROM_ASCII -DQT_NO_URL_CAST_FROM_STRING -DQT_USE_QSTRINGBUILDER)
 remove_definitions(-DQT_NO_STL)
@@ -274,7 +280,10 @@ set(TELLICO_DATA_INSTALL_DIR ${KDE_INSTALL_DATADIR}/tellico)
 add_subdirectory(src)
 add_subdirectory(icons)
 add_subdirectory(xslt)
-add_subdirectory(doc)
+
+if(BUILD_DOC)
+    add_subdirectory(doc)
+endif()
 
 ########## Wrap tests results around the tests done within the source
 
@@ -303,8 +312,40 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY
 
 install(PROGRAMS org.kde.tellico.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES tellico.xml DESTINATION  ${KDE_INSTALL_MIMEDIR})
-install(FILES org.kde.tellico.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR} )
+install(FILES org.kde.tellico.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 ki18n_install(po)
-kdoctools_install(po)
+
+if(BUILD_DOC)
+    # some translations require KF6, skip those when creating docs
+    if(NOT KF_MAJOR_VERSION STREQUAL "5")
+        kdoctools_install(po)
+    else()
+        # taken from kdoctools cmake macro
+        file(GLOB lang_dirs "po/*")
+        # remove the non-backwards compatible translations
+        list(FILTER lang_dirs EXCLUDE REGEX "po/sl")
+        if(NOT KDE_INSTALL_DOCBUNDLEDIR)
+            if(HTML_INSTALL_DIR)
+                set(KDE_INSTALL_DOCBUNDLEDIR ${HTML_INSTALL_DIR})
+            else()
+                set(KDE_INSTALL_DOCBUNDLEDIR share/doc/HTML)
+            endif()
+        endif()
+        foreach(lang_dir ${lang_dirs})
+            get_filename_component(lang ${lang_dir} NAME)
+
+            file(GLOB_RECURSE docbooks RELATIVE "${lang_dir}" "${lang_dir}/docs/*.docbook")
+            foreach(docbook ${docbooks})
+                string(REGEX MATCH "^docs/(.*)/index.docbook" match ${docbook})
+                if(match)
+                    kdoctools_create_handbook("${lang_dir}/${docbook}"
+                        INSTALL_DESTINATION ${KDE_INSTALL_DOCBUNDLEDIR}/${lang}
+                        SUBDIR ${CMAKE_MATCH_1}
+                    )
+                endif()
+            endforeach()
+        endforeach()
+    endif()
+endif()
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

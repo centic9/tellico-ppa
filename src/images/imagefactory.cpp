@@ -79,12 +79,14 @@ void ImageFactory::init() {
     return;
   }
   factory = new ImageFactory();
+  const QUrl dataDir = QUrl::fromLocalFile(Tellico::saveLocation(QStringLiteral("data/")));
+  factory->d->dataImageDir.setDirectory(dataDir);
+  myLog() << "Setting local image dir:" << factory->d->dataImageDir.dir().url(QUrl::PreferLocalFile);
+
   myLog() << "Setting max image cache cost:" << Config::imageCacheSize();
   factory->d->imageCache.setMaxCost(Config::imageCacheSize());
   myLog() << "Setting max pixmap cache cost:" << Config::imageCacheSize();
   factory->d->pixmapCache.setMaxCost(Config::imageCacheSize());
-  const QUrl dataDir = QUrl::fromLocalFile(Tellico::saveLocation(QStringLiteral("data/")));
-  factory->d->dataImageDir.setDirectory(dataDir);
 
   factory->d->releaseImagesTimer.setSingleShot(true);
   connect(&factory->d->releaseImagesTimer, &QTimer::timeout, factory, &ImageFactory::releaseImages);
@@ -163,7 +165,7 @@ const Tellico::Data::Image& ImageFactory::addImageImpl(const QUrl& url_, bool qu
     return Data::Image::null;
   }
 
-  myLog() << "Loading image from url:" << img.id() << url_.toDisplayString(QUrl::PreferLocalFile);
+  myLog() << "Loading image from url:" << img.id() << url_.toDisplayString(QUrl::PreferLocalFile | QUrl::NormalizePathSegments);
   // hold the image in memory since it probably isn't written locally to disk yet
   if(!d->imageDict.contains(img.id())) {
     d->imageDict.insert(img.id(), new Data::Image(img));
@@ -254,7 +256,7 @@ const Tellico::Data::Image& ImageFactory::addCachedImageImpl(const QString& id_,
       break;
   }
   if(!img) {
-    myWarning() << "image not found:" << id_;
+    myWarning() << "Image not found:" << id_ << "; Cache dir:" << dir_;
     return Data::Image::null;
   }
 
@@ -490,26 +492,28 @@ bool ImageFactory::hasLocalImage(const QString& id_) {
   if(id_.isEmpty() || !factory) {
     return false;
   }
-  bool ret = (Config::imageLocation() == Config::ImagesInLocalDir &&
-                           factory->d->localImageDir.hasImage(id_)) ||
-             (Config::imageLocation() == Config::ImagesInAppDir &&
-                           factory->d->dataImageDir.hasImage(id_)) ||
-             factory->d->imageCache.contains(id_) ||
-             factory->d->imageDict.contains(id_) ||
-             factory->d->tempImageDir.hasImage(id_) ||
-             factory->d->imageZipArchive.hasImage(id_);
-  if(ret) return true;
 
-  const QUrl u(id_);
-  return u.isValid() && !u.isRelative() && u.isLocalFile();
+  const bool inConfigLocation = (Config::imageLocation() == Config::ImagesInLocalDir &&
+                                 factory->d->localImageDir.hasImage(id_)) ||
+                                (Config::imageLocation() == Config::ImagesInAppDir &&
+                                 factory->d->dataImageDir.hasImage(id_));
+  return inConfigLocation ||
+         factory->d->imageCache.contains(id_) ||
+         factory->d->imageDict.contains(id_) ||
+         factory->d->tempImageDir.hasImage(id_) ||
+         factory->d->imageZipArchive.hasImage(id_);
+  // Versions prior to 4.1.1 returned true for absolute local file paths
+  // Now they're treated identically to remote paths
 }
 
 void ImageFactory::requestImageById(const QString& id_) {
   Q_ASSERT(factory && "ImageFactory is not initialized!");
   if(hasLocalImage(id_)) {
     QTimer::singleShot(0, factory, [id_] () {
-      factory->addCachedImageImpl(id_, cacheDir());
-      emit factory->imageAvailable(id_);
+      auto img = factory->addCachedImageImpl(id_, cacheDir());
+      if(!img.isNull()) {
+        Q_EMIT factory->imageAvailable(id_);
+      }
     });
     return;
   }
@@ -528,6 +532,26 @@ void ImageFactory::requestImageById(const QString& id_) {
         myDebug() << "Loading an image url that is not link only. The image id will get updated.";
       }
     }
+    return;
+  }
+  // real fallback, just as ::imageById() checks, look in fall back directories, just in case
+  // possible scenario is that the user changed the image location for one data file, but the other file still
+  // has images in app or local directory
+  int realImageDir = -1;
+  if(factory->d->dataImageDir.hasImage(id_)) {
+    realImageDir = DataDir;
+  } else if(factory->d->localImageDir.hasImage(id_)) {
+    realImageDir = LocalDir;
+  }
+
+  if(realImageDir > -1) {
+    QTimer::singleShot(0, factory, [id_, realImageDir] () {
+      auto img = factory->addCachedImageImpl(id_, Tellico::ImageFactory::CacheDir(realImageDir));
+      if(!img.isNull()) {
+        Q_EMIT factory->imageAvailable(id_);
+      }
+    });
+    return;
   }
 }
 
@@ -764,7 +788,7 @@ void ImageFactory::slotImageJobResult(KJob* job_) {
   }
   const Data::Image& img = imageJob->image();
   if(img.isNull()) {
-    myDebug() << "null image for" << imageJob->url();
+    myDebug() << "Null image for" << imageJob->url().url(QUrl::PreferLocalFile);
     d->nullImages.add(imageJob->url().url());
     // don't emit anything
     return;

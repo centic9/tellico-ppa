@@ -133,14 +133,17 @@ void SRUFetcher::search() {
   u.setScheme(m_scheme);
   u.setHost(m_host);
   u.setPort(m_port);
-  u = QUrl::fromUserInput(u.url() + m_path);
+  u.setPath(m_path);
 
-  QString cqlVersion;
+  QString httpMethod, cqlVersion;
   QUrlQuery query;
   for(StringMap::ConstIterator it = m_queryMap.constBegin(); it != m_queryMap.constEnd(); ++it) {
-    // query values starting with x-tellico signify query context set replacements
-    // and not query values themselves
+    // query values starting with x-tellico signify tellico-specific options or
+    // query context set replacements and not query values themselves
     if(it.key().startsWith(QLatin1String("x-tellico"))) {
+      if(it.key().endsWith(QLatin1String("-method"))) {
+        httpMethod = it.value();
+      }
       continue;
     }
     query.addQueryItem(it.key(), it.value());
@@ -190,7 +193,7 @@ void SRUFetcher::search() {
         } else {
           s = queryTerm(QLatin1String("dc.creator"), request().value(), cqlVersion) +
               QLatin1String(" or ") +
-              queryTerm(QLatin1String("dc.editor="), request().value(), cqlVersion);
+              queryTerm(QLatin1String("dc.editor"), request().value(), cqlVersion);
         }
         query.addQueryItem(QStringLiteral("query"), s);
       }
@@ -263,11 +266,18 @@ void SRUFetcher::search() {
       stop();
       break;
   }
-  myLog() << "SRU query is" << query.toString();
   u.setQuery(query);
-//  myDebug() << u.url();
 
-  m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  if(QString::compare(httpMethod, QLatin1String("post"), Qt::CaseInsensitive) == 0) {
+    myLog() << "POSTing SRU request:" << u.url();
+    m_job = KIO::storedHttpPost(query.toString().toUtf8(), u, KIO::HideProgressInfo);
+    m_job->addMetaData(QStringLiteral("content-type"),
+                       QStringLiteral("application/x-www-form-urlencoded"));
+  } else {
+    // default to GET
+    myLog() << "GETing SRU request:" << u.url();
+    m_job = KIO::storedGet(u, KIO::NoReload, KIO::HideProgressInfo);
+  }
   KJobWidgets::setWindow(m_job, GUI::Proxy::widget());
   connect(m_job.data(), &KJob::result,
           this, &SRUFetcher::slotComplete);
@@ -295,6 +305,7 @@ void SRUFetcher::slotComplete(KJob*) {
 
   QByteArray data = m_job->data();
   if(data.isEmpty()) {
+    myDebug() << "no data";
     stop();
     return;
   }
@@ -368,7 +379,7 @@ void SRUFetcher::slotComplete(KJob*) {
       } else {
         myLog() << "Reading marcXchange data as MARC21";
       }
-      static const QRegularExpression marcRx(QLatin1String("xmlns:(marc|mxc)=\"info:lc/xmlns/marcxchange-v[12]\""));
+      static const QRegularExpression marcRx(QLatin1String("xmlns:([^=]+)=\"info:lc/xmlns/marcxchange-v[12]\""));
       newResult.replace(marcRx, QStringLiteral("xmlns:\\1=\"http://www.loc.gov/MARC21/slim\""));
     }
     if(initHandler(handlerType)) {
@@ -377,15 +388,6 @@ void SRUFetcher::slotComplete(KJob*) {
   }
   if(!modsResult.isEmpty() && initHandler(MODS)) {
     const auto tellicoXml = m_handlers[MODS]->applyStylesheet(modsResult);
-#if 0
-    myWarning() << "Remove debug from srufetcher.cpp";
-    QFile f(QString::fromLatin1("/tmp/test-mods2tellico.xml"));
-    if(f.open(QIODevice::WriteOnly)) {
-      QTextStream t(&f);
-      t << tellicoXml;
-    }
-    f.close();
-#endif
     Import::TellicoImporter imp(tellicoXml);
     coll = imp.collection();
     if(!msg.isEmpty()) {
@@ -397,7 +399,17 @@ void SRUFetcher::slotComplete(KJob*) {
              m_format == QLatin1String("dublincore") ||
              m_format == QLatin1String("none")) &&
             initHandler(SRW)) {
-    Import::TellicoImporter imp(m_handlers[SRW]->applyStylesheet(result));
+    const auto tellicoXml = m_handlers[SRW]->applyStylesheet(result);
+#if 0
+    myWarning() << "Remove debug from srufetcher.cpp";
+    QFile f(QString::fromLatin1("/tmp/test-sru.xml"));
+    if(f.open(QIODevice::WriteOnly)) {
+      QTextStream t(&f);
+      t << tellicoXml;
+    }
+    f.close();
+#endif
+    Import::TellicoImporter imp(tellicoXml);
     coll = imp.collection();
     if(!msg.isEmpty()) {
       msg += QLatin1Char('\n');
@@ -501,6 +513,11 @@ bool SRUFetcher::initHandler(HandlerType type_) {
     myWarning() << "error in" << fileName;
     delete handler;
     return false;
+  }
+  if(collectionType() == Data::Collection::Book) {
+    handler->addStringParam("ctype", "2"); // book if already existing
+  } else {
+    handler->addStringParam("ctype", "5"); // bibtex by default
   }
   m_handlers.insert(type_, handler);
   return true;

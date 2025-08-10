@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 project(Tellico)
-set(TELLICO_VERSION "4.1.1")
+set(TELLICO_VERSION "4.1.3")
 
 if(DEFINED BUILD_WITH_QT6)
     set(GLOBAL_BUILD_WITH_QT6 ${BUILD_WITH_QT6})
@@ -99,6 +99,11 @@ find_package(KF${KF_MAJOR_VERSION} REQUIRED COMPONENTS
     WidgetsAddons
     XmlGui
 )
+if(KF_MAJOR_VERSION STREQUAL "6")
+    find_package(KF${KF_MAJOR_VERSION} REQUIRED COMPONENTS
+        ColorScheme
+    )
+endif()
 
 if(NOT USE_KHTML)
     find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG OPTIONAL_COMPONENTS

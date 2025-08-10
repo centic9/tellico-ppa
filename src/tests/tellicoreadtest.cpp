@@ -55,6 +55,7 @@
 #endif
 #include <QStandardPaths>
 #include <QLoggingCategory>
+#include <QSignalSpy>
 
 QTEST_GUILESS_MAIN( TellicoReadTest )
 
@@ -363,6 +364,49 @@ void TellicoReadTest::testLocalImage() {
   QVERIFY(!img.isNull());
 }
 
+void TellicoReadTest::testLocalImageLink() {
+  QUrl imgUrl = QUrl::fromLocalFile(QFINDTESTDATA("../../icons/tellico.png"));
+  imgUrl = imgUrl.adjusted(QUrl::NormalizePathSegments);
+  const QString imageId = imgUrl.url();
+  // not yet loaded
+  QVERIFY(!Tellico::ImageFactory::self()->hasImageInMemory(imageId));
+  QVERIFY(!Tellico::ImageFactory::self()->hasImageInfo(imageId));
+
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("/data/image_link_test.xml"));
+  QFile f(url.toLocalFile());
+  QVERIFY(f.exists());
+  QVERIFY(f.open(QIODevice::ReadOnly | QIODevice::Text));
+
+  QTextStream in(&f);
+  QString fileText = in.readAll();
+  // replace %COVER% with image file location
+  fileText.replace(QSL("%COVER%"), imageId);
+
+  Tellico::Import::TellicoImporter importer(fileText);
+  Tellico::Data::CollPtr coll = importer.collection();
+  QVERIFY(coll);
+  QCOMPARE(coll->entries().count(), 1);
+
+  Tellico::Data::EntryPtr entry = coll->entries().at(0);
+  QVERIFY(entry);
+  QCOMPARE(entry->field(QStringLiteral("cover")), imageId);
+
+  // the image should still not be in local memory, but the image info has loaded from xml file
+  QVERIFY(!Tellico::ImageFactory::self()->hasImageInMemory(imageId));
+  QVERIFY( Tellico::ImageFactory::self()->hasImageInfo(imageId));
+
+  QSignalSpy spy(Tellico::ImageFactory::self(), &Tellico::ImageFactory::imageAvailable);
+  Tellico::ImageFactory::self()->requestImageById(imageId);
+  QVERIFY(spy.wait(2000));
+
+  // now it should be in memory
+  QVERIFY(Tellico::ImageFactory::self()->hasImageInMemory(imageId));
+  const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(imageId);
+  QCOMPARE(img.id(), imageId);
+  QVERIFY(!img.isNull());
+  QVERIFY(img.linkOnly());
+}
+
 void TellicoReadTest::testRemoteImage() {
   if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
 
@@ -398,6 +442,50 @@ void TellicoReadTest::testRemoteImage() {
 
   const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(imageId);
   QVERIFY(!img.isNull());
+}
+
+void TellicoReadTest::testRemoteImageLink() {
+  if(!hasNetwork()) QSKIP("This test requires network access", SkipSingle);
+
+  // this is the md5 hash of the logo.png icon, used as an image id
+  const QString imageId(QSL("https://tellico-project.org/wp-content/uploads/96-tellico.png"));
+  // not yet loaded
+  QVERIFY(!Tellico::ImageFactory::self()->hasImageInMemory(imageId));
+  QVERIFY(!Tellico::ImageFactory::self()->hasImageInfo(imageId));
+
+  QUrl url = QUrl::fromLocalFile(QFINDTESTDATA("/data/image_link_test.xml"));
+  QFile f(url.toLocalFile());
+  QVERIFY(f.exists());
+  QVERIFY(f.open(QIODevice::ReadOnly | QIODevice::Text));
+
+  QTextStream in(&f);
+  QString fileText = in.readAll();
+  // replace %COVER% with image file location
+  fileText.replace(QSL("%COVER%"), imageId);
+
+  Tellico::Import::TellicoImporter importer(fileText);
+  Tellico::Data::CollPtr coll = importer.collection();
+  QVERIFY(coll);
+  QCOMPARE(coll->entries().count(), 1);
+
+  Tellico::Data::EntryPtr entry = coll->entries().at(0);
+  QVERIFY(entry);
+  QCOMPARE(entry->field(QStringLiteral("cover")), imageId);
+
+  // the image should still not be in local memory, but the image info has loaded from xml file
+  QVERIFY(!Tellico::ImageFactory::self()->hasImageInMemory(imageId));
+  QVERIFY( Tellico::ImageFactory::self()->hasImageInfo(imageId));
+
+  QSignalSpy spy(Tellico::ImageFactory::self(), &Tellico::ImageFactory::imageAvailable);
+  Tellico::ImageFactory::self()->requestImageById(imageId);
+  QVERIFY(spy.wait(2000));
+
+  // now it should be in memory
+  QVERIFY(Tellico::ImageFactory::self()->hasImageInMemory(imageId));
+  const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(imageId);
+  QCOMPARE(img.id(), imageId);
+  QVERIFY(!img.isNull());
+  QVERIFY(img.linkOnly());
 }
 
 void TellicoReadTest::testDataImage() {
@@ -752,4 +840,34 @@ void TellicoReadTest::testRemote() {
   QVERIFY(QFile::exists(imageFileName));
   Tellico::ImageFactory::removeImage(image, true);
   QVERIFY(!QFile::exists(imageFileName));
+}
+
+void TellicoReadTest::testImageLocation() {
+  // test reading an image when the config option is ImagesInFile
+  // but there are images in different location
+
+  Tellico::Config::setImageLocation(Tellico::Config::ImagesInFile);
+  const QString fileName = QFINDTESTDATA("data/with-local-image.tc");
+  const QString image = QLatin1String("17b54b2a742c6d342a75f122d615a793.jpeg");
+
+  Tellico::Data::Document::self()->openDocument(QUrl::fromLocalFile(fileName));
+  Tellico::Data::CollPtr coll = Tellico::Data::Document::self()->collection();
+  QVERIFY(coll);
+  QVERIFY(!coll->entries().isEmpty());
+  auto entry = coll->entries().front();
+  QVERIFY(entry);
+  auto cover = entry->field(QLatin1String("cover"));
+  QVERIFY(!cover.isEmpty());
+  QCOMPARE(cover, image);
+  QVERIFY(!Tellico::ImageFactory::self()->hasImageInMemory(image));
+  QVERIFY(Tellico::ImageFactory::self()->hasImageInfo(image));
+
+  QSignalSpy spy(Tellico::ImageFactory::self(), &Tellico::ImageFactory::imageAvailable);
+  Tellico::ImageFactory::self()->requestImageById(image);
+  QVERIFY(spy.wait(2000));
+
+  // now it should be in memory
+  QVERIFY(Tellico::ImageFactory::self()->hasImageInMemory(image));
+  const Tellico::Data::Image& img = Tellico::ImageFactory::imageById(image);
+  QVERIFY(!img.isNull());
 }

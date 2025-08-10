@@ -136,7 +136,7 @@ void FilmAffinityFetcher::search() {
   QUrlQuery q;
   // extract the year from the end of the search string, accept the possible corner case of a movie
   // having some other year in the title?
-  QRegularExpression yearRx(QStringLiteral("\\s(19|20)\\d\\d$"));
+  static const QRegularExpression yearRx(QStringLiteral("\\s(19|20)\\d\\d$"));
   auto match = yearRx.match(searchValue);
   if(match.hasMatch()) {
     searchValue.remove(match.captured());
@@ -204,12 +204,13 @@ void FilmAffinityFetcher::slotComplete(KJob*) {
 #endif
 
   // look for a specific div, with an href and title, sometime uses single-quote, sometimes double-quotes
-  QRegularExpression resultRx(QStringLiteral("data-movie-id(.+?)mc-actions"),
-                              QRegularExpression::DotMatchesEverythingOption);
-  QRegularExpression titleRx(QStringLiteral("mc-title\">.*?<a.+?href=\"(.+?)\".+?>(.+?)</a"),
-                             QRegularExpression::DotMatchesEverythingOption);
+  static const QRegularExpression resultRx(QStringLiteral("data-movie-id(.+?)mc-actions"),
+                                           QRegularExpression::DotMatchesEverythingOption);
+  static const QRegularExpression titleRx(QStringLiteral("mc-title\">.*?<a.+?href=\"(.+?)\".+?>(.+?)</a"),
+                                          QRegularExpression::DotMatchesEverythingOption);
   // the year is within the title text as a 4-digit number, starting with 1 or 2
-  QRegularExpression yearRx(QStringLiteral("mc-year\".*?>([12]\\d\\d\\d)</span"));
+  static const QRegularExpression yearRx(QStringLiteral("mc-year\".*?>([12]\\d\\d\\d)</span"));
+  static const QRegularExpression tagRx(QStringLiteral("<.+?>"));
 
   QString href, title, year;
   auto i = resultRx.globalMatch(output);
@@ -218,7 +219,7 @@ void FilmAffinityFetcher::slotComplete(KJob*) {
     auto anchorMatch = titleRx.match(topMatch.captured(1));
     if(anchorMatch.hasMatch()) {
       href = anchorMatch.captured(1);
-      title = anchorMatch.captured(2).trimmed();
+      title = anchorMatch.captured(2).remove(tagRx).trimmed();
       auto yearMatch = yearRx.match(topMatch.captured(1));
       if(yearMatch.hasMatch()) {
         year = yearMatch.captured(1);
@@ -298,8 +299,8 @@ Tellico::Data::EntryPtr FilmAffinityFetcher::parseEntry(const QString& str_) {
 
   const LocaleData& data = localeData(m_locale);
 
-  QRegularExpression titleRx(QStringLiteral("<span itemprop=\"name\">(.+?)</span"));
-  QRegularExpressionMatch match = titleRx.match(str_);
+  static const QRegularExpression titleRx(QStringLiteral("<span itemprop=\"name\">(.+?)</span"));
+  auto match = titleRx.match(str_);
   if(match.hasMatch()) {
     // remove anything in parentheses
     QString title = match.captured(1).simplified();
@@ -309,12 +310,12 @@ Tellico::Data::EntryPtr FilmAffinityFetcher::parseEntry(const QString& str_) {
   }
 
   const QString origtitle = QStringLiteral("origtitle");
-  QRegularExpression tagRx(QStringLiteral("<.+?>"));
-  QRegularExpression spanRx(QStringLiteral("<span.*?>(.+?),*\\s*</span"));
-  QRegularExpression divRx(QStringLiteral("<div [^>]*?class=\"name\"[^>]*?>(.+?)</div"));
-  QRegularExpression defRx(QStringLiteral("<dt>(.+?)</dt>\\s*?<dd.*?>(.+?)</dd>"),
-                           QRegularExpression::DotMatchesEverythingOption);
-  QRegularExpressionMatchIterator i = defRx.globalMatch(str_);
+  static const QRegularExpression tagRx(QStringLiteral("<.+?>"));
+  static const QRegularExpression spanRx(QStringLiteral("<span.*?>(.+?),*\\s*</span"));
+  static const QRegularExpression divRx(QStringLiteral("<div [^>]*?class=\"name\"[^>]*?>(.+?)</div"));
+  static const QRegularExpression defRx(QStringLiteral("<dt>(.+?)</dt>\\s*?<dd.*?>(.+?)</dd>"),
+                                        QRegularExpression::DotMatchesEverythingOption);
+  auto i = defRx.globalMatch(str_);
   while(i.hasNext()) {
     auto match = i.next();
     const auto& term = match.captured(1);
@@ -331,13 +332,13 @@ Tellico::Data::EntryPtr FilmAffinityFetcher::parseEntry(const QString& str_) {
       if(start > -1) oTitle = oTitle.left(start);
       entry->setField(origtitle, oTitle.remove(tagRx).simplified());
     } else if(term == data.runningTime) {
-      QRegularExpression timeRx(QStringLiteral("\\d+"));
+      static const QRegularExpression timeRx(QStringLiteral("\\d+"));
       auto timeMatch = timeRx.match(match.captured(2));
       if(timeMatch.hasMatch()) {
         entry->setField(QStringLiteral("running-time"), timeMatch.captured());
       }
     } else if(term == data.country) {
-      QRegularExpression countryRx(QStringLiteral("alt=\"(.+?)\""));
+      static const QRegularExpression countryRx(QStringLiteral("alt=\"(.+?)\""));
       auto countryMatch = countryRx.match(match.captured(2));
       if(countryMatch.hasMatch()) {
         entry->setField(QStringLiteral("nationality"), countryMatch.captured(1));

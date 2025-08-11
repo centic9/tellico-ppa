@@ -18,6 +18,9 @@ endif
 execute_after_dh_auto_install:
 	# extra copyright notices
 	rm -fv debian/tmp/usr/share/tellico/pics/README.*
+	mkdir -p debian/tmp/etc/apparmor.d
+	cp debian/tellico-apparmor debian/tmp/etc/apparmor.d/usr.bin.tellico
+	dh_apparmor --profile-name=usr.bin.tellico -ptellico
 
 override_dh_python3:
 	dh_python3 -p tellico-data --shebang=/usr/bin/python3 /usr/share/tellico/data-sources

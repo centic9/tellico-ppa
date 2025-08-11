@@ -1,9 +1,11 @@
 Source: tellico
 Section: kde
 Priority: optional
-Maintainer: Debian KDE Extras Team <pkg-kde-extras@alioth-lists.debian.net>
+Maintainer: Kubuntu Developers <kubuntu-devel@lists.ubuntu.com>
+XSBC-Original-Maintainer: Debian KDE Extras Team <pkg-kde-extras@alioth-lists.debian.net>
 Uploaders: Pino Toscano <pino@debian.org>,
 Build-Depends: debhelper-compat (= 13),
+               dh-apparmor,
                dh-sequence-kf6,
                dh-sequence-python3,
                breeze-icon-theme <!nocheck>,
@@ -57,13 +59,14 @@ Build-Depends: debhelper-compat (= 13),
 Standards-Version: 4.7.2
 Rules-Requires-Root: no
 Homepage: https://tellico-project.org/
-Vcs-Browser: https://salsa.debian.org/qt-kde-team/extras/tellico
-Vcs-Git: https://salsa.debian.org/qt-kde-team/extras/tellico.git
+Vcs-Browser: https://git.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/tellico
+Vcs-Git: https://git.launchpad.net/~kubuntu-packagers/kubuntu-packaging/+git/tellico
 
 Package: tellico
 Architecture: any
 Depends: tellico-data (= ${source:Version}), ${misc:Depends}, ${shlibs:Depends},
 Recommends: kio-extras, tellico-doc,
+Suggests: apparmor
 Description: Collection manager for books, videos, music, etc
  Tellico is a collection manager for KDE. It includes default collections for
  books, bibliographies, comic books, videos, music, coins, stamps, trading

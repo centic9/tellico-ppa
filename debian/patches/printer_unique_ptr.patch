@@ -1,12 +1,12 @@
 Index: git/src/printhandler.h
 ===================================================================
---- git.orig/src/printhandler.h	2025-03-22 10:03:35.890473426 +0100
-+++ git/src/printhandler.h	2025-03-22 13:58:52.233341323 +0100
+--- git.orig/src/printhandler.h	2025-11-27 05:42:44.576849262 +0100
++++ git/src/printhandler.h	2025-11-27 05:42:44.568849263 +0100
 @@ -29,6 +29,7 @@
  
  #include <QObject>
  #include <QEventLoop>
 +#include <memory>
  
- class QPrinter;
- class QWebEngineView;
+ #include <memory> // std::unique_ptr
+ 

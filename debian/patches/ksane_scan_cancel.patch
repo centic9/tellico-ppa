@@ -1,0 +1,16 @@
+Index: git/src/gui/imagewidget.cpp
+===================================================================
+--- git.orig/src/gui/imagewidget.cpp	2025-03-22 10:09:50.394618475 +0100
++++ git/src/gui/imagewidget.cpp	2025-03-22 10:09:50.388618456 +0100
+@@ -494,11 +494,7 @@
+ void ImageWidget::cancelScan() {
+ #ifdef HAVE_KSANE
+   if(m_saneWidget) {
+-#if KSANE_VERSION < QT_VERSION_CHECK(22,4,0)
+     m_saneWidget->scanCancel();
+-#else
+-    m_saneWidget->cancelScan();
+-#endif
+   }
+ #endif
+ }

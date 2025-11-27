@@ -11,8 +11,8 @@ DEB_BUILD_OPTIONS=nocheck
 	dh $@ --with kf5,python3
 
 override_dh_auto_configure:
-	dh_auto_configure -Skf5 -- \
-		-DBUILD_WITH_QT6=OFF \
+	dh_auto_configure -Skf6 -- \
+		-DBUILD_WITH_QT6=ON \
 		-DBUILD_TESTS=false \
 		-DENABLE_WEBCAM=true
 

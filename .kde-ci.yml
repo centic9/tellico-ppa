@@ -16,10 +16,11 @@ Dependencies:
     'frameworks/kitemmodels': '@latest-kf6'
     'frameworks/knewstuff': '@latest-kf6'
     'frameworks/kcrash': '@latest-kf6'
+    'frameworks/solid': '@latest-kf6'
     'multimedia/libkcddb': '@latest-kf6'
     'graphics/libksane': '@latest-kf6'
 
-- 'on': ['Linux/Qt5', 'FreeBSD/Qt5']
+- 'on': ['Linux/Qt5']
   'require':
     'frameworks/ki18n': '@stable'
     'frameworks/kxmlgui': '@stable'
@@ -33,12 +34,12 @@ Dependencies:
     'frameworks/kdoctools': '@stable'
     'frameworks/knewstuff': '@stable'
     'frameworks/kcrash': '@stable'
+    'frameworks/solid': '@stable'
     'frameworks/extra-cmake-modules': '@stable'
-    'multimedia/libkcddb': '@stable'
 
 Options:
   run-tests: True
-  require-passing-tests-on: [ 'Linux', 'FreeBSD' ]
+  require-passing-tests-on: [ 'Linux' ]
   run-cppcheck: True
   cppcheck-arguments: '--enable=warning,style,performance'
   cppcheck-ignore-files:

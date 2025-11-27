@@ -46,7 +46,9 @@ private Q_SLOTS:
   void testDuplicateLoans();
   void testDuplicateBorrowers();
   void testLocalImage();
+  void testLocalImageLink();
   void testRemoteImage();
+  void testRemoteImageLink();
   void testDataImage();
   void testXMLHandler();
   void testXMLHandler_data();
@@ -63,6 +65,7 @@ private Q_SLOTS:
   void testEmoji();
   void testXmlWithJunk();
   void testRemote();
+  void testImageLocation();
 
 private:
   QList<Tellico::Data::CollPtr> m_collections;

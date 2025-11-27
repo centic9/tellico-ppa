@@ -38,6 +38,7 @@
 #include <QTextStream>
 #include <QGridLayout>
 #include <QUrlQuery>
+#include <QDomDocument>
 
 namespace {
   // a lot of overlap with boardgamegeekimporter.h
@@ -90,18 +91,20 @@ QUrl VideoGameGeekFetcher::searchUrl() {
   switch(request().key()) {
     case Title:
       q.addQueryItem(QStringLiteral("query"), request().value());
-      q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame,videogameexpansion"));
+      q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame"));
       q.addQueryItem(QStringLiteral("exact"), QStringLiteral("1"));
       break;
 
     case Keyword:
       q.addQueryItem(QStringLiteral("query"), request().value());
-      q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame,videogameexpansion"));
+      q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame"));
       break;
 
     case Raw:
       u.setUrl(QLatin1String(BGG_THING_URL));
       q.addQueryItem(QStringLiteral("id"), request().value());
+      // there's an evident bug where the videogameexpansion type is no longer used
+      // but some ids still identify as expansions
       q.addQueryItem(QStringLiteral("type"), QStringLiteral("videogame,videogameexpansion"));
       break;
 
@@ -113,6 +116,25 @@ QUrl VideoGameGeekFetcher::searchUrl() {
 
 //  myDebug() << "url: " << u.url();
   return u;
+}
+
+void VideoGameGeekFetcher::parseData(QByteArray& data_) {
+//  Q_UNUSED(data_);
+  QDomDocument dom;
+#if (QT_VERSION < QT_VERSION_CHECK(6, 5, 0))
+  if(!dom.setContent(data_, false)) {
+#else
+  if(!dom.setContent(data_, QDomDocument::ParseOption::Default)) {
+#endif
+    myWarning() << "VGG: server did not return valid XML.";
+    return;
+  }
+  // error comes in a div element apparently
+  auto e = dom.documentElement();
+  if(e.tagName() == QLatin1String("div") &&
+     e.attribute(QLatin1String("class")).contains(QLatin1String("error"))) {
+    myLog() << "VideoGameGeek error:" << e.text().trimmed();
+  }
 }
 
 Tellico::Data::EntryPtr VideoGameGeekFetcher::fetchEntryHookData(Data::EntryPtr entry_) {

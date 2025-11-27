@@ -96,9 +96,10 @@ void OpenLibraryFetcherTest::testIsbn() {
   QVERIFY(!entry->field(QStringLiteral("comments")).isEmpty());
 }
 
+// also see https://bugs.kde.org/show_bug.cgi?id=504586
 void OpenLibraryFetcherTest::testIsbn13() {
   Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::ISBN,
-                                       QStringLiteral("9780596004361"));
+                                       QStringLiteral("9782277239253"));
   Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::OpenLibraryFetcher(this));
   QVERIFY(fetcher->canSearch(request.key()));
 
@@ -108,8 +109,18 @@ void OpenLibraryFetcherTest::testIsbn13() {
   QVERIFY(results.size() >= 1);
 
   Tellico::Data::EntryPtr entry = results.at(0);
-  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("C Pocket Reference"));
-  QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("978-0-596-00436-1"));
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Un clone encombrant"));
+  QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("J'ai Lu"));
+  QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("978-2-277-23925-3"));
+  QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Lois McMaster Bujold"));
+  QCOMPARE(entry->field(QStringLiteral("translator")), QStringLiteral("Paul Benita"));
+  QCOMPARE(entry->field(QStringLiteral("language")), QStringLiteral("French / français"));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("1995"));
+  QCOMPARE(entry->field(QStringLiteral("binding")), QStringLiteral("Paperback"));
+  QCOMPARE(entry->field(QStringLiteral("series")), QStringLiteral("Vorkosigan Saga"));
+  QVERIFY(entry->field(QStringLiteral("openlibrary-work")).isEmpty()); // temporary field should not exist
+  QVERIFY(!entry->field(QStringLiteral("cover")).isEmpty());
+  QVERIFY(!entry->field(QStringLiteral("cover")).contains(QLatin1Char('/')));
 }
 
 void OpenLibraryFetcherTest::testLccn() {

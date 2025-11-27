@@ -75,7 +75,11 @@ void SRUFetcherTest::testIsbn() {
 
   QCOMPARE(results.size(), 2);
 
-  Tellico::Data::EntryPtr entry = results.at(1);
+  Tellico::Data::EntryPtr entry = results.at(0);
+  if(entry->field(QStringLiteral("isbn")) != QStringLiteral("1-59059-831-8")) {
+    entry = results.at(1);
+  }
+
   QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Foundations of Qt development"));
   QCOMPARE(entry->field(QStringLiteral("author")), QStringLiteral("Thelin, Johan."));
   QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("1-59059-831-8"));
@@ -244,4 +248,34 @@ void SRUFetcherTest::testBnFIsbn() {
   QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("978-2-07-046361-9"));
   QCOMPARE(entry->field(QStringLiteral("publisher")), QStringLiteral("Gallimard"));
   QCOMPARE(entry->field(QStringLiteral("language")), QStringLiteral("French"));
+}
+
+// https://bugs.kde.org/show_bug.cgi?id=507265
+void SRUFetcherTest::testBrgTitle() {
+  KConfigGroup cg = KSharedConfig::openConfig(QString(), KConfig::SimpleConfig)->group(QStringLiteral("Brg"));
+  cg.writeEntry("Scheme", QStringLiteral("https"));
+  cg.writeEntry("Format", QStringLiteral("dc"));
+  cg.writeEntry("Host", QStringLiteral("brgbib.bib.no"));
+  cg.writeEntry("Path", QStringLiteral("/cgi-bin/sru"));
+  // the server oddly responds with the EXPLAIN schema when using a GET request (though curl gets correct data)
+  // due to BUG 507523
+  cg.writeEntry("QueryFields", QStringLiteral("x-tellico-method"));
+  cg.writeEntry("QueryValues", QStringLiteral("post"));
+  cg.writeEntry("Custom Fields", QStringLiteral("dewey"));
+
+  Tellico::Fetch::FetchRequest request(Tellico::Data::Collection::Book, Tellico::Fetch::Title,
+                                       QStringLiteral("Barnas fargerike kokebok"));
+  Tellico::Fetch::Fetcher::Ptr fetcher(new Tellico::Fetch::SRUFetcher(this));
+  fetcher->readConfig(cg);
+
+  Tellico::Data::EntryList results = DO_FETCH1(fetcher, request, 1);
+
+  QCOMPARE(results.size(), 1);
+  Tellico::Data::EntryPtr entry = results.at(0);
+  QVERIFY(entry);
+  QCOMPARE(entry->field(QStringLiteral("title")), QStringLiteral("Barnas fargerike kokebok : spis grønt, rødt, gult og lilla!"));
+  QCOMPARE(entry->field(QStringLiteral("pub_year")), QStringLiteral("2017"));
+  QCOMPARE(entry->field(QStringLiteral("isbn")), QStringLiteral("978-82-02-52098-4"));
+  QCOMPARE(entry->field(QStringLiteral("dewey")), QStringLiteral("641.5636"));
+  QVERIFY(!entry->field(QStringLiteral("plot")).isEmpty());
 }

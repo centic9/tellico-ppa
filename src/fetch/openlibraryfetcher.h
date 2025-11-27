@@ -93,6 +93,7 @@ private:
   virtual void search() override;
   virtual FetchRequest updateRequest(Data::EntryPtr entry) override;
   void doSearch(const QString& term);
+  void populate(Data::EntryPtr entry, const QVariantMap& map);
   QString getAuthorKeys(const QString& term);
   void endJob(KIO::StoredTransferJob* job);
 
@@ -100,6 +101,8 @@ private:
   QList< QPointer<KIO::StoredTransferJob> > m_jobs;
 
   bool m_started;
+  QHash<QString, QString> m_langHash;
+  QHash<QString, QString> m_authorHash;
 };
 
   } // end namespace
